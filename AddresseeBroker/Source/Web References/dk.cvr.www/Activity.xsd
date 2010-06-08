@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://rep.oio.dk/cvr.dk/xml/schemas/Activity/2002/07/03" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cvr.dk/xml/schemas/Activity/2002/07/03" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:simpleType name="ActivityClassResponsibleType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="ValidFromDateType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:complexType name="KindOfActivityStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ActivityClassResponsible" type="ActivityClassResponsibleType" />
+      <xsd:element minOccurs="0" name="MainActivity" type="ActivityStructure" />
+      <xsd:element minOccurs="0" name="SecondaryActivity" type="ActivityStructure" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ActivityStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ActivityNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ValidFromDate" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ActivityClass">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:string" />
+          </xsd:simpleContent>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

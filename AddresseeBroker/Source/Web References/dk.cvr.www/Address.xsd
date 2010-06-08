@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://rep.oio.dk/cvr.dk/xml/schemas/Address/2002/07/03" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cvr.dk/xml/schemas/Address/2002/07/03" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:simpleType name="ValidFromDateType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:complexType name="CPRValidAddressStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ValidFromDate" type="xsd:string" />
+      <xsd:element minOccurs="0" name="CareOf" type="CareOfType" />
+      <xsd:element minOccurs="0" name="MunicipalityCode" type="MunicipalityCodeType" />
+      <xsd:element minOccurs="0" name="RoadCode" type="RoadCodeType" />
+      <xsd:element minOccurs="0" name="RoadName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="HouseNumberFrom" type="HouseNumberFromType" />
+      <xsd:element minOccurs="0" name="HouseNumberCharacterFrom" type="HouseLetterFromType" />
+      <xsd:element minOccurs="0" name="HouseNumberTo" type="HouseNumberToType" />
+      <xsd:element minOccurs="0" name="HouseNumberCharacterTo" type="HouseLetterToType" />
+      <xsd:element minOccurs="0" name="Floor" type="FloorType" />
+      <xsd:element minOccurs="0" name="DoorNumber" type="DoorNumberType" />
+      <xsd:element minOccurs="0" name="PostalCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="PostalDistrict" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ByVejAfsnitId" type="xsd:string" />
+      <xsd:element minOccurs="0" name="PostVejAfsnitId" type="xsd:string" />
+      <xsd:element minOccurs="0" name="VejAfsnitId" type="xsd:string" />
+      <xsd:element minOccurs="0" name="PartnerProtectedAddress" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="GeneralAddressStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ValidFromDate" type="xsd:string" />
+      <xsd:element minOccurs="0" name="CareOf" type="CareOfType" />
+      <xsd:element minOccurs="0" name="MunicipalityCode" type="MunicipalityCodeType" />
+      <xsd:element minOccurs="0" name="RoadCode" type="RoadCodeType" />
+      <xsd:element minOccurs="0" name="RoadName" type="RoadNameType" />
+      <xsd:element minOccurs="0" name="HouseNumberFrom" type="HouseNumberFromType" />
+      <xsd:element minOccurs="0" name="HouseNumberCharacterFrom" type="HouseLetterFromType" />
+      <xsd:element minOccurs="0" name="HouseNumberTo" type="HouseNumberToType" />
+      <xsd:element minOccurs="0" name="HouseNumberCharacterTo" type="HouseLetterToType" />
+      <xsd:element minOccurs="0" name="Floor" type="FloorType" />
+      <xsd:element minOccurs="0" name="DoorNumber" type="DoorNumberType" />
+      <xsd:element minOccurs="0" name="PostalCode" type="PostalCodeType" />
+      <xsd:element minOccurs="0" name="PostalDistrict" type="xsd:string" />
+      <xsd:element minOccurs="0" name="POBox" type="POBoxType" />
+      <xsd:element minOccurs="0" name="ISOCountryCode" type="ISOCountryCodeType" />
+      <xsd:element minOccurs="0" name="PartnerProtectedAddress" type="xsd:string" />
+      <xsd:element minOccurs="0" name="UncodedAddress" type="xsd:string" />
+      <xsd:element minOccurs="0" name="RoadNameAbbr" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PartnerAddressStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="CareOf" type="CareOfType" />
+      <xsd:element minOccurs="0" name="MunicipalityCode" type="MunicipalityCodeType" />
+      <xsd:element minOccurs="0" name="RoadCode" type="RoadCodeType" />
+      <xsd:element minOccurs="0" name="RoadName" type="RoadNameType" />
+      <xsd:element minOccurs="0" name="HouseNumberFrom" type="HouseNumberFromType" />
+      <xsd:element minOccurs="0" name="HouseLetterFrom" type="HouseLetterFromType" />
+      <xsd:element minOccurs="0" name="HouseNumberTo" type="HouseNumberToType" />
+      <xsd:element minOccurs="0" name="HouseLetterTo" type="HouseLetterToType" />
+      <xsd:element minOccurs="0" name="Floor" type="FloorType" />
+      <xsd:element minOccurs="0" name="PostalCode" type="PostalCodeType" />
+      <xsd:element minOccurs="0" name="PostalDistrict" type="PostalDistrictType" />
+      <xsd:element minOccurs="0" name="POBox" type="POBoxType" />
+      <xsd:element minOccurs="0" name="ISOCountryCode" type="ISOCountryCodeType" />
+      <xsd:element minOccurs="0" name="DoorNumber" type="DoorNumberType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="POBoxAddressStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="GeneralAddress" type="GeneralAddressStructure" />
+      <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="LocationAddressStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="CPRValidAddress" type="CPRValidAddressStructure" />
+      <xsd:element minOccurs="0" name="GeneralAddress" type="GeneralAddressStructure" />
+      <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PostalAddressStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="CPRValidAddress" type="CPRValidAddressStructure" />
+      <xsd:element minOccurs="0" name="GeneralAddress" type="GeneralAddressStructure" />
+      <xsd:element minOccurs="0" name="CPRValidAddressStatus" type="xsd:string" />
+      <xsd:element minOccurs="0" name="GeneralAddressStatus" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="OfficialAddressStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="CPRValidAddress" type="CPRValidAddressStructure" />
+      <xsd:element minOccurs="0" name="GeneralAddress" type="GeneralAddressStructure" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="CareOfType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="MunicipalityCodeType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="RoadCodeType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="HouseNumberFromType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="HouseLetterFromType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="HouseNumberToType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="HouseLetterToType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="FloorType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="DoorNumberType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="RoadNameType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="PostalCodeType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="PostalDistrictType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="POBoxType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:simpleType name="ISOCountryCodeType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+</xsd:schema>
