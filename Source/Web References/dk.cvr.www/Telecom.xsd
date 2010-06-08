@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://rep.oio.dk/cvr.dk/xml/schemas/Telecom/2002/07/03" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cvr.dk/xml/schemas/Telecom/2002/07/03" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:simpleType name="ValidFromDateType">
+    <xsd:restriction base="xsd:string" />
+  </xsd:simpleType>
+  <xsd:complexType name="TelephoneStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ValidFromDate" type="ValidFromDateType" />
+      <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+      <xsd:element minOccurs="0" name="TelephoneNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Protected" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ForeignTelephoneStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ValidFromDate" type="ValidFromDateType" />
+      <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ForeignTelephoneNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Protected" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="FaxStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ValidFromDate" type="ValidFromDateType" />
+      <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+      <xsd:element minOccurs="0" name="FaxNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Protected" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ForeignFaxStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ValidFromDate" type="ValidFromDateType" />
+      <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ForeignFaxNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Protected" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="EmailStructure">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ValidFromDate" type="ValidFromDateType" />
+      <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+      <xsd:element minOccurs="0" name="EmailAddress" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Protected" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="TelecomStructure">
+    <xsd:sequence maxOccurs="unbounded">
+      <xsd:element minOccurs="0" name="Telephone" type="TelephoneStructure" />
+      <xsd:element minOccurs="0" name="Fax" type="FaxStructure" />
+      <xsd:element minOccurs="0" name="Email" type="EmailStructure" />
+      <xsd:element minOccurs="0" name="ForeignTelephoneNumber" type="ForeignTelephoneStructure" />
+      <xsd:element minOccurs="0" name="ForeignFaxNumber" type="ForeignFaxStructure" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

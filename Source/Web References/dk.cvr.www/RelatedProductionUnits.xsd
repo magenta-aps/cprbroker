@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://rep.oio.dk/cvr.dk/xml/schemas/ProductionUnits/2002/07/03" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cvr.dk/xml/schemas/ProductionUnits/2002/07/03" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="RelatedProductionUnits">
+    <xsd:complexType>
+      <xsd:sequence minOccurs="0">
+        <xsd:element minOccurs="0" name="TransactionID" type="xsd:string" />
+        <xsd:element minOccurs="0" name="ProductionUnits" type="ProductionUnitsStructure" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ProductionUnitsStructure">
+    <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+      <xsd:element minOccurs="0" name="ProductionUnit">
+        <xsd:complexType>
+          <xsd:sequence minOccurs="0">
+            <xsd:element minOccurs="0" name="ProductionUnitNumber" type="xsd:string" />
+            <xsd:element minOccurs="0" name="ProductionUnitName" type="xsd:string" />
+            <xsd:element minOccurs="0" name="AdvertisingProtection" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
