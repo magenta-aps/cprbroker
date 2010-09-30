@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:cpr="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<include schemaLocation="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/CPR_PersonDeathDate.xsd"/>
+	<include schemaLocation="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/CPR_PersonDeathDateUncertaintyIndicator.xsd"/>
+	<element name="PersonDeathDateStructure" type="cpr:PersonDeathDateStructureType"/>
+	<complexType name="PersonDeathDateStructureType">
+		<sequence>
+			<element ref="cpr:PersonDeathDate"/>
+			<element ref="cpr:PersonDeathDateUncertaintyIndicator"/>
+		</sequence>
+	</complexType>
+</schema>

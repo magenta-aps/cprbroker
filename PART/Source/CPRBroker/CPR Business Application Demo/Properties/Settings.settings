@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CPR_Business_Application_Demo.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UserToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Business Application Demo</Value>
+    </Setting>
+    <Setting Name="CPRBrokerWebServiceUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost/CPRBroker/Services</Value>
+    </Setting>
+    <Setting Name="NotificationMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="NotificationCallbackWebServiceUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NotificationFileShare" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AppToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FirstTime" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CPRBrokerWebServiceUrlTestOk" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ApplicationName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CPR Business Application Demo</Value>
+    </Setting>
+    <Setting Name="AdminAppToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">07059250-E448-4040-B695-9C03F9E59E38</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

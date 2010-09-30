@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://rep.oio.dk/gentofte.dk/20080601" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://rep.oio.dk/gentofte.dk/20080601" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/gentofte.dk/20080601">
+      <s:element name="SignalDocChanged">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogicalSourceURI" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LogicalDocID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SignalDocChangedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SignalDocChangedResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SignalObject">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SourceURI" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObjectID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ObjectType" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="NotifyType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SignalObjectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SignalObjectResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SignalDocChangedSoapIn">
+    <wsdl:part name="parameters" element="tns:SignalDocChanged" />
+  </wsdl:message>
+  <wsdl:message name="SignalDocChangedSoapOut">
+    <wsdl:part name="parameters" element="tns:SignalDocChangedResponse" />
+  </wsdl:message>
+  <wsdl:message name="SignalObjectSoapIn">
+    <wsdl:part name="parameters" element="tns:SignalObject" />
+  </wsdl:message>
+  <wsdl:message name="SignalObjectSoapOut">
+    <wsdl:part name="parameters" element="tns:SignalObjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapIn">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapOut">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="notifySoap">
+    <wsdl:operation name="SignalDocChanged">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+Called for notification of that document (or metadata of the document) as indicated by the parameter " LogicalDocId " from the IT system (the source) as indicated by the parameter " LogicalSourceURI " has been updated / touched.
+
+&lt;br&gt; &lt;br&gt; Call for this service typically performed by the source system, which has a document set in publishing subscription efforts. initiate the (re) publication of the document,
+&lt;br&gt; when the source is made changes to the content of the document - or document related metadata.
+&lt;br&gt; call can also be used to ensure consistency between the source - and destinations systems by iterativt vocation of service "from the outside,"(such as from batchjob) for ALL of evidence is by subscription.
+&lt;br&gt; Notwithstanding and in principle, except that it is completely &lt;b&gt; U &lt;/b&gt;, for the calling of the operations being released as a result of the call.
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; Signature: &lt;/u&gt; &lt;/b&gt;
+&lt;br&gt; int SignalDocChanged (string LogicalSourceURI, string LogicalDocID, ref string sAux)
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; Parameter description: &lt;/u&gt; &lt;/b&gt;
+&lt;br&gt; &lt;table&gt;
+&lt;tr&gt; &lt;td&gt; 'LogicalSourceURI' (input): &lt;/td&gt; &lt;td&gt; unique identification of the source system which is published from &lt;/td&gt; &lt;/tr&gt;
+&lt;tr&gt; &lt;td&gt; 'LogicalDocID' (input): &lt;/td&gt; &lt;td&gt; Logical ID for the published document in the source system &lt;/td&gt; &lt;/tr&gt;
+&lt;tr&gt; &lt;td&gt; 'sAux' (output): &lt;/td&gt; &lt;td&gt; Returned (&lt;b&gt; ref &lt;/b&gt;) messages (error / info), etc.. &lt;/td&gt; &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; Return: &lt;/u&gt; &lt;/b&gt;
+&lt;br&gt; method returns a integer value indicating whether the notification was accepted. 0 + = acceptance, negative value = non-acceptance (error)
+&lt;br&gt; successful vocation, returned (as something new - v0.98.02) the unique transaction / notification ID, attached to the current notification.
+&lt;br&gt; &lt;br&gt; In the event of non-acceptance can 'sAux' contain detailed fejlbeskrivelse.
+
+&lt;br&gt; &lt;br&gt; case of acceptance, is the calling party is exempt from further liability vs handling of the notification. Otherwise, it is expected that the calling party reiterates notification until success.
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; example &lt;/u&gt; &lt;/b&gt;
+&lt;br&gt; int iResult = SignalDocChanged
+&lt;br&gt; (
+&lt;br&gt; " publsrc: / / captia.gentofte.dk/drift/302501 "
+&lt;br&gt; " 123234 "
+&lt;br&gt; ref sAux
+&lt;br&gt;)
+&lt;br&gt; &lt;br&gt; call returns 0 + if the notification went well. A negative value if called failed +. more info in sAux.
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; Review: &lt;/u&gt; &lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 1.10.00, 2008-05-20/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; New publiceringskerne inc. parameterstyring (web.config) of receiving cows. &lt;/td&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 1.00.10, 2007-06-20/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; Refaktorering of service calls in separate project (notifyws) - independently of the project 'publdialog'. &lt;/Td&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 0.98.02, 2007-04-24/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; Returns transaktionsnr. / notification ID by success.
+&lt;br&gt; It returned transaktionsnr. must ONLY used ifm. Tracing / debugging. &lt;/td&gt; &lt;/tr&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 0.98.01, 2007-04-20/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; Service fully implemented. &lt;/Td&gt; &lt;/tr&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 0.82.01, 2007-03-04/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; Service snitflade defined and implemented the initial vs Scanjour to Sitecore (intranet) publishing. &lt;/Td&gt; &lt;/tr&gt;
+&lt;/table&gt;
+</wsdl:documentation>
+      <wsdl:input message="tns:SignalDocChangedSoapIn" />
+      <wsdl:output message="tns:SignalDocChangedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SignalObject">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+Called for notification of that, if any, to "go wrong" with the object of type " ObjectType ", identified by " ObjectID " is contained in the system " SourceURI "."
+
+&lt;br&gt; &lt;br&gt; call is a generic version of SignalDocChanged (). Reference is made to SignalDocChanged () for the description of "the" context "for this call.
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; Signature: &lt;/u&gt; &lt;/b&gt;
+&lt;br&gt; int SignalObject (string SourceURI, string ObjectID, int ObjectType, int NotifyType, ref string sAux)
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; Parameter description: &lt;/u&gt; &lt;/b&gt;
+&lt;br&gt; &lt;table&gt;
+&lt;tr&gt; &lt;td&gt; 'SourceURI' (input): &lt;/td&gt; &lt;td&gt; unique identification of the source system is sending notification &lt;/td&gt; &lt;/tr&gt;
+&lt;tr&gt; &lt;td&gt; 'ObjectID' (input): &lt;/td&gt; &lt;td&gt; unique identification of the object in the source of the notification relates &lt;/td&gt; &lt;/tr&gt;
+&lt;tr&gt; &lt;td&gt; 'ObjectType' (input): &lt;/td&gt; &lt;td&gt; Source enummerering of &lt;em&gt; type &lt;/em&gt; of the object in the source of the notification relates &lt;/td&gt; &lt;/tr&gt;
+&lt;tr&gt; &lt;td&gt; 'NotifyType' (input): &lt;/td&gt; &lt;td&gt; Indicates which &lt;em&gt; type &lt;/em&gt; notification in the case of (created, deleted, etc.) in the source. Source enummerering &lt;/td&gt; &lt;/tr&gt;
+&lt;tr&gt; &lt;td&gt; 'sAux' (output): &lt;/td&gt; &lt;td&gt; Returned (&lt;b&gt; ref &lt;/b&gt;) messages (error / info), etc.. &lt;/td&gt; &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; Return: &lt;/u&gt; &lt;/b&gt;
+&lt;br&gt; method returns a integer value indicating whether the notification was accepted. 0 or positive value = acceptance, negative value = non-acceptance (error).
+&lt;br&gt; &lt;br&gt; In the event of non-acceptance can 'sAux' contain detailed fejlbeskrivelse. In case of acceptance, returned the unique &lt;b&gt; transaction &lt;/b&gt;, which notification is saved.
+
+&lt;br&gt; &lt;br&gt; case of acceptance, is the calling party is exempt from further liability vs handling of the notification. Otherwise, it is expected that the calling party reiterates notification until success.
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; example &lt;/u&gt; &lt;/b&gt;
+&lt;br&gt; int iResult = SignalObject
+&lt;br&gt; (
+&lt;br&gt; " publsrc: / / captia.gentofte.dk/drift/302501 "
+&lt;br&gt; " 123234 "
+&lt;br&gt; " 0 "
+&lt;br&gt; " 0 "
+&lt;br&gt; ref sAux
+&lt;br&gt;)
+&lt;br&gt; &lt;br&gt; call returns 0 or a positive value if the notification went well. A negative value if called failed +. more info in sAux.
+
+&lt;br&gt; &lt;br&gt; &lt;b&gt; &lt;u&gt; Review: &lt;/u&gt; &lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 1.10.00, 2008-05-20/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; New publiceringskerne inc. parameterstyring (web.config) of receiving cows. &lt;/td&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 1.02.15, 2007-08-19/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; Refaktorering out in the dynamic load of send / receive classes. &lt;/Td&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 1.02.10, 2007-08-10/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; Reporting (mail) in case of error. &lt;/Td&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 1.01.05, 2007-06-20/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; Refaktorering of service calls in separate project (notifyws) - independently of the project 'publdialog'. &lt;/Td&gt;
+&lt;tr&gt; &lt;td width='30%'&gt; 0.98.03, 2007-04-20/GK/SDE &lt;/td&gt; &lt;td width='10%'&gt; &lt;/td&gt; &lt;td width ='60% ' &gt; Service defined and implemented. &lt;/Td&gt; &lt;/tr&gt;
+&lt;/table&gt;
+</wsdl:documentation>
+      <wsdl:input message="tns:SignalObjectSoapIn" />
+      <wsdl:output message="tns:SignalObjectSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ping() returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
+&lt;br&gt;Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
+&lt;br&gt;20070403/SDE
+</wsdl:documentation>
+      <wsdl:input message="tns:PingSoapIn" />
+      <wsdl:output message="tns:PingSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="notifySoap" type="tns:notifySoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SignalDocChanged">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/20080601/SignalDocChanged" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SignalObject">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/20080601/SignalObject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/20080601/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="notifySoap12" type="tns:notifySoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SignalDocChanged">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/20080601/SignalDocChanged" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SignalObject">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/20080601/SignalObject" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/20080601/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="notify">
+    <wsdl:port name="notifySoap" binding="tns:notifySoap">
+      <soap:address location="http://notifyws/notify.asmx" />
+    </wsdl:port>
+    <wsdl:port name="notifySoap12" binding="tns:notifySoap12">
+      <soap12:address location="http://notifyws/notify.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

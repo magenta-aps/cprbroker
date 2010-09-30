@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 11" name="DPR">
+  <DataContextMoniker Name="/DPRDataContext" />
+  <nestedChildShapes>
+    <classShape Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" absoluteBounds="4.375, 2.75, 2, 3.8900577799479166">
+      <DataClassMoniker Name="/DPRDataContext/PersonName" />
+      <nestedChildShapes>
+        <elementListCompartment Id="31d87e5a-7848-4a71-a65a-3a1cb6c5dd01" absoluteBounds="4.39, 3.21, 1.9700000000000002, 3.3300577799479165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="66e6d696-3081-45e3-8a0c-503ca6c44dad" absoluteBounds="0.75, 0.625, 2, 1.26050048828125">
+      <DataClassMoniker Name="/DPRDataContext/Child" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d8c13d8b-2659-4b7d-b01b-1f9cd24a6e1c" absoluteBounds="0.76499999999999968, 1.085, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e41857ad-de04-40ac-b603-8b733e41b7d7" absoluteBounds="7.5, 0.625, 2, 9.9709090169270826">
+      <DataClassMoniker Name="/DPRDataContext/PersonTotal" />
+      <nestedChildShapes>
+        <elementListCompartment Id="50b06b23-d5c0-407a-a7bf-5c57d4b4767e" absoluteBounds="7.5150000000000006, 1.0850000000000009, 1.9700000000000002, 9.4109090169270821" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="78a26890-a847-496c-8903-6fac08549e0f" absoluteBounds="0.75, 2.25, 2, 1.75354248046875">
+      <DataClassMoniker Name="/DPRDataContext/Protection" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c0679d9e-32b6-4585-b27f-b598949eacb6" absoluteBounds="0.76500000000000012, 2.71, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8d15bd4f-a9a6-4609-a9c1-3dd5971cd780" absoluteBounds="4.5, 7.625, 2, 3.0683211263020831">
+      <DataClassMoniker Name="/DPRDataContext/CivilStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="927a5b63-21e6-4146-8c70-8080710c9677" absoluteBounds="4.5150000000000006, 8.085, 1.9700000000000002, 2.508321126302083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7b666ff2-e31a-4f11-b780-bcdc99e8d6a9" absoluteBounds="0.625, 5.625, 2, 1.4248478190104168">
+      <DataClassMoniker Name="/DPRDataContext/Street" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7a244e27-c542-4c0c-bdc8-643ccbf4c6a4" absoluteBounds="0.64000000000000057, 6.085, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4af1d26a-8f1a-4e8e-8da8-87a992deca75" absoluteBounds="0.75, 7.75, 2, 2.24658447265625">
+      <DataClassMoniker Name="/DPRDataContext/ContactAddress" />
+      <nestedChildShapes>
+        <elementListCompartment Id="edbf8ffb-ef95-4626-aac8-99933500f5ce" absoluteBounds="0.76500000000000012, 8.21, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

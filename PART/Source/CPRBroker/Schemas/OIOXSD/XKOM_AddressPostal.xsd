@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xkom="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:cpr="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:dkcc="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:dkcc2005="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:dkcc2005-2="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" elementFormDefault="qualified">
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/DKCC_StreetName.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/DKCC_StreetBuildingIdentifier.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/DKCC_FloorIdentifier.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/DKCC_SuiteIdentifier.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/DKCC_MailDeliverySublocationIdentifier.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/DKCC_DistrictSubdivisionIdentifier.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/DKCC_PostOfficeBoxIdentifier.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/DKCC_PostCodeIdentifier.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/DKCC_DistrictName.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/DKCC_CountryIdentificationCode.xsd"/>
+	<import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" schemaLocation="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/CPR_StreetNameForAddressingName.xsd"/>
+	<element name="AddressPostal" type="xkom:AddressPostalType"/>
+	<complexType name="AddressPostalType">
+		<sequence>
+			<element ref="dkcc:MailDeliverySublocationIdentifier" minOccurs="0"/>
+			<element ref="dkcc2005:StreetName"/>
+			<element ref="cpr:StreetNameForAddressingName" minOccurs="0"/>
+			<element ref="dkcc:StreetBuildingIdentifier"/>
+			<element ref="dkcc:FloorIdentifier" minOccurs="0"/>
+			<element ref="dkcc:SuiteIdentifier" minOccurs="0"/>
+			<element ref="dkcc2005:DistrictSubdivisionIdentifier" minOccurs="0"/>
+			<element ref="dkcc2005-2:PostOfficeBoxIdentifier" minOccurs="0"/>
+			<element ref="dkcc2005:PostCodeIdentifier"/>
+			<element ref="dkcc2005:DistrictName"/>
+			<element ref="dkcc:CountryIdentificationCode" minOccurs="0"/>
+		</sequence>
+	</complexType>
+</schema>

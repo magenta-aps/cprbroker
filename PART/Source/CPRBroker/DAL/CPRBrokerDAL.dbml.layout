@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16.75, 22.5" name="CPRBrokerDAL">
+  <DataContextMoniker Name="/CPRBrokerDALDataContext" />
+  <nestedChildShapes>
+    <classShape Id="8b50e597-92a9-4c76-8ec6-984b998552ea" absoluteBounds="7.125, 0.875, 2, 1.2605004882812487">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/RelationshipType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9be00355-9f9c-4e11-aaa8-b30b7a38ab77" absoluteBounds="7.1400000000000006, 1.3350000000000009, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2eb2ac2a-fec1-41e8-a9bd-1c16fc2e169b" absoluteBounds="0.75, 8.625, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/MaritalStatusType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2771cb8c-72c6-402e-86f6-7c87ce9da045" absoluteBounds="0.765, 9.085, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1d7a94cb-4067-4d83-9b3f-7a6578fb3920" absoluteBounds="4.625, 21, 2, 1.0961531575520809">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/LogType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c613e456-d8d0-4a58-9e3b-63331b93ae05" absoluteBounds="4.6400000000000006, 21.46, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a23490d4-2d80-42ba-bdcd-c5411f363484" absoluteBounds="0.75, 10.5, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Gender" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cd948cb8-b7d4-4e96-b3e6-95ceb7e13ba0" absoluteBounds="0.765, 10.96, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b0800369-732b-4887-a7d9-689f8e17b89f" absoluteBounds="8.75, 9.375, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/AddressType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="10ec2c21-9b8e-4612-976d-838119e45bb7" absoluteBounds="8.765, 9.835, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e0f9c128-260a-47b3-8116-9614ef944314" absoluteBounds="3.75, 1.875, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/AddressStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e77b862a-0992-480f-92ec-db0e6a3b3798" absoluteBounds="3.7650000000000006, 2.3350000000000009, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a66538df-2425-4f82-807b-a28e09b97db8" absoluteBounds="9.25, 16.375, 2, 1.2605004882812523">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/BirthdateSubscription" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1836f5ea-fdf4-4d31-aea2-4d82107d0ca1" absoluteBounds="9.265, 16.835, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fbe65fcc-df6b-4a32-9aaf-c62facd6f09f" absoluteBounds="9.25, 14.625, 2, 0.93180582682291657">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/DataSubscription" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1d13dc25-ecb9-4b7a-9be3-7c7c802d7ee2" absoluteBounds="9.265, 15.085, 1.9700000000000002, 0.37180582682291669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5e2b9264-9e0b-42d3-8a55-d4e14a6bd470" absoluteBounds="12, 14.5, 2, 1.2605004882812487">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/SubscriptionField" />
+      <nestedChildShapes>
+        <elementListCompartment Id="249757bb-cfbd-4eef-8743-f77b64e98426" absoluteBounds="12.015, 14.96, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9963a937-02d3-4c73-923b-06eb2c3f1194" absoluteBounds="9.25, 3.5, 2, 1.2605004882812487">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/SubscriptionPerson" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d18d326a-8a97-4df9-92f0-a4248c877f26" absoluteBounds="9.265, 3.9600000000000009, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ad1807e2-3a21-4959-942c-b2c8ffbaf06e" absoluteBounds="3.75, 16.875, 2, 1.0961531575520809">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/SubscriptionType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3807c377-b111-400b-ad97-b9464422a77b" absoluteBounds="3.7650000000000006, 17.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.25 : 15.0909029134115); (12 : 15.0909029134115)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/DataSubscription/DataSubscription_SubscriptionField" />
+      <nodes>
+        <classShapeMoniker Id="fbe65fcc-df6b-4a32-9aaf-c62facd6f09f" />
+        <classShapeMoniker Id="5e2b9264-9e0b-42d3-8a55-d4e14a6bd470" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="ae61d742-9603-4fe3-9a11-e47531826703" absoluteBounds="11.75, 1.125, 2, 1.5891951497395827">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/DataProviderType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="11ceeb11-6ed3-4d20-9f0c-edd68e2165d1" absoluteBounds="11.765, 1.585, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1b7f5a48-bb24-4403-8c83-5ea6cb533912" absoluteBounds="3.75, 14.25, 2, 1.7535424804687523">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Application" />
+      <nestedChildShapes>
+        <elementListCompartment Id="239a8c79-5471-45dd-bce5-829674c5eee8" absoluteBounds="3.7650000000000006, 14.71, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b0f51380-628b-415e-811a-9b8dc354e274" absoluteBounds="9.25, 12.375, 2, 1.4248478190104166">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Channel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e0bba172-f267-4c83-a3ae-318ca80d2735" absoluteBounds="9.265, 12.835, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a76d56b0-92d3-48e5-9fe1-ffde597e956f" absoluteBounds="12, 11.375, 2, 1.4248478190104166">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/GpacChannel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f6abdb02-cacd-4417-b6d0-c2d7bd21c882" absoluteBounds="12.015, 11.835, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="124746ed-b8dc-43e2-b2f4-952faf10e279" absoluteBounds="6.5, 15.375, 2, 1.4248478190104166">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Subscription" />
+      <nestedChildShapes>
+        <elementListCompartment Id="443089e8-cf54-4f4c-84ed-d6d329e8b446" absoluteBounds="6.5150000000000006, 15.835, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.25 : 12.5874239095052); (12 : 12.5874239095052)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Channel/Channel_GpacChannel" />
+      <nodes>
+        <classShapeMoniker Id="b0f51380-628b-415e-811a-9b8dc354e274" />
+        <classShapeMoniker Id="a76d56b0-92d3-48e5-9fe1-ffde597e956f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 16.5874239095052); (9.25 : 16.5874239095052)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Subscription/Subscription_BirthdateSubscription" />
+      <nodes>
+        <classShapeMoniker Id="124746ed-b8dc-43e2-b2f4-952faf10e279" />
+        <classShapeMoniker Id="a66538df-2425-4f82-807b-a28e09b97db8" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.031252 : 15.375); (8.031252 : 14.9999995); (8.90921007498834 : 14.9999995 : JumpStart); (9.075876741655 : 14.9999995 : JumpEnd); (9.25 : 14.9999995)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Subscription/Subscription_DataSubscription" />
+      <nodes>
+        <classShapeMoniker Id="124746ed-b8dc-43e2-b2f4-952faf10e279" />
+        <classShapeMoniker Id="fbe65fcc-df6b-4a32-9aaf-c62facd6f09f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.5 : 15.375); (7.5 : 14.6609318033854); (8.75 : 14.6609318033854); (8.75 : 10.7211531575521); (8.5 : 10.7211531575521); (8.5 : 4.25525124414062); (8.91666666666667 : 4.25525124414062 : JumpStart); (9.08333333333333 : 4.25525124414062 : JumpEnd); (9.25 : 4.25525124414062)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Subscription/Subscription_SubscriptionPerson" />
+      <nodes>
+        <classShapeMoniker Id="124746ed-b8dc-43e2-b2f4-952faf10e279" />
+        <classShapeMoniker Id="9963a937-02d3-4c73-923b-06eb2c3f1194" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 15.8802729573568); (9.0625 : 14.8749730966797); (9.0625 : 13.0874239095052); (9.25 : 13.0874239095052)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Subscription/Subscription_Channel" />
+      <nodes>
+        <classShapeMoniker Id="124746ed-b8dc-43e2-b2f4-952faf10e279" />
+        <classShapeMoniker Id="b0f51380-628b-415e-811a-9b8dc354e274" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 15.6892712402344); (6.04166416666667 : 15.6892712402344 : JumpStart); (6.20833083333333 : 15.6892712402344 : JumpEnd); (6.5 : 15.6892712402344)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Application/Application_Subscription" />
+      <nodes>
+        <classShapeMoniker Id="1b7f5a48-bb24-4403-8c83-5ea6cb533912" />
+        <classShapeMoniker Id="124746ed-b8dc-43e2-b2f4-952faf10e279" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 17.423076578776); (6.04166416666667 : 17.423076578776 : JumpStart); (6.20833083333333 : 17.423076578776 : JumpEnd); (6.51041666666667 : 17.423076578776 : JumpStart); (6.67708333333333 : 17.423076578776 : JumpEnd); (7.5 : 17.423076578776); (7.5 : 16.7998478190104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/SubscriptionType/SubscriptionType_Subscription" />
+      <nodes>
+        <classShapeMoniker Id="ad1807e2-3a21-4959-942c-b2c8ffbaf06e" />
+        <classShapeMoniker Id="124746ed-b8dc-43e2-b2f4-952faf10e279" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="5bf34ed5-63cf-448e-a484-f9845499df8b" absoluteBounds="14.5, 0.875, 2, 1.9178898111979166">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/DataProvider" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8ca37d4f-7590-459a-b4c9-71b0488b9ed8" absoluteBounds="14.515, 1.335, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(13.75 : 1.91959757486979); (14.5 : 1.91959757486979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/DataProviderType/DataProviderType_DataProvider" />
+      <nodes>
+        <classShapeMoniker Id="ae61d742-9603-4fe3-9a11-e47531826703" />
+        <classShapeMoniker Id="5bf34ed5-63cf-448e-a484-f9845499df8b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="8ec877fc-a145-437c-a9b8-de1353eaffab" absoluteBounds="0.75, 12.375, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/DetailLevel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bf86a499-bbbf-4c33-a1b0-5085cb6e1cdc" absoluteBounds="0.76500000000000057, 12.835, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b1174bd1-5fa6-4f0d-a456-f450b5761f77" absoluteBounds="12.75, 8, 2, 0.93180582682291657">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/ChildRelationship" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3cbd3f64-d476-41f2-8a73-96f298fa12f5" absoluteBounds="12.765, 8.46, 1.9700000000000002, 0.37180582682291663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ef9e31fa-482e-4d1e-bf83-d722e9062480" absoluteBounds="6.5, 12, 2, 2.4109318033854166">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/LogEntry" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5c083a19-76a6-45b4-bb74-be047e53bee5" absoluteBounds="6.5150000000000006, 12.46, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.9375 : 14.25); (4.9375 : 13.499999375); (6.04166416666667 : 13.499999375 : JumpStart); (6.20833083333333 : 13.499999375 : JumpEnd); (6.5 : 13.499999375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Application/Application_LogEntry" />
+      <nodes>
+        <classShapeMoniker Id="1b7f5a48-bb24-4403-8c83-5ea6cb533912" />
+        <classShapeMoniker Id="ef9e31fa-482e-4d1e-bf83-d722e9062480" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.1249975 : 21); (6.1249975 : 12.7187471875); (6.5 : 12.7187471875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/LogType/LogType_LogEntry" />
+      <nodes>
+        <classShapeMoniker Id="1d7a94cb-4067-4d83-9b3f-7a6578fb3920" />
+        <classShapeMoniker Id="ef9e31fa-482e-4d1e-bf83-d722e9062480" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="4b8a25e0-541b-49d3-8481-1df147fdeff5" absoluteBounds="0.625, 0.625, 2, 1.0961531575520835">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Municipality" />
+      <nestedChildShapes>
+        <elementListCompartment Id="15c7b890-4782-42e7-bb09-1181bdc2b6ba" absoluteBounds="0.64000000000000057, 1.085, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="befb3f8b-ddf5-4dfb-9226-f8ce035676af" absoluteBounds="12, 9.375, 2, 0.93180582682291657">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/CustodyRelationship" />
+      <nestedChildShapes>
+        <elementListCompartment Id="64d43cf0-d234-417a-9b55-7a85e65f2dc8" absoluteBounds="12.015, 9.835, 1.9700000000000002, 0.37180582682291669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" absoluteBounds="4.125, 4.25, 2, 4.2187524414062487">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Person" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2ed103bd-96a7-4991-97c1-56ac6cff64a3" absoluteBounds="4.14, 4.71, 1.9700000000000002, 3.65875244140625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.125 : 4.57037586621093); (7.72916666666667 : 4.57037586621093 : JumpStart); (7.89583333333333 : 4.57037586621093 : JumpEnd); (8.41666666666667 : 4.57037586621093 : JumpStart); (8.58333333333333 : 4.57037586621093 : JumpEnd); (8.91666666666667 : 4.57037586621093 : JumpStart); (9.08333333333333 : 4.57037586621093 : JumpEnd); (9.25 : 4.57037586621093)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Person/Person_SubscriptionPerson" />
+      <nodes>
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+        <classShapeMoniker Id="9963a937-02d3-4c73-923b-06eb2c3f1194" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 13.094950172526); (5.12499875 : 13.094950172526); (5.12499875 : 8.46875244140625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/DetailLevel/DetailLevel_Person" />
+      <nodes>
+        <classShapeMoniker Id="8ec877fc-a145-437c-a9b8-de1353eaffab" />
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 11.048076578776); (5.04166541666667 : 11.048076578776 : JumpStart); (5.20833208333333 : 11.048076578776 : JumpEnd); (5.656251875 : 11.048076578776); (5.656251875 : 8.46875244140625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Gender/Gender_Person" />
+      <nodes>
+        <classShapeMoniker Id="a23490d4-2d80-42ba-bdcd-c5411f363484" />
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 9.17307657877604); (2.82291666666667 : 9.17307657877604 : JumpStart); (2.98958333333333 : 9.17307657877604 : JumpEnd); (3.88541666666667 : 9.17307657877604 : JumpStart); (4.05208333333333 : 9.17307657877604 : JumpEnd); (4.593746875 : 9.17307657877604); (4.593746875 : 8.46875244140625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/MaritalStatusType/MaritalStatusType_Person" />
+      <nodes>
+        <classShapeMoniker Id="2eb2ac2a-fec1-41e8-a9bd-1c16fc2e169b" />
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d46e7502-5b78-460b-a3e8-0baab343fdaf" absoluteBounds="1, 3, 2, 1.096153157552084">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/PersonStatusType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a0cd3cad-5e11-496c-a629-c8dbbc92897e" absoluteBounds="1.0150000000000001, 3.46, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3 : 3.5); (3.88541666666667 : 3.5 : JumpStart); (4.05208333333333 : 3.5 : JumpEnd); (5.125 : 3.5); (5.125 : 4.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/PersonStatusType/PersonStatusType_Person" />
+      <nodes>
+        <classShapeMoniker Id="d46e7502-5b78-460b-a3e8-0baab343fdaf" />
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="5a02dc99-fadf-4d55-8c9c-d141b8b41ea1" absoluteBounds="9.125, 7.5, 2, 1.26050048828125">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/TimedRelationship" />
+      <nestedChildShapes>
+        <elementListCompartment Id="66294414-1b26-4acf-afbb-b2edee23d7d5" absoluteBounds="9.14, 7.96, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.125 : 7.71875); (12.34375 : 7.71875); (12.34375 : 9.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/TimedRelationship/TimedRelationship_CustodyRelationship" />
+      <nodes>
+        <classShapeMoniker Id="5a02dc99-fadf-4d55-8c9c-d141b8b41ea1" />
+        <classShapeMoniker Id="befb3f8b-ddf5-4dfb-9226-f8ce035676af" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="69904e4f-378e-463d-a179-63134ed83e53" absoluteBounds="9.25, 5.375, 2, 1.5891951497395831">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Relationship" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f10c7b5d-9c8d-4ed6-8c57-1c49700040d7" absoluteBounds="9.265, 5.835, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.21875 : 6.96419514973958); (11.21875 : 8.87740315755208); (12.2604166666667 : 8.87740315755208 : JumpStart); (12.4270833333333 : 8.87740315755208 : JumpEnd); (12.75 : 8.87740315755208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Relationship/Relationship_ChildRelationship" />
+      <nodes>
+        <classShapeMoniker Id="69904e4f-378e-463d-a179-63134ed83e53" />
+        <classShapeMoniker Id="b1174bd1-5fa6-4f0d-a456-f450b5761f77" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(10.1875 : 6.96419514973958); (10.1875 : 7.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Relationship/Relationship_TimedRelationship" />
+      <nodes>
+        <classShapeMoniker Id="69904e4f-378e-463d-a179-63134ed83e53" />
+        <classShapeMoniker Id="5a02dc99-fadf-4d55-8c9c-d141b8b41ea1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.125 : 5.7548713597819); (7.72916666666667 : 5.7548713597819 : JumpStart); (7.89583333333333 : 5.7548713597819 : JumpEnd); (8.41666666666667 : 5.7548713597819 : JumpStart); (8.58333333333333 : 5.7548713597819 : JumpEnd); (9.07291666666667 : 5.7548713597819 : JumpStart); (9.23958333333333 : 5.7548713597819 : JumpEnd); (9.25 : 5.7548713597819)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Person/Person_Relationship" />
+      <nodes>
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+        <classShapeMoniker Id="69904e4f-378e-463d-a179-63134ed83e53" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.125 : 6.67446893465169); (8.41666666666667 : 6.67446893465169 : JumpStart); (8.58333333333333 : 6.67446893465169 : JumpEnd); (9.07291666666667 : 6.67446893465169 : JumpStart); (9.23958333333333 : 6.67446893465169 : JumpEnd); (9.25 : 6.67446893465169)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Person/Person_Relationship1" />
+      <nodes>
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+        <classShapeMoniker Id="69904e4f-378e-463d-a179-63134ed83e53" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.8125 : 2.13550048828125); (7.8125 : 6.25974271956381); (9.25 : 6.25974271956381)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/RelationshipType/RelationshipType_Relationship" />
+      <nodes>
+        <classShapeMoniker Id="8b50e597-92a9-4c76-8ec6-984b998552ea" />
+        <classShapeMoniker Id="69904e4f-378e-463d-a179-63134ed83e53" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6cd51535-6974-4971-a8b0-c1d12abc1653" absoluteBounds="12.5, 4.875, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/MaritalRelationship" />
+      <nestedChildShapes>
+        <elementListCompartment Id="365791cd-6568-451d-a013-4bace028255e" absoluteBounds="12.515, 5.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.15625 : 7.5); (9.15625 : 5.0937505); (12.0416666666667 : 5.0937505 : JumpStart); (12.2083333333333 : 5.0937505 : JumpEnd); (12.5 : 5.0937505)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/TimedRelationship/TimedRelationship_MaritalRelationship" />
+      <nodes>
+        <classShapeMoniker Id="5a02dc99-fadf-4d55-8c9c-d141b8b41ea1" />
+        <classShapeMoniker Id="6cd51535-6974-4971-a8b0-c1d12abc1653" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 8.625); (1.75 : 8.28593180338542); (2.82291666666667 : 8.28593180338542 : JumpStart); (2.98958333333333 : 8.28593180338542 : JumpEnd); (3.875 : 8.28593180338542); (3.875 : 4); (3.88541666666667 : 4 : JumpStart); (4.05208333333333 : 4 : JumpEnd); (5.04166666666667 : 4 : JumpStart); (5.20833333333333 : 4 : JumpEnd); (7.72916666666667 : 4 : JumpStart); (7.89583333333333 : 4 : JumpEnd); (9 : 4); (9 : 4.88550048828125); (12.125 : 4.88550048828125); (12.125 : 5.42307657877604); (12.5 : 5.42307657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/MaritalStatusType/MaritalStatusType_MaritalRelationship" />
+      <nodes>
+        <classShapeMoniker Id="2eb2ac2a-fec1-41e8-a9bd-1c16fc2e169b" />
+        <classShapeMoniker Id="6cd51535-6974-4971-a8b0-c1d12abc1653" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="dc042eb2-e767-4ec9-bc1d-3a1211ac0446" absoluteBounds="6.25, 7.25, 2, 4.5474471028645826">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Address" />
+      <nestedChildShapes>
+        <elementListCompartment Id="87298edf-e05c-4df0-863c-272fab9c7748" absoluteBounds="6.265, 7.7100000000000009, 1.9700000000000002, 3.987447102864583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.96875 : 2.97115315755208); (3.96875 : 10.659257631429); (5.04166541666667 : 10.659257631429 : JumpStart); (5.20833208333333 : 10.659257631429 : JumpEnd); (5.57291854166667 : 10.659257631429 : JumpStart); (5.73958520833333 : 10.659257631429 : JumpEnd); (6.25 : 10.659257631429)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/AddressStatus/AddressStatus_Address" />
+      <nodes>
+        <classShapeMoniker Id="e0f9c128-260a-47b3-8116-9614ef944314" />
+        <classShapeMoniker Id="dc042eb2-e767-4ec9-bc1d-3a1211ac0446" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(0.65625 : 1.72115315755208); (0.65625 : 10.207933684082); (3.88541666666667 : 10.207933684082 : JumpStart); (4.05208333333333 : 10.207933684082 : JumpEnd); (5.04166541666667 : 10.207933684082 : JumpStart); (5.20833208333333 : 10.207933684082 : JumpEnd); (5.57291854166667 : 10.207933684082 : JumpStart); (5.73958520833333 : 10.207933684082 : JumpEnd); (6.25 : 10.207933684082)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Municipality/Municipality_Address" />
+      <nodes>
+        <classShapeMoniker Id="4b8a25e0-541b-49d3-8481-1df147fdeff5" />
+        <classShapeMoniker Id="dc042eb2-e767-4ec9-bc1d-3a1211ac0446" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.125 : 7.85937622070312); (6.25 : 7.85937622070312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Person/Person_Address" />
+      <nodes>
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+        <classShapeMoniker Id="dc042eb2-e767-4ec9-bc1d-3a1211ac0446" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="5d257cb1-1e92-4d95-9b50-41674914d088" absoluteBounds="8.625, 19.875, 2, 1.4248478190104168">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/OperationType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8f723e36-3aea-4ddb-bb18-6da2151359fd" absoluteBounds="8.64, 20.335, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5ea78bbd-ed2b-4552-8812-ce16fef37d4f" absoluteBounds="1.125, 16.5, 2, 1.26050048828125">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/BirthdateNotification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8caa51ae-1495-42aa-80c7-4ae7936e5644" absoluteBounds="1.1400000000000001, 16.96, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3d633d5d-d8f5-4e26-a6c3-056329464ea3" absoluteBounds="0.5, 19.125, 2, 1.26050048828125">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/NotificationPerson" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b31ba508-ca04-427a-b55c-316acb77e8c2" absoluteBounds="0.51500000000000012, 19.585, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.125 : 4.90625); (4.05208333333333 : 4.90625 : JumpStart); (3.79166666666667 : 4.90625 : JumpEnd); (0.578125 : 4.90625); (0.578125 : 19.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Person/Person_NotificationPerson" />
+      <nodes>
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+        <classShapeMoniker Id="3d633d5d-d8f5-4e26-a6c3-056329464ea3" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="1489f7cf-8f5e-43a1-8d57-eb85b5c5282f" absoluteBounds="0.75, 21.125, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/BirthdateNotificationPerson" />
+      <nestedChildShapes>
+        <elementListCompartment Id="af275c54-6a9c-4731-84f7-b0a273cf5090" absoluteBounds="0.765, 21.585, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.625 : 20.3855004882812); (1.625 : 21.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/NotificationPerson/NotificationPerson_BirthdateNotificationPerson" />
+      <nodes>
+        <classShapeMoniker Id="3d633d5d-d8f5-4e26-a6c3-056329464ea3" />
+        <classShapeMoniker Id="1489f7cf-8f5e-43a1-8d57-eb85b5c5282f" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6dcb9a66-1619-4fe5-9161-a996eef35bb4" absoluteBounds="3.125, 18.875, 2, 1.4248478190104168">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Notification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="58a42fa8-0a92-48d4-aa7f-3a69851733ce" absoluteBounds="3.1399999999999997, 19.335, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.4375 : 18.875); (3.4375 : 16.65625); (3.125 : 16.65625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Notification/Notification_BirthdateNotification" />
+      <nodes>
+        <classShapeMoniker Id="6dcb9a66-1619-4fe5-9161-a996eef35bb4" />
+        <classShapeMoniker Id="5ea78bbd-ed2b-4552-8812-ce16fef37d4f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.125 : 19.7124239095052); (2.5 : 19.7124239095052)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Notification/Notification_NotificationPerson" />
+      <nodes>
+        <classShapeMoniker Id="6dcb9a66-1619-4fe5-9161-a996eef35bb4" />
+        <classShapeMoniker Id="3d633d5d-d8f5-4e26-a6c3-056329464ea3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.59375 : 16.7998478190104); (6.59375 : 19.7292504882812); (5.125 : 19.7292504882812)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Subscription/Subscription_Notification" />
+      <nodes>
+        <classShapeMoniker Id="124746ed-b8dc-43e2-b2f4-952faf10e279" />
+        <classShapeMoniker Id="6dcb9a66-1619-4fe5-9161-a996eef35bb4" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="7bc27228-b84f-4d7a-b32f-d1d799539fbe" absoluteBounds="6.75, 18, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/ChannelType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a8176eeb-f13b-407c-a98f-76e7ffa5e33b" absoluteBounds="6.765, 18.46, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.75 : 18.548076578776); (8.875 : 18.548076578776); (8.875 : 14.1748478190104); (8.97916666666667 : 14.1748478190104 : JumpStart); (9.14583333333333 : 14.1748478190104 : JumpEnd); (10.25 : 14.1748478190104); (10.25 : 13.7998478190104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/ChannelType/ChannelType_Channel" />
+      <nodes>
+        <classShapeMoniker Id="7bc27228-b84f-4d7a-b32f-d1d799539fbe" />
+        <classShapeMoniker Id="b0f51380-628b-415e-811a-9b8dc354e274" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="115b4c39-ca12-4b18-b4c0-869c54c77e7d" absoluteBounds="1, 5.625, 2, 2.4109318033854166">
+      <DataClassMoniker Name="/CPRBrokerDALDataContext/Country" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3e26e18a-6e76-4c7a-9551-1cb82efbcf62" absoluteBounds="1.0150000000000001, 6.085, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3 : 6.83046590169271); (3.79166666666667 : 6.83046590169271 : JumpStart); (4.05208333333333 : 6.83046590169271 : JumpEnd); (4.125 : 6.83046590169271)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Country/Country_Person" />
+      <nodes>
+        <classShapeMoniker Id="115b4c39-ca12-4b18-b4c0-869c54c77e7d" />
+        <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.90625 : 8.03593180338542); (2.90625 : 9.91586236816406); (3.88541666666667 : 9.91586236816406 : JumpStart); (4.05208333333333 : 9.91586236816406 : JumpEnd); (5.04166541666667 : 9.91586236816406 : JumpStart); (5.20833208333333 : 9.91586236816406 : JumpEnd); (5.57291854166667 : 9.91586236816406 : JumpStart); (5.73958520833333 : 9.91586236816406 : JumpEnd); (6.25 : 9.91586236816406)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPRBrokerDALDataContext/Country/Country_Address" />
+      <nodes>
+        <classShapeMoniker Id="115b4c39-ca12-4b18-b4c0-869c54c77e7d" />
+        <classShapeMoniker Id="dc042eb2-e767-4ec9-bc1d-3a1211ac0446" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

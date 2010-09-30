@@ -1,0 +1,3221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="1.36" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">c:\program files\microsoft fxcop 1.36\Xml\FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-US" />
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+  <IgnoreGeneratedCode>False</IgnoreGeneratedCode>
+ </ProjectOptions>
+ <Targets>
+  <AssemblyReferenceDirectories>
+   <Directory>$(ProjectDir)/Backend/bin/Debug/</Directory>
+   <Directory>$(ProjectDir)/BackendUI/bin/Debug/</Directory>
+   <Directory>$(ProjectDir)/DAL/bin/Debug/</Directory>
+   <Directory>$(ProjectDir)/DPR/bin/Debug/</Directory>
+   <Directory>$(ProjectDir)/KMD/bin/Debug/</Directory>
+   <Directory>$(ProjectDir)/Local/bin/Debug/</Directory>
+   <Directory>$(ProjectDir)/NUnitTester/bin/Debug/</Directory>
+   <Directory>$(ProjectDir)/Schemas/bin/Debug/</Directory>
+  </AssemblyReferenceDirectories>
+  <Target Name="$(ProjectDir)/../../../Build/Debug/Backend.exe" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/BackendUI.exe" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.Config.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.DAL.dll" Analyze="False" AnalyzeAllChildren="False">
+   <Modules AnalyzeAllChildren="False">
+    <Module Name="cprbroker.dal.dll" Analyze="False" AnalyzeAllChildren="False">
+     <Namespaces AnalyzeAllChildren="False">
+      <Namespace Name="CPRBroker.DAL" Analyze="False" AnalyzeAllChildren="False">
+       <Types AnalyzeAllChildren="False">
+        <Type Name="Relationship" Analyze="False" AnalyzeAllChildren="False">
+         <Members AnalyzeAllChildren="False">
+          <Member Name="#PersonRelationsExpression" Analyze="True" />
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+     <Resources AnalyzeAllChildren="True" />
+    </Module>
+   </Modules>
+  </Target>
+  <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.Providers.DPR.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.Providers.KMD.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.Providers.Local.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.Schemas.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.SetupCpr.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.SetupDatabase.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../Build/Debug/NUnitTester.exe" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CPRService.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/Engine/bin/Debug/CPRBroker.Engine.dll" Analyze="False" AnalyzeAllChildren="False" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="False" AllRulesEnabled="False" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="False" AllRulesEnabled="False" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="False" AllRulesEnabled="False" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="False" AllRulesEnabled="False" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="CompoundWordsShouldBeCasedCorrectly" Enabled="True" />
+    <Rule Name="DoNotNameEnumValuesReserved" Enabled="True" />
+    <Rule Name="DoNotPrefixEnumValuesWithTypeName" Enabled="True" />
+    <Rule Name="EventsShouldNotHaveBeforeOrAfterPrefix" Enabled="True" />
+    <Rule Name="FlagsEnumsShouldHavePluralNames" Enabled="True" />
+    <Rule Name="IdentifiersShouldBeSpelledCorrectly" Enabled="True" />
+    <Rule Name="IdentifiersShouldDifferByMoreThanCase" Enabled="True" />
+    <Rule Name="IdentifiersShouldHaveCorrectPrefix" Enabled="True" />
+    <Rule Name="IdentifiersShouldHaveCorrectSuffix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotHaveIncorrectPrefix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotHaveIncorrectSuffix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotMatchKeywords" Enabled="True" />
+    <Rule Name="OnlyFlagsEnumsShouldHavePluralNames" Enabled="True" />
+    <Rule Name="ParameterNamesShouldMatchBaseDeclaration" Enabled="True" />
+    <Rule Name="ParameterNamesShouldNotMatchMemberNames" Enabled="True" />
+    <Rule Name="PropertyNamesShouldNotMatchGetMethods" Enabled="True" />
+    <Rule Name="ResourceStringCompoundWordsShouldBeCasedCorrectly" Enabled="True" />
+    <Rule Name="ResourceStringsShouldBeSpelledCorrectly" Enabled="True" />
+    <Rule Name="TypeNamesShouldNotMatchNamespaces" Enabled="True" />
+    <Rule Name="UsePreferredTerms" Enabled="True" />
+   </RuleFile>
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="False" AllRulesEnabled="False" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="False" AllRulesEnabled="False" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="False" AllRulesEnabled="False" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="False" AllRulesEnabled="False" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="1.36">
+  <Namespaces>
+   <Namespace Name="Backend">
+    <Messages>
+     <Message Id="Backend" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:10:36Z">
+      <Issue Name="NamespaceShouldBeCompoundWord">
+       <Item>Backend</Item>
+       <Item>Backend</Item>
+       <Item>BackEnd</Item>
+      </Issue>
+      <Notes>
+       <User Name="Beemen">
+        <Note Id="36" />
+       </User>
+      </Notes>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CPRBroker.BackendUI">
+    <Messages>
+     <Message Id="Backend" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:11:07Z">
+      <Issue Name="NamespaceShouldBeCompoundWord">
+       <Item>Backend</Item>
+       <Item>CPRBroker.BackendUI</Item>
+       <Item>BackEnd</Item>
+      </Issue>
+      <Notes>
+       <User Name="Beemen">
+        <Note Id="38" />
+       </User>
+      </Notes>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CPRBroker.Engine.notifyws">
+    <Messages>
+     <Message Id="notifyws" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+      <Issue Name="Namespace">
+       <Item>notifyws</Item>
+       <Item>CPRBroker.Engine.notifyws</Item>
+      </Issue>
+      <Notes>
+       <User Name="Beemen">
+        <Note Id="21" />
+       </User>
+      </Notes>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CPRBroker.Engine.Util">
+    <Messages>
+     <Message Id="Util" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+      <Issue Name="Namespace">
+       <Item>Util</Item>
+       <Item>CPRBroker.Engine.Util</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CPRBroker.Schemas.Util">
+    <Messages>
+     <Message Id="Util" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+      <Issue Name="Namespace">
+       <Item>Util</Item>
+       <Item>CPRBroker.Schemas.Util</Item>
+      </Issue>
+      <Notes>
+       <User Name="Beemen">
+        <Note Id="1" />
+       </User>
+      </Notes>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/Backend.exe">
+    <Modules>
+     <Module Name="backend.exe">
+      <Messages>
+       <Message Id="Backend" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:10:36Z">
+        <Issue Name="AssemblyShouldBeCompoundWord">
+         <Item>Backend</Item>
+         <Item>'Backend.exe'</Item>
+         <Item>BackEnd</Item>
+        </Issue>
+        <Notes>
+         <User Name="Beemen">
+          <Note Id="37" />
+         </User>
+        </Notes>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="Backend">
+        <Types>
+         <Type Name="BackendService">
+          <Messages>
+           <Message Id="Backend" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:10:36Z">
+            <Issue Name="TypeShouldBeCompoundWord">
+             <Item>Backend</Item>
+             <Item>'BackendService'</Item>
+             <Item>BackEnd</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="35" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/BackendUI.exe">
+    <Modules>
+     <Module Name="backendui.exe">
+      <Messages>
+       <Message Id="Backend" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:11:07Z">
+        <Issue Name="AssemblyShouldBeCompoundWord">
+         <Item>Backend</Item>
+         <Item>'BackendUI.exe'</Item>
+         <Item>BackEnd</Item>
+        </Issue>
+        <Notes>
+         <User Name="Beemen">
+          <Note Id="38" />
+         </User>
+        </Notes>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="CPRBroker.BackendUI">
+        <Types>
+         <Type Name="BackendUIInstaller">
+          <Messages>
+           <Message Id="Backend" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:11:07Z">
+            <Issue Name="TypeShouldBeCompoundWord">
+             <Item>Backend</Item>
+             <Item>'BackendUIInstaller'</Item>
+             <Item>BackEnd</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="38" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.DAL.dll">
+    <Modules>
+     <Module Name="cprbroker.dal.dll">
+      <Namespaces>
+       <Namespace Name="CPRBroker.DAL">
+        <Types>
+         <Type Name="Address">
+          <Members>
+           <Member Name="#DistrictSubDivisionIdentifier">
+            <Messages>
+             <Message Id="SubDivision" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>SubDivision</Item>
+               <Item>'Address.DistrictSubDivisionIdentifier'</Item>
+               <Item>Subdivision</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostBoxIdentifier">
+            <Messages>
+             <Message Id="PostBox" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostBox</Item>
+               <Item>'Address.PostBoxIdentifier'</Item>
+               <Item>Postbox</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCode">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'Address.PostCode'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BirthdateNotification">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateNotification'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="BirthdateNotificationPerson">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateNotificationPerson'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="BirthdateSubscription">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateSubscription'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Channel">
+          <Members>
+           <Member Name="#GpacChannel">
+            <Messages>
+             <Message Id="Gpac" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Gpac</Item>
+               <Item>'Channel.GpacChannel'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ChannelType+ChannelTypes">
+          <Messages>
+           <Message TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717" Status="Excluded" Created="2009-11-10 13:54:44Z">
+            <Issue>
+             <Item>'ChannelType.ChannelTypes'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="24" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="CPRBrokerDALDataContext">
+          <Members>
+           <Member Name="#BirthdateNotificationPersons">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRBrokerDALDataContext.BirthdateNotificationPersons'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#BirthdateNotifications">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRBrokerDALDataContext.BirthdateNotifications'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#BirthdateSubscriptions">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRBrokerDALDataContext.BirthdateSubscriptions'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GpacChannels">
+            <Messages>
+             <Message Id="Gpac" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Gpac</Item>
+               <Item>'CPRBrokerDALDataContext.GpacChannels'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#InsertBirthdateNotificationData(System.Nullable`1&lt;System.Guid&gt;,System.Nullable`1&lt;System.DateTime&gt;)">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRBrokerDALDataContext.InsertBirthdateNotificationData(Guid?, DateTime?)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GpacChannel">
+          <Messages>
+           <Message Id="Gpac" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+            <Issue Name="Type">
+             <Item>Gpac</Item>
+             <Item>'GpacChannel'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Notification">
+          <Members>
+           <Member Name="#BirthdateNotification">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'Notification.BirthdateNotification'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToOioNotification()">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Oio</Item>
+               <Item>'Notification.ToOioNotification()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NotificationPerson">
+          <Members>
+           <Member Name="#BirthdateNotificationPerson">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'NotificationPerson.BirthdateNotificationPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Relationship">
+          <Members>
+           <Member Name="#AddPersonRelationshipIfNotExist`1(CPRBroker.DAL.CPRBrokerDALDataContext,CPRBroker.DAL.Person,CPRBroker.DAL.RelationshipType+RelationshipTypes,System.Nullable`1&lt;System.Boolean&gt;,!!0[],System.Action`2&lt;!!0,CPRBroker.DAL.Relationship&gt;)">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z" FixCategory="NonBreaking">
+              <Issue Name="MethodTypeParameter">
+               <Item>'Relationship.AddPersonRelationshipIfNotExist&lt;TOioRelation&gt;(CPRBrokerDALDataContext, Person, RelationshipType.RelationshipTypes, bool?, TOioRelation[], Action&lt;TOioRelation, Relationship&gt;)'</Item>
+               <Item>Oio</Item>
+               <Item>'TOioRelation'</Item>
+              </Issue>
+             </Message>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="MemberParameter">
+               <Item>'Relationship.AddPersonRelationshipIfNotExist&lt;TOioRelation&gt;(CPRBrokerDALDataContext, Person, RelationshipType.RelationshipTypes, bool?, TOioRelation[], Action&lt;TOioRelation, Relationship&gt;)'</Item>
+               <Item>oio</Item>
+               <Item>'oioRelationships'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetRelationships`1(CPRBroker.DAL.CPRBrokerDALDataContext,System.String,CPRBroker.DAL.RelationshipType+RelationshipTypes,System.Nullable`1&lt;System.Boolean&gt;,System.Nullable`1&lt;System.DateTime&gt;,System.Action`2&lt;CPRBroker.DAL.Relationship,!!0&gt;)">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="MemberParameter">
+               <Item>'Relationship.GetRelationships&lt;TOioRelationship&gt;(CPRBrokerDALDataContext, string, RelationshipType.RelationshipTypes, bool?, DateTime?, Action&lt;Relationship, TOioRelationship&gt;)'</Item>
+               <Item>Oio</Item>
+               <Item>'customOioRelationshipMethod'</Item>
+              </Issue>
+              <Issue Name="MethodTypeParameter">
+               <Item>'Relationship.GetRelationships&lt;TOioRelationship&gt;(CPRBrokerDALDataContext, string, RelationshipType.RelationshipTypes, bool?, DateTime?, Action&lt;Relationship, TOioRelationship&gt;)'</Item>
+               <Item>Oio</Item>
+               <Item>'TOioRelationship'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetTimedRelationships`1(CPRBroker.DAL.CPRBrokerDALDataContext,System.String,CPRBroker.DAL.RelationshipType+RelationshipTypes,System.Nullable`1&lt;System.Boolean&gt;,System.Nullable`1&lt;System.DateTime&gt;,System.Action`2&lt;CPRBroker.DAL.Relationship,!!0&gt;)">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="MemberParameter">
+               <Item>'Relationship.GetTimedRelationships&lt;TOioRelationship&gt;(CPRBrokerDALDataContext, string, RelationshipType.RelationshipTypes, bool?, DateTime?, Action&lt;Relationship, TOioRelationship&gt;)'</Item>
+               <Item>Oio</Item>
+               <Item>'customOioRelationshipSetMethod'</Item>
+              </Issue>
+              <Issue Name="MethodTypeParameter">
+               <Item>'Relationship.GetTimedRelationships&lt;TOioRelationship&gt;(CPRBrokerDALDataContext, string, RelationshipType.RelationshipTypes, bool?, DateTime?, Action&lt;Relationship, TOioRelationship&gt;)'</Item>
+               <Item>Oio</Item>
+               <Item>'TOioRelationship'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#MergePersonRelationshipsByType`1(CPRBroker.DAL.CPRBrokerDALDataContext,CPRBroker.DAL.Person,CPRBroker.DAL.RelationshipType+RelationshipTypes,System.Nullable`1&lt;System.Boolean&gt;,!!0[],System.Action`2&lt;!!0,CPRBroker.DAL.Relationship&gt;)">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z" FixCategory="NonBreaking">
+              <Issue Name="MethodTypeParameter">
+               <Item>'Relationship.MergePersonRelationshipsByType&lt;TOioRelation&gt;(CPRBrokerDALDataContext, Person, RelationshipType.RelationshipTypes, bool?, TOioRelation[], Action&lt;TOioRelation, Relationship&gt;)'</Item>
+               <Item>Oio</Item>
+               <Item>'TOioRelation'</Item>
+              </Issue>
+             </Message>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="MemberParameter">
+               <Item>'Relationship.MergePersonRelationshipsByType&lt;TOioRelation&gt;(CPRBrokerDALDataContext, Person, RelationshipType.RelationshipTypes, bool?, TOioRelation[], Action&lt;TOioRelation, Relationship&gt;)'</Item>
+               <Item>oio</Item>
+               <Item>'oioRelationships'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="RelationshipType+RelationshipTypes">
+          <Messages>
+           <Message TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717" Status="Excluded" Created="2009-11-10 13:54:44Z">
+            <Issue>
+             <Item>'RelationshipType.RelationshipTypes'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Subscription">
+          <Members>
+           <Member Name="#BirthdateSubscription">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'Subscription.BirthdateSubscription'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToOioSubscription()">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Oio</Item>
+               <Item>'Subscription.ToOioSubscription()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SubscriptionType+SubscriptionTypes">
+          <Messages>
+           <Message TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717" Status="Excluded" Created="2009-11-10 13:54:44Z">
+            <Issue>
+             <Item>'SubscriptionType.SubscriptionTypes'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="25" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Birthdate">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:44Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'SubscriptionType.SubscriptionTypes.Birthdate'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.Providers.DPR.dll">
+    <Modules>
+     <Module Name="cprbroker.providers.dpr.dll">
+      <Namespaces>
+       <Namespace Name="CPRBroker.Providers.DPR">
+        <Types>
+         <Type Name="CivilStatus">
+          <Members>
+           <Member Name="#SpouseBirthdate">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:44:59Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CivilStatus.SpouseBirthdate'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="22" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PersonTotal">
+          <Members>
+           <Member Name="#PostCode">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:44:59Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'PersonTotal.PostCode'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Utilities">
+          <Members>
+           <Member Name="#DateFromDecimal(System.Nullable`1&lt;System.Decimal&gt;)">
+            <Messages>
+             <Message Id="d" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:44:59Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Utilities.DateFromDecimal(decimal?)'</Item>
+               <Item>'d'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#DateFromDecimal(System.String)">
+            <Messages>
+             <Message Id="str" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:44:59Z">
+              <Issue Name="MemberParameter">
+               <Item>'Utilities.DateFromDecimal(string)'</Item>
+               <Item>str</Item>
+               <Item>'str'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.Providers.KMD.dll">
+    <Modules>
+     <Module Name="cprbroker.providers.kmd.dll">
+      <Namespaces>
+       <Namespace Name="CPRBroker.Providers.KMD">
+        <Types>
+         <Type Name="KmdDataProvider">
+          <Messages>
+           <Message Id="Kmd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue Name="Type">
+             <Item>Kmd</Item>
+             <Item>'KmdDataProvider'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="KmdDataProvider+ServiceTypes">
+          <Messages>
+           <Message TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue>
+             <Item>'KmdDataProvider.ServiceTypes'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="34" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CPRBroker.Providers.KMD.WS_AN08002">
+        <Types>
+         <Type Name="EnglishAN08002Response">
+          <Members>
+           <Member Name="#tct_kommune">
+            <Messages>
+             <Message Id="kommune" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>kommune</Item>
+               <Item>'EnglishAN08002Response.tct_kommune'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="31" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="tct" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>tct</Item>
+               <Item>'EnglishAN08002Response.tct_kommune'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="31" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GENERELT">
+          <Members>
+           <Member Name="#abogstv">
+            <Messages>
+             <Message Id="abogstv" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>abogstv</Item>
+               <Item>'GENERELT.abogstv'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#adressebesk">
+            <Messages>
+             <Message Id="adressebesk" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>adressebesk</Item>
+               <Item>'GENERELT.adressebesk'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#aegtefaelle">
+            <Messages>
+             <Message Id="aegtefaelle" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>aegtefaelle</Item>
+               <Item>'GENERELT.aegtefaelle'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#aetage">
+            <Messages>
+             <Message Id="aetage" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>aetage</Item>
+               <Item>'GENERELT.aetage'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ahusnr">
+            <Messages>
+             <Message Id="ahusnr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>ahusnr</Item>
+               <Item>'GENERELT.ahusnr'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#alin_1">
+            <Messages>
+             <Message Id="alin" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>alin</Item>
+               <Item>'GENERELT.alin_1'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#alin_2">
+            <Messages>
+             <Message Id="alin" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>alin</Item>
+               <Item>'GENERELT.alin_2'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#alin_3">
+            <Messages>
+             <Message Id="alin" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>alin</Item>
+               <Item>'GENERELT.alin_3'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#alin_4">
+            <Messages>
+             <Message Id="alin" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>alin</Item>
+               <Item>'GENERELT.alin_4'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#alin_5">
+            <Messages>
+             <Message Id="alin" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>alin</Item>
+               <Item>'GENERELT.alin_5'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#anavn_34">
+            <Messages>
+             <Message Id="anavn" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>anavn</Item>
+               <Item>'GENERELT.anavn_34'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#apost_20">
+            <Messages>
+             <Message Id="apost" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>apost</Item>
+               <Item>'GENERELT.apost_20'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#asidoer">
+            <Messages>
+             <Message Id="asidoer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>asidoer</Item>
+               <Item>'GENERELT.asidoer'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#astil_34">
+            <Messages>
+             <Message Id="astil" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>astil</Item>
+               <Item>'GENERELT.astil_34'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#autoriseret">
+            <Messages>
+             <Message Id="autoriseret" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>autoriseret</Item>
+               <Item>'GENERELT.autoriseret'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#avej">
+            <Messages>
+             <Message Id="avej" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>avej</Item>
+               <Item>'GENERELT.avej'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#civildato">
+            <Messages>
+             <Message Id="civildato" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>civildato</Item>
+               <Item>'GENERELT.civildato'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#civilstand">
+            <Messages>
+             <Message Id="civilstand" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>civilstand</Item>
+               <Item>'GENERELT.civilstand'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#epostnr">
+            <Messages>
+             <Message Id="epostnr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>epostnr</Item>
+               <Item>'GENERELT.epostnr'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#kommunekode">
+            <Messages>
+             <Message Id="kommunekode" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>kommunekode</Item>
+               <Item>'GENERELT.kommunekode'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#kommunenavn">
+            <Messages>
+             <Message Id="kommunenavn" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>kommunenavn</Item>
+               <Item>'GENERELT.kommunenavn'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#myndigkode">
+            <Messages>
+             <Message Id="myndigkode" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>myndigkode</Item>
+               <Item>'GENERELT.myndigkode'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#myndignavn">
+            <Messages>
+             <Message Id="myndignavn" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>myndignavn</Item>
+               <Item>'GENERELT.myndignavn'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#personnummer">
+            <Messages>
+             <Message Id="personnummer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>personnummer</Item>
+               <Item>'GENERELT.personnummer'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#returkode">
+            <Messages>
+             <Message Id="returkode" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>returkode</Item>
+               <Item>'GENERELT.returkode'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#returtekst">
+            <Messages>
+             <Message Id="returtekst" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>returtekst</Item>
+               <Item>'GENERELT.returtekst'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#tct_kommune">
+            <Messages>
+             <Message Id="kommune" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>kommune</Item>
+               <Item>'GENERELT.tct_kommune'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="tct" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>tct</Item>
+               <Item>'GENERELT.tct_kommune'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#tilflyttet">
+            <Messages>
+             <Message Id="tilflyttet" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>tilflyttet</Item>
+               <Item>'GENERELT.tilflyttet'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#vejkode">
+            <Messages>
+             <Message Id="vejkode" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>vejkode</Item>
+               <Item>'GENERELT.vejkode'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PARM">
+          <Members>
+           <Member Name="#omraade">
+            <Messages>
+             <Message Id="omraade" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>omraade</Item>
+               <Item>'PARM.omraade'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#personnummer">
+            <Messages>
+             <Message Id="personnummer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>personnummer</Item>
+               <Item>'PARM.personnummer'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="userinfo">
+          <Messages>
+           <Message Id="userinfo" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue Name="Type">
+             <Item>userinfo</Item>
+             <Item>'userinfo'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="33" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#userid">
+            <Messages>
+             <Message Id="userid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>userid</Item>
+               <Item>'userinfo.userid'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="WS_AN08002">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue>
+             <Item>'WS_AN08002'</Item>
+             <Item>CPRBroker.Providers.KMD.WS_AN08002</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#userinfoValue">
+            <Messages>
+             <Message Id="userinfo" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>userinfo</Item>
+               <Item>'WS_AN08002.userinfoValue'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="32" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CPRBroker.Providers.KMD.WS_AN08010">
+        <Types>
+         <Type Name="SVAR">
+          <Members>
+           <Member Name="#autoriseret">
+            <Messages>
+             <Message Id="autoriseret" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>autoriseret</Item>
+               <Item>'SVAR.autoriseret'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#returkode">
+            <Messages>
+             <Message Id="returkode" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>returkode</Item>
+               <Item>'SVAR.returkode'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#returtekst">
+            <Messages>
+             <Message Id="returtekst" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>returtekst</Item>
+               <Item>'SVAR.returtekst'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SVARPERSONER">
+          <Members>
+           <Member Name="#bemaerkning">
+            <Messages>
+             <Message Id="bemaerkning" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>bemaerkning</Item>
+               <Item>'SVARPERSONER.bemaerkning'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#civilstand">
+            <Messages>
+             <Message Id="civilstand" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>civilstand</Item>
+               <Item>'SVARPERSONER.civilstand'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#navn">
+            <Messages>
+             <Message Id="navn" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>navn</Item>
+               <Item>'SVARPERSONER.navn'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#oprindelse">
+            <Messages>
+             <Message Id="oprindelse" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>oprindelse</Item>
+               <Item>'SVARPERSONER.oprindelse'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#personnummer">
+            <Messages>
+             <Message Id="personnummer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>personnummer</Item>
+               <Item>'SVARPERSONER.personnummer'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="userinfo">
+          <Messages>
+           <Message Id="userinfo" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue Name="Type">
+             <Item>userinfo</Item>
+             <Item>'userinfo'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#userid">
+            <Messages>
+             <Message Id="userid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>userid</Item>
+               <Item>'userinfo.userid'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="27" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="WS_AN08010">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue>
+             <Item>'WS_AN08010'</Item>
+             <Item>CPRBroker.Providers.KMD.WS_AN08010</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#userinfoValue">
+            <Messages>
+             <Message Id="userinfo" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>userinfo</Item>
+               <Item>'WS_AN08010.userinfoValue'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="26" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CPRBroker.Providers.KMD.WS_AS78206">
+        <Types>
+         <Type Name="userinfo">
+          <Messages>
+           <Message Id="userinfo" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue Name="Type">
+             <Item>userinfo</Item>
+             <Item>'userinfo'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="29" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#userid">
+            <Messages>
+             <Message Id="userid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>userid</Item>
+               <Item>'userinfo.userid'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="WS_AS78206">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue>
+             <Item>'WS_AS78206'</Item>
+             <Item>CPRBroker.Providers.KMD.WS_AS78206</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#userinfoValue">
+            <Messages>
+             <Message Id="userinfo" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>userinfo</Item>
+               <Item>'WS_AS78206.userinfoValue'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CPRBroker.Providers.KMD.WS_AS78207">
+        <Types>
+         <Type Name="userinfo">
+          <Messages>
+           <Message Id="userinfo" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue Name="Type">
+             <Item>userinfo</Item>
+             <Item>'userinfo'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#userid">
+            <Messages>
+             <Message Id="userid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>userid</Item>
+               <Item>'userinfo.userid'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="WS_AS78207">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 13:54:00Z">
+            <Issue>
+             <Item>'WS_AS78207'</Item>
+             <Item>CPRBroker.Providers.KMD.WS_AS78207</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#userinfoValue">
+            <Messages>
+             <Message Id="userinfo" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:54:00Z">
+              <Issue Name="Member">
+               <Item>userinfo</Item>
+               <Item>'WS_AS78207.userinfoValue'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.Schemas.dll">
+    <Modules>
+     <Module Name="cprbroker.schemas.dll">
+      <Namespaces>
+       <Namespace Name="CPRBroker.Schemas">
+        <Types>
+         <Type Name="_CountryIdentificationSchemeType">
+          <Members>
+           <Member Name="#imk">
+            <Messages>
+             <Message Id="imk" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>imk</Item>
+               <Item>'_CountryIdentificationSchemeType.imk'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#unnumeric3">
+            <Messages>
+             <Message Id="unnumeric" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>unnumeric</Item>
+               <Item>'_CountryIdentificationSchemeType.unnumeric3'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="9" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressCompleteGreenlandType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressCompleteGreenlandType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressCompleteGreenlandType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressNotCompleteType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressNotCompleteType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="7" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressNotCompleteType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressPostalType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressPostalType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressPostalType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BirthdateNotificationPersonType">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateNotificationPersonType'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="BirthdateNotificationType">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateNotificationType'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#BirthdateSubscription">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'BirthdateNotificationType.BirthdateSubscription'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BirthdateSubscriptionType">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateSubscriptionType'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="DataProviderTypes">
+          <Messages>
+           <Message TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue>
+             <Item>'DataProviderTypes'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="6" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="DprDataProviderType">
+          <Messages>
+           <Message Id="Dpr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue Name="Type">
+             <Item>Dpr</Item>
+             <Item>'DprDataProviderType'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="KmdDataProviderType">
+          <Messages>
+           <Message Id="Kmd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue Name="Type">
+             <Item>Kmd</Item>
+             <Item>'KmdDataProviderType'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Username">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>'KmdDataProviderType.Username'</Item>
+               <Item>UserName</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MaritalStatusCodeType">
+          <Members>
+           <Member Name="#abolitionofregistreredpartnership">
+            <Messages>
+             <Message Id="abolitionofregistreredpartnership" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>abolitionofregistreredpartnership</Item>
+               <Item>'MaritalStatusCodeType.abolitionofregistreredpartnership'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="12" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#longestlivingpartner">
+            <Messages>
+             <Message Id="longestlivingpartner" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>longestlivingpartner</Item>
+               <Item>'MaritalStatusCodeType.longestlivingpartner'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="11" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#registeredpartnership">
+            <Messages>
+             <Message Id="registeredpartnership" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>registeredpartnership</Item>
+               <Item>'MaritalStatusCodeType.registeredpartnership'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="13" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PersonRelationsType">
+          <Members>
+           <Member Name="#CustodiedChildren">
+            <Messages>
+             <Message Id="Custodied" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Custodied</Item>
+               <Item>'PersonRelationsType.CustodiedChildren'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CPRBroker.Schemas.Util">
+        <Types>
+         <Type Name="Address">
+          <Messages>
+           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue>
+             <Item>'Address'</Item>
+             <Item>Dictionary</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#FromOioAddress(System.Object)">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Oio</Item>
+               <Item>'Address.FromOioAddress(object)'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'Address.FromOioAddress(object)'</Item>
+               <Item>oio</Item>
+               <Item>'oioAddress'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="4" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToOioAddress(CPRBroker.Schemas.PersonCivilRegistrationStatusCodeType)">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Oio</Item>
+               <Item>'Address.ToOioAddress(PersonCivilRegistrationStatusCodeType)'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressField">
+          <Members>
+           <Member Name="#DistrictSubDivisionIdentifier">
+            <Messages>
+             <Message Id="SubDivision" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>SubDivision</Item>
+               <Item>'AddressField.DistrictSubDivisionIdentifier'</Item>
+               <Item>Subdivision</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostBox">
+            <Messages>
+             <Message Id="PostBox" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostBox</Item>
+               <Item>'AddressField.PostBox'</Item>
+               <Item>Postbox</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCode">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressField.PostCode'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.SetupCpr.dll">
+    <Modules>
+     <Module Name="cprbroker.setupcpr.dll">
+      <Namespaces>
+       <Namespace Name="CPRBroker.SetupCpr">
+        <Types>
+         <Type Name="WebSiteForm">
+          <Messages>
+           <Message Id="WebSite" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2010-03-08 12:52:40Z">
+            <Issue Name="TypeShouldBeDiscreteTerm">
+             <Item>WebSite</Item>
+             <Item>'WebSiteForm'</Item>
+             <Item>Website</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="WebSiteInstaller">
+          <Messages>
+           <Message Id="WebSite" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2010-03-08 12:52:40Z">
+            <Issue Name="TypeShouldBeDiscreteTerm">
+             <Item>WebSite</Item>
+             <Item>'WebSiteInstaller'</Item>
+             <Item>Website</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/CPRBroker.SetupDatabase.dll">
+    <Modules>
+     <Module Name="cprbroker.setupdatabase.dll">
+      <Namespaces>
+       <Namespace Name="CPRBroker.SetupDatabase">
+        <Types>
+         <Type Name="Impersonation">
+          <Members>
+           <Member Name="#.ctor(System.String,System.String,System.String)">
+            <Messages>
+             <Message Id="username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2010-03-08 12:52:40Z">
+              <Issue Name="MemberParameterShouldBeCompoundWord">
+               <Item>'Impersonation.Impersonation(string, string, string)'</Item>
+               <Item>username</Item>
+               <Item>'username'</Item>
+               <Item>userName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="LoginInfo">
+          <Messages>
+           <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Created="2010-03-08 12:52:40Z">
+            <Issue Name="Type">
+             <Item>Login</Item>
+             <Item>'LoginInfo'</Item>
+             <Item>LogOn</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/../../../Build/Debug/NUnitTester.exe">
+    <Modules>
+     <Module Name="nunittester.exe">
+      <Namespaces>
+       <Namespace Name="NUnitTester">
+        <Types>
+         <Type Name="FullTest">
+          <Members>
+           <Member Name="#T500_SubscribeOnBirthdate(System.String[])">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'FullTest.T500_SubscribeOnBirthdate(string[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#T510_SendBirthdateNotifications(System.Func`1&lt;NUnitTester.CPRAdministrationWS.BirthdateSubscriptionType&gt;,System.Int32,System.Int32)">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'FullTest.T510_SendBirthdateNotifications(Func&lt;BirthdateSubscriptionType&gt;, int, int)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TestData">
+          <Members>
+           <Member Name="#birthdateDays">
+            <Messages>
+             <Message Id="birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>birthdate</Item>
+               <Item>'TestData.birthdateDays'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#birthdateSubscriptions">
+            <Messages>
+             <Message Id="birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>birthdate</Item>
+               <Item>'TestData.birthdateSubscriptions'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#birthdateYears">
+            <Messages>
+             <Message Id="birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>birthdate</Item>
+               <Item>'TestData.birthdateYears'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="NUnitTester.Access">
+        <Types>
+         <Type Name="Access">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue>
+             <Item>'Access'</Item>
+             <Item>NUnitTester.Access</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="42" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="NUnitTester.CPRAdministrationWS">
+        <Types>
+         <Type Name="_CountryIdentificationSchemeType">
+          <Members>
+           <Member Name="#imk">
+            <Messages>
+             <Message Id="imk" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>imk</Item>
+               <Item>'_CountryIdentificationSchemeType.imk'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#unnumeric3">
+            <Messages>
+             <Message Id="unnumeric" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>unnumeric</Item>
+               <Item>'_CountryIdentificationSchemeType.unnumeric3'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressCompleteGreenlandType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressCompleteGreenlandType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressCompleteGreenlandType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressNotCompleteType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressNotCompleteType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="46" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressNotCompleteType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressPostalType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressPostalType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressPostalType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ApplicationHeader">
+          <Members>
+           <Member Name="#AnyAttr">
+            <Messages>
+             <Message Id="Attr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Attr</Item>
+               <Item>'ApplicationHeader.AnyAttr'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BirthdateNotificationPersonType">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateNotificationPersonType'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="44" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="BirthdateNotificationType">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateNotificationType'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="44" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#BirthdateSubscription">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'BirthdateNotificationType.BirthdateSubscription'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BirthdateSubscriptionType">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'BirthdateSubscriptionType'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="45" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="CPRAdministrationWS">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue>
+             <Item>'CPRAdministrationWS'</Item>
+             <Item>NUnitTester.CPRAdministrationWS</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="40" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#SubscribeOnBirthdate(NUnitTester.CPRAdministrationWS.ChannelBaseType,System.Nullable`1&lt;System.Int32&gt;,System.Int32,System.String[])">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRAdministrationWS.SubscribeOnBirthdate(ChannelBaseType, int?, int, string[])'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SubscribeOnBirthdateAsync(NUnitTester.CPRAdministrationWS.ChannelBaseType,System.Nullable`1&lt;System.Int32&gt;,System.Int32,System.String[])">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRAdministrationWS.SubscribeOnBirthdateAsync(ChannelBaseType, int?, int, string[])'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SubscribeOnBirthdateAsync(NUnitTester.CPRAdministrationWS.ChannelBaseType,System.Nullable`1&lt;System.Int32&gt;,System.Int32,System.String[],System.Object)">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRAdministrationWS.SubscribeOnBirthdateAsync(ChannelBaseType, int?, int, string[], object)'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SubscribeOnBirthdateCompleted" Kind="Event">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRAdministrationWS.SubscribeOnBirthdateCompleted'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="DprDataProviderType">
+          <Messages>
+           <Message Id="Dpr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue Name="Type">
+             <Item>Dpr</Item>
+             <Item>'DprDataProviderType'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="46" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="KmdDataProviderType">
+          <Messages>
+           <Message Id="Kmd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue Name="Type">
+             <Item>Kmd</Item>
+             <Item>'KmdDataProviderType'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="44" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Username">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="MemberShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>'KmdDataProviderType.Username'</Item>
+               <Item>UserName</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MaritalStatusCodeType">
+          <Members>
+           <Member Name="#abolitionofregistreredpartnership">
+            <Messages>
+             <Message Id="abolitionofregistreredpartnership" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>abolitionofregistreredpartnership</Item>
+               <Item>'MaritalStatusCodeType.abolitionofregistreredpartnership'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#longestlivingpartner">
+            <Messages>
+             <Message Id="longestlivingpartner" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>longestlivingpartner</Item>
+               <Item>'MaritalStatusCodeType.longestlivingpartner'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#registeredpartnership">
+            <Messages>
+             <Message Id="registeredpartnership" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>registeredpartnership</Item>
+               <Item>'MaritalStatusCodeType.registeredpartnership'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="45" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SubscribeOnBirthdateCompletedEventArgs">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'SubscribeOnBirthdateCompletedEventArgs'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="45" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="SubscribeOnBirthdateCompletedEventHandler">
+          <Messages>
+           <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue Name="Type">
+             <Item>Birthdate</Item>
+             <Item>'SubscribeOnBirthdateCompletedEventHandler'</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="44" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="NUnitTester.CPRPersonWS">
+        <Types>
+         <Type Name="_CountryIdentificationSchemeType">
+          <Members>
+           <Member Name="#imk">
+            <Messages>
+             <Message Id="imk" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>imk</Item>
+               <Item>'_CountryIdentificationSchemeType.imk'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#unnumeric3">
+            <Messages>
+             <Message Id="unnumeric" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>unnumeric</Item>
+               <Item>'_CountryIdentificationSchemeType.unnumeric3'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressCompleteGreenlandType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressCompleteGreenlandType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressCompleteGreenlandType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressNotCompleteType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressNotCompleteType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressNotCompleteType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AddressPostalType">
+          <Members>
+           <Member Name="#MailDeliverySublocationIdentifier">
+            <Messages>
+             <Message Id="Sublocation" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Sublocation</Item>
+               <Item>'AddressPostalType.MailDeliverySublocationIdentifier'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PostCodeIdentifier">
+            <Messages>
+             <Message Id="PostCode" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PostCode</Item>
+               <Item>'AddressPostalType.PostCodeIdentifier'</Item>
+               <Item>Postcode</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ApplicationHeader">
+          <Members>
+           <Member Name="#AnyAttr">
+            <Messages>
+             <Message Id="Attr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Attr</Item>
+               <Item>'ApplicationHeader.AnyAttr'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="CPRPersonWS">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue>
+             <Item>'CPRPersonWS'</Item>
+             <Item>NUnitTester.CPRPersonWS</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="41" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MaritalStatusCodeType">
+          <Members>
+           <Member Name="#abolitionofregistreredpartnership">
+            <Messages>
+             <Message Id="abolitionofregistreredpartnership" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>abolitionofregistreredpartnership</Item>
+               <Item>'MaritalStatusCodeType.abolitionofregistreredpartnership'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="43" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#longestlivingpartner">
+            <Messages>
+             <Message Id="longestlivingpartner" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>longestlivingpartner</Item>
+               <Item>'MaritalStatusCodeType.longestlivingpartner'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="43" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#registeredpartnership">
+            <Messages>
+             <Message Id="registeredpartnership" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>registeredpartnership</Item>
+               <Item>'MaritalStatusCodeType.registeredpartnership'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="43" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PersonRelationsType">
+          <Members>
+           <Member Name="#CustodiedChildren">
+            <Messages>
+             <Message Id="Custodied" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Custodied</Item>
+               <Item>'PersonRelationsType.CustodiedChildren'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="QualityHeader">
+          <Members>
+           <Member Name="#AnyAttr">
+            <Messages>
+             <Message Id="Attr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 14:12:54Z">
+              <Issue Name="Member">
+               <Item>Attr</Item>
+               <Item>'QualityHeader.AnyAttr'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="44" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/CPRService/bin/CPRService.dll">
+    <Modules>
+     <Module Name="cprservice.dll">
+      <Namespaces>
+       <Namespace Name="CPRService.Services">
+        <Types>
+         <Type Name="Access">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue>
+             <Item>'Access'</Item>
+             <Item>NUnitTester.Access</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="39" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="CPRAdministrationWS">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue>
+             <Item>'CPRAdministrationWS'</Item>
+             <Item>NUnitTester.CPRAdministrationWS</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="39" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#CreateTestCitizen(CPRBroker.Schemas.PersonFullStructureType)">
+            <Messages>
+             <Message Id="Oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 09:53:10Z">
+              <Issue Name="MemberParameter">
+               <Item>'CPRAdministrationWS.CreateTestCitizen(PersonFullStructureType)'</Item>
+               <Item>Oio</Item>
+               <Item>'OioPerson'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="3" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SubscribeOnBirthdate(CPRBroker.Schemas.ChannelBaseType,System.Nullable`1&lt;System.Int32&gt;,System.Int32,System.String[])">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 10:14:42Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'CPRAdministrationWS.SubscribeOnBirthdate(ChannelBaseType, int?, int, string[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="CPRPersonWS">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 14:12:54Z">
+            <Issue>
+             <Item>'CPRPersonWS'</Item>
+             <Item>NUnitTester.CPRPersonWS</Item>
+            </Issue>
+            <Notes>
+             <User Name="Beemen">
+              <Note Id="39" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/Engine/bin/Debug/CPRBroker.Engine.dll">
+    <Modules>
+     <Module Name="cprbroker.engine.dll">
+      <Namespaces>
+       <Namespace Name="CPRBroker.Engine">
+        <Types>
+         <Type Name="ISubscriptionManager">
+          <Members>
+           <Member Name="#SubscribeOnBirthdate(System.String,System.String,CPRBroker.Schemas.ChannelBaseType,System.Nullable`1&lt;System.Int32&gt;,System.Int32,System.String[])">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'ISubscriptionManager.SubscribeOnBirthdate(string, string, ChannelBaseType, int?, int, string[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ITestCitizenManager">
+          <Members>
+           <Member Name="#CreateTestCitizen(System.String,System.String,CPRBroker.Schemas.PersonFullStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'ITestCitizenManager.CreateTestCitizen(string, string, PersonFullStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Manager+Admin">
+          <Members>
+           <Member Name="#CreateTestCitizen(System.String,System.String,CPRBroker.Schemas.PersonFullStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'Manager.Admin.CreateTestCitizen(string, string, PersonFullStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SubscribeOnBirthdate(System.String,System.String,CPRBroker.Schemas.ChannelBaseType,System.Nullable`1&lt;System.Int32&gt;,System.Int32,System.String[])">
+            <Messages>
+             <Message Id="Birthdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="Member">
+               <Item>Birthdate</Item>
+               <Item>'Manager.Admin.SubscribeOnBirthdate(string, string, ChannelBaseType, int?, int, string[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Versioning">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue Name="System">
+             <Item>'Versioning'</Item>
+             <Item>System.Runtime.Versioning</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CPRBroker.Engine.Local">
+        <Types>
+         <Type Name="UpdateDatabase">
+          <Members>
+           <Member Name="#UpdateCitizenBasic(CPRBroker.Schemas.PersonBasicStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdateCitizenBasic(PersonBasicStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdateCitizenFull(CPRBroker.Schemas.PersonFullStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdateCitizenFull(PersonFullStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdateCitizenFull(CPRBroker.Schemas.PersonFullStructureType,System.Boolean)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdateCitizenFull(PersonFullStructureType, bool)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdateCitizenNameAndAddress(CPRBroker.Schemas.PersonNameAndAddressStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdateCitizenNameAndAddress(PersonNameAndAddressStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CPRBroker.Engine.notifyws">
+        <Types>
+         <Type Name="notify">
+          <Members>
+           <Member Name="#SignalDocChanged(System.String,System.String,System.String&amp;)">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChanged(string, string, ref string)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="18" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalDocChangedAsync(System.String,System.String,System.String)">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="20" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalDocChangedAsync(System.String,System.String,System.String,System.Object)">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string, object)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalObject(System.String,System.String,System.Int32,System.Int32,System.String&amp;)">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalObjectAsync(System.String,System.String,System.Int32,System.Int32,System.String)">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalObjectAsync(System.String,System.String,System.Int32,System.Int32,System.String,System.Object)">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2009-11-10 13:09:18Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+              <Notes>
+               <User Name="Beemen">
+                <Note Id="19" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CPRBroker.Engine.Util">
+        <Types>
+         <Type Name="Sql">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2009-11-10 13:09:18Z">
+            <Issue Name="System">
+             <Item>'Sql'</Item>
+             <Item>System.Data.Sql</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Notes>
+   <User Name="Beemen">
+    <Note Id="1" Modified="2009-11-10 13:10:20Z">Util</Note>
+    <Note Id="2" Modified="2009-11-10 13:11:35Z">Oio</Note>
+    <Note Id="3" Modified="2009-11-10 13:11:49Z">Oio</Note>
+    <Note Id="4" Modified="2009-11-10 13:12:10Z">Oio</Note>
+    <Note Id="5" Modified="2009-11-10 13:12:23Z">Oio</Note>
+    <Note Id="6" Modified="2009-11-10 13:14:20Z">Enum</Note>
+    <Note Id="7" Modified="2009-11-10 13:14:56Z">Designer</Note>
+    <Note Id="8" Modified="2009-11-10 13:16:43Z">Designer</Note>
+    <Note Id="9" Modified="2009-11-10 13:16:56Z">Designer</Note>
+    <Note Id="10" Modified="2009-11-10 13:19:52Z">Later</Note>
+    <Note Id="11" Modified="2009-11-10 13:20:35Z">Designer</Note>
+    <Note Id="12" Modified="2009-11-10 13:20:45Z">Designer</Note>
+    <Note Id="13" Modified="2009-11-10 13:20:49Z">Designer</Note>
+    <Note Id="14" Modified="2009-11-10 13:24:08Z">Later</Note>
+    <Note Id="15" Modified="2009-11-10 13:40:47Z">Designer</Note>
+    <Note Id="16" Modified="2009-11-10 13:41:01Z">Designer</Note>
+    <Note Id="17" Modified="2009-11-10 13:41:08Z">Designer</Note>
+    <Note Id="18" Modified="2009-11-10 13:41:13Z">Designer</Note>
+    <Note Id="19" Modified="2009-11-10 13:41:18Z">Designer</Note>
+    <Note Id="20" Modified="2009-11-10 13:41:24Z">Designer</Note>
+    <Note Id="21" Modified="2009-11-10 13:41:48Z">Later</Note>
+    <Note Id="22" Modified="2009-11-10 13:51:41Z">Designer</Note>
+    <Note Id="23" Modified="2009-11-10 13:55:56Z">Designer</Note>
+    <Note Id="24" Modified="2009-11-10 14:02:47Z">Later</Note>
+    <Note Id="25" Modified="2009-11-10 14:06:34Z">Later</Note>
+    <Note Id="26" Modified="2009-11-10 14:07:15Z">Designer</Note>
+    <Note Id="27" Modified="2009-11-10 14:07:37Z">Designer</Note>
+    <Note Id="28" Modified="2009-11-10 14:08:14Z">Designer</Note>
+    <Note Id="29" Modified="2009-11-10 14:08:24Z">Designer</Note>
+    <Note Id="30" Modified="2009-11-10 14:08:40Z">Designer</Note>
+    <Note Id="31" Modified="2009-11-10 14:08:48Z">Designer</Note>
+    <Note Id="32" Modified="2009-11-10 14:08:53Z">Designer</Note>
+    <Note Id="33" Modified="2009-11-10 14:09:40Z">Designer</Note>
+    <Note Id="34" Modified="2009-11-10 14:10:03Z">Later</Note>
+    <Note Id="35" Modified="2009-11-10 14:10:50Z">Later</Note>
+    <Note Id="36" Modified="2009-11-10 14:10:59Z">Later</Note>
+    <Note Id="37" Modified="2009-11-10 14:11:04Z">Later</Note>
+    <Note Id="38" Modified="2009-11-10 14:11:18Z">Later</Note>
+    <Note Id="39" Modified="2009-11-10 14:14:23Z">Designer</Note>
+    <Note Id="40" Modified="2009-11-10 14:14:32Z">Designer</Note>
+    <Note Id="41" Modified="2009-11-10 14:14:41Z">Designer</Note>
+    <Note Id="42" Modified="2009-11-10 14:14:46Z">Designer</Note>
+    <Note Id="43" Modified="2009-11-10 14:15:29Z">Designer</Note>
+    <Note Id="44" Modified="2009-11-10 14:15:56Z">Designer</Note>
+    <Note Id="45" Modified="2009-11-10 14:16:02Z">Designer</Note>
+    <Note Id="46" Modified="2009-11-10 14:16:08Z">Designer</Note>
+   </User>
+  </Notes>
+  <Rules>
+   <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
+    <Resolution Name="MemberParameterShouldBeCompoundWord">In member {0}, the discrete term '{1}' in parameter name {2} should be expressed as a compound word, '{3}'.</Resolution>
+    <Resolution Name="MemberShouldBeDiscreteTerm">The compound word '{0}' in member name {1} exists as a discrete term. If your usage is intended to be single word, case it as '{2}' or strip the first token entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="TypeShouldBeCompoundWord">The discrete term '{0}' in type name {1} should be expressed as a compound word, '{2}'.</Resolution>
+    <Resolution Name="TypeShouldBeDiscreteTerm">The compound word '{0}' in type name {1} exists as a discrete term. If your usage is intended to be single word, case it as '{2}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
+    <Resolution Name="Member">Correct the spelling of '{0}' in member name {1} or remove it entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="MemberParameter">In method {0}, correct the spelling of '{1}' in parameter name {2} or remove it entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="Type">Correct the spelling of '{0}' in type name {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710">
+    <Resolution Name="Default">Rename {0} to end in '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717">
+    <Resolution Name="Default">If the name {0} is plural, change it to its singular form.</Resolution>
+   </Rule>
+   <Rule TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" />
+   <Rule TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726">
+    <Resolution Name="Member">Replace the term '{0}' in member name {1} with the preferred alternate '{2}'.</Resolution>
+    <Resolution Name="Type">Replace the term '{0}' in type name {1} with the preferred alternate '{2}'.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>

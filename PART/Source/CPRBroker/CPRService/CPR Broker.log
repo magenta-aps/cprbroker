@@ -1,0 +1,253 @@
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 12:07:41
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-2-129040564488906250
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 12:11:42
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-3-129040566976875000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 12:11:56
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-3-129040566976875000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 12:20:24
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-4-129040572031875000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 12:20:24
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-4-129040572031875000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 2732
+Thread Name: 
+Extended Properties: ApplicationId - f4947d6e-b5ba-4e52-92d9-034dc54d5173
+ApplicationName - Base App
+ApplicationToken - 07059250-E448-4040-B695-9C03F9E59E38
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <ApproveAppRegistration>b__1d
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 12:20:47
+Message: All available data providers failed
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-4-129040572031875000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 9e990f77-1a5d-4a5d-842b-916631c885d1
+ApplicationName - Unit test app
+ApplicationToken - 3a8df6a9-d4be-468c-a4ce-9f98d5c7770d
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <GetCitizenBasic>b__40
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 13:19:51
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-8-129040607852500000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 13:20:18
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-8-129040607852500000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 13:20:30
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-8-129040607852500000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 13:20:31
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-8-129040607852500000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+
+-----------------------------------------------------------------
+Timestamp: 30/11/2009 13:22:07
+Message: 
+Category: General
+Priority: -1
+EventId: 0
+Severity: Information
+Title:
+Machine: CRW14
+Application Domain: 7550a7ee-10-129040609247500000
+Process Id: 5328
+Process Name: C:\Program Files\Common Files\Microsoft Shared\DevServer\9.0\WebDev.WebServer.exe
+Win32 Thread Id: 5636
+Thread Name: 
+Extended Properties: ApplicationId - 
+ApplicationName - 
+ApplicationToken - 
+UserToken - testUser
+UserName - CRW14\Beemen
+MethodName - <RequestAppRegistration>b__1a
+DataObjectType - 
+DataObjectXml - 
+

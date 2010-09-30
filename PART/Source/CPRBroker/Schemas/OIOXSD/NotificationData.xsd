@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NotificationData"
+    targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    elementFormDefault="qualified"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    xmlns:tnss="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/S"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:cpr="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/"
+>
+
+  <import schemaLocation="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/CPR_SimpleCPRPerson.xsd" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/"/>
+  <include schemaLocation="Subscription.xsd" />
+
+
+  <xs:element name="BirthdateNotification" type="tns:BirthdateNotificationType"/>
+  <xs:element name="BirthdateNotificationPerson" type="tns:BirthdateNotificationPersonType"/>
+
+  <xs:element name="ChangeNotification" type="tns:ChangeNotificationType"/>
+  <xs:element name="ChangeNotificationPerson" type="tns:ChangeNotificationPersonType"/>
+
+  <!-- Base notification class -->
+  <xs:complexType name="BaseNotificationType" abstract="true">
+    <xs:sequence>
+      <element name="ApplicationToken" type="string"></element>
+      <xs:element name="NotificationDate" type="date"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Birthdate notifications-->
+  <xs:complexType name="BirthdateNotificationType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseNotificationType">
+        <xs:sequence>
+          <xs:element name="BirthdateSubscription" type="tns:BirthdateSubscriptionType" ></xs:element>
+          <xs:element name="Persons">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Person" type="tns:BirthdateNotificationPersonType" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="BirthdateNotificationPersonType">
+    <xs:sequence>
+      <xs:element name="SimpleCPRPerson" type="cpr:SimpleCPRPersonType" ></xs:element>
+      <xs:element name="Age" type="int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- End birthdate notifications -->
+
+  <!-- Data change notifications -->
+  <xs:complexType name="ChangeNotificationType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseNotificationType">
+        <xs:sequence>
+          <xs:element name="ChangeSubscription" type="tns:ChangeSubscriptionType"/>
+          <xs:element name="Persons">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Person" type="tns:ChangeNotificationPersonType" maxOccurs="unbounded"></xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ChangeNotificationPersonType">
+    <xs:sequence>
+      <xs:element name="SimpleCPRPerson" type="cpr:SimpleCPRPersonType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- End data change notifications -->
+
+</xs:schema>

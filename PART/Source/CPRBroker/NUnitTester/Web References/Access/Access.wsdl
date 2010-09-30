@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows web access for certain administrative functions</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="SendNotifications">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="today" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendNotificationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendNotificationsResult" type="tns:SendNotificationsResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SendNotificationsResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SentNotificationIds" type="tns:ArrayOfGuid" />
+          <s:element minOccurs="0" maxOccurs="1" name="FailedNotificationIds" type="tns:ArrayOfGuid" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfGuid">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="guid" type="s1:guid" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RefreshPersonsData">
+        <s:complexType />
+      </s:element>
+      <s:element name="RefreshPersonsDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefreshPersonsDataResult" type="tns:RefreshPersonsDataResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RefreshPersonsDataResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SucceededCprNumbers" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="FailedCprNumbers" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendNotificationsSoapIn">
+    <wsdl:part name="parameters" element="tns:SendNotifications" />
+  </wsdl:message>
+  <wsdl:message name="SendNotificationsSoapOut">
+    <wsdl:part name="parameters" element="tns:SendNotificationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="RefreshPersonsDataSoapIn">
+    <wsdl:part name="parameters" element="tns:RefreshPersonsData" />
+  </wsdl:message>
+  <wsdl:message name="RefreshPersonsDataSoapOut">
+    <wsdl:part name="parameters" element="tns:RefreshPersonsDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AccessSoap">
+    <wsdl:operation name="SendNotifications">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">            
+                                                Causes the system to check for due notifications and send them
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool SendNotifications(DateTime today)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;today (input):&lt;/td&gt;&lt;td&gt;Due date of notifications&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return SendNotificationsResult that represents the result of the operation.
+                                                
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:SendNotificationsSoapIn" />
+      <wsdl:output message="tns:SendNotificationsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RefreshPersonsData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">            
+                                                Causes the system to refresh data of all the persons that are part of a data change subscription
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;RefreshPersonsDataResult RefreshPersonsData()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;                                                
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return RefreshPersonsDataResult that represents the result of the operation.
+                                                
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:RefreshPersonsDataSoapIn" />
+      <wsdl:output message="tns:RefreshPersonsDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AccessSoap" type="tns:AccessSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendNotifications">
+      <soap:operation soapAction="http://tempuri.org/SendNotifications" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshPersonsData">
+      <soap:operation soapAction="http://tempuri.org/RefreshPersonsData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AccessSoap12" type="tns:AccessSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendNotifications">
+      <soap12:operation soapAction="http://tempuri.org/SendNotifications" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshPersonsData">
+      <soap12:operation soapAction="http://tempuri.org/RefreshPersonsData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Access">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows web access for certain administrative functions</wsdl:documentation>
+    <wsdl:port name="AccessSoap" binding="tns:AccessSoap">
+      <soap:address location="http://localhost:1551/services/Access.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AccessSoap12" binding="tns:AccessSoap12">
+      <soap12:address location="http://localhost:1551/services/Access.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

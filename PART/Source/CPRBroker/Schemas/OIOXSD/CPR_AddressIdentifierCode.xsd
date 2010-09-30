@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:cpr="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<element name="AddressIdentifierCode" type="cpr:AddressIdentifierCodeType"/>
+	<simpleType name="AddressIdentifierCodeType">
+		<restriction base="integer">
+			<enumeration value="1"/>
+			<enumeration value="2"/>
+			<enumeration value="3"/>
+		</restriction>
+	</simpleType>
+</schema>

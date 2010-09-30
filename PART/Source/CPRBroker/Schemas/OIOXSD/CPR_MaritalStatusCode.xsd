@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:cpr="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" elementFormDefault="qualified" version="1.1">
+	<element name="MaritalStatusCode" type="cpr:MaritalStatusCodeType">
+		<annotation>
+			<documentation>Identifies the maritial status and whether the person is alive or dead.</documentation>
+		</annotation>
+	</element>
+	<simpleType name="MaritalStatusCodeType">
+		<restriction base="string">
+			<enumeration value="married"/>
+			<enumeration value="divorced"/>
+			<enumeration value="widow"/>
+			<enumeration value="registered partnership"/>
+			<enumeration value="abolition of registrered partnership"/>
+			<enumeration value="longest living partner"/>
+			<enumeration value="deceased"/>
+			<enumeration value="unmarried"/>
+		</restriction>
+	</simpleType>
+</schema>

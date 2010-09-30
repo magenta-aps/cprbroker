@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<schema
+    id="DataProviders"
+    elementFormDefault="qualified"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    >
+
+    <element name="DprDataProvider" type="tns:DprDataProviderType"></element>
+    <element name="KmdDataProvider" type="tns:KmdDataProviderType"></element>
+
+    <complexType name="DataProviderType" abstract="true">
+        <sequence>
+            <element name="Address" type="string" minOccurs="1" maxOccurs="1" nillable="false"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="DprDataProviderType" >
+        <complexContent>
+            <extension base="tns:DataProviderType">
+                <sequence>
+                    <element name="Port" type="int" minOccurs="1" maxOccurs="1" />
+                    <element name="ConnectionString" type="string" minOccurs="1" maxOccurs="1" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="KmdDataProviderType" >
+        <complexContent>
+            <extension base="tns:DataProviderType">
+                <sequence>
+                    <element name="Username" type="string" minOccurs="1" maxOccurs="1" />
+                    <element name="Password" type="string" minOccurs="1" maxOccurs="1" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

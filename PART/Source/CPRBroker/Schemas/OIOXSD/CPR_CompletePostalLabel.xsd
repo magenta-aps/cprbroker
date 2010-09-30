@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" xmlns:cpr2006="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" xmlns:cpr="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/" xmlns:dkcc="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<!-- Includes and Imports -->
+	<import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/" schemaLocation="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/CPR_AddresseeName.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/DKCC_PostalAddressFirstLineText.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/DKCC_PostalAddressSecondLineText.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/DKCC_PostalAddressThirdLineText.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/DKCC_PostalAddressFourthLineText.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/DKCC_PostalAddressFifthLineText.xsd"/>
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" schemaLocation="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/DKCC_PostalAddressSixthLineText.xsd"/>
+	<!-- -->
+	<element name="CompletePostalLabel" type="cpr2006:CompletePostalLabelType"/>
+	<!-- -->
+	<complexType name="CompletePostalLabelType">
+		<sequence>
+			<element ref="cpr:AddresseeName"/>
+			<element ref="dkcc:PostalAddressFirstLineText" minOccurs="0"/>
+			<element ref="dkcc:PostalAddressSecondLineText" minOccurs="0"/>
+			<element ref="dkcc:PostalAddressThirdLineText"/>
+			<element ref="dkcc:PostalAddressFourthLineText" minOccurs="0"/>
+			<element ref="dkcc:PostalAddressFifthLineText"/>
+			<element ref="dkcc:PostalAddressSixthLineText" minOccurs="0"/>
+		</sequence>
+	</complexType>
+</schema>
