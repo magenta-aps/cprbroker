@@ -5,8 +5,8 @@ using System.Text;
 
 namespace CPRBroker.Schemas.Part
 {
-    public class UnknownCitizenData : PersonData
+    public abstract class PersonData
     {
-        public string ReplacementCprNumber { get; set; }
+
     }
 }

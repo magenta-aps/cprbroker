@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CPRBroker.Schemas.Part
 {
-    public class ForeignCitizenData
+    public class ForeignCitizenData : PersonData
     {
         public string ForeignNumber { get; set; }
         public string PermissionNumber { get; set; }

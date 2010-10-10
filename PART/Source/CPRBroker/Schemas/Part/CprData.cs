@@ -6,7 +6,7 @@ using CPRBroker.Schemas.Part.Enums;
 
 namespace CPRBroker.Schemas.Part
 {
-    public class CprData
+    public class CprData : PersonData
     {
         public string FirstName { get; set; }
         public string MiddleNames { get; set; }

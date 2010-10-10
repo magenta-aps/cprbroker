@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="GKApp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependencies\GKApp.dll</HintPath>
+      <HintPath>..\Dll\GKApp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -130,6 +130,10 @@
       <DependentUpon>Notification.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\Part.asmx.cs">
+      <DependentUpon>Part.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +153,7 @@
     <Content Include="Services\Access.asmx" />
     <Content Include="Services\Notification.asmx" />
     <None Include="Config\connectionStrings.beta.config" />
+    <Content Include="Services\Part.asmx" />
     <Content Include="Web.sitemap" />
     <Content Include="Pages\Site.Master" />
     <None Include="Templates\Notification.wsdl" />

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace CPRBroker.Schemas.Part
 {
-    public class UnknownCitizenData : PersonData
+    public class RegistrationDateHeader : System.Web.Services.Protocols.SoapHeader
     {
-        public string ReplacementCprNumber { get; set; }
+        public DateTime? RegistrationDate { get; set; }
     }
 }
