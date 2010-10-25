@@ -12,9 +12,9 @@ namespace CPRBroker.Providers.DPR
         {
             get
             {
-                if (CIVST.HasValue)
+                if (MaritalStatus.HasValue)
                 {
-                    switch (CIVST.Value)
+                    switch (MaritalStatus.Value)
                     {
                         case Constants.MaritalStatus.Unmarried:
                             return MaritalStatusCodeType.unmarried;

@@ -256,7 +256,7 @@ namespace CPRBroker.Providers.DPR
                        && civil.SpousePNR != null
                            // Do not include married row if there is a divorce row that started the same time of this end time
                        && (
-                            civil.CIVST.Value != Constants.MaritalStatus.Married
+                            civil.MaritalStatus.Value != Constants.MaritalStatus.Married
                             ||
                             (from civ2 in context.CivilStatus where civ2.PNR == cprNumber && civ2.MaritalStatusDate == civil.MaritalEndDate select civ2).Count() == 0
                         )
