@@ -66,6 +66,11 @@
     <Compile Include="Part\Enums\MaritalStatus.cs" />
     <Compile Include="Part\Enums\Gender.cs" />
     <Compile Include="Part\Enums\LifeStatus.cs" />
+    <Compile Include="Part\Events\CommonEventStructure.cs" />
+    <Compile Include="Part\Events\EventInfoStructure.cs" />
+    <Compile Include="Part\Events\EventObjectStructure.cs" />
+    <Compile Include="Part\Events\EventTopic.cs" />
+    <Compile Include="Part\Events\SignatureType.cs" />
     <Compile Include="Part\ForeignCitizenData.cs" />
     <Compile Include="Part\Effect.cs" />
     <Compile Include="Part\Mail.cs" />
