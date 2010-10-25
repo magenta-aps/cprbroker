@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CPRBroker.Schemas;
+using CPRBroker.Schemas.Part;
 using CPRBroker.DAL;
 
 namespace CPRBroker.Engine
@@ -321,5 +322,22 @@ namespace CPRBroker.Engine
     public interface ILoggingDataProvider : IDataProvider
     {
         bool Log(string userToken, string appToken, string text);
+    }
+
+    /// <summary>
+    /// Contains methods of the Part interface that need an existing UUID
+    /// </summary>
+    public interface IPartReadDataProvider : IDataProvider
+    {
+        PersonRegistration Read(Guid uuid, out QualityLevel? ql);
+        PersonRegistration[] List(Guid[] uuids, out QualityLevel? ql);
+    }
+
+    /// <summary>
+    /// Contains the Search method of the Part interface
+    /// </summary>
+    public interface IPartSearchDataProvider : IDataProvider
+    {
+        Guid[] Search(PersonSearchCriteria searchCriteria, out QualityLevel? ql);
     }
 }

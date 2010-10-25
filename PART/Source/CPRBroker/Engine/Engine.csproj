@@ -154,6 +154,7 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Manager.Part.cs" />
     <None Include="Web References\NotificationService\Notification.wsdl" />
     <None Include="Web References\NotificationService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
