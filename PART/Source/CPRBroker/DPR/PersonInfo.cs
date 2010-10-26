@@ -10,7 +10,7 @@ namespace CPRBroker.Providers.DPR
     /// <summary>
     /// Used as a link between miscellaneous person tables & person information
     /// </summary>
-    internal class PersonInfo
+    internal partial class PersonInfo
     {
         public PersonName PersonName { get; set; }
         public PersonTotal PersonTotal { get; set; }
@@ -26,6 +26,7 @@ namespace CPRBroker.Providers.DPR
             join personTotal in dataContext.PersonTotals on personName.PNR equals personTotal.PNR
             join street in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { street.MunicipalityCode, street.StreetCode } into strt
             join contactAddress in dataContext.ContactAddresses on personName.PNR equals contactAddress.PNR into contactAddr
+            // TODO correct this condition
             where
             personName.NameTerminationDate == null
             select new PersonInfo()
@@ -36,7 +37,7 @@ namespace CPRBroker.Providers.DPR
                 ContactAddress = contactAddr.SingleOrDefault(),
                 HasProtection = (
                    from protection in dataContext.Protections
-                   where protection.StartDate <= today && protection.EndDate > today
+                   where protection.StartDate <= today && (!protection.EndDate.HasValue || protection.EndDate > today)
                    select protection.PNR
                 ).Contains(personName.PNR)
             };

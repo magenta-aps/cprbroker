@@ -11,5 +11,15 @@ namespace CPRBroker.Schemas.Part
         public DateTime? EndDate { get; set; }
 
         public T Value { get; set; }
+
+        public Effect()
+        {}
+
+        public Effect(DateTime? startDate, DateTime? endDate, T value)
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+            Value = value;
+        }
     }
 }

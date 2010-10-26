@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CPRBroker.Schemas;
+using CPRBroker.Schemas.Part.Enums;
 
 namespace CPRBroker.Providers.DPR
 {
@@ -61,6 +63,22 @@ namespace CPRBroker.Providers.DPR
                 }
             }
             return null;
+        }
+
+        public static Gender GenderFromChar(char? gen)
+        {
+            switch (gen)
+            {
+                case 'M':
+                    return Gender.Male;
+                    break;
+                case 'K':
+                    return Gender.Female;
+                    break;
+                default:
+                    return Gender.Unknown;
+                    break;
+            }
         }
 
     }

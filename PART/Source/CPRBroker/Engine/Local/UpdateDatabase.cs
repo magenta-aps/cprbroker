@@ -9,7 +9,7 @@ using CPRBroker;
 
 namespace CPRBroker.Engine.Local
 {
-    public class UpdateDatabase
+    public partial class UpdateDatabase
     {
         #region private methods
 

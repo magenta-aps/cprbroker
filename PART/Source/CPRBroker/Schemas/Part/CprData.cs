@@ -8,9 +8,10 @@ namespace CPRBroker.Schemas.Part
 {
     public class CprData : PersonData
     {
-        public string FirstName { get; set; }
-        public string MiddleNames { get; set; }
-        public string SurNames { get; set; }
+        public Effect<PersonNameStructureType> PersonName { get; set; }
+        //public string FirstName { get; set; }
+        //public string MiddleNames { get; set; }
+        //public string SurNames { get; set; }
         public string NickName { get; set; }
         public string AddressingName { get; set; }
         public bool? NameAndAddressProtection { get; set; }

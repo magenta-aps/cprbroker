@@ -14,7 +14,7 @@ namespace CPRBroker.Providers.Local
     /// <summary>
     /// Handles implementation of data provider using the system's local database
     /// </summary>
-    public class DatabaseDataProvider : IDataProvider, IPersonNameAndAddressDataProvider, IPersonBasicDataProvider, IPersonFullDataProvider, IPersonRelationsDataProvider, IPersonChildrenDataProvider, IPersonCustodyDataProvider, ITestCitizenManager
+    public partial class DatabaseDataProvider : IDataProvider, IPersonNameAndAddressDataProvider, IPersonBasicDataProvider, IPersonFullDataProvider, IPersonRelationsDataProvider, IPersonChildrenDataProvider, IPersonCustodyDataProvider, ITestCitizenManager
     {
         #region IDataProvider Members
 
