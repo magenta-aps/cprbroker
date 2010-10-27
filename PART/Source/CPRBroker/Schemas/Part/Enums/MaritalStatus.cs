@@ -14,5 +14,7 @@ namespace CPRBroker.Schemas.Part.Enums
         registeredpartner,
         repealedpartnership,
         surviving,
+        // TODO: Verify that deceased conforms to the standard, because it is not in the specs
+        deceased,
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CPRBroker.Schemas.Part.Enums;
 
 namespace CPRBroker.Schemas.Util
 {
@@ -43,6 +44,19 @@ namespace CPRBroker.Schemas.Util
                 case 'L':
                 default:
                     return MaritalStatusCodeType.longestlivingpartner;
+            }
+        }
+
+        public static LifeStatus ToLifeStatus(decimal civilRegistrationStatus)
+        {
+            switch (Convert.ToInt32(civilRegistrationStatus))
+            {
+                case 70:
+                    return LifeStatus.disappeared;
+                case 90:
+                    return LifeStatus.dead;
+                default:
+                    return LifeStatus.born;
             }
         }
 

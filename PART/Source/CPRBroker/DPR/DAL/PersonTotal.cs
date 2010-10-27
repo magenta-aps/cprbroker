@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.ComponentModel;
 using System;
 using CPRBroker.Schemas;
+using CPRBroker.Schemas.Part.Enums;
 
 namespace CPRBroker.Providers.DPR
 {
@@ -58,6 +59,39 @@ namespace CPRBroker.Providers.DPR
             address[CPRBroker.Schemas.Util.AddressField.PostDistrictName] = PostDistrictName;
 
             return address.ToOioAddress(civilStatus);
+        }
+
+        public MaritalStatus PartMaritalStatus
+        {
+            get
+            {
+                if (this.MaritalStatus.HasValue)
+                {
+                    switch (this.MaritalStatus)
+                    {
+                        case Constants.MaritalStatus.Unmarried:
+                            return Schemas.Part.Enums.MaritalStatus.single;
+                        case Constants.MaritalStatus.Married:
+                            return Schemas.Part.Enums.MaritalStatus.married;
+                        case Constants.MaritalStatus.Divorced:
+                            return Schemas.Part.Enums.MaritalStatus.divorced;
+                        case Constants.MaritalStatus.Deceased:                            
+                            return Schemas.Part.Enums.MaritalStatus.deceased;
+                        case Constants.MaritalStatus.Widow:
+                            return Schemas.Part.Enums.MaritalStatus.widow;
+                        case Constants.MaritalStatus.RegisteredPartnership:
+                            return Schemas.Part.Enums.MaritalStatus.registeredpartner;
+                        case Constants.MaritalStatus.AbolitionOfRegisteredPartnership:
+                            return Schemas.Part.Enums.MaritalStatus.repealedpartnership;
+                        case Constants.MaritalStatus.LongestLivingPartner:
+                            return Schemas.Part.Enums.MaritalStatus.surviving;
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException("Unknown marital status");
+                }
+            }
         }
     }
 }

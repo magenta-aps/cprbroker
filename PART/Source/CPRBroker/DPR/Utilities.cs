@@ -65,6 +65,25 @@ namespace CPRBroker.Providers.DPR
             return null;
         }
 
+        public static decimal? DecimalFromDate(DateTime? date)
+        {
+            if (date.HasValue)
+            {
+                if (date.Value.Date < date.Value) // has a time component
+                {
+                    return Decimal.Parse(date.Value.ToString("yyyyMMddHHmm"));
+                }
+                else
+                {
+                    return Decimal.Parse(date.Value.ToString("yyyyMMdd"));
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static Gender GenderFromChar(char? gen)
         {
             switch (gen)

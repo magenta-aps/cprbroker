@@ -21,7 +21,7 @@ namespace CPRBroker.Providers.DPR
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
         /// </summary>
-        internal static Expression<Func<DateTime, DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DateTime today, DPRDataContext dataContext) =>
+        internal static readonly Expression<Func<DateTime, DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DateTime today, DPRDataContext dataContext) =>
             from personName in dataContext.PersonNames
             join personTotal in dataContext.PersonTotals on personName.PNR equals personTotal.PNR
             join street in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { street.MunicipalityCode, street.StreetCode } into strt
