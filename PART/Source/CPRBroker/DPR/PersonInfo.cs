@@ -35,6 +35,7 @@ namespace CPRBroker.Providers.DPR
                 PersonTotal = personTotal,
                 Street = strt.FirstOrDefault(),
                 ContactAddress = contactAddr.SingleOrDefault(),
+                // TODO: include protection type with PNR because the index is on PNR & ProtectionType
                 HasProtection = (
                    from protection in dataContext.Protections
                    where protection.StartDate <= today && (!protection.EndDate.HasValue || protection.EndDate > today)
