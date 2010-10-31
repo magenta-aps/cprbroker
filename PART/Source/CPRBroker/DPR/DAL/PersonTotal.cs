@@ -22,7 +22,7 @@ namespace CPRBroker.Providers.DPR
             }
         }
 
-        internal object ToOioAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street,ContactAddress contactAddress)
+        internal object ToOioAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)
         {
             Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
             if (MunicipalityCode != 0)
@@ -35,14 +35,14 @@ namespace CPRBroker.Providers.DPR
                 address[CPRBroker.Schemas.Util.AddressField.StreetCode] = StreetCode.ToString();
             }
 
-            if(street !=null)
+            if (street != null)
             {
                 address[CPRBroker.Schemas.Util.AddressField.StreetName] = street.StreetAddressingName;
             }
             address[CPRBroker.Schemas.Util.AddressField.HouseNumber] = HouseNumber;
             address[CPRBroker.Schemas.Util.AddressField.Floor] = Floor;
             address[CPRBroker.Schemas.Util.AddressField.Door] = Door;
-            
+
             if (PostCode != 0)
             {
                 address[CPRBroker.Schemas.Util.AddressField.PostCode] = PostCode.ToString();
@@ -75,7 +75,7 @@ namespace CPRBroker.Providers.DPR
                             return Schemas.Part.Enums.MaritalStatus.married;
                         case Constants.MaritalStatus.Divorced:
                             return Schemas.Part.Enums.MaritalStatus.divorced;
-                        case Constants.MaritalStatus.Deceased:                            
+                        case Constants.MaritalStatus.Deceased:
                             return Schemas.Part.Enums.MaritalStatus.deceased;
                         case Constants.MaritalStatus.Widow:
                             return Schemas.Part.Enums.MaritalStatus.widow;
@@ -87,10 +87,7 @@ namespace CPRBroker.Providers.DPR
                             return Schemas.Part.Enums.MaritalStatus.surviving;
                     }
                 }
-                else
-                {
-                    throw new NotSupportedException("Unknown marital status");
-                }
+                throw new NotSupportedException("Unknown marital status");
             }
         }
     }

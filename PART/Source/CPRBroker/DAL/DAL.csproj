@@ -63,6 +63,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PartDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Part\PartDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="PersonStatusType.cs" />
     <Compile Include="CPRBrokerDALDataContext.cs" />
     <Compile Include="Country.cs" />
@@ -112,6 +117,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PartDataContext.dbml.layout">
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
+    </None>
+    <None Include="Part\PartDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Part\PartDataContext.dbml.layout">
       <DependentUpon>PartDataContext.dbml</DependentUpon>
     </None>
   </ItemGroup>

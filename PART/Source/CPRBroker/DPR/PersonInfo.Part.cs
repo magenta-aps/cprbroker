@@ -26,10 +26,10 @@ namespace CPRBroker.Providers.DPR
             var effectTimeDecimal = Utilities.DecimalFromDate(effectTime);
             PersonNameStructureType tempPersonName = new PersonNameStructureType(PersonName.FirstName, PersonName.LastName);
             var civilStates = (from civilStatus in dataContext.CivilStatus
-                               where civilStatus.PNR == PersonTotal.PNR && civilStatus.MaritalStatusDate<=effectTimeDecimal.Value
+                               where civilStatus.PNR == PersonTotal.PNR && civilStatus.MaritalStatusDate <= effectTimeDecimal.Value
                                orderby civilStatus.MaritalStatusDate
                                select civilStatus).ToArray();
-                               
+
             PersonRegistration ret = new PersonRegistration()
             {
                 Attributes = new PersonAttributes()
@@ -106,7 +106,7 @@ namespace CPRBroker.Providers.DPR
             // Now fill the null EndDate(s)
             if (effectTime.HasValue && effectTime.Value.Date < DateTime.Today)
             {
-                if (PersonTotal.StatusDate.HasValue )
+                if (PersonTotal.StatusDate.HasValue)
                 {
                     var nextPersonTotal = NextPersonTotalExpression.Compile()(PersonTotal.PNR, PersonTotal.StatusDate.Value, dataContext);
                     if (nextPersonTotal != null)
@@ -122,7 +122,7 @@ namespace CPRBroker.Providers.DPR
                             where ms.MaritalStatusDate == PersonTotal.MaritalStatusDate
                             select ms
                         ).FirstOrDefault();
-                    if (maritalStatus != null )
+                    if (maritalStatus != null)
                     {
                         ret.States.CivilStatus.EndDate = Utilities.DateFromDecimal(maritalStatus.MaritalEndDate);
                     }
@@ -131,40 +131,62 @@ namespace CPRBroker.Providers.DPR
 
             // Fill the relations
             /**************/
-            ret.Relations.Parents = (from pers in Child.PersonParentsExpression.Compile()(PersonTotal.PNR,dataContext)
-                                    select new PersonRelation()
-                                    {
-                                        // TODO: assign the real UUID's
-                                        TargetUUID = Guid.NewGuid()
-                                    }).ToArray();
-
-            ret.Relations.Children = (from pers in Child.PersonChildrenExpression.Compile()(effectTimeDecimal.Value, PersonTotal.PNR,dataContext)
-                                    select new Effect<PersonRelation>()
-                                    {
-                                        StartDate = Utilities.DateFromDecimal(pers.DateOfBirth),
-                                        EndDate = null,
-                                        // TODO: assign the real UUID's
-                                        Value = new PersonRelation()
-                                        {
-                                            TargetUUID = Guid.NewGuid()
-                                        }
-                                    }).ToArray(); 
-            
-            ret.Relations.Spouses = Array.ConvertAll<CivilStatus,Effect<PersonRelation>>(
-                civilStates, 
-                (civilStatus)=> 
-                new Effect<PersonRelation>()
-                {
-                    StartDate = Utilities.DateFromDecimal(civilStatus.MaritalStatusDate),
-                    EndDate= Utilities.DateFromDecimal(civilStatus.MaritalEndDate),
-                    Value = new PersonRelation()
-                    {
-                        //TODO: assign the real UUID's
-                        TargetUUID = Guid.NewGuid(),
-                    }
-                }
+            ret.Relations.Parents = Array.ConvertAll<Guid, PersonRelation>
+            (
+                Engine.Local.UpdateDatabase.AssignGuids
+                (
+                    (
+                        from pers in Child.PersonParentsExpression.Compile()(PersonTotal.PNR, dataContext)
+                        select new PersonIdentifier()
+                        {
+                            CprNumber = pers.PNR.ToString("D2"),
+                            Birthdate = Utilities.DateFromDecimal(pers.DateOfBirth).Value,
+                        }
+                    ).ToArray()
+                ),
+                (id) => new PersonRelation() { TargetUUID = id }
             );
 
+            ret.Relations.Children = Engine.Local.UpdateDatabase.AssignGuids<PersonTotal, Effect<PersonRelation>>
+            (
+                Child.PersonChildrenExpression.Compile()(effectTimeDecimal.Value, PersonTotal.PNR, dataContext).ToArray(),
+                (child) => new Effect<PersonRelation>()
+                {
+                    StartDate = Utilities.DateFromDecimal(child.DateOfBirth),
+                    EndDate = null,
+                    Value = new PersonRelation()
+                },
+                (child) => new PersonIdentifier()
+                {
+                    CprNumber = child.PNR.ToString("D2"),
+                    // TODO: handle cases where birthdate is null
+                    Birthdate = Utilities.DateFromDecimal(child.DateOfBirth).Value
+                },
+                (rel,id)=> rel.Value.TargetUUID = id
+            );
+
+            ret.Relations.Spouses = Engine.Local.UpdateDatabase.AssignGuids<CivilStatus, Effect<PersonRelation>>
+            (
+                civilStates,
+                (civilStatus) => new Effect<PersonRelation>()
+                {
+                    StartDate = Utilities.DateFromDecimal(civilStatus.MaritalStatusDate),
+                    EndDate = Utilities.DateFromDecimal(civilStatus.MaritalEndDate),
+                    Value = new PersonRelation()
+                    {
+                    }
+                },
+                (civilStatus) => new PersonIdentifier()
+                {
+                    CprNumber = civilStatus.SpousePNR.Value.ToString("D2"),
+                    // TODO: handle cases where birthdate is null
+                    Birthdate = Utilities.DateFromDecimal(civilStatus.SpouseBirthdate).Value
+                },
+                (p, id) =>
+                {
+                    p.Value.TargetUUID = id;
+                }
+            );
             
             return ret;
         }
