@@ -12,6 +12,9 @@ Begin DataProject = "DB"
       Script = "InsertChangeNotificationData.sql"
       Script = "IsBirthdateEvent.sql"
       Script = "IsDataChangeEvent.sql"
+      Begin Folder = "Part"
+         Script = "GetPersonIds.sql"
+      End
    End
    Begin DBRefFolder = "Database References"
       Begin DBRefNode = "crs04.CPRBroker.dbo"

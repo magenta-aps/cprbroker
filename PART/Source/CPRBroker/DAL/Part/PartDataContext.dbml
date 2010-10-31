@@ -1,1 +1,52 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="PART" Class="PartDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=PART;Persist Security Info=True;User ID=cpr" SettingsObjectName="CPRBroker.DAL.Properties.Settings" SettingsPropertyName="PARTConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Person" Member="Persons">
+    <Type Name="Person">
+      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Person_PersonRegistration" Member="PersonRegistrations" ThisKey="UUID" OtherKey="UUID" Type="PersonRegistration" />
+      <Association Name="Person_PesronMapping" Member="PesronMapping" ThisKey="UUID" OtherKey="UUID" Type="PesronMapping" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonRegistration" Member="PersonRegistrations">
+    <Type Name="PersonRegistration">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="PersonRegistration_PersonAttribute" Member="PersonAttribute" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttribute" Cardinality="One" />
+      <Association Name="Person_PersonRegistration" Member="Person" ThisKey="UUID" OtherKey="UUID" Type="Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonAttributes" Member="PersonAttributes">
+    <Type Name="PersonAttribute">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Gender" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="PersonAttribute_CprData" Member="CprData" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="CprData" Cardinality="One" />
+      <Association Name="PersonRegistration_PersonAttribute" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CprData" Member="CprDatas">
+    <Type Name="CprData">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NickName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AddressingName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsBirthdateUncertain" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CprNumber" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="IndividualTrackStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NationalityCountryAlpha2Code" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Association Name="PersonAttribute_CprData" Member="PersonAttribute" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttribute" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PesronMapping" Member="PesronMappings">
+    <Type Name="PesronMapping">
+      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CprNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Person_PesronMapping" Member="Person" ThisKey="UUID" OtherKey="UUID" Type="Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
