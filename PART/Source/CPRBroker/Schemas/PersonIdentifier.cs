@@ -7,16 +7,14 @@ namespace CPRBroker.Schemas
 {
     public class PersonIdentifier
     {
-        public string  CprNumber;
+        public string CprNumber;
         public DateTime Birthdate;
-
-        //public Guid UUID;
 
         public PersonIdentifier()
         {
- 
+
         }
-        public PersonIdentifier(string cprNumber,DateTime birthdate)
+        public PersonIdentifier(string cprNumber, DateTime birthdate)
         {
             CprNumber = cprNumber;
             Birthdate = birthdate;
