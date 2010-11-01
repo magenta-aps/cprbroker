@@ -329,8 +329,8 @@ namespace CPRBroker.Engine
     /// </summary>
     public interface IPartReadDataProvider : IDataProvider
     {
-        PersonRegistration Read(Guid uuid, out QualityLevel? ql);
-        PersonRegistration[] List(Guid[] uuids, out QualityLevel? ql);
+        PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql);
+        PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql);
     }
 
     /// <summary>
@@ -338,6 +338,6 @@ namespace CPRBroker.Engine
     /// </summary>
     public interface IPartSearchDataProvider : IDataProvider
     {
-        Guid[] Search(PersonSearchCriteria searchCriteria, out QualityLevel? ql);
+        PersonIdentifier[] Search(PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql);
     }
 }

@@ -15,11 +15,11 @@ namespace CPRBroker.Providers.Local
     /// Handles implementation of data provider using the system's local database
     /// </summary>
     public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider
-    {        
+    {
 
         #region IPartSearchDataProvider Members
 
-        public Guid[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, out QualityLevel? ql)
+        public PersonIdentifier[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria,DateTime? effectDate, out QualityLevel? ql)
         {
             throw new NotImplementedException();
         }
@@ -28,12 +28,12 @@ namespace CPRBroker.Providers.Local
 
         #region IPartReadDataProvider Members
 
-        public CPRBroker.Schemas.Part.PersonRegistration Read(Guid uuid, out QualityLevel? ql)
+        public CPRBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
         {
             throw new NotImplementedException();
         }
 
-        public CPRBroker.Schemas.Part.PersonRegistration[] List(Guid[] uuids, out QualityLevel? ql)
+        public CPRBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
         {
             throw new NotImplementedException();
         }

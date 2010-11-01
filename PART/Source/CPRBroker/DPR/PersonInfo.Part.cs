@@ -133,7 +133,7 @@ namespace CPRBroker.Providers.DPR
             /**************/
             ret.Relations.Parents = Array.ConvertAll<Guid, PersonRelation>
             (
-                Engine.Local.UpdateDatabase.AssignGuids
+                DAL.Part.PersonMapping.AssignGuids
                 (
                     (
                         from pers in Child.PersonParentsExpression.Compile()(PersonTotal.PNR, dataContext)
@@ -147,7 +147,7 @@ namespace CPRBroker.Providers.DPR
                 (id) => new PersonRelation() { TargetUUID = id }
             );
 
-            ret.Relations.Children = Engine.Local.UpdateDatabase.AssignGuids<PersonTotal, Effect<PersonRelation>>
+            ret.Relations.Children = DAL.Part.PersonMapping.AssignGuids<PersonTotal, Effect<PersonRelation>>
             (
                 Child.PersonChildrenExpression.Compile()(effectTimeDecimal.Value, PersonTotal.PNR, dataContext).ToArray(),
                 (child) => new Effect<PersonRelation>()
@@ -162,10 +162,10 @@ namespace CPRBroker.Providers.DPR
                     // TODO: handle cases where birthdate is null
                     Birthdate = Utilities.DateFromDecimal(child.DateOfBirth).Value
                 },
-                (rel,id)=> rel.Value.TargetUUID = id
+                (rel, id) => rel.Value.TargetUUID = id
             );
 
-            ret.Relations.Spouses = Engine.Local.UpdateDatabase.AssignGuids<CivilStatus, Effect<PersonRelation>>
+            ret.Relations.Spouses = DAL.Part.PersonMapping.AssignGuids<CivilStatus, Effect<PersonRelation>>
             (
                 civilStates,
                 (civilStatus) => new Effect<PersonRelation>()
@@ -187,7 +187,7 @@ namespace CPRBroker.Providers.DPR
                     p.Value.TargetUUID = id;
                 }
             );
-            
+
             return ret;
         }
 

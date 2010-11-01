@@ -131,6 +131,7 @@
     <Compile Include="Util\Address.cs" />
     <Compile Include="Util\Enums.cs" />
     <Compile Include="Util\Misc.cs" />
+    <Compile Include="Util\PredicateBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OIOXSD\Application.xsd" />

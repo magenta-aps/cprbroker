@@ -19,8 +19,9 @@ namespace CPRBroker.Providers.DPR
         /// Ensures that the DPR database contains the given person
         /// </summary>
         /// <param name="cprNumber"></param>
-        private void EnsurePersonDataExists(string cprNumber)
+        protected void EnsurePersonDataExists(string cprNumber)
         {
+            // TODO: include BirthDate in the search
             decimal cprNum = Convert.ToDecimal(cprNumber);
             using (DPRDataContext dataContext = new DPRDataContext(DatabaseObject.ConnectionString))
             {
@@ -30,6 +31,7 @@ namespace CPRBroker.Providers.DPR
                 if (!exists)
                 {
                     GetPersonData(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.ExtendedData, cprNumber);
+                    // TODO: make sure that deletion is a good decision
                     GetPersonData(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.ExtendedData, cprNumber);
                 }
             }

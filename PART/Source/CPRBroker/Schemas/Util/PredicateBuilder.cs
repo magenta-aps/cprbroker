@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 
-namespace CPRBroker.Engine
+namespace CPRBroker.Schemas.Util
 {
     public static class PredicateBuilder
     {

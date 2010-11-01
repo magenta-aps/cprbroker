@@ -128,8 +128,6 @@ namespace CPRBroker.DAL.Part
 		
 		private EntitySet<PersonRegistration> _PersonRegistrations;
 		
-		private EntityRef<PesronMapping> _PesronMapping;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -141,7 +139,6 @@ namespace CPRBroker.DAL.Part
 		public Person()
 		{
 			this._PersonRegistrations = new EntitySet<PersonRegistration>(new Action<PersonRegistration>(this.attach_PersonRegistrations), new Action<PersonRegistration>(this.detach_PersonRegistrations));
-			this._PesronMapping = default(EntityRef<PesronMapping>);
 			OnCreated();
 		}
 		
@@ -175,35 +172,6 @@ namespace CPRBroker.DAL.Part
 			set
 			{
 				this._PersonRegistrations.Assign(value);
-			}
-		}
-		
-		[Association(Name="Person_PesronMapping", Storage="_PesronMapping", ThisKey="UUID", OtherKey="UUID", IsUnique=true, IsForeignKey=false)]
-		public PesronMapping PesronMapping
-		{
-			get
-			{
-				return this._PesronMapping.Entity;
-			}
-			set
-			{
-				PesronMapping previousValue = this._PesronMapping.Entity;
-				if (((previousValue != value) 
-							|| (this._PesronMapping.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PesronMapping.Entity = null;
-						previousValue.Person = null;
-					}
-					this._PesronMapping.Entity = value;
-					if ((value != null))
-					{
-						value.Person = this;
-					}
-					this.SendPropertyChanged("PesronMapping");
-				}
 			}
 		}
 		
@@ -935,9 +903,7 @@ namespace CPRBroker.DAL.Part
 		
 		private string _CprNumber;
 		
-		private System.Nullable<System.DateTime> _BirthDate;
-		
-		private EntityRef<Person> _Person;
+		private System.DateTime _BirthDate;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -947,13 +913,12 @@ namespace CPRBroker.DAL.Part
     partial void OnUUIDChanged();
     partial void OnCprNumberChanging(string value);
     partial void OnCprNumberChanged();
-    partial void OnBirthDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnBirthDateChanging(System.DateTime value);
     partial void OnBirthDateChanged();
     #endregion
 		
 		public PesronMapping()
 		{
-			this._Person = default(EntityRef<Person>);
 			OnCreated();
 		}
 		
@@ -968,10 +933,6 @@ namespace CPRBroker.DAL.Part
 			{
 				if ((this._UUID != value))
 				{
-					if (this._Person.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnUUIDChanging(value);
 					this.SendPropertyChanging();
 					this._UUID = value;
@@ -981,7 +942,7 @@ namespace CPRBroker.DAL.Part
 			}
 		}
 		
-		[Column(Storage="_CprNumber", DbType="VarChar(10)")]
+		[Column(Storage="_CprNumber", DbType="VarChar(10)", CanBeNull=false)]
 		public string CprNumber
 		{
 			get
@@ -1002,7 +963,7 @@ namespace CPRBroker.DAL.Part
 		}
 		
 		[Column(Storage="_BirthDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> BirthDate
+		public System.DateTime BirthDate
 		{
 			get
 			{
@@ -1017,40 +978,6 @@ namespace CPRBroker.DAL.Part
 					this._BirthDate = value;
 					this.SendPropertyChanged("BirthDate");
 					this.OnBirthDateChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Person_PesronMapping", Storage="_Person", ThisKey="UUID", OtherKey="UUID", IsForeignKey=true)]
-		public Person Person
-		{
-			get
-			{
-				return this._Person.Entity;
-			}
-			set
-			{
-				Person previousValue = this._Person.Entity;
-				if (((previousValue != value) 
-							|| (this._Person.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Person.Entity = null;
-						previousValue.PesronMapping = null;
-					}
-					this._Person.Entity = value;
-					if ((value != null))
-					{
-						value.PesronMapping = this;
-						this._UUID = value.UUID;
-					}
-					else
-					{
-						this._UUID = default(System.Guid);
-					}
-					this.SendPropertyChanged("Person");
 				}
 			}
 		}

@@ -6,9 +6,10 @@ using CPRBroker.Engine;
 using CPRBroker.Schemas;
 using System.Linq.Expressions;
 
+
 namespace CPRBroker.Providers.DPR
 {
-    public partial class DprDatabaseDataProvider : BaseProvider, IPartSearchDataProvider
+    public partial class DprDatabaseDataProvider : ClientDataProvider, IPartSearchDataProvider, IPartReadDataProvider
     {
         [Obsolete]
         protected override string TestResponse
@@ -21,39 +22,41 @@ namespace CPRBroker.Providers.DPR
 
         #region IPartSearchDataProvider Members
 
-        public Guid[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, out CPRBroker.Schemas.QualityLevel? ql)
+        public PersonIdentifier[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out CPRBroker.Schemas.QualityLevel? ql)
         {
-            using (DPRDataContext dataContext = new DPRDataContext(DatabaseObject.ConnectionString))
+            // TODO: Add DPR search implementation
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IPartReadDataProvider Members
+
+        public CPRBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
+        {
+            CPRBroker.Schemas.Part.PersonRegistration ret = null;
+            EnsurePersonDataExists(uuid.CprNumber);
+            using (var dataContext = new DPRDataContext(this.DatabaseObject.ConnectionString))
             {
-                DateTime? effectDate = DateTime.Today;
-                DateTime? registrationDate = DateTime.Today;
-
-                // Gets a person's civil status
-                Expression<Func<decimal, CivilStatus>> civilStatusExpression =
-                    (pnr) =>
-                        (
-                            from civilStatus in dataContext.CivilStatus
-                            where civilStatus.PNR == pnr
-                            && civilStatus.SpousePNR.HasValue
-                            && civilStatus.SpousePNR.Value > 0
-                            select civilStatus
-                        )
-                        .OrderByDescending((cs) => cs.MaritalStatusDate)
-                        .FirstOrDefault();
-
-                var personInfo = (
-                    from innerPersonInfo in PersonInfo.PersonInfoExpression.Compile()(effectDate.Value, dataContext)
-                    where 1 == 1 //innerPersonInfo.PersonName.PNR == cprNum
-                    select new
-                    {
-                        PersonInfo = innerPersonInfo,
-                        NumberOfChildren = (from child in dataContext.Childs where child.ParentPNR == innerPersonInfo.PersonName.PNR select child).Count(),
-                        CivilStatus = civilStatusExpression.Compile()(innerPersonInfo.PersonName.PNR)
-                    }
-                    ).FirstOrDefault();
+                var db =
+                (
+                    from personInfo in PersonInfo.PersonInfoExpression.Compile()(effectDate.Value, dataContext)
+                    where personInfo.PersonName.PNR == Decimal.Parse(uuid.CprNumber) && personInfo.PersonTotal.DateOfBirth == Utilities.DecimalFromDate(uuid.Birthdate)
+                    select personInfo
+                ).FirstOrDefault();
+                if (db != null)
+                {
+                    ret = db.ToPersonRegistration(effectDate, dataContext);
+                }
             }
             ql = QualityLevel.DataProvider;
-            return null;
+            return ret;
+        }
+
+        public CPRBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
+        {
+            // TODO: Add DPR List implementation after Read implementation is OK
+            throw new NotImplementedException();
         }
 
         #endregion
