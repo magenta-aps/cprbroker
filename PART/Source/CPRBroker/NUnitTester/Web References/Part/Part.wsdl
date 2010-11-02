@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows accesss to CPR data through a standard PART interface</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="Read">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="personUUID" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReadResult" type="tns:PersonRegistration" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PersonRegistration">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Registration">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Attributes" type="tns:PersonAttributes" />
+              <s:element minOccurs="0" maxOccurs="1" name="States" type="tns:PersonStates" />
+              <s:element minOccurs="0" maxOccurs="1" name="Relations" type="tns:PersonRelations" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Registration" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonAttributes">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="tns:EffectOfString" />
+          <s:element minOccurs="1" maxOccurs="1" name="Gender" type="tns:Gender" />
+          <s:element minOccurs="1" maxOccurs="1" name="BirthDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonData" type="tns:PersonData" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactChannel" type="tns:ArrayOfEffectOfContactChannel" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactAddresses" type="tns:ArrayOfEffectOfAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EffectOfString">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="Gender">
+        <s:restriction base="s:string">
+          <s:enumeration value="Male" />
+          <s:enumeration value="Female" />
+          <s:enumeration value="Unknown" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PersonData" abstract="true" />
+      <s:complexType name="ArrayOfEffectOfContactChannel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EffectOfContactChannel" nillable="true" type="tns:EffectOfContactChannel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EffectOfContactChannel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="tns:ContactChannel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ContactChannel" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LimitedUse" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEffectOfAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EffectOfAddress" nillable="true" type="tns:EffectOfAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EffectOfAddress">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="tns:Address" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Address" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddressUnknown" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonStates">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LifeStatus" type="tns:EffectOfLifeStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="CivilStatus" type="tns:EffectOfMaritalStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EffectOfLifeStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Value" type="tns:LifeStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="LifeStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="prenatal" />
+          <s:enumeration value="born" />
+          <s:enumeration value="disappeared" />
+          <s:enumeration value="dead" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="EffectOfMaritalStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Value" type="tns:MaritalStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MaritalStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="single" />
+          <s:enumeration value="married" />
+          <s:enumeration value="divorced" />
+          <s:enumeration value="widow" />
+          <s:enumeration value="registeredpartner" />
+          <s:enumeration value="repealedpartnership" />
+          <s:enumeration value="surviving" />
+          <s:enumeration value="deceased" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PersonRelations">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Parents" type="tns:ArrayOfPersonRelation" />
+          <s:element minOccurs="0" maxOccurs="1" name="Children" type="tns:ArrayOfEffectOfPersonRelation" />
+          <s:element minOccurs="0" maxOccurs="1" name="Spouses" type="tns:ArrayOfEffectOfPersonRelation" />
+          <s:element minOccurs="0" maxOccurs="1" name="SubstituteFor" type="tns:ArrayOfEffectOfPersonRelation" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReplacedBy" type="tns:EffectOfPersonRelation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPersonRelation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonRelation" nillable="true" type="tns:PersonRelation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonRelation">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Relationship" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Relationship">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TargetUUID" type="s1:guid" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEffectOfPersonRelation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EffectOfPersonRelation" nillable="true" type="tns:EffectOfPersonRelation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EffectOfPersonRelation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PersonRelation" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ApplicationHeader" type="tns:ApplicationHeader" />
+      <s:complexType name="ApplicationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserToken" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="EffectDateHeader" type="tns:EffectDateHeader" />
+      <s:complexType name="EffectDateHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EffectDate" nillable="true" type="s:dateTime" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="QualityHeader" type="tns:QualityHeader" />
+      <s:complexType name="QualityHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="QualityLevel" nillable="true" type="tns:QualityLevel" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:simpleType name="QualityLevel">
+        <s:restriction base="s:string">
+          <s:enumeration value="Cpr" />
+          <s:enumeration value="DataProvider" />
+          <s:enumeration value="LocalCache" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="RegistrationDateHeader" type="tns:RegistrationDateHeader" />
+      <s:complexType name="RegistrationDateHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" nillable="true" type="s:dateTime" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="List">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="personUUIDs" type="tns:ArrayOfGuid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGuid">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="guid" type="s1:guid" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListResult" type="tns:ArrayOfPersonRegistration" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPersonRegistration">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonRegistration" nillable="true" type="tns:PersonRegistration" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Search">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchCriteria" type="tns:PersonSearchCriteria" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PersonSearchCriteria">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Gender" nillable="true" type="tns:Gender" />
+          <s:element minOccurs="1" maxOccurs="1" name="BirthDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonData" type="tns:PersonData" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchResult" type="tns:ArrayOfGuid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ReadSoapIn">
+    <wsdl:part name="parameters" element="tns:Read" />
+  </wsdl:message>
+  <wsdl:message name="ReadSoapOut">
+    <wsdl:part name="parameters" element="tns:ReadResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReadApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReadEffectDateHeader">
+    <wsdl:part name="EffectDateHeader" element="tns:EffectDateHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReadQualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReadRegistrationDateHeader">
+    <wsdl:part name="RegistrationDateHeader" element="tns:RegistrationDateHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListSoapIn">
+    <wsdl:part name="parameters" element="tns:List" />
+  </wsdl:message>
+  <wsdl:message name="ListSoapOut">
+    <wsdl:part name="parameters" element="tns:ListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListEffectDateHeader">
+    <wsdl:part name="EffectDateHeader" element="tns:EffectDateHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListQualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListRegistrationDateHeader">
+    <wsdl:part name="RegistrationDateHeader" element="tns:RegistrationDateHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchSoapIn">
+    <wsdl:part name="parameters" element="tns:Search" />
+  </wsdl:message>
+  <wsdl:message name="SearchSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchEffectDateHeader">
+    <wsdl:part name="EffectDateHeader" element="tns:EffectDateHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchQualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchRegistrationDateHeader">
+    <wsdl:part name="RegistrationDateHeader" element="tns:RegistrationDateHeader" />
+  </wsdl:message>
+  <wsdl:portType name="PartSoap">
+    <wsdl:operation name="Read">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Find and return object (Always latest registration)
+Input : ObjectID
+Output : Object
+Parameters : EffectDate
+</wsdl:documentation>
+      <wsdl:input message="tns:ReadSoapIn" />
+      <wsdl:output message="tns:ReadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="List">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Find and return several objects that match the ID List supplied
+Input: ID List
+Output : Object List
+Parameters : RegistrationDate, EffectDate
+</wsdl:documentation>
+      <wsdl:input message="tns:ListSoapIn" />
+      <wsdl:output message="tns:ListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Search">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Find and return several objects that match the search criteria
+Input : Search Criteria
+Output : ID List
+Parameters : RegistrationDate, EffectDate
+</wsdl:documentation>
+      <wsdl:input message="tns:SearchSoapIn" />
+      <wsdl:output message="tns:SearchSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PartSoap" type="tns:PartSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Read">
+      <soap:operation soapAction="http://tempuri.org/Read" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReadApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap:header message="tns:ReadEffectDateHeader" part="EffectDateHeader" use="literal" />
+        <soap:header message="tns:ReadQualityHeader" part="QualityHeader" use="literal" />
+        <soap:header message="tns:ReadRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="List">
+      <soap:operation soapAction="http://tempuri.org/List" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap:header message="tns:ListEffectDateHeader" part="EffectDateHeader" use="literal" />
+        <soap:header message="tns:ListQualityHeader" part="QualityHeader" use="literal" />
+        <soap:header message="tns:ListRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Search">
+      <soap:operation soapAction="http://tempuri.org/Search" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SearchApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap:header message="tns:SearchEffectDateHeader" part="EffectDateHeader" use="literal" />
+        <soap:header message="tns:SearchQualityHeader" part="QualityHeader" use="literal" />
+        <soap:header message="tns:SearchRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PartSoap12" type="tns:PartSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Read">
+      <soap12:operation soapAction="http://tempuri.org/Read" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReadApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap12:header message="tns:ReadEffectDateHeader" part="EffectDateHeader" use="literal" />
+        <soap12:header message="tns:ReadQualityHeader" part="QualityHeader" use="literal" />
+        <soap12:header message="tns:ReadRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="List">
+      <soap12:operation soapAction="http://tempuri.org/List" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap12:header message="tns:ListEffectDateHeader" part="EffectDateHeader" use="literal" />
+        <soap12:header message="tns:ListQualityHeader" part="QualityHeader" use="literal" />
+        <soap12:header message="tns:ListRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Search">
+      <soap12:operation soapAction="http://tempuri.org/Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SearchApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap12:header message="tns:SearchEffectDateHeader" part="EffectDateHeader" use="literal" />
+        <soap12:header message="tns:SearchQualityHeader" part="QualityHeader" use="literal" />
+        <soap12:header message="tns:SearchRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Part">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows accesss to CPR data through a standard PART interface</wsdl:documentation>
+    <wsdl:port name="PartSoap" binding="tns:PartSoap">
+      <soap:address location="http://localhost:1551/Services/Part.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PartSoap12" binding="tns:PartSoap12">
+      <soap12:address location="http://localhost:1551/Services/Part.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
