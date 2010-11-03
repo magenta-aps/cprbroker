@@ -8,6 +8,9 @@ namespace NUnitTester
     public class PartTestData
     {
         public static Guid[] PersonUUIDs = new Guid[0];
-        public static string PersonUUIDsFieldName = "PersonUUIDs";
+        public const string PersonUUIDsFieldName = "PersonUUIDs";
+
+        public static Guid[][] PersonUUIDsArray = new Guid[][] { PersonUUIDs };
+        public const string PersonUUIDsArrayFieldName = "PersonUUIDsArray";
     }
 }

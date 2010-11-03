@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPR", "DPR\DPR.csproj", "{F98E5179-88E3-404E-83BE-54F0A3E7DBC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTester", "NUnitTester\NUnitTester.csproj", "{B1C0C2EB-55DA-45EA-B58C-EF04BC5CC281}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4964BBE5-F111-454F-86C1-766960A72396} = {4964BBE5-F111-454F-86C1-766960A72396}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}"
 EndProject

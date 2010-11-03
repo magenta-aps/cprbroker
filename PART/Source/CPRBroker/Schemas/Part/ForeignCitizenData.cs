@@ -9,6 +9,6 @@ namespace CPRBroker.Schemas.Part
     {
         public string ForeignNumber { get; set; }
         public string PermissionNumber { get; set; }
-        public string[] NationalityCountryCodes { get; set; }
+        public string NationalityCountryCode { get; set; }
     }
 }

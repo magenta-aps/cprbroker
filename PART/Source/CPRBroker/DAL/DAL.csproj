@@ -58,12 +58,22 @@
     <Compile Include="MaritalStatusType.cs" />
     <Compile Include="Gender.cs" />
     <Compile Include="Notification.cs" />
+    <Compile Include="Part\CprData.cs" />
+    <Compile Include="Part\ForeignCitizenData.cs" />
+    <Compile Include="Part\Gender.cs" />
+    <Compile Include="Part\LifeStatusType.cs" />
+    <Compile Include="Part\MaritalStatusType.cs" />
     <Compile Include="Part\PartDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PartDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Part\PersonAttribute.cs" />
     <Compile Include="Part\PersonMapping.cs" />
+    <Compile Include="Part\PersonRegistration.cs" />
+    <Compile Include="Part\PersonRelationship.cs" />
+    <Compile Include="Part\PersonState.cs" />
+    <Compile Include="Part\UnknownCitizenData.cs" />
     <Compile Include="PersonStatusType.cs" />
     <Compile Include="CPRBrokerDALDataContext.cs" />
     <Compile Include="Country.cs" />

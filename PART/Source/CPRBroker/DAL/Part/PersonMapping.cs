@@ -45,6 +45,7 @@ namespace CPRBroker.DAL.Part
                         dataContext.PesronMappings.InsertOnSubmit(personMapping);
                     }
                     ret[iPerson] = personMapping.UUID;
+                    personIdentifiers[iPerson].UUID = personMapping.UUID;
                 }
                 dataContext.SubmitChanges();
             }
@@ -93,7 +94,8 @@ namespace CPRBroker.DAL.Part
                     select new PersonIdentifier()
                     {
                         CprNumber = pm.CprNumber,
-                        Birthdate = pm.BirthDate
+                        Birthdate = pm.BirthDate,
+                        UUID = uuid
                     }
                 ).FirstOrDefault();
             }

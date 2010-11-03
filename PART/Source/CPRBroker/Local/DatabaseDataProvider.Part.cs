@@ -5,6 +5,7 @@ using System.Data.Linq;
 using System.Text;
 using CPRBroker.Engine;
 using CPRBroker.DAL;
+using CPRBroker.DAL.Part;
 using CPRBroker.Schemas;
 using CPRBroker.Schemas.Util;
 using CPRBroker.Engine.Local;
@@ -19,8 +20,9 @@ namespace CPRBroker.Providers.Local
 
         #region IPartSearchDataProvider Members
 
-        public PersonIdentifier[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria,DateTime? effectDate, out QualityLevel? ql)
+        public PersonIdentifier[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql)
         {
+            // TODO: implement local search
             throw new NotImplementedException();
         }
 
@@ -30,11 +32,25 @@ namespace CPRBroker.Providers.Local
 
         public CPRBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
         {
-            throw new NotImplementedException();
+            Schemas.Part.PersonRegistration ret = null;
+            using (var dataContext = new PartDataContext())
+            {
+                ret =
+                (
+                    from personReg in dataContext.PersonRegistrations
+                    where personReg.UUID == uuid.UUID
+                    // TODO: add effect date to where condition
+                    orderby personReg.RegistrationDate descending
+                    select personReg
+                ).FirstOrDefault().ToXmlType();
+            }
+            ql = QualityLevel.LocalCache;
+            return ret;
         }
 
         public CPRBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
         {
+            // TODO: implement local search after Read
             throw new NotImplementedException();
         }
 

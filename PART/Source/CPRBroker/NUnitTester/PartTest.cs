@@ -48,7 +48,7 @@ namespace NUnitTester
         }
 
         [Test]
-        [TestCase(PartTestData.PersonUUIDs)]
+        [TestCaseSource(typeof(PartTestData), PartTestData.PersonUUIDsArrayFieldName)]
         public void T210_List(Guid[] personUuids)
         {
             var persons = TestRunner.PartService.List(personUuids);

@@ -7,6 +7,6 @@ namespace CPRBroker.Schemas.Part
 {
     public class PersonRelation:Relationship
     {
-
+        
     }
 }
