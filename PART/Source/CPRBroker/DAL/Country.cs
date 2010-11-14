@@ -44,5 +44,29 @@ namespace CPRBroker.DAL
                 return null;
             }
         }
+
+        public static string[] GetCountryEnglishAndDanishNamesByAlpha2Code(string alpha2CodeString)
+        {
+            if (!string.IsNullOrEmpty(alpha2CodeString))
+            {
+                using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
+                {
+                    var countryNames = (from cn in dataContext.Countries
+                                        where cn.Alpha2Code == alpha2CodeString
+                                        select new string[]
+                            {
+                                cn.CountryName,
+                                cn.DanishCountryName,
+                                cn.DanishCountryName2,
+                            }).FirstOrDefault();
+                    if (countryNames != null)
+                    {
+                        countryNames = Array.FindAll<string>(countryNames, (n) => !String.IsNullOrEmpty(n));
+                        return countryNames;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

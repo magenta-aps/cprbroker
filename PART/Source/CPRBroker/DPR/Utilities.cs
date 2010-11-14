@@ -100,5 +100,20 @@ namespace CPRBroker.Providers.DPR
             }
         }
 
+        public static char? CharFromGender(Gender? gen)
+        {
+            switch (gen)
+            {
+                case Gender.Male:
+                    return 'M';
+                    break;
+                case Gender.Female:
+                    return 'K';
+                    break;
+                default:
+                    return null;
+            }
+        }
+
     }
 }

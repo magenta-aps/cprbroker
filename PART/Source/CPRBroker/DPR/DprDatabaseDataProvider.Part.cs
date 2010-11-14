@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using CPRBroker.Engine;
 using CPRBroker.Schemas;
+using CPRBroker.Schemas.Part;
+using CPRBroker.Schemas.Util;
 using System.Linq.Expressions;
 
 
@@ -24,8 +26,53 @@ namespace CPRBroker.Providers.DPR
 
         public PersonIdentifier[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out CPRBroker.Schemas.QualityLevel? ql)
         {
-            // TODO: Add DPR search implementation
-            throw new NotImplementedException();
+            using (var dataContext = new DPRDataContext(this.DatabaseObject.ConnectionString))
+            {
+                var expr = from pi in PersonInfo.PersonInfoExpression.Compile()(effectDate.Value, dataContext)
+                           select new PersonIdentifier()
+                           {
+                               CprNumber = pi.PersonTotal.PNR.ToString("D2"),
+                               Birthdate = Utilities.DateFromDecimal(pi.PersonTotal.DateOfBirth).Value
+                           };
+
+                var pred = PredicateBuilder.False<PersonInfo>();
+                if (searchCriteria.BirthDate.HasValue)
+                {
+                    pred.And((pt) => pt.PersonTotal.DateOfBirth == Utilities.DecimalFromDate(searchCriteria.BirthDate.Value));
+                }
+                if (!string.IsNullOrEmpty(searchCriteria.CprNumber))
+                {
+                    this.EnsurePersonDataExists(searchCriteria.CprNumber);
+                    pred.And((pt) => pt.PersonTotal.PNR == Decimal.Parse(searchCriteria.CprNumber));
+                }
+                if (searchCriteria.Gender.HasValue)
+                {
+                    pred.And((pt) => pt.PersonTotal.Sex == Utilities.CharFromGender(searchCriteria.Gender));
+                }
+                if (!searchCriteria.Name.IsEmpty)
+                {
+                    if (!string.IsNullOrEmpty(searchCriteria.Name.PersonGivenName))
+                    {
+                        pred.And((pt) => pt.PersonName.FirstName == searchCriteria.Name.PersonGivenName);
+                    }
+
+                    //TODO: ensure that middle name is included with last name in the database (rather than with first name)
+                    if (!string.IsNullOrEmpty(searchCriteria.Name.ToMiddleAndLastNameString()))
+                    {
+                        pred.And((pt) => pt.PersonName.LastName == searchCriteria.Name.ToMiddleAndLastNameString());
+                    }
+
+                };
+                if (!string.IsNullOrEmpty(searchCriteria.NationalityCountryCode))
+                {
+                    pred.And((pt) => CPRBroker.DAL.Country.GetCountryEnglishAndDanishNamesByAlpha2Code(searchCriteria.NationalityCountryCode).Contains(pt.PersonTotal.Nationality));
+                }
+
+                var ids = expr.ToArray();
+                CPRBroker.DAL.Part.PersonMapping.AssignGuids(ids);
+                ql = QualityLevel.DataProvider;
+                return ids;
+            }
         }
 
         #endregion

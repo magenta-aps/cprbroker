@@ -89,5 +89,18 @@ namespace CPRBroker.Schemas
             return string.Join(" ", arr);
         }
 
+        public string ToMiddleAndLastNameString()
+        {
+            string[] arr = new string[] { PersonMiddleName, PersonSurnameName };
+            arr = arr
+            .AsQueryable()
+            .Where(
+                (s) =>
+                    !string.IsNullOrEmpty(s)
+                )
+            .ToArray();
+            return string.Join(" ", arr);
+        }
+
     }
 }

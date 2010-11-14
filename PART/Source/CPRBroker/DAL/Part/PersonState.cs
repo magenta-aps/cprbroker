@@ -11,7 +11,7 @@ namespace CPRBroker.DAL.Part
         {
             return new Schemas.Part.PersonStates()
                 {
-                    CivilStatus = new Schemas.Part. Effect<CPRBroker.Schemas.Part.Enums.MaritalStatus>()
+                    CivilStatus = new Schemas.Part.Effect<CPRBroker.Schemas.Part.Enums.MaritalStatus>()
                     {
                         StartDate = this.MaritalStatusStartDate,
                         EndDate = this.MaritalStatusEndDate,
@@ -25,7 +25,7 @@ namespace CPRBroker.DAL.Part
                         // TODO: Handle null values for life status
                         Value = LifeStatusType.GetPartLifeStatus(this.LifeStatusTypeId.Value)
                     }
-                }
+                };
         }
     }
 }
