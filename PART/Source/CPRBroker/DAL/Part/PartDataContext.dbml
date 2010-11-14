@@ -28,6 +28,7 @@
   <Table Name="dbo.PersonAttributes" Member="PersonAttributes">
     <Type Name="PersonAttribute">
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="true" />
       <Column Name="GenderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="PersonAttribute_ForeignCitizenData" Member="ForeignCitizenData" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="ForeignCitizenData" Cardinality="One" />
@@ -75,6 +76,7 @@
       <Column Name="CprNumber" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
       <Column Name="IndividualTrackStatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="NationalityCountryAlpha2Code" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Association Name="CprData_Address" Member="Address" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="Address" Cardinality="One" />
       <Association Name="PersonAttribute_CprData" Member="PersonAttribute" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttribute" IsForeignKey="true" />
     </Type>
   </Table>
@@ -108,6 +110,42 @@
       <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="PersonRegistration_PersonRelationship" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
       <Association Name="RelationshipType_PersonRelationship" Member="RelationshipType" ThisKey="RelationshipTypeId" OtherKey="RelationshipTypeId" Type="RelationshipType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Address" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AddressStatusId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountryAlpha2Code" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="MunicipalityCode" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="StreetCode" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="StreetName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StreetNameForAddressing" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="StreetBuildingIdentifier" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="FloorIdentifier" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="SuiteIdentifier" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+      <Column Name="MailDeliverSubLocationIdentifier" Type="System.String" DbType="NVarChar(34)" CanBeNull="true" />
+      <Column Name="DistrictSubDivisionIdentifier" Type="System.String" DbType="NVarChar(34)" CanBeNull="true" />
+      <Column Name="PostBoxIdentifier" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+      <Column Name="PostCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PostDistrictName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CareOfName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Line1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Line2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Line3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Line4" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Line5" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Line6" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LocationDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="CprData_Address" Member="CprData" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="CprData" IsForeignKey="true" />
+      <Association Name="Municipality_Address" Member="Municipality" ThisKey="MunicipalityCode" OtherKey="MunicipalityCode" Type="Municipality" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Municipality" Member="Municipalities">
+    <Type Name="Municipality">
+      <Column Name="MunicipalityCode" Type="System.String" DbType="VarChar(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MunicipalityName" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Association Name="Municipality_Address" Member="Addresses" ThisKey="MunicipalityCode" OtherKey="MunicipalityCode" Type="Address" />
     </Type>
   </Table>
 </Database>

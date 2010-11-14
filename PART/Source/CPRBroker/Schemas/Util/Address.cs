@@ -154,49 +154,7 @@ namespace CPRBroker.Schemas.Util
                 danishAddress.CompletePostalLabel.PostalAddressFourthLineText = GetFieldValue(AddressField.Line4);
                 danishAddress.CompletePostalLabel.PostalAddressFifthLineText = GetFieldValue(AddressField.Line5);
                 danishAddress.CompletePostalLabel.PostalAddressSixthLineText = GetFieldValue(AddressField.Line6);
-                /*
-                int index = 0;
-                danishAddress.CompletePostalLabel.PostalAddressFirstLineText = Misc.FirstNonEmptyString(
-                    ref index,
-                    danishAddress.CompletePostalLabel.PostalAddressFirstLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressSecondLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressThirdLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressFourthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressFifthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressSixthLineText
-                    );
-                danishAddress.CompletePostalLabel.PostalAddressSecondLineText = Misc.FirstNonEmptyString(
-                    ref index,
-                    danishAddress.CompletePostalLabel.PostalAddressSecondLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressThirdLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressFourthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressFifthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressSixthLineText
-                    );
-                danishAddress.CompletePostalLabel.PostalAddressThirdLineText = Misc.FirstNonEmptyString(
-                    ref index,
-                    danishAddress.CompletePostalLabel.PostalAddressThirdLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressFourthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressFifthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressSixthLineText
-                    );
-                danishAddress.CompletePostalLabel.PostalAddressFourthLineText = Misc.FirstNonEmptyString(
-                    ref index,
-                    danishAddress.CompletePostalLabel.PostalAddressFourthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressFifthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressSixthLineText)
-                    ;
-                danishAddress.CompletePostalLabel.PostalAddressFifthLineText = Misc.FirstNonEmptyString(
-                    ref index,
-                    danishAddress.CompletePostalLabel.PostalAddressFifthLineText,
-                    danishAddress.CompletePostalLabel.PostalAddressSixthLineText
-                    );
-                danishAddress.CompletePostalLabel.PostalAddressSixthLineText = Misc.FirstNonEmptyString(
-                    ref index,
-                    danishAddress.CompletePostalLabel.PostalAddressSixthLineText
-                    );
-                */
-
+              
                 // Item
                 var countNonEmpty = (from field in this
                                      where field.Key != AddressField.CareOfName && !string.IsNullOrEmpty(field.Value)
@@ -476,6 +434,7 @@ namespace CPRBroker.Schemas.Util
                 }
                 /*else
                 {
+                 * // Cancelled to avoid potential errors
                     // Try to see if it can be obtained from the parent
                     var parent = (from ac in AddressCompositions
                                   where this.ContainsKey(ac.Parent)

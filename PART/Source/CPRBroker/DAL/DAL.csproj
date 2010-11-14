@@ -58,6 +58,7 @@
     <Compile Include="MaritalStatusType.cs" />
     <Compile Include="Gender.cs" />
     <Compile Include="Notification.cs" />
+    <Compile Include="Part\Address.cs" />
     <Compile Include="Part\CprData.cs" />
     <Compile Include="Part\ForeignCitizenData.cs" />
     <Compile Include="Part\Gender.cs" />

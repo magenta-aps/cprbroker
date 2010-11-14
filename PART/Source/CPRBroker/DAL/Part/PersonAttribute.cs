@@ -13,8 +13,8 @@ namespace CPRBroker.DAL.Part
             var ret = new PersonAttributes()
                 {
                     BirthDate = this.BirthDate,
-                    ContactAddresses = new Effect<CPRBroker.Schemas.Part.Address>[0],
-                    ContactChannel = new Effect<ContactChannel>[0],
+                    OtherAddresses = new CPRBroker.Schemas.Part.Address[0],
+                    ContactChannel = new ContactChannel[0],
                     Gender = DAL.Part.Gender.GetPartGender(this.GenderId),
                     Name = new Effect<string>()
                     {

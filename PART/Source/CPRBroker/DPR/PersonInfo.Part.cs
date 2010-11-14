@@ -35,9 +35,8 @@ namespace CPRBroker.Providers.DPR
                 Attributes = new PersonAttributes()
                 {
                     BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,
-                    // TODO: Check the meanig of ContactAddress; is the same as Address?
-                    ContactAddresses = new Effect<Address>[0],
-                    ContactChannel = new Effect<ContactChannel>[0],
+                    OtherAddresses = new Address[0],
+                    ContactChannel = new ContactChannel[0],
                     Gender = Utilities.GenderFromChar(PersonTotal.Sex),
                     Name = new Effect<string>()
                     {
