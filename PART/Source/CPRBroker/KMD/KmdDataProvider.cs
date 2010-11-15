@@ -16,7 +16,9 @@ namespace CPRBroker.Providers.KMD
             AN08002,
             AN08010,
             AS78206,
-            AS78207
+            AS78207,
+            AN08300,
+            AN08100,
         }
         #region PrivateMethods
         /// <summary>

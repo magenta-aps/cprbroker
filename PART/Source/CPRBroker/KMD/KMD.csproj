@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KmdDataProvider.AN08100.cs" />
+    <Compile Include="KmdDataProvider.AN08300.cs" />
     <Compile Include="KmdDataProvider.Part.cs" />
     <Compile Include="KmdDataProvider.AS78207.cs" />
     <Compile Include="KmdDataProvider.AN08010.cs" />
@@ -64,6 +66,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WS_AN08100\an08100.cs">
+      <DependentUpon>an08100.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WS_AN08300\an08300.cs">
+      <DependentUpon>an08300.xsd</DependentUpon>
     </Compile>
     <Compile Include="Web References\WS_AS78206\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -164,6 +172,8 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\WS_AN08100\an08100.xsd" />
+    <None Include="Web References\WS_AN08300\an08300.xsd" />
     <None Include="Web References\WS_AS78206\AS78206.wsdl" />
     <None Include="Web References\WS_AS78206\AS78206Response1.datasource">
       <DependentUpon>Reference.map</DependentUpon>

@@ -47,15 +47,41 @@ namespace CPRBroker.Providers.KMD
 
                         IndividualTrackStatus = false,
                         NameAndAddressProtection = protectAddress,
-                        NationalityCountryCode =DAL.Country.GetCountryAlpha2CodeByKmdCode( resp.NationalityCode),
+                        NationalityCountryCode = DAL.Country.GetCountryAlpha2CodeByKmdCode(resp.NationalityCode),
                         NickName = null,
-                        PersonName = new Effect<PersonNameStructureType>() 
+                        PersonName = new Effect<PersonNameStructureType>()
                         {
                             StartDate = ToDateTime(resp.NameDate),
                             EndDate = null,
                             Value = new PersonNameStructureType(resp.FirstName, resp.LastName)
                         },
                         PopulationAddress = resp.ToPartAddress(),
+                    }
+                },
+                RegistrationDate = null,
+                //TODO: fill relations for KMD read
+                Relations = new PersonRelations()
+                {
+                    Children = new Effect<PersonRelation>[0],
+                    Parents = new PersonRelation[0],
+                    ReplacedBy = null,
+                    Spouses = new Effect<PersonRelation>[0],
+                    SubstituteFor = null,
+                },
+                //TODO: Fill states for KMD read
+                States = new PersonStates()
+                {
+                    CivilStatus = new Effect<CPRBroker.Schemas.Part.Enums.MaritalStatus>()
+                    {
+                        StartDate = null,
+                        EndDate = null,
+                        //Value = null
+                    },
+                    LifeStatus = new Effect<CPRBroker.Schemas.Part.Enums.LifeStatus>()
+                    {
+                        StartDate = null,
+                        EndDate = null,
+                        //Value = null
                     }
                 }
             };
@@ -64,7 +90,7 @@ namespace CPRBroker.Providers.KMD
             return null;
         }
 
-        
+
         public CPRBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
         {
             // TODO: implement List operation on KMD after Read is completed
@@ -77,7 +103,53 @@ namespace CPRBroker.Providers.KMD
 
         public PersonIdentifier[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql)
         {
-            throw new NotImplementedException();
+            ql = QualityLevel.Cpr;
+            PersonIdentifier[] ret = new PersonIdentifier[0];
+
+            if (searchCriteria.BirthDate.HasValue)
+            {
+                var birthdateResp = CallAN08100(searchCriteria.BirthDate.Value, searchCriteria.Gender);
+                var ids = Array.ConvertAll<WS_AN08100.ReplyPeople, PersonIdentifier>(birthdateResp.OutputArrayRecord, (p) => new PersonIdentifier() { CprNumber = p.PNR, Birthdate = searchCriteria.BirthDate.Value });
+                if (!MergeSearchResult(ids, ref ret))
+                {
+                    return ret;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(searchCriteria.CprNumber))
+            {
+                var cprNumberResp = CallAS78207(searchCriteria.CprNumber);
+                var ids = new PersonIdentifier[] { new PersonIdentifier() { CprNumber = searchCriteria.CprNumber, Birthdate = ToDateTime(cprNumberResp.OutputRecord.DFOEDS) } };
+                if (!MergeSearchResult(ids, ref ret))
+                {
+                    return ret;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(searchCriteria.NationalityCountryCode))
+            {
+                // TODO: Search by nationality
+            }
+
+            if (!searchCriteria.Name.IsEmpty || searchCriteria.Gender.HasValue)
+            {
+                // TODO: Call AN08300
+                var nameResp = this.CallAN08300(searchCriteria.Name, searchCriteria.Gender);
+                //TODO: fill PersonIdentifier birthdate
+                var ids = Array.ConvertAll<WS_AN08300.ReplyPeople, PersonIdentifier>(nameResp, (p) => new PersonIdentifier() { CprNumber = p.PNR });
+                if (!MergeSearchResult(ids, ref ret))
+                {
+                    return ret;
+                }
+            }
+            //TODO: Is it better to assign ids for each individual result? pros: ID assigment for more persons; cons: uuid explosion if many brokers are there
+            CPRBroker.DAL.Part.PersonMapping.AssignGuids(ret);
+            return ret;
+        }
+
+        private bool MergeSearchResult(PersonIdentifier[] ids, ref PersonIdentifier[] finalResult)
+        {
+            return true;
         }
 
         #endregion
@@ -92,6 +164,21 @@ namespace CPRBroker.Providers.KMD
             else
             {
                 return Schemas.Part.Enums.Gender.Male;
+            }
+        }
+        private char FromPartGender(Schemas.Part.Enums.Gender? gender)
+        {
+            switch (gender)
+            {
+                case Schemas.Part.Enums.Gender.Male:
+                    return 'M';
+                    break;
+                case Schemas.Part.Enums.Gender.Female:
+                    return 'K';
+                    break;
+                default:
+                    return '*';
+                    break;
             }
         }
 
