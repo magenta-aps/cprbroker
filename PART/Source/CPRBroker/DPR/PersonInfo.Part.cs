@@ -65,11 +65,8 @@ namespace CPRBroker.Providers.DPR
                         NationalityCountryCode = DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality),
                         //TODO: find if applicable
                         NickName = null,
-                        // TODO correct the composition of the address
-                        PopulationAddress = new AddressDenmark()
-                        {
-                            AddressComplete = PersonTotal.ToOioAddress(civilRegistrationStatus, Street, ContactAddress) as DanishAddressStructureType
-                        },
+                        // TODO: Ensure that ContactAddress is the right object to pass
+                        PopulationAddress = PersonTotal.ToPartAddress(civilRegistrationStatus, Street, ContactAddress),
                     },
                 },
                 //TODO: Fix calculation of registration date

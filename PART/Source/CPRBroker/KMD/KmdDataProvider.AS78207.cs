@@ -588,9 +588,8 @@ namespace CPRBroker.Providers.KMD
             /// Converts the address to an OIO address by using Schemas.Util.Address class
             /// </summary>
             /// <param name="personCivilRegistrationStatusCodeType"></param>
-            /// <returns></returns>
-            [Obsolete]
-            public object ToAddressComplete(PersonCivilRegistrationStatusCodeType personCivilRegistrationStatusCodeType)
+            /// <returns></returns>            
+            public Schemas.Part.Address ToPartAddress()
             {
                 Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
                 var a = this.InnerResponse.OutputRecord;
@@ -621,7 +620,9 @@ namespace CPRBroker.Providers.KMD
                 //address[CPRBroker.Schemas.Util.AddressField.StreetName] = "";
                 //address[CPRBroker.Schemas.Util.AddressField.StreetNameForAddressing] = "";
 
-                return address.ToOioAddress(personCivilRegistrationStatusCodeType);
+                // TODO: validate this Civil Registration Status Code
+                var personCivilRegistrationStatusCodeType = Schemas.Util.Enums.ToCivilRegistrationStatus(this.StatusCpr);
+                return address.ToPartAddress(personCivilRegistrationStatusCodeType);
             }
             #endregion
         }

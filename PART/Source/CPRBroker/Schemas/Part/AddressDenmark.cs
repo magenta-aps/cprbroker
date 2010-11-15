@@ -7,7 +7,7 @@ namespace CPRBroker.Schemas.Part
 {
     public class AddressDenmark : Address
     {
-        public DanishAddressStructureType AddressComplete { get; set; }
+        public AddressCompleteType AddressComplete { get; set; }
         public AddressPointType AddressPoint { get; set; }
         public string SpecialStreetCode { get; set; }
     }

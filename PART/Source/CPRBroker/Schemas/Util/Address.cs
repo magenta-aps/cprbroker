@@ -134,9 +134,9 @@ namespace CPRBroker.Schemas.Util
         /// 
         /// </summary>
         /// <returns>Either a DanishAddressStructure or a ForeignAddressStructure</returns>
-        public object ToOioAddress(PersonCivilRegistrationStatusCodeType civilRegistrationStatus)
+        public DanishAddressStructureType ToOioAddress(PersonCivilRegistrationStatusCodeType civilRegistrationStatus)
         {
-            object returnAddress;
+            DanishAddressStructureType returnAddress;
             /* First level differentiation
              * Danish vs foreign address
              */
@@ -249,6 +249,57 @@ namespace CPRBroker.Schemas.Util
 
 
             return returnAddress;
+        }
+
+        public Part.Address ToPartAddress(PersonCivilRegistrationStatusCodeType civilRegistrationStatus)
+        {            
+            var addr = ToOioAddress(civilRegistrationStatus);
+            if (addr.Item is AddressCompleteType)
+            {
+                return new Part.AddressDenmark()
+                {
+                    AddressComplete = addr.Item as AddressCompleteType,
+                    AddressPoint = null,
+                    AddressUnknown = false,
+                    Note = "",
+                    SpecialStreetCode = ""
+                };
+            }
+            else if (addr.Item is AddressCompleteGreenlandType)
+            {
+                return new Part.AddressGreenland()
+                {
+                    AddressUnknown = false,
+                    GreenlandicAddress = addr.Item as AddressCompleteGreenlandType,
+                    Note = "",
+                    SpecialStreetCode = ""
+                };
+            }
+            else if (addr.Item is AddressNotCompleteType)
+            {
+                if (DenmarkAddressStates.Contains(civilRegistrationStatus))
+                {
+                    return new Part.AddressDenmark()
+                    {
+                        AddressUnknown = true,
+                        SpecialStreetCode = "",
+                        AddressComplete = null,
+                        AddressPoint = null,
+                        Note = ""
+                    };
+                }
+                else
+                {
+                    return new Part.AddressGreenland()
+                    {
+                        AddressUnknown = true,
+                        GreenlandicAddress = null,
+                        Note = "",
+                        SpecialStreetCode = ""
+                    };
+                }
+            }
+            return null;
         }
 
         /// <summary>

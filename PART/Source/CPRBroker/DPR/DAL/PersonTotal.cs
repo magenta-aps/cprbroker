@@ -22,7 +22,7 @@ namespace CPRBroker.Providers.DPR
             }
         }
 
-        internal object ToOioAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)
+        private Schemas.Util.Address ToInternalAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)
         {
             Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
             if (MunicipalityCode != 0)
@@ -57,8 +57,17 @@ namespace CPRBroker.Providers.DPR
                 address[CPRBroker.Schemas.Util.AddressField.Line5] = contactAddress.Line5;
             }
             address[CPRBroker.Schemas.Util.AddressField.PostDistrictName] = PostDistrictName;
+            return address;
+        }
 
-            return address.ToOioAddress(civilStatus);
+        internal object ToOioAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)
+        {
+            return this.ToInternalAddress(civilStatus,street,contactAddress).ToOioAddress(civilStatus);
+        }
+
+        internal Schemas.Part.Address ToPartAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)        
+        {
+            return this.ToInternalAddress(civilStatus, street, contactAddress).ToPartAddress(civilStatus);
         }
 
         public MaritalStatus PartMaritalStatus
