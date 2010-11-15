@@ -45,42 +45,7 @@ namespace CPRBroker.Providers.KMD
     {
         public partial class AS78207Response
         {
-            /// <summary>
-            /// Converts the address to an OIO address by using Schemas.Util.Address class
-            /// </summary>
-            /// <param name="personCivilRegistrationStatusCodeType"></param>
-            /// <returns></returns>
-            public object ToAddressComplete(PersonCivilRegistrationStatusCodeType personCivilRegistrationStatusCodeType)
-            {
-                Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
-                var a = this.outputRecordField;
-                address[CPRBroker.Schemas.Util.AddressField.Building] = outputRecordField.EBYG;
-                address[CPRBroker.Schemas.Util.AddressField.CareOfName] = a.ACONVN;
-                //address[CPRBroker.Schemas.Util.AddressField.CountryCode] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.CountryName] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.DistrictSubDivisionIdentifier] = "";
-                address[CPRBroker.Schemas.Util.AddressField.Door] = a.ASIDOER;
-                address[CPRBroker.Schemas.Util.AddressField.Floor] = a.AETAGE;
-                address[CPRBroker.Schemas.Util.AddressField.HouseNumber] = a.AHUSNR;
-                //address[CPRBroker.Schemas.Util.AddressField.Line1] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line2] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line3] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line4] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line5] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line6] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.LocationDescription] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.MailDeliverSubLocationIdentifier] = "";
-                address[CPRBroker.Schemas.Util.AddressField.MunicipalityCode] = a.EKOM;
-                //address[CPRBroker.Schemas.Util.AddressField.MunicipalityName] = "";
-                address[CPRBroker.Schemas.Util.AddressField.PostBox] = "";
-                address[CPRBroker.Schemas.Util.AddressField.PostCode] = a.CSTIL;
-                //address[CPRBroker.Schemas.Util.AddressField.PostDistrict] = "";
-                address[CPRBroker.Schemas.Util.AddressField.StreetCode] = a.CVEJ;
-                //address[CPRBroker.Schemas.Util.AddressField.StreetName] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.StreetNameForAddressing] = "";
 
-                return address.ToOioAddress(personCivilRegistrationStatusCodeType);
-            }
 
             public SimpleCPRPersonType ToSimpleCprPerson()
             {
@@ -104,6 +69,7 @@ namespace CPRBroker.Providers.KMD
                 InnerResponse = innerResponse;
             }
 
+            #region Properties
             public string ReturnCode
             {
                 get
@@ -615,6 +581,49 @@ namespace CPRBroker.Providers.KMD
                     return this.InnerResponse.OutputRecord.EPNRGAEL;
                 }
             }
+            #endregion
+
+            #region Converters
+            /// <summary>
+            /// Converts the address to an OIO address by using Schemas.Util.Address class
+            /// </summary>
+            /// <param name="personCivilRegistrationStatusCodeType"></param>
+            /// <returns></returns>
+            [Obsolete]
+            public object ToAddressComplete(PersonCivilRegistrationStatusCodeType personCivilRegistrationStatusCodeType)
+            {
+                Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
+                var a = this.InnerResponse.OutputRecord;
+                address[CPRBroker.Schemas.Util.AddressField.Building] = this.BuildingNumber;
+                address[CPRBroker.Schemas.Util.AddressField.CareOfName] = this.CareOfName;
+                //address[CPRBroker.Schemas.Util.AddressField.CountryCode] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.CountryName] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.DistrictSubDivisionIdentifier] = "";
+                address[CPRBroker.Schemas.Util.AddressField.Door] = this.DoorNumber;
+                address[CPRBroker.Schemas.Util.AddressField.Floor] = this.Floor;
+                address[CPRBroker.Schemas.Util.AddressField.HouseNumber] = this.HouseNumber;
+                //TODO: Add house letter to Address fields
+
+                //address[CPRBroker.Schemas.Util.AddressField.Line1] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.Line2] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.Line3] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.Line4] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.Line5] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.Line6] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.LocationDescription] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.MailDeliverSubLocationIdentifier] = "";
+                address[CPRBroker.Schemas.Util.AddressField.MunicipalityCode] = this.MunicipalityCode;
+                //address[CPRBroker.Schemas.Util.AddressField.MunicipalityName] = "";
+                address[CPRBroker.Schemas.Util.AddressField.PostBox] = "";
+                address[CPRBroker.Schemas.Util.AddressField.PostCode] = this.PostCode;
+                //address[CPRBroker.Schemas.Util.AddressField.PostDistrict] = "";
+                address[CPRBroker.Schemas.Util.AddressField.StreetCode] = this.StreetCode;
+                //address[CPRBroker.Schemas.Util.AddressField.StreetName] = "";
+                //address[CPRBroker.Schemas.Util.AddressField.StreetNameForAddressing] = "";
+
+                return address.ToOioAddress(personCivilRegistrationStatusCodeType);
+            }
+            #endregion
         }
     }
 }
