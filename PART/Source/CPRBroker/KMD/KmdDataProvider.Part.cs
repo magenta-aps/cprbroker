@@ -20,6 +20,9 @@ namespace CPRBroker.Providers.KMD
             PersonRegistration ret = null;
             var resp = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
             var addressResp = CallAN08002(uuid.CprNumber);
+            var relationsResponse = CallAN08010(uuid.CprNumber);
+
+
             bool protectAddress = resp.AddressProtection.Equals("B") || resp.AddressProtection.Equals("L");
 
             ret = new PersonRegistration()
@@ -68,23 +71,33 @@ namespace CPRBroker.Providers.KMD
                     Spouses = new Effect<PersonRelation>[0],
                     SubstituteFor = null,
                 },
-                //TODO: Fill states for KMD read
                 States = new PersonStates()
                 {
                     CivilStatus = new Effect<CPRBroker.Schemas.Part.Enums.MaritalStatus>()
                     {
-                        StartDate = null,
+                        StartDate = ToDateTime(resp.MaritalStatusDate),
                         EndDate = null,
-                        //Value = null
+                        Value = Schemas.Util.Enums.ToPartMaritalStatus(resp.MaritallStatusCode[0]),
                     },
                     LifeStatus = new Effect<CPRBroker.Schemas.Part.Enums.LifeStatus>()
                     {
-                        StartDate = null,
+                        //TODO: Status date may not be the correct field (for example, the status may have changed from 01 to  07 at the date, but the life status is still alive)
+                        StartDate = ToDateTime(resp.StatusDate),
                         EndDate = null,
-                        //Value = null
-                    }
+                        Value = Schemas.Util.Enums.ToLifeStatus(this.GetCivilRegistrationStatus(resp.StatusKmd, resp.StatusCpr))
+                    },
                 }
             };
+
+
+            if (relationsResponse.OutputArrayRecord != null)
+            {
+                var relationIdentifiers = (from rel in relationsResponse.OutputArrayRecord select new PersonIdentifier() { CprNumber = rel.PNR }).ToArray();
+                DAL.Part.PersonMapping.AssignGuids(relationIdentifiers);
+                ret.Relations.Children = GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Baby, RelationTypes.ChildOver18);
+                ret.Relations.Parents = Array.ConvertAll<Effect<PersonRelation>, PersonRelation>(GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Parents), (rel) => rel.Value);
+                ret.Relations.Spouses = GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Spouse, RelationTypes.Partner);
+            }
 
             ql = QualityLevel.Cpr;
             return null;
@@ -133,7 +146,6 @@ namespace CPRBroker.Providers.KMD
 
             if (!searchCriteria.Name.IsEmpty || searchCriteria.Gender.HasValue)
             {
-                // TODO: Call AN08300
                 var nameResp = this.CallAN08300(searchCriteria.Name, searchCriteria.Gender);
                 //TODO: fill PersonIdentifier birthdate
                 var ids = Array.ConvertAll<WS_AN08300.ReplyPeople, PersonIdentifier>(nameResp, (p) => new PersonIdentifier() { CprNumber = p.PNR });
@@ -142,17 +154,19 @@ namespace CPRBroker.Providers.KMD
                     return ret;
                 }
             }
-            //TODO: Is it better to assign ids for each individual result? pros: ID assigment for more persons; cons: uuid explosion if many brokers are there
             CPRBroker.DAL.Part.PersonMapping.AssignGuids(ret);
             return ret;
         }
 
+        #endregion
+
+        #region Utility methods
+
+        //TODO: Convert to anonymous method withn Search method
         private bool MergeSearchResult(PersonIdentifier[] ids, ref PersonIdentifier[] finalResult)
         {
             return true;
         }
-
-        #endregion
 
         private Schemas.Part.Enums.Gender ToPartGender(string cprNumber)
         {
@@ -181,6 +195,50 @@ namespace CPRBroker.Providers.KMD
                     break;
             }
         }
+
+        private Effect<Schemas.Part.PersonRelation>[] GetPersonRelations(WS_AN08010.ReplyPerson[] persons, PersonIdentifier[] personIdentifiers, params string[] typeFilters)
+        {
+            if (persons == null)
+            {
+                persons = new WS_AN08010.ReplyPerson[0];
+            }
+
+            List<Effect<Schemas.Part.PersonRelation>> ret = new List<Effect<Schemas.Part.PersonRelation>>();
+
+            for (int i = 0; i < persons.Length; i++)
+            {
+                var person = persons[i];
+                if (Array.IndexOf<string>(typeFilters, person.Type) != -1 && person.IsUnknown == false)
+                {
+                    ret.Add(new Effect<Schemas.Part.PersonRelation>()
+                    {
+                        StartDate = null,
+                        EndDate = null,
+                        Value = new CPRBroker.Schemas.Part.PersonRelation()
+                        {
+                            TargetUUID = personIdentifiers[i].UUID.Value,
+                        }
+                    });
+                }
+            }
+            return ret.ToArray();
+        }
+
+        private decimal GetCivilRegistrationStatus(string kmdStatus, string cprStatus)
+        {
+            int iKmd = int.Parse(kmdStatus);
+            int iCpr = int.Parse(cprStatus);
+            if (iKmd == 1)// >10
+            {
+                return iCpr * 10;
+            }
+            else
+            {
+                // TODO: differentiate betwee 01, 03, 05 & 07 because cprStatus is always 0 here
+                return 1;
+            }
+        }
+        #endregion
 
     }
 }

@@ -27,7 +27,7 @@ namespace CPRBroker.Providers.KMD
         /// </summary>
         /// <param name="cprNumber"></param>
         /// <returns></returns>
-        private AN08010Response CallAN08010(string cprNumber)
+        private EnglishAN08010Response CallAN08010(string cprNumber)
         {
             WS_AN08010.WS_AN08010 service = new CPRBroker.Providers.KMD.WS_AN08010.WS_AN08010();
             SetServiceUrl(service, ServiceTypes.AN08010);
@@ -42,32 +42,110 @@ namespace CPRBroker.Providers.KMD
             };
             AN08010Response response = service.SubmitAN08010(param);
             ValidateReturnCode(response.OutputRecord.returkode, response.OutputRecord.returtekst);
-            return response;
+            return new EnglishAN08010Response(response);
         }
     }
+
     namespace WS_AN08010
     {
-        /// <summary>
-        /// Extends the class by adding ToSimpleCprPerson() method
-        /// </summary>
-        public partial class SVARPERSONER
+        public class EnglishAN08010Response
         {
+            public ReplyPerson[] OutputArrayRecord { get; private set; }
+            public SVAR OutputRecord { get; private set; }
+
+            public EnglishAN08010Response(AN08010Response innerResponse)
+            {
+                OutputRecord = innerResponse.OutputRecord;
+                OutputArrayRecord = Array.ConvertAll<SVARPERSONER, ReplyPerson>(innerResponse.OutputArrayRecord, (p) => new ReplyPerson(p));
+            }
+        }
+
+        public class ReplyPerson
+        {
+            private SVARPERSONER InnerObject;
+
+            public ReplyPerson(SVARPERSONER innerObject)
+            {
+                InnerObject = innerObject;
+            }
+
+            #region Extra properties
             public SimpleCPRPersonType ToSimpleCprPerson()
             {
                 return new SimpleCPRPersonType()
                 {
-                    PersonCivilRegistrationIdentifier = this.personnummer.Replace("-", ""),
-                    PersonNameStructure = new PersonNameStructureType(this.navn)
+                    PersonCivilRegistrationIdentifier = this.PNR.Replace("-", ""),
+                    PersonNameStructure = new PersonNameStructureType(this.Name)
                 };
             }
+
             public bool IsUnknown
             {
-                get 
+                get
                 {
-                    string personNumber = this.personnummer.Replace("-", "");
+                    string personNumber = this.PNR.Replace("-", "");
                     return string.IsNullOrEmpty(personNumber);
                 }
             }
+            #endregion
+
+            #region Wrapper properties
+            public string Type
+            {
+                get
+                {
+                    return InnerObject.type_;
+                }
+            }
+
+            public string PNR
+            {
+                get
+                {
+                    return InnerObject.personnummer;
+                }
+            }
+
+            public string MaritalStatus
+            {
+                get
+                {
+                    return InnerObject.civilstand;
+                }
+            }
+
+            public string Origin
+            {
+                get
+                {
+                    return InnerObject.oprindelse;
+                }
+            }
+
+            public string Name
+            {
+                get
+                {
+                    return InnerObject.navn;
+                }
+            }
+
+            public string Remark
+            {
+                get
+                {
+                    return InnerObject.bemaerkning;
+                }
+            }
+
+            public string Status
+            {
+                get
+                {
+                    return InnerObject.status;
+                }
+            }
+            #endregion
         }
     }
 }

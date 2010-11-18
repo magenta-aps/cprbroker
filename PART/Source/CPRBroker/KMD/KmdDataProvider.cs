@@ -41,15 +41,15 @@ namespace CPRBroker.Providers.KMD
         /// <param name="persons">Related persons returned from KMD service</param>
         /// <param name="typeFilters">The type codes that will be used to filter the relations</param>
         /// <returns>Filtered list of OIO relations</returns>
-        private TRelation[] GetPersonRelations<TRelation>(WS_AN08010.SVARPERSONER[] persons, params string[] typeFilters) where TRelation : BaseRelationshipType, new()
+        private TRelation[] GetPersonRelations<TRelation>(WS_AN08010.ReplyPerson[] persons, params string[] typeFilters) where TRelation : BaseRelationshipType, new()
         {
             if (persons == null)
             {
-                persons = new WS_AN08010.SVARPERSONER[0];
+                persons = new WS_AN08010.ReplyPerson[0];
             }
 
             var filteredPersons = from person in persons
-                                  where Array.IndexOf<string>(typeFilters, person.type_) != -1
+                                  where Array.IndexOf<string>(typeFilters, person.Type) != -1
                                   && person.IsUnknown == false
                                   select person;
             List<TRelation> ret = new List<TRelation>();
