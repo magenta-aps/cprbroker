@@ -130,7 +130,7 @@ namespace CPRBroker.Providers.Local
 
         public CPRBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
         {
-            // TODO: implement local search after Read
+            // TODO: implement List after Read
             throw new NotImplementedException();
         }
 
