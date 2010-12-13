@@ -16,8 +16,26 @@ namespace CPRBroker.DAL.Part
                 RegistrationDate = this.RegistrationDate,
                 States = PersonState.ToXmlType(),
                 Relations = PersonRelationship.GetPersonRelations(this.PersonRelationships.ToArray().AsQueryable())
-            };            
-            
+            };
+
+            return ret;
+        }
+
+        public static PersonRegistration FromXmlType(Person person, CPRBroker.Schemas.Part.PersonRegistration partRegistration)
+        {
+            PersonRegistration ret = new PersonRegistration()
+            {
+                ActorId = partRegistration.ActorId,
+                RegistrationDate = partRegistration.RegistrationDate,
+                PersonRegistrationId = Guid.NewGuid(),
+                Person = person,
+                //TODO : Fill person attributes
+                PersonAttribute = null,
+                //TODO : Fill person relations
+                PersonRelationships = null,
+                //TODO : Fill person state
+                PersonState = null
+            };
             return ret;
         }
     }

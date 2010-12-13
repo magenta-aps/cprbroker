@@ -7,17 +7,6 @@
       <Association Name="Person_PersonRegistration" Member="PersonRegistrations" ThisKey="UUID" OtherKey="UUID" Type="PersonRegistration" />
     </Type>
   </Table>
-  <Table Name="dbo.PersonRegistration" Member="PersonRegistrations">
-    <Type Name="PersonRegistration">
-      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="PersonRegistration_PersonAttribute" Member="PersonAttribute" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttribute" Cardinality="One" />
-      <Association Name="PersonRegistration_PersonState" Member="PersonState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonState" Cardinality="One" />
-      <Association Name="PersonRegistration_PersonRelationship" Member="PersonRelationships" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRelationship" />
-      <Association Name="Person_PersonRegistration" Member="Person" ThisKey="UUID" OtherKey="UUID" Type="Person" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.PesronMapping" Member="PesronMappings">
     <Type Name="PesronMapping">
       <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -34,8 +23,8 @@
       <Association Name="PersonAttribute_ForeignCitizenData" Member="ForeignCitizenData" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="ForeignCitizenData" Cardinality="One" />
       <Association Name="PersonAttribute_UnknownCitizenData" Member="UnknownCitizenData" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="UnknownCitizenData" Cardinality="One" />
       <Association Name="PersonAttribute_CprData" Member="CprData" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="CprData" Cardinality="One" />
-      <Association Name="PersonRegistration_PersonAttribute" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
       <Association Name="Gender_PersonAttribute" Member="Gender" ThisKey="GenderId" OtherKey="GenderId" Type="Gender" IsForeignKey="true" />
+      <Association Name="PersonRegistration_PersonAttribute" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Gender" Member="Genders">
@@ -108,8 +97,8 @@
       <Column Name="RelationshipTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="PersonRegistration_PersonRelationship" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
       <Association Name="RelationshipType_PersonRelationship" Member="RelationshipType" ThisKey="RelationshipTypeId" OtherKey="RelationshipTypeId" Type="RelationshipType" IsForeignKey="true" />
+      <Association Name="PersonRegistration_PersonRelationship" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Address" Member="Addresses">
@@ -146,6 +135,18 @@
       <Column Name="MunicipalityCode" Type="System.String" DbType="VarChar(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="MunicipalityName" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
       <Association Name="Municipality_Address" Member="Addresses" ThisKey="MunicipalityCode" OtherKey="MunicipalityCode" Type="Address" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonRegistration" Member="PersonRegistrations">
+    <Type Name="PersonRegistration">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ActorId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="PersonRegistration_PersonAttribute" Member="PersonAttribute" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttribute" Cardinality="One" />
+      <Association Name="PersonRegistration_PersonState" Member="PersonState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonState" Cardinality="One" />
+      <Association Name="PersonRegistration_PersonRelationship" Member="PersonRelationships" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRelationship" />
+      <Association Name="Person_PersonRegistration" Member="Person" ThisKey="UUID" OtherKey="UUID" Type="Person" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

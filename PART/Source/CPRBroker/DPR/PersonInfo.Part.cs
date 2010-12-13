@@ -69,8 +69,8 @@ namespace CPRBroker.Providers.DPR
                         PopulationAddress = PersonTotal.ToPartAddress(civilRegistrationStatus, Street, ContactAddress),
                     },
                 },
-                //TODO: Fix calculation of registration date
-                RegistrationDate = DateTime.Today,
+                //TODO: Fix calculation of registration date in DPR
+                RegistrationDate = Utilities.DateFromDecimal( this.PersonTotal.StatusDate).Value,
                 // TODO: Add relations
                 Relations = new PersonRelations()
                 {

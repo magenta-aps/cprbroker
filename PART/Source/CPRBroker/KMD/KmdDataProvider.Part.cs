@@ -12,6 +12,8 @@ namespace CPRBroker.Providers.KMD
 {
     public partial class KmdDataProvider : IPartReadDataProvider, IPartSearchDataProvider
     {
+        public static readonly Guid ActorId = new Guid("{A4E9B3E0-275F-4b76-AADB-4398AA56B871}");
+
         #region IPartReadDataProvider Members
 
         public CPRBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
@@ -61,7 +63,9 @@ namespace CPRBroker.Providers.KMD
                         PopulationAddress = resp.ToPartAddress(),
                     }
                 },
-                RegistrationDate = null,
+                ActorId = ActorId,
+                //TODO: Pick the correct date for registrations from KMD instead of StatusDate
+                RegistrationDate = ToDateTime(resp.StatusDate),
                 //TODO: fill relations for KMD read
                 Relations = new PersonRelations()
                 {
@@ -88,7 +92,6 @@ namespace CPRBroker.Providers.KMD
                     },
                 }
             };
-
 
             if (relationsResponse.OutputArrayRecord != null)
             {

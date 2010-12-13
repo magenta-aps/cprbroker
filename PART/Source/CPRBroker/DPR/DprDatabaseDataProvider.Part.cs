@@ -13,6 +13,8 @@ namespace CPRBroker.Providers.DPR
 {
     public partial class DprDatabaseDataProvider : ClientDataProvider, IPartSearchDataProvider, IPartReadDataProvider
     {
+        public static readonly Guid ActorId = new Guid("{4A953CF9-B4C1-4ce9-BF09-2BF655DC61C7}");
+        
         [Obsolete]
         protected override string TestResponse
         {
@@ -94,6 +96,7 @@ namespace CPRBroker.Providers.DPR
                 if (db != null)
                 {
                     ret = db.ToPersonRegistration(effectDate, dataContext);
+                    ret.ActorId = ActorId;
                 }
             }
             ql = QualityLevel.DataProvider;

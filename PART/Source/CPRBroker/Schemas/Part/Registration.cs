@@ -7,6 +7,7 @@ namespace CPRBroker.Schemas.Part
 {
     public abstract class Registration
     {
-        public DateTime? RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
+        public Guid ActorId { get; set; }
     }
 }
