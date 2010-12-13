@@ -59,6 +59,30 @@ namespace CPRBroker.Schemas.Util
                     return LifeStatus.born;
             }
         }
+        public static Part.Enums.MaritalStatus ToPartMaritalStatus(char code)
+        {
+            switch (char.ToUpper(code))
+            {
+                case 'U':
+                    return MaritalStatus.single;
+                case 'G':
+                    return MaritalStatus.married;
+                case 'F':
+                    return MaritalStatus.divorced;
+                case 'D':
+                    return MaritalStatus.deceased;
+                case 'E':
+                    return MaritalStatus.widow;
+                case 'P':
+                    return MaritalStatus.registeredpartner;
+                case 'O':
+                    return MaritalStatus.repealedpartnership;
+                case 'L':
+                default:
+                    return MaritalStatus.surviving;
+            }
+        }
+
 
         public static KeyValuePair<string, TEnum>[] GetEnumValues<TEnum>() where TEnum : struct
         {
