@@ -34,6 +34,7 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CreateTestPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkRegistrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.personTabPage = new System.Windows.Forms.TabPage();
@@ -87,7 +88,13 @@
             this.registeredStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.checkRegistrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parttabPage = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.uuidTextBox = new System.Windows.Forms.TextBox();
+            this.readButton = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.resultXmlTextBox = new System.Windows.Forms.TextBox();
             this.mainMenuStrip.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.personTabPage.SuspendLayout();
@@ -104,6 +111,9 @@
             this.groupBox5.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.parttabPage.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -129,7 +139,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // toolsToolStripMenuItem
@@ -145,16 +155,23 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // CreateTestPersonToolStripMenuItem
             // 
             this.CreateTestPersonToolStripMenuItem.Name = "CreateTestPersonToolStripMenuItem";
-            this.CreateTestPersonToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.CreateTestPersonToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.CreateTestPersonToolStripMenuItem.Text = "Create Test Person";
             this.CreateTestPersonToolStripMenuItem.Click += new System.EventHandler(this.CreateTestPersonToolStripMenuItem_Click);
+            // 
+            // checkRegistrationToolStripMenuItem
+            // 
+            this.checkRegistrationToolStripMenuItem.Name = "checkRegistrationToolStripMenuItem";
+            this.checkRegistrationToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.checkRegistrationToolStripMenuItem.Text = "Check Registration";
+            this.checkRegistrationToolStripMenuItem.Click += new System.EventHandler(this.checkRegistrationToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -167,6 +184,7 @@
             this.mainTabControl.Controls.Add(this.personTabPage);
             this.mainTabControl.Controls.Add(this.subscriptionTabPage);
             this.mainTabControl.Controls.Add(this.tabPage1);
+            this.mainTabControl.Controls.Add(this.parttabPage);
             this.mainTabControl.Location = new System.Drawing.Point(12, 27);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
@@ -263,7 +281,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(6, 161);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(36, 13);
+            this.label10.Size = new System.Drawing.Size(35, 13);
             this.label10.TabIndex = 11;
             this.label10.Text = "Line 6";
             // 
@@ -272,7 +290,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(6, 135);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(36, 13);
+            this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 10;
             this.label11.Text = "Line 5";
             // 
@@ -313,7 +331,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 106);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 13);
+            this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 3;
             this.label8.Text = "Line 4";
             // 
@@ -322,7 +340,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 80);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 2;
             this.label7.Text = "Line 3";
             // 
@@ -331,7 +349,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 54);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(36, 13);
+            this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "Line 2";
             // 
@@ -340,7 +358,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 28);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Line 1";
             // 
@@ -397,7 +415,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.Size = new System.Drawing.Size(67, 13);
             this.label3.TabIndex = 1;
             this.label3.Text = "Middle Name";
             // 
@@ -406,7 +424,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "First Name";
             // 
@@ -444,7 +462,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 13);
+            this.label1.Size = new System.Drawing.Size(180, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Personal Civil Identification Number:";
             // 
@@ -477,7 +495,7 @@
             this.ListActiveSubscriptionsButton.AutoSize = true;
             this.ListActiveSubscriptionsButton.Location = new System.Drawing.Point(16, 28);
             this.ListActiveSubscriptionsButton.Name = "ListActiveSubscriptionsButton";
-            this.ListActiveSubscriptionsButton.Size = new System.Drawing.Size(129, 23);
+            this.ListActiveSubscriptionsButton.Size = new System.Drawing.Size(130, 23);
             this.ListActiveSubscriptionsButton.TabIndex = 1;
             this.ListActiveSubscriptionsButton.Text = "List active subscriptions";
             this.ListActiveSubscriptionsButton.UseVisualStyleBackColor = true;
@@ -512,7 +530,7 @@
             this.IgnoreAgeCheckBox.AutoSize = true;
             this.IgnoreAgeCheckBox.Location = new System.Drawing.Point(289, 22);
             this.IgnoreAgeCheckBox.Name = "IgnoreAgeCheckBox";
-            this.IgnoreAgeCheckBox.Size = new System.Drawing.Size(77, 17);
+            this.IgnoreAgeCheckBox.Size = new System.Drawing.Size(79, 17);
             this.IgnoreAgeCheckBox.TabIndex = 6;
             this.IgnoreAgeCheckBox.Text = "Ignore age";
             this.IgnoreAgeCheckBox.UseVisualStyleBackColor = true;
@@ -534,7 +552,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(21, 48);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(110, 13);
+            this.label14.Size = new System.Drawing.Size(116, 13);
             this.label14.TabIndex = 4;
             this.label14.Text = "Days prior to birthdate";
             // 
@@ -555,7 +573,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(21, 22);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.Size = new System.Drawing.Size(30, 13);
             this.label9.TabIndex = 2;
             this.label9.Text = "Age:";
             // 
@@ -617,7 +635,7 @@
             this.GetServiceInfoButton.AutoSize = true;
             this.GetServiceInfoButton.Location = new System.Drawing.Point(13, 18);
             this.GetServiceInfoButton.Name = "GetServiceInfoButton";
-            this.GetServiceInfoButton.Size = new System.Drawing.Size(94, 23);
+            this.GetServiceInfoButton.Size = new System.Drawing.Size(95, 23);
             this.GetServiceInfoButton.TabIndex = 1;
             this.GetServiceInfoButton.Text = "Get Service Info";
             this.GetServiceInfoButton.UseVisualStyleBackColor = true;
@@ -681,12 +699,79 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Personal Civil Identification Number:";
             // 
-            // checkRegistrationToolStripMenuItem
+            // parttabPage
             // 
-            this.checkRegistrationToolStripMenuItem.Name = "checkRegistrationToolStripMenuItem";
-            this.checkRegistrationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.checkRegistrationToolStripMenuItem.Text = "Check Registration";
-            this.checkRegistrationToolStripMenuItem.Click += new System.EventHandler(this.checkRegistrationToolStripMenuItem_Click);
+            this.parttabPage.Controls.Add(this.groupBox9);
+            this.parttabPage.Controls.Add(this.groupBox8);
+            this.parttabPage.Location = new System.Drawing.Point(4, 22);
+            this.parttabPage.Name = "parttabPage";
+            this.parttabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.parttabPage.Size = new System.Drawing.Size(891, 553);
+            this.parttabPage.TabIndex = 3;
+            this.parttabPage.Text = "PART";
+            this.parttabPage.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.uuidTextBox);
+            this.groupBox8.Controls.Add(this.readButton);
+            this.groupBox8.Controls.Add(this.label13);
+            this.groupBox8.Location = new System.Drawing.Point(6, 6);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(683, 122);
+            this.groupBox8.TabIndex = 1;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Query parameters";
+            // 
+            // uuidTextBox
+            // 
+            this.uuidTextBox.Location = new System.Drawing.Point(9, 41);
+            this.uuidTextBox.Name = "uuidTextBox";
+            this.uuidTextBox.Size = new System.Drawing.Size(180, 20);
+            this.uuidTextBox.TabIndex = 1;
+            // 
+            // readButton
+            // 
+            this.readButton.Location = new System.Drawing.Point(212, 38);
+            this.readButton.Name = "readButton";
+            this.readButton.Size = new System.Drawing.Size(153, 23);
+            this.readButton.TabIndex = 1;
+            this.readButton.Text = "Read";
+            this.readButton.UseVisualStyleBackColor = true;
+            this.readButton.Click += new System.EventHandler(this.readButton_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 25);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(180, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Personal Civil Identification Number:";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox9.Controls.Add(this.resultXmlTextBox);
+            this.groupBox9.Location = new System.Drawing.Point(6, 134);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(879, 413);
+            this.groupBox9.TabIndex = 2;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Result";
+            // 
+            // resultXmlTextBox
+            // 
+            this.resultXmlTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.resultXmlTextBox.Location = new System.Drawing.Point(9, 19);
+            this.resultXmlTextBox.Multiline = true;
+            this.resultXmlTextBox.Name = "resultXmlTextBox";
+            this.resultXmlTextBox.Size = new System.Drawing.Size(864, 388);
+            this.resultXmlTextBox.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -726,6 +811,11 @@
             this.tabPage1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.parttabPage.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -793,6 +883,13 @@
         private System.Windows.Forms.GroupBox RelationsGroupBox;
         private System.Windows.Forms.TextBox RelationsTextBox;
         private System.Windows.Forms.ToolStripMenuItem checkRegistrationToolStripMenuItem;
+        private System.Windows.Forms.TabPage parttabPage;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox uuidTextBox;
+        private System.Windows.Forms.Button readButton;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox resultXmlTextBox;
     }
 }
 

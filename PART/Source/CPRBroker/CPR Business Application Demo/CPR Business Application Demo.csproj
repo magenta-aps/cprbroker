@@ -35,6 +35,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -108,6 +111,8 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\PartAdapter.cs" />
+    <Compile Include="BLL\PartController.cs" />
     <Compile Include="CreateTestCitizenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +135,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\PartService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -141,6 +151,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\CPRAdministrationWS\" />
     <WCFMetadataStorage Include="Service References\CPRPersonWS\" />
+    <WCFMetadataStorage Include="Service References\PartService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\CPRAdministrationWS\CPRAdministrationWS.disco" />
@@ -211,6 +222,25 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\CPRPersonWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PartService\Part.disco" />
+    <None Include="Service References\PartService\Part.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PartService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PartService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PartService\CPR_Business_Application_Demo.PartService.PersonRegistration.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PartService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

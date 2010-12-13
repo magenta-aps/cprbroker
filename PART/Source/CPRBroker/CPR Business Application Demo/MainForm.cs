@@ -356,5 +356,16 @@ namespace CPR_Business_Application_Demo
             }
         }
         #endregion
+
+        private void readButton_Click(object sender, EventArgs e)
+        {            
+            var partController = new PartController(Properties.Settings.Default);
+            Guid personUuid = new Guid(uuidTextBox.Text);
+            var personReg = partController.Read(personUuid);
+            System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof (PartService.PersonRegistration));
+            StringWriter w = new StringWriter();
+            ser.Serialize(w,personReg);
+            resultXmlTextBox.Text = w.ToString();
+        }
     }
 }
