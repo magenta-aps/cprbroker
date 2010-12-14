@@ -60,6 +60,13 @@ namespace CPRService.Services
         {
             return null;
         }
+
+        [SoapHeader(ApplicationHeaderName)]
+        [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Part.Methods.GetPersonUuid, Description = CPRBroker.Schemas.Part.ServiceDescription.Part.Methods.GetPersonUuid)]
+        public Guid GetPersonUuid(string cprNumber)
+        {
+            return Manager.Part.GetPersonUuid(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumber);
+        }
     }
 
 }
