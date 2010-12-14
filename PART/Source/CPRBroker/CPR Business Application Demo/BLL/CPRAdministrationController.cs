@@ -53,7 +53,7 @@ namespace CPR_Business_Application_Demo.Business
                 return String.Empty;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return "";
