@@ -15,7 +15,7 @@ namespace CPRBroker.Providers.Local
     /// <summary>
     /// Handles implementation of data provider using the system's local database
     /// </summary>
-    public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider
+    public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider, IPartPersonMappingDataProvider   
     {
 
         #region IPartSearchDataProvider Members
@@ -132,6 +132,17 @@ namespace CPRBroker.Providers.Local
         {
             // TODO: implement List after Read
             throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IPartPersonMappingDataProvider Members
+        // TODO: Move this method to a separate data provider
+        public Guid GetPersonUuid(string cprNumber)
+        {
+            PersonIdentifier[] identifiers = new PersonIdentifier[]{new PersonIdentifier(){CprNumber = cprNumber}};
+            DAL.Part.PersonMapping.AssignGuids(identifiers);
+            return identifiers[0].UUID.Value;
         }
 
         #endregion

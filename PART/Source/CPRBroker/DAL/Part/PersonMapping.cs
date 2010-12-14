@@ -21,12 +21,15 @@ namespace CPRBroker.DAL.Part
 
             using (PartDataContext dataContext = new PartDataContext())
             {
-                var foundPersons = from personReg in dataContext.PesronMappings select personReg;
-                var pred = PredicateBuilder.False<DAL.Part.PesronMapping>();
+                var foundPersons = dataContext.PersonMappings.AsQueryable();
+                var pred = PredicateBuilder.False<PersonMapping>();
+
                 foreach (var personIdentifier in personIdentifiers)
                 {
-                    pred.Or((d) => d.BirthDate == personIdentifier.Birthdate && d.CprNumber == personIdentifier.CprNumber);
+                    string cprNumber = personIdentifier.CprNumber;
+                    pred = pred.Or((d) => d.CprNumber == cprNumber);
                 }
+
                 foundPersons = foundPersons.Where(pred);
 
                 var foundPersonsArray = foundPersons.ToArray();
@@ -34,15 +37,15 @@ namespace CPRBroker.DAL.Part
                 for (int iPerson = 0; iPerson < personIdentifiers.Length; iPerson++)
                 {
                     var personIdentifier = personIdentifiers[iPerson];
-                    var personMapping = (from d in foundPersons where d.BirthDate == personIdentifier.Birthdate && d.CprNumber == personIdentifier.CprNumber select d).FirstOrDefault();
+                    var personMapping = (from d in foundPersonsArray where d.CprNumber == personIdentifier.CprNumber select d).FirstOrDefault();
 
                     if (personMapping == null)
                     {
-                        personMapping = new PesronMapping();
+                        personMapping = new PersonMapping();
+                        //TODO: Replace this with a call to Gentofte UUID service
                         personMapping.UUID = Guid.NewGuid();
-                        personMapping.BirthDate = personIdentifier.Birthdate;
                         personMapping.CprNumber = personIdentifier.CprNumber;
-                        dataContext.PesronMappings.InsertOnSubmit(personMapping);
+                        dataContext.PersonMappings.InsertOnSubmit(personMapping);
                     }
                     ret[iPerson] = personMapping.UUID;
                     personIdentifiers[iPerson].UUID = personMapping.UUID;
@@ -89,12 +92,11 @@ namespace CPRBroker.DAL.Part
             {
                 ret =
                 (
-                    from pm in dataContext.PesronMappings
+                    from pm in dataContext.PersonMappings
                     where pm.UUID == uuid
                     select new PersonIdentifier()
                     {
                         CprNumber = pm.CprNumber,
-                        Birthdate = pm.BirthDate,
                         UUID = uuid
                     }
                 ).FirstOrDefault();

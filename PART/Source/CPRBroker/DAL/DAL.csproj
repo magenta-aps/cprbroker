@@ -64,10 +64,11 @@
     <Compile Include="Part\Gender.cs" />
     <Compile Include="Part\LifeStatusType.cs" />
     <Compile Include="Part\MaritalStatusType.cs" />
-    <Compile Include="Part\PartDataContext.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Part\PartDataContext.cs">
       <DependentUpon>PartDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Part\PartDataContext.designer.cs">
+      <DependentUpon>PartDataContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Part\PersonAttribute.cs" />
     <Compile Include="Part\PersonMapping.cs" />

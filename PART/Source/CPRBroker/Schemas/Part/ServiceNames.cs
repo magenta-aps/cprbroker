@@ -16,6 +16,8 @@ namespace CPRBroker.Schemas.Part
                 public const string Read = "Read";
                 public const string List = "List";
                 public const string Search = "Search";
+
+                public const string GetPersonUuid = "GetPersonUuid";
             }
         }
     }

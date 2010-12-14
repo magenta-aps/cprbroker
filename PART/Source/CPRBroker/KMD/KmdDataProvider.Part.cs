@@ -125,7 +125,7 @@ namespace CPRBroker.Providers.KMD
             if (searchCriteria.BirthDate.HasValue)
             {
                 var birthdateResp = CallAN08100(searchCriteria.BirthDate.Value, searchCriteria.Gender);
-                var ids = Array.ConvertAll<WS_AN08100.ReplyPeople, PersonIdentifier>(birthdateResp.OutputArrayRecord, (p) => new PersonIdentifier() { CprNumber = p.PNR, Birthdate = searchCriteria.BirthDate.Value });
+                var ids = Array.ConvertAll<WS_AN08100.ReplyPeople, PersonIdentifier>(birthdateResp.OutputArrayRecord, (p) => new PersonIdentifier() { CprNumber = p.PNR });
                 if (!MergeSearchResult(ids, ref ret))
                 {
                     return ret;
@@ -135,7 +135,7 @@ namespace CPRBroker.Providers.KMD
             if (!string.IsNullOrEmpty(searchCriteria.CprNumber))
             {
                 var cprNumberResp = CallAS78207(searchCriteria.CprNumber);
-                var ids = new PersonIdentifier[] { new PersonIdentifier() { CprNumber = searchCriteria.CprNumber, Birthdate = ToDateTime(cprNumberResp.OutputRecord.DFOEDS) } };
+                var ids = new PersonIdentifier[] { new PersonIdentifier() { CprNumber = searchCriteria.CprNumber } };
                 if (!MergeSearchResult(ids, ref ret))
                 {
                     return ret;

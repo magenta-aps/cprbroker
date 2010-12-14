@@ -70,7 +70,7 @@ namespace CPRBroker.Providers.DPR
                     },
                 },
                 //TODO: Fix calculation of registration date in DPR
-                RegistrationDate = Utilities.DateFromDecimal( this.PersonTotal.StatusDate).Value,
+                RegistrationDate = Utilities.DateFromDecimal(this.PersonTotal.StatusDate).Value,
                 // TODO: Add relations
                 Relations = new PersonRelations()
                 {
@@ -135,8 +135,7 @@ namespace CPRBroker.Providers.DPR
                         from pers in Child.PersonParentsExpression.Compile()(PersonTotal.PNR, dataContext)
                         select new PersonIdentifier()
                         {
-                            CprNumber = pers.PNR.ToString("D2"),
-                            Birthdate = Utilities.DateFromDecimal(pers.DateOfBirth).Value,
+                            CprNumber = pers.PNR.ToString("D2")
                         }
                     ).ToArray()
                 ),
@@ -155,8 +154,6 @@ namespace CPRBroker.Providers.DPR
                 (child) => new PersonIdentifier()
                 {
                     CprNumber = child.PNR.ToString("D2"),
-                    // TODO: handle cases where birthdate is null
-                    Birthdate = Utilities.DateFromDecimal(child.DateOfBirth).Value
                 },
                 (rel, id) => rel.Value.TargetUUID = id
             );
@@ -175,8 +172,6 @@ namespace CPRBroker.Providers.DPR
                 (civilStatus) => new PersonIdentifier()
                 {
                     CprNumber = civilStatus.SpousePNR.Value.ToString("D2"),
-                    // TODO: handle cases where birthdate is null
-                    Birthdate = Utilities.DateFromDecimal(civilStatus.SpouseBirthdate).Value
                 },
                 (p, id) =>
                 {

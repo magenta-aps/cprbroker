@@ -40,9 +40,23 @@ namespace NUnitTester
         }
 
         [Test]
-        [TestCaseSource(typeof(PartTestData), PartTestData.PersonUUIDsFieldName)]
-        public void T200_Read(Guid uuid)
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        public void T200_GetPersonUuid(string cprNumber)
         {
+            var uuid = TestRunner.PartService.GetPersonUuid(cprNumber);
+            Assert.AreNotEqual(uuid, Guid.Empty);
+
+            var uuid2 = TestRunner.PartService.GetPersonUuid(cprNumber);
+            Assert.AreEqual(uuid, uuid2);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        public void T200_Read(string cprNumber)
+        {
+            var uuid = TestRunner.PartService.GetPersonUuid(cprNumber);
+            Assert.AreNotEqual(uuid, Guid.Empty);
+
             var person = TestRunner.PartService.Read(uuid);
             ValidatePerson(uuid, person);
         }

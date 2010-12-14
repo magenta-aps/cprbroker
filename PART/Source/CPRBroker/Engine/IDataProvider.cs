@@ -340,4 +340,10 @@ namespace CPRBroker.Engine
     {
         PersonIdentifier[] Search(PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql);
     }
+
+    // Allows retrieval of person UUID from his CPR number
+    public interface IPartPersonMappingDataProvider : IDataProvider
+    {
+        Guid GetPersonUuid(string cprNumber);
+    }
 }

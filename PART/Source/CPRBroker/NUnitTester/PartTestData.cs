@@ -6,8 +6,8 @@ using System.Text;
 namespace NUnitTester
 {
     public class PartTestData
-    {
-        public static Guid[] PersonUUIDs = new Guid[0];
+    {        
+        public static Guid[] PersonUUIDs = new Guid[] { Guid.NewGuid() };
         public const string PersonUUIDsFieldName = "PersonUUIDs";
 
         public static Guid[][] PersonUUIDsArray = new Guid[][] { PersonUUIDs };

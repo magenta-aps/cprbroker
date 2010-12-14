@@ -1,17 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="PART" Class="PartDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=PART;Persist Security Info=True;User ID=cpr" SettingsObjectName="CPRBroker.DAL.Properties.Settings" SettingsPropertyName="PARTConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Person" Member="Persons">
     <Type Name="Person">
       <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Person_PersonRegistration" Member="PersonRegistrations" ThisKey="UUID" OtherKey="UUID" Type="PersonRegistration" />
     </Type>
   </Table>
-  <Table Name="dbo.PesronMapping" Member="PesronMappings">
-    <Type Name="PesronMapping">
+  <Table Name="dbo.PersonMapping" Member="PersonMappings">
+    <Type Name="PersonMapping">
       <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="CprNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="false" />
-      <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.PersonAttributes" Member="PersonAttributes">

@@ -14,7 +14,7 @@ namespace CPRBroker.Providers.DPR
     public partial class DprDatabaseDataProvider : ClientDataProvider, IPartSearchDataProvider, IPartReadDataProvider
     {
         public static readonly Guid ActorId = new Guid("{4A953CF9-B4C1-4ce9-BF09-2BF655DC61C7}");
-        
+
         [Obsolete]
         protected override string TestResponse
         {
@@ -34,7 +34,6 @@ namespace CPRBroker.Providers.DPR
                            select new PersonIdentifier()
                            {
                                CprNumber = pi.PersonTotal.PNR.ToString("D2"),
-                               Birthdate = Utilities.DateFromDecimal(pi.PersonTotal.DateOfBirth).Value
                            };
 
                 var pred = PredicateBuilder.False<PersonInfo>();
@@ -90,7 +89,7 @@ namespace CPRBroker.Providers.DPR
                 var db =
                 (
                     from personInfo in PersonInfo.PersonInfoExpression.Compile()(effectDate.Value, dataContext)
-                    where personInfo.PersonName.PNR == Decimal.Parse(uuid.CprNumber) && personInfo.PersonTotal.DateOfBirth == Utilities.DecimalFromDate(uuid.Birthdate)
+                    where personInfo.PersonName.PNR == Decimal.Parse(uuid.CprNumber)
                     select personInfo
                 ).FirstOrDefault();
                 if (db != null)

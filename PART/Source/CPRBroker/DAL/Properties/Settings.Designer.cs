@@ -22,16 +22,5 @@ namespace CPRBroker.DAL.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.20.1.20;Initial Catalog=PART;Persist Security Info=True;User ID=cp" +
-            "r")]
-        public string PARTConnectionString {
-            get {
-                return ((string)(this["PARTConnectionString"]));
-            }
-        }
     }
 }

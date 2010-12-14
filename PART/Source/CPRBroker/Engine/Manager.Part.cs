@@ -63,6 +63,21 @@ namespace CPRBroker.Engine
             }
 
 
+            public static Guid GetPersonUuid(string userToken, string appToken, string cprNumber)
+            {
+                var ret = CallMethod<IPartPersonMappingDataProvider, Guid>
+                (
+                    userToken,
+                    appToken,
+                    true,
+                    true,
+                    (prov) => prov.GetPersonUuid(cprNumber),
+                    true,
+                    null
+                );
+                return ret;
+            }
+
         }
     }
 }

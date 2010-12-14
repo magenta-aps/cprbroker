@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s3="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s2="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows accesss to CPR data through a standard PART interface</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
       <s:element name="Read">
         <s:complexType>
           <s:sequence>
@@ -31,7 +32,8 @@
       </s:complexType>
       <s:complexType name="Registration" abstract="true">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActorId" type="s1:guid" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="PersonAttributes">
@@ -40,8 +42,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="Gender" type="tns:Gender" />
           <s:element minOccurs="1" maxOccurs="1" name="BirthDate" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="PersonData" type="tns:PersonData" />
-          <s:element minOccurs="0" maxOccurs="1" name="ContactChannel" type="tns:ArrayOfEffectOfContactChannel" />
-          <s:element minOccurs="0" maxOccurs="1" name="ContactAddresses" type="tns:ArrayOfEffectOfAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactChannel" type="tns:ArrayOfContactChannel" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherAddresses" type="tns:ArrayOfAddress" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="EffectOfString">
@@ -59,16 +61,9 @@
         </s:restriction>
       </s:simpleType>
       <s:complexType name="PersonData" abstract="true" />
-      <s:complexType name="ArrayOfEffectOfContactChannel">
+      <s:complexType name="ArrayOfContactChannel">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="EffectOfContactChannel" nillable="true" type="tns:EffectOfContactChannel" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EffectOfContactChannel">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Value" type="tns:ContactChannel" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ContactChannel" nillable="true" type="tns:ContactChannel" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ContactChannel" abstract="true">
@@ -77,16 +72,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ArrayOfEffectOfAddress">
+      <s:complexType name="ArrayOfAddress">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="EffectOfAddress" nillable="true" type="tns:EffectOfAddress" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EffectOfAddress">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Value" type="tns:Address" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Address" abstract="true">
@@ -240,16 +228,31 @@
       </s:element>
       <s:complexType name="PersonSearchCriteria">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s2:PersonNameStructureType" />
           <s:element minOccurs="1" maxOccurs="1" name="Gender" nillable="true" type="tns:Gender" />
           <s:element minOccurs="1" maxOccurs="1" name="BirthDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="PersonData" type="tns:PersonData" />
+          <s:element minOccurs="0" maxOccurs="1" name="CprNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NationalityCountryCode" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="SearchResponse">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="SearchResult" type="tns:ArrayOfGuid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPersonUuid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cprNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPersonUuidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPersonUuidResult" type="s1:guid" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -260,6 +263,21 @@
           <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
         </s:restriction>
       </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:complexType name="PersonNameStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s3:PersonGivenName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s3:PersonMiddleName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s3:PersonSurnameName" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/">
+      <s:element name="PersonGivenName" type="s:string" />
+      <s:element name="PersonMiddleName" type="s:string" />
+      <s:element name="PersonSurnameName" type="s:string" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="ReadSoapIn">
@@ -316,6 +334,15 @@
   <wsdl:message name="SearchRegistrationDateHeader">
     <wsdl:part name="RegistrationDateHeader" element="tns:RegistrationDateHeader" />
   </wsdl:message>
+  <wsdl:message name="GetPersonUuidSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPersonUuid" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonUuidSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPersonUuidResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonUuidApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
   <wsdl:portType name="PartSoap">
     <wsdl:operation name="Read">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Find and return object (Always latest registration)
@@ -343,6 +370,14 @@ Parameters : RegistrationDate, EffectDate
 </wsdl:documentation>
       <wsdl:input message="tns:SearchSoapIn" />
       <wsdl:output message="tns:SearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonUuid">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the person's UUID from his CPR number. Calls the UUID assigning authority if not found locally.
+Input : CPR Number
+Output : Person UUID
+</wsdl:documentation>
+      <wsdl:input message="tns:GetPersonUuidSoapIn" />
+      <wsdl:output message="tns:GetPersonUuidSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PartSoap" type="tns:PartSoap">
@@ -386,6 +421,16 @@ Parameters : RegistrationDate, EffectDate
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPersonUuid">
+      <soap:operation soapAction="http://tempuri.org/GetPersonUuid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetPersonUuidApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="PartSoap12" type="tns:PartSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -423,6 +468,16 @@ Parameters : RegistrationDate, EffectDate
         <soap12:header message="tns:SearchEffectDateHeader" part="EffectDateHeader" use="literal" />
         <soap12:header message="tns:SearchQualityHeader" part="QualityHeader" use="literal" />
         <soap12:header message="tns:SearchRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonUuid">
+      <soap12:operation soapAction="http://tempuri.org/GetPersonUuid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetPersonUuidApplicationHeader" part="ApplicationHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />

@@ -33,9 +33,9 @@ namespace CPRBroker.DAL.Part
     partial void InsertPerson(Person instance);
     partial void UpdatePerson(Person instance);
     partial void DeletePerson(Person instance);
-    partial void InsertPesronMapping(PesronMapping instance);
-    partial void UpdatePesronMapping(PesronMapping instance);
-    partial void DeletePesronMapping(PesronMapping instance);
+    partial void InsertPesronMapping(PersonMapping instance);
+    partial void UpdatePesronMapping(PersonMapping instance);
+    partial void DeletePesronMapping(PersonMapping instance);
     partial void InsertPersonAttribute(PersonAttribute instance);
     partial void UpdatePersonAttribute(PersonAttribute instance);
     partial void DeletePersonAttribute(PersonAttribute instance);
@@ -71,12 +71,6 @@ namespace CPRBroker.DAL.Part
     partial void DeletePersonRegistration(PersonRegistration instance);
     #endregion
 		
-		public PartDataContext() : 
-				base(global::CPRBroker.DAL.Properties.Settings.Default.PARTConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public PartDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -109,11 +103,11 @@ namespace CPRBroker.DAL.Part
 			}
 		}
 		
-		public System.Data.Linq.Table<PesronMapping> PesronMappings
+		public System.Data.Linq.Table<PersonMapping> PersonMappings
 		{
 			get
 			{
-				return this.GetTable<PesronMapping>();
+				return this.GetTable<PersonMapping>();
 			}
 		}
 		
@@ -296,8 +290,8 @@ namespace CPRBroker.DAL.Part
 		}
 	}
 	
-	[Table(Name="dbo.PesronMapping")]
-	public partial class PesronMapping : INotifyPropertyChanging, INotifyPropertyChanged
+	[Table(Name="dbo.PersonMapping")]
+	public partial class PersonMapping : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -305,8 +299,6 @@ namespace CPRBroker.DAL.Part
 		private System.Guid _UUID;
 		
 		private string _CprNumber;
-		
-		private System.DateTime _BirthDate;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -320,7 +312,7 @@ namespace CPRBroker.DAL.Part
     partial void OnBirthDateChanged();
     #endregion
 		
-		public PesronMapping()
+		public PersonMapping()
 		{
 			OnCreated();
 		}
@@ -361,26 +353,6 @@ namespace CPRBroker.DAL.Part
 					this._CprNumber = value;
 					this.SendPropertyChanged("CprNumber");
 					this.OnCprNumberChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_BirthDate", DbType="DateTime")]
-		public System.DateTime BirthDate
-		{
-			get
-			{
-				return this._BirthDate;
-			}
-			set
-			{
-				if ((this._BirthDate != value))
-				{
-					this.OnBirthDateChanging(value);
-					this.SendPropertyChanging();
-					this._BirthDate = value;
-					this.SendPropertyChanged("BirthDate");
-					this.OnBirthDateChanged();
 				}
 			}
 		}

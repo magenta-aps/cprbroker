@@ -45,6 +45,8 @@ namespace NUnitTester.Part {
         
         private System.Threading.SendOrPostCallback SearchOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetPersonUuidOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -127,6 +129,9 @@ namespace NUnitTester.Part {
         
         /// <remarks/>
         public event SearchCompletedEventHandler SearchCompleted;
+        
+        /// <remarks/>
+        public event GetPersonUuidCompletedEventHandler GetPersonUuidCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
@@ -228,6 +233,36 @@ namespace NUnitTester.Part {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPersonUuid", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Guid GetPersonUuid(string cprNumber) {
+            object[] results = this.Invoke("GetPersonUuid", new object[] {
+                        cprNumber});
+            return ((System.Guid)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPersonUuidAsync(string cprNumber) {
+            this.GetPersonUuidAsync(cprNumber, null);
+        }
+        
+        /// <remarks/>
+        public void GetPersonUuidAsync(string cprNumber, object userState) {
+            if ((this.GetPersonUuidOperationCompleted == null)) {
+                this.GetPersonUuidOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPersonUuidOperationCompleted);
+            }
+            this.InvokeAsync("GetPersonUuid", new object[] {
+                        cprNumber}, this.GetPersonUuidOperationCompleted, userState);
+        }
+        
+        private void OnGetPersonUuidOperationCompleted(object arg) {
+            if ((this.GetPersonUuidCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPersonUuidCompleted(this, new GetPersonUuidCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -298,19 +333,69 @@ namespace NUnitTester.Part {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
+    public partial class PersonNameStructureType {
+        
+        private string personGivenNameField;
+        
+        private string personMiddleNameField;
+        
+        private string personSurnameNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonGivenName {
+            get {
+                return this.personGivenNameField;
+            }
+            set {
+                this.personGivenNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonMiddleName {
+            get {
+                return this.personMiddleNameField;
+            }
+            set {
+                this.personMiddleNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonSurnameName {
+            get {
+                return this.personSurnameNameField;
+            }
+            set {
+                this.personSurnameNameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class PersonSearchCriteria {
         
-        private string nameField;
+        private PersonNameStructureType nameField;
         
         private System.Nullable<Gender> genderField;
         
         private System.Nullable<System.DateTime> birthDateField;
         
-        private PersonData personDataField;
+        private string cprNumberField;
+        
+        private string nationalityCountryCodeField;
         
         /// <remarks/>
-        public string Name {
+        public PersonNameStructureType Name {
             get {
                 return this.nameField;
             }
@@ -342,12 +427,22 @@ namespace NUnitTester.Part {
         }
         
         /// <remarks/>
-        public PersonData PersonData {
+        public string CprNumber {
             get {
-                return this.personDataField;
+                return this.cprNumberField;
             }
             set {
-                this.personDataField = value;
+                this.cprNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NationalityCountryCode {
+            get {
+                return this.nationalityCountryCodeField;
+            }
+            set {
+                this.nationalityCountryCodeField = value;
             }
         }
     }
@@ -366,15 +461,6 @@ namespace NUnitTester.Part {
         
         /// <remarks/>
         Unknown,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public abstract partial class PersonData {
     }
     
     /// <remarks/>
@@ -740,53 +826,6 @@ namespace NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class EffectOfAddress {
-        
-        private System.Nullable<System.DateTime> startDateField;
-        
-        private System.Nullable<System.DateTime> endDateField;
-        
-        private Address valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> StartDate {
-            get {
-                return this.startDateField;
-            }
-            set {
-                this.startDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> EndDate {
-            get {
-                return this.endDateField;
-            }
-            set {
-                this.endDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Address Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public abstract partial class ContactChannel {
         
         private string limitedUseField;
@@ -820,45 +859,7 @@ namespace NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class EffectOfContactChannel {
-        
-        private System.Nullable<System.DateTime> startDateField;
-        
-        private System.Nullable<System.DateTime> endDateField;
-        
-        private ContactChannel valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> StartDate {
-            get {
-                return this.startDateField;
-            }
-            set {
-                this.startDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> EndDate {
-            get {
-                return this.endDateField;
-            }
-            set {
-                this.endDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public ContactChannel Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
+    public abstract partial class PersonData {
     }
     
     /// <remarks/>
@@ -924,9 +925,9 @@ namespace NUnitTester.Part {
         
         private PersonData personDataField;
         
-        private EffectOfContactChannel[] contactChannelField;
+        private ContactChannel[] contactChannelField;
         
-        private EffectOfAddress[] contactAddressesField;
+        private Address[] otherAddressesField;
         
         /// <remarks/>
         public EffectOfString Name {
@@ -969,7 +970,7 @@ namespace NUnitTester.Part {
         }
         
         /// <remarks/>
-        public EffectOfContactChannel[] ContactChannel {
+        public ContactChannel[] ContactChannel {
             get {
                 return this.contactChannelField;
             }
@@ -979,12 +980,12 @@ namespace NUnitTester.Part {
         }
         
         /// <remarks/>
-        public EffectOfAddress[] ContactAddresses {
+        public Address[] OtherAddresses {
             get {
-                return this.contactAddressesField;
+                return this.otherAddressesField;
             }
             set {
-                this.contactAddressesField = value;
+                this.otherAddressesField = value;
             }
         }
     }
@@ -998,16 +999,27 @@ namespace NUnitTester.Part {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public abstract partial class Registration {
         
-        private System.Nullable<System.DateTime> registrationDateField;
+        private System.DateTime registrationDateField;
+        
+        private System.Guid actorIdField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> RegistrationDate {
+        public System.DateTime RegistrationDate {
             get {
                 return this.registrationDateField;
             }
             set {
                 this.registrationDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.Guid ActorId {
+            get {
+                return this.actorIdField;
+            }
+            set {
+                this.actorIdField = value;
             }
         }
     }
@@ -1255,6 +1267,32 @@ namespace NUnitTester.Part {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((System.Guid[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    public delegate void GetPersonUuidCompletedEventHandler(object sender, GetPersonUuidCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPersonUuidCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPersonUuidCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Guid Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Guid)(this.results[0]));
             }
         }
     }
