@@ -621,7 +621,7 @@ namespace CPRBroker.Providers.KMD
                 //address[CPRBroker.Schemas.Util.AddressField.StreetNameForAddressing] = "";
 
                 // TODO: validate this Civil Registration Status Code
-                var personCivilRegistrationStatusCodeType = Schemas.Util.Enums.ToCivilRegistrationStatus(this.StatusCpr);
+                var personCivilRegistrationStatusCodeType = Schemas.Util.Enums.ToCivilRegistrationStatus(KmdDataProvider.GetCivilRegistrationStatus(this.StatusKmd, this.StatusCpr));
                 return address.ToPartAddress(personCivilRegistrationStatusCodeType);
             }
             #endregion

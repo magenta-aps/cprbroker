@@ -56,7 +56,10 @@ namespace CPRBroker.Providers.KMD
             public EnglishAN08010Response(AN08010Response innerResponse)
             {
                 OutputRecord = innerResponse.OutputRecord;
-                OutputArrayRecord = Array.ConvertAll<SVARPERSONER, ReplyPerson>(innerResponse.OutputArrayRecord, (p) => new ReplyPerson(p));
+                if (innerResponse.OutputArrayRecord != null)
+                {
+                    OutputArrayRecord = Array.ConvertAll<SVARPERSONER, ReplyPerson>(innerResponse.OutputArrayRecord, (p) => new ReplyPerson(p));
+                }
             }
         }
 

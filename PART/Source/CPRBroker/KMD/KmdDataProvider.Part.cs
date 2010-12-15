@@ -31,7 +31,7 @@ namespace CPRBroker.Providers.KMD
             {
                 Attributes = new PersonAttributes()
                 {
-                    BirthDate = ToDateTime(resp.BirthDate),
+                    BirthDate = ToDateTime(resp.BirthDate).Value,
                     ContactChannel = new ContactChannel[0],
                     Gender = ToPartGender(uuid.CprNumber),
                     Name = new Effect<string>()
@@ -65,7 +65,7 @@ namespace CPRBroker.Providers.KMD
                 },
                 ActorId = ActorId,
                 //TODO: Pick the correct date for registrations from KMD instead of StatusDate
-                RegistrationDate = ToDateTime(resp.StatusDate),
+                RegistrationDate = ToDateTime(resp.StatusDate).Value,
                 //TODO: fill relations for KMD read
                 Relations = new PersonRelations()
                 {
@@ -88,14 +88,14 @@ namespace CPRBroker.Providers.KMD
                         //TODO: Status date may not be the correct field (for example, the status may have changed from 01 to  07 at the date, but the life status is still alive)
                         StartDate = ToDateTime(resp.StatusDate),
                         EndDate = null,
-                        Value = Schemas.Util.Enums.ToLifeStatus(this.GetCivilRegistrationStatus(resp.StatusKmd, resp.StatusCpr))
+                        Value = Schemas.Util.Enums.ToLifeStatus(GetCivilRegistrationStatus(resp.StatusKmd, resp.StatusCpr))
                     },
                 }
             };
 
             if (relationsResponse.OutputArrayRecord != null)
             {
-                var relationIdentifiers = (from rel in relationsResponse.OutputArrayRecord select new PersonIdentifier() { CprNumber = rel.PNR }).ToArray();
+                var relationIdentifiers = (from rel in relationsResponse.OutputArrayRecord where !string.IsNullOrEmpty(rel.PNR.Replace("-", "")) select new PersonIdentifier() { CprNumber = rel.PNR.Replace("-", "") }).ToArray();
                 DAL.Part.PersonMapping.AssignGuids(relationIdentifiers);
                 ret.Relations.Children = GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Baby, RelationTypes.ChildOver18);
                 ret.Relations.Parents = Array.ConvertAll<Effect<PersonRelation>, PersonRelation>(GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Parents), (rel) => rel.Value);
@@ -103,7 +103,7 @@ namespace CPRBroker.Providers.KMD
             }
 
             ql = QualityLevel.Cpr;
-            return null;
+            return ret;
         }
 
 
@@ -227,7 +227,7 @@ namespace CPRBroker.Providers.KMD
             return ret.ToArray();
         }
 
-        private decimal GetCivilRegistrationStatus(string kmdStatus, string cprStatus)
+        internal static decimal GetCivilRegistrationStatus(string kmdStatus, string cprStatus)
         {
             int iKmd = int.Parse(kmdStatus);
             int iCpr = int.Parse(cprStatus);

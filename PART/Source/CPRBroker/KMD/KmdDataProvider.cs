@@ -125,15 +125,20 @@ namespace CPRBroker.Providers.KMD
                 ret = new PersonCivilRegistrationStatusStructureType()
                 {
                     PersonCivilRegistrationStatusCode = code.Value,
-                    PersonCivilRegistrationStatusStartDate = ToDateTime(dStatus)
+                    PersonCivilRegistrationStatusStartDate = ToDateTime(dStatus).Value
                 };
             }
             return ret;
         }
 
-        private DateTime ToDateTime(string str)
+        private DateTime? ToDateTime(string str)
         {
-            return DateTime.ParseExact(str, "yyyyMMdd", null);
+            DateTime ret;
+            if (DateTime.TryParseExact(str, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out ret))
+            {
+                return ret;
+            }
+            return null;
         }
 
         private PersonGenderCodeType ToGenderCode(string cprNumber)
@@ -273,7 +278,7 @@ namespace CPRBroker.Providers.KMD
                 {
                     PersonBirthDateStructure = new PersonBirthDateStructureType()
                     {
-                        BirthDate = ToDateTime(resp.OutputRecord.DFOEDS),
+                        BirthDate = ToDateTime(resp.OutputRecord.DFOEDS).Value,
                         BirthDateUncertaintyIndicator = false
                     },
                     PersonCivilRegistrationStatusStructure = ToCivilRegistrationStatusStructureType(resp.OutputRecord.CSTATUK, resp.OutputRecord.CSTATUC, resp.OutputRecord.DSTATUS),
@@ -311,7 +316,7 @@ namespace CPRBroker.Providers.KMD
                 {
                     PersonBirthDateStructure = new PersonBirthDateStructureType()
                     {
-                        BirthDate = ToDateTime(resp.OutputRecord.DFOEDS),
+                        BirthDate = ToDateTime(resp.OutputRecord.DFOEDS).Value,
                         BirthDateUncertaintyIndicator = false
                     },
                     PersonCivilRegistrationStatusStructure = ToCivilRegistrationStatusStructureType(resp.OutputRecord.CSTATUK, resp.OutputRecord.CSTATUC, resp.OutputRecord.DSTATUS),
