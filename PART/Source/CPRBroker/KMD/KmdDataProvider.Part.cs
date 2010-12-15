@@ -22,7 +22,7 @@ namespace CPRBroker.Providers.KMD
             PersonRegistration ret = null;
             var resp = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
             var addressResp = CallAN08002(uuid.CprNumber);
-            var relationsResponse = CallAN08010(uuid.CprNumber);
+            //var relationsResponse = CallAN08010(uuid.CprNumber);
 
 
             bool protectAddress = resp.AddressProtection.Equals("B") || resp.AddressProtection.Equals("L");
@@ -93,13 +93,56 @@ namespace CPRBroker.Providers.KMD
                 }
             };
 
-            if (relationsResponse.OutputArrayRecord != null)
+            //if (relationsResponse.OutputArrayRecord != null)
+            //{
+            //var relationIdentifiers = (from rel in relationsResponse.OutputArrayRecord where !string.IsNullOrEmpty(rel.PNR.Replace("-", "")) select new PersonIdentifier() { CprNumber = rel.PNR.Replace("-", "") }).ToArray();
+            //DAL.Part.PersonMapping.AssignGuids(relationIdentifiers);
+            //ret.Relations.Children = GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Baby, RelationTypes.ChildOver18);
+            //ret.Relations.Parents = Array.ConvertAll<Effect<PersonRelation>, PersonRelation>(GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Parents), (rel) => rel.Value);
+            //ret.Relations.Spouses = GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Spouse, RelationTypes.Partner);
+            //}
+
+
+            //Children
+            if (resp.ChildrenPNRs != null)
             {
-                var relationIdentifiers = (from rel in relationsResponse.OutputArrayRecord where !string.IsNullOrEmpty(rel.PNR.Replace("-", "")) select new PersonIdentifier() { CprNumber = rel.PNR.Replace("-", "") }).ToArray();
-                DAL.Part.PersonMapping.AssignGuids(relationIdentifiers);
-                ret.Relations.Children = GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Baby, RelationTypes.ChildOver18);
-                ret.Relations.Parents = Array.ConvertAll<Effect<PersonRelation>, PersonRelation>(GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Parents), (rel) => rel.Value);
-                ret.Relations.Spouses = GetPersonRelations(relationsResponse.OutputArrayRecord, relationIdentifiers, RelationTypes.Spouse, RelationTypes.Partner);
+                var childPnrs = (from pnr in resp.ChildrenPNRs where pnr.Replace("-", "").Length > 0 select new PersonIdentifier() { CprNumber = pnr.Replace("-", "") }).ToArray();
+                var uuids = DAL.Part.PersonMapping.AssignGuids(childPnrs);
+                ret.Relations.Children = Array.ConvertAll<PersonIdentifier, Effect<PersonRelation>>(
+                    childPnrs,
+                    (pId) => new Effect<PersonRelation>()
+                    {
+                        StartDate = null,
+                        EndDate = null,
+                        Value = new PersonRelation()
+                        {
+                            TargetUUID = pId.UUID.Value
+                        }
+                    }
+                    );
+            }
+            // Parents
+            var parents = new string[] { resp.FatherPNR, resp.MotherPNR }.AsQueryable().Where((pnr) => Convert.ToDecimal(pnr) > 0).ToArray();
+            var parentUuids = DAL.Part.PersonMapping.AssignGuids(parents);
+            ret.Relations.Parents = Array.ConvertAll<Guid, PersonRelation>(parentUuids, (parUuid) => new PersonRelation() { TargetUUID = parUuid });
+
+            //Spouses
+            if (Convert.ToDecimal(resp.SpousePNR) > 0)
+            {
+                bool isMarried = ret.States.CivilStatus.Value == CPRBroker.Schemas.Part.Enums.MaritalStatus.married || ret.States.CivilStatus.Value == CPRBroker.Schemas.Part.Enums.MaritalStatus.registeredpartner;
+                var spouseUuid = DAL.Part.PersonMapping.AssignGuids(resp.SpousePNR)[0];
+                ret.Relations.Spouses = new Effect<PersonRelation>[]{
+                    new Effect<PersonRelation>()
+                    {
+                        // TODO: Validate the start & end date for marriage in KMD spouse relations
+                        StartDate = isMarried? ret.States.CivilStatus.StartDate : null,
+                        EndDate = isMarried? null : ret.States.CivilStatus.StartDate ,
+                        Value = new PersonRelation()
+                        {
+                            TargetUUID = spouseUuid
+                        }
+                    }
+                };
             }
 
             ql = QualityLevel.Cpr;
