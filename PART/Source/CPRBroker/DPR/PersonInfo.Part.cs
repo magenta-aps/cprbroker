@@ -70,7 +70,7 @@ namespace CPRBroker.Providers.DPR
                     },
                 },
                 //TODO: Fix calculation of registration date in DPR
-                RegistrationDate = Utilities.DateFromDecimal(this.PersonTotal.StatusDate).Value,
+                RegistrationDate = Utilities.DateFromDecimal(this.PersonName.NameStartDate).Value,
                 // TODO: Add relations
                 Relations = new PersonRelations()
                 {
@@ -125,8 +125,9 @@ namespace CPRBroker.Providers.DPR
                 }
             }
 
-            // Fill the relations
+            //TODO: Fill the relations in DPR
             /**************/
+            /*
             ret.Relations.Parents = Array.ConvertAll<Guid, PersonRelation>
             (
                 DAL.Part.PersonMapping.AssignGuids
@@ -141,6 +142,15 @@ namespace CPRBroker.Providers.DPR
                 ),
                 (id) => new PersonRelation() { TargetUUID = id }
             );
+            ret.Relations.Parents = DAL.Part.PersonMapping.AssignGuids<decimal, PersonRelation>(
+                 (
+                        from pers in Child.PersonParentsExpression.Compile()(PersonTotal.PNR, dataContext)
+                        select pers.PNR
+                    ).ToArray(),
+                    (pnr) => null,
+                    (pnr) => new PersonIdentifier() { CprNumber = pnr.ToString("D2") },
+                    (dd,id)=>dd.TargetUUID = id);
+
 
             ret.Relations.Children = DAL.Part.PersonMapping.AssignGuids<PersonTotal, Effect<PersonRelation>>
             (
@@ -178,7 +188,7 @@ namespace CPRBroker.Providers.DPR
                     p.Value.TargetUUID = id;
                 }
             );
-
+            */
             return ret;
         }
 

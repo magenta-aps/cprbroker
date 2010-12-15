@@ -84,6 +84,10 @@ namespace CPRBroker.Providers.DPR
         {
             CPRBroker.Schemas.Part.PersonRegistration ret = null;
             EnsurePersonDataExists(uuid.CprNumber);
+            if (!effectDate.HasValue)
+            {
+                effectDate = DateTime.Today;
+            }
             using (var dataContext = new DPRDataContext(this.DatabaseObject.ConnectionString))
             {
                 var db =
