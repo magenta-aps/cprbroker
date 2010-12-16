@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KmdDataProvider.AN08100.cs" />
     <Compile Include="KmdDataProvider.AN08300.cs" />
     <Compile Include="KmdDataProvider.Part.cs" />
     <Compile Include="KmdDataProvider.AS78207.cs" />

@@ -10,7 +10,7 @@ using CPRBroker.DAL;
 
 namespace CPRBroker.Providers.KMD
 {
-    public partial class KmdDataProvider : IPartReadDataProvider, IPartSearchDataProvider
+    public partial class KmdDataProvider : IPartReadDataProvider
     {
         public static readonly Guid ActorId = new Guid("{A4E9B3E0-275F-4b76-AADB-4398AA56B871}");
 
@@ -154,54 +154,6 @@ namespace CPRBroker.Providers.KMD
         {
             // TODO: implement List operation on KMD after Read is completed
             throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region IPartSearchDataProvider Members
-
-        public PersonIdentifier[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql)
-        {
-            ql = QualityLevel.Cpr;
-            PersonIdentifier[] ret = new PersonIdentifier[0];
-
-            if (searchCriteria.BirthDate.HasValue)
-            {
-                var birthdateResp = CallAN08100(searchCriteria.BirthDate.Value, searchCriteria.Gender);
-                var ids = Array.ConvertAll<WS_AN08100.ReplyPeople, PersonIdentifier>(birthdateResp.OutputArrayRecord, (p) => new PersonIdentifier() { CprNumber = p.PNR });
-                if (!MergeSearchResult(ids, ref ret))
-                {
-                    return ret;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(searchCriteria.CprNumber))
-            {
-                var cprNumberResp = CallAS78207(searchCriteria.CprNumber);
-                var ids = new PersonIdentifier[] { new PersonIdentifier() { CprNumber = searchCriteria.CprNumber } };
-                if (!MergeSearchResult(ids, ref ret))
-                {
-                    return ret;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(searchCriteria.NationalityCountryCode))
-            {
-                // TODO: Search by nationality
-            }
-
-            if (!searchCriteria.Name.IsEmpty || searchCriteria.Gender.HasValue)
-            {
-                var nameResp = this.CallAN08300(searchCriteria.Name, searchCriteria.Gender);
-                //TODO: fill PersonIdentifier birthdate
-                var ids = Array.ConvertAll<WS_AN08300.ReplyPeople, PersonIdentifier>(nameResp, (p) => new PersonIdentifier() { CprNumber = p.PNR });
-                if (!MergeSearchResult(ids, ref ret))
-                {
-                    return ret;
-                }
-            }
-            CPRBroker.DAL.Part.PersonMapping.AssignGuids(ret);
-            return ret;
         }
 
         #endregion
