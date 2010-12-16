@@ -81,6 +81,26 @@ namespace CPRBroker.Engine
             }
         }
 
+        private static List<IDataProvider> GetDataProviderList<TInterface>(bool allowLocalProvider)
+        {
+            // Get list of all available data providers that are of type TInterface
+            // First copy to local defined list to avoid threading issues
+            List<IDataProvider> dataProviders = new List<IDataProvider>();
+            DataProvidersLock.AcquireReaderLock(Timeout.Infinite);
+            dataProviders.AddRange(DataProviders);
+            DataProvidersLock.ReleaseReaderLock();
+            // Now filter the list
+            List<IDataProvider> availableProviders =
+                (
+                    from dp in dataProviders
+                    where dp is TInterface
+                    && dp.IsAlive()
+                    && (dp is IExternalDataProvider || allowLocalProvider)
+                    select dp
+                 ).ToList();
+            return availableProviders;
+        }
+
         /// <summary>
         /// Searches for the appropriate data provider tha can implement a given method; then uses it to execute it
         /// </summary>
@@ -100,21 +120,7 @@ namespace CPRBroker.Engine
                 // Initialize the context
                 BrokerContext.Initialize(appToken, userToken, failIfNoApp, true, false);
 
-                // Get list of all available data providers that are of type TInterface
-                // First copy to local defined list to avoid threading issues
-                List<IDataProvider> dataProviders = new List<IDataProvider>();
-                DataProvidersLock.AcquireReaderLock(Timeout.Infinite);
-                dataProviders.AddRange(DataProviders);
-                DataProvidersLock.ReleaseReaderLock();
-                // Now filter the list
-                List<IDataProvider> availableProviders =
-                    (
-                        from dp in dataProviders
-                        where dp is TInterface
-                        && dp.IsAlive()
-                        && (dp is IExternalDataProvider || allowLocalProvider)
-                        select dp
-                     ).ToList();
+                List<IDataProvider> availableProviders = GetDataProviderList<TInterface>(allowLocalProvider);
                 // Log an error if no provider is found
                 if (availableProviders.Count == 0)
                 {
@@ -190,7 +196,6 @@ namespace CPRBroker.Engine
             // Default return value
             return default(TOutput);
         }
-
     }
 
 
