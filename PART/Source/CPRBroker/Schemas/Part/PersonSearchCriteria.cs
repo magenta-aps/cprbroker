@@ -10,7 +10,8 @@ namespace CPRBroker.Schemas.Part
     {
         public PersonNameStructureType Name { get; set; }
         public Gender? Gender { get; set; }
-        public DateTime? BirthDate { get; set; }
+        public DateTime? BirthDateFrom { get; set; }
+        public DateTime? BirthDateTo { get; set; }
 
         public string CprNumber { get; set; }
         public string NationalityCountryCode { get; set; }

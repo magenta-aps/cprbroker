@@ -338,7 +338,7 @@ namespace CPRBroker.Engine
     /// </summary>
     public interface IPartSearchDataProvider : IDataProvider
     {
-        PersonIdentifier[] Search(PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql);
+        Guid[] Search(PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql);
     }
 
     // Allows retrieval of person UUID from his CPR number

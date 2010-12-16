@@ -30,7 +30,7 @@ namespace CPRService.Services
         public RegistrationDateHeader registrationDateHeader;
         private const string RegistrationDateHeaderName = "registrationDateHeader";
 
-        
+
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName)]
         [SoapHeader(EffectDateHeaderName)]
@@ -58,7 +58,7 @@ namespace CPRService.Services
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Part.Methods.Search, Description = CPRBroker.Schemas.Part.ServiceDescription.Part.Methods.Search)]
         public Guid[] Search(PersonSearchCriteria searchCriteria)
         {
-            return null;
+            return Manager.Part.Search(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, effectDateHeader.EffectDate, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]

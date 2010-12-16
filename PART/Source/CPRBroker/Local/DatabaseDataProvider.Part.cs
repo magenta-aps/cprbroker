@@ -15,20 +15,24 @@ namespace CPRBroker.Providers.Local
     /// <summary>
     /// Handles implementation of data provider using the system's local database
     /// </summary>
-    public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider, IPartPersonMappingDataProvider   
+    public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider, IPartPersonMappingDataProvider
     {
 
         #region IPartSearchDataProvider Members
 
-        public PersonIdentifier[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql)
+        public Guid[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql)
         {
-            PersonIdentifier[] ret = null;
+            Guid[] ret = null;
             using (var dataContext = new PartDataContext())
             {
                 var pred = PredicateBuilder.True<PersonRegistration>();
-                if (searchCriteria.BirthDate.HasValue)
+                if (searchCriteria.BirthDateFrom.HasValue)
                 {
-                    pred = pred.And((pt) => pt.PersonAttribute.BirthDate == searchCriteria.BirthDate.Value);
+                    pred = pred.And((pt) => pt.PersonAttribute.BirthDate >= searchCriteria.BirthDateFrom.Value);
+                }
+                if (searchCriteria.BirthDateTo.HasValue)
+                {
+                    pred = pred.And((pt) => pt.PersonAttribute.BirthDate <= searchCriteria.BirthDateTo.Value);
                 }
                 if (!string.IsNullOrEmpty(searchCriteria.CprNumber))
                 {
@@ -52,7 +56,7 @@ namespace CPRBroker.Providers.Local
                     pred = pred.And((pt) => pt.PersonAttribute.GenderId == (int)searchCriteria.Gender);
                 }
 
-                if (!searchCriteria.Name.IsEmpty)
+                if (searchCriteria.Name != null && !searchCriteria.Name.IsEmpty)
                 {
                     var simpleNamePred = PredicateBuilder.True<PersonRegistration>();
                     simpleNamePred = simpleNamePred.And((pr) => pr.PersonAttribute.CprData == null);
@@ -98,7 +102,7 @@ namespace CPRBroker.Providers.Local
                 }
 
                 var result = from pr in dataContext.PersonRegistrations.Where(pred)
-                             select new PersonIdentifier() { UUID = pr.UUID };
+                             select pr.UUID;
                 ret = result.ToArray();
             }
             // TODO: filter by effect date
@@ -140,7 +144,7 @@ namespace CPRBroker.Providers.Local
         // TODO: Move this method to a separate data provider
         public Guid GetPersonUuid(string cprNumber)
         {
-            PersonIdentifier[] identifiers = new PersonIdentifier[]{new PersonIdentifier(){CprNumber = cprNumber}};
+            PersonIdentifier[] identifiers = new PersonIdentifier[] { new PersonIdentifier() { CprNumber = cprNumber } };
             DAL.Part.PersonMapping.AssignGuids(identifiers);
             return identifiers[0].UUID.Value;
         }

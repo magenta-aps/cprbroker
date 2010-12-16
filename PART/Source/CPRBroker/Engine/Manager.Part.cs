@@ -43,10 +43,10 @@ namespace CPRBroker.Engine
             // TODO: Add List method here after Read method is finalized
 
 
-            public static PersonIdentifier[] Search(string userToken, string appToken, PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? qualityLevel)
+            public static Guid[] Search(string userToken, string appToken, PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? qualityLevel)
             {
                 QualityLevel? ql = null;
-                var ret = CallMethod<IPartSearchDataProvider, PersonIdentifier[]>
+                var ret = CallMethod<IPartSearchDataProvider, Guid[]>
                 (
                     userToken,
                     appToken,
@@ -54,9 +54,8 @@ namespace CPRBroker.Engine
                     true,
                     (prov) => prov.Search(searchCriteria, effectDate, out ql),
                     true,
-                    null //(personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(personRegistration)
+                    null
                 );
-
                 qualityLevel = ql;
                 return ret;
             }

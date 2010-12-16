@@ -73,6 +73,29 @@ namespace NUnitTester
                 ValidatePerson(personUuids[i], persons[i]);
             }
         }
+
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        public void T300_Search_CprNumber(string cprNumber)
+        {
+            var searchCriteria = new Part.PersonSearchCriteria()
+            {
+                CprNumber = cprNumber
+            };
+            var result = TestRunner.PartService.Search(searchCriteria);
+            Assert.IsNotNull(result, "Search result");
+
+            var personUuid = TestRunner.PartService.GetPersonUuid(cprNumber);
+            if (result.Length == 0)
+            {
+                var personObject = TestRunner.PartService.Read(personUuid);
+            }
+            Assert.AreEqual(1, result.Length, "Number of search results");
+            Assert.AreNotEqual(Guid.Empty, result[0], "Empty person uuid from search");
+            Assert.AreEqual(personUuid, result[0], "Search result returns wrong uuids");
+        }
+
+        // TODO: Add more methods to test Search for criteria other than CPR number
         #endregion
 
         #region Legacy methods
