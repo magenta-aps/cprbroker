@@ -79,6 +79,13 @@ namespace CPRBroker.DAL.Part
             return ret;
         }
 
+        // TODO: Move the main logic for UUID assignment to this function bacause it is the most simple
+        public static Guid[] AssignGuids(params string[] cprNumbers)
+        {
+            var pIds = Array.ConvertAll<string, PersonIdentifier>(cprNumbers, (cpr) => new PersonIdentifier() { CprNumber = cpr });
+            return AssignGuids(pIds);
+        }
+
         /// <summary>
         /// Maps a person UUID to a PersonIdentifier object.
         /// Returns null if no match is found.
