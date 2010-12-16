@@ -12,30 +12,29 @@ namespace CPRBroker.DAL.Part
         {
             Schemas.Part.PersonRegistration ret = new CPRBroker.Schemas.Part.PersonRegistration()
             {
-                Attributes = this.PersonAttribute.ToXmlType(),
+                ActorId = this.ActorId,
                 RegistrationDate = this.RegistrationDate,
-                States = PersonState.ToXmlType(),
-                Relations = PersonRelationship.GetPersonRelations(this.PersonRelationships.ToArray().AsQueryable())
-            };
 
+                Attributes = this.PersonAttribute.ToXmlType(),
+                States = PersonState.ToXmlType(),
+                Relations = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable())
+            };
             return ret;
         }
 
-        public static PersonRegistration FromXmlType(Person person, CPRBroker.Schemas.Part.PersonRegistration partRegistration)
+        public static PersonRegistration FromXmlType(CPRBroker.Schemas.Part.PersonRegistration partRegistration)
         {
             PersonRegistration ret = new PersonRegistration()
             {
                 ActorId = partRegistration.ActorId,
                 RegistrationDate = partRegistration.RegistrationDate,
+
                 PersonRegistrationId = Guid.NewGuid(),
-                Person = person,
-                //TODO : Fill person attributes
-                PersonAttribute = null,
-                //TODO : Fill person relations
-                PersonRelationships = null,
-                //TODO : Fill person state
-                PersonState = null
+
+                PersonAttribute = PersonAttribute.FromXmlType(partRegistration.Attributes),
+                PersonState = PersonState.FromXmlType(partRegistration.States)
             };
+            ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.Relations));
             return ret;
         }
     }

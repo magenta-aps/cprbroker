@@ -16,5 +16,11 @@ namespace CPRBroker.DAL.Part
                     PermissionNumber = this.PermissionNumber
                 };
         }
+
+        public static ForeignCitizenData FromXmlType(Schemas.Part.ForeignCitizenData partForeignData)
+        {
+            // TODO: Implement ForeignCitizenData.FromXmlType()
+            return new ForeignCitizenData();
+        }
     }
 }

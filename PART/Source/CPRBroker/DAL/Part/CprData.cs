@@ -23,7 +23,7 @@ namespace CPRBroker.DAL.Part
                 {
                     StartDate = NameStartDate,
                     EndDate = NameEndDate,
-                    Value = new CPRBroker.Schemas.PersonNameStructureType 
+                    Value = new CPRBroker.Schemas.PersonNameStructureType
                     {
                         PersonGivenName = this.FirstName,
                         PersonMiddleName = this.MiddleName,
@@ -32,6 +32,31 @@ namespace CPRBroker.DAL.Part
                 },
                 // TODO: fill address
                 PopulationAddress = null,
+            };
+        }
+
+        public static CprData FromXmlType(Schemas.Part.CprData partCprData)
+        {
+            // TODO: Implement CprData.FromXmlType()
+            return new CprData()
+            {
+                AddressingName = partCprData.AddressingName,
+                IsBirthdateUncertain = partCprData.BirthDateUncertainty,
+                CprNumber = partCprData.CprNumber,
+                //GenderId = Gender.GetPartCode(partCprData.Gender),
+                IndividualTrackStatus = partCprData.IndividualTrackStatus,
+                HasNameAndAddressProtection = partCprData.NameAndAddressProtection,
+                NationalityCountryAlpha2Code = partCprData.NationalityCountryCode,
+                NickName = partCprData.NickName,
+                NameStartDate = partCprData.PersonName.StartDate,
+                NameEndDate = partCprData.PersonName.EndDate,
+
+                FirstName = partCprData.PersonName.Value.PersonGivenName,
+                MiddleName = partCprData.PersonName.Value.PersonMiddleName,
+                LastName = partCprData.PersonName.Value.PersonSurnameName
+                ,
+                // TODO: fill address
+                Address = null,
             };
         }
     }

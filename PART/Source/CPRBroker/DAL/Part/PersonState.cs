@@ -27,5 +27,11 @@ namespace CPRBroker.DAL.Part
                     }
                 };
         }
+
+        public static PersonState FromXmlType(Schemas.Part.PersonStates partState)
+        {
+            // TODO: Implement PersonState.FromXmlType
+            return new PersonState();
+        }
     }
 }

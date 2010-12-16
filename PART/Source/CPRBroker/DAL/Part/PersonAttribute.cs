@@ -10,6 +10,8 @@ namespace CPRBroker.DAL.Part
     {
         public Schemas.Part.PersonAttributes ToXmlType()
         {
+            // TODO: Add support for contact channels and other addresses
+            // TODO: Add support for name date
             var ret = new PersonAttributes()
                 {
                     BirthDate = this.BirthDate,
@@ -20,7 +22,7 @@ namespace CPRBroker.DAL.Part
                     {
                         StartDate = null,
                         EndDate = null,
-                        Value = null,
+                        Value = Name,
                     },
                     PersonData = null
                 };
@@ -36,6 +38,31 @@ namespace CPRBroker.DAL.Part
             else if (this.UnknownCitizenData != null)
             {
                 ret.PersonData = UnknownCitizenData.ToXmlType();
+            }
+            return ret;
+        }
+
+        public static PersonAttribute FromXmlType(Schemas.Part.PersonAttributes partAttributes)
+        {
+            // TODO: Add support for contact channels and other addresses
+            // TODO: Add support for name date
+            var ret = new PersonAttribute()
+            {
+                BirthDate = partAttributes.BirthDate,
+                GenderId = DAL.Part.Gender.GetPartCode(partAttributes.Gender),
+                Name = partAttributes.Name.Value
+            };
+            if (partAttributes.PersonData is Schemas.Part.CprData)
+            {
+                ret.CprData = DAL.Part.CprData.FromXmlType(partAttributes.PersonData as Schemas.Part.CprData);
+            }
+            else if (partAttributes.PersonData is Schemas.Part.ForeignCitizenData)
+            {
+                ret.ForeignCitizenData = DAL.Part.ForeignCitizenData.FromXmlType(partAttributes.PersonData as Schemas.Part.ForeignCitizenData);
+            }
+            else if (partAttributes.PersonData is Schemas.Part.UnknownCitizenData)
+            {
+                ret.UnknownCitizenData = DAL.Part.UnknownCitizenData.FromXmlType(partAttributes.PersonData as Schemas.Part.UnknownCitizenData);
             }
             return ret;
         }

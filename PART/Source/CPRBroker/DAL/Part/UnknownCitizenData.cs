@@ -14,5 +14,11 @@ namespace CPRBroker.DAL.Part
                 ReplacementCprNumber = this.ReplacementCprNumber
             };
         }
+
+        public static UnknownCitizenData FromXmlType(Schemas.Part.UnknownCitizenData partUnknownData)
+        {
+            // TODO: Implement UnknownCitizenData.FromXmlType()
+            return new UnknownCitizenData();
+        }
     }
 }

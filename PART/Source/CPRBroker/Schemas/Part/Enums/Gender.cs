@@ -5,10 +5,11 @@ using System.Text;
 
 namespace CPRBroker.Schemas.Part.Enums
 {
+    // TODO: Check whether Unknown should be used instead of null
     public enum Gender
     {
-        Male,
-        Female,
-        Unknown
+        Male = 1,
+        Female = 2,
+        Unknown = 3
     }
 }

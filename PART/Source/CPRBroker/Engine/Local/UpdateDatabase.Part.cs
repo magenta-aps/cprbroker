@@ -21,14 +21,15 @@ namespace CPRBroker.Engine.Local
         /// <param name="personRegistraion"></param>
         public static void UpdatePersonRegistration(Guid personUUID, Schemas.Part.PersonRegistration personRegistraion)
         {
+            //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
             using (var dataContext = new PartDataContext())
             {
                 // Match db registrations by UUID, ActorId and registration date
                 var existingInDb = (from dbReg in dataContext.PersonRegistrations
-                                      where dbReg.UUID == personUUID
-                                      && dbReg.RegistrationDate == personRegistraion.RegistrationDate
-                                      && dbReg.ActorId == personRegistraion.ActorId
-                                      select dbReg).ToArray();
+                                    where dbReg.UUID == personUUID
+                                    && dbReg.RegistrationDate == personRegistraion.RegistrationDate
+                                    && dbReg.ActorId == personRegistraion.ActorId
+                                    select dbReg).ToArray();
 
                 // Perform a content match if key match is found
                 if (existingInDb.Length > 0)
@@ -49,10 +50,11 @@ namespace CPRBroker.Engine.Local
                         };
                         dataContext.Persons.InsertOnSubmit(dbPerson);
                     }
-                    var dbReg = DAL.Part.PersonRegistration.FromXmlType(dbPerson, personRegistraion);                    
+                    var dbReg = DAL.Part.PersonRegistration.FromXmlType(personRegistraion);
+                    dbReg.Person = dbPerson;
                     dataContext.PersonRegistrations.InsertOnSubmit(dbReg);
                     dataContext.SubmitChanges();
-                }                
+                }
             }
         }
     }

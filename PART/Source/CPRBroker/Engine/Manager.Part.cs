@@ -33,8 +33,7 @@ namespace CPRBroker.Engine
                         return prov.Read(pId, effectDate, out ql);
                     },
                     true,
-                    // TODO: add the update method here
-                    null //(personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(personRegistration)
+                    (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(uuid, personRegistration)
                 );
 
                 qualityLevel = ql;

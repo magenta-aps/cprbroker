@@ -30,7 +30,7 @@ namespace CPRBroker.DAL.Part
             };
         }
 
-        public static Schemas.Part.PersonRelations GetPersonRelations(IQueryable<PersonRelationship> relations)
+        public static Schemas.Part.PersonRelations ToXmlType(IQueryable<PersonRelationship> relations)
         {
             return new CPRBroker.Schemas.Part.PersonRelations()
             {
@@ -51,6 +51,12 @@ namespace CPRBroker.DAL.Part
                 where rel.RelationshipTypeId == (int)type
                 select rel.ToXmlType()
             ).ToArray();
+        }
+
+        public static PersonRelationship[] FromXmlType(Schemas.Part.PersonRelations partRelations)
+        {
+            // TODO: implement PersonRelation.FromXmlType()
+            return new PersonRelationship[0];
         }
     }
 }
