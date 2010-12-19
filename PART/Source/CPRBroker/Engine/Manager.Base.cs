@@ -14,93 +14,6 @@ namespace CPRBroker.Engine
     /// </summary>
     public static partial class Manager
     {
-        private static List<IDataProvider> DataProviders = new List<IDataProvider>();
-        private static ReaderWriterLock DataProvidersLock = new ReaderWriterLock();
-
-        static Manager()
-        {
-            InitializeDataProviders();
-        }
-
-        /// <summary>
-        /// Converts the current DataProvider (database object) to the appropriate IDataProvider object based on its type
-        /// </summary>
-        /// <param name="dbDataProvider">The database object that represents the data provider</param>
-        /// <returns>The newly created IDataProvider</returns>
-        public static IDataProvider ToIDataProvider(this CPRBroker.DAL.DataProvider dbDataProvider)
-        {
-            Type dataProviderType = Type.GetType(dbDataProvider.DataProviderType.TypeName);
-            object providerObj = dataProviderType.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
-            IDataProvider dataProvider = providerObj as IDataProvider;
-            if (dataProvider is IExternalDataProvider)
-            {
-                (dataProvider as IExternalDataProvider).DatabaseObject = dbDataProvider;
-            }
-            return dataProvider;
-        }
-
-        /// <summary>
-        /// Initializes the list of all data providers
-        /// </summary>
-        public static void InitializeDataProviders()
-        {
-            BrokerContext.Initialize(DAL.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
-            // Load from database
-            using (DAL.CPRBrokerDALDataContext dataContext = new CPRBroker.DAL.CPRBrokerDALDataContext())
-            {
-                DataLoadOptions loadOptions = new DataLoadOptions();
-                loadOptions.LoadWith<DAL.DataProvider>((dp) => dp.DataProviderType);
-                dataContext.LoadOptions = loadOptions;
-                var dbProviders = (from prov in dataContext.DataProviders
-                                   where prov.DataProviderType.Enabled == true
-                                   orderby prov.DataProviderType.IsExternal descending, prov.DataProviderId
-                                   select prov);
-
-                List<IDataProvider> providers = new List<IDataProvider>();
-                foreach (var dbProv in dbProviders)
-                {
-                    try
-                    {
-                        IDataProvider dataProvider = dbProv.ToIDataProvider();
-                        if (dataProvider != null)
-                        {
-                            providers.Add(dataProvider);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Local.Admin.LogException(ex);
-                    }
-                }
-
-                // Now refresh the list
-                DataProvidersLock.AcquireWriterLock(Timeout.Infinite);
-                DataProviders.Clear();
-                DataProviders.AddRange(providers);
-                DataProvidersLock.ReleaseWriterLock();
-            }
-        }
-
-        private static List<IDataProvider> GetDataProviderList<TInterface>(bool allowLocalProvider)
-        {
-            // Get list of all available data providers that are of type TInterface
-            // First copy to local defined list to avoid threading issues
-            List<IDataProvider> dataProviders = new List<IDataProvider>();
-            DataProvidersLock.AcquireReaderLock(Timeout.Infinite);
-            dataProviders.AddRange(DataProviders);
-            DataProvidersLock.ReleaseReaderLock();
-            // Now filter the list
-            List<IDataProvider> availableProviders =
-                (
-                    from dp in dataProviders
-                    where dp is TInterface
-                    && dp.IsAlive()
-                    && (dp is IExternalDataProvider || allowLocalProvider)
-                    select dp
-                 ).ToList();
-            return availableProviders;
-        }
-
         /// <summary>
         /// Searches for the appropriate data provider tha can implement a given method; then uses it to execute it
         /// </summary>
@@ -120,7 +33,7 @@ namespace CPRBroker.Engine
                 // Initialize the context
                 BrokerContext.Initialize(appToken, userToken, failIfNoApp, true, false);
 
-                List<IDataProvider> availableProviders = GetDataProviderList<TInterface>(allowLocalProvider);
+                List<IDataProvider> availableProviders = DataProviderManager.GetDataProviderList<TInterface>(allowLocalProvider);
                 // Log an error if no provider is found
                 if (availableProviders.Count == 0)
                 {
@@ -196,6 +109,110 @@ namespace CPRBroker.Engine
             // Default return value
             return default(TOutput);
         }
+
+        public static TOutput GetMethodOutput<TOutput>(FacadeMethodInfo<TOutput> facade)
+        {
+            try
+            {
+                // Initialize context
+                BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken, facade.ApplicationTokenRequired, true, false);
+
+                // have a list of data provider types and corresponding methods to call
+                var methodsAndDataProviders =
+                    (
+                        from mi in facade.SubMethodInfos
+                        select new
+                       {
+                           MethodCallInfo = mi,
+                           DataProviders = DataProviderManager.GetDataProviderList(mi.InterfaceType, mi.AllowLocalDataProvider)
+                       }
+                   ).ToArray();
+
+                // Now check that each method call info either has at least one data provider implementation or can be safely ignored. 
+                var missingDataProvidersExist = (
+                        (
+                            from mi in methodsAndDataProviders
+                            where mi.MethodCallInfo.FailIfNoDataProvider && mi.DataProviders.Count == 0
+                            select mi
+                        ).FirstOrDefault() != null
+                    );
+
+                if (missingDataProvidersExist)
+                {
+                    Local.Admin.AddNewLog(TraceEventType.Warning, BrokerContext.Current.WebMethodMessageName, TextMessages.NoDataProvidersFound, null, null);
+                    return default(TOutput);
+                }
+
+                // Now create the sub results
+                object[] subResults = new object[methodsAndDataProviders.Length];
+                for (int iSubMethod = 0; iSubMethod < methodsAndDataProviders.Length; iSubMethod++)
+                {
+                    var subMethodInfo = methodsAndDataProviders[iSubMethod];
+                    bool subMethodSucceeded = false;
+                    IDataProvider usedProvider = null;
+
+                    foreach (IDataProvider prov in subMethodInfo.DataProviders)
+                    {
+                        try
+                        {
+                            usedProvider = prov;
+                            object subResult = subMethodInfo.MethodCallInfo.Invoke(prov);
+                            if (subMethodInfo.MethodCallInfo.IsSuccessfulOutput(subResult))
+                            {
+                                subResults[iSubMethod] = subResult;
+                                subMethodSucceeded = true;
+                                break;
+                            }
+                        }
+                        catch (Exception dataProviderException)
+                        {
+                            Local.Admin.LogException(dataProviderException);
+                        }
+                    }
+                    if (subMethodSucceeded)
+                    {
+                        if (usedProvider is IExternalDataProvider)
+                        {
+                            try
+                            {
+
+                                subMethodInfo.MethodCallInfo.InvokeUpdateMethod(subResults[iSubMethod]);
+                            }
+                            catch (Exception updateException)
+                            {
+                                string xml = Util.Strings.SerializeObject(subResults[iSubMethod]);
+                                Local.Admin.LogException(updateException);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.AllDataProvidersFailed + subMethodInfo.MethodCallInfo, null, null);
+                    }
+                }
+
+                // Now that all the results have been created, Gather all in one object
+                var output = facade.AggregationMethod(subResults);
+                if (facade.IsValidResult(output))
+                {
+                    Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.Succeeded, null, null);
+                    return output;
+                }
+                else
+                {
+                    string xml = Util.Strings.SerializeObject(output);
+                    Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.ResultGatheringFailed, typeof(TOutput).ToString(), xml);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Local.Admin.LogException(ex);
+            }
+            return default(TOutput);
+        }
+
+
     }
 
 

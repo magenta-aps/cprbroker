@@ -40,7 +40,7 @@ namespace CPRBroker.Engine
                 BrokerContext.Initialize(Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
 
                 // Refresh data provider list so that any changes are reflected here
-                Manager.InitializeDataProviders();
+                DataProviderManager.InitializeDataProviders();
 
                 using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
                 {

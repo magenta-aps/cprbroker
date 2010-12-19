@@ -173,7 +173,7 @@ namespace CPRBroker.Engine.Local
                     });
                 context.SubmitChanges();
                 // Refresh current data provider list
-                Manager.InitializeDataProviders();
+                DataProviderManager.InitializeDataProviders();
                 return true;
             }
         }

@@ -40,7 +40,7 @@ namespace CPRService.Pages
             {
                 dataProvidersGridView.DataBind();
                 newDataProviderDetailsView.DataBind();
-                CPRBroker.Engine.Manager.InitializeDataProviders();
+                CPRBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
@@ -54,7 +54,7 @@ namespace CPRService.Pages
         {
             if (e.Exception == null)
             {
-                CPRBroker.Engine.Manager.InitializeDataProviders();
+                CPRBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
@@ -62,7 +62,7 @@ namespace CPRService.Pages
         {
             if (e.Exception == null)
             {
-                CPRBroker.Engine.Manager.InitializeDataProviders();
+                CPRBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
@@ -70,7 +70,7 @@ namespace CPRService.Pages
         {
             if (e.Exception == null)
             {
-                CPRBroker.Engine.Manager.InitializeDataProviders();
+                CPRBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
