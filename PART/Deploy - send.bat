@@ -5,8 +5,9 @@ md \\5.11.118.93\c$\Users\mag-bb\Desktop\PART\Deploy\
 
 REM Zip and copy DB backup to server
 copy "\\10.20.1.20\C$\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\Backup\PART.bak" Deploy\PART.bak /Y
-"C:\Program Files\7-Zip\7z.exe" a Deploy\PARTDB.7z Deploy\PART.bak
-copy Deploy\PARTDB.7z \\5.11.118.93\c$\Users\mag-bb\Desktop\PART\Deploy\PARTDB.7z /y
+del Deploy\PARTDB.bz2 /F
+"C:\Program Files\7-Zip\7z.exe" a -tbzip2 Deploy\PARTDB.bz2 Deploy\PART.bak
+copy Deploy\PARTDB.bz2 \\5.11.118.93\c$\Users\mag-bb\Desktop\PART\Deploy\PARTDB.bz2 /y
 
 REM Copy code files to server
 rd /S /Q Deploy\Source

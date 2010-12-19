@@ -1,5 +1,5 @@
 REM Extract database
-"c:\Program Files (x86)\7-Zip\7z.exe" e Deploy\PARTDB.7z -oDeploy\ -y
+"c:\Program Files (x86)\7-Zip\7z.exe" e Deploy\PARTDB.bz2 -tbzip2 -oDeploy\ -y
 
 REM Drop connections
 sqlcmd -S localhost -d master -Q "DECLARE @SQL varchar(max); SET @SQL = ''; SELECT @SQL = @SQL + 'Kill ' + Convert(varchar, SPId) + ';' FROM MASTER.sys.SysProcesses WHERE DBId = DB_ID('PART_Beemen'); exec (@sql)"
