@@ -19,5 +19,8 @@
     <Setting Name="DataContextDeadLockWaitMilliseconds" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">1000</Value>
     </Setting>
+    <Setting Name="DataProviderSecondsRefreshPeriod" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1800</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

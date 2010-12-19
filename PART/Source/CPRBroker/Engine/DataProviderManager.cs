@@ -17,6 +17,8 @@ namespace CPRBroker.Engine
             InitializeDataProviders();
         }
 
+
+
         /// <summary>
         /// Converts the current DataProvider (database object) to the appropriate IDataProvider object based on its type
         /// </summary>
@@ -59,7 +61,10 @@ namespace CPRBroker.Engine
                         IDataProvider dataProvider = dbProv.ToIDataProvider();
                         if (dataProvider != null)
                         {
-                            providers.Add(dataProvider);
+                            if (dataProvider.IsAlive())
+                            {
+                                providers.Add(dataProvider);
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -76,6 +81,13 @@ namespace CPRBroker.Engine
             }
         }
 
+        private static void SetDataProviderTimer()
+        {
+            System.Timers.Timer refreshTimer = new System.Timers.Timer(Config.Properties.Settings.Default.DataProviderSecondsRefreshPeriod);
+            refreshTimer.AutoReset = true;
+            refreshTimer.Elapsed += new System.Timers.ElapsedEventHandler((sender, e) => InitializeDataProviders());
+        }
+
         internal static List<IDataProvider> GetDataProviderList<TInterface>(bool allowLocalProvider)
         {
             // Get list of all available data providers that are of type TInterface
@@ -90,7 +102,6 @@ namespace CPRBroker.Engine
                 (
                     from dp in dataProviders
                     where dp is TInterface
-                    && dp.IsAlive()
                     && (dp is IExternalDataProvider || allowLocalProvider)
                     select dp
                  ).ToList();
