@@ -85,6 +85,7 @@ namespace CPRBroker.Engine
             dataProviders.AddRange(DataProviders);
             DataProvidersLock.ReleaseReaderLock();
             // Now filter the list
+            // TODO: Optimize calling of IsAlive to save waiting time when the DP is dead
             List<IDataProvider> availableProviders =
                 (
                     from dp in dataProviders

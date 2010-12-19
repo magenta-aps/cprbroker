@@ -117,6 +117,12 @@ namespace CPRBroker.Engine
                 // Initialize context
                 BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken, facade.ApplicationTokenRequired, true, false);
 
+                // Initialize facade method
+                if (facade.InitializationMethod != null)
+                {
+                    facade.InitializationMethod();
+                }
+
                 // have a list of data provider types and corresponding methods to call
                 var methodsAndDataProviders =
                     (

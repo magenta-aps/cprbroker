@@ -17,27 +17,36 @@ namespace CPRBroker.Engine
             public static PersonRegistration Read(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel)
             {
                 QualityLevel? ql = null;
-                var ret = CallMethod<IPartReadDataProvider, PersonRegistration>
-                (
-                    userToken,
-                    appToken,
-                    true,
-                    true,
-                    (prov) =>
+                PersonIdentifier pId = null;
+
+                FacadeMethodInfo<PersonRegistration> facadeMethodInfo = new FacadeMethodInfo<PersonRegistration>(appToken, userToken, true)
+                {
+                    InitializationMethod = () =>
                     {
-                        var pId = DAL.Part.PersonMapping.GetPersonIdentifier(uuid);
+                        pId = DAL.Part.PersonMapping.GetPersonIdentifier(uuid);
                         if (pId == null)
                         {
                             throw new Exception(TextMessages.UuidNotFound);
                         }
-                        return prov.Read(pId, effectDate, out ql);
                     },
-                    true,
-                    (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(uuid, personRegistration)
-                );
+
+                    SubMethodInfos = new SubMethodInfo[] 
+                    {
+                        new SubMethodInfo<IPartReadDataProvider,PersonRegistration>()
+                        {
+                            AllowLocalDataProvider=true,
+                            FailIfNoDataProvider = true,
+                            FailOnDefaultOutput=true,
+                            Method = (prov)=>prov.Read(pId,effectDate,out ql),
+                            UpdateMethod = (personRegistration)=> Local.UpdateDatabase.UpdatePersonRegistration(uuid, personRegistration)
+                        }
+                    },
+
+                    AggregationMethod = (subresults) => subresults[0] as PersonRegistration
+                };
 
                 qualityLevel = ql;
-                return ret;
+                return GetMethodOutput<PersonRegistration>(facadeMethodInfo);
             }
 
             // TODO: Add List method here after Read method is finalized
