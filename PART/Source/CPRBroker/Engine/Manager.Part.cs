@@ -45,29 +45,36 @@ namespace CPRBroker.Engine
                     AggregationMethod = (subresults) => subresults[0] as PersonRegistration
                 };
 
+                var ret = GetMethodOutput<PersonRegistration>(facadeMethodInfo);
                 qualityLevel = ql;
-                return GetMethodOutput<PersonRegistration>(facadeMethodInfo);
+                return ret;
             }
 
             // TODO: Add List method here after Read method is finalized
 
-
             public static Guid[] Search(string userToken, string appToken, PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? qualityLevel)
             {
                 QualityLevel? ql = null;
-                var ret = CallMethod<IPartSearchDataProvider, Guid[]>
-                (
-                    userToken,
-                    appToken,
-                    true,
-                    true,
-                    (prov) => prov.Search(searchCriteria, effectDate, out ql),
-                    true,
-                    null
-                );
+                FacadeMethodInfo<Guid[]> facadeMethod = new FacadeMethodInfo<Guid[]>(appToken, userToken, true)
+                {
+                    SubMethodInfos = new SubMethodInfo[]
+                    {
+                        new SubMethodInfo<IPartSearchDataProvider,Guid[]>()
+                        {
+                            AllowLocalDataProvider = true,
+                            FailIfNoDataProvider = true,
+                            FailOnDefaultOutput = true,
+                            Method = (prov)=>prov.Search(searchCriteria,effectDate,out ql),
+                            UpdateMethod = null
+                        }
+                    }
+                };
+
+                var ret = GetMethodOutput<Guid[]>(facadeMethod);
                 qualityLevel = ql;
                 return ret;
             }
+
 
             public static Guid GetPersonUuid(string userToken, string appToken, string cprNumber)
             {

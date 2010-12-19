@@ -20,7 +20,17 @@ namespace CPRBroker.Engine
         public Action InitializationMethod = () => { };
 
         public Func<object[], TOutput> AggregationMethod =
-            (results) => (TOutput)(object)results;
+            (results) =>
+            {
+                if (results != null && results.Length == 1)
+                {
+                    return (TOutput)(object)results[0];
+                }
+                else
+                {
+                    return default(TOutput);
+                }
+            };
 
         internal Func<TOutput, bool> IsValidResult =
             (result) => !object.Equals(result, default(TOutput));
