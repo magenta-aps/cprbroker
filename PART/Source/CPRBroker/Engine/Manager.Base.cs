@@ -114,6 +114,7 @@ namespace CPRBroker.Engine
         {
             try
             {
+                #region Initialization and loading of data providers
                 // Initialize context
                 BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken, facade.ApplicationTokenRequired, true, false);
 
@@ -124,12 +125,12 @@ namespace CPRBroker.Engine
                 }
 
                 // have a list of data provider types and corresponding methods to call
-                var methodsAndDataProviders =
+                var subMethodRunStates =
                     (
                         from mi in facade.SubMethodInfos
-                        select new
+                        select new SubMethodRunState()
                        {
-                           MethodCallInfo = mi,
+                           SubMethodInfo = mi,
                            DataProviders = DataProviderManager.GetDataProviderList(mi.InterfaceType, mi.LocalDataProviderOption)
                        }
                    ).ToArray();
@@ -137,8 +138,8 @@ namespace CPRBroker.Engine
                 // Now check that each method call info either has at least one data provider implementation or can be safely ignored. 
                 var missingDataProvidersExist = (
                         (
-                            from mi in methodsAndDataProviders
-                            where mi.MethodCallInfo.FailIfNoDataProvider && mi.DataProviders.Count == 0
+                            from mi in subMethodRunStates
+                            where mi.SubMethodInfo.FailIfNoDataProvider && mi.DataProviders.Count == 0
                             select mi
                         ).FirstOrDefault() != null
                     );
@@ -148,67 +149,100 @@ namespace CPRBroker.Engine
                     Local.Admin.AddNewLog(TraceEventType.Warning, BrokerContext.Current.WebMethodMessageName, TextMessages.NoDataProvidersFound, null, null);
                     return default(TOutput);
                 }
+                #endregion
+
+                #region creation of sub results in threads
+                // Catch the current broker context in a local variable
+                var currentBrokerContext = BrokerContext.Current;
 
                 // Now create the sub results
-                object[] subResults = new object[methodsAndDataProviders.Length];
-                for (int iSubMethod = 0; iSubMethod < methodsAndDataProviders.Length; iSubMethod++)
+                for (int iSubMethod = 0; iSubMethod < subMethodRunStates.Length; iSubMethod++)
                 {
-                    var subMethodInfo = methodsAndDataProviders[iSubMethod];
-                    bool subMethodSucceeded = false;
-                    IDataProvider usedProvider = null;
 
-                    foreach (IDataProvider prov in subMethodInfo.DataProviders)
-                    {
-                        try
+                    subMethodRunStates[iSubMethod].Thread = new Thread(new ParameterizedThreadStart((o) =>
                         {
-                            usedProvider = prov;
-                            object subResult = subMethodInfo.MethodCallInfo.Invoke(prov);
-                            if (subMethodInfo.MethodCallInfo.IsSuccessfulOutput(subResult))
-                            {
-                                subResults[iSubMethod] = subResult;
-                                subMethodSucceeded = true;
-                                break;
-                            }
-                        }
-                        catch (Exception dataProviderException)
-                        {
-                            Local.Admin.LogException(dataProviderException);
-                        }
-                    }
-                    if (subMethodSucceeded)
-                    {
-                        if (usedProvider is IExternalDataProvider)
-                        {
-                            try
-                            {
+                            // Copy the broker context to this new thread
+                            BrokerContext.Current = currentBrokerContext;
 
-                                subMethodInfo.MethodCallInfo.InvokeUpdateMethod(subResults[iSubMethod]);
-                            }
-                            catch (Exception updateException)
+                            SubMethodRunState subMethodInfo = subMethodRunStates[(int)o];
+                            // Loop over data providers until one succeeds
+                            foreach (IDataProvider prov in subMethodInfo.DataProviders)
                             {
-                                string xml = Util.Strings.SerializeObject(subResults[iSubMethod]);
-                                Local.Admin.LogException(updateException);
+                                try
+                                {
+                                    subMethodInfo.UsedDataProvider = prov;
+                                    object subResult = subMethodInfo.SubMethodInfo.Invoke(prov);
+                                    if (subMethodInfo.SubMethodInfo.IsSuccessfulOutput(subResult))
+                                    {
+                                        subMethodInfo.Result = subResult;
+                                        subMethodInfo.Succeeded = true;
+                                        break;
+                                    }
+                                }
+                                catch (Exception dataProviderException)
+                                {
+                                    Local.Admin.LogException(dataProviderException);
+                                }
                             }
+
+                            if (subMethodInfo.Succeeded)
+                            {
+                                if (subMethodInfo.UsedDataProvider is IExternalDataProvider)
+                                {
+                                    try
+                                    {
+                                        subMethodInfo.SubMethodInfo.InvokeUpdateMethod(subMethodInfo.Result);
+                                    }
+                                    catch (Exception updateException)
+                                    {
+                                        string xml = Util.Strings.SerializeObject(subMethodInfo.Result);
+                                        Local.Admin.LogException(updateException);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.AllDataProvidersFailed + subMethodInfo.SubMethodInfo, null, null);
+                            }
+
+                            // Signal the end of processing
+                            subMethodInfo.WaitHandle.Set();
                         }
+                    ));
+                    subMethodRunStates[iSubMethod].Thread.Start(iSubMethod);
+                }
+                #endregion
+
+                #region Threads control
+
+                // Wait for sub results to continue
+                var waitHandles = (from mi in subMethodRunStates select mi.WaitHandle).ToArray();
+                WaitHandle.WaitAll(waitHandles, Config.Properties.Settings.Default.DataProviderMillisecondsTimeout);
+                foreach (var mi in subMethodRunStates)
+                {
+                    mi.Thread.Abort();
+                }
+                #endregion
+
+                #region Final aggregation
+
+                var subResultsFinished = (from mi in subMethodRunStates where !mi.Succeeded select mi).Count() == 0;
+                if (subResultsFinished)
+                {
+                    var subResults = (from mi in subMethodRunStates select mi.Result).ToArray();
+                    var output = facade.AggregationMethod(subResults);
+                    if (facade.IsValidResult(output))
+                    {
+                        Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.Succeeded, null, null);
+                        return output;
                     }
                     else
                     {
-                        Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.AllDataProvidersFailed + subMethodInfo.MethodCallInfo, null, null);
+                        string xml = Util.Strings.SerializeObject(output);
+                        Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.ResultGatheringFailed, typeof(TOutput).ToString(), xml);
                     }
                 }
-
-                // Now that all the results have been created, Gather all in one object
-                var output = facade.AggregationMethod(subResults);
-                if (facade.IsValidResult(output))
-                {
-                    Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.Succeeded, null, null);
-                    return output;
-                }
-                else
-                {
-                    string xml = Util.Strings.SerializeObject(output);
-                    Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.ResultGatheringFailed, typeof(TOutput).ToString(), xml);
-                }
+                #endregion
 
             }
             catch (Exception ex)
@@ -218,6 +252,16 @@ namespace CPRBroker.Engine
             return default(TOutput);
         }
 
+        private class SubMethodRunState
+        {
+            public SubMethodInfo SubMethodInfo;
+            public List<IDataProvider> DataProviders;
+            public object Result = null;
+            public Thread Thread;
+            public bool Succeeded = false;
+            public ManualResetEvent WaitHandle = new ManualResetEvent(false);
+            public IDataProvider UsedDataProvider;
+        }
 
     }
 
