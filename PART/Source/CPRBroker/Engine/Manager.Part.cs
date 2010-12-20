@@ -16,6 +16,16 @@ namespace CPRBroker.Engine
         {
             public static PersonRegistration Read(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel)
             {
+                return Read(userToken, appToken, uuid, effectDate, out qualityLevel, LocalDataProviderUsageOption.UseFirst);
+            }
+
+            public static PersonRegistration RefreshRead(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel)
+            {
+                return Read(userToken, appToken, uuid, effectDate, out qualityLevel, LocalDataProviderUsageOption.UseLast);
+            }
+
+            private static PersonRegistration Read(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel, LocalDataProviderUsageOption localAction)
+            {
                 QualityLevel? ql = null;
                 PersonIdentifier pId = null;
 
@@ -34,7 +44,7 @@ namespace CPRBroker.Engine
                     {
                         new SubMethodInfo<IPartReadDataProvider,PersonRegistration>()
                         {
-                            LocalDataProviderOption= LocalDataProviderUsageOption.UseLast,
+                            LocalDataProviderOption= localAction,
                             FailIfNoDataProvider = true,
                             FailOnDefaultOutput=true,
                             Method = (prov)=>prov.Read(pId,effectDate,out ql),

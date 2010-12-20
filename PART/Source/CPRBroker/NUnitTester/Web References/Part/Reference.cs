@@ -41,6 +41,8 @@ namespace NUnitTester.Part {
         
         private System.Threading.SendOrPostCallback ReadOperationCompleted;
         
+        private System.Threading.SendOrPostCallback RefreshReadOperationCompleted;
+        
         private System.Threading.SendOrPostCallback ListOperationCompleted;
         
         private System.Threading.SendOrPostCallback SearchOperationCompleted;
@@ -125,6 +127,9 @@ namespace NUnitTester.Part {
         public event ReadCompletedEventHandler ReadCompleted;
         
         /// <remarks/>
+        public event RefreshReadCompletedEventHandler RefreshReadCompleted;
+        
+        /// <remarks/>
         public event ListCompletedEventHandler ListCompleted;
         
         /// <remarks/>
@@ -163,6 +168,40 @@ namespace NUnitTester.Part {
             if ((this.ReadCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.ReadCompleted(this, new ReadCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("RegistrationDateHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("EffectDateHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RefreshRead ", RequestElementName="RefreshRead ", RequestNamespace="http://tempuri.org/", ResponseElementName="RefreshRead Response", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("RefreshRead Result")]
+        public PersonRegistration RefreshRead(System.Guid personUUID) {
+            object[] results = this.Invoke("RefreshRead", new object[] {
+                        personUUID});
+            return ((PersonRegistration)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RefreshReadAsync(System.Guid personUUID) {
+            this.RefreshReadAsync(personUUID, null);
+        }
+        
+        /// <remarks/>
+        public void RefreshReadAsync(System.Guid personUUID, object userState) {
+            if ((this.RefreshReadOperationCompleted == null)) {
+                this.RefreshReadOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRefreshReadOperationCompleted);
+            }
+            this.InvokeAsync("RefreshRead", new object[] {
+                        personUUID}, this.RefreshReadOperationCompleted, userState);
+        }
+        
+        private void OnRefreshReadOperationCompleted(object arg) {
+            if ((this.RefreshReadCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RefreshReadCompleted(this, new RefreshReadCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -340,7 +379,9 @@ namespace NUnitTester.Part {
         
         private System.Nullable<Gender> genderField;
         
-        private System.Nullable<System.DateTime> birthDateField;
+        private System.Nullable<System.DateTime> birthDateFromField;
+        
+        private System.Nullable<System.DateTime> birthDateToField;
         
         private string cprNumberField;
         
@@ -369,12 +410,23 @@ namespace NUnitTester.Part {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> BirthDate {
+        public System.Nullable<System.DateTime> BirthDateFrom {
             get {
-                return this.birthDateField;
+                return this.birthDateFromField;
             }
             set {
-                this.birthDateField = value;
+                this.birthDateFromField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<System.DateTime> BirthDateTo {
+            get {
+                return this.birthDateToField;
+            }
+            set {
+                this.birthDateToField = value;
             }
         }
         
@@ -1871,81 +1923,15 @@ namespace NUnitTester.Part {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(UnknownCitizenData))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeignCitizenData))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CprData))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeignCitizenData))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(UnknownCitizenData))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public abstract partial class PersonData {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class UnknownCitizenData : PersonData {
-        
-        private string replacementCprNumberField;
-        
-        /// <remarks/>
-        public string ReplacementCprNumber {
-            get {
-                return this.replacementCprNumberField;
-            }
-            set {
-                this.replacementCprNumberField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ForeignCitizenData : PersonData {
-        
-        private string foreignNumberField;
-        
-        private string permissionNumberField;
-        
-        private string nationalityCountryCodeField;
-        
-        /// <remarks/>
-        public string ForeignNumber {
-            get {
-                return this.foreignNumberField;
-            }
-            set {
-                this.foreignNumberField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string PermissionNumber {
-            get {
-                return this.permissionNumberField;
-            }
-            set {
-                this.permissionNumberField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string NationalityCountryCode {
-            get {
-                return this.nationalityCountryCodeField;
-            }
-            set {
-                this.nationalityCountryCodeField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -2075,6 +2061,72 @@ namespace NUnitTester.Part {
             }
             set {
                 this.populationAddressField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class ForeignCitizenData : PersonData {
+        
+        private string foreignNumberField;
+        
+        private string permissionNumberField;
+        
+        private string nationalityCountryCodeField;
+        
+        /// <remarks/>
+        public string ForeignNumber {
+            get {
+                return this.foreignNumberField;
+            }
+            set {
+                this.foreignNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PermissionNumber {
+            get {
+                return this.permissionNumberField;
+            }
+            set {
+                this.permissionNumberField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NationalityCountryCode {
+            get {
+                return this.nationalityCountryCodeField;
+            }
+            set {
+                this.nationalityCountryCodeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class UnknownCitizenData : PersonData {
+        
+        private string replacementCprNumberField;
+        
+        /// <remarks/>
+        public string ReplacementCprNumber {
+            get {
+                return this.replacementCprNumberField;
+            }
+            set {
+                this.replacementCprNumberField = value;
             }
         }
     }
@@ -2423,6 +2475,32 @@ namespace NUnitTester.Part {
         private object[] results;
         
         internal ReadCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public PersonRegistration Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((PersonRegistration)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    public delegate void RefreshReadCompletedEventHandler(object sender, RefreshReadCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RefreshReadCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RefreshReadCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

@@ -24,6 +24,7 @@ namespace CPRService.Services
         public QualityHeader qualityHeader = new QualityHeader();
         private const string QualityHeaderName = "qualityHeader";
 
+        // TODO: Remove unnecessary effect date header
         public EffectDateHeader effectDateHeader;
         private const string EffectDateHeaderName = "effectDateHeader";
 
@@ -32,7 +33,7 @@ namespace CPRService.Services
 
 
         [SoapHeader(ApplicationHeaderName)]
-        [SoapHeader(QualityHeaderName)]
+        [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
         [SoapHeader(EffectDateHeaderName)]
         [SoapHeader(RegistrationDateHeaderName)]
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Part.Methods.Read, Description = CPRBroker.Schemas.Part.ServiceDescription.Part.Methods.Read)]
@@ -42,7 +43,17 @@ namespace CPRService.Services
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [SoapHeader(QualityHeaderName)]
+        [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
+        [SoapHeader(EffectDateHeaderName)]
+        [SoapHeader(RegistrationDateHeaderName)]
+        [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Part.Methods.RefreshRead, Description = CPRBroker.Schemas.Part.ServiceDescription.Part.Methods.RefreshRead)]
+        public PersonRegistration RefreshRead(Guid personUUID)
+        {
+            return Manager.Part.RefreshRead(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUUID, effectDateHeader.EffectDate, out qualityHeader.QualityLevel);
+        }
+
+        [SoapHeader(ApplicationHeaderName)]
+        [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
         [SoapHeader(EffectDateHeaderName)]
         [SoapHeader(RegistrationDateHeaderName)]
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Part.Methods.List, Description = CPRBroker.Schemas.Part.ServiceDescription.Part.Methods.List)]
@@ -52,7 +63,7 @@ namespace CPRService.Services
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [SoapHeader(QualityHeaderName)]
+        [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
         [SoapHeader(EffectDateHeaderName)]
         [SoapHeader(RegistrationDateHeaderName)]
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Part.Methods.Search, Description = CPRBroker.Schemas.Part.ServiceDescription.Part.Methods.Search)]

@@ -34,9 +34,13 @@ namespace NUnitTester
 
         #region Part person methods
 
-        private void ValidatePerson(Guid uuid, Part.PersonRegistration person)
+        private void ValidatePerson(Guid uuid, Part.PersonRegistration person, Part.Part service)
         {
             Assert.IsNotNull(person, "Person not found : {0}", uuid);
+            Assert.AreNotEqual(Guid.Empty, person.ActorId);
+
+            Assert.IsNotNull(service.QualityHeaderValue, "Quality header");
+            Assert.IsNotNull(service.QualityHeaderValue.QualityLevel, "Quality header value");
         }
 
         [Test]
@@ -58,25 +62,40 @@ namespace NUnitTester
             Assert.AreNotEqual(uuid, Guid.Empty);
 
             var person = TestRunner.PartService.Read(uuid);
-            ValidatePerson(uuid, person);
+            ValidatePerson(uuid, person, TestRunner.PartService);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        public void T250_RefreshRead(string cprNumber)
+        {
+            var uuid = TestRunner.PartService.GetPersonUuid(cprNumber);
+            Assert.AreNotEqual(uuid, Guid.Empty);
+
+            var person = TestRunner.PartService.Read(uuid);
+            ValidatePerson(uuid, person, TestRunner.PartService);
+
+            var freshPerson = TestRunner.PartService.RefreshRead(uuid);
+            ValidatePerson(uuid, freshPerson, TestRunner.PartService);
+            Assert.AreNotEqual(TestRunner.PartService.QualityHeaderValue.QualityLevel.Value, Part.QualityLevel.LocalCache);
         }
 
         [Test]
         [TestCaseSource(typeof(PartTestData), PartTestData.PersonUUIDsArrayFieldName)]
-        public void T210_List(Guid[] personUuids)
+        public void T300_List(Guid[] personUuids)
         {
             var persons = TestRunner.PartService.List(personUuids);
             Assert.IsNotNull(persons, "Persons array is null");
             Assert.AreEqual(personUuids.Length, personUuids.Length, "Incorrect length of returned array");
             for (int i = 0; i < personUuids.Length; i++)
             {
-                ValidatePerson(personUuids[i], persons[i]);
+                ValidatePerson(personUuids[i], persons[i], TestRunner.PartService);
             }
         }
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
-        public void T300_Search_CprNumber(string cprNumber)
+        public void T400_Search_CprNumber(string cprNumber)
         {
             var searchCriteria = new Part.PersonSearchCriteria()
             {

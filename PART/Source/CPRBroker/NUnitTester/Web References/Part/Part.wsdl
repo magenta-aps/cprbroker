@@ -63,6 +63,26 @@
         </s:restriction>
       </s:simpleType>
       <s:complexType name="PersonData" abstract="true" />
+      <s:complexType name="UnknownCitizenData">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PersonData">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ReplacementCprNumber" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ForeignCitizenData">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PersonData">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ForeignNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PermissionNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="NationalityCountryCode" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:complexType name="CprData">
         <s:complexContent mixed="false">
           <s:extension base="tns:PersonData">
@@ -159,26 +179,6 @@
           <s:extension base="tns:Address">
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="ForeignAddress" type="s4:ForeignAddressStructureType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ForeignCitizenData">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:PersonData">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="ForeignNumber" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="PermissionNumber" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="NationalityCountryCode" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="UnknownCitizenData">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:PersonData">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="ReplacementCprNumber" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -311,6 +311,20 @@
         </s:sequence>
         <s:anyAttribute />
       </s:complexType>
+      <s:element name="RefreshRead_x0020_">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="personUUID" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefreshRead_x0020_Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefreshRead_x0020_Result" type="tns:PersonRegistration" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="List">
         <s:complexType>
           <s:sequence>
@@ -346,7 +360,8 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="Name" type="s2:PersonNameStructureType" />
           <s:element minOccurs="1" maxOccurs="1" name="Gender" nillable="true" type="tns:Gender" />
-          <s:element minOccurs="1" maxOccurs="1" name="BirthDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="BirthDateFrom" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="BirthDateTo" nillable="true" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="CprNumber" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="NationalityCountryCode" type="s:string" />
         </s:sequence>
@@ -533,6 +548,24 @@
   <wsdl:message name="ReadRegistrationDateHeader">
     <wsdl:part name="RegistrationDateHeader" element="tns:RegistrationDateHeader" />
   </wsdl:message>
+  <wsdl:message name="RefreshRead_x0020_SoapIn">
+    <wsdl:part name="parameters" element="tns:RefreshRead_x0020_" />
+  </wsdl:message>
+  <wsdl:message name="RefreshRead_x0020_SoapOut">
+    <wsdl:part name="parameters" element="tns:RefreshRead_x0020_Response" />
+  </wsdl:message>
+  <wsdl:message name="RefreshRead ApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="RefreshRead EffectDateHeader">
+    <wsdl:part name="EffectDateHeader" element="tns:EffectDateHeader" />
+  </wsdl:message>
+  <wsdl:message name="RefreshRead QualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="RefreshRead RegistrationDateHeader">
+    <wsdl:part name="RegistrationDateHeader" element="tns:RegistrationDateHeader" />
+  </wsdl:message>
   <wsdl:message name="ListSoapIn">
     <wsdl:part name="parameters" element="tns:List" />
   </wsdl:message>
@@ -580,13 +613,22 @@
   </wsdl:message>
   <wsdl:portType name="PartSoap">
     <wsdl:operation name="Read">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Find and return object (Always latest registration)
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Find and return object (Always latest registration). Looks in the local database first
 Input : ObjectID
 Output : Object
 Parameters : EffectDate
 </wsdl:documentation>
       <wsdl:input message="tns:ReadSoapIn" />
       <wsdl:output message="tns:ReadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RefreshRead">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Find and return object (Always latest registration). Looks first in the fresh data at data providers
+Input : ObjectID
+Output : Object
+Parameters : EffectDate
+</wsdl:documentation>
+      <wsdl:input name="RefreshRead_x0020_" message="tns:RefreshRead_x0020_SoapIn" />
+      <wsdl:output name="RefreshRead_x0020_" message="tns:RefreshRead_x0020_SoapOut" />
     </wsdl:operation>
     <wsdl:operation name="List">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Find and return several objects that match the ID List supplied
@@ -627,6 +669,19 @@ Output : Person UUID
         <soap:header message="tns:ReadRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshRead">
+      <soap:operation soapAction="http://tempuri.org/RefreshRead " style="document" />
+      <wsdl:input name="RefreshRead_x0020_">
+        <soap:body use="literal" />
+        <soap:header message="tns:RefreshRead ApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap:header message="tns:RefreshRead EffectDateHeader" part="EffectDateHeader" use="literal" />
+        <soap:header message="tns:RefreshRead QualityHeader" part="QualityHeader" use="literal" />
+        <soap:header message="tns:RefreshRead RegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RefreshRead_x0020_">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -679,6 +734,19 @@ Output : Person UUID
         <soap12:header message="tns:ReadRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshRead">
+      <soap12:operation soapAction="http://tempuri.org/RefreshRead " style="document" />
+      <wsdl:input name="RefreshRead_x0020_">
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RefreshRead ApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap12:header message="tns:RefreshRead EffectDateHeader" part="EffectDateHeader" use="literal" />
+        <soap12:header message="tns:RefreshRead QualityHeader" part="QualityHeader" use="literal" />
+        <soap12:header message="tns:RefreshRead RegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RefreshRead_x0020_">
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

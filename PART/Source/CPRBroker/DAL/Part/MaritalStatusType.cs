@@ -20,18 +20,26 @@ namespace CPRBroker.DAL.Part
             }
         }
 
-        public static int GetPartCode(Schemas.Part.Enums.MaritalStatus maritalStatusCode)
+        public static int? GetPartCode(Schemas.Part.Enums.MaritalStatus? maritalStatusCode)
         {
-            LoadPartValues();
-            var code = (from kvp in _PartValues where kvp.Value == maritalStatusCode select kvp.Key).FirstOrDefault();
-            return Convert.ToInt32(code);
+            if (maritalStatusCode.HasValue)
+            {
+                LoadPartValues();
+                var code = (from kvp in _PartValues where kvp.Value == maritalStatusCode select kvp.Key).FirstOrDefault();
+                return Convert.ToInt32(code);
+            }
+            return null;
         }
 
-        public static Schemas.Part.Enums.MaritalStatus GetPartMaritalStatus(int code)
+        public static Schemas.Part.Enums.MaritalStatus? GetPartMaritalStatus(int? code)
         {
-            LoadPartValues();
-            string sCode = code.ToString();
-            return (from kvp in _PartValues where kvp.Key.Equals(sCode) select kvp.Value).FirstOrDefault();
+            if (code.HasValue)
+            {
+                LoadPartValues();
+                string sCode = code.ToString();
+                return (from kvp in _PartValues where kvp.Key.Equals(sCode) select kvp.Value).FirstOrDefault();
+            }
+            return null;
         }
     }
 }

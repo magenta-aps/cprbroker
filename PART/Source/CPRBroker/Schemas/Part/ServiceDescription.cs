@@ -15,7 +15,14 @@ namespace CPRBroker.Schemas.Part
 
 
                 public const string Read =
-@"Find and return object (Always latest registration)
+@"Find and return object (Always latest registration). Looks in the local database first
+Input : ObjectID
+Output : Object
+Parameters : EffectDate
+";
+
+                public const string RefreshRead =
+@"Find and return object (Always latest registration). Looks first in the fresh data at data providers
 Input : ObjectID
 Output : Object
 Parameters : EffectDate
