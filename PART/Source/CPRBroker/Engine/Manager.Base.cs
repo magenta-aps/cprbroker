@@ -130,7 +130,7 @@ namespace CPRBroker.Engine
                         select new
                        {
                            MethodCallInfo = mi,
-                           DataProviders = DataProviderManager.GetDataProviderList(mi.InterfaceType, mi.AllowLocalDataProvider)
+                           DataProviders = DataProviderManager.GetDataProviderList(mi.InterfaceType, mi.LocalDataProviderOption)
                        }
                    ).ToArray();
 

@@ -10,7 +10,7 @@ namespace CPRBroker.Engine
     {
         public abstract Type InterfaceType { get; }
         public bool FailOnDefaultOutput;
-        public bool AllowLocalDataProvider;
+        public LocalDataProviderUsageOption LocalDataProviderOption;
         public bool FailIfNoDataProvider;
         public abstract object Invoke(IDataProvider prov);
         public abstract void InvokeUpdateMethod(object result);

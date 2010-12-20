@@ -34,7 +34,7 @@ namespace CPRBroker.Engine
                     {
                         new SubMethodInfo<IPartReadDataProvider,PersonRegistration>()
                         {
-                            AllowLocalDataProvider=true,
+                            LocalDataProviderOption= LocalDataProviderUsageOption.UseLast,
                             FailIfNoDataProvider = true,
                             FailOnDefaultOutput=true,
                             Method = (prov)=>prov.Read(pId,effectDate,out ql),
@@ -61,7 +61,7 @@ namespace CPRBroker.Engine
                     {
                         new SubMethodInfo<IPartSearchDataProvider,Guid[]>()
                         {
-                            AllowLocalDataProvider = true,
+                            LocalDataProviderOption = LocalDataProviderUsageOption.UseLast,
                             FailIfNoDataProvider = true,
                             FailOnDefaultOutput = true,
                             Method = (prov)=>prov.Search(searchCriteria,effectDate,out ql),
@@ -89,7 +89,7 @@ namespace CPRBroker.Engine
                             new SubMethodInfo<IPartPersonMappingDataProvider,Guid>()
                             {
                                 Method = (prov)=>prov.GetPersonUuid(cprNumber),
-                                AllowLocalDataProvider = true
+                                LocalDataProviderOption = LocalDataProviderUsageOption.UseLast
                             }
                         },
 

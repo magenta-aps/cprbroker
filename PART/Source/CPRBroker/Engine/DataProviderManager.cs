@@ -17,8 +17,6 @@ namespace CPRBroker.Engine
             InitializeDataProviders();
         }
 
-
-
         /// <summary>
         /// Converts the current DataProvider (database object) to the appropriate IDataProvider object based on its type
         /// </summary>
@@ -90,25 +88,20 @@ namespace CPRBroker.Engine
 
         internal static List<IDataProvider> GetDataProviderList<TInterface>(bool allowLocalProvider)
         {
-            // Get list of all available data providers that are of type TInterface
-            // First copy to local defined list to avoid threading issues
-            List<IDataProvider> dataProviders = new List<IDataProvider>();
-            DataProvidersLock.AcquireReaderLock(Timeout.Infinite);
-            dataProviders.AddRange(DataProviders);
-            DataProvidersLock.ReleaseReaderLock();
-            // Now filter the list
-            // TODO: Optimize calling of IsAlive to save waiting time when the DP is dead
-            List<IDataProvider> availableProviders =
-                (
-                    from dp in dataProviders
-                    where dp is TInterface
-                    && (dp is IExternalDataProvider || allowLocalProvider)
-                    select dp
-                 ).ToList();
-            return availableProviders;
+            return GetDataProviderList<TInterface>(allowLocalProvider ? LocalDataProviderUsageOption.UseFirst : LocalDataProviderUsageOption.Forbidden);
+        }
+
+        internal static List<IDataProvider> GetDataProviderList<TInterface>(LocalDataProviderUsageOption localOption)
+        {
+            return GetDataProviderList(typeof(TInterface), localOption);
         }
 
         internal static List<IDataProvider> GetDataProviderList(Type interfaceType, bool allowLocalProvider)
+        {
+            return GetDataProviderList(interfaceType, allowLocalProvider);
+        }
+
+        internal static List<IDataProvider> GetDataProviderList(Type interfaceType, LocalDataProviderUsageOption localOption)
         {
             // Get list of all available data providers that are of type TInterface
             // First copy to local defined list to avoid threading issues
@@ -121,10 +114,30 @@ namespace CPRBroker.Engine
                 (
                     from dp in dataProviders
                     where interfaceType.IsInstanceOfType(dp)
-                    && dp.IsAlive()
-                    && (dp is IExternalDataProvider || allowLocalProvider)
+                    && dp is IExternalDataProvider
                     select dp
                  ).ToList();
+
+            // Now add the local data providers if needed
+            if (localOption != LocalDataProviderUsageOption.Forbidden)
+            {
+                var availableLocalProviders =
+                (
+                    from dp in dataProviders
+                    where interfaceType.IsInstanceOfType(dp)
+                    && !(dp is IExternalDataProvider)
+                    select dp
+                 ).ToList();
+
+                if (localOption == LocalDataProviderUsageOption.UseFirst)
+                {
+                    availableProviders.InsertRange(0, availableLocalProviders);
+                }
+                else
+                {
+                    availableProviders.AddRange(availableLocalProviders);
+                }
+            }
             return availableProviders;
         }
     }
