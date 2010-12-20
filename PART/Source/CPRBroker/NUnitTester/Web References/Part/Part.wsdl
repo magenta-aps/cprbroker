@@ -290,6 +290,13 @@
         </s:sequence>
         <s:anyAttribute />
       </s:complexType>
+      <s:element name="RegistrationDateHeader" type="tns:RegistrationDateHeader" />
+      <s:complexType name="RegistrationDateHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" nillable="true" type="s:dateTime" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
       <s:element name="QualityHeader" type="tns:QualityHeader" />
       <s:complexType name="QualityHeader">
         <s:sequence>
@@ -304,13 +311,6 @@
           <s:enumeration value="LocalCache" />
         </s:restriction>
       </s:simpleType>
-      <s:element name="RegistrationDateHeader" type="tns:RegistrationDateHeader" />
-      <s:complexType name="RegistrationDateHeader">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" nillable="true" type="s:dateTime" />
-        </s:sequence>
-        <s:anyAttribute />
-      </s:complexType>
       <s:element name="RefreshRead_x0020_">
         <s:complexType>
           <s:sequence>
@@ -665,11 +665,11 @@ Output : Person UUID
         <soap:body use="literal" />
         <soap:header message="tns:ReadApplicationHeader" part="ApplicationHeader" use="literal" />
         <soap:header message="tns:ReadEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap:header message="tns:ReadQualityHeader" part="QualityHeader" use="literal" />
         <soap:header message="tns:ReadRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
+        <soap:header message="tns:ReadQualityHeader" part="QualityHeader" use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RefreshRead">
@@ -678,11 +678,11 @@ Output : Person UUID
         <soap:body use="literal" />
         <soap:header message="tns:RefreshRead ApplicationHeader" part="ApplicationHeader" use="literal" />
         <soap:header message="tns:RefreshRead EffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap:header message="tns:RefreshRead QualityHeader" part="QualityHeader" use="literal" />
         <soap:header message="tns:RefreshRead RegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output name="RefreshRead_x0020_">
         <soap:body use="literal" />
+        <soap:header message="tns:RefreshRead QualityHeader" part="QualityHeader" use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="List">
@@ -691,11 +691,11 @@ Output : Person UUID
         <soap:body use="literal" />
         <soap:header message="tns:ListApplicationHeader" part="ApplicationHeader" use="literal" />
         <soap:header message="tns:ListEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap:header message="tns:ListQualityHeader" part="QualityHeader" use="literal" />
         <soap:header message="tns:ListRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
+        <soap:header message="tns:ListQualityHeader" part="QualityHeader" use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Search">
@@ -704,11 +704,11 @@ Output : Person UUID
         <soap:body use="literal" />
         <soap:header message="tns:SearchApplicationHeader" part="ApplicationHeader" use="literal" />
         <soap:header message="tns:SearchEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap:header message="tns:SearchQualityHeader" part="QualityHeader" use="literal" />
         <soap:header message="tns:SearchRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
+        <soap:header message="tns:SearchQualityHeader" part="QualityHeader" use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetPersonUuid">
@@ -730,11 +730,11 @@ Output : Person UUID
         <soap12:body use="literal" />
         <soap12:header message="tns:ReadApplicationHeader" part="ApplicationHeader" use="literal" />
         <soap12:header message="tns:ReadEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap12:header message="tns:ReadQualityHeader" part="QualityHeader" use="literal" />
         <soap12:header message="tns:ReadRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
+        <soap12:header message="tns:ReadQualityHeader" part="QualityHeader" use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RefreshRead">
@@ -743,11 +743,11 @@ Output : Person UUID
         <soap12:body use="literal" />
         <soap12:header message="tns:RefreshRead ApplicationHeader" part="ApplicationHeader" use="literal" />
         <soap12:header message="tns:RefreshRead EffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap12:header message="tns:RefreshRead QualityHeader" part="QualityHeader" use="literal" />
         <soap12:header message="tns:RefreshRead RegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output name="RefreshRead_x0020_">
         <soap12:body use="literal" />
+        <soap12:header message="tns:RefreshRead QualityHeader" part="QualityHeader" use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="List">
@@ -756,11 +756,11 @@ Output : Person UUID
         <soap12:body use="literal" />
         <soap12:header message="tns:ListApplicationHeader" part="ApplicationHeader" use="literal" />
         <soap12:header message="tns:ListEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap12:header message="tns:ListQualityHeader" part="QualityHeader" use="literal" />
         <soap12:header message="tns:ListRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
+        <soap12:header message="tns:ListQualityHeader" part="QualityHeader" use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Search">
@@ -769,11 +769,11 @@ Output : Person UUID
         <soap12:body use="literal" />
         <soap12:header message="tns:SearchApplicationHeader" part="ApplicationHeader" use="literal" />
         <soap12:header message="tns:SearchEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap12:header message="tns:SearchQualityHeader" part="QualityHeader" use="literal" />
         <soap12:header message="tns:SearchRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
+        <soap12:header message="tns:SearchQualityHeader" part="QualityHeader" use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetPersonUuid">

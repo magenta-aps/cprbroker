@@ -35,9 +35,9 @@ namespace NUnitTester.Part {
         
         private EffectDateHeader effectDateHeaderValueField;
         
-        private QualityHeader qualityHeaderValueField;
-        
         private RegistrationDateHeader registrationDateHeaderValueField;
+        
+        private QualityHeader qualityHeaderValueField;
         
         private System.Threading.SendOrPostCallback ReadOperationCompleted;
         
@@ -81,21 +81,21 @@ namespace NUnitTester.Part {
             }
         }
         
-        public QualityHeader QualityHeaderValue {
-            get {
-                return this.qualityHeaderValueField;
-            }
-            set {
-                this.qualityHeaderValueField = value;
-            }
-        }
-        
         public RegistrationDateHeader RegistrationDateHeaderValue {
             get {
                 return this.registrationDateHeaderValueField;
             }
             set {
                 this.registrationDateHeaderValueField = value;
+            }
+        }
+        
+        public QualityHeader QualityHeaderValue {
+            get {
+                return this.qualityHeaderValueField;
+            }
+            set {
+                this.qualityHeaderValueField = value;
             }
         }
         
@@ -141,7 +141,7 @@ namespace NUnitTester.Part {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("RegistrationDateHeaderValue")]
-        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
         [System.Web.Services.Protocols.SoapHeaderAttribute("EffectDateHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Read", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public PersonRegistration Read(System.Guid personUUID) {
@@ -174,7 +174,7 @@ namespace NUnitTester.Part {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("RegistrationDateHeaderValue")]
-        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
         [System.Web.Services.Protocols.SoapHeaderAttribute("EffectDateHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RefreshRead ", RequestElementName="RefreshRead ", RequestNamespace="http://tempuri.org/", ResponseElementName="RefreshRead Response", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("RefreshRead Result")]
@@ -208,7 +208,7 @@ namespace NUnitTester.Part {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("RegistrationDateHeaderValue")]
-        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
         [System.Web.Services.Protocols.SoapHeaderAttribute("EffectDateHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/List", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public PersonRegistration[] List(System.Guid[] personUUIDs) {
@@ -241,7 +241,7 @@ namespace NUnitTester.Part {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("RegistrationDateHeaderValue")]
-        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
         [System.Web.Services.Protocols.SoapHeaderAttribute("EffectDateHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Search", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Guid[] Search(PersonSearchCriteria searchCriteria) {
