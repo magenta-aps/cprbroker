@@ -64,8 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
-    <Compile Include="ConsistencyTest.cs" />
-    <Compile Include="FullTest.cs" />
     <Compile Include="PartTest.cs" />
     <Compile Include="PartTestData.cs" />
     <Compile Include="Program.cs" />
@@ -78,7 +76,6 @@
     <Compile Include="TestData.cs" />
     <Compile Include="TestDatabaseParameterValidation.cs" />
     <Compile Include="TestRunner.cs" />
-    <Compile Include="TestUpdateDatabase.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Web References\Access\Reference.cs">
       <AutoGen>True</AutoGen>

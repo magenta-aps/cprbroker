@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace NUnitTester
 {
-    public class BaseTest
+    public abstract class BaseTest
     {
         [TestFixtureSetUp]
         public void Initialize()
