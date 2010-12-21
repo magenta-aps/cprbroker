@@ -22,6 +22,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPRService", "CPRService\CP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "Config\Config.csproj", "{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}"
 EndProject
+Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "DB", "DB\DB.dbp", "{C7063C65-7677-4CAA-99AB-2AAB9A5AB6DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBroker", "EventBroker\EventBroker.csproj", "{D8FC2102-488A-480A-8197-8842B8192E68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBrokerWeb", "EventBrokerWeb\EventBrokerWeb.csproj", "{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -122,6 +128,26 @@ Global
 		{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Release|.NET.ActiveCfg = Release|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Release|.NET.ActiveCfg = Release|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

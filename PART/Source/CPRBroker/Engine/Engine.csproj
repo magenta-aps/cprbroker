@@ -135,6 +135,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>CPRBroker_Engine_NotificationService_Notification</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="http://localhost:3800/Services/NotificationQueue.asmx">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\NotificationQueueService\</RelPath>
+      <UpdateFromURL>http://localhost:3800/Services/NotificationQueue.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CPRBroker_Engine_NotificationQueueService_NotificationQueue</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://notifyws/notify.asmx">
       <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\notifyws\</RelPath>
@@ -154,6 +165,11 @@
     <Compile Include="Local\UpdateDatabase.Part.cs" />
     <Compile Include="Manager.Part.cs" />
     <Compile Include="SubMethodInfo.cs" />
+    <Compile Include="Web References\NotificationQueueService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <None Include="Web References\NotificationService\Notification.wsdl" />
     <None Include="Web References\NotificationService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -161,6 +177,14 @@
     </None>
     <None Include="Web References\notifyws\notify.disco" />
     <None Include="Web References\notifyws\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\NotificationQueueService\NotificationQueue.disco" />
+    <None Include="Web References\NotificationQueueService\NotificationQueue.wsdl" />
+    <None Include="Web References\NotificationQueueService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

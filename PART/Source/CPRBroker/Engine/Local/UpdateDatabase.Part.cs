@@ -21,6 +21,22 @@ namespace CPRBroker.Engine.Local
         /// <param name="personRegistraion"></param>
         public static void UpdatePersonRegistration(Guid personUUID, Schemas.Part.PersonRegistration personRegistraion)
         {
+            if (MergePersonRegistration(personUUID, personRegistraion))
+            {
+                // TODO: move this call to a separate phase in request processing
+                NotifyPersonRegistrationUpdate(personUUID);
+            }
+        }
+
+        private static void NotifyPersonRegistrationUpdate(Guid personUuid)
+        {
+            NotificationQueueService.NotificationQueue notificationQueueService = new CPRBroker.Engine.NotificationQueueService.NotificationQueue();
+            notificationQueueService.Url = Config.Properties.Settings.Default.NotificationQueueServiceUrl;
+            notificationQueueService.Enqueue(personUuid);
+        }
+
+        private static bool MergePersonRegistration(Guid personUUID, Schemas.Part.PersonRegistration personRegistraion)
+        {
             //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
             using (var dataContext = new PartDataContext())
             {
@@ -54,8 +70,10 @@ namespace CPRBroker.Engine.Local
                     dbReg.Person = dbPerson;
                     dataContext.PersonRegistrations.InsertOnSubmit(dbReg);
                     dataContext.SubmitChanges();
+                    return true;
                 }
             }
+            return false;
         }
     }
 }

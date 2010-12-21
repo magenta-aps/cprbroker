@@ -68,5 +68,25 @@ namespace CPRBroker.Config.Properties {
                 return ((int)(this["DataProviderSecondsRefreshPeriod"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLServer;Initial Catalog=PartEventBroker;User ID=cpr;Password=cpr")]
+        public string EventBrokerConnectionString {
+            get {
+                return ((string)(this["EventBrokerConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:3800/Services/NotificationQueue.asmx")]
+        public string NotificationQueueServiceUrl {
+            get {
+                return ((string)(this["NotificationQueueServiceUrl"]));
+            }
+        }
     }
 }
