@@ -10,8 +10,7 @@
 
   <element name="BirthdateSubscription" type="tns:BirthdateSubscriptionType"/>
   <element name="ChangeSubscription" type="tns:ChangeSubscriptionType"/>
-  <element name="WebServiceChannel" type="tns:WebServiceChannelType"/>
-  <element name="GPACChannel" type="tns:GPACChannelType"/>
+  <element name="WebServiceChannel" type="tns:WebServiceChannelType"/>  
   <element name="FileShareChannel" type="tns:FileShareChannelType"/>
 
   <complexType name="SubscriptionType" abstract="true">
@@ -43,19 +42,6 @@
   </complexType>
   
   <complexType name="ChannelBaseType" abstract="true">
-  </complexType>
-
-  <complexType name="GPACChannelType">
-    <complexContent>
-      <extension base="tns:ChannelBaseType">
-        <sequence>
-          <element name="ServiceUrl" type="string"></element>
-          <element name="SourceUri" type="string"></element>
-          <element name="ObjectType" type="int"></element>
-          <element name="NotifyType" type="int"></element>
-        </sequence>
-      </extension>
-    </complexContent>
   </complexType>
 
   <complexType name="WebServiceChannelType">

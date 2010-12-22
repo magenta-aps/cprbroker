@@ -746,6 +746,163 @@ namespace NUnitTester.CPRAdministrationWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class ForeignAddressStructureType {
+        
+        private string postalAddressFirstLineTextField;
+        
+        private string postalAddressSecondLineTextField;
+        
+        private string postalAddressThirdLineTextField;
+        
+        private string postalAddressFourthLineTextField;
+        
+        private string postalAddressFifthLineTextField;
+        
+        private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        private string locationDescriptionTextField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFirstLineText {
+            get {
+                return this.postalAddressFirstLineTextField;
+            }
+            set {
+                this.postalAddressFirstLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressSecondLineText {
+            get {
+                return this.postalAddressSecondLineTextField;
+            }
+            set {
+                this.postalAddressSecondLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressThirdLineText {
+            get {
+                return this.postalAddressThirdLineTextField;
+            }
+            set {
+                this.postalAddressThirdLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFourthLineText {
+            get {
+                return this.postalAddressFourthLineTextField;
+            }
+            set {
+                this.postalAddressFourthLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFifthLineText {
+            get {
+                return this.postalAddressFifthLineTextField;
+            }
+            set {
+                this.postalAddressFifthLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/")]
+        public string LocationDescriptionText {
+            get {
+                return this.locationDescriptionTextField;
+            }
+            set {
+                this.locationDescriptionTextField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+    public partial class CountryIdentificationCodeType {
+        
+        private _CountryIdentificationSchemeType schemeField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public _CountryIdentificationSchemeType scheme {
+            get {
+                return this.schemeField;
+            }
+            set {
+                this.schemeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+    public enum _CountryIdentificationSchemeType {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("iso3166-alpha2")]
+        iso3166alpha2,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("iso3166-alpha3")]
+        iso3166alpha3,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("un-numeric3")]
+        unnumeric3,
+        
+        /// <remarks/>
+        imk,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/")]
     public partial class CompletePostalLabelType {
         
@@ -1016,63 +1173,6 @@ namespace NUnitTester.CPRAdministrationWS {
                 this.countryIdentificationCodeField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-    public partial class CountryIdentificationCodeType {
-        
-        private _CountryIdentificationSchemeType schemeField;
-        
-        private string valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public _CountryIdentificationSchemeType scheme {
-            get {
-                return this.schemeField;
-            }
-            set {
-                this.schemeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-    public enum _CountryIdentificationSchemeType {
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("iso3166-alpha2")]
-        iso3166alpha2,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("iso3166-alpha3")]
-        iso3166alpha3,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("un-numeric3")]
-        unnumeric3,
-        
-        /// <remarks/>
-        imk,
     }
     
     /// <remarks/>
@@ -1584,106 +1684,6 @@ namespace NUnitTester.CPRAdministrationWS {
             }
             set {
                 this.countryIdentificationCodeField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class ForeignAddressStructureType {
-        
-        private string postalAddressFirstLineTextField;
-        
-        private string postalAddressSecondLineTextField;
-        
-        private string postalAddressThirdLineTextField;
-        
-        private string postalAddressFourthLineTextField;
-        
-        private string postalAddressFifthLineTextField;
-        
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        private string locationDescriptionTextField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFirstLineText {
-            get {
-                return this.postalAddressFirstLineTextField;
-            }
-            set {
-                this.postalAddressFirstLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressSecondLineText {
-            get {
-                return this.postalAddressSecondLineTextField;
-            }
-            set {
-                this.postalAddressSecondLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressThirdLineText {
-            get {
-                return this.postalAddressThirdLineTextField;
-            }
-            set {
-                this.postalAddressThirdLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFourthLineText {
-            get {
-                return this.postalAddressFourthLineTextField;
-            }
-            set {
-                this.postalAddressFourthLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFifthLineText {
-            get {
-                return this.postalAddressFifthLineTextField;
-            }
-            set {
-                this.postalAddressFifthLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public CountryIdentificationCodeType CountryIdentificationCode {
-            get {
-                return this.countryIdentificationCodeField;
-            }
-            set {
-                this.countryIdentificationCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/")]
-        public string LocationDescriptionText {
-            get {
-                return this.locationDescriptionTextField;
-            }
-            set {
-                this.locationDescriptionTextField = value;
             }
         }
     }
@@ -2354,93 +2354,14 @@ namespace NUnitTester.CPRAdministrationWS {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GPACChannelType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FileShareChannelType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public abstract partial class ChannelBaseType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class WebServiceChannelType : ChannelBaseType {
-        
-        private string webServiceUrlField;
-        
-        /// <remarks/>
-        public string WebServiceUrl {
-            get {
-                return this.webServiceUrlField;
-            }
-            set {
-                this.webServiceUrlField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class GPACChannelType : ChannelBaseType {
-        
-        private string serviceUrlField;
-        
-        private string sourceUriField;
-        
-        private int objectTypeField;
-        
-        private int notifyTypeField;
-        
-        /// <remarks/>
-        public string ServiceUrl {
-            get {
-                return this.serviceUrlField;
-            }
-            set {
-                this.serviceUrlField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string SourceUri {
-            get {
-                return this.sourceUriField;
-            }
-            set {
-                this.sourceUriField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int ObjectType {
-            get {
-                return this.objectTypeField;
-            }
-            set {
-                this.objectTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int NotifyType {
-            get {
-                return this.notifyTypeField;
-            }
-            set {
-                this.notifyTypeField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -2460,6 +2381,27 @@ namespace NUnitTester.CPRAdministrationWS {
             }
             set {
                 this.pathField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class WebServiceChannelType : ChannelBaseType {
+        
+        private string webServiceUrlField;
+        
+        /// <remarks/>
+        public string WebServiceUrl {
+            get {
+                return this.webServiceUrlField;
+            }
+            set {
+                this.webServiceUrlField = value;
             }
         }
     }
@@ -2587,8 +2529,8 @@ namespace NUnitTester.CPRAdministrationWS {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DprDataProviderType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(KmdDataProviderType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DprDataProviderType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2605,39 +2547,6 @@ namespace NUnitTester.CPRAdministrationWS {
             }
             set {
                 this.addressField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
-    public partial class DprDataProviderType : DataProviderType {
-        
-        private int portField;
-        
-        private string connectionStringField;
-        
-        /// <remarks/>
-        public int Port {
-            get {
-                return this.portField;
-            }
-            set {
-                this.portField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string ConnectionString {
-            get {
-                return this.connectionStringField;
-            }
-            set {
-                this.connectionStringField = value;
             }
         }
     }
@@ -2671,6 +2580,39 @@ namespace NUnitTester.CPRAdministrationWS {
             }
             set {
                 this.passwordField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
+    public partial class DprDataProviderType : DataProviderType {
+        
+        private int portField;
+        
+        private string connectionStringField;
+        
+        /// <remarks/>
+        public int Port {
+            get {
+                return this.portField;
+            }
+            set {
+                this.portField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string ConnectionString {
+            get {
+                return this.connectionStringField;
+            }
+            set {
+                this.connectionStringField = value;
             }
         }
     }

@@ -45,10 +45,9 @@ namespace CPRBroker.Engine.Notifications
                 ApplicationToken = birthdateSubscription.ApplicationToken,
                 ForAllPersons = birthdateSubscription.ForAllPersons,
                 NotificationChannel = birthdateSubscription.NotificationChannel.ToWsdl(),
-                //TODO: ???????????????????
-                PersonCivilRegistrationIdentifiers = birthdateSubscription.PersonUuids.ToArray(),
+                PersonUuids = birthdateSubscription.PersonUuids.ToArray(),
                 PriorDays = birthdateSubscription.PriorDays,
-                SubscriptionId = birthdateSubscription.SubscriptionId,                
+                SubscriptionId = birthdateSubscription.SubscriptionId,
             };
         }
 
@@ -90,10 +89,6 @@ namespace CPRBroker.Engine.Notifications
             {
                 return (oioChannel as FileShareChannelType).ToWsdl();
             }
-            else if (oioChannel is GPACChannelType)
-            {
-                return (oioChannel as GPACChannelType).ToWsdl();
-            }
             else
             {
                 return null;
@@ -116,17 +111,6 @@ namespace CPRBroker.Engine.Notifications
             };
         }
 
-        public static NotificationService.GPACChannelType ToWsdl(this GPACChannelType oioChannel)
-        {
-            return new CPRBroker.Engine.NotificationService.GPACChannelType()
-            {
-                NotifyType = oioChannel.NotifyType,
-                ObjectType = oioChannel.ObjectType,
-                ServiceUrl = oioChannel.ServiceUrl,
-                SourceUri = oioChannel.SourceUri
-            };
-        }
-
         public static NotificationService.ChangeNotificationType ToWsdl(this ChangeNotificationType oioChangeNotif)
         {
             return new CPRBroker.Engine.NotificationService.ChangeNotificationType()
@@ -145,8 +129,7 @@ namespace CPRBroker.Engine.Notifications
                 ApplicationToken = oioChangeSubscription.ApplicationToken,
                 ForAllPersons = oioChangeSubscription.ForAllPersons,
                 NotificationChannel = oioChangeSubscription.NotificationChannel.ToWsdl(),
-                //TODO: ???????????????????
-                //PersonCivilRegistrationIdentifiers = oioChangeSubscription.PersonUuids.ToArray(),
+                PersonUuids = oioChangeSubscription.PersonUuids.ToArray(),
                 SubscriptionId = oioChangeSubscription.SubscriptionId
             };
         }

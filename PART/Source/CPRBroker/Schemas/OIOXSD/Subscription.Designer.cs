@@ -107,7 +107,6 @@ namespace CPRBroker.Schemas {
     
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FileShareChannelType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GPACChannelType))]
     public abstract partial class ChannelBaseType {
     }
     
@@ -135,53 +134,6 @@ namespace CPRBroker.Schemas {
             }
             set {
                 this.webServiceUrlField = value;
-            }
-        }
-    }
-    
-    public partial class GPACChannelType : ChannelBaseType {
-        
-        private string serviceUrlField;
-        
-        private string sourceUriField;
-        
-        private int objectTypeField;
-        
-        private int notifyTypeField;
-        
-        public string ServiceUrl {
-            get {
-                return this.serviceUrlField;
-            }
-            set {
-                this.serviceUrlField = value;
-            }
-        }
-        
-        public string SourceUri {
-            get {
-                return this.sourceUriField;
-            }
-            set {
-                this.sourceUriField = value;
-            }
-        }
-        
-        public int ObjectType {
-            get {
-                return this.objectTypeField;
-            }
-            set {
-                this.objectTypeField = value;
-            }
-        }
-        
-        public int NotifyType {
-            get {
-                return this.notifyTypeField;
-            }
-            set {
-                this.notifyTypeField = value;
             }
         }
     }

@@ -326,93 +326,14 @@ namespace CPRBroker.Engine.NotificationService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GPACChannelType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FileShareChannelType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public abstract partial class ChannelBaseType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class WebServiceChannelType : ChannelBaseType {
-        
-        private string webServiceUrlField;
-        
-        /// <remarks/>
-        public string WebServiceUrl {
-            get {
-                return this.webServiceUrlField;
-            }
-            set {
-                this.webServiceUrlField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class GPACChannelType : ChannelBaseType {
-        
-        private string serviceUrlField;
-        
-        private string sourceUriField;
-        
-        private int objectTypeField;
-        
-        private int notifyTypeField;
-        
-        /// <remarks/>
-        public string ServiceUrl {
-            get {
-                return this.serviceUrlField;
-            }
-            set {
-                this.serviceUrlField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string SourceUri {
-            get {
-                return this.sourceUriField;
-            }
-            set {
-                this.sourceUriField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int ObjectType {
-            get {
-                return this.objectTypeField;
-            }
-            set {
-                this.objectTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int NotifyType {
-            get {
-                return this.notifyTypeField;
-            }
-            set {
-                this.notifyTypeField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -437,6 +358,27 @@ namespace CPRBroker.Engine.NotificationService {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class WebServiceChannelType : ChannelBaseType {
+        
+        private string webServiceUrlField;
+        
+        /// <remarks/>
+        public string WebServiceUrl {
+            get {
+                return this.webServiceUrlField;
+            }
+            set {
+                this.webServiceUrlField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChangeSubscriptionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BirthdateSubscriptionType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
@@ -454,7 +396,7 @@ namespace CPRBroker.Engine.NotificationService {
         
         private bool forAllPersonsField;
         
-        private string[] personCivilRegistrationIdentifiersField;
+        private string[] personUuidsField;
         
         /// <remarks/>
         public string SubscriptionId {
@@ -497,13 +439,12 @@ namespace CPRBroker.Engine.NotificationService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("PersonCivilRegistrationIdentifier", Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/", IsNullable=false)]
-        public string[] PersonCivilRegistrationIdentifiers {
+        public string[] PersonUuids {
             get {
-                return this.personCivilRegistrationIdentifiersField;
+                return this.personUuidsField;
             }
             set {
-                this.personCivilRegistrationIdentifiersField = value;
+                this.personUuidsField = value;
             }
         }
     }

@@ -366,7 +366,7 @@
 
                                                 <br><br><b><u>Parameter Description:</u></b>
                                                 <br><table>
-                                                <tr><td>NotificationChannel (input):</td><td>Channel to send notification through it (Web service, GPAC, FileShare...) .</td></tr>
+                                                <tr><td>NotificationChannel (input):</td><td>Channel to send notification through it (Web service, FileShare...) .</td></tr>
                                                 <tr><td>PersonCivilRegistrationIdentifiers[] (input):</td><td>Array of persons number that you want to subscribe the event to them. Null for all persons</td></tr>
                                                 </table>
 
@@ -417,7 +417,7 @@
 
                                                 <br><br><b><u>Parameter Description:</u></b>
                                                 <br><table>
-                                                <tr><td>NotificationChannel (input):</td><td>Channel to send notification through it (Web service, GPAC, FileShare...) .</td></tr>
+                                                <tr><td>NotificationChannel (input):</td><td>Channel to send notification through it (Web service, FileShare...) .</td></tr>
                                                 <tr><td>Years (input):</td><td>Years.</td></tr>
                                                 <tr><td>PriorDays (input):</td><td>Prior days.</td></tr>
                                                 <tr><td>PersonCivilRegistrationIdentifiers[] (input):</td><td>Array of persons number that you want to subscribe the event to them.</td></tr>

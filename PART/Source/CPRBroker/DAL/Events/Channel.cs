@@ -9,11 +9,10 @@ namespace CPRBroker.DAL.Events
     {
         public enum ChannelTypes
         {
-            WebService=1,
-            //TODO: Remove GPAC
-            GPAC = 2,
-            FileShare=3
-        }    
+            WebService = 1,
+            //TODO: See if possible to change value to 2
+            FileShare = 3
+        }
     }
 
 }
