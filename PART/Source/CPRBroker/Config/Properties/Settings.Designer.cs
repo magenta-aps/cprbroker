@@ -88,5 +88,15 @@ namespace CPRBroker.Config.Properties {
                 return ((string)(this["NotificationQueueServiceUrl"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLServer;Initial Catalog=CPRBroker;User ID=cpr;Password=cpr")]
+        public string ApplicationsConnectionString {
+            get {
+                return ((string)(this["ApplicationsConnectionString"]));
+            }
+        }
     }
 }
