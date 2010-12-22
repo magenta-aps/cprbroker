@@ -38,7 +38,7 @@ namespace CPRBroker.Engine.Notifications
             RefreshPersonsDataResult ret = new RefreshPersonsDataResult();
             try
             {
-                BrokerContext.Initialize(DAL.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
+                BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
 
                 // Refresh data provider list so that any changes are reflected here
                 DataProviderManager.InitializeDataProviders();
@@ -85,7 +85,7 @@ namespace CPRBroker.Engine.Notifications
         {
             // Initialize
             SendNotificationsResult ret = new SendNotificationsResult();
-            BrokerContext.Initialize(DAL.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
+            BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
             DateTime today = now.Date;
             DateTime yesterday = today.AddDays(-1);
             try

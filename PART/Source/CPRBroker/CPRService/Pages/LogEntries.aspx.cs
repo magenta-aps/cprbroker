@@ -23,7 +23,7 @@ namespace CPRService.Pages
 
         protected void logEntriesLinqDataSource_Selected(object sender, LinqDataSourceStatusEventArgs e)
         {
-            var list = e.Result as List<CPRBroker.DAL.LogEntry>;
+            var list = e.Result as List<CPRBroker.DAL.Applications.LogEntry>;
             foreach (var logEntry in list)
             {
                 if (!string.IsNullOrEmpty(logEntry.Text))

@@ -39,7 +39,7 @@ namespace CPRBroker.Engine
         /// </summary>
         public static void InitializeDataProviders()
         {
-            BrokerContext.Initialize(DAL.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
+            BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
             // Load from database
             using (DAL.CPRBrokerDALDataContext dataContext = new CPRBroker.DAL.CPRBrokerDALDataContext())
             {

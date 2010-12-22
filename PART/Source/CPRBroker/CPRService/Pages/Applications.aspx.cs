@@ -24,18 +24,18 @@ namespace CPRService.Pages
 
         protected void baseApplicationLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            e.WhereParameters["ApplicationId"] = CPRBroker.DAL.Application.BaseApplicationId;
+            e.WhereParameters["ApplicationId"] = CPRBroker.DAL.Applications.Application.BaseApplicationId;
         }
 
         protected void applicationsLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            e.WhereParameters["ApplicationId"] = CPRBroker.DAL.Application.BaseApplicationId;
+            e.WhereParameters["ApplicationId"] = CPRBroker.DAL.Applications.Application.BaseApplicationId;
         }
 
         protected void applicationsLinqDataSource_Updating(object sender, LinqDataSourceUpdateEventArgs e)
         {
-            CPRBroker.DAL.Application newApp = e.NewObject as CPRBroker.DAL.Application;
-            CPRBroker.DAL.Application orgApp = e.OriginalObject as CPRBroker.DAL.Application;
+            CPRBroker.DAL.Applications.Application newApp = e.NewObject as CPRBroker.DAL.Applications.Application;
+            CPRBroker.DAL.Applications.Application orgApp = e.OriginalObject as CPRBroker.DAL.Applications.Application;
 
             // Approved date
             if (newApp.IsApproved && !orgApp.IsApproved)
@@ -72,7 +72,7 @@ namespace CPRService.Pages
 
         protected void applicationsLinqDataSource_Inserting(object sender, LinqDataSourceInsertEventArgs e)
         {
-            CPRBroker.DAL.Application newApp = e.NewObject as CPRBroker.DAL.Application;
+            CPRBroker.DAL.Applications.Application newApp = e.NewObject as CPRBroker.DAL.Applications.Application;
             newApp.ApplicationId = Guid.NewGuid();
             newApp.RegistrationDate = DateTime.Now;
             if (newApp.IsApproved)

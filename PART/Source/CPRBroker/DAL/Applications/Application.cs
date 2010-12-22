@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CPRBroker.Schemas;
 
-namespace CPRBroker.DAL
+namespace CPRBroker.DAL.Applications
 {
     public partial class Application
     {
@@ -38,7 +38,7 @@ namespace CPRBroker.DAL
                 return;
             }
 
-            using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+            using (ApplicationDataContext context = new ApplicationDataContext())
             {
                 if (action == System.Data.Linq.ChangeAction.Insert || action == System.Data.Linq.ChangeAction.Update)
                 {

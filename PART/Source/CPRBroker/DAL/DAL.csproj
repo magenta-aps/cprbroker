@@ -51,7 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application.cs" />
+    <Compile Include="Applications\Application.cs" />
+    <Compile Include="Applications\ApplicationDataContext.cs">
+      <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\ApplicationDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Events\Channel.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Events\EventBrokerDataContext.cs">
@@ -154,8 +162,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Applications\ApplicationDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ApplicationDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Events\EventBrokerDataContext.dbml.layout">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Applications\ApplicationDataContext.dbml.layout">
+      <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.Remoting.Messaging;
 using System.Diagnostics;
 using System.Web.Services;
-using CPRBroker.DAL;
+using CPRBroker.DAL.Applications;
 using CPRBroker.Engine.Exceptions;
 
 namespace CPRBroker.Engine
@@ -59,7 +59,7 @@ namespace CPRBroker.Engine
             {
                 return;
             }
-            using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
+            using (ApplicationDataContext dataContext = new ApplicationDataContext())
             {
                 Current = new BrokerContext();
                 Current.ActivityId = Guid.NewGuid();

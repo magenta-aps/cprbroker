@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
-using CPRBroker.DAL;
+using CPRBroker.DAL.Applications;
 using Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners;
 
 namespace CPRBroker.Engine.Trace
@@ -29,9 +29,9 @@ namespace CPRBroker.Engine.Trace
             Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry logEntry = data as Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry;
             if (logEntry != null)
             {
-                using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+                using (ApplicationDataContext context = new ApplicationDataContext())
                 {
-                    DAL.LogEntry dbLogEntry = new DAL.LogEntry();
+                    DAL.Applications.LogEntry dbLogEntry = new DAL.Applications.LogEntry();
 
                     dbLogEntry.LogEntryId = Guid.NewGuid();
                     dbLogEntry.LogTypeId = (int)logEntry.Severity;

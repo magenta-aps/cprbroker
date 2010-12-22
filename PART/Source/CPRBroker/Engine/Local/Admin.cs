@@ -6,6 +6,7 @@ using System.Diagnostics;
 using CPRBroker.Schemas;
 using CPRBroker.Engine;
 using CPRBroker.DAL;
+using CPRBroker.DAL.Applications;
 
 namespace CPRBroker.Engine.Local
 {
@@ -31,7 +32,7 @@ namespace CPRBroker.Engine.Local
         public ApplicationType RequestAppRegistration(string userToken, string name)
         {
             // Create a new application and assign a new app token
-            using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+            using (ApplicationDataContext context = new ApplicationDataContext())
             {
                 var application = new Application();
                 application.ApplicationId = Guid.NewGuid();
@@ -50,7 +51,7 @@ namespace CPRBroker.Engine.Local
         public bool ApproveAppRegistration(string userToken, string appToken, string targetAppToken)
         {
             // Mark the application as approved
-            using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+            using (ApplicationDataContext context = new ApplicationDataContext())
             {
                 var application = context.Applications.SingleOrDefault(app => app.Token == targetAppToken);
                 if (application != null)
@@ -68,7 +69,7 @@ namespace CPRBroker.Engine.Local
         {
             List<ApplicationType> applications = new List<ApplicationType>();
             // Retrieve list of applications and convert to XML
-            using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+            using (ApplicationDataContext context = new ApplicationDataContext())
             {
                 var businessApps = from app in context.Applications where app.IsApproved == true select app;
                 foreach (var application in businessApps)
@@ -82,7 +83,7 @@ namespace CPRBroker.Engine.Local
         public bool UnregisterApp(string userToken, string appToken, string targetAppToken)
         {
             // Mark the application as unregistered
-            using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+            using (ApplicationDataContext context = new ApplicationDataContext())
             {
                 var application = context.Applications.SingleOrDefault(app => app.Token == targetAppToken);
                 if (application != null)

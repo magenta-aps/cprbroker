@@ -7,7 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using CPRBroker.Engine;
-using CPRBroker.DAL;
+using CPRBroker.DAL.Applications;
 
 namespace Backend
 {
