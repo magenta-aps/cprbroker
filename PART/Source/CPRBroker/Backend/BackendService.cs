@@ -56,11 +56,11 @@ namespace Backend
             ScheduleNextTimerRun();
 
             // Refresh persons
-            CPRBroker.Engine.NotificationEngine.RefreshPersonsData();
+            CPRBroker.Engine.Notifications.NotificationEngine.RefreshPersonsData();
 
             // Send notifications
             DateTime today = e.SignalTime.Date;
-            CPRBroker.Engine.NotificationEngine.SendNotifications(DateTime.Now);
+            CPRBroker.Engine.Notifications.NotificationEngine.SendNotifications(DateTime.Now);
             this.EventLog.WriteEntry(CPRBroker.Engine.TextMessages.BackendTimerEventFinished);
         }
     }

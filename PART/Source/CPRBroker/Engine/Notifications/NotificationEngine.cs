@@ -7,7 +7,7 @@ using System.Data.Linq;
 using CPRBroker.DAL;
 using CPRBroker.DAL.Events;
 
-namespace CPRBroker.Engine
+namespace CPRBroker.Engine.Notifications
 {
     /// <summary>
     /// Responsible for finding the subscriptions that should be notified

@@ -67,7 +67,7 @@
     <Compile Include="Manager.Admin.cs" />
     <Compile Include="Manager.Base.cs" />
     <Compile Include="Manager.Citizen.cs" />
-    <Compile Include="NotificationEngine.cs" />
+    <Compile Include="Notifications\NotificationEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextMessages.cs" />
     <Compile Include="Versioning.cs" />
