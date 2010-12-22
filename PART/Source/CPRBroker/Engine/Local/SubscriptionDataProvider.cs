@@ -8,7 +8,7 @@ using CPRBroker.DAL.Events;
 
 namespace CPRBroker.Engine.Local
 {
-    public partial class Admin
+    public partial class SubscriptionDataProvider : ISubscriptionManager
     {
         /// <summary>
         /// Adds a new Subscription object to the <paramref name="dataContext"/>
@@ -30,10 +30,10 @@ namespace CPRBroker.Engine.Local
             subscription.SubscriptionTypeId = (int)subscriptionType;
             subscription.ApplicationId = applicationId;
 
-            
+
             #region Get IDs of the persons that match the person's CPR numbers
             if (personUuids != null && personUuids.Length > 0)
-            {                
+            {
                 subscription.IsForAllPersons = false;
             }
             else
@@ -47,7 +47,7 @@ namespace CPRBroker.Engine.Local
             Channel dbChannel = new Channel();
             dbChannel.ChannelId = Guid.NewGuid();
             dbChannel.Subscription = subscription;
-            
+
             if (notificationChannel is WebServiceChannelType)
             {
                 WebServiceChannelType webServiceChannel = notificationChannel as WebServiceChannelType;
@@ -59,7 +59,7 @@ namespace CPRBroker.Engine.Local
                 FileShareChannelType fileShareChannel = notificationChannel as FileShareChannelType;
                 dbChannel.ChannelTypeId = (int)ChannelType.ChannelTypes.FileShare;
                 dbChannel.Url = fileShareChannel.Path;
-            }            
+            }
             else
             {
                 return null;
@@ -119,7 +119,7 @@ namespace CPRBroker.Engine.Local
                             dataContext.BirthdateSubscriptions.DeleteOnSubmit(subscription.BirthdateSubscription);
                             break;
                     }
-                    dataContext.SubscriptionPersons.DeleteAllOnSubmit(subscription.SubscriptionPersons);                    
+                    dataContext.SubscriptionPersons.DeleteAllOnSubmit(subscription.SubscriptionPersons);
                     dataContext.Channels.DeleteAllOnSubmit(subscription.Channels);
                     dataContext.Subscriptions.DeleteOnSubmit(subscription);
                     dataContext.SubmitChanges();
@@ -262,5 +262,19 @@ namespace CPRBroker.Engine.Local
                     ).FirstOrDefault();
             }
         }
+
+        #region IDataProvider Members
+
+        public bool IsAlive()
+        {
+            return true;
+        }
+
+        public Version Version
+        {
+            get { return new Version(Versioning.Major, Versioning.Minor); }
+        }
+
+        #endregion
     }
 }

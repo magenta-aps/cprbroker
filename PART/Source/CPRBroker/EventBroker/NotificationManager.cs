@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.EventBroker.DAL;
+using CPRBroker.DAL.Events;
 
 namespace CprBroker.EventBroker
 {
@@ -10,13 +10,13 @@ namespace CprBroker.EventBroker
     {
         public static void Enqueue(Guid personUuid)
         {
-            using (var dataContext = new EventBrokerDataContextDataContext())
+            using (var dataContext = new EventBrokerDataContext())
             {
-                var pp = new DAL.DataChangeEvent()
+                var pp = new DataChangeEvent()
                 {
                     DataChangeEventId = Guid.NewGuid(),
                     UUID = personUuid,
-                    ReceivedData = DateTime.Now
+                    ReceivedDate = DateTime.Now
                 };
                 dataContext.DataChangeEvents.InsertOnSubmit(pp);
                 dataContext.SubmitChanges();

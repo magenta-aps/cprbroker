@@ -1324,8 +1324,8 @@ namespace CPRBroker.DAL.Events
     partial void OnDataChangeEventIdChanged();
     partial void OnUUIDChanging(System.Guid value);
     partial void OnUUIDChanged();
-    partial void OnReceivedDataChanging(System.DateTime value);
-    partial void OnReceivedDataChanged();
+    partial void OnReceivedDateChanging(System.DateTime value);
+    partial void OnReceivedDateChanged();
     #endregion
 		
 		public DataChangeEvent()
@@ -1374,7 +1374,7 @@ namespace CPRBroker.DAL.Events
 		}
 		
 		[Column(Storage="_ReceivedData", DbType="DateTime NOT NULL")]
-		public System.DateTime ReceivedData
+		public System.DateTime ReceivedDate
 		{
 			get
 			{
@@ -1384,11 +1384,11 @@ namespace CPRBroker.DAL.Events
 			{
 				if ((this._ReceivedData != value))
 				{
-					this.OnReceivedDataChanging(value);
+					this.OnReceivedDateChanging(value);
 					this.SendPropertyChanging();
 					this._ReceivedData = value;
-					this.SendPropertyChanged("ReceivedData");
-					this.OnReceivedDataChanged();
+					this.SendPropertyChanged("ReceivedDate");
+					this.OnReceivedDateChanged();
 				}
 			}
 		}

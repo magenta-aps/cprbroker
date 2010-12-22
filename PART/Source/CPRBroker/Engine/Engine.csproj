@@ -90,7 +90,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Local\Admin.Subscriptions.cs" />
+    <Compile Include="Local\SubscriptionDataProvider.cs" />
     <Compile Include="Notifications\Channel.cs" />
     <Compile Include="Notifications\Extensions.cs">
       <SubType>Code</SubType>
