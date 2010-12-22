@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CPRBroker.Schemas;
 using CPRBroker.DAL;
+using CPRBroker.DAL.Events;
 
 namespace CPRBroker.Engine.Local
 {
@@ -20,7 +21,7 @@ namespace CPRBroker.Engine.Local
         /// <param name="PersonCivilRegistrationIdentifiers"></param>
         /// <param name="notificationChannel"></param>
         /// <returns></returns>
-        private Subscription AddSubscription(CPRBrokerDALDataContext dataContext, DAL.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, string[] PersonCivilRegistrationIdentifiers, ChannelBaseType notificationChannel)
+        private Subscription AddSubscription(EventBrokerDataContext dataContext, DAL.Events.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, Guid[] personUuids, ChannelBaseType notificationChannel)
         {
             List<Guid> listOfPersonsIDs = new List<Guid>();
 
@@ -29,13 +30,10 @@ namespace CPRBroker.Engine.Local
             subscription.SubscriptionTypeId = (int)subscriptionType;
             subscription.ApplicationId = applicationId;
 
-            List<Guid> personIds = new List<Guid>();
-
+            
             #region Get IDs of the persons that match the person's CPR numbers
-            if (PersonCivilRegistrationIdentifiers != null && PersonCivilRegistrationIdentifiers.Length > 0)
-            {
-                var dbPersons = Person.GetPersons(dataContext, PersonCivilRegistrationIdentifiers, null, false);
-                personIds.AddRange(from dbPer in dbPersons select dbPer.PersonId);
+            if (personUuids != null && personUuids.Length > 0)
+            {                
                 subscription.IsForAllPersons = false;
             }
             else
@@ -49,9 +47,7 @@ namespace CPRBroker.Engine.Local
             Channel dbChannel = new Channel();
             dbChannel.ChannelId = Guid.NewGuid();
             dbChannel.Subscription = subscription;
-
-            GpacChannel dbGpacChannel = null;
-
+            
             if (notificationChannel is WebServiceChannelType)
             {
                 WebServiceChannelType webServiceChannel = notificationChannel as WebServiceChannelType;
@@ -63,18 +59,7 @@ namespace CPRBroker.Engine.Local
                 FileShareChannelType fileShareChannel = notificationChannel as FileShareChannelType;
                 dbChannel.ChannelTypeId = (int)ChannelType.ChannelTypes.FileShare;
                 dbChannel.Url = fileShareChannel.Path;
-            }
-            else if (notificationChannel is GPACChannelType)
-            {
-                GPACChannelType gpacChannel = notificationChannel as GPACChannelType;
-                dbChannel.ChannelTypeId = (int)ChannelType.ChannelTypes.GPAC;
-                dbChannel.Url = gpacChannel.ServiceUrl;
-                dbGpacChannel = new GpacChannel();
-                dbGpacChannel.Channel = dbChannel;
-                dbGpacChannel.NotifyType = gpacChannel.NotifyType;
-                dbGpacChannel.ObjectType = dbGpacChannel.ObjectType;
-                dbGpacChannel.SourceUri = gpacChannel.SourceUri;
-            }
+            }            
             else
             {
                 return null;
@@ -91,17 +76,14 @@ namespace CPRBroker.Engine.Local
             // Mark the new objects to be inserted later
             dataContext.Subscriptions.InsertOnSubmit(subscription);
 
-            dataContext.SubscriptionPersons.InsertAllOnSubmit(
-                from personId in personIds
-                select new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), SubscriptionId = subscription.SubscriptionId, PersonId = personId }
-                );
-
-            dataContext.Channels.InsertOnSubmit(dbChannel);
-
-            if (dbGpacChannel != null)
+            if (!subscription.IsForAllPersons)
             {
-                dataContext.GpacChannels.InsertOnSubmit(dbGpacChannel);
+                dataContext.SubscriptionPersons.InsertAllOnSubmit(
+                    from personId in personUuids
+                    select new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), SubscriptionId = subscription.SubscriptionId, PersonId = personId }
+                    );
             }
+            dataContext.Channels.InsertOnSubmit(dbChannel);
 
             return subscription;
         }
@@ -112,10 +94,10 @@ namespace CPRBroker.Engine.Local
         /// <param name="subscriptionId"></param>
         /// <param name="subscriptionType"></param>
         /// <returns></returns>
-        private bool DeleteSubscription(Guid subscriptionId, DAL.SubscriptionType.SubscriptionTypes subscriptionType)
+        private bool DeleteSubscription(Guid subscriptionId, DAL.Events.SubscriptionType.SubscriptionTypes subscriptionType)
         {
             // Find the Subscription object and delete it and its children
-            using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
+            using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
                 System.Data.Linq.DataLoadOptions loadOptions = new System.Data.Linq.DataLoadOptions();
                 Subscription.SetLoadOptionsForChildren(loadOptions);
@@ -130,15 +112,14 @@ namespace CPRBroker.Engine.Local
                 {
                     switch (subscriptionType)
                     {
-                        case CPRBroker.DAL.SubscriptionType.SubscriptionTypes.DataChange:
+                        case CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.DataChange:
                             dataContext.DataSubscriptions.DeleteOnSubmit(subscription.DataSubscription);
                             break;
-                        case CPRBroker.DAL.SubscriptionType.SubscriptionTypes.Birthdate:
+                        case CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.Birthdate:
                             dataContext.BirthdateSubscriptions.DeleteOnSubmit(subscription.BirthdateSubscription);
                             break;
                     }
-                    dataContext.SubscriptionPersons.DeleteAllOnSubmit(subscription.SubscriptionPersons);
-                    dataContext.GpacChannels.DeleteAllOnSubmit(from chnl in subscription.Channels where chnl.GpacChannel != null select chnl.GpacChannel);
+                    dataContext.SubscriptionPersons.DeleteAllOnSubmit(subscription.SubscriptionPersons);                    
                     dataContext.Channels.DeleteAllOnSubmit(subscription.Channels);
                     dataContext.Subscriptions.DeleteOnSubmit(subscription);
                     dataContext.SubmitChanges();
@@ -154,11 +135,11 @@ namespace CPRBroker.Engine.Local
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, string[] PersonCivilRegistrationIdentifiers)
+        public ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, Guid[] personUuids)
         {
-            using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
+            using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                DAL.Subscription subscription = AddSubscription(dataContext, CPRBroker.DAL.SubscriptionType.SubscriptionTypes.DataChange, BrokerContext.Current.ApplicationId.Value, PersonCivilRegistrationIdentifiers, notificationChannel);
+                DAL.Events.Subscription subscription = AddSubscription(dataContext, CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.DataChange, BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
                 if (subscription != null)
                 {
                     subscription.DataSubscription = new DataSubscription();
@@ -178,17 +159,17 @@ namespace CPRBroker.Engine.Local
         /// </summary>
         public bool Unsubscribe(string userToken, string appToken, Guid subscriptionId)
         {
-            return DeleteSubscription(subscriptionId, CPRBroker.DAL.SubscriptionType.SubscriptionTypes.DataChange);
+            return DeleteSubscription(subscriptionId, CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.DataChange);
         }
 
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public BirthdateSubscriptionType SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, string[] PersonCivilRegistrationIdentifiers)
+        public BirthdateSubscriptionType SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, Guid[] personUuids)
         {
-            using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
+            using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                DAL.Subscription subscription = AddSubscription(dataContext, CPRBroker.DAL.SubscriptionType.SubscriptionTypes.Birthdate, BrokerContext.Current.ApplicationId.Value, PersonCivilRegistrationIdentifiers, notificationChannel);
+                DAL.Events.Subscription subscription = AddSubscription(dataContext, CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.Birthdate, BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
                 if (subscription != null)
                 {
                     subscription.BirthdateSubscription = new BirthdateSubscription();
@@ -211,7 +192,7 @@ namespace CPRBroker.Engine.Local
         /// </summary>
         public bool RemoveBirthDateSubscription(string userToken, string appToken, Guid subscriptionId)
         {
-            return DeleteSubscription(subscriptionId, CPRBroker.DAL.SubscriptionType.SubscriptionTypes.Birthdate);
+            return DeleteSubscription(subscriptionId, CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.Birthdate);
         }
 
         /// <summary>
@@ -232,7 +213,7 @@ namespace CPRBroker.Engine.Local
         private Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken, Nullable<Guid> subscriptionId)
         {
             List<Schemas.SubscriptionType> listType = new List<CPRBroker.Schemas.SubscriptionType>();
-            using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+            using (EventBrokerDataContext context = new EventBrokerDataContext())
             {
                 System.Data.Linq.DataLoadOptions loadOptions = new System.Data.Linq.DataLoadOptions();
                 Subscription.SetLoadOptionsForChildren(loadOptions);
@@ -271,7 +252,7 @@ namespace CPRBroker.Engine.Local
         /// </summary>
         public BaseNotificationType GetLatestNotification(string userToken, string appToken, Guid subscriptionId)
         {
-            using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
+            using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
                 return (
                     from n in dataContext.Notifications

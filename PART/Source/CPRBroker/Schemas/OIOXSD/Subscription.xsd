@@ -20,7 +20,7 @@
       <element name="ApplicationToken" type="string"></element>
       <element name="NotificationChannel" type="tns:ChannelBaseType"></element>
       <element name="ForAllPersons" type="boolean"></element>
-      <element name="PersonCivilRegistrationIdentifiers" type="tns:PersonCivilRegistrationIdentifiersType" minOccurs="0" maxOccurs="1"></element>
+      <element name="PersonUuids" type="string" minOccurs="0" maxOccurs="unbounded"></element>
     </sequence>
   </complexType>
 
@@ -41,13 +41,7 @@
       </extension>
     </complexContent>
   </complexType>
-
-  <complexType name="PersonCivilRegistrationIdentifiersType">
-    <sequence>
-      <element ref="cpr-1:PersonCivilRegistrationIdentifier" minOccurs="1" maxOccurs="unbounded"></element>
-    </sequence>
-  </complexType>
-
+  
   <complexType name="ChannelBaseType" abstract="true">
   </complexType>
 

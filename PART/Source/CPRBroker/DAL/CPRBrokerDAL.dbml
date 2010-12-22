@@ -43,45 +43,6 @@
       <Association Name="AddressStatus_Address" Member="Addresses" ThisKey="AddressStatusId" OtherKey="AddressStatusId" Type="Address" />
     </Type>
   </Table>
-  <Table Name="dbo.BirthdateSubscription" Member="BirthdateSubscriptions">
-    <Type Name="BirthdateSubscription">
-      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="AgeYears" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PriorDays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Subscription_BirthdateSubscription" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DataSubscription" Member="DataSubscriptions">
-    <Type Name="DataSubscription">
-      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="DataSubscription_SubscriptionField" Member="SubscriptionFields" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="SubscriptionField" />
-      <Association Name="Subscription_DataSubscription" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SubscriptionField" Member="SubscriptionFields">
-    <Type Name="SubscriptionField">
-      <Column Name="SubscriptionFieldId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="FieldId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="DataSubscription_SubscriptionField" Member="DataSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="DataSubscription" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SubscriptionPerson" Member="SubscriptionPersons">
-    <Type Name="SubscriptionPerson">
-      <Column Name="SubscriptionPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="PersonId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Subscription_SubscriptionPerson" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" />
-      <Association Name="Person_SubscriptionPerson" Member="Person" ThisKey="PersonId" OtherKey="PersonId" Type="Person" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SubscriptionType" Member="SubscriptionTypes">
-    <Type Name="SubscriptionType">
-      <Column Name="SubscriptionTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TypeName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="SubscriptionType_Subscription" Member="Subscriptions" ThisKey="SubscriptionTypeId" OtherKey="SubscriptionTypeId" Type="Subscription" />
-    </Type>
-  </Table>
   <Table Name="dbo.DataProviderType" Member="DataProviderTypes">
     <Type Name="DataProviderType">
       <Column Name="DataProviderTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -100,43 +61,7 @@
       <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsApproved" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="ApprovedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Application_Subscription" Member="Subscriptions" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Subscription" />
       <Association Name="Application_LogEntry" Member="LogEntries" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="LogEntry" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Channel" Member="Channels">
-    <Type Name="Channel">
-      <Column Name="ChannelId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ChannelTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Url" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
-      <Association Name="Channel_GpacChannel" Member="GpacChannel" ThisKey="ChannelId" OtherKey="ChannelId" Type="GpacChannel" Cardinality="One" />
-      <Association Name="Subscription_Channel" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" />
-      <Association Name="ChannelType_Channel" Member="ChannelType" ThisKey="ChannelTypeId" OtherKey="ChannelTypeId" Type="ChannelType" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.GpacChannel" Member="GpacChannels">
-    <Type Name="GpacChannel">
-      <Column Name="ChannelId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SourceUri" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="ObjectType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NotifyType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Channel_GpacChannel" Member="Channel" ThisKey="ChannelId" OtherKey="ChannelId" Type="Channel" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Subscription" Member="Subscriptions">
-    <Type Name="Subscription" Id="ID1">
-      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SubscriptionTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="IsForAllPersons" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Subscription_BirthdateSubscription" Member="BirthdateSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="BirthdateSubscription" Cardinality="One" />
-      <Association Name="Subscription_DataSubscription" Member="DataSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="DataSubscription" Cardinality="One" />
-      <Association Name="Subscription_SubscriptionPerson" Member="SubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="SubscriptionPerson" />
-      <Association Name="Subscription_Channel" Member="Channels" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Channel" />
-      <Association Name="Subscription_Notification" Member="Notifications" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Notification" />
-      <Association Name="Application_Subscription" Member="Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="Application" IsForeignKey="true" />
-      <Association Name="SubscriptionType_Subscription" Member="SubscriptionType" ThisKey="SubscriptionTypeId" OtherKey="SubscriptionTypeId" Type="SubscriptionType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DataProvider" Member="DataProviders">
@@ -216,11 +141,9 @@
       <Column Name="PersonProtectionIndicatorEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsTestPerson" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Person_SubscriptionPerson" Member="SubscriptionPersons" ThisKey="PersonId" OtherKey="PersonId" Type="SubscriptionPerson" />
       <Association Name="Person_Relationship" Member="Relationships" ThisKey="PersonId" OtherKey="PersonId" Type="Relationship" />
       <Association Name="Person_Relationship1" Member="Relationships1" ThisKey="PersonId" OtherKey="RelatedPersonId" Type="Relationship" />
       <Association Name="Person_Address" Member="Address" ThisKey="PersonId" OtherKey="PersonId" Type="Address" Cardinality="One" />
-      <Association Name="Person_NotificationPerson" Member="NotificationPersons" ThisKey="PersonId" OtherKey="PersonId" Type="NotificationPerson" />
       <Association Name="DetailLevel_Person" Member="DetailLevel" ThisKey="DetailLevelId" OtherKey="DetailLevelId" Type="DetailLevel" IsForeignKey="true" />
       <Association Name="Gender_Person" Member="Gender" ThisKey="GenderId" OtherKey="GenderId" Type="Gender" IsForeignKey="true" />
       <Association Name="MaritalStatusType_Person" Member="MaritalStatusType" ThisKey="MaritalStatusTypeId" OtherKey="MaritalStatusTypeId" Type="MaritalStatusType" IsForeignKey="true" />
@@ -306,49 +229,6 @@
       <Column Name="OldTableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.BirthdateNotification" Member="BirthdateNotifications">
-    <Type Name="BirthdateNotification">
-      <Column Name="NotificationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="AgeYears" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PriorDays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Notification_BirthdateNotification" Member="Notification" ThisKey="NotificationId" OtherKey="NotificationId" Type="Notification" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.NotificationPerson" Member="NotificationPersons">
-    <Type Name="NotificationPerson">
-      <Column Name="NotificationPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="NotificationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="PersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="NotificationPerson_BirthdateNotificationPerson" Member="BirthdateNotificationPerson" ThisKey="NotificationPersonId" OtherKey="NotificationPersonId" Type="BirthdateNotificationPerson" Cardinality="One" />
-      <Association Name="Person_NotificationPerson" Member="Person" ThisKey="PersonId" OtherKey="PersonId" Type="Person" IsForeignKey="true" />
-      <Association Name="Notification_NotificationPerson" Member="Notification" ThisKey="NotificationId" OtherKey="NotificationId" Type="Notification" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.BirthdateNotificationPerson" Member="BirthdateNotificationPersons">
-    <Type Name="BirthdateNotificationPerson">
-      <Column Name="NotificationPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="NotificationPerson_BirthdateNotificationPerson" Member="NotificationPerson" ThisKey="NotificationPersonId" OtherKey="NotificationPersonId" Type="NotificationPerson" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Notification" Member="Notifications">
-    <Type Name="Notification" Id="ID2">
-      <Column Name="NotificationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="NotificationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Notification_BirthdateNotification" Member="BirthdateNotification" ThisKey="NotificationId" OtherKey="NotificationId" Type="BirthdateNotification" Cardinality="One" />
-      <Association Name="Notification_NotificationPerson" Member="NotificationPersons" ThisKey="NotificationId" OtherKey="NotificationId" Type="NotificationPerson" />
-      <Association Name="Subscription_Notification" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ChannelType" Member="ChannelTypes">
-    <Type Name="ChannelType">
-      <Column Name="ChannelTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="ChannelType_Channel" Member="Channels" ThisKey="ChannelTypeId" OtherKey="ChannelTypeId" Type="Channel" />
-    </Type>
-  </Table>
   <Table Name="dbo.Country" Member="Countries">
     <Type Name="Country">
       <Column Name="Alpha2Code" Type="System.String" DbType="VarChar(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -365,20 +245,4 @@
       <Association Name="Country_Address" Member="Addresses" ThisKey="Alpha2Code" OtherKey="CountryAlpha2Code" Type="Address" />
     </Type>
   </Table>
-  <Function Name="dbo.GetDueNotifications" Method="GetDueNotifications">
-    <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="LastTime" Parameter="lastTime" Type="System.DateTime" DbType="DateTime" />
-    <ElementType IdRef="ID1" />
-  </Function>
-  <Function Name="dbo.InsertBirthdateNotificationData" Method="InsertBirthdateNotificationData">
-    <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
-    <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />
-    <ElementType IdRef="ID2" />
-  </Function>
-  <Function Name="dbo.InsertChangeNotificationData" Method="InsertChangeNotificationData">
-    <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
-    <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="LastTime" Parameter="lastTime" Type="System.DateTime" DbType="DateTime" />
-    <ElementType IdRef="ID2" />
-  </Function>
 </Database>

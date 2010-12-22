@@ -51,11 +51,11 @@ namespace CPRBroker.Schemas {
         
         private bool forAllPersonsField;
         
-        private List<string> personCivilRegistrationIdentifiersField;
+        private List<string> personUuidsField;
         
         public SubscriptionType() {
-            if ((this.personCivilRegistrationIdentifiersField == null)) {
-                this.personCivilRegistrationIdentifiersField = new List<string>();
+            if ((this.personUuidsField == null)) {
+                this.personUuidsField = new List<string>();
             }
         }
         
@@ -94,14 +94,13 @@ namespace CPRBroker.Schemas {
                 this.forAllPersonsField = value;
             }
         }
-        
-        [System.Xml.Serialization.XmlArrayItemAttribute("PersonCivilRegistrationIdentifier", Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/", IsNullable=false)]
-        public List<string> PersonCivilRegistrationIdentifiers {
+                
+        public List<string> PersonUuids {
             get {
-                return this.personCivilRegistrationIdentifiersField;
+                return this.personUuidsField;
             }
             set {
-                this.personCivilRegistrationIdentifiersField = value;
+                this.personUuidsField = value;
             }
         }
     }

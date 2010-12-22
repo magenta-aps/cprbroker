@@ -52,12 +52,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
-    <Compile Include="Channel.cs" />
+    <Compile Include="Events\Channel.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Events\EventBrokerDataContext.cs">
+      <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Events\EventBrokerDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="ITimedRelationship.cs" />
     <Compile Include="MaritalStatusType.cs" />
     <Compile Include="Gender.cs" />
-    <Compile Include="Notification.cs" />
+    <Compile Include="Events\Notification.cs" />
     <Compile Include="Part\Address.cs" />
     <Compile Include="Part\CprData.cs" />
     <Compile Include="Part\ForeignCitizenData.cs" />
@@ -94,8 +102,8 @@
     </Compile>
     <Compile Include="Relationship.cs" />
     <Compile Include="RelationshipType.cs" />
-    <Compile Include="Subscription.cs" />
-    <Compile Include="SubscriptionType.cs" />
+    <Compile Include="Events\Subscription.cs" />
+    <Compile Include="Events\SubscriptionType.cs" />
     <Compile Include="TextMessages.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,12 +140,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Events\EventBrokerDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>EventBrokerDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Part\PartDataContext.dbml.layout">
       <DependentUpon>PartDataContext.dbml</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Events\EventBrokerDataContext.dbml.layout">
+      <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CPRBroker.Schemas;
 
-namespace CPRBroker.DAL
+namespace CPRBroker.DAL.Events
 {
     public partial class Subscription
     {
@@ -17,10 +17,8 @@ namespace CPRBroker.DAL
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.DataSubscription);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.BirthdateSubscription);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.Channels);
-            loadOptions.LoadWith<Channel>((Channel chnl) => chnl.GpacChannel);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.Application);
-            loadOptions.LoadWith<Subscription>((Subscription sub) => sub.SubscriptionPersons);
-            loadOptions.LoadWith<SubscriptionPerson>((SubscriptionPerson subPerson) => subPerson.Person);
+            loadOptions.LoadWith<Subscription>((Subscription sub) => sub.SubscriptionPersons);            
         }
         public Schemas.SubscriptionType ToOioSubscription()
         {
@@ -53,20 +51,12 @@ namespace CPRBroker.DAL
                     Schemas.FileShareChannelType fileShareChannel = new FileShareChannelType();
                     fileShareChannel.Path = channel.Url;
                     ret.NotificationChannel = fileShareChannel;
-                    break;
-                case ChannelType.ChannelTypes.GPAC:
-                    Schemas.GPACChannelType gpacChannel = new GPACChannelType();
-                    gpacChannel.ServiceUrl = channel.Url;
-                    gpacChannel.SourceUri = channel.GpacChannel.SourceUri;
-                    gpacChannel.ObjectType = channel.GpacChannel.ObjectType;
-                    gpacChannel.NotifyType = channel.GpacChannel.NotifyType;
-                    ret.NotificationChannel = gpacChannel;
-                    break;
+                    break;                
             }
 
-            ret.PersonCivilRegistrationIdentifiers.AddRange(
+            ret.PersonUuids.AddRange(
                 from subPerson in this.SubscriptionPersons
-                select subPerson.Person.PersonNumber
+                select subPerson.PersonId.Value.ToString()
                 );
             return ret;
         }

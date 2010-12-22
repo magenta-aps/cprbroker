@@ -14,13 +14,12 @@ namespace CPRBroker.Engine.Notifications
         /// <summary>
         /// Maps channel types (enum) to actual CLR types
         /// </summary>
-        static Dictionary<DAL.ChannelType.ChannelTypes, Type> TypesMap;
+        static Dictionary<DAL.Events.ChannelType.ChannelTypes, Type> TypesMap;
         static Channel()
         {
-            TypesMap = new Dictionary<DAL.ChannelType.ChannelTypes, Type>();
-            TypesMap[DAL.ChannelType.ChannelTypes.FileShare] = typeof(FileShareChannel);
-            TypesMap[DAL.ChannelType.ChannelTypes.WebService] = typeof(WebServiceChannel);
-            TypesMap[DAL.ChannelType.ChannelTypes.GPAC] = typeof(GPACChannel);
+            TypesMap = new Dictionary<DAL.Events.ChannelType.ChannelTypes, Type>();
+            TypesMap[DAL.Events.ChannelType.ChannelTypes.FileShare] = typeof(FileShareChannel);
+            TypesMap[DAL.Events.ChannelType.ChannelTypes.WebService] = typeof(WebServiceChannel);            
         }
 
         /// <summary>
@@ -28,9 +27,9 @@ namespace CPRBroker.Engine.Notifications
         /// </summary>
         /// <param name="dbChannel"></param>
         /// <returns></returns>
-        public static Channel Create(DAL.Channel dbChannel)
+        public static Channel Create(DAL.Events.Channel dbChannel)
         {
-            DAL.ChannelType.ChannelTypes channelType = (CPRBroker.DAL.ChannelType.ChannelTypes)dbChannel.ChannelTypeId;
+            DAL.Events.ChannelType.ChannelTypes channelType = (CPRBroker.DAL.Events.ChannelType.ChannelTypes)dbChannel.ChannelTypeId;
 
             Type clrChannelType = TypesMap[channelType];
             Channel channel = clrChannelType.InvokeMember(
@@ -45,7 +44,7 @@ namespace CPRBroker.Engine.Notifications
             return channel;
         }
 
-        protected DAL.Channel DatabaseObject { get; private set; }
+        protected DAL.Events.Channel DatabaseObject { get; private set; }
 
         /// <summary>
         /// Pings the channel
@@ -57,7 +56,7 @@ namespace CPRBroker.Engine.Notifications
         /// Send the supplied notification through the channel
         /// </summary>
         /// <param name="notification"></param>
-        public abstract void Notify(DAL.Notification notification);
+        public abstract void Notify(DAL.Events.Notification notification);
     }
 
     /// <summary>
@@ -77,7 +76,7 @@ namespace CPRBroker.Engine.Notifications
         /// Notifies by calling a CPR Notification web service
         /// </summary>
         /// <param name="notification"></param>
-        public override void Notify(DAL.Notification notification)
+        public override void Notify(DAL.Events.Notification notification)
         {
             NotificationService.Notification notificationService = new NotificationService.Notification();
             notificationService.Url = DatabaseObject.Url;
@@ -87,45 +86,7 @@ namespace CPRBroker.Engine.Notifications
         }
         
     }
-
-    /// <summary>
-    /// GPAC implementation of Channel
-    /// </summary>
-    public class GPACChannel : Channel
-    {
-        public override bool IsAlive()
-        {
-            notifyws.notify not = new CPRBroker.Engine.notifyws.notify();
-            not.Url = DatabaseObject.Url;
-            not.Ping();
-            return true;
-        }
-
-        /// <summary>
-        /// Notifies by calling a GPAC notify web service
-        /// </summary>
-        /// <param name="notification"></param>
-        public override void Notify(DAL.Notification notification)
-        {
-            notifyws.notify notifyService = new CPRBroker.Engine.notifyws.notify();
-            notifyService.Url = DatabaseObject.Url;
-
-            string sAux = null;
-
-            int result = notifyService.SignalObject(
-                DatabaseObject.GpacChannel.SourceUri,
-                DatabaseObject.Subscription.SubscriptionId.ToString(),
-                DatabaseObject.GpacChannel.ObjectType,
-                DatabaseObject.GpacChannel.NotifyType,
-                ref sAux);
-
-            if (result < 0)
-            {
-                throw new Exception(sAux);
-            }
-        }
-    }
-
+        
     /// <summary>
     /// File share implementation of notification channel
     /// </summary>
@@ -144,7 +105,7 @@ namespace CPRBroker.Engine.Notifications
         /// Notifies by serializing the notification into an XML file
         /// </summary>
         /// <param name="notification"></param>
-        public override void Notify(DAL.Notification notification)
+        public override void Notify(DAL.Events.Notification notification)
         {
             string folder = DatabaseObject.Url;
             if (!Directory.Exists(folder))

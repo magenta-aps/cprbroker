@@ -75,7 +75,7 @@ namespace CPRBroker.Engine
             #endregion
 
             #region Subscription
-            public static ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, string[] PersonCivilRegistrationIdentifiers)
+            public static ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, Guid[] PersonCivilRegistrationIdentifiers)
             {
                 return CallMethod<ISubscriptionManager, ChangeSubscriptionType>
                  (userToken, appToken, true, true, (admin) => admin.Subscribe(userToken, appToken, notificationChannel, PersonCivilRegistrationIdentifiers), true, null);
@@ -87,7 +87,7 @@ namespace CPRBroker.Engine
                  (userToken, appToken, true, true, (admin) => admin.Unsubscribe(userToken, appToken, subscriptionId), true, null);
             }
 
-            public static BirthdateSubscriptionType SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, string[] PersonCivilRegistrationIdentifiers)
+            public static BirthdateSubscriptionType SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, Guid[] PersonCivilRegistrationIdentifiers)
             {
                 return CallMethod<ISubscriptionManager, BirthdateSubscriptionType>
                  (userToken, appToken, true, true, (admin) => admin.SubscribeOnBirthdate(userToken, appToken, notificationChannel, years, priorDays, PersonCivilRegistrationIdentifiers), true, null);

@@ -122,7 +122,7 @@ namespace NUnitTester
                     }
                 },
                 MaritalStatusCode = NUnitTester.CPRAdministrationWS.MaritalStatusCodeType.unmarried,
-                PersonInformationProtectionIndicator = true,
+                //PersonInformationProtectionIndicator = true,
                 PersonNationalityCode = "DK",
                 RegularCPRPerson = new NUnitTester.CPRAdministrationWS.RegularCPRPersonType()
                 {

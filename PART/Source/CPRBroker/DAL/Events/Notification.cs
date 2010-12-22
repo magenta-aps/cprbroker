@@ -5,7 +5,7 @@ using System.Text;
 using CPRBroker.Schemas;
 using System.Data.Linq;
 
-namespace CPRBroker.DAL
+namespace CPRBroker.DAL.Events
 {
     public partial class Notification
     {
@@ -19,7 +19,8 @@ namespace CPRBroker.DAL
             loadOptions.LoadWith<Notification>((notif) => notif.BirthdateNotification);
             loadOptions.LoadWith<Notification>((notif) => notif.Subscription);
             loadOptions.LoadWith<NotificationPerson>((notifPerson) => notifPerson.BirthdateNotificationPerson);
-            loadOptions.LoadWith<NotificationPerson>((notifPerson) => notifPerson.Person);
+            // TODO: remove this
+            //loadOptions.LoadWith<NotificationPerson>((notifPerson) => notifPerson.Person);
         }
 
         /// <summary>
@@ -37,7 +38,8 @@ namespace CPRBroker.DAL
                     from np in this.NotificationPersons
                     select new BirthdateNotificationPersonType()
                     {
-                        SimpleCPRPerson = np.Person.ToSimpleCPRPerson(),
+                        // TODO: Event format
+                        //SimpleCPRPerson = np.Person.ToSimpleCPRPerson(),
                         Age = np.BirthdateNotificationPerson.Age
                     }
                     );
@@ -51,7 +53,8 @@ namespace CPRBroker.DAL
                     from np in this.NotificationPersons
                     select new ChangeNotificationPersonType()
                     {
-                        SimpleCPRPerson = np.Person.ToSimpleCPRPerson()
+                        // TODO: Event format
+                        //SimpleCPRPerson = np.Person.ToSimpleCPRPerson()
                     }
                     );
                 ret = oioChangeNotif;

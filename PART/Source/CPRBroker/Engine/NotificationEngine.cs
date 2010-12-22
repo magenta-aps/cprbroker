@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Data.Linq;
 using CPRBroker.DAL;
+using CPRBroker.DAL.Events;
 
 namespace CPRBroker.Engine
 {
@@ -37,27 +38,29 @@ namespace CPRBroker.Engine
             RefreshPersonsDataResult ret = new RefreshPersonsDataResult();
             try
             {
-                BrokerContext.Initialize(Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
+                BrokerContext.Initialize(DAL.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
 
                 // Refresh data provider list so that any changes are reflected here
                 DataProviderManager.InitializeDataProviders();
 
-                using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
+                using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
                 {
                     var allPersonDataSubscription = (from s in dataContext.Subscriptions
                                                      where s.DataSubscription != null && s.IsForAllPersons
                                                      select s).FirstOrDefault();
 
-                    IQueryable<Tasks.GetPersonDataTask> tasks;
+                    IQueryable<Tasks.GetPersonDataTask> tasks = null;
                     if (allPersonDataSubscription != null)
                     {
-                        tasks = from p in dataContext.Persons
-                                select new Tasks.GetPersonDataTask() { CprNumber = p.PersonNumber };
+                        // TODO: Handle the case of all persons
+                        //tasks = from p in dataContext.Persons
+                        //        select new Tasks.GetPersonDataTask() { CprNumber = p.PersonNumber };
                     }
                     else
                     {
-                        tasks = from sp in dataContext.SubscriptionPersons
-                                select new Tasks.GetPersonDataTask() { CprNumber = sp.Person.PersonNumber };
+                        // TODO: Handle the case of specific persons
+                        //tasks = from sp in dataContext.SubscriptionPersons
+                        //        select new Tasks.GetPersonDataTask() { CprNumber = sp.Person.PersonNumber };
                     }
                     var tasksArray = tasks.Distinct().ToArray();
                     Tasks.TaskQueue.Main.Enqueue(tasksArray);
@@ -82,19 +85,21 @@ namespace CPRBroker.Engine
         {
             // Initialize
             SendNotificationsResult ret = new SendNotificationsResult();
-            BrokerContext.Initialize(Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
+            BrokerContext.Initialize(DAL.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
             DateTime today = now.Date;
             DateTime yesterday = today.AddDays(-1);
             try
             {
-                using (CPRBrokerDALDataContext dataContext = new CPRBrokerDALDataContext())
+                using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
                 {
                     // Find all due subscriptions
                     System.Data.Linq.DataLoadOptions loadOptions = new DataLoadOptions();
-                    DAL.Subscription.SetLoadOptionsForChildren(loadOptions);
+                    DAL.Events.Subscription.SetLoadOptionsForChildren(loadOptions);
                     dataContext.LoadOptions = loadOptions;
 
-                    var dueSubscriptions = dataContext.GetDueNotifications(today, yesterday).ToArray();
+                    // TODO: Get the data from stored procedure
+                    //var dueSubscriptions = dataContext.GetDueNotifications(today, yesterday).ToArray();
+                    var dueSubscriptions = dataContext.Subscriptions;
 
                     // Loop over all subscriptions and sends notifications through their channels
                     foreach (var dueSub in dueSubscriptions)
@@ -104,11 +109,13 @@ namespace CPRBroker.Engine
                             Notification notif = null;
                             if (dueSub.BirthdateSubscription != null)
                             {
-                                notif = dataContext.InsertBirthdateNotificationData(dueSub.SubscriptionId, today).SingleOrDefault();
+                                // TODO: Fix this
+                                //notif = dataContext.InsertBirthdateNotificationData(dueSub.SubscriptionId, today).SingleOrDefault();
                             }
                             else if (dueSub.DataSubscription != null)
                             {
-                                notif = dataContext.InsertChangeNotificationData(dueSub.SubscriptionId, today, yesterday).SingleOrDefault();
+                                // TODO: Fix this
+                                //notif = dataContext.InsertChangeNotificationData(dueSub.SubscriptionId, today, yesterday).SingleOrDefault();
                             }
 
                             Notifications.Channel channel = Notifications.Channel.Create(dueSub.Channels.Single());

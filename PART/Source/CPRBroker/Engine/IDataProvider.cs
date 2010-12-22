@@ -204,7 +204,7 @@ namespace CPRBroker.Engine
         /// <param name="notificationChannel">Channel through with the client would like to be notified through</param>
         /// <param name="PersonCivilRegistrationIdentifiers">CPR Numbers for people to be watched</param>
         /// <returns></returns>
-        ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, string[] PersonCivilRegistrationIdentifiers);
+        ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, Guid[] PersonCivilRegistrationIdentifiers);
 
         /// <summary>
         /// Removes a data change subscription
@@ -225,7 +225,7 @@ namespace CPRBroker.Engine
         /// <param name="priorDays">Number of days proior to birthdate</param>
         /// <param name="PersonCivilRegistrationIdentifiers">CPR Numbers for people to be watched</param>
         /// <returns></returns>
-        BirthdateSubscriptionType SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, string[] PersonCivilRegistrationIdentifiers);
+        BirthdateSubscriptionType SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, Guid[] PersonCivilRegistrationIdentifiers);
 
         /// <summary>
         /// Removes a birthdate subscription

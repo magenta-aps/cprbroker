@@ -93,7 +93,7 @@ namespace CPRService.Services
         #region Subscription
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.Subscribe, Description = ServiceDescription.Administrator.Subscribe)]
-        public ChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, string[] PersonCivilRegistrationIdentifiers)
+        public ChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, Guid[] PersonCivilRegistrationIdentifiers)
         {
             return Manager.Admin.Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, PersonCivilRegistrationIdentifiers);
         }
@@ -107,7 +107,7 @@ namespace CPRService.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.SubscribeOnBirthdate, Description = ServiceDescription.Administrator.SubscribeOnBirthdate)]
-        public BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, string[] PersonCivilRegistrationIdentifiers)
+        public BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, Guid[] PersonCivilRegistrationIdentifiers)
         {
             return Manager.Admin.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, PersonCivilRegistrationIdentifiers);
         }

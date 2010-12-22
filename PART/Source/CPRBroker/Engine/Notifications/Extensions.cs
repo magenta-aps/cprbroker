@@ -45,9 +45,10 @@ namespace CPRBroker.Engine.Notifications
                 ApplicationToken = birthdateSubscription.ApplicationToken,
                 ForAllPersons = birthdateSubscription.ForAllPersons,
                 NotificationChannel = birthdateSubscription.NotificationChannel.ToWsdl(),
-                PersonCivilRegistrationIdentifiers = birthdateSubscription.PersonCivilRegistrationIdentifiers.ToArray(),
+                //TODO: ???????????????????
+                PersonCivilRegistrationIdentifiers = birthdateSubscription.PersonUuids.ToArray(),
                 PriorDays = birthdateSubscription.PriorDays,
-                SubscriptionId = birthdateSubscription.SubscriptionId,
+                SubscriptionId = birthdateSubscription.SubscriptionId,                
             };
         }
 
@@ -144,7 +145,8 @@ namespace CPRBroker.Engine.Notifications
                 ApplicationToken = oioChangeSubscription.ApplicationToken,
                 ForAllPersons = oioChangeSubscription.ForAllPersons,
                 NotificationChannel = oioChangeSubscription.NotificationChannel.ToWsdl(),
-                PersonCivilRegistrationIdentifiers = oioChangeSubscription.PersonCivilRegistrationIdentifiers.ToArray(),
+                //TODO: ???????????????????
+                //PersonCivilRegistrationIdentifiers = oioChangeSubscription.PersonUuids.ToArray(),
                 SubscriptionId = oioChangeSubscription.SubscriptionId
             };
         }

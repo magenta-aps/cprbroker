@@ -53,13 +53,14 @@ namespace CPRBroker.DAL
                 }
                 else if (action == System.Data.Linq.ChangeAction.Delete)
                 {
-                    var hasSubscriptions = (from sub in context.Subscriptions
+                    // TODO: Handle this case
+                    /*var hasSubscriptions = (from sub in context.Subscriptions
                                             where sub.ApplicationId == this.ApplicationId
                                             select sub).Count() > 0;
                     if (hasSubscriptions)
                     {
                         throw new Exception(TextMessages.CannotDeleteApplicationBecauseItHasSubscriptions);
-                    }
+                    }*/
                 }
             }
         }
