@@ -100,9 +100,9 @@ namespace CPRBroker.Providers.Local
 
                     pred = pred.And(nationalityPred);
                 }
-
-                var result = from pr in dataContext.PersonRegistrations.Where(pred)
-                             select pr.UUID;
+                // TODO: Query Person table to avoid Distinct operation
+                var result = (from pr in dataContext.PersonRegistrations.Where(pred)
+                             select pr.UUID).Distinct();
                 ret = result.ToArray();
             }
             // TODO: filter by effect date
