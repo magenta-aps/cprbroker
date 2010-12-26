@@ -7,7 +7,7 @@ using CprBroker.EventBroker.DAL;
 
 namespace CprBroker.EventBroker
 {
-    public class NotificationDataProvider:INotificationManager
+    public class NotificationDataProvider : INotificationManager
     {
         #region INotificationManager Members
 
@@ -38,7 +38,7 @@ namespace CprBroker.EventBroker
 
         public Version Version
         {
-            get { throw new NotImplementedException(); }
+            get { return new Version(CPRBroker.Engine.Versioning.Major, CPRBroker.Engine.Versioning.Minor); }
         }
 
         #endregion
