@@ -86,7 +86,7 @@ namespace NUnitTester
             }
             else
             {
-                service.Url = service.Url.Replace(hostAndPort, "localhost:3800");
+                service.Url = service.Url.Replace(hostAndPort, "localhost:1552");
             }
         }
     }
