@@ -2,3 +2,4 @@
 \obj\
 \bin\
 Source\CPRBroker\CPRService\web.config
+Source\EventBrokerWeb\EventBrokerWeb\web.config
