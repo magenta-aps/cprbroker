@@ -7,11 +7,10 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
-using CPRBroker.Engine;
-using CPRBroker.Engine.Notifications;
+using CprBroker.EventBroker.Notifications;
 using CPRBroker.Schemas;
 
-namespace CPRService.Services
+namespace CprBroker.EventBroker.Web.Services
 {
     /// <summary>
     /// Allows web access for certain administrative functions

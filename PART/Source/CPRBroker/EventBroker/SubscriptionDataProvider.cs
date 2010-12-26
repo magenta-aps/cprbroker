@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CPRBroker.Schemas;
-using CPRBroker.DAL;
-using CPRBroker.DAL.Events;
+using CprBroker.EventBroker.DAL;
 
-namespace CPRBroker.Engine.Local
+namespace CprBroker.EventBroker
 {
-    public partial class SubscriptionDataProvider : ISubscriptionManager
+    public partial class SubscriptionDataProvider : CPRBroker.Engine.ISubscriptionManager
     {
         /// <summary>
         /// Adds a new Subscription object to the <paramref name="dataContext"/>
@@ -21,7 +20,7 @@ namespace CPRBroker.Engine.Local
         /// <param name="PersonCivilRegistrationIdentifiers"></param>
         /// <param name="notificationChannel"></param>
         /// <returns></returns>
-        private Subscription AddSubscription(EventBrokerDataContext dataContext, DAL.Events.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, Guid[] personUuids, ChannelBaseType notificationChannel)
+        private Subscription AddSubscription(EventBrokerDataContext dataContext, CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, Guid[] personUuids, ChannelBaseType notificationChannel)
         {
             List<Guid> listOfPersonsIDs = new List<Guid>();
 
@@ -94,7 +93,7 @@ namespace CPRBroker.Engine.Local
         /// <param name="subscriptionId"></param>
         /// <param name="subscriptionType"></param>
         /// <returns></returns>
-        private bool DeleteSubscription(Guid subscriptionId, DAL.Events.SubscriptionType.SubscriptionTypes subscriptionType)
+        private bool DeleteSubscription(Guid subscriptionId, CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes subscriptionType)
         {
             // Find the Subscription object and delete it and its children
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
@@ -112,10 +111,10 @@ namespace CPRBroker.Engine.Local
                 {
                     switch (subscriptionType)
                     {
-                        case CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.DataChange:
+                        case CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.DataChange:
                             dataContext.DataSubscriptions.DeleteOnSubmit(subscription.DataSubscription);
                             break;
-                        case CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.Birthdate:
+                        case CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.Birthdate:
                             dataContext.BirthdateSubscriptions.DeleteOnSubmit(subscription.BirthdateSubscription);
                             break;
                     }
@@ -139,7 +138,7 @@ namespace CPRBroker.Engine.Local
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                DAL.Events.Subscription subscription = AddSubscription(dataContext, CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.DataChange, BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
+                DAL.Subscription subscription = AddSubscription(dataContext, DAL.SubscriptionType.SubscriptionTypes.DataChange, CPRBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
                 if (subscription != null)
                 {
                     subscription.DataSubscription = new DataSubscription();
@@ -159,7 +158,7 @@ namespace CPRBroker.Engine.Local
         /// </summary>
         public bool Unsubscribe(string userToken, string appToken, Guid subscriptionId)
         {
-            return DeleteSubscription(subscriptionId, CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.DataChange);
+            return DeleteSubscription(subscriptionId, DAL.SubscriptionType.SubscriptionTypes.DataChange);
         }
 
         /// <summary>
@@ -169,7 +168,7 @@ namespace CPRBroker.Engine.Local
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                DAL.Events.Subscription subscription = AddSubscription(dataContext, CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.Birthdate, BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
+                DAL.Subscription subscription = AddSubscription(dataContext, DAL.SubscriptionType.SubscriptionTypes.Birthdate, CPRBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
                 if (subscription != null)
                 {
                     subscription.BirthdateSubscription = new BirthdateSubscription();
@@ -192,13 +191,13 @@ namespace CPRBroker.Engine.Local
         /// </summary>
         public bool RemoveBirthDateSubscription(string userToken, string appToken, Guid subscriptionId)
         {
-            return DeleteSubscription(subscriptionId, CPRBroker.DAL.Events.SubscriptionType.SubscriptionTypes.Birthdate);
+            return DeleteSubscription(subscriptionId, DAL.SubscriptionType.SubscriptionTypes.Birthdate);
         }
 
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken)
+        public CPRBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken)
         {
             return GetActiveSubscriptionsList(userToken, appToken, null);
         }
@@ -210,9 +209,9 @@ namespace CPRBroker.Engine.Local
         /// <param name="appToken"></param>
         /// <param name="subscriptionId"></param>
         /// <returns></returns>
-        private Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken, Nullable<Guid> subscriptionId)
+        private CPRBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken, Nullable<Guid> subscriptionId)
         {
-            List<Schemas.SubscriptionType> listType = new List<CPRBroker.Schemas.SubscriptionType>();
+            List<CPRBroker.Schemas.SubscriptionType> listType = new List<CPRBroker.Schemas.SubscriptionType>();
             using (EventBrokerDataContext context = new EventBrokerDataContext())
             {
                 System.Data.Linq.DataLoadOptions loadOptions = new System.Data.Linq.DataLoadOptions();
@@ -223,7 +222,7 @@ namespace CPRBroker.Engine.Local
                 System.Linq.Expressions.Expression<Func<IQueryable<Subscription>>> exp =
                     () =>
                     from sub in context.Subscriptions
-                    where sub.ApplicationId == BrokerContext.Current.ApplicationId
+                    where sub.ApplicationId == CPRBroker.Engine.BrokerContext.Current.ApplicationId
                     select sub;
 
                 // Add filter for subscription id (if required)
@@ -272,7 +271,7 @@ namespace CPRBroker.Engine.Local
 
         public Version Version
         {
-            get { return new Version(Versioning.Major, Versioning.Minor); }
+            get { return new Version(CPRBroker.Engine.Versioning.Major, CPRBroker.Engine.Versioning.Minor); }
         }
 
         #endregion

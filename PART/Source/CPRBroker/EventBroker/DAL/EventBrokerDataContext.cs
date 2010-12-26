@@ -1,4 +1,4 @@
-namespace CPRBroker.DAL.Events
+namespace CprBroker.EventBroker.DAL
 {
     partial class EventBrokerDataContext
     {

@@ -5,9 +5,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Data.Linq;
 using CPRBroker.DAL;
-using CPRBroker.DAL.Events;
+using CprBroker.EventBroker.DAL;
+using CPRBroker.Engine;
 
-namespace CPRBroker.Engine.Notifications
+namespace CprBroker.EventBroker.Notifications
 {
     /// <summary>
     /// Responsible for finding the subscriptions that should be notified
@@ -38,7 +39,7 @@ namespace CPRBroker.Engine.Notifications
             RefreshPersonsDataResult ret = new RefreshPersonsDataResult();
             try
             {
-                BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
+                BrokerContext.Initialize(CPRBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CPRBroker.Engine.Constants.UserToken, true, false, true);
 
                 // Refresh data provider list so that any changes are reflected here
                 DataProviderManager.InitializeDataProviders();
@@ -49,7 +50,7 @@ namespace CPRBroker.Engine.Notifications
                                                      where s.DataSubscription != null && s.IsForAllPersons
                                                      select s).FirstOrDefault();
 
-                    IQueryable<Tasks.GetPersonDataTask> tasks = null;
+                    IQueryable<GetPersonDataTask> tasks = null;
                     if (allPersonDataSubscription != null)
                     {
                         // TODO: Handle the case of all persons
@@ -63,8 +64,8 @@ namespace CPRBroker.Engine.Notifications
                         //        select new Tasks.GetPersonDataTask() { CprNumber = sp.Person.PersonNumber };
                     }
                     var tasksArray = tasks.Distinct().ToArray();
-                    Tasks.TaskQueue.Main.Enqueue(tasksArray);
-                    Tasks.TaskQueue.Main.WaitForFinish();
+                    CPRBroker.Engine.Tasks.TaskQueue.Main.Enqueue(tasksArray);
+                    CPRBroker.Engine.Tasks.TaskQueue.Main.WaitForFinish();
 
                     ret.SucceededCprNumbers.AddRange(from task in tasksArray where task.Result != null select task.CprNumber);
                     ret.FailedCprNumbers.AddRange(from task in tasksArray where task.Result == null select task.CprNumber);
@@ -72,7 +73,7 @@ namespace CPRBroker.Engine.Notifications
             }
             catch (Exception ex)
             {
-                Local.Admin.LogException(ex);
+                CPRBroker.Engine.Local.Admin.LogException(ex);
             }
             return ret;
         }
@@ -85,7 +86,7 @@ namespace CPRBroker.Engine.Notifications
         {
             // Initialize
             SendNotificationsResult ret = new SendNotificationsResult();
-            BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, true);
+            BrokerContext.Initialize(CPRBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CPRBroker.Engine.Constants.UserToken, true, false, true);
             DateTime today = now.Date;
             DateTime yesterday = today.AddDays(-1);
             try
@@ -94,7 +95,7 @@ namespace CPRBroker.Engine.Notifications
                 {
                     // Find all due subscriptions
                     System.Data.Linq.DataLoadOptions loadOptions = new DataLoadOptions();
-                    DAL.Events.Subscription.SetLoadOptionsForChildren(loadOptions);
+                    DAL.Subscription.SetLoadOptionsForChildren(loadOptions);
                     dataContext.LoadOptions = loadOptions;
 
                     // TODO: Get the data from stored procedure
@@ -121,19 +122,19 @@ namespace CPRBroker.Engine.Notifications
                             Notifications.Channel channel = Notifications.Channel.Create(dueSub.Channels.Single());
                             channel.Notify(notif);
                             ret.SentNotificationIds.Add(dueSub.SubscriptionId);
-                            Local.Admin.LogNotificationSuccess(dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
+                            CPRBroker.Engine.Local.Admin.LogNotificationSuccess(dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
                         }
                         catch (Exception ex)
                         {
                             ret.FailedNotificationIds.Add(dueSub.SubscriptionId);
-                            Local.Admin.LogNotificationException(ex, dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
+                            CPRBroker.Engine.Local.Admin.LogNotificationException(ex, dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Local.Admin.LogException(ex);
+                CPRBroker.Engine.Local.Admin.LogException(ex);
             }
             return ret;
         }

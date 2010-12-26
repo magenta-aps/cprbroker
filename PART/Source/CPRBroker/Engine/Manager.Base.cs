@@ -26,7 +26,7 @@ namespace CPRBroker.Engine
         /// <param name="failOnDefaultOutput">Whether to treat a return value that is the default for TOutput (like null) as a failure or not </param>
         /// <param name="updateMethod">The method to call in order to update the system's database after data is retrieved</param>
         /// <returns>The output returned after calling the appropriate method on the found data provider, or the default for TOutput</returns>
-        private static TOutput CallMethod<TInterface, TOutput>(string userToken, string appToken, bool failIfNoApp, bool allowLocalProvider, Func<TInterface, TOutput> func, bool failOnDefaultOutput, Action<TOutput> updateMethod) where TInterface : class, IDataProvider
+        public static TOutput CallMethod<TInterface, TOutput>(string userToken, string appToken, bool failIfNoApp, bool allowLocalProvider, Func<TInterface, TOutput> func, bool failOnDefaultOutput, Action<TOutput> updateMethod) where TInterface : class, IDataProvider
         {
             try
             {

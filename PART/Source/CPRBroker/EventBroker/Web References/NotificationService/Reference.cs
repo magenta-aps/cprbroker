@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace CPRBroker.Engine.NotificationService {
+namespace CprBroker.EventBroker.NotificationService {
     using System.Diagnostics;
     using System.Web.Services;
     using System.ComponentModel;
@@ -38,7 +38,7 @@ namespace CPRBroker.Engine.NotificationService {
         
         /// <remarks/>
         public Notification() {
-            this.Url = "http://localhost:1551/Services/Notification.asmx";
+            this.Url = global::CprBroker.EventBroker.Properties.Settings.Default.CprBroker_EventBroker_NotificationService_Notification;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

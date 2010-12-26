@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CPRBroker.Engine;
+using CPRBroker.Engine.Tasks;
 
-namespace CPRBroker.Engine.Tasks
+namespace CprBroker.EventBroker
 {
     /// <summary>
     /// Gets the full data of a person as a task
@@ -19,12 +21,12 @@ namespace CPRBroker.Engine.Tasks
 
         public override bool Run()
         {
-            Schemas.QualityLevel? qualityLevel;
+            CPRBroker.Schemas.QualityLevel? qualityLevel;
 
             // Set the current context to the context of the thread that created this task
             BrokerContext.Current = BrokerContext;
 
-            var person = Manager.Citizen.GetCitizenFull(this.BrokerContext.UserToken, this.BrokerContext.ApplicationToken, false, CprNumber, out qualityLevel);
+            var person = CPRBroker.Engine.Manager.Citizen.GetCitizenFull(this.BrokerContext.UserToken, this.BrokerContext.ApplicationToken, false, CprNumber, out qualityLevel);
             Result = person;
             return true;
         }

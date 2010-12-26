@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CPRBroker.Schemas;
 
-namespace CPRBroker.Engine.Notifications
+namespace CprBroker.EventBroker.Notifications
 {
     /// <summary>
     /// This class contains extension methods that convert between types in Schemas project and the corresponding types in the NotificationService web reference
@@ -12,7 +12,7 @@ namespace CPRBroker.Engine.Notifications
     /// </summary>
     public static class Extensions
     {
-        public static NotificationService.BaseNotificationType ToWsdl(this Schemas.BaseNotificationType oioNotif)
+        public static NotificationService.BaseNotificationType ToWsdl(this CPRBroker.Schemas.BaseNotificationType oioNotif)
         {
             NotificationService.BaseNotificationType ret = null;
             if (oioNotif is BirthdateNotificationType)
@@ -28,7 +28,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.BirthdateNotificationType ToWsdl(this BirthdateNotificationType oioBithdateNotif)
         {
-            return new CPRBroker.Engine.NotificationService.BirthdateNotificationType()
+            return new CprBroker.EventBroker.NotificationService.BirthdateNotificationType()
             {
                 ApplicationToken = oioBithdateNotif.ApplicationToken,
                 BirthdateSubscription = oioBithdateNotif.BirthdateSubscription.ToWsdl(),
@@ -39,7 +39,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.BirthdateSubscriptionType ToWsdl(this BirthdateSubscriptionType birthdateSubscription)
         {
-            return new CPRBroker.Engine.NotificationService.BirthdateSubscriptionType()
+            return new CprBroker.EventBroker.NotificationService.BirthdateSubscriptionType()
             {
                 AgeYears = birthdateSubscription.AgeYears,
                 ApplicationToken = birthdateSubscription.ApplicationToken,
@@ -53,7 +53,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.BirthdateNotificationPersonType ToWsdl(this BirthdateNotificationPersonType oioPerson)
         {
-            return new CPRBroker.Engine.NotificationService.BirthdateNotificationPersonType()
+            return new CprBroker.EventBroker.NotificationService.BirthdateNotificationPersonType()
             {
                 Age = oioPerson.Age,
                 SimpleCPRPerson = oioPerson.SimpleCPRPerson.ToWsdl(),
@@ -62,7 +62,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.SimpleCPRPersonType ToWsdl(this SimpleCPRPersonType oioPerson)
         {
-            return new CPRBroker.Engine.NotificationService.SimpleCPRPersonType()
+            return new CprBroker.EventBroker.NotificationService.SimpleCPRPersonType()
             {
                 PersonCivilRegistrationIdentifier = oioPerson.PersonCivilRegistrationIdentifier,
                 PersonNameStructure = oioPerson.PersonNameStructure.ToWsdl(),
@@ -71,7 +71,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.PersonNameStructureType ToWsdl(this PersonNameStructureType oioName)
         {
-            return new CPRBroker.Engine.NotificationService.PersonNameStructureType()
+            return new CprBroker.EventBroker.NotificationService.PersonNameStructureType()
             {
                 PersonGivenName = oioName.PersonGivenName,
                 PersonMiddleName = oioName.PersonMiddleName,
@@ -97,7 +97,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.WebServiceChannelType ToWsdl(this WebServiceChannelType oioChannel)
         {
-            return new CPRBroker.Engine.NotificationService.WebServiceChannelType()
+            return new NotificationService.WebServiceChannelType()
             {
                 WebServiceUrl = oioChannel.WebServiceUrl,
             };
@@ -105,7 +105,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.FileShareChannelType ToWsdl(this FileShareChannelType oioChannel)
         {
-            return new CPRBroker.Engine.NotificationService.FileShareChannelType()
+            return new NotificationService.FileShareChannelType()
             {
                 Path = oioChannel.Path,
             };
@@ -113,7 +113,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.ChangeNotificationType ToWsdl(this ChangeNotificationType oioChangeNotif)
         {
-            return new CPRBroker.Engine.NotificationService.ChangeNotificationType()
+            return new NotificationService.ChangeNotificationType()
             {
                 ApplicationToken = oioChangeNotif.ApplicationToken,
                 ChangeSubscription = oioChangeNotif.ChangeSubscription.ToWsdl(),
@@ -124,7 +124,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.ChangeSubscriptionType ToWsdl(this ChangeSubscriptionType oioChangeSubscription)
         {
-            return new CPRBroker.Engine.NotificationService.ChangeSubscriptionType()
+            return new NotificationService.ChangeSubscriptionType()
             {
                 ApplicationToken = oioChangeSubscription.ApplicationToken,
                 ForAllPersons = oioChangeSubscription.ForAllPersons,
@@ -136,7 +136,7 @@ namespace CPRBroker.Engine.Notifications
 
         public static NotificationService.ChangeNotificationPersonType ToWsdl(this ChangeNotificationPersonType oioChangeNotificationPerson)
         {
-            return new CPRBroker.Engine.NotificationService.ChangeNotificationPersonType()
+            return new NotificationService.ChangeNotificationPersonType()
             {
                 SimpleCPRPerson = oioChangeNotificationPerson.SimpleCPRPerson.ToWsdl(),
             };

@@ -55,12 +55,12 @@ namespace Backend
             // Set next timer start
             ScheduleNextTimerRun();
 
-            // Refresh persons
-            CPRBroker.Engine.Notifications.NotificationEngine.RefreshPersonsData();
+            // Refresh persons            
+            CprBroker.EventBroker.Notifications.NotificationEngine.RefreshPersonsData();
 
             // Send notifications
             DateTime today = e.SignalTime.Date;
-            CPRBroker.Engine.Notifications.NotificationEngine.SendNotifications(DateTime.Now);
+            CprBroker.EventBroker.Notifications.NotificationEngine.SendNotifications(DateTime.Now);
             this.EventLog.WriteEntry(CPRBroker.Engine.TextMessages.BackendTimerEventFinished);
         }
     }

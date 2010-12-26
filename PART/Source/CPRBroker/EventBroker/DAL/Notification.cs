@@ -5,7 +5,7 @@ using System.Text;
 using CPRBroker.Schemas;
 using System.Data.Linq;
 
-namespace CPRBroker.DAL.Events
+namespace CprBroker.EventBroker.DAL
 {
     public partial class Notification
     {
@@ -27,7 +27,7 @@ namespace CPRBroker.DAL.Events
         /// Converts the object to an OIO object
         /// </summary>
         /// <returns></returns>
-        public Schemas.BaseNotificationType ToOioNotification()
+        public CPRBroker.Schemas.BaseNotificationType ToOioNotification()
         {
             BaseNotificationType ret = null;
             if (this.Subscription.BirthdateSubscription != null)

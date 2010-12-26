@@ -8,7 +8,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
 using CPRBroker.Schemas;
-using CPRBroker.Engine;
+using CprBroker.EventBroker;
 
 namespace CprBroker.EventBroker.Web.Services
 {
@@ -32,42 +32,42 @@ namespace CprBroker.EventBroker.Web.Services
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Subscribe, Description = CPRBroker.Schemas.Part.ServiceDescription.Subscriptions.Subscribe)]
         public ChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, Guid[] PersonCivilRegistrationIdentifiers)
         {
-            return Manager.Admin.Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, PersonCivilRegistrationIdentifiers);
+            return Manager.Subscriptions.Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, PersonCivilRegistrationIdentifiers);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Unsubscribe, Description = CPRBroker.Schemas.Part.ServiceDescription.Subscriptions.Unsubscribe)]
         public bool Unsubscribe(Guid SubscriptionId)
         {
-            return Manager.Admin.Unsubscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
+            return Manager.Subscriptions.Unsubscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.SubscribeOnBirthdate, Description = CPRBroker.Schemas.Part.ServiceDescription.Subscriptions.SubscribeOnBirthdate)]
         public BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, Guid[] PersonCivilRegistrationIdentifiers)
         {
-            return Manager.Admin.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, PersonCivilRegistrationIdentifiers);
+            return Manager.Subscriptions.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, PersonCivilRegistrationIdentifiers);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.RemoveBirthDateSubscription, Description = CPRBroker.Schemas.Part.ServiceDescription.Subscriptions.RemoveBirthDateSubscriptions)]
         public bool RemoveBirthDateSubscription(Guid SubscriptionId)
         {
-            return Manager.Admin.RemoveBirthDateSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
+            return Manager.Subscriptions.RemoveBirthDateSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.GetActiveSubscriptionsList, Description = CPRBroker.Schemas.Part.ServiceDescription.Subscriptions.GetActiveSubscriptionsList)]
         public SubscriptionType[] GetActiveSubscriptionsList()
         {
-            return Manager.Admin.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+            return Manager.Subscriptions.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CPRBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.GetLatestNotification, Description = CPRBroker.Schemas.Part.ServiceDescription.Subscriptions.GetLatestNotification)]
         public BaseNotificationType GetLatestNotification(Guid SubscriptionId)
         {
-            return Manager.Admin.GetLatestNotification(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
+            return Manager.Subscriptions.GetLatestNotification(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         

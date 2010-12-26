@@ -114,10 +114,6 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Access.asmx.cs">
-      <DependentUpon>Access.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Services\CPRAdministrationWS.asmx.cs">
       <DependentUpon>CPRAdministrationWS.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -150,7 +146,6 @@
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Images\unn_bottom.gif" />
     <Content Include="Pages\LogEntries.aspx" />
-    <Content Include="Services\Access.asmx" />
     <Content Include="Services\Notification.asmx" />
     <None Include="Config\connectionStrings.beta.config" />
     <Content Include="Services\Part.asmx" />

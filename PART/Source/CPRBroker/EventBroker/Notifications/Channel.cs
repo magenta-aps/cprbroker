@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace CPRBroker.Engine.Notifications
+namespace CprBroker.EventBroker.Notifications
 {
     /// <summary>
     /// Base class for notification channels
@@ -14,12 +14,12 @@ namespace CPRBroker.Engine.Notifications
         /// <summary>
         /// Maps channel types (enum) to actual CLR types
         /// </summary>
-        static Dictionary<DAL.Events.ChannelType.ChannelTypes, Type> TypesMap;
+        static Dictionary<DAL.ChannelType.ChannelTypes, Type> TypesMap;
         static Channel()
         {
-            TypesMap = new Dictionary<DAL.Events.ChannelType.ChannelTypes, Type>();
-            TypesMap[DAL.Events.ChannelType.ChannelTypes.FileShare] = typeof(FileShareChannel);
-            TypesMap[DAL.Events.ChannelType.ChannelTypes.WebService] = typeof(WebServiceChannel);            
+            TypesMap = new Dictionary<DAL.ChannelType.ChannelTypes, Type>();
+            TypesMap[DAL.ChannelType.ChannelTypes.FileShare] = typeof(FileShareChannel);
+            TypesMap[DAL.ChannelType.ChannelTypes.WebService] = typeof(WebServiceChannel);            
         }
 
         /// <summary>
@@ -27,9 +27,9 @@ namespace CPRBroker.Engine.Notifications
         /// </summary>
         /// <param name="dbChannel"></param>
         /// <returns></returns>
-        public static Channel Create(DAL.Events.Channel dbChannel)
+        public static Channel Create(DAL.Channel dbChannel)
         {
-            DAL.Events.ChannelType.ChannelTypes channelType = (CPRBroker.DAL.Events.ChannelType.ChannelTypes)dbChannel.ChannelTypeId;
+            DAL.ChannelType.ChannelTypes channelType = (DAL.ChannelType.ChannelTypes)dbChannel.ChannelTypeId;
 
             Type clrChannelType = TypesMap[channelType];
             Channel channel = clrChannelType.InvokeMember(
@@ -44,7 +44,7 @@ namespace CPRBroker.Engine.Notifications
             return channel;
         }
 
-        protected DAL.Events.Channel DatabaseObject { get; private set; }
+        protected DAL.Channel DatabaseObject { get; private set; }
 
         /// <summary>
         /// Pings the channel
@@ -56,7 +56,7 @@ namespace CPRBroker.Engine.Notifications
         /// Send the supplied notification through the channel
         /// </summary>
         /// <param name="notification"></param>
-        public abstract void Notify(DAL.Events.Notification notification);
+        public abstract void Notify(DAL.Notification notification);
     }
 
     /// <summary>
@@ -76,11 +76,11 @@ namespace CPRBroker.Engine.Notifications
         /// Notifies by calling a CPR Notification web service
         /// </summary>
         /// <param name="notification"></param>
-        public override void Notify(DAL.Events.Notification notification)
+        public override void Notify(DAL.Notification notification)
         {
             NotificationService.Notification notificationService = new NotificationService.Notification();
             notificationService.Url = DatabaseObject.Url;
-            Schemas.BaseNotificationType oioNotification = notification.ToOioNotification();
+            CPRBroker.Schemas.BaseNotificationType oioNotification = notification.ToOioNotification();
             NotificationService.BaseNotificationType wsdlNotif = oioNotification.ToWsdl();
             notificationService.Notify(DatabaseObject.Subscription.Application.Token, wsdlNotif);
         }
@@ -105,16 +105,16 @@ namespace CPRBroker.Engine.Notifications
         /// Notifies by serializing the notification into an XML file
         /// </summary>
         /// <param name="notification"></param>
-        public override void Notify(DAL.Events.Notification notification)
+        public override void Notify(DAL.Notification notification)
         {
             string folder = DatabaseObject.Url;
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
             }
-            Schemas.BaseNotificationType oioNotif = notification.ToOioNotification();
+            CPRBroker.Schemas.BaseNotificationType oioNotif = notification.ToOioNotification();
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(oioNotif.GetType());
-            string filePath = Util.Strings.NewUniquePath(folder, "xml");
+            string filePath = CPRBroker.Engine.Util.Strings.NewUniquePath(folder, "xml");
             System.IO.StreamWriter w = new System.IO.StreamWriter(filePath);
             serializer.Serialize(w, oioNotif);
             w.Close();

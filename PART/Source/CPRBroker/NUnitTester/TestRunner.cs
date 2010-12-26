@@ -62,7 +62,7 @@ namespace NUnitTester
 
 
             AccessService = new NUnitTester.Access.Access();
-            ReplaceServiceUrl(AccessService, SystemType.CprBroker);
+            ReplaceServiceUrl(AccessService, SystemType.EventBroker);
             Console.WriteLine(AccessService.Url);
         }
 

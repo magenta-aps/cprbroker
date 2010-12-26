@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.DAL.Events;
+using CprBroker.EventBroker.DAL;
 
 namespace CprBroker.EventBroker
 {

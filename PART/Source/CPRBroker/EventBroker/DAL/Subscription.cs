@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CPRBroker.Schemas;
 
-namespace CPRBroker.DAL.Events
+namespace CprBroker.EventBroker.DAL
 {
     public partial class Subscription
     {
@@ -20,9 +20,9 @@ namespace CPRBroker.DAL.Events
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.Application);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.SubscriptionPersons);            
         }
-        public Schemas.SubscriptionType ToOioSubscription()
+        public CPRBroker.Schemas.SubscriptionType ToOioSubscription()
         {
-            Schemas.SubscriptionType ret = null;
+            CPRBroker.Schemas.SubscriptionType ret = null;
             if (this.DataSubscription != null)
             {
                 ChangeSubscriptionType dataSubscription = new ChangeSubscriptionType();
@@ -43,12 +43,12 @@ namespace CPRBroker.DAL.Events
             switch ((ChannelType.ChannelTypes)channel.ChannelTypeId)
             {
                 case ChannelType.ChannelTypes.WebService:
-                    Schemas.WebServiceChannelType webServiceChannel = new WebServiceChannelType();
+                    CPRBroker.Schemas.WebServiceChannelType webServiceChannel = new WebServiceChannelType();
                     webServiceChannel.WebServiceUrl = channel.Url;
                     ret.NotificationChannel = webServiceChannel;
                     break;
                 case ChannelType.ChannelTypes.FileShare:
-                    Schemas.FileShareChannelType fileShareChannel = new FileShareChannelType();
+                    CPRBroker.Schemas.FileShareChannelType fileShareChannel = new FileShareChannelType();
                     fileShareChannel.Path = channel.Url;
                     ret.NotificationChannel = fileShareChannel;
                     break;                

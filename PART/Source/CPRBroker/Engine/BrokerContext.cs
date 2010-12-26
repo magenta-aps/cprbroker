@@ -38,7 +38,8 @@ namespace CPRBroker.Engine
                 BrokerContext ret = CallContext.GetData(ContextKey) as BrokerContext;
                 return ret;
             }
-            internal set
+            //TODO : This was originally 'internal'
+            set
             {
                 CallContext.SetData(ContextKey, value);
             }
