@@ -19,6 +19,7 @@ namespace CPRBroker.Engine
         /// <summary>
         /// Get the current version for this provider
         /// </summary>
+        //TODO: Remove this property from all data providers
         Version Version { get; }
     }
 
