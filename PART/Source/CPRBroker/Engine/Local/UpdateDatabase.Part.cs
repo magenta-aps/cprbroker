@@ -32,6 +32,11 @@ namespace CPRBroker.Engine.Local
         {
             NotificationQueueService.NotificationQueue notificationQueueService = new CPRBroker.Engine.NotificationQueueService.NotificationQueue();
             notificationQueueService.Url = Config.Properties.Settings.Default.NotificationQueueServiceUrl;
+            notificationQueueService.ApplicationHeaderValue = new CPRBroker.Engine.NotificationQueueService.ApplicationHeader()
+            {
+                ApplicationToken = DAL.Applications.Application.BaseApplicationToken.ToString(),
+                UserToken = Constants.UserToken
+            };
             // TODO: use the value of the result
             bool result = notificationQueueService.Enqueue(personUuid);
         }
