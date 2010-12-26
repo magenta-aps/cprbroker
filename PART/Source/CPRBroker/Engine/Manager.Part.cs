@@ -21,7 +21,7 @@ namespace CPRBroker.Engine
 
             public static PersonRegistration RefreshRead(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel)
             {
-                return Read(userToken, appToken, uuid, effectDate, out qualityLevel, LocalDataProviderUsageOption.UseLast);
+                return Read(userToken, appToken, uuid, effectDate, out qualityLevel, LocalDataProviderUsageOption.Forbidden);
             }
 
             private static PersonRegistration Read(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel, LocalDataProviderUsageOption localAction)
