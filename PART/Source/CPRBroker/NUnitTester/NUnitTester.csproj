@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationManagementTest.cs" />
     <Compile Include="BaseTest.cs" />
     <Compile Include="PartTest.cs" />
     <Compile Include="PartTestData.cs" />
