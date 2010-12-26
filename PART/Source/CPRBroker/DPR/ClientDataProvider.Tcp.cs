@@ -49,6 +49,7 @@ namespace CPRBroker.Providers.DPR
             System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
             try
             {
+                // TODO : Put a maximum timeout for DPR connection
                 client.Connect(this.DatabaseObject.Address, this.DatabaseObject.Port.Value);
                 client.GetStream().Close();
                 conn.ConnectionString = this.DatabaseObject.ConnectionString;
