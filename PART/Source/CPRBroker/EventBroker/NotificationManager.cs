@@ -6,6 +6,7 @@ using CprBroker.EventBroker.DAL;
 
 namespace CprBroker.EventBroker
 {
+    // TODO: Merge with NotificationEngine or Manager.Subscriptions
     public class NotificationManager
     {
         public static void Enqueue(Guid personUuid)
