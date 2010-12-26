@@ -29,19 +29,30 @@ namespace CPRBroker.Engine.NotificationQueueService {
     [System.Web.Services.WebServiceBindingAttribute(Name="NotificationQueueSoap", Namespace="http://tempuri.org/")]
     public partial class NotificationQueue : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private ApplicationHeader applicationHeaderValueField;
+        
         private System.Threading.SendOrPostCallback EnqueueOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
         public NotificationQueue() {
-            this.Url = "http://localhost:3800/Services/NotificationQueue.asmx";
+            this.Url = "http://localhost:1552/Services/NotificationQueue.asmx";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
             }
             else {
                 this.useDefaultCredentialsSetExplicitly = true;
+            }
+        }
+        
+        public ApplicationHeader ApplicationHeaderValue {
+            get {
+                return this.applicationHeaderValueField;
+            }
+            set {
+                this.applicationHeaderValueField = value;
             }
         }
         
@@ -73,10 +84,12 @@ namespace CPRBroker.Engine.NotificationQueueService {
         public event EnqueueCompletedEventHandler EnqueueCompleted;
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Enqueue", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void Enqueue(System.Guid personUuid) {
-            this.Invoke("Enqueue", new object[] {
+        public bool Enqueue(System.Guid personUuid) {
+            object[] results = this.Invoke("Enqueue", new object[] {
                         personUuid});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -96,7 +109,7 @@ namespace CPRBroker.Engine.NotificationQueueService {
         private void OnEnqueueOperationCompleted(object arg) {
             if ((this.EnqueueCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.EnqueueCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.EnqueueCompleted(this, new EnqueueCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -120,8 +133,77 @@ namespace CPRBroker.Engine.NotificationQueueService {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
+    public partial class ApplicationHeader : System.Web.Services.Protocols.SoapHeader {
+        
+        private string applicationTokenField;
+        
+        private string userTokenField;
+        
+        private System.Xml.XmlAttribute[] anyAttrField;
+        
+        /// <remarks/>
+        public string ApplicationToken {
+            get {
+                return this.applicationTokenField;
+            }
+            set {
+                this.applicationTokenField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string UserToken {
+            get {
+                return this.userTokenField;
+            }
+            set {
+                this.userTokenField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr {
+            get {
+                return this.anyAttrField;
+            }
+            set {
+                this.anyAttrField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
-    public delegate void EnqueueCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void EnqueueCompletedEventHandler(object sender, EnqueueCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class EnqueueCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal EnqueueCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
 }
 
 #pragma warning restore 1591

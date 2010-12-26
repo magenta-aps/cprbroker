@@ -191,5 +191,14 @@ Output : Person UUID
                                                 <br>==============================
                                                 ";
         }
+
+        public static class NotificationQueue
+        {
+            public const string Service = "Allows the event broker to be notified that some event has occured";
+
+            public const string Enqueue = @"
+                                                Allows the event broker to be notified that a person's data has changed                                                
+                                                ";
+        }
     }
 }

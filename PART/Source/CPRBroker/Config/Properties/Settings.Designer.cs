@@ -82,7 +82,7 @@ namespace CPRBroker.Config.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:3800/Services/NotificationQueue.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1552/Services/NotificationQueue.asmx")]
         public string NotificationQueueServiceUrl {
             get {
                 return ((string)(this["NotificationQueueServiceUrl"]));

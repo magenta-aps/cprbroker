@@ -63,9 +63,10 @@
     <Compile Include="DAL\Subscription.cs" />
     <Compile Include="DAL\SubscriptionType.cs" />
     <Compile Include="GetPersonDataTask.cs" />
+    <Compile Include="INotificationManager.cs" />
     <Compile Include="ISubscriptionManager.cs" />
     <Compile Include="Manager.Subscription.cs" />
-    <Compile Include="NotificationManager.cs" />
+    <Compile Include="NotificationDataProvider.cs" />
     <Compile Include="Notifications\Channel.cs" />
     <Compile Include="Notifications\Extensions.cs" />
     <Compile Include="Notifications\NotificationEngine.cs" />

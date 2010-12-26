@@ -56,6 +56,12 @@ namespace CprBroker.EventBroker
                  (userToken, appToken, true, true, (admin) => admin.GetLatestNotification(userToken, appToken, subscriptionId), true, null);
             }
             #endregion
+
+            public static bool Enqueue(string userToken, string appToken,Guid personUuid)
+            {
+                return CallMethod<INotificationManager, bool>
+                    (userToken, appToken, true, true, (prov) => prov.Enqueue(personUuid), true, null);
+            }
         }
     }
 }

@@ -32,7 +32,8 @@ namespace CPRBroker.Engine.Local
         {
             NotificationQueueService.NotificationQueue notificationQueueService = new CPRBroker.Engine.NotificationQueueService.NotificationQueue();
             notificationQueueService.Url = Config.Properties.Settings.Default.NotificationQueueServiceUrl;
-            notificationQueueService.Enqueue(personUuid);
+            // TODO: use the value of the result
+            bool result = notificationQueueService.Enqueue(personUuid);
         }
 
         private static bool MergePersonRegistration(Guid personUUID, Schemas.Part.PersonRegistration personRegistraion)
