@@ -98,6 +98,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\Subscriptions\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\CPRPersonWS\CPRPersonWS.wsdl" />
@@ -150,6 +155,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NUnitTester_Part_Part</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="http://localhost:3800/Services/Subscriptions.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Subscriptions\</RelPath>
+      <UpdateFromURL>http://localhost:3800/Services/Subscriptions.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NUnitTester_Subscriptions_CPRAdministrationWS</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\CPRAdministrationWS\CPRAdministrationWS.wsdl" />
@@ -177,15 +193,6 @@
     <None Include="Web References\CPRAdministrationWS\ApplicationType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\CPRAdministrationWS\BaseNotificationType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRAdministrationWS\BirthdateSubscriptionType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRAdministrationWS\ChangeSubscriptionType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\CPRAdministrationWS\CPRAdministrationWS.disco" />
     <None Include="Web References\CPRAdministrationWS\DataProviderType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -195,9 +202,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\CPRAdministrationWS\ServiceVersionType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRAdministrationWS\SubscriptionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\CPRPersonWS\ParentAuthorityRelationshipType.datasource">
@@ -255,6 +259,26 @@
     <None Include="Web References\Part\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Subscriptions\Subscriptions.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Subscriptions\BaseNotificationType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Subscriptions\BirthdateSubscriptionType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Subscriptions\ChangeSubscriptionType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Subscriptions\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Subscriptions\Subscriptions.disco" />
+    <None Include="Web References\Subscriptions\SubscriptionType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

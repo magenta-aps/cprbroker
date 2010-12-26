@@ -37,13 +37,7 @@ namespace CPRBroker.Schemas
                 public const string ApproveAppRegistration = "ApproveAppRegistration";
                 public const string ListAppRegistrations = "ListAppRegistrations";
                 public const string UnregisterApp = "UnregisterApp";
-                public const string Subscribe = "Subscribe";
-                public const string Unsubscribe = "Unsubscribe";
-                public const string SubscribeOnBirthdate = "SubscribeOnBirthdate";
                 public const string GetCapabilities = "GetCapabilities";
-                public const string GetActiveSubscriptionsList = "GetActiveSubsciptionsList";
-                public const string GetLatestNotification = "GetLatestNotification";
-                public const string RemoveBirthDateSubscription = "RemoveBirthDateSubscription";
                 public const string IsImplementing = "IsImplementing";
                 public const string GetDataProviderList = "GetDataProviderList";
                 public const string SetDataProviderList = "SetDataProviderList";

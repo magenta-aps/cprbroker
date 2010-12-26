@@ -46,16 +46,16 @@ namespace NUnitTester
         public static string[][] cprNumbersToSubscribe = new string[][] { cprNumbers, null };
         public const string CprNumbersToSubscribeFieldName = "cprNumbersToSubscribe";
 
-        public static List<CPRAdministrationWS.BirthdateSubscriptionType> birthdateSubscriptions = new List<NUnitTester.CPRAdministrationWS.BirthdateSubscriptionType>();
-        public static Func<CPRAdministrationWS.BirthdateSubscriptionType>[] birthdateSubscriptionFunctions = new Func<NUnitTester.CPRAdministrationWS.BirthdateSubscriptionType>[]
+        public static List<Subscriptions.BirthdateSubscriptionType> birthdateSubscriptions = new List<NUnitTester.Subscriptions.BirthdateSubscriptionType>();
+        public static Func<Subscriptions.BirthdateSubscriptionType>[] birthdateSubscriptionFunctions = new Func<NUnitTester.Subscriptions.BirthdateSubscriptionType>[]
             {
                 ()=>birthdateSubscriptions[0],
                 ()=>birthdateSubscriptions[1],
             };
         public const string birthdateSubscriptionFunctionsFieldName = "birthdateSubscriptionFunctions";
 
-        public static List<CPRAdministrationWS.ChangeSubscriptionType> changeSubscriptions = new List<NUnitTester.CPRAdministrationWS.ChangeSubscriptionType>();
-        public static Func<CPRAdministrationWS.ChangeSubscriptionType>[] changeSubscriptionFunctions = new Func<NUnitTester.CPRAdministrationWS.ChangeSubscriptionType>[]
+        public static List<Subscriptions.ChangeSubscriptionType> changeSubscriptions = new List<NUnitTester.Subscriptions.ChangeSubscriptionType>();
+        public static Func<Subscriptions.ChangeSubscriptionType>[] changeSubscriptionFunctions = new Func<NUnitTester.Subscriptions.ChangeSubscriptionType>[]
             {
                 ()=>changeSubscriptions[0],
                 ()=>changeSubscriptions[1],
@@ -65,9 +65,9 @@ namespace NUnitTester
         public static int? birthdateYears = 10;
         public static int birthdateDays = 0;
 
-        public static CPRAdministrationWS.FileShareChannelType fileShareChannel = new NUnitTester.CPRAdministrationWS.FileShareChannelType() { Path = "C:\\Notif" };
-        public static CPRAdministrationWS.WebServiceChannelType webServiceChannel = new NUnitTester.CPRAdministrationWS.WebServiceChannelType() { WebServiceUrl = "http://cprbroker.beta/Services/Notification.asmx" };
-        public static CPRAdministrationWS.ChannelBaseType[] Channels = new NUnitTester.CPRAdministrationWS.ChannelBaseType[] 
+        public static Subscriptions.FileShareChannelType fileShareChannel = new NUnitTester.Subscriptions.FileShareChannelType() { Path = "C:\\Notif" };
+        public static Subscriptions.WebServiceChannelType webServiceChannel = new NUnitTester.Subscriptions.WebServiceChannelType() { WebServiceUrl = "http://cprbroker.beta/Services/Notification.asmx" };
+        public static Subscriptions.ChannelBaseType[] Channels = new NUnitTester.Subscriptions.ChannelBaseType[] 
             {
                 fileShareChannel,
                 webServiceChannel

@@ -15,6 +15,7 @@ namespace NUnitTester
         public static CPRPersonWS.CPRPersonWS PersonService;
         public static Access.Access AccessService;
         public static Part.Part PartService;
+        public static Subscriptions.Subscriptions SubscriptionsService;
 
         public static void Initialize()
         {
@@ -24,7 +25,7 @@ namespace NUnitTester
                 ApplicationToken = TestData.BaseAppToken,
                 UserToken = TestData.userToken
             };
-            ReplaceServiceUrl(AdminService);
+            ReplaceServiceUrl(AdminService, SystemType.CprBroker);
             Console.WriteLine(AdminService.Url);
 
 
@@ -34,10 +35,10 @@ namespace NUnitTester
                 ApplicationToken = TestData.BaseAppToken,
                 UserToken = TestData.userToken
             };
-            ReplaceServiceUrl(PersonService);
+            ReplaceServiceUrl(PersonService, SystemType.CprBroker);
             Console.WriteLine(PersonService.Url);
 
-            
+
             PartService = new NUnitTester.Part.Part();
             PartService.ApplicationHeaderValue = new NUnitTester.Part.ApplicationHeader()
             {
@@ -45,19 +46,32 @@ namespace NUnitTester
                 UserToken = TestData.userToken
             };
             PartService.EffectDateHeaderValue = new NUnitTester.Part.EffectDateHeader() { EffectDate = null };
-            PartService.RegistrationDateHeaderValue = new NUnitTester.Part.RegistrationDateHeader() { RegistrationDate = null};
-            ReplaceServiceUrl(PartService);
+            PartService.RegistrationDateHeaderValue = new NUnitTester.Part.RegistrationDateHeader() { RegistrationDate = null };
+            ReplaceServiceUrl(PartService, SystemType.CprBroker);
             Console.WriteLine(PartService.Url);
 
-            
+
+            SubscriptionsService = new NUnitTester.Subscriptions.Subscriptions();
+            SubscriptionsService.ApplicationHeaderValue = new NUnitTester.Subscriptions.ApplicationHeader()
+            {
+                ApplicationToken = TestData.BaseAppToken,
+                UserToken = TestData.userToken
+            };
+            ReplaceServiceUrl(SubscriptionsService, SystemType.EventBroker);
+            Console.WriteLine(SubscriptionsService.Url);
+
+
             AccessService = new NUnitTester.Access.Access();
-            ReplaceServiceUrl(AccessService);
+            ReplaceServiceUrl(AccessService, SystemType.CprBroker);
             Console.WriteLine(AccessService.Url);
-            
-            
         }
 
-        private static void ReplaceServiceUrl(System.Web.Services.Protocols.SoapHttpClientProtocol service)
+        private enum SystemType
+        {
+            CprBroker,
+            EventBroker
+        }
+        private static void ReplaceServiceUrl(System.Web.Services.Protocols.SoapHttpClientProtocol service, SystemType systemType)
         {
             Uri uri = new Uri(service.Url);
             string hostAndPort = uri.Host;
@@ -65,7 +79,15 @@ namespace NUnitTester
             {
                 hostAndPort += ":" + uri.Port;
             }
-            service.Url = service.Url.Replace(hostAndPort, "localhost:1551");
+
+            if (systemType == SystemType.CprBroker)
+            {
+                service.Url = service.Url.Replace(hostAndPort, "localhost:1551");
+            }
+            else
+            {
+                service.Url = service.Url.Replace(hostAndPort, "localhost:3800");
+            }
         }
     }
 }

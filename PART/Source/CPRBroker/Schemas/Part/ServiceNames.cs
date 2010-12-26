@@ -21,5 +21,22 @@ namespace CPRBroker.Schemas.Part
                 public const string GetPersonUuid = "GetPersonUuid";
             }
         }
+        public class Subscriptions
+        {
+            public const string Service = "Subscriptions";
+
+            public static class Methods
+            {
+                public const string Subscribe = "Subscribe";
+                public const string Unsubscribe = "Unsubscribe";
+                public const string SubscribeOnBirthdate = "SubscribeOnBirthdate";
+
+                public const string GetActiveSubscriptionsList = "GetActiveSubsciptionsList";
+                public const string GetLatestNotification = "GetLatestNotification";
+
+                public const string RemoveBirthDateSubscription = "RemoveBirthDateSubscription";
+                
+            }
+        }
     }
 }

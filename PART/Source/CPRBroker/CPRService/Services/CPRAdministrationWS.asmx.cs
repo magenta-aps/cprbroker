@@ -89,51 +89,7 @@ namespace CPRService.Services
             return Manager.Admin.SetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken, DataProviders);
         }
         #endregion
-
-        #region Subscription
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.Subscribe, Description = ServiceDescription.Administrator.Subscribe)]
-        public ChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, Guid[] PersonCivilRegistrationIdentifiers)
-        {
-            return Manager.Admin.Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, PersonCivilRegistrationIdentifiers);
-        }
-
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.Unsubscribe, Description = ServiceDescription.Administrator.Unsubscribe)]
-        public bool Unsubscribe(Guid SubscriptionId)
-        {
-            return Manager.Admin.Unsubscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
-        }
-
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.SubscribeOnBirthdate, Description = ServiceDescription.Administrator.SubscribeOnBirthdate)]
-        public BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, Guid[] PersonCivilRegistrationIdentifiers)
-        {
-            return Manager.Admin.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, PersonCivilRegistrationIdentifiers);
-        }
-
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.RemoveBirthDateSubscription, Description = ServiceDescription.Administrator.RemoveBirthDateSubscriptions)]
-        public bool RemoveBirthDateSubscription(Guid SubscriptionId)
-        {
-            return Manager.Admin.RemoveBirthDateSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
-        }
-
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.GetActiveSubscriptionsList, Description = ServiceDescription.Administrator.GetActiveSubscriptionsList)]
-        public SubscriptionType[] GetActiveSubscriptionsList()
-        {
-            return Manager.Admin.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
-        }
-
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.GetLatestNotification, Description = ServiceDescription.Administrator.GetLatestNotification)]
-        public BaseNotificationType GetLatestNotification(Guid SubscriptionId)
-        {
-            return Manager.Admin.GetLatestNotification(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
-        }
-        #endregion
-
+        
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.Log, Description = ServiceDescription.Administrator.Log)]
         public bool Log(string Text)

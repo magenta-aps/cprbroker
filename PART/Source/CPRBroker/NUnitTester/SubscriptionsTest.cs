@@ -10,12 +10,15 @@ namespace NUnitTester
     public class SubscriptionsTest : BaseTest
     {
         private Dictionary<string, Guid> CprNumberMap = new Dictionary<string, Guid>();
-        [TestFixtureSetUp]
+        
         public void MapCprNumbers()
         {
             foreach (string cprNumber in TestData.cprNumbers)
             {
-                CprNumberMap[cprNumber] = TestRunner.PartService.GetPersonUuid(cprNumber);
+                if (!CprNumberMap.ContainsKey(cprNumber))
+                {
+                    CprNumberMap[cprNumber] = TestRunner.PartService.GetPersonUuid(cprNumber);
+                }
             }
         }
         private Guid[] GetPersonUuids(string[] cprNumbers)
@@ -30,15 +33,16 @@ namespace NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersToSubscribeFieldName)]
         public void T500_SubscribeOnBirthdate(string[] cprNumbers)
         {
+            MapCprNumbers();
             var uuids = GetPersonUuids(cprNumbers);
 
-            var sub = TestRunner.AdminService.SubscribeOnBirthdate(TestData.fileShareChannel, TestData.birthdateYears, TestData.birthdateDays, uuids);
+            var sub = TestRunner.SubscriptionsService.SubscribeOnBirthdate(TestData.fileShareChannel, TestData.birthdateYears, TestData.birthdateDays, uuids);
             Assert.IsNotNull(sub);
-            Assert.IsInstanceOf<CPRAdministrationWS.BirthdateSubscriptionType>(sub);
+            Assert.IsInstanceOf<Subscriptions.BirthdateSubscriptionType>(sub);
             TestData.birthdateSubscriptions.Add(sub);
         }
 
-        IEnumerable<Func<CPRAdministrationWS.BirthdateSubscriptionType>> birthDateSubscriptionFuncs()
+        IEnumerable<Func<Subscriptions.BirthdateSubscriptionType>> birthDateSubscriptionFuncs()
         {
             return TestData.birthdateSubscriptionFunctions;
         }
@@ -47,12 +51,12 @@ namespace NUnitTester
         [Combinatorial]
         public void T510_SendBirthdateNotifications(
             [ValueSource("birthDateSubscriptionFuncs")]             
-            Func<CPRAdministrationWS.BirthdateSubscriptionType> subscriptionFunc,
+            Func<Subscriptions.BirthdateSubscriptionType> subscriptionFunc,
                 [Values(0, -1, 2)] int yearsDiff,
                 [Values(0, 1, 2, -2)] int daysDiff
             )
         {
-            CPRAdministrationWS.BirthdateSubscriptionType subscription = subscriptionFunc();
+            Subscriptions.BirthdateSubscriptionType subscription = subscriptionFunc();
             string baseCprNumber;
             DateTime birthDate;
             if (subscription.ForAllPersons)
@@ -77,12 +81,12 @@ namespace NUnitTester
 
             if (expected)
             {
-                var notification = TestRunner.AdminService.GetLatestNotification(new Guid(subscription.SubscriptionId));
+                var notification = TestRunner.SubscriptionsService.GetLatestNotification(new Guid(subscription.SubscriptionId));
                 Assert.IsNotNull(notification);
                 Assert.AreEqual(notification.ApplicationToken, TestData.AppToken);
                 Assert.GreaterOrEqual(notification.NotificationDate, notifyDate.Date);
-                Assert.IsInstanceOf<CPRAdministrationWS.BirthdateNotificationType>(notification);
-                CPRAdministrationWS.BirthdateNotificationType bdNotif = notification as CPRAdministrationWS.BirthdateNotificationType;
+                Assert.IsInstanceOf<Subscriptions.BirthdateNotificationType>(notification);
+                Subscriptions.BirthdateNotificationType bdNotif = notification as Subscriptions.BirthdateNotificationType;
                 Assert.IsNotNull(bdNotif.BirthdateSubscription);
                 Assert.AreEqual(bdNotif.BirthdateSubscription.SubscriptionId, subscription.SubscriptionId);
                 Assert.Greater(bdNotif.Persons.Count(), 0);
@@ -94,10 +98,11 @@ namespace NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersToSubscribeFieldName)]
         public void T520_Subscribe(string[] cprNumbers)
         {
+            MapCprNumbers();
             var uuids = GetPersonUuids(cprNumbers);
-            var sub = TestRunner.AdminService.Subscribe(TestData.fileShareChannel, uuids);
+            var sub = TestRunner.SubscriptionsService.Subscribe(TestData.fileShareChannel, uuids);
             Assert.IsNotNull(sub);
-            Assert.IsInstanceOf<CPRAdministrationWS.ChangeSubscriptionType>(sub);
+            Assert.IsInstanceOf<Subscriptions.ChangeSubscriptionType>(sub);
             TestData.changeSubscriptions.Add(sub);
         }
 
@@ -109,7 +114,7 @@ namespace NUnitTester
             Assert.Greater(reseult.SucceededCprNumbers.Length, 0);
         }
 
-        private IEnumerable<Func<CPRAdministrationWS.ChangeSubscriptionType>> changeSubscriptionFuncs()
+        private IEnumerable<Func<Subscriptions.ChangeSubscriptionType>> changeSubscriptionFuncs()
         {
             return TestData.changeSubscriptionFunctions;
         }
@@ -120,12 +125,12 @@ namespace NUnitTester
         [Test]
         public void T540_SendDataChangeNotifications(
             [ValueSource("changeSubscriptionFuncs")]
-            Func<CPRAdministrationWS.ChangeSubscriptionType> subscriptionFunc,
+            Func<Subscriptions.ChangeSubscriptionType> subscriptionFunc,
             [ValueSource("changeSubscriptionNotifyDates")]
             DateTime notifyDate
             )
         {
-            CPRAdministrationWS.ChangeSubscriptionType subscription = subscriptionFunc();
+            Subscriptions.ChangeSubscriptionType subscription = subscriptionFunc();
             bool notified;
             NUnitTester.Access.SendNotificationsResult res;
 
@@ -147,11 +152,11 @@ namespace NUnitTester
 
                 if (expected)
                 {
-                    var notification = TestRunner.AdminService.GetLatestNotification(new Guid(subscription.SubscriptionId));
+                    var notification = TestRunner.SubscriptionsService.GetLatestNotification(new Guid(subscription.SubscriptionId));
                     Assert.AreEqual(notification.ApplicationToken, TestData.AppToken);
                     Assert.GreaterOrEqual(notification.NotificationDate, notifyDate.Date);
-                    Assert.IsInstanceOf<CPRAdministrationWS.ChangeNotificationType>(notification);
-                    var changeNotif = notification as CPRAdministrationWS.ChangeNotificationType;
+                    Assert.IsInstanceOf<Subscriptions.ChangeNotificationType>(notification);
+                    var changeNotif = notification as Subscriptions.ChangeNotificationType;
                     Assert.Greater(changeNotif.Persons.Count(), 0);
                     Assert.IsNotNull(changeNotif.ChangeSubscription);
                     Assert.AreEqual(changeNotif.ChangeSubscription.SubscriptionId, subscription.SubscriptionId);
@@ -163,26 +168,26 @@ namespace NUnitTester
         [Test]
         public void T550_GetActiveSubscriptionList()
         {
-            var subs = TestRunner.AdminService.GetActiveSubscriptionsList();
+            var subs = TestRunner.SubscriptionsService.GetActiveSubscriptionsList();
             Assert.IsNotNull(subs);
             Assert.GreaterOrEqual(subs.Count(), 2);
         }
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.birthdateSubscriptionFunctionsFieldName)]
-        public void T560_RemoveBirthdateSubscription(Func<CPRAdministrationWS.BirthdateSubscriptionType> subscriptionFunc)
+        public void T560_RemoveBirthdateSubscription(Func<Subscriptions.BirthdateSubscriptionType> subscriptionFunc)
         {
-            CPRAdministrationWS.BirthdateSubscriptionType subscription = subscriptionFunc();
-            bool res = TestRunner.AdminService.RemoveBirthDateSubscription(new Guid(subscription.SubscriptionId));
+            Subscriptions.BirthdateSubscriptionType subscription = subscriptionFunc();
+            bool res = TestRunner.SubscriptionsService.RemoveBirthDateSubscription(new Guid(subscription.SubscriptionId));
             Assert.IsTrue(res);
         }
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.changeSubscriptionFunctionsFieldName)]
-        public void T570_Unsubscribe(Func<CPRAdministrationWS.ChangeSubscriptionType> subscriptionFunc)
+        public void T570_Unsubscribe(Func<Subscriptions.ChangeSubscriptionType> subscriptionFunc)
         {
-            CPRAdministrationWS.ChangeSubscriptionType sub = subscriptionFunc();
-            bool res = TestRunner.AdminService.Unsubscribe(new Guid(sub.SubscriptionId));
+            Subscriptions.ChangeSubscriptionType sub = subscriptionFunc();
+            bool res = TestRunner.SubscriptionsService.Unsubscribe(new Guid(sub.SubscriptionId));
         }
     }
 }
