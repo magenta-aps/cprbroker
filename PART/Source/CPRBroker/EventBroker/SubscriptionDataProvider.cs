@@ -7,7 +7,7 @@ using CprBroker.EventBroker.DAL;
 
 namespace CprBroker.EventBroker
 {
-    public partial class SubscriptionDataProvider : CPRBroker.Engine.ISubscriptionManager
+    public partial class SubscriptionDataProvider : ISubscriptionManager
     {
         /// <summary>
         /// Adds a new Subscription object to the <paramref name="dataContext"/>
