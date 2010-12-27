@@ -16,6 +16,7 @@ CREATE Procedure InsertBirthdateNotificationData
 )
 
 AS
+	
 	DECLARE @NotificationId UNIQUEIDENTIFIER
 	
 	DECLARE @AgeYears INT
@@ -30,19 +31,27 @@ AS
 	
 	-- Temp table to hold persons
 	CREATE TABLE #Person (NotificationPersonID UNIQUEIDENTIFIER DEFAULT NEWID(), PersonID UNIQUEIDENTIFIER, Birthdate DATETIME, Age INT)
+		
 	
 	-- Search  for persons that match the subscription rule
 	INSERT INTO #Person (PersonId, Birthdate, Age)
-	SELECT P.PersonID, P.BirthDate, DATEDIFF(YEAR, P.Birthdate, DATEADD(day, @PriorDays, @Today))
-	FROM Person AS P
-	LEFT OUTER JOIN SubscriptionPerson AS SP ON P.PersonId = SP.PersonId
+	SELECT PD.UUID, PD.BirthDate, DATEDIFF(YEAR, PD.Birthdate, DATEADD(day, @PriorDays, @Today))
+	FROM 
+	(
+		SELECT DISTINCT P.UUID, PA.Birthdate
+		FROM Person AS P
+		INNER JOIN PersonRegistration AS PR ON P.UUID = PR.UUID
+		INNER JOIN PersonAttributes AS PA ON PA.PersonRegistrationID = PR.PersonRegistrationId
+		WHERE PA.BirthDate IS NOT NULL
+	) AS PD
+	LEFT OUTER JOIN SubscriptionPerson AS SP ON PD.UUID = SP.PersonId
 	WHERE 
 	(
 		@IsForAllPersons = 1 OR SP.SubscriptionId = @SubscriptionId
 	)
 	AND
 	(
-		dbo.IsBirthdateEvent(@Today, P.BirthDate, @AgeYears, @PriorDays) = 1
+		dbo.IsBirthdateEvent(@Today, PD.BirthDate, @AgeYears, @PriorDays) = 1
 	)
 	
 	IF EXISTS (SELECT * FROM #Person)-- If persons are found
