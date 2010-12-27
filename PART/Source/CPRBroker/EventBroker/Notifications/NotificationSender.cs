@@ -8,6 +8,9 @@ using System.Timers;
 
 namespace CprBroker.EventBroker.Notifications
 {
+    /// <summary>
+    /// Reads the notification queue and sends the notifications to subscribers
+    /// </summary>
     public partial class NotificationSender : Component
     {
         public NotificationSender()
