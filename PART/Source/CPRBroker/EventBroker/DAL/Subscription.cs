@@ -56,7 +56,7 @@ namespace CprBroker.EventBroker.DAL
 
             ret.PersonUuids.AddRange(
                 from subPerson in this.SubscriptionPersons
-                select subPerson.PersonId.Value.ToString()
+                select subPerson.PersonUuid.Value.ToString()
                 );
             return ret;
         }

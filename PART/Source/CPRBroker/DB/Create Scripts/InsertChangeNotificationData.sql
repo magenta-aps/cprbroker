@@ -28,20 +28,20 @@ AS
 	WHERE S.SubscriptionId = @SubscriptionId
 	
 	-- Use this table to store temporary data
-	CREATE TABLE #Person (NotificationPersonId UNIQUEIDENTIFIER DEFAULT NEWID(), PersonId UNIQUEIDENTIFIER)
+	CREATE TABLE #Person (NotificationPersonId UNIQUEIDENTIFIER DEFAULT NEWID(), PersonUuid UNIQUEIDENTIFIER)
 	
 	-- Search for persons that could possible fire the notification
-	INSERT INTO #Person (PersonId)
-	SELECT P.PersonId
+	INSERT INTO #Person (PersonUuid)
+	SELECT P.PersonUuid
 	FROM Person AS P
-	LEFT OUTER JOIN SubscriptionPerson AS SP ON P.PersonId = SP.PersonId
+	LEFT OUTER JOIN SubscriptionPerson AS SP ON P.PersonUuid = SP.PersonUuid
 	WHERE 
 	(
 		@IsForAllPersons = 1 OR SP.SubscriptionId = @SubscriptionId
 	)
 	AND
 	(
-		dbo.IsDataChangeEvent(P.PersonId, @Today, @LastTime) = 1
+		dbo.IsDataChangeEvent(P.PersonUuid, @Today, @LastTime) = 1
 	)
 	
 	
@@ -53,8 +53,8 @@ AS
 		INSERT INTO Notification (NotificationId, SubscriptionId, NotificationDate)
 		VALUES (@NotificationId, @SubscriptionId, @Today)
 		
-		INSERT INTO NotificationPerson (NotificationId, NotificationPersonId, PersonId)
-		SELECT @NotificationId, NotificationPersonId, PersonId
+		INSERT INTO NotificationPerson (NotificationId, NotificationPersonId, PersonUuid)
+		SELECT @NotificationId, NotificationPersonId, PersonUuid
 		FROM #Person		
 		
 	END

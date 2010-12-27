@@ -1326,7 +1326,7 @@ namespace CprBroker.EventBroker.DAL
 		
 		private System.Guid _DataChangeEventId;
 		
-		private System.Guid _UUID;
+		private System.Guid _PersonUuid;
 		
 		private System.DateTime _ReceivedData;
 		
@@ -1336,8 +1336,8 @@ namespace CprBroker.EventBroker.DAL
     partial void OnCreated();
     partial void OnDataChangeEventIdChanging(System.Guid value);
     partial void OnDataChangeEventIdChanged();
-    partial void OnUUIDChanging(System.Guid value);
-    partial void OnUUIDChanged();
+    partial void OnPersonUuidChanging(System.Guid value);
+    partial void OnPersonUuidChanged();
     partial void OnReceivedDateChanging(System.DateTime value);
     partial void OnReceivedDateChanged();
     #endregion
@@ -1367,22 +1367,22 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
-		[Column(Storage="_UUID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UUID
+		[Column(Storage="_PersonUuid", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid PersonUuid
 		{
 			get
 			{
-				return this._UUID;
+				return this._PersonUuid;
 			}
 			set
 			{
-				if ((this._UUID != value))
+				if ((this._PersonUuid != value))
 				{
-					this.OnUUIDChanging(value);
+					this.OnPersonUuidChanging(value);
 					this.SendPropertyChanging();
-					this._UUID = value;
-					this.SendPropertyChanged("UUID");
-					this.OnUUIDChanged();
+					this._PersonUuid = value;
+					this.SendPropertyChanged("PersonUuid");
+					this.OnPersonUuidChanged();
 				}
 			}
 		}
@@ -1541,7 +1541,7 @@ namespace CprBroker.EventBroker.DAL
 		
 		private System.Guid _NotificationId;
 		
-		private System.Guid _PersonId;
+		private System.Guid _PersonUuid;
 		
 		private EntityRef<BirthdateNotificationPerson> _BirthdateNotificationPerson;
 		
@@ -1555,8 +1555,8 @@ namespace CprBroker.EventBroker.DAL
     partial void OnNotificationPersonIdChanged();
     partial void OnNotificationIdChanging(System.Guid value);
     partial void OnNotificationIdChanged();
-    partial void OnPersonIdChanging(System.Guid value);
-    partial void OnPersonIdChanged();
+    partial void OnPersonUuidChanging(System.Guid value);
+    partial void OnPersonUuidChanged();
     #endregion
 		
 		public NotificationPerson()
@@ -1610,22 +1610,22 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
-		[Column(Storage="_PersonId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid PersonId
+		[Column(Storage="_PersonUuid", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid PersonUuid
 		{
 			get
 			{
-				return this._PersonId;
+				return this._PersonUuid;
 			}
 			set
 			{
-				if ((this._PersonId != value))
+				if ((this._PersonUuid != value))
 				{
-					this.OnPersonIdChanging(value);
+					this.OnPersonUuidChanging(value);
 					this.SendPropertyChanging();
-					this._PersonId = value;
-					this.SendPropertyChanged("PersonId");
-					this.OnPersonIdChanged();
+					this._PersonUuid = value;
+					this.SendPropertyChanged("PersonUuid");
+					this.OnPersonUuidChanged();
 				}
 			}
 		}
@@ -2088,7 +2088,7 @@ namespace CprBroker.EventBroker.DAL
 		
 		private System.Nullable<System.Guid> _SubscriptionId;
 		
-		private System.Nullable<System.Guid> _PersonId;
+		private System.Nullable<System.Guid> _PersonUuid;
 		
 		private EntityRef<Subscription> _Subscription;
 		
@@ -2100,8 +2100,8 @@ namespace CprBroker.EventBroker.DAL
     partial void OnSubscriptionPersonIdChanged();
     partial void OnSubscriptionIdChanging(System.Nullable<System.Guid> value);
     partial void OnSubscriptionIdChanged();
-    partial void OnPersonIdChanging(System.Nullable<System.Guid> value);
-    partial void OnPersonIdChanged();
+    partial void OnPersonUuidChanging(System.Nullable<System.Guid> value);
+    partial void OnPersonUuidChanged();
     #endregion
 		
 		public SubscriptionPerson()
@@ -2154,22 +2154,22 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
-		[Column(Storage="_PersonId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> PersonId
+		[Column(Storage="_PersonUuid", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> PersonUuid
 		{
 			get
 			{
-				return this._PersonId;
+				return this._PersonUuid;
 			}
 			set
 			{
-				if ((this._PersonId != value))
+				if ((this._PersonUuid != value))
 				{
-					this.OnPersonIdChanging(value);
+					this.OnPersonUuidChanging(value);
 					this.SendPropertyChanging();
-					this._PersonId = value;
-					this.SendPropertyChanged("PersonId");
-					this.OnPersonIdChanged();
+					this._PersonUuid = value;
+					this.SendPropertyChanged("PersonUuid");
+					this.OnPersonUuidChanged();
 				}
 			}
 		}

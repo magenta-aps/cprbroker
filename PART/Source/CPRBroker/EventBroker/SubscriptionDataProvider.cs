@@ -78,8 +78,8 @@ namespace CprBroker.EventBroker
             if (!subscription.IsForAllPersons)
             {
                 dataContext.SubscriptionPersons.InsertAllOnSubmit(
-                    from personId in personUuids
-                    select new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), SubscriptionId = subscription.SubscriptionId, PersonId = personId }
+                    from PersonUuid in personUuids
+                    select new SubscriptionPerson() { SubscriptionPersonId = Guid.NewGuid(), SubscriptionId = subscription.SubscriptionId, PersonUuid = PersonUuid }
                     );
             }
             dataContext.Channels.InsertOnSubmit(dbChannel);

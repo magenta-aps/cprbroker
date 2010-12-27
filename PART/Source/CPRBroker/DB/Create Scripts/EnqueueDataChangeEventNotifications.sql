@@ -20,7 +20,7 @@ AS
 	INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
 	SELECT S.SubscriptionId, DCE.UUID, @Now
 	FROM DataChangeEvent AS DCE
-	INNER JOIN SubscriptionPerson AS SP ON SP.PersonId = DCE.UUID
+	INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.UUID
 	INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
 	WHERE 
 		DCE.ReceivedDate BETWEEN @StartDate AND @EndDate

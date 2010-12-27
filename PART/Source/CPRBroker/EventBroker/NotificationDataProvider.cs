@@ -18,7 +18,7 @@ namespace CprBroker.EventBroker
                 var pp = new DataChangeEvent()
                 {
                     DataChangeEventId = Guid.NewGuid(),
-                    UUID = personUuid,
+                    PersonUuid = personUuid,
                     ReceivedDate = DateTime.Now
                 };
                 dataContext.DataChangeEvents.InsertOnSubmit(pp);

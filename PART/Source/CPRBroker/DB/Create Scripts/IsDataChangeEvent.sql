@@ -10,7 +10,7 @@ GO
 
 CREATE FUNCTION IsDataChangeEvent
 (
-	@PersonId UNIQUEIDENTIFIER,
+	@PersonUuid UNIQUEIDENTIFIER,
 	@Now DATETIME,
 	@LastTime DATETIME
 )
@@ -26,7 +26,7 @@ AS
 				SELECT PersonHistoryId 
 				FROM PersonHistory AS PH
 				WHERE 
-					PH.PersonId = @PersonId
+					PH.PersonUuid = @PersonUuid
 				AND	PH.ChangeDate < @Now
 				AND PH.ChangeDate >= @LastTime 
 			)
@@ -37,7 +37,7 @@ AS
 				SELECT AddressHistoryId 
 				FROM AddressHistory AS AH
 				WHERE 
-					AH.PersonId = @PersonId
+					AH.PersonUuid = @PersonUuid
 				AND	AH.ChangeDate < @Now
 				AND AH.ChangeDate >= @LastTime 
 			)
@@ -48,7 +48,7 @@ AS
 				SELECT RelationshipHistoryId 
 				FROM RelationshipHistory AS RH
 				WHERE 
-					RH.PersonId = @PersonId
+					RH.PersonUuid = @PersonUuid
 				AND	RH.ChangeDate < @Now
 				AND RH.ChangeDate >= @LastTime 
 			)
@@ -60,7 +60,7 @@ AS
 				FROM TimedRelationshipHistory AS TRH
 				INNER JOIN RelationshipHistory AS RH ON TRH.RelationshipId = RH.RelationshipId
 				WHERE 
-					RH.PersonId = @PersonId
+					RH.PersonUuid = @PersonUuid
 				AND	TRH.ChangeDate < @Now
 				AND TRH.ChangeDate >= @LastTime 
 			)
@@ -72,7 +72,7 @@ AS
 				FROM MaritalRelationshipHistory AS MRH
 				INNER JOIN RelationshipHistory AS RH ON MRH.RelationshipId = RH.RelationshipId
 				WHERE 
-					RH.PersonId = @PersonId
+					RH.PersonUuid = @PersonUuid
 				AND	MRH.ChangeDate < @Now
 				AND MRH.ChangeDate >= @LastTime 
 			)

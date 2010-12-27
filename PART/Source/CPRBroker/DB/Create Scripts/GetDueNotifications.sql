@@ -26,7 +26,7 @@ AS
 	  A.IsApproved = 1
 	AND 
 	  EXISTS (
-		SELECT P.PersonId
+		SELECT P.PersonUuid
 		FROM Person AS P
 		WHERE 
 		-- Person match
@@ -35,7 +35,7 @@ AS
 			OR EXISTS (
 				SELECT PS.SubscriptionPersonId 
 				FROM SubscriptionPerson AS PS
-				WHERE PS.SubscriptionId = S.SubscriptionId AND PS.PersonId = P.PersonId
+				WHERE PS.SubscriptionId = S.SubscriptionId AND PS.PersonUuid = P.PersonUuid
 				)
 		)
 		
@@ -52,7 +52,7 @@ AS
 				DS.SubscriptionId IS NOT NULL
 				AND 
 				(
-					dbo.IsDataChangeEvent(P.PersonId, @Now, @LastTime) = 1
+					dbo.IsDataChangeEvent(P.PersonUuid, @Now, @LastTime) = 1
 				)
 			)
 		)

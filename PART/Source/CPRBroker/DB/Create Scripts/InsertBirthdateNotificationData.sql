@@ -30,11 +30,11 @@ AS
 	WHERE S.SubscriptionId = @SubscriptionId
 	
 	-- Temp table to hold persons
-	CREATE TABLE #Person (NotificationPersonID UNIQUEIDENTIFIER DEFAULT NEWID(), PersonID UNIQUEIDENTIFIER, Birthdate DATETIME, Age INT)
+	CREATE TABLE #Person (NotificationPersonID UNIQUEIDENTIFIER DEFAULT NEWID(), PersonUuid UNIQUEIDENTIFIER, Birthdate DATETIME, Age INT)
 		
 	
 	-- Search  for persons that match the subscription rule
-	INSERT INTO #Person (PersonId, Birthdate, Age)
+	INSERT INTO #Person (PersonUuid, Birthdate, Age)
 	SELECT PD.UUID, PD.BirthDate, DATEDIFF(YEAR, PD.Birthdate, DATEADD(day, @PriorDays, @Today))
 	FROM 
 	(
@@ -44,7 +44,7 @@ AS
 		INNER JOIN PersonAttributes AS PA ON PA.PersonRegistrationID = PR.PersonRegistrationId
 		WHERE PA.BirthDate IS NOT NULL
 	) AS PD
-	LEFT OUTER JOIN SubscriptionPerson AS SP ON PD.UUID = SP.PersonId
+	LEFT OUTER JOIN SubscriptionPerson AS SP ON PD.UUID = SP.PersonUuid
 	WHERE 
 	(
 		@IsForAllPersons = 1 OR SP.SubscriptionId = @SubscriptionId
@@ -65,8 +65,8 @@ AS
 		INSERT INTO BirthdateNotification (NotificationID, AgeYears, PriorDays)
 		VALUES (@NotificationId, @AgeYears, @PriorDays)
 		
-		INSERT INTO NotificationPerson (NotificationPersonId, NotificationId, PersonId)
-		SELECT NotificationPersonId, @NotificationId, PersonId
+		INSERT INTO NotificationPerson (NotificationPersonId, NotificationId, PersonUuid)
+		SELECT NotificationPersonId, @NotificationId, PersonUuid
 		FROM #Person
 		
 		INSERT INTO BirthdateNotificationPerson(NotificationPersonID, Age)
