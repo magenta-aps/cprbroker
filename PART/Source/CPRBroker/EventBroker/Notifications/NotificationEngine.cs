@@ -109,9 +109,8 @@ namespace CprBroker.EventBroker.Notifications
                         {
                             Notification notif = null;
                             if (dueSub.BirthdateSubscription != null)
-                            {
-                                // TODO: Fix this
-                                //notif = dataContext.InsertBirthdateNotificationData(dueSub.SubscriptionId, today).SingleOrDefault();
+                            {                                
+                                notif = dataContext.InsertBirthdateNotificationData(dueSub.SubscriptionId, today).SingleOrDefault();
                             }
                             else if (dueSub.DataSubscription != null)
                             {
@@ -119,10 +118,13 @@ namespace CprBroker.EventBroker.Notifications
                                 //notif = dataContext.InsertChangeNotificationData(dueSub.SubscriptionId, today, yesterday).SingleOrDefault();
                             }
 
-                            Notifications.Channel channel = Notifications.Channel.Create(dueSub.Channels.Single());
-                            channel.Notify(notif);
-                            ret.SentNotificationIds.Add(dueSub.SubscriptionId);
-                            CPRBroker.Engine.Local.Admin.LogNotificationSuccess(dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
+                            if (notif != null)
+                            {
+                                Notifications.Channel channel = Notifications.Channel.Create(dueSub.Channels.Single());
+                                channel.Notify(notif);
+                                ret.SentNotificationIds.Add(dueSub.SubscriptionId);
+                                CPRBroker.Engine.Local.Admin.LogNotificationSuccess(dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
+                            }
                         }
                         catch (Exception ex)
                         {

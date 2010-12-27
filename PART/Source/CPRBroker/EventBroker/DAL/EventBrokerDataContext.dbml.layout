@@ -1,12 +1,161 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="EventBrokerDataContext">
-  <DataContextMoniker Name="/EventBrokerDataContextDataContext" />
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14, 13.875" name="EventBrokerDataContext">
+  <DataContextMoniker Name="/EventBrokerDataContext" />
   <nestedChildShapes>
-    <classShape Id="5ad3a6a2-77dd-432c-b8b6-f64f89821da5" absoluteBounds="5, 2.375, 2, 1.26050048828125">
-      <DataClassMoniker Name="/EventBrokerDataContextDataContext/DataChangeEvent" />
+    <classShape Id="2ccedea1-9a86-4d05-affc-55d4b9a88d71" absoluteBounds="0.75, 3.125, 2, 1.7535424804687505">
+      <DataClassMoniker Name="/EventBrokerDataContext/Application" />
       <nestedChildShapes>
-        <elementListCompartment Id="2939686a-bd21-479d-847c-4926aeec85e8" absoluteBounds="5.015, 2.835, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="964f55b5-7704-4e1c-b14e-e63eced8d780" absoluteBounds="0.765, 3.585, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="04290999-bdb7-4de4-a4ab-8a1b9399b316" absoluteBounds="0.75, 6.375, 2, 1.0961531575520827">
+      <DataClassMoniker Name="/EventBrokerDataContext/SubscriptionType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1596cbad-7198-418c-86a7-25a50e2b92a1" absoluteBounds="0.765, 6.835, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="af8386ec-4d59-4cd4-9ab8-4b7a3d4cbcc6" absoluteBounds="9, 10.375, 2, 1.2605004882812487">
+      <DataClassMoniker Name="/EventBrokerDataContext/BirthdateNotification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8950a20f-643d-475e-adff-2bde2f8f680f" absoluteBounds="9.015, 10.835, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4f30a9c6-896a-450c-a6cb-2fdf318279b1" absoluteBounds="11.75, 12.5, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/EventBrokerDataContext/BirthdateNotificationPerson" />
+      <nestedChildShapes>
+        <elementListCompartment Id="86109079-8d76-4949-8959-e3dc295209bd" absoluteBounds="11.765, 12.96, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="926020db-79ed-4923-896f-d52b01e2fd43" absoluteBounds="6.25, 4.125, 2, 1.2605004882812505">
+      <DataClassMoniker Name="/EventBrokerDataContext/BirthdateSubscription" />
+      <nestedChildShapes>
+        <elementListCompartment Id="744bd2a7-ca2c-468f-a969-e88a532c64ae" absoluteBounds="6.265, 4.585, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4e440aae-aad7-4021-b28a-a050ed31471c" absoluteBounds="6.25, 8.25, 2, 1.4248478190104166">
+      <DataClassMoniker Name="/EventBrokerDataContext/Channel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f2b89ed0-6eb9-4be8-a95a-1ea98c8d742f" absoluteBounds="6.265, 8.71, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c991fbdf-b3a5-4b0e-bf8d-dd92508e790f" absoluteBounds="3.5, 9.375, 2, 1.0961531575520844">
+      <DataClassMoniker Name="/EventBrokerDataContext/ChannelType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b8a3b76d-e513-4b82-9e4c-2be6f55c1b2c" absoluteBounds="3.515, 9.835, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7338b154-52d6-4dd6-b9b1-4e0300095cf4" absoluteBounds="1, 0.625, 2, 1.26050048828125">
+      <DataClassMoniker Name="/EventBrokerDataContext/DataChangeEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="05f5b4aa-55bb-49a4-a328-21b572767466" absoluteBounds="1.0150000000000001, 1.085, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5307f896-b910-4894-a85a-5fda89ee2761" absoluteBounds="6.25, 2.5, 2, 0.93180582682291657">
+      <DataClassMoniker Name="/EventBrokerDataContext/DataSubscription" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c3a7e76c-226a-4420-b973-ec69cbb17f67" absoluteBounds="6.265, 2.96, 1.9700000000000002, 0.37180582682291669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fd64d66d-92c6-4918-aa4b-e1c8bb7eefba" absoluteBounds="9, 12.375, 2, 1.2605004882812487">
+      <DataClassMoniker Name="/EventBrokerDataContext/NotificationPerson" />
+      <nestedChildShapes>
+        <elementListCompartment Id="54c40604-816f-4067-8c9f-0f3c8708c242" absoluteBounds="9.015, 12.835, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" absoluteBounds="3.5, 6.25, 2, 1.4248478190104166">
+      <DataClassMoniker Name="/EventBrokerDataContext/Subscription" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ad0c2ab1-a98c-4b85-981a-198dd58f621a" absoluteBounds="3.515, 6.71, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="204b8eed-ba3e-4c9a-ab8a-adb6a3cc46cb" absoluteBounds="6.25, 6.125, 2, 1.2605004882812505">
+      <DataClassMoniker Name="/EventBrokerDataContext/SubscriptionPerson" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b4affe26-9757-47d8-a594-e005bf6bf43e" absoluteBounds="6.265, 6.585, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 9.52492390950521); (6.02604166666667 : 9.52492390950521 : JumpStart); (6.19270833333333 : 9.52492390950521 : JumpEnd); (6.25 : 9.52492390950521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventBrokerDataContext/ChannelType/ChannelType_Channel" />
+      <nodes>
+        <classShapeMoniker Id="c991fbdf-b3a5-4b0e-bf8d-dd92508e790f" />
+        <classShapeMoniker Id="4e440aae-aad7-4021-b28a-a050ed31471c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11 : 13.048076578776); (11.75 : 13.048076578776)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventBrokerDataContext/NotificationPerson/NotificationPerson_BirthdateNotificationPerson" />
+      <nodes>
+        <classShapeMoniker Id="fd64d66d-92c6-4918-aa4b-e1c8bb7eefba" />
+        <classShapeMoniker Id="4f30a9c6-896a-450c-a6cb-2fdf318279b1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 6.25); (4.5 : 4.75525024414063); (6.25 : 4.75525024414063)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_BirthdateSubscription" />
+      <nodes>
+        <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
+        <classShapeMoniker Id="926020db-79ed-4923-896f-d52b01e2fd43" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 7.62004497981771); (6.03125 : 8.15129497981771); (6.03125 : 8.03125); (6.05044943490112 : 8.05044943490112 : JumpStart); (6.16830056509888 : 8.16830056509888 : JumpEnd); (6.25 : 8.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_Channel" />
+      <nodes>
+        <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
+        <classShapeMoniker Id="4e440aae-aad7-4021-b28a-a050ed31471c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.0312525 : 6.25); (5.0312525 : 2.96590291341146); (6.25 : 2.96590291341146)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_DataSubscription" />
+      <nodes>
+        <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
+        <classShapeMoniker Id="5307f896-b910-4894-a85a-5fda89ee2761" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 3.94012512207031); (3.9687475 : 3.94012512207031); (3.9687475 : 6.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventBrokerDataContext/Application/Application_Subscription" />
+      <nodes>
+        <classShapeMoniker Id="2ccedea1-9a86-4d05-affc-55d4b9a88d71" />
+        <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 6.92307657877604); (3.5 : 6.92307657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventBrokerDataContext/SubscriptionType/SubscriptionType_Subscription" />
+      <nodes>
+        <classShapeMoniker Id="04290999-bdb7-4de4-a4ab-8a1b9399b316" />
+        <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 6.81775024414063); (6.25 : 6.81775024414063)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_SubscriptionPerson" />
+      <nodes>
+        <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
+        <classShapeMoniker Id="204b8eed-ba3e-4c9a-ab8a-adb6a3cc46cb" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2a510629-2a82-452d-b731-9a94b519ed4b" absoluteBounds="6, 11.375, 2, 1.4248478190104168">
+      <DataClassMoniker Name="/EventBrokerDataContext/Notification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="08380d55-8a77-4a13-a7e5-32a0b5ad15c6" absoluteBounds="6.015, 11.835, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7 : 11.375); (7 : 10.8749995); (9 : 10.8749995)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/EventBrokerDataContext/Notification/Notification_BirthdateNotification" />
+      <nodes>
+        <classShapeMoniker Id="2a510629-2a82-452d-b731-9a94b519ed4b" />
+        <classShapeMoniker Id="af8386ec-4d59-4cd4-9ab8-4b7a3d4cbcc6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8 : 12.5874239095052); (9 : 12.5874239095052)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/EventBrokerDataContext/Notification/Notification_NotificationPerson" />
+      <nodes>
+        <classShapeMoniker Id="2a510629-2a82-452d-b731-9a94b519ed4b" />
+        <classShapeMoniker Id="fd64d66d-92c6-4918-aa4b-e1c8bb7eefba" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 7.61619389941406); (6.109375 : 7.61619389941406); (6.109375 : 11.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_Notification" />
+      <nodes>
+        <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
+        <classShapeMoniker Id="2a510629-2a82-452d-b731-9a94b519ed4b" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

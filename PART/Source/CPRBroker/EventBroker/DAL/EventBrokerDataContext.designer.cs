@@ -57,9 +57,6 @@ namespace CprBroker.EventBroker.DAL
     partial void InsertDataSubscription(DataSubscription instance);
     partial void UpdateDataSubscription(DataSubscription instance);
     partial void DeleteDataSubscription(DataSubscription instance);
-    partial void InsertNotification(Notification instance);
-    partial void UpdateNotification(Notification instance);
-    partial void DeleteNotification(Notification instance);
     partial void InsertNotificationPerson(NotificationPerson instance);
     partial void UpdateNotificationPerson(NotificationPerson instance);
     partial void DeleteNotificationPerson(NotificationPerson instance);
@@ -69,6 +66,9 @@ namespace CprBroker.EventBroker.DAL
     partial void InsertSubscriptionPerson(SubscriptionPerson instance);
     partial void UpdateSubscriptionPerson(SubscriptionPerson instance);
     partial void DeleteSubscriptionPerson(SubscriptionPerson instance);
+    partial void InsertNotification(Notification instance);
+    partial void UpdateNotification(Notification instance);
+    partial void DeleteNotification(Notification instance);
     #endregion
 		
 		public EventBrokerDataContext(string connection) : 
@@ -167,14 +167,6 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<Notification> Notifications
-		{
-			get
-			{
-				return this.GetTable<Notification>();
-			}
-		}
-		
 		public System.Data.Linq.Table<NotificationPerson> NotificationPersons
 		{
 			get
@@ -199,6 +191,14 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
+		public System.Data.Linq.Table<Notification> Notifications
+		{
+			get
+			{
+				return this.GetTable<Notification>();
+			}
+		}
+		
 		[Function(Name="dbo.GetDueNotifications")]
 		public int GetDueNotifications([Parameter(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [Parameter(Name="LastTime", DbType="DateTime")] System.Nullable<System.DateTime> lastTime)
 		{
@@ -213,11 +213,18 @@ namespace CprBroker.EventBroker.DAL
 			return ((int)(result.ReturnValue));
 		}
 		
+		[Function(Name="dbo.CreateSynonym")]
+		public int CreateSynonym([Parameter(Name="Synonym", DbType="VarChar(50)")] string synonym, [Parameter(Name="Server", DbType="VarChar(50)")] string server, [Parameter(Name="Database", DbType="VarChar(50)")] string database, [Parameter(Name="Schema", DbType="VarChar(50)")] string schema, [Parameter(Name="Table", DbType="VarChar(50)")] string table)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), synonym, server, database, schema, table);
+			return ((int)(result.ReturnValue));
+		}
+		
 		[Function(Name="dbo.InsertBirthdateNotificationData")]
-		public int InsertBirthdateNotificationData([Parameter(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [Parameter(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today)
+		public ISingleResult<Notification> InsertBirthdateNotificationData([Parameter(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [Parameter(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subscriptionId, today);
-			return ((int)(result.ReturnValue));
+			return ((ISingleResult<Notification>)(result.ReturnValue));
 		}
 	}
 	
@@ -1517,6 +1524,704 @@ namespace CprBroker.EventBroker.DAL
 		}
 	}
 	
+	[Table(Name="dbo.NotificationPerson")]
+	public partial class NotificationPerson : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _NotificationPersonId;
+		
+		private System.Guid _NotificationId;
+		
+		private System.Guid _PersonId;
+		
+		private EntityRef<BirthdateNotificationPerson> _BirthdateNotificationPerson;
+		
+		private EntityRef<Notification> _Notification;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNotificationPersonIdChanging(System.Guid value);
+    partial void OnNotificationPersonIdChanged();
+    partial void OnNotificationIdChanging(System.Guid value);
+    partial void OnNotificationIdChanged();
+    partial void OnPersonIdChanging(System.Guid value);
+    partial void OnPersonIdChanged();
+    #endregion
+		
+		public NotificationPerson()
+		{
+			this._BirthdateNotificationPerson = default(EntityRef<BirthdateNotificationPerson>);
+			this._Notification = default(EntityRef<Notification>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_NotificationPersonId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid NotificationPersonId
+		{
+			get
+			{
+				return this._NotificationPersonId;
+			}
+			set
+			{
+				if ((this._NotificationPersonId != value))
+				{
+					this.OnNotificationPersonIdChanging(value);
+					this.SendPropertyChanging();
+					this._NotificationPersonId = value;
+					this.SendPropertyChanged("NotificationPersonId");
+					this.OnNotificationPersonIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_NotificationId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid NotificationId
+		{
+			get
+			{
+				return this._NotificationId;
+			}
+			set
+			{
+				if ((this._NotificationId != value))
+				{
+					if (this._Notification.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnNotificationIdChanging(value);
+					this.SendPropertyChanging();
+					this._NotificationId = value;
+					this.SendPropertyChanged("NotificationId");
+					this.OnNotificationIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PersonId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid PersonId
+		{
+			get
+			{
+				return this._PersonId;
+			}
+			set
+			{
+				if ((this._PersonId != value))
+				{
+					this.OnPersonIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonId = value;
+					this.SendPropertyChanged("PersonId");
+					this.OnPersonIdChanged();
+				}
+			}
+		}
+		
+		[Association(Name="NotificationPerson_BirthdateNotificationPerson", Storage="_BirthdateNotificationPerson", ThisKey="NotificationPersonId", OtherKey="NotificationPersonId", IsUnique=true, IsForeignKey=false)]
+		public BirthdateNotificationPerson BirthdateNotificationPerson
+		{
+			get
+			{
+				return this._BirthdateNotificationPerson.Entity;
+			}
+			set
+			{
+				BirthdateNotificationPerson previousValue = this._BirthdateNotificationPerson.Entity;
+				if (((previousValue != value) 
+							|| (this._BirthdateNotificationPerson.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BirthdateNotificationPerson.Entity = null;
+						previousValue.NotificationPerson = null;
+					}
+					this._BirthdateNotificationPerson.Entity = value;
+					if ((value != null))
+					{
+						value.NotificationPerson = this;
+					}
+					this.SendPropertyChanged("BirthdateNotificationPerson");
+				}
+			}
+		}
+		
+		[Association(Name="Notification_NotificationPerson", Storage="_Notification", ThisKey="NotificationId", OtherKey="NotificationId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Notification Notification
+		{
+			get
+			{
+				return this._Notification.Entity;
+			}
+			set
+			{
+				Notification previousValue = this._Notification.Entity;
+				if (((previousValue != value) 
+							|| (this._Notification.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Notification.Entity = null;
+						previousValue.NotificationPersons.Remove(this);
+					}
+					this._Notification.Entity = value;
+					if ((value != null))
+					{
+						value.NotificationPersons.Add(this);
+						this._NotificationId = value.NotificationId;
+					}
+					else
+					{
+						this._NotificationId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Notification");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.Subscription")]
+	public partial class Subscription : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _SubscriptionId;
+		
+		private int _SubscriptionTypeId;
+		
+		private System.Guid _ApplicationId;
+		
+		private bool _IsForAllPersons;
+		
+		private EntityRef<BirthdateSubscription> _BirthdateSubscription;
+		
+		private EntitySet<Channel> _Channels;
+		
+		private EntityRef<DataSubscription> _DataSubscription;
+		
+		private EntitySet<SubscriptionPerson> _SubscriptionPersons;
+		
+		private EntitySet<Notification> _Notifications;
+		
+		private EntityRef<Application> _Application;
+		
+		private EntityRef<SubscriptionType> _SubscriptionType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSubscriptionIdChanging(System.Guid value);
+    partial void OnSubscriptionIdChanged();
+    partial void OnSubscriptionTypeIdChanging(int value);
+    partial void OnSubscriptionTypeIdChanged();
+    partial void OnApplicationIdChanging(System.Guid value);
+    partial void OnApplicationIdChanged();
+    partial void OnIsForAllPersonsChanging(bool value);
+    partial void OnIsForAllPersonsChanged();
+    #endregion
+		
+		public Subscription()
+		{
+			this._BirthdateSubscription = default(EntityRef<BirthdateSubscription>);
+			this._Channels = new EntitySet<Channel>(new Action<Channel>(this.attach_Channels), new Action<Channel>(this.detach_Channels));
+			this._DataSubscription = default(EntityRef<DataSubscription>);
+			this._SubscriptionPersons = new EntitySet<SubscriptionPerson>(new Action<SubscriptionPerson>(this.attach_SubscriptionPersons), new Action<SubscriptionPerson>(this.detach_SubscriptionPersons));
+			this._Notifications = new EntitySet<Notification>(new Action<Notification>(this.attach_Notifications), new Action<Notification>(this.detach_Notifications));
+			this._Application = default(EntityRef<Application>);
+			this._SubscriptionType = default(EntityRef<SubscriptionType>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_SubscriptionId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid SubscriptionId
+		{
+			get
+			{
+				return this._SubscriptionId;
+			}
+			set
+			{
+				if ((this._SubscriptionId != value))
+				{
+					this.OnSubscriptionIdChanging(value);
+					this.SendPropertyChanging();
+					this._SubscriptionId = value;
+					this.SendPropertyChanged("SubscriptionId");
+					this.OnSubscriptionIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_SubscriptionTypeId", DbType="Int NOT NULL")]
+		public int SubscriptionTypeId
+		{
+			get
+			{
+				return this._SubscriptionTypeId;
+			}
+			set
+			{
+				if ((this._SubscriptionTypeId != value))
+				{
+					if (this._SubscriptionType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSubscriptionTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._SubscriptionTypeId = value;
+					this.SendPropertyChanged("SubscriptionTypeId");
+					this.OnSubscriptionTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ApplicationId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid ApplicationId
+		{
+			get
+			{
+				return this._ApplicationId;
+			}
+			set
+			{
+				if ((this._ApplicationId != value))
+				{
+					if (this._Application.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnApplicationIdChanging(value);
+					this.SendPropertyChanging();
+					this._ApplicationId = value;
+					this.SendPropertyChanged("ApplicationId");
+					this.OnApplicationIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsForAllPersons", DbType="Bit NOT NULL")]
+		public bool IsForAllPersons
+		{
+			get
+			{
+				return this._IsForAllPersons;
+			}
+			set
+			{
+				if ((this._IsForAllPersons != value))
+				{
+					this.OnIsForAllPersonsChanging(value);
+					this.SendPropertyChanging();
+					this._IsForAllPersons = value;
+					this.SendPropertyChanged("IsForAllPersons");
+					this.OnIsForAllPersonsChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Subscription_BirthdateSubscription", Storage="_BirthdateSubscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsUnique=true, IsForeignKey=false)]
+		public BirthdateSubscription BirthdateSubscription
+		{
+			get
+			{
+				return this._BirthdateSubscription.Entity;
+			}
+			set
+			{
+				BirthdateSubscription previousValue = this._BirthdateSubscription.Entity;
+				if (((previousValue != value) 
+							|| (this._BirthdateSubscription.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BirthdateSubscription.Entity = null;
+						previousValue.Subscription = null;
+					}
+					this._BirthdateSubscription.Entity = value;
+					if ((value != null))
+					{
+						value.Subscription = this;
+					}
+					this.SendPropertyChanged("BirthdateSubscription");
+				}
+			}
+		}
+		
+		[Association(Name="Subscription_Channel", Storage="_Channels", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
+		public EntitySet<Channel> Channels
+		{
+			get
+			{
+				return this._Channels;
+			}
+			set
+			{
+				this._Channels.Assign(value);
+			}
+		}
+		
+		[Association(Name="Subscription_DataSubscription", Storage="_DataSubscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsUnique=true, IsForeignKey=false)]
+		public DataSubscription DataSubscription
+		{
+			get
+			{
+				return this._DataSubscription.Entity;
+			}
+			set
+			{
+				DataSubscription previousValue = this._DataSubscription.Entity;
+				if (((previousValue != value) 
+							|| (this._DataSubscription.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DataSubscription.Entity = null;
+						previousValue.Subscription = null;
+					}
+					this._DataSubscription.Entity = value;
+					if ((value != null))
+					{
+						value.Subscription = this;
+					}
+					this.SendPropertyChanged("DataSubscription");
+				}
+			}
+		}
+		
+		[Association(Name="Subscription_SubscriptionPerson", Storage="_SubscriptionPersons", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
+		public EntitySet<SubscriptionPerson> SubscriptionPersons
+		{
+			get
+			{
+				return this._SubscriptionPersons;
+			}
+			set
+			{
+				this._SubscriptionPersons.Assign(value);
+			}
+		}
+		
+		[Association(Name="Subscription_Notification", Storage="_Notifications", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
+		public EntitySet<Notification> Notifications
+		{
+			get
+			{
+				return this._Notifications;
+			}
+			set
+			{
+				this._Notifications.Assign(value);
+			}
+		}
+		
+		[Association(Name="Application_Subscription", Storage="_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
+		public Application Application
+		{
+			get
+			{
+				return this._Application.Entity;
+			}
+			set
+			{
+				Application previousValue = this._Application.Entity;
+				if (((previousValue != value) 
+							|| (this._Application.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Application.Entity = null;
+						previousValue.Subscriptions.Remove(this);
+					}
+					this._Application.Entity = value;
+					if ((value != null))
+					{
+						value.Subscriptions.Add(this);
+						this._ApplicationId = value.ApplicationId;
+					}
+					else
+					{
+						this._ApplicationId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Application");
+				}
+			}
+		}
+		
+		[Association(Name="SubscriptionType_Subscription", Storage="_SubscriptionType", ThisKey="SubscriptionTypeId", OtherKey="SubscriptionTypeId", IsForeignKey=true)]
+		public SubscriptionType SubscriptionType
+		{
+			get
+			{
+				return this._SubscriptionType.Entity;
+			}
+			set
+			{
+				SubscriptionType previousValue = this._SubscriptionType.Entity;
+				if (((previousValue != value) 
+							|| (this._SubscriptionType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SubscriptionType.Entity = null;
+						previousValue.Subscriptions.Remove(this);
+					}
+					this._SubscriptionType.Entity = value;
+					if ((value != null))
+					{
+						value.Subscriptions.Add(this);
+						this._SubscriptionTypeId = value.SubscriptionTypeId;
+					}
+					else
+					{
+						this._SubscriptionTypeId = default(int);
+					}
+					this.SendPropertyChanged("SubscriptionType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Channels(Channel entity)
+		{
+			this.SendPropertyChanging();
+			entity.Subscription = this;
+		}
+		
+		private void detach_Channels(Channel entity)
+		{
+			this.SendPropertyChanging();
+			entity.Subscription = null;
+		}
+		
+		private void attach_SubscriptionPersons(SubscriptionPerson entity)
+		{
+			this.SendPropertyChanging();
+			entity.Subscription = this;
+		}
+		
+		private void detach_SubscriptionPersons(SubscriptionPerson entity)
+		{
+			this.SendPropertyChanging();
+			entity.Subscription = null;
+		}
+		
+		private void attach_Notifications(Notification entity)
+		{
+			this.SendPropertyChanging();
+			entity.Subscription = this;
+		}
+		
+		private void detach_Notifications(Notification entity)
+		{
+			this.SendPropertyChanging();
+			entity.Subscription = null;
+		}
+	}
+	
+	[Table(Name="dbo.SubscriptionPerson")]
+	public partial class SubscriptionPerson : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _SubscriptionPersonId;
+		
+		private System.Nullable<System.Guid> _SubscriptionId;
+		
+		private System.Nullable<System.Guid> _PersonId;
+		
+		private EntityRef<Subscription> _Subscription;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSubscriptionPersonIdChanging(System.Guid value);
+    partial void OnSubscriptionPersonIdChanged();
+    partial void OnSubscriptionIdChanging(System.Nullable<System.Guid> value);
+    partial void OnSubscriptionIdChanged();
+    partial void OnPersonIdChanging(System.Nullable<System.Guid> value);
+    partial void OnPersonIdChanged();
+    #endregion
+		
+		public SubscriptionPerson()
+		{
+			this._Subscription = default(EntityRef<Subscription>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_SubscriptionPersonId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid SubscriptionPersonId
+		{
+			get
+			{
+				return this._SubscriptionPersonId;
+			}
+			set
+			{
+				if ((this._SubscriptionPersonId != value))
+				{
+					this.OnSubscriptionPersonIdChanging(value);
+					this.SendPropertyChanging();
+					this._SubscriptionPersonId = value;
+					this.SendPropertyChanged("SubscriptionPersonId");
+					this.OnSubscriptionPersonIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_SubscriptionId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> SubscriptionId
+		{
+			get
+			{
+				return this._SubscriptionId;
+			}
+			set
+			{
+				if ((this._SubscriptionId != value))
+				{
+					if (this._Subscription.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSubscriptionIdChanging(value);
+					this.SendPropertyChanging();
+					this._SubscriptionId = value;
+					this.SendPropertyChanged("SubscriptionId");
+					this.OnSubscriptionIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PersonId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> PersonId
+		{
+			get
+			{
+				return this._PersonId;
+			}
+			set
+			{
+				if ((this._PersonId != value))
+				{
+					this.OnPersonIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonId = value;
+					this.SendPropertyChanged("PersonId");
+					this.OnPersonIdChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Subscription_SubscriptionPerson", Storage="_Subscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsForeignKey=true, DeleteRule="CASCADE")]
+		public Subscription Subscription
+		{
+			get
+			{
+				return this._Subscription.Entity;
+			}
+			set
+			{
+				Subscription previousValue = this._Subscription.Entity;
+				if (((previousValue != value) 
+							|| (this._Subscription.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Subscription.Entity = null;
+						previousValue.SubscriptionPersons.Remove(this);
+					}
+					this._Subscription.Entity = value;
+					if ((value != null))
+					{
+						value.SubscriptionPersons.Add(this);
+						this._SubscriptionId = value.SubscriptionId;
+					}
+					else
+					{
+						this._SubscriptionId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Subscription");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[Table(Name="dbo.Notification")]
 	public partial class Notification : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1749,704 +2454,6 @@ namespace CprBroker.EventBroker.DAL
 		{
 			this.SendPropertyChanging();
 			entity.Notification = null;
-		}
-	}
-	
-	[Table(Name="dbo.NotificationPerson")]
-	public partial class NotificationPerson : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _NotificationPersonId;
-		
-		private System.Guid _NotificationId;
-		
-		private System.Guid _PersonId;
-		
-		private EntityRef<BirthdateNotificationPerson> _BirthdateNotificationPerson;
-		
-		private EntityRef<Notification> _Notification;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnNotificationPersonIdChanging(System.Guid value);
-    partial void OnNotificationPersonIdChanged();
-    partial void OnNotificationIdChanging(System.Guid value);
-    partial void OnNotificationIdChanged();
-    partial void OnPersonIdChanging(System.Guid value);
-    partial void OnPersonIdChanged();
-    #endregion
-		
-		public NotificationPerson()
-		{
-			this._BirthdateNotificationPerson = default(EntityRef<BirthdateNotificationPerson>);
-			this._Notification = default(EntityRef<Notification>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_NotificationPersonId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid NotificationPersonId
-		{
-			get
-			{
-				return this._NotificationPersonId;
-			}
-			set
-			{
-				if ((this._NotificationPersonId != value))
-				{
-					this.OnNotificationPersonIdChanging(value);
-					this.SendPropertyChanging();
-					this._NotificationPersonId = value;
-					this.SendPropertyChanged("NotificationPersonId");
-					this.OnNotificationPersonIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_NotificationId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid NotificationId
-		{
-			get
-			{
-				return this._NotificationId;
-			}
-			set
-			{
-				if ((this._NotificationId != value))
-				{
-					if (this._Notification.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnNotificationIdChanging(value);
-					this.SendPropertyChanging();
-					this._NotificationId = value;
-					this.SendPropertyChanged("NotificationId");
-					this.OnNotificationIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_PersonId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid PersonId
-		{
-			get
-			{
-				return this._PersonId;
-			}
-			set
-			{
-				if ((this._PersonId != value))
-				{
-					this.OnPersonIdChanging(value);
-					this.SendPropertyChanging();
-					this._PersonId = value;
-					this.SendPropertyChanged("PersonId");
-					this.OnPersonIdChanged();
-				}
-			}
-		}
-		
-		[Association(Name="NotificationPerson_BirthdateNotificationPerson", Storage="_BirthdateNotificationPerson", ThisKey="NotificationPersonId", OtherKey="NotificationPersonId", IsUnique=true, IsForeignKey=false)]
-		public BirthdateNotificationPerson BirthdateNotificationPerson
-		{
-			get
-			{
-				return this._BirthdateNotificationPerson.Entity;
-			}
-			set
-			{
-				BirthdateNotificationPerson previousValue = this._BirthdateNotificationPerson.Entity;
-				if (((previousValue != value) 
-							|| (this._BirthdateNotificationPerson.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BirthdateNotificationPerson.Entity = null;
-						previousValue.NotificationPerson = null;
-					}
-					this._BirthdateNotificationPerson.Entity = value;
-					if ((value != null))
-					{
-						value.NotificationPerson = this;
-					}
-					this.SendPropertyChanged("BirthdateNotificationPerson");
-				}
-			}
-		}
-		
-		[Association(Name="Notification_NotificationPerson", Storage="_Notification", ThisKey="NotificationId", OtherKey="NotificationId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Notification Notification
-		{
-			get
-			{
-				return this._Notification.Entity;
-			}
-			set
-			{
-				Notification previousValue = this._Notification.Entity;
-				if (((previousValue != value) 
-							|| (this._Notification.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Notification.Entity = null;
-						previousValue.NotificationPersons.Remove(this);
-					}
-					this._Notification.Entity = value;
-					if ((value != null))
-					{
-						value.NotificationPersons.Add(this);
-						this._NotificationId = value.NotificationId;
-					}
-					else
-					{
-						this._NotificationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("Notification");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[Table(Name="dbo.Subscription")]
-	public partial class Subscription : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _SubscriptionId;
-		
-		private int _SubscriptionTypeId;
-		
-		private System.Guid _ApplicationId;
-		
-		private bool _IsForAllPersons;
-		
-		private EntityRef<BirthdateSubscription> _BirthdateSubscription;
-		
-		private EntitySet<Channel> _Channels;
-		
-		private EntityRef<DataSubscription> _DataSubscription;
-		
-		private EntitySet<Notification> _Notifications;
-		
-		private EntitySet<SubscriptionPerson> _SubscriptionPersons;
-		
-		private EntityRef<Application> _Application;
-		
-		private EntityRef<SubscriptionType> _SubscriptionType;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSubscriptionIdChanging(System.Guid value);
-    partial void OnSubscriptionIdChanged();
-    partial void OnSubscriptionTypeIdChanging(int value);
-    partial void OnSubscriptionTypeIdChanged();
-    partial void OnApplicationIdChanging(System.Guid value);
-    partial void OnApplicationIdChanged();
-    partial void OnIsForAllPersonsChanging(bool value);
-    partial void OnIsForAllPersonsChanged();
-    #endregion
-		
-		public Subscription()
-		{
-			this._BirthdateSubscription = default(EntityRef<BirthdateSubscription>);
-			this._Channels = new EntitySet<Channel>(new Action<Channel>(this.attach_Channels), new Action<Channel>(this.detach_Channels));
-			this._DataSubscription = default(EntityRef<DataSubscription>);
-			this._Notifications = new EntitySet<Notification>(new Action<Notification>(this.attach_Notifications), new Action<Notification>(this.detach_Notifications));
-			this._SubscriptionPersons = new EntitySet<SubscriptionPerson>(new Action<SubscriptionPerson>(this.attach_SubscriptionPersons), new Action<SubscriptionPerson>(this.detach_SubscriptionPersons));
-			this._Application = default(EntityRef<Application>);
-			this._SubscriptionType = default(EntityRef<SubscriptionType>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_SubscriptionId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid SubscriptionId
-		{
-			get
-			{
-				return this._SubscriptionId;
-			}
-			set
-			{
-				if ((this._SubscriptionId != value))
-				{
-					this.OnSubscriptionIdChanging(value);
-					this.SendPropertyChanging();
-					this._SubscriptionId = value;
-					this.SendPropertyChanged("SubscriptionId");
-					this.OnSubscriptionIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_SubscriptionTypeId", DbType="Int NOT NULL")]
-		public int SubscriptionTypeId
-		{
-			get
-			{
-				return this._SubscriptionTypeId;
-			}
-			set
-			{
-				if ((this._SubscriptionTypeId != value))
-				{
-					if (this._SubscriptionType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSubscriptionTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._SubscriptionTypeId = value;
-					this.SendPropertyChanged("SubscriptionTypeId");
-					this.OnSubscriptionTypeIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ApplicationId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid ApplicationId
-		{
-			get
-			{
-				return this._ApplicationId;
-			}
-			set
-			{
-				if ((this._ApplicationId != value))
-				{
-					if (this._Application.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnApplicationIdChanging(value);
-					this.SendPropertyChanging();
-					this._ApplicationId = value;
-					this.SendPropertyChanged("ApplicationId");
-					this.OnApplicationIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_IsForAllPersons", DbType="Bit NOT NULL")]
-		public bool IsForAllPersons
-		{
-			get
-			{
-				return this._IsForAllPersons;
-			}
-			set
-			{
-				if ((this._IsForAllPersons != value))
-				{
-					this.OnIsForAllPersonsChanging(value);
-					this.SendPropertyChanging();
-					this._IsForAllPersons = value;
-					this.SendPropertyChanged("IsForAllPersons");
-					this.OnIsForAllPersonsChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Subscription_BirthdateSubscription", Storage="_BirthdateSubscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsUnique=true, IsForeignKey=false)]
-		public BirthdateSubscription BirthdateSubscription
-		{
-			get
-			{
-				return this._BirthdateSubscription.Entity;
-			}
-			set
-			{
-				BirthdateSubscription previousValue = this._BirthdateSubscription.Entity;
-				if (((previousValue != value) 
-							|| (this._BirthdateSubscription.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BirthdateSubscription.Entity = null;
-						previousValue.Subscription = null;
-					}
-					this._BirthdateSubscription.Entity = value;
-					if ((value != null))
-					{
-						value.Subscription = this;
-					}
-					this.SendPropertyChanged("BirthdateSubscription");
-				}
-			}
-		}
-		
-		[Association(Name="Subscription_Channel", Storage="_Channels", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
-		public EntitySet<Channel> Channels
-		{
-			get
-			{
-				return this._Channels;
-			}
-			set
-			{
-				this._Channels.Assign(value);
-			}
-		}
-		
-		[Association(Name="Subscription_DataSubscription", Storage="_DataSubscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsUnique=true, IsForeignKey=false)]
-		public DataSubscription DataSubscription
-		{
-			get
-			{
-				return this._DataSubscription.Entity;
-			}
-			set
-			{
-				DataSubscription previousValue = this._DataSubscription.Entity;
-				if (((previousValue != value) 
-							|| (this._DataSubscription.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DataSubscription.Entity = null;
-						previousValue.Subscription = null;
-					}
-					this._DataSubscription.Entity = value;
-					if ((value != null))
-					{
-						value.Subscription = this;
-					}
-					this.SendPropertyChanged("DataSubscription");
-				}
-			}
-		}
-		
-		[Association(Name="Subscription_Notification", Storage="_Notifications", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
-		public EntitySet<Notification> Notifications
-		{
-			get
-			{
-				return this._Notifications;
-			}
-			set
-			{
-				this._Notifications.Assign(value);
-			}
-		}
-		
-		[Association(Name="Subscription_SubscriptionPerson", Storage="_SubscriptionPersons", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
-		public EntitySet<SubscriptionPerson> SubscriptionPersons
-		{
-			get
-			{
-				return this._SubscriptionPersons;
-			}
-			set
-			{
-				this._SubscriptionPersons.Assign(value);
-			}
-		}
-		
-		[Association(Name="Application_Subscription", Storage="_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
-		public Application Application
-		{
-			get
-			{
-				return this._Application.Entity;
-			}
-			set
-			{
-				Application previousValue = this._Application.Entity;
-				if (((previousValue != value) 
-							|| (this._Application.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Application.Entity = null;
-						previousValue.Subscriptions.Remove(this);
-					}
-					this._Application.Entity = value;
-					if ((value != null))
-					{
-						value.Subscriptions.Add(this);
-						this._ApplicationId = value.ApplicationId;
-					}
-					else
-					{
-						this._ApplicationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("Application");
-				}
-			}
-		}
-		
-		[Association(Name="SubscriptionType_Subscription", Storage="_SubscriptionType", ThisKey="SubscriptionTypeId", OtherKey="SubscriptionTypeId", IsForeignKey=true)]
-		public SubscriptionType SubscriptionType
-		{
-			get
-			{
-				return this._SubscriptionType.Entity;
-			}
-			set
-			{
-				SubscriptionType previousValue = this._SubscriptionType.Entity;
-				if (((previousValue != value) 
-							|| (this._SubscriptionType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SubscriptionType.Entity = null;
-						previousValue.Subscriptions.Remove(this);
-					}
-					this._SubscriptionType.Entity = value;
-					if ((value != null))
-					{
-						value.Subscriptions.Add(this);
-						this._SubscriptionTypeId = value.SubscriptionTypeId;
-					}
-					else
-					{
-						this._SubscriptionTypeId = default(int);
-					}
-					this.SendPropertyChanged("SubscriptionType");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Channels(Channel entity)
-		{
-			this.SendPropertyChanging();
-			entity.Subscription = this;
-		}
-		
-		private void detach_Channels(Channel entity)
-		{
-			this.SendPropertyChanging();
-			entity.Subscription = null;
-		}
-		
-		private void attach_Notifications(Notification entity)
-		{
-			this.SendPropertyChanging();
-			entity.Subscription = this;
-		}
-		
-		private void detach_Notifications(Notification entity)
-		{
-			this.SendPropertyChanging();
-			entity.Subscription = null;
-		}
-		
-		private void attach_SubscriptionPersons(SubscriptionPerson entity)
-		{
-			this.SendPropertyChanging();
-			entity.Subscription = this;
-		}
-		
-		private void detach_SubscriptionPersons(SubscriptionPerson entity)
-		{
-			this.SendPropertyChanging();
-			entity.Subscription = null;
-		}
-	}
-	
-	[Table(Name="dbo.SubscriptionPerson")]
-	public partial class SubscriptionPerson : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _SubscriptionPersonId;
-		
-		private System.Nullable<System.Guid> _SubscriptionId;
-		
-		private System.Nullable<System.Guid> _PersonId;
-		
-		private EntityRef<Subscription> _Subscription;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSubscriptionPersonIdChanging(System.Guid value);
-    partial void OnSubscriptionPersonIdChanged();
-    partial void OnSubscriptionIdChanging(System.Nullable<System.Guid> value);
-    partial void OnSubscriptionIdChanged();
-    partial void OnPersonIdChanging(System.Nullable<System.Guid> value);
-    partial void OnPersonIdChanged();
-    #endregion
-		
-		public SubscriptionPerson()
-		{
-			this._Subscription = default(EntityRef<Subscription>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_SubscriptionPersonId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid SubscriptionPersonId
-		{
-			get
-			{
-				return this._SubscriptionPersonId;
-			}
-			set
-			{
-				if ((this._SubscriptionPersonId != value))
-				{
-					this.OnSubscriptionPersonIdChanging(value);
-					this.SendPropertyChanging();
-					this._SubscriptionPersonId = value;
-					this.SendPropertyChanged("SubscriptionPersonId");
-					this.OnSubscriptionPersonIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_SubscriptionId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> SubscriptionId
-		{
-			get
-			{
-				return this._SubscriptionId;
-			}
-			set
-			{
-				if ((this._SubscriptionId != value))
-				{
-					if (this._Subscription.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSubscriptionIdChanging(value);
-					this.SendPropertyChanging();
-					this._SubscriptionId = value;
-					this.SendPropertyChanged("SubscriptionId");
-					this.OnSubscriptionIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_PersonId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> PersonId
-		{
-			get
-			{
-				return this._PersonId;
-			}
-			set
-			{
-				if ((this._PersonId != value))
-				{
-					this.OnPersonIdChanging(value);
-					this.SendPropertyChanging();
-					this._PersonId = value;
-					this.SendPropertyChanged("PersonId");
-					this.OnPersonIdChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Subscription_SubscriptionPerson", Storage="_Subscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsForeignKey=true, DeleteRule="CASCADE")]
-		public Subscription Subscription
-		{
-			get
-			{
-				return this._Subscription.Entity;
-			}
-			set
-			{
-				Subscription previousValue = this._Subscription.Entity;
-				if (((previousValue != value) 
-							|| (this._Subscription.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Subscription.Entity = null;
-						previousValue.SubscriptionPersons.Remove(this);
-					}
-					this._Subscription.Entity = value;
-					if ((value != null))
-					{
-						value.SubscriptionPersons.Add(this);
-						this._SubscriptionId = value.SubscriptionId;
-					}
-					else
-					{
-						this._SubscriptionId = default(Nullable<System.Guid>);
-					}
-					this.SendPropertyChanged("Subscription");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }
