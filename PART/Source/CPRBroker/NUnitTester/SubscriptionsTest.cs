@@ -47,7 +47,7 @@ namespace NUnitTester
             return TestData.birthdateSubscriptionFunctions;
         }
 
-        [Test]
+       /* [Test]
         [Combinatorial]
         public void T510_SendBirthdateNotifications(
             [ValueSource("birthDateSubscriptionFuncs")]             
@@ -93,6 +93,7 @@ namespace NUnitTester
 
             }
         }
+        */
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersToSubscribeFieldName)]
@@ -106,13 +107,13 @@ namespace NUnitTester
             TestData.changeSubscriptions.Add(sub);
         }
 
-        [Test]
+        /*[Test]
         public void T530_RefreshPersonsData()
         {
             var reseult = TestRunner.AccessService.RefreshPersonsData();
             Assert.IsNotNull(reseult);
             Assert.Greater(reseult.SucceededCprNumbers.Length, 0);
-        }
+        }*/
 
         private IEnumerable<Func<Subscriptions.ChangeSubscriptionType>> changeSubscriptionFuncs()
         {
