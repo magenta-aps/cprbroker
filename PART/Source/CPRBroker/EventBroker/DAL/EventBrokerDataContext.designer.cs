@@ -69,6 +69,9 @@ namespace CprBroker.EventBroker.DAL
     partial void InsertNotification(Notification instance);
     partial void UpdateNotification(Notification instance);
     partial void DeleteNotification(Notification instance);
+    partial void InsertEventNotification(EventNotification instance);
+    partial void UpdateEventNotification(EventNotification instance);
+    partial void DeleteEventNotification(EventNotification instance);
     #endregion
 		
 		public EventBrokerDataContext(string connection) : 
@@ -196,6 +199,14 @@ namespace CprBroker.EventBroker.DAL
 			get
 			{
 				return this.GetTable<Notification>();
+			}
+		}
+		
+		public System.Data.Linq.Table<EventNotification> EventNotifications
+		{
+			get
+			{
+				return this.GetTable<EventNotification>();
 			}
 		}
 		
@@ -1738,6 +1749,8 @@ namespace CprBroker.EventBroker.DAL
 		
 		private EntitySet<Notification> _Notifications;
 		
+		private EntitySet<EventNotification> _EventNotifications;
+		
 		private EntityRef<Application> _Application;
 		
 		private EntityRef<SubscriptionType> _SubscriptionType;
@@ -1763,6 +1776,7 @@ namespace CprBroker.EventBroker.DAL
 			this._DataSubscription = default(EntityRef<DataSubscription>);
 			this._SubscriptionPersons = new EntitySet<SubscriptionPerson>(new Action<SubscriptionPerson>(this.attach_SubscriptionPersons), new Action<SubscriptionPerson>(this.detach_SubscriptionPersons));
 			this._Notifications = new EntitySet<Notification>(new Action<Notification>(this.attach_Notifications), new Action<Notification>(this.detach_Notifications));
+			this._EventNotifications = new EntitySet<EventNotification>(new Action<EventNotification>(this.attach_EventNotifications), new Action<EventNotification>(this.detach_EventNotifications));
 			this._Application = default(EntityRef<Application>);
 			this._SubscriptionType = default(EntityRef<SubscriptionType>);
 			OnCreated();
@@ -1953,6 +1967,19 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
+		[Association(Name="Subscription_EventNotification", Storage="_EventNotifications", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
+		public EntitySet<EventNotification> EventNotifications
+		{
+			get
+			{
+				return this._EventNotifications;
+			}
+			set
+			{
+				this._EventNotifications.Assign(value);
+			}
+		}
+		
 		[Association(Name="Application_Subscription", Storage="_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
 		public Application Application
 		{
@@ -2072,6 +2099,18 @@ namespace CprBroker.EventBroker.DAL
 		}
 		
 		private void detach_Notifications(Notification entity)
+		{
+			this.SendPropertyChanging();
+			entity.Subscription = null;
+		}
+		
+		private void attach_EventNotifications(EventNotification entity)
+		{
+			this.SendPropertyChanging();
+			entity.Subscription = this;
+		}
+		
+		private void detach_EventNotifications(EventNotification entity)
 		{
 			this.SendPropertyChanging();
 			entity.Subscription = null;
@@ -2461,6 +2500,229 @@ namespace CprBroker.EventBroker.DAL
 		{
 			this.SendPropertyChanging();
 			entity.Notification = null;
+		}
+	}
+	
+	[Table(Name="dbo.EventNotification")]
+	public partial class EventNotification : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _EventNotificationId;
+		
+		private System.Guid _SubscriptionId;
+		
+		private System.Guid _PersonUuid;
+		
+		private System.DateTime _CreatedDate;
+		
+		private System.Nullable<System.DateTime> _NotificationDate;
+		
+		private System.Nullable<bool> _Succeeded;
+		
+		private EntityRef<Subscription> _Subscription;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEventNotificationIdChanging(System.Guid value);
+    partial void OnEventNotificationIdChanged();
+    partial void OnSubscriptionIdChanging(System.Guid value);
+    partial void OnSubscriptionIdChanged();
+    partial void OnPersonUuidChanging(System.Guid value);
+    partial void OnPersonUuidChanged();
+    partial void OnCreatedDateChanging(System.DateTime value);
+    partial void OnCreatedDateChanged();
+    partial void OnNotificationDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnNotificationDateChanged();
+    partial void OnSucceededChanging(System.Nullable<bool> value);
+    partial void OnSucceededChanged();
+    #endregion
+		
+		public EventNotification()
+		{
+			this._Subscription = default(EntityRef<Subscription>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_EventNotificationId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid EventNotificationId
+		{
+			get
+			{
+				return this._EventNotificationId;
+			}
+			set
+			{
+				if ((this._EventNotificationId != value))
+				{
+					this.OnEventNotificationIdChanging(value);
+					this.SendPropertyChanging();
+					this._EventNotificationId = value;
+					this.SendPropertyChanged("EventNotificationId");
+					this.OnEventNotificationIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_SubscriptionId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid SubscriptionId
+		{
+			get
+			{
+				return this._SubscriptionId;
+			}
+			set
+			{
+				if ((this._SubscriptionId != value))
+				{
+					if (this._Subscription.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSubscriptionIdChanging(value);
+					this.SendPropertyChanging();
+					this._SubscriptionId = value;
+					this.SendPropertyChanged("SubscriptionId");
+					this.OnSubscriptionIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PersonUuid", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid PersonUuid
+		{
+			get
+			{
+				return this._PersonUuid;
+			}
+			set
+			{
+				if ((this._PersonUuid != value))
+				{
+					this.OnPersonUuidChanging(value);
+					this.SendPropertyChanging();
+					this._PersonUuid = value;
+					this.SendPropertyChanged("PersonUuid");
+					this.OnPersonUuidChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CreatedDate", DbType="DateTime NOT NULL")]
+		public System.DateTime CreatedDate
+		{
+			get
+			{
+				return this._CreatedDate;
+			}
+			set
+			{
+				if ((this._CreatedDate != value))
+				{
+					this.OnCreatedDateChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDate = value;
+					this.SendPropertyChanged("CreatedDate");
+					this.OnCreatedDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_NotificationDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> NotificationDate
+		{
+			get
+			{
+				return this._NotificationDate;
+			}
+			set
+			{
+				if ((this._NotificationDate != value))
+				{
+					this.OnNotificationDateChanging(value);
+					this.SendPropertyChanging();
+					this._NotificationDate = value;
+					this.SendPropertyChanged("NotificationDate");
+					this.OnNotificationDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Succeeded", DbType="Bit")]
+		public System.Nullable<bool> Succeeded
+		{
+			get
+			{
+				return this._Succeeded;
+			}
+			set
+			{
+				if ((this._Succeeded != value))
+				{
+					this.OnSucceededChanging(value);
+					this.SendPropertyChanging();
+					this._Succeeded = value;
+					this.SendPropertyChanged("Succeeded");
+					this.OnSucceededChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Subscription_EventNotification", Storage="_Subscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Subscription Subscription
+		{
+			get
+			{
+				return this._Subscription.Entity;
+			}
+			set
+			{
+				Subscription previousValue = this._Subscription.Entity;
+				if (((previousValue != value) 
+							|| (this._Subscription.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Subscription.Entity = null;
+						previousValue.EventNotifications.Remove(this);
+					}
+					this._Subscription.Entity = value;
+					if ((value != null))
+					{
+						value.EventNotifications.Add(this);
+						this._SubscriptionId = value.SubscriptionId;
+					}
+					else
+					{
+						this._SubscriptionId = default(System.Guid);
+					}
+					this.SendPropertyChanged("Subscription");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

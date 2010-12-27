@@ -1,32 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Timers;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public class NotificationSender
+    public partial class NotificationSender : Component
     {
-        private Timer NotificationTimer;
-
-
         public NotificationSender()
         {
-            NotificationTimer = new Timer();
-            PollInterval = TimeSpan.FromSeconds(60);
+            InitializeComponent();
+            InitializeTimer();
+        }
+
+        private void InitializeTimer()
+        {
+            PollInterval = TimeSpan.FromMilliseconds(CPRBroker.Config.Properties.Settings.Default.EventBrokerPollIntervalMilliseconds);
             NotificationTimer.AutoReset = true;
             NotificationTimer.Elapsed += new ElapsedEventHandler(NotificationTimer_Elapsed);
-            NotificationTimer.Start();
-            
         }
+
+        public NotificationSender(IContainer container)
+        {
+            container.Add(this);
+            InitializeComponent();
+            InitializeTimer();
+        }
+
+        public void Start()
+        {
+            NotificationTimer.Start();
+        }
+
+        public void Stop()
+        {
+            NotificationTimer.Stop();
+        }
+
 
         public TimeSpan PollInterval
         {
             get { return TimeSpan.FromMilliseconds(this.NotificationTimer.Interval); }
             set { NotificationTimer.Interval = value.TotalMilliseconds; }
         }
-        
+
         private void NotificationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             EnqueueDataChangeEvents();
@@ -46,11 +66,50 @@ namespace CprBroker.EventBroker.Notifications
 
         private void SendNotifications()
         {
- 
-        }
-                
-        
+            try
+            {
+                using (var dataContext = new DAL.EventBrokerDataContext())
+                {
+                    int batchSize = CPRBroker.Config.Properties.Settings.Default.EventBrokerNotificationBatchSize;
+                    DAL.EventNotification[] dueNotifications = new CprBroker.EventBroker.DAL.EventNotification[0];
+                    do
+                    {
+                        dueNotifications =
+                            (
+                                from eventNotification in dataContext.EventNotifications
+                                where eventNotification.Succeeded == null
+                                orderby eventNotification.CreatedDate
+                                select eventNotification
+                            ).Take(batchSize).ToArray();
 
-        
+
+                        foreach (var eventNotification in dueNotifications)
+                        {
+                            eventNotification.NotificationDate = DateTime.Now;
+                            try
+                            {
+                                Channel channel = Channel.Create(eventNotification.Subscription.Channels.Single());
+                                // TODO: Change this method call to use EventNotification object
+                                channel.Notify(null);
+                                eventNotification.Succeeded = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                string message = string.Format("Notification {0} failed", eventNotification.EventNotificationId);
+                                //TODO: use LogNotificationFailure after simplifying its parameters
+                                CPRBroker.Engine.Local.Admin.LogException(ex, message);
+                                eventNotification.Succeeded = false;
+                            }
+                        }
+                        dataContext.SubmitChanges();
+
+                    } while (dueNotifications.Length == batchSize);
+                }
+            }
+            catch (Exception ex)
+            {
+                CPRBroker.Engine.Local.Admin.LogException(ex);
+            }
+        }
     }
 }

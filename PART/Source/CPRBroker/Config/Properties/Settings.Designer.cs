@@ -98,5 +98,23 @@ namespace CPRBroker.Config.Properties {
                 return ((string)(this["ApplicationsConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int EventBrokerNotificationBatchSize {
+            get {
+                return ((int)(this["EventBrokerNotificationBatchSize"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60000")]
+        public int EventBrokerPollIntervalMilliseconds {
+            get {
+                return ((int)(this["EventBrokerPollIntervalMilliseconds"]));
+            }
+        }
     }
 }
