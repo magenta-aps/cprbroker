@@ -36,6 +36,7 @@ namespace CPRBroker.Engine
             get
             {
                 BrokerContext ret = CallContext.GetData(ContextKey) as BrokerContext;
+                //TODO: Create a default context if none has been created. This will help actions from backend service
                 return ret;
             }
             //TODO : This was originally 'internal'
