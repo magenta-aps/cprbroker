@@ -68,6 +68,12 @@
     <Compile Include="ISubscriptionManager.cs" />
     <Compile Include="Manager.Subscription.cs" />
     <Compile Include="NotificationDataProvider.cs" />
+    <Compile Include="Notifications\BirthdateEventEnqueuer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\BirthdateEventEnqueuer.Designer.cs">
+      <DependentUpon>BirthdateEventEnqueuer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Notifications\Channel.cs" />
     <Compile Include="Notifications\Extensions.cs" />
     <Compile Include="Notifications\NotificationEngine.cs" />
@@ -153,6 +159,9 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Notifications\BirthdateEventEnqueuer.resx">
+      <DependentUpon>BirthdateEventEnqueuer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Notifications\NotificationSender.resx">
       <DependentUpon>NotificationSender.cs</DependentUpon>
     </EmbeddedResource>

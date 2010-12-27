@@ -110,7 +110,7 @@ namespace CprBroker.EventBroker.Notifications
                             Notification notif = null;
                             if (dueSub.BirthdateSubscription != null)
                             {                                
-                                notif = dataContext.InsertBirthdateNotificationData(dueSub.SubscriptionId, today).SingleOrDefault();
+                                //notif = dataContext.InsertBirthdateNotificationData(dueSub.SubscriptionId, today).SingleOrDefault();
                             }
                             else if (dueSub.DataSubscription != null)
                             {

@@ -231,17 +231,17 @@ namespace CprBroker.EventBroker.DAL
 			return ((int)(result.ReturnValue));
 		}
 		
-		[Function(Name="dbo.InsertBirthdateNotificationData")]
-		public ISingleResult<Notification> InsertBirthdateNotificationData([Parameter(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [Parameter(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subscriptionId, today);
-			return ((ISingleResult<Notification>)(result.ReturnValue));
-		}
-		
 		[Function(Name="dbo.EnqueueDataChangeEventNotifications")]
 		public int EnqueueDataChangeEventNotifications([Parameter(Name="StartDate", DbType="DateTime")] System.Nullable<System.DateTime> startDate, [Parameter(Name="EndDate", DbType="DateTime")] System.Nullable<System.DateTime> endDate, [Parameter(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [Parameter(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate, now, subscriptionTypeId);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[Function(Name="dbo.EnqueueBirthdateEventNotifications")]
+		public int EnqueueBirthdateEventNotifications([Parameter(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [Parameter(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subscriptionId, today);
 			return ((int)(result.ReturnValue));
 		}
 	}
