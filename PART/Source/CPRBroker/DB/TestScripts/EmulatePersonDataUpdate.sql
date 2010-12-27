@@ -11,9 +11,9 @@ CREATE Procedure EmulatePersonDataUpdate
 )
 
 AS
-	CREATE TABLE #PersonId (PersonId UNIQUEIDENTIFIER)
+	CREATE TABLE #PersonUuid (PersonUuid UNIQUEIDENTIFIER)
 	DECLARE @SQL VARCHAR(MAX)
-	SET @SQL = 'INSERT INTO #PersonId (PersonId) SELECT TOP ' + CAST (@MaxPersons AS VARCHAR(20)) + ' PersonId FROM Person'
+	SET @SQL = 'INSERT INTO #PersonUuid (PersonUuid) SELECT TOP ' + CAST (@MaxPersons AS VARCHAR(20)) + ' PersonUuid FROM Person'
 	EXEC (@SQL)
 
 	DECLARE @FakeBirthdate DATETIME
@@ -26,7 +26,7 @@ AS
 	UPDATE P
 	SET BirthDate = DATEADD(DAY, 1, ISNULL(BirthDate, @FakeBirthdate))
 	FROM Person P
-	INNER JOIN #PersonId TMP ON P.PersonId = TMP.PersonId
+	INNER JOIN #PersonUuid TMP ON P.PersonUuid = TMP.PersonUuid
 
 GO
 
