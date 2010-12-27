@@ -226,6 +226,13 @@ namespace CprBroker.EventBroker.DAL
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subscriptionId, today);
 			return ((ISingleResult<Notification>)(result.ReturnValue));
 		}
+		
+		[Function(Name="dbo.EnqueueDataChangeEventNotifications")]
+		public int EnqueueDataChangeEventNotifications([Parameter(Name="StartDate", DbType="DateTime")] System.Nullable<System.DateTime> startDate, [Parameter(Name="EndDate", DbType="DateTime")] System.Nullable<System.DateTime> endDate, [Parameter(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [Parameter(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate, now, subscriptionTypeId);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[Table(Name="dbo.Application")]

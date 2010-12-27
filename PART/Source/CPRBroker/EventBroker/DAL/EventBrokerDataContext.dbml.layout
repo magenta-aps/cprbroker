@@ -74,7 +74,7 @@
         <elementListCompartment Id="b4affe26-9757-47d8-a594-e005bf6bf43e" absoluteBounds="6.265, 6.585, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.5 : 9.52492390950521); (6.02604166666667 : 9.52492390950521 : JumpStart); (6.19270833333333 : 9.52492390950521 : JumpEnd); (6.25 : 9.52492390950521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 9.52492390950521); (6.25 : 9.52492390950521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EventBrokerDataContext/ChannelType/ChannelType_Channel" />
       <nodes>
         <classShapeMoniker Id="c991fbdf-b3a5-4b0e-bf8d-dd92508e790f" />
@@ -88,14 +88,14 @@
         <classShapeMoniker Id="4f30a9c6-896a-450c-a6cb-2fdf318279b1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 6.25); (4.5 : 4.75525024414063); (6.25 : 4.75525024414063)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.5 : 6.25); (4.5 : 4.75525024414063); (4.94791916666667 : 4.75525024414063 : JumpStart); (5.11458583333333 : 4.75525024414063 : JumpEnd); (6.25 : 4.75525024414063)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_BirthdateSubscription" />
       <nodes>
         <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
         <classShapeMoniker Id="926020db-79ed-4923-896f-d52b01e2fd43" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 7.62004497981771); (6.03125 : 8.15129497981771); (6.03125 : 8.03125); (6.05044943490112 : 8.05044943490112 : JumpStart); (6.16830056509888 : 8.16830056509888 : JumpEnd); (6.25 : 8.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 7.62004497981771); (6.03125 : 8.15129497981771); (6.03125 : 8.03125); (6.25 : 8.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_Channel" />
       <nodes>
         <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
@@ -136,21 +136,21 @@
         <elementListCompartment Id="08380d55-8a77-4a13-a7e5-32a0b5ad15c6" absoluteBounds="6.015, 11.835, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7 : 11.375); (7 : 10.8749995); (9 : 10.8749995)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 11.375); (7 : 10.8749995); (9 : 10.8749995)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EventBrokerDataContext/Notification/Notification_BirthdateNotification" />
       <nodes>
         <classShapeMoniker Id="2a510629-2a82-452d-b731-9a94b519ed4b" />
         <classShapeMoniker Id="af8386ec-4d59-4cd4-9ab8-4b7a3d4cbcc6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8 : 12.5874239095052); (9 : 12.5874239095052)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8 : 12.5874239095052); (9 : 12.5874239095052)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EventBrokerDataContext/Notification/Notification_NotificationPerson" />
       <nodes>
         <classShapeMoniker Id="2a510629-2a82-452d-b731-9a94b519ed4b" />
         <classShapeMoniker Id="fd64d66d-92c6-4918-aa4b-e1c8bb7eefba" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 7.61619389941406); (6.109375 : 7.61619389941406); (6.109375 : 11.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 7.61619389941406); (6.109375 : 7.61619389941406); (6.109375 : 11.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_Notification" />
       <nodes>
         <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />

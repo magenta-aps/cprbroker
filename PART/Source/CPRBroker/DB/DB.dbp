@@ -7,6 +7,7 @@ Begin DataProject = "DB"
    Begin Folder = "Create Scripts"
       Script = "CreateHistoryTriggers.sql"
       Script = "CreateSynonym.sql"
+      Script = "EnqueueDataChangeEventNotifications.sql"
       Script = "Equals.sql"
       Script = "GetDueNotifications.sql"
       Script = "InsertBirthdateNotificationData.sql"
@@ -23,8 +24,8 @@ Begin DataProject = "DB"
    End
    Script = "InitializeDatabase.sql"
    Begin Folder = "Queries"
-   End
-   Begin Folder = "TestScripts"
-      Script = "EmulatePersonDataUpdate.sql"
+      Begin Folder = "TestScripts"
+         Script = "EmulatePersonDataUpdate.sql"
+      End
    End
 End

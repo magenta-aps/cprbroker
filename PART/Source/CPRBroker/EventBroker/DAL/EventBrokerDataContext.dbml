@@ -138,4 +138,11 @@
     <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />
     <ElementType IdRef="ID1" />
   </Function>
+  <Function Name="dbo.EnqueueDataChangeEventNotifications" Method="EnqueueDataChangeEventNotifications">
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>
