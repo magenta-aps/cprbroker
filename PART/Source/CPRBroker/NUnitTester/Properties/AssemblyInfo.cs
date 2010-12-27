@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NUnitTester")]
+[assembly: AssemblyTitle("CprBroker.NUnitTester")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Code Republic")]
-[assembly: AssemblyProduct("NUnitTester")]
+[assembly: AssemblyProduct("CprBroker.NUnitTester")]
 [assembly: AssemblyCopyright("Copyright © Code Republic 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

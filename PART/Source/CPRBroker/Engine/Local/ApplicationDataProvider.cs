@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.DAL.Applications;
-using CPRBroker.Schemas;
+using CprBroker.DAL.Applications;
+using CprBroker.Schemas;
 
-namespace CPRBroker.Engine.Local
+namespace CprBroker.Engine.Local
 {
     public class ApplicationDataProvider:IApplicationManager
     {

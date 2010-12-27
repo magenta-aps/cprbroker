@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Schemas.Part.Enums
+namespace CprBroker.Schemas.Part.Enums
 {
     public enum MaritalStatus
     {

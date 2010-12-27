@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Providers.KMD.WS_AN08300;
-using CPRBroker.Schemas;
+using CprBroker.Engine;
+using CprBroker.Providers.KMD.WS_AN08300;
+using CprBroker.Schemas;
 
-namespace CPRBroker.Providers.KMD
+namespace CprBroker.Providers.KMD
 {
     public partial class KmdDataProvider
     {
@@ -18,7 +18,7 @@ namespace CPRBroker.Providers.KMD
         private WS_AN08300.ReplyPeople[] CallAN08300(PersonNameStructureType name, Schemas.Part.Enums.Gender? gender)
         {
             // TODO: use correct service objects
-            //var service = new CPRBroker.Providers.KMD.WS_AN08300.WS_AN08300();
+            //var service = new CprBroker.Providers.KMD.WS_AN08300.WS_AN08300();
             //SetServiceUrl(service, ServiceTypes.AN08300);
 
             //service.userinfoValue = new userinfo()

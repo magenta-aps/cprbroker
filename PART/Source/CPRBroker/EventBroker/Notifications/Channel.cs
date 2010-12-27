@@ -80,7 +80,7 @@ namespace CprBroker.EventBroker.Notifications
         {
             NotificationService.Notification notificationService = new NotificationService.Notification();
             notificationService.Url = DatabaseObject.Url;
-            CPRBroker.Schemas.BaseNotificationType oioNotification = notification.ToOioNotification();
+            CprBroker.Schemas.BaseNotificationType oioNotification = notification.ToOioNotification();
             NotificationService.BaseNotificationType wsdlNotif = oioNotification.ToWsdl();
             notificationService.Notify(DatabaseObject.Subscription.Application.Token, wsdlNotif);
         }
@@ -112,9 +112,9 @@ namespace CprBroker.EventBroker.Notifications
             {
                 Directory.CreateDirectory(folder);
             }
-            CPRBroker.Schemas.BaseNotificationType oioNotif = notification.ToOioNotification();
+            CprBroker.Schemas.BaseNotificationType oioNotif = notification.ToOioNotification();
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(oioNotif.GetType());
-            string filePath = CPRBroker.Engine.Util.Strings.NewUniquePath(folder, "xml");
+            string filePath = CprBroker.Engine.Util.Strings.NewUniquePath(folder, "xml");
             System.IO.StreamWriter w = new System.IO.StreamWriter(filePath);
             serializer.Serialize(w, oioNotif);
             w.Close();

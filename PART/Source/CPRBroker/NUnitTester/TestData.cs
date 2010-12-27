@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NUnitTester
+namespace CprBroker.NUnitTester
 {
     /// <summary>
     /// Contains the data to be used to test the system

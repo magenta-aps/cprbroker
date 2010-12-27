@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Util;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Util;
 
-namespace CPRBroker.DAL.Part
+namespace CprBroker.DAL.Part
 {
     public partial class PersonMapping
     {

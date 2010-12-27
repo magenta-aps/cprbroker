@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
+using CprBroker.Engine;
 using System.Net.Sockets;
 
-namespace CPRBroker.Providers.DPR
+namespace CprBroker.Providers.DPR
 {
     /// <summary>
     /// Base class for all DPR data providers
@@ -19,7 +19,7 @@ namespace CPRBroker.Providers.DPR
 
         #region IExternalDataProvider Members
 
-        public CPRBroker.DAL.DataProvider DatabaseObject { get; set; }
+        public CprBroker.DAL.DataProvider DatabaseObject { get; set; }
 
         #endregion
 

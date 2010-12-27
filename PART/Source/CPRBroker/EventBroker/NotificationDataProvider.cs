@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
+using CprBroker.Engine;
 using CprBroker.EventBroker.DAL;
 
 namespace CprBroker.EventBroker
@@ -38,7 +38,7 @@ namespace CprBroker.EventBroker
 
         public Version Version
         {
-            get { return new Version(CPRBroker.Engine.Versioning.Major, CPRBroker.Engine.Versioning.Minor); }
+            get { return new Version(CprBroker.Engine.Versioning.Major, CprBroker.Engine.Versioning.Minor); }
         }
 
         #endregion

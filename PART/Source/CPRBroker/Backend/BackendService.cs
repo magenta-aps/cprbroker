@@ -6,10 +6,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.DAL.Applications;
+using CprBroker.Engine;
+using CprBroker.DAL.Applications;
 
-namespace Backend
+namespace CprBroker.EventBroker.Backend
 {
     /// <summary>
     /// This service is responsible for the scheduling of publishing events to subscribers
@@ -28,8 +28,8 @@ namespace Backend
             NotificationsTimer.Elapsed += new System.Timers.ElapsedEventHandler(NotificationsTimer_Elapsed);
             NotificationsTimer.AutoReset = false;
             ScheduleNextTimerRun();
-            BrokerContext.Initialize(Application.BaseApplicationToken.ToString(), CPRBroker.Engine.Constants.UserToken, true, false, true);
-            CPRBroker.Engine.Local.Admin.LogSuccess(CPRBroker.Engine.TextMessages.BackendServiceStarted);
+            BrokerContext.Initialize(Application.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false, true);
+            CprBroker.Engine.Local.Admin.LogSuccess(CprBroker.Engine.TextMessages.BackendServiceStarted);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Backend
 
         void NotificationsTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            this.EventLog.WriteEntry(CPRBroker.Engine.TextMessages.BackendTimerEventStarted);
+            this.EventLog.WriteEntry(CprBroker.Engine.TextMessages.BackendTimerEventStarted);
             // Set next timer start
             ScheduleNextTimerRun();
 
@@ -61,7 +61,7 @@ namespace Backend
             // Send notifications
             DateTime today = e.SignalTime.Date;
             CprBroker.EventBroker.Notifications.NotificationEngine.SendNotifications(DateTime.Now);
-            this.EventLog.WriteEntry(CPRBroker.Engine.TextMessages.BackendTimerEventFinished);
+            this.EventLog.WriteEntry(CprBroker.Engine.TextMessages.BackendTimerEventFinished);
         }
     }
 }

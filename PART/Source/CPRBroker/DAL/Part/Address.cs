@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Util;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Util;
 
-namespace CPRBroker.DAL.Part
+namespace CprBroker.DAL.Part
 {
     public partial class Address
     {
@@ -15,7 +15,7 @@ namespace CPRBroker.DAL.Part
              * The idea here is to fill the Schemas.UtilAddress fields and then return its ToOioAddress() method
             */
 
-            Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
+            Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
             address[AddressField.Building] = this.StreetBuildingIdentifier;
             address[AddressField.CareOfName] = this.CareOfName;
             address[AddressField.Door] = this.SuiteIdentifier;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CPRService.Pages {
+namespace CprBroker.Web.Pages {
     
     
     public partial class LogEntries {

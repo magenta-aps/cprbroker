@@ -21,7 +21,7 @@ namespace CprBroker.EventBroker.Notifications
 
         private void InitializeTimer()
         {
-            PollInterval = TimeSpan.FromMilliseconds(CPRBroker.Config.Properties.Settings.Default.EventBrokerPollIntervalMilliseconds);
+            PollInterval = TimeSpan.FromMilliseconds(CprBroker.Config.Properties.Settings.Default.EventBrokerPollIntervalMilliseconds);
             NotificationTimer.AutoReset = true;
             NotificationTimer.Elapsed += new ElapsedEventHandler(NotificationTimer_Elapsed);
         }
@@ -73,7 +73,7 @@ namespace CprBroker.EventBroker.Notifications
             {
                 using (var dataContext = new DAL.EventBrokerDataContext())
                 {
-                    int batchSize = CPRBroker.Config.Properties.Settings.Default.EventBrokerNotificationBatchSize;
+                    int batchSize = CprBroker.Config.Properties.Settings.Default.EventBrokerNotificationBatchSize;
                     DAL.EventNotification[] dueNotifications = new CprBroker.EventBroker.DAL.EventNotification[0];
                     do
                     {
@@ -100,7 +100,7 @@ namespace CprBroker.EventBroker.Notifications
                             {
                                 string message = string.Format("Notification {0} failed", eventNotification.EventNotificationId);
                                 //TODO: use LogNotificationFailure after simplifying its parameters
-                                CPRBroker.Engine.Local.Admin.LogException(ex, message);
+                                CprBroker.Engine.Local.Admin.LogException(ex, message);
                                 eventNotification.Succeeded = false;
                             }
                         }
@@ -111,7 +111,7 @@ namespace CprBroker.EventBroker.Notifications
             }
             catch (Exception ex)
             {
-                CPRBroker.Engine.Local.Admin.LogException(ex);
+                CprBroker.Engine.Local.Admin.LogException(ex);
             }
         }
     }

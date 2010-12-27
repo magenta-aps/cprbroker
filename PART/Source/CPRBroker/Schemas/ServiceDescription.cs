@@ -1,4 +1,4 @@
-﻿namespace CPRBroker.Schemas
+﻿namespace CprBroker.Schemas
 {
     /// <summary>
     /// Contains text descriptions for all web services

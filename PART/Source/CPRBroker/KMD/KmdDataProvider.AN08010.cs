@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Providers.KMD.WS_AN08010;
-using CPRBroker.Schemas;
+using CprBroker.Engine;
+using CprBroker.Providers.KMD.WS_AN08010;
+using CprBroker.Schemas;
 
-namespace CPRBroker.Providers.KMD
+namespace CprBroker.Providers.KMD
 {
     public partial class KmdDataProvider
     {
@@ -29,7 +29,7 @@ namespace CPRBroker.Providers.KMD
         /// <returns></returns>
         private EnglishAN08010Response CallAN08010(string cprNumber)
         {
-            WS_AN08010.WS_AN08010 service = new CPRBroker.Providers.KMD.WS_AN08010.WS_AN08010();
+            WS_AN08010.WS_AN08010 service = new CprBroker.Providers.KMD.WS_AN08010.WS_AN08010();
             SetServiceUrl(service, ServiceTypes.AN08010);
             service.userinfoValue = new userinfo()
             {

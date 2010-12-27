@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Part;
-using CPRBroker.DAL;
-using CPRBroker.DAL.Part;
+using CprBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+using CprBroker.DAL;
+using CprBroker.DAL.Part;
 
 
-namespace CPRBroker.Engine.Local
+namespace CprBroker.Engine.Local
 {
 
     public partial class UpdateDatabase
@@ -30,9 +30,9 @@ namespace CPRBroker.Engine.Local
 
         private static void NotifyPersonRegistrationUpdate(Guid personUuid)
         {
-            NotificationQueueService.NotificationQueue notificationQueueService = new CPRBroker.Engine.NotificationQueueService.NotificationQueue();
+            NotificationQueueService.NotificationQueue notificationQueueService = new CprBroker.Engine.NotificationQueueService.NotificationQueue();
             notificationQueueService.Url = Config.Properties.Settings.Default.NotificationQueueServiceUrl;
-            notificationQueueService.ApplicationHeaderValue = new CPRBroker.Engine.NotificationQueueService.ApplicationHeader()
+            notificationQueueService.ApplicationHeaderValue = new CprBroker.Engine.NotificationQueueService.ApplicationHeader()
             {
                 ApplicationToken = DAL.Applications.Application.BaseApplicationToken.ToString(),
                 UserToken = Constants.UserToken
@@ -66,7 +66,7 @@ namespace CPRBroker.Engine.Local
                                     select dbPers).FirstOrDefault();
                     if (dbPerson == null)
                     {
-                        dbPerson = new CPRBroker.DAL.Part.Person()
+                        dbPerson = new CprBroker.DAL.Part.Person()
                         {
                             UUID = personUUID
                         };

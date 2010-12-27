@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CPRService.Pages {
+namespace CprBroker.Web.Pages {
     
     
     public partial class Applications {
@@ -64,9 +64,9 @@ namespace CPRService.Pages {
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new CPRService.Pages.Site Master {
+        public new CprBroker.Web.Pages.Site Master {
             get {
-                return ((CPRService.Pages.Site)(base.Master));
+                return ((CprBroker.Web.Pages.Site)(base.Master));
             }
         }
     }

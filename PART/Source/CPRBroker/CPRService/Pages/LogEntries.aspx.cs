@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-namespace CPRService.Pages
+namespace CprBroker.Web.Pages
 {
     public partial class LogEntries : System.Web.UI.Page
     {
@@ -23,7 +23,7 @@ namespace CPRService.Pages
 
         protected void logEntriesLinqDataSource_Selected(object sender, LinqDataSourceStatusEventArgs e)
         {
-            var list = e.Result as List<CPRBroker.DAL.Applications.LogEntry>;
+            var list = e.Result as List<CprBroker.DAL.Applications.LogEntry>;
             foreach (var logEntry in list)
             {
                 if (!string.IsNullOrEmpty(logEntry.Text))

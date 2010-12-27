@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Part;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
-namespace CPRBroker.Providers.DPR
+namespace CprBroker.Providers.DPR
 {
     /// <summary>
     /// Used as a link between miscellaneous person tables & person information
@@ -82,14 +82,14 @@ namespace CPRBroker.Providers.DPR
                 },
                 States = new PersonStates()
                 {
-                    CivilStatus = new Effect<CPRBroker.Schemas.Part.Enums.MaritalStatus>()
+                    CivilStatus = new Effect<CprBroker.Schemas.Part.Enums.MaritalStatus>()
                     {
                         StartDate = Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate),
                         // Handled later
                         EndDate = null,
                         Value = PersonTotal.PartMaritalStatus,
                     },
-                    LifeStatus = new Effect<CPRBroker.Schemas.Part.Enums.LifeStatus>()
+                    LifeStatus = new Effect<CprBroker.Schemas.Part.Enums.LifeStatus>()
                     {
                         StartDate = Utilities.DateFromDecimal(PersonTotal.StatusDate),
                         // Handled later using the first PersonTotal that has a later StatusDate

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.DAL;
-using CPRBroker.DAL.Part;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Util;
-using CPRBroker.Engine.Local;
+using CprBroker.Engine;
+using CprBroker.DAL;
+using CprBroker.DAL.Part;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Util;
+using CprBroker.Engine.Local;
 
-namespace CPRBroker.Providers.Local
+namespace CprBroker.Providers.Local
 {
     /// <summary>
     /// Handles implementation of data provider using the system's local database
@@ -20,7 +20,7 @@ namespace CPRBroker.Providers.Local
 
         #region IPartSearchDataProvider Members
 
-        public Guid[] Search(CPRBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql)
+        public Guid[] Search(CprBroker.Schemas.Part.PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql)
         {
             Guid[] ret = null;
             using (var dataContext = new PartDataContext())
@@ -114,7 +114,7 @@ namespace CPRBroker.Providers.Local
 
         #region IPartReadDataProvider Members
 
-        public CPRBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
+        public CprBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
         {
             Schemas.Part.PersonRegistration ret = null;
             using (var dataContext = new PartDataContext())
@@ -132,7 +132,7 @@ namespace CPRBroker.Providers.Local
             return ret;
         }
 
-        public CPRBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
+        public CprBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
         {
             // TODO: implement List after Read
             throw new NotImplementedException();

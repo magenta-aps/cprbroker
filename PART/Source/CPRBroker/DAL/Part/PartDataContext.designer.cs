@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CPRBroker.DAL.Part
+namespace CprBroker.DAL.Part
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;

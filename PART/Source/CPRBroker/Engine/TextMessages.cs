@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Engine
+namespace CprBroker.Engine
 {
     /// <summary>
     /// Contains text messages that are logged to the system's log

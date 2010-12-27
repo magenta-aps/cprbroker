@@ -5,10 +5,10 @@ using System.Text;
 using System.Runtime.Remoting.Messaging;
 using System.Diagnostics;
 using System.Web.Services;
-using CPRBroker.DAL.Applications;
-using CPRBroker.Engine.Exceptions;
+using CprBroker.DAL.Applications;
+using CprBroker.Engine.Exceptions;
 
-namespace CPRBroker.Engine
+namespace CprBroker.Engine
 {
     /// <summary>
     /// Contains data related to the current method call

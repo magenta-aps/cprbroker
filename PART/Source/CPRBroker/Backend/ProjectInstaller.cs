@@ -6,10 +6,10 @@ using System.Configuration.Install;
 using System.Linq;
 using System.ServiceProcess;
 using Microsoft.Win32;
-using CPRBroker.Engine.Util;
+using CprBroker.Engine.Util;
 using System.Windows.Forms;
 
-namespace Backend
+namespace CprBroker.EventBroker.Backend
 {
     [RunInstaller(true)]
     public partial class ProjectInstaller : Installer

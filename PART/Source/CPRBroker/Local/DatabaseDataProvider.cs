@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.DAL;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Util;
-using CPRBroker.Engine.Local;
+using CprBroker.Engine;
+using CprBroker.DAL;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Util;
+using CprBroker.Engine.Local;
 
-namespace CPRBroker.Providers.Local
+namespace CprBroker.Providers.Local
 {
     /// <summary>
     /// Handles implementation of data provider using the system's local database
@@ -42,7 +42,7 @@ namespace CPRBroker.Providers.Local
              * The idea here is to fill the Schemas.UtilAddress fields and then return its ToOioAddress() method
             */
 
-            Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
+            Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
             address[AddressField.Building] = personAddress.StreetBuildingIdentifier;
             address[AddressField.CareOfName] = personAddress.CareOfName;
             address[AddressField.Door] = personAddress.SuiteIdentifier;

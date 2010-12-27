@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas.Part;
+using CprBroker.Schemas.Part;
 
-namespace CPRBroker.DAL.Part
+namespace CprBroker.DAL.Part
 {
     public partial class PersonAttribute
     {
@@ -15,7 +15,7 @@ namespace CPRBroker.DAL.Part
             var ret = new PersonAttributes()
                 {
                     BirthDate = this.BirthDate,
-                    OtherAddresses = new CPRBroker.Schemas.Part.Address[0],
+                    OtherAddresses = new CprBroker.Schemas.Part.Address[0],
                     ContactChannel = new ContactChannel[0],
                     Gender = DAL.Part.Gender.GetPartGender(this.GenderId),
                     Name = new Effect<string>()

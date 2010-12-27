@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
+using CprBroker.Schemas;
 using System.Data.Linq;
 
 namespace CprBroker.EventBroker.DAL
@@ -27,7 +27,7 @@ namespace CprBroker.EventBroker.DAL
         /// Converts the object to an OIO object
         /// </summary>
         /// <returns></returns>
-        public CPRBroker.Schemas.BaseNotificationType ToOioNotification()
+        public CprBroker.Schemas.BaseNotificationType ToOioNotification()
         {
             BaseNotificationType ret = null;
             if (this.Subscription.BirthdateSubscription != null)

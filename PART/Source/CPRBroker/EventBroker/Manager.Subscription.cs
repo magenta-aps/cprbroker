@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.Engine;
 
 namespace CprBroker.EventBroker
 {
@@ -17,7 +17,7 @@ namespace CprBroker.EventBroker
         {
             public static TOutput CallMethod<TInterface, TOutput>(string userToken, string appToken, bool failIfNoApp, bool allowLocalProvider, Func<TInterface, TOutput> func, bool failOnDefaultOutput, Action<TOutput> updateMethod) where TInterface : class, IDataProvider
             {
-                return CPRBroker.Engine.Manager.CallMethod<TInterface, TOutput>(userToken, appToken, failIfNoApp, allowLocalProvider, func, failOnDefaultOutput, updateMethod);
+                return CprBroker.Engine.Manager.CallMethod<TInterface, TOutput>(userToken, appToken, failIfNoApp, allowLocalProvider, func, failOnDefaultOutput, updateMethod);
             }
             #region Subscription
             public static ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, Guid[] PersonCivilRegistrationIdentifiers)
@@ -46,7 +46,7 @@ namespace CprBroker.EventBroker
 
             public static SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken)
             {
-                return CallMethod<ISubscriptionManager, CPRBroker.Schemas.SubscriptionType[]>
+                return CallMethod<ISubscriptionManager, CprBroker.Schemas.SubscriptionType[]>
                  (userToken, appToken, true, true, (admin) => admin.GetActiveSubscriptionsList(userToken, appToken), true, null);
             }
 

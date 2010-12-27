@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Schemas.Part
+namespace CprBroker.Schemas.Part
 {
     [System.Xml.Serialization.XmlInclude(typeof(CprData))]
     [System.Xml.Serialization.XmlInclude(typeof(ForeignCitizenData))]

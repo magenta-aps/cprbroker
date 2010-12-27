@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace CPRBroker.Engine.Util
+namespace CprBroker.Engine.Util
 {
     /// <summary>
     /// Contains string processing utility methods

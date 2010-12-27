@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Engine.Util
+namespace CprBroker.Engine.Util
 {
     /// <summary>
     /// Contains utility methods that support SQL server access

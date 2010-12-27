@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CPRBroker.Config.Properties {
+namespace CprBroker.Config.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

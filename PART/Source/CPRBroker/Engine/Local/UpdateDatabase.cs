@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Schemas;
-using CPRBroker.DAL;
-using CPRBroker;
+using CprBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.DAL;
+using CprBroker;
 
-namespace CPRBroker.Engine.Local
+namespace CprBroker.Engine.Local
 {
     public partial class UpdateDatabase
     {
@@ -27,61 +27,61 @@ namespace CPRBroker.Engine.Local
             Address dbAddress = dbPerson.Address;
 
             //dbAddress.AddressStatusId = "";
-            dbAddress.CareOfName = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.CareOfName, false);
-            dbAddress.DistrictSubDivisionIdentifier = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.DistrictSubDivisionIdentifier, false);
-            dbAddress.FloorIdentifier = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Floor, false);
-            dbAddress.Line1 = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Line1, false);
-            dbAddress.Line2 = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Line2, false);
-            dbAddress.Line3 = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Line3, false);
-            dbAddress.Line4 = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Line4, false);
-            dbAddress.Line5 = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Line5, false);
-            dbAddress.Line6 = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Line6, false);
-            dbAddress.LocationDescription = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.LocationDescription, false);
-            dbAddress.MailDeliverSubLocationIdentifier = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.MailDeliverSubLocationIdentifier, false);
-            dbAddress.StreetBuildingIdentifier = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Building, false);
+            dbAddress.CareOfName = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.CareOfName, false);
+            dbAddress.DistrictSubDivisionIdentifier = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.DistrictSubDivisionIdentifier, false);
+            dbAddress.FloorIdentifier = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Floor, false);
+            dbAddress.Line1 = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Line1, false);
+            dbAddress.Line2 = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Line2, false);
+            dbAddress.Line3 = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Line3, false);
+            dbAddress.Line4 = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Line4, false);
+            dbAddress.Line5 = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Line5, false);
+            dbAddress.Line6 = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Line6, false);
+            dbAddress.LocationDescription = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.LocationDescription, false);
+            dbAddress.MailDeliverSubLocationIdentifier = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.MailDeliverSubLocationIdentifier, false);
+            dbAddress.StreetBuildingIdentifier = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Building, false);
 
-            dbAddress.SuiteIdentifier = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.Door, false);
+            dbAddress.SuiteIdentifier = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.Door, false);
 
 
             using (CPRBrokerDALDataContext lookupContext = new CPRBrokerDALDataContext())
             {
                 // Country
-                if (tempAddress.ContainsKey(CPRBroker.Schemas.Util.AddressField.Alpha2CountryCode))
+                if (tempAddress.ContainsKey(CprBroker.Schemas.Util.AddressField.Alpha2CountryCode))
                 {
-                    dbAddress.CountryAlpha2Code = tempAddress[CPRBroker.Schemas.Util.AddressField.Alpha2CountryCode];
+                    dbAddress.CountryAlpha2Code = tempAddress[CprBroker.Schemas.Util.AddressField.Alpha2CountryCode];
                 }
-                else if (tempAddress.ContainsKey(CPRBroker.Schemas.Util.AddressField.EnglishCountryName))
+                else if (tempAddress.ContainsKey(CprBroker.Schemas.Util.AddressField.EnglishCountryName))
                 {
-                    dbAddress.CountryAlpha2Code = Country.GetCountryAlpha2CodeByEnglishName(tempAddress[CPRBroker.Schemas.Util.AddressField.EnglishCountryName]);
+                    dbAddress.CountryAlpha2Code = Country.GetCountryAlpha2CodeByEnglishName(tempAddress[CprBroker.Schemas.Util.AddressField.EnglishCountryName]);
                 }
-                else if (tempAddress.ContainsKey(CPRBroker.Schemas.Util.AddressField.DanishCountryName))
+                else if (tempAddress.ContainsKey(CprBroker.Schemas.Util.AddressField.DanishCountryName))
                 {
-                    dbAddress.CountryAlpha2Code = Country.GetCountryAlpha2CodeByDanishName(tempAddress[CPRBroker.Schemas.Util.AddressField.DanishCountryName]);
+                    dbAddress.CountryAlpha2Code = Country.GetCountryAlpha2CodeByDanishName(tempAddress[CprBroker.Schemas.Util.AddressField.DanishCountryName]);
                 }
 
                 // Municipality
-                if (tempAddress.ContainsKey(CPRBroker.Schemas.Util.AddressField.MunicipalityCode))
+                if (tempAddress.ContainsKey(CprBroker.Schemas.Util.AddressField.MunicipalityCode))
                 {
-                    dbAddress.MunicipalityCode = tempAddress[CPRBroker.Schemas.Util.AddressField.MunicipalityCode];
+                    dbAddress.MunicipalityCode = tempAddress[CprBroker.Schemas.Util.AddressField.MunicipalityCode];
                 }
-                else if (tempAddress.ContainsKey(CPRBroker.Schemas.Util.AddressField.MunicipalityName))
+                else if (tempAddress.ContainsKey(CprBroker.Schemas.Util.AddressField.MunicipalityName))
                 {
                     dbAddress.MunicipalityCode =
                         (from m in lookupContext.Municipalities
-                         where m.MunicipalityName == tempAddress[CPRBroker.Schemas.Util.AddressField.MunicipalityName]
+                         where m.MunicipalityName == tempAddress[CprBroker.Schemas.Util.AddressField.MunicipalityName]
                          select m.MunicipalityCode
                         ).SingleOrDefault();
                 }
 
                 // Street
-                dbAddress.StreetCode = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.StreetCode, false);
-                dbAddress.StreetName = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.StreetName, false);
-                dbAddress.StreetNameForAddressing = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.StreetNameForAddressing, false);
+                dbAddress.StreetCode = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.StreetCode, false);
+                dbAddress.StreetName = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.StreetName, false);
+                dbAddress.StreetNameForAddressing = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.StreetNameForAddressing, false);
 
                 // Post
-                dbAddress.PostBoxIdentifier = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.PostBox, false);
-                dbAddress.PostCode = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.PostCode, false);
-                dbAddress.PostDistrictName = tempAddress.GetFieldValue(CPRBroker.Schemas.Util.AddressField.PostDistrictName, false);
+                dbAddress.PostBoxIdentifier = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.PostBox, false);
+                dbAddress.PostCode = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.PostCode, false);
+                dbAddress.PostDistrictName = tempAddress.GetFieldValue(CprBroker.Schemas.Util.AddressField.PostDistrictName, false);
             }
         }
 

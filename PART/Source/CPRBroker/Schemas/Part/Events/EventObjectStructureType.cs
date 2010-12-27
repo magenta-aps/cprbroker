@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Schemas.Part.Events
+namespace CprBroker.Schemas.Part.Events
 {
     public class EventObjectStructureType
     {

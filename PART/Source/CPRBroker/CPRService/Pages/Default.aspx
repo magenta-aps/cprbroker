@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CPRService.Pages.Default" MasterPageFile="~/Pages/Site.Master" Title="Home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CprBroker.Web.Pages.Default" MasterPageFile="~/Pages/Site.Master" Title="Home" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="Contents">
     <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="False" />

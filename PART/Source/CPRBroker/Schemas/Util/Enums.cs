@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas.Part.Enums;
+using CprBroker.Schemas.Part.Enums;
 
-namespace CPRBroker.Schemas.Util
+namespace CprBroker.Schemas.Util
 {
     /// <summary>
     /// Contains some utility methods related to OIO enumerations

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Data.Linq;
-using CPRBroker.DAL;
+using CprBroker.DAL;
 using CprBroker.EventBroker.DAL;
-using CPRBroker.Engine;
+using CprBroker.Engine;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -39,7 +39,7 @@ namespace CprBroker.EventBroker.Notifications
             RefreshPersonsDataResult ret = new RefreshPersonsDataResult();
             try
             {
-                BrokerContext.Initialize(CPRBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CPRBroker.Engine.Constants.UserToken, true, false, true);
+                BrokerContext.Initialize(CprBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false, true);
 
                 // Refresh data provider list so that any changes are reflected here
                 DataProviderManager.InitializeDataProviders();
@@ -64,8 +64,8 @@ namespace CprBroker.EventBroker.Notifications
                         //        select new Tasks.GetPersonDataTask() { CprNumber = sp.Person.PersonNumber };
                     }
                     var tasksArray = tasks.Distinct().ToArray();
-                    CPRBroker.Engine.Tasks.TaskQueue.Main.Enqueue(tasksArray);
-                    CPRBroker.Engine.Tasks.TaskQueue.Main.WaitForFinish();
+                    CprBroker.Engine.Tasks.TaskQueue.Main.Enqueue(tasksArray);
+                    CprBroker.Engine.Tasks.TaskQueue.Main.WaitForFinish();
 
                     ret.SucceededCprNumbers.AddRange(from task in tasksArray where task.Result != null select task.CprNumber);
                     ret.FailedCprNumbers.AddRange(from task in tasksArray where task.Result == null select task.CprNumber);
@@ -73,7 +73,7 @@ namespace CprBroker.EventBroker.Notifications
             }
             catch (Exception ex)
             {
-                CPRBroker.Engine.Local.Admin.LogException(ex);
+                CprBroker.Engine.Local.Admin.LogException(ex);
             }
             return ret;
         }
@@ -86,7 +86,7 @@ namespace CprBroker.EventBroker.Notifications
         {
             // Initialize
             SendNotificationsResult ret = new SendNotificationsResult();
-            BrokerContext.Initialize(CPRBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CPRBroker.Engine.Constants.UserToken, true, false, true);
+            BrokerContext.Initialize(CprBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false, true);
             DateTime today = now.Date;
             DateTime yesterday = today.AddDays(-1);
             try
@@ -123,20 +123,20 @@ namespace CprBroker.EventBroker.Notifications
                                 Notifications.Channel channel = Notifications.Channel.Create(dueSub.Channels.Single());
                                 channel.Notify(notif);
                                 ret.SentNotificationIds.Add(dueSub.SubscriptionId);
-                                CPRBroker.Engine.Local.Admin.LogNotificationSuccess(dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
+                                CprBroker.Engine.Local.Admin.LogNotificationSuccess(dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
                             }
                         }
                         catch (Exception ex)
                         {
                             ret.FailedNotificationIds.Add(dueSub.SubscriptionId);
-                            CPRBroker.Engine.Local.Admin.LogNotificationException(ex, dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
+                            CprBroker.Engine.Local.Admin.LogNotificationException(ex, dueSub.Application.Token, dueSub.SubscriptionId, dueSub.Channels.Single().Url);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                CPRBroker.Engine.Local.Admin.LogException(ex);
+                CprBroker.Engine.Local.Admin.LogException(ex);
             }
             return ret;
         }

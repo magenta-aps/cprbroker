@@ -8,8 +8,8 @@
     <ProjectGuid>{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CPRBroker.Config</RootNamespace>
-    <AssemblyName>CPRBroker.Config</AssemblyName>
+    <RootNamespace>CprBroker.Config</RootNamespace>
+    <AssemblyName>CprBroker.Config</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Data.Linq;
 
-namespace CPRBroker.Engine
+namespace CprBroker.Engine
 {
     /// <summary>
     /// The main class of the system's engine.
@@ -67,7 +67,7 @@ namespace CPRBroker.Engine
                             }
                         }));
                     workerThread.Start();
-                    workerThread.Join(CPRBroker.Config.Properties.Settings.Default.DataProviderMillisecondsTimeout);
+                    workerThread.Join(CprBroker.Config.Properties.Settings.Default.DataProviderMillisecondsTimeout);
                     workerThread.Abort();
 
                     // Check for success

@@ -8,10 +8,10 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
 using System.Collections.Generic;
-using CPRBroker.Schemas;
-using CPRBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.Engine;
 
-namespace CPRService.Services
+namespace CprBroker.Web.Services
 {
     /// <summary>
     /// Contains web methods related to persons' data

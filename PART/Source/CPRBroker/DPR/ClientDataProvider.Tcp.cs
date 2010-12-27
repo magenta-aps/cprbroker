@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Util;
+using CprBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Util;
 using System.Linq.Expressions;
 
-namespace CPRBroker.Providers.DPR
+namespace CprBroker.Providers.DPR
 {
     public partial class ClientDataProvider : BaseProvider, IPersonNameAndAddressDataProvider, IPersonBasicDataProvider, IPersonFullDataProvider, IPersonChildrenDataProvider, IPersonRelationsDataProvider
     {

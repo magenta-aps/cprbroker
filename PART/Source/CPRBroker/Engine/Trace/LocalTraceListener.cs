@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
-using CPRBroker.DAL.Applications;
+using CprBroker.DAL.Applications;
 using Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners;
 
-namespace CPRBroker.Engine.Trace
+namespace CprBroker.Engine.Trace
 {
     /// <summary>
     /// Writes log messages to the system's database

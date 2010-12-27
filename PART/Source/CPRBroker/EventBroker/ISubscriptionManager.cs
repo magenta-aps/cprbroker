@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.Engine;
 
 namespace CprBroker.EventBroker
 {
@@ -58,7 +58,7 @@ namespace CprBroker.EventBroker
         /// <param name="userToken">Security Token for authorizing the current user</param>
         /// <param name="appToken">Security Token for the application the current application.</param>
         /// <returns></returns>
-        CPRBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken);
+        CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken);
 
         /// <summary>
         /// Gets the latest notification that has been sent for the subscription that matches the given <paramref name="subscriptionId"/>

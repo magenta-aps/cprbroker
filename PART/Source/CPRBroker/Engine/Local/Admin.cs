@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-using CPRBroker.Schemas;
-using CPRBroker.Engine;
-using CPRBroker.DAL;
-using CPRBroker.DAL.Applications;
+using CprBroker.Schemas;
+using CprBroker.Engine;
+using CprBroker.DAL;
+using CprBroker.DAL.Applications;
 
-namespace CPRBroker.Engine.Local
+namespace CprBroker.Engine.Local
 {
     /// <summary>
     /// Implementation of administration web methods
@@ -34,7 +34,7 @@ namespace CPRBroker.Engine.Local
             // Get data providers from database and convert to the appropriate XML type
             using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
             {
-                List<Schemas.DataProviderType> dataProviders = new List<CPRBroker.Schemas.DataProviderType>();
+                List<Schemas.DataProviderType> dataProviders = new List<CprBroker.Schemas.DataProviderType>();
                 var providers = from prov in context.DataProviders select prov;
                 foreach (var provider in providers)
                 {
@@ -149,7 +149,7 @@ namespace CPRBroker.Engine.Local
         #region ILoggingDataProvider Members
         public bool Log(string userToken, string appToken, string text)
         {
-            CPRBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "LogFunctions", text, null, null);
+            CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "LogFunctions", text, null, null);
             return true;
         }
 

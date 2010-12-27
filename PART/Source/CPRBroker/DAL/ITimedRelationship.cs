@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.DAL
+namespace CprBroker.DAL
 {
     /// <summary>
     /// Interface that joins time limited relationshipd together

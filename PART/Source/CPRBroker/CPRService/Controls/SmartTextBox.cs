@@ -12,12 +12,12 @@ using System.Xml.Linq;
 using System.ComponentModel;
 using System.IO;
 
-namespace CPRService.Controls
+namespace CprBroker.Web.Controls
 {
     /// <summary>
     /// Extents the TextBox class by adding validation capabilities to it
     /// </summary>
-    [Designer("CPRService.Controls.SmartTextBoxDesigner")]
+    [Designer("CprBroker.Web.Controls.SmartTextBoxDesigner")]
     public class SmartTextBox : WebControl, INamingContainer
     {
         [DefaultValue(false)]

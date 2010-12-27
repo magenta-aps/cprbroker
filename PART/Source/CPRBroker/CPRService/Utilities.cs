@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-namespace CPRService
+namespace CprBroker.Web
 {
     /// <summary>
     /// Contains utility methods that are used with pages

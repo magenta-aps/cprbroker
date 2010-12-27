@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace NUnitTester
+namespace CprBroker.NUnitTester
 {
     [TestFixture]
     public class ApplicationManagementTest : BaseTest

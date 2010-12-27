@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Providers.DPR
+namespace CprBroker.Providers.DPR
 {
     /// <summary>
     /// Utility class used to read strings as a Stream

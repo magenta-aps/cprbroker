@@ -8,8 +8,8 @@
     <ProjectGuid>{BBD25F50-FA7A-4799-9832-287AF59FB6C4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CPRBroker.DAL</RootNamespace>
-    <AssemblyName>CPRBroker.DAL</AssemblyName>
+    <RootNamespace>CprBroker.DAL</RootNamespace>
+    <AssemblyName>CprBroker.DAL</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

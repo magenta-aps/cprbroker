@@ -1,11 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DataProviders.aspx.cs"
-    Inherits="CPRService.Pages.DataProviders" MasterPageFile="~/Pages/Site.Master"
+    Inherits="CprBroker.Web.Pages.DataProviders" MasterPageFile="~/Pages/Site.Master"
     Title="Data providers" %>
 
 <%@ MasterType VirtualPath="~/Pages/Site.Master" %>
-<%@ Register Assembly="CPRService" Namespace="CPRService.Controls" TagPrefix="cc1" %>
+<%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc1" %>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
-    <asp:LinqDataSource ID="dataProviderTypesLinqDataSource" runat="server" ContextTypeName="CPRBroker.DAL.CPRBrokerDALDataContext"
+    <asp:LinqDataSource ID="dataProviderTypesLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.CPRBrokerDALDataContext"
         TableName="DataProviderTypes" Where="IsExternal == @IsExternal">
         <WhereParameters>
             <asp:Parameter DefaultValue="True" Name="IsExternal" Type="Boolean" />
@@ -23,7 +23,7 @@
             <asp:BoundField DataField="TypeName" HeaderText="Type name" SortExpression="TypeName" />
         </Columns>
     </asp:GridView>
-    <asp:LinqDataSource ID="dataProvidersLinqDataSource" runat="server" ContextTypeName="CPRBroker.DAL.CPRBrokerDALDataContext"
+    <asp:LinqDataSource ID="dataProvidersLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.CPRBrokerDALDataContext"
         OrderBy="DataProviderId" TableName="DataProviders" Where="DataProviderType.IsExternal == @IsExternal"
         EnableUpdate="True" EnableInsert="True" OnInserting="dataProvidersLinqDataSource_Inserting"
         EnableDelete="True" OnDeleted="dataProvidersLinqDataSource_Deleted" OnInserted="dataProvidersLinqDataSource_Inserted"
@@ -61,7 +61,7 @@
             <asp:TemplateField HeaderText="Port" SortExpression="Port">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox2" runat="server" Required="True" ValidationExpression="\d+"
-                        Text='<%# Bind("Port") %>' Visible='<%# (int)Eval("DataProviderTypeId")== (int)CPRBroker.Schemas.DataProviderTypes.DPR %>' />
+                        Text='<%# Bind("Port") %>' Visible='<%# (int)Eval("DataProviderTypeId")== (int)CprBroker.Schemas.DataProviderTypes.DPR %>' />
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label ID="Label3" runat="server" Text='<%# Bind("Port") %>'></asp:Label>
@@ -70,7 +70,7 @@
             <asp:TemplateField HeaderText="Connection string" SortExpression="ConnectionString">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox3" runat="server" Required="True" Text='<%# Bind("ConnectionString") %>'
-                        Visible='<%# (int)Eval("DataProviderTypeId")== (int)CPRBroker.Schemas.DataProviderTypes.DPR %>' />
+                        Visible='<%# (int)Eval("DataProviderTypeId")== (int)CprBroker.Schemas.DataProviderTypes.DPR %>' />
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label ID="Label4" runat="server" Text='<%# Bind("ConnectionString") %>'></asp:Label>
@@ -79,7 +79,7 @@
             <asp:TemplateField HeaderText="User name" SortExpression="UserName">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox4" runat="server" Required="True" Text='<%# Bind("UserName") %>'
-                        Visible='<%# (int)Eval("DataProviderTypeId")== (int)CPRBroker.Schemas.DataProviderTypes.KMD %>' />
+                        Visible='<%# (int)Eval("DataProviderTypeId")== (int)CprBroker.Schemas.DataProviderTypes.KMD %>' />
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label ID="Label5" runat="server" Text='<%# Bind("UserName") %>'></asp:Label>
@@ -88,7 +88,7 @@
             <asp:TemplateField HeaderText="Password" SortExpression="Password">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox5" runat="server" Required="True" Text='<%# Bind("Password") %>'
-                        Visible='<%# (int)Eval("DataProviderTypeId")== (int)CPRBroker.Schemas.DataProviderTypes.KMD %>' />
+                        Visible='<%# (int)Eval("DataProviderTypeId")== (int)CprBroker.Schemas.DataProviderTypes.KMD %>' />
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label ID="Label6" runat="server" Text='<%# Bind("Password") %>'></asp:Label>
@@ -124,28 +124,28 @@
             <asp:TemplateField HeaderText="Port" SortExpression="Port">
                 <InsertItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox2" runat="server" Required="True" ValidationExpression="\d+"
-                        Text='<%# Bind("Port") %>' Visible='<%# int.Parse(newDataProviderDropDownList.SelectedValue)== (int)CPRBroker.Schemas.DataProviderTypes.DPR %>'
+                        Text='<%# Bind("Port") %>' Visible='<%# int.Parse(newDataProviderDropDownList.SelectedValue)== (int)CprBroker.Schemas.DataProviderTypes.DPR %>'
                         ValidationGroup="Add" />
                 </InsertItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Connection string" SortExpression="ConnectionString">
                 <InsertItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox3" runat="server" Required="True" Text='<%# Bind("ConnectionString") %>'
-                        Visible='<%# int.Parse(newDataProviderDropDownList.SelectedValue)== (int)CPRBroker.Schemas.DataProviderTypes.DPR %>'
+                        Visible='<%# int.Parse(newDataProviderDropDownList.SelectedValue)== (int)CprBroker.Schemas.DataProviderTypes.DPR %>'
                         ValidationGroup="Add" />
                 </InsertItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="User name" SortExpression="UserName">
                 <InsertItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox4" runat="server" Required="True" Text='<%# Bind("UserName") %>'
-                        Visible='<%# int.Parse(newDataProviderDropDownList.SelectedValue)== (int)CPRBroker.Schemas.DataProviderTypes.KMD %>'
+                        Visible='<%# int.Parse(newDataProviderDropDownList.SelectedValue)== (int)CprBroker.Schemas.DataProviderTypes.KMD %>'
                         ValidationGroup="Add" />
                 </InsertItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Password" SortExpression="Password">
                 <InsertItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox5" runat="server" Required="True" Text='<%# Bind("Password") %>'
-                        Visible='<%# int.Parse(newDataProviderDropDownList.SelectedValue)== (int)CPRBroker.Schemas.DataProviderTypes.KMD %>'
+                        Visible='<%# int.Parse(newDataProviderDropDownList.SelectedValue)== (int)CprBroker.Schemas.DataProviderTypes.KMD %>'
                         ValidationGroup="Add" />
                 </InsertItemTemplate>
             </asp:TemplateField>

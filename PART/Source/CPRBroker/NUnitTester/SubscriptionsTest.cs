@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace NUnitTester
+namespace CprBroker.NUnitTester
 {
     [TestFixture]
     public class SubscriptionsTest : BaseTest
@@ -133,7 +133,7 @@ namespace NUnitTester
         {
             Subscriptions.ChangeSubscriptionType subscription = subscriptionFunc();
             bool notified;
-            NUnitTester.Access.SendNotificationsResult res;
+            CprBroker.NUnitTester.Access.SendNotificationsResult res;
 
             // Create a test person and then submit an update
             this.T700_CreateTestCitizen();

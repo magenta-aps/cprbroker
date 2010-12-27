@@ -7,9 +7,9 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
-using CPRBroker.Schemas;
+using CprBroker.Schemas;
 
-namespace CPRService
+namespace CprBroker.Web
 {
     /// <summary>
     /// Template for a notification listener web service

@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 
-namespace NUnitTester
+namespace CprBroker.NUnitTester
 {
     /// <summary>
     /// Contains utility methods that assist unit testing

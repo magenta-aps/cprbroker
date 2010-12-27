@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
+using CprBroker.Schemas;
 
-namespace CPRBroker.Engine
+namespace CprBroker.Engine
 {
     public static partial class Manager
     {

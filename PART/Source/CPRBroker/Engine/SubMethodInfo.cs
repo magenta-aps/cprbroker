@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace CPRBroker.Engine
+namespace CprBroker.Engine
 {
     public abstract class SubMethodInfo
     {

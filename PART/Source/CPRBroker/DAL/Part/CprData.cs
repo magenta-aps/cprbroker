@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.DAL.Part
+namespace CprBroker.DAL.Part
 {
     public partial class CprData
     {
@@ -19,11 +19,11 @@ namespace CPRBroker.DAL.Part
                 NameAndAddressProtection = this.HasNameAndAddressProtection,
                 NationalityCountryCode = this.NationalityCountryAlpha2Code,
                 NickName = this.NickName,
-                PersonName = new CPRBroker.Schemas.Part.Effect<CPRBroker.Schemas.PersonNameStructureType>()
+                PersonName = new CprBroker.Schemas.Part.Effect<CprBroker.Schemas.PersonNameStructureType>()
                 {
                     StartDate = NameStartDate,
                     EndDate = NameEndDate,
-                    Value = new CPRBroker.Schemas.PersonNameStructureType
+                    Value = new CprBroker.Schemas.PersonNameStructureType
                     {
                         PersonGivenName = this.FirstName,
                         PersonMiddleName = this.MiddleName,

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
+using CprBroker.Schemas;
 
-namespace CPRBroker.DAL
+namespace CprBroker.DAL
 {
     public partial class MaritalStatusType
     {
@@ -16,7 +16,7 @@ namespace CPRBroker.DAL
             {
                 if (_Values.Count == 0)
                 {
-                    _Values.AddRange(CPRBroker.Schemas.Util.Enums.GetEnumValues<MaritalStatusCodeType>());
+                    _Values.AddRange(CprBroker.Schemas.Util.Enums.GetEnumValues<MaritalStatusCodeType>());
                 }
             }
         }

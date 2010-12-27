@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-using CPRBroker.Schemas;
-using CPRBroker.Engine;
-using CPRBroker.DAL;
+using CprBroker.Schemas;
+using CprBroker.Engine;
+using CprBroker.DAL;
 
-namespace CPRBroker.Engine.Local
+namespace CprBroker.Engine.Local
 {
     public partial class Admin
     {

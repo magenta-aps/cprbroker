@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Schemas.Part.Enums
+namespace CprBroker.Schemas.Part.Enums
 {
     // TODO: Check whether Unknown should be used instead of null
     public enum Gender

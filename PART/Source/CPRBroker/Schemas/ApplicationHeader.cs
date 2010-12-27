@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Schemas
+namespace CprBroker.Schemas
 {
     /// <summary>
     /// Used by CPR web service clients to pass their authentication tokens

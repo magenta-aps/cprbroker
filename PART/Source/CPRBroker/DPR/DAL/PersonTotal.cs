@@ -7,10 +7,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.ComponentModel;
 using System;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Part.Enums;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part.Enums;
 
-namespace CPRBroker.Providers.DPR
+namespace CprBroker.Providers.DPR
 {
     public partial class PersonTotal
     {
@@ -24,39 +24,39 @@ namespace CPRBroker.Providers.DPR
 
         private Schemas.Util.Address ToInternalAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)
         {
-            Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
+            Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
             if (MunicipalityCode != 0)
             {
-                address[CPRBroker.Schemas.Util.AddressField.MunicipalityCode] = MunicipalityCode.ToString();
+                address[CprBroker.Schemas.Util.AddressField.MunicipalityCode] = MunicipalityCode.ToString();
             }
-            address[CPRBroker.Schemas.Util.AddressField.MunicipalityName] = MunicipalityName;
+            address[CprBroker.Schemas.Util.AddressField.MunicipalityName] = MunicipalityName;
             if (StreetCode != 0)
             {
-                address[CPRBroker.Schemas.Util.AddressField.StreetCode] = StreetCode.ToString();
+                address[CprBroker.Schemas.Util.AddressField.StreetCode] = StreetCode.ToString();
             }
 
             if (street != null)
             {
-                address[CPRBroker.Schemas.Util.AddressField.StreetName] = street.StreetAddressingName;
+                address[CprBroker.Schemas.Util.AddressField.StreetName] = street.StreetAddressingName;
             }
-            address[CPRBroker.Schemas.Util.AddressField.HouseNumber] = HouseNumber;
-            address[CPRBroker.Schemas.Util.AddressField.Floor] = Floor;
-            address[CPRBroker.Schemas.Util.AddressField.Door] = Door;
+            address[CprBroker.Schemas.Util.AddressField.HouseNumber] = HouseNumber;
+            address[CprBroker.Schemas.Util.AddressField.Floor] = Floor;
+            address[CprBroker.Schemas.Util.AddressField.Door] = Door;
 
             if (PostCode != 0)
             {
-                address[CPRBroker.Schemas.Util.AddressField.PostCode] = PostCode.ToString();
+                address[CprBroker.Schemas.Util.AddressField.PostCode] = PostCode.ToString();
             }
 
             if (contactAddress != null)
             {
-                address[CPRBroker.Schemas.Util.AddressField.Line1] = contactAddress.Line1;
-                address[CPRBroker.Schemas.Util.AddressField.Line2] = contactAddress.Line2;
-                address[CPRBroker.Schemas.Util.AddressField.Line3] = contactAddress.Line3;
-                address[CPRBroker.Schemas.Util.AddressField.Line4] = contactAddress.Line4;
-                address[CPRBroker.Schemas.Util.AddressField.Line5] = contactAddress.Line5;
+                address[CprBroker.Schemas.Util.AddressField.Line1] = contactAddress.Line1;
+                address[CprBroker.Schemas.Util.AddressField.Line2] = contactAddress.Line2;
+                address[CprBroker.Schemas.Util.AddressField.Line3] = contactAddress.Line3;
+                address[CprBroker.Schemas.Util.AddressField.Line4] = contactAddress.Line4;
+                address[CprBroker.Schemas.Util.AddressField.Line5] = contactAddress.Line5;
             }
-            address[CPRBroker.Schemas.Util.AddressField.PostDistrictName] = PostDistrictName;
+            address[CprBroker.Schemas.Util.AddressField.PostDistrictName] = PostDistrictName;
             return address;
         }
 

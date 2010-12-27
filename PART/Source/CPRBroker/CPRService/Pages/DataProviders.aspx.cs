@@ -10,10 +10,10 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using CPRBroker.DAL;
-using CPRBroker.Engine;
+using CprBroker.DAL;
+using CprBroker.Engine;
 
-namespace CPRService.Pages
+namespace CprBroker.Web.Pages
 {
     public partial class DataProviders : System.Web.UI.Page
     {
@@ -40,7 +40,7 @@ namespace CPRService.Pages
             {
                 dataProvidersGridView.DataBind();
                 newDataProviderDetailsView.DataBind();
-                CPRBroker.Engine.DataProviderManager.InitializeDataProviders();
+                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
@@ -54,7 +54,7 @@ namespace CPRService.Pages
         {
             if (e.Exception == null)
             {
-                CPRBroker.Engine.DataProviderManager.InitializeDataProviders();
+                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
@@ -62,7 +62,7 @@ namespace CPRService.Pages
         {
             if (e.Exception == null)
             {
-                CPRBroker.Engine.DataProviderManager.InitializeDataProviders();
+                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
@@ -70,7 +70,7 @@ namespace CPRService.Pages
         {
             if (e.Exception == null)
             {
-                CPRBroker.Engine.DataProviderManager.InitializeDataProviders();
+                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 

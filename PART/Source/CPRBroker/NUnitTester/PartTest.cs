@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
-namespace NUnitTester
+namespace CprBroker.NUnitTester
 {
     [TestFixture]
     public class PartTest : BaseTest

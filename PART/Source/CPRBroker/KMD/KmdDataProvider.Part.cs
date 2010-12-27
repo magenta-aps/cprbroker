@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Providers.KMD.WS_AS78207;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Part;
-using CPRBroker.DAL;
+using CprBroker.Engine;
+using CprBroker.Providers.KMD.WS_AS78207;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+using CprBroker.DAL;
 
-namespace CPRBroker.Providers.KMD
+namespace CprBroker.Providers.KMD
 {
     public partial class KmdDataProvider : IPartReadDataProvider
     {
@@ -16,7 +16,7 @@ namespace CPRBroker.Providers.KMD
 
         #region IPartReadDataProvider Members
 
-        public CPRBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
+        public CprBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
         {
             // TODO: Find a solution for effect date in KMD Read
             PersonRegistration ret = null;
@@ -41,7 +41,7 @@ namespace CPRBroker.Providers.KMD
                         Value = new PersonNameStructureType(resp.FirstName, resp.LastName).ToString()
                     },
                     // TODO: check if other addresses can be filled from another service (e.g. AN80002)
-                    OtherAddresses = new CPRBroker.Schemas.Part.Address[0],
+                    OtherAddresses = new CprBroker.Schemas.Part.Address[0],
                     //TODO: Handle the case of Foreign data or unknown data
                     PersonData = new CprData()
                     {
@@ -77,13 +77,13 @@ namespace CPRBroker.Providers.KMD
                 },
                 States = new PersonStates()
                 {
-                    CivilStatus = new Effect<CPRBroker.Schemas.Part.Enums.MaritalStatus>()
+                    CivilStatus = new Effect<CprBroker.Schemas.Part.Enums.MaritalStatus>()
                     {
                         StartDate = ToDateTime(resp.MaritalStatusDate),
                         EndDate = null,
                         Value = Schemas.Util.Enums.ToPartMaritalStatus(resp.MaritallStatusCode[0]),
                     },
-                    LifeStatus = new Effect<CPRBroker.Schemas.Part.Enums.LifeStatus>()
+                    LifeStatus = new Effect<CprBroker.Schemas.Part.Enums.LifeStatus>()
                     {
                         //TODO: Status date may not be the correct field (for example, the status may have changed from 01 to  07 at the date, but the life status is still alive)
                         StartDate = ToDateTime(resp.StatusDate),
@@ -129,7 +129,7 @@ namespace CPRBroker.Providers.KMD
             //Spouses
             if (Convert.ToDecimal(resp.SpousePNR) > 0)
             {
-                bool isMarried = ret.States.CivilStatus.Value == CPRBroker.Schemas.Part.Enums.MaritalStatus.married || ret.States.CivilStatus.Value == CPRBroker.Schemas.Part.Enums.MaritalStatus.registeredpartner;
+                bool isMarried = ret.States.CivilStatus.Value == CprBroker.Schemas.Part.Enums.MaritalStatus.married || ret.States.CivilStatus.Value == CprBroker.Schemas.Part.Enums.MaritalStatus.registeredpartner;
                 var spouseUuid = DAL.Part.PersonMapping.AssignGuids(resp.SpousePNR)[0];
                 ret.Relations.Spouses = new Effect<PersonRelation>[]{
                     new Effect<PersonRelation>()
@@ -150,7 +150,7 @@ namespace CPRBroker.Providers.KMD
         }
 
 
-        public CPRBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
+        public CprBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
         {
             // TODO: implement List operation on KMD after Read is completed
             throw new NotImplementedException();
@@ -212,7 +212,7 @@ namespace CPRBroker.Providers.KMD
                     {
                         StartDate = null,
                         EndDate = null,
-                        Value = new CPRBroker.Schemas.Part.PersonRelation()
+                        Value = new CprBroker.Schemas.Part.PersonRelation()
                         {
                             TargetUUID = personIdentifiers[i].UUID.Value,
                         }

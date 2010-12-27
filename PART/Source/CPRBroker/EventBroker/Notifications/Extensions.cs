@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
+using CprBroker.Schemas;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -12,7 +12,7 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public static class Extensions
     {
-        public static NotificationService.BaseNotificationType ToWsdl(this CPRBroker.Schemas.BaseNotificationType oioNotif)
+        public static NotificationService.BaseNotificationType ToWsdl(this CprBroker.Schemas.BaseNotificationType oioNotif)
         {
             NotificationService.BaseNotificationType ret = null;
             if (oioNotif is BirthdateNotificationType)

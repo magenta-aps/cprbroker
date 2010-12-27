@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace CPRBroker.Engine.Tasks
+namespace CprBroker.Engine.Tasks
 {
     public class TaskQueue
     {

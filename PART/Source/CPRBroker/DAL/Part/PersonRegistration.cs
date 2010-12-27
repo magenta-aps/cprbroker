@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas.Part;
+using CprBroker.Schemas.Part;
 
-namespace CPRBroker.DAL.Part
+namespace CprBroker.DAL.Part
 {
     public partial class PersonRegistration
     {
         public Schemas.Part.PersonRegistration ToXmlType()
         {
-            Schemas.Part.PersonRegistration ret = new CPRBroker.Schemas.Part.PersonRegistration()
+            Schemas.Part.PersonRegistration ret = new CprBroker.Schemas.Part.PersonRegistration()
             {
                 ActorId = this.ActorId,
                 RegistrationDate = this.RegistrationDate,
@@ -22,7 +22,7 @@ namespace CPRBroker.DAL.Part
             return ret;
         }
 
-        public static PersonRegistration FromXmlType(CPRBroker.Schemas.Part.PersonRegistration partRegistration)
+        public static PersonRegistration FromXmlType(CprBroker.Schemas.Part.PersonRegistration partRegistration)
         {
             PersonRegistration ret = new PersonRegistration()
             {

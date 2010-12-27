@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Part;
-using CPRBroker.DAL;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+using CprBroker.DAL;
 
-namespace CPRBroker.Engine
+namespace CprBroker.Engine
 {
     public interface IDataProvider
     {

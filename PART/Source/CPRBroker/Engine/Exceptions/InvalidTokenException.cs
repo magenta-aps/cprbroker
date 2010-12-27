@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Engine.Exceptions
+namespace CprBroker.Engine.Exceptions
 {
     /// <summary>
     /// Exception to be raised if the application token supplied to the system is invalid

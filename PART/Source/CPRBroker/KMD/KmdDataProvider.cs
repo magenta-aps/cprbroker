@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Providers.KMD.WS_AN08002;
-using CPRBroker.Schemas;
-using CPRBroker.DAL;
+using CprBroker.Engine;
+using CprBroker.Providers.KMD.WS_AN08002;
+using CprBroker.Schemas;
+using CprBroker.DAL;
 
-namespace CPRBroker.Providers.KMD
+namespace CprBroker.Providers.KMD
 {
     public partial class KmdDataProvider : IDataProvider, IExternalDataProvider, IPersonNameAndAddressDataProvider, IPersonChildrenDataProvider, IPersonRelationsDataProvider, IPersonBasicDataProvider, IPersonFullDataProvider
     {
@@ -208,7 +208,7 @@ namespace CPRBroker.Providers.KMD
 
         #region IExternalDataProvider Members
 
-        public CPRBroker.DAL.DataProvider DatabaseObject { get; set; }
+        public CprBroker.DAL.DataProvider DatabaseObject { get; set; }
 
         #endregion
 

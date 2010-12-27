@@ -8,7 +8,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
 using CprBroker.EventBroker.Notifications;
-using CPRBroker.Schemas;
+using CprBroker.Schemas;
 
 namespace CprBroker.EventBroker.Web.Services
 {

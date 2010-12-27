@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace NUnitTester.Part {
+namespace CprBroker.NUnitTester.Part {
     using System.Diagnostics;
     using System.Web.Services;
     using System.ComponentModel;
@@ -53,7 +53,7 @@ namespace NUnitTester.Part {
         
         /// <remarks/>
         public Part() {
-            this.Url = global::NUnitTester.Properties.Settings.Default.NUnitTester_Part_Part;
+            this.Url = global::CprBroker.NUnitTester.Properties.Settings.Default.NUnitTester_Part_Part;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

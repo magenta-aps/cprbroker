@@ -7,7 +7,7 @@ using System.Configuration.Install;
 using System.Xml;
 using System.Runtime.InteropServices;
 
-namespace CPRBroker.Engine.Util
+namespace CprBroker.Engine.Util
 {
     /// <summary>
     /// Utility class with methods that assist the installation process by extending the Installer class
@@ -65,7 +65,7 @@ namespace CPRBroker.Engine.Util
         /// <summary>
         /// XPath of the connection string node in config files
         /// </summary>
-        public static readonly string ConnectionStringNodePath = "//connectionStrings/add[@name='CPRBroker.Config.Properties.Settings.CPRConnectionString']";
+        public static readonly string ConnectionStringNodePath = "//connectionStrings/add[@name='CprBroker.Config.Properties.Settings.CPRConnectionString']";
 
         /// <summary>
         /// Gets the connection string from the web.config file of the current installer
@@ -87,7 +87,7 @@ namespace CPRBroker.Engine.Util
             }
             catch (Exception)
             { }
-            return CPRBroker.Config.Properties.Settings.Default.CPRConnectionString;
+            return CprBroker.Config.Properties.Settings.Default.CPRConnectionString;
         }
 
         /// <summary>
@@ -125,9 +125,9 @@ namespace CPRBroker.Engine.Util
                 int cchBuf,
                 ref int cchRequired);
 
-        public static CPRBroker.Engine.UI.WindowHandleWrapper InstallerWindowWrapper(this Installer installer)
+        public static CprBroker.Engine.UI.WindowHandleWrapper InstallerWindowWrapper(this Installer installer)
         {
-            return new CPRBroker.Engine.UI.WindowHandleWrapper(installer.Context.Parameters["productName"]);
+            return new CprBroker.Engine.UI.WindowHandleWrapper(installer.Context.Parameters["productName"]);
         }
     }
 }

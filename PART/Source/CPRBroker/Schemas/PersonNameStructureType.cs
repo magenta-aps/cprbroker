@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Schemas
+namespace CprBroker.Schemas
 {
     /// <summary>
     /// Extents PersonNameStructureType by adding some utility functions

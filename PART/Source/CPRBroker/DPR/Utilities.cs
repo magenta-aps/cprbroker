@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Part.Enums;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part.Enums;
 
-namespace CPRBroker.Providers.DPR
+namespace CprBroker.Providers.DPR
 {
     /// <summary>
     /// Contains some utility functions that assis DPR

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Data.Linq;
 
-namespace CPRBroker.Engine
+namespace CprBroker.Engine
 {
     public static class DataProviderManager
     {
@@ -22,7 +22,7 @@ namespace CPRBroker.Engine
         /// </summary>
         /// <param name="dbDataProvider">The database object that represents the data provider</param>
         /// <returns>The newly created IDataProvider</returns>
-        public static IDataProvider ToIDataProvider(this CPRBroker.DAL.DataProvider dbDataProvider)
+        public static IDataProvider ToIDataProvider(this CprBroker.DAL.DataProvider dbDataProvider)
         {
             Type dataProviderType = Type.GetType(dbDataProvider.DataProviderType.TypeName);
             object providerObj = dataProviderType.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
@@ -41,7 +41,7 @@ namespace CPRBroker.Engine
         {
             BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
             // Load from database
-            using (DAL.CPRBrokerDALDataContext dataContext = new CPRBroker.DAL.CPRBrokerDALDataContext())
+            using (DAL.CPRBrokerDALDataContext dataContext = new CprBroker.DAL.CPRBrokerDALDataContext())
             {
                 DataLoadOptions loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<DAL.DataProvider>((dp) => dp.DataProviderType);

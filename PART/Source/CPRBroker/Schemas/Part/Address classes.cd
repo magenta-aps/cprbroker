@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="CPRBroker.Schemas.Part.Address">
+  <Class Name="CprBroker.Schemas.Part.Address">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAEAAAA=</HashCode>
       <FileName>Part\Address.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CPRBroker.Schemas.Part.AddressDenmark">
+  <Class Name="CprBroker.Schemas.Part.AddressDenmark">
     <Position X="1.75" Y="2.5" Width="1.5" />
-    <InheritanceLine Type="CPRBroker.Schemas.Part.Address" FixedToPoint="true">
+    <InheritanceLine Type="CprBroker.Schemas.Part.Address" FixedToPoint="true">
       <Path>
         <Point X="1.25" Y="1.645" />
         <Point X="1.25" Y="3.207" />
@@ -25,7 +25,7 @@
       <Property Name="AddressPoint" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CPRBroker.Schemas.Part.AddressGreenland">
+  <Class Name="CprBroker.Schemas.Part.AddressGreenland">
     <Position X="1.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -35,7 +35,7 @@
       <Property Name="GreenlandicAddress" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CPRBroker.Schemas.Part.AddressWorld">
+  <Class Name="CprBroker.Schemas.Part.AddressWorld">
     <Position X="1.5" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
@@ -45,12 +45,12 @@
       <Property Name="ForeignAddress" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CPRBroker.Schemas.AddressCompleteType">
+  <Class Name="CprBroker.Schemas.AddressCompleteType">
     <Position X="4.75" Y="3.25" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="AddressPostal" Type="CPRBroker.Schemas.AddressPostalType" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="AddressPostal" Type="CprBroker.Schemas.AddressPostalType" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="5.625" Y="4.067" />
         <Point X="5.625" Y="5.188" />
@@ -65,7 +65,7 @@
       <Property Name="AddressPostal" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CPRBroker.Schemas.AddressCompleteGreenlandType">
+  <Class Name="CprBroker.Schemas.AddressCompleteGreenlandType">
     <Position X="4" Y="8.25" Width="2.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -74,7 +74,7 @@
       <HashCode>gIwEAAAAAMAEgQCAAAAAAkABABgAgSAAwAQEAEIAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CPRBroker.Schemas.AddressAccessType">
+  <Class Name="CprBroker.Schemas.AddressAccessType">
     <Position X="8.75" Y="2.75" Width="2.25" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -83,7 +83,7 @@
       <HashCode>AAQAAAAAAAAEAAAAAAAAAAAAABgAACAAAAAAAAIAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CPRBroker.Schemas.AddressPostalType">
+  <Class Name="CprBroker.Schemas.AddressPostalType">
     <Position X="8.75" Y="4.75" Width="2.25" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -92,7 +92,7 @@
       <HashCode>gIgEAAAAAMAEgUCAAAAAAkABABAAgQAQQAQAAEIAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CPRBroker.Schemas.ForeignAddressStructureType">
+  <Class Name="CprBroker.Schemas.ForeignAddressStructureType">
     <Position X="4" Y="11.75" Width="2.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -101,7 +101,7 @@
       <HashCode>AAAAAAAAAEAAQAAAAgAQggAAAAAIASECAEAAAAAAAAI=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CPRBroker.Schemas.Part.AddressPointType">
+  <Class Name="CprBroker.Schemas.Part.AddressPointType">
     <Position X="4.5" Y="5.75" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />

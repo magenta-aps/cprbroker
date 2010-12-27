@@ -1,8 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LogEntries.aspx.cs" Inherits="CPRService.Pages.LogEntries"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LogEntries.aspx.cs" Inherits="CprBroker.Web.Pages.LogEntries"
     MasterPageFile="~/Pages/Site.Master" Title="Log" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
-    <asp:LinqDataSource ID="logEntriesLinqDataSource" runat="server" ContextTypeName="CPRBroker.DAL.Applications.ApplicationDataContext"
+    <asp:LinqDataSource ID="logEntriesLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.Applications.ApplicationDataContext"
         OrderBy="LogDate desc" TableName="LogEntries" AutoPage="true" 
         onselected="logEntriesLinqDataSource_Selected">
     </asp:LinqDataSource>

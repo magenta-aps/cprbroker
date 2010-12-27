@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Part;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
-namespace CPRBroker.Engine
+namespace CprBroker.Engine
 {
     /// <summary>
     /// This section implements the PART interface methods as of the PART standard

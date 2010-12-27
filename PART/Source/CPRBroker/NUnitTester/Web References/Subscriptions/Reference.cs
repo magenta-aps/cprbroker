@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace NUnitTester.Subscriptions {
+namespace CprBroker.NUnitTester.Subscriptions {
     using System.Diagnostics;
     using System.Web.Services;
     using System.ComponentModel;
@@ -49,7 +49,7 @@ namespace NUnitTester.Subscriptions {
         
         /// <remarks/>
         public Subscriptions() {
-            this.Url = global::NUnitTester.Properties.Settings.Default.NUnitTester_Subscriptions_CPRAdministrationWS;
+            this.Url = global::CprBroker.NUnitTester.Properties.Settings.Default.NUnitTester_Subscriptions_CPRAdministrationWS;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

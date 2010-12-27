@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
-using CPRBroker.Providers.KMD.WS_AN08002;
+using CprBroker.Schemas;
+using CprBroker.Providers.KMD.WS_AN08002;
 
-namespace CPRBroker.Providers.KMD
+namespace CprBroker.Providers.KMD
 {
     public partial class KmdDataProvider
     {
@@ -16,7 +16,7 @@ namespace CPRBroker.Providers.KMD
         /// <returns></returns>
         private EnglishAN08002Response CallAN08002(string cprNumber)
         {
-            WS_AN08002.WS_AN08002 service = new CPRBroker.Providers.KMD.WS_AN08002.WS_AN08002();
+            WS_AN08002.WS_AN08002 service = new CprBroker.Providers.KMD.WS_AN08002.WS_AN08002();
             SetServiceUrl(service, ServiceTypes.AN08002);
             service.userinfoValue = new userinfo();
 
@@ -43,23 +43,23 @@ namespace CPRBroker.Providers.KMD
             personNameAndAddress.AddressIdentifierCode = AddressIdentifierCodeType.Item1;
             //personNameAndAddress.AddressIdentifierCodeSpecified = true;
 
-            Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
-            //address[CPRBroker.Schemas.Util.AddressField.Building] = 
-            address[CPRBroker.Schemas.Util.AddressField.Door] = englishResponse.AddressDoor;
-            address[CPRBroker.Schemas.Util.AddressField.Floor] = englishResponse.AddressFloor;
-            address[CPRBroker.Schemas.Util.AddressField.HouseNumber] = string.Format("{0}{1}", englishResponse.AddressHouseNumber, englishResponse.AddressHouseNumberChar);
-            address[CPRBroker.Schemas.Util.AddressField.PostCode] = englishResponse.EPostNumber;
-            address[CPRBroker.Schemas.Util.AddressField.PostDistrictName] = englishResponse.AddressPost_20;
-            address[CPRBroker.Schemas.Util.AddressField.StreetName] = englishResponse.Route;
-            address[CPRBroker.Schemas.Util.AddressField.StreetCode] = englishResponse.RouteCode;
-            address[CPRBroker.Schemas.Util.AddressField.MunicipalityCode] = englishResponse.MunicipalityCode;
-            address[CPRBroker.Schemas.Util.AddressField.MunicipalityName] = englishResponse.MunicipalityName;
+            Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
+            //address[CprBroker.Schemas.Util.AddressField.Building] = 
+            address[CprBroker.Schemas.Util.AddressField.Door] = englishResponse.AddressDoor;
+            address[CprBroker.Schemas.Util.AddressField.Floor] = englishResponse.AddressFloor;
+            address[CprBroker.Schemas.Util.AddressField.HouseNumber] = string.Format("{0}{1}", englishResponse.AddressHouseNumber, englishResponse.AddressHouseNumberChar);
+            address[CprBroker.Schemas.Util.AddressField.PostCode] = englishResponse.EPostNumber;
+            address[CprBroker.Schemas.Util.AddressField.PostDistrictName] = englishResponse.AddressPost_20;
+            address[CprBroker.Schemas.Util.AddressField.StreetName] = englishResponse.Route;
+            address[CprBroker.Schemas.Util.AddressField.StreetCode] = englishResponse.RouteCode;
+            address[CprBroker.Schemas.Util.AddressField.MunicipalityCode] = englishResponse.MunicipalityCode;
+            address[CprBroker.Schemas.Util.AddressField.MunicipalityName] = englishResponse.MunicipalityName;
 
-            address[CPRBroker.Schemas.Util.AddressField.Line1] = englishResponse.AddressLine_1;
-            address[CPRBroker.Schemas.Util.AddressField.Line2] = englishResponse.AddressLine_2;
-            address[CPRBroker.Schemas.Util.AddressField.Line3] = englishResponse.AddressLine_3;
-            address[CPRBroker.Schemas.Util.AddressField.Line4] = englishResponse.AddressLine_4;
-            address[CPRBroker.Schemas.Util.AddressField.Line5] = englishResponse.AddressLine_5;
+            address[CprBroker.Schemas.Util.AddressField.Line1] = englishResponse.AddressLine_1;
+            address[CprBroker.Schemas.Util.AddressField.Line2] = englishResponse.AddressLine_2;
+            address[CprBroker.Schemas.Util.AddressField.Line3] = englishResponse.AddressLine_3;
+            address[CprBroker.Schemas.Util.AddressField.Line4] = englishResponse.AddressLine_4;
+            address[CprBroker.Schemas.Util.AddressField.Line5] = englishResponse.AddressLine_5;
 
             personNameAndAddress.Item = address.ToOioAddress(PersonCivilRegistrationStatusCodeType.Item01);
 

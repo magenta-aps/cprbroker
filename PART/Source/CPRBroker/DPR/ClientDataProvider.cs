@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Util;
+using CprBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Util;
 using System.Linq.Expressions;
 
-namespace CPRBroker.Providers.DPR
+namespace CprBroker.Providers.DPR
 {
     /// <summary>
     /// Implemenst a DPR data provider that uses TCP to get very basic data and DPR database for more detailed data
@@ -324,7 +324,7 @@ namespace CPRBroker.Providers.DPR
             var foreName = rd.ReadNext(50).Trim();
             ret.SimpleCPRPerson.PersonNameStructure = new PersonNameStructureType(foreName, lastName);
 
-            Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
+            Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
 
             address[AddressField.CareOfName] = rd.ReadNext(34).Trim();
             address[AddressField.StreetName] = rd.ReadNext(40).Trim();
@@ -380,7 +380,7 @@ namespace CPRBroker.Providers.DPR
                     ret.MaritalStatusCode = personInfo.PersonTotal.MaritalStatusCodeType;
 
                     // Nationality
-                    ret.PersonNationalityCode = CPRBroker.DAL.Country.GetCountryAlpha2CodeByDanishName(personInfo.PersonTotal.Nationality);
+                    ret.PersonNationalityCode = CprBroker.DAL.Country.GetCountryAlpha2CodeByDanishName(personInfo.PersonTotal.Nationality);
 
                     // Data from GetCitizenNameAndAddress
 

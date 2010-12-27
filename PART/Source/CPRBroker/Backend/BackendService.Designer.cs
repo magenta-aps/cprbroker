@@ -1,4 +1,4 @@
-﻿namespace Backend
+﻿namespace CprBroker.EventBroker.Backend
 {
     partial class BackendService
     {

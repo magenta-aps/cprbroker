@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CPRBroker.SetupDatabase;
 
-namespace NUnitTester
+namespace CprBroker.NUnitTester
 {
     class TestDatabaseParameterValidation
     {

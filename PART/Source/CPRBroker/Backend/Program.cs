@@ -4,7 +4,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 
-namespace Backend
+namespace CprBroker.EventBroker.Backend
 {
     static class Program
     {

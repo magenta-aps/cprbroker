@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
+using CprBroker.Schemas;
 
-namespace CPRBroker.DAL
+namespace CprBroker.DAL
 {
     public partial class Person
     {

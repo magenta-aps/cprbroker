@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas;
+using CprBroker.Schemas;
 using CprBroker.EventBroker.DAL;
 
 namespace CprBroker.EventBroker
@@ -138,7 +138,7 @@ namespace CprBroker.EventBroker
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                DAL.Subscription subscription = AddSubscription(dataContext, DAL.SubscriptionType.SubscriptionTypes.DataChange, CPRBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
+                DAL.Subscription subscription = AddSubscription(dataContext, DAL.SubscriptionType.SubscriptionTypes.DataChange, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
                 if (subscription != null)
                 {
                     subscription.DataSubscription = new DataSubscription();
@@ -168,7 +168,7 @@ namespace CprBroker.EventBroker
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                DAL.Subscription subscription = AddSubscription(dataContext, DAL.SubscriptionType.SubscriptionTypes.Birthdate, CPRBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
+                DAL.Subscription subscription = AddSubscription(dataContext, DAL.SubscriptionType.SubscriptionTypes.Birthdate, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
                 if (subscription != null)
                 {
                     subscription.BirthdateSubscription = new BirthdateSubscription();
@@ -197,7 +197,7 @@ namespace CprBroker.EventBroker
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public CPRBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken)
+        public CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken)
         {
             return GetActiveSubscriptionsList(userToken, appToken, null);
         }
@@ -209,9 +209,9 @@ namespace CprBroker.EventBroker
         /// <param name="appToken"></param>
         /// <param name="subscriptionId"></param>
         /// <returns></returns>
-        private CPRBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken, Nullable<Guid> subscriptionId)
+        private CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken, Nullable<Guid> subscriptionId)
         {
-            List<CPRBroker.Schemas.SubscriptionType> listType = new List<CPRBroker.Schemas.SubscriptionType>();
+            List<CprBroker.Schemas.SubscriptionType> listType = new List<CprBroker.Schemas.SubscriptionType>();
             using (EventBrokerDataContext context = new EventBrokerDataContext())
             {
                 System.Data.Linq.DataLoadOptions loadOptions = new System.Data.Linq.DataLoadOptions();
@@ -222,7 +222,7 @@ namespace CprBroker.EventBroker
                 System.Linq.Expressions.Expression<Func<IQueryable<Subscription>>> exp =
                     () =>
                     from sub in context.Subscriptions
-                    where sub.ApplicationId == CPRBroker.Engine.BrokerContext.Current.ApplicationId
+                    where sub.ApplicationId == CprBroker.Engine.BrokerContext.Current.ApplicationId
                     select sub;
 
                 // Add filter for subscription id (if required)
@@ -239,7 +239,7 @@ namespace CprBroker.EventBroker
                 // Now create list of OIO subscriptions
                 foreach (var sub in subscriptions)
                 {
-                    CPRBroker.Schemas.SubscriptionType subscriptionType = sub.ToOioSubscription();
+                    CprBroker.Schemas.SubscriptionType subscriptionType = sub.ToOioSubscription();
                     listType.Add(subscriptionType);
                 }
                 return listType.ToArray();
@@ -271,7 +271,7 @@ namespace CprBroker.EventBroker
 
         public Version Version
         {
-            get { return new Version(CPRBroker.Engine.Versioning.Major, CPRBroker.Engine.Versioning.Minor); }
+            get { return new Version(CprBroker.Engine.Versioning.Major, CprBroker.Engine.Versioning.Minor); }
         }
 
         #endregion

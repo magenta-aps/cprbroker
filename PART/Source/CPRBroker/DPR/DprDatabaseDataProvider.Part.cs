@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Schemas;
-using CPRBroker.Schemas.Part;
-using CPRBroker.Schemas.Util;
+using CprBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Util;
 using System.Linq.Expressions;
 
 
-namespace CPRBroker.Providers.DPR
+namespace CprBroker.Providers.DPR
 {
     public partial class DprDatabaseDataProvider : ClientDataProvider, IPartReadDataProvider
     {
@@ -26,9 +26,9 @@ namespace CPRBroker.Providers.DPR
 
         #region IPartReadDataProvider Members
 
-        public CPRBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
+        public CprBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
         {
-            CPRBroker.Schemas.Part.PersonRegistration ret = null;
+            CprBroker.Schemas.Part.PersonRegistration ret = null;
             EnsurePersonDataExists(uuid.CprNumber);
             if (!effectDate.HasValue)
             {
@@ -52,7 +52,7 @@ namespace CPRBroker.Providers.DPR
             return ret;
         }
 
-        public CPRBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
+        public CprBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
         {
             // TODO: Add DPR List implementation after Read implementation is OK
             throw new NotImplementedException();

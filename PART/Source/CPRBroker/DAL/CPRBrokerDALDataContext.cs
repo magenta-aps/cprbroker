@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.DAL
+namespace CprBroker.DAL
 {
     public partial class CPRBrokerDALDataContext
     {
         private static object _Lock = new object();
 
         public CPRBrokerDALDataContext()
-            : base(CPRBroker.Config.Properties.Settings.Default.CPRConnectionString)
+            : base(Config.Properties.Settings.Default.CPRConnectionString)
         {
 
         }

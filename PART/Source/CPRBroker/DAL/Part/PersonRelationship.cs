@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas.Part;
+using CprBroker.Schemas.Part;
 
-namespace CPRBroker.DAL.Part
+namespace CprBroker.DAL.Part
 {
     public partial class PersonRelationship
     {
@@ -19,11 +19,11 @@ namespace CPRBroker.DAL.Part
 
         public Effect<Schemas.Part.PersonRelation> ToXmlType()
         {
-            return new Effect<CPRBroker.Schemas.Part.PersonRelation>()
+            return new Effect<CprBroker.Schemas.Part.PersonRelation>()
             {
                 StartDate = this.StartDate,
                 EndDate = this.EndDate,
-                Value = new CPRBroker.Schemas.Part.PersonRelation()
+                Value = new CprBroker.Schemas.Part.PersonRelation()
                 {
                     TargetUUID = this.RelatedPersonUUID
                 }
@@ -32,7 +32,7 @@ namespace CPRBroker.DAL.Part
 
         public static Schemas.Part.PersonRelations ToXmlType(IQueryable<PersonRelationship> relations)
         {
-            return new CPRBroker.Schemas.Part.PersonRelations()
+            return new CprBroker.Schemas.Part.PersonRelations()
             {
                 Children = FilterRelationsByType(relations, RelationshipTypes.Children),
                 Parents = Array.ConvertAll<Effect<PersonRelation>, PersonRelation>(FilterRelationsByType(relations, RelationshipTypes.Children), (rel) => rel.Value),

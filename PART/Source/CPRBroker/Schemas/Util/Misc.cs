@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CPRBroker.Schemas.Util
+namespace CprBroker.Schemas.Util
 {
     public static class Misc
     {

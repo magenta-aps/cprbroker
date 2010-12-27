@@ -70,14 +70,14 @@ namespace CprBroker.EventBroker.Notifications
                         catch (Exception ex)
                         {
                             string message = string.Format("Failed to enqueue birthdate notifications for {0}", subscription.SubscriptionId);
-                            CPRBroker.Engine.Local.Admin.LogException(ex, message);
+                            CprBroker.Engine.Local.Admin.LogException(ex, message);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                CPRBroker.Engine.Local.Admin.LogException(ex);
+                CprBroker.Engine.Local.Admin.LogException(ex);
             }
         }
 

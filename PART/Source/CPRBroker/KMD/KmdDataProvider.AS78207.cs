@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Engine;
-using CPRBroker.Providers.KMD.WS_AS78207;
-using CPRBroker.Schemas;
+using CprBroker.Engine;
+using CprBroker.Providers.KMD.WS_AS78207;
+using CprBroker.Schemas;
 
-namespace CPRBroker.Providers.KMD
+namespace CprBroker.Providers.KMD
 {
     public partial class KmdDataProvider
     {
@@ -17,7 +17,7 @@ namespace CPRBroker.Providers.KMD
         /// <returns></returns>
         private AS78207Response CallAS78207(string cprNumber)
         {
-            WS_AS78207.WS_AS78207 service = new CPRBroker.Providers.KMD.WS_AS78207.WS_AS78207();
+            WS_AS78207.WS_AS78207 service = new CprBroker.Providers.KMD.WS_AS78207.WS_AS78207();
             SetServiceUrl(service, ServiceTypes.AS78207);
             service.userinfoValue = new userinfo()
             {
@@ -591,34 +591,34 @@ namespace CPRBroker.Providers.KMD
             /// <returns></returns>            
             public Schemas.Part.Address ToPartAddress()
             {
-                Schemas.Util.Address address = new CPRBroker.Schemas.Util.Address();
+                Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
                 var a = this.InnerResponse.OutputRecord;
-                address[CPRBroker.Schemas.Util.AddressField.Building] = this.BuildingNumber;
-                address[CPRBroker.Schemas.Util.AddressField.CareOfName] = this.CareOfName;
-                //address[CPRBroker.Schemas.Util.AddressField.CountryCode] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.CountryName] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.DistrictSubDivisionIdentifier] = "";
-                address[CPRBroker.Schemas.Util.AddressField.Door] = this.DoorNumber;
-                address[CPRBroker.Schemas.Util.AddressField.Floor] = this.Floor;
-                address[CPRBroker.Schemas.Util.AddressField.HouseNumber] = this.HouseNumber;
+                address[CprBroker.Schemas.Util.AddressField.Building] = this.BuildingNumber;
+                address[CprBroker.Schemas.Util.AddressField.CareOfName] = this.CareOfName;
+                //address[CprBroker.Schemas.Util.AddressField.CountryCode] = "";
+                //address[CprBroker.Schemas.Util.AddressField.CountryName] = "";
+                //address[CprBroker.Schemas.Util.AddressField.DistrictSubDivisionIdentifier] = "";
+                address[CprBroker.Schemas.Util.AddressField.Door] = this.DoorNumber;
+                address[CprBroker.Schemas.Util.AddressField.Floor] = this.Floor;
+                address[CprBroker.Schemas.Util.AddressField.HouseNumber] = this.HouseNumber;
                 //TODO: Add house letter to Address fields
 
-                //address[CPRBroker.Schemas.Util.AddressField.Line1] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line2] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line3] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line4] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line5] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.Line6] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.LocationDescription] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.MailDeliverSubLocationIdentifier] = "";
-                address[CPRBroker.Schemas.Util.AddressField.MunicipalityCode] = this.MunicipalityCode;
-                //address[CPRBroker.Schemas.Util.AddressField.MunicipalityName] = "";
-                address[CPRBroker.Schemas.Util.AddressField.PostBox] = "";
-                address[CPRBroker.Schemas.Util.AddressField.PostCode] = this.PostCode;
-                //address[CPRBroker.Schemas.Util.AddressField.PostDistrict] = "";
-                address[CPRBroker.Schemas.Util.AddressField.StreetCode] = this.StreetCode;
-                //address[CPRBroker.Schemas.Util.AddressField.StreetName] = "";
-                //address[CPRBroker.Schemas.Util.AddressField.StreetNameForAddressing] = "";
+                //address[CprBroker.Schemas.Util.AddressField.Line1] = "";
+                //address[CprBroker.Schemas.Util.AddressField.Line2] = "";
+                //address[CprBroker.Schemas.Util.AddressField.Line3] = "";
+                //address[CprBroker.Schemas.Util.AddressField.Line4] = "";
+                //address[CprBroker.Schemas.Util.AddressField.Line5] = "";
+                //address[CprBroker.Schemas.Util.AddressField.Line6] = "";
+                //address[CprBroker.Schemas.Util.AddressField.LocationDescription] = "";
+                //address[CprBroker.Schemas.Util.AddressField.MailDeliverSubLocationIdentifier] = "";
+                address[CprBroker.Schemas.Util.AddressField.MunicipalityCode] = this.MunicipalityCode;
+                //address[CprBroker.Schemas.Util.AddressField.MunicipalityName] = "";
+                address[CprBroker.Schemas.Util.AddressField.PostBox] = "";
+                address[CprBroker.Schemas.Util.AddressField.PostCode] = this.PostCode;
+                //address[CprBroker.Schemas.Util.AddressField.PostDistrict] = "";
+                address[CprBroker.Schemas.Util.AddressField.StreetCode] = this.StreetCode;
+                //address[CprBroker.Schemas.Util.AddressField.StreetName] = "";
+                //address[CprBroker.Schemas.Util.AddressField.StreetNameForAddressing] = "";
 
                 // TODO: validate this Civil Registration Status Code
                 var personCivilRegistrationStatusCodeType = Schemas.Util.Enums.ToCivilRegistrationStatus(KmdDataProvider.GetCivilRegistrationStatus(this.StatusKmd, this.StatusCpr));

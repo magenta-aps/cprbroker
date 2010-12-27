@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CPRBroker.Schemas.Part.Enums;
+using CprBroker.Schemas.Part.Enums;
 
-namespace CPRBroker.Schemas.Part
+namespace CprBroker.Schemas.Part
 {
     public class PersonStates
     {
