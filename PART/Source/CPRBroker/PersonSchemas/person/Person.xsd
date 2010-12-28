@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:oio:sagdok:person:1.0.0"
+	xmlns:tns="urn:oio:sagdok:person:1.0.0" xmlns:person="urn:oio:sagdok:person:1.0.0"
+	xmlns:sd="urn:oio:sagdok:1.0.0" elementFormDefault="qualified"
+	xmlns:gendercode="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/"
+	xmlns:personname="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/"
+	xmlns:birthdate="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/">
+
+	<import namespace="urn:oio:sagdok:1.0.0" schemaLocation="../generic/SagDokObjekt.xsd" />
+	
+	<!-- PersoNameStructure -->
+	<import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/"
+		schemaLocation="http://digitaliser.dk/resource/6962/artefact/ITST_PersonNameStructure.xsd" />
+
+	<!-- PersonGenderCode -->
+	<import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/"
+		schemaLocation="http://digitaliser.dk/resource/6170/artefact/DKCC_PersonGenderCode.xsd" />
+		
+		<!-- PersonBirthDate -->
+		<import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" schemaLocation="http://digitaliser.dk/resource/6676/artefact/CPR_PersonBirthDateStructure.xsd"/>
+
+	<element name="RelationListe" type="person:RelationListeType" />
+	<complexType name="RelationListeType">
+		<sequence>
+			<element name="Moder" type="sd:PersonRelationType" minOccurs="0"
+				maxOccurs="unbounded" />
+			<element name="Fader" type="sd:PersonRelationType" minOccurs="0"
+				maxOccurs="unbounded" />
+			<element name="Boern" type="sd:PersonFlerRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="Aegtefaelle" type="sd:PersonRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="RegistreretPartner" type="sd:PersonRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="Bopaelssamling" type="sd:PersonFlerRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="ForaeldremyndgihdedsIndehaver" type="sd:PersonFlerRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="ForaeldremyndgihdedsBoern" type="sd:PersonFlerRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="RetligHandleevneVaergeForPersonen" type="sd:PersonFlerRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="RetligHandleevneVaergemaalsIndehaver" type="sd:PersonFlerRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="ErstatningFor" type="sd:PersonRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="ErstattesAf" type="sd:PersonFlerRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+
+			<element ref="sd:LokalUdvidelse" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="Egenskaber" type="person:EgenskaberType" />
+	<complexType name="EgenskaberType">
+		<sequence>
+			<element ref="personname:PersonNameStructure" />
+			<element ref="gendercode:PersonGenderCode" />
+			<element ref="birthdate:PersonBirthDateStructure" />
+	<!-- 
+	 <element ref="fodselsregistreringmyndighed" />
+			<element ref="foedested" />	
+	 -->		
+			<element name="AndreAdresser" type="person:AdresseType" />
+			<element name="Kontaktkanal" type="person:KontaktKanalType" />
+			<element name="NaermestePaaroerende" type="person:KontaktKanalType" />
+			<element name="RegisterOplysninger" type="person:RegisterOplysningerType" />
+			<element ref="sd:Virkning" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="RegisterOplysningerType">
+		<choice>
+			<element ref="person:UdenlandskBorger" />
+			<element ref="person:CPRBorger" />
+			<element ref="person:UkendtBorger" />
+		</choice>
+	</complexType>
+
+
+	<element name="AttributListe" type="person:AttributListeType" />
+	<complexType name="AttributListeType">
+		<sequence>
+			<element ref="person:Egenskaber" maxOccurs="unbounded" />
+			<element ref="person:SundhedsOplysninger" maxOccurs="unbounded" />
+			<element ref="sd:LokalUdvidelse" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="TilstandListe" type="person:TilstandListeType" />
+	<complexType name="TilstandListeType">
+		<sequence>
+			<element ref="orgfaelles:Gyldighed" maxOccurs="unbounded" />
+			<element ref="sd:LokalUdvidelse" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="Registrering" type="person:RegistreringType" />
+	<complexType name="RegistreringType">
+		<complexContent>
+			<extension base="sd:RegistreringType">
+				<sequence>
+					<element ref="person:AttributListe" />
+					<element ref="person:TilstandListe" />
+					<element ref="person:RelationListe" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="Person" type="person:PersonType" />
+	<complexType name="PersonType">
+		<complexContent>
+			<extension base="sd:SagDokObjektType">
+				<sequence>
+					<element ref="person:Registrering" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+</schema>

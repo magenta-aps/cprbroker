@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:oio:sagdok:person:1.0.0"
+	xmlns:person="urn:oio:sagdok:person:1.0.0" 
+	elementFormDefault="qualified"
+	xmlns:sd="urn:oio:sagdok:1.0.0">
+	<include schemaLocation="Person.xsd" />
+	
+	<import namespace="urn:oio:sagdok:1.0.0" schemaLocation="../generic/SagDokObjekt.xsd" />
+
+	<!-- OPERATIONS -->
+	<!-- IMPORTer -->
+	<element name="ImportInput" type="person:ImportInputType" />
+	<complexType name="ImportInputType">
+		<complexContent>
+			<extension base="sd:ImportInputType">
+				<sequence>
+					<element ref="person:Person" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="ImportOutput" type="person:RegistreringOutputType" />
+	<complexType name="RegistreringOutputType">
+		<complexContent>
+			<extension base="sd:BasicOutputType">
+				<sequence>
+					<element ref="person:Registrering" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- Passiver -->
+
+	<element name="PassiverInput" type="sd:UuidNoteInputType" />
+	<element name="PassiverOutput" type="person:RegistreringOutputType" />
+
+	<!-- SLET -->
+
+	<element name="SletInput" type="sd:UuidNoteInputType" />
+	<element name="SletOutput" type="person:RegistreringOutputType" />
+
+	<!-- OPRET -->
+	<element name="OpretInput" type="person:OpretInputType" />
+	<complexType name="OpretInputType">
+		<complexContent>
+			<extension base="sd:OpretInputType">
+				<sequence>
+					<element ref="person:AttributListe" minOccurs="0" />
+					<element ref="person:RelationListe" minOccurs="0" />
+					<element ref="person:TilstandListe" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="OpretOutput" type="person:OpretOutputType" />
+	<complexType name="OpretOutputType">
+		<complexContent>
+			<extension base="sd:BasicOutputType">
+				<sequence>
+					<element ref="person:Person" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- RET -->
+	<element name="RetInput" type="person:RetInputType" />
+	<complexType name="RetInputType">
+		<complexContent>
+			<extension base="sd:RetInputType">
+				<sequence>
+					<element ref="person:AttributListe" minOccurs="0" />
+					<element ref="person:RelationListe" minOccurs="0" />
+					<element ref="person:TilstandListe" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="RetOutput" type="person:RegistreringOutputType" />
+
+	<!-- LÆS -->
+	<element name="LaesInput" type="sd:LaesInputType" />
+	<element name="LaesOutput" type="person:LaesOutputType" />
+
+	<complexType name="FiltreretOejebliksBillede">
+		<complexContent>
+			<extension base="sd:LaesFiltreretOutputType">
+				<sequence>
+					<element ref="person:AttributListe" />
+					<element ref="person:TilstandListe" />
+					<element ref="person:RelationListe" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="LaesResultatType">
+		<choice>
+			<element name="Registrering" type="person:RegistreringType" />
+			<element name="FitrereretOejebliksBillede" type="person:FiltreretOejebliksBillede" />
+		</choice>
+	</complexType>
+	<complexType name="LaesOutputType">
+		<complexContent>
+			<extension base="sd:BasicOutputType">
+				<sequence>
+					<element name="LaesResultat" type="person:LaesResultatType"
+						minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- List -->
+	<element name="ListInput" type="sd:ListInputType" />
+	<element name="ListOutput" type="person:ListOutputType" />
+	<complexType name="ListOutputType">
+		<complexContent>
+			<extension base="sd:ListOutputType">
+				<sequence>
+					<element name="LaesResultat" type="person:LaesResultatType"
+						minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- SØG -->
+	<element name="SoegInput" type="person:SoegInputType" />
+	<element name="SoegOutput" type="sd:SoegOutputType" />
+
+	<complexType name="SoegInputType">
+		<complexContent>
+			<extension base="sd:SoegInputType">
+				<sequence>
+					<element name="Soeg" type="person:SoegObjektType" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="SoegObjektType">
+		<complexContent>
+			<extension base="sd:SoegSagDokObjektType">
+				<sequence>
+					<element name="Attributter" type="person:SoegAttributListeType"
+						minOccurs="0" />
+					<element name="Relationer" type="person:SoegRelationListeType"
+						minOccurs="0" />
+					<element name="Tilstande" type="person:SoegTilstandListeType"
+						minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="SoegEgenskabType">
+		<sequence>
+			<element name="NavnTekst" type="string" minOccurs="0" />
+			<element name="Virkning" type="sd:VirkningType" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SoegAttributListeType">
+		<sequence>
+			<element name="SoegEgenskab" type="person:SoegEgenskabType"
+				maxOccurs="unbounded" minOccurs="0" />
+			<element ref="sd:LokalUdvidelse" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SoegRelationListeType">
+		<sequence>
+			<element name="Moder" type="sd:SoegRelationType" minOccurs="0"
+				maxOccurs="unbounded" />
+			<element name="Fader" type=sd:SoegRelationType minOccurs="0"
+				maxOccurs="unbounded" />
+			<element name="Boern" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="Aegtefaelle" type=sd:SoegRelationType
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="RegistreretPartner" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="Bopaelssamling" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="ForaeldremyndgihdedsIndehaver" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="ForaeldremyndgihdedsBoern" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="RetligHandleevneVaergeForPersonen" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="RetligHandleevneVaergemaalsIndehaver" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="ErstatningFor" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<element name="ErstattesAf" type="sd:SoegRelationType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SoegTilstandListeType">
+		<sequence>
+			<element ref="orgfaelles:Gyldighed" maxOccurs="unbounded" minOccurs="0" />
+			<element ref="sd:LokalUdvidelse" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+</schema>

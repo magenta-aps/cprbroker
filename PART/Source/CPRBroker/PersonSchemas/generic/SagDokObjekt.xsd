@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:oio:sagdok:1.0.0"
+	xmlns:sd="urn:oio:sagdok:1.0.0" elementFormDefault="qualified"
+	xmlns:dkal="urn:oio:dkal:1.0.0"
+	xmlns:kommentar="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/">
+
+	<import namespace="urn:oio:dkal:1.0.0"
+		schemaLocation="http://digitaliser.dk/resource/451542/artefact/UUID.xsd" />
+	<import namespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/"
+		schemaLocation="http://digitaliser.dk/resource/2330/artefact/VEJSEKTOREN_CommentText.xsd" />
+
+	<element name="ReferenceIDTekst" type="string" />
+
+	<!-- RELATIONS TYPER -->
+	<complexType name="RelationType">
+		<sequence>
+			<element name="Virkning" type="sd:VirkningType" />
+			<element ref="sd:ReferenceIDTekst" />
+			<element ref="kommentar:CommentText" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="FlerRelationType">
+		<sequence>
+			<element name="Virkning" type="sd:VirkningType" />
+			<element ref="sd:ReferenceIDTekst" />
+			<element ref="kommentar:CommentText" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="KlasseRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+
+		<complexType name="FacetRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+	
+	<complexType name="OrganisationRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="VirksomhedRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+
+
+	<complexType name="AdresseFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="BrugerFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="AktoerFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="PartFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="ArkivRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="ArkivFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="AktoerRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="SagRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="SagFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="DokumentRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="DokumentFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="MyndighedFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="KlasseFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="KlassifikationRelationType">
+		<complexContent>
+			<extension base="sd:RelationType" />
+		</complexContent>
+	</complexType>
+
+
+	<complexType name="OrganisationFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="OrganisationEnhedRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="OrganisationEnhedFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="OrganisationFunktionFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="InteressefaellesskabFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="PersonFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="ItSystemFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<!-- Operationer Basis Typer & Elementer -->
+	<element name="NoteTekst" type="string" />
+
+	<element name="StandardRetur" type="sd:StandardReturType" />
+	<complexType name="StandardReturType">
+		<sequence>
+			<element name="StatuskodeKode" type="integer" />
+			<element name="FejlbeskedTekst" type="string" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+
+	<!-- OUTPUT TYPE - only one basic -->
+	<complexType name="BasicOutputType">
+		<sequence>
+			<element ref="sd:StandardRetur" />
+		</sequence>
+	</complexType>
+
+	<!-- Extend these structure in XXOperation with correct input argument variants -->
+	<!-- IMPORT -->
+	<complexType name="ImportInputType" abstract="true">
+		<sequence>
+			<element ref="sd:NoteTekst" minOccurs="0" />
+			<!-- @Fuse XXImport with Registrering -->
+		</sequence>
+	</complexType>
+
+
+	<!-- PASSIVER -->
+	<complexType name="UuidNoteInputType">
+		<sequence>
+			<element ref="dkal:UUID" />
+			<element ref="sd:NoteTekst" />
+		</sequence>
+	</complexType>
+
+	<!-- SLET -->
+	<!-- XXSletInput bruger UuuidNoteType -->
+	<!-- XXSletOutput bruger BasicOutputType -->
+
+	<!-- RET -->
+	<complexType name="OpretInputType" abstract="true">
+		<sequence>
+			<element ref="sd:BrugervendtNoegleTekst" />
+			<element ref="sd:NoteTekst" minOccurs="0" />
+			<element ref="sd:Virkning" minOccurs="0" />
+			<!-- @Fuse XXRet with Attributter, Relationer, Tilstande -->
+		</sequence>
+	</complexType>
+
+	<!-- XXOpretOutput FUSE BasicOutputType with XX -->
+
+	<!-- RET -->
+	<complexType name="RetInputType" abstract="true">
+		<sequence>
+			<element ref="dkal:UUID" />
+			<element ref="sd:NoteTekst" minOccurs="0" />
+			<element ref="sd:Virkning" minOccurs="0" />
+			<!-- @Fuse Extend i XXRetInputType m Relationer, Attibuter, Tilstande -->
+		</sequence>
+	</complexType>
+	<!-- XXRetOutput bruger BasicOutputType -->
+
+	<!-- LÆS -->
+	<complexType name="LaesInputType">
+		<sequence>
+			<element ref="dkal:UUID" />
+			<element name="VirkningFraFilter" type="sd:TidspunktType"
+				minOccurs="0" />
+			<element name="VirkningTilFilter" type="sd:TidspunktType"
+				minOccurs="0" />
+			<element name="RegistreringFraFilter" type="sd:TidspunktType"
+				minOccurs="0" />
+			<element name="RegistreringTilFilter" type="sd:TidspunktType"
+				minOccurs="0" />
+		</sequence>
+	</complexType>
+
+
+	<complexType name="LaesFiltreretOutputType" abstract="true">
+		<complexContent>
+			<extension base="sd:SagDokObjektType">
+				<!-- @Fuse from XX Attributter, Relationer, Tilstande -->
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- LISTE -->
+
+	<complexType name="ListInputType">
+		<sequence>
+			<element ref="dkal:UUID" maxOccurs="unbounded" />
+			<element name="VirkningFraFilter" type="sd:TidspunktType"
+				minOccurs="0" />
+			<element name="VirkningTilFilter" type="sd:TidspunktType"
+				minOccurs="0" />
+			<element name="RegistreringFraFilter" type="sd:TidspunktType"
+				minOccurs="0" />
+			<element name="RegistreringTilFilter" type="sd:TidspunktType"
+				minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ListOutputType" abstract="true">
+		<sequence>
+			<element ref="sd:StandardRetur" />
+			<!-- @Fuse XXLæsResultat as unbounded sequence -->
+		</sequence>
+	</complexType>
+
+	<!-- SØG -->
+	<complexType name="SoegInputType" abstract="true">
+		<sequence>
+			<element name="FoersteResultat" type="integer" minOccurs="0" />
+			<element name="MaksimalAntalResultater" type="integer"
+				minOccurs="0" />
+			<!-- @Fuse with XXSoegInput from implementing objects -->
+		</sequence>
+	</complexType>
+
+	<complexType name="IdListeType">
+		<sequence>
+			<element ref="dkal:UUID" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SoegRegistreringType">
+		<sequence>
+			<element name="TidspunktDatoTid" type="sd:TidspunktType"
+				minOccurs="0" />
+			<element name="LivscyklusKode" type="sd:LivscyklusKodeType"
+				minOccurs="0" />
+			<element ref="sd:AktoerTekst" minOccurs="0" />
+			<element ref="kommentar:CommentText" minOccurs="0" />
+			<!-- @Fuse with Attributte, Tilstande, Relationer from implementing objects -->
+		</sequence>
+	</complexType>
+
+	<complexType name="SoegVirkningType">
+		<sequence>
+			<element ref="sd:FraTidspunkt" minOccurs="0" />
+			<element ref="sd:TilTidspunkt" minOccurs="0" />
+			<element ref="sd:AktoerTekst" minOccurs="0" />
+			<element ref="kommentar:CommentText" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SoegRelationType">
+		<sequence>
+			<element name="Virkning" type="sd:SoegVirkningType"
+				minOccurs="0" />
+			<element ref="sd:ReferenceIDTekst" minOccurs="0" />
+			<element ref="kommentar:CommentText" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SoegSagDokObjektType" abstract="true">
+		<sequence>
+			<element ref="dkal:UUID" minOccurs="0" />
+			<element ref="sd:BrugervendtNoegleTekst" minOccurs="0" />
+			<element name="Registrering" type="sd:SoegRegistreringType"
+				minOccurs="0" />
+			<element name="Virkning" type="sd:SoegVirkningType"
+				minOccurs="0" />
+			<!-- @Fuse with XXRegistreringSoeg from implementing objects -->
+		</sequence>
+	</complexType>
+
+
+	<complexType name="SoegOutputType">
+		<sequence>
+			<element ref="sd:StandardRetur" />
+			<element name="IdListe" type="sd:IdListeType" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+
+	<!-- Typer som hører til Generisk Objekt, Virkning og Registrering -->
+
+
+	<complexType name="TidspunktType">
+		<choice>
+			<element name="Tidsstempel" type="dateTime" />
+			<element name="GraenseIndikator" type="boolean" />
+		</choice>
+	</complexType>
+
+	<simpleType name="LivscyklusKodeType">
+		<restriction base="integer">
+			<enumeration value="1" />   <!-- Opstået -->
+			<enumeration value="2" />   <!-- Importeret -->
+			<enumeration value="3" />   <!-- Passiveret -->
+			<enumeration value="4" />   <!-- Slettet -->
+			<enumeration value="5" />   <!-- Rettet -->
+		</restriction>
+	</simpleType>
+
+	<element name="FraTidspunkt" type="sd:TidspunktType" />
+	<element name="TilTidspunkt" type="sd:TidspunktType" />
+	<element name="AktoerTekst" type="string" />
+
+	<element name="Virkning" type="sd:VirkningType" />
+	<complexType name="VirkningType">
+		<sequence>
+			<element ref="sd:FraTidspunkt" minOccurs="0" />
+			<element ref="sd:TilTidspunkt" minOccurs="0" />
+			<element ref="sd:AktoerTekst" />
+			<element ref="kommentar:CommentText" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="TilstandVirkning" type="sd:TilstandVirkningType" />
+	<complexType name="TilstandVirkningType">
+		<sequence>
+			<element ref="sd:FraTidspunkt" minOccurs="0" />
+			<element ref="sd:AktoerTekst" />
+			<element ref="kommentar:CommentText" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="LokalUdvidelse" type="sd:LokalUdvidelseType" />
+	<complexType name="LokalUdvidelseType">
+		<sequence>
+			<any processContents="strict" namespace="##other" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+
+	<!--Denne struktur forbliver ens for alle nedarvede typer. Det som ændrer 
+		sig er Attitbuter, Tilstande og Relationer, som bliver injected fra subtyperne -->
+	<element name="Registrering" type="sd:RegistreringType" />
+	<complexType name="RegistreringType">
+		<sequence>
+			<element name="TidspunktDatoTid" type="sd:TidspunktType" />
+			<element name="LivscyklusKode" type="sd:LivscyklusKodeType" />
+			<element ref="sd:AktoerTekst" minOccurs="0" />
+			<element ref="kommentar:CommentText" minOccurs="0" />
+			<element ref="sd:Virkning" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+
+	<element name="BrugervendtNoegleTekst" type="string" />
+	<complexType name="SagDokObjektType" abstract="true">
+		<sequence>
+			<element ref="dkal:UUID" />
+			<element ref="sd:BrugervendtNoegleTekst" />
+		</sequence>
+	</complexType>
+</schema>
