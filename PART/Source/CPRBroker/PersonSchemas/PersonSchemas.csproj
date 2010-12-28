@@ -6,12 +6,14 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{63C643D5-D975-4A69-9D59-02B253BDFDE8}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PersonSchemas</RootNamespace>
     <AssemblyName>PersonSchemas</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,20 +47,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="person\PersonOperationer.designer.cs">
+      <DependentUpon>PersonOperationer.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="generic\SagDokObjekt.xsd" />
-    <None Include="Other\CPR_BirthDateUncertaintyIndicator.xsd" />
-    <None Include="Other\CPR_PersonBirthDateStructure.xsd" />
-    <None Include="Other\DKCC_BirthDate.xsd" />
-    <None Include="Other\DKCC_PersonGenderCode.xsd" />
-    <None Include="Other\DKCC_PersonGivenName.xsd" />
-    <None Include="Other\DKCC_PersonMiddleName.xsd" />
-    <None Include="Other\DKCC_PersonSurnameName.xsd" />
-    <None Include="Other\ITST_PersonNameStructure.xsd" />
-    <None Include="person\Person.xsd" />
-    <None Include="person\PersonOperationer.xsd" />
+    <None Include="Classes.cd" />
+    <None Include="Other\CPR_BirthDateUncertaintyIndicator.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="Other\CPR_PersonBirthDateStructure.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="Other\DKCC_BirthDate.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="Other\DKCC_PersonGenderCode.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="Other\DKCC_PersonGivenName.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="Other\DKCC_PersonMiddleName.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="Other\DKCC_PersonSurnameName.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="Other\ITST_PersonNameStructure.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="person\Person.xsd">
+      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
+    </None>
+    <None Include="person\PersonOperationer.xsd">
+      <LastGenOutput>PersonOperationer.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="generic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
