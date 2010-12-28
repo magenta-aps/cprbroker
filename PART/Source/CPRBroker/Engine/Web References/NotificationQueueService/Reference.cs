@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace CPRBroker.Engine.NotificationQueueService {
+namespace CprBroker.Engine.NotificationQueueService {
     using System.Diagnostics;
     using System.Web.Services;
     using System.ComponentModel;
