@@ -55,7 +55,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Classes.cd" />
+    <None Include="Operations.cd" />
+    <None Include="OtherOperations.cd" />
     <None Include="Other\CPR_BirthDateUncertaintyIndicator.xsd">
       <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
     </None>
@@ -86,6 +87,8 @@
     <None Include="person\PersonOperationer.xsd">
       <LastGenOutput>PersonOperationer.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Search.cd" />
+    <None Include="Static.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="generic\" />

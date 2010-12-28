@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CprBroker.PersonSchemas.RelationListeType">
+    <Position X="8.25" Y="8" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAwACAgCQgAAAgAAABIRAEAAAJCAAAEgAABEAAACIAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.VirkningType">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAAAAABABAAAAAAAAAAAAACAAAAAQAAAAAAAIQAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.LokalUdvidelseType">
+    <Position X="11" Y="12.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.EgenskaberType">
+    <Position X="11.5" Y="6.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="PersonNameStructure" Type="CprBroker.PersonSchemas.PersonNameStructureType" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.437" Y="7.284" />
+        <Point X="12.437" Y="8.062" />
+        <Point X="15.5" Y="8.062" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="RegisterOplysninger" Type="CprBroker.PersonSchemas.RegisterOplysningerType" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.187" Y="7.284" />
+        <Point X="12.187" Y="9.599" />
+        <Point X="15.5" Y="9.599" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEgAAAAAAAQwAAAAEIAACACAAACAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PersonNameStructure" />
+      <Property Name="PersonGenderCode" />
+      <Property Name="PersonBirthDateStructure" />
+      <Property Name="RegisterOplysninger" />
+      <Property Name="Virkning" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.PersonNameStructureType">
+    <Position X="15.5" Y="7.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgIAAAAAACAAAAAAEQAAAAAAAAAAIAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.PersonBirthDateStructureType">
+    <Position X="15.5" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAgAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.RegisterOplysningerType">
+    <Position X="15.5" Y="9" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.AttributListeType">
+    <Position X="8.5" Y="6.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAIAQAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Egenskaber" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.TilstandListeType">
+    <Position X="8.25" Y="11.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="LokalUdvidelse" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.RegistreringType1">
+    <Position X="5.75" Y="6.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAABAAAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AttributListe" />
+      <Property Name="TilstandListe" />
+      <Property Name="RelationListe" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.RegistreringType">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAAAAABABAAAgAgAAAAAAAAAAAAAAAAAAEAACgAACAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Virkning" />
+      <Property Name="LivscyklusKode" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.PersonType">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Registrering" Type="CprBroker.PersonSchemas.RegistreringType1" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="5.319" />
+        <Point X="3.5" Y="6.969" />
+        <Point X="5.75" Y="6.969" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Registrering" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SagDokObjektType">
+    <Position X="1.75" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAQAAAAAAAAgAAAAAAAAAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.LaesFiltreretOutputType">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.FiltreretOejebliksBillede">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAABAAAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.PersonRelationType">
+    <Position X="1" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.RelationType">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>MAAAAAAABAAAgAAAAAAAAAAAAAAAAAAAAAAACEAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.AktoerRelationType">
+    <Position X="3.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="CprBroker.PersonSchemas.PersonGenderCodeType">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CprBroker.PersonSchemas.LivscyklusKodeType">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAIBAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

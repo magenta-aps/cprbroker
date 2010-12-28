@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CprBroker.PersonSchemas.SoegEgenskabType" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIgAAAAAAAAAAAQAAAAAAAAAAACAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegRelationType" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAABAAAgAAAAAAAAAAAAAAAAAAAAAAACEAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegVirkningType" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAABABAAAAAAAAAAAAACAAAAAQAAAAAAAIQAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegTilstandListeType" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegRegistreringType" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAABABAAAAAgAAAAQAAAAAAAAAAAAAEAAggAACAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegOutputType" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAIAAAAAAAAAAAAAAAAAgEAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegAttributListeType" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAgAAAAIAAAEAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegRelationListeType" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwACAgCQgAAAgAAABIRAEAAABCAAAEgAABEAAACIAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegInputType1">
+    <Position X="0.75" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Soeg" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegObjektType">
+    <Position X="3" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAACQAACBAAAAAABAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegSagDokObjektType">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAgAAAGAAAAQAAAAAAAAgAAAAACAAAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.PersonSchemas.SoegInputType">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgAEAAAACAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
