@@ -14,26 +14,26 @@ namespace CprBroker.Engine
     {
         public static class Part
         {
-            public static PersonRegistration Read(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel)
+            public static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel)
             {
-                return Read(userToken, appToken, uuid, effectDate, out qualityLevel, LocalDataProviderUsageOption.UseFirst);
+                return Read(userToken, appToken, input, out qualityLevel, LocalDataProviderUsageOption.UseFirst);
             }
 
-            public static PersonRegistration RefreshRead(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel)
+            public static LaesOutputType RefreshRead(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel)
             {
-                return Read(userToken, appToken, uuid, effectDate, out qualityLevel, LocalDataProviderUsageOption.Forbidden);
+                return Read(userToken, appToken, input, out qualityLevel, LocalDataProviderUsageOption.Forbidden);
             }
 
-            private static PersonRegistration Read(string userToken, string appToken, Guid uuid, DateTime? effectDate, out QualityLevel? qualityLevel, LocalDataProviderUsageOption localAction)
+            private static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel, LocalDataProviderUsageOption localAction)
             {
                 QualityLevel? ql = null;
                 PersonIdentifier pId = null;
 
-                FacadeMethodInfo<PersonRegistration> facadeMethodInfo = new FacadeMethodInfo<PersonRegistration>(appToken, userToken, true)
+                FacadeMethodInfo<LaesOutputType> facadeMethodInfo = new FacadeMethodInfo<LaesOutputType>(appToken, userToken, true)
                 {
                     InitializationMethod = () =>
                     {
-                        pId = DAL.Part.PersonMapping.GetPersonIdentifier(uuid);
+                        pId = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(input.UUID));
                         if (pId == null)
                         {
                             throw new Exception(TextMessages.UuidNotFound);
@@ -42,20 +42,37 @@ namespace CprBroker.Engine
 
                     SubMethodInfos = new SubMethodInfo[] 
                     {
-                        new SubMethodInfo<IPartReadDataProvider,PersonRegistration>()
+                        new SubMethodInfo<IPartReadDataProvider,RegistreringType1>()
                         {
                             LocalDataProviderOption= localAction,
                             FailIfNoDataProvider = true,
                             FailOnDefaultOutput=true,
-                            Method = (prov)=>prov.Read(pId,effectDate,out ql),
-                            UpdateMethod = (personRegistration)=> Local.UpdateDatabase.UpdatePersonRegistration(uuid, personRegistration)
+                            Method = (prov)=>prov.Read(pId,input,out ql),
+                            //TODO: Uncomment this
+                            UpdateMethod = null //(personRegistration)=> Local.UpdateDatabase.UpdatePersonRegistration(new Guid(input.UUID), personRegistration)
                         }
                     },
 
-                    AggregationMethod = (subresults) => subresults[0] as PersonRegistration
+                    AggregationMethod = (subresults) =>
+                    {
+                        LaesOutputType o = new LaesOutputType()
+                        {
+                            LaesResultat = new LaesResultatType()
+                            {
+                                Item = subresults[0] as LaesOutputType
+                            },
+                            //TODO: Fill this StandardRetur object
+                            StandardRetur = new StandardReturType()
+                            {
+                                FejlbeskedTekst = "",
+                                StatuskodeKode = ""
+                            }
+                        };
+                        return o;
+                    }
                 };
 
-                var ret = GetMethodOutput<PersonRegistration>(facadeMethodInfo);
+                var ret = GetMethodOutput<LaesOutputType>(facadeMethodInfo);
                 qualityLevel = ql;
                 return ret;
             }

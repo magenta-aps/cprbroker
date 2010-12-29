@@ -34,22 +34,18 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
-        [SoapHeader(EffectDateHeaderName)]
-        [SoapHeader(RegistrationDateHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Read, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.Read)]
-        public PersonRegistration Read(Guid personUUID)
+        public LaesOutputType Read(LaesInputType input)
         {
-            return Manager.Part.Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUUID, effectDateHeader.EffectDate, out qualityHeader.QualityLevel);
+            return Manager.Part.Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
-        [SoapHeader(EffectDateHeaderName)]
-        [SoapHeader(RegistrationDateHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.RefreshRead, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.RefreshRead)]
-        public PersonRegistration RefreshRead(Guid personUUID)
+        public LaesOutputType RefreshRead(LaesInputType input)
         {
-            return Manager.Part.RefreshRead(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUUID, effectDateHeader.EffectDate, out qualityHeader.QualityLevel);
+            return Manager.Part.RefreshRead(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]

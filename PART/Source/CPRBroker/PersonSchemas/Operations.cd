@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="CprBroker.PersonSchemas.BasicOutputType">
+  <Class Name="CprBroker.Schemas.Part.TidspunktType">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.BasicOutputType">
     <Position X="2.75" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -12,7 +21,7 @@
       <Property Name="StandardRetur" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.StandardReturType">
+  <Class Name="CprBroker.Schemas.Part.StandardReturType">
     <Position X="6" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -21,10 +30,11 @@
       <HashCode>AAAAAKAAAAAAAAAAAgAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.LaesOutputType">
+  <Class Name="CprBroker.Schemas.Part.LaesOutputType">
     <Position X="2.75" Y="2.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -33,19 +43,42 @@
       <Property Name="LaesResultat" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.ListOutputType1">
+  <Class Name="CprBroker.Schemas.Part.LaesResultatType">
+    <Position X="6.5" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.LaesInputType">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAgEAQAAAEAAAAAAAEAAAAAgAAAQAAIEAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.ListInputType">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAgEAQAAAEAAAAAAAEAAAAAgAAAQAAIEAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.ListOutputType1">
     <Position X="2.75" Y="6.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="CprBroker.PersonSchemas.ListOutputType" FixedToPoint="true">
-      <Path>
-        <Point X="3.5" Y="5.916" />
-        <Point X="3.5" Y="6.75" />
-      </Path>
-    </InheritanceLine>
-    <AssociationLine Name="LaesResultat" Type="CprBroker.PersonSchemas.LaesResultatType" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="LaesResultat" Type="CprBroker.Schemas.Part.LaesResultatType" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="4.25" Y="7.375" />
         <Point X="4.625" Y="7.375" />
@@ -60,7 +93,7 @@
       <Property Name="LaesResultat" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.ListOutputType">
+  <Class Name="CprBroker.Schemas.Part.ListOutputType">
     <Position X="2.75" Y="4.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -70,42 +103,60 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.LaesResultatType">
-    <Position X="6.5" Y="4.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CprBroker.PersonSchemas.LaesInputType">
-    <Position X="0.5" Y="2.5" Width="1.5" />
+  <Class Name="CprBroker.Schemas.Part.RegistreringType1">
+    <Position X="9.75" Y="3.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAgEAQAAAEAAAAAAAEAAAAAgAAAQAAIEAAAA=</HashCode>
+      <HashCode>AAQAAAAAAIAAAABAAAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.ListInputType">
-    <Position X="0.5" Y="6.75" Width="1.5" />
+  <Class Name="CprBroker.Schemas.Part.FiltreretOejebliksBillede">
+    <Position X="9.75" Y="6" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAABAAAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.LaesFiltreretOutputType">
+    <Position X="12.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.SagDokObjektType">
+    <Position X="14.5" Y="6" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAQAAAAAAAAgAAAAAAAAAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.RegistreringType">
+    <Position X="12.25" Y="3.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAgEAQAAAEAAAAAAAEAAAAAgAAAQAAIEAAAA=</HashCode>
+      <HashCode>EAAAAABABAAAgAgAAAAAAAAAAAAAAAAAAEAACgAACAA=</HashCode>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Virkning" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.TidspunktType">
-    <Position X="0.5" Y="5" Width="1.5" />
+  <Class Name="CprBroker.Schemas.Part.VirkningType">
+    <Position X="15.75" Y="3.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>EAAAAABABAAAAAAAAAAAAACAAAAAQAAAAAAAIQAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Font Name="Tahoma" Size="8.25" />

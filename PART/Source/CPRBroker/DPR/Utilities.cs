@@ -84,6 +84,7 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        //TODO: Remove this method
         public static Gender GenderFromChar(char? gen)
         {
             switch (gen)
@@ -96,6 +97,22 @@ namespace CprBroker.Providers.DPR
                     break;
                 default:
                     return Gender.Unknown;
+                    break;
+            }
+        }
+
+        public static Schemas.Part.PersonGenderCodeType PersonGenderCodeTypeFromChar(char? gen)
+        {
+            switch (gen)
+            {
+                case 'M':
+                    return Schemas.Part.PersonGenderCodeType.male;
+                    break;
+                case 'K':
+                    return Schemas.Part.PersonGenderCodeType.female;
+                    break;
+                default:
+                    return Schemas.Part.PersonGenderCodeType.unspecified;
                     break;
             }
         }

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using System.Xml;
 
 namespace CprBroker.Providers.DPR
 {
@@ -191,6 +192,124 @@ namespace CprBroker.Providers.DPR
             */
             return ret;
         }
+
+        internal RegistreringType1 ToRegisteringType1(DateTime? effectTime, DPRDataContext dataContext)
+        {
+            var civilRegistrationStatus = Schemas.Util.Enums.ToCivilRegistrationStatus(PersonTotal.Status);
+            var effectTimeDecimal = Utilities.DecimalFromDate(effectTime);
+            PersonNameStructureType tempPersonName = new PersonNameStructureType(PersonName.FirstName, PersonName.LastName);
+            var civilStates = (from civilStatus in dataContext.CivilStatus
+                               where civilStatus.PNR == PersonTotal.PNR && civilStatus.MaritalStatusDate <= effectTimeDecimal.Value
+                               orderby civilStatus.MaritalStatusDate
+                               select civilStatus).ToArray();
+
+            RegistreringType1 ret = new RegistreringType1()
+            {
+                AttributListe = new AttributListeType()
+                {
+                    Egenskaber = new List<EgenskaberType>(
+                        new EgenskaberType[] 
+                        {
+                            new EgenskaberType()
+                            {
+                                PersonBirthDateStructure = new CprBroker.Schemas.Part.PersonBirthDateStructureType()
+                                {
+                                    BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,
+                                    //TODO: Fix this value
+                                    BirthDateUncertaintyIndicator = false
+                                },
+                                PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar( PersonTotal.Sex),
+                                PersonNameStructure = tempPersonName,
+                                RegisterOplysninger = new RegisterOplysningerType()
+                                {
+                                    // TODO: Fill this with UdenlandskBorger or CPRBorger or UkendtBorger
+                                    Item = null,
+                                },
+                                Virkning = new VirkningType()
+                                {
+                                    AktoerTekst =null,
+                                    CommentText=null,
+                                    FraTidspunkt = new TidspunktType()
+                                    {
+                                        //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
+                                        Item = null                                        
+                                    },
+                                    TilTidspunkt = new TidspunktType()
+                                    {
+                                        //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
+                                        Item=null
+                                    }
+                                }
+                            }
+                        }
+                        ),
+                    LokalUdvidelse = new LokalUdvidelseType()
+                    {
+                        Any = new List<XmlElement>()
+                    }
+                },
+                // TODO: Add actor text
+                AktoerTekst = null,
+                //TODO: Add comment text
+                CommentText = null,
+                //TODO: Is this the correct status?
+                LivscyklusKode = LivscyklusKodeType.Item5,
+                RelationListe = new RelationListeType()
+                {
+
+                },
+                TidspunktDatoTid = new TidspunktType()
+                {
+                    //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
+                    Item = null,
+                },
+                TilstandListe = new TilstandListeType()
+                {
+                    //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
+                    LokalUdvidelse = new LokalUdvidelseType()
+                    {
+                        Any = new List<XmlElement>()
+                    }
+                },
+                //TODO: Pass parameters to this method
+                Virkning = VirkningType.Create()
+            };
+
+            // TODO: Call the correct mapping method
+            Func<decimal, Guid> cpr2uuidFunc = (cprs) => Guid.NewGuid();
+
+            // Now fill the relations
+            ret.RelationListe.Fader = new List<PersonRelationType>(new PersonRelationType[]
+            {
+                //TODO: better differentiation between father and mother
+                PersonRelationType.Create(cpr2uuidFunc( Child.PersonFatherExpression.Compile()(PersonTotal.PNR, dataContext).First().ParentPNR) )                
+            });
+
+            ret.RelationListe.Moder = new List<PersonRelationType>(new PersonRelationType[]
+            {
+                //TODO: better differentiation between father and mother
+                PersonRelationType.Create(cpr2uuidFunc( Child.PersonFatherExpression.Compile()(PersonTotal.PNR, dataContext).Last().ParentPNR) )                
+            });
+
+            ret.RelationListe.Boern = PersonFlerRelationType.CreateList(
+                Array.ConvertAll<PersonTotal, Guid>(
+                    Child.PersonChildrenExpression.Compile()(effectTimeDecimal.Value, PersonTotal.PNR, dataContext).ToArray(),
+                //TODO: Add start date to these relations
+                    (pt) => cpr2uuidFunc(pt.PNR)
+                ));
+
+
+            //TODO: Add MaritalStatusDate and MaritalEndDate to parameters
+            ret.RelationListe.Aegtefaelle = PersonRelationType.CreateList(
+                Array.ConvertAll<CivilStatus,Guid>(
+                    civilStates,
+                    (civ)=>cpr2uuidFunc(civ.SpousePNR.Value)
+                ));
+            
+            // TODO: Add custody relations
+            return ret;
+        }
+
 
     }
 }

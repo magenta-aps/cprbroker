@@ -81,6 +81,10 @@
       <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PersonSchemas\PersonSchemas.csproj">
+      <Project>{63C643D5-D975-4A69-9D59-02B253BDFDE8}</Project>
+      <Name>PersonSchemas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Schemas\Schemas.csproj">
       <Project>{5B4A9C51-D19A-4F4D-B8D8-FC9B26AA7EF5}</Project>
       <Name>Schemas</Name>

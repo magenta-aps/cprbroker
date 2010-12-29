@@ -26,10 +26,13 @@ namespace CprBroker.Providers.DPR
 
         #region IPartReadDataProvider Members
 
-        public CprBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
+        public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, out QualityLevel? ql)
         {
-            CprBroker.Schemas.Part.PersonRegistration ret = null;
+            CprBroker.Schemas.Part.RegistreringType1 ret = null;
             EnsurePersonDataExists(uuid.CprNumber);
+
+            //TODO: Get values from input
+            DateTime? effectDate = null;
             if (!effectDate.HasValue)
             {
                 effectDate = DateTime.Today;
@@ -44,8 +47,8 @@ namespace CprBroker.Providers.DPR
                 ).FirstOrDefault();
                 if (db != null)
                 {
-                    ret = db.ToPersonRegistration(effectDate, dataContext);
-                    ret.ActorId = ActorId;
+                    ret = db.ToRegisteringType1(effectDate, dataContext);
+                    //ret.ActorId = ActorId;
                 }
             }
             ql = QualityLevel.DataProvider;
