@@ -127,7 +127,7 @@ namespace CprBroker.Providers.DPR
         /// </summary>
         /// <param name="personInfos"></param>
         /// <returns></returns>
-        public static System.Collections.Generic.ICollection<PersonInfo2> Populate(IQueryable<PersonInfo> personInfos)
+        public static System.Collections.Generic.ICollection<PersonInfo2> Populate(ICollection<PersonInfo> personInfos, DateTime? effectFromDate, DateTime? effectToDate)
         {
             var ret = new List<PersonInfo2>();
 
@@ -166,22 +166,29 @@ namespace CprBroker.Providers.DPR
 
 
                 dates = dates
-                    .Where((d) => d.HasValue)
+                    .Where(
+                        (d) =>
+                            d.HasValue
+                            && (!effectFromDate.HasValue || d >= effectFromDate.Value)
+                            && (!effectToDate.HasValue || d <= effectToDate.Value)
+                        )
                     .Distinct()
                     .ToList();
 
                 ret.AddRange((from pi in personInfoAsQueryable
                               from d in dates.AsQueryable()
+                              orderby d descending
                               select new PersonInfo2()
                               {
+                                  //TODO : Filter these records by dates
                                   CivilStates = pi.CivilStates,
-                                  ContactAddress=pi.ContactAddress,
+                                  ContactAddress = pi.ContactAddress,
                                   HasProtection = pi.HasProtection,
-                                  PersonName=pi.PersonName,
-                                  PersonTotal=pi.PersonTotal,
-                                  Street=pi.Street,
+                                  PersonName = pi.PersonName,
+                                  PersonTotal = pi.PersonTotal,
+                                  Street = pi.Street,
                                   RegistrationDate = d.Value
-                              }
+                              }                              
                           ));
             }
             return ret;

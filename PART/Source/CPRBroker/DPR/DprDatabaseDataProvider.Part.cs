@@ -45,10 +45,13 @@ namespace CprBroker.Providers.DPR
                     from personInfo in PersonInfo.PersonInfoExpression.Compile()(effectDate.Value, dataContext)
                     where personInfo.PersonName.PNR == Decimal.Parse(uuid.CprNumber)
                     select personInfo
-                ).FirstOrDefault();
-                if (db != null)
+                ).ToList();
+
+                var populated = PersonInfo2.Populate(db, input.VirkningFraFilter.ToDateTime(), input.VirkningTilFilter.ToDateTime());
+                var targetRegistration = populated.FirstOrDefault();
+                if (targetRegistration != null)
                 {
-                    ret = db.ToRegisteringType1(effectDate, cpr2uuidFunc, dataContext);
+                    ret = targetRegistration.ToRegisteringType1(effectDate, cpr2uuidFunc, dataContext);
                     //ret.ActorId = ActorId;
                 }
             }
