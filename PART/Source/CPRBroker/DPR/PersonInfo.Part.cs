@@ -21,6 +21,7 @@ namespace CprBroker.Providers.DPR
              select personTotal
             ).FirstOrDefault();
 
+        // TODO: Remove this method
         internal PersonRegistration ToPersonRegistration(DateTime? effectTime, DPRDataContext dataContext)
         {
             var civilRegistrationStatus = Schemas.Util.Enums.ToCivilRegistrationStatus(PersonTotal.Status);
@@ -193,8 +194,10 @@ namespace CprBroker.Providers.DPR
             return ret;
         }
 
-        internal RegistreringType1 ToRegisteringType1(DateTime? effectTime, DPRDataContext dataContext)
+        internal RegistreringType1 ToRegisteringType1(DateTime? effectTime,Func<string, Guid> cpr2uuidConverter , DPRDataContext dataContext)
         {
+            Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToString("D2"));
+
             var civilRegistrationStatus = Schemas.Util.Enums.ToCivilRegistrationStatus(PersonTotal.Status);
             var effectTimeDecimal = Utilities.DecimalFromDate(effectTime);
             PersonNameStructureType tempPersonName = new PersonNameStructureType(PersonName.FirstName, PersonName.LastName);
@@ -225,21 +228,8 @@ namespace CprBroker.Providers.DPR
                                     // TODO: Fill this with UdenlandskBorger or CPRBorger or UkendtBorger
                                     Item = null,
                                 },
-                                Virkning = new VirkningType()
-                                {
-                                    AktoerTekst =null,
-                                    CommentText=null,
-                                    FraTidspunkt = new TidspunktType()
-                                    {
-                                        //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
-                                        Item = null                                        
-                                    },
-                                    TilTidspunkt = new TidspunktType()
-                                    {
-                                        //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
-                                        Item=null
-                                    }
-                                }
+                                //TODO: Fill this object
+                                Virkning = VirkningType.Create()
                             }
                         }
                         ),
@@ -275,9 +265,6 @@ namespace CprBroker.Providers.DPR
                 Virkning = VirkningType.Create()
             };
 
-            // TODO: Call the correct mapping method
-            Func<decimal, Guid> cpr2uuidFunc = (cprs) => Guid.NewGuid();
-
             // Now fill the relations
             ret.RelationListe.Fader = new List<PersonRelationType>(new PersonRelationType[]
             {
@@ -301,11 +288,11 @@ namespace CprBroker.Providers.DPR
 
             //TODO: Add MaritalStatusDate and MaritalEndDate to parameters
             ret.RelationListe.Aegtefaelle = PersonRelationType.CreateList(
-                Array.ConvertAll<CivilStatus,Guid>(
+                Array.ConvertAll<CivilStatus, Guid>(
                     civilStates,
-                    (civ)=>cpr2uuidFunc(civ.SpousePNR.Value)
+                    (civ) => cpr2uuidFunc(civ.SpousePNR.Value)
                 ));
-            
+
             // TODO: Add custody relations
             return ret;
         }

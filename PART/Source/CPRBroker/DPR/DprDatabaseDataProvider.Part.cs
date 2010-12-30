@@ -26,10 +26,11 @@ namespace CprBroker.Providers.DPR
 
         #region IPartReadDataProvider Members
 
-        public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, out QualityLevel? ql)
+        public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             CprBroker.Schemas.Part.RegistreringType1 ret = null;
             EnsurePersonDataExists(uuid.CprNumber);
+
 
             //TODO: Get values from input
             DateTime? effectDate = null;
@@ -47,7 +48,7 @@ namespace CprBroker.Providers.DPR
                 ).FirstOrDefault();
                 if (db != null)
                 {
-                    ret = db.ToRegisteringType1(effectDate, dataContext);
+                    ret = db.ToRegisteringType1(effectDate, cpr2uuidFunc, dataContext);
                     //ret.ActorId = ActorId;
                 }
             }

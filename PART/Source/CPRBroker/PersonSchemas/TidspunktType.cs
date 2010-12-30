@@ -15,5 +15,15 @@ namespace CprBroker.Schemas.Part
                 Item = null
             };
         }
+
+        public DateTime? ToDateTime()
+        {
+            if (Item is DateTime)
+            {
+                return (DateTime)Item;
+            }
+            return null;
+        }
+
     }
 }
