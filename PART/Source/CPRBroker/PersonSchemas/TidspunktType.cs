@@ -7,13 +7,21 @@ namespace CprBroker.Schemas.Part
 {
     public partial class TidspunktType
     {
-        public static TidspunktType Create()
+        public static TidspunktType Create(DateTime? value)
         {
-            return new TidspunktType()
+            var ret = new TidspunktType();
+            
+            //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
+            if (value.HasValue)
             {
-                //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
-                Item = null
-            };
+                ret.Item = value.Value;
+            }
+            else
+            {
+                //TODO: is the value of true relevant here? cou
+                ret.Item = false;
+            }
+            return ret;
         }
 
         public DateTime? ToDateTime()

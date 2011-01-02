@@ -62,10 +62,10 @@ namespace CprBroker.Providers.DPR
 
         internal object ToOioAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)
         {
-            return this.ToInternalAddress(civilStatus,street,contactAddress).ToOioAddress(civilStatus);
+            return this.ToInternalAddress(civilStatus, street, contactAddress).ToOioAddress(civilStatus);
         }
 
-        internal Schemas.Part.Address ToPartAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)        
+        internal Schemas.Part.Address ToPartAddress(PersonCivilRegistrationStatusCodeType civilStatus, Street street, ContactAddress contactAddress)
         {
             return this.ToInternalAddress(civilStatus, street, contactAddress).ToPartAddress(civilStatus);
         }
@@ -99,5 +99,23 @@ namespace CprBroker.Providers.DPR
                 throw new NotSupportedException("Unknown marital status");
             }
         }
+
+        //TODO: Add logic to get value from DTBOERN if not found in DTTOTAL
+        public static decimal? GetParent(char? parentMarker, string parentPnrOrBirthdate)
+        {
+            if (parentMarker.HasValue && parentMarker.Value == '*')
+            {
+                string parentPnr = parentPnrOrBirthdate.Trim().Replace("-", "");
+                decimal ret;
+                if (parentPnr.Length == 10 && decimal.TryParse(parentPnr, out ret))
+                {
+                    return ret;
+                }
+            }
+            return null;
+        }
+
+
+
     }
 }

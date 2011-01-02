@@ -7,35 +7,22 @@ namespace CprBroker.Schemas.Part
 {
     public partial class PersonRelationType
     {
-        public static PersonRelationType Create(Guid targetUuid)
+        public static PersonRelationType Create(Guid targetUuid, DateTime? fromDate, DateTime? toDate)
         {
             return new PersonRelationType()
                 {
                     CommentText = null,
                     ReferenceIDTekst = targetUuid.ToString(),
-                    Virkning = new VirkningType()
-                    {
-                        AktoerTekst = null,
-                        CommentText = null,
-                        FraTidspunkt = new TidspunktType()
-                        {
-                            //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
-                            Item = null
-                        },
-                        TilTidspunkt = new TidspunktType()
-                        {
-                            //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
-                            Item = null
-                        }
-                    }
+                    Virkning = VirkningType.Create(fromDate, toDate)
                 };
         }
+        //TODO: Add from and to parameters
         public static List<PersonRelationType> CreateList(params Guid[] targetUuids)
         {
             return new List<PersonRelationType>(
                 Array.ConvertAll<Guid, PersonRelationType>(
                     targetUuids,
-                    (uuid) => Create(uuid)
+                    (uuid) => Create(uuid,null,null)
                 ));
         }
     }

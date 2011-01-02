@@ -7,7 +7,7 @@ namespace CprBroker.Schemas.Part
 {
     public partial class VirkningType
     {
-        public static VirkningType Create()
+        public static VirkningType Create(DateTime? fromDate, DateTime? toDate)
         {
             return new VirkningType()
             {
@@ -16,9 +16,9 @@ namespace CprBroker.Schemas.Part
                 //TODO: Fill comment text
                 CommentText = null,
                 //TODO: Add correct parameters
-                FraTidspunkt = TidspunktType.Create(),
+                FraTidspunkt = TidspunktType.Create(fromDate),
                 //TODO: Add correct parameters
-                TilTidspunkt = TidspunktType.Create()
+                TilTidspunkt = TidspunktType.Create(toDate)
             };
         }
     }

@@ -306,10 +306,11 @@ namespace CprBroker.Providers.DPR
                                     Item = null,
                                 },
                                 //TODO: Fill this object
-                                Virkning = VirkningType.Create()
+                                Virkning = VirkningType.Create(null,null)
                             }
                         }
                         ),
+                    // No extensions at the moment
                     LokalUdvidelse = new LokalUdvidelseType()
                     {
                         Any = new List<XmlElement>()
@@ -333,30 +334,49 @@ namespace CprBroker.Providers.DPR
                 TilstandListe = new TilstandListeType()
                 {
                     //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
+                    //Gyldighed = null,
+
+                    // No extensions now
                     LokalUdvidelse = new LokalUdvidelseType()
                     {
                         Any = new List<XmlElement>()
                     }
                 },
                 //TODO: Pass parameters to this method
-                Virkning = VirkningType.Create()
+                Virkning = VirkningType.Create(null, null)
             };
 
             // Now fill the relations
-            ret.RelationListe.Fader = new List<PersonRelationType>(new PersonRelationType[]
+            var fatherPnr = PersonTotal.GetParent(this.PersonTotal.FatherMarker, this.PersonTotal.FatherPersonalOrBirthdate);
+            if (fatherPnr.HasValue)
             {
-                //TODO: better differentiation between father and mother
-                PersonRelationType.Create(cpr2uuidFunc( Child.PersonFatherExpression.Compile()(PersonTotal.PNR, dataContext).First().ParentPNR) )                
-            });
+                ret.RelationListe.Fader = new List<PersonRelationType>(new PersonRelationType[]
+                {
+                    PersonRelationType.Create(
+                        cpr2uuidFunc( fatherPnr.Value),
+                        ret.AttributListe.Egenskaber[0].PersonBirthDateStructure.BirthDate,
+                        null
+                    )
+                });
+            }
 
-            ret.RelationListe.Moder = new List<PersonRelationType>(new PersonRelationType[]
+
+            var motherPnr = PersonTotal.GetParent(this.PersonTotal.MotherMarker, this.PersonTotal.MotherPersonalOrBirthDate);
+            if (motherPnr.HasValue)
             {
-                //TODO: better differentiation between father and mother
-                PersonRelationType.Create(cpr2uuidFunc( Child.PersonFatherExpression.Compile()(PersonTotal.PNR, dataContext).Last().ParentPNR) )                
-            });
+                ret.RelationListe.Moder = new List<PersonRelationType>(new PersonRelationType[]
+                {
+                    PersonRelationType.Create
+                        (cpr2uuidFunc( motherPnr.Value) ,
+                        ret.AttributListe.Egenskaber[0].PersonBirthDateStructure.BirthDate,
+                        null
+                    )
+                });
+            }
 
             ret.RelationListe.Boern = PersonFlerRelationType.CreateList(
-                Array.ConvertAll<PersonTotal, Guid>(
+                Array.ConvertAll<PersonTotal, Guid>
+                (
                     Child.PersonChildrenExpression.Compile()(effectTimeDecimal.Value, PersonTotal.PNR, dataContext).ToArray(),
                 //TODO: Add start date to these relations
                     (pt) => cpr2uuidFunc(pt.PNR)
