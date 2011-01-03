@@ -91,13 +91,15 @@ namespace CprBroker.Providers.KMD
                         }
                     )
                 },
-                // TODO:Fill actor text
-                AktoerTekst = null,
+                // TODO:See if actor text is different from actor ID
+                AktoerTekst = KmdDataProvider.ActorId.ToString(),
                 // TODO:Fill comment text
                 CommentText = null,
+                //TODO: Is this the correct status?
                 LivscyklusKode = LivscyklusKodeType.Item5,
                 RelationListe = new RelationListeType(),
-                TidspunktDatoTid = TidspunktType.Create(null),
+                //TODO: Fill with registration date
+                TidspunktDatoTid = TidspunktType.Create(ToDateTime(resp.StatusDate)),
                 TilstandListe = new TilstandListeType()
                 {
                     //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
@@ -124,6 +126,7 @@ namespace CprBroker.Providers.KMD
                         Any = new List<XmlElement>()
                     }
                 },
+                //TODO: Fill
                 Virkning = VirkningType.Create(null, null)
             };
 

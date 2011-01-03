@@ -317,7 +317,7 @@ namespace CprBroker.Providers.DPR
                     }
                 },
                 // TODO: Add actor text
-                AktoerTekst = null,
+                AktoerTekst = DprDatabaseDataProvider.ActorId.ToString(),
                 //TODO: Add comment text
                 CommentText = null,
                 //TODO: Is this the correct status?
@@ -326,11 +326,7 @@ namespace CprBroker.Providers.DPR
                 {
 
                 },
-                TidspunktDatoTid = new TidspunktType()
-                {
-                    //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
-                    Item = null,
-                },
+                TidspunktDatoTid = TidspunktType.Create(this.RegistrationDate),
                 TilstandListe = new TilstandListeType()
                 {
                     //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
