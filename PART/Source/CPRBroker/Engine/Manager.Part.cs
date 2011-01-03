@@ -48,8 +48,7 @@ namespace CprBroker.Engine
                             FailIfNoDataProvider = true,
                             FailOnDefaultOutput=true,
                             Method = (prov)=>prov.Read(pId,input, (cpr)=>Manager.Part.GetPersonUuid(userToken, appToken, cpr), out ql),
-                            //TODO: Uncomment this
-                            UpdateMethod = null //(personRegistration)=> Local.UpdateDatabase.UpdatePersonRegistration(new Guid(input.UUID), personRegistration)
+                            UpdateMethod = (personRegistration)=> Local.UpdateDatabase.UpdatePersonRegistration(new Guid(input.UUID), personRegistration)
                         }
                     },
 

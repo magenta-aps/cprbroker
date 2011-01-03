@@ -7,9 +7,9 @@ namespace CprBroker.DAL.Part
 {
     public partial class PersonState
     {
-        public Schemas.Part.PersonStates ToXmlType()
+        public CprBroker.Schemas.Part.TilstandListeType ToXmlType()
         {
-            return new Schemas.Part.PersonStates()
+            return new Schemas.Part.TilstandListeType()
                 /*
                     {
                         CivilStatus = new Schemas.Part.Effect<CprBroker.Schemas.Part.Enums.MaritalStatus>()
@@ -31,7 +31,7 @@ namespace CprBroker.DAL.Part
                ;
         }
 
-        public static PersonState FromXmlType(Schemas.Part.PersonStates partState)
+        public static PersonState FromXmlType(Schemas.Part.TilstandListeType partState)
         {
             // TODO: Implement PersonState.FromXmlType
             return new PersonState();

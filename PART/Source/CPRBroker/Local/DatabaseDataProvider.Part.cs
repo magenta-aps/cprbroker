@@ -114,9 +114,9 @@ namespace CprBroker.Providers.Local
 
         #region IPartReadDataProvider Members
 
-        public CprBroker.Schemas.Part.PersonRegistration Read(PersonIdentifier uuid, DateTime? effectDate, out QualityLevel? ql)
+        public CprBroker.Schemas.Part.RegistreringType1 Read(PersonIdentifier uuid, CprBroker.Schemas.Part.LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)        
         {
-            Schemas.Part.PersonRegistration ret = null;
+            Schemas.Part.RegistreringType1 ret = null;
             using (var dataContext = new PartDataContext())
             {
                 ret =
@@ -124,6 +124,7 @@ namespace CprBroker.Providers.Local
                     from personReg in dataContext.PersonRegistrations
                     where personReg.UUID == uuid.UUID
                     // TODO: add effect date to where condition
+                    //TODO: Add registration date to query
                     orderby personReg.RegistrationDate descending
                     select personReg.ToXmlType()
                 ).FirstOrDefault();
@@ -150,5 +151,7 @@ namespace CprBroker.Providers.Local
         }
 
         #endregion
+
+        
     }
 }

@@ -8,50 +8,58 @@ namespace CprBroker.DAL.Part
 {
     public partial class PersonAttribute
     {
-        public Schemas.Part.PersonAttributes ToXmlType()
+        public Schemas.Part.AttributListeType ToXmlType()
         {
-            // TODO: Add support for contact channels and other addresses
             // TODO: Add support for name date
-            var ret = new PersonAttributes()
-                {
-                    BirthDate = this.BirthDate,
-                    OtherAddresses = new CprBroker.Schemas.Part.Address[0],
-                    ContactChannel = new ContactChannel[0],
-                    Gender = DAL.Part.Gender.GetPartGender(this.GenderId),
-                    Name = new Effect<string>()
+            var ret = new AttributListeType()
+            {
+                Egenskaber = new List<EgenskaberType>
+                (
+                    new EgenskaberType[]
                     {
-                        StartDate = null,
-                        EndDate = null,
-                        Value = Name,
-                    },
-                    PersonData = null
-                };
+                        new EgenskaberType()
+                        {
+                            PersonBirthDateStructure = new PersonBirthDateStructureType()
+                            {
+                               BirthDate=this.BirthDate, 
+                                BirthDateUncertaintyIndicator = false,
+                            },
+                            PersonGenderCode = DAL.Part.Gender.GetPartGender(this.GenderId),
+                            PersonNameStructure = new CprBroker.Schemas.PersonNameStructureType( Name),
+                            RegisterOplysninger = new RegisterOplysningerType(),
+                            Virkning = VirkningType.Create(null,null),
+                        },
+                    }
+                )
+            };
 
             if (this.CprData != null)
             {
-                ret.PersonData = CprData.ToXmlType();
+                ret.Egenskaber[0].RegisterOplysninger.Item = CprData.ToXmlType();
             }
             else if (this.ForeignCitizenData != null)
             {
-                ret.PersonData = ForeignCitizenData.ToXmlType();
+                ret.Egenskaber[0].RegisterOplysninger.Item = ForeignCitizenData.ToXmlType();
             }
             else if (this.UnknownCitizenData != null)
             {
-                ret.PersonData = UnknownCitizenData.ToXmlType();
+                ret.Egenskaber[0].RegisterOplysninger.Item = UnknownCitizenData.ToXmlType();
             }
             return ret;
         }
 
-        public static PersonAttribute FromXmlType(Schemas.Part.PersonAttributes partAttributes)
+        public static PersonAttribute FromXmlType(Schemas.Part.AttributListeType partAttributes)
         {
+            var oo = partAttributes.Egenskaber[0];
             // TODO: Add support for contact channels and other addresses
             // TODO: Add support for name date
             var ret = new PersonAttribute()
             {
-                BirthDate = partAttributes.BirthDate,
-                GenderId = DAL.Part.Gender.GetPartCode(partAttributes.Gender),
-                Name = partAttributes.Name.Value
+                BirthDate = oo.PersonBirthDateStructure.BirthDate,
+                GenderId = DAL.Part.Gender.GetPartCode(oo.PersonGenderCode),
+                Name = oo.PersonNameStructure.ToString()
             };
+            /*
             if (partAttributes.PersonData is Schemas.Part.CprData)
             {
                 ret.CprData = DAL.Part.CprData.FromXmlType(partAttributes.PersonData as Schemas.Part.CprData);
@@ -63,7 +71,7 @@ namespace CprBroker.DAL.Part
             else if (partAttributes.PersonData is Schemas.Part.UnknownCitizenData)
             {
                 ret.UnknownCitizenData = DAL.Part.UnknownCitizenData.FromXmlType(partAttributes.PersonData as Schemas.Part.UnknownCitizenData);
-            }
+            }*/
             return ret;
         }
     }

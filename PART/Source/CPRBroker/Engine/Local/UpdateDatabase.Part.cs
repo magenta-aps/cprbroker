@@ -19,7 +19,7 @@ namespace CprBroker.Engine.Local
         /// </summary>
         /// <param name="personUUID"></param>
         /// <param name="personRegistraion"></param>
-        public static void UpdatePersonRegistration(Guid personUUID, Schemas.Part.PersonRegistration personRegistraion)
+        public static void UpdatePersonRegistration(Guid personUUID, Schemas.Part.RegistreringType1 personRegistraion)
         {
             if (MergePersonRegistration(personUUID, personRegistraion))
             {
@@ -41,7 +41,7 @@ namespace CprBroker.Engine.Local
             bool result = notificationQueueService.Enqueue(personUuid);
         }
 
-        private static bool MergePersonRegistration(Guid personUUID, Schemas.Part.PersonRegistration personRegistraion)
+        private static bool MergePersonRegistration(Guid personUUID, Schemas.Part.RegistreringType1 personRegistraion)
         {
             //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
             using (var dataContext = new PartDataContext())
@@ -49,8 +49,8 @@ namespace CprBroker.Engine.Local
                 // Match db registrations by UUID, ActorId and registration date
                 var existingInDb = (from dbReg in dataContext.PersonRegistrations
                                     where dbReg.UUID == personUUID
-                                    && dbReg.RegistrationDate == personRegistraion.RegistrationDate
-                                    && dbReg.ActorId == personRegistraion.ActorId
+                                    && dbReg.RegistrationDate == personRegistraion.TidspunktDatoTid.ToDateTime()                                    
+                                    && dbReg.ActorText == personRegistraion.AktoerTekst
                                     select dbReg).ToArray();
 
                 // Perform a content match if key match is found

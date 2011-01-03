@@ -8,33 +8,40 @@ namespace CprBroker.DAL.Part
 {
     public partial class PersonRegistration
     {
-        public Schemas.Part.PersonRegistration ToXmlType()
+        public Schemas.Part.RegistreringType1 ToXmlType()
         {
-            Schemas.Part.PersonRegistration ret = new CprBroker.Schemas.Part.PersonRegistration()
+            Schemas.Part.RegistreringType1 ret = new CprBroker.Schemas.Part.RegistreringType1()
             {
-                ActorId = this.ActorId,
-                RegistrationDate = this.RegistrationDate,
+                AktoerTekst = this.ActorText,
+                TidspunktDatoTid = TidspunktType.Create(this.RegistrationDate),
+                AttributListe = this.PersonAttribute.ToXmlType(),
+                TilstandListe = PersonState.ToXmlType(),
+                //TODO: Add relations
+                RelationListe = null, //Relations = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable())
 
-                Attributes = this.PersonAttribute.ToXmlType(),
-                States = PersonState.ToXmlType(),
-                Relations = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable())
+                CommentText = null,
+                LivscyklusKode = LivscyklusKodeType.Item5,
+                //TODO: Add values
+                Virkning = VirkningType.Create(null, null),
+
             };
             return ret;
         }
 
-        public static PersonRegistration FromXmlType(CprBroker.Schemas.Part.PersonRegistration partRegistration)
+        public static PersonRegistration FromXmlType(CprBroker.Schemas.Part.RegistreringType1 partRegistration)
         {
             PersonRegistration ret = new PersonRegistration()
             {
-                ActorId = partRegistration.ActorId,
-                RegistrationDate = partRegistration.RegistrationDate,
+                ActorText = partRegistration.AktoerTekst,
+                RegistrationDate = partRegistration.TidspunktDatoTid.ToDateTime().Value,
 
                 PersonRegistrationId = Guid.NewGuid(),
 
-                PersonAttribute = PersonAttribute.FromXmlType(partRegistration.Attributes),
-                PersonState = PersonState.FromXmlType(partRegistration.States)
+                PersonAttribute = PersonAttribute.FromXmlType(partRegistration.AttributListe),
+                PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
             };
-            ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.Relations));
+            // TODO: Add relations
+            //ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));
             return ret;
         }
     }

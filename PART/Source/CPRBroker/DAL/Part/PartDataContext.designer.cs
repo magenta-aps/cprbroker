@@ -33,9 +33,9 @@ namespace CprBroker.DAL.Part
     partial void InsertPerson(Person instance);
     partial void UpdatePerson(Person instance);
     partial void DeletePerson(Person instance);
-    partial void InsertPesronMapping(PersonMapping instance);
-    partial void UpdatePesronMapping(PersonMapping instance);
-    partial void DeletePesronMapping(PersonMapping instance);
+    partial void InsertPersonMapping(PersonMapping instance);
+    partial void UpdatePersonMapping(PersonMapping instance);
+    partial void DeletePersonMapping(PersonMapping instance);
     partial void InsertPersonAttribute(PersonAttribute instance);
     partial void UpdatePersonAttribute(PersonAttribute instance);
     partial void DeletePersonAttribute(PersonAttribute instance);
@@ -308,8 +308,6 @@ namespace CprBroker.DAL.Part
     partial void OnUUIDChanged();
     partial void OnCprNumberChanging(string value);
     partial void OnCprNumberChanged();
-    partial void OnBirthDateChanging(System.DateTime value);
-    partial void OnBirthDateChanged();
     #endregion
 		
 		public PersonMapping()
@@ -2974,7 +2972,7 @@ namespace CprBroker.DAL.Part
 		
 		private System.Guid _UUID;
 		
-		private System.Guid _ActorId;
+		private string _ActorText;
 		
 		private System.DateTime _RegistrationDate;
 		
@@ -2994,8 +2992,8 @@ namespace CprBroker.DAL.Part
     partial void OnPersonRegistrationIdChanged();
     partial void OnUUIDChanging(System.Guid value);
     partial void OnUUIDChanged();
-    partial void OnActorIdChanging(System.Guid value);
-    partial void OnActorIdChanged();
+    partial void OnActorTextChanging(string value);
+    partial void OnActorTextChanged();
     partial void OnRegistrationDateChanging(System.DateTime value);
     partial void OnRegistrationDateChanged();
     #endregion
@@ -3053,22 +3051,22 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
-		[Column(Storage="_ActorId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid ActorId
+		[Column(Storage="_ActorText", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string ActorText
 		{
 			get
 			{
-				return this._ActorId;
+				return this._ActorText;
 			}
 			set
 			{
-				if ((this._ActorId != value))
+				if ((this._ActorText != value))
 				{
-					this.OnActorIdChanging(value);
+					this.OnActorTextChanging(value);
 					this.SendPropertyChanging();
-					this._ActorId = value;
-					this.SendPropertyChanged("ActorId");
-					this.OnActorIdChanged();
+					this._ActorText = value;
+					this.SendPropertyChanged("ActorText");
+					this.OnActorTextChanged();
 				}
 			}
 		}

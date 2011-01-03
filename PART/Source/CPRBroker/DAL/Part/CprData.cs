@@ -14,7 +14,7 @@ namespace CprBroker.DAL.Part
                 AddressingName = this.AddressingName,
                 BirthDateUncertainty = this.IsBirthdateUncertain,
                 CprNumber = this.CprNumber,
-                Gender = Gender.GetPartGender(this.PersonAttribute.GenderId),
+                //Gender = Gender.GetPartGender(this.PersonAttribute.GenderId),
                 IndividualTrackStatus = this.IndividualTrackStatus,
                 NameAndAddressProtection = this.HasNameAndAddressProtection,
                 NationalityCountryCode = this.NationalityCountryAlpha2Code,
