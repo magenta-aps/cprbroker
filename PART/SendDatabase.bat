@@ -7,4 +7,4 @@ copy "\\10.20.1.20\C$\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\Backup\%d
 del Deploy\%dbName %.bz2 /F
 "C:\Program Files\7-Zip\7z.exe" a -tbzip2 Deploy\%dbName %.bz2 Deploy\%dbName %.bak
 
-copy Deploy\%dbName %.bz2 \\5.11.118.93\c$\Users\mag-bb\Desktop\PART\Deploy\%dbName %.bz2 /y
+copy Deploy\%dbName %.bz2 \\5.32.134.68\c$\Users\mag-bb\Desktop\PART\Deploy\%dbName %.bz2 /y
