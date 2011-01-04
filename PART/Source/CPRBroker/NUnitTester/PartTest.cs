@@ -16,6 +16,30 @@ namespace CprBroker.NUnitTester
         private void ValidatePerson(Guid uuid, LaesOutputType person, Part.Part service)
         {
             Assert.IsNotNull(person, "Person not found : {0}", uuid);
+            if (person.LaesResultat.Item is RegistreringType1)
+            {
+                var reg = person.LaesResultat.Item as RegistreringType1;
+                Assert.AreNotEqual("", reg.AktoerTekst, "Empty actor text");
+                Assert.AreNotEqual(Guid.Empty.ToString(), reg.AktoerTekst, "Empty actor text");
+
+                Assert.NotNull(reg.AttributListe, "Attributes");
+                Assert.NotNull(reg.AttributListe.Egenskaber, "Attributes");
+                Assert.Greater(reg.AttributListe.Egenskaber.Length, 0, "Attributes");
+                
+                Assert.NotNull(reg.AttributListe.Egenskaber[0].PersonBirthDateStructure, "Birthdate");
+                Assert.NotNull(reg.AttributListe.Egenskaber[0].PersonNameStructure, "Name");
+                //Assert.NotNull(reg.AttributListe.Egenskaber[0].RegisterOplysninger, "Birthdate");
+                Assert.NotNull(reg.AttributListe.Egenskaber[0].Virkning, "Effect");
+
+                Assert.NotNull(reg.TilstandListe, "States");
+
+                Assert.NotNull(reg.RelationListe, "Relations");
+            }
+            else
+            {
+                Assert.Fail("Unknown person object type");
+            }
+
             //Assert.AreNotEqual(String.Empty, person.LaesResultat..ActorId);
 
             Assert.IsNotNull(service.QualityHeaderValue, "Quality header");
@@ -119,7 +143,7 @@ namespace CprBroker.NUnitTester
         // TODO: Add more methods to test Search for criteria other than CPR number
         #endregion
 
-        
+
 
 
     }
