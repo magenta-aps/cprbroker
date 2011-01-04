@@ -279,8 +279,10 @@ namespace CprBroker.Providers.DPR
             PersonNameStructureType tempPersonName = new PersonNameStructureType(PersonName.FirstName, PersonName.LastName);
             var civilStates = (from civilStatus in dataContext.CivilStatus
                                where civilStatus.PNR == PersonTotal.PNR && civilStatus.MaritalStatusDate <= effectTimeDecimal.Value
+                               && civilStatus.SpousePNR.HasValue && civilStatus.SpousePNR.Value > 0
                                orderby civilStatus.MaritalStatusDate
                                select civilStatus).ToArray();
+
 
             RegistreringType1 ret = new RegistreringType1()
             {
