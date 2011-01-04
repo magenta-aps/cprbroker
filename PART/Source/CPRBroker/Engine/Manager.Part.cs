@@ -58,7 +58,7 @@ namespace CprBroker.Engine
                         {
                             LaesResultat = new LaesResultatType()
                             {
-                                Item = subresults[0] as LaesOutputType
+                                Item = subresults[0]
                             },
                             //TODO: Fill this StandardRetur object
                             StandardRetur = new StandardReturType()

@@ -25,7 +25,7 @@ namespace CprBroker.NUnitTester
                 Assert.NotNull(reg.AttributListe, "Attributes");
                 Assert.NotNull(reg.AttributListe.Egenskaber, "Attributes");
                 Assert.Greater(reg.AttributListe.Egenskaber.Length, 0, "Attributes");
-                
+
                 Assert.NotNull(reg.AttributListe.Egenskaber[0].PersonBirthDateStructure, "Birthdate");
                 Assert.NotNull(reg.AttributListe.Egenskaber[0].PersonNameStructure, "Name");
                 //Assert.NotNull(reg.AttributListe.Egenskaber[0].RegisterOplysninger, "Birthdate");
@@ -93,8 +93,10 @@ namespace CprBroker.NUnitTester
                 UUID = uuid.ToString(),
             };
 
+            // Call read to ensure person is actually in the database
             var person = TestRunner.PartService.Read(input);
-            ValidatePerson(uuid, person, TestRunner.PartService);
+            Assert.NotNull(person);
+            Assert.NotNull(person.LaesResultat);
 
             var freshPerson = TestRunner.PartService.RefreshRead(input);
             ValidatePerson(uuid, freshPerson, TestRunner.PartService);

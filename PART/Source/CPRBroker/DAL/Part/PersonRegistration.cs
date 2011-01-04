@@ -17,7 +17,7 @@ namespace CprBroker.DAL.Part
                 AttributListe = this.PersonAttribute.ToXmlType(),
                 TilstandListe = PersonState.ToXmlType(),
                 //TODO: Add relations
-                RelationListe = null, //Relations = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable())
+                RelationListe = new RelationListeType(), //Relations = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable())
 
                 CommentText = null,
                 LivscyklusKode = LivscyklusKodeType.Item5,
