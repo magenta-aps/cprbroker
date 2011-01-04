@@ -230,12 +230,11 @@ namespace CprBroker.Providers.DPR
                 dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.SearchNameDate));
                 dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.StatusDate));
 
-                dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.ContactAddressDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.UpdateDate));
-
-                dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.ContactAddressDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.UpdateDate));
-
+                if (personInfo.ContactAddress != null)
+                {
+                    dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.ContactAddressDate));
+                    dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.UpdateDate));
+                }
                 dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalStatusDate)));
                 dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalEndDate)));
                 dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.AuthorityTextUpdateDate)));
