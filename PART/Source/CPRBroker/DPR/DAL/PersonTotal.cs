@@ -107,7 +107,7 @@ namespace CprBroker.Providers.DPR
             {
                 string parentPnr = parentPnrOrBirthdate.Trim().Replace("-", "");
                 decimal ret;
-                if (parentPnr.Length == 10 && decimal.TryParse(parentPnr, out ret))
+                if (parentPnr.Length == 10 && decimal.TryParse(parentPnr, out ret) && ret > 0)
                 {
                     return ret;
                 }
