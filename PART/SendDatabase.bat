@@ -4,6 +4,8 @@ REM sqlcmd -U sa -P Dlph10t -S 10.20.1.20 -d %dbName % -Q "BACKUP DATABASE [%dbN
 
 REM copy "\\10.20.1.20\C$\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\Backup\%dbName %.bak" Deploy\%dbName %.bak /Y
 
+del Deploy\%dbName %.sql
+
 "C:\Program Files\Microsoft SQL Server\90\Tools\Publishing\SqlPubWiz" script -d %dbName % -S 10.20.1.20 -U sa -P Dlph10t Deploy\%dbName %.sql
 
 del Deploy\%dbName %.bz2 /F
