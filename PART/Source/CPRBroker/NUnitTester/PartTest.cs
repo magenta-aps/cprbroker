@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+using CprBroker.NUnitTester.Part;
 
 namespace CprBroker.NUnitTester
 {
@@ -12,7 +13,16 @@ namespace CprBroker.NUnitTester
     {
         #region Part person methods
 
-        private void ValidatePerson(Guid uuid, Part.PersonRegistration person, Part.Part service)
+        private void ValidatePerson(Guid uuid, LaesOutputType person, Part.Part service)
+        {
+            Assert.IsNotNull(person, "Person not found : {0}", uuid);
+            //Assert.AreNotEqual(String.Empty, person.LaesResultat..ActorId);
+
+            Assert.IsNotNull(service.QualityHeaderValue, "Quality header");
+            Assert.IsNotNull(service.QualityHeaderValue.QualityLevel, "Quality header value");
+        }
+
+        private void ValidatePerson(Guid uuid, PersonRegistration person, Part.Part service)
         {
             Assert.IsNotNull(person, "Person not found : {0}", uuid);
             Assert.AreNotEqual(Guid.Empty, person.ActorId);
@@ -39,7 +49,11 @@ namespace CprBroker.NUnitTester
             var uuid = TestRunner.PartService.GetPersonUuid(cprNumber);
             Assert.AreNotEqual(uuid, Guid.Empty);
 
-            var person = TestRunner.PartService.Read(uuid);
+            LaesInputType input = new LaesInputType()
+            {
+                UUID = uuid.ToString(),
+            };
+            var person = TestRunner.PartService.Read(input);
             ValidatePerson(uuid, person, TestRunner.PartService);
         }
 
@@ -50,11 +64,17 @@ namespace CprBroker.NUnitTester
             var uuid = TestRunner.PartService.GetPersonUuid(cprNumber);
             Assert.AreNotEqual(uuid, Guid.Empty);
 
-            var person = TestRunner.PartService.Read(uuid);
+            LaesInputType input = new LaesInputType()
+            {
+                UUID = uuid.ToString(),
+            };
+
+            var person = TestRunner.PartService.Read(input);
             ValidatePerson(uuid, person, TestRunner.PartService);
 
-            var freshPerson = TestRunner.PartService.RefreshRead(uuid);
+            var freshPerson = TestRunner.PartService.RefreshRead(input);
             ValidatePerson(uuid, freshPerson, TestRunner.PartService);
+
             Assert.AreNotEqual(TestRunner.PartService.QualityHeaderValue.QualityLevel.Value, Part.QualityLevel.LocalCache);
         }
 
@@ -85,7 +105,11 @@ namespace CprBroker.NUnitTester
             var personUuid = TestRunner.PartService.GetPersonUuid(cprNumber);
             if (result.Length == 0)
             {
-                var personObject = TestRunner.PartService.Read(personUuid);
+                LaesInputType input = new LaesInputType()
+                {
+                    UUID = personUuid.ToString(),
+                };
+                var personObject = TestRunner.PartService.Read(input);
             }
             Assert.AreEqual(1, result.Length, "Number of search results");
             Assert.AreNotEqual(Guid.Empty, result[0], "Empty person uuid from search");

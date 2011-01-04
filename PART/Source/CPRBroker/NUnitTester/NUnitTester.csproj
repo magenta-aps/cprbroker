@@ -261,6 +261,9 @@
     <None Include="Web References\CPRPersonWS\SimpleCPRPersonType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\Part\LaesOutputType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Part\PersonRegistration1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
