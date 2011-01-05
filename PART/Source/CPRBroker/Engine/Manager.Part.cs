@@ -79,26 +79,14 @@ namespace CprBroker.Engine
 
             public static ListOutputType1 List(string userToken, string appToken, ListInputType input, out QualityLevel? qualityLevel)
             {
-                //TODO: remove quality level because it applies to individual elements rather than the whole result
-                QualityLevel? ql = null;
                 ListOutputType1 ret = null;
 
-                ListFacadeMethodInfo facadeMethodInfo = new ListFacadeMethodInfo(input, appToken, userToken, true);
+                ret = GetMethodOutput<ListOutputType1>(
+                    new ListFacadeMethodInfo(input, appToken, userToken, true)
+                    );
 
-                //TODO: Could fail if Input.UUID is null
-                facadeMethodInfo.SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
-                (
-                    input.UUID.ToArray(),
-                    (pUUID) => new ReadSubMethodInfo(
-                        facadeMethodInfo.inputUuidToPersonIdentifierMap[pUUID], 
-                        LaesInputType.Create(pUUID, input), 
-                        (cpr) => Manager.Part.GetPersonUuid(userToken, appToken, cpr), 
-                        LocalDataProviderUsageOption.UseFirst)
-               );
-
-                ret = GetMethodOutput<ListOutputType1>(facadeMethodInfo);
-
-                qualityLevel = ql;
+                //TODO: remove quality level because it applies to individual elements rather than the whole result
+                qualityLevel = QualityLevel.LocalCache;
                 return ret;
             }
 

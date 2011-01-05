@@ -35,6 +35,16 @@ namespace CprBroker.Engine.Part
                 }
                 inputUuidToPersonIdentifierMap.Add(inputPersonUuid, personIdentifier);
             }
+            //TODO: Could fail if Input.UUID is null
+            SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
+            (
+                input.UUID.ToArray(),
+                (pUUID) => new ReadSubMethodInfo(
+                    inputUuidToPersonIdentifierMap[pUUID],
+                    LaesInputType.Create(pUUID, input),
+                    (cpr) => Manager.Part.GetPersonUuid(UserToken, ApplicationToken, cpr),
+                    LocalDataProviderUsageOption.UseFirst)
+           );
         }
 
         public override ListOutputType1 Aggregate(object[] results)

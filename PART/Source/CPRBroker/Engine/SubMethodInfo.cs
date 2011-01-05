@@ -33,7 +33,7 @@ namespace CprBroker.Engine
         public override sealed object Invoke(IDataProvider prov)
         {
             var provider = prov as TInterface;
-            CurrentResult = Method(provider as TInterface);
+            CurrentResult = RunMainMethod(provider as TInterface);
             return CurrentResult;
         }
 
