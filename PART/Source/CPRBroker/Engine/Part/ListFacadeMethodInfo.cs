@@ -7,6 +7,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.Part
 {
+    //TODO: Modify to never return null even if input is wrong
     public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1>
     {
         public ListInputType input;
