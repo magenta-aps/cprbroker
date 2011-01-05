@@ -17,7 +17,27 @@ namespace CprBroker.Engine
             ApplicationTokenRequired = appTokenRequired;
         }
 
+        public virtual void Initialize()
+        {
+            if (InitializationMethod != null)
+            {
+                InitializationMethod();
+            }
+        }
         public Action InitializationMethod = () => { };
+
+
+        public TOutput Aggregate(object[] results)
+        {
+            if (AggregationMethod != null)
+            {
+                return AggregationMethod(results);
+            }
+            else
+            {
+                return default(TOutput);
+            }
+        }
 
         public Func<object[], TOutput> AggregationMethod =
             (results) =>
@@ -32,9 +52,10 @@ namespace CprBroker.Engine
                 }
             };
 
-        internal Func<TOutput, bool> IsValidResult =
-            (result) => !object.Equals(result, default(TOutput));
-
+        public virtual bool IsValidResult(TOutput output)
+        {
+            return !object.Equals(output, default(TOutput));
+        }
 
         public string ApplicationToken;
         public string UserToken;
