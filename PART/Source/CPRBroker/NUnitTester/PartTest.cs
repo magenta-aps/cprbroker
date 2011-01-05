@@ -11,14 +11,20 @@ namespace CprBroker.NUnitTester
     [TestFixture]
     public class PartTest : BaseTest
     {
-        #region Part person methods
+        #region Part laesResultat methods
 
-        private void ValidatePerson(Guid uuid, LaesOutputType person, Part.Part service)
+        private void Validate(Guid uuid, LaesOutputType laesOutput, Part.Part service)
         {
-            Assert.IsNotNull(person, "Person not found : {0}", uuid);
-            if (person.LaesResultat.Item is RegistreringType1)
+            Assert.IsNotNull(laesOutput, "Laes output is null{0}", uuid);
+            Validate(uuid, laesOutput.LaesResultat, service);
+        }
+
+        private void Validate(Guid uuid, LaesResultatType laesResultat, Part.Part service)
+        {
+            Assert.IsNotNull(laesResultat, "Person not found : {0}", uuid);
+            if (laesResultat.Item is RegistreringType1)
             {
-                var reg = person.LaesResultat.Item as RegistreringType1;
+                var reg = laesResultat.Item as RegistreringType1;
                 Assert.AreNotEqual("", reg.AktoerTekst, "Empty actor text");
                 Assert.AreNotEqual(Guid.Empty.ToString(), reg.AktoerTekst, "Empty actor text");
 
@@ -37,19 +43,10 @@ namespace CprBroker.NUnitTester
             }
             else
             {
-                Assert.Fail("Unknown person object type");
+                Assert.Fail("Unknown laesResultat object type");
             }
 
-            //Assert.AreNotEqual(String.Empty, person.LaesResultat..ActorId);
-
-            Assert.IsNotNull(service.QualityHeaderValue, "Quality header");
-            Assert.IsNotNull(service.QualityHeaderValue.QualityLevel, "Quality header value");
-        }
-
-        private void ValidatePerson(Guid uuid, PersonRegistration person, Part.Part service)
-        {
-            Assert.IsNotNull(person, "Person not found : {0}", uuid);
-            Assert.AreNotEqual(Guid.Empty, person.ActorId);
+            //Assert.AreNotEqual(String.Empty, laesResultat.LaesResultat..ActorId);
 
             Assert.IsNotNull(service.QualityHeaderValue, "Quality header");
             Assert.IsNotNull(service.QualityHeaderValue.QualityLevel, "Quality header value");
@@ -78,7 +75,7 @@ namespace CprBroker.NUnitTester
                 UUID = uuid.ToString(),
             };
             var person = TestRunner.PartService.Read(input);
-            ValidatePerson(uuid, person, TestRunner.PartService);
+            Validate(uuid, person, TestRunner.PartService);
         }
 
         [Test]
@@ -93,27 +90,51 @@ namespace CprBroker.NUnitTester
                 UUID = uuid.ToString(),
             };
 
-            // Call read to ensure person is actually in the database
+            // Call read to ensure laesResultat is actually in the database
             var person = TestRunner.PartService.Read(input);
             Assert.NotNull(person);
             Assert.NotNull(person.LaesResultat);
 
             var freshPerson = TestRunner.PartService.RefreshRead(input);
-            ValidatePerson(uuid, freshPerson, TestRunner.PartService);
+            Validate(uuid, freshPerson, TestRunner.PartService);
 
             Assert.AreNotEqual(TestRunner.PartService.QualityHeaderValue.QualityLevel.Value, Part.QualityLevel.LocalCache);
         }
 
         [Test]
-        [TestCaseSource(typeof(PartTestData), PartTestData.PersonUUIDsArrayFieldName)]
-        public void T300_List(Guid[] personUuids)
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        public void T300_List_Single(string cprNumber)
         {
-            var persons = TestRunner.PartService.List(personUuids);
-            Assert.IsNotNull(persons, "Persons array is null");
-            Assert.AreEqual(personUuids.Length, personUuids.Length, "Incorrect length of returned array");
-            for (int i = 0; i < personUuids.Length; i++)
+            string[] cprNumbers = new string[] { cprNumber };
+            ListInputType input = new ListInputType()
             {
-                ValidatePerson(personUuids[i], persons[i], TestRunner.PartService);
+                UUID = Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetPersonUuid(cpr).ToString()),
+            };
+
+            var persons = TestRunner.PartService.List(input);
+            Assert.IsNotNull(persons, "Persons array is null");
+            Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
+            for (int i = 0; i < cprNumbers.Length; i++)
+            {
+                Validate(new Guid(input.UUID[i]), persons.LaesResultat[i], TestRunner.PartService);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersToSubscribeFieldName)]
+        public void T310_List_All(string[] cprNumbers)
+        {
+            ListInputType input = new ListInputType()
+            {
+                UUID = cprNumbers == null ? null : Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetPersonUuid(cpr).ToString()),
+            };
+
+            var persons = TestRunner.PartService.List(input);
+            Assert.IsNotNull(persons, "Persons array is null");
+            Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
+            for (int i = 0; i < cprNumbers.Length; i++)
+            {
+                Validate(new Guid(input.UUID[i]), persons.LaesResultat[i], TestRunner.PartService);
             }
         }
 
@@ -138,7 +159,7 @@ namespace CprBroker.NUnitTester
                 var personObject = TestRunner.PartService.Read(input);
             }
             Assert.AreEqual(1, result.Length, "Number of search results");
-            Assert.AreNotEqual(Guid.Empty, result[0], "Empty person uuid from search");
+            Assert.AreNotEqual(Guid.Empty, result[0], "Empty laesResultat uuid from search");
             Assert.AreEqual(personUuid, result[0], "Search result returns wrong uuids");
         }
 

@@ -50,12 +50,10 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
-        [SoapHeader(EffectDateHeaderName)]
-        [SoapHeader(RegistrationDateHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.List, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.List)]
-        public PersonRegistration[] List(Guid[] personUUIDs)
+        public ListOutputType1 List(ListInputType input)
         {
-            return null;
+            return Manager.Part.List(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]

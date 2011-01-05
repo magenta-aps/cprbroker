@@ -76,7 +76,73 @@ namespace CprBroker.Engine
                 return ret;
             }
 
-            // TODO: Add List method here after Read method is finalized
+            public static ListOutputType1 List(string userToken, string appToken, ListInputType input, out QualityLevel? qualityLevel)
+            {
+                //TODO: remove quality level because it applies to individual elements rather than the whole result
+                QualityLevel? ql = null;
+                ListOutputType1 ret = null;
+                //List<PersonIdentifier> pIds = null;
+                Dictionary<string, PersonIdentifier> inputUuidToPersonIdentifierMap = null;
+
+                FacadeMethodInfo<ListOutputType1> facadeMethodInfo = new FacadeMethodInfo<ListOutputType1>(appToken, userToken, true);
+
+                facadeMethodInfo.InitializationMethod = () =>
+                {
+                    inputUuidToPersonIdentifierMap = new Dictionary<string, PersonIdentifier>();
+                    foreach (var inputPersonUuid in input.UUID)
+                    {
+                        var personIdentifier = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
+                        //TODO: Do not throw exception, instead, return null. This affects the following delegates too
+                        if (personIdentifier == null)
+                        {
+                            throw new Exception(TextMessages.UuidNotFound);
+                        }
+                        inputUuidToPersonIdentifierMap.Add(inputPersonUuid, personIdentifier);
+                    }
+                };
+
+                //TODO: Could fail if input.UUID is null
+                facadeMethodInfo.SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
+                (
+                    input.UUID.ToArray(),
+                    (pUUID) => new SubMethodInfo<IPartReadDataProvider, RegistreringType1>()
+                   {
+                       LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst,
+                       FailIfNoDataProvider = true,
+                       FailOnDefaultOutput = true,
+                       Method = (prov) => prov.Read
+                           (
+                               inputUuidToPersonIdentifierMap[pUUID],
+                               LaesInputType.Create(pUUID, input),
+                               (cpr) => Manager.Part.GetPersonUuid(userToken, appToken, cpr),
+                               out ql
+                           ),
+                       UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(inputUuidToPersonIdentifierMap[pUUID].UUID.Value, personRegistration)
+                   }
+               );
+
+                facadeMethodInfo.AggregationMethod = (subresults) =>
+                {
+                    return new ListOutputType1()
+                    {
+                        LaesResultat = new List<LaesResultatType>
+                        (
+                            Array.ConvertAll<object, LaesResultatType>
+                            (
+                                subresults,
+                                (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
+                            )
+                        ),
+                        //TODO: Fill this StandardRetur object
+                        StandardRetur = StandardReturType.Create("", "")
+                    };
+                };
+
+                ret = GetMethodOutput<ListOutputType1>(facadeMethodInfo);
+
+                qualityLevel = ql;
+                return ret;
+            }
 
             public static Guid[] Search(string userToken, string appToken, PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? qualityLevel)
             {
@@ -100,7 +166,6 @@ namespace CprBroker.Engine
                 qualityLevel = ql;
                 return ret;
             }
-
 
             public static Guid GetPersonUuid(string userToken, string appToken, string cprNumber)
             {

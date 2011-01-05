@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CprBroker.Engine
 {
-    public sealed class FacadeMethodInfo<TOutput>
+    public class FacadeMethodInfo<TOutput>
     {
         public FacadeMethodInfo()
         { }

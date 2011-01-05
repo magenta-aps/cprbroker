@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:s7="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:s2="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s5="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:s8="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:s10="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s3="http://microsoft.com/wsdl/types/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:s6="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:s9="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:s1="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s11="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s4="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s3="http://microsoft.com/wsdl/types/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s2="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows accesss to CPR data through a standard PART interface</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
       <s:import namespace="http://microsoft.com/wsdl/types/" />
-      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
-      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
       <s:element name="Read">
         <s:complexType>
           <s:sequence>
@@ -409,295 +407,50 @@
       <s:element name="List">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="personUUIDs" type="tns:ArrayOfGuid" />
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="tns:ListInputType" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfGuid">
+      <s:complexType name="ListInputType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="guid" type="s3:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="UUID" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="VirkningFraFilter" type="tns:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="VirkningTilFilter" type="tns:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistreringFraFilter" type="tns:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistreringTilFilter" type="tns:TidspunktType" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="PersonRelations">
+      <s:complexType name="ArrayOfString">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Parents" type="tns:ArrayOfPersonRelation" />
-          <s:element minOccurs="0" maxOccurs="1" name="Children" type="tns:ArrayOfEffectOfPersonRelation" />
-          <s:element minOccurs="0" maxOccurs="1" name="Spouses" type="tns:ArrayOfEffectOfPersonRelation" />
-          <s:element minOccurs="0" maxOccurs="1" name="SubstituteFor" type="tns:ArrayOfEffectOfPersonRelation" />
-          <s:element minOccurs="0" maxOccurs="1" name="ReplacedBy" type="tns:EffectOfPersonRelation" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ArrayOfPersonRelation">
+      <s:complexType name="ListOutputType" abstract="true">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonRelation" nillable="true" type="tns:PersonRelation" />
+          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="tns:StandardReturType" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="PersonRelation">
+      <s:complexType name="ListOutputType1">
         <s:complexContent mixed="false">
-          <s:extension base="tns:Relationship" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="Relationship">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="TargetUUID" type="s3:guid" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfEffectOfPersonRelation">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="EffectOfPersonRelation" nillable="true" type="tns:EffectOfPersonRelation" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EffectOfPersonRelation">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Value" type="tns:PersonRelation" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="PersonStates">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="LifeStatus" type="tns:EffectOfLifeStatus" />
-          <s:element minOccurs="0" maxOccurs="1" name="CivilStatus" type="tns:EffectOfMaritalStatus" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EffectOfLifeStatus">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="Value" type="tns:LifeStatus" />
-        </s:sequence>
-      </s:complexType>
-      <s:simpleType name="LifeStatus">
-        <s:restriction base="s:string">
-          <s:enumeration value="prenatal" />
-          <s:enumeration value="born" />
-          <s:enumeration value="disappeared" />
-          <s:enumeration value="dead" />
-        </s:restriction>
-      </s:simpleType>
-      <s:complexType name="EffectOfMaritalStatus">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="Value" type="tns:MaritalStatus" />
-        </s:sequence>
-      </s:complexType>
-      <s:simpleType name="MaritalStatus">
-        <s:restriction base="s:string">
-          <s:enumeration value="single" />
-          <s:enumeration value="married" />
-          <s:enumeration value="divorced" />
-          <s:enumeration value="widow" />
-          <s:enumeration value="registeredpartner" />
-          <s:enumeration value="repealedpartnership" />
-          <s:enumeration value="surviving" />
-          <s:enumeration value="deceased" />
-        </s:restriction>
-      </s:simpleType>
-      <s:complexType name="PersonAttributes">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Name" type="tns:EffectOfString" />
-          <s:element minOccurs="1" maxOccurs="1" name="Gender" type="tns:Gender" />
-          <s:element minOccurs="1" maxOccurs="1" name="BirthDate" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="PersonData" type="tns:PersonData" />
-          <s:element minOccurs="0" maxOccurs="1" name="ContactChannel" type="tns:ArrayOfContactChannel" />
-          <s:element minOccurs="0" maxOccurs="1" name="OtherAddresses" type="tns:ArrayOfAddress" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EffectOfString">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:simpleType name="Gender">
-        <s:restriction base="s:string">
-          <s:enumeration value="Male" />
-          <s:enumeration value="Female" />
-          <s:enumeration value="Unknown" />
-        </s:restriction>
-      </s:simpleType>
-      <s:complexType name="PersonData" abstract="true" />
-      <s:complexType name="UnknownCitizenData">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:PersonData">
+          <s:extension base="tns:ListOutputType">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="ReplacementCprNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LaesResultat" type="tns:ArrayOfLaesResultatType" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="ForeignCitizenData">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:PersonData">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="ForeignNumber" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="PermissionNumber" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="NationalityCountryCode" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="CprData">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:PersonData">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="PersonName" type="tns:EffectOfPersonNameStructureType" />
-              <s:element minOccurs="0" maxOccurs="1" name="NickName" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="AddressingName" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="NameAndAddressProtection" nillable="true" type="s:boolean" />
-              <s:element minOccurs="1" maxOccurs="1" name="BirthDateUncertainty" nillable="true" type="s:boolean" />
-              <s:element minOccurs="1" maxOccurs="1" name="Gender" type="tns:Gender" />
-              <s:element minOccurs="0" maxOccurs="1" name="CprNumber" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="IndividualTrackStatus" type="s:boolean" />
-              <s:element minOccurs="0" maxOccurs="1" name="NationalityCountryCode" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="PopulationAddress" type="tns:Address" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="EffectOfPersonNameStructureType">
+      <s:complexType name="ArrayOfLaesResultatType">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s1:PersonNameStructureType" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Address" abstract="true">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="AddressUnknown" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="AddressDenmark">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Address">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="AddressComplete" type="s4:AddressCompleteType" />
-              <s:element minOccurs="0" maxOccurs="1" name="AddressPoint" type="tns:AddressPointType" />
-              <s:element minOccurs="0" maxOccurs="1" name="SpecialStreetCode" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="AddressPointType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="AddressPointIdentifier" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="GeographicPointLocation" type="tns:GeographicPointLocationType" />
-          <s:element minOccurs="0" maxOccurs="1" name="AddressPointStatusStructure" type="tns:AddressPointStatusStructureType" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="GeographicPointLocationType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="GeographicCoordinateTuple" type="tns:GeographicCoordinateTupleType" />
-          <s:element minOccurs="0" maxOccurs="1" name="crsIdentifier" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="GeographicCoordinateTupleType">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="GeographicEastingMeasure" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="GeographicNorthingMeasure" type="s:decimal" />
-          <s:element minOccurs="0" maxOccurs="1" name="GeographicHeightMeasure" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="GeographicHeightMeasureSpecified" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="AddressPointStatusStructureType">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="AddressPointRevisionDateTime" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="AddressPointValidStartDateTime" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="AddressPointValidStartDateTimeSpecified" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="AddressPointValidEndDateTime" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="AddressPointValidEndDateTimeSpecified" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="AddressCoordinateQualityClassCode" type="tns:AddressCoordinateQualityClassCodeType" />
-          <s:element minOccurs="1" maxOccurs="1" name="AddressCoordinateQualityClassCodeSpecified" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:simpleType name="AddressCoordinateQualityClassCodeType">
-        <s:restriction base="s:string">
-          <s:enumeration value="A" />
-          <s:enumeration value="B" />
-          <s:enumeration value="U" />
-        </s:restriction>
-      </s:simpleType>
-      <s:complexType name="AddressWorld">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Address">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="ForeignAddress" type="s9:ForeignAddressStructureType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="AddressGreenland">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Address">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="GreenlandicAddress" type="s9:AddressCompleteGreenlandType" />
-              <s:element minOccurs="0" maxOccurs="1" name="SpecialStreetCode" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ArrayOfContactChannel">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ContactChannel" nillable="true" type="tns:ContactChannel" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ContactChannel" abstract="true">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="LimitedUse" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfAddress">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Registration" abstract="true">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="ActorId" type="s3:guid" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="PersonRegistration">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Registration">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Attributes" type="tns:PersonAttributes" />
-              <s:element minOccurs="0" maxOccurs="1" name="States" type="tns:PersonStates" />
-              <s:element minOccurs="0" maxOccurs="1" name="Relations" type="tns:PersonRelations" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ArrayOfPersonRegistration">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonRegistration" nillable="true" type="tns:PersonRegistration" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LaesResultatType" nillable="true" type="tns:LaesResultatType" />
         </s:sequence>
       </s:complexType>
       <s:element name="ListResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ListResult" type="tns:ArrayOfPersonRegistration" />
+            <s:element minOccurs="0" maxOccurs="1" name="ListResult" type="tns:ListOutputType1" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="EffectDateHeader" type="tns:EffectDateHeader" />
-      <s:complexType name="EffectDateHeader">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="EffectDate" nillable="true" type="s:dateTime" />
-        </s:sequence>
-        <s:anyAttribute />
-      </s:complexType>
-      <s:element name="RegistrationDateHeader" type="tns:RegistrationDateHeader" />
-      <s:complexType name="RegistrationDateHeader">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" nillable="true" type="s:dateTime" />
-        </s:sequence>
-        <s:anyAttribute />
-      </s:complexType>
       <s:element name="Search">
         <s:complexType>
           <s:sequence>
@@ -715,6 +468,18 @@
           <s:element minOccurs="0" maxOccurs="1" name="NationalityCountryCode" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:simpleType name="Gender">
+        <s:restriction base="s:string">
+          <s:enumeration value="Male" />
+          <s:enumeration value="Female" />
+          <s:enumeration value="Unknown" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfGuid">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="guid" type="s3:guid" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="SearchResponse">
         <s:complexType>
           <s:sequence>
@@ -722,6 +487,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="EffectDateHeader" type="tns:EffectDateHeader" />
+      <s:complexType name="EffectDateHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EffectDate" nillable="true" type="s:dateTime" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="RegistrationDateHeader" type="tns:RegistrationDateHeader" />
+      <s:complexType name="RegistrationDateHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" nillable="true" type="s:dateTime" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
       <s:element name="GetPersonUuid">
         <s:complexType>
           <s:sequence>
@@ -751,26 +530,6 @@
       <s:element name="PersonGivenName" type="s:string" />
       <s:element name="PersonMiddleName" type="s:string" />
       <s:element name="PersonSurnameName" type="s:string" />
-      <s:element name="StreetBuildingIdentifier" type="s:string" />
-      <s:element name="MailDeliverySublocationIdentifier" type="s:string" />
-      <s:element name="FloorIdentifier" type="s:string" />
-      <s:element name="SuiteIdentifier" type="s:string" />
-      <s:element name="CountryIdentificationCode" type="s2:CountryIdentificationCodeType" />
-      <s:complexType name="CountryIdentificationCodeType">
-        <s:simpleContent>
-          <s:extension base="s:string">
-            <s:attribute name="scheme" type="s2:_CountryIdentificationSchemeType" use="required" />
-          </s:extension>
-        </s:simpleContent>
-      </s:complexType>
-      <s:simpleType name="_CountryIdentificationSchemeType">
-        <s:restriction base="s:string">
-          <s:enumeration value="iso3166-alpha2" />
-          <s:enumeration value="iso3166-alpha3" />
-          <s:enumeration value="un-numeric3" />
-          <s:enumeration value="imk" />
-        </s:restriction>
-      </s:simpleType>
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
       <s:simpleType name="guid">
@@ -778,105 +537,6 @@
           <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
         </s:restriction>
       </s:simpleType>
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/">
-      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
-      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" />
-      <s:complexType name="AddressCompleteType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s5:AddressAccess" />
-          <s:element minOccurs="0" maxOccurs="1" name="AddressPostal" type="s4:AddressPostalType" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="AddressPostalType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:MailDeliverySublocationIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:StreetNameForAddressingName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetBuildingIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:FloorIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:SuiteIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:DistrictSubdivisionIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s8:PostOfficeBoxIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:PostCodeIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:DistrictName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:CountryIdentificationCode" />
-        </s:sequence>
-      </s:complexType>
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/">
-      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
-      <s:element name="AddressAccess" type="s5:AddressAccessType" />
-      <s:complexType name="AddressAccessType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:MunicipalityCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:StreetCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetBuildingIdentifier" />
-        </s:sequence>
-      </s:complexType>
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/">
-      <s:element name="MunicipalityCode" type="s:string" />
-      <s:element name="StreetCode" type="s:string" />
-      <s:element name="StreetNameForAddressingName" type="s:string" />
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/">
-      <s:element name="StreetName" type="s:string" />
-      <s:element name="DistrictSubdivisionIdentifier" type="s:string" />
-      <s:element name="PostCodeIdentifier" type="s:string" />
-      <s:element name="DistrictName" type="s:string" />
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/">
-      <s:element name="PostOfficeBoxIdentifier" type="s:integer" />
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
-      <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
-      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
-      <s:complexType name="ForeignAddressStructureType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostalAddressFirstLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostalAddressSecondLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostalAddressThirdLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostalAddressFourthLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostalAddressFifthLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:CountryIdentificationCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s11:LocationDescriptionText" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="AddressCompleteGreenlandType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:MunicipalityCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:StreetCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:MailDeliverySublocationIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:StreetNameForAddressingName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:StreetBuildingIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:SuiteIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:FloorIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:DistrictSubdivisionIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:PostCodeIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:DistrictName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:CountryIdentificationCode" />
-        </s:sequence>
-      </s:complexType>
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/">
-      <s:element name="PostalAddressFirstLineText" type="s:string" />
-      <s:element name="PostalAddressSecondLineText" type="s:string" />
-      <s:element name="PostalAddressThirdLineText" type="s:string" />
-      <s:element name="PostalAddressFourthLineText" type="s:string" />
-      <s:element name="PostalAddressFifthLineText" type="s:string" />
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/">
-      <s:element name="LocationDescriptionText" type="s:string" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="ReadSoapIn">
@@ -912,14 +572,8 @@
   <wsdl:message name="ListApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="ListEffectDateHeader">
-    <wsdl:part name="EffectDateHeader" element="tns:EffectDateHeader" />
-  </wsdl:message>
   <wsdl:message name="ListQualityHeader">
     <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
-  </wsdl:message>
-  <wsdl:message name="ListRegistrationDateHeader">
-    <wsdl:part name="RegistrationDateHeader" element="tns:RegistrationDateHeader" />
   </wsdl:message>
   <wsdl:message name="SearchSoapIn">
     <wsdl:part name="parameters" element="tns:Search" />
@@ -1023,8 +677,6 @@ Output : Person UUID
       <wsdl:input>
         <soap:body use="literal" />
         <soap:header message="tns:ListApplicationHeader" part="ApplicationHeader" use="literal" />
-        <soap:header message="tns:ListEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap:header message="tns:ListRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -1084,8 +736,6 @@ Output : Person UUID
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:ListApplicationHeader" part="ApplicationHeader" use="literal" />
-        <soap12:header message="tns:ListEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap12:header message="tns:ListRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />

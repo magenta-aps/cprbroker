@@ -30,7 +30,7 @@ namespace CprBroker.NUnitTester
             "2304230889", // 90
             //"1234123412", //not found in DPR
             "2101773607",
-            //"1101812134",// person with multiple marriages
+            //"1101812134",// laesResultat with multiple marriages
         };
         public const string CprNumbersFieldName = "cprNumbers";
 
@@ -97,7 +97,7 @@ namespace CprBroker.NUnitTester
             changeSubscriptions.Clear();
 
 
-            // Create test person
+            // Create test laesResultat
             testFullPerson = new NUnitTester.CPRAdministrationWS.PersonFullStructureType()
             {
                 Item = new

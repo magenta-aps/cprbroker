@@ -135,7 +135,7 @@ namespace CprBroker.NUnitTester
             bool notified;
             CprBroker.NUnitTester.Access.SendNotificationsResult res;
 
-            // Create a test person and then submit an update
+            // Create a test laesResultat and then submit an update
             this.T700_CreateTestCitizen();
             TestData.testFullPerson.RegularCPRPerson.SimpleCPRPerson.PersonNameStructure.PersonGivenName += "S";
             this.T700_CreateTestCitizen();
