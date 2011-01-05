@@ -12,6 +12,7 @@ namespace CprBroker.Engine
     {
         public static readonly string NotificationSentSuccessfully = "Notification sent successfully";
         public static readonly string NotificationSendingFailed = "Notification sending failed";
+        public static readonly string InvalidInput = "Invalid input";
         public static readonly string NoDataProvidersFound = "No data providers found";
         public static readonly string AllDataProvidersFailed = "All available data providers failed";
         public static readonly string ResultGatheringFailed = "Result gathering has failed";

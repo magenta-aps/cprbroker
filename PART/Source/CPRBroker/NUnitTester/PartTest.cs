@@ -130,11 +130,18 @@ namespace CprBroker.NUnitTester
             };
 
             var persons = TestRunner.PartService.List(input);
-            Assert.IsNotNull(persons, "Persons array is null");
-            Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
-            for (int i = 0; i < cprNumbers.Length; i++)
+            if (cprNumbers == null)
             {
-                Validate(new Guid(input.UUID[i]), persons.LaesResultat[i], TestRunner.PartService);
+                Assert.IsNull(persons);
+            }
+            else
+            {
+                Assert.IsNotNull(persons, "Persons array is null");
+                Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
+                for (int i = 0; i < cprNumbers.Length; i++)
+                {
+                    Validate(new Guid(input.UUID[i]), persons.LaesResultat[i], TestRunner.PartService);
+                }
             }
         }
 

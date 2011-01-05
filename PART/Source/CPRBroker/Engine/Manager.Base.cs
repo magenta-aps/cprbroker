@@ -118,6 +118,13 @@ namespace CprBroker.Engine
                 // Initialize context
                 BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken, facade.ApplicationTokenRequired, true, false);
 
+                // Validate
+                if (!facade.IsValidInput())
+                {
+                    Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.InvalidInput, null, null);
+                    return default(TOutput);
+                }
+
                 // Initialize facade method
                 facade.Initialize();
 

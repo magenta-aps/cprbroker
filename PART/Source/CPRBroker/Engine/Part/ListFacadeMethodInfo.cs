@@ -22,6 +22,21 @@ namespace CprBroker.Engine.Part
             this.InitializationMethod = new Action(InitializationMethod);
         }
 
+        public override bool IsValidInput()
+        {
+            if (input == null || input.UUID == null && input.UUID.Count == 0)
+            {
+                return false;
+            }
+            if (input.UUID
+                .Any((uuid) => string.IsNullOrEmpty(uuid))
+                )
+            {
+                return false;
+            }
+            return true;
+        }
+
         public override void Initialize()
         {
             inputUuidToPersonIdentifierMap = new Dictionary<string, PersonIdentifier>();

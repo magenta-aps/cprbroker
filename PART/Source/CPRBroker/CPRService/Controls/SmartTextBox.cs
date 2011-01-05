@@ -76,7 +76,7 @@ namespace CprBroker.Web.Controls
 
             regularExpressionValidator.ControlToValidate = "txt";
             regularExpressionValidator.Enabled = !string.IsNullOrEmpty(ValidationExpression);
-            regularExpressionValidator.Text = "Invalid input";
+            regularExpressionValidator.Text = "Invalid Input";
             regularExpressionValidator.ValidationGroup = ValidationGroup;
             Controls.Add(regularExpressionValidator);
         }

@@ -17,6 +17,11 @@ namespace CprBroker.Engine
             ApplicationTokenRequired = appTokenRequired;
         }
 
+        public virtual bool IsValidInput()
+        {
+            return true;
+        }
+
         public virtual void Initialize()
         {
             if (InitializationMethod != null)
