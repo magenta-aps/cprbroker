@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.Engine.Part;
 
 namespace CprBroker.Engine
 {
@@ -81,25 +82,8 @@ namespace CprBroker.Engine
                 //TODO: remove quality level because it applies to individual elements rather than the whole result
                 QualityLevel? ql = null;
                 ListOutputType1 ret = null;
-                //List<PersonIdentifier> pIds = null;
-                Dictionary<string, PersonIdentifier> inputUuidToPersonIdentifierMap = null;
 
-                FacadeMethodInfo<ListOutputType1> facadeMethodInfo = new FacadeMethodInfo<ListOutputType1>(appToken, userToken, true);
-
-                facadeMethodInfo.InitializationMethod = () =>
-                {
-                    inputUuidToPersonIdentifierMap = new Dictionary<string, PersonIdentifier>();
-                    foreach (var inputPersonUuid in input.UUID)
-                    {
-                        var personIdentifier = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
-                        //TODO: Do not throw exception, instead, return null. This affects the following delegates too
-                        if (personIdentifier == null)
-                        {
-                            throw new Exception(TextMessages.UuidNotFound);
-                        }
-                        inputUuidToPersonIdentifierMap.Add(inputPersonUuid, personIdentifier);
-                    }
-                };
+                ListFacadeMethodInfo facadeMethodInfo = new ListFacadeMethodInfo(input, appToken, userToken, true);
 
                 //TODO: Could fail if input.UUID is null
                 facadeMethodInfo.SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
@@ -112,12 +96,12 @@ namespace CprBroker.Engine
                        FailOnDefaultOutput = true,
                        Method = (prov) => prov.Read
                            (
-                               inputUuidToPersonIdentifierMap[pUUID],
+                               facadeMethodInfo.inputUuidToPersonIdentifierMap[pUUID],
                                LaesInputType.Create(pUUID, input),
                                (cpr) => Manager.Part.GetPersonUuid(userToken, appToken, cpr),
                                out ql
                            ),
-                       UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(inputUuidToPersonIdentifierMap[pUUID].UUID.Value, personRegistration)
+                       UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(facadeMethodInfo.inputUuidToPersonIdentifierMap[pUUID].UUID.Value, personRegistration)
                    }
                );
 
