@@ -85,24 +85,15 @@ namespace CprBroker.Engine
 
                 ListFacadeMethodInfo facadeMethodInfo = new ListFacadeMethodInfo(input, appToken, userToken, true);
 
-                //TODO: Could fail if input.UUID is null
+                //TODO: Could fail if Input.UUID is null
                 facadeMethodInfo.SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
                 (
                     input.UUID.ToArray(),
-                    (pUUID) => new SubMethodInfo<IPartReadDataProvider, RegistreringType1>()
-                   {
-                       LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst,
-                       FailIfNoDataProvider = true,
-                       FailOnDefaultOutput = true,
-                       Method = (prov) => prov.Read
-                           (
-                               facadeMethodInfo.inputUuidToPersonIdentifierMap[pUUID],
-                               LaesInputType.Create(pUUID, input),
-                               (cpr) => Manager.Part.GetPersonUuid(userToken, appToken, cpr),
-                               out ql
-                           ),
-                       UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(facadeMethodInfo.inputUuidToPersonIdentifierMap[pUUID].UUID.Value, personRegistration)
-                   }
+                    (pUUID) => new ReadSubMethodInfo(
+                        facadeMethodInfo.inputUuidToPersonIdentifierMap[pUUID], 
+                        LaesInputType.Create(pUUID, input), 
+                        (cpr) => Manager.Part.GetPersonUuid(userToken, appToken, cpr), 
+                        LocalDataProviderUsageOption.UseFirst)
                );
 
                 ret = GetMethodOutput<ListOutputType1>(facadeMethodInfo);

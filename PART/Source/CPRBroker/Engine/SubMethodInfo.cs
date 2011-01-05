@@ -20,6 +20,7 @@ namespace CprBroker.Engine
     public class SubMethodInfo<TInterface, TOutput> : SubMethodInfo where TInterface : class, IDataProvider
     {
         public Func<TInterface, TOutput> Method;
+        
         public Action<TOutput> UpdateMethod;
 
         public TOutput CurrentResult;
@@ -29,11 +30,23 @@ namespace CprBroker.Engine
             get { return typeof(TInterface); }
         }
 
-        public override object Invoke(IDataProvider prov)
+        public override sealed object Invoke(IDataProvider prov)
         {
             var provider = prov as TInterface;
             CurrentResult = Method(provider as TInterface);
             return CurrentResult;
+        }
+
+        public virtual TOutput RunMainMethod(TInterface prov)
+        {
+            if (Method != null)
+            {
+                return Method(prov);
+            }
+            else
+            {
+                return default(TOutput);
+            }
         }
 
         public override void InvokeUpdateMethod(object result)
