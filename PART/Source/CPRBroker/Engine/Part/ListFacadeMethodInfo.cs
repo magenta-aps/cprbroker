@@ -37,5 +37,22 @@ namespace CprBroker.Engine.Part
             }
         }
 
+        public override ListOutputType1 Aggregate(object[] results)
+        {
+            return new ListOutputType1()
+            {
+                LaesResultat = new List<LaesResultatType>
+                (
+                    Array.ConvertAll<object, LaesResultatType>
+                    (
+                        results,
+                        (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
+                    )
+                ),
+                //TODO: Fill this StandardRetur object
+                StandardRetur = StandardReturType.Create("", "")
+            };
+        }
+
     }
 }

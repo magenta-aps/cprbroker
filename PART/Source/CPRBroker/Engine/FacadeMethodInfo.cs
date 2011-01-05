@@ -27,7 +27,7 @@ namespace CprBroker.Engine
         public Action InitializationMethod = () => { };
 
 
-        public TOutput Aggregate(object[] results)
+        public virtual TOutput Aggregate(object[] results)
         {
             if (AggregationMethod != null)
             {

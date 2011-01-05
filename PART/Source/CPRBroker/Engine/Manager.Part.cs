@@ -105,23 +105,6 @@ namespace CprBroker.Engine
                    }
                );
 
-                facadeMethodInfo.AggregationMethod = (subresults) =>
-                {
-                    return new ListOutputType1()
-                    {
-                        LaesResultat = new List<LaesResultatType>
-                        (
-                            Array.ConvertAll<object, LaesResultatType>
-                            (
-                                subresults,
-                                (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
-                            )
-                        ),
-                        //TODO: Fill this StandardRetur object
-                        StandardRetur = StandardReturType.Create("", "")
-                    };
-                };
-
                 ret = GetMethodOutput<ListOutputType1>(facadeMethodInfo);
 
                 qualityLevel = ql;

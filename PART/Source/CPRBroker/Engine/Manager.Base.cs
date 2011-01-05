@@ -227,7 +227,7 @@ namespace CprBroker.Engine
                 if (subResultsFinished)
                 {
                     var subResults = (from mi in subMethodRunStates select mi.Result).ToArray();
-                    var output = facade.AggregationMethod(subResults);
+                    var output = facade.Aggregate(subResults);
                     if (facade.IsValidResult(output))
                     {
                         Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.Succeeded, null, null);
