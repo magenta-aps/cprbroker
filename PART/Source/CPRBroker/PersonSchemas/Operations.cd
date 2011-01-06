@@ -6,7 +6,8 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAEAAAAAgAAAQAAA=</HashCode>
+      <FileName>TidspunktType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.BasicOutputType">
@@ -27,7 +28,8 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAKAAAAAAAAAAAgAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAKAAAAAAAAAAAgAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>StandardReturType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.LaesOutputType">
@@ -59,7 +61,8 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAgEAQAAAEAAAAAAAEAAAAAgAAAQAAIEAAAA=</HashCode>
+      <HashCode>AAAABAAAAgEAQAAAEAAAAAAAEAAAAEgAAAQAAIEAAAA=</HashCode>
+      <FileName>LaesInputType.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.ListInputType">
@@ -156,7 +159,38 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>EAAAAABABAAAAAAAAAAAAACAAAAAQAAAAAAAIQAAAAA=</HashCode>
+      <HashCode>EAAAAABABAAAAAAAAAAAAACAAAAAQEAAAAAAIQAAAAA=</HashCode>
+      <FileName>VirkningType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.AttributListeType">
+    <Position X="11.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAIAQAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Egenskaber" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.EgenskaberType">
+    <Position X="15.25" Y="8" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEgAAAAAAAQwAAAAEIAACACAAACAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RegisterOplysninger" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.RegisterOplysningerType">
+    <Position X="18.75" Y="8" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Font Name="Tahoma" Size="8.25" />

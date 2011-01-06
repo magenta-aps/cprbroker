@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="CprBroker.PersonSchemas.RelationListeType">
+  <Class Name="CprBroker.Schemas.Part.RelationListeType">
     <Position X="8.25" Y="8" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -10,7 +10,7 @@
       <HashCode>AAwACAgCQgAAAgAAABIRAEAAAJCAAAEgAABEAAACIAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.VirkningType">
+  <Class Name="CprBroker.Schemas.Part.VirkningType">
     <Position X="8.5" Y="3.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -19,7 +19,7 @@
       <HashCode>EAAAAABABAAAAAAAAAAAAACAAAAAQAAAAAAAIQAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.LokalUdvidelseType">
+  <Class Name="CprBroker.Schemas.Part.LokalUdvidelseType">
     <Position X="11" Y="12.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -28,20 +28,20 @@
       <HashCode>IAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.EgenskaberType">
+  <Class Name="CprBroker.Schemas.Part.EgenskaberType">
     <Position X="11.5" Y="6.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="PersonNameStructure" Type="CprBroker.PersonSchemas.PersonNameStructureType" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="PersonNameStructure" Type="CprBroker.Schemas.Part.PersonNameStructureType" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="12.437" Y="7.284" />
         <Point X="12.437" Y="8.062" />
         <Point X="15.5" Y="8.062" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="RegisterOplysninger" Type="CprBroker.PersonSchemas.RegisterOplysningerType" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="RegisterOplysninger" Type="CprBroker.Schemas.Part.RegisterOplysningerType" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="12.187" Y="7.284" />
         <Point X="12.187" Y="9.599" />
@@ -59,7 +59,7 @@
       <Property Name="Virkning" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.PersonNameStructureType">
+  <Class Name="CprBroker.Schemas.Part.PersonNameStructureType">
     <Position X="15.5" Y="7.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -68,7 +68,7 @@
       <HashCode>AAAAAAAAAAgIAAAAAACAAAAAAEQAAAAAAAAAAIAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.PersonBirthDateStructureType">
+  <Class Name="CprBroker.Schemas.Part.PersonBirthDateStructureType">
     <Position X="15.5" Y="5.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -77,7 +77,7 @@
       <HashCode>AAAAQAAAgAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.RegisterOplysningerType">
+  <Class Name="CprBroker.Schemas.Part.RegisterOplysningerType">
     <Position X="15.5" Y="9" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -86,7 +86,7 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.AttributListeType">
+  <Class Name="CprBroker.Schemas.Part.AttributListeType">
     <Position X="8.5" Y="6.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -99,7 +99,7 @@
       <Property Name="Egenskaber" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.TilstandListeType">
+  <Class Name="CprBroker.Schemas.Part.TilstandListeType">
     <Position X="8.25" Y="11.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
@@ -111,7 +111,7 @@
       <Property Name="LokalUdvidelse" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.RegistreringType1">
+  <Class Name="CprBroker.Schemas.Part.RegistreringType1">
     <Position X="5.75" Y="6.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -125,7 +125,7 @@
       <Property Name="RelationListe" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.RegistreringType">
+  <Class Name="CprBroker.Schemas.Part.RegistreringType">
     <Position X="5.75" Y="2.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -138,12 +138,12 @@
       <Property Name="LivscyklusKode" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.PersonType">
+  <Class Name="CprBroker.Schemas.Part.PersonType">
     <Position X="2.75" Y="4" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Registrering" Type="CprBroker.PersonSchemas.RegistreringType1" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="Registrering" Type="CprBroker.Schemas.Part.RegistreringType1" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="3.5" Y="5.319" />
         <Point X="3.5" Y="6.969" />
@@ -157,7 +157,7 @@
       <Property Name="Registrering" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.SagDokObjektType">
+  <Class Name="CprBroker.Schemas.Part.SagDokObjektType">
     <Position X="1.75" Y="1.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -166,13 +166,13 @@
       <HashCode>AAAAAAAAAAAAAAAAEAAAAQAAAAAAAAgAAAAAAAAAAgA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.LaesFiltreretOutputType">
+  <Class Name="CprBroker.Schemas.Part.LaesFiltreretOutputType">
     <Position X="0.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.FiltreretOejebliksBillede">
+  <Class Name="CprBroker.Schemas.Part.FiltreretOejebliksBillede">
     <Position X="0.5" Y="5.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -181,13 +181,13 @@
       <HashCode>AAQAAAAAAIAAAABAAAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.PersonRelationType">
+  <Class Name="CprBroker.Schemas.Part.PersonRelationType">
     <Position X="1" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.RelationType">
+  <Class Name="CprBroker.Schemas.Part.RelationType">
     <Position X="2.25" Y="7.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -197,19 +197,19 @@
       <HashCode>MAAAAAAABAAAgAAAAAAAAAAAAAAAAAAAAAAACEAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.PersonSchemas.AktoerRelationType">
+  <Class Name="CprBroker.Schemas.Part.AktoerRelationType">
     <Position X="3.25" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Enum Name="CprBroker.PersonSchemas.PersonGenderCodeType">
+  <Enum Name="CprBroker.Schemas.Part.PersonGenderCodeType">
     <Position X="15.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="CprBroker.PersonSchemas.LivscyklusKodeType">
+  <Enum Name="CprBroker.Schemas.Part.LivscyklusKodeType">
     <Position X="8.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAIBAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
