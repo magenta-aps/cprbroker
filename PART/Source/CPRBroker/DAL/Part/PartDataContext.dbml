@@ -117,6 +117,7 @@
       <Association Name="PersonRegistration_PersonAttribute" Member="PersonAttribute" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttribute" Cardinality="One" />
       <Association Name="Person_PersonRegistration" Member="Person" ThisKey="UUID" OtherKey="UUID" Type="Person" IsForeignKey="true" />
       <Association Name="Effect_PersonRegistration" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
+      <Association Name="LifecycleStatus_PersonRegistration" Member="LifecycleStatus" ThisKey="LifecycleStatusId" OtherKey="LifecycleStatusId" Type="LifecycleStatus" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Effect" Member="Effects">
@@ -167,6 +168,13 @@
       <Association Name="Effect_PersonAttribute" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
       <Association Name="Gender_PersonAttribute" Member="Gender" ThisKey="GenderId" OtherKey="GenderId" Type="Gender" IsForeignKey="true" />
       <Association Name="PersonRegistration_PersonAttribute" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LifecycleStatus" Member="LifecycleStatus">
+    <Type Name="LifecycleStatus">
+      <Column Name="LifecycleStatusId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LifecycleStatusName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="LifecycleStatus_PersonRegistration" Member="PersonRegistrations" ThisKey="LifecycleStatusId" OtherKey="LifecycleStatusId" Type="PersonRegistration" />
     </Type>
   </Table>
 </Database>

@@ -72,6 +72,9 @@ namespace CprBroker.DAL.Part
     partial void InsertPersonAttribute(PersonAttribute instance);
     partial void UpdatePersonAttribute(PersonAttribute instance);
     partial void DeletePersonAttribute(PersonAttribute instance);
+    partial void InsertLifecycleStatus(LifecycleStatus instance);
+    partial void UpdateLifecycleStatus(LifecycleStatus instance);
+    partial void DeleteLifecycleStatus(LifecycleStatus instance);
     #endregion
 		
 		public PartDataContext(string connection) : 
@@ -207,6 +210,14 @@ namespace CprBroker.DAL.Part
 			get
 			{
 				return this.GetTable<PersonAttribute>();
+			}
+		}
+		
+		public System.Data.Linq.Table<LifecycleStatus> LifecycleStatus
+		{
+			get
+			{
+				return this.GetTable<LifecycleStatus>();
 			}
 		}
 	}
@@ -2313,6 +2324,8 @@ namespace CprBroker.DAL.Part
 		
 		private EntityRef<Effect> _Effect;
 		
+		private EntityRef<LifecycleStatus> _LifecycleStatus;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2340,6 +2353,7 @@ namespace CprBroker.DAL.Part
 			this._PersonAttribute = default(EntityRef<PersonAttribute>);
 			this._Person = default(EntityRef<Person>);
 			this._Effect = default(EntityRef<Effect>);
+			this._LifecycleStatus = default(EntityRef<LifecycleStatus>);
 			OnCreated();
 		}
 		
@@ -2438,6 +2452,10 @@ namespace CprBroker.DAL.Part
 			{
 				if ((this._LifecycleStatusId != value))
 				{
+					if (this._LifecycleStatus.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnLifecycleStatusIdChanging(value);
 					this.SendPropertyChanging();
 					this._LifecycleStatusId = value;
@@ -2626,6 +2644,40 @@ namespace CprBroker.DAL.Part
 						this._EffectId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Effect");
+				}
+			}
+		}
+		
+		[Association(Name="LifecycleStatus_PersonRegistration", Storage="_LifecycleStatus", ThisKey="LifecycleStatusId", OtherKey="LifecycleStatusId", IsForeignKey=true)]
+		public LifecycleStatus LifecycleStatus
+		{
+			get
+			{
+				return this._LifecycleStatus.Entity;
+			}
+			set
+			{
+				LifecycleStatus previousValue = this._LifecycleStatus.Entity;
+				if (((previousValue != value) 
+							|| (this._LifecycleStatus.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._LifecycleStatus.Entity = null;
+						previousValue.PersonRegistrations.Remove(this);
+					}
+					this._LifecycleStatus.Entity = value;
+					if ((value != null))
+					{
+						value.PersonRegistrations.Add(this);
+						this._LifecycleStatusId = value.LifecycleStatusId;
+					}
+					else
+					{
+						this._LifecycleStatusId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("LifecycleStatus");
 				}
 			}
 		}
@@ -3770,6 +3822,120 @@ namespace CprBroker.DAL.Part
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[Table(Name="dbo.LifecycleStatus")]
+	public partial class LifecycleStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _LifecycleStatusId;
+		
+		private string _LifecycleStatusName;
+		
+		private EntitySet<PersonRegistration> _PersonRegistrations;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLifecycleStatusIdChanging(int value);
+    partial void OnLifecycleStatusIdChanged();
+    partial void OnLifecycleStatusNameChanging(string value);
+    partial void OnLifecycleStatusNameChanged();
+    #endregion
+		
+		public LifecycleStatus()
+		{
+			this._PersonRegistrations = new EntitySet<PersonRegistration>(new Action<PersonRegistration>(this.attach_PersonRegistrations), new Action<PersonRegistration>(this.detach_PersonRegistrations));
+			OnCreated();
+		}
+		
+		[Column(Storage="_LifecycleStatusId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int LifecycleStatusId
+		{
+			get
+			{
+				return this._LifecycleStatusId;
+			}
+			set
+			{
+				if ((this._LifecycleStatusId != value))
+				{
+					this.OnLifecycleStatusIdChanging(value);
+					this.SendPropertyChanging();
+					this._LifecycleStatusId = value;
+					this.SendPropertyChanged("LifecycleStatusId");
+					this.OnLifecycleStatusIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_LifecycleStatusName", DbType="VarChar(50)")]
+		public string LifecycleStatusName
+		{
+			get
+			{
+				return this._LifecycleStatusName;
+			}
+			set
+			{
+				if ((this._LifecycleStatusName != value))
+				{
+					this.OnLifecycleStatusNameChanging(value);
+					this.SendPropertyChanging();
+					this._LifecycleStatusName = value;
+					this.SendPropertyChanged("LifecycleStatusName");
+					this.OnLifecycleStatusNameChanged();
+				}
+			}
+		}
+		
+		[Association(Name="LifecycleStatus_PersonRegistration", Storage="_PersonRegistrations", ThisKey="LifecycleStatusId", OtherKey="LifecycleStatusId")]
+		public EntitySet<PersonRegistration> PersonRegistrations
+		{
+			get
+			{
+				return this._PersonRegistrations;
+			}
+			set
+			{
+				this._PersonRegistrations.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PersonRegistrations(PersonRegistration entity)
+		{
+			this.SendPropertyChanging();
+			entity.LifecycleStatus = this;
+		}
+		
+		private void detach_PersonRegistrations(PersonRegistration entity)
+		{
+			this.SendPropertyChanging();
+			entity.LifecycleStatus = null;
 		}
 	}
 }
