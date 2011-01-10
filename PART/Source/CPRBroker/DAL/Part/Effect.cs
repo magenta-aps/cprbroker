@@ -19,5 +19,16 @@ namespace CprBroker.DAL.Part
             };
         }
 
+        public static Effect FromXmlType(VirkningType virkning)
+        {
+            return new Effect()
+            {
+                ActorText = virkning.AktoerTekst,
+                CommentText = virkning.CommentText,
+                FromDate = virkning.FraTidspunkt.ToDateTime(),
+                ToDate = virkning.TilTidspunkt.ToDateTime()
+            };
+        }
+
     }
 }

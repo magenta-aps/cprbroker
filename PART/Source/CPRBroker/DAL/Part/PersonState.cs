@@ -9,6 +9,7 @@ namespace CprBroker.DAL.Part
     {
         public CprBroker.Schemas.Part.TilstandListeType ToXmlType()
         {
+            // TODO: Implement PersonState.ToXmlType after getting schema details
             return new Schemas.Part.TilstandListeType()
                 /*
                     {
@@ -33,7 +34,7 @@ namespace CprBroker.DAL.Part
 
         public static PersonState FromXmlType(Schemas.Part.TilstandListeType partState)
         {
-            // TODO: Implement PersonState.FromXmlType
+            // TODO: Implement PersonState.FromXmlType after getting schema details
             return new PersonState();
         }
     }

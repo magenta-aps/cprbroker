@@ -76,10 +76,28 @@ namespace CprBroker.DAL.Part
             ).ToList();
         }
 
-        public static PersonRelationship[] FromXmlType(Schemas.Part.PersonRelations partRelations)
+        public static List< PersonRelationship> FromXmlType(Schemas.Part.RelationListeType partRelations)
         {
-            // TODO: implement PersonRelation.FromXmlType()
-            return new PersonRelationship[0];
+            var ret= new List<PersonRelationship>();
+
+
+            return ret;
+        }
+
+        private PersonRelationship[] FFF(List<PersonRelationType> oio,RelationshipTypes relType)
+        {
+            return Array.ConvertAll<PersonRelationType, PersonRelationship>
+            (
+                oio.ToArray(),
+                (r) => new PersonRelationship()
+                {
+                    CommentText=r.CommentText,
+                    Effect=Effect.FromXmlType(r.Virkning),
+                    PersonRelationshipId=Guid.NewGuid(),
+                    RelatedPersonUuid = new Guid(r.ReferenceIDTekst),
+                    RelationshipTypeId = (int)relType                    
+                }
+            );
         }
     }
 }

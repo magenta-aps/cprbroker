@@ -56,11 +56,11 @@ namespace CprBroker.DAL.Part
         public static PersonAttribute FromXmlType(Schemas.Part.AttributListeType partAttributes)
         {
             var oo = partAttributes.Egenskaber[0];
-            // TODO: Add support for contact channels and other addresses
-            // TODO: Add support for name date
             var ret = new PersonAttribute()
             {
                 BirthDate = oo.PersonBirthDateStructure.BirthDate,
+                BirthdateUncertainty = oo.PersonBirthDateStructure.BirthDateUncertaintyIndicator,
+                Effect = Effect.FromXmlType(oo.Virkning),
                 GenderId = DAL.Part.Gender.GetPartCode(oo.PersonGenderCode),
                 FirstName = oo.PersonNameStructure.PersonGivenName,
                 MiddleName = oo.PersonNameStructure.PersonMiddleName,
