@@ -30,15 +30,9 @@ namespace CprBroker.DAL.Part
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertPerson(Person instance);
-    partial void UpdatePerson(Person instance);
-    partial void DeletePerson(Person instance);
     partial void InsertPersonMapping(PersonMapping instance);
     partial void UpdatePersonMapping(PersonMapping instance);
     partial void DeletePersonMapping(PersonMapping instance);
-    partial void InsertPersonAttribute(PersonAttribute instance);
-    partial void UpdatePersonAttribute(PersonAttribute instance);
-    partial void DeletePersonAttribute(PersonAttribute instance);
     partial void InsertGender(Gender instance);
     partial void UpdateGender(Gender instance);
     partial void DeleteGender(Gender instance);
@@ -54,21 +48,30 @@ namespace CprBroker.DAL.Part
     partial void InsertPersonState(PersonState instance);
     partial void UpdatePersonState(PersonState instance);
     partial void DeletePersonState(PersonState instance);
-    partial void InsertRelationshipType(RelationshipType instance);
-    partial void UpdateRelationshipType(RelationshipType instance);
-    partial void DeleteRelationshipType(RelationshipType instance);
-    partial void InsertPersonRelationship(PersonRelationship instance);
-    partial void UpdatePersonRelationship(PersonRelationship instance);
-    partial void DeletePersonRelationship(PersonRelationship instance);
     partial void InsertAddress(Address instance);
     partial void UpdateAddress(Address instance);
     partial void DeleteAddress(Address instance);
     partial void InsertMunicipality(Municipality instance);
     partial void UpdateMunicipality(Municipality instance);
     partial void DeleteMunicipality(Municipality instance);
+    partial void InsertPerson(Person instance);
+    partial void UpdatePerson(Person instance);
+    partial void DeletePerson(Person instance);
     partial void InsertPersonRegistration(PersonRegistration instance);
     partial void UpdatePersonRegistration(PersonRegistration instance);
     partial void DeletePersonRegistration(PersonRegistration instance);
+    partial void InsertEffect(Effect instance);
+    partial void UpdateEffect(Effect instance);
+    partial void DeleteEffect(Effect instance);
+    partial void InsertRelationshipType(RelationshipType instance);
+    partial void UpdateRelationshipType(RelationshipType instance);
+    partial void DeleteRelationshipType(RelationshipType instance);
+    partial void InsertPersonRelationship(PersonRelationship instance);
+    partial void UpdatePersonRelationship(PersonRelationship instance);
+    partial void DeletePersonRelationship(PersonRelationship instance);
+    partial void InsertPersonAttribute(PersonAttribute instance);
+    partial void UpdatePersonAttribute(PersonAttribute instance);
+    partial void DeletePersonAttribute(PersonAttribute instance);
     #endregion
 		
 		public PartDataContext(string connection) : 
@@ -95,27 +98,11 @@ namespace CprBroker.DAL.Part
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Person> Persons
-		{
-			get
-			{
-				return this.GetTable<Person>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PersonMapping> PersonMappings
 		{
 			get
 			{
 				return this.GetTable<PersonMapping>();
-			}
-		}
-		
-		public System.Data.Linq.Table<PersonAttribute> PersonAttributes
-		{
-			get
-			{
-				return this.GetTable<PersonAttribute>();
 			}
 		}
 		
@@ -159,22 +146,6 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
-		public System.Data.Linq.Table<RelationshipType> RelationshipTypes
-		{
-			get
-			{
-				return this.GetTable<RelationshipType>();
-			}
-		}
-		
-		public System.Data.Linq.Table<PersonRelationship> PersonRelationships
-		{
-			get
-			{
-				return this.GetTable<PersonRelationship>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Address> Addresses
 		{
 			get
@@ -191,6 +162,14 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
+		public System.Data.Linq.Table<Person> Persons
+		{
+			get
+			{
+				return this.GetTable<Person>();
+			}
+		}
+		
 		public System.Data.Linq.Table<PersonRegistration> PersonRegistrations
 		{
 			get
@@ -198,95 +177,37 @@ namespace CprBroker.DAL.Part
 				return this.GetTable<PersonRegistration>();
 			}
 		}
-	}
-	
-	[Table(Name="dbo.Person")]
-	public partial class Person : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _UUID;
-		
-		private EntitySet<PersonRegistration> _PersonRegistrations;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUUIDChanging(System.Guid value);
-    partial void OnUUIDChanged();
-    #endregion
-		
-		public Person()
-		{
-			this._PersonRegistrations = new EntitySet<PersonRegistration>(new Action<PersonRegistration>(this.attach_PersonRegistrations), new Action<PersonRegistration>(this.detach_PersonRegistrations));
-			OnCreated();
-		}
-		
-		[Column(Storage="_UUID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid UUID
+		public System.Data.Linq.Table<Effect> Effects
 		{
 			get
 			{
-				return this._UUID;
-			}
-			set
-			{
-				if ((this._UUID != value))
-				{
-					this.OnUUIDChanging(value);
-					this.SendPropertyChanging();
-					this._UUID = value;
-					this.SendPropertyChanged("UUID");
-					this.OnUUIDChanged();
-				}
+				return this.GetTable<Effect>();
 			}
 		}
 		
-		[Association(Name="Person_PersonRegistration", Storage="_PersonRegistrations", ThisKey="UUID", OtherKey="UUID")]
-		public EntitySet<PersonRegistration> PersonRegistrations
+		public System.Data.Linq.Table<RelationshipType> RelationshipTypes
 		{
 			get
 			{
-				return this._PersonRegistrations;
+				return this.GetTable<RelationshipType>();
 			}
-			set
+		}
+		
+		public System.Data.Linq.Table<PersonRelationship> PersonRelationships
+		{
+			get
 			{
-				this._PersonRegistrations.Assign(value);
+				return this.GetTable<PersonRelationship>();
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
+		public System.Data.Linq.Table<PersonAttribute> PersonAttributes
 		{
-			if ((this.PropertyChanging != null))
+			get
 			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
+				return this.GetTable<PersonAttribute>();
 			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PersonRegistrations(PersonRegistration entity)
-		{
-			this.SendPropertyChanging();
-			entity.Person = this;
-		}
-		
-		private void detach_PersonRegistrations(PersonRegistration entity)
-		{
-			this.SendPropertyChanging();
-			entity.Person = null;
 		}
 	}
 	
@@ -351,318 +272,6 @@ namespace CprBroker.DAL.Part
 					this._CprNumber = value;
 					this.SendPropertyChanged("CprNumber");
 					this.OnCprNumberChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[Table(Name="dbo.PersonAttributes")]
-	public partial class PersonAttribute : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _PersonRegistrationId;
-		
-		private string _Name;
-		
-		private int _GenderId;
-		
-		private System.DateTime _BirthDate;
-		
-		private EntityRef<ForeignCitizenData> _ForeignCitizenData;
-		
-		private EntityRef<UnknownCitizenData> _UnknownCitizenData;
-		
-		private EntityRef<CprData> _CprData;
-		
-		private EntityRef<Gender> _Gender;
-		
-		private EntityRef<PersonRegistration> _PersonRegistration;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPersonRegistrationIdChanging(System.Guid value);
-    partial void OnPersonRegistrationIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnGenderIdChanging(int value);
-    partial void OnGenderIdChanged();
-    partial void OnBirthDateChanging(System.DateTime value);
-    partial void OnBirthDateChanged();
-    #endregion
-		
-		public PersonAttribute()
-		{
-			this._ForeignCitizenData = default(EntityRef<ForeignCitizenData>);
-			this._UnknownCitizenData = default(EntityRef<UnknownCitizenData>);
-			this._CprData = default(EntityRef<CprData>);
-			this._Gender = default(EntityRef<Gender>);
-			this._PersonRegistration = default(EntityRef<PersonRegistration>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_PersonRegistrationId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid PersonRegistrationId
-		{
-			get
-			{
-				return this._PersonRegistrationId;
-			}
-			set
-			{
-				if ((this._PersonRegistrationId != value))
-				{
-					if (this._PersonRegistration.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPersonRegistrationIdChanging(value);
-					this.SendPropertyChanging();
-					this._PersonRegistrationId = value;
-					this.SendPropertyChanged("PersonRegistrationId");
-					this.OnPersonRegistrationIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Name", DbType="VarChar(250) NOT NULL")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_GenderId", DbType="Int NOT NULL")]
-		public int GenderId
-		{
-			get
-			{
-				return this._GenderId;
-			}
-			set
-			{
-				if ((this._GenderId != value))
-				{
-					if (this._Gender.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnGenderIdChanging(value);
-					this.SendPropertyChanging();
-					this._GenderId = value;
-					this.SendPropertyChanged("GenderId");
-					this.OnGenderIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_BirthDate", DbType="DateTime NOT NULL")]
-		public System.DateTime BirthDate
-		{
-			get
-			{
-				return this._BirthDate;
-			}
-			set
-			{
-				if ((this._BirthDate != value))
-				{
-					this.OnBirthDateChanging(value);
-					this.SendPropertyChanging();
-					this._BirthDate = value;
-					this.SendPropertyChanged("BirthDate");
-					this.OnBirthDateChanged();
-				}
-			}
-		}
-		
-		[Association(Name="PersonAttribute_ForeignCitizenData", Storage="_ForeignCitizenData", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
-		public ForeignCitizenData ForeignCitizenData
-		{
-			get
-			{
-				return this._ForeignCitizenData.Entity;
-			}
-			set
-			{
-				ForeignCitizenData previousValue = this._ForeignCitizenData.Entity;
-				if (((previousValue != value) 
-							|| (this._ForeignCitizenData.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ForeignCitizenData.Entity = null;
-						previousValue.PersonAttribute = null;
-					}
-					this._ForeignCitizenData.Entity = value;
-					if ((value != null))
-					{
-						value.PersonAttribute = this;
-					}
-					this.SendPropertyChanged("ForeignCitizenData");
-				}
-			}
-		}
-		
-		[Association(Name="PersonAttribute_UnknownCitizenData", Storage="_UnknownCitizenData", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
-		public UnknownCitizenData UnknownCitizenData
-		{
-			get
-			{
-				return this._UnknownCitizenData.Entity;
-			}
-			set
-			{
-				UnknownCitizenData previousValue = this._UnknownCitizenData.Entity;
-				if (((previousValue != value) 
-							|| (this._UnknownCitizenData.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._UnknownCitizenData.Entity = null;
-						previousValue.PersonAttribute = null;
-					}
-					this._UnknownCitizenData.Entity = value;
-					if ((value != null))
-					{
-						value.PersonAttribute = this;
-					}
-					this.SendPropertyChanged("UnknownCitizenData");
-				}
-			}
-		}
-		
-		[Association(Name="PersonAttribute_CprData", Storage="_CprData", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
-		public CprData CprData
-		{
-			get
-			{
-				return this._CprData.Entity;
-			}
-			set
-			{
-				CprData previousValue = this._CprData.Entity;
-				if (((previousValue != value) 
-							|| (this._CprData.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CprData.Entity = null;
-						previousValue.PersonAttribute = null;
-					}
-					this._CprData.Entity = value;
-					if ((value != null))
-					{
-						value.PersonAttribute = this;
-					}
-					this.SendPropertyChanged("CprData");
-				}
-			}
-		}
-		
-		[Association(Name="Gender_PersonAttribute", Storage="_Gender", ThisKey="GenderId", OtherKey="GenderId", IsForeignKey=true)]
-		public Gender Gender
-		{
-			get
-			{
-				return this._Gender.Entity;
-			}
-			set
-			{
-				Gender previousValue = this._Gender.Entity;
-				if (((previousValue != value) 
-							|| (this._Gender.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Gender.Entity = null;
-						previousValue.PersonAttributes.Remove(this);
-					}
-					this._Gender.Entity = value;
-					if ((value != null))
-					{
-						value.PersonAttributes.Add(this);
-						this._GenderId = value.GenderId;
-					}
-					else
-					{
-						this._GenderId = default(int);
-					}
-					this.SendPropertyChanged("Gender");
-				}
-			}
-		}
-		
-		[Association(Name="PersonRegistration_PersonAttribute", Storage="_PersonRegistration", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsForeignKey=true)]
-		public PersonRegistration PersonRegistration
-		{
-			get
-			{
-				return this._PersonRegistration.Entity;
-			}
-			set
-			{
-				PersonRegistration previousValue = this._PersonRegistration.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonRegistration.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonRegistration.Entity = null;
-						previousValue.PersonAttribute = null;
-					}
-					this._PersonRegistration.Entity = value;
-					if ((value != null))
-					{
-						value.PersonAttribute = this;
-						this._PersonRegistrationId = value.PersonRegistrationId;
-					}
-					else
-					{
-						this._PersonRegistrationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("PersonRegistration");
 				}
 			}
 		}
@@ -1774,408 +1383,6 @@ namespace CprBroker.DAL.Part
 		}
 	}
 	
-	[Table(Name="dbo.RelationshipType")]
-	public partial class RelationshipType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RelationshipTypeId;
-		
-		private string _ForwardName;
-		
-		private string _BackwardName;
-		
-		private EntitySet<PersonRelationship> _PersonRelationships;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRelationshipTypeIdChanging(int value);
-    partial void OnRelationshipTypeIdChanged();
-    partial void OnForwardNameChanging(string value);
-    partial void OnForwardNameChanged();
-    partial void OnBackwardNameChanging(string value);
-    partial void OnBackwardNameChanged();
-    #endregion
-		
-		public RelationshipType()
-		{
-			this._PersonRelationships = new EntitySet<PersonRelationship>(new Action<PersonRelationship>(this.attach_PersonRelationships), new Action<PersonRelationship>(this.detach_PersonRelationships));
-			OnCreated();
-		}
-		
-		[Column(Storage="_RelationshipTypeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int RelationshipTypeId
-		{
-			get
-			{
-				return this._RelationshipTypeId;
-			}
-			set
-			{
-				if ((this._RelationshipTypeId != value))
-				{
-					this.OnRelationshipTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._RelationshipTypeId = value;
-					this.SendPropertyChanged("RelationshipTypeId");
-					this.OnRelationshipTypeIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ForwardName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string ForwardName
-		{
-			get
-			{
-				return this._ForwardName;
-			}
-			set
-			{
-				if ((this._ForwardName != value))
-				{
-					this.OnForwardNameChanging(value);
-					this.SendPropertyChanging();
-					this._ForwardName = value;
-					this.SendPropertyChanged("ForwardName");
-					this.OnForwardNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_BackwardName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string BackwardName
-		{
-			get
-			{
-				return this._BackwardName;
-			}
-			set
-			{
-				if ((this._BackwardName != value))
-				{
-					this.OnBackwardNameChanging(value);
-					this.SendPropertyChanging();
-					this._BackwardName = value;
-					this.SendPropertyChanged("BackwardName");
-					this.OnBackwardNameChanged();
-				}
-			}
-		}
-		
-		[Association(Name="RelationshipType_PersonRelationship", Storage="_PersonRelationships", ThisKey="RelationshipTypeId", OtherKey="RelationshipTypeId")]
-		public EntitySet<PersonRelationship> PersonRelationships
-		{
-			get
-			{
-				return this._PersonRelationships;
-			}
-			set
-			{
-				this._PersonRelationships.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PersonRelationships(PersonRelationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.RelationshipType = this;
-		}
-		
-		private void detach_PersonRelationships(PersonRelationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.RelationshipType = null;
-		}
-	}
-	
-	[Table(Name="dbo.PersonRelationship")]
-	public partial class PersonRelationship : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _PersonRelationshipId;
-		
-		private System.Guid _PersonRegistrationId;
-		
-		private System.Guid _RelatedPersonUUID;
-		
-		private int _RelationshipTypeId;
-		
-		private System.DateTime _StartDate;
-		
-		private System.Nullable<System.DateTime> _EndDate;
-		
-		private EntityRef<RelationshipType> _RelationshipType;
-		
-		private EntityRef<PersonRegistration> _PersonRegistration;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPersonRelationshipIdChanging(System.Guid value);
-    partial void OnPersonRelationshipIdChanged();
-    partial void OnPersonRegistrationIdChanging(System.Guid value);
-    partial void OnPersonRegistrationIdChanged();
-    partial void OnRelatedPersonUUIDChanging(System.Guid value);
-    partial void OnRelatedPersonUUIDChanged();
-    partial void OnRelationshipTypeIdChanging(int value);
-    partial void OnRelationshipTypeIdChanged();
-    partial void OnStartDateChanging(System.DateTime value);
-    partial void OnStartDateChanged();
-    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnEndDateChanged();
-    #endregion
-		
-		public PersonRelationship()
-		{
-			this._RelationshipType = default(EntityRef<RelationshipType>);
-			this._PersonRegistration = default(EntityRef<PersonRegistration>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_PersonRelationshipId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid PersonRelationshipId
-		{
-			get
-			{
-				return this._PersonRelationshipId;
-			}
-			set
-			{
-				if ((this._PersonRelationshipId != value))
-				{
-					this.OnPersonRelationshipIdChanging(value);
-					this.SendPropertyChanging();
-					this._PersonRelationshipId = value;
-					this.SendPropertyChanged("PersonRelationshipId");
-					this.OnPersonRelationshipIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_PersonRegistrationId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid PersonRegistrationId
-		{
-			get
-			{
-				return this._PersonRegistrationId;
-			}
-			set
-			{
-				if ((this._PersonRegistrationId != value))
-				{
-					if (this._PersonRegistration.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPersonRegistrationIdChanging(value);
-					this.SendPropertyChanging();
-					this._PersonRegistrationId = value;
-					this.SendPropertyChanged("PersonRegistrationId");
-					this.OnPersonRegistrationIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_RelatedPersonUUID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid RelatedPersonUUID
-		{
-			get
-			{
-				return this._RelatedPersonUUID;
-			}
-			set
-			{
-				if ((this._RelatedPersonUUID != value))
-				{
-					this.OnRelatedPersonUUIDChanging(value);
-					this.SendPropertyChanging();
-					this._RelatedPersonUUID = value;
-					this.SendPropertyChanged("RelatedPersonUUID");
-					this.OnRelatedPersonUUIDChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_RelationshipTypeId", DbType="Int NOT NULL")]
-		public int RelationshipTypeId
-		{
-			get
-			{
-				return this._RelationshipTypeId;
-			}
-			set
-			{
-				if ((this._RelationshipTypeId != value))
-				{
-					if (this._RelationshipType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRelationshipTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._RelationshipTypeId = value;
-					this.SendPropertyChanged("RelationshipTypeId");
-					this.OnRelationshipTypeIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_StartDate", DbType="DateTime NOT NULL")]
-		public System.DateTime StartDate
-		{
-			get
-			{
-				return this._StartDate;
-			}
-			set
-			{
-				if ((this._StartDate != value))
-				{
-					this.OnStartDateChanging(value);
-					this.SendPropertyChanging();
-					this._StartDate = value;
-					this.SendPropertyChanged("StartDate");
-					this.OnStartDateChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_EndDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> EndDate
-		{
-			get
-			{
-				return this._EndDate;
-			}
-			set
-			{
-				if ((this._EndDate != value))
-				{
-					this.OnEndDateChanging(value);
-					this.SendPropertyChanging();
-					this._EndDate = value;
-					this.SendPropertyChanged("EndDate");
-					this.OnEndDateChanged();
-				}
-			}
-		}
-		
-		[Association(Name="RelationshipType_PersonRelationship", Storage="_RelationshipType", ThisKey="RelationshipTypeId", OtherKey="RelationshipTypeId", IsForeignKey=true)]
-		public RelationshipType RelationshipType
-		{
-			get
-			{
-				return this._RelationshipType.Entity;
-			}
-			set
-			{
-				RelationshipType previousValue = this._RelationshipType.Entity;
-				if (((previousValue != value) 
-							|| (this._RelationshipType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RelationshipType.Entity = null;
-						previousValue.PersonRelationships.Remove(this);
-					}
-					this._RelationshipType.Entity = value;
-					if ((value != null))
-					{
-						value.PersonRelationships.Add(this);
-						this._RelationshipTypeId = value.RelationshipTypeId;
-					}
-					else
-					{
-						this._RelationshipTypeId = default(int);
-					}
-					this.SendPropertyChanged("RelationshipType");
-				}
-			}
-		}
-		
-		[Association(Name="PersonRegistration_PersonRelationship", Storage="_PersonRegistration", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsForeignKey=true)]
-		public PersonRegistration PersonRegistration
-		{
-			get
-			{
-				return this._PersonRegistration.Entity;
-			}
-			set
-			{
-				PersonRegistration previousValue = this._PersonRegistration.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonRegistration.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonRegistration.Entity = null;
-						previousValue.PersonRelationships.Remove(this);
-					}
-					this._PersonRegistration.Entity = value;
-					if ((value != null))
-					{
-						value.PersonRelationships.Add(this);
-						this._PersonRegistrationId = value.PersonRegistrationId;
-					}
-					else
-					{
-						this._PersonRegistrationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("PersonRegistration");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[Table(Name="dbo.Address")]
 	public partial class Address : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2962,6 +2169,120 @@ namespace CprBroker.DAL.Part
 		}
 	}
 	
+	[Table(Name="dbo.Person")]
+	public partial class Person : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _UUID;
+		
+		private string _UserInterfaceKeyText;
+		
+		private EntitySet<PersonRegistration> _PersonRegistrations;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUUIDChanging(System.Guid value);
+    partial void OnUUIDChanged();
+    partial void OnUserInterfaceKeyTextChanging(string value);
+    partial void OnUserInterfaceKeyTextChanged();
+    #endregion
+		
+		public Person()
+		{
+			this._PersonRegistrations = new EntitySet<PersonRegistration>(new Action<PersonRegistration>(this.attach_PersonRegistrations), new Action<PersonRegistration>(this.detach_PersonRegistrations));
+			OnCreated();
+		}
+		
+		[Column(Storage="_UUID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid UUID
+		{
+			get
+			{
+				return this._UUID;
+			}
+			set
+			{
+				if ((this._UUID != value))
+				{
+					this.OnUUIDChanging(value);
+					this.SendPropertyChanging();
+					this._UUID = value;
+					this.SendPropertyChanged("UUID");
+					this.OnUUIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UserInterfaceKeyText", DbType="VarChar(50)")]
+		public string UserInterfaceKeyText
+		{
+			get
+			{
+				return this._UserInterfaceKeyText;
+			}
+			set
+			{
+				if ((this._UserInterfaceKeyText != value))
+				{
+					this.OnUserInterfaceKeyTextChanging(value);
+					this.SendPropertyChanging();
+					this._UserInterfaceKeyText = value;
+					this.SendPropertyChanged("UserInterfaceKeyText");
+					this.OnUserInterfaceKeyTextChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Person_PersonRegistration", Storage="_PersonRegistrations", ThisKey="UUID", OtherKey="UUID")]
+		public EntitySet<PersonRegistration> PersonRegistrations
+		{
+			get
+			{
+				return this._PersonRegistrations;
+			}
+			set
+			{
+				this._PersonRegistrations.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PersonRegistrations(PersonRegistration entity)
+		{
+			this.SendPropertyChanging();
+			entity.Person = this;
+		}
+		
+		private void detach_PersonRegistrations(PersonRegistration entity)
+		{
+			this.SendPropertyChanging();
+			entity.Person = null;
+		}
+	}
+	
 	[Table(Name="dbo.PersonRegistration")]
 	public partial class PersonRegistration : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2974,15 +2295,23 @@ namespace CprBroker.DAL.Part
 		
 		private string _ActorText;
 		
+		private string _CommentText;
+		
+		private System.Nullable<int> _LifecycleStatusId;
+		
 		private System.DateTime _RegistrationDate;
 		
-		private EntityRef<PersonAttribute> _PersonAttribute;
+		private System.Nullable<System.Guid> _EffectId;
 		
 		private EntityRef<PersonState> _PersonState;
 		
 		private EntitySet<PersonRelationship> _PersonRelationships;
 		
+		private EntityRef<PersonAttribute> _PersonAttribute;
+		
 		private EntityRef<Person> _Person;
+		
+		private EntityRef<Effect> _Effect;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2994,16 +2323,23 @@ namespace CprBroker.DAL.Part
     partial void OnUUIDChanged();
     partial void OnActorTextChanging(string value);
     partial void OnActorTextChanged();
+    partial void OnCommentTextChanging(string value);
+    partial void OnCommentTextChanged();
+    partial void OnLifecycleStatusIdChanging(System.Nullable<int> value);
+    partial void OnLifecycleStatusIdChanged();
     partial void OnRegistrationDateChanging(System.DateTime value);
     partial void OnRegistrationDateChanged();
+    partial void OnEffectIdChanging(System.Nullable<System.Guid> value);
+    partial void OnEffectIdChanged();
     #endregion
 		
 		public PersonRegistration()
 		{
-			this._PersonAttribute = default(EntityRef<PersonAttribute>);
 			this._PersonState = default(EntityRef<PersonState>);
 			this._PersonRelationships = new EntitySet<PersonRelationship>(new Action<PersonRelationship>(this.attach_PersonRelationships), new Action<PersonRelationship>(this.detach_PersonRelationships));
+			this._PersonAttribute = default(EntityRef<PersonAttribute>);
 			this._Person = default(EntityRef<Person>);
+			this._Effect = default(EntityRef<Effect>);
 			OnCreated();
 		}
 		
@@ -3071,6 +2407,46 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
+		[Column(Storage="_CommentText", DbType="VarChar(50)")]
+		public string CommentText
+		{
+			get
+			{
+				return this._CommentText;
+			}
+			set
+			{
+				if ((this._CommentText != value))
+				{
+					this.OnCommentTextChanging(value);
+					this.SendPropertyChanging();
+					this._CommentText = value;
+					this.SendPropertyChanged("CommentText");
+					this.OnCommentTextChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_LifecycleStatusId", DbType="Int")]
+		public System.Nullable<int> LifecycleStatusId
+		{
+			get
+			{
+				return this._LifecycleStatusId;
+			}
+			set
+			{
+				if ((this._LifecycleStatusId != value))
+				{
+					this.OnLifecycleStatusIdChanging(value);
+					this.SendPropertyChanging();
+					this._LifecycleStatusId = value;
+					this.SendPropertyChanged("LifecycleStatusId");
+					this.OnLifecycleStatusIdChanged();
+				}
+			}
+		}
+		
 		[Column(Storage="_RegistrationDate", DbType="DateTime NOT NULL")]
 		public System.DateTime RegistrationDate
 		{
@@ -3091,31 +2467,26 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
-		[Association(Name="PersonRegistration_PersonAttribute", Storage="_PersonAttribute", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
-		public PersonAttribute PersonAttribute
+		[Column(Storage="_EffectId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> EffectId
 		{
 			get
 			{
-				return this._PersonAttribute.Entity;
+				return this._EffectId;
 			}
 			set
 			{
-				PersonAttribute previousValue = this._PersonAttribute.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonAttribute.HasLoadedOrAssignedValue == false)))
+				if ((this._EffectId != value))
 				{
+					if (this._Effect.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEffectIdChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonAttribute.Entity = null;
-						previousValue.PersonRegistration = null;
-					}
-					this._PersonAttribute.Entity = value;
-					if ((value != null))
-					{
-						value.PersonRegistration = this;
-					}
-					this.SendPropertyChanged("PersonAttribute");
+					this._EffectId = value;
+					this.SendPropertyChanged("EffectId");
+					this.OnEffectIdChanged();
 				}
 			}
 		}
@@ -3162,6 +2533,35 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
+		[Association(Name="PersonRegistration_PersonAttribute", Storage="_PersonAttribute", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
+		public PersonAttribute PersonAttribute
+		{
+			get
+			{
+				return this._PersonAttribute.Entity;
+			}
+			set
+			{
+				PersonAttribute previousValue = this._PersonAttribute.Entity;
+				if (((previousValue != value) 
+							|| (this._PersonAttribute.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PersonAttribute.Entity = null;
+						previousValue.PersonRegistration = null;
+					}
+					this._PersonAttribute.Entity = value;
+					if ((value != null))
+					{
+						value.PersonRegistration = this;
+					}
+					this.SendPropertyChanged("PersonAttribute");
+				}
+			}
+		}
+		
 		[Association(Name="Person_PersonRegistration", Storage="_Person", ThisKey="UUID", OtherKey="UUID", IsForeignKey=true)]
 		public Person Person
 		{
@@ -3196,6 +2596,40 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
+		[Association(Name="Effect_PersonRegistration", Storage="_Effect", ThisKey="EffectId", OtherKey="EffectId", IsForeignKey=true)]
+		public Effect Effect
+		{
+			get
+			{
+				return this._Effect.Entity;
+			}
+			set
+			{
+				Effect previousValue = this._Effect.Entity;
+				if (((previousValue != value) 
+							|| (this._Effect.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Effect.Entity = null;
+						previousValue.PersonRegistrations.Remove(this);
+					}
+					this._Effect.Entity = value;
+					if ((value != null))
+					{
+						value.PersonRegistrations.Add(this);
+						this._EffectId = value.EffectId;
+					}
+					else
+					{
+						this._EffectId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Effect");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3226,6 +2660,1116 @@ namespace CprBroker.DAL.Part
 		{
 			this.SendPropertyChanging();
 			entity.PersonRegistration = null;
+		}
+	}
+	
+	[Table(Name="dbo.Effect")]
+	public partial class Effect : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _EffectId;
+		
+		private string _ActorText;
+		
+		private string _CommentText;
+		
+		private System.Nullable<System.DateTime> _FromDate;
+		
+		private System.Nullable<System.DateTime> _ToDate;
+		
+		private EntitySet<PersonRegistration> _PersonRegistrations;
+		
+		private EntitySet<PersonRelationship> _PersonRelationships;
+		
+		private EntitySet<PersonAttribute> _PersonAttributes;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEffectIdChanging(System.Guid value);
+    partial void OnEffectIdChanged();
+    partial void OnActorTextChanging(string value);
+    partial void OnActorTextChanged();
+    partial void OnCommentTextChanging(string value);
+    partial void OnCommentTextChanged();
+    partial void OnFromDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnFromDateChanged();
+    partial void OnToDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnToDateChanged();
+    #endregion
+		
+		public Effect()
+		{
+			this._PersonRegistrations = new EntitySet<PersonRegistration>(new Action<PersonRegistration>(this.attach_PersonRegistrations), new Action<PersonRegistration>(this.detach_PersonRegistrations));
+			this._PersonRelationships = new EntitySet<PersonRelationship>(new Action<PersonRelationship>(this.attach_PersonRelationships), new Action<PersonRelationship>(this.detach_PersonRelationships));
+			this._PersonAttributes = new EntitySet<PersonAttribute>(new Action<PersonAttribute>(this.attach_PersonAttributes), new Action<PersonAttribute>(this.detach_PersonAttributes));
+			OnCreated();
+		}
+		
+		[Column(Storage="_EffectId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid EffectId
+		{
+			get
+			{
+				return this._EffectId;
+			}
+			set
+			{
+				if ((this._EffectId != value))
+				{
+					this.OnEffectIdChanging(value);
+					this.SendPropertyChanging();
+					this._EffectId = value;
+					this.SendPropertyChanged("EffectId");
+					this.OnEffectIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ActorText", DbType="VarChar(50)")]
+		public string ActorText
+		{
+			get
+			{
+				return this._ActorText;
+			}
+			set
+			{
+				if ((this._ActorText != value))
+				{
+					this.OnActorTextChanging(value);
+					this.SendPropertyChanging();
+					this._ActorText = value;
+					this.SendPropertyChanged("ActorText");
+					this.OnActorTextChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CommentText", DbType="VarChar(50)")]
+		public string CommentText
+		{
+			get
+			{
+				return this._CommentText;
+			}
+			set
+			{
+				if ((this._CommentText != value))
+				{
+					this.OnCommentTextChanging(value);
+					this.SendPropertyChanging();
+					this._CommentText = value;
+					this.SendPropertyChanged("CommentText");
+					this.OnCommentTextChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FromDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FromDate
+		{
+			get
+			{
+				return this._FromDate;
+			}
+			set
+			{
+				if ((this._FromDate != value))
+				{
+					this.OnFromDateChanging(value);
+					this.SendPropertyChanging();
+					this._FromDate = value;
+					this.SendPropertyChanged("FromDate");
+					this.OnFromDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ToDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ToDate
+		{
+			get
+			{
+				return this._ToDate;
+			}
+			set
+			{
+				if ((this._ToDate != value))
+				{
+					this.OnToDateChanging(value);
+					this.SendPropertyChanging();
+					this._ToDate = value;
+					this.SendPropertyChanged("ToDate");
+					this.OnToDateChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Effect_PersonRegistration", Storage="_PersonRegistrations", ThisKey="EffectId", OtherKey="EffectId")]
+		public EntitySet<PersonRegistration> PersonRegistrations
+		{
+			get
+			{
+				return this._PersonRegistrations;
+			}
+			set
+			{
+				this._PersonRegistrations.Assign(value);
+			}
+		}
+		
+		[Association(Name="Effect_PersonRelationship", Storage="_PersonRelationships", ThisKey="EffectId", OtherKey="EffectId")]
+		public EntitySet<PersonRelationship> PersonRelationships
+		{
+			get
+			{
+				return this._PersonRelationships;
+			}
+			set
+			{
+				this._PersonRelationships.Assign(value);
+			}
+		}
+		
+		[Association(Name="Effect_PersonAttribute", Storage="_PersonAttributes", ThisKey="EffectId", OtherKey="EffectId")]
+		public EntitySet<PersonAttribute> PersonAttributes
+		{
+			get
+			{
+				return this._PersonAttributes;
+			}
+			set
+			{
+				this._PersonAttributes.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PersonRegistrations(PersonRegistration entity)
+		{
+			this.SendPropertyChanging();
+			entity.Effect = this;
+		}
+		
+		private void detach_PersonRegistrations(PersonRegistration entity)
+		{
+			this.SendPropertyChanging();
+			entity.Effect = null;
+		}
+		
+		private void attach_PersonRelationships(PersonRelationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.Effect = this;
+		}
+		
+		private void detach_PersonRelationships(PersonRelationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.Effect = null;
+		}
+		
+		private void attach_PersonAttributes(PersonAttribute entity)
+		{
+			this.SendPropertyChanging();
+			entity.Effect = this;
+		}
+		
+		private void detach_PersonAttributes(PersonAttribute entity)
+		{
+			this.SendPropertyChanging();
+			entity.Effect = null;
+		}
+	}
+	
+	[Table(Name="dbo.RelationshipType")]
+	public partial class RelationshipType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RelationshipTypeId;
+		
+		private string _ForwardName;
+		
+		private EntitySet<PersonRelationship> _PersonRelationships;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRelationshipTypeIdChanging(int value);
+    partial void OnRelationshipTypeIdChanged();
+    partial void OnForwardNameChanging(string value);
+    partial void OnForwardNameChanged();
+    #endregion
+		
+		public RelationshipType()
+		{
+			this._PersonRelationships = new EntitySet<PersonRelationship>(new Action<PersonRelationship>(this.attach_PersonRelationships), new Action<PersonRelationship>(this.detach_PersonRelationships));
+			OnCreated();
+		}
+		
+		[Column(Storage="_RelationshipTypeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int RelationshipTypeId
+		{
+			get
+			{
+				return this._RelationshipTypeId;
+			}
+			set
+			{
+				if ((this._RelationshipTypeId != value))
+				{
+					this.OnRelationshipTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._RelationshipTypeId = value;
+					this.SendPropertyChanged("RelationshipTypeId");
+					this.OnRelationshipTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ForwardName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string ForwardName
+		{
+			get
+			{
+				return this._ForwardName;
+			}
+			set
+			{
+				if ((this._ForwardName != value))
+				{
+					this.OnForwardNameChanging(value);
+					this.SendPropertyChanging();
+					this._ForwardName = value;
+					this.SendPropertyChanged("ForwardName");
+					this.OnForwardNameChanged();
+				}
+			}
+		}
+		
+		[Association(Name="RelationshipType_PersonRelationship", Storage="_PersonRelationships", ThisKey="RelationshipTypeId", OtherKey="RelationshipTypeId")]
+		public EntitySet<PersonRelationship> PersonRelationships
+		{
+			get
+			{
+				return this._PersonRelationships;
+			}
+			set
+			{
+				this._PersonRelationships.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PersonRelationships(PersonRelationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.RelationshipType = this;
+		}
+		
+		private void detach_PersonRelationships(PersonRelationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.RelationshipType = null;
+		}
+	}
+	
+	[Table(Name="dbo.PersonRelationship")]
+	public partial class PersonRelationship : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _PersonRelationshipId;
+		
+		private System.Guid _PersonRegistrationId;
+		
+		private System.Guid _RelatedPersonUuid;
+		
+		private int _RelationshipTypeId;
+		
+		private string _CommentText;
+		
+		private System.Nullable<System.Guid> _EffectId;
+		
+		private EntityRef<PersonRegistration> _PersonRegistration;
+		
+		private EntityRef<RelationshipType> _RelationshipType;
+		
+		private EntityRef<Effect> _Effect;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPersonRelationshipIdChanging(System.Guid value);
+    partial void OnPersonRelationshipIdChanged();
+    partial void OnPersonRegistrationIdChanging(System.Guid value);
+    partial void OnPersonRegistrationIdChanged();
+    partial void OnRelatedPersonUuidChanging(System.Guid value);
+    partial void OnRelatedPersonUuidChanged();
+    partial void OnRelationshipTypeIdChanging(int value);
+    partial void OnRelationshipTypeIdChanged();
+    partial void OnCommentTextChanging(string value);
+    partial void OnCommentTextChanged();
+    partial void OnEffectIdChanging(System.Nullable<System.Guid> value);
+    partial void OnEffectIdChanged();
+    #endregion
+		
+		public PersonRelationship()
+		{
+			this._PersonRegistration = default(EntityRef<PersonRegistration>);
+			this._RelationshipType = default(EntityRef<RelationshipType>);
+			this._Effect = default(EntityRef<Effect>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_PersonRelationshipId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid PersonRelationshipId
+		{
+			get
+			{
+				return this._PersonRelationshipId;
+			}
+			set
+			{
+				if ((this._PersonRelationshipId != value))
+				{
+					this.OnPersonRelationshipIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonRelationshipId = value;
+					this.SendPropertyChanged("PersonRelationshipId");
+					this.OnPersonRelationshipIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PersonRegistrationId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid PersonRegistrationId
+		{
+			get
+			{
+				return this._PersonRegistrationId;
+			}
+			set
+			{
+				if ((this._PersonRegistrationId != value))
+				{
+					if (this._PersonRegistration.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPersonRegistrationIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonRegistrationId = value;
+					this.SendPropertyChanged("PersonRegistrationId");
+					this.OnPersonRegistrationIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RelatedPersonUuid", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid RelatedPersonUuid
+		{
+			get
+			{
+				return this._RelatedPersonUuid;
+			}
+			set
+			{
+				if ((this._RelatedPersonUuid != value))
+				{
+					this.OnRelatedPersonUuidChanging(value);
+					this.SendPropertyChanging();
+					this._RelatedPersonUuid = value;
+					this.SendPropertyChanged("RelatedPersonUuid");
+					this.OnRelatedPersonUuidChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RelationshipTypeId", DbType="Int NOT NULL")]
+		public int RelationshipTypeId
+		{
+			get
+			{
+				return this._RelationshipTypeId;
+			}
+			set
+			{
+				if ((this._RelationshipTypeId != value))
+				{
+					if (this._RelationshipType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRelationshipTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._RelationshipTypeId = value;
+					this.SendPropertyChanged("RelationshipTypeId");
+					this.OnRelationshipTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CommentText", DbType="VarChar(50)")]
+		public string CommentText
+		{
+			get
+			{
+				return this._CommentText;
+			}
+			set
+			{
+				if ((this._CommentText != value))
+				{
+					this.OnCommentTextChanging(value);
+					this.SendPropertyChanging();
+					this._CommentText = value;
+					this.SendPropertyChanged("CommentText");
+					this.OnCommentTextChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_EffectId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> EffectId
+		{
+			get
+			{
+				return this._EffectId;
+			}
+			set
+			{
+				if ((this._EffectId != value))
+				{
+					if (this._Effect.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEffectIdChanging(value);
+					this.SendPropertyChanging();
+					this._EffectId = value;
+					this.SendPropertyChanged("EffectId");
+					this.OnEffectIdChanged();
+				}
+			}
+		}
+		
+		[Association(Name="PersonRegistration_PersonRelationship", Storage="_PersonRegistration", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsForeignKey=true)]
+		public PersonRegistration PersonRegistration
+		{
+			get
+			{
+				return this._PersonRegistration.Entity;
+			}
+			set
+			{
+				PersonRegistration previousValue = this._PersonRegistration.Entity;
+				if (((previousValue != value) 
+							|| (this._PersonRegistration.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PersonRegistration.Entity = null;
+						previousValue.PersonRelationships.Remove(this);
+					}
+					this._PersonRegistration.Entity = value;
+					if ((value != null))
+					{
+						value.PersonRelationships.Add(this);
+						this._PersonRegistrationId = value.PersonRegistrationId;
+					}
+					else
+					{
+						this._PersonRegistrationId = default(System.Guid);
+					}
+					this.SendPropertyChanged("PersonRegistration");
+				}
+			}
+		}
+		
+		[Association(Name="RelationshipType_PersonRelationship", Storage="_RelationshipType", ThisKey="RelationshipTypeId", OtherKey="RelationshipTypeId", IsForeignKey=true)]
+		public RelationshipType RelationshipType
+		{
+			get
+			{
+				return this._RelationshipType.Entity;
+			}
+			set
+			{
+				RelationshipType previousValue = this._RelationshipType.Entity;
+				if (((previousValue != value) 
+							|| (this._RelationshipType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RelationshipType.Entity = null;
+						previousValue.PersonRelationships.Remove(this);
+					}
+					this._RelationshipType.Entity = value;
+					if ((value != null))
+					{
+						value.PersonRelationships.Add(this);
+						this._RelationshipTypeId = value.RelationshipTypeId;
+					}
+					else
+					{
+						this._RelationshipTypeId = default(int);
+					}
+					this.SendPropertyChanged("RelationshipType");
+				}
+			}
+		}
+		
+		[Association(Name="Effect_PersonRelationship", Storage="_Effect", ThisKey="EffectId", OtherKey="EffectId", IsForeignKey=true)]
+		public Effect Effect
+		{
+			get
+			{
+				return this._Effect.Entity;
+			}
+			set
+			{
+				Effect previousValue = this._Effect.Entity;
+				if (((previousValue != value) 
+							|| (this._Effect.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Effect.Entity = null;
+						previousValue.PersonRelationships.Remove(this);
+					}
+					this._Effect.Entity = value;
+					if ((value != null))
+					{
+						value.PersonRelationships.Add(this);
+						this._EffectId = value.EffectId;
+					}
+					else
+					{
+						this._EffectId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Effect");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.PersonAttributes")]
+	public partial class PersonAttribute : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _PersonRegistrationId;
+		
+		private string _FirstName;
+		
+		private string _MiddleName;
+		
+		private string _LastName;
+		
+		private int _GenderId;
+		
+		private System.Nullable<System.DateTime> _BirthDate;
+		
+		private System.Nullable<bool> _BirthdateUncertainty;
+		
+		private System.Nullable<System.Guid> _EffectId;
+		
+		private EntityRef<ForeignCitizenData> _ForeignCitizenData;
+		
+		private EntityRef<UnknownCitizenData> _UnknownCitizenData;
+		
+		private EntityRef<CprData> _CprData;
+		
+		private EntityRef<Effect> _Effect;
+		
+		private EntityRef<Gender> _Gender;
+		
+		private EntityRef<PersonRegistration> _PersonRegistration;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPersonRegistrationIdChanging(System.Guid value);
+    partial void OnPersonRegistrationIdChanged();
+    partial void OnFirstNameChanging(string value);
+    partial void OnFirstNameChanged();
+    partial void OnMiddleNameChanging(string value);
+    partial void OnMiddleNameChanged();
+    partial void OnLastNameChanging(string value);
+    partial void OnLastNameChanged();
+    partial void OnGenderIdChanging(int value);
+    partial void OnGenderIdChanged();
+    partial void OnBirthDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnBirthDateChanged();
+    partial void OnBirthdateUncertaintyChanging(System.Nullable<bool> value);
+    partial void OnBirthdateUncertaintyChanged();
+    partial void OnEffectIdChanging(System.Nullable<System.Guid> value);
+    partial void OnEffectIdChanged();
+    #endregion
+		
+		public PersonAttribute()
+		{
+			this._ForeignCitizenData = default(EntityRef<ForeignCitizenData>);
+			this._UnknownCitizenData = default(EntityRef<UnknownCitizenData>);
+			this._CprData = default(EntityRef<CprData>);
+			this._Effect = default(EntityRef<Effect>);
+			this._Gender = default(EntityRef<Gender>);
+			this._PersonRegistration = default(EntityRef<PersonRegistration>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_PersonRegistrationId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid PersonRegistrationId
+		{
+			get
+			{
+				return this._PersonRegistrationId;
+			}
+			set
+			{
+				if ((this._PersonRegistrationId != value))
+				{
+					if (this._PersonRegistration.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPersonRegistrationIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonRegistrationId = value;
+					this.SendPropertyChanged("PersonRegistrationId");
+					this.OnPersonRegistrationIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FirstName", DbType="VarChar(50)")]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this.OnFirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._FirstName = value;
+					this.SendPropertyChanged("FirstName");
+					this.OnFirstNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_MiddleName", DbType="VarChar(50)")]
+		public string MiddleName
+		{
+			get
+			{
+				return this._MiddleName;
+			}
+			set
+			{
+				if ((this._MiddleName != value))
+				{
+					this.OnMiddleNameChanging(value);
+					this.SendPropertyChanging();
+					this._MiddleName = value;
+					this.SendPropertyChanged("MiddleName");
+					this.OnMiddleNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_LastName", DbType="VarChar(50)")]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this.OnLastNameChanging(value);
+					this.SendPropertyChanging();
+					this._LastName = value;
+					this.SendPropertyChanged("LastName");
+					this.OnLastNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_GenderId", DbType="Int NOT NULL")]
+		public int GenderId
+		{
+			get
+			{
+				return this._GenderId;
+			}
+			set
+			{
+				if ((this._GenderId != value))
+				{
+					if (this._Gender.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGenderIdChanging(value);
+					this.SendPropertyChanging();
+					this._GenderId = value;
+					this.SendPropertyChanged("GenderId");
+					this.OnGenderIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_BirthDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> BirthDate
+		{
+			get
+			{
+				return this._BirthDate;
+			}
+			set
+			{
+				if ((this._BirthDate != value))
+				{
+					this.OnBirthDateChanging(value);
+					this.SendPropertyChanging();
+					this._BirthDate = value;
+					this.SendPropertyChanged("BirthDate");
+					this.OnBirthDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_BirthdateUncertainty", DbType="Bit")]
+		public System.Nullable<bool> BirthdateUncertainty
+		{
+			get
+			{
+				return this._BirthdateUncertainty;
+			}
+			set
+			{
+				if ((this._BirthdateUncertainty != value))
+				{
+					this.OnBirthdateUncertaintyChanging(value);
+					this.SendPropertyChanging();
+					this._BirthdateUncertainty = value;
+					this.SendPropertyChanged("BirthdateUncertainty");
+					this.OnBirthdateUncertaintyChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_EffectId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> EffectId
+		{
+			get
+			{
+				return this._EffectId;
+			}
+			set
+			{
+				if ((this._EffectId != value))
+				{
+					if (this._Effect.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEffectIdChanging(value);
+					this.SendPropertyChanging();
+					this._EffectId = value;
+					this.SendPropertyChanged("EffectId");
+					this.OnEffectIdChanged();
+				}
+			}
+		}
+		
+		[Association(Name="PersonAttribute_ForeignCitizenData", Storage="_ForeignCitizenData", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
+		public ForeignCitizenData ForeignCitizenData
+		{
+			get
+			{
+				return this._ForeignCitizenData.Entity;
+			}
+			set
+			{
+				ForeignCitizenData previousValue = this._ForeignCitizenData.Entity;
+				if (((previousValue != value) 
+							|| (this._ForeignCitizenData.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ForeignCitizenData.Entity = null;
+						previousValue.PersonAttribute = null;
+					}
+					this._ForeignCitizenData.Entity = value;
+					if ((value != null))
+					{
+						value.PersonAttribute = this;
+					}
+					this.SendPropertyChanged("ForeignCitizenData");
+				}
+			}
+		}
+		
+		[Association(Name="PersonAttribute_UnknownCitizenData", Storage="_UnknownCitizenData", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
+		public UnknownCitizenData UnknownCitizenData
+		{
+			get
+			{
+				return this._UnknownCitizenData.Entity;
+			}
+			set
+			{
+				UnknownCitizenData previousValue = this._UnknownCitizenData.Entity;
+				if (((previousValue != value) 
+							|| (this._UnknownCitizenData.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._UnknownCitizenData.Entity = null;
+						previousValue.PersonAttribute = null;
+					}
+					this._UnknownCitizenData.Entity = value;
+					if ((value != null))
+					{
+						value.PersonAttribute = this;
+					}
+					this.SendPropertyChanged("UnknownCitizenData");
+				}
+			}
+		}
+		
+		[Association(Name="PersonAttribute_CprData", Storage="_CprData", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
+		public CprData CprData
+		{
+			get
+			{
+				return this._CprData.Entity;
+			}
+			set
+			{
+				CprData previousValue = this._CprData.Entity;
+				if (((previousValue != value) 
+							|| (this._CprData.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CprData.Entity = null;
+						previousValue.PersonAttribute = null;
+					}
+					this._CprData.Entity = value;
+					if ((value != null))
+					{
+						value.PersonAttribute = this;
+					}
+					this.SendPropertyChanged("CprData");
+				}
+			}
+		}
+		
+		[Association(Name="Effect_PersonAttribute", Storage="_Effect", ThisKey="EffectId", OtherKey="EffectId", IsForeignKey=true)]
+		public Effect Effect
+		{
+			get
+			{
+				return this._Effect.Entity;
+			}
+			set
+			{
+				Effect previousValue = this._Effect.Entity;
+				if (((previousValue != value) 
+							|| (this._Effect.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Effect.Entity = null;
+						previousValue.PersonAttributes.Remove(this);
+					}
+					this._Effect.Entity = value;
+					if ((value != null))
+					{
+						value.PersonAttributes.Add(this);
+						this._EffectId = value.EffectId;
+					}
+					else
+					{
+						this._EffectId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Effect");
+				}
+			}
+		}
+		
+		[Association(Name="Gender_PersonAttribute", Storage="_Gender", ThisKey="GenderId", OtherKey="GenderId", IsForeignKey=true)]
+		public Gender Gender
+		{
+			get
+			{
+				return this._Gender.Entity;
+			}
+			set
+			{
+				Gender previousValue = this._Gender.Entity;
+				if (((previousValue != value) 
+							|| (this._Gender.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Gender.Entity = null;
+						previousValue.PersonAttributes.Remove(this);
+					}
+					this._Gender.Entity = value;
+					if ((value != null))
+					{
+						value.PersonAttributes.Add(this);
+						this._GenderId = value.GenderId;
+					}
+					else
+					{
+						this._GenderId = default(int);
+					}
+					this.SendPropertyChanged("Gender");
+				}
+			}
+		}
+		
+		[Association(Name="PersonRegistration_PersonAttribute", Storage="_PersonRegistration", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsForeignKey=true)]
+		public PersonRegistration PersonRegistration
+		{
+			get
+			{
+				return this._PersonRegistration.Entity;
+			}
+			set
+			{
+				PersonRegistration previousValue = this._PersonRegistration.Entity;
+				if (((previousValue != value) 
+							|| (this._PersonRegistration.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PersonRegistration.Entity = null;
+						previousValue.PersonAttribute = null;
+					}
+					this._PersonRegistration.Entity = value;
+					if ((value != null))
+					{
+						value.PersonAttribute = this;
+						this._PersonRegistrationId = value.PersonRegistrationId;
+					}
+					else
+					{
+						this._PersonRegistrationId = default(System.Guid);
+					}
+					this.SendPropertyChanged("PersonRegistration");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

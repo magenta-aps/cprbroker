@@ -60,7 +60,7 @@ namespace CprBroker.Providers.Local
                 {
                     var simpleNamePred = PredicateBuilder.True<PersonRegistration>();
                     simpleNamePred = simpleNamePred.And((pr) => pr.PersonAttribute.CprData == null);
-                    simpleNamePred = simpleNamePred.And((pr) => pr.PersonAttribute.Name == searchCriteria.Name.ToString());
+                    //simpleNamePred = simpleNamePred.And((pr) => pr.PersonAttribute.Name == searchCriteria.Name.ToString());
 
                     var cprNamePred = PredicateBuilder.True<PersonRegistration>();
                     cprNamePred = cprNamePred.And((pr) => pr.PersonAttribute.CprData != null);

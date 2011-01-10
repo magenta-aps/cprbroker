@@ -17,39 +17,39 @@ namespace CprBroker.DAL.Part
             SubstituteFor
         }
 
-        public Effect<Schemas.Part.PersonRelation> ToXmlType()
+        public Effect<Schemas.Part.PersonRelation> ToXmlType222()
         {
             return new Effect<CprBroker.Schemas.Part.PersonRelation>()
             {
-                StartDate = this.StartDate,
-                EndDate = this.EndDate,
-                Value = new CprBroker.Schemas.Part.PersonRelation()
-                {
-                    TargetUUID = this.RelatedPersonUUID
-                }
+                //StartDate = this.StartDate,
+                //EndDate = this.EndDate,
+                //Value = new CprBroker.Schemas.Part.PersonRelation()
+                //{
+                //    TargetUUID = this.RelatedPersonUUID
+                //}
             };
         }
 
-        public static Schemas.Part.PersonRelations ToXmlType(IQueryable<PersonRelationship> relations)
+        public static Schemas.Part.PersonRelations ToXmlType222(IQueryable<PersonRelationship> relations)
         {
             return new CprBroker.Schemas.Part.PersonRelations()
             {
-                Children = FilterRelationsByType(relations, RelationshipTypes.Children),
-                Parents = Array.ConvertAll<Effect<PersonRelation>, PersonRelation>(FilterRelationsByType(relations, RelationshipTypes.Children), (rel) => rel.Value),
-                Spouses = FilterRelationsByType(relations, RelationshipTypes.Spouses),
-                ReplacedBy = FilterRelationsByType(relations, RelationshipTypes.ReplacedBy).FirstOrDefault(),
-                SubstituteFor = FilterRelationsByType(relations, RelationshipTypes.SubstituteFor),
+                //Children = FilterRelationsByType(relations, RelationshipTypes.Children),
+                //Parents = Array.ConvertAll<Effect<PersonRelation>, PersonRelation>(FilterRelationsByType(relations, RelationshipTypes.Children), (rel) => rel.Value),
+                //Spouses = FilterRelationsByType(relations, RelationshipTypes.Spouses),
+                //ReplacedBy = FilterRelationsByType(relations, RelationshipTypes.ReplacedBy).FirstOrDefault(),
+                //SubstituteFor = FilterRelationsByType(relations, RelationshipTypes.SubstituteFor),
             };
         }
 
         // TODO: ensure that the database is not queried in this method when filtering relations by type
-        private static Effect<PersonRelation>[] FilterRelationsByType(IQueryable<PersonRelationship> relations, RelationshipTypes type)
+        private static Effect<PersonRelation>[] FilterRelationsByType222(IQueryable<PersonRelationship> relations, RelationshipTypes type)
         {
             return
             (
                 from rel in relations
                 where rel.RelationshipTypeId == (int)type
-                select rel.ToXmlType()
+                select null as Effect<PersonRelation>// rel.ToXmlType()
             ).ToArray();
         }
 
