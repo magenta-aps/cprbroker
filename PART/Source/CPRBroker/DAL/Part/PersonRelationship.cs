@@ -24,6 +24,7 @@ namespace CprBroker.DAL.Part
             ReplacedBy = 12,
         }
 
+        #region Conversion to XML types
         public PersonRelationType ToPersonRelationType()
         {
             return new PersonRelationType
@@ -74,16 +75,29 @@ namespace CprBroker.DAL.Part
                 select typeof(TRelation) == typeof(PersonRelationType) ? rel.ToPersonRelationType() as TRelation : rel.ToPersonFlerRelationType() as TRelation
             ).ToList();
         }
+        #endregion
 
+        #region Creation from XML types
         public static List<PersonRelationship> FromXmlType(Schemas.Part.RelationListeType partRelations)
         {
             var ret = new List<PersonRelationship>();
 
-
+            ret.AddRange(ListFromXmlType(partRelations.Aegtefaelle, RelationshipTypes.Spouse));
+            ret.AddRange(ListFromXmlType(partRelations.Boern, RelationshipTypes.Children));
+            ret.AddRange(ListFromXmlType(partRelations.Bopaelssamling, RelationshipTypes.ResidenceCollection));
+            ret.AddRange(ListFromXmlType(partRelations.ErstatningFor, RelationshipTypes.ReplacementFor));
+            ret.AddRange(ListFromXmlType(partRelations.ErstattesAf, RelationshipTypes.ReplacedBy));
+            ret.AddRange(ListFromXmlType(partRelations.Fader, RelationshipTypes.Father));
+            ret.AddRange(ListFromXmlType(partRelations.Moder, RelationshipTypes.Mother));
+            ret.AddRange(ListFromXmlType(partRelations.ForaeldremyndgihdedsBoern, RelationshipTypes.ParentingAdultChildren));
+            ret.AddRange(ListFromXmlType(partRelations.ForaeldremyndgihdedsIndehaver, RelationshipTypes.Custody));
+            ret.AddRange(ListFromXmlType(partRelations.RegistreretPartner, RelationshipTypes.RegisteredPartner));
+            ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergeForPersonen, RelationshipTypes.GuardianOfPerson));
+            ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergemaalsIndehaver, RelationshipTypes.GuardianshipOwner));
             return ret;
         }
 
-        private PersonRelationship[] FFF(List<PersonRelationType> oio, RelationshipTypes relType)
+        private static PersonRelationship[] ListFromXmlType(List<PersonRelationType> oio, RelationshipTypes relType)
         {
             return Array.ConvertAll<PersonRelationType, PersonRelationship>
             (
@@ -98,5 +112,22 @@ namespace CprBroker.DAL.Part
                 }
             );
         }
+
+        private static PersonRelationship[] ListFromXmlType(List<PersonFlerRelationType> oio, RelationshipTypes relType)
+        {
+            return Array.ConvertAll<PersonFlerRelationType, PersonRelationship>
+            (
+                oio.ToArray(),
+                (r) => new PersonRelationship()
+                {
+                    CommentText = r.CommentText,
+                    Effect = Effect.FromXmlType(r.Virkning),
+                    PersonRelationshipId = Guid.NewGuid(),
+                    RelatedPersonUuid = new Guid(r.ReferenceIDTekst),
+                    RelationshipTypeId = (int)relType
+                }
+            );
+        }
+        #endregion
     }
 }
