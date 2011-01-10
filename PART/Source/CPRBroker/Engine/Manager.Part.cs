@@ -34,6 +34,7 @@ namespace CprBroker.Engine
                 {
                     InitializationMethod = () =>
                     {
+                        //TODO: Do not authenticate web method into this call because it will throw an exception
                         pId = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(input.UUID));
                         if (pId == null)
                         {
