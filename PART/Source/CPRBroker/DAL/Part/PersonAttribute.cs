@@ -10,7 +10,6 @@ namespace CprBroker.DAL.Part
     {
         public Schemas.Part.AttributListeType ToXmlType()
         {
-            // TODO: Add support for name date
             var ret = new AttributListeType()
             {
                 Egenskaber = new List<EgenskaberType>
@@ -21,11 +20,17 @@ namespace CprBroker.DAL.Part
                         {
                             PersonBirthDateStructure = new PersonBirthDateStructureType()
                             {
-                               BirthDate=this.BirthDate.HasValue?this.BirthDate.Value : DateTime.MinValue, 
-                                BirthDateUncertaintyIndicator = false,
+                                //TODO: Check that new DateTime is the correct value here
+                               BirthDate=this.BirthDate.HasValue?this.BirthDate.Value : new DateTime(), 
+                                BirthDateUncertaintyIndicator = this.BirthdateUncertainty,
                             },
                             PersonGenderCode = DAL.Part.Gender.GetPartGender(this.GenderId),
-                            PersonNameStructure = new CprBroker.Schemas.PersonNameStructureType( ){PersonGivenName=this.FirstName,PersonMiddleName=this.MiddleName,PersonSurnameName=this.LastName},
+                            PersonNameStructure = new CprBroker.Schemas.PersonNameStructureType( )
+                            {
+                                PersonGivenName=this.FirstName,
+                                PersonMiddleName=this.MiddleName,
+                                PersonSurnameName=this.LastName
+                            },
                             RegisterOplysninger = new RegisterOplysningerType(),
                             Virkning = VirkningType.Create(null,null),
                         },
@@ -58,8 +63,8 @@ namespace CprBroker.DAL.Part
                 BirthDate = oo.PersonBirthDateStructure.BirthDate,
                 GenderId = DAL.Part.Gender.GetPartCode(oo.PersonGenderCode),
                 FirstName = oo.PersonNameStructure.PersonGivenName,
-                MiddleName=oo.PersonNameStructure.PersonMiddleName,
-                LastName=oo.PersonNameStructure.PersonSurnameName
+                MiddleName = oo.PersonNameStructure.PersonMiddleName,
+                LastName = oo.PersonNameStructure.PersonSurnameName
             };
             /*
             if (partAttributes.PersonData is Schemas.Part.CprData)

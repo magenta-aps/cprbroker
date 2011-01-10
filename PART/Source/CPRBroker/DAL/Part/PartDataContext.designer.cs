@@ -3394,7 +3394,7 @@ namespace CprBroker.DAL.Part
 		
 		private System.Nullable<System.DateTime> _BirthDate;
 		
-		private System.Nullable<bool> _BirthdateUncertainty;
+		private bool _BirthdateUncertainty;
 		
 		private System.Nullable<System.Guid> _EffectId;
 		
@@ -3426,7 +3426,7 @@ namespace CprBroker.DAL.Part
     partial void OnGenderIdChanged();
     partial void OnBirthDateChanging(System.Nullable<System.DateTime> value);
     partial void OnBirthDateChanged();
-    partial void OnBirthdateUncertaintyChanging(System.Nullable<bool> value);
+    partial void OnBirthdateUncertaintyChanging(bool value);
     partial void OnBirthdateUncertaintyChanged();
     partial void OnEffectIdChanging(System.Nullable<System.Guid> value);
     partial void OnEffectIdChanged();
@@ -3571,8 +3571,8 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
-		[Column(Storage="_BirthdateUncertainty", DbType="Bit")]
-		public System.Nullable<bool> BirthdateUncertainty
+		[Column(Storage="_BirthdateUncertainty", DbType="Bit NOT NULL")]
+		public bool BirthdateUncertainty
 		{
 			get
 			{

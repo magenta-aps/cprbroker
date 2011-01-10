@@ -12,17 +12,16 @@ namespace CprBroker.DAL.Part
         {
             Schemas.Part.RegistreringType1 ret = new CprBroker.Schemas.Part.RegistreringType1()
             {
-                AktoerTekst = this.ActorText,
+                AktoerTekst = this.ActorText,                
                 TidspunktDatoTid = TidspunktType.Create(this.RegistrationDate),
                 AttributListe = this.PersonAttribute.ToXmlType(),
                 TilstandListe = PersonState.ToXmlType(),
-                //TODO: Add relations
-                RelationListe = new RelationListeType(), //Relations = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable())
-
-                CommentText = null,
-                LivscyklusKode = LivscyklusKodeType.Item5,
-                //TODO: Add values
-                Virkning = VirkningType.Create(null, null),
+                //ToArray() is called to avoid querying the database again
+                RelationListe = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable()),
+                CommentText = this.CommentText,
+                //TODO: Handle nulls
+                LivscyklusKode = LifecycleStatus.GetEnum(this.LifecycleStatusId.Value),                
+                Virkning = this.Effect.ToXmlType()
 
             };
             return ret;

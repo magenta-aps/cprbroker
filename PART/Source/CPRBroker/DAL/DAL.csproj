@@ -66,17 +66,19 @@
     <Compile Include="Gender.cs" />
     <Compile Include="Part\Address.cs" />
     <Compile Include="Part\CprData.cs" />
+    <Compile Include="Part\Effect.cs" />
     <Compile Include="Part\ForeignCitizenData.cs" />
     <Compile Include="Part\Gender.cs" />
+    <Compile Include="Part\LifecycleStatus.cs" />
     <Compile Include="Part\LifeStatusType.cs" />
     <Compile Include="Part\MaritalStatusType.cs" />
     <Compile Include="Part\PartDataContext.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Part\PartDataContext.designer.cs">
-      <DependentUpon>PartDataContext.dbml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Part\PersonAttribute.cs" />
     <Compile Include="Part\PersonMapping.cs" />
@@ -136,8 +138,8 @@
   <ItemGroup>
     <None Include="Part\PartDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

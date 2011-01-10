@@ -160,7 +160,7 @@
       <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="GenderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="BirthdateUncertainty" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="BirthdateUncertainty" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Association Name="PersonAttribute_ForeignCitizenData" Member="ForeignCitizenData" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="ForeignCitizenData" Cardinality="One" />
       <Association Name="PersonAttribute_UnknownCitizenData" Member="UnknownCitizenData" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="UnknownCitizenData" Cardinality="One" />

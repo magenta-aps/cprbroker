@@ -10,47 +10,70 @@ namespace CprBroker.DAL.Part
     {
         public enum RelationshipTypes
         {
-            Parents,
+            //Parents,
             Children,
             Spouses,
+            ResidenceCollection,
             ReplacedBy,
-            SubstituteFor
+            ReplacementFor,
+            Father,
+            Mother,
+            ParentingAdultChildren,
+            Custody,
+            RegisteredPartner,
+            GuardianOfPerson,
+            GuardianshipOwner
         }
 
-        public Effect<Schemas.Part.PersonRelation> ToXmlType222()
+        public PersonRelationType ToPersonRelationType()
         {
-            return new Effect<CprBroker.Schemas.Part.PersonRelation>()
+            return new PersonRelationType
             {
-                //StartDate = this.StartDate,
-                //EndDate = this.EndDate,
-                //Value = new CprBroker.Schemas.Part.PersonRelation()
-                //{
-                //    TargetUUID = this.RelatedPersonUUID
-                //}
+                CommentText = this.CommentText,
+                ReferenceIDTekst = this.RelatedPersonUuid.ToString(),
+                //TODO: Handle null Effect
+                Virkning = Effect.ToXmlType()
+            };
+        }
+        public PersonFlerRelationType ToPersonFlerRelationType()
+        {
+            return new PersonFlerRelationType
+            {
+                CommentText = this.CommentText,
+                ReferenceIDTekst = this.RelatedPersonUuid.ToString(),
+                //TODO: Handle null Effect
+                Virkning = Effect.ToXmlType()
             };
         }
 
-        public static Schemas.Part.PersonRelations ToXmlType222(IQueryable<PersonRelationship> relations)
+        public static Schemas.Part.RelationListeType ToXmlType(IQueryable<PersonRelationship> relations)
         {
-            return new CprBroker.Schemas.Part.PersonRelations()
+            return new CprBroker.Schemas.Part.RelationListeType()
             {
-                //Children = FilterRelationsByType(relations, RelationshipTypes.Children),
-                //Parents = Array.ConvertAll<Effect<PersonRelation>, PersonRelation>(FilterRelationsByType(relations, RelationshipTypes.Children), (rel) => rel.Value),
-                //Spouses = FilterRelationsByType(relations, RelationshipTypes.Spouses),
-                //ReplacedBy = FilterRelationsByType(relations, RelationshipTypes.ReplacedBy).FirstOrDefault(),
-                //SubstituteFor = FilterRelationsByType(relations, RelationshipTypes.SubstituteFor),
+                Aegtefaelle = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.Spouses),
+                Boern = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.Children),
+                Bopaelssamling = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ResidenceCollection),
+                ErstatningFor = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.ReplacementFor),
+                ErstattesAf = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ReplacedBy),
+                Fader = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.Father),
+                Moder = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.Mother),
+                ForaeldremyndgihdedsBoern = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ParentingAdultChildren),
+                ForaeldremyndgihdedsIndehaver = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.Custody),
+                LokalUdvidelse = new LokalUdvidelseType(),
+                RegistreretPartner = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.RegisteredPartner),
+                RetligHandleevneVaergeForPersonen = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.GuardianOfPerson),
+                RetligHandleevneVaergemaalsIndehaver = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.GuardianshipOwner),
             };
         }
 
-        // TODO: ensure that the database is not queried in this method when filtering relations by type
-        private static Effect<PersonRelation>[] FilterRelationsByType222(IQueryable<PersonRelationship> relations, RelationshipTypes type)
+        private static List<TRelation> FilterRelationsByType<TRelation>(IQueryable<PersonRelationship> relations, RelationshipTypes type) where TRelation : class
         {
             return
             (
                 from rel in relations
                 where rel.RelationshipTypeId == (int)type
-                select null as Effect<PersonRelation>// rel.ToXmlType()
-            ).ToArray();
+                select typeof(TRelation) == typeof(PersonRelationType) ? rel.ToPersonRelationType() as TRelation : rel.ToPersonFlerRelationType() as TRelation
+            ).ToList();
         }
 
         public static PersonRelationship[] FromXmlType(Schemas.Part.PersonRelations partRelations)
