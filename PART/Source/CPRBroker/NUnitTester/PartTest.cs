@@ -51,6 +51,7 @@ namespace CprBroker.NUnitTester
             Assert.IsNotNull(service.QualityHeaderValue, "Quality header");
             Assert.IsNotNull(service.QualityHeaderValue.QualityLevel, "Quality header value");
         }
+        #endregion
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
@@ -171,8 +172,30 @@ namespace CprBroker.NUnitTester
         }
 
         // TODO: Add more methods to test Search for criteria other than CPR number
-        #endregion
+        
 
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        public void T500_Database_Update(string cprNumber)
+        {
+            var uuid = TestRunner.PartService.GetPersonUuid(cprNumber);
+            LaesInputType input = new LaesInputType()
+            {
+                UUID = uuid.ToString(),
+            };
+            var fresh = TestRunner.PartService.RefreshRead(input);
+            Validate(uuid, fresh, TestRunner.PartService);
+            Assert.AreNotEqual(Part.QualityLevel.LocalCache, TestRunner.PartService.QualityHeaderValue.QualityLevel.Value);
+
+            var cached = TestRunner.PartService.Read(input);
+            Validate(uuid, cached, TestRunner.PartService);
+            Assert.AreEqual(Part.QualityLevel.LocalCache, TestRunner.PartService.QualityHeaderValue.QualityLevel.Value);
+
+            // Now validate contents
+            Utilities.AreEqual<Part.RegistreringType1>(fresh.LaesResultat.Item as Part.RegistreringType1, cached.LaesResultat.Item as Part.RegistreringType1);
+        }
+
+        
 
 
 

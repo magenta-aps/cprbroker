@@ -51,13 +51,19 @@ namespace CprBroker.NUnitTester
                     Process p = new Process()
                     {
                         StartInfo = new ProcessStartInfo()
-                        {
-                            FileName = @"c:\program files\KDiff3\KDiff3.exe",
+                        {                                                        
                             Arguments = string.Format("\"{0}\" \"{1}\"", f1, f2),
                             //WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory 
-
                         }
                     };
+                    if (File.Exists(@"C:\Program Files (x86)\KDiff3\KDiff3.exe"))
+                    {
+                        p.StartInfo.FileName = @"C:\Program Files (x86)\KDiff3\KDiff3.exe";
+                    }
+                    else if (File.Exists(@"C:\Program Files\KDiff3\KDiff3.exe"))
+                    {
+                        p.StartInfo.FileName = @"C:\Program Files\KDiff3\KDiff3.exe";
+                    }
                     p.Start();
                 }
             }
