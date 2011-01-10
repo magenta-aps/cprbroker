@@ -109,7 +109,7 @@
       <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="ActorText" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="CommentText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="LifecycleStatusId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LifecycleStatusId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Association Name="PersonRegistration_PersonState" Member="PersonState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonState" Cardinality="One" />

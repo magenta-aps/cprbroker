@@ -18,9 +18,8 @@ namespace CprBroker.DAL.Part
                 TilstandListe = PersonState.ToXmlType(),
                 //ToArray() is called to avoid querying the database again
                 RelationListe = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable()),
-                CommentText = this.CommentText,
-                //TODO: Handle nulls
-                LivscyklusKode = LifecycleStatus.GetEnum(this.LifecycleStatusId.Value),                
+                CommentText = this.CommentText,                
+                LivscyklusKode = LifecycleStatus.GetEnum(this.LifecycleStatusId),                
                 Virkning = this.Effect.ToXmlType()
 
             };

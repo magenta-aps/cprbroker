@@ -170,7 +170,7 @@
         <classShapeMoniker Id="52160ca7-adc7-4500-809f-0e852f1d6d83" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.5 : 5.29807657877604); (6.25 : 5.29807657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.5 : 5.29807657877604); (7.33333333333333 : 5.29807657877604 : JumpStart); (7.16666666666667 : 5.29807657877604 : JumpEnd); (6.25 : 5.29807657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/Gender/Gender_PersonAttribute" />
       <nodes>
         <classShapeMoniker Id="5e2db1a9-a2de-49c1-b5d3-faed8e9c1d23" />

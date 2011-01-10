@@ -2308,7 +2308,7 @@ namespace CprBroker.DAL.Part
 		
 		private string _CommentText;
 		
-		private System.Nullable<int> _LifecycleStatusId;
+		private int _LifecycleStatusId;
 		
 		private System.DateTime _RegistrationDate;
 		
@@ -2338,7 +2338,7 @@ namespace CprBroker.DAL.Part
     partial void OnActorTextChanged();
     partial void OnCommentTextChanging(string value);
     partial void OnCommentTextChanged();
-    partial void OnLifecycleStatusIdChanging(System.Nullable<int> value);
+    partial void OnLifecycleStatusIdChanging(int value);
     partial void OnLifecycleStatusIdChanged();
     partial void OnRegistrationDateChanging(System.DateTime value);
     partial void OnRegistrationDateChanged();
@@ -2441,8 +2441,8 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
-		[Column(Storage="_LifecycleStatusId", DbType="Int")]
-		public System.Nullable<int> LifecycleStatusId
+		[Column(Storage="_LifecycleStatusId", DbType="Int NOT NULL")]
+		public int LifecycleStatusId
 		{
 			get
 			{
@@ -2675,7 +2675,7 @@ namespace CprBroker.DAL.Part
 					}
 					else
 					{
-						this._LifecycleStatusId = default(Nullable<int>);
+						this._LifecycleStatusId = default(int);
 					}
 					this.SendPropertyChanged("LifecycleStatus");
 				}
