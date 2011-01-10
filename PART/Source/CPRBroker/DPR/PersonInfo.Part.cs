@@ -170,7 +170,7 @@ namespace CprBroker.Providers.DPR
                 (rel, id) => rel.Value.TargetUUID = id
             );
 
-            ret.Relations.Spouses = DAL.Part.PersonMapping.AssignGuids<CivilStatus, Effect<PersonRelation>>
+            ret.Relations.Spouse = DAL.Part.PersonMapping.AssignGuids<CivilStatus, Effect<PersonRelation>>
             (
                 civilStates,
                 (civilStatus) => new Effect<PersonRelation>()

@@ -10,12 +10,12 @@ namespace CprBroker.DAL.Part
     {
         public VirkningType ToXmlType()
         {
-            return new VirkningType() 
+            return new VirkningType()
             {
-                AktoerTekst=this.ActorText,
-                CommentText=this.CommentText,
-                FraTidspunkt=TidspunktType.Create(this.FromDate),
-                TilTidspunkt=TidspunktType.Create(this.ToDate)
+                AktoerTekst = this.ActorText,
+                CommentText = this.CommentText,
+                FraTidspunkt = TidspunktType.Create(this.FromDate),
+                TilTidspunkt = TidspunktType.Create(this.ToDate)
             };
         }
 
@@ -23,6 +23,8 @@ namespace CprBroker.DAL.Part
         {
             return new Effect()
             {
+                EffectId = Guid.NewGuid(),
+
                 ActorText = virkning.AktoerTekst,
                 CommentText = virkning.CommentText,
                 FromDate = virkning.FraTidspunkt.ToDateTime(),
