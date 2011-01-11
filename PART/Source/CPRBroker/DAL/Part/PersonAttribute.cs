@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
 
@@ -51,6 +52,16 @@ namespace CprBroker.DAL.Part
                 ret.Egenskaber[0].RegisterOplysninger.Item = UnknownCitizenData.ToXmlType();
             }
             return ret;
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<PersonAttribute>(pa => pa.CprData);
+            loadOptions.LoadWith<PersonAttribute>(pa => pa.Effect);
+            loadOptions.LoadWith<PersonAttribute>(pa => pa.ForeignCitizenData);
+            loadOptions.LoadWith<PersonAttribute>(pa => pa.UnknownCitizenData);
+
+            CprData.SetChildLoadOptions(loadOptions);
         }
 
         public static PersonAttribute FromXmlType(Schemas.Part.AttributListeType partAttributes)

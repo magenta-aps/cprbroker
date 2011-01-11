@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 
@@ -33,6 +34,11 @@ namespace CprBroker.DAL.Part
                 // TODO: fill address
                 PopulationAddress = null,
             };
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<CprData>(cpr => cpr.Address);
         }
 
         public static CprData FromXmlType(Schemas.Part.CprData partCprData)

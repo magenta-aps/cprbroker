@@ -46,20 +46,25 @@ namespace CprBroker.Engine.Local
             //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
             using (var dataContext = new PartDataContext())
             {
+                DAL.Part.PersonRegistration.SetChildLoadOptions(dataContext);
+
                 // Match db registrations by UUID, ActorId and registration date
                 var existingInDb = (from dbReg in dataContext.PersonRegistrations
                                     where dbReg.UUID == personUUID
-                                    && dbReg.RegistrationDate == personRegistraion.TidspunktDatoTid.ToDateTime()                                    
+                                    && dbReg.RegistrationDate == personRegistraion.TidspunktDatoTid.ToDateTime()
                                     && dbReg.ActorText == personRegistraion.AktoerTekst
                                     select dbReg).ToArray();
 
+                var duplicateExists = existingInDb.Length > 0;
+
                 // Perform a content match if key match is found
-                if (existingInDb.Length > 0)
+                if (duplicateExists)
                 {
-                    existingInDb = Array.FindAll(existingInDb, (db) => db.ToXmlType().Equals(personRegistraion));
+                    duplicateExists = Array.Exists(existingInDb, (db) => Schemas.Util.Misc.AreEqual<RegistreringType1>(db.ToXmlType(), personRegistraion));
                 }
+
                 // If there are really no matches, update the database
-                if (existingInDb.Length == 0)
+                if (!duplicateExists)
                 {
                     var dbPerson = (from dbPers in dataContext.Persons
                                     where dbPers.UUID == personUUID
@@ -78,6 +83,7 @@ namespace CprBroker.Engine.Local
                     dataContext.SubmitChanges();
                     return true;
                 }
+
             }
             return false;
         }

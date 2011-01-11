@@ -125,13 +125,14 @@ namespace CprBroker.Providers.Local
 
             using (var dataContext = new PartDataContext())
             {
+                PersonRegistration.SetChildLoadOptions(dataContext);
                 ret =
                 (
                     from personReg in dataContext.PersonRegistrations
                     where personReg.UUID == uuid.UUID
-                    // Filter by registration date
-                    && (!fromRegistrationDate.HasValue || personReg.RegistrationDate >= fromRegistrationDate.Value)
-                    && (!toRegistrationDate.HasValue || personReg.RegistrationDate <= toRegistrationDate.Value)
+                        // Filter by registration date
+                    && (!fromRegistrationDate.HasValue || personReg.RegistrationDate >= fromRegistrationDate)
+                    && (!toRegistrationDate.HasValue || personReg.RegistrationDate <= toRegistrationDate)
                     // TODO: Filter by effect date
                     orderby personReg.RegistrationDate descending
                     select personReg.ToXmlType()

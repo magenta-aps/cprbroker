@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
@@ -24,6 +25,23 @@ namespace CprBroker.DAL.Part
 
             };
             return ret;
+        }
+
+        public static void SetChildLoadOptions(PartDataContext dataContext)
+        {
+            DataLoadOptions loadOptions = new DataLoadOptions();
+            SetChildLoadOptions(loadOptions);
+            dataContext.LoadOptions = loadOptions;
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<PersonRegistration>(pr => pr.Effect);
+            loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonAttribute);
+            loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonRelationships);
+            loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonState);
+
+            PersonAttribute.SetChildLoadOptions(loadOptions);
         }
 
         public static PersonRegistration FromXmlType(CprBroker.Schemas.Part.RegistreringType1 partRegistration)

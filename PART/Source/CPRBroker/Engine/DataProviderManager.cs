@@ -25,6 +25,7 @@ namespace CprBroker.Engine
         public static IDataProvider ToIDataProvider(this CprBroker.DAL.DataProvider dbDataProvider)
         {
             Type dataProviderType = Type.GetType(dbDataProvider.DataProviderType.TypeName);
+            //TODO: throws exception : Object reference not set to an instance of an object
             object providerObj = dataProviderType.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
             IDataProvider dataProvider = providerObj as IDataProvider;
             if (dataProvider is IExternalDataProvider)
