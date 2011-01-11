@@ -102,7 +102,7 @@ namespace CprBroker.Providers.Local
                 }
                 // TODO: Query Person table to avoid Distinct operation
                 var result = (from pr in dataContext.PersonRegistrations.Where(pred)
-                             select pr.UUID).Distinct();
+                              select pr.UUID).Distinct();
                 ret = result.ToArray();
             }
             // TODO: filter by effect date
@@ -114,17 +114,25 @@ namespace CprBroker.Providers.Local
 
         #region IPartReadDataProvider Members
 
-        public CprBroker.Schemas.Part.RegistreringType1 Read(PersonIdentifier uuid, CprBroker.Schemas.Part.LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)        
+        public CprBroker.Schemas.Part.RegistreringType1 Read(PersonIdentifier uuid, CprBroker.Schemas.Part.LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             Schemas.Part.RegistreringType1 ret = null;
+            var fromRegistrationDate = input.RegistreringFraFilter.ToDateTime();
+            var toRegistrationDate = input.RegistreringTilFilter.ToDateTime();
+
+            var fromEffectDate = input.VirkningFraFilter.ToDateTime();
+            var ToEffectDate = input.VirkningTilFilter.ToDateTime();
+
             using (var dataContext = new PartDataContext())
             {
                 ret =
                 (
                     from personReg in dataContext.PersonRegistrations
                     where personReg.UUID == uuid.UUID
-                    // TODO: add effect date to where condition
-                    //TODO: Add registration date to query
+                    // Filter by registration date
+                    && (!fromRegistrationDate.HasValue || personReg.RegistrationDate >= fromRegistrationDate.Value)
+                    && (!toRegistrationDate.HasValue || personReg.RegistrationDate <= toRegistrationDate.Value)
+                    // TODO: Filter by effect date
                     orderby personReg.RegistrationDate descending
                     select personReg.ToXmlType()
                 ).FirstOrDefault();
@@ -152,6 +160,6 @@ namespace CprBroker.Providers.Local
 
         #endregion
 
-        
+
     }
 }
