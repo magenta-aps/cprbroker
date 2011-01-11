@@ -4,7 +4,7 @@
 	xmlns:person="urn:oio:sagdok:person:1.0.0" 
 	elementFormDefault="qualified"
 	xmlns:sd="urn:oio:sagdok:1.0.0">
-	<include schemaLocation="Person.xsd"  id="ddd"/>
+	<include schemaLocation="Person.xsd" />
 	
 	<import namespace="urn:oio:sagdok:1.0.0" schemaLocation="../generic/SagDokObjekt.xsd" />
 
@@ -177,11 +177,11 @@
 		<sequence>
 			<element name="Moder" type="sd:SoegRelationType" minOccurs="0"
 				maxOccurs="unbounded" />
-			<element name="Fader" type="sd:SoegRelationType" minOccurs="0"
+			<element name="Fader" type=sd:SoegRelationType minOccurs="0"
 				maxOccurs="unbounded" />
 			<element name="Boern" type="sd:SoegRelationType"
 				minOccurs="0" maxOccurs="unbounded" />
-			<element name="Aegtefaelle" type="sd:SoegRelationType"
+			<element name="Aegtefaelle" type=sd:SoegRelationType
 				minOccurs="0" maxOccurs="unbounded" />
 			<element name="RegistreretPartner" type="sd:SoegRelationType"
 				minOccurs="0" maxOccurs="unbounded" />
@@ -204,7 +204,7 @@
 
 	<complexType name="SoegTilstandListeType">
 		<sequence>
-			<!--<element ref="orgfaelles:Gyldighed" maxOccurs="unbounded" minOccurs="0" />-->
+			<element ref="orgfaelles:Gyldighed" maxOccurs="unbounded" minOccurs="0" />
 			<element ref="sd:LokalUdvidelse" minOccurs="0" />
 		</sequence>
 	</complexType>

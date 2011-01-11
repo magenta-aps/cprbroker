@@ -28,24 +28,18 @@
 		</sequence>
 	</complexType>
 
-  <complexType name="PersonRelationType">
-    <complexContent>
-      <extension base="sd:RelationType" />
-    </complexContent>
-  </complexType>
-
-  <complexType name="KlasseRelationType">
+	<complexType name="KlasseRelationType">
 		<complexContent>
 			<extension base="sd:RelationType" />
 		</complexContent>
 	</complexType>
 
-		<complexType name="FacetRelationType">
+	<complexType name="FacetRelationType">
 		<complexContent>
 			<extension base="sd:RelationType" />
 		</complexContent>
 	</complexType>
-	
+
 	<complexType name="OrganisationRelationType">
 		<complexContent>
 			<extension base="sd:RelationType" />
@@ -169,6 +163,12 @@
 	</complexType>
 
 	<complexType name="InteressefaellesskabFlerRelationType">
+		<complexContent>
+			<extension base="sd:FlerRelationType" />
+		</complexContent>
+	</complexType>
+
+	<complexType name="PersonRelationType">
 		<complexContent>
 			<extension base="sd:FlerRelationType" />
 		</complexContent>
