@@ -28,7 +28,13 @@
 		</sequence>
 	</complexType>
 
-	<complexType name="KlasseRelationType">
+  <complexType name="PersonRelationType">
+    <complexContent>
+      <extension base="sd:RelationType" />
+    </complexContent>
+  </complexType>
+
+  <complexType name="KlasseRelationType">
 		<complexContent>
 			<extension base="sd:RelationType" />
 		</complexContent>
