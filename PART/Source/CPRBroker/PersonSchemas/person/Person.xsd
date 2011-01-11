@@ -5,7 +5,7 @@
 	xmlns:gendercode="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/"
 	xmlns:personname="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/"
 	xmlns:birthdate="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/"
-	xmlns:cprnr="http://digitaliser.dk/resource/2368/artefact/CPR_PersonCivilRegistrationCurrentIdentifier.xsd">
+	xmlns:cprnr="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
 
 	<import namespace="urn:oio:sagdok:1.0.0" schemaLocation="../generic/SagDokObjekt.xsd" />
 
@@ -140,7 +140,7 @@
 				maxOccurs="unbounded" />
 			<!-- JAN findes der en oioxml til det allerede? 
 				   JBR: Ja, er angivet foroven: http://digitaliser.dk/resource/451/artefact/CPR_PersonCivilRegistrationReplacementIdentifier.xsd -->
-			<element ref="ErstatningsCprNummer" />
+      <!--element ref="ErstatningsCprNummer" /-->
 			<!-- JAN findes der en oioxml til det allerede? 
 					JBR: Sjovt nok, så ser det ikke ud til at denne eksisterer i OIOXML -->
 			<element name="Sprog" type="string" minOccurs="0" maxOccurs="unbounded" />
@@ -154,7 +154,7 @@
 		<sequence>
 			<!-- JAN er det den korrekte type ?? 
 				   JBR: Den rigtige er PersonCivilRegistrationIdentifier (er importeret foroven) -->
-			<element ref="cprnr:PersonCivilRegistrationCurrentIdentifier" />
+			<element  ref="cprnr:PersonCivilRegistrationCurrentIdentifier"  />      
 			<element name="PersonNummerStatus" type="person:PersonNummerStatusType" />
 			<!-- JAN findes der en oioxml til det allerede? 
 				   JBR: Det ser ikke sådan ud. Underligt. -->
@@ -174,7 +174,7 @@
 	<complexType name="UkendtBorgerType">
 		<sequence>
 			<!-- JBR: Skal ændres som ovenfor -->
-			<element ref="ErstatningsCprNummer" />
+      <!--element ref="ErstatningsCprNummer" /-->
 		</sequence>
 	</complexType>
 
@@ -200,24 +200,6 @@
 			<element name="RegisterOplysninger" type="person:RegisterOplysningerType"
 				maxOccurs="unbounded" />
 			<element ref="sd:LokalUdvidelse" minOccurs="0" />
-		</sequence>
-	</complexType>
-
-	<complexType name="EgenskaberType">
-		<sequence>
-			<element ref="personname:PersonNameStructure" />
-			<element ref="gendercode:PersonGenderCode" />
-			<element ref="birthdate:PersonBirthDateStructure" />
-			<!-- JAN findes der en oioxml til det allerede?
-				   JBR: Kan ikke finde noget -->
-			<element name="fodselsregistreringmyndighed" type="string" />
-			<!-- JAN findes der en oioxml til det allerede?
-				JBR: Der er denne her: http://digitaliser.dk/resource/9107/artefact/FoedestedTekst_20080901.xsd  -->
-			<element name="foedested" type="string" />
-			<element name="AndreAdresser" type="person:AdresseType" />
-			<element name="Kontaktkanal" type="person:KontaktKanalType" />
-			<element name="NaermestePaaroerende" type="person:KontaktKanalType" />
-			<element ref="sd:Virkning" minOccurs="0" />
 		</sequence>
 	</complexType>
 
