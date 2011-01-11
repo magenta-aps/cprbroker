@@ -121,10 +121,7 @@ namespace CprBroker.Providers.KMD
                      */
 
                     // No extensions now
-                    LokalUdvidelse = new LokalUdvidelseType()
-                    {
-                        Any = new XmlElement[0]
-                    }
+                    LokalUdvidelse = null
                 },
                 //TODO: Fill
                 Virkning = VirkningType.Create(null, null)

@@ -59,7 +59,7 @@ namespace CprBroker.DAL.Part
                 Moder = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.Mother),
                 ForaeldremyndgihdedsBoern = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ParentingAdultChildren),
                 ForaeldremyndgihdedsIndehaver = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.Custody),
-                LokalUdvidelse = new LokalUdvidelseType(),
+                LokalUdvidelse = null,
                 RegistreretPartner = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.RegisteredPartner),
                 RetligHandleevneVaergeForPersonen = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.GuardianOfPerson),
                 RetligHandleevneVaergemaalsIndehaver = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.GuardianshipOwner),
@@ -99,6 +99,10 @@ namespace CprBroker.DAL.Part
 
         private static PersonRelationship[] ListFromXmlType(PersonRelationType[] oio, RelationshipTypes relType)
         {
+            if (oio == null)
+            {
+                oio = new PersonRelationType[0];
+            }
             return Array.ConvertAll<PersonRelationType, PersonRelationship>
             (
                 oio,
@@ -115,6 +119,10 @@ namespace CprBroker.DAL.Part
 
         private static PersonRelationship[] ListFromXmlType(PersonFlerRelationType[] oio, RelationshipTypes relType)
         {
+            if (oio == null)
+            {
+                oio = new PersonFlerRelationType[0];
+            }
             return Array.ConvertAll<PersonFlerRelationType, PersonRelationship>
             (
                 oio,

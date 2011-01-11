@@ -312,10 +312,7 @@ namespace CprBroker.Providers.DPR
                         }
                     },
                     // No extensions at the moment
-                    LokalUdvidelse = new LokalUdvidelseType()
-                    {
-                        Any = new XmlElement[0]
-                    }
+                    LokalUdvidelse = null
                 },
                 // TODO: Add actor text
                 AktoerTekst = DprDatabaseDataProvider.ActorId.ToString(),
@@ -334,10 +331,7 @@ namespace CprBroker.Providers.DPR
                     //Gyldighed = null,
 
                     // No extensions now
-                    LokalUdvidelse = new LokalUdvidelseType()
-                    {
-                        Any = new XmlElement[0]
-                    }
+                    LokalUdvidelse = null
                 },
                 //TODO: Pass parameters to this method
                 Virkning = VirkningType.Create(null, null)

@@ -7,6 +7,7 @@ using CprBroker.Engine;
 using CprBroker.DAL;
 using CprBroker.DAL.Part;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 using CprBroker.Schemas.Util;
 using CprBroker.Engine.Local;
 
@@ -25,7 +26,7 @@ namespace CprBroker.Providers.Local
             Guid[] ret = null;
             using (var dataContext = new PartDataContext())
             {
-                var pred = PredicateBuilder.True<PersonRegistration>();
+                var pred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
                 if (searchCriteria.Soeg != null)
                 {
                     if (searchCriteria.Soeg.Attributter != null)
@@ -34,10 +35,10 @@ namespace CprBroker.Providers.Local
                         {
                             foreach (var prop in searchCriteria.Soeg.Attributter.SoegEgenskab)
                             {
-                                PersonNameStructureType name = new PersonNameStructureType(prop.NavnTekst);
+                                var name = new Schemas.Part.PersonNameStructureType(prop.NavnTekst);
                                 if (!name.IsEmpty)
                                 {
-                                    var cprNamePred = PredicateBuilder.True<PersonRegistration>();
+                                    var cprNamePred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
                                     cprNamePred = cprNamePred.And((pr) => pr.PersonAttribute.CprData != null);
                                     if (!string.IsNullOrEmpty(name.PersonGivenName))
                                     {
@@ -136,15 +137,15 @@ namespace CprBroker.Providers.Local
         public CprBroker.Schemas.Part.RegistreringType1 Read(PersonIdentifier uuid, CprBroker.Schemas.Part.LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             Schemas.Part.RegistreringType1 ret = null;
-            var fromRegistrationDate = input.RegistreringFraFilter.ToDateTime();
-            var toRegistrationDate = input.RegistreringTilFilter.ToDateTime();
+            var fromRegistrationDate = TidspunktType.ToDateTime( input.RegistreringFraFilter);
+            var toRegistrationDate = TidspunktType.ToDateTime(input.RegistreringTilFilter);
 
-            var fromEffectDate = input.VirkningFraFilter.ToDateTime();
-            var ToEffectDate = input.VirkningTilFilter.ToDateTime();
+            var fromEffectDate = TidspunktType.ToDateTime(input.VirkningFraFilter);
+            var ToEffectDate = TidspunktType.ToDateTime(input.VirkningTilFilter);
 
             using (var dataContext = new PartDataContext())
             {
-                PersonRegistration.SetChildLoadOptions(dataContext);
+                DAL.Part.PersonRegistration.SetChildLoadOptions(dataContext);
                 ret =
                 (
                     from personReg in dataContext.PersonRegistrations

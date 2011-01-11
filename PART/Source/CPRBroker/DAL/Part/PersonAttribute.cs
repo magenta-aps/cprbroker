@@ -33,8 +33,8 @@ namespace CprBroker.DAL.Part
                         RegisterOplysninger = new RegisterOplysningerType[]{new RegisterOplysningerType()},
                         Virkning = VirkningType.Create(null,null),
                     },
-                }
-
+                },
+                LokalUdvidelse = null
             };
 
             if (this.CprData != null)

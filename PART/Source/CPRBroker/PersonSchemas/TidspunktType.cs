@@ -33,5 +33,17 @@ namespace CprBroker.Schemas.Part
             return null;
         }
 
+        public static DateTime? ToDateTime(TidspunktType value)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            else
+            {
+                return value.ToDateTime();
+            }
+        }
+
     }
 }

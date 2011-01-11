@@ -25,7 +25,7 @@ namespace CprBroker.Engine.Part
 
         public override bool IsValidInput()
         {
-            if (input == null || input.UUID == null && input.UUID.Length == 0)
+            if (input == null || input.UUID == null || input.UUID.Length == 0)
             {
                 return false;
             }

@@ -47,7 +47,7 @@ namespace CprBroker.Providers.DPR
                     select personInfo
                 ).ToList();
 
-                var populated = PersonInfo2.Populate(db, input.VirkningFraFilter.ToDateTime(), input.VirkningTilFilter.ToDateTime());
+                var populated = PersonInfo2.Populate(db, TidspunktType.ToDateTime(input.VirkningFraFilter), TidspunktType.ToDateTime(input.VirkningTilFilter));
                 var targetRegistration = populated.FirstOrDefault();
                 if (targetRegistration != null)
                 {
