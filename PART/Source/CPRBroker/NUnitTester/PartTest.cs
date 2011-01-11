@@ -150,25 +150,46 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T400_Search_CprNumber(string cprNumber)
         {
-            var searchCriteria = new Part.PersonSearchCriteria()
-            {
-                CprNumber = cprNumber
-            };
-            var result = TestRunner.PartService.Search(searchCriteria);
-            Assert.IsNotNull(result, "Search result");
-
             var personUuid = TestRunner.PartService.GetPersonUuid(cprNumber);
-            if (result.Length == 0)
+
+            LaesInputType input = new LaesInputType()
             {
-                LaesInputType input = new LaesInputType()
+                UUID = personUuid.ToString(),
+            };
+            var personObject = TestRunner.PartService.Read(input);
+
+            var pp = personObject.LaesResultat.Item as Part.RegistreringType1;
+            Schemas.PersonNameStructureType name = new CprBroker.Schemas.PersonNameStructureType()
+            {
+                PersonGivenName = pp.AttributListe.Egenskaber[0].PersonNameStructure.PersonGivenName,
+                PersonMiddleName = pp.AttributListe.Egenskaber[0].PersonNameStructure.PersonMiddleName,
+                PersonSurnameName = pp.AttributListe.Egenskaber[0].PersonNameStructure.PersonSurnameName,
+            };
+            
+            var searchCriteria = new Part.SoegInputType1()
+            {
+                Soeg = new SoegObjektType()
                 {
-                    UUID = personUuid.ToString(),
-                };
-                var personObject = TestRunner.PartService.Read(input);
-            }
-            Assert.AreEqual(1, result.Length, "Number of search results");
-            Assert.AreNotEqual(Guid.Empty, result[0], "Empty laesResultat uuid from search");
-            Assert.AreEqual(personUuid, result[0], "Search result returns wrong uuids");
+                    Attributter = new SoegAttributListeType()
+                    {
+                        SoegEgenskab = new SoegEgenskabType[]
+                        {
+                            new SoegEgenskabType()
+                            {
+                                NavnTekst = name.ToString()
+                            }
+                        }
+                    }
+                }
+            };
+
+            var result = TestRunner.PartService.Search(searchCriteria);
+            Assert.NotNull(result, "Search result");
+            Assert.IsNotNull(result.IdListe, "Search result ids");
+                        
+            Assert.AreEqual(1, result.IdListe.Length, "Number of search results");
+            Assert.AreNotEqual(Guid.Empty, result.IdListe[0], "Empty laesResultat uuid from search");
+            Assert.AreEqual(personUuid, result.IdListe[0], "Search result returns wrong uuids");
         }
 
         // TODO: Add more methods to test Search for criteria other than CPR number

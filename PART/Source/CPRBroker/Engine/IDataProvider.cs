@@ -267,7 +267,7 @@ namespace CprBroker.Engine
     /// </summary>
     public interface IPartReadDataProvider : IDataProvider
     {
-        RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string,Guid> cpr2uuidFunc, out QualityLevel? ql);
+        RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql);
         PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql);
     }
 
@@ -276,7 +276,7 @@ namespace CprBroker.Engine
     /// </summary>
     public interface IPartSearchDataProvider : IDataProvider
     {
-        Guid[] Search(PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? ql);
+        Guid[] Search(SoegInputType1 searchCriteria);
     }
 
     // Allows retrieval of person UUID from his CPR number

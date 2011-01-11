@@ -27,6 +27,8 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="PartSoap", Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegSagDokObjektType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegInputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ListOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
@@ -44,10 +46,6 @@ namespace CprBroker.NUnitTester.Part {
         private System.Threading.SendOrPostCallback RefreshReadOperationCompleted;
         
         private System.Threading.SendOrPostCallback ListOperationCompleted;
-        
-        private EffectDateHeader effectDateHeaderValueField;
-        
-        private RegistrationDateHeader registrationDateHeaderValueField;
         
         private System.Threading.SendOrPostCallback SearchOperationCompleted;
         
@@ -82,24 +80,6 @@ namespace CprBroker.NUnitTester.Part {
             }
             set {
                 this.qualityHeaderValueField = value;
-            }
-        }
-        
-        public EffectDateHeader EffectDateHeaderValue {
-            get {
-                return this.effectDateHeaderValueField;
-            }
-            set {
-                this.effectDateHeaderValueField = value;
-            }
-        }
-        
-        public RegistrationDateHeader RegistrationDateHeaderValue {
-            get {
-                return this.registrationDateHeaderValueField;
-            }
-            set {
-                this.registrationDateHeaderValueField = value;
             }
         }
         
@@ -238,23 +218,21 @@ namespace CprBroker.NUnitTester.Part {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapHeaderAttribute("RegistrationDateHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
-        [System.Web.Services.Protocols.SoapHeaderAttribute("EffectDateHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Search", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Guid[] Search(PersonSearchCriteria searchCriteria) {
+        public SoegOutputType Search(SoegInputType1 searchCriteria) {
             object[] results = this.Invoke("Search", new object[] {
                         searchCriteria});
-            return ((System.Guid[])(results[0]));
+            return ((SoegOutputType)(results[0]));
         }
         
         /// <remarks/>
-        public void SearchAsync(PersonSearchCriteria searchCriteria) {
+        public void SearchAsync(SoegInputType1 searchCriteria) {
             this.SearchAsync(searchCriteria, null);
         }
         
         /// <remarks/>
-        public void SearchAsync(PersonSearchCriteria searchCriteria, object userState) {
+        public void SearchAsync(SoegInputType1 searchCriteria, object userState) {
             if ((this.SearchOperationCompleted == null)) {
                 this.SearchOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSearchOperationCompleted);
             }
@@ -371,158 +349,22 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class PersonSearchCriteria {
+    public partial class SoegOutputType {
         
-        private PersonNameStructureType nameField;
-        
-        private System.Nullable<Gender> genderField;
-        
-        private System.Nullable<System.DateTime> birthDateFromField;
-        
-        private System.Nullable<System.DateTime> birthDateToField;
-        
-        private string cprNumberField;
-        
-        private string nationalityCountryCodeField;
-        
-        /// <remarks/>
-        public PersonNameStructureType Name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<Gender> Gender {
-            get {
-                return this.genderField;
-            }
-            set {
-                this.genderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> BirthDateFrom {
-            get {
-                return this.birthDateFromField;
-            }
-            set {
-                this.birthDateFromField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> BirthDateTo {
-            get {
-                return this.birthDateToField;
-            }
-            set {
-                this.birthDateToField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string CprNumber {
-            get {
-                return this.cprNumberField;
-            }
-            set {
-                this.cprNumberField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string NationalityCountryCode {
-            get {
-                return this.nationalityCountryCodeField;
-            }
-            set {
-                this.nationalityCountryCodeField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
-    public partial class PersonNameStructureType {
-        
-        private string personGivenNameField;
-        
-        private string personMiddleNameField;
-        
-        private string personSurnameNameField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonGivenName {
-            get {
-                return this.personGivenNameField;
-            }
-            set {
-                this.personGivenNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonMiddleName {
-            get {
-                return this.personMiddleNameField;
-            }
-            set {
-                this.personMiddleNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonSurnameName {
-            get {
-                return this.personSurnameNameField;
-            }
-            set {
-                this.personSurnameNameField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum Gender {
-        
-        /// <remarks/>
-        Male,
-        
-        /// <remarks/>
-        Female,
-        
-        /// <remarks/>
-        Unknown,
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ListOutputType1))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public abstract partial class ListOutputType {
+        private string[] idListeField;
         
         private StandardReturType standardReturField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("UUID", Namespace="urn:oio:dkal:1.0.0", IsNullable=false)]
+        public string[] IdListe {
+            get {
+                return this.idListeField;
+            }
+            set {
+                this.idListeField = value;
+            }
+        }
         
         /// <remarks/>
         public StandardReturType StandardRetur {
@@ -564,6 +406,725 @@ namespace CprBroker.NUnitTester.Part {
             }
             set {
                 this.fejlbeskedTekstField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegTilstandListeType {
+        
+        private LokalUdvidelseType lokalUdvidelseField;
+        
+        /// <remarks/>
+        public LokalUdvidelseType LokalUdvidelse {
+            get {
+                return this.lokalUdvidelseField;
+            }
+            set {
+                this.lokalUdvidelseField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class LokalUdvidelseType {
+        
+        private System.Xml.XmlElement[] anyField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any {
+            get {
+                return this.anyField;
+            }
+            set {
+                this.anyField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegRelationType {
+        
+        private SoegVirkningType virkningField;
+        
+        private string referenceIDTekstField;
+        
+        private string commentTextField;
+        
+        /// <remarks/>
+        public SoegVirkningType Virkning {
+            get {
+                return this.virkningField;
+            }
+            set {
+                this.virkningField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string ReferenceIDTekst {
+            get {
+                return this.referenceIDTekstField;
+            }
+            set {
+                this.referenceIDTekstField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CommentText {
+            get {
+                return this.commentTextField;
+            }
+            set {
+                this.commentTextField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegVirkningType {
+        
+        private TidspunktType fraTidspunktField;
+        
+        private TidspunktType tilTidspunktField;
+        
+        private string aktoerTekstField;
+        
+        private string commentTextField;
+        
+        /// <remarks/>
+        public TidspunktType FraTidspunkt {
+            get {
+                return this.fraTidspunktField;
+            }
+            set {
+                this.fraTidspunktField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public TidspunktType TilTidspunkt {
+            get {
+                return this.tilTidspunktField;
+            }
+            set {
+                this.tilTidspunktField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string AktoerTekst {
+            get {
+                return this.aktoerTekstField;
+            }
+            set {
+                this.aktoerTekstField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CommentText {
+            get {
+                return this.commentTextField;
+            }
+            set {
+                this.commentTextField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class TidspunktType {
+        
+        private object itemField;
+        
+        /// <remarks/>
+        public object Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegRelationListeType {
+        
+        private SoegRelationType[] moderField;
+        
+        private SoegRelationType[] faderField;
+        
+        private SoegRelationType[] boernField;
+        
+        private SoegRelationType[] aegtefaelleField;
+        
+        private SoegRelationType[] registreretPartnerField;
+        
+        private SoegRelationType[] bopaelssamlingField;
+        
+        private SoegRelationType[] foraeldremyndgihdedsIndehaverField;
+        
+        private SoegRelationType[] foraeldremyndgihdedsBoernField;
+        
+        private SoegRelationType[] retligHandleevneVaergeForPersonenField;
+        
+        private SoegRelationType[] retligHandleevneVaergemaalsIndehaverField;
+        
+        private SoegRelationType[] erstatningForField;
+        
+        private SoegRelationType[] erstattesAfField;
+        
+        /// <remarks/>
+        public SoegRelationType[] Moder {
+            get {
+                return this.moderField;
+            }
+            set {
+                this.moderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] Fader {
+            get {
+                return this.faderField;
+            }
+            set {
+                this.faderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] Boern {
+            get {
+                return this.boernField;
+            }
+            set {
+                this.boernField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] Aegtefaelle {
+            get {
+                return this.aegtefaelleField;
+            }
+            set {
+                this.aegtefaelleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] RegistreretPartner {
+            get {
+                return this.registreretPartnerField;
+            }
+            set {
+                this.registreretPartnerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] Bopaelssamling {
+            get {
+                return this.bopaelssamlingField;
+            }
+            set {
+                this.bopaelssamlingField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] ForaeldremyndgihdedsIndehaver {
+            get {
+                return this.foraeldremyndgihdedsIndehaverField;
+            }
+            set {
+                this.foraeldremyndgihdedsIndehaverField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] ForaeldremyndgihdedsBoern {
+            get {
+                return this.foraeldremyndgihdedsBoernField;
+            }
+            set {
+                this.foraeldremyndgihdedsBoernField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] RetligHandleevneVaergeForPersonen {
+            get {
+                return this.retligHandleevneVaergeForPersonenField;
+            }
+            set {
+                this.retligHandleevneVaergeForPersonenField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] RetligHandleevneVaergemaalsIndehaver {
+            get {
+                return this.retligHandleevneVaergemaalsIndehaverField;
+            }
+            set {
+                this.retligHandleevneVaergemaalsIndehaverField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] ErstatningFor {
+            get {
+                return this.erstatningForField;
+            }
+            set {
+                this.erstatningForField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationType[] ErstattesAf {
+            get {
+                return this.erstattesAfField;
+            }
+            set {
+                this.erstattesAfField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegEgenskabType {
+        
+        private string navnTekstField;
+        
+        private VirkningType virkningField;
+        
+        /// <remarks/>
+        public string NavnTekst {
+            get {
+                return this.navnTekstField;
+            }
+            set {
+                this.navnTekstField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public VirkningType Virkning {
+            get {
+                return this.virkningField;
+            }
+            set {
+                this.virkningField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class VirkningType {
+        
+        private TidspunktType fraTidspunktField;
+        
+        private TidspunktType tilTidspunktField;
+        
+        private string aktoerTekstField;
+        
+        private string commentTextField;
+        
+        /// <remarks/>
+        public TidspunktType FraTidspunkt {
+            get {
+                return this.fraTidspunktField;
+            }
+            set {
+                this.fraTidspunktField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public TidspunktType TilTidspunkt {
+            get {
+                return this.tilTidspunktField;
+            }
+            set {
+                this.tilTidspunktField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string AktoerTekst {
+            get {
+                return this.aktoerTekstField;
+            }
+            set {
+                this.aktoerTekstField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CommentText {
+            get {
+                return this.commentTextField;
+            }
+            set {
+                this.commentTextField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegAttributListeType {
+        
+        private SoegEgenskabType[] soegEgenskabField;
+        
+        private LokalUdvidelseType lokalUdvidelseField;
+        
+        /// <remarks/>
+        public SoegEgenskabType[] SoegEgenskab {
+            get {
+                return this.soegEgenskabField;
+            }
+            set {
+                this.soegEgenskabField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public LokalUdvidelseType LokalUdvidelse {
+            get {
+                return this.lokalUdvidelseField;
+            }
+            set {
+                this.lokalUdvidelseField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegRegistreringType {
+        
+        private TidspunktType tidspunktDatoTidField;
+        
+        private LivscyklusKodeType livscyklusKodeField;
+        
+        private bool livscyklusKodeFieldSpecified;
+        
+        private string aktoerTekstField;
+        
+        private string commentTextField;
+        
+        /// <remarks/>
+        public TidspunktType TidspunktDatoTid {
+            get {
+                return this.tidspunktDatoTidField;
+            }
+            set {
+                this.tidspunktDatoTidField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public LivscyklusKodeType LivscyklusKode {
+            get {
+                return this.livscyklusKodeField;
+            }
+            set {
+                this.livscyklusKodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LivscyklusKodeSpecified {
+            get {
+                return this.livscyklusKodeFieldSpecified;
+            }
+            set {
+                this.livscyklusKodeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string AktoerTekst {
+            get {
+                return this.aktoerTekstField;
+            }
+            set {
+                this.aktoerTekstField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CommentText {
+            get {
+                return this.commentTextField;
+            }
+            set {
+                this.commentTextField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public enum LivscyklusKodeType {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegObjektType))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public abstract partial class SoegSagDokObjektType {
+        
+        private string uUIDField;
+        
+        private string brugervendtNoegleTekstField;
+        
+        private SoegRegistreringType registreringField;
+        
+        private SoegVirkningType virkningField;
+        
+        /// <remarks/>
+        public string UUID {
+            get {
+                return this.uUIDField;
+            }
+            set {
+                this.uUIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string BrugervendtNoegleTekst {
+            get {
+                return this.brugervendtNoegleTekstField;
+            }
+            set {
+                this.brugervendtNoegleTekstField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRegistreringType Registrering {
+            get {
+                return this.registreringField;
+            }
+            set {
+                this.registreringField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegVirkningType Virkning {
+            get {
+                return this.virkningField;
+            }
+            set {
+                this.virkningField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegObjektType : SoegSagDokObjektType {
+        
+        private SoegAttributListeType attributterField;
+        
+        private SoegRelationListeType relationerField;
+        
+        private SoegTilstandListeType tilstandeField;
+        
+        /// <remarks/>
+        public SoegAttributListeType Attributter {
+            get {
+                return this.attributterField;
+            }
+            set {
+                this.attributterField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegRelationListeType Relationer {
+            get {
+                return this.relationerField;
+            }
+            set {
+                this.relationerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoegTilstandListeType Tilstande {
+            get {
+                return this.tilstandeField;
+            }
+            set {
+                this.tilstandeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegInputType1))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public abstract partial class SoegInputType {
+        
+        private string foersteResultatField;
+        
+        private string maksimalAntalResultaterField;
+        
+        /// <remarks/>
+        public string FoersteResultat {
+            get {
+                return this.foersteResultatField;
+            }
+            set {
+                this.foersteResultatField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MaksimalAntalResultater {
+            get {
+                return this.maksimalAntalResultaterField;
+            }
+            set {
+                this.maksimalAntalResultaterField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SoegInputType1 : SoegInputType {
+        
+        private SoegObjektType soegField;
+        
+        /// <remarks/>
+        public SoegObjektType Soeg {
+            get {
+                return this.soegField;
+            }
+            set {
+                this.soegField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ListOutputType1))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public abstract partial class ListOutputType {
+        
+        private StandardReturType standardReturField;
+        
+        /// <remarks/>
+        public StandardReturType StandardRetur {
+            get {
+                return this.standardReturField;
+            }
+            set {
+                this.standardReturField = value;
             }
         }
     }
@@ -675,27 +1236,6 @@ namespace CprBroker.NUnitTester.Part {
             }
             set {
                 this.registreringTilFilterField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class TidspunktType {
-        
-        private object itemField;
-        
-        /// <remarks/>
-        public object Item {
-            get {
-                return this.itemField;
-            }
-            set {
-                this.itemField = value;
             }
         }
     }
@@ -916,6 +1456,54 @@ namespace CprBroker.NUnitTester.Part {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
+    public partial class PersonNameStructureType {
+        
+        private string personGivenNameField;
+        
+        private string personMiddleNameField;
+        
+        private string personSurnameNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonGivenName {
+            get {
+                return this.personGivenNameField;
+            }
+            set {
+                this.personGivenNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonMiddleName {
+            get {
+                return this.personMiddleNameField;
+            }
+            set {
+                this.personMiddleNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonSurnameName {
+            get {
+                return this.personSurnameNameField;
+            }
+            set {
+                this.personSurnameNameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public enum PersonGenderCodeType {
         
@@ -979,85 +1567,6 @@ namespace CprBroker.NUnitTester.Part {
             }
             set {
                 this.itemField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class VirkningType {
-        
-        private TidspunktType fraTidspunktField;
-        
-        private TidspunktType tilTidspunktField;
-        
-        private string aktoerTekstField;
-        
-        private string commentTextField;
-        
-        /// <remarks/>
-        public TidspunktType FraTidspunkt {
-            get {
-                return this.fraTidspunktField;
-            }
-            set {
-                this.fraTidspunktField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public TidspunktType TilTidspunkt {
-            get {
-                return this.tilTidspunktField;
-            }
-            set {
-                this.tilTidspunktField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string AktoerTekst {
-            get {
-                return this.aktoerTekstField;
-            }
-            set {
-                this.aktoerTekstField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string CommentText {
-            get {
-                return this.commentTextField;
-            }
-            set {
-                this.commentTextField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class LokalUdvidelseType {
-        
-        private System.Xml.XmlElement[] anyField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAnyElementAttribute()]
-        public System.Xml.XmlElement[] Any {
-            get {
-                return this.anyField;
-            }
-            set {
-                this.anyField = value;
             }
         }
     }
@@ -1403,21 +1912,21 @@ namespace CprBroker.NUnitTester.Part {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(KlasseFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DokumentFlerRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ArkivFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AktoerFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(KlasseFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DokumentFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OrganisationFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OrganisationEnhedRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BrugerFlerRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AdresseFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(InteressefaellesskabFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ItSystemFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OrganisationEnhedFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OrganisationFunktionFlerRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OrganisationEnhedRelationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OrganisationFlerRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(MyndighedFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AktoerFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ItSystemFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(InteressefaellesskabFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OrganisationFunktionFlerRelationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OrganisationEnhedFlerRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonFlerRelationType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
@@ -1469,7 +1978,25 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class ArkivFlerRelationType : FlerRelationType {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class KlasseFlerRelationType : FlerRelationType {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class SagFlerRelationType : FlerRelationType {
     }
     
     /// <remarks/>
@@ -1487,7 +2014,7 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ArkivFlerRelationType : FlerRelationType {
+    public partial class OrganisationFlerRelationType : FlerRelationType {
     }
     
     /// <remarks/>
@@ -1496,16 +2023,7 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class PartFlerRelationType : FlerRelationType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class AktoerFlerRelationType : FlerRelationType {
+    public partial class OrganisationEnhedRelationType : FlerRelationType {
     }
     
     /// <remarks/>
@@ -1532,7 +2050,7 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class InteressefaellesskabFlerRelationType : FlerRelationType {
+    public partial class MyndighedFlerRelationType : FlerRelationType {
     }
     
     /// <remarks/>
@@ -1541,7 +2059,16 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class SagFlerRelationType : FlerRelationType {
+    public partial class PartFlerRelationType : FlerRelationType {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class AktoerFlerRelationType : FlerRelationType {
     }
     
     /// <remarks/>
@@ -1559,7 +2086,7 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class OrganisationEnhedFlerRelationType : FlerRelationType {
+    public partial class InteressefaellesskabFlerRelationType : FlerRelationType {
     }
     
     /// <remarks/>
@@ -1577,25 +2104,7 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class OrganisationEnhedRelationType : FlerRelationType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class OrganisationFlerRelationType : FlerRelationType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class MyndighedFlerRelationType : FlerRelationType {
+    public partial class OrganisationEnhedFlerRelationType : FlerRelationType {
     }
     
     /// <remarks/>
@@ -1666,33 +2175,6 @@ namespace CprBroker.NUnitTester.Part {
                 this.virkningField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum LivscyklusKodeType {
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
-        Item3,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("4")]
-        Item4,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5")]
-        Item5,
     }
     
     /// <remarks/>
@@ -1904,42 +2386,6 @@ namespace CprBroker.NUnitTester.Part {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
-    public partial class RegistrationDateHeader : System.Web.Services.Protocols.SoapHeader {
-        
-        private System.Nullable<System.DateTime> registrationDateField;
-        
-        private System.Xml.XmlAttribute[] anyAttrField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> RegistrationDate {
-            get {
-                return this.registrationDateField;
-            }
-            set {
-                this.registrationDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
-        public System.Xml.XmlAttribute[] AnyAttr {
-            get {
-                return this.anyAttrField;
-            }
-            set {
-                this.anyAttrField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
     public partial class QualityHeader : System.Web.Services.Protocols.SoapHeader {
         
         private System.Nullable<QualityLevel> qualityLevelField;
@@ -1983,42 +2429,6 @@ namespace CprBroker.NUnitTester.Part {
         
         /// <remarks/>
         LocalCache,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
-    public partial class EffectDateHeader : System.Web.Services.Protocols.SoapHeader {
-        
-        private System.Nullable<System.DateTime> effectDateField;
-        
-        private System.Xml.XmlAttribute[] anyAttrField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> EffectDate {
-            get {
-                return this.effectDateField;
-            }
-            set {
-                this.effectDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
-        public System.Xml.XmlAttribute[] AnyAttr {
-            get {
-                return this.anyAttrField;
-            }
-            set {
-                this.anyAttrField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -2117,10 +2527,10 @@ namespace CprBroker.NUnitTester.Part {
         }
         
         /// <remarks/>
-        public System.Guid[] Result {
+        public SoegOutputType Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((System.Guid[])(this.results[0]));
+                return ((SoegOutputType)(this.results[0]));
             }
         }
     }

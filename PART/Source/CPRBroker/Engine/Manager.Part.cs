@@ -91,26 +91,12 @@ namespace CprBroker.Engine
                 return ret;
             }
 
-            public static Guid[] Search(string userToken, string appToken, PersonSearchCriteria searchCriteria, DateTime? effectDate, out QualityLevel? qualityLevel)
+            public static SoegOutputType Search(string userToken, string appToken, SoegInputType1 searchCriteria, out QualityLevel? qualityLevel)
             {
-                QualityLevel? ql = null;
-                FacadeMethodInfo<Guid[]> facadeMethod = new FacadeMethodInfo<Guid[]>(appToken, userToken, true)
-                {
-                    SubMethodInfos = new SubMethodInfo[]
-                    {
-                        new SubMethodInfo<IPartSearchDataProvider,Guid[]>()
-                        {
-                            LocalDataProviderOption = LocalDataProviderUsageOption.UseLast,
-                            FailIfNoDataProvider = true,
-                            FailOnDefaultOutput = true,
-                            Method = (prov)=>prov.Search(searchCriteria,effectDate,out ql),
-                            UpdateMethod = null
-                        }
-                    }
-                };
-
-                var ret = GetMethodOutput<Guid[]>(facadeMethod);
-                qualityLevel = ql;
+                SearchFacadeMethodInfo facadeMethod = new SearchFacadeMethodInfo(searchCriteria);
+                var ret = GetMethodOutput<SoegOutputType>(facadeMethod);
+                //TODO: Move into Search method of data provider
+                qualityLevel = QualityLevel.LocalCache;
                 return ret;
             }
 

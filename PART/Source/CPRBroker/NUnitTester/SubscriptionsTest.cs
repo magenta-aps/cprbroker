@@ -73,8 +73,8 @@ namespace CprBroker.NUnitTester
             int years = subscription.AgeYears.HasValue ? subscription.AgeYears.Value : 10;
             DateTime notifyDate = birthDate.AddYears(years + yearsDiff).AddDays(-(TestData.birthdateDays + daysDiff));
             bool expected = daysDiff == 0 && (yearsDiff == 0 || !subscription.AgeYears.HasValue);
-            var res = TestRunner.AccessService.SendNotifications(notifyDate);
-            bool notified = res.SentNotificationIds.Contains(new Guid(subscription.SubscriptionId));
+            var foundIds = TestRunner.AccessService.SendNotifications(notifyDate);
+            bool notified = foundIds.SentNotificationIds.Contains(new Guid(subscription.SubscriptionId));
             Assert.AreEqual(expected, notified,
                 string.Format("Notification match error. Expected:{0}, \r\n AgeYears={1}, PriorDays={2}, \r\n BirthDate={3}, NotifyDate={4}", expected, years, subscription.PriorDays, birthDate, notifyDate)
                 );
@@ -133,7 +133,7 @@ namespace CprBroker.NUnitTester
         {
             Subscriptions.ChangeSubscriptionType subscription = subscriptionFunc();
             bool notified;
-            CprBroker.NUnitTester.Access.SendNotificationsResult res;
+            CprBroker.NUnitTester.Access.SendNotificationsResult foundIds;
 
             // Create a test laesResultat and then submit an update
             this.T700_CreateTestCitizen();
@@ -147,8 +147,8 @@ namespace CprBroker.NUnitTester
             bool expected = expectedDay && expectedPerson;
             if (!expectedDay || expectedPerson)
             {
-                res = TestRunner.AccessService.SendNotifications(notifyDate);
-                notified = res.SentNotificationIds.Contains(new Guid(subscription.SubscriptionId));
+                foundIds = TestRunner.AccessService.SendNotifications(notifyDate);
+                notified = foundIds.SentNotificationIds.Contains(new Guid(subscription.SubscriptionId));
                 Assert.AreEqual(expected, notified, "Data change notification, NotifyDate={0}, For all={1}, Persons={2}", notifyDate, subscription.ForAllPersons, Utilities.ArrayToString(subscription.PersonCivilRegistrationIdentifiers));
 
                 if (expected)

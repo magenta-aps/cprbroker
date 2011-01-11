@@ -45,8 +45,7 @@ namespace CprBroker.NUnitTester
                 ApplicationToken = TestData.BaseAppToken,
                 UserToken = TestData.userToken
             };
-            PartService.EffectDateHeaderValue = new NUnitTester.Part.EffectDateHeader() { EffectDate = null };
-            PartService.RegistrationDateHeaderValue = new NUnitTester.Part.RegistrationDateHeader() { RegistrationDate = null };
+            
             ReplaceServiceUrl(PartService, SystemType.CprBroker);
             Console.WriteLine(PartService.Url);
 

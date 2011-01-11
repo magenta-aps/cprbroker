@@ -1903,7 +1903,8 @@ namespace CprBroker.Schemas.Part {
             this.idListeField = new List<string>();
             this.standardReturField = new StandardReturType();
         }
-        
+
+        [System.Xml.Serialization.XmlElement(Order = 2)]
         public StandardReturType StandardRetur {
             get {
                 return this.standardReturField;

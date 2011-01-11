@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s3="http://microsoft.com/wsdl/types/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s2="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s3="urn:oio:dkal:1.0.0" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s4="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s2="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows accesss to CPR data through a standard PART interface</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
+      <s:import namespace="urn:oio:dkal:1.0.0" />
       <s:import namespace="http://microsoft.com/wsdl/types/" />
       <s:element name="Read">
         <s:complexType>
@@ -212,17 +213,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="CommentText" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="MyndighedFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="OrganisationFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="OrganisationEnhedRelationType">
+      <s:complexType name="OrganisationEnhedFlerRelationType">
         <s:complexContent mixed="false">
           <s:extension base="tns:FlerRelationType" />
         </s:complexContent>
@@ -232,32 +223,12 @@
           <s:extension base="tns:FlerRelationType" />
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="OrganisationEnhedFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ItSystemFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="SagFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
       <s:complexType name="InteressefaellesskabFlerRelationType">
         <s:complexContent mixed="false">
           <s:extension base="tns:FlerRelationType" />
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="AdresseFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="BrugerFlerRelationType">
+      <s:complexType name="ItSystemFlerRelationType">
         <s:complexContent mixed="false">
           <s:extension base="tns:FlerRelationType" />
         </s:complexContent>
@@ -272,7 +243,27 @@
           <s:extension base="tns:FlerRelationType" />
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="ArkivFlerRelationType">
+      <s:complexType name="MyndighedFlerRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FlerRelationType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AdresseFlerRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FlerRelationType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BrugerFlerRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FlerRelationType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="OrganisationEnhedRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FlerRelationType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="OrganisationFlerRelationType">
         <s:complexContent mixed="false">
           <s:extension base="tns:FlerRelationType" />
         </s:complexContent>
@@ -282,7 +273,17 @@
           <s:extension base="tns:FlerRelationType" />
         </s:complexContent>
       </s:complexType>
+      <s:complexType name="SagFlerRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FlerRelationType" />
+        </s:complexContent>
+      </s:complexType>
       <s:complexType name="KlasseFlerRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:FlerRelationType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArkivFlerRelationType">
         <s:complexContent mixed="false">
           <s:extension base="tns:FlerRelationType" />
         </s:complexContent>
@@ -454,53 +455,123 @@
       <s:element name="Search">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="searchCriteria" type="tns:PersonSearchCriteria" />
+            <s:element minOccurs="0" maxOccurs="1" name="searchCriteria" type="tns:SoegInputType1" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="PersonSearchCriteria">
+      <s:complexType name="SoegInputType1">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SoegInputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Soeg" type="tns:SoegObjektType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SoegInputType" abstract="true">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s1:PersonNameStructureType" />
-          <s:element minOccurs="1" maxOccurs="1" name="Gender" nillable="true" type="tns:Gender" />
-          <s:element minOccurs="1" maxOccurs="1" name="BirthDateFrom" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="BirthDateTo" nillable="true" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="CprNumber" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NationalityCountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoersteResultat" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MaksimalAntalResultater" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:simpleType name="Gender">
-        <s:restriction base="s:string">
-          <s:enumeration value="Male" />
-          <s:enumeration value="Female" />
-          <s:enumeration value="Unknown" />
-        </s:restriction>
-      </s:simpleType>
-      <s:complexType name="ArrayOfGuid">
+      <s:complexType name="SoegObjektType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SoegSagDokObjektType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Attributter" type="tns:SoegAttributListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="Relationer" type="tns:SoegRelationListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tilstande" type="tns:SoegTilstandListeType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SoegSagDokObjektType" abstract="true">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="guid" type="s3:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrugervendtNoegleTekst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="tns:SoegRegistreringType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="tns:SoegVirkningType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegRegistreringType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TidspunktDatoTid" type="tns:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="LivscyklusKode" type="tns:LivscyklusKodeType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerTekst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CommentText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegVirkningType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="tns:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="TilTidspunkt" type="tns:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerTekst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CommentText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegAttributListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SoegEgenskab" type="tns:ArrayOfSoegEgenskabType" />
+          <s:element minOccurs="0" maxOccurs="1" name="LokalUdvidelse" type="tns:LokalUdvidelseType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSoegEgenskabType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegEgenskabType" nillable="true" type="tns:SoegEgenskabType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegEgenskabType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NavnTekst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="tns:VirkningType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegRelationListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Moder" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fader" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Boern" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aegtefaelle" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistreretPartner" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bopaelssamling" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ForaeldremyndgihdedsIndehaver" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ForaeldremyndgihdedsBoern" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RetligHandleevneVaergeForPersonen" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RetligHandleevneVaergemaalsIndehaver" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErstatningFor" type="tns:ArrayOfSoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErstattesAf" type="tns:ArrayOfSoegRelationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSoegRelationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegRelationType" nillable="true" type="tns:SoegRelationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegRelationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="tns:SoegVirkningType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceIDTekst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CommentText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegTilstandListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LokalUdvidelse" type="tns:LokalUdvidelseType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegOutputType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdListe" type="s3:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="tns:StandardReturType" />
         </s:sequence>
       </s:complexType>
       <s:element name="SearchResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SearchResult" type="tns:ArrayOfGuid" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchResult" type="tns:SoegOutputType" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="EffectDateHeader" type="tns:EffectDateHeader" />
-      <s:complexType name="EffectDateHeader">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="EffectDate" nillable="true" type="s:dateTime" />
-        </s:sequence>
-        <s:anyAttribute />
-      </s:complexType>
-      <s:element name="RegistrationDateHeader" type="tns:RegistrationDateHeader" />
-      <s:complexType name="RegistrationDateHeader">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" nillable="true" type="s:dateTime" />
-        </s:sequence>
-        <s:anyAttribute />
-      </s:complexType>
       <s:element name="GetPersonUuid">
         <s:complexType>
           <s:sequence>
@@ -511,7 +582,7 @@
       <s:element name="GetPersonUuidResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetPersonUuidResult" type="s3:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="GetPersonUuidResult" type="s4:guid" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -530,6 +601,13 @@
       <s:element name="PersonGivenName" type="s:string" />
       <s:element name="PersonMiddleName" type="s:string" />
       <s:element name="PersonSurnameName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:dkal:1.0.0">
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UUID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
       <s:simpleType name="guid">
@@ -584,14 +662,8 @@
   <wsdl:message name="SearchApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="SearchEffectDateHeader">
-    <wsdl:part name="EffectDateHeader" element="tns:EffectDateHeader" />
-  </wsdl:message>
   <wsdl:message name="SearchQualityHeader">
     <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
-  </wsdl:message>
-  <wsdl:message name="SearchRegistrationDateHeader">
-    <wsdl:part name="RegistrationDateHeader" element="tns:RegistrationDateHeader" />
   </wsdl:message>
   <wsdl:message name="GetPersonUuidSoapIn">
     <wsdl:part name="parameters" element="tns:GetPersonUuid" />
@@ -688,8 +760,6 @@ Output : Person UUID
       <wsdl:input>
         <soap:body use="literal" />
         <soap:header message="tns:SearchApplicationHeader" part="ApplicationHeader" use="literal" />
-        <soap:header message="tns:SearchEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap:header message="tns:SearchRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
@@ -747,8 +817,6 @@ Output : Person UUID
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:SearchApplicationHeader" part="ApplicationHeader" use="literal" />
-        <soap12:header message="tns:SearchEffectDateHeader" part="EffectDateHeader" use="literal" />
-        <soap12:header message="tns:SearchRegistrationDateHeader" part="RegistrationDateHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />

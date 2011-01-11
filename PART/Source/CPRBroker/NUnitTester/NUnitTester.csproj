@@ -262,6 +262,9 @@
     <None Include="Web References\Part\ListOutputType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\Part\SoegOutputType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Subscriptions\BaseNotificationType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

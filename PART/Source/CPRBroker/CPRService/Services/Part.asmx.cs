@@ -24,14 +24,6 @@ namespace CprBroker.Web.Services
         public QualityHeader qualityHeader = new QualityHeader();
         private const string QualityHeaderName = "qualityHeader";
 
-        // TODO: Remove unnecessary effect date header
-        public EffectDateHeader effectDateHeader;
-        private const string EffectDateHeaderName = "effectDateHeader";
-
-        public RegistrationDateHeader registrationDateHeader;
-        private const string RegistrationDateHeaderName = "registrationDateHeader";
-
-
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Read, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.Read)]
@@ -58,12 +50,10 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
-        [SoapHeader(EffectDateHeaderName)]
-        [SoapHeader(RegistrationDateHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Search, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.Search)]
-        public Guid[] Search(PersonSearchCriteria searchCriteria)
+        public SoegOutputType Search(SoegInputType1 searchCriteria)
         {
-            return Manager.Part.Search(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, effectDateHeader.EffectDate, out qualityHeader.QualityLevel);
+            return Manager.Part.Search(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
