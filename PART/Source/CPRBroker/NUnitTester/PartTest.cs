@@ -165,7 +165,7 @@ namespace CprBroker.NUnitTester
                 PersonMiddleName = pp.AttributListe.Egenskaber[0].PersonNameStructure.PersonMiddleName,
                 PersonSurnameName = pp.AttributListe.Egenskaber[0].PersonNameStructure.PersonSurnameName,
             };
-            
+
             var searchCriteria = new Part.SoegInputType1()
             {
                 Soeg = new SoegObjektType()
@@ -186,14 +186,14 @@ namespace CprBroker.NUnitTester
             var result = TestRunner.PartService.Search(searchCriteria);
             Assert.NotNull(result, "Search result");
             Assert.IsNotNull(result.IdListe, "Search result ids");
-                        
+
             Assert.AreEqual(1, result.IdListe.Length, "Number of search results");
             Assert.AreNotEqual(Guid.Empty, result.IdListe[0], "Empty laesResultat uuid from search");
-            Assert.AreEqual(personUuid, result.IdListe[0], "Search result returns wrong uuids");
+            Assert.AreEqual(personUuid.ToString(), result.IdListe[0], "Search result returns wrong uuids");
         }
 
         // TODO: Add more methods to test Search for criteria other than CPR number
-        
+
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
@@ -213,10 +213,10 @@ namespace CprBroker.NUnitTester
             Assert.AreEqual(Part.QualityLevel.LocalCache, TestRunner.PartService.QualityHeaderValue.QualityLevel.Value);
 
             // Now validate contents
-            Assert.True(Utilities.AreEqual<Part.RegistreringType1>(fresh.LaesResultat.Item as Part.RegistreringType1, cached.LaesResultat.Item as Part.RegistreringType1),"Equal response from data provider and local cache");
+            Assert.True(Utilities.AreEqual<Part.RegistreringType1>(fresh.LaesResultat.Item as Part.RegistreringType1, cached.LaesResultat.Item as Part.RegistreringType1), "Equal response from data provider and local cache");
         }
 
-        
+
 
 
 

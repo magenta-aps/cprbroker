@@ -93,7 +93,7 @@ namespace CprBroker.Engine
 
             public static SoegOutputType Search(string userToken, string appToken, SoegInputType1 searchCriteria, out QualityLevel? qualityLevel)
             {
-                SearchFacadeMethodInfo facadeMethod = new SearchFacadeMethodInfo(searchCriteria);
+                SearchFacadeMethodInfo facadeMethod = new SearchFacadeMethodInfo(searchCriteria, appToken, userToken);
                 var ret = GetMethodOutput<SoegOutputType>(facadeMethod);
                 //TODO: Move into Search method of data provider
                 qualityLevel = QualityLevel.LocalCache;

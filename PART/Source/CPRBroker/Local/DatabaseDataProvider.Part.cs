@@ -37,10 +37,6 @@ namespace CprBroker.Providers.Local
                                 PersonNameStructureType name = new PersonNameStructureType(prop.NavnTekst);
                                 if (!name.IsEmpty)
                                 {
-                                    var simpleNamePred = PredicateBuilder.True<PersonRegistration>();
-                                    simpleNamePred = simpleNamePred.And((pr) => pr.PersonAttribute.CprData == null);
-                                    //simpleNamePred = simpleNamePred.And((pr) => pr.PersonAttribute.Name == searchCriteria.Name.ToString());
-
                                     var cprNamePred = PredicateBuilder.True<PersonRegistration>();
                                     cprNamePred = cprNamePred.And((pr) => pr.PersonAttribute.CprData != null);
                                     if (!string.IsNullOrEmpty(name.PersonGivenName))
@@ -55,12 +51,7 @@ namespace CprBroker.Providers.Local
                                     {
                                         cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.LastName == name.PersonSurnameName);
                                     }
-
-                                    var fullNamePred = PredicateBuilder.False<PersonRegistration>();
-                                    fullNamePred = fullNamePred.Or(simpleNamePred);
-                                    fullNamePred = fullNamePred.Or(cprNamePred);
-
-                                    pred = pred.And(fullNamePred);
+                                    pred = pred.And(cprNamePred);
                                 }
                             }
                         }
