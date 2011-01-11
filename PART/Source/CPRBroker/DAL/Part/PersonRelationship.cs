@@ -66,14 +66,14 @@ namespace CprBroker.DAL.Part
             };
         }
 
-        private static List<TRelation> FilterRelationsByType<TRelation>(IQueryable<PersonRelationship> relations, RelationshipTypes type) where TRelation : class
+        private static TRelation[] FilterRelationsByType<TRelation>(IQueryable<PersonRelationship> relations, RelationshipTypes type) where TRelation : class
         {
             return
             (
                 from rel in relations
                 where rel.RelationshipTypeId == (int)type
                 select typeof(TRelation) == typeof(PersonRelationType) ? rel.ToPersonRelationType() as TRelation : rel.ToPersonFlerRelationType() as TRelation
-            ).ToList();
+            ).ToArray();
         }
         #endregion
 
@@ -97,11 +97,11 @@ namespace CprBroker.DAL.Part
             return ret;
         }
 
-        private static PersonRelationship[] ListFromXmlType(List<PersonRelationType> oio, RelationshipTypes relType)
+        private static PersonRelationship[] ListFromXmlType(PersonRelationType[] oio, RelationshipTypes relType)
         {
             return Array.ConvertAll<PersonRelationType, PersonRelationship>
             (
-                oio.ToArray(),
+                oio,
                 (r) => new PersonRelationship()
                 {
                     CommentText = r.CommentText,
@@ -113,11 +113,11 @@ namespace CprBroker.DAL.Part
             );
         }
 
-        private static PersonRelationship[] ListFromXmlType(List<PersonFlerRelationType> oio, RelationshipTypes relType)
+        private static PersonRelationship[] ListFromXmlType(PersonFlerRelationType[] oio, RelationshipTypes relType)
         {
             return Array.ConvertAll<PersonFlerRelationType, PersonRelationship>
             (
-                oio.ToArray(),
+                oio,
                 (r) => new PersonRelationship()
                 {
                     CommentText = r.CommentText,

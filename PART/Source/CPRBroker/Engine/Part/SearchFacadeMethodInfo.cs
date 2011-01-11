@@ -23,7 +23,7 @@ namespace CprBroker.Engine.Part
             var foundIds = results[0] as Guid[];
             if (foundIds != null)
             {
-                ret.IdListe = new List<string>(from id in foundIds select id.ToString());
+                ret.IdListe = (from id in foundIds select id.ToString()).ToArray();
             }
             return ret;
         }

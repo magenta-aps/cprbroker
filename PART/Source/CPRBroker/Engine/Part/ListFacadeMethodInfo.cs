@@ -25,7 +25,7 @@ namespace CprBroker.Engine.Part
 
         public override bool IsValidInput()
         {
-            if (input == null || input.UUID == null && input.UUID.Count == 0)
+            if (input == null || input.UUID == null && input.UUID.Length == 0)
             {
                 return false;
             }
@@ -67,13 +67,10 @@ namespace CprBroker.Engine.Part
         {
             return new ListOutputType1()
             {
-                LaesResultat = new List<LaesResultatType>
+                LaesResultat = Array.ConvertAll<object, LaesResultatType>
                 (
-                    Array.ConvertAll<object, LaesResultatType>
-                    (
-                        results,
-                        (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
-                    )
+                    results,
+                    (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
                 ),
                 //TODO: Fill this StandardRetur object
                 StandardRetur = StandardReturType.Create("", "")

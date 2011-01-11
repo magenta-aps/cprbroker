@@ -20,13 +20,13 @@ namespace CprBroker.Schemas.Part
         }
 
         //TODO: add parameters for from and to dates
-        public static List<PersonFlerRelationType> CreateList(params Guid[] targetUuids)
+        public static PersonFlerRelationType[] CreateList(params Guid[] targetUuids)
         {
-            return new List<PersonFlerRelationType>(
-                Array.ConvertAll<Guid, PersonFlerRelationType>(
-                    targetUuids,
-                    (uuid) => Create(uuid, null, null)
-                ));
+            return Array.ConvertAll<Guid, PersonFlerRelationType>
+            (
+                targetUuids,
+                (uuid) => Create(uuid, null, null)
+            );
         }
     }
 }

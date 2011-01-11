@@ -5,7 +5,6 @@ using System.Text;
 using System.Xml;
 using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AS78207;
-using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.DAL;
 
@@ -17,7 +16,7 @@ namespace CprBroker.Providers.KMD
 
         #region IPartReadDataProvider Members
 
-        public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
+        public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out CprBroker.Schemas.QualityLevel? ql)
         {
             // TODO: Find a solution for effect date in KMD Read
             RegistreringType1 ret = null;
@@ -31,65 +30,66 @@ namespace CprBroker.Providers.KMD
             {
                 AttributListe = new AttributListeType()
                 {
-                    Egenskaber = new List<EgenskaberType>
-                    (
-                        new EgenskaberType[]
+                    Egenskaber = new EgenskaberType[]
+                    {
+                        new EgenskaberType()
                         {
-                            new EgenskaberType()
+                            PersonBirthDateStructure= new CprBroker.Schemas.Part.PersonBirthDateStructureType()
                             {
-                                PersonBirthDateStructure= new CprBroker.Schemas.Part.PersonBirthDateStructureType()
-                                {
-                                    //TODO: Handle null birthdate
-                                    BirthDate = ToDateTime(resp.BirthDate).Value,
-                                    BirthDateUncertaintyIndicator = false
-                                },
-                                //TODO: Change this
-                                PersonGenderCode = ToPartGender(uuid.CprNumber),
-                                PersonNameStructure = new PersonNameStructureType(resp.FirstName, resp.LastName),
-                                RegisterOplysninger=new RegisterOplysningerType()
+                                //TODO: Handle null birthdate
+                                BirthDate = ToDateTime(resp.BirthDate).Value,
+                                BirthDateUncertaintyIndicator = false
+                            },
+                            //TODO: Change this
+                            PersonGenderCode = ToPartGender(uuid.CprNumber),
+                            PersonNameStructure = new PersonNameStructureType(resp.FirstName, resp.LastName),
+                            RegisterOplysninger=new RegisterOplysningerType[]
+                            {
+                                new RegisterOplysningerType()
                                 {
                                     //TODO: Fill with CPR, Foreign or Unknown
                                     Item = null,
-                                },
-                                Virkning = VirkningType.Create(null,null),
-                                /*
-                                Attributes = new PersonAttributes()
+                                }
+                            },
+                            Virkning = VirkningType.Create(null,null),
+                            /*
+                            Attributes = new PersonAttributes()
+                            {
+                                BirthDate = ToDateTime(resp.BirthDate).Value,
+                                ContactChannel = new ContactChannel[0],
+                                Gender = ToPartGender(uuid.CprNumber),
+                                Name = new Effect<string>()
                                 {
-                                    BirthDate = ToDateTime(resp.BirthDate).Value,
-                                    ContactChannel = new ContactChannel[0],
+                                    StartDate = ToDateTime(resp.NameDate),
+                                    EndDate = null,
+                                    Value = new PersonNameStructureType(resp.FirstName, resp.LastName).ToString()
+                                },
+                                // TODO: check if other addresses can be filled from another service (e.g. AN80002)
+                                OtherAddresses = new CprBroker.Schemas.Part.Address[0],
+                                //TODO: Handle the case of Foreign data or unknown data
+                                PersonData = new CprData()
+                                {
+                                    AddressingName = resp.AddressingName,
+                                    BirthDateUncertainty = false,
+                                    CprNumber = resp.PNR,
                                     Gender = ToPartGender(uuid.CprNumber),
-                                    Name = new Effect<string>()
+
+                                    IndividualTrackStatus = false,
+                                    NameAndAddressProtection = protectAddress,
+                                    NationalityCountryCode = DAL.Country.GetCountryAlpha2CodeByKmdCode(resp.NationalityCode),
+                                    NickName = null,
+                                    PersonName = new Effect<PersonNameStructureType>()
                                     {
                                         StartDate = ToDateTime(resp.NameDate),
                                         EndDate = null,
-                                        Value = new PersonNameStructureType(resp.FirstName, resp.LastName).ToString()
+                                        Value = new PersonNameStructureType(resp.FirstName, resp.LastName)
                                     },
-                                    // TODO: check if other addresses can be filled from another service (e.g. AN80002)
-                                    OtherAddresses = new CprBroker.Schemas.Part.Address[0],
-                                    //TODO: Handle the case of Foreign data or unknown data
-                                    PersonData = new CprData()
-                                    {
-                                        AddressingName = resp.AddressingName,
-                                        BirthDateUncertainty = false,
-                                        CprNumber = resp.PNR,
-                                        Gender = ToPartGender(uuid.CprNumber),
+                                    PopulationAddress = resp.ToPartAddress(),
+                                }
+                            }*/                                
+                        },
+                    }
 
-                                        IndividualTrackStatus = false,
-                                        NameAndAddressProtection = protectAddress,
-                                        NationalityCountryCode = DAL.Country.GetCountryAlpha2CodeByKmdCode(resp.NationalityCode),
-                                        NickName = null,
-                                        PersonName = new Effect<PersonNameStructureType>()
-                                        {
-                                            StartDate = ToDateTime(resp.NameDate),
-                                            EndDate = null,
-                                            Value = new PersonNameStructureType(resp.FirstName, resp.LastName)
-                                        },
-                                        PopulationAddress = resp.ToPartAddress(),
-                                    }
-                                }*/                                
-                            },
-                        }
-                    )
                 },
                 // TODO:See if actor text is different from actor ID
                 AktoerTekst = KmdDataProvider.ActorId.ToString(),
@@ -123,7 +123,7 @@ namespace CprBroker.Providers.KMD
                     // No extensions now
                     LokalUdvidelse = new LokalUdvidelseType()
                     {
-                        Any = new List<XmlElement>()
+                        Any = new XmlElement[0]
                     }
                 },
                 //TODO: Fill
@@ -135,23 +135,21 @@ namespace CprBroker.Providers.KMD
             {
                 var childPnrs = (from pnr in resp.ChildrenPNRs where pnr.Replace("-", "").Length > 0 select pnr.Replace("-", "")).ToArray();
                 var uuids = Array.ConvertAll<string, Guid>(childPnrs, (cpr) => cpr2uuidFunc(cpr));
-                ret.RelationListe.Boern = new List<PersonFlerRelationType>
+                ret.RelationListe.Boern = Array.ConvertAll<Guid, PersonFlerRelationType>
                 (
-                    Array.ConvertAll<Guid, PersonFlerRelationType>(
-                        uuids,
-                        (pId) => PersonFlerRelationType.Create(pId, null, null)
-                    )
+                    uuids,
+                    (pId) => PersonFlerRelationType.Create(pId, null, null)
                 );
             }
             //Father
             if (Convert.ToDecimal(resp.FatherPNR) > 0)
             {
-                ret.RelationListe.Fader = new List<PersonRelationType>(new PersonRelationType[] { PersonRelationType.Create(cpr2uuidFunc(resp.FatherPNR), null, null) });
+                ret.RelationListe.Fader = new PersonRelationType[] { PersonRelationType.Create(cpr2uuidFunc(resp.FatherPNR), null, null) };
             }
             //Mother
             if (Convert.ToDecimal(resp.MotherPNR) > 0)
             {
-                ret.RelationListe.Fader = new List<PersonRelationType>(new PersonRelationType[] { PersonRelationType.Create(cpr2uuidFunc(resp.MotherPNR), null, null) });
+                ret.RelationListe.Fader = new PersonRelationType[] { PersonRelationType.Create(cpr2uuidFunc(resp.MotherPNR), null, null) };
             }
 
             // Spouse
@@ -161,24 +159,21 @@ namespace CprBroker.Providers.KMD
                 var maritalStatusDate = ToDateTime(resp.MaritalStatusDate);
                 bool isMarried = maritalStatus == CprBroker.Schemas.Part.Enums.MaritalStatus.married || maritalStatus == CprBroker.Schemas.Part.Enums.MaritalStatus.registeredpartner;
                 var spouseUuid = cpr2uuidFunc(resp.SpousePNR);
-                ret.RelationListe.Aegtefaelle = new List<PersonRelationType>
-                (
-                    new PersonRelationType[]
-                    {
-                        PersonRelationType.Create
-                        (
-                            spouseUuid,
-                            isMarried? maritalStatusDate : null,
-                            isMarried? null : maritalStatusDate
-                       )
-                    }
-                );
+                ret.RelationListe.Aegtefaelle = new PersonRelationType[]
+                {
+                    PersonRelationType.Create
+                    (
+                        spouseUuid,
+                        isMarried? maritalStatusDate : null,
+                        isMarried? null : maritalStatusDate
+                   )
+                };                
             }
-            ql = QualityLevel.Cpr;
+            ql = CprBroker.Schemas.QualityLevel.Cpr;
             return ret;
         }
 
-        public CprBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
+        public CprBroker.Schemas.Part.PersonRegistration[] List(CprBroker.Schemas.PersonIdentifier[] uuids, DateTime? effectDate, out CprBroker.Schemas.QualityLevel? ql)
         {
             // TODO: implement List operation on KMD after Read is completed
             throw new NotImplementedException();
@@ -189,7 +184,7 @@ namespace CprBroker.Providers.KMD
         #region Utility methods
 
         //TODO: Convert to anonymous method withn Search method
-        private bool MergeSearchResult(PersonIdentifier[] ids, ref PersonIdentifier[] finalResult)
+        private bool MergeSearchResult(CprBroker.Schemas.PersonIdentifier[] ids, ref CprBroker.Schemas.PersonIdentifier[] finalResult)
         {
             return true;
         }
@@ -236,7 +231,7 @@ namespace CprBroker.Providers.KMD
             }
         }
 
-        private Effect<Schemas.Part.PersonRelation>[] GetPersonRelations(WS_AN08010.ReplyPerson[] persons, PersonIdentifier[] personIdentifiers, params string[] typeFilters)
+        private Effect<Schemas.Part.PersonRelation>[] GetPersonRelations(WS_AN08010.ReplyPerson[] persons, CprBroker.Schemas.PersonIdentifier[] personIdentifiers, params string[] typeFilters)
         {
             if (persons == null)
             {

@@ -17,13 +17,13 @@ namespace CprBroker.Schemas.Part
                 };
         }
         //TODO: Add from and to parameters
-        public static List<PersonRelationType> CreateList(params Guid[] targetUuids)
+        public static PersonRelationType[]CreateList(params Guid[] targetUuids)
         {
-            return new List<PersonRelationType>(
-                Array.ConvertAll<Guid, PersonRelationType>(
-                    targetUuids,
-                    (uuid) => Create(uuid,null,null)
-                ));
+            return Array.ConvertAll<Guid, PersonRelationType>
+            (
+                targetUuids,
+                (uuid) => Create(uuid,null,null)
+            );
         }
     }
 }

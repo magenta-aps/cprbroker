@@ -174,6 +174,12 @@
     <None Include="Part\Address classes.cd" />
     <None Include="Part\Person classes.cd" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PersonSchemas\PersonSchemas.csproj">
+      <Project>{63C643D5-D975-4A69-9D59-02B253BDFDE8}</Project>
+      <Name>PersonSchemas</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

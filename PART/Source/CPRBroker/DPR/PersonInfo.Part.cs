@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using System.Xml;
 
@@ -288,33 +287,34 @@ namespace CprBroker.Providers.DPR
             {
                 AttributListe = new AttributListeType()
                 {
-                    Egenskaber = new List<EgenskaberType>(
-                        new EgenskaberType[] 
+                    Egenskaber = new EgenskaberType[] 
+                    {
+                        new EgenskaberType()
                         {
-                            new EgenskaberType()
+                            PersonBirthDateStructure = new CprBroker.Schemas.Part.PersonBirthDateStructureType()
                             {
-                                PersonBirthDateStructure = new CprBroker.Schemas.Part.PersonBirthDateStructureType()
-                                {
-                                    BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,
-                                    //TODO: Fix this value
-                                    BirthDateUncertaintyIndicator = false
-                                },
-                                PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar( PersonTotal.Sex),
-                                PersonNameStructure = tempPersonName,
-                                RegisterOplysninger = new RegisterOplysningerType()
+                                BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,
+                                //TODO: Fix this value
+                                BirthDateUncertaintyIndicator = false
+                            },
+                            PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar( PersonTotal.Sex),
+                            PersonNameStructure = tempPersonName,
+                            RegisterOplysninger = new RegisterOplysningerType[]
+                            {
+                                new RegisterOplysningerType()
                                 {
                                     // TODO: Fill this with UdenlandskBorger or CPRBorger or UkendtBorger
                                     Item = null,
-                                },
-                                //TODO: Fill this object
-                                Virkning = VirkningType.Create(null,null)
-                            }
+                                }
+                            },
+                            //TODO: Fill this object
+                            Virkning = VirkningType.Create(null,null)
                         }
-                        ),
+                    },
                     // No extensions at the moment
                     LokalUdvidelse = new LokalUdvidelseType()
                     {
-                        Any = new List<XmlElement>()
+                        Any = new XmlElement[0]
                     }
                 },
                 // TODO: Add actor text
@@ -336,7 +336,7 @@ namespace CprBroker.Providers.DPR
                     // No extensions now
                     LokalUdvidelse = new LokalUdvidelseType()
                     {
-                        Any = new List<XmlElement>()
+                        Any = new XmlElement[0]
                     }
                 },
                 //TODO: Pass parameters to this method
@@ -347,28 +347,28 @@ namespace CprBroker.Providers.DPR
             var fatherPnr = PersonTotal.GetParent(this.PersonTotal.FatherMarker, this.PersonTotal.FatherPersonalOrBirthdate);
             if (fatherPnr.HasValue)
             {
-                ret.RelationListe.Fader = new List<PersonRelationType>(new PersonRelationType[]
+                ret.RelationListe.Fader = new PersonRelationType[]
                 {
                     PersonRelationType.Create(
                         cpr2uuidFunc( fatherPnr.Value),
                         ret.AttributListe.Egenskaber[0].PersonBirthDateStructure.BirthDate,
                         null
                     )
-                });
+                };
             }
 
 
             var motherPnr = PersonTotal.GetParent(this.PersonTotal.MotherMarker, this.PersonTotal.MotherPersonalOrBirthDate);
             if (motherPnr.HasValue)
             {
-                ret.RelationListe.Moder = new List<PersonRelationType>(new PersonRelationType[]
+                ret.RelationListe.Moder = new PersonRelationType[]
                 {
                     PersonRelationType.Create
                         (cpr2uuidFunc( motherPnr.Value) ,
                         ret.AttributListe.Egenskaber[0].PersonBirthDateStructure.BirthDate,
                         null
                     )
-                });
+                };
             }
 
             ret.RelationListe.Boern = PersonFlerRelationType.CreateList(

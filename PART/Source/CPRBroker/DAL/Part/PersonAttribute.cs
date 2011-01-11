@@ -13,43 +13,41 @@ namespace CprBroker.DAL.Part
         {
             var ret = new AttributListeType()
             {
-                Egenskaber = new List<EgenskaberType>
-                (
-                    new EgenskaberType[]
+                Egenskaber = new EgenskaberType[]
+                {
+                    new EgenskaberType()
                     {
-                        new EgenskaberType()
+                        PersonBirthDateStructure = new PersonBirthDateStructureType()
                         {
-                            PersonBirthDateStructure = new PersonBirthDateStructureType()
-                            {
-                                //TODO: Check that new DateTime is the correct value here
-                               BirthDate=this.BirthDate.HasValue?this.BirthDate.Value : new DateTime(), 
-                                BirthDateUncertaintyIndicator = this.BirthdateUncertainty,
-                            },
-                            PersonGenderCode = DAL.Part.Gender.GetPartGender(this.GenderId),
-                            PersonNameStructure = new CprBroker.Schemas.PersonNameStructureType( )
-                            {
-                                PersonGivenName=this.FirstName,
-                                PersonMiddleName=this.MiddleName,
-                                PersonSurnameName=this.LastName
-                            },
-                            RegisterOplysninger = new RegisterOplysningerType(),
-                            Virkning = VirkningType.Create(null,null),
+                            //TODO: Check that new DateTime is the correct value here
+                           BirthDate=this.BirthDate.HasValue?this.BirthDate.Value : new DateTime(), 
+                            BirthDateUncertaintyIndicator = this.BirthdateUncertainty,
                         },
-                    }
-                )
+                        PersonGenderCode = DAL.Part.Gender.GetPartGender(this.GenderId),
+                        PersonNameStructure = new CprBroker.Schemas.Part.PersonNameStructureType( )
+                        {
+                            PersonGivenName=this.FirstName,
+                            PersonMiddleName=this.MiddleName,
+                            PersonSurnameName=this.LastName
+                        },
+                        RegisterOplysninger = new RegisterOplysningerType[]{new RegisterOplysningerType()},
+                        Virkning = VirkningType.Create(null,null),
+                    },
+                }
+
             };
 
             if (this.CprData != null)
             {
-                ret.Egenskaber[0].RegisterOplysninger.Item = CprData.ToXmlType();
+                ret.Egenskaber[0].RegisterOplysninger[0].Item = CprData.ToXmlType();
             }
             else if (this.ForeignCitizenData != null)
             {
-                ret.Egenskaber[0].RegisterOplysninger.Item = ForeignCitizenData.ToXmlType();
+                ret.Egenskaber[0].RegisterOplysninger[0].Item = ForeignCitizenData.ToXmlType();
             }
             else if (this.UnknownCitizenData != null)
             {
-                ret.Egenskaber[0].RegisterOplysninger.Item = UnknownCitizenData.ToXmlType();
+                ret.Egenskaber[0].RegisterOplysninger[0].Item = UnknownCitizenData.ToXmlType();
             }
             return ret;
         }
