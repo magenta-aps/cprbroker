@@ -79,6 +79,7 @@ namespace CprBroker.Engine.Local
                     }
                     var dbReg = DAL.Part.PersonRegistration.FromXmlType(personRegistraion);
                     dbReg.Person = dbPerson;
+                    dbReg.BrokerUpdateDate = DateTime.Now;
                     dataContext.PersonRegistrations.InsertOnSubmit(dbReg);
                     dataContext.SubmitChanges();
                     return true;

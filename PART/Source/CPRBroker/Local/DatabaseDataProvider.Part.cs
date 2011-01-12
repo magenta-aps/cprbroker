@@ -137,7 +137,7 @@ namespace CprBroker.Providers.Local
         public CprBroker.Schemas.Part.RegistreringType1 Read(PersonIdentifier uuid, CprBroker.Schemas.Part.LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
             Schemas.Part.RegistreringType1 ret = null;
-            var fromRegistrationDate = TidspunktType.ToDateTime( input.RegistreringFraFilter);
+            var fromRegistrationDate = TidspunktType.ToDateTime(input.RegistreringFraFilter);
             var toRegistrationDate = TidspunktType.ToDateTime(input.RegistreringTilFilter);
 
             var fromEffectDate = TidspunktType.ToDateTime(input.VirkningFraFilter);
@@ -155,19 +155,13 @@ namespace CprBroker.Providers.Local
                     && (!toRegistrationDate.HasValue || personReg.RegistrationDate <= toRegistrationDate)
                     // TODO: Filter by effect date
                     orderby personReg.RegistrationDate descending
+                    orderby personReg.BrokerUpdateDate descending
                     select personReg.ToXmlType()
                 ).FirstOrDefault();
             }
             ql = QualityLevel.LocalCache;
             return ret;
         }
-
-        public CprBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
-        {
-            // TODO: implement List after Read
-            throw new NotImplementedException();
-        }
-
         #endregion
 
         #region IPartPersonMappingDataProvider Members
