@@ -40,14 +40,7 @@ namespace CprBroker.Engine.Part
 
             SubMethodInfos = new SubMethodInfo[] 
             {
-                new SubMethodInfo<IPartReadDataProvider,RegistreringType1>()
-                {
-                    LocalDataProviderOption= LocalAction,
-                    FailIfNoDataProvider = true,
-                    FailOnDefaultOutput=true,
-                    Method = (prov)=>prov.Read(pId,Input, (cpr)=>Manager.Part.GetPersonUuid(UserToken, ApplicationToken, cpr), out QualityLevel),
-                    UpdateMethod = (personRegistration)=> Local.UpdateDatabase.UpdatePersonRegistration(new Guid(Input.UUID), personRegistration)
-                }
+                new ReadSubMethodInfo(pId,Input,(cpr)=>Manager.Part.GetPersonUuid(UserToken, ApplicationToken, cpr),LocalAction)
             };
         }
 
@@ -66,6 +59,7 @@ namespace CprBroker.Engine.Part
                     StatuskodeKode = ""
                 }
             };
+            QualityLevel = (SubMethodInfos[0] as ReadSubMethodInfo).QualityLevel;
             return o;
         }
     }

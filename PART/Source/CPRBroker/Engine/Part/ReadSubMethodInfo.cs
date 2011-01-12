@@ -12,7 +12,8 @@ namespace CprBroker.Engine.Part
         PersonIdentifier PersonIdentifier;
         LaesInputType Input;
         Func<string, Guid> CprToUuidConverter;
-        
+        internal QualityLevel? QualityLevel;
+
         private ReadSubMethodInfo()
         {
             FailIfNoDataProvider = true;
@@ -31,13 +32,12 @@ namespace CprBroker.Engine.Part
 
         public override RegistreringType1 RunMainMethod(IPartReadDataProvider prov)
         {
-            QualityLevel? ql;
             return prov.Read
            (
                 this.PersonIdentifier,
                Input,
                CprToUuidConverter,
-               out ql
+               out QualityLevel
            );
         }
     }
