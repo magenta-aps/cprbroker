@@ -62,6 +62,7 @@
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="generic\SagDokObjekt.xsd" />
     <None Include="Operations.cd" />
     <None Include="OtherOperations.cd" />
     <None Include="Other\CPR_BirthDateUncertaintyIndicator.xsd">
@@ -99,9 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="person\XSD.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="generic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
