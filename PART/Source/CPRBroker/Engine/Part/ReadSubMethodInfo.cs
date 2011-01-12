@@ -40,5 +40,19 @@ namespace CprBroker.Engine.Part
                out QualityLevel
            );
         }
+
+        public override bool IsValidResult(CprBroker.Schemas.Part.RegistreringType1 result)
+        {
+            if (base.IsValidResult(result))
+            {
+                DateTime? d = result.TidspunktDatoTid.ToDateTime();
+                if (d.HasValue)
+                {
+                    return Input.DateRangeIncludes(d.Value);
+                }
+            }
+            return false;
+        }
+
     }
 }

@@ -18,5 +18,17 @@ namespace CprBroker.Schemas.Part
                 VirkningTilFilter = listInput.VirkningTilFilter
             };
         }
+
+        public bool DateRangeIncludes(DateTime registrationDate)
+        {
+            return
+                (
+                    !TidspunktType.ToDateTime(RegistreringFraFilter).HasValue || RegistreringFraFilter.ToDateTime().Value <= registrationDate
+                )
+                &&
+                (
+                    !TidspunktType.ToDateTime(RegistreringTilFilter).HasValue || RegistreringTilFilter.ToDateTime().Value >= registrationDate
+                );
+        }
     }
 }

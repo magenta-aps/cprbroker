@@ -72,14 +72,7 @@ namespace CprBroker.Engine
 
         public virtual bool IsValidResult(TOutput result)
         {
-            if (FailOnDefaultOutput)
-            {
-                return !Object.Equals(result, default(TOutput));
-            }
-            else
-            {
-                return true;
-            }
+            return IsNonEmptyResult(result);
         }
 
         public sealed override bool  IsUpdatableOutput(object o)
@@ -96,7 +89,19 @@ namespace CprBroker.Engine
 
         public virtual bool IsUpdatableResult(TOutput result)
         {
-            return IsValidResult(result);
+            return IsNonEmptyResult(result);
+        }
+
+        protected bool IsNonEmptyResult(TOutput result)
+        {
+            if (FailOnDefaultOutput)
+            {
+                return !Object.Equals(result, default(TOutput));
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 
