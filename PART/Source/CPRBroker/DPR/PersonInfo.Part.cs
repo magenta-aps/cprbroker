@@ -212,30 +212,30 @@ namespace CprBroker.Providers.DPR
                 var personInfoAsQueryable = new PersonInfo[] { personInfo }.AsQueryable();
                 var dates = new List<DateTime?>();
 
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MaritalStatusDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MunicipalityArrivalDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MunicipalityLeavingDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.PaternityDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.PersonalSelectionDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.StatusDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.UnderGuardianshipDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.VotingDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MaritalStatusDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MunicipalityArrivalDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MunicipalityLeavingDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.PaternityDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.PersonalSelectionDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.StatusDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.UnderGuardianshipDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.VotingDate));
 
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.AddressingNameDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.AddressingNameDate));
                 dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.AuthorityTextUpdateDate));
                 dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.CprUpdateDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameStartDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameTerminationDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.SearchNameDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.StatusDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameStartDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameTerminationDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.SearchNameDate));
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.StatusDate));
 
                 if (personInfo.ContactAddress != null)
                 {
-                    dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.ContactAddressDate));
+                    //dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.ContactAddressDate));
                     dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.UpdateDate));
                 }
-                dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalStatusDate)));
-                dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalEndDate)));
+                //dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalStatusDate)));
+                //dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalEndDate)));
                 dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.AuthorityTextUpdateDate)));
                 dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.UpdateDateOfCpr)));
 
@@ -327,6 +327,7 @@ namespace CprBroker.Providers.DPR
                 TidspunktDatoTid = TidspunktType.Create(this.RegistrationDate),
                 TilstandListe = new TilstandListeType()
                 {
+                    //TODO: Fill civil status and life status ahenever the type is ready
                     //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
                     //Gyldighed = null,
 
