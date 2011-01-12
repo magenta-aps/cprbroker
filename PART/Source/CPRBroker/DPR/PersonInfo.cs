@@ -23,7 +23,7 @@ namespace CprBroker.Providers.DPR
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
         /// </summary>
-        internal static readonly Expression<Func<DateTime, DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DateTime today, DPRDataContext dataContext) =>
+        internal static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
             from personTotal in dataContext.PersonTotals
             //TODO: Convert to left outer join, beware that this will make it possible for PersonName to be null
             join personName in dataContext.PersonNames on personTotal.PNR equals personName.PNR
@@ -41,7 +41,6 @@ namespace CprBroker.Providers.DPR
                 // TODO: include protection type with PNR because the index is on PNR & ProtectionType                
                 HasProtection = (
                    from protection in dataContext.Protections
-                   where protection.StartDate <= today && (!protection.EndDate.HasValue || protection.EndDate > today)
                    select protection.PNR
                 ).Contains(personName.PNR),
                 //TODO: Beware that there might be time range intersections in the last day of an older period, like a marriage period after a divorce period

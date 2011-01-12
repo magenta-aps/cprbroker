@@ -268,7 +268,6 @@ namespace CprBroker.Engine
     public interface IPartReadDataProvider : IDataProvider
     {
         RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql);
-        PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql);
     }
 
     /// <summary>

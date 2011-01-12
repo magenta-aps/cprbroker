@@ -31,7 +31,6 @@ namespace CprBroker.Providers.DPR
             CprBroker.Schemas.Part.RegistreringType1 ret = null;
             EnsurePersonDataExists(uuid.CprNumber);
 
-
             //TODO: Get values from Input
             DateTime? effectDate = null;
             if (!effectDate.HasValue)
@@ -42,27 +41,18 @@ namespace CprBroker.Providers.DPR
             {
                 var db =
                 (
-                    from personInfo in PersonInfo.PersonInfoExpression.Compile()(effectDate.Value, dataContext)
+                    from personInfo in PersonInfo.PersonInfoExpression.Compile()(dataContext)
                     where personInfo.PersonName.PNR == Decimal.Parse(uuid.CprNumber)
                     select personInfo
-                ).ToList();
+                ).FirstOrDefault();
 
-                var populated = PersonInfo2.Populate(db, TidspunktType.ToDateTime(input.VirkningFraFilter), TidspunktType.ToDateTime(input.VirkningTilFilter));
-                var targetRegistration = populated.FirstOrDefault();
-                if (targetRegistration != null)
+                if (db != null)
                 {
-                    ret = targetRegistration.ToRegisteringType1(effectDate, cpr2uuidFunc, dataContext);
-                    //ret.ActorId = ActorId;
+                    ret = db.ToRegisteringType1(effectDate, cpr2uuidFunc, dataContext);
                 }
             }
             ql = QualityLevel.DataProvider;
             return ret;
-        }
-
-        public CprBroker.Schemas.Part.PersonRegistration[] List(PersonIdentifier[] uuids, DateTime? effectDate, out QualityLevel? ql)
-        {
-            // TODO: Add DPR List implementation after Read implementation is OK
-            throw new NotImplementedException();
         }
 
         #endregion

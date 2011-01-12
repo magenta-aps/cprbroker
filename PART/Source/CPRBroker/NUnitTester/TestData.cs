@@ -31,6 +31,9 @@ namespace CprBroker.NUnitTester
             //"1234123412", //not found in DPR
             "2101773607",
             //"1101812134",// laesResultat with multiple marriages
+            //"2711640463", // has multiple names
+            //"1403412399" // has no DTNAVNE in DPR
+            //"502261703" //// has no DTNAVNE in DPR
         };
         public const string CprNumbersFieldName = "cprNumbers";
 

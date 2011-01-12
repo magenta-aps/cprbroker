@@ -97,7 +97,7 @@ namespace CprBroker.Providers.DPR
                 dataContext,
                 (context) =>
                         from dbRel in relationGetter(dataContext)
-                        join personInfo in PersonInfo.PersonInfoExpression.Compile()(today, dataContext) on relatedCprNumberGetter(dbRel) equals personInfo.PersonName.PNR into pInfo
+                        join personInfo in PersonInfo.PersonInfoExpression.Compile()(dataContext) on relatedCprNumberGetter(dbRel) equals personInfo.PersonName.PNR into pInfo
                         where personCprNumberGetter(dbRel) == cprNumber
                         select new RelationInfo<TDbRelation>()
                         {
@@ -362,7 +362,7 @@ namespace CprBroker.Providers.DPR
 
                 // Load from database
                 PersonInfo personInfo = (
-                    from innerPersonInfo in PersonInfo.PersonInfoExpression.Compile()(today, dataContext)
+                    from innerPersonInfo in PersonInfo.PersonInfoExpression.Compile()(dataContext)
                     where innerPersonInfo.PersonName.PNR == cprNum
                     select innerPersonInfo
                     ).SingleOrDefault();
@@ -429,7 +429,7 @@ namespace CprBroker.Providers.DPR
                         .FirstOrDefault();
 
                 var personInfo = (
-                    from innerPersonInfo in PersonInfo.PersonInfoExpression.Compile()(today, dataContext)
+                    from innerPersonInfo in PersonInfo.PersonInfoExpression.Compile()(dataContext)
                     where innerPersonInfo.PersonName.PNR == cprNum
                     select new
                     {
@@ -537,7 +537,7 @@ namespace CprBroker.Providers.DPR
                 DateTime today = DateTime.Today;
                 decimal cprNum = decimal.Parse(cprNumber);
 
-                ret.SimpleCPRPerson = (from personInfo in PersonInfo.PersonInfoExpression.Compile()(today, dataContext)
+                ret.SimpleCPRPerson = (from personInfo in PersonInfo.PersonInfoExpression.Compile()(dataContext)
                                        where personInfo.PersonName.PNR == cprNum
                                        select personInfo.PersonName.ToSimpleCprPerson()
                                        ).SingleOrDefault();

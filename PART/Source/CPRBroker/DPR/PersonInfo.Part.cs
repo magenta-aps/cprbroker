@@ -21,6 +21,7 @@ namespace CprBroker.Providers.DPR
             ).FirstOrDefault();
 
         // TODO: Remove this method
+        [Obsolete]
         internal PersonRegistration ToPersonRegistration(DateTime? effectTime, DPRDataContext dataContext)
         {
             var civilRegistrationStatus = Schemas.Util.Enums.ToCivilRegistrationStatus(PersonTotal.Status);
@@ -192,79 +193,97 @@ namespace CprBroker.Providers.DPR
             */
             return ret;
         }
-    }
 
-    internal class PersonInfo2 : PersonInfo
-    {
-        public DateTime RegistrationDate = DateTime.Today;
+        private DateTime[] GetCandidateRegistrationDates()
+        {
+            var dates = new List<DateTime?>();
+
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MaritalStatusDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MunicipalityArrivalDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MunicipalityLeavingDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.PaternityDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.PersonalSelectionDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.StatusDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.UnderGuardianshipDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.VotingDate));
+
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.AddressingNameDate));
+            dates.Add(Utilities.DateFromDecimal(PersonName.AuthorityTextUpdateDate));
+            dates.Add(Utilities.DateFromDecimal(PersonName.CprUpdateDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameStartDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameTerminationDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.SearchNameDate));
+            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.StatusDate));
+
+            if (ContactAddress != null)
+            {
+                //dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.ContactAddressDate));
+                dates.Add(Utilities.DateFromDecimal(ContactAddress.UpdateDate));
+            }
+            //dates.AddRange(from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalStatusDate));
+            //dates.AddRange(from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalEndDate));
+            dates.AddRange(from c in CivilStates select Utilities.DateFromDecimal(c.AuthorityTextUpdateDate));
+            dates.AddRange(from c in CivilStates select Utilities.DateFromDecimal(c.UpdateDateOfCpr));
+            
+            return (from d in dates where d.HasValue select d.Value).ToArray();
+        }
+
+        public DateTime RegistrationDate
+        {
+            get
+            {
+                var dates = GetCandidateRegistrationDates();
+                if (dates.Length > 0)
+                {
+                    return dates.Max();
+                }
+                else
+                {
+                    return DateTime.Today;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Creates a cross product of the person database objects based on the possible registration dates
         /// </summary>
         /// <param name="personInfos"></param>
         /// <returns></returns>
-        public static System.Collections.Generic.ICollection<PersonInfo2> Populate(ICollection<PersonInfo> personInfos, DateTime? effectFromDate, DateTime? effectToDate)
+        public static System.Collections.Generic.ICollection<PersonInfo> Populate(ICollection<PersonInfo> personInfos, DateTime? effectFromDate, DateTime? effectToDate)
         {
-            var ret = new List<PersonInfo2>();
+            var ret = new List<PersonInfo>();
 
             foreach (var personInfo in personInfos)
             {
                 var personInfoAsQueryable = new PersonInfo[] { personInfo }.AsQueryable();
-                var dates = new List<DateTime?>();
-
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MaritalStatusDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MunicipalityArrivalDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.MunicipalityLeavingDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.PaternityDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.PersonalSelectionDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.StatusDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.UnderGuardianshipDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.VotingDate));
-
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.AddressingNameDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.AuthorityTextUpdateDate));
-                dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.CprUpdateDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameStartDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameTerminationDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.SearchNameDate));
-                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.StatusDate));
-
-                if (personInfo.ContactAddress != null)
-                {
-                    //dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.ContactAddressDate));
-                    dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.UpdateDate));
-                }
-                //dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalStatusDate)));
-                //dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalEndDate)));
-                dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.AuthorityTextUpdateDate)));
-                dates.AddRange((from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.UpdateDateOfCpr)));
-
+                var dates = new List<DateTime>(personInfo.GetCandidateRegistrationDates());
 
                 dates = dates
                     .Where(
                         (d) =>
-                            d.HasValue
-                            && (!effectFromDate.HasValue || d >= effectFromDate.Value)
+                                (!effectFromDate.HasValue || d >= effectFromDate.Value)
                             && (!effectToDate.HasValue || d <= effectToDate.Value)
                         )
                     .Distinct()
                     .ToList();
 
-                ret.AddRange((from pi in personInfoAsQueryable
-                              from d in dates.AsQueryable()
-                              orderby d descending
-                              select new PersonInfo2()
-                              {
-                                  //TODO : Filter these records by dates
-                                  CivilStates = pi.CivilStates,
-                                  ContactAddress = pi.ContactAddress,
-                                  HasProtection = pi.HasProtection,
-                                  PersonName = pi.PersonName,
-                                  PersonTotal = pi.PersonTotal,
-                                  Street = pi.Street,
-                                  RegistrationDate = d.Value
-                              }
-                          ));
+                ret.AddRange
+                (
+                    from pi in personInfoAsQueryable
+                    from d in dates.AsQueryable()
+                    orderby d descending
+                    select new PersonInfo()
+                    {
+                        //TODO : Filter these records by dates
+                        CivilStates = pi.CivilStates,
+                        ContactAddress = pi.ContactAddress,
+                        HasProtection = pi.HasProtection,
+                        PersonName = pi.PersonName,
+                        PersonTotal = pi.PersonTotal,
+                        Street = pi.Street,                        
+                    }
+                );
             }
             return ret;
         }
