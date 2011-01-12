@@ -27,54 +27,9 @@ namespace CprBroker.Engine
 
             private static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel, LocalDataProviderUsageOption localAction)
             {
-                QualityLevel? ql = null;
-                PersonIdentifier pId = null;
-
-                FacadeMethodInfo<LaesOutputType> facadeMethodInfo = new FacadeMethodInfo<LaesOutputType>(appToken, userToken, true)
-                {
-                    InitializationMethod = () =>
-                    {
-                        //TODO: Do not authenticate web method into this call because it will throw an exception
-                        pId = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(input.UUID));
-                        if (pId == null)
-                        {
-                            throw new Exception(TextMessages.UuidNotFound);
-                        }
-                    },
-
-                    SubMethodInfos = new SubMethodInfo[] 
-                    {
-                        new SubMethodInfo<IPartReadDataProvider,RegistreringType1>()
-                        {
-                            LocalDataProviderOption= localAction,
-                            FailIfNoDataProvider = true,
-                            FailOnDefaultOutput=true,
-                            Method = (prov)=>prov.Read(pId,input, (cpr)=>Manager.Part.GetPersonUuid(userToken, appToken, cpr), out ql),
-                            UpdateMethod = (personRegistration)=> Local.UpdateDatabase.UpdatePersonRegistration(new Guid(input.UUID), personRegistration)
-                        }
-                    },
-
-                    AggregationMethod = (subresults) =>
-                    {
-                        LaesOutputType o = new LaesOutputType()
-                        {
-                            LaesResultat = new LaesResultatType()
-                            {
-                                Item = subresults[0]
-                            },
-                            //TODO: Fill this StandardRetur object
-                            StandardRetur = new StandardReturType()
-                            {
-                                FejlbeskedTekst = "",
-                                StatuskodeKode = ""
-                            }
-                        };
-                        return o;
-                    }
-                };
-
-                var ret = GetMethodOutput<LaesOutputType>(facadeMethodInfo);
-                qualityLevel = ql;
+                ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken, true);
+                var ret = GetMethodOutput<LaesOutputType>(facadeMethod);
+                qualityLevel = facadeMethod.QualityLevel;
                 return ret;
             }
 
