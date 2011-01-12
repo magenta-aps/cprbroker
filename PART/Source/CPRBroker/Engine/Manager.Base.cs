@@ -174,8 +174,22 @@ namespace CprBroker.Engine
                             {
                                 try
                                 {
-                                    subMethodInfo.UsedDataProvider = prov;
                                     object subResult = subMethodInfo.SubMethodInfo.Invoke(prov);
+
+                                    // See if result can be used to update local database
+                                    if (prov is IExternalDataProvider && subMethodInfo.SubMethodInfo.IsUpdatableOutput(subResult))
+                                    {
+                                        try
+                                        {
+                                            subMethodInfo.SubMethodInfo.InvokeUpdateMethod(subMethodInfo.Result);
+                                        }
+                                        catch (Exception updateException)
+                                        {
+                                            string xml = Util.Strings.SerializeObject(subMethodInfo.Result);
+                                            Local.Admin.LogException(updateException);
+                                        }
+                                    }
+                                    // Exit loop if succeeded
                                     if (subMethodInfo.SubMethodInfo.IsSuccessfulOutput(subResult))
                                     {
                                         subMethodInfo.Result = subResult;
@@ -189,22 +203,7 @@ namespace CprBroker.Engine
                                 }
                             }
 
-                            if (subMethodInfo.Succeeded)
-                            {
-                                if (subMethodInfo.UsedDataProvider is IExternalDataProvider)
-                                {
-                                    try
-                                    {
-                                        subMethodInfo.SubMethodInfo.InvokeUpdateMethod(subMethodInfo.Result);
-                                    }
-                                    catch (Exception updateException)
-                                    {
-                                        string xml = Util.Strings.SerializeObject(subMethodInfo.Result);
-                                        Local.Admin.LogException(updateException);
-                                    }
-                                }
-                            }
-                            else
+                            if (!subMethodInfo.Succeeded)
                             {
                                 Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.AllDataProvidersFailed + subMethodInfo.SubMethodInfo, null, null);
                             }
@@ -264,10 +263,6 @@ namespace CprBroker.Engine
             public Thread Thread;
             public bool Succeeded = false;
             public ManualResetEvent WaitHandle = new ManualResetEvent(false);
-            public IDataProvider UsedDataProvider;
         }
-
     }
-
-
 }

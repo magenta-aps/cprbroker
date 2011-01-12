@@ -15,12 +15,13 @@ namespace CprBroker.Engine
         public abstract object Invoke(IDataProvider prov);
         public abstract void InvokeUpdateMethod(object result);
         public abstract bool IsSuccessfulOutput(object o);
+        public abstract bool IsUpdatableOutput(object o);
     }
 
     public class SubMethodInfo<TInterface, TOutput> : SubMethodInfo where TInterface : class, IDataProvider
     {
         public Func<TInterface, TOutput> Method;
-        
+
         public Action<TOutput> UpdateMethod;
 
         public TOutput CurrentResult;
@@ -57,16 +58,45 @@ namespace CprBroker.Engine
             }
         }
 
-        public override bool IsSuccessfulOutput(object o)
+        public sealed override bool IsSuccessfulOutput(object o)
+        {
+            if (typeof(TOutput).IsInstanceOfType(o))
+            {
+                return IsValidResult((TOutput)o);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public virtual bool IsValidResult(TOutput result)
         {
             if (FailOnDefaultOutput)
             {
-                return !Object.Equals(o, default(TOutput));
+                return !Object.Equals(result, default(TOutput));
             }
             else
             {
                 return true;
             }
+        }
+
+        public sealed override bool  IsUpdatableOutput(object o)
+        {
+            if (typeof(TOutput).IsInstanceOfType(o))
+            {
+                return IsUpdatableResult((TOutput)o);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public virtual bool IsUpdatableResult(TOutput result)
+        {
+            return IsValidResult(result);
         }
     }
 
