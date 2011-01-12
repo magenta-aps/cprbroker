@@ -338,6 +338,34 @@ namespace CprBroker.Providers.DPR
                 Virkning = VirkningType.Create(null, null)
             };
 
+            // Now fill person data
+            /*
+            ret.AttributListe.Egenskaber[0].RegisterOplysninger[0].Item = new CprBorgerType()
+            {
+                AdresseNote = "",
+                FolkekirkeMedlemsskab = true,
+                //TODO: Fill address when class is ready
+                FolkeregisterAdresse = null,
+                FolkeRegisterAdresse = "",
+                ForskerBeskyttelseIndikator = true,
+                PersonCivilRegistrationCurrentIdentifier = "",
+                PersonInformationProtectionIndicator = true,
+                PersonNationalityCode = "",
+                //Fill when class is ready
+                PersonNummerStatus = null,
+                TelefonNummerBeskyttelseIndikator = true,
+            };
+            ret.AttributListe.Egenskaber[0].RegisterOplysninger[0].Item = new UdenlandskBorgerType()
+            {
+                FoedselsLand = "",
+                PersonID = "",
+                Sprog = new string[] { },
+                Statsborgerskaber = new string[] { }
+            };
+            ret.AttributListe.Egenskaber[0].RegisterOplysninger[0].Item = new UkendtBorgerType()
+            {
+            };
+            */
             // Now fill the relations
             var fatherPnr = PersonTotal.GetParent(this.PersonTotal.FatherMarker, this.PersonTotal.FatherPersonalOrBirthdate);
             if (fatherPnr.HasValue)
