@@ -62,7 +62,18 @@
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CPR_BirthDateUncertaintyIndicator.xsd" />
+    <None Include="CPR_PersonBirthDateStructure.xsd" />
+    <None Include="CPR_PersonCivilRegistrationCurrentIdentifier.xsd" />
+    <None Include="CPR_PersonCivilRegistrationIdentifier.xsd" />
+    <None Include="CPR_PersonCivilRegistrationReplacementIdentifier.xsd" />
+    <None Include="DKCC_BirthDate.xsd" />
+    <None Include="DKCC_PersonGenderCode.xsd" />
+    <None Include="DKCC_PersonGivenName.xsd" />
+    <None Include="DKCC_PersonMiddleName.xsd" />
+    <None Include="DKCC_PersonSurnameName.xsd" />
     <None Include="generic\SagDokObjekt.xsd" />
+    <None Include="ITST_PersonNameStructure.xsd" />
     <None Include="Operations.cd" />
     <None Include="OtherOperations.cd" />
     <None Include="Other\CPR_BirthDateUncertaintyIndicator.xsd">
@@ -97,6 +108,8 @@
     </None>
     <None Include="Search.cd" />
     <None Include="Static.cd" />
+    <None Include="UUID.xsd" />
+    <None Include="VEJSEKTOREN_CommentText.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="person\XSD.txt" />

@@ -64,11 +64,11 @@
       <Property Name="PersonNameStructure" />
       <Property Name="PersonGenderCode" />
       <Property Name="PersonBirthDateStructure" />
-      <Property Name="RegisterOplysninger" />
-      <Property Name="Virkning" />
       <Property Name="AndreAdresser" />
       <Property Name="Kontaktkanal" />
       <Property Name="NaermestePaaroerende" />
+      <Property Name="RegisterOplysninger" />
+      <Property Name="Virkning" />
     </ShowAsAssociation>
   </Class>
   <Class Name="CprBroker.Schemas.Part.PersonNameStructureType">
@@ -189,7 +189,10 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.PersonRelationType">
-    <Position X="1" Y="10" Width="1.5" />
+    <Position X="1" Y="11.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>PersonRelationType.cs</FileName>
@@ -206,7 +209,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.AktoerFlerRelationType">
-    <Position X="3.75" Y="10" Width="1.5" />
+    <Position X="3.75" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
@@ -221,6 +224,15 @@
     <Position X="15.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.FlerRelationType">
+    <Position X="2.25" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>MAAAAAAABAAAgAAAAAAAAAAAAAAAAAAAAAAACEAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Enum Name="CprBroker.Schemas.Part.PersonGenderCodeType">
