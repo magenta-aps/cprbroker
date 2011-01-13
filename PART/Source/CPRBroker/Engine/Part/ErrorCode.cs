@@ -8,12 +8,9 @@ namespace CprBroker.Engine.Part
 {
     public class ErrorCode
     {
-        public string Code;
-        public string Text;
-
         public virtual StandardReturType ToStandardReturn()
         {
-            return StandardReturType.Create(Code, Text);
+            return StandardReturType.Create("1000", "Unspecified error");
         }
 
         public static StandardReturType Create<T>(T[] errorCodes) where T : ErrorCode
@@ -47,7 +44,22 @@ namespace CprBroker.Engine.Part
 
             public override StandardReturType ToStandardReturn()
             {
-                return StandardReturType.Create("2", string.Format("{0} : UUID: {1}", TextMessages.InvalidInput, Value));
+                return StandardReturType.Create("2", string.Format("Invalid UUID: {0}", Value));
+            }
+        }
+
+        public class UnknownUuidErrorCode : ErrorCode
+        {
+            public string Value;
+
+            public UnknownUuidErrorCode(string value)
+            {
+                Value = value;
+            }
+
+            public override StandardReturType ToStandardReturn()
+            {
+                return StandardReturType.Create("3", string.Format("UUID not found : {0}", TextMessages.InvalidInput, Value));
             }
         }
 

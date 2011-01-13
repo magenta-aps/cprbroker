@@ -11,7 +11,7 @@ namespace CprBroker.Engine.Part
     public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1>
     {
         public ListInputType input;
-        public Dictionary<string, PersonIdentifier> inputUuidToPersonIdentifierMap = null;
+        public Dictionary<string, PersonIdentifier> inputUuidToPersonIdentifierMap = new Dictionary<string, PersonIdentifier>();
 
         private ListFacadeMethodInfo()
         { }
@@ -34,32 +34,43 @@ namespace CprBroker.Engine.Part
                 return false;
             }
 
-            var errors = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select new ErrorCode.InvalidUuidErrorCode(uuid)).ToArray();
-            if (errors.Length > 0)
+            var invalidUuidErrors = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select new ErrorCode.InvalidUuidErrorCode(uuid)).ToArray();
+            if (invalidUuidErrors.Length > 0)
             {
                 invaliInputReturnValue = new ListOutputType1()
                 {
-                    StandardRetur = ErrorCode.Create<ErrorCode.InvalidUuidErrorCode>(errors)
+                    StandardRetur = ErrorCode.Create<ErrorCode.InvalidUuidErrorCode>(invalidUuidErrors)
                 };
                 return false;
             }
+
+            var unknownUuidErrors = new List<ErrorCode.UnknownUuidErrorCode>();
+            foreach (var inputPersonUuid in input.UUID)
+            {
+                var personIdentifier = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
+                if (personIdentifier == null)
+                {
+                    unknownUuidErrors.Add(new ErrorCode.UnknownUuidErrorCode(inputPersonUuid));
+                }
+                else
+                {
+                    inputUuidToPersonIdentifierMap.Add(inputPersonUuid, personIdentifier);
+                }
+            }
+            if (unknownUuidErrors.Count > 0)
+            {
+                invaliInputReturnValue = new ListOutputType1()
+                {
+                    StandardRetur = ErrorCode.Create<ErrorCode.UnknownUuidErrorCode>(unknownUuidErrors.ToArray())
+                };
+                return false;
+            }
+
             return true;
         }
 
         public override void Initialize()
         {
-            inputUuidToPersonIdentifierMap = new Dictionary<string, PersonIdentifier>();
-            foreach (var inputPersonUuid in input.UUID)
-            {
-                var personIdentifier = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
-                //TODO: Do not throw exception, instead, return null. This affects the following delegates too
-                if (personIdentifier == null)
-                {
-                    throw new Exception(TextMessages.UuidNotFound);
-                }
-                inputUuidToPersonIdentifierMap.Add(inputPersonUuid, personIdentifier);
-            }
-            //TODO: Could fail if Input.UUID is null
             SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
             (
                 input.UUID.ToArray(),

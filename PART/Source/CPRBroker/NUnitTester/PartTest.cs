@@ -104,6 +104,20 @@ namespace CprBroker.NUnitTester
             Assert.IsNull(person.LaesResultat);
         }
 
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.NonExistingUuidReadInputFieldName)]
+        public void T220_Read_NonexistingUuid(string uuid)
+        {
+            LaesInputType input = new LaesInputType()
+            {
+                UUID = uuid,
+            };
+            var person = TestRunner.PartService.Read(input);
+            Assert.IsNotNull(person);
+            Assert.IsNotNull(person.StandardRetur);
+            Assert.IsNull(person.LaesResultat);
+        }
+
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]

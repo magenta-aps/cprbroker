@@ -44,18 +44,22 @@ namespace CprBroker.Engine.Part
                 return false;
             }
 
+            pId = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(Input.UUID));
+            if (pId == null)
+            {
+                invaliInputReturnValue = new LaesOutputType()
+                {
+                    StandardRetur = new ErrorCode.UnknownUuidErrorCode(Input.UUID).ToStandardReturn()
+                };
+                return false;
+            }
+
             return true;
         }
 
         public override void Initialize()
         {
             //TODO: Do not authenticate web method into this call because it will throw an exception
-            pId = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(Input.UUID));
-            if (pId == null)
-            {
-                throw new Exception(TextMessages.UuidNotFound);
-            }
-
             SubMethodInfos = new SubMethodInfo[] 
             {
                 new ReadSubMethodInfo(pId,Input,(cpr)=>Manager.Part.GetPersonUuid(UserToken, ApplicationToken, cpr),LocalAction)
