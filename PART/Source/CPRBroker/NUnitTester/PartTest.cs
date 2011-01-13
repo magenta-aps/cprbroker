@@ -152,6 +152,29 @@ namespace CprBroker.NUnitTester
         {
             var personUuid = TestRunner.PartService.GetPersonUuid(cprNumber);
 
+            var searchCriteria = new Part.SoegInputType1()
+            {
+                Soeg = new SoegObjektType()
+                {
+                    BrugervendtNoegleTekst = cprNumber
+                }
+            };
+
+            var result = TestRunner.PartService.Search(searchCriteria);
+            Assert.NotNull(result, "Search result");
+            Assert.IsNotNull(result.IdListe, "Search result ids");
+
+            Assert.AreEqual(1, result.IdListe.Length, "Number of search results");
+            Assert.AreNotEqual(Guid.Empty, result.IdListe[0], "Empty laesResultat uuid from search");
+            Assert.AreEqual(personUuid.ToString(), result.IdListe[0], "Search result returns wrong uuids");
+        }
+
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        public void T410_Search_Name(string cprNumber)
+        {
+            var personUuid = TestRunner.PartService.GetPersonUuid(cprNumber);
+
             LaesInputType input = new LaesInputType()
             {
                 UUID = personUuid.ToString(),
@@ -195,8 +218,8 @@ namespace CprBroker.NUnitTester
         // TODO: Add more methods to test Search for criteria other than CPR number
 
 
-        [Test]
-        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        //[Test]
+        //[TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T500_Database_Update(string cprNumber)
         {
             var uuid = TestRunner.PartService.GetPersonUuid(cprNumber);

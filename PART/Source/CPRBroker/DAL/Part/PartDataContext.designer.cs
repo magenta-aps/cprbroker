@@ -54,9 +54,6 @@ namespace CprBroker.DAL.Part
     partial void InsertMunicipality(Municipality instance);
     partial void UpdateMunicipality(Municipality instance);
     partial void DeleteMunicipality(Municipality instance);
-    partial void InsertPerson(Person instance);
-    partial void UpdatePerson(Person instance);
-    partial void DeletePerson(Person instance);
     partial void InsertEffect(Effect instance);
     partial void UpdateEffect(Effect instance);
     partial void DeleteEffect(Effect instance);
@@ -75,6 +72,9 @@ namespace CprBroker.DAL.Part
     partial void InsertPersonRegistration(PersonRegistration instance);
     partial void UpdatePersonRegistration(PersonRegistration instance);
     partial void DeletePersonRegistration(PersonRegistration instance);
+    partial void InsertPerson(Person instance);
+    partial void UpdatePerson(Person instance);
+    partial void DeletePerson(Person instance);
     #endregion
 		
 		public PartDataContext(string connection) : 
@@ -165,14 +165,6 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
-		public System.Data.Linq.Table<Person> Persons
-		{
-			get
-			{
-				return this.GetTable<Person>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Effect> Effects
 		{
 			get
@@ -218,6 +210,14 @@ namespace CprBroker.DAL.Part
 			get
 			{
 				return this.GetTable<PersonRegistration>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Person> Persons
+		{
+			get
+			{
+				return this.GetTable<Person>();
 			}
 		}
 	}
@@ -2180,120 +2180,6 @@ namespace CprBroker.DAL.Part
 		}
 	}
 	
-	[Table(Name="dbo.Person")]
-	public partial class Person : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _UUID;
-		
-		private string _UserInterfaceKeyText;
-		
-		private EntitySet<PersonRegistration> _PersonRegistrations;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUUIDChanging(System.Guid value);
-    partial void OnUUIDChanged();
-    partial void OnUserInterfaceKeyTextChanging(string value);
-    partial void OnUserInterfaceKeyTextChanged();
-    #endregion
-		
-		public Person()
-		{
-			this._PersonRegistrations = new EntitySet<PersonRegistration>(new Action<PersonRegistration>(this.attach_PersonRegistrations), new Action<PersonRegistration>(this.detach_PersonRegistrations));
-			OnCreated();
-		}
-		
-		[Column(Storage="_UUID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid UUID
-		{
-			get
-			{
-				return this._UUID;
-			}
-			set
-			{
-				if ((this._UUID != value))
-				{
-					this.OnUUIDChanging(value);
-					this.SendPropertyChanging();
-					this._UUID = value;
-					this.SendPropertyChanged("UUID");
-					this.OnUUIDChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_UserInterfaceKeyText", DbType="VarChar(50)")]
-		public string UserInterfaceKeyText
-		{
-			get
-			{
-				return this._UserInterfaceKeyText;
-			}
-			set
-			{
-				if ((this._UserInterfaceKeyText != value))
-				{
-					this.OnUserInterfaceKeyTextChanging(value);
-					this.SendPropertyChanging();
-					this._UserInterfaceKeyText = value;
-					this.SendPropertyChanged("UserInterfaceKeyText");
-					this.OnUserInterfaceKeyTextChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Person_PersonRegistration", Storage="_PersonRegistrations", ThisKey="UUID", OtherKey="UUID")]
-		public EntitySet<PersonRegistration> PersonRegistrations
-		{
-			get
-			{
-				return this._PersonRegistrations;
-			}
-			set
-			{
-				this._PersonRegistrations.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PersonRegistrations(PersonRegistration entity)
-		{
-			this.SendPropertyChanging();
-			entity.Person = this;
-		}
-		
-		private void detach_PersonRegistrations(PersonRegistration entity)
-		{
-			this.SendPropertyChanging();
-			entity.Person = null;
-		}
-	}
-	
 	[Table(Name="dbo.Effect")]
 	public partial class Effect : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3960,6 +3846,120 @@ namespace CprBroker.DAL.Part
 		{
 			this.SendPropertyChanging();
 			entity.PersonRegistration = null;
+		}
+	}
+	
+	[Table(Name="dbo.Person")]
+	public partial class Person : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _UUID;
+		
+		private string _UserInterfaceKeyText;
+		
+		private EntitySet<PersonRegistration> _PersonRegistrations;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUUIDChanging(System.Guid value);
+    partial void OnUUIDChanged();
+    partial void OnUserInterfaceKeyTextChanging(string value);
+    partial void OnUserInterfaceKeyTextChanged();
+    #endregion
+		
+		public Person()
+		{
+			this._PersonRegistrations = new EntitySet<PersonRegistration>(new Action<PersonRegistration>(this.attach_PersonRegistrations), new Action<PersonRegistration>(this.detach_PersonRegistrations));
+			OnCreated();
+		}
+		
+		[Column(Storage="_UUID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid UUID
+		{
+			get
+			{
+				return this._UUID;
+			}
+			set
+			{
+				if ((this._UUID != value))
+				{
+					this.OnUUIDChanging(value);
+					this.SendPropertyChanging();
+					this._UUID = value;
+					this.SendPropertyChanged("UUID");
+					this.OnUUIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UserInterfaceKeyText", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string UserInterfaceKeyText
+		{
+			get
+			{
+				return this._UserInterfaceKeyText;
+			}
+			set
+			{
+				if ((this._UserInterfaceKeyText != value))
+				{
+					this.OnUserInterfaceKeyTextChanging(value);
+					this.SendPropertyChanging();
+					this._UserInterfaceKeyText = value;
+					this.SendPropertyChanged("UserInterfaceKeyText");
+					this.OnUserInterfaceKeyTextChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Person_PersonRegistration", Storage="_PersonRegistrations", ThisKey="UUID", OtherKey="UUID")]
+		public EntitySet<PersonRegistration> PersonRegistrations
+		{
+			get
+			{
+				return this._PersonRegistrations;
+			}
+			set
+			{
+				this._PersonRegistrations.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PersonRegistrations(PersonRegistration entity)
+		{
+			this.SendPropertyChanging();
+			entity.Person = this;
+		}
+		
+		private void detach_PersonRegistrations(PersonRegistration entity)
+		{
+			this.SendPropertyChanging();
+			entity.Person = null;
 		}
 	}
 }

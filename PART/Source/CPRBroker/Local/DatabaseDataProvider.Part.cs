@@ -29,12 +29,18 @@ namespace CprBroker.Providers.Local
                 var pred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
                 if (searchCriteria.Soeg != null)
                 {
+                    // Search by cpr number
+                    if (!string.IsNullOrEmpty(searchCriteria.Soeg.BrugervendtNoegleTekst))
+                    {
+                        pred = pred.And(pr => pr.Person.UserInterfaceKeyText == searchCriteria.Soeg.BrugervendtNoegleTekst);
+                    }
                     if (searchCriteria.Soeg.Attributter != null)
                     {
                         if (searchCriteria.Soeg.Attributter.SoegEgenskab != null)
                         {
                             foreach (var prop in searchCriteria.Soeg.Attributter.SoegEgenskab)
                             {
+                                // Search by name
                                 var name = new Schemas.Part.PersonNameStructureType(prop.NavnTekst);
                                 if (!name.IsEmpty)
                                 {

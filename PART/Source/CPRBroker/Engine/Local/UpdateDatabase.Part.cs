@@ -17,14 +17,14 @@ namespace CprBroker.Engine.Local
         /// <summary>
         /// Updates the system database with person registration objects
         /// </summary>
-        /// <param name="personUUID"></param>
+        /// <param name="personIdentifier"></param>
         /// <param name="personRegistraion"></param>
-        public static void UpdatePersonRegistration(Guid personUUID, Schemas.Part.RegistreringType1 personRegistraion)
+        public static void UpdatePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 personRegistraion)
         {
-            if (MergePersonRegistration(personUUID, personRegistraion))
+            if (MergePersonRegistration(personIdentifier, personRegistraion))
             {
                 // TODO: move this call to a separate phase in request processing
-                NotifyPersonRegistrationUpdate(personUUID);
+                NotifyPersonRegistrationUpdate(personIdentifier.UUID.Value);
             }
         }
 
@@ -41,7 +41,7 @@ namespace CprBroker.Engine.Local
             bool result = notificationQueueService.Enqueue(personUuid);
         }
 
-        private static bool MergePersonRegistration(Guid personUUID, Schemas.Part.RegistreringType1 personRegistraion)
+        private static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 personRegistraion)
         {
             //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
             using (var dataContext = new PartDataContext())
@@ -50,8 +50,8 @@ namespace CprBroker.Engine.Local
 
                 // Match db registrations by UUID, ActorId and registration date
                 var existingInDb = (from dbReg in dataContext.PersonRegistrations
-                                    where dbReg.UUID == personUUID
-                                    && dbReg.RegistrationDate == personRegistraion.TidspunktDatoTid.ToDateTime()
+                                    where dbReg.UUID == personIdentifier.UUID
+                                    && dbReg.RegistrationDate == TidspunktType.ToDateTime(personRegistraion.TidspunktDatoTid)
                                     && dbReg.ActorText == personRegistraion.AktoerTekst
                                     select dbReg).ToArray();
 
@@ -67,13 +67,14 @@ namespace CprBroker.Engine.Local
                 if (!duplicateExists)
                 {
                     var dbPerson = (from dbPers in dataContext.Persons
-                                    where dbPers.UUID == personUUID
+                                    where dbPers.UUID == personIdentifier.UUID
                                     select dbPers).FirstOrDefault();
                     if (dbPerson == null)
                     {
                         dbPerson = new CprBroker.DAL.Part.Person()
                         {
-                            UUID = personUUID
+                            UUID = personIdentifier.UUID.Value,
+                            UserInterfaceKeyText = personIdentifier.CprNumber
                         };
                         dataContext.Persons.InsertOnSubmit(dbPerson);
                     }

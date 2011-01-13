@@ -181,11 +181,11 @@ namespace CprBroker.Engine
                                     {
                                         try
                                         {
-                                            subMethodInfo.SubMethodInfo.InvokeUpdateMethod(subMethodInfo.Result);
+                                            subMethodInfo.SubMethodInfo.InvokeUpdateMethod(subResult);
                                         }
                                         catch (Exception updateException)
                                         {
-                                            string xml = Util.Strings.SerializeObject(subMethodInfo.Result);
+                                            string xml = Util.Strings.SerializeObject(subResult);
                                             Local.Admin.LogException(updateException);
                                         }
                                     }

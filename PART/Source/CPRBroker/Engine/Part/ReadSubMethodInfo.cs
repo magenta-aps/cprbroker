@@ -27,7 +27,7 @@ namespace CprBroker.Engine.Part
             this.Input = input;
             this.CprToUuidConverter = cprFunc;
             LocalDataProviderOption = localAction;
-            UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(PersonIdentifier.UUID.Value, personRegistration);
+            UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(PersonIdentifier, personRegistration);
         }
 
         public override RegistreringType1 RunMainMethod(IPartReadDataProvider prov)

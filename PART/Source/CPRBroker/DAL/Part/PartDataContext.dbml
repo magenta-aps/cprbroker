@@ -96,13 +96,6 @@
       <Association Name="Municipality_Address" Member="Addresses" ThisKey="MunicipalityCode" OtherKey="MunicipalityCode" Type="Address" />
     </Type>
   </Table>
-  <Table Name="dbo.Person" Member="Persons">
-    <Type Name="Person">
-      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserInterfaceKeyText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Person_PersonRegistration" Member="PersonRegistrations" ThisKey="UUID" OtherKey="UUID" Type="PersonRegistration" />
-    </Type>
-  </Table>
   <Table Name="dbo.Effect" Member="Effects">
     <Type Name="Effect">
       <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -176,6 +169,13 @@
       <Association Name="Effect_PersonRegistration" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
       <Association Name="LifecycleStatus_PersonRegistration" Member="LifecycleStatus" ThisKey="LifecycleStatusId" OtherKey="LifecycleStatusId" Type="LifecycleStatus" IsForeignKey="true" />
       <Association Name="Person_PersonRegistration" Member="Person" ThisKey="UUID" OtherKey="UUID" Type="Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Person" Member="Persons">
+    <Type Name="Person">
+      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserInterfaceKeyText" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Person_PersonRegistration" Member="PersonRegistrations" ThisKey="UUID" OtherKey="UUID" Type="PersonRegistration" />
     </Type>
   </Table>
 </Database>
