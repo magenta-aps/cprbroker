@@ -26,7 +26,8 @@ namespace CprBroker.Engine.Part
 
         public override bool IsValidInput()
         {
-            return base.IsValidInput();
+            return base.IsValidInput()
+                && Util.Strings.IsGuid(Input.UUID);
         }
 
         public override void Initialize()

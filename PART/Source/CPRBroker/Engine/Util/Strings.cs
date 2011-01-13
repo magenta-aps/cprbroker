@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CprBroker.Engine.Util
 {
@@ -92,6 +94,71 @@ namespace CprBroker.Engine.Util
         public static string ObjectToString(object o)
         {
             return string.Format("{0}", o);
+        }
+
+        public static string RepeatString(string value, int number)
+        {
+            StringBuilder b = new StringBuilder(value.Length * number);
+            for (int i = 0; i < number; i++)
+            {
+                b.Append(value);
+            }
+            return b.ToString();
+        }
+
+        public static bool IsGuid(string stringValue)
+        {
+            if (string.IsNullOrEmpty(stringValue))
+                return false;
+
+            string digitPattern = "[a-fA-F0-9]";
+
+            string continuousPattern = digitPattern + "{16}";
+            string hyphenatedPattern
+                = RepeatString(digitPattern, 8) + "-"
+                + RepeatString(digitPattern, 4) + "-"
+                + RepeatString(digitPattern, 4) + "-"
+                + RepeatString(digitPattern, 4) + "-"
+                + RepeatString(digitPattern, 12)
+                ;
+
+            string enclosedHyphenatedPattern =
+                @"\{"
+                + hyphenatedPattern
+                + @"\}";
+            string enclosedHyphenatedPattern2 =
+                @"\("
+                + hyphenatedPattern
+                + @"\)";
+
+            string prefixPattern = "0[xX]";
+            string compositePattern =
+                @"\{"
+                +prefixPattern+ RepeatString(digitPattern,8) + ", "
+                + prefixPattern + RepeatString(digitPattern, 4) + ", "
+                + prefixPattern + RepeatString(digitPattern, 4) + ","
+                + @"\{"
+                + prefixPattern + RepeatString(digitPattern, 2) + ","
+                + prefixPattern + RepeatString(digitPattern, 2) + ","
+                + prefixPattern + RepeatString(digitPattern, 2) + ","
+                + prefixPattern + RepeatString(digitPattern, 2) + ","
+                + prefixPattern + RepeatString(digitPattern, 2) + ","
+                + prefixPattern + RepeatString(digitPattern, 2) + ","
+                + prefixPattern + RepeatString(digitPattern, 2) + ","
+                + prefixPattern + RepeatString(digitPattern, 2) + ","
+                + @"\}"
+                + @"\}";
+
+            string guidPattern =
+                continuousPattern + "|"
+                + hyphenatedPattern + "|"
+                + enclosedHyphenatedPattern + "|"
+                + enclosedHyphenatedPattern2 + "|"
+                + compositePattern
+                ;
+
+            Regex guidReg = new Regex(guidPattern);
+            return guidReg.IsMatch(stringValue);
         }
     }
 

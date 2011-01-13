@@ -29,9 +29,7 @@ namespace CprBroker.Engine.Part
             {
                 return false;
             }
-            if (input.UUID
-                .Any((uuid) => string.IsNullOrEmpty(uuid))
-                )
+            if (input.UUID.Any(uuid => !Util.Strings.IsGuid((uuid))))
             {
                 return false;
             }
