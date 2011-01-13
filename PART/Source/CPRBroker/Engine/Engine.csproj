@@ -152,6 +152,7 @@
     <Compile Include="Local\ApplicationDataProvider.cs" />
     <Compile Include="Local\UpdateDatabase.Part.cs" />
     <Compile Include="Manager.Part.cs" />
+    <Compile Include="Part\ErrorCode.cs" />
     <Compile Include="Part\ListFacadeMethodInfo.cs" />
     <Compile Include="Part\ReadFacadeMethodInfo.cs" />
     <Compile Include="Part\ReadSubMethodInfo.cs" />

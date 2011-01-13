@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.NUnitTester.Part;
 
 namespace CprBroker.NUnitTester
 {
@@ -151,5 +152,14 @@ namespace CprBroker.NUnitTester
                 }
             };
         }
+
+        public LaesInputType[] EmptyReadInput = new LaesInputType[] { null, new LaesInputType() };
+        public const string EmptyReadInputFieldName = "EmptyReadInput";
+
+        public string[] InvalidReadInput = new string[] { null, "", Guid.NewGuid().ToString().Substring(10) };
+        public const string InvalidReadInputFieldName = "InvalidReadInput";
+
+        public string[] NonExistingUuidReadInput = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString()};
+        public const string NonExistingUuidReadInputFieldName = "NonExistingUuidReadInput";
     }
 }

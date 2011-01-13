@@ -79,6 +79,32 @@ namespace CprBroker.NUnitTester
             Validate(uuid, person, TestRunner.PartService);
         }
 
+        
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.EmptyReadInputFieldName)]
+        public void T210_Read_Empty(LaesInputType inp)
+        {
+            var person = TestRunner.PartService.Read(inp);
+            Assert.IsNotNull(person);
+            Assert.IsNotNull(person.StandardRetur);
+            Assert.IsNull(person.LaesResultat);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(TestData), TestData.InvalidReadInputFieldName)]
+        public void T220_Read_InvalidUuid(string uuid)
+        {
+            LaesInputType input = new LaesInputType()
+            {
+                UUID = uuid,
+            };
+            var person = TestRunner.PartService.Read(input);
+            Assert.IsNotNull(person);
+            Assert.IsNotNull(person.StandardRetur);
+            Assert.IsNull(person.LaesResultat);
+        }
+
+
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T250_RefreshRead(string cprNumber)
@@ -131,11 +157,10 @@ namespace CprBroker.NUnitTester
             };
 
             var persons = TestRunner.PartService.List(input);
-            if (cprNumbers == null)
-            {
-                Assert.IsNull(persons);
-            }
-            else
+            
+            Assert.IsNotNull(persons);
+            
+            if (cprNumbers != null)
             {
                 Assert.IsNotNull(persons, "Persons array is null");
                 Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
@@ -169,8 +194,8 @@ namespace CprBroker.NUnitTester
             Assert.AreEqual(personUuid.ToString(), result.IdListe[0], "Search result returns wrong uuids");
         }
 
-        [Test]
-        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        //[Test]
+        //[TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T410_Search_Name(string cprNumber)
         {
             var personUuid = TestRunner.PartService.GetPersonUuid(cprNumber);

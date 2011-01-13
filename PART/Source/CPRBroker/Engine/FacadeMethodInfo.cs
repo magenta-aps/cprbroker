@@ -18,7 +18,7 @@ namespace CprBroker.Engine
         }
 
         //TODO: Write code for this method
-        public virtual bool IsValidInput()
+        public virtual bool IsValidInput(ref TOutput invaliInputReturnValue)
         {
             return true;
         }

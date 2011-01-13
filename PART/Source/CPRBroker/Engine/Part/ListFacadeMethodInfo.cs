@@ -23,14 +23,24 @@ namespace CprBroker.Engine.Part
             this.InitializationMethod = new Action(InitializationMethod);
         }
 
-        public override bool IsValidInput()
+        public override bool IsValidInput(ref ListOutputType1 invaliInputReturnValue)
         {
             if (input == null || input.UUID == null || input.UUID.Length == 0)
             {
+                invaliInputReturnValue = new ListOutputType1()
+                {
+                    StandardRetur = new ErrorCode.NullInputErrorCode().ToStandardReturn()
+                };
                 return false;
             }
-            if (input.UUID.Any(uuid => !Util.Strings.IsGuid((uuid))))
+
+            var errors = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select new ErrorCode.InvalidUuidErrorCode(uuid)).ToArray();
+            if (errors.Length > 0)
             {
+                invaliInputReturnValue = new ListOutputType1()
+                {
+                    StandardRetur = ErrorCode.Create<ErrorCode.InvalidUuidErrorCode>(errors)
+                };
                 return false;
             }
             return true;

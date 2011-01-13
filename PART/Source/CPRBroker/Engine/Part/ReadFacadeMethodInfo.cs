@@ -24,10 +24,27 @@ namespace CprBroker.Engine.Part
             this.LocalAction = localAction;
         }
 
-        public override bool IsValidInput()
+        public override bool IsValidInput(ref LaesOutputType invaliInputReturnValue)
         {
-            return base.IsValidInput()
-                && Util.Strings.IsGuid(Input.UUID);
+            if (Input == null)
+            {
+                invaliInputReturnValue = new LaesOutputType()
+                {
+                    StandardRetur = new ErrorCode.NullInputErrorCode().ToStandardReturn()
+                };
+                return false;
+            }
+
+            if (!Util.Strings.IsGuid(Input.UUID))
+            {
+                invaliInputReturnValue = new LaesOutputType()
+                {
+                    StandardRetur = new ErrorCode.InvalidUuidErrorCode(Input.UUID).ToStandardReturn()
+                };
+                return false;
+            }
+
+            return true;
         }
 
         public override void Initialize()

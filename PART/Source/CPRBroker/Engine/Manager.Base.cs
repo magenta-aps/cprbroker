@@ -119,10 +119,11 @@ namespace CprBroker.Engine
                 BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken, facade.ApplicationTokenRequired, true, false);
 
                 // Validate
-                if (!facade.IsValidInput())
+                TOutput invalidInputReturn = default(TOutput);
+                if (!facade.IsValidInput(ref invalidInputReturn))
                 {
                     Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.InvalidInput, null, null);
-                    return default(TOutput);
+                    return invalidInputReturn;
                 }
 
                 // Initialize facade method
