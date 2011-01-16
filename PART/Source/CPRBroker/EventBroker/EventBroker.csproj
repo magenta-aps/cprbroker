@@ -98,6 +98,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="SubscriptionDataProvider.cs" />
     <Compile Include="Web References\NotificationService\Reference.cs">
       <AutoGen>True</AutoGen>
