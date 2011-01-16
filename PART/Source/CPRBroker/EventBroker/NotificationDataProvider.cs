@@ -7,6 +7,7 @@ using CprBroker.EventBroker.DAL;
 
 namespace CprBroker.EventBroker
 {
+    /*
     public class NotificationDataProvider : INotificationManager
     {
         #region INotificationManager Members
@@ -42,5 +43,5 @@ namespace CprBroker.EventBroker
         }
 
         #endregion
-    }
+    }*/
 }

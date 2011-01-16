@@ -51,9 +51,9 @@ namespace CprBroker.EventBroker.DAL
     partial void InsertChannelType(ChannelType instance);
     partial void UpdateChannelType(ChannelType instance);
     partial void DeleteChannelType(ChannelType instance);
-    partial void InsertDataChangeEvent(DataChangeEvent instance);
-    partial void UpdateDataChangeEvent(DataChangeEvent instance);
-    partial void DeleteDataChangeEvent(DataChangeEvent instance);
+    partial void InsertDataChangeEvent222(DataChangeEvent222 instance);
+    partial void UpdateDataChangeEvent222(DataChangeEvent222 instance);
+    partial void DeleteDataChangeEvent222(DataChangeEvent222 instance);
     partial void InsertDataSubscription(DataSubscription instance);
     partial void UpdateDataSubscription(DataSubscription instance);
     partial void DeleteDataSubscription(DataSubscription instance);
@@ -154,11 +154,11 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<DataChangeEvent> DataChangeEvents
+		public System.Data.Linq.Table<DataChangeEvent222> DataChangeEvent222s
 		{
 			get
 			{
-				return this.GetTable<DataChangeEvent>();
+				return this.GetTable<DataChangeEvent222>();
 			}
 		}
 		
@@ -1330,7 +1330,7 @@ namespace CprBroker.EventBroker.DAL
 	}
 	
 	[Table(Name="dbo.DataChangeEvent")]
-	public partial class DataChangeEvent : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class DataChangeEvent222 : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1353,7 +1353,7 @@ namespace CprBroker.EventBroker.DAL
     partial void OnReceivedDateChanged();
     #endregion
 		
-		public DataChangeEvent()
+		public DataChangeEvent222()
 		{
 			OnCreated();
 		}

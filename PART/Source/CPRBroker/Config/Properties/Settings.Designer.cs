@@ -116,5 +116,15 @@ namespace CprBroker.Config.Properties {
                 return ((int)(this["EventBrokerPollIntervalMilliseconds"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLServer;Initial Catalog=PART;User ID=cpr;Password=cpr")]
+        public string DataChangeEventConnectionString {
+            get {
+                return ((string)(this["DataChangeEventConnectionString"]));
+            }
+        }
     }
 }

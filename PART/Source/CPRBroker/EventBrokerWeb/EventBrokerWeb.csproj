@@ -74,7 +74,6 @@
     </Compile>
     <Compile Include="Services\NotificationQueue.asmx.cs">
       <DependentUpon>NotificationQueue.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

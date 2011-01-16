@@ -6,6 +6,7 @@ using CprBroker.Engine;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.DAL;
+using CprBroker.DAL.Events;
 using CprBroker.DAL.Part;
 
 
@@ -30,6 +31,19 @@ namespace CprBroker.Engine.Local
 
         private static void NotifyPersonRegistrationUpdate(Guid personUuid)
         {
+            using (var dataContext = new DataChangeEventDataContext())
+            {
+                var pp = new DataChangeEvent()
+                {
+                    DataChangeEventId = Guid.NewGuid(),
+                    PersonUuid = personUuid,
+                    ReceivedDate = DateTime.Now
+                };
+            }
+            /*
+            dataContext.DataChangeEvents.InsertOnSubmit(pp);
+            dataContext.SubmitChanges();
+
             NotificationQueueService.NotificationQueue notificationQueueService = new CprBroker.Engine.NotificationQueueService.NotificationQueue();
             notificationQueueService.Url = Config.Properties.Settings.Default.NotificationQueueServiceUrl;
             notificationQueueService.ApplicationHeaderValue = new CprBroker.Engine.NotificationQueueService.ApplicationHeader()
@@ -39,6 +53,7 @@ namespace CprBroker.Engine.Local
             };
             // TODO: use the value of the result
             bool result = notificationQueueService.Enqueue(personUuid);
+             * */
         }
 
         private static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 personRegistraion)

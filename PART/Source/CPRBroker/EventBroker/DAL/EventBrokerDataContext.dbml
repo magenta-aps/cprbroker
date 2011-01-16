@@ -58,8 +58,8 @@
       <Association Name="ChannelType_Channel" Member="Channels" ThisKey="ChannelTypeId" OtherKey="ChannelTypeId" Type="Channel" />
     </Type>
   </Table>
-  <Table Name="dbo.DataChangeEvent" Member="DataChangeEvents">
-    <Type Name="DataChangeEvent">
+  <Table Name="dbo.DataChangeEvent" Member="DataChangeEvent222s">
+    <Type Name="DataChangeEvent222">
       <Column Name="DataChangeEventId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="ReceivedDate" Storage="_ReceivedData" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />

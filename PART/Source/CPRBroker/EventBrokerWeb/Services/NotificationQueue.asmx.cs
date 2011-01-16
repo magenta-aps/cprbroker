@@ -9,6 +9,7 @@ using System.Web.Services.Protocols;
 
 namespace CprBroker.EventBroker.Web.Services
 {
+    /*
     /// <summary>
     /// Summary description for Notification
     /// </summary>
@@ -30,4 +31,5 @@ namespace CprBroker.EventBroker.Web.Services
             return Manager.Subscriptions.Enqueue(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuid);
         }
     }
+     */
 }

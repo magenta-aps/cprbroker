@@ -122,6 +122,10 @@
       <DependentUpon>CPRPersonWS.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\Events.asmx.cs">
+      <DependentUpon>Events.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\Notification.asmx.cs">
       <DependentUpon>Notification.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -146,6 +150,7 @@
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Images\unn_bottom.gif" />
     <Content Include="Pages\LogEntries.aspx" />
+    <Content Include="Services\Events.asmx" />
     <Content Include="Services\Notification.asmx" />
     <None Include="Config\connectionStrings.beta.config" />
     <Content Include="Services\Part.asmx" />

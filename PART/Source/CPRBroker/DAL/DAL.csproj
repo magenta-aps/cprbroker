@@ -61,6 +61,11 @@
       <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Constants.cs" />
+    <Compile Include="Events\DataChangeEventDataContext.designer.cs">
+      <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="ITimedRelationship.cs" />
     <Compile Include="MaritalStatusType.cs" />
     <Compile Include="Gender.cs" />
@@ -162,9 +167,15 @@
     <None Include="Applications\ApplicationDataContext.dbml.layout">
       <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
+    <Compile Include="Events\DataChangeEventDataContext.cs" />
+    <None Include="Events\DataChangeEventDataContext.dbml">
+      <SubType>Designer</SubType>
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataChangeEventDataContext.designer.cs</LastGenOutput>
+    </None>
+    <None Include="Events\DataChangeEventDataContext.dbml.layout">
+      <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,8 +6,9 @@ using CprBroker.Engine;
 
 namespace CprBroker.EventBroker
 {
+    /*
     public interface INotificationManager:IDataProvider
     {
         bool Enqueue(Guid personUuid);
-    }
+    }*/
 }
