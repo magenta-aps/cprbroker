@@ -200,6 +200,9 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\EventsService\Events.disco" />
+    <None Include="Web References\EventsService\PersonBirthdate.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\EventsService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

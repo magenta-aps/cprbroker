@@ -29,5 +29,12 @@ namespace CprService.Services
         {
             return Manager.Events.DequeueDataChangeEvents(applicationHeader.UserToken, applicationHeader.ApplicationToken, maxCount);
         }
+
+        [WebMethod]
+        [SoapHeader(ApplicationHeaderName)]
+        public PersonBirthdate[] GetPersonBirthdates(Guid? personUuidToStartAfter, int maxCount)
+        {
+            return Manager.Events.GetPersonBirthdates(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuidToStartAfter, maxCount);
+        }
     }
 }

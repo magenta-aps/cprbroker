@@ -72,6 +72,9 @@ namespace CprBroker.EventBroker.DAL
     partial void InsertDataChangeEvent(DataChangeEvent instance);
     partial void UpdateDataChangeEvent(DataChangeEvent instance);
     partial void DeleteDataChangeEvent(DataChangeEvent instance);
+    partial void InsertPersonBirthdate(PersonBirthdate instance);
+    partial void UpdatePersonBirthdate(PersonBirthdate instance);
+    partial void DeletePersonBirthdate(PersonBirthdate instance);
     #endregion
 		
 		public EventBrokerDataContext(string connection) : 
@@ -207,6 +210,14 @@ namespace CprBroker.EventBroker.DAL
 			get
 			{
 				return this.GetTable<DataChangeEvent>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PersonBirthdate> PersonBirthdates
+		{
+			get
+			{
+				return this.GetTable<PersonBirthdate>();
 			}
 		}
 		
@@ -2725,6 +2736,92 @@ namespace CprBroker.EventBroker.DAL
 					this._ReceivedDate = value;
 					this.SendPropertyChanged("ReceivedDate");
 					this.OnReceivedDateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.PersonBirthdate")]
+	public partial class PersonBirthdate : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _PersonUuid;
+		
+		private System.DateTime _Birthdate;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPersonUuidChanging(System.Guid value);
+    partial void OnPersonUuidChanged();
+    partial void OnBirthdateChanging(System.DateTime value);
+    partial void OnBirthdateChanged();
+    #endregion
+		
+		public PersonBirthdate()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_PersonUuid", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid PersonUuid
+		{
+			get
+			{
+				return this._PersonUuid;
+			}
+			set
+			{
+				if ((this._PersonUuid != value))
+				{
+					this.OnPersonUuidChanging(value);
+					this.SendPropertyChanging();
+					this._PersonUuid = value;
+					this.SendPropertyChanged("PersonUuid");
+					this.OnPersonUuidChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Birthdate", DbType="DateTime NOT NULL")]
+		public System.DateTime Birthdate
+		{
+			get
+			{
+				return this._Birthdate;
+			}
+			set
+			{
+				if ((this._Birthdate != value))
+				{
+					this.OnBirthdateChanging(value);
+					this.SendPropertyChanging();
+					this._Birthdate = value;
+					this.SendPropertyChanged("Birthdate");
+					this.OnBirthdateChanged();
 				}
 			}
 		}

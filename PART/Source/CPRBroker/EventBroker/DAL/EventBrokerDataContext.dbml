@@ -127,6 +127,12 @@
       <Column Name="ReceivedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.PersonBirthdate" Member="PersonBirthdates">
+    <Type Name="PersonBirthdate">
+      <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Birthdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.GetDueNotifications" Method="GetDueNotifications">
     <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
     <Parameter Name="LastTime" Parameter="lastTime" Type="System.DateTime" DbType="DateTime" />

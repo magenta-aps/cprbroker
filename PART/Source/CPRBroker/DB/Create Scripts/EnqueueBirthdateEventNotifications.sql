@@ -35,23 +35,16 @@ AS
 	
 	-- Search  for persons that match the subscription rule
 	INSERT INTO #Person (PersonUuid, Birthdate, Age)
-	SELECT PD.UUID, PD.BirthDate, DATEDIFF(YEAR, PD.Birthdate, DATEADD(day, @PriorDays, @Today))
-	FROM 
-	(
-		SELECT DISTINCT P.UUID, PA.Birthdate
-		FROM Person AS P
-		INNER JOIN PersonRegistration AS PR ON P.UUID = PR.UUID
-		INNER JOIN PersonAttributes AS PA ON PA.PersonRegistrationID = PR.PersonRegistrationId
-		WHERE PA.BirthDate IS NOT NULL
-	) AS PD
-	LEFT OUTER JOIN SubscriptionPerson AS SP ON PD.UUID = SP.PersonUuid
+	SELECT PB.PersonUuid, PB.BirthDate, DATEDIFF(YEAR, PB.Birthdate, DATEADD(day, @PriorDays, @Today))	
+	FROM PersonBirthdate AS PB
+	LEFT OUTER JOIN SubscriptionPerson AS SP ON PB.PersonUuid = SP.PersonUuid
 	WHERE 
 	(
 		@IsForAllPersons = 1 OR SP.SubscriptionId = @SubscriptionId
 	)
 	AND
 	(
-		dbo.IsBirthdateEvent(@Today, PD.BirthDate, @AgeYears, @PriorDays) = 1
+		dbo.IsBirthdateEvent(@Today, PB.BirthDate, @AgeYears, @PriorDays) = 1
 	)
 	
 	

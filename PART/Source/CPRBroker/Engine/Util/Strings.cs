@@ -160,6 +160,38 @@ namespace CprBroker.Engine.Util
             Regex guidReg = new Regex(guidPattern);
             return guidReg.IsMatch(stringValue);
         }
+
+        public static DateTime? PersonNumberToDate(string cprNumber)
+        {
+            int day;
+            int month;
+            int year;
+            int serialNo;
+            try
+            {
+                if (!string.IsNullOrEmpty(cprNumber)
+                    && cprNumber.Length >= 7
+                    && int.TryParse(cprNumber.Substring(0, 2), out day)
+                    && int.TryParse(cprNumber.Substring(2, 2), out month)
+                    && int.TryParse(cprNumber.Substring(4, 2), out year)
+                    && int.TryParse(cprNumber.Substring(6, 1), out serialNo)
+                    )
+                {
+                    int centuryYears = 1900;
+                    if (
+                        (serialNo == 4 && year <= 36)
+                        || (serialNo >= 5 && serialNo <= 8 && year <= 57)
+                        || (serialNo == 9 && year <= 36)
+                        )
+                    {
+                        centuryYears = 2000;
+                    }
+                    return new DateTime(centuryYears + year, month, day);
+                }
+            }
+            catch { }
+            return null;
+        }
     }
 
 }

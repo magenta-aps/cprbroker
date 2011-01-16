@@ -42,5 +42,16 @@ namespace CprBroker.EventBroker.Properties {
                 return ((string)(this["CprBroker_EventBroker_EventsService_Events"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.20.1.20;Initial Catalog=PartEventBroker;Persist Security Info=True" +
+            ";User ID=sa")]
+        public string PartEventBrokerConnectionString {
+            get {
+                return ((string)(this["PartEventBrokerConnectionString"]));
+            }
+        }
     }
 }

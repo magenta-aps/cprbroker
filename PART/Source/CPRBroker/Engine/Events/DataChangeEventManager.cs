@@ -9,6 +9,22 @@ namespace CprBroker.Engine.Events
     {
         public static readonly object QueueLock = new object();
 
+
+        #region IDataProvider Members
+        public bool IsAlive()
+        {
+            return true;
+        }
+
+        public Version Version
+        {
+            get { return new Version(Versioning.Major, Versioning.Minor); }
+        }
+        #endregion
+
+
+        #region IDataChangeEventManager Members
+
         public Schemas.Part.Events.DataChangeEventInfo[] DequeueEvents(int maxCount)
         {
             lock (QueueLock)
@@ -33,14 +49,31 @@ namespace CprBroker.Engine.Events
             }
         }
 
-        public bool IsAlive()
+        public CprBroker.Schemas.Part.Events.PersonBirthdate[] GetPersonBirthdates(Guid? personUuidToStartAfter, int maxCount)
         {
-            return true;
+            using (var dataConvext = new DAL.Part.PartDataContext())
+            {
+                var persons = dataConvext.PersonMappings.AsQueryable();
+                if (personUuidToStartAfter.HasValue)
+                {
+                    persons = persons.Where(p => p.UUID.CompareTo(personUuidToStartAfter.Value) > 0);
+                }
+                persons = persons.OrderBy(p => p.UUID);
+                persons = persons.Take(maxCount);
+
+                return Array.ConvertAll<DAL.Part.PersonMapping, Schemas.Part.Events.PersonBirthdate>
+                (
+                    persons.ToArray(),
+                    p => new Schemas.Part.Events.PersonBirthdate()
+                    {
+                        PersonUuid = p.UUID,
+                        // TODO: Handle invalid Cpr numbers that will return null here
+                        Birthdate = Util.Strings.PersonNumberToDate(p.CprNumber).Value,
+                    }
+                );
+            }
         }
 
-        public Version Version
-        {
-            get { return new Version(Versioning.Major, Versioning.Minor); }
-        }
+        #endregion
     }
 }

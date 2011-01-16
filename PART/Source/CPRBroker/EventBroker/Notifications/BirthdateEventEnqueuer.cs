@@ -9,6 +9,9 @@ namespace CprBroker.EventBroker.Notifications
 {
     public partial class BirthdateEventEnqueuer : PeriodicTaskExecuter
     {
+        private EventsService.Events EventsService = new CprBroker.EventBroker.EventsService.Events();
+        public int BatchSize = 10;
+
         public BirthdateEventEnqueuer()
             : base()
         {
@@ -22,7 +25,7 @@ namespace CprBroker.EventBroker.Notifications
 
             InitializeComponent();
         }
-        
+
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
             DateTime endToday = DateTime.Today.AddDays(1);
@@ -36,6 +39,45 @@ namespace CprBroker.EventBroker.Notifications
         }
 
         protected override void PerformTimerAction()
+        {
+            SynchronisePersonBirthdates();
+            EnqueueBirthdateSvents();
+        }
+
+        private void SynchronisePersonBirthdates()
+        {
+            bool morePersons = true;
+            Guid? lastPersonGuid = null;
+            while (morePersons)
+            {
+                var personBirthdates = EventsService.GetPersonBirthdates(lastPersonGuid, BatchSize);
+
+                if (personBirthdates.Length > 0)
+                {
+                    lastPersonGuid = personBirthdates[personBirthdates.Length - 1].PersonUuid;
+                }
+                morePersons = personBirthdates.Length < BatchSize;
+
+                using (var dataContext = new DAL.EventBrokerDataContext())
+                {
+                    var newPersons =
+                    (
+                        from pb in personBirthdates
+                        where !(from dpb in dataContext.PersonBirthdates select dpb.PersonUuid).Contains(pb.PersonUuid)
+                        select new DAL.PersonBirthdate()
+                        {
+                            PersonUuid = pb.PersonUuid,
+                            Birthdate = pb.Birthdate
+                        }
+                    );
+
+                    dataContext.PersonBirthdates.InsertAllOnSubmit(newPersons);
+                    dataContext.SubmitChanges();
+                }
+            }
+        }
+
+        private void EnqueueBirthdateSvents()
         {
             using (var dataContext = new DAL.EventBrokerDataContext())
             {
