@@ -64,8 +64,8 @@
     <Compile Include="DAL\Notification.cs" />
     <Compile Include="DAL\Subscription.cs" />
     <Compile Include="DAL\SubscriptionType.cs" />
-    <Compile Include="ISubscriptionDataProvider.cs" />
-    <Compile Include="Manager.Subscription.cs" />
+    <Compile Include="Subscriptions\ISubscriptionDataProvider.cs" />
+    <Compile Include="Subscriptions\Manager.Subscription.cs" />
     <Compile Include="Notifications\BirthdateEventEnqueuer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -98,7 +98,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SubscriptionDataProvider.cs" />
+    <Compile Include="Subscriptions\SubscriptionDataProvider.cs" />
     <Compile Include="Web References\NotificationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

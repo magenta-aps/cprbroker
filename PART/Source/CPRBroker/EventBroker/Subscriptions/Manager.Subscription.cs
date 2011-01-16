@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Engine;
 
-namespace CprBroker.EventBroker
+namespace CprBroker.EventBroker.Subscriptions
 {
     public static partial class Manager
     {

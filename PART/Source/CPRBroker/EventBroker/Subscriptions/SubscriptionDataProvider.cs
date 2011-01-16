@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.EventBroker.DAL;
 
-namespace CprBroker.EventBroker
+namespace CprBroker.EventBroker.Subscriptions
 {
     public partial class SubscriptionDataProvider : ISubscriptionDataProvider
     {

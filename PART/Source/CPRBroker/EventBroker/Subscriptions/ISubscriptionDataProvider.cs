@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Engine;
 
-namespace CprBroker.EventBroker
+namespace CprBroker.EventBroker.Subscriptions
 {
     /// <summary>
     /// Contains methods related to subscriptions
