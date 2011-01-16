@@ -9,6 +9,8 @@ namespace CprBroker.EventBroker.Notifications
 {
     public partial class PeriodicTaskExecuter : Component
     {
+        public EventLog EventLog = null;
+
         public PeriodicTaskExecuter()
         {
             InitializeComponent();
@@ -46,7 +48,13 @@ namespace CprBroker.EventBroker.Notifications
 
         void ActionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            if (EventLog != null)
+            {
+                this.EventLog.WriteEntry(string.Format("{0} : {1}", CprBroker.Engine.TextMessages.TimerEventStarted, this.GetType()));
+            }
+
             ActionTimer.Interval = this.CalculateActionTimerInterval(TimeSpan.FromMilliseconds(ActionTimer.Interval)).TotalMilliseconds;
+            
             try
             {
                 PerformTimerAction();
@@ -54,6 +62,11 @@ namespace CprBroker.EventBroker.Notifications
             catch (Exception ex)
             {
                 CprBroker.Engine.Local.Admin.LogException(ex);
+            }
+            
+            if (EventLog != null)
+            {
+                this.EventLog.WriteEntry(string.Format("{0} : {1}", CprBroker.Engine.TextMessages.TimerEventFinished, this.GetType()));
             }
         }
 

@@ -20,8 +20,8 @@ namespace CprBroker.Engine
         public static string Succeeded = "Succeeded";
 
         public static readonly string BackendServiceStarted = "CPR Broker backend service has been started";
-        public static readonly string BackendTimerEventStarted = "CPR Broker backend service timer has started";
-        public static readonly string BackendTimerEventFinished = "CPR Broker backend service timer has just finished";
+        public static readonly string TimerEventStarted = "Timer event started";
+        public static readonly string TimerEventFinished = "Timer event finished";
 
         public static readonly string UuidNotFound =  "No such UUID found";
     }

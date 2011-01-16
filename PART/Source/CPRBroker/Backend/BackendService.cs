@@ -16,52 +16,49 @@ namespace CprBroker.EventBroker.Backend
     /// </summary>
     public partial class BackendService : GKApp.WinSvc.winsvcBase
     {
-        System.Timers.Timer NotificationsTimer = new System.Timers.Timer();
         public BackendService()
         {
             InitializeComponent();
         }
 
+        private void StartQueues()
+        {
+            this.BirthdateEventEnqueuer.Start();
+            this.DataChangeEventEnqueuer.Start();
+            this.NotificationSender.Start();
+        }
+
+        private void StopQueues()
+        {
+            this.BirthdateEventEnqueuer.Stop();
+            this.DataChangeEventEnqueuer.Stop();
+            this.NotificationSender.Stop();
+        }
+
         protected override void OnStart(string[] args)
         {
-            // Initialize the timer
-            NotificationsTimer.Elapsed += new System.Timers.ElapsedEventHandler(NotificationsTimer_Elapsed);
-            NotificationsTimer.AutoReset = false;
-            ScheduleNextTimerRun();
-            BrokerContext.Initialize(Application.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false, true);
+            BrokerContext.Initialize(EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false, true);
             CprBroker.Engine.Local.Admin.LogSuccess(CprBroker.Engine.TextMessages.BackendServiceStarted);
+
+            StartQueues();
         }
 
-        /// <summary>
-        /// Schedules the timer to run at the beginning of tomorrow
-        /// </summary>
-        void ScheduleNextTimerRun()
+        protected override void OnStop()
         {
-            DateTime endToday = DateTime.Today.AddDays(1);
-
-            // Take care of the case if service is started at the very end of a day
-            TimeSpan interval = endToday - DateTime.Now;
-            if (interval < TimeSpan.FromMinutes(1))
-                interval = TimeSpan.FromMinutes(1);
-
-            NotificationsTimer.Interval = interval.TotalMilliseconds;
-
-            NotificationsTimer.Start();
+            StopQueues();
         }
 
-        void NotificationsTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        protected override void OnContinue()
         {
-            this.EventLog.WriteEntry(CprBroker.Engine.TextMessages.BackendTimerEventStarted);
-            // Set next timer start
-            ScheduleNextTimerRun();
-
-            // Refresh persons            
-            CprBroker.EventBroker.Notifications.NotificationEngine.RefreshPersonsData();
-
-            // Send notifications
-            DateTime today = e.SignalTime.Date;
-            CprBroker.EventBroker.Notifications.NotificationEngine.SendNotifications(DateTime.Now);
-            this.EventLog.WriteEntry(CprBroker.Engine.TextMessages.BackendTimerEventFinished);
+            StartQueues();
         }
+
+        protected override void OnPause()
+        {
+            StopQueues();
+        }
+
+
+
     }
 }
