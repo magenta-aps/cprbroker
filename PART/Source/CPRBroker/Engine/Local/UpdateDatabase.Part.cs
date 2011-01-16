@@ -39,6 +39,8 @@ namespace CprBroker.Engine.Local
                     PersonUuid = personUuid,
                     ReceivedDate = DateTime.Now
                 };
+                dataContext.DataChangeEvents.InsertOnSubmit(pp);
+                dataContext.SubmitChanges();
             }
             /*
             dataContext.DataChangeEvents.InsertOnSubmit(pp);

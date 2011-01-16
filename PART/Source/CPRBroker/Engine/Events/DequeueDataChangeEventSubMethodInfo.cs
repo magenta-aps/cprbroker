@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CprBroker.Engine.Events
 {
-    public class DequeueDataChangeEventSubMethodInfo : SubMethodInfo<IDataChangeEventManager, Schemas.Part.Events.DataChangeEventInfo>
+    public class DequeueDataChangeEventSubMethodInfo : SubMethodInfo<IDataChangeEventManager, Schemas.Part.Events.DataChangeEventInfo[]>
     {
         public int MaxCount;
 
@@ -14,6 +14,10 @@ namespace CprBroker.Engine.Events
             this.MaxCount = maxCount;
         }
 
+        public override CprBroker.Schemas.Part.Events.DataChangeEventInfo[] RunMainMethod(IDataChangeEventManager prov)
+        {
+            return prov.DequeueEvents(MaxCount);
+        }
 
     }
 }

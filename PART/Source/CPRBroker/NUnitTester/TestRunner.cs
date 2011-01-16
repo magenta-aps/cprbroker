@@ -16,6 +16,7 @@ namespace CprBroker.NUnitTester
         public static Access.Access AccessService;
         public static Part.Part PartService;
         public static Subscriptions.Subscriptions SubscriptionsService;
+        public static Events.Events EventsService;
 
         public static void Initialize()
         {
@@ -58,6 +59,15 @@ namespace CprBroker.NUnitTester
             };
             ReplaceServiceUrl(SubscriptionsService, SystemType.EventBroker);
             Console.WriteLine(SubscriptionsService.Url);
+
+            EventsService = new CprBroker.NUnitTester.Events.Events();
+            EventsService.ApplicationHeaderValue = new NUnitTester.Events.ApplicationHeader()
+            {
+                ApplicationToken = TestData.BaseAppToken,
+                UserToken = TestData.userToken
+            };
+            ReplaceServiceUrl(EventsService, SystemType.CprBroker);
+            Console.WriteLine(EventsService.Url);
 
 
             AccessService = new NUnitTester.Access.Access();

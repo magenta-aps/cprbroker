@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="ApplicationManagementTest.cs" />
     <Compile Include="BaseTest.cs" />
+    <Compile Include="EventTest.cs" />
     <Compile Include="PartTest.cs" />
     <Compile Include="PartTestData.cs" />
     <Compile Include="Program.cs" />
@@ -89,6 +90,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\CPRPersonWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Events\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -143,6 +149,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NUnitTester_CPRPersonWS_CPRPersonWS</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://localhost:1551/Services/Events.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Events\</RelPath>
+      <UpdateFromURL>http://localhost:1551/Services/Events.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CprBroker_NUnitTester_Events_Events</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1551/Services/Part.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -256,6 +273,7 @@
     <None Include="Web References\CPRPersonWS\SimpleCPRPersonType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\Events\Events.wsdl" />
     <None Include="Web References\Part\LaesOutputType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -281,6 +299,16 @@
     <None Include="Web References\Subscriptions\Subscriptions.disco" />
     <None Include="Web References\Subscriptions\SubscriptionType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Events\DataChangeEventInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Events\Events.disco" />
+    <None Include="Web References\Events\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
