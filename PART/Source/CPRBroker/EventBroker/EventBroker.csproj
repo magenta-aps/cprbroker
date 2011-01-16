@@ -63,11 +63,11 @@
     <Compile Include="DAL\Notification.cs" />
     <Compile Include="DAL\Subscription.cs" />
     <Compile Include="DAL\SubscriptionType.cs" />
-    <Compile Include="GetPersonDataTask.cs" />
-    <Compile Include="INotificationManager.cs" />
-    <Compile Include="ISubscriptionManager.cs" />
+    <Compile Include="GetPersonDataTask.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ISubscriptionDataProvider.cs" />
     <Compile Include="Manager.Subscription.cs" />
-    <Compile Include="NotificationDataProvider.cs" />
     <Compile Include="Notifications\BirthdateEventEnqueuer.cs">
       <SubType>Component</SubType>
     </Compile>

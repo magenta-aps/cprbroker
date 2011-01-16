@@ -10,7 +10,7 @@ namespace CprBroker.EventBroker
     /// <summary>
     /// Contains methods related to subscriptions
     /// </summary>
-    public interface ISubscriptionManager : IDataProvider
+    public interface ISubscriptionDataProvider : IDataProvider
     {
         /// <summary>
         /// Subscribes to a data change

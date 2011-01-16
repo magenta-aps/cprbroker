@@ -59,7 +59,6 @@
   <ItemGroup>
     <Content Include="Services\Access.asmx" />
     <Content Include="Services\Subscriptions.asmx" />
-    <Content Include="Services\NotificationQueue.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -71,9 +70,6 @@
     <Compile Include="Services\Subscriptions.asmx.cs">
       <DependentUpon>Subscriptions.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Services\NotificationQueue.asmx.cs">
-      <DependentUpon>NotificationQueue.asmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

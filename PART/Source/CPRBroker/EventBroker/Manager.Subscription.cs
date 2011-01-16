@@ -22,37 +22,37 @@ namespace CprBroker.EventBroker
             #region Subscription
             public static ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, Guid[] PersonCivilRegistrationIdentifiers)
             {
-                return CallMethod<ISubscriptionManager, ChangeSubscriptionType>
+                return CallMethod<ISubscriptionDataProvider, ChangeSubscriptionType>
                  (userToken, appToken, true, true, (admin) => admin.Subscribe(userToken, appToken, notificationChannel, PersonCivilRegistrationIdentifiers), true, null);
             }
 
             public static bool Unsubscribe(string userToken, string appToken, Guid subscriptionId)
             {
-                return CallMethod<ISubscriptionManager, bool>
+                return CallMethod<ISubscriptionDataProvider, bool>
                  (userToken, appToken, true, true, (admin) => admin.Unsubscribe(userToken, appToken, subscriptionId), true, null);
             }
 
             public static BirthdateSubscriptionType SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, Guid[] PersonCivilRegistrationIdentifiers)
             {
-                return CallMethod<ISubscriptionManager, BirthdateSubscriptionType>
+                return CallMethod<ISubscriptionDataProvider, BirthdateSubscriptionType>
                  (userToken, appToken, true, true, (admin) => admin.SubscribeOnBirthdate(userToken, appToken, notificationChannel, years, priorDays, PersonCivilRegistrationIdentifiers), true, null);
             }
 
             public static bool RemoveBirthDateSubscription(string userToken, string appToken, Guid subscriptionId)
             {
-                return CallMethod<ISubscriptionManager, bool>
+                return CallMethod<ISubscriptionDataProvider, bool>
                  (userToken, appToken, true, true, (admin) => admin.RemoveBirthDateSubscription(userToken, appToken, subscriptionId), true, null);
             }
 
             public static SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken)
             {
-                return CallMethod<ISubscriptionManager, CprBroker.Schemas.SubscriptionType[]>
+                return CallMethod<ISubscriptionDataProvider, CprBroker.Schemas.SubscriptionType[]>
                  (userToken, appToken, true, true, (admin) => admin.GetActiveSubscriptionsList(userToken, appToken), true, null);
             }
 
             public static BaseNotificationType GetLatestNotification(string userToken, string appToken, Guid subscriptionId)
             {
-                return CallMethod<ISubscriptionManager, BaseNotificationType>
+                return CallMethod<ISubscriptionDataProvider, BaseNotificationType>
                  (userToken, appToken, true, true, (admin) => admin.GetLatestNotification(userToken, appToken, subscriptionId), true, null);
             }
             #endregion
