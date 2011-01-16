@@ -75,6 +75,12 @@
       <DependentUpon>BirthdateEventEnqueuer.cs</DependentUpon>
     </Compile>
     <Compile Include="Notifications\Channel.cs" />
+    <Compile Include="Notifications\DataChangeEventEnqueuer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\DataChangeEventEnqueuer.Designer.cs">
+      <DependentUpon>DataChangeEventEnqueuer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Notifications\Extensions.cs" />
     <Compile Include="Notifications\NotificationEngine.cs" />
     <Compile Include="Notifications\NotificationSender.cs">
@@ -82,6 +88,12 @@
     </Compile>
     <Compile Include="Notifications\NotificationSender.Designer.cs">
       <DependentUpon>NotificationSender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications\PeriodicTaskExecuter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\PeriodicTaskExecuter.Designer.cs">
+      <DependentUpon>PeriodicTaskExecuter.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -164,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Notifications\NotificationSender.resx">
       <DependentUpon>NotificationSender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifications\PeriodicTaskExecuter.resx">
+      <DependentUpon>PeriodicTaskExecuter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

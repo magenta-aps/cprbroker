@@ -1,6 +1,6 @@
 ﻿namespace CprBroker.EventBroker.Notifications
 {
-    partial class NotificationSender
+    partial class PeriodicTaskExecuter
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.ActionTimer = new System.Timers.Timer();
+            ((System.ComponentModel.ISupportInitialize)(this.ActionTimer)).BeginInit();
+            // 
+            // ActionTimer
+            // 
+            this.ActionTimer.Enabled = true;
+            ((System.ComponentModel.ISupportInitialize)(this.ActionTimer)).EndInit();
 
         }
 
         #endregion
 
+        private System.Timers.Timer ActionTimer;
     }
 }

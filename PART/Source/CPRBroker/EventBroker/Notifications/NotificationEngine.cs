@@ -84,7 +84,7 @@ namespace CprBroker.EventBroker.Notifications
         /// <param name="now"></param>
         public static SendNotificationsResult SendNotifications(DateTime now)
         {
-            // Initialize
+            // InitializeTimer
             SendNotificationsResult ret = new SendNotificationsResult();
             BrokerContext.Initialize(CprBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false, true);
             DateTime today = now.Date;

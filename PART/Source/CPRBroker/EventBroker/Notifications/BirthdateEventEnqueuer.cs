@@ -7,33 +7,23 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public partial class BirthdateEventEnqueuer : Component
+    public partial class BirthdateEventEnqueuer : PeriodicTaskExecuter
     {
         public BirthdateEventEnqueuer()
+            : base()
         {
             InitializeComponent();
-            InitializeTimer();
         }
 
         public BirthdateEventEnqueuer(IContainer container)
+            : base(container)
         {
             container.Add(this);
 
             InitializeComponent();
-            InitializeTimer();
         }
-
-        void InitializeTimer()
-        {
-            BirthdateTimer.Elapsed += new System.Timers.ElapsedEventHandler(BirthdateTimer_Elapsed);
-            BirthdateTimer.AutoReset = false;
-            ScheduleNextTimerRun();
-        }
-
-        /// <summary>
-        /// Schedules the timer to run at the beginning of tomorrow
-        /// </summary>
-        void ScheduleNextTimerRun()
+        
+        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
             DateTime endToday = DateTime.Today.AddDays(1);
 
@@ -42,44 +32,28 @@ namespace CprBroker.EventBroker.Notifications
             if (interval < TimeSpan.FromMinutes(1))
                 interval = TimeSpan.FromMinutes(1);
 
-            BirthdateTimer.Interval = interval.TotalMilliseconds;
-
-            BirthdateTimer.Start();
+            return interval;
         }
 
-        private void BirthdateTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        protected override void PerformTimerAction()
         {
-            ScheduleNextTimerRun();
-            EnqueueBirthdateEventNotifications();
-        }
-
-        private void EnqueueBirthdateEventNotifications()
-        {
-            try
+            using (var dataContext = new DAL.EventBrokerDataContext())
             {
-                using (var dataContext = new DAL.EventBrokerDataContext())
-                {
-                    DateTime today = DateTime.Today;
+                DateTime today = DateTime.Today;
 
-                    foreach (var subscription in dataContext.Subscriptions)
+                foreach (var subscription in dataContext.Subscriptions)
+                {
+                    try
                     {
-                        try
-                        {
-                            dataContext.EnqueueBirthdateEventNotifications(subscription.SubscriptionId, today);
-                        }
-                        catch (Exception ex)
-                        {
-                            string message = string.Format("Failed to enqueue birthdate notifications for {0}", subscription.SubscriptionId);
-                            CprBroker.Engine.Local.Admin.LogException(ex, message);
-                        }
+                        dataContext.EnqueueBirthdateEventNotifications(subscription.SubscriptionId, today);
+                    }
+                    catch (Exception ex)
+                    {
+                        string message = string.Format("Failed to enqueue birthdate notifications for {0}", subscription.SubscriptionId);
+                        CprBroker.Engine.Local.Admin.LogException(ex, message);
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                CprBroker.Engine.Local.Admin.LogException(ex);
-            }
         }
-
     }
 }

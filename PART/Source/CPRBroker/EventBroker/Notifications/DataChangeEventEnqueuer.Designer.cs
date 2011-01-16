@@ -1,6 +1,6 @@
 ﻿namespace CprBroker.EventBroker.Notifications
 {
-    partial class NotificationSender
+    partial class DataChangeEventEnqueuer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-
+            components = new System.ComponentModel.Container();
         }
 
         #endregion
-
     }
 }
