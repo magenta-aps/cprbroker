@@ -99,6 +99,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Subscriptions\SubscriptionDataProvider.cs" />
+    <Compile Include="Web References\EventsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\NotificationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,6 +147,7 @@
     <None Include="DAL\EventBrokerDataContext.dbml.layout">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
     </None>
+    <None Include="Web References\EventsService\Events.wsdl" />
     <None Include="Web References\NotificationService\Notification.wsdl" />
     <None Include="Web References\NotificationService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -155,6 +161,17 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:1551/Services/Events.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\EventsService\</RelPath>
+      <UpdateFromURL>http://localhost:1551/Services/Events.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CprBroker_EventBroker_EventsService_Events</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1551/Templates/Notification.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\NotificationService\</RelPath>
@@ -177,6 +194,16 @@
     <EmbeddedResource Include="Notifications\PeriodicTaskExecuter.resx">
       <DependentUpon>PeriodicTaskExecuter.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\EventsService\DataChangeEventInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\EventsService\Events.disco" />
+    <None Include="Web References\EventsService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

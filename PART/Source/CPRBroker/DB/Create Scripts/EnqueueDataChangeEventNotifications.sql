@@ -7,8 +7,8 @@ GO
 
 CREATE Procedure EnqueueDataChangeEventNotifications
 (
-		@StartDate DateTime,
-		@EndDate DateTime,
+		--@StartDate DateTime,
+		--@EndDate DateTime,
 		@Now DateTime,
 		@SubscriptionTypeId Int
 )
@@ -18,22 +18,22 @@ AS
 
 	-- Subscriptions for specific persons
 	INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
-	SELECT S.SubscriptionId, DCE.UUID, @Now
+	SELECT S.SubscriptionId, DCE.PersonUuid, @Now
 	FROM DataChangeEvent AS DCE
-	INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.UUID
+	INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
 	INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
 	WHERE 
-		DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
-		AND S.IsForAllPersons = 0
+		--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
+		S.IsForAllPersons = 0
 		AND S.SubscriptionTypeId = @SubscriptionTypeId
 		
 	-- Subscriptions for all persons
 	INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
-	SELECT S.SubscriptionId, DCE.UUID, @Now
+	SELECT S.SubscriptionId, DCE.PersonUuid, @Now
 	FROM DataChangeEvent AS DCE,	Subscription AS S	
 	WHERE 
-		DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
-		AND S.IsForAllPersons = 1
+		--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
+		S.IsForAllPersons = 1
 		AND S.SubscriptionTypeId = @SubscriptionTypeId
 		
 	

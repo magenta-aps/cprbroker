@@ -9,6 +9,9 @@ namespace CprBroker.EventBroker.Notifications
 {
     public partial class DataChangeEventEnqueuer : PeriodicTaskExecuter
     {
+        private EventsService.Events EventsService = new CprBroker.EventBroker.EventsService.Events();
+        public int BatchSize = 10;
+
         public DataChangeEventEnqueuer()
         {
             InitializeComponent();
@@ -28,12 +31,37 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void  PerformTimerAction()
         {
-            using (var dataContext = new DAL.EventBrokerDataContext())
+            bool moreChangesExist = true;
+
+            while (moreChangesExist)
             {
-                DateTime startDate = DateTime.Now;
-                //DateTime endDate = startDate - PollInterval;
-                // TODO: Get data change events from CPR Broker
-                //dataContext.EnqueueDataChangeEventNotifications(startDate, endDate, DateTime.Now, (int)DAL.SubscriptionType.SubscriptionTypes.DataChange);
+                var changedPeople = EventsService.DequeueDataChangeEvents(BatchSize);
+                moreChangesExist = changedPeople.Length == BatchSize;
+
+                using (var dataContext = new DAL.EventBrokerDataContext())
+                {
+                    var dbObjects = Array.ConvertAll<EventsService.DataChangeEventInfo, DAL.DataChangeEvent>(
+                        changedPeople,
+                        p => new DAL.DataChangeEvent()
+                        {
+                            DataChangeEventId = p.EventId,
+                            DueDate = p.ReceivedDate,
+                            PersonUuid = p.PersonUuid,
+                            ReceivedDate = DateTime.Now
+                        }
+                    );
+
+                    dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
+                    dataContext.SubmitChanges();
+
+                    DateTime startDate = DateTime.Now;
+
+                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, (int)DAL.SubscriptionType.SubscriptionTypes.DataChange);
+
+                    //TODO: Move this logic to above stored procedure
+                    dataContext.DataChangeEvents.DeleteAllOnSubmit(dbObjects);
+                    dataContext.SubmitChanges();
+                }
             }
         }
     }

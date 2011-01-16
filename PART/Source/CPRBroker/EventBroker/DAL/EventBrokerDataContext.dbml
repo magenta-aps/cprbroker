@@ -58,13 +58,6 @@
       <Association Name="ChannelType_Channel" Member="Channels" ThisKey="ChannelTypeId" OtherKey="ChannelTypeId" Type="Channel" />
     </Type>
   </Table>
-  <Table Name="dbo.DataChangeEvent" Member="DataChangeEvent222s">
-    <Type Name="DataChangeEvent222">
-      <Column Name="DataChangeEventId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="ReceivedDate" Storage="_ReceivedData" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.DataSubscription" Member="DataSubscriptions">
     <Type Name="DataSubscription">
       <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -126,6 +119,14 @@
       <Association Name="Subscription_EventNotification" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.DataChangeEvent" Member="DataChangeEvents">
+    <Type Name="DataChangeEvent">
+      <Column Name="DataChangeEventId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ReceivedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.GetDueNotifications" Method="GetDueNotifications">
     <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
     <Parameter Name="LastTime" Parameter="lastTime" Type="System.DateTime" DbType="DateTime" />
@@ -145,16 +146,14 @@
     <Parameter Name="Table" Parameter="table" Type="System.String" DbType="VarChar(50)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.EnqueueDataChangeEventNotifications" Method="EnqueueDataChangeEventNotifications">
-    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.EnqueueBirthdateEventNotifications" Method="EnqueueBirthdateEventNotifications">
     <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
     <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.EnqueueDataChangeEventNotifications" Method="EnqueueDataChangeEventNotifications">
+    <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

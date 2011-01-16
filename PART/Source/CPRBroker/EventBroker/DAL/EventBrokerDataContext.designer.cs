@@ -51,9 +51,6 @@ namespace CprBroker.EventBroker.DAL
     partial void InsertChannelType(ChannelType instance);
     partial void UpdateChannelType(ChannelType instance);
     partial void DeleteChannelType(ChannelType instance);
-    partial void InsertDataChangeEvent222(DataChangeEvent222 instance);
-    partial void UpdateDataChangeEvent222(DataChangeEvent222 instance);
-    partial void DeleteDataChangeEvent222(DataChangeEvent222 instance);
     partial void InsertDataSubscription(DataSubscription instance);
     partial void UpdateDataSubscription(DataSubscription instance);
     partial void DeleteDataSubscription(DataSubscription instance);
@@ -72,6 +69,9 @@ namespace CprBroker.EventBroker.DAL
     partial void InsertEventNotification(EventNotification instance);
     partial void UpdateEventNotification(EventNotification instance);
     partial void DeleteEventNotification(EventNotification instance);
+    partial void InsertDataChangeEvent(DataChangeEvent instance);
+    partial void UpdateDataChangeEvent(DataChangeEvent instance);
+    partial void DeleteDataChangeEvent(DataChangeEvent instance);
     #endregion
 		
 		public EventBrokerDataContext(string connection) : 
@@ -154,14 +154,6 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<DataChangeEvent222> DataChangeEvent222s
-		{
-			get
-			{
-				return this.GetTable<DataChangeEvent222>();
-			}
-		}
-		
 		public System.Data.Linq.Table<DataSubscription> DataSubscriptions
 		{
 			get
@@ -210,6 +202,14 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
+		public System.Data.Linq.Table<DataChangeEvent> DataChangeEvents
+		{
+			get
+			{
+				return this.GetTable<DataChangeEvent>();
+			}
+		}
+		
 		[Function(Name="dbo.GetDueNotifications")]
 		public int GetDueNotifications([Parameter(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [Parameter(Name="LastTime", DbType="DateTime")] System.Nullable<System.DateTime> lastTime)
 		{
@@ -231,17 +231,17 @@ namespace CprBroker.EventBroker.DAL
 			return ((int)(result.ReturnValue));
 		}
 		
-		[Function(Name="dbo.EnqueueDataChangeEventNotifications")]
-		public int EnqueueDataChangeEventNotifications([Parameter(Name="StartDate", DbType="DateTime")] System.Nullable<System.DateTime> startDate, [Parameter(Name="EndDate", DbType="DateTime")] System.Nullable<System.DateTime> endDate, [Parameter(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [Parameter(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate, now, subscriptionTypeId);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[Function(Name="dbo.EnqueueBirthdateEventNotifications")]
 		public int EnqueueBirthdateEventNotifications([Parameter(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [Parameter(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subscriptionId, today);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[Function(Name="dbo.EnqueueDataChangeEventNotifications")]
+		public int EnqueueDataChangeEventNotifications([Parameter(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [Parameter(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, subscriptionTypeId);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -1326,116 +1326,6 @@ namespace CprBroker.EventBroker.DAL
 		{
 			this.SendPropertyChanging();
 			entity.ChannelType = null;
-		}
-	}
-	
-	[Table(Name="dbo.DataChangeEvent")]
-	public partial class DataChangeEvent222 : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _DataChangeEventId;
-		
-		private System.Guid _PersonUuid;
-		
-		private System.DateTime _ReceivedData;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnDataChangeEventIdChanging(System.Guid value);
-    partial void OnDataChangeEventIdChanged();
-    partial void OnPersonUuidChanging(System.Guid value);
-    partial void OnPersonUuidChanged();
-    partial void OnReceivedDateChanging(System.DateTime value);
-    partial void OnReceivedDateChanged();
-    #endregion
-		
-		public DataChangeEvent222()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_DataChangeEventId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid DataChangeEventId
-		{
-			get
-			{
-				return this._DataChangeEventId;
-			}
-			set
-			{
-				if ((this._DataChangeEventId != value))
-				{
-					this.OnDataChangeEventIdChanging(value);
-					this.SendPropertyChanging();
-					this._DataChangeEventId = value;
-					this.SendPropertyChanged("DataChangeEventId");
-					this.OnDataChangeEventIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_PersonUuid", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid PersonUuid
-		{
-			get
-			{
-				return this._PersonUuid;
-			}
-			set
-			{
-				if ((this._PersonUuid != value))
-				{
-					this.OnPersonUuidChanging(value);
-					this.SendPropertyChanging();
-					this._PersonUuid = value;
-					this.SendPropertyChanged("PersonUuid");
-					this.OnPersonUuidChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ReceivedData", DbType="DateTime NOT NULL")]
-		public System.DateTime ReceivedDate
-		{
-			get
-			{
-				return this._ReceivedData;
-			}
-			set
-			{
-				if ((this._ReceivedData != value))
-				{
-					this.OnReceivedDateChanging(value);
-					this.SendPropertyChanging();
-					this._ReceivedData = value;
-					this.SendPropertyChanged("ReceivedDate");
-					this.OnReceivedDateChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -2701,6 +2591,140 @@ namespace CprBroker.EventBroker.DAL
 						this._SubscriptionId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Subscription");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.DataChangeEvent")]
+	public partial class DataChangeEvent : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _DataChangeEventId;
+		
+		private System.Guid _PersonUuid;
+		
+		private System.DateTime _DueDate;
+		
+		private System.DateTime _ReceivedDate;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDataChangeEventIdChanging(System.Guid value);
+    partial void OnDataChangeEventIdChanged();
+    partial void OnPersonUuidChanging(System.Guid value);
+    partial void OnPersonUuidChanged();
+    partial void OnDueDateChanging(System.DateTime value);
+    partial void OnDueDateChanged();
+    partial void OnReceivedDateChanging(System.DateTime value);
+    partial void OnReceivedDateChanged();
+    #endregion
+		
+		public DataChangeEvent()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_DataChangeEventId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid DataChangeEventId
+		{
+			get
+			{
+				return this._DataChangeEventId;
+			}
+			set
+			{
+				if ((this._DataChangeEventId != value))
+				{
+					this.OnDataChangeEventIdChanging(value);
+					this.SendPropertyChanging();
+					this._DataChangeEventId = value;
+					this.SendPropertyChanged("DataChangeEventId");
+					this.OnDataChangeEventIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PersonUuid", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid PersonUuid
+		{
+			get
+			{
+				return this._PersonUuid;
+			}
+			set
+			{
+				if ((this._PersonUuid != value))
+				{
+					this.OnPersonUuidChanging(value);
+					this.SendPropertyChanging();
+					this._PersonUuid = value;
+					this.SendPropertyChanged("PersonUuid");
+					this.OnPersonUuidChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DueDate", DbType="DateTime NOT NULL")]
+		public System.DateTime DueDate
+		{
+			get
+			{
+				return this._DueDate;
+			}
+			set
+			{
+				if ((this._DueDate != value))
+				{
+					this.OnDueDateChanging(value);
+					this.SendPropertyChanging();
+					this._DueDate = value;
+					this.SendPropertyChanged("DueDate");
+					this.OnDueDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ReceivedDate", DbType="DateTime NOT NULL")]
+		public System.DateTime ReceivedDate
+		{
+			get
+			{
+				return this._ReceivedDate;
+			}
+			set
+			{
+				if ((this._ReceivedDate != value))
+				{
+					this.OnReceivedDateChanging(value);
+					this.SendPropertyChanging();
+					this._ReceivedDate = value;
+					this.SendPropertyChanged("ReceivedDate");
+					this.OnReceivedDateChanged();
 				}
 			}
 		}
