@@ -50,18 +50,21 @@ namespace CprBroker.EventBroker.Subscriptions
                  (userToken, appToken, true, true, (admin) => admin.GetActiveSubscriptionsList(userToken, appToken), true, null);
             }
 
+            #endregion
+            /*
             public static BaseNotificationType GetLatestNotification(string userToken, string appToken, Guid subscriptionId)
             {
                 return CallMethod<ISubscriptionDataProvider, BaseNotificationType>
                  (userToken, appToken, true, true, (admin) => admin.GetLatestNotification(userToken, appToken, subscriptionId), true, null);
             }
-            #endregion
-
-            /*public static bool Enqueue(string userToken, string appToken,Guid personUuid)
+            */
+            /*
+            public static bool Enqueue(string userToken, string appToken,Guid personUuid)
             {
                 return CallMethod<INotificationManager, bool>
                     (userToken, appToken, true, true, (prov) => prov.Enqueue(personUuid), true, null);
-            }*/
+            }
+            */
         }
     }
 }

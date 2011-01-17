@@ -12,6 +12,10 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public static class Extensions
     {
+        public static NotificationService.BaseNotificationType ToWsdl(this CprBroker.Schemas.Part.Events.CommonEventStructureType oioNotif)
+        {
+            return null;
+        }
         public static NotificationService.BaseNotificationType ToWsdl(this CprBroker.Schemas.BaseNotificationType oioNotif)
         {
             NotificationService.BaseNotificationType ret = null;

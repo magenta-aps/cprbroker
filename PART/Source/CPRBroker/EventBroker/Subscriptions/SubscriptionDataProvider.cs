@@ -246,6 +246,7 @@ namespace CprBroker.EventBroker.Subscriptions
             }
         }
 
+        /*
         /// <summary>
         /// Interface implementation
         /// </summary>
@@ -261,6 +262,7 @@ namespace CprBroker.EventBroker.Subscriptions
                     ).FirstOrDefault();
             }
         }
+        */
 
         #region IDataProvider Members
 

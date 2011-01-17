@@ -19,7 +19,7 @@ namespace CprBroker.EventBroker.Notifications
         {
             TypesMap = new Dictionary<DAL.ChannelType.ChannelTypes, Type>();
             TypesMap[DAL.ChannelType.ChannelTypes.FileShare] = typeof(FileShareChannel);
-            TypesMap[DAL.ChannelType.ChannelTypes.WebService] = typeof(WebServiceChannel);            
+            TypesMap[DAL.ChannelType.ChannelTypes.WebService] = typeof(WebServiceChannel);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace CprBroker.EventBroker.Notifications
         /// Send the supplied notification through the channel
         /// </summary>
         /// <param name="notification"></param>
-        public abstract void Notify(DAL.Notification notification);
+        public abstract void Notify(DAL.EventNotification notification);
     }
 
     /// <summary>
@@ -76,17 +76,17 @@ namespace CprBroker.EventBroker.Notifications
         /// Notifies by calling a CPR Notification web service
         /// </summary>
         /// <param name="notification"></param>
-        public override void Notify(DAL.Notification notification)
+        public override void Notify(DAL.EventNotification notification)
         {
             NotificationService.Notification notificationService = new NotificationService.Notification();
             notificationService.Url = DatabaseObject.Url;
-            CprBroker.Schemas.BaseNotificationType oioNotification = notification.ToOioNotification();
-            NotificationService.BaseNotificationType wsdlNotif = oioNotification.ToWsdl();
+            var oioNotification = notification.ToOioNotification();
+            var wsdlNotif = oioNotification.ToWsdl();
             notificationService.Notify(DatabaseObject.Subscription.Application.Token, wsdlNotif);
         }
-        
+
     }
-        
+
     /// <summary>
     /// File share implementation of notification channel
     /// </summary>
@@ -105,14 +105,14 @@ namespace CprBroker.EventBroker.Notifications
         /// Notifies by serializing the notification into an XML file
         /// </summary>
         /// <param name="notification"></param>
-        public override void Notify(DAL.Notification notification)
+        public override void Notify(DAL.EventNotification notification)
         {
             string folder = DatabaseObject.Url;
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
             }
-            CprBroker.Schemas.BaseNotificationType oioNotif = notification.ToOioNotification();
+            var oioNotif = notification.ToOioNotification();
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(oioNotif.GetType());
             string filePath = CprBroker.Engine.Util.Strings.NewUniquePath(folder, "xml");
             System.IO.StreamWriter w = new System.IO.StreamWriter(filePath);

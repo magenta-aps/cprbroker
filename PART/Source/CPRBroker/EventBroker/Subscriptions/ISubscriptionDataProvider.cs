@@ -60,6 +60,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <returns></returns>
         CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken);
 
+        /*
         /// <summary>
         /// Gets the latest notification that has been sent for the subscription that matches the given <paramref name="subscriptionId"/>
         /// </summary>
@@ -68,5 +69,6 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <param name="subscriptionId">Subscription ID</param>
         /// <returns></returns>
         BaseNotificationType GetLatestNotification(string userToken, string appToken, Guid subscriptionId);
+        */
     }
 }

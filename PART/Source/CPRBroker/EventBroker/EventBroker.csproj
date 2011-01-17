@@ -39,6 +39,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -52,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="DAL\Channel.cs" />
+    <Compile Include="DAL\ChannelType.cs" />
     <Compile Include="DAL\EventBrokerDataContext.cs">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
     </Compile>
@@ -61,7 +62,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="DAL\Notification.cs" />
+    <Compile Include="DAL\EventNotification.cs" />
     <Compile Include="DAL\Subscription.cs" />
     <Compile Include="DAL\SubscriptionType.cs" />
     <Compile Include="Subscriptions\ISubscriptionDataProvider.cs" />

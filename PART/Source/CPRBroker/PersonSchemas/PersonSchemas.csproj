@@ -50,6 +50,7 @@
     <Compile Include="Events\DataChangeEventInfo.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="LaesInputType.cs" />
+    <Compile Include="Events\ObjectNotification.cs" />
     <Compile Include="PersonFlerRelationType.cs" />
     <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="PersonRelationType.cs" />

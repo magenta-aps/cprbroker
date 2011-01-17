@@ -54,8 +54,7 @@ namespace CprBroker.EventBroker.Notifications
                         try
                         {
                             Channel channel = Channel.Create(eventNotification.Subscription.Channels.Single());
-                            // TODO: Change this method call to use EventNotification object
-                            channel.Notify(null);
+                            channel.Notify(eventNotification);
                             eventNotification.Succeeded = true;
                         }
                         catch (Exception ex)

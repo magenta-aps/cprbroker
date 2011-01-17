@@ -192,6 +192,11 @@ namespace CprBroker.Engine.Util
             catch { }
             return null;
         }
+
+        public static Uri GuidToUri(Guid uuid)
+        {
+            return new Uri(string.Format("urn:uuid:{0}", uuid.ToString("")));
+        }
     }
 
 }
