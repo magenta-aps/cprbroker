@@ -86,7 +86,6 @@
     <Compile Include="Notifications\DataChangeEventEnqueuer.Designer.cs">
       <DependentUpon>DataChangeEventEnqueuer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Notifications\Extensions.cs" />
     <Compile Include="Notifications\NotificationSender.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -179,10 +178,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>CprBroker_EventBroker_EventsService_Events</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://localhost:1551/Templates/Notification.wsdl">
+    <WebReferenceUrl Include="http://localhost:1552/Templates/Notification.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\NotificationService\</RelPath>
-      <UpdateFromURL>http://localhost:1551/Templates/Notification.wsdl</UpdateFromURL>
+      <UpdateFromURL>http://localhost:1552/Templates/Notification.wsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

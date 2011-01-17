@@ -35,5 +35,32 @@ namespace CprBroker.EventBroker.DAL
             };
             return ret;
         }
+
+        public NotificationService.CommonEventStructureType ToWsdl()
+        {
+            //TODO: Implement this method
+            var ret = new NotificationService.CommonEventStructureType()
+            {
+                EventDetailStructure = null,
+                EventInfoStructure = new NotificationService.EventInfoStructureType()
+                {
+                    EventIdentifier = Strings.GuidToUri(this.EventNotificationId).ToString(),
+                    EventObjectStructure = new NotificationService.EventObjectStructureType()
+                    {
+                        actionSchemeReference = null,//new Uri(""),
+                        EventObjectActionCode = "",
+                        EventObjectReference = null,//new Uri(""),
+                        ObjectTypeReference = null,//new Uri(""),
+                    },
+                    EventProducerReference = null,//new Uri(""),
+                    EventRegistrationDateTime = this.CreatedDate,
+                },
+                EventSubscriptionReference = Strings.GuidToUri(this.SubscriptionId).ToString(),
+                EventTopic = null,//new Uri(""),
+                ExtensionStructure = null,
+                //Signature = null
+            };
+            return ret;
+        }
     }
 }

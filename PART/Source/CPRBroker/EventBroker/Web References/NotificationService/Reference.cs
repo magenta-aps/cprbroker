@@ -27,7 +27,7 @@ namespace CprBroker.EventBroker.NotificationService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="NotificationSoap", Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SubscriptionType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(object[]))]
     public partial class Notification : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback NotifyOperationCompleted;
@@ -80,19 +80,19 @@ namespace CprBroker.EventBroker.NotificationService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Notify", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void Notify(string appToken, BaseNotificationType notification) {
+        public void Notify(string appToken, CommonEventStructureType notification) {
             this.Invoke("Notify", new object[] {
                         appToken,
                         notification});
         }
         
         /// <remarks/>
-        public void NotifyAsync(string appToken, BaseNotificationType notification) {
+        public void NotifyAsync(string appToken, CommonEventStructureType notification) {
             this.NotifyAsync(appToken, notification, null);
         }
         
         /// <remarks/>
-        public void NotifyAsync(string appToken, BaseNotificationType notification, object userState) {
+        public void NotifyAsync(string appToken, CommonEventStructureType notification, object userState) {
             if ((this.NotifyOperationCompleted == null)) {
                 this.NotifyOperationCompleted = new System.Threading.SendOrPostCallback(this.OnNotifyOperationCompleted);
             }
@@ -154,140 +154,70 @@ namespace CprBroker.EventBroker.NotificationService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChangeNotificationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BirthdateNotificationType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public abstract partial class BaseNotificationType {
+    public partial class CommonEventStructureType {
         
-        private string applicationTokenField;
+        private EventInfoStructureType eventInfoStructureField;
         
-        private System.DateTime notificationDateField;
+        private string eventTopicField;
+        
+        private string eventSubscriptionReferenceField;
+        
+        private ExtensionStructureType extensionStructureField;
+        
+        private EventDetailStructureType eventDetailStructureField;
         
         /// <remarks/>
-        public string ApplicationToken {
+        public EventInfoStructureType EventInfoStructure {
             get {
-                return this.applicationTokenField;
+                return this.eventInfoStructureField;
             }
             set {
-                this.applicationTokenField = value;
+                this.eventInfoStructureField = value;
             }
         }
         
         /// <remarks/>
-        public System.DateTime NotificationDate {
+        public string EventTopic {
             get {
-                return this.notificationDateField;
+                return this.eventTopicField;
             }
             set {
-                this.notificationDateField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ChangeNotificationPersonType {
-        
-        private SimpleCPRPersonType simpleCPRPersonField;
-        
-        /// <remarks/>
-        public SimpleCPRPersonType SimpleCPRPerson {
-            get {
-                return this.simpleCPRPersonField;
-            }
-            set {
-                this.simpleCPRPersonField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
-    public partial class SimpleCPRPersonType {
-        
-        private PersonNameStructureType personNameStructureField;
-        
-        private string personCivilRegistrationIdentifierField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
-        public PersonNameStructureType PersonNameStructure {
-            get {
-                return this.personNameStructureField;
-            }
-            set {
-                this.personNameStructureField = value;
+                this.eventTopicField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/")]
-        public string PersonCivilRegistrationIdentifier {
+        public string EventSubscriptionReference {
             get {
-                return this.personCivilRegistrationIdentifierField;
+                return this.eventSubscriptionReferenceField;
             }
             set {
-                this.personCivilRegistrationIdentifierField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
-    public partial class PersonNameStructureType {
-        
-        private string personGivenNameField;
-        
-        private string personMiddleNameField;
-        
-        private string personSurnameNameField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonGivenName {
-            get {
-                return this.personGivenNameField;
-            }
-            set {
-                this.personGivenNameField = value;
+                this.eventSubscriptionReferenceField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonMiddleName {
+        public ExtensionStructureType ExtensionStructure {
             get {
-                return this.personMiddleNameField;
+                return this.extensionStructureField;
             }
             set {
-                this.personMiddleNameField = value;
+                this.extensionStructureField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonSurnameName {
+        public EventDetailStructureType EventDetailStructure {
             get {
-                return this.personSurnameNameField;
+                return this.eventDetailStructureField;
             }
             set {
-                this.personSurnameNameField = value;
+                this.eventDetailStructureField = value;
             }
         }
     }
@@ -298,153 +228,65 @@ namespace CprBroker.EventBroker.NotificationService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class BirthdateNotificationPersonType {
+    public partial class EventInfoStructureType {
         
-        private SimpleCPRPersonType simpleCPRPersonField;
+        private string eventIdentifierField;
         
-        private int ageField;
+        private string eventProducerReferenceField;
+        
+        private System.DateTime eventRegistrationDateTimeField;
+        
+        private EventObjectStructureType eventObjectStructureField;
+        
+        private ExtensionStructureType extensionStructureField;
         
         /// <remarks/>
-        public SimpleCPRPersonType SimpleCPRPerson {
+        public string EventIdentifier {
             get {
-                return this.simpleCPRPersonField;
+                return this.eventIdentifierField;
             }
             set {
-                this.simpleCPRPersonField = value;
+                this.eventIdentifierField = value;
             }
         }
         
         /// <remarks/>
-        public int Age {
+        public string EventProducerReference {
             get {
-                return this.ageField;
+                return this.eventProducerReferenceField;
             }
             set {
-                this.ageField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FileShareChannelType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public abstract partial class ChannelBaseType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class FileShareChannelType : ChannelBaseType {
-        
-        private string pathField;
-        
-        /// <remarks/>
-        public string Path {
-            get {
-                return this.pathField;
-            }
-            set {
-                this.pathField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class WebServiceChannelType : ChannelBaseType {
-        
-        private string webServiceUrlField;
-        
-        /// <remarks/>
-        public string WebServiceUrl {
-            get {
-                return this.webServiceUrlField;
-            }
-            set {
-                this.webServiceUrlField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChangeSubscriptionType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BirthdateSubscriptionType))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public abstract partial class SubscriptionType {
-        
-        private string subscriptionIdField;
-        
-        private string applicationTokenField;
-        
-        private ChannelBaseType notificationChannelField;
-        
-        private bool forAllPersonsField;
-        
-        private string[] personUuidsField;
-        
-        /// <remarks/>
-        public string SubscriptionId {
-            get {
-                return this.subscriptionIdField;
-            }
-            set {
-                this.subscriptionIdField = value;
+                this.eventProducerReferenceField = value;
             }
         }
         
         /// <remarks/>
-        public string ApplicationToken {
+        public System.DateTime EventRegistrationDateTime {
             get {
-                return this.applicationTokenField;
+                return this.eventRegistrationDateTimeField;
             }
             set {
-                this.applicationTokenField = value;
+                this.eventRegistrationDateTimeField = value;
             }
         }
         
         /// <remarks/>
-        public ChannelBaseType NotificationChannel {
+        public EventObjectStructureType EventObjectStructure {
             get {
-                return this.notificationChannelField;
+                return this.eventObjectStructureField;
             }
             set {
-                this.notificationChannelField = value;
+                this.eventObjectStructureField = value;
             }
         }
         
         /// <remarks/>
-        public bool ForAllPersons {
+        public ExtensionStructureType ExtensionStructure {
             get {
-                return this.forAllPersonsField;
+                return this.extensionStructureField;
             }
             set {
-                this.forAllPersonsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string[] PersonUuids {
-            get {
-                return this.personUuidsField;
-            }
-            set {
-                this.personUuidsField = value;
+                this.extensionStructureField = value;
             }
         }
     }
@@ -455,73 +297,53 @@ namespace CprBroker.EventBroker.NotificationService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ChangeSubscriptionType : SubscriptionType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class BirthdateSubscriptionType : SubscriptionType {
+    public partial class EventObjectStructureType {
         
-        private System.Nullable<int> ageYearsField;
+        private string objectTypeReferenceField;
         
-        private int priorDaysField;
+        private string eventObjectReferenceField;
+        
+        private string actionSchemeReferenceField;
+        
+        private string eventObjectActionCodeField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<int> AgeYears {
+        public string ObjectTypeReference {
             get {
-                return this.ageYearsField;
+                return this.objectTypeReferenceField;
             }
             set {
-                this.ageYearsField = value;
+                this.objectTypeReferenceField = value;
             }
         }
         
         /// <remarks/>
-        public int PriorDays {
+        public string EventObjectReference {
             get {
-                return this.priorDaysField;
+                return this.eventObjectReferenceField;
             }
             set {
-                this.priorDaysField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ChangeNotificationType : BaseNotificationType {
-        
-        private ChangeSubscriptionType changeSubscriptionField;
-        
-        private ChangeNotificationPersonType[] personsField;
-        
-        /// <remarks/>
-        public ChangeSubscriptionType ChangeSubscription {
-            get {
-                return this.changeSubscriptionField;
-            }
-            set {
-                this.changeSubscriptionField = value;
+                this.eventObjectReferenceField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Person", IsNullable=false)]
-        public ChangeNotificationPersonType[] Persons {
+        public string actionSchemeReference {
             get {
-                return this.personsField;
+                return this.actionSchemeReferenceField;
             }
             set {
-                this.personsField = value;
+                this.actionSchemeReferenceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string EventObjectActionCode {
+            get {
+                return this.eventObjectActionCodeField;
+            }
+            set {
+                this.eventObjectActionCodeField = value;
             }
         }
     }
@@ -532,30 +354,38 @@ namespace CprBroker.EventBroker.NotificationService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class BirthdateNotificationType : BaseNotificationType {
+    public abstract partial class EventDetailStructureType {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class ExtensionStructureType {
         
-        private BirthdateSubscriptionType birthdateSubscriptionField;
+        private System.Guid idField;
         
-        private BirthdateNotificationPersonType[] personsField;
+        private object[] itemField;
         
         /// <remarks/>
-        public BirthdateSubscriptionType BirthdateSubscription {
+        public System.Guid ID {
             get {
-                return this.birthdateSubscriptionField;
+                return this.idField;
             }
             set {
-                this.birthdateSubscriptionField = value;
+                this.idField = value;
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Person", IsNullable=false)]
-        public BirthdateNotificationPersonType[] Persons {
+        public object[] Item {
             get {
-                return this.personsField;
+                return this.itemField;
             }
             set {
-                this.personsField = value;
+                this.itemField = value;
             }
         }
     }

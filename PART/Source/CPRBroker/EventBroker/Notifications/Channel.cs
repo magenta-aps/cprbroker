@@ -79,9 +79,8 @@ namespace CprBroker.EventBroker.Notifications
         public override void Notify(DAL.EventNotification notification)
         {
             NotificationService.Notification notificationService = new NotificationService.Notification();
-            notificationService.Url = DatabaseObject.Url;
-            var oioNotification = notification.ToOioNotification();
-            var wsdlNotif = oioNotification.ToWsdl();
+            notificationService.Url = DatabaseObject.Url;            
+            var wsdlNotif = notification.ToWsdl();
             notificationService.Notify(DatabaseObject.Subscription.Application.Token, wsdlNotif);
         }
 

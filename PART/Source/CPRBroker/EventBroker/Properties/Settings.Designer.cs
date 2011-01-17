@@ -26,7 +26,7 @@ namespace CprBroker.EventBroker.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1551/Services/Notification.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1552/Services/Notification.asmx")]
         public string CprBroker_EventBroker_NotificationService_Notification {
             get {
                 return ((string)(this["CprBroker_EventBroker_NotificationService_Notification"]));
