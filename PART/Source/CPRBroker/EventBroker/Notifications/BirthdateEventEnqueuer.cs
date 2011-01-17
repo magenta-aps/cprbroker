@@ -7,9 +7,8 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public partial class BirthdateEventEnqueuer : PeriodicTaskExecuter
+    public partial class BirthdateEventEnqueuer : CprBrokerEventEnqueuer 
     {
-        private EventsService.Events EventsService = new CprBroker.EventBroker.EventsService.Events();
         public int BatchSize = 10;
 
         public BirthdateEventEnqueuer()
@@ -22,7 +21,6 @@ namespace CprBroker.EventBroker.Notifications
             : base(container)
         {
             container.Add(this);
-
             InitializeComponent();
         }
 

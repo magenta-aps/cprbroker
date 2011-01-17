@@ -7,33 +7,19 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public partial class DataChangeEventEnqueuer : PeriodicTaskExecuter
+    public partial class DataChangeEventEnqueuer : CprBrokerEventEnqueuer 
     {
-        private EventsService.Events EventsService = new CprBroker.EventBroker.EventsService.Events();
         public int BatchSize = 10;
 
         public DataChangeEventEnqueuer()
         {
-            InitializeComponent();
-
-            InitializeEventsService();
+            InitializeComponent();        
         }
 
         public DataChangeEventEnqueuer(IContainer container)
         {
             container.Add(this);
-            InitializeComponent();
-
-            InitializeEventsService();
-        }
-
-        private void InitializeEventsService()
-        {
-            this.EventsService.ApplicationHeaderValue = new CprBroker.EventBroker.EventsService.ApplicationHeader()
-            {
-                ApplicationToken = Constants.BaseApplicationToken.ToString(),
-                UserToken = ""
-            };
+            InitializeComponent();            
         }
 
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)

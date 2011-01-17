@@ -7,7 +7,8 @@ namespace CprBroker.Schemas.Part.Events
 {
     public class CommonEventStructureType
     {
-        public System.Security.Cryptography.Xml.Signature Signature { get; set; }
+        //TODO: Signature removed to allow serialization
+        //public System.Security.Cryptography.Xml.Signature Signature { get; set; }
         public EventInfoStructureType EventInfoStructure { get; set; }
         public string EventTopic { get; set; }
         public string EventSubscriptionReference { get; set; }

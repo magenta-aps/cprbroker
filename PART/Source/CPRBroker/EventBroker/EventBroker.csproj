@@ -65,6 +65,12 @@
     <Compile Include="DAL\EventNotification.cs" />
     <Compile Include="DAL\Subscription.cs" />
     <Compile Include="DAL\SubscriptionType.cs" />
+    <Compile Include="Notifications\CprBrokerEventEnqueuer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notifications\CprBrokerEventEnqueuer.Designer.cs">
+      <DependentUpon>CprBrokerEventEnqueuer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Subscriptions\ISubscriptionDataProvider.cs" />
     <Compile Include="Subscriptions\Manager.Subscription.cs" />
     <Compile Include="Notifications\BirthdateEventEnqueuer.cs">
