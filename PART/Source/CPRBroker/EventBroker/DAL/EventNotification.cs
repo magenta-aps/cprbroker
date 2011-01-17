@@ -22,7 +22,7 @@ namespace CprBroker.EventBroker.DAL
                     {
                         actionSchemeReference = null,//new Uri(""),
                         EventObjectActionCode = "",
-                        EventObjectReference = null,//new Uri(""),
+                        EventObjectReference = Strings.GuidToUri(this.PersonUuid).ToString(),
                         ObjectTypeReference = null,//new Uri(""),
                     },
                     EventProducerReference = null,//new Uri(""),
@@ -49,7 +49,7 @@ namespace CprBroker.EventBroker.DAL
                     {
                         actionSchemeReference = null,//new Uri(""),
                         EventObjectActionCode = "",
-                        EventObjectReference = null,//new Uri(""),
+                        EventObjectReference = Strings.GuidToUri(this.PersonUuid).ToString(),
                         ObjectTypeReference = null,//new Uri(""),
                     },
                     EventProducerReference = null,//new Uri(""),
