@@ -126,10 +126,6 @@
       <DependentUpon>Events.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Services\Notification.asmx.cs">
-      <DependentUpon>Notification.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Services\Part.asmx.cs">
       <DependentUpon>Part.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -151,12 +147,10 @@
     <Content Include="Pages\Images\unn_bottom.gif" />
     <Content Include="Pages\LogEntries.aspx" />
     <Content Include="Services\Events.asmx" />
-    <Content Include="Services\Notification.asmx" />
     <None Include="Config\connectionStrings.beta.config" />
     <Content Include="Services\Part.asmx" />
     <Content Include="Web.sitemap" />
     <Content Include="Pages\Site.Master" />
-    <None Include="Templates\Notification.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
