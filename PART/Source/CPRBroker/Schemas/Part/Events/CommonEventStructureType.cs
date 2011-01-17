@@ -9,8 +9,8 @@ namespace CprBroker.Schemas.Part.Events
     {
         public System.Security.Cryptography.Xml.Signature Signature { get; set; }
         public EventInfoStructureType EventInfoStructure { get; set; }
-        public Uri EventTopic { get; set; }
-        public Uri EventSubscriptionReference { get; set; }
+        public string EventTopic { get; set; }
+        public string EventSubscriptionReference { get; set; }
         public ExtensionStructureType ExtensionStructure { get; set; }
         public EventDetailStructureType EventDetailStructure { get; set; }
     }

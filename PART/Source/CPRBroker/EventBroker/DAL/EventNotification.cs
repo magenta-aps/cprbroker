@@ -17,21 +17,21 @@ namespace CprBroker.EventBroker.DAL
                 EventDetailStructure = null,
                 EventInfoStructure = new EventInfoStructureType()
                 {
-                    EventIdentifier = Strings.GuidToUri(this.EventNotificationId),
+                    EventIdentifier = Strings.GuidToUri(this.EventNotificationId).ToString(),
                     EventObjectStructure = new EventObjectStructureType()
                     {
-                        actionSchemeReference = new Uri(""),
+                        actionSchemeReference = null,//new Uri(""),
                         EventObjectActionCode = "",
-                        EventObjectReference = new Uri(""),
-                        ObjectTypeReference = new Uri(""),
+                        EventObjectReference = null,//new Uri(""),
+                        ObjectTypeReference = null,//new Uri(""),
                     },
-                    EventProducerReference = new Uri(""),
+                    EventProducerReference = null,//new Uri(""),
                     EventRegistrationDateTime = this.CreatedDate,
                 },
-                EventSubscriptionReference = Strings.GuidToUri(this.SubscriptionId),
-                EventTopic = new Uri(""),
+                EventSubscriptionReference = Strings.GuidToUri(this.SubscriptionId).ToString(),
+                EventTopic = null,//new Uri(""),
                 ExtensionStructure = null,
-                Signature = null
+                //Signature = null
             };
             return ret;
         }
