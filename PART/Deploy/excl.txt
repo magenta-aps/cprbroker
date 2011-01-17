@@ -3,3 +3,4 @@
 \bin\
 Source\CPRBroker\CPRService\web.config
 Source\CPRBroker\EventBrokerWeb\web.config
+Source\CPRBroker\Backend\app.config
