@@ -88,6 +88,10 @@
       <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventBroker\EventBroker.csproj">
+      <Project>{D8FC2102-488A-480A-8197-8842B8192E68}</Project>
+      <Name>EventBroker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using CPRBroker.Engine;
-using CPRBroker.DAL;
+using CprBroker.Engine;
+using CprBroker.DAL;
 
-namespace CPRBroker.BackendUI
+namespace CprBroker.BackendUI
 {
     public partial class TestForm : Form
     {
@@ -21,17 +21,18 @@ namespace CPRBroker.BackendUI
 
         private void notifyButton_Click(object sender, EventArgs e)
         {
+            /*
             string notifyButtonText = notifyButton.Text;
             notifyButton.Enabled = false;
             resultTextBox.Text = "Calling...";
             // Create a new worker thread that sends the notifications
             WaitCallback callBack = (target) =>
                 {
-                    BrokerContext.Initialize(DAL.Application.BaseApplicationToken.ToString(), CPRBroker.Engine.Constants.UserToken, true, false, true);
+                    BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false, true);
 
                     // Refresh persons
-                    CPRBroker.Engine.NotificationEngine.RefreshPersonsData();
-                    var result = CPRBroker.Engine.NotificationEngine.SendNotifications(notifyDateTimePicker.Value.Date);
+                    Engine.NotificationEngine.RefreshPersonsData();
+                    var result = Engine.NotificationEngine.SendNotifications(notifyDateTimePicker.Value.Date);
                     string xml = Engine.Util.Strings.SerializeObject(result);
                     Action notificationAction = () =>
                     {
@@ -41,12 +42,19 @@ namespace CPRBroker.BackendUI
                     };
                     this.Invoke(notificationAction);
                 };
-            ThreadPool.QueueUserWorkItem(callBack);
+            ThreadPool.QueueUserWorkItem(callBack);*/
         }
 
         private void closeButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void TestForm_Load(object sender, EventArgs e)
+        {
+            this.BirthdateEventEnqueuer.Start();
+            this.DataChangeEventEnqueuer.Start();
+            this.NotificationSender.Start();
         }
     }
 }
