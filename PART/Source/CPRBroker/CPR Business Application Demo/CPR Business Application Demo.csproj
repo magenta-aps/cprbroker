@@ -112,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\PartAdapter.cs" />
-    <Compile Include="BLL\PartController.cs" />
     <Compile Include="CreateTestCitizenForm.cs">
       <SubType>Form</SubType>
     </Compile>

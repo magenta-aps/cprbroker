@@ -8,7 +8,7 @@ namespace CPR_Business_Application_Demo.Business
     public class CPRAdministrationController
     {
         #region Construction
-        public CPRAdministrationController(ApplicationSettingsBase settings)
+        public      CPRAdministrationController(ApplicationSettingsBase settings)
         {
             this.Settings = settings;
 
