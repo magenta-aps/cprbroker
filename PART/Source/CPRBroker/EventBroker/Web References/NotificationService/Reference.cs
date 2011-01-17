@@ -80,24 +80,22 @@ namespace CprBroker.EventBroker.NotificationService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Notify", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void Notify(string appToken, CommonEventStructureType notification) {
+        public void Notify(CommonEventStructureType notification) {
             this.Invoke("Notify", new object[] {
-                        appToken,
                         notification});
         }
         
         /// <remarks/>
-        public void NotifyAsync(string appToken, CommonEventStructureType notification) {
-            this.NotifyAsync(appToken, notification, null);
+        public void NotifyAsync(CommonEventStructureType notification) {
+            this.NotifyAsync(notification, null);
         }
         
         /// <remarks/>
-        public void NotifyAsync(string appToken, CommonEventStructureType notification, object userState) {
+        public void NotifyAsync(CommonEventStructureType notification, object userState) {
             if ((this.NotifyOperationCompleted == null)) {
                 this.NotifyOperationCompleted = new System.Threading.SendOrPostCallback(this.OnNotifyOperationCompleted);
             }
             this.InvokeAsync("Notify", new object[] {
-                        appToken,
                         notification}, this.NotifyOperationCompleted, userState);
         }
         
