@@ -81,7 +81,7 @@ namespace CprBroker.EventBroker.Notifications
             NotificationService.Notification notificationService = new NotificationService.Notification();
             notificationService.Url = DatabaseObject.Url;            
             var wsdlNotif = notification.ToWsdl();
-            notificationService.Notify(DatabaseObject.Subscription.Application.Token, wsdlNotif);
+            notificationService.Notify(wsdlNotif);
         }
 
     }
