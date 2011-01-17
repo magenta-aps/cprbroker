@@ -27,9 +27,9 @@ namespace CprBroker.Web
         }
 
         [WebMethod(MessageName = Schemas.ServiceNames.Notification.MethodNames.Notify, Description = Schemas.ServiceDescription.Notification.Notify)]
-        public void Notify(string appToken, Schemas.Part.Events.CommonEventStructureType notification)
+        public void Notify(Schemas.Part.Events.CommonEventStructureType notification)
         {
-
+            CprBroker.Engine.Local.Admin.LogSuccess(Engine.Util.Strings.SerializeObject(notification));
         }
 
         [WebMethod(MessageName = Schemas.ServiceNames.Notification.MethodNames.Ping, Description = Schemas.ServiceDescription.Notification.Ping)]
