@@ -10,7 +10,7 @@ namespace CprBroker.NUnitTester
     public class SubscriptionsTest : BaseTest
     {
         private Dictionary<string, Guid> CprNumberMap = new Dictionary<string, Guid>();
-        
+
         public void MapCprNumbers()
         {
             foreach (string cprNumber in TestData.cprNumbers)
@@ -47,53 +47,53 @@ namespace CprBroker.NUnitTester
             return TestData.birthdateSubscriptionFunctions;
         }
 
-       /* [Test]
-        [Combinatorial]
-        public void T510_SendBirthdateNotifications(
-            [ValueSource("birthDateSubscriptionFuncs")]             
-            Func<Subscriptions.BirthdateSubscriptionType> subscriptionFunc,
-                [Values(0, -1, 2)] int yearsDiff,
-                [Values(0, 1, 2, -2)] int daysDiff
-            )
-        {
-            Subscriptions.BirthdateSubscriptionType subscription = subscriptionFunc();
-            string baseCprNumber;
-            DateTime birthDate;
-            if (subscription.ForAllPersons)
-            {
-                baseCprNumber = TestData.cprNumbers[0];
-                birthDate = CPRBroker.DAL.Person.PersonNumberToDate(baseCprNumber).Value;
-            }
-            else
-            {
-                baseCprNumber = subscription.PersonUuids[0];
-                birthDate = CPRBroker.DAL.Person.PersonNumberToDate(baseCprNumber).Value;
-            }
+        /* [Test]
+         [Combinatorial]
+         public void T510_SendBirthdateNotifications(
+             [ValueSource("birthDateSubscriptionFuncs")]             
+             Func<Subscriptions.BirthdateSubscriptionType> subscriptionFunc,
+                 [Values(0, -1, 2)] int yearsDiff,
+                 [Values(0, 1, 2, -2)] int daysDiff
+             )
+         {
+             Subscriptions.BirthdateSubscriptionType subscription = subscriptionFunc();
+             string baseCprNumber;
+             DateTime birthDate;
+             if (subscription.ForAllPersons)
+             {
+                 baseCprNumber = TestData.cprNumbers[0];
+                 birthDate = CPRBroker.DAL.Person.PersonNumberToDate(baseCprNumber).Value;
+             }
+             else
+             {
+                 baseCprNumber = subscription.PersonUuids[0];
+                 birthDate = CPRBroker.DAL.Person.PersonNumberToDate(baseCprNumber).Value;
+             }
 
-            int years = subscription.AgeYears.HasValue ? subscription.AgeYears.Value : 10;
-            DateTime notifyDate = birthDate.AddYears(years + yearsDiff).AddDays(-(TestData.birthdateDays + daysDiff));
-            bool expected = daysDiff == 0 && (yearsDiff == 0 || !subscription.AgeYears.HasValue);
-            var foundIds = TestRunner.AccessService.SendNotifications(notifyDate);
-            bool notified = foundIds.SentNotificationIds.Contains(new Guid(subscription.SubscriptionId));
-            Assert.AreEqual(expected, notified,
-                string.Format("Notification match error. Expected:{0}, \r\n AgeYears={1}, PriorDays={2}, \r\n BirthDate={3}, NotifyDate={4}", expected, years, subscription.PriorDays, birthDate, notifyDate)
-                );
+             int years = subscription.AgeYears.HasValue ? subscription.AgeYears.Value : 10;
+             DateTime notifyDate = birthDate.AddYears(years + yearsDiff).AddDays(-(TestData.birthdateDays + daysDiff));
+             bool expected = daysDiff == 0 && (yearsDiff == 0 || !subscription.AgeYears.HasValue);
+             var foundIds = TestRunner.AccessService.SendNotifications(notifyDate);
+             bool notified = foundIds.SentNotificationIds.Contains(new Guid(subscription.SubscriptionId));
+             Assert.AreEqual(expected, notified,
+                 string.Format("Notification match error. Expected:{0}, \r\n AgeYears={1}, PriorDays={2}, \r\n BirthDate={3}, NotifyDate={4}", expected, years, subscription.PriorDays, birthDate, notifyDate)
+                 );
 
-            if (expected)
-            {
-                var notification = TestRunner.SubscriptionsService.GetLatestNotification(new Guid(subscription.SubscriptionId));
-                Assert.IsNotNull(notification);
-                Assert.AreEqual(notification.ApplicationToken, TestData.AppToken);
-                Assert.GreaterOrEqual(notification.NotificationDate, notifyDate.Date);
-                Assert.IsInstanceOf<Subscriptions.BirthdateNotificationType>(notification);
-                Subscriptions.BirthdateNotificationType bdNotif = notification as Subscriptions.BirthdateNotificationType;
-                Assert.IsNotNull(bdNotif.BirthdateSubscription);
-                Assert.AreEqual(bdNotif.BirthdateSubscription.SubscriptionId, subscription.SubscriptionId);
-                Assert.Greater(bdNotif.Persons.Count(), 0);
+             if (expected)
+             {
+                 var notification = TestRunner.SubscriptionsService.GetLatestNotification(new Guid(subscription.SubscriptionId));
+                 Assert.IsNotNull(notification);
+                 Assert.AreEqual(notification.ApplicationToken, TestData.AppToken);
+                 Assert.GreaterOrEqual(notification.NotificationDate, notifyDate.Date);
+                 Assert.IsInstanceOf<Subscriptions.BirthdateNotificationType>(notification);
+                 Subscriptions.BirthdateNotificationType bdNotif = notification as Subscriptions.BirthdateNotificationType;
+                 Assert.IsNotNull(bdNotif.BirthdateSubscription);
+                 Assert.AreEqual(bdNotif.BirthdateSubscription.SubscriptionId, subscription.SubscriptionId);
+                 Assert.Greater(bdNotif.Persons.Count(), 0);
 
-            }
-        }
-        */
+             }
+         }
+         */
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersToSubscribeFieldName)]

@@ -19,6 +19,10 @@ namespace CprBroker.EventBroker.Backend
         public BackendService()
         {
             InitializeComponent();
+
+            this.BirthdateEventEnqueuer.EventLog = this.EventLog;
+            this.DataChangeEventEnqueuer.EventLog = this.EventLog;
+            this.NotificationSender.EventLog = this.EventLog;
         }
 
         private void StartQueues()

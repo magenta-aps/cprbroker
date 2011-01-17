@@ -62,13 +62,13 @@ namespace CprBroker.EventBroker.Web.Services
         {
             return Manager.Subscriptions.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
-
+        /*
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.GetLatestNotification, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.GetLatestNotification)]
         public BaseNotificationType GetLatestNotification(Guid SubscriptionId)
         {
             return Manager.Subscriptions.GetLatestNotification(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
-        }
+        }*/
 
         
     }
