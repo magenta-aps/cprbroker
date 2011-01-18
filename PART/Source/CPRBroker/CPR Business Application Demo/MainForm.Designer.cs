@@ -181,10 +181,10 @@
             // 
             // mainTabControl
             // 
+            this.mainTabControl.Controls.Add(this.parttabPage);
             this.mainTabControl.Controls.Add(this.personTabPage);
             this.mainTabControl.Controls.Add(this.subscriptionTabPage);
             this.mainTabControl.Controls.Add(this.tabPage1);
-            this.mainTabControl.Controls.Add(this.parttabPage);
             this.mainTabControl.Location = new System.Drawing.Point(12, 27);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;

@@ -17,6 +17,7 @@ namespace CPR_Business_Application_Demo
         public MainForm()
         {
             InitializeComponent();
+            this.mainTabControl.TabPages.Remove(this.personTabPage);
         }
 
 
