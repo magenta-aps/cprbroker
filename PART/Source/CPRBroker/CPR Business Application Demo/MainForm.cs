@@ -76,8 +76,8 @@ namespace CPR_Business_Application_Demo
                 else
                 {
                     mainTabControl.Enabled = false;
-                    registeredStatusLabel.Text = "Application is Not registered! \n"+Properties.Settings.Default+
-                      "\nurl="+Properties.Settings.Default.CPRBrokerWebServiceUrl;
+                    registeredStatusLabel.Text = "Application is Not registered! \n" + Properties.Settings.Default +
+                      "\nurl=" + Properties.Settings.Default.CPRBrokerWebServiceUrl;
                     if (showMessageBox)
                     {
                         MessageBox.Show(this,
@@ -138,7 +138,7 @@ namespace CPR_Business_Application_Demo
 
         #endregion
 
-        
+
         #region INotificationListener Members
 
         private delegate void ReportChangedPersonRegistrationIdsDelegate(List<NotificationPerson> changedPersonRegistrationIds);
@@ -359,16 +359,16 @@ namespace CPR_Business_Application_Demo
         #endregion
 
         private void readButton_Click(object sender, EventArgs e)
-        {            
+        {
             PartAdapter adapter = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
 
-	   Guid personUuid = new Guid(uuidTextBox.Text);
+            Guid personUuid = new Guid(uuidTextBox.Text);
             var personReg = adapter.Read(Properties.Settings.Default.AdminAppToken, personUuid);
-        ConsoleWriteLine("  looking up uid:" + personUuid);
-	System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof (PartService.RegistreringType1));
-	StringWriter w = new StringWriter();	
-	ser.Serialize(w,personReg);
-        resultXmlTextBox.Text = "  result for uid:" + personUuid+ "    \n" + w.ToString();
+            ConsoleWriteLine("  looking up uid:" + personUuid);
+            System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(PartService.RegistreringType1));
+            StringWriter w = new StringWriter();
+            ser.Serialize(w, personReg);
+            resultXmlTextBox.Text = "  result for uid:" + personUuid + "    \n" + w.ToString();
         }
     }
 }
