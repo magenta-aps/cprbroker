@@ -360,13 +360,15 @@ namespace CPR_Business_Application_Demo
 
         private void readButton_Click(object sender, EventArgs e)
         {            
-            // FIMEme var partController = new PartController(Properties.Settings.Default);
-            Guid personUuid = new Guid(uuidTextBox.Text);
-            // var personReg = partController.Read(personUuid);
-	    // Fixme System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof (PartService.PersonRegistration));
-            StringWriter w = new StringWriter();
-	//FIXME    ser.Serialize(w,personReg);
-            resultXmlTextBox.Text = w.ToString();
+            PartAdapter adapter = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
+
+	   Guid personUuid = new Guid(uuidTextBox.Text);
+            var personReg = adapter.Read(Properties.Settings.Default.AdminAppToken, personUuid);
+        ConsoleWriteLine("  looking up uid:" + personUuid);
+	System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof (PartService.RegistreringType1));
+	StringWriter w = new StringWriter();	
+	ser.Serialize(w,personReg);
+        resultXmlTextBox.Text = "  result for uid:" + personUuid+ "    \n" + w.ToString();
         }
     }
 }
