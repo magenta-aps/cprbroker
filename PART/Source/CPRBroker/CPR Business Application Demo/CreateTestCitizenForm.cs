@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using CPR_Business_Application_Demo.Adapters.CPRAdministrationWS;
+using CPR_Business_Application_Demo.ApplicationsService;
 
 namespace CPR_Business_Application_Demo
 {
@@ -33,7 +33,7 @@ namespace CPR_Business_Application_Demo
             person.RegularCPRPerson.PersonBirthDateStructure.BirthDate = BirthDateCalendar.Value;
             person.MaritalStatusCode = (MaritalStatusCodeType) MaritalStatusComboBox.SelectedIndex;
             person.RegularCPRPerson.PersonGenderCode = (PersonGenderCodeType) GenderCombo.SelectedIndex;
-            person.PersonInformationProtectionIndicator = InformationProtectionCheckBox.Checked;
+            //person.PersonInformationProtectionIndicator = InformationProtectionCheckBox.Checked;
             person.RegularCPRPerson.SimpleCPRPerson.PersonCivilRegistrationIdentifier =
                 BirthDateCalendar.Value.ToString("ddMMyy" + CprTextBox.Text);
 

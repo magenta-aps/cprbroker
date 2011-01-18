@@ -25,7 +25,7 @@ namespace CPR_Business_Application_Demo
         #region Private Methods
         private void VerifyRegistrationAndApproval()
         {
-            var adminController = new CPRAdministrationController(Properties.Settings.Default);
+            var adminController = new ApplicationsController(Properties.Settings.Default);
             var applicationRegistration = adminController.ApplicationIsRegistered(cprBrokerWebServiceUrlTextBox.Text);
             if (applicationRegistration != null)
             {
@@ -101,7 +101,7 @@ namespace CPR_Business_Application_Demo
         private void testConnectionButton_Click(object sender, EventArgs e)
         {
             CPRBrokerLogPage.Links.Clear();
-            var adminController = new CPRAdministrationController(Properties.Settings.Default);
+            var adminController = new ApplicationsController(Properties.Settings.Default);
 
             bool testOk = adminController.TestWSConnection(cprBrokerWebServiceUrlTextBox.Text);
             appRegistrationGroupBox.Enabled = testOk;
@@ -127,7 +127,7 @@ namespace CPR_Business_Application_Demo
         private void registerApplicationButton_Click(object sender, EventArgs e)
         {
             appRegistrationLabel.Text = "";
-            var adminController = new CPRAdministrationController(Properties.Settings.Default);
+            var adminController = new ApplicationsController(Properties.Settings.Default);
 
             string appToken = adminController.RegisterApplication(cprBrokerWebServiceUrlTextBox.Text);
 
@@ -135,7 +135,7 @@ namespace CPR_Business_Application_Demo
             {
                 Properties.Settings.Default.AppToken = appToken;
                 var labelText = "Application is registered.\n";
-                var approveController = new CPRAdministrationController(Properties.Settings.Default);
+                var approveController = new ApplicationsController(Properties.Settings.Default);
                 bool applicationIsApproved = approveController.ApproveApplication(cprBrokerWebServiceUrlTextBox.Text,
                                                                                   adminAppTokenTextBox.Text);
                 if (applicationIsApproved)

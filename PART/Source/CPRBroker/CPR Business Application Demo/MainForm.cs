@@ -55,7 +55,7 @@ namespace CPR_Business_Application_Demo
         {
             try
             {
-                var adminController = new CPRAdministrationController(Properties.Settings.Default);
+                var adminController = new ApplicationsController(Properties.Settings.Default);
                 var applicationRegistration =
                     adminController.ApplicationIsRegistered(Properties.Settings.Default.CPRBrokerWebServiceUrl);
                 if (applicationRegistration != null)
@@ -176,7 +176,7 @@ namespace CPR_Business_Application_Demo
             if (dialogResult == DialogResult.OK)
             {
                 var person = createForm.GetPerson();
-                var adminController = new CPRAdministrationController(Properties.Settings.Default);
+                var adminController = new ApplicationsController(Properties.Settings.Default);
                 var result = adminController.CreateTestCitizen(person);
             }
         }
@@ -282,7 +282,7 @@ namespace CPR_Business_Application_Demo
         {
             ConsoleWriteLine("Subscribing.....");
             var t = Properties.Settings.Default.NotificationMode;
-            var adminController = new CPRAdministrationController(Properties.Settings.Default);
+            var adminController = new SubscriptionsController(Properties.Settings.Default);
 
             string result = adminController.Subscribe(notificationPersonsTextBox.Lines);
             if (result.Length > 0)
@@ -298,7 +298,7 @@ namespace CPR_Business_Application_Demo
 
         private void GetServiceInfoButton_Click(object sender, EventArgs e)
         {
-            var adminController = new CPRAdministrationController(Properties.Settings.Default);
+            var adminController = new ApplicationsController(Properties.Settings.Default);
             var capabilities = adminController.GetCapabillities();
             InfoText.Text = "";
             foreach (var capability in capabilities)
@@ -311,7 +311,7 @@ namespace CPR_Business_Application_Demo
 
         private void BirthDaySubscriptionButton_Click(object sender, EventArgs e)
         {
-            var adminController = new CPRAdministrationController(Properties.Settings.Default);
+            var adminController = new SubscriptionsController(Properties.Settings.Default);
             int? age = (int)AgeSpin.Value;
             if (IgnoreAgeCheckBox.Checked)
                 age = null;
@@ -331,14 +331,14 @@ namespace CPR_Business_Application_Demo
 
         private void ListActiveSubscriptionsButton_Click(object sender, EventArgs e)
         {
-            var adminController = new CPRAdministrationController(Properties.Settings.Default);
+            var adminController = new SubscriptionsController(Properties.Settings.Default);
             var activeSubscriptions = adminController.GetActiveSubscriptions();
             Dictionary<string, Dictionary<string, bool>> subscriptionIds = new Dictionary<string, Dictionary<string, bool>>();
 
             foreach (var subscription in activeSubscriptions)
             {
                 Dictionary<string, bool> personRegistrationIds = new Dictionary<string, bool>();
-                foreach (var personRegistrationId in subscription.PersonCivilRegistrationIdentifiers)
+                foreach (var personRegistrationId in subscription.PersonUuids)
                 {
                     if (!personRegistrationIds.ContainsKey(personRegistrationId))
                         personRegistrationIds.Add(personRegistrationId, true);

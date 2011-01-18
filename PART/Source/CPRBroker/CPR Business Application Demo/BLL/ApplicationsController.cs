@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Configuration;
 using CPR_Business_Application_Demo.Adapters;
-using CPR_Business_Application_Demo.Adapters.CPRAdministrationWS;
+using CPR_Business_Application_Demo.ApplicationsService;
 
 namespace CPR_Business_Application_Demo.Business
 {
-    public class CPRAdministrationController
+    public class ApplicationsController
     {
         #region Construction
-        public      CPRAdministrationController(ApplicationSettingsBase settings)
+        public      ApplicationsController(ApplicationSettingsBase settings)
         {
             this.Settings = settings;
 
@@ -25,7 +25,7 @@ namespace CPR_Business_Application_Demo.Business
         {
             try
             {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(url);
+                var cprAdministrationAdapter = new ApplicationAdapter(url);
 
                 string pingResult = cprAdministrationAdapter.Ping();
 
@@ -45,7 +45,7 @@ namespace CPR_Business_Application_Demo.Business
         {
             try
             {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(url);
+                var cprAdministrationAdapter = new ApplicationAdapter(url);
 
                 ApplicationType applicationType = cprAdministrationAdapter.RequestAppRegistration(GetHeader(), AppName);
 
@@ -66,7 +66,7 @@ namespace CPR_Business_Application_Demo.Business
         {
             try
             {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(url);
+                var cprAdministrationAdapter = new ApplicationAdapter(url);
 
                 // Here we change the application to the built-in admin token in CPR Broker, to
                 // fool CPR Broker into believing that we are actually allowed to approve
@@ -92,7 +92,7 @@ namespace CPR_Business_Application_Demo.Business
         {
             try
             {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(url);
+                var cprAdministrationAdapter = new ApplicationAdapter(url);
 
                 ApplicationType[] applicationTypes = cprAdministrationAdapter.ListAppRegistration(GetHeader());
                 if (applicationTypes == null || applicationTypes.Length == 0)
@@ -132,85 +132,11 @@ namespace CPR_Business_Application_Demo.Business
             }
         }
 
-        public SubscriptionType[] GetActiveSubscriptions()
-        {
-            try
-            {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(Settings["CPRBrokerWebServiceUrl"].ToString());
-                return cprAdministrationAdapter.GetActiveSubscriptions(GetHeader());
-
-            }
-            catch (Exception)
-            {
-                
-                return new SubscriptionType[]{};
-            }
-        }
-
-        public string Subscribe(string[] personCivilRegistrationIdentifiers)
-        {
-            try
-            {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(CprAdminWebServiceUrl);
-
-                var notificationMode = (int)Settings["NotificationMode"];
-
-                switch (notificationMode)
-                {
-                    case 0:
-                        return string.Empty;
-                    case 1:
-                        throw new NotImplementedException();
-                    case 2:
-                        var fileShareChannel = new FileShareChannelType();
-                        fileShareChannel.Path = Settings["NotificationFileShare"].ToString();
-                        var result = cprAdministrationAdapter.Subscribe(GetHeader(), fileShareChannel, personCivilRegistrationIdentifiers);
-                        return result.SubscriptionId;
-                }
-
-                return string.Empty;
-
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-        }
-
-        public string SubscribeBirthdate(int? age, int priorDays, string[] personCivilRegistrationIdentifiers)
-        {
-            try
-            {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(CprAdminWebServiceUrl);
-                var notificationMode = (int)Settings["NotificationMode"];
-
-                switch (notificationMode)
-                {
-                    case 0:
-                        return string.Empty;
-                    case 1:
-                        throw new NotImplementedException();
-                    case 2:
-                        var fileShareChannel = new FileShareChannelType();
-                        fileShareChannel.Path = Settings["NotificationFileShare"].ToString();
-                        var result = cprAdministrationAdapter.SubscribeOnBirthdate(GetHeader(), fileShareChannel, age, priorDays, personCivilRegistrationIdentifiers);
-                        return result.SubscriptionId;
-                }
-                return string.Empty;
-
-            }
-            catch (Exception)
-            {
-                return String.Empty;
-            }
-        }
-
-
         public bool CreateTestCitizen(PersonFullStructureType person)
         {
             try
             {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(Settings["CPRBrokerWebServiceUrl"].ToString());
+                var cprAdministrationAdapter = new ApplicationAdapter(Settings["CPRBrokerWebServiceUrl"].ToString());
                 return cprAdministrationAdapter.CreateTestCitizen(GetHeader(), person);
 
             }
@@ -224,7 +150,7 @@ namespace CPR_Business_Application_Demo.Business
         {
             try
             {
-                var cprAdministrationAdapter = new CPRAdministrationAdapter(CprAdminWebServiceUrl);
+                var cprAdministrationAdapter = new ApplicationAdapter(CprAdminWebServiceUrl);
                 return cprAdministrationAdapter.GetCapabillities(GetHeader());
 
             }

@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="UserToken" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Business Application Demo</Value>
+      <Value Profile="(Default)">CPR Business Application Demo</Value>
     </Setting>
     <Setting Name="CPRBrokerWebServiceUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost:1551/Services/Part.asmx</Value>
+      <Value Profile="(Default)">http://localhost:1551/Services/</Value>
     </Setting>
     <Setting Name="NotificationMode" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
@@ -16,9 +16,6 @@
     </Setting>
     <Setting Name="NotificationFileShare" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="AppToken" Type="System.String" Scope="User">
-      <Value Profile="(Default)">42</Value>
     </Setting>
     <Setting Name="FirstTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -31,7 +28,12 @@
     </Setting>
     <Setting Name="AdminAppToken" Type="System.String" Scope="User">
       <Value Profile="(Default)">07059250-E448-4040-B695-9C03F9E59E38</Value>
-      <!--Value Profile="(Default)">5f8b7af5-422e-46bb-9273-5e244dc37505</Value-->
+    </Setting>
+    <Setting Name="AppToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5f8b7af5-422e-46bb-9273-5e244dc37505</Value>
+    </Setting>
+    <Setting Name="EventBrokerWebServiceUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:1552/Services/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

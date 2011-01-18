@@ -1,0 +1,142 @@
+﻿using System;
+using System.Configuration;
+using CPR_Business_Application_Demo.Adapters;
+using CPR_Business_Application_Demo.SubscriptionsService;
+
+namespace CPR_Business_Application_Demo.Business
+{
+    public class SubscriptionsController
+    {
+        #region Construction
+        public SubscriptionsController(ApplicationSettingsBase settings)
+        {
+            this.Settings = settings;
+
+            UserToken = settings["UserToken"].ToString();
+            AppToken = settings["AppToken"].ToString();
+            AppName = settings["ApplicationName"].ToString();
+            CprAdminWebServiceUrl = settings["CPRBrokerWebServiceUrl"].ToString();
+            Console.Write("new cpradmController uT=" + UserToken + " , appT=" + AppToken + ", nm=" + AppName + " url=" + CprAdminWebServiceUrl + "\n");
+        }
+        #endregion
+
+        #region Methods
+        public bool TestWSConnection(string url)
+        {
+            try
+            {
+                var subscriptionsAdapter = new ApplicationAdapter(url);
+
+                string pingResult = subscriptionsAdapter.Ping();
+
+                // If we have a successful connection the server will send some information
+                // back stating who it thinks we are, etc. If we cannot connect we will get
+                // an exception. Just to be sure - we expect the pingResult to contain at least something
+                return (pingResult.Length > 0);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine ( "ping exception for URL:"+url + ":: " + ex ) ;
+                return false;
+            }
+        }
+
+        public SubscriptionType[] GetActiveSubscriptions()
+        {
+            try
+            {
+                var cprAdministrationAdapter = new SubscriptionAdapter(Settings["CPRBrokerWebServiceUrl"].ToString());
+                return cprAdministrationAdapter.GetActiveSubscriptions(GetHeader());
+
+            }
+            catch (Exception)
+            {
+                
+                return new SubscriptionType[]{};
+            }
+        }
+
+        public string Subscribe(string[] personCivilRegistrationIdentifiers)
+        {
+            try
+            {
+                var cprAdministrationAdapter = new SubscriptionAdapter(CprAdminWebServiceUrl);
+
+                var notificationMode = (int)Settings["NotificationMode"];
+
+                switch (notificationMode)
+                {
+                    case 0:
+                        return string.Empty;
+                    case 1:
+                        throw new NotImplementedException();
+                    case 2:
+                        var fileShareChannel = new FileShareChannelType();
+                        fileShareChannel.Path = Settings["NotificationFileShare"].ToString();
+                        var result = cprAdministrationAdapter.Subscribe(GetHeader(), fileShareChannel, personCivilRegistrationIdentifiers);
+                        return result.SubscriptionId;
+                }
+
+                return string.Empty;
+
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+        public string SubscribeBirthdate(int? age, int priorDays, string[] personCivilRegistrationIdentifiers)
+        {
+            try
+            {
+                var cprAdministrationAdapter = new SubscriptionAdapter(CprAdminWebServiceUrl);
+                var notificationMode = (int)Settings["NotificationMode"];
+
+                switch (notificationMode)
+                {
+                    case 0:
+                        return string.Empty;
+                    case 1:
+                        throw new NotImplementedException();
+                    case 2:
+                        var fileShareChannel = new FileShareChannelType();
+                        fileShareChannel.Path = Settings["NotificationFileShare"].ToString();
+                        var result = cprAdministrationAdapter.SubscribeOnBirthdate(GetHeader(), fileShareChannel, age, priorDays, personCivilRegistrationIdentifiers);
+                        return result.SubscriptionId;
+                }
+                return string.Empty;
+
+            }
+            catch (Exception)
+            {
+                return String.Empty;
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        ApplicationHeader GetHeader()
+        {
+            return new ApplicationHeader()
+                {
+                    UserToken = UserToken,
+                    ApplicationToken = AppToken
+                };
+        }
+        #endregion
+
+        #region Private Fields
+        private readonly ApplicationSettingsBase Settings;
+
+        private readonly string UserToken;
+        private readonly string AppToken;
+        private readonly string AppName;
+        private readonly string CprAdminWebServiceUrl;
+        #endregion
+
+
+    }
+}

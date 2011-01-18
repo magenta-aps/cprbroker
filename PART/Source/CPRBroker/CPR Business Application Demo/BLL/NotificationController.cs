@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.ComponentModel;
-using CPR_Business_Application_Demo.Adapters.CPRAdministrationWS;
+using CPR_Business_Application_Demo.ApplicationsService;
 
 namespace CPR_Business_Application_Demo.Business
 {

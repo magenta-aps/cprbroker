@@ -17,11 +17,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:1550/Services/CPRAdministrationWS.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:1551/Services/CPRAdministrationWS.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CPRAdministrationWS.wsdl" MetadataType="Wsdl" ID="e76f391d-38c6-4265-adc5-468f0c64f5b8" SourceId="1" SourceUrl="http://localhost:1550/Services/CPRAdministrationWS.asmx?wsdl" />
-    <MetadataFile FileName="CPRAdministrationWS.disco" MetadataType="Disco" ID="f6a5c9b2-9f76-4516-b148-8816d4b66b41" SourceId="1" SourceUrl="http://localhost:1550/Services/CPRAdministrationWS.asmx?disco" />
+    <MetadataFile FileName="CPRAdministrationWS1.disco" MetadataType="Disco" ID="c31f2e18-e026-45a5-be1f-e567ba58d03e" SourceId="1" SourceUrl="http://localhost:1551/Services/CPRAdministrationWS.asmx?disco" />
+    <MetadataFile FileName="CPRAdministrationWS1.wsdl" MetadataType="Wsdl" ID="f3a1bc89-b8d5-4a3a-8256-7c7c10d5dc22" SourceId="1" SourceUrl="http://localhost:1551/Services/CPRAdministrationWS.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

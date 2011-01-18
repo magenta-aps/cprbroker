@@ -54,9 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\CPRAdministrationAdapter.cs" />
+    <Compile Include="Adapters\ApplicationAdapter.cs" />
     <Compile Include="Adapters\CPRPersonAdapter.cs" />
-    <Compile Include="BLL\CPRAdministrationController.cs" />
+    <Compile Include="BLL\ApplicationsController.cs" />
     <Compile Include="BLL\CPRPersonController.cs" />
     <Compile Include="BLL\INotificationListener.cs" />
     <Compile Include="BLL\NotificationController.cs" />
@@ -111,7 +111,9 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\SubscriptionAdapter.cs" />
     <Compile Include="Adapters\PartAdapter.cs" />
+    <Compile Include="BLL\SubscriptionsController.cs" />
     <Compile Include="CreateTestCitizenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,7 +126,7 @@
     <Compile Include="Notifications.Designer.cs">
       <DependentUpon>Notifications.cs</DependentUpon>
     </Compile>
-    <Compile Include="Service References\CPRAdministrationWS\Reference.cs">
+    <Compile Include="Service References\ApplicationsService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -139,30 +141,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\SubscriptionsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\CPRAdministrationWS\CPRAdministrationWS.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CPRAdministrationWS\" />
+    <WCFMetadataStorage Include="Service References\ApplicationsService\" />
     <WCFMetadataStorage Include="Service References\CPRPersonWS\" />
     <WCFMetadataStorage Include="Service References\PartService\" />
+    <WCFMetadataStorage Include="Service References\SubscriptionsService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CPRAdministrationWS\CPRAdministrationWS.disco" />
+    <None Include="Service References\ApplicationsService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CPRAdministrationWS\configuration91.svcinfo" />
+    <None Include="Service References\ApplicationsService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CPRAdministrationWS\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CPRAdministrationWS\Reference.svcmap">
+    <None Include="Service References\ApplicationsService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -178,27 +182,6 @@
     <None Include="Service References\CPRPersonWS\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ApplicationType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.BaseNotificationType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.BirthdateSubscriptionType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ChangeSubscriptionType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.DataProviderType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ServiceVersionType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.SubscriptionType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.ParentAuthorityRelationshipType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -251,6 +234,44 @@
     <None Include="Service References\PartService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SubscriptionsService\Subscriptions.disco" />
+    <None Include="Service References\SubscriptionsService\Subscriptions.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SubscriptionsService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SubscriptionsService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.BirthdateSubscriptionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.ChangeSubscriptionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.SubscriptionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SubscriptionsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ApplicationsService\CPRAdministrationWS1.disco" />
+    <None Include="Service References\ApplicationsService\CPRAdministrationWS1.wsdl" />
+    <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.ApplicationType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.DataProviderType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.ServiceVersionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
