@@ -28,12 +28,24 @@ namespace CPR_Business_Application_Demo
         #endregion
 
         #region Methods
+        public PartService.ApplicationHeader CreateApplicationHeader(string appToken, string userToken)
+        {
+            return new CPR_Business_Application_Demo.PartService.ApplicationHeader()
+            {
+                ApplicationToken = appToken,
+                UserToken = userToken
+            };
+        }
+        public PartService.ApplicationHeader CreateApplicationHeader(string appToken)
+        {
+            return CreateApplicationHeader(appToken, "");
+        }
 
-        public Guid GetPersonUuid(PartService.ApplicationHeader applicationHeader, string cprNumber)
+        public Guid GetPersonUuid(string applicationToken, string cprNumber)
         {
             try
             {
-                return PartHandler.GetPersonUuid(applicationHeader, cprNumber);
+                return PartHandler.GetPersonUuid(CreateApplicationHeader(applicationToken), cprNumber);
             }
             catch (Exception)
             {
@@ -42,7 +54,7 @@ namespace CPR_Business_Application_Demo
             return Guid.Empty;
         }
 
-        public PartService.RegistreringType1 Read(PartService.ApplicationHeader applicationHeader, Guid uuid)
+        public PartService.RegistreringType1 Read(string applicationToken, Guid uuid)
         {
             try
             {
@@ -56,7 +68,7 @@ namespace CPR_Business_Application_Demo
                     VirkningTilFilter = null
                 };
 
-                var ql = PartHandler.Read(applicationHeader, input, out output);
+                var ql = PartHandler.Read(CreateApplicationHeader(applicationToken), input, out output);
 
                 if (output != null && output.LaesResultat != null && output.LaesResultat.Item is PartService.RegistreringType1)
                 {
@@ -70,7 +82,7 @@ namespace CPR_Business_Application_Demo
             return null;
         }
 
-        public PartService.RegistreringType1[] List(PartService.ApplicationHeader applicationHeader, Guid[] uuids)
+        public PartService.RegistreringType1[] List(string applicationToken, Guid[] uuids)
         {
             try
             {
@@ -84,7 +96,7 @@ namespace CPR_Business_Application_Demo
                     VirkningTilFilter = null
                 };
 
-                var ql = PartHandler.List(applicationHeader, input, out output);
+                var ql = PartHandler.List(CreateApplicationHeader(applicationToken), input, out output);
 
                 if (output != null && output.LaesResultat != null && Array.TrueForAll<PartService.LaesResultatType>(output.LaesResultat, lr => lr.Item is PartService.RegistreringType1))
                 {
@@ -98,7 +110,7 @@ namespace CPR_Business_Application_Demo
             return null;
         }
 
-        public string[] Search(PartService.ApplicationHeader applicationHeader, string cprNumber)
+        public string[] Search(string applicationToken, string cprNumber)
         {
             try
             {
@@ -113,7 +125,7 @@ namespace CPR_Business_Application_Demo
                     }
                 };
 
-                var ql = PartHandler.Search(applicationHeader, input, out output);
+                var ql = PartHandler.Search(CreateApplicationHeader(applicationToken), input, out output);
 
                 if (output != null && output.IdListe != null)
                 {
