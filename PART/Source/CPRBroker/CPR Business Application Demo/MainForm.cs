@@ -376,5 +376,15 @@ namespace CPR_Business_Application_Demo
         {
 
         }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
