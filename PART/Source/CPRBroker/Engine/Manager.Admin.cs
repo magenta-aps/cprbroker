@@ -57,7 +57,8 @@ namespace CprBroker.Engine
 
             public static bool ApproveAppRegistration(string userToken, string appToken, string targetAppToken)
             {
-                return CallMethod<IApplicationManager, bool>
+                  Console.Write("Manager to approve app registration:  aT="+appToken+ ", uT="+ userToken+ ", target="+targetAppToken+"\n");
+                    return CallMethod<IApplicationManager, bool>
                 (userToken, appToken, true, true, (admin) => admin.ApproveAppRegistration(userToken, appToken, targetAppToken), true, null);
             }
 

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Gentofte Kommune")]
 [assembly: AssemblyProduct("CPR Business Application Demo")]
-[assembly: AssemblyCopyright("Copyright Â© Gentofte Kommune 2009")]
+[assembly: AssemblyCopyright("Copyright © Gentofte Kommune 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

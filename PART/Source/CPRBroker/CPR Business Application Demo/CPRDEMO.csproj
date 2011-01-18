@@ -1,0 +1,247 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{230503C7-2C62-4FC9-8148-EAF6DA0799A6}</ProjectGuid>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ConsoleApplication</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>CPRDEMO</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".svn\all-wcprops" />
+    <None Include=".svn\entries" />
+    <None Include=".svn\text-base\app.config.svn-base" />
+    <None Include=".svn\text-base\CPR Business Application Demo.csproj.svn-base" />
+    <None Include=".svn\text-base\CreateTestCitizenForm.cs.svn-base" />
+    <None Include=".svn\text-base\CreateTestCitizenForm.Designer.cs.svn-base" />
+    <None Include=".svn\text-base\CreateTestCitizenForm.resx.svn-base" />
+    <None Include=".svn\text-base\MainForm.cs.svn-base" />
+    <None Include=".svn\text-base\MainForm.Designer.cs.svn-base" />
+    <None Include=".svn\text-base\MainForm.resx.svn-base" />
+    <None Include=".svn\text-base\Notifications.cs.svn-base" />
+    <None Include=".svn\text-base\Notifications.Designer.cs.svn-base" />
+    <None Include=".svn\text-base\Notifications.resx.svn-base" />
+    <None Include=".svn\text-base\OptionsForm.cs.svn-base" />
+    <None Include=".svn\text-base\OptionsForm.Designer.cs.svn-base" />
+    <None Include=".svn\text-base\OptionsForm.resx.svn-base" />
+    <None Include=".svn\text-base\Program.cs.svn-base" />
+    <None Include=".svn\text-base\Settings.cs.svn-base" />
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings" />
+    <None Include="Service References\Administration\.svn\all-wcprops" />
+    <None Include="Service References\Administration\.svn\entries" />
+    <None Include="Service References\Administration\.svn\text-base\Administration.disco.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\Administration.wsdl.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\configuration.svcinfo.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\configuration91.svcinfo.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\CPR_Business_Application_Demo.Administration.ApplicationType.datasource.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\CPR_Business_Application_Demo.Administration.BaseNotificationType.datasource.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\CPR_Business_Application_Demo.Administration.DataProviderType.datasource.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\CPR_Business_Application_Demo.Administration.ServiceVersionType.datasource.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\CPR_Business_Application_Demo.Administration.SubscriptionType.datasource.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\Reference.cs.svn-base" />
+    <None Include="Service References\Administration\.svn\text-base\Reference.svcmap.svn-base" />
+    <None Include="Service References\Administration\Administration.wsdl" />
+    <None Include="Service References\Administration\CPR_Business_Application_Demo.Administration.ApplicationType.datasource" />
+    <None Include="Service References\Administration\CPR_Business_Application_Demo.Administration.BaseNotificationType.datasource" />
+    <None Include="Service References\Administration\CPR_Business_Application_Demo.Administration.DataProviderType.datasource" />
+    <None Include="Service References\Administration\CPR_Business_Application_Demo.Administration.ServiceVersionType.datasource" />
+    <None Include="Service References\Administration\CPR_Business_Application_Demo.Administration.SubscriptionType.datasource" />
+    <None Include="Service References\CPRAdministrationWS\.svn\all-wcprops" />
+    <None Include="Service References\CPRAdministrationWS\.svn\entries" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\configuration.svcinfo.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\configuration91.svcinfo.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\CPRAdministrationWS.disco.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\CPRAdministrationWS.wsdl.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ApplicationType.datasource.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.BirthdateSubscriptionType.datasource.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ChangeSubscriptionType.datasource.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.DataProviderType.datasource.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ServiceVersionType.datasource.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.SubscriptionType.datasource.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\Reference.cs.AnkhSVN.0.tmp.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\Reference.cs.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\Reference.svcmap.AnkhSVN.0.tmp.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\.svn\text-base\Reference.svcmap.svn-base" />
+    <None Include="Service References\CPRAdministrationWS\CPRAdministrationWS.wsdl" />
+    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ApplicationType.datasource" />
+    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.BirthdateSubscriptionType.datasource" />
+    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ChangeSubscriptionType.datasource" />
+    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.DataProviderType.datasource" />
+    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.ServiceVersionType.datasource" />
+    <None Include="Service References\CPRAdministrationWS\CPR_Business_Application_Demo.Adapters.CPRAdministrationWS.SubscriptionType.datasource" />
+    <None Include="Service References\CPRAdministrationWS\Reference.cs.AnkhSVN.0.tmp" />
+    <None Include="Service References\CPRAdministrationWS\Reference.svcmap.AnkhSVN.0.tmp" />
+    <None Include="Service References\CPRPersonWS\.svn\all-wcprops" />
+    <None Include="Service References\CPRPersonWS\.svn\entries" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\configuration.svcinfo.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\configuration91.svcinfo.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPRPersonWS.disco.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPRPersonWS.wsdl.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRPersonWS.ParentAuthorityRelationshipType.datasource.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonBasicStructureType.datasource.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonFullStructureType.datasource.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonNameAndAddressStructureType.datasource.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonRelationsType.datasource.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRPersonWS.QualityHeader.datasource.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\CPR_Business_Application_Demo.Adapters.CPRPersonWS.SimpleCPRPersonType.datasource.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\Reference.cs.AnkhSVN.0.tmp.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\Reference.cs.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\Reference.svcmap.AnkhSVN.0.tmp.svn-base" />
+    <None Include="Service References\CPRPersonWS\.svn\text-base\Reference.svcmap.svn-base" />
+    <None Include="Service References\CPRPersonWS\CPRPersonWS.wsdl" />
+    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.ParentAuthorityRelationshipType.datasource" />
+    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonBasicStructureType.datasource" />
+    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonFullStructureType.datasource" />
+    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonNameAndAddressStructureType.datasource" />
+    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonRelationsType.datasource" />
+    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.QualityHeader.datasource" />
+    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.SimpleCPRPersonType.datasource" />
+    <None Include="Service References\CPRPersonWS\Reference.cs.AnkhSVN.0.tmp" />
+    <None Include="Service References\CPRPersonWS\Reference.svcmap.AnkhSVN.0.tmp" />
+    <None Include="Service References\Person\.svn\all-wcprops" />
+    <None Include="Service References\Person\.svn\entries" />
+    <None Include="Service References\Person\.svn\text-base\configuration.svcinfo.svn-base" />
+    <None Include="Service References\Person\.svn\text-base\configuration91.svcinfo.svn-base" />
+    <None Include="Service References\Person\.svn\text-base\Person.disco.svn-base" />
+    <None Include="Service References\Person\.svn\text-base\Person.wsdl.svn-base" />
+    <None Include="Service References\Person\.svn\text-base\Reference.cs.svn-base" />
+    <None Include="Service References\Person\.svn\text-base\Reference.svcmap.svn-base" />
+    <None Include="Service References\Person\Person.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapters\CPRAdministrationAdapter.cs" />
+    <Compile Include="Adapters\CPRPersonAdapter.cs" />
+    <Compile Include="BLL\CPRAdministrationController.cs" />
+    <Compile Include="BLL\CPRPersonController.cs" />
+    <Compile Include="BLL\INotificationListener.cs" />
+    <Compile Include="BLL\NotificationController.cs" />
+    <Compile Include="CreateTestCitizenForm.cs" />
+    <Compile Include="CreateTestCitizenForm.Designer.cs">
+      <DependentUpon>CreateTestCitizenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications.cs" />
+    <Compile Include="Notifications.Designer.cs">
+      <DependentUpon>Notifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsForm.cs" />
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs" />
+    <Compile Include="Service References\Administration\Reference.cs" />
+    <Compile Include="Service References\CPRAdministrationWS\Reference.cs" />
+    <Compile Include="Service References\CPRPersonWS\Reference.cs" />
+    <Compile Include="Service References\Person\Reference.cs" />
+    <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CreateTestCitizenForm.resx">
+      <DependentUpon>CreateTestCitizenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifications.resx">
+      <DependentUpon>Notifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Service References\Administration\Administration.disco" />
+    <Content Include="Service References\Administration\configuration.svcinfo" />
+    <Content Include="Service References\Administration\configuration91.svcinfo" />
+    <Content Include="Service References\Administration\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+    </Content>
+    <Content Include="Service References\CPRAdministrationWS\configuration.svcinfo" />
+    <Content Include="Service References\CPRAdministrationWS\configuration91.svcinfo" />
+    <Content Include="Service References\CPRAdministrationWS\CPRAdministrationWS.disco" />
+    <Content Include="Service References\CPRAdministrationWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+    </Content>
+    <Content Include="Service References\CPRPersonWS\configuration.svcinfo" />
+    <Content Include="Service References\CPRPersonWS\configuration91.svcinfo" />
+    <Content Include="Service References\CPRPersonWS\CPRPersonWS.disco" />
+    <Content Include="Service References\CPRPersonWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+    </Content>
+    <Content Include="Service References\Person\configuration.svcinfo" />
+    <Content Include="Service References\Person\configuration91.svcinfo" />
+    <Content Include="Service References\Person\Person.disco" />
+    <Content Include="Service References\Person\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".svn\prop-base\" />
+    <Folder Include=".svn\props\" />
+    <Folder Include=".svn\tmp\prop-base\" />
+    <Folder Include=".svn\tmp\props\" />
+    <Folder Include=".svn\tmp\text-base\" />
+    <Folder Include="Service References\Administration\.svn\prop-base\" />
+    <Folder Include="Service References\Administration\.svn\props\" />
+    <Folder Include="Service References\Administration\.svn\tmp\prop-base\" />
+    <Folder Include="Service References\Administration\.svn\tmp\props\" />
+    <Folder Include="Service References\Administration\.svn\tmp\text-base\" />
+    <Folder Include="Service References\CPRAdministrationWS\.svn\prop-base\" />
+    <Folder Include="Service References\CPRAdministrationWS\.svn\props\" />
+    <Folder Include="Service References\CPRAdministrationWS\.svn\tmp\prop-base\" />
+    <Folder Include="Service References\CPRAdministrationWS\.svn\tmp\props\" />
+    <Folder Include="Service References\CPRAdministrationWS\.svn\tmp\text-base\" />
+    <Folder Include="Service References\CPRPersonWS\.svn\prop-base\" />
+    <Folder Include="Service References\CPRPersonWS\.svn\props\" />
+    <Folder Include="Service References\CPRPersonWS\.svn\tmp\prop-base\" />
+    <Folder Include="Service References\CPRPersonWS\.svn\tmp\props\" />
+    <Folder Include="Service References\CPRPersonWS\.svn\tmp\text-base\" />
+    <Folder Include="Service References\Person\.svn\prop-base\" />
+    <Folder Include="Service References\Person\.svn\props\" />
+    <Folder Include="Service References\Person\.svn\tmp\prop-base\" />
+    <Folder Include="Service References\Person\.svn\tmp\props\" />
+    <Folder Include="Service References\Person\.svn\tmp\text-base\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

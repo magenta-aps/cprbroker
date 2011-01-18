@@ -15,7 +15,7 @@ namespace CPR_Business_Application_Demo.Adapters
         {
             // Make sure the provided URL is pointing to the administration web service
             if (!cprAdministrationWsUrl.EndsWith("/"))
-            {
+	      {
                 if (!cprAdministrationWsUrl.EndsWith("CPRAdministrationWS.asmx"))
                     cprAdministrationWsUrl += "/CPRAdministrationWS.asmx";
             }

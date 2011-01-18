@@ -17,6 +17,7 @@ namespace CprBroker.Engine.Local
             using (ApplicationDataContext context = new ApplicationDataContext())
             {
                 var application = new Application();
+
                 application.ApplicationId = Guid.NewGuid();
                 application.Token = Guid.NewGuid().ToString();
                 context.Applications.InsertOnSubmit(application);
@@ -24,6 +25,7 @@ namespace CprBroker.Engine.Local
                 application.Name = name;
                 application.RegistrationDate = DateTime.Now;
                 application.IsApproved = false;
+                Console.WriteLine("Request App reg apT="+application.Token + ", AppID="+ application.ApplicationId+ " nm="+ application.Name);
 
                 context.SubmitChanges();
                 return application.ToXmlType();
@@ -36,6 +38,8 @@ namespace CprBroker.Engine.Local
             using (ApplicationDataContext context = new ApplicationDataContext())
             {
                 var application = context.Applications.SingleOrDefault(app => app.Token == targetAppToken);
+                Console.WriteLine("Approve App reg " + appToken + ", targetApp="+ targetAppToken + "uT="+userToken );
+
                 if (application != null)
                 {
                     application.IsApproved = true;

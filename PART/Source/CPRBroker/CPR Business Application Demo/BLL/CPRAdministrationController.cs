@@ -16,6 +16,7 @@ namespace CPR_Business_Application_Demo.Business
             AppToken = settings["AppToken"].ToString();
             AppName = settings["ApplicationName"].ToString();
             CprAdminWebServiceUrl = settings["CPRBrokerWebServiceUrl"].ToString();
+            Console.Write("new cpradmController uT=" + UserToken + " , appT=" + AppToken + ", nm=" + AppName + " url=" + CprAdminWebServiceUrl + "\n");
         }
         #endregion
 
@@ -33,8 +34,9 @@ namespace CPR_Business_Application_Demo.Business
                 // an exception. Just to be sure - we expect the pingResult to contain at least something
                 return (pingResult.Length > 0);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine ( "ping exception for URL:"+url + ":: " + ex ) ;
                 return false;
             }
         }
@@ -73,9 +75,9 @@ namespace CPR_Business_Application_Demo.Business
                 header.ApplicationToken = adminAppToken;
                 return cprAdministrationAdapter.ApproveAppRegistration(header, AppToken);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine ( "adm approve exception:" + ex ) ;
                 return false;
             }
         }

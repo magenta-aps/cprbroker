@@ -37,7 +37,7 @@ namespace CPR_Business_Application_Demo.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/CPRBroker/Services")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1551/Services/Part.asmx")]
         public string CPRBrokerWebServiceUrl {
             get {
                 return ((string)(this["CPRBrokerWebServiceUrl"]));
@@ -130,7 +130,8 @@ namespace CPR_Business_Application_Demo.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("07059250-E448-4040-B695-9C03F9E59E38")]
+//        [global::System.Configuration.DefaultSettingValueAttribute("07059250-E448-4040-B695-9C03F9E59E38")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5f8b7af5-422e-46bb-9273-5e244dc37505")]
         public string AdminAppToken {
             get {
                 return ((string)(this["AdminAppToken"]));

@@ -78,6 +78,7 @@ namespace CprBroker.Engine
                 }
                 else if (failInNoApp)
                 {
+                    Console.Write("Invalid token exception aT="+appToken+ ", uT="+ userToken+"\n");
                     throw new InvalidTokenException(appToken, userToken);
                 }
 
@@ -105,6 +106,7 @@ namespace CprBroker.Engine
                         );
                     if (!isAuthorized)
                     {
+                        Console.Write("not authoriced exception"+Current.WebMethodMessageName);
                         throw new System.Security.Authentication.AuthenticationException();
                     }
                 }

@@ -76,7 +76,8 @@ namespace CPR_Business_Application_Demo
                 else
                 {
                     mainTabControl.Enabled = false;
-                    registeredStatusLabel.Text = "Application is NOT registered!";
+                    registeredStatusLabel.Text = "Application is Not registered! \n"+Properties.Settings.Default+
+                      "\nurl="+Properties.Settings.Default.CPRBrokerWebServiceUrl;
                     if (showMessageBox)
                     {
                         MessageBox.Show(this,

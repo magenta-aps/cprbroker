@@ -6,7 +6,7 @@
       <Value Profile="(Default)">Business Application Demo</Value>
     </Setting>
     <Setting Name="CPRBrokerWebServiceUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/CPRBroker/Services</Value>
+      <Value Profile="(Default)">http://localhost:1551/Services/Part.asmx</Value>
     </Setting>
     <Setting Name="NotificationMode" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
@@ -18,7 +18,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AppToken" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">42</Value>
     </Setting>
     <Setting Name="FirstTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -31,6 +31,7 @@
     </Setting>
     <Setting Name="AdminAppToken" Type="System.String" Scope="User">
       <Value Profile="(Default)">07059250-E448-4040-B695-9C03F9E59E38</Value>
+      <!--Value Profile="(Default)">5f8b7af5-422e-46bb-9273-5e244dc37505</Value-->
     </Setting>
   </Settings>
 </SettingsFile>
