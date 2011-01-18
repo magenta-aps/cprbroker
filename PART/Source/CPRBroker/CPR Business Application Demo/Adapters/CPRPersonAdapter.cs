@@ -14,12 +14,12 @@ namespace CPR_Business_Application_Demo.Adapters
             // Make sure the provided URL points to the person web service.
             if (!cprPersonWSUrl.EndsWith("/"))
             {
-                if (!cprPersonWSUrl.EndsWith("CPRPersonWS.asmx"))
-                    cprPersonWSUrl += "/CPRPersonWS.asmx";
+                if (!cprPersonWSUrl.EndsWith("Part.asmx"))
+                    cprPersonWSUrl += "/Part.asmx";
             }
             else
             {
-                cprPersonWSUrl += "CPRPersonWS.asmx";
+                cprPersonWSUrl += "Part.asmx";
             }
 
             PersonHandler = new CPRPersonWSSoapClient("CPRPersonWSSoap", cprPersonWSUrl);
