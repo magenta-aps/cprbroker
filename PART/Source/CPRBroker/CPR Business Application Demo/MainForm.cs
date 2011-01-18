@@ -370,5 +370,10 @@ namespace CPR_Business_Application_Demo
             ser.Serialize(w, personReg);
             resultXmlTextBox.Text = "  result for uid:" + personUuid + "    \n" + w.ToString();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
