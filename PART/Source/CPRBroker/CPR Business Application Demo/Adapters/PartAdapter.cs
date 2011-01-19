@@ -138,6 +138,39 @@ namespace CPR_Business_Application_Demo
             }
             return null;
         }
+
+
+
+        public string[] SearchRelation(string applicationToken, string cprNumber)
+        {
+            try
+            {
+                PartService.SoegOutputType output = null;
+                PartService.SoegInputType1 input = new CPR_Business_Application_Demo.PartService.SoegInputType1()
+                {
+                    MaksimalAntalResultater = "10",
+                    FoersteResultat = "0",
+                    Soeg = new CPR_Business_Application_Demo.PartService.SoegObjektType()
+                    {
+                        BrugervendtNoegleTekst = cprNumber
+			
+                    }
+                };
+
+                var ql = PartHandler.Search(CreateApplicationHeader(applicationToken), input, out output);
+
+                if (output != null && output.IdListe != null)
+                {
+                    return output.IdListe;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return null;
+        }
+
         #endregion
 
         #region Private Fields
