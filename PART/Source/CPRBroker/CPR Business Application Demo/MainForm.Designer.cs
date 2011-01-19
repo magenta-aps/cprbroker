@@ -102,7 +102,7 @@
             this.search_children = new System.Windows.Forms.TextBox();
             this.search_father = new System.Windows.Forms.TextBox();
             this.search_moder = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
+            this.personuuidsearch = new System.Windows.Forms.Label();
             this.searchuuid = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.currentActionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -118,12 +118,18 @@
             this.search_RetligHandleevneVaergeForPersonen = new System.Windows.Forms.TextBox();
             this.search_RetligHandleevneVaergemaalsIndehaver = new System.Windows.Forms.TextBox();
             this.search_erstatning_for = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.search_erstatning_af = new System.Windows.Forms.TextBox();
             this.ForaeldremyndgihdedsBoern = new System.Windows.Forms.Label();
             this.RetligHandleevneVaergeForPersonen = new System.Windows.Forms.Label();
             this.RetligHandleevneVaergemaalsIndehaver = new System.Windows.Forms.Label();
             this.erstatning_for = new System.Windows.Forms.Label();
             this.erstatning_af = new System.Windows.Forms.Label();
+            this.search_result = new System.Windows.Forms.TextBox();
+            this.search_button = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cpr = new System.Windows.Forms.TextBox();
+            this.cpr_button = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.parttabPage.SuspendLayout();
@@ -144,6 +150,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -224,6 +231,7 @@
             // 
             // parttabPage
             // 
+            this.parttabPage.Controls.Add(this.groupBox10);
             this.parttabPage.Controls.Add(this.groupBox9);
             this.parttabPage.Controls.Add(this.groupBox8);
             this.parttabPage.Location = new System.Drawing.Point(4, 22);
@@ -263,34 +271,34 @@
             this.groupBox8.Controls.Add(this.uuidTextBox);
             this.groupBox8.Controls.Add(this.readButton);
             this.groupBox8.Controls.Add(this.label13);
-            this.groupBox8.Location = new System.Drawing.Point(6, 6);
+            this.groupBox8.Location = new System.Drawing.Point(6, 80);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(683, 122);
+            this.groupBox8.Size = new System.Drawing.Size(659, 48);
             this.groupBox8.TabIndex = 1;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Query parameters";
             // 
             // uuidTextBox
             // 
-            this.uuidTextBox.Location = new System.Drawing.Point(9, 41);
+            this.uuidTextBox.Location = new System.Drawing.Point(185, 19);
             this.uuidTextBox.Name = "uuidTextBox";
             this.uuidTextBox.Size = new System.Drawing.Size(180, 20);
             this.uuidTextBox.TabIndex = 1;
             // 
             // readButton
             // 
-            this.readButton.Location = new System.Drawing.Point(212, 38);
+            this.readButton.Location = new System.Drawing.Point(423, 19);
             this.readButton.Name = "readButton";
             this.readButton.Size = new System.Drawing.Size(153, 23);
             this.readButton.TabIndex = 1;
-            this.readButton.Text = "Look up";
+            this.readButton.Text = "Look up UUID";
             this.readButton.UseVisualStyleBackColor = true;
             this.readButton.Click += new System.EventHandler(this.readButton_Click);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 25);
+            this.label13.Location = new System.Drawing.Point(36, 29);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(73, 13);
             this.label13.TabIndex = 0;
@@ -760,12 +768,14 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.search_button);
+            this.tabPage2.Controls.Add(this.search_result);
             this.tabPage2.Controls.Add(this.erstatning_af);
             this.tabPage2.Controls.Add(this.erstatning_for);
             this.tabPage2.Controls.Add(this.RetligHandleevneVaergemaalsIndehaver);
             this.tabPage2.Controls.Add(this.RetligHandleevneVaergeForPersonen);
             this.tabPage2.Controls.Add(this.ForaeldremyndgihdedsBoern);
-            this.tabPage2.Controls.Add(this.textBox6);
+            this.tabPage2.Controls.Add(this.search_erstatning_af);
             this.tabPage2.Controls.Add(this.search_erstatning_for);
             this.tabPage2.Controls.Add(this.search_RetligHandleevneVaergemaalsIndehaver);
             this.tabPage2.Controls.Add(this.search_RetligHandleevneVaergeForPersonen);
@@ -784,7 +794,7 @@
             this.tabPage2.Controls.Add(this.search_children);
             this.tabPage2.Controls.Add(this.search_father);
             this.tabPage2.Controls.Add(this.search_moder);
-            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.personuuidsearch);
             this.tabPage2.Controls.Add(this.searchuuid);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -892,15 +902,15 @@
             this.search_moder.Size = new System.Drawing.Size(180, 20);
             this.search_moder.TabIndex = 4;
             // 
-            // label15
+            // personuuidsearch
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(134, 45);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(63, 13);
-            this.label15.TabIndex = 3;
-            this.label15.Text = "Person uuid";
-            this.label15.Click += new System.EventHandler(this.label15_Click);
+            this.personuuidsearch.AutoSize = true;
+            this.personuuidsearch.Location = new System.Drawing.Point(134, 45);
+            this.personuuidsearch.Name = "personuuidsearch";
+            this.personuuidsearch.Size = new System.Drawing.Size(63, 13);
+            this.personuuidsearch.TabIndex = 3;
+            this.personuuidsearch.Text = "Person uuid";
+            this.personuuidsearch.Click += new System.EventHandler(this.label15_Click);
             // 
             // searchuuid
             // 
@@ -1012,12 +1022,12 @@
             this.search_erstatning_for.Size = new System.Drawing.Size(180, 20);
             this.search_erstatning_for.TabIndex = 23;
             // 
-            // textBox6
+            // search_erstatning_af
             // 
-            this.textBox6.Location = new System.Drawing.Point(246, 389);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(180, 20);
-            this.textBox6.TabIndex = 24;
+            this.search_erstatning_af.Location = new System.Drawing.Point(246, 389);
+            this.search_erstatning_af.Name = "search_erstatning_af";
+            this.search_erstatning_af.Size = new System.Drawing.Size(180, 20);
+            this.search_erstatning_af.TabIndex = 24;
             // 
             // ForaeldremyndgihdedsBoern
             // 
@@ -1064,6 +1074,66 @@
             this.erstatning_af.TabIndex = 30;
             this.erstatning_af.Text = "erstatning af";
             // 
+            // search_result
+            // 
+            this.search_result.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.search_result.Location = new System.Drawing.Point(455, 18);
+            this.search_result.Multiline = true;
+            this.search_result.Name = "search_result";
+            this.search_result.Size = new System.Drawing.Size(422, 452);
+            this.search_result.TabIndex = 31;
+            // 
+            // search_button
+            // 
+            this.search_button.Location = new System.Drawing.Point(187, 464);
+            this.search_button.Name = "search_button";
+            this.search_button.Size = new System.Drawing.Size(153, 23);
+            this.search_button.TabIndex = 32;
+            this.search_button.Text = "SEARCH";
+            this.search_button.UseVisualStyleBackColor = true;
+            this.search_button.Click += new System.EventHandler(this.search_button_Click);
+
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.cpr);
+            this.groupBox10.Controls.Add(this.cpr_button);
+            this.groupBox10.Controls.Add(this.label16);
+            this.groupBox10.Location = new System.Drawing.Point(6, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(659, 48);
+            this.groupBox10.TabIndex = 3;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Query parameters";
+            // 
+            // cpr
+            // 
+            this.cpr.Location = new System.Drawing.Point(185, 19);
+            this.cpr.Name = "cpr";
+            this.cpr.Size = new System.Drawing.Size(180, 20);
+            this.cpr.TabIndex = 1;
+            // 
+            // cpr_button
+            // 
+            this.cpr_button.Location = new System.Drawing.Point(423, 19);
+            this.cpr_button.Name = "cpr_button";
+            this.cpr_button.Size = new System.Drawing.Size(153, 23);
+            this.cpr_button.TabIndex = 1;
+            this.cpr_button.Text = "Look up CPR no";
+            this.cpr_button.UseVisualStyleBackColor = true;
+            this.cpr_button.Click += new System.EventHandler(this.cpr_button_Click_1);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(36, 29);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(47, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "CPR no:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1109,6 +1179,8 @@
             this.tabPage2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1185,7 +1257,7 @@
         private System.Windows.Forms.TextBox resultXmlTextBox;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox searchuuid;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label personuuidsearch;
         private System.Windows.Forms.Label ForaeldremyndgihdedsIndehaver;
         private System.Windows.Forms.Label bopael;
         private System.Windows.Forms.Label partner;
@@ -1207,11 +1279,17 @@
         private System.Windows.Forms.Label RetligHandleevneVaergemaalsIndehaver;
         private System.Windows.Forms.Label RetligHandleevneVaergeForPersonen;
         private System.Windows.Forms.Label ForaeldremyndgihdedsBoern;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox search_erstatning_af;
         private System.Windows.Forms.TextBox search_erstatning_for;
         private System.Windows.Forms.TextBox search_RetligHandleevneVaergemaalsIndehaver;
         private System.Windows.Forms.TextBox search_RetligHandleevneVaergeForPersonen;
         private System.Windows.Forms.TextBox search_ForaeldremyndgihdedsBoern;
+        private System.Windows.Forms.TextBox search_result;
+        private System.Windows.Forms.Button search_button;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.TextBox cpr;
+        private System.Windows.Forms.Button cpr_button;
+        private System.Windows.Forms.Label label16;
     }
 }
 

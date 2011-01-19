@@ -359,6 +359,33 @@ namespace CPR_Business_Application_Demo
         }
         #endregion
 
+
+        private void search_button_Click(object sender, EventArgs e)
+        {
+            PartAdapter adapter = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
+
+            Guid personUuid = new Guid(searchuuid.Text);
+
+            var search_results = adapter.Search(Properties.Settings.Default.AdminAppToken, personUuid.ToString());
+            ConsoleWriteLine("  looking up uid:" + personUuid);
+            search_result.Text = "  result for uid:" + personUuid +"  "+ search_results.Length+ " results :\r\n" + String.Join("\r\n", search_results);         	
+        }
+
+
+        private void cpr_button_Click_1(object sender, EventArgs e)
+        {
+            uuidTextBox.Text = "tom";
+
+            string personCpr = cpr.Text;
+
+            PartAdapter adapter = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
+
+            ConsoleWriteLine("  looking up cpr:" + personCpr);
+            Guid puid = adapter.GetPersonUuid(Properties.Settings.Default.AdminAppToken, personCpr);
+            uuidTextBox.Text = puid.ToString();
+            resultXmlTextBox.Text = "  result for cpr:" + personCpr +" : "+ puid;
+        }
+
         private void readButton_Click(object sender, EventArgs e)
         {
             PartAdapter adapter = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
@@ -369,7 +396,7 @@ namespace CPR_Business_Application_Demo
             System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(PartService.RegistreringType1));
             StringWriter w = new StringWriter();
             ser.Serialize(w, personReg);
-            resultXmlTextBox.Text = "  result for uid:" + personUuid + "    \n" + w.ToString();
+            resultXmlTextBox.Text = "  result for uid:" + personUuid + "    \r\n" + w.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -386,5 +413,6 @@ namespace CPR_Business_Application_Demo
         {
 
         }
+
     }
 }
