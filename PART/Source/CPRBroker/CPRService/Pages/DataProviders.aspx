@@ -5,7 +5,7 @@
 <%@ MasterType VirtualPath="~/Pages/Site.Master" %>
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc1" %>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
-    <asp:LinqDataSource ID="dataProviderTypesLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.CPRBrokerDALDataContext"
+    <asp:LinqDataSource ID="dataProviderTypesLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.DataProviders.DataProvidersDataContext"
         TableName="DataProviderTypes" Where="IsExternal == @IsExternal">
         <WhereParameters>
             <asp:Parameter DefaultValue="True" Name="IsExternal" Type="Boolean" />
@@ -13,7 +13,7 @@
     </asp:LinqDataSource>
     <h3>
         Data provider types</h3>
-        Possible types of data providers
+    Possible types of data providers
     <asp:GridView ID="dataProviderTypesGridView" runat="server" AutoGenerateColumns="False"
         DataKeyNames="DataProviderTypeId" DataSourceID="dataProviderTypesLinqDataSource">
         <Columns>
@@ -23,76 +23,82 @@
             <asp:BoundField DataField="TypeName" HeaderText="Type name" SortExpression="TypeName" />
         </Columns>
     </asp:GridView>
-    <asp:LinqDataSource ID="dataProvidersLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.CPRBrokerDALDataContext"
+    <asp:LinqDataSource ID="dataProvidersLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.DataProviders.DataProvidersDataContext"
         OrderBy="DataProviderId" TableName="DataProviders" Where="DataProviderType.IsExternal == @IsExternal"
         EnableUpdate="True" EnableInsert="True" OnInserting="dataProvidersLinqDataSource_Inserting"
         EnableDelete="True" OnDeleted="dataProvidersLinqDataSource_Deleted" OnInserted="dataProvidersLinqDataSource_Inserted"
-        OnUpdated="dataProvidersLinqDataSource_Updated">
+        OnUpdated="dataProvidersLinqDataSource_Updated" 
+        onupdating="dataProvidersLinqDataSource_Updating">
         <WhereParameters>
             <asp:Parameter DefaultValue="True" Name="IsExternal" Type="Boolean" />
         </WhereParameters>
     </asp:LinqDataSource>
     <h3>
         Data providers</h3>
-        Available data providers. They will be used in the order listed here.
+    Available data providers. They will be used in the order listed here.
     <asp:GridView ID="dataProvidersGridView" runat="server" AutoGenerateColumns="False"
         DataKeyNames="DataProviderId" DataSourceID="dataProvidersLinqDataSource" EmptyDataText="(None)"
-        OnRowCommand="dataProvidersGridView_RowCommand">
+        OnRowCommand="dataProvidersGridView_RowCommand" 
+        onrowupdating="dataProvidersGridView_RowUpdating" 
+        onrowupdated="dataProvidersGridView_RowUpdated">
         <Columns>
-            <asp:BoundField DataField="DataProviderId" HeaderText="ID" InsertVisible="False"
-                ReadOnly="True" SortExpression="DataProviderId" />
-            <asp:TemplateField HeaderText="Type" SortExpression="DataProviderTypeId">
+            <asp:TemplateField HeaderText="DDD">
+                <ItemTemplate>
+                    <asp:DataList ID="DataList1" runat="server" DataSource='<%# Eval("DataProviderProperties") %>'
+                        RepeatDirection="Horizontal">
+                        <ItemTemplate>
+                            <b>
+                                <%# Eval("Name")%>:</b>
+                            <%# Eval("Value")%>
+                        </ItemTemplate>
+                    </asp:DataList>
+                </ItemTemplate>
+                <EditItemTemplate>
+                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# Eval("DataProviderProperties") %>' DataKeyField="Name"
+                        RepeatDirection="Horizontal">
+                        <ItemTemplate>
+                            <b>
+                                <%# Eval("Name")%>:</b>
+                            <cc1:SmartTextBox ID="SmartTextBox" runat="server" Text='<%# Bind("Value") %>'
+                                Required="True" />
+                        </ItemTemplate>
+                    </asp:DataList>
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField Visible="false" HeaderText="Type" SortExpression="DataProviderTypeId">
                 <EditItemTemplate>
                     <asp:Label ID="Label1" runat="server" Text='<%# Eval("DataProviderType.Name") %>'></asp:Label>
                 </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("DataProviderType.Name") %>'></asp:Label>
-                </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Address" SortExpression="Address">
+            <asp:TemplateField Visible="false" HeaderText="Address" SortExpression="Address">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox1" runat="server" Text='<%# Bind("Address") %>'
                         Required="True" />
                 </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("Address") %>'></asp:Label>
-                </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Port" SortExpression="Port">
+            <asp:TemplateField Visible="false" HeaderText="Port" SortExpression="Port">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox2" runat="server" Required="True" ValidationExpression="\d+"
                         Text='<%# Bind("Port") %>' Visible='<%# (int)Eval("DataProviderTypeId")== (int)CprBroker.Schemas.DataProviderTypes.DPR %>' />
                 </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("Port") %>'></asp:Label>
-                </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Connection string" SortExpression="ConnectionString">
+            <asp:TemplateField Visible="false" HeaderText="Connection string" SortExpression="ConnectionString">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox3" runat="server" Required="True" Text='<%# Bind("ConnectionString") %>'
                         Visible='<%# (int)Eval("DataProviderTypeId")== (int)CprBroker.Schemas.DataProviderTypes.DPR %>' />
                 </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("ConnectionString") %>'></asp:Label>
-                </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="User name" SortExpression="UserName">
+            <asp:TemplateField Visible="false" HeaderText="User name" SortExpression="UserName">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox4" runat="server" Required="True" Text='<%# Bind("UserName") %>'
                         Visible='<%# (int)Eval("DataProviderTypeId")== (int)CprBroker.Schemas.DataProviderTypes.KMD %>' />
                 </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label5" runat="server" Text='<%# Bind("UserName") %>'></asp:Label>
-                </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Password" SortExpression="Password">
+            <asp:TemplateField Visible="false" HeaderText="Password" SortExpression="Password">
                 <EditItemTemplate>
                     <cc1:SmartTextBox ID="SmartTextBox5" runat="server" Required="True" Text='<%# Bind("Password") %>'
                         Visible='<%# (int)Eval("DataProviderTypeId")== (int)CprBroker.Schemas.DataProviderTypes.KMD %>' />
                 </EditItemTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label6" runat="server" Text='<%# Bind("Password") %>'></asp:Label>
-                </ItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowEditButton="True" ControlStyle-CssClass="CommandButton" />
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />

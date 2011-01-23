@@ -19,7 +19,14 @@ namespace CprBroker.Providers.DPR
 
         #region IExternalDataProvider Members
 
-        public CprBroker.DAL.DataProvider DatabaseObject { get; set; }
+        public CprBroker.DAL.DataProviders.DataProvider DatabaseObject { get; set; }
+        public string[] ConfigurationKeys
+        {
+            get
+            {
+                return new string[] { "Address", "Port", "ConnectionString" };
+            }
+        }
 
         #endregion
 

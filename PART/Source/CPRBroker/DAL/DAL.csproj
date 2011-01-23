@@ -167,6 +167,15 @@
     <None Include="Applications\ApplicationDataContext.dbml.layout">
       <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
     </None>
+    <Compile Include="DataProviders\DataProvider.cs" />
+    <Compile Include="DataProviders\DataProvidersDataContext.cs">
+      <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Events\DataChangeEventDataContext.cs" />
     <None Include="Events\DataChangeEventDataContext.dbml">
       <SubType>Designer</SubType>
@@ -175,6 +184,18 @@
     </None>
     <None Include="Events\DataChangeEventDataContext.dbml.layout">
       <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataProviders\DataProvidersDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataProvidersDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataProviders\DataProvidersDataContext.dbml.layout">
+      <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

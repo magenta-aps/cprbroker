@@ -28,8 +28,11 @@ namespace CprBroker.Engine
     /// </summary>
     public interface IExternalDataProvider
     {
-        DAL.DataProvider DatabaseObject { get; set; }
+        DAL.DataProviders.DataProvider DatabaseObject { get; set; } 
+        string[] ConfigurationKeys { get; }
     }
+
+
 
     /// <summary>
     /// Contains methods related to application management

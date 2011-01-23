@@ -6,6 +6,7 @@ using System.Diagnostics;
 using CprBroker.Schemas;
 using CprBroker.Engine;
 using CprBroker.DAL;
+using CprBroker.DAL.DataProviders;
 using CprBroker.DAL.Applications;
 
 namespace CprBroker.Engine.Local
@@ -32,7 +33,7 @@ namespace CprBroker.Engine.Local
         public Schemas.DataProviderType[] GetCPRDataProviderList(string userToken, string appToken)
         {
             // Get data providers from database and convert to the appropriate XML type
-            using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+            using (var context = new DataProvidersDataContext())
             {
                 List<Schemas.DataProviderType> dataProviders = new List<CprBroker.Schemas.DataProviderType>();
                 var providers = from prov in context.DataProviders select prov;
@@ -66,7 +67,7 @@ namespace CprBroker.Engine.Local
 
         public bool SetCPRDataProviderList(string userToken, string appToken, Schemas.DataProviderType[] dataProviders)
         {
-            using (CPRBrokerDALDataContext context = new CPRBrokerDALDataContext())
+            using (var context = new DataProvidersDataContext())
             {
                 #region Delete existing data
                 var currentDataProviders =

@@ -11,6 +11,7 @@ namespace CprBroker.Providers.KMD
 {
     public partial class KmdDataProvider : IDataProvider, IExternalDataProvider
     {
+
         public enum ServiceTypes
         {
             AN08002,
@@ -208,7 +209,15 @@ namespace CprBroker.Providers.KMD
 
         #region IExternalDataProvider Members
 
-        public CprBroker.DAL.DataProvider DatabaseObject { get; set; }
+        public CprBroker.DAL.DataProviders.DataProvider DatabaseObject { get; set; }
+
+        public string[] ConfigurationKeys
+        {
+            get
+            {
+                return new string[] { "Address", "Username", "Password" };
+            }
+        }
 
         #endregion
 

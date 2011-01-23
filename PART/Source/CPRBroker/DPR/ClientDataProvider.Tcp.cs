@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class ClientDataProvider : BaseProvider
+    public abstract class ClientDataProvider : BaseProvider
     {
         enum InquiryType
         {

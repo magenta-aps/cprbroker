@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16.75, 17.625" name="CPRBrokerDAL">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15, 17.625" name="CPRBrokerDAL">
   <DataContextMoniker Name="/CPRBrokerDALDataContext" />
   <nestedChildShapes>
     <classShape Id="8b50e597-92a9-4c76-8ec6-984b998552ea" absoluteBounds="7.125, 0.875, 2, 1.2605004882812487">
@@ -32,25 +32,6 @@
         <elementListCompartment Id="e77b862a-0992-480f-92ec-db0e6a3b3798" absoluteBounds="3.7650000000000006, 2.3350000000000009, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ae61d742-9603-4fe3-9a11-e47531826703" absoluteBounds="11.75, 1.125, 2, 1.5891951497395827">
-      <DataClassMoniker Name="/CPRBrokerDALDataContext/DataProviderType" />
-      <nestedChildShapes>
-        <elementListCompartment Id="11ceeb11-6ed3-4d20-9f0c-edd68e2165d1" absoluteBounds="11.765, 1.585, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="5bf34ed5-63cf-448e-a484-f9845499df8b" absoluteBounds="14.5, 0.875, 2, 1.9178898111979166">
-      <DataClassMoniker Name="/CPRBrokerDALDataContext/DataProvider" />
-      <nestedChildShapes>
-        <elementListCompartment Id="8ca37d4f-7590-459a-b4c9-71b0488b9ed8" absoluteBounds="14.515, 1.335, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(13.75 : 1.91959757486979); (14.5 : 1.91959757486979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/CPRBrokerDALDataContext/DataProviderType/DataProviderType_DataProvider" />
-      <nodes>
-        <classShapeMoniker Id="ae61d742-9603-4fe3-9a11-e47531826703" />
-        <classShapeMoniker Id="5bf34ed5-63cf-448e-a484-f9845499df8b" />
-      </nodes>
-    </associationConnector>
     <classShape Id="8ec877fc-a145-437c-a9b8-de1353eaffab" absoluteBounds="0.75, 12.375, 2, 1.0961531575520844">
       <DataClassMoniker Name="/CPRBrokerDALDataContext/DetailLevel" />
       <nestedChildShapes>
@@ -88,14 +69,14 @@
         <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 11.048076578776); (5.04166541666667 : 11.048076578776 : JumpStart); (5.20833208333333 : 11.048076578776 : JumpEnd); (5.656251875 : 11.048076578776); (5.656251875 : 8.46875244140625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 11.048076578776); (5.656251875 : 11.048076578776); (5.656251875 : 8.46875244140625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPRBrokerDALDataContext/Gender/Gender_Person" />
       <nodes>
         <classShapeMoniker Id="a23490d4-2d80-42ba-bdcd-c5411f363484" />
         <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 9.17307657877604); (2.82291666666667 : 9.17307657877604 : JumpStart); (2.98958333333333 : 9.17307657877604 : JumpEnd); (3.88541666666667 : 9.17307657877604 : JumpStart); (4.05208333333333 : 9.17307657877604 : JumpEnd); (4.593746875 : 9.17307657877604); (4.593746875 : 8.46875244140625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 9.17307657877604); (4.593746875 : 9.17307657877604); (4.593746875 : 8.46875244140625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPRBrokerDALDataContext/MaritalStatusType/MaritalStatusType_Person" />
       <nodes>
         <classShapeMoniker Id="2eb2ac2a-fec1-41e8-a9bd-1c16fc2e169b" />
@@ -108,7 +89,7 @@
         <elementListCompartment Id="a0cd3cad-5e11-496c-a629-c8dbbc92897e" absoluteBounds="1.0150000000000001, 3.46, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3 : 3.5); (3.88541666666667 : 3.5 : JumpStart); (4.05208333333333 : 3.5 : JumpEnd); (5.125 : 3.5); (5.125 : 4.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3 : 3.5); (5.125 : 3.5); (5.125 : 4.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPRBrokerDALDataContext/PersonStatusType/PersonStatusType_Person" />
       <nodes>
         <classShapeMoniker Id="d46e7502-5b78-460b-a3e8-0baab343fdaf" />
@@ -182,7 +163,7 @@
         <classShapeMoniker Id="6cd51535-6974-4971-a8b0-c1d12abc1653" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 8.625); (1.75 : 8.28593180338542); (3.625 : 8.28593180338542); (3.625 : 4); (3.88541666666667 : 4 : JumpStart); (4.05208333333333 : 4 : JumpEnd); (12.125 : 4); (12.125 : 5.56370357877604); (12.5 : 5.56370357877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.75 : 8.625); (1.75 : 8.28593180338542); (2.82291666666667 : 8.28593180338542 : JumpStart); (2.98958333333333 : 8.28593180338542 : JumpEnd); (3.625 : 8.28593180338542); (3.625 : 4); (5.04166666666667 : 4 : JumpStart); (5.20833333333333 : 4 : JumpEnd); (12.125 : 4); (12.125 : 5.56370357877604); (12.5 : 5.56370357877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPRBrokerDALDataContext/MaritalStatusType/MaritalStatusType_MaritalRelationship" />
       <nodes>
         <classShapeMoniker Id="2eb2ac2a-fec1-41e8-a9bd-1c16fc2e169b" />
@@ -195,14 +176,14 @@
         <elementListCompartment Id="87298edf-e05c-4df0-863c-272fab9c7748" absoluteBounds="6.265, 7.7100000000000009, 1.9700000000000002, 3.987447102864583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.96875 : 2.97115315755208); (3.96875 : 10.659257631429); (5.04166541666667 : 10.659257631429 : JumpStart); (5.20833208333333 : 10.659257631429 : JumpEnd); (6.25 : 10.659257631429)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.96875 : 2.97115315755208); (3.96875 : 10.659257631429); (6.25 : 10.659257631429)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPRBrokerDALDataContext/AddressStatus/AddressStatus_Address" />
       <nodes>
         <classShapeMoniker Id="e0f9c128-260a-47b3-8116-9614ef944314" />
         <classShapeMoniker Id="dc042eb2-e767-4ec9-bc1d-3a1211ac0446" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(0.65625 : 1.72115315755208); (0.65625 : 10.207933684082); (3.88541666666667 : 10.207933684082 : JumpStart); (4.05208333333333 : 10.207933684082 : JumpEnd); (5.04166541666667 : 10.207933684082 : JumpStart); (5.20833208333333 : 10.207933684082 : JumpEnd); (5.57291854166667 : 10.207933684082 : JumpStart); (5.73958520833333 : 10.207933684082 : JumpEnd); (6.25 : 10.207933684082)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(0.65625 : 1.72115315755208); (0.65625 : 10.207933684082); (6.25 : 10.207933684082)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPRBrokerDALDataContext/Municipality/Municipality_Address" />
       <nodes>
         <classShapeMoniker Id="4b8a25e0-541b-49d3-8481-1df147fdeff5" />
@@ -235,7 +216,7 @@
         <classShapeMoniker Id="6f578764-ffa4-40c2-a7c5-9095e028cda3" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.90625 : 8.03593180338542); (2.90625 : 9.91586236816406); (3.88541666666667 : 9.91586236816406 : JumpStart); (4.05208333333333 : 9.91586236816406 : JumpEnd); (5.04166541666667 : 9.91586236816406 : JumpStart); (5.20833208333333 : 9.91586236816406 : JumpEnd); (6.25 : 9.91586236816406)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.90625 : 8.03593180338542); (2.90625 : 9.91586236816406); (6.25 : 9.91586236816406)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPRBrokerDALDataContext/Country/Country_Address" />
       <nodes>
         <classShapeMoniker Id="115b4c39-ca12-4b18-b4c0-869c54c77e7d" />

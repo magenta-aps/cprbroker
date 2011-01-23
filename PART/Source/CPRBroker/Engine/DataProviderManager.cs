@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Data.Linq;
+using CprBroker.DAL.DataProviders;
 
 namespace CprBroker.Engine
 {
@@ -22,7 +23,7 @@ namespace CprBroker.Engine
         /// </summary>
         /// <param name="dbDataProvider">The database object that represents the data provider</param>
         /// <returns>The newly created IDataProvider</returns>
-        public static IDataProvider ToIDataProvider(this CprBroker.DAL.DataProvider dbDataProvider)
+        public static IDataProvider ToIDataProvider(this CprBroker.DAL.DataProviders.DataProvider dbDataProvider)
         {
             Type dataProviderType = Type.GetType(dbDataProvider.DataProviderType.TypeName);
             //TODO: throws exception : Object reference not set to an instance of an object
@@ -42,10 +43,10 @@ namespace CprBroker.Engine
         {
             BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
             // Load from database
-            using (DAL.CPRBrokerDALDataContext dataContext = new CprBroker.DAL.CPRBrokerDALDataContext())
+            using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
             {
                 DataLoadOptions loadOptions = new DataLoadOptions();
-                loadOptions.LoadWith<DAL.DataProvider>((dp) => dp.DataProviderType);
+                loadOptions.LoadWith<DataProvider>((dp) => dp.DataProviderType);
                 dataContext.LoadOptions = loadOptions;
                 var dbProviders = (from prov in dataContext.DataProviders
                                    where prov.DataProviderType.Enabled == true
