@@ -13,6 +13,41 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     internal partial class PersonInfo
     {
+        public PersonName PersonName { get; set; }
+        public PersonTotal PersonTotal { get; set; }
+        public Street Street { get; set; }
+        public ContactAddress ContactAddress { get; set; }
+        //TODO: remove this field
+        public bool HasProtection { get; set; }
+        public IQueryable<CivilStatus> CivilStates { get; set; }
+
+        /// <summary>
+        /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
+        /// </summary>
+        internal static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
+            from personTotal in dataContext.PersonTotals
+            //TODO: Convert to left outer join, beware that this will make it possible for PersonName to be null
+            join personName in dataContext.PersonNames on personTotal.PNR equals personName.PNR
+            join street in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { street.MunicipalityCode, street.StreetCode } into strt
+            join contactAddress in dataContext.ContactAddresses on personName.PNR equals contactAddress.PNR into contactAddr
+            // TODO correct this condition
+            where
+            personName.NameTerminationDate == null
+            select new PersonInfo()
+            {
+                PersonName = personName,
+                PersonTotal = personTotal,
+                Street = strt.FirstOrDefault(),
+                ContactAddress = contactAddr.SingleOrDefault(),
+                // TODO: include protection type with PNR because the index is on PNR & ProtectionType                
+                HasProtection = (
+                   from protection in dataContext.Protections
+                   select protection.PNR
+                ).Contains(personName.PNR),
+                //TODO: Beware that there might be time range intersections in the last day of an older period, like a marriage period after a divorce period
+                CivilStates = (from civ in dataContext.CivilStatus where !civ.CorrectionMarker.HasValue && (civ.PNR == personTotal.PNR || civ.SpousePNR == personTotal.PNR) select civ),
+            };
+
         internal static readonly Expression<Func<decimal, decimal, DPRDataContext, PersonTotal>> NextPersonTotalExpression = (pnr, statusDate, dataContext) =>
             (from personTotal in dataContext.PersonTotals
              where pnr == personTotal.PNR && personTotal.StatusDate > statusDate

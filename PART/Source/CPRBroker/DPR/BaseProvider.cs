@@ -13,7 +13,7 @@ namespace CprBroker.Providers.DPR
     public abstract class BaseProvider : IExternalDataProvider, IDataProvider
     {
         /// <summary>
-        /// Map for error codes that are returned from DPR. Each provider fills its on list
+        /// Map for error codes that are returned from DPR. Each provider fills its own list
         /// </summary>
         protected static Dictionary<string, string> ErrorCodes = new Dictionary<string, string>();
 
@@ -41,12 +41,6 @@ namespace CprBroker.Providers.DPR
         #endregion
 
         #region Protected Members
-
-        /// <summary>
-        /// Used in development environment
-        /// </summary>
-        [Obsolete]
-        protected abstract string TestResponse { get; }
 
         protected string Send(string message)
         {

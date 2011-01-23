@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class ClientDataProvider : BaseProvider, IPersonNameAndAddressDataProvider, IPersonBasicDataProvider, IPersonFullDataProvider, IPersonChildrenDataProvider, IPersonRelationsDataProvider
+    public partial class ClientDataProvider : BaseProvider
     {
         enum InquiryType
         {
@@ -42,6 +42,28 @@ namespace CprBroker.Providers.DPR
             ErrorCodes["31"] = "Communication Error";
         }
 
+        /// <summary>
+        /// Ensures that the DPR database contains the given person
+        /// </summary>
+        /// <param name="cprNumber"></param>
+        protected void EnsurePersonDataExists(string cprNumber)
+        {
+            // TODO: include BirthDate in the search
+            decimal cprNum = Convert.ToDecimal(cprNumber);
+            using (DPRDataContext dataContext = new DPRDataContext(DatabaseObject.ConnectionString))
+            {
+                var exists = (from personName in dataContext.PersonNames
+                              select personName.PNR).Contains(cprNum);
+
+                if (!exists)
+                {
+                    GetPersonData(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.ExtendedData, cprNumber);
+                    // TODO: make sure that deleting the subscription is a good decision
+                    GetPersonData(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.ExtendedData, cprNumber);
+                }
+            }
+        }
+
         public override bool IsAlive()
         {
             // Try to open a socket on the server
@@ -64,15 +86,6 @@ namespace CprBroker.Providers.DPR
             {
                 client.Close();
                 conn.Close();
-            }
-        }
-
-        [Obsolete]
-        protected override string TestResponse
-        {
-            get
-            {
-                return "11471926741444Rkzmqvyjtyt                             Jpgdu                                                                               Sgk S?wuscdsxnbg                        579D485671    3744Btjaoxuwbsoxr       2005197001";
             }
         }
 

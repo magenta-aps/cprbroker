@@ -15,15 +15,6 @@ namespace CprBroker.Providers.DPR
     {
         public static readonly Guid ActorId = new Guid("{4A953CF9-B4C1-4ce9-BF09-2BF655DC61C7}");
 
-        [Obsolete]
-        protected override string TestResponse
-        {
-            get
-            {
-                return "11471926741444Rkzmqvyjtyt                             Jpgdu                                                                               Sgk S?wuscdsxnbg                        579D485671    3744Btjaoxuwbsoxr       2005197001";
-            }
-        }
-
         #region IPartReadDataProvider Members
 
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)

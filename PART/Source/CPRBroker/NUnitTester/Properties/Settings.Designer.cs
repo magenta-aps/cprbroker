@@ -46,16 +46,6 @@ namespace CprBroker.NUnitTester.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1551/services/CPRPersonWS.asmx")]
-        public string NUnitTester_CPRPersonWS_CPRPersonWS {
-            get {
-                return ((string)(this["NUnitTester_CPRPersonWS_CPRPersonWS"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1551/Services/Part.asmx")]
         public string NUnitTester_Part_Part {
             get {

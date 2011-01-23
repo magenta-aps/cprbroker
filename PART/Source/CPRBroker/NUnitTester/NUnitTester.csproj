@@ -89,11 +89,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\CPRPersonWS\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\Events\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,9 +104,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\CPRPersonWS\CPRPersonWS.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
@@ -138,17 +130,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NUnitTester_CPRAdministrationWS_CPRAdministrationWS</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://localhost:1551/services/CPRPersonWS.asmx">
-      <UrlBehavior>Static</UrlBehavior>
-      <RelPath>Web References\CPRPersonWS\</RelPath>
-      <UpdateFromURL>http://localhost:1551/services/CPRPersonWS.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NUnitTester_CPRPersonWS_CPRPersonWS</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1551/Services/Events.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -186,11 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\CPRAdministrationWS\CPRAdministrationWS.wsdl" />
-    <None Include="Web References\CPRPersonWS\CPRPersonWS.disco" />
-    <None Include="Web References\CPRPersonWS\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\Access\Access.wsdl" />
@@ -253,24 +229,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\CPRAdministrationWS\ServiceVersionType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRPersonWS\ParentAuthorityRelationshipType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRPersonWS\PersonBasicStructureType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRPersonWS\PersonFullStructureType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRPersonWS\PersonNameAndAddressStructureType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRPersonWS\PersonRelationsType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRPersonWS\SimpleCPRPersonType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Events\Events.wsdl" />

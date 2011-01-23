@@ -12,7 +12,6 @@ namespace CprBroker.NUnitTester
     {
 
         public static CPRAdministrationWS.CPRAdministrationWS AdminService;
-        public static CPRPersonWS.CPRPersonWS PersonService;
         public static Access.Access AccessService;
         public static Part.Part PartService;
         public static Subscriptions.Subscriptions SubscriptionsService;
@@ -29,24 +28,13 @@ namespace CprBroker.NUnitTester
             ReplaceServiceUrl(AdminService, SystemType.CprBroker);
             Console.WriteLine(AdminService.Url);
 
-
-            PersonService = new NUnitTester.CPRPersonWS.CPRPersonWS();
-            PersonService.ApplicationHeaderValue = new NUnitTester.CPRPersonWS.ApplicationHeader()
-            {
-                ApplicationToken = TestData.BaseAppToken,
-                UserToken = TestData.userToken
-            };
-            ReplaceServiceUrl(PersonService, SystemType.CprBroker);
-            Console.WriteLine(PersonService.Url);
-
-
             PartService = new NUnitTester.Part.Part();
             PartService.ApplicationHeaderValue = new NUnitTester.Part.ApplicationHeader()
             {
                 ApplicationToken = TestData.BaseAppToken,
                 UserToken = TestData.userToken
             };
-            
+
             ReplaceServiceUrl(PartService, SystemType.CprBroker);
             Console.WriteLine(PartService.Url);
 
