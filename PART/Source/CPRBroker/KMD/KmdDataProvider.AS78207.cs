@@ -21,8 +21,8 @@ namespace CprBroker.Providers.KMD
             SetServiceUrl(service, ServiceTypes.AS78207);
             service.userinfoValue = new userinfo()
             {
-                userid = DatabaseObject.UserName,
-                password = DatabaseObject.Password
+                userid = UserName,
+                password = Password
             };
             AS78207 param = new AS78207()
             {

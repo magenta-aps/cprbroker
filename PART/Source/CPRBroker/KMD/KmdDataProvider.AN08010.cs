@@ -33,8 +33,8 @@ namespace CprBroker.Providers.KMD
             SetServiceUrl(service, ServiceTypes.AN08010);
             service.userinfoValue = new userinfo()
             {
-                userid = DatabaseObject.UserName,
-                password = DatabaseObject.Password
+                userid = UserName,
+                password = Password
             };
             AN08010 param = new AN08010()
             {

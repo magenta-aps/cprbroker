@@ -30,6 +30,7 @@ namespace CprBroker.Engine.Local
         #endregion
 
         #region Provider list
+        // TODO: Convert to use generic XML types
         public Schemas.DataProviderType[] GetCPRDataProviderList(string userToken, string appToken)
         {
             // Get data providers from database and convert to the appropriate XML type
@@ -44,27 +45,27 @@ namespace CprBroker.Engine.Local
                     {
                         case DataProviderTypes.DPR:
                             DprDataProviderType dpr = new DprDataProviderType();
-                            dpr.Port = provider.Port.Value;
-                            dpr.ConnectionString = provider.ConnectionString;
+                            dpr.Port = int.Parse(provider["Port"]);
+                            dpr.ConnectionString = provider["ConnectionString"];
                             newProvider = dpr;
                             break;
                         case DataProviderTypes.KMD:
                             KmdDataProviderType kmd = new KmdDataProviderType();
-                            kmd.Username = provider.UserName;
-                            kmd.Password = provider.Password;
+                            kmd.Username = provider["UserName"];
+                            kmd.Password = provider["Password"];
                             newProvider = kmd;
                             break;
                     }
                     if (newProvider != null)
                     {
-                        newProvider.Address = provider.Address;
+                        newProvider.Address = provider["Address"];
                         dataProviders.Add(newProvider);
                     }
                 }
                 return dataProviders.ToArray();
             }
         }
-
+        // TODO: Convert to use generic XML types
         public bool SetCPRDataProviderList(string userToken, string appToken, Schemas.DataProviderType[] dataProviders)
         {
             using (var context = new DataProvidersDataContext())
@@ -85,21 +86,21 @@ namespace CprBroker.Engine.Local
                     (Schemas.DataProviderType provider) =>
                     {
                         DataProvider local = new DataProvider();
-                        local.Address = provider.Address;
+                        local["Address"] = provider.Address;
 
                         if (provider is Schemas.DprDataProviderType)
                         {
                             local.DataProviderTypeId = (int)Schemas.DataProviderTypes.DPR;
                             Schemas.DprDataProviderType dpr = provider as Schemas.DprDataProviderType;
-                            local.Port = dpr.Port;
-                            local.ConnectionString = dpr.ConnectionString;
+                            local["Port"] = dpr.Port.ToString();
+                            local["ConnectionString"] = dpr.ConnectionString;
                         }
                         else if (provider is Schemas.KmdDataProviderType)
                         {
                             local.DataProviderTypeId = (int)Schemas.DataProviderTypes.KMD;
                             Schemas.KmdDataProviderType kmd = provider as Schemas.KmdDataProviderType;
-                            local.UserName = kmd.Username;
-                            local.Password = kmd.Password;
+                            local["UserName"] = kmd.Username;
+                            local["Password"] = kmd.Password;
                         }
 
                         context.DataProviders.InsertOnSubmit(local);

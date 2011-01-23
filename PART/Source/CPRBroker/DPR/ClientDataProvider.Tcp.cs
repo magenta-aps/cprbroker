@@ -50,7 +50,7 @@ namespace CprBroker.Providers.DPR
         {
             // TODO: include BirthDate in the search
             decimal cprNum = Convert.ToDecimal(cprNumber);
-            using (DPRDataContext dataContext = new DPRDataContext(DatabaseObject.ConnectionString))
+            using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
             {
                 var exists = (from personName in dataContext.PersonNames
                               select personName.PNR).Contains(cprNum);
@@ -72,9 +72,9 @@ namespace CprBroker.Providers.DPR
             try
             {
                 // TODO : Put a maximum timeout for DPR connection
-                client.Connect(this.DatabaseObject.Address, this.DatabaseObject.Port.Value);
+                client.Connect(this.Address, this.Port);
                 client.GetStream().Close();
-                conn.ConnectionString = this.DatabaseObject.ConnectionString;
+                conn.ConnectionString = this.ConnectionString;
                 conn.Open();
                 return true;
             }

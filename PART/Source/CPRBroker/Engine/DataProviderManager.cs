@@ -31,7 +31,8 @@ namespace CprBroker.Engine
             IDataProvider dataProvider = providerObj as IDataProvider;
             if (dataProvider is IExternalDataProvider)
             {
-                (dataProvider as IExternalDataProvider).DatabaseObject = dbDataProvider;
+                IExternalDataProvider externalProvider = dataProvider as IExternalDataProvider;
+                externalProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(externalProvider.ConfigurationKeys);
             }
             return dataProvider;
         }

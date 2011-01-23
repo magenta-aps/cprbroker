@@ -169,7 +169,7 @@
     </None>
     <Compile Include="DataProviders\DataProvider.cs" />
     <Compile Include="DataProviders\DataProvidersDataContext.cs">
-      <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
       <AutoGen>True</AutoGen>

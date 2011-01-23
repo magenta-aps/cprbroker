@@ -19,7 +19,10 @@ namespace CprBroker.Providers.DPR
 
         #region IExternalDataProvider Members
 
-        public CprBroker.DAL.DataProviders.DataProvider DatabaseObject { get; set; }
+        //public CprBroker.DAL.DataProviders.DataProvider DatabaseObject { get; set; }
+
+        public Dictionary<string, string> ConfigurationProperties { get; set; }
+
         public string[] ConfigurationKeys
         {
             get
@@ -29,6 +32,30 @@ namespace CprBroker.Providers.DPR
         }
 
         #endregion
+
+        public string Address
+        {
+            get
+            {
+                return ConfigurationProperties["Address"];
+            }
+        }
+        public int Port
+        {
+            get
+            {
+                return int.Parse(ConfigurationProperties["Port"]);
+            }
+        }
+
+        public string ConnectionString
+        {
+            get
+            {
+                return ConfigurationProperties["ConnectionString"];
+            }
+        }
+
 
         #region IDataProvider Members
 
@@ -75,7 +102,7 @@ namespace CprBroker.Providers.DPR
             error = null;
             NetworkStream stream = null;
 
-            TcpClient client = new TcpClient(DatabaseObject.Address, DatabaseObject.Port.Value);
+            TcpClient client = new TcpClient(Address, Port);
             Byte[] data = System.Text.Encoding.UTF7.GetBytes(message);
 
             stream = client.GetStream();

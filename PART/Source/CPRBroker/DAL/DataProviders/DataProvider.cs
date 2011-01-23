@@ -44,5 +44,15 @@ namespace CprBroker.DAL.DataProviders
                 }
             }
         }
+
+        public Dictionary<string, string> ToPropertiesDictionary(string[] keys)
+        {
+            Dictionary<string, string> ret = new Dictionary<string, string>();
+            foreach (var k in keys)
+            {
+                ret[k] = this[k];
+            }
+            return ret;
+        }
     }
 }

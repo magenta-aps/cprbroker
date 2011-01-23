@@ -30,7 +30,7 @@ namespace CprBroker.Providers.KMD
         private void SetServiceUrl(System.Web.Services.Protocols.SoapHttpClientProtocol service, ServiceTypes serviceType)
         {
             string query = string.Format("?zservice={0}", serviceType);
-            string url = DatabaseObject.Address.Split(new char[] { '?' }, StringSplitOptions.RemoveEmptyEntries)[0];
+            string url = Address.Split(new char[] { '?' }, StringSplitOptions.RemoveEmptyEntries)[0];
             url += query;
             service.Url = url;
         }
@@ -182,7 +182,7 @@ namespace CprBroker.Providers.KMD
             System.Net.WebClient client = new System.Net.WebClient();
             try
             {
-                System.Uri uri = new Uri(DatabaseObject.Address);
+                System.Uri uri = new Uri(Address);
                 uri = new Uri(uri, "wsdl/AN08002.wsdl");
                 client.DownloadData(uri);
                 return true;
@@ -209,7 +209,7 @@ namespace CprBroker.Providers.KMD
 
         #region IExternalDataProvider Members
 
-        public CprBroker.DAL.DataProviders.DataProvider DatabaseObject { get; set; }
+        public Dictionary<string, string> ConfigurationProperties { get; set; }
 
         public string[] ConfigurationKeys
         {
@@ -220,6 +220,30 @@ namespace CprBroker.Providers.KMD
         }
 
         #endregion
+
+        public string Address
+        {
+            get
+            {
+                return ConfigurationProperties["Address"];
+            }
+        }
+
+        public string UserName
+        {
+            get
+            {
+                return ConfigurationProperties["Username"];
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return ConfigurationProperties["Password"];
+            }
+        }
 
     }
 }

@@ -286,16 +286,6 @@ namespace CprBroker.DAL.DataProviders
 		
 		private int _DataProviderTypeId;
 		
-		private string _Address;
-		
-		private System.Nullable<int> _Port;
-		
-		private string _ConnectionString;
-		
-		private string _UserName;
-		
-		private string _Password;
-		
 		private EntitySet<DataProviderProperty> _DataProviderProperties;
 		
 		private EntityRef<DataProviderType> _DataProviderType;
@@ -308,16 +298,6 @@ namespace CprBroker.DAL.DataProviders
     partial void OnDataProviderIdChanged();
     partial void OnDataProviderTypeIdChanging(int value);
     partial void OnDataProviderTypeIdChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnPortChanging(System.Nullable<int> value);
-    partial void OnPortChanged();
-    partial void OnConnectionStringChanging(string value);
-    partial void OnConnectionStringChanged();
-    partial void OnUserNameChanging(string value);
-    partial void OnUserNameChanged();
-    partial void OnPasswordChanging(string value);
-    partial void OnPasswordChanged();
     #endregion
 		
 		public DataProvider()
@@ -367,106 +347,6 @@ namespace CprBroker.DAL.DataProviders
 					this._DataProviderTypeId = value;
 					this.SendPropertyChanged("DataProviderTypeId");
 					this.OnDataProviderTypeIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Address", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Address
-		{
-			get
-			{
-				return this._Address;
-			}
-			set
-			{
-				if ((this._Address != value))
-				{
-					this.OnAddressChanging(value);
-					this.SendPropertyChanging();
-					this._Address = value;
-					this.SendPropertyChanged("Address");
-					this.OnAddressChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Port", DbType="Int")]
-		public System.Nullable<int> Port
-		{
-			get
-			{
-				return this._Port;
-			}
-			set
-			{
-				if ((this._Port != value))
-				{
-					this.OnPortChanging(value);
-					this.SendPropertyChanging();
-					this._Port = value;
-					this.SendPropertyChanged("Port");
-					this.OnPortChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ConnectionString", DbType="VarChar(250)")]
-		public string ConnectionString
-		{
-			get
-			{
-				return this._ConnectionString;
-			}
-			set
-			{
-				if ((this._ConnectionString != value))
-				{
-					this.OnConnectionStringChanging(value);
-					this.SendPropertyChanging();
-					this._ConnectionString = value;
-					this.SendPropertyChanged("ConnectionString");
-					this.OnConnectionStringChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_UserName", DbType="VarChar(50)")]
-		public string UserName
-		{
-			get
-			{
-				return this._UserName;
-			}
-			set
-			{
-				if ((this._UserName != value))
-				{
-					this.OnUserNameChanging(value);
-					this.SendPropertyChanging();
-					this._UserName = value;
-					this.SendPropertyChanged("UserName");
-					this.OnUserNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Password", DbType="VarChar(50)")]
-		public string Password
-		{
-			get
-			{
-				return this._Password;
-			}
-			set
-			{
-				if ((this._Password != value))
-				{
-					this.OnPasswordChanging(value);
-					this.SendPropertyChanging();
-					this._Password = value;
-					this.SendPropertyChanged("Password");
-					this.OnPasswordChanged();
 				}
 			}
 		}
@@ -559,7 +439,7 @@ namespace CprBroker.DAL.DataProviders
 		
 		private System.Guid _DataProviderPropertyId;
 		
-		private System.Nullable<int> _DataProviderId;
+		private int _DataProviderId;
 		
 		private string _Name;
 		
@@ -573,7 +453,7 @@ namespace CprBroker.DAL.DataProviders
     partial void OnCreated();
     partial void OnDataProviderPropertyIdChanging(System.Guid value);
     partial void OnDataProviderPropertyIdChanged();
-    partial void OnDataProviderIdChanging(System.Nullable<int> value);
+    partial void OnDataProviderIdChanging(int value);
     partial void OnDataProviderIdChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
@@ -607,8 +487,8 @@ namespace CprBroker.DAL.DataProviders
 			}
 		}
 		
-		[Column(Storage="_DataProviderId", DbType="Int")]
-		public System.Nullable<int> DataProviderId
+		[Column(Storage="_DataProviderId", DbType="Int NOT NULL")]
+		public int DataProviderId
 		{
 			get
 			{
@@ -631,7 +511,7 @@ namespace CprBroker.DAL.DataProviders
 			}
 		}
 		
-		[Column(Storage="_Name", DbType="VarChar(50)")]
+		[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -651,7 +531,7 @@ namespace CprBroker.DAL.DataProviders
 			}
 		}
 		
-		[Column(Storage="_Value", DbType="VarChar(250)")]
+		[Column(Storage="_Value", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
 		public string Value
 		{
 			get
@@ -698,7 +578,7 @@ namespace CprBroker.DAL.DataProviders
 					}
 					else
 					{
-						this._DataProviderId = default(Nullable<int>);
+						this._DataProviderId = default(int);
 					}
 					this.SendPropertyChanged("DataProvider");
 				}

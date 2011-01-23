@@ -28,7 +28,7 @@ namespace CprBroker.Providers.DPR
             {
                 effectDate = DateTime.Today;
             }
-            using (var dataContext = new DPRDataContext(this.DatabaseObject.ConnectionString))
+            using (var dataContext = new DPRDataContext(this.ConnectionString))
             {
                 var db =
                 (
