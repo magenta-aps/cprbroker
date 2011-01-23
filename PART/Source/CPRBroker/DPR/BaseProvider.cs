@@ -27,7 +27,7 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                return new string[] { "Address", "Port", "ConnectionString" };
+                return new string[] { "Address", "Port", "ConnectionString", "KeepSubscription" };
             }
         }
 
@@ -56,6 +56,13 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        public bool KeepSubscription
+        {
+            get
+            {
+                return Convert.ToBoolean(ConfigurationProperties["KeepSubscription"]);
+            }
+        }
 
         #region IDataProvider Members
 

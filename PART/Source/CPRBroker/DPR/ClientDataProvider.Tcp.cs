@@ -59,7 +59,10 @@ namespace CprBroker.Providers.DPR
                 {
                     GetPersonData(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.ExtendedData, cprNumber);
                     // TODO: make sure that deleting the subscription is a good decision
-                    GetPersonData(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.ExtendedData, cprNumber);
+                    if (!KeepSubscription)
+                    {
+                        GetPersonData(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.ExtendedData, cprNumber);
+                    }
                 }
             }
         }
