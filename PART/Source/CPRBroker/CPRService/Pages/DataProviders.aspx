@@ -31,14 +31,15 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <asp:DataList ID="DataList1" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'
-                        RepeatDirection="Horizontal">
+                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'
+                         >
                         <ItemTemplate>
                             <b>
                                 <%# Eval("Name")%>:</b>
                             <%# Eval("Value")%>
                         </ItemTemplate>
-                    </asp:DataList>
+                        <SeparatorTemplate>&nbsp;</SeparatorTemplate>
+                    </asp:Repeater>
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:DataList ID="EditDataList" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'
