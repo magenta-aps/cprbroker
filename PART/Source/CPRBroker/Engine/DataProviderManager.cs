@@ -122,6 +122,10 @@ namespace CprBroker.Engine
                         }
                     }
                 }
+                catch (System.Reflection.ReflectionTypeLoadException ex)
+                {
+                    Local.Admin.LogException(ex, ex.LoaderExceptions);
+                }
                 catch (Exception ex)
                 {
                     Local.Admin.LogException(ex);

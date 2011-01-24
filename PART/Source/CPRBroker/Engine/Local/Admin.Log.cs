@@ -34,6 +34,12 @@ namespace CprBroker.Engine.Local
             AddNewLog(TraceEventType.Error, ex.Source, string.Format("{0}{1}{2}", moreText, Environment.NewLine, ex.ToString()), null, null);
         }
 
+        public static void LogException(Exception ex, Exception[] moreExceptions)
+        {
+            string[] msgs = Array.ConvertAll<Exception, string>(moreExceptions, e => e.ToString());
+            AddNewLog(TraceEventType.Error, ex.Source, string.Format("{0}{1}{2}", ex.ToString(), Environment.NewLine, string.Join(Environment.NewLine, msgs)), null, null);
+        }
+
         /// <summary>
         /// Writes a notification success to the log
         /// </summary>
