@@ -20,14 +20,64 @@ namespace CprBroker.Web.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                newDataProviderDropDownList.DataBind();
+                newDataProviderDropDownList_SelectedIndexChanged(this, EventArgs.Empty);
+            }
         }
 
         #region Insert
 
+        protected void newDataProviderDropDownList_DataBinding(object sender, EventArgs e)
+        {
+            newDataProviderDropDownList.DataSource = DataProviderManager.DataProviderTypes;
+        }
+
         protected void newDataProviderDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            newDataProviderDetailsView.DataBind();
+            Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
+            IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
+            newDataProviderGridView.DataSource = dp.ConfigurationKeys;
+            newDataProviderGridView.DataBind();
+        }
+
+        protected void newDataProviderGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Insert")
+            {
+                try
+                {
+                    using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
+                    {
+                        DataProvider dbPrrov = new DataProvider()
+                        {
+                            DataProviderTypeId = 1
+                        };
+                        dataContext.DataProviders.InsertOnSubmit(dbPrrov);
+
+                        dataProviderProps = new System.Collections.Generic.Dictionary<string, string>();
+                        foreach (GridViewRow item in newDataProviderGridView.Rows)
+                        {
+                            SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
+                            dataProviderProps[newDataProviderGridView.DataKeys[item.RowIndex].ToString()] = smartTextBox.Text;
+                        }
+                        foreach (var kvp in dataProviderProps)
+                        {
+                            dbPrrov[kvp.Key] = kvp.Value;
+                        }
+                        dataContext.SubmitChanges();
+
+                        CprBroker.Engine.DataProviderManager.InitializeDataProviders();
+                        dataProvidersGridView.DataBind();
+                        newDataProviderGridView.DataBind();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Master.AppendError(ex.Message);
+                }
+            }
         }
 
         protected void newDataProviderDetailsView_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
@@ -41,7 +91,7 @@ namespace CprBroker.Web.Pages
             else
             {
                 dataProvidersGridView.DataBind();
-                newDataProviderDetailsView.DataBind();
+                newDataProviderGridView.DataBind();
                 CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
@@ -146,6 +196,9 @@ namespace CprBroker.Web.Pages
         }
 
         #endregion
+
+        
+
 
 
     }

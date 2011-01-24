@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Data.Linq;
+using System.IO;
 using CprBroker.DAL.DataProviders;
 
 namespace CprBroker.Engine
@@ -12,6 +14,7 @@ namespace CprBroker.Engine
     {
         private static List<IDataProvider> DataProviders = new List<IDataProvider>();
         private static ReaderWriterLock DataProvidersLock = new ReaderWriterLock();
+        public static System.Collections.ObjectModel.ReadOnlyCollection<Type> DataProviderTypes { get; private set; }
 
         static DataProviderManager()
         {
@@ -31,8 +34,15 @@ namespace CprBroker.Engine
             IDataProvider dataProvider = providerObj as IDataProvider;
             if (dataProvider is IExternalDataProvider)
             {
-                IExternalDataProvider externalProvider = dataProvider as IExternalDataProvider;
-                externalProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(externalProvider.ConfigurationKeys);
+                try
+                {
+                    IExternalDataProvider externalProvider = dataProvider as IExternalDataProvider;
+                    externalProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(externalProvider.ConfigurationKeys);
+                }
+                catch (Exception ex)
+                {
+                    Local.Admin.LogException(ex);
+                }
             }
             return dataProvider;
         }
@@ -43,6 +53,17 @@ namespace CprBroker.Engine
         public static void InitializeDataProviders()
         {
             BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
+
+            // Load available types
+            List<Type> neededTypes = new List<Type>();
+            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                neededTypes.AddRange(asm.GetTypes()
+                    .Where(
+                        t => typeof(IExternalDataProvider).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract
+                        ));
+            }
+
             // Load from database
             using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
             {
@@ -76,8 +97,12 @@ namespace CprBroker.Engine
 
                 // Now refresh the list
                 DataProvidersLock.AcquireWriterLock(Timeout.Infinite);
+
+                DataProviderTypes = new List<Type>(neededTypes).AsReadOnly();
+
                 DataProviders.Clear();
                 DataProviders.AddRange(providers);
+
                 DataProvidersLock.ReleaseWriterLock();
             }
         }

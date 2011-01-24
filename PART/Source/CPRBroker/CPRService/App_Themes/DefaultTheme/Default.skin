@@ -22,6 +22,7 @@ Default skin template. The following skins are provided as examples only.
     <AlternatingRowStyle CssClass="AlternateRow" />
     <RowStyle CssClass="Row" />
     <HeaderStyle CssClass="GridHeader" />
+    <FooterStyle CssClass="GridHeader" />
 </asp:GridView >
 
 <asp:DetailsView runat="server"  CellPadding=2>
