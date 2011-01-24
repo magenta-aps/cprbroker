@@ -31,7 +31,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <asp:DataList ID="DataList1" runat="server" DataSource='<%# Eval("DataProviderProperties") %>'
+                    <asp:DataList ID="DataList1" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'
                         RepeatDirection="Horizontal">
                         <ItemTemplate>
                             <b>
@@ -41,7 +41,7 @@
                     </asp:DataList>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# Eval("DataProviderProperties") %>'
+                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'
                         DataKeyField="Name" RepeatDirection="Horizontal">
                         <ItemTemplate>
                             <b>

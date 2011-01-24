@@ -299,6 +299,8 @@ namespace CprBroker.DAL.DataProviders
 		
 		private int _DataProviderId;
 		
+		private System.Nullable<int> _Ordinal;
+		
 		private string _Name;
 		
 		private string _Value;
@@ -313,6 +315,8 @@ namespace CprBroker.DAL.DataProviders
     partial void OnDataProviderPropertyIdChanged();
     partial void OnDataProviderIdChanging(int value);
     partial void OnDataProviderIdChanged();
+    partial void OnOrdinalChanging(System.Nullable<int> value);
+    partial void OnOrdinalChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
     partial void OnValueChanging(string value);
@@ -365,6 +369,26 @@ namespace CprBroker.DAL.DataProviders
 					this._DataProviderId = value;
 					this.SendPropertyChanged("DataProviderId");
 					this.OnDataProviderIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Ordinal", DbType="Int")]
+		public System.Nullable<int> Ordinal
+		{
+			get
+			{
+				return this._Ordinal;
+			}
+			set
+			{
+				if ((this._Ordinal != value))
+				{
+					this.OnOrdinalChanging(value);
+					this.SendPropertyChanging();
+					this._Ordinal = value;
+					this.SendPropertyChanged("Ordinal");
+					this.OnOrdinalChanged();
 				}
 			}
 		}

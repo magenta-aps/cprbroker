@@ -175,7 +175,7 @@ namespace CprBroker.Web.Pages
                             Ordinal = dataContext.DataProviders.Select(dp => dp.Ordinal).Max() + 1
                         };
                         dataContext.DataProviders.InsertOnSubmit(dbPrrov);
-
+                        
                         foreach (GridViewRow item in newDataProviderGridView.Rows)
                         {
                             SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
@@ -216,6 +216,10 @@ namespace CprBroker.Web.Pages
             return assebblyQualifiedName;
         }
 
+        protected DataProviderProperty[] SortDataProviderProperties(object props)
+        {
+            return (props as System.Data.Linq.EntitySet<DataProviderProperty>).OrderBy(p => p.Ordinal).ToArray();
+        }
         #endregion
 
 

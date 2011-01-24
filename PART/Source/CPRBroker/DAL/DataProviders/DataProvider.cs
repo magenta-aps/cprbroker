@@ -47,7 +47,8 @@ namespace CprBroker.DAL.DataProviders
                             DataProviderPropertyId = Guid.NewGuid(),
                             DataProvider = this,
                             Name = key,
-                            Value = value
+                            Value = value,
+                            Ordinal = DataProviderProperties.Count
                         });
                 }
             }
