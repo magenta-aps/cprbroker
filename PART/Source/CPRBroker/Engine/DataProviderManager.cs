@@ -13,7 +13,9 @@ namespace CprBroker.Engine
     public static class DataProviderManager
     {
         private static List<IDataProvider> DataProviders = new List<IDataProvider>();
-        private static ReaderWriterLock DataProvidersLock = new ReaderWriterLock();        
+        private static ReaderWriterLock DataProvidersLock = new ReaderWriterLock();
+
+        #region Initialization
 
         static DataProviderManager()
         {
@@ -21,16 +23,44 @@ namespace CprBroker.Engine
         }
 
         /// <summary>
+        /// Initializes the list of all data providers
+        /// </summary>
+        public static void InitializeDataProviders()
+        {
+            BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
+            System.Diagnostics.Debugger.Break();
+            try
+            {
+                // Load from database                
+                var external = LoadExternalDataProviders();
+
+                // Append local data providers
+                var local = LoadLocalDataProviders();
+
+                // Now refresh the list
+                DataProvidersLock.AcquireWriterLock(Timeout.Infinite);
+                DataProviders.Clear();
+                DataProviders.AddRange(local);
+                DataProviders.AddRange(external);
+                DataProvidersLock.ReleaseWriterLock();
+            }
+            catch (Exception ex)
+            {
+                Local.Admin.LogException(ex);
+            }
+        }
+
+        #endregion
+
+        #region Creators
+        /// <summary>
         /// Converts the current DataProvider (database object) to the appropriate IDataProvider object based on its type
         /// </summary>
         /// <param name="dbDataProvider">The database object that represents the data provider</param>
         /// <returns>The newly created IDataProvider</returns>
-        public static IDataProvider ToIDataProvider(this CprBroker.DAL.DataProviders.DataProvider dbDataProvider)
+        public static IExternalDataProvider CreateDataProvider(CprBroker.DAL.DataProviders.DataProvider dbDataProvider)
         {
-            Type dataProviderType = Type.GetType(dbDataProvider.TypeName);
-            //TODO: throws exception : Object reference not set to an instance of an object
-            object providerObj = dataProviderType.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
-            IDataProvider dataProvider = providerObj as IDataProvider;
+            IExternalDataProvider dataProvider = CreateDataProvider(dbDataProvider.TypeName) as IExternalDataProvider;
             if (dataProvider is IExternalDataProvider)
             {
                 try
@@ -46,7 +76,18 @@ namespace CprBroker.Engine
             return dataProvider;
         }
 
-        public static Type[] GetAvailableDataProviderTypes()
+        private static IDataProvider CreateDataProvider(string typeName)
+        {
+            Type dataProviderType = Type.GetType(typeName);
+            object providerObj = dataProviderType.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
+            return providerObj as IDataProvider;
+        }
+
+        #endregion
+
+        #region Loaders
+
+        public static Type[] GetAvailableDataProviderTypes(bool isExternal)
         {
             // Load available types
             List<Type> neededTypes = new List<Type>();
@@ -54,20 +95,25 @@ namespace CprBroker.Engine
             {
                 neededTypes.AddRange(asm.GetTypes()
                     .Where(
-                        t => typeof(IExternalDataProvider).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract
+                         t =>
+                         {
+                             return
+                                 t.IsClass && !t.IsAbstract
+                                 && 
+                                 (
+                                     (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t) )
+                                     ||
+                                     (!isExternal && typeof(IDataProvider).IsAssignableFrom(t) && !typeof(IExternalDataProvider).IsAssignableFrom(t))
+                                 );
+
+                         }
                         ));
             }
             return neededTypes.ToArray();
         }
 
-        /// <summary>
-        /// Initializes the list of all data providers
-        /// </summary>
-        public static void InitializeDataProviders()
+        private static IExternalDataProvider[] LoadExternalDataProviders()
         {
-            BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
-
-            // Load from database
             using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
             {
                 DataProvider.SetChildLoadOptions(dataContext);
@@ -77,12 +123,14 @@ namespace CprBroker.Engine
                                    orderby prov.Ordinal
                                    select prov);
 
-                List<IDataProvider> providers = new List<IDataProvider>();
+                List<IExternalDataProvider> providers = new List<IExternalDataProvider>();
+
+                // Append external data providers
                 foreach (var dbProv in dbProviders)
                 {
                     try
                     {
-                        IDataProvider dataProvider = dbProv.ToIDataProvider();
+                        IExternalDataProvider dataProvider = CreateDataProvider(dbProv) as IExternalDataProvider;
                         if (dataProvider != null)
                         {
                             if (dataProvider.IsAlive())
@@ -96,25 +144,18 @@ namespace CprBroker.Engine
                         Local.Admin.LogException(ex);
                     }
                 }
-
-                // Now refresh the list
-                DataProvidersLock.AcquireWriterLock(Timeout.Infinite);
-
-                
-
-                DataProviders.Clear();
-                DataProviders.AddRange(providers);
-
-                DataProvidersLock.ReleaseWriterLock();
+                return providers.ToArray();
             }
         }
 
-        private static void SetDataProviderTimer()
+        private static IDataProvider[] LoadLocalDataProviders()
         {
-            System.Timers.Timer refreshTimer = new System.Timers.Timer(Config.Properties.Settings.Default.DataProviderSecondsRefreshPeriod);
-            refreshTimer.AutoReset = true;
-            refreshTimer.Elapsed += new System.Timers.ElapsedEventHandler((sender, e) => InitializeDataProviders());
+            return Array.ConvertAll<Type, IDataProvider>(GetAvailableDataProviderTypes(false), t => CreateDataProvider(t.AssemblyQualifiedName));
         }
+
+        #endregion
+
+        #region Filtration by type
 
         internal static List<IDataProvider> GetDataProviderList<TInterface>(bool allowLocalProvider)
         {
@@ -170,5 +211,7 @@ namespace CprBroker.Engine
             }
             return availableProviders;
         }
+
+        #endregion
     }
 }

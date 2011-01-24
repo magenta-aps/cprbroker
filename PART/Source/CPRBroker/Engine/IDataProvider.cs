@@ -26,7 +26,7 @@ namespace CprBroker.Engine
     /// <summary>
     /// Represents an external data provider (DPR, KMD)
     /// </summary>
-    public interface IExternalDataProvider
+    public interface IExternalDataProvider : IDataProvider
     {
         //DAL.DataProviders.DataProvider DatabaseObject { get; set; } 
         Dictionary<string, string> ConfigurationProperties { get; set; }
