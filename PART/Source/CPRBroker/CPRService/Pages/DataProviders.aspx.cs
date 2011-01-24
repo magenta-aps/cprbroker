@@ -42,7 +42,16 @@ namespace CprBroker.Web.Pages
             using (var dataContext = new DataProvidersDataContext())
             {
                 DataProvider.SetChildLoadOptions(dataContext);
-                dataProvidersGridView.DataSource = dataContext.DataProviders.Where(dp => dp.IsExternal).ToArray();
+                dataProvidersGridView.DataSource = LoadDataProviders(dataContext);
+            }
+        }
+
+        protected void dataProvidersGridView_DataBound(object sender, EventArgs e)
+        {
+            if (dataProvidersGridView.Rows.Count > 0)
+            {
+                dataProvidersGridView.Rows[0].FindControl("UpButton").Visible = false;
+                dataProvidersGridView.Rows[dataProvidersGridView.Rows.Count - 1].FindControl("DownButton").Visible = false;
             }
         }
 
@@ -128,7 +137,7 @@ namespace CprBroker.Web.Pages
             {
                 using (var dataContext = new DataProvidersDataContext())
                 {
-                    DataProvider dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == id).SingleOrDefault();
+                    DataProvider dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == id).OrderBy(dp => dp.Ordinal).SingleOrDefault();
                     IDataProvider prov = dbProv.ToIDataProvider();
 
                     if (prov.IsAlive())
@@ -152,6 +161,38 @@ namespace CprBroker.Web.Pages
                     DataProviderManager.InitializeDataProviders();
                 }
             }
+            else if (e.CommandName == "Up" || e.CommandName == "Down")
+            {
+                using (var dataContext = new DataProvidersDataContext())
+                {
+                    var dataProviders = LoadDataProviders(dataContext);
+                    DataProvider dbProv = dataProviders.First(p => p.DataProviderId == id);
+
+                    for (int index = 0; index < dataProviders.Length; index++)
+                    {
+                        dataProviders[index].Ordinal = index;
+                    }
+
+                    int providerIndex = Array.IndexOf<DataProvider>(dataProviders, dbProv);
+                    if (providerIndex != -1)
+                    {
+                        if (e.CommandName == "Up" && providerIndex > 0)
+                        {
+                            dataProviders[providerIndex].Ordinal = providerIndex - 1;
+                            dataProviders[providerIndex - 1].Ordinal = providerIndex;
+
+                        }
+                        else if (e.CommandName == "Down" && providerIndex < dataProviders.Length - 1)
+                        {
+                            dataProviders[providerIndex].Ordinal = providerIndex + 1;
+                            dataProviders[providerIndex + 1].Ordinal = providerIndex;
+                        }
+                        dataContext.SubmitChanges();
+                        dataProvidersGridView.DataBind();
+                        DataProviderManager.InitializeDataProviders();
+                    }
+                }
+            }
         }
 
         #endregion
@@ -172,10 +213,11 @@ namespace CprBroker.Web.Pages
                             DataProviderTypeId = 1,
                             IsExternal = true,
                             TypeName = newDataProviderDropDownList.SelectedValue,
-                            Ordinal = dataContext.DataProviders.Select(dp => dp.Ordinal).Max() + 1
+                            Ordinal = dataContext.DataProviders.Select(dp => dp.Ordinal).Max() + 1,
+                            IsEnabled = true
                         };
                         dataContext.DataProviders.InsertOnSubmit(dbPrrov);
-                        
+
                         foreach (GridViewRow item in newDataProviderGridView.Rows)
                         {
                             SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
@@ -220,8 +262,11 @@ namespace CprBroker.Web.Pages
         {
             return (props as System.Data.Linq.EntitySet<DataProviderProperty>).OrderBy(p => p.Ordinal).ToArray();
         }
+
+        protected DataProvider[] LoadDataProviders(DataProvidersDataContext dataContext)
+        {
+            return dataContext.DataProviders.Where(dp => dp.IsExternal).OrderBy(dp => dp.Ordinal).ToArray();
+        }
         #endregion
-
-
     }
 }

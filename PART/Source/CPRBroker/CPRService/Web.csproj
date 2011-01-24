@@ -132,6 +132,8 @@
     <Content Include="Default.aspx" />
     <Content Include="Pages\Applications.aspx" />
     <Content Include="Pages\CSS\style.css" />
+    <Content Include="Pages\Images\Down.jpg" />
+    <Content Include="Pages\Images\Up.jpg" />
     <Content Include="Pages\Images\left_menu_bg.gif" />
     <Content Include="Pages\Images\left_menu_top.gif" />
     <Content Include="Pages\Images\mid_top.gif" />

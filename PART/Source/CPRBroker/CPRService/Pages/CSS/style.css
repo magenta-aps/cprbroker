@@ -111,6 +111,16 @@ hr
 	font-family: Arial;
 	border: 0;
 }
+.UpDownButton
+{	
+	display: block;
+	background-color: #42498c;
+	text-align: center;
+	color: #ffffff;
+	font-weight: 700;
+	font-family: Arial;
+	border: 0;
+}
 h3
 {
 	font-size: 18px;

@@ -22,7 +22,8 @@
         DataKeyNames="DataProviderId" EmptyDataText="(None)" OnRowCommand="dataProvidersGridView_RowCommand"
         OnRowUpdating="dataProvidersGridView_RowUpdating" OnDataBinding="dataProvidersGridView_DataBinding"
         OnRowDeleting="dataProvidersGridView_RowDeleting" OnRowCancelingEdit="dataProvidersGridView_RowCancelingEdit"
-        OnRowEditing="dataProvidersGridView_RowEditing">
+        OnRowEditing="dataProvidersGridView_RowEditing" 
+        ondatabound="dataProvidersGridView_DataBound">
         <Columns>
             <asp:TemplateField HeaderText="Type">
                 <ItemTemplate>
@@ -31,14 +32,14 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'
-                         >
+                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'>
                         <ItemTemplate>
                             <b>
                                 <%# Eval("Name")%>:</b>
                             <%# Eval("Value")%>
                         </ItemTemplate>
-                        <SeparatorTemplate>&nbsp;</SeparatorTemplate>
+                        <SeparatorTemplate>
+                            &nbsp;</SeparatorTemplate>
                     </asp:Repeater>
                 </ItemTemplate>
                 <EditItemTemplate>
@@ -69,17 +70,34 @@
                         </tr>
                     </table>
                 </ItemTemplate>
-                <EditItemTemplate></EditItemTemplate>
+                <EditItemTemplate>
+                </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("DataProviderId") %>'
                         CommandName="Ping">Ping</asp:LinkButton>
                 </ItemTemplate>
-                <EditItemTemplate></EditItemTemplate>
+                <EditItemTemplate>
+                </EditItemTemplate>
             </asp:TemplateField>
-            
             <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
+            <asp:TemplateField ControlStyle-CssClass="UpDownButton">
+                <ItemTemplate>
+                    <asp:ImageButton runat="server" ID="UpButton" ImageUrl="Images/Up.jpg" CommandName="Up"
+                        CommandArgument='<%# Eval("DataProviderId") %>' />
+                </ItemTemplate>
+                <EditItemTemplate>
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField ControlStyle-CssClass="UpDownButton">
+                <ItemTemplate>
+                    <asp:ImageButton runat="server" ID="DownButton" ImageUrl="Images/Down.jpg" CommandName="Down"
+                        CommandArgument='<%# Eval("DataProviderId") %>' />
+                </ItemTemplate>
+                <EditItemTemplate>
+                </EditItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
     <h3>
