@@ -13,8 +13,7 @@ namespace CprBroker.Engine
     public static class DataProviderManager
     {
         private static List<IDataProvider> DataProviders = new List<IDataProvider>();
-        private static ReaderWriterLock DataProvidersLock = new ReaderWriterLock();
-        public static System.Collections.ObjectModel.ReadOnlyCollection<Type> DataProviderTypes { get; private set; }
+        private static ReaderWriterLock DataProvidersLock = new ReaderWriterLock();        
 
         static DataProviderManager()
         {
@@ -47,13 +46,8 @@ namespace CprBroker.Engine
             return dataProvider;
         }
 
-        /// <summary>
-        /// Initializes the list of all data providers
-        /// </summary>
-        public static void InitializeDataProviders()
+        public static Type[] GetAvailableDataProviderTypes()
         {
-            BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
-
             // Load available types
             List<Type> neededTypes = new List<Type>();
             foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
@@ -63,6 +57,15 @@ namespace CprBroker.Engine
                         t => typeof(IExternalDataProvider).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract
                         ));
             }
+            return neededTypes.ToArray();
+        }
+
+        /// <summary>
+        /// Initializes the list of all data providers
+        /// </summary>
+        public static void InitializeDataProviders()
+        {
+            BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
 
             // Load from database
             using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
@@ -97,7 +100,7 @@ namespace CprBroker.Engine
                 // Now refresh the list
                 DataProvidersLock.AcquireWriterLock(Timeout.Infinite);
 
-                DataProviderTypes = new List<Type>(neededTypes).AsReadOnly();
+                
 
                 DataProviders.Clear();
                 DataProviders.AddRange(providers);

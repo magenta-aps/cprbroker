@@ -34,7 +34,7 @@ namespace CprBroker.Web.Pages
 
         protected void dataProviderTypesGridView_DataBinding(object sender, EventArgs e)
         {
-            dataProviderTypesGridView.DataSource = DataProviderManager.DataProviderTypes;
+            dataProviderTypesGridView.DataSource = DataProviderManager.GetAvailableDataProviderTypes();
         }
 
         protected void dataProvidersGridView_DataBinding(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace CprBroker.Web.Pages
 
         protected void newDataProviderDropDownList_DataBinding(object sender, EventArgs e)
         {
-            newDataProviderDropDownList.DataSource = DataProviderManager.DataProviderTypes;
+            newDataProviderDropDownList.DataSource = DataProviderManager.GetAvailableDataProviderTypes();
         }
 
         protected void newDataProviderDropDownList_SelectedIndexChanged(object sender, EventArgs e)
