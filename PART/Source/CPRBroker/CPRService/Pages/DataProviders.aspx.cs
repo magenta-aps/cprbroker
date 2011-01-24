@@ -23,6 +23,7 @@ namespace CprBroker.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            BrokerContext.Initialize(CprBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, false, false, true);
             if (!IsPostBack)
             {
                 dataProviderTypesGridView.DataBind();
@@ -50,8 +51,16 @@ namespace CprBroker.Web.Pages
         {
             if (dataProvidersGridView.Rows.Count > 0)
             {
-                dataProvidersGridView.Rows[0].FindControl("UpButton").Visible = false;
-                dataProvidersGridView.Rows[dataProvidersGridView.Rows.Count - 1].FindControl("DownButton").Visible = false;
+                var up = dataProvidersGridView.Rows[0].FindControl("UpButton");
+                if (up != null)
+                {
+                    up.Visible = false;
+                }
+                var down = dataProvidersGridView.Rows[dataProvidersGridView.Rows.Count - 1].FindControl("DownButton");
+                if (down != null)
+                {
+                    down.Visible = false;
+                }
             }
         }
 

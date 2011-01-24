@@ -104,21 +104,28 @@ namespace CprBroker.Engine
             List<Type> neededTypes = new List<Type>();
             foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
             {
-                neededTypes.AddRange(asm.GetTypes()
-                    .Where(
-                         t =>
-                         {
-                             return
-                                 t.IsClass && !t.IsAbstract
-                                 &&
-                                 (
-                                     (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t))
-                                     ||
-                                     (!isExternal && typeof(IDataProvider).IsAssignableFrom(t) && !typeof(IExternalDataProvider).IsAssignableFrom(t))
-                                 );
-
-                         }
-                        ));
+                try
+                {
+                    var assemblyTypes = asm.GetTypes();
+                    foreach (Type t in assemblyTypes)
+                    {
+                        if (t.IsClass && !t.IsAbstract)
+                        {
+                            if (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t))
+                            {
+                                neededTypes.Add(t);
+                            }
+                            else if (!isExternal && typeof(IDataProvider).IsAssignableFrom(t) && !typeof(IExternalDataProvider).IsAssignableFrom(t))
+                            {
+                                neededTypes.Add(t);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Local.Admin.LogException(ex);
+                }
             }
             return neededTypes.ToArray();
         }
