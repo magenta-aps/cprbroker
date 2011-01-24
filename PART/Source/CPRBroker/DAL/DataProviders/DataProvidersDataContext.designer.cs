@@ -95,6 +95,8 @@ namespace CprBroker.DAL.DataProviders
 		
 		private bool _IsExternal;
 		
+		private bool _IsEnabled;
+		
 		private EntitySet<DataProviderProperty> _DataProviderProperties;
 		
     #region Extensibility Method Definitions
@@ -111,6 +113,8 @@ namespace CprBroker.DAL.DataProviders
     partial void OnOrdinalChanged();
     partial void OnIsExternalChanging(bool value);
     partial void OnIsExternalChanged();
+    partial void OnIsEnabledChanging(bool value);
+    partial void OnIsEnabledChanged();
     #endregion
 		
 		public DataProvider()
@@ -215,6 +219,26 @@ namespace CprBroker.DAL.DataProviders
 					this._IsExternal = value;
 					this.SendPropertyChanged("IsExternal");
 					this.OnIsExternalChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsEnabled", DbType="Bit NOT NULL")]
+		public bool IsEnabled
+		{
+			get
+			{
+				return this._IsEnabled;
+			}
+			set
+			{
+				if ((this._IsEnabled != value))
+				{
+					this.OnIsEnabledChanging(value);
+					this.SendPropertyChanging();
+					this._IsEnabled = value;
+					this.SendPropertyChanged("IsEnabled");
+					this.OnIsEnabledChanged();
 				}
 			}
 		}
@@ -385,7 +409,7 @@ namespace CprBroker.DAL.DataProviders
 			}
 		}
 		
-		[Association(Name="DataProvider_DataProviderProperty", Storage="_DataProvider", ThisKey="DataProviderId", OtherKey="DataProviderId", IsForeignKey=true)]
+		[Association(Name="DataProvider_DataProviderProperty", Storage="_DataProvider", ThisKey="DataProviderId", OtherKey="DataProviderId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public DataProvider DataProvider
 		{
 			get

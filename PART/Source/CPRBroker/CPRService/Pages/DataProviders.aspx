@@ -4,7 +4,6 @@
 
 <%@ MasterType VirtualPath="~/Pages/Site.Master" %>
 <%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc1" %>
-
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
     <h3>
         Data provider types</h3>
@@ -16,16 +15,14 @@
             <asp:BoundField DataField="AssemblyQualifiedName" HeaderText="Assembly qualified name" />
         </Columns>
     </asp:GridView>
-    <h3>Data providers</h3> Available data providers. They will be used in the order listed
-    here.
+    <h3>
+        Data providers</h3>
+    Available data providers. They will be used in the order listed here.
     <asp:GridView ID="dataProvidersGridView" runat="server" AutoGenerateColumns="False"
-        DataKeyNames="DataProviderId" EmptyDataText="(None)"
-        OnRowCommand="dataProvidersGridView_RowCommand" 
-        OnRowUpdating="dataProvidersGridView_RowUpdating" 
-        ondatabinding="dataProvidersGridView_DataBinding" 
-        onrowdeleting="dataProvidersGridView_RowDeleting" 
-        onrowcancelingedit="dataProvidersGridView_RowCancelingEdit" 
-        onrowediting="dataProvidersGridView_RowEditing">
+        DataKeyNames="DataProviderId" EmptyDataText="(None)" OnRowCommand="dataProvidersGridView_RowCommand"
+        OnRowUpdating="dataProvidersGridView_RowUpdating" OnDataBinding="dataProvidersGridView_DataBinding"
+        OnRowDeleting="dataProvidersGridView_RowDeleting" OnRowCancelingEdit="dataProvidersGridView_RowCancelingEdit"
+        OnRowEditing="dataProvidersGridView_RowEditing">
         <Columns>
             <asp:TemplateField HeaderText="Type">
                 <ItemTemplate>
@@ -55,13 +52,33 @@
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowEditButton="True" ControlStyle-CssClass="CommandButton" />
-            <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
+            <asp:TemplateField HeaderText="Enabled" ItemStyle-HorizontalAlign="Center" ItemStyle-Wrap="false">
+                <ItemTemplate>
+                    <table>
+                        <tr>
+                            <td>
+                                <%#(bool)Eval("IsEnabled")?"Yes":"No" %>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Enable" CommandArgument='<%#Eval("DataProviderId") %>'
+                                    Text='<%#(bool)Eval("IsEnabled")?"(Disable)" : "(Enable)" %>' CssClass="CommandButton" />
+                            </td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
+                <EditItemTemplate></EditItemTemplate>
+            </asp:TemplateField>
             <asp:TemplateField ShowHeader="False" ControlStyle-CssClass="CommandButton">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("DataProviderId") %>'
                         CommandName="Ping">Ping</asp:LinkButton>
                 </ItemTemplate>
+                <EditItemTemplate></EditItemTemplate>
             </asp:TemplateField>
+            
+            <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="CommandButton" />
         </Columns>
     </asp:GridView>
     <h3>

@@ -67,10 +67,10 @@ namespace CprBroker.Engine
             // Load from database
             using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
             {
-                DataLoadOptions loadOptions = new DataLoadOptions();
-                //loadOptions.LoadWith<DataProvider>((dp) => dp.DataProviderType);
-                dataContext.LoadOptions = loadOptions;
+                DataProvider.SetChildLoadOptions(dataContext);
+
                 var dbProviders = (from prov in dataContext.DataProviders
+                                   where prov.IsEnabled
                                    orderby prov.Ordinal
                                    select prov);
 

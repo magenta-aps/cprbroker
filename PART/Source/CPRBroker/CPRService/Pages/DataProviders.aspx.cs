@@ -66,7 +66,7 @@ namespace CprBroker.Web.Pages
         #endregion
 
         #region Update
-        
+
         protected void dataProvidersGridView_RowEditing(object sender, GridViewEditEventArgs e)
         {
             dataProvidersGridView.EditIndex = e.NewEditIndex;
@@ -82,7 +82,7 @@ namespace CprBroker.Web.Pages
 
         protected void dataProvidersGridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            var valuesDataList = dataProvidersGridView.Rows[e.RowIndex].Cells[0].FindControl("EditDataList") as DataList;            
+            var valuesDataList = dataProvidersGridView.Rows[e.RowIndex].Cells[0].FindControl("EditDataList") as DataList;
             var id = (int)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
 
             using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
@@ -90,19 +90,16 @@ namespace CprBroker.Web.Pages
                 DataProvider dbPrrov = (from dp in dataContext.DataProviders where dp.DataProviderId == id select dp).Single();
                 foreach (DataListItem item in valuesDataList.Items)
                 {
-                    SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;                    
+                    SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
                     dbPrrov[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
                 }
-
                 dataContext.SubmitChanges();
-
+                dataProvidersGridView.EditIndex = -1;
+                dataProvidersGridView.DataBind();
                 CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
-            e.Cancel = true;
-            dataProvidersGridView.EditIndex = -1;
-            dataProvidersGridView.DataBind();
         }
-        
+
         #endregion
 
         #region Delete
@@ -115,11 +112,9 @@ namespace CprBroker.Web.Pages
                 var dbProv = dataContext.DataProviders.Where(dp => dp.DataProviderId == id).FirstOrDefault();
                 dataContext.DataProviders.DeleteOnSubmit(dbProv);
                 dataContext.SubmitChanges();
-
+                dataProvidersGridView.DataBind();
                 CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
-            e.Cancel = true;
-            dataProvidersGridView.DataBind();
         }
 
         #endregion
@@ -128,12 +123,12 @@ namespace CprBroker.Web.Pages
 
         protected void dataProvidersGridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            var id = Convert.ToInt32(e.CommandArgument);
             if (e.CommandName == "Ping")
             {
-                using (var context = new DataProvidersDataContext())
+                using (var dataContext = new DataProvidersDataContext())
                 {
-
-                    DataProvider dbProv = (from p in context.DataProviders where p.DataProviderId == Convert.ToInt32(e.CommandArgument) select p).SingleOrDefault();
+                    DataProvider dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == id).SingleOrDefault();
                     IDataProvider prov = dbProv.ToIDataProvider();
 
                     if (prov.IsAlive())
@@ -146,13 +141,24 @@ namespace CprBroker.Web.Pages
                     }
                 }
             }
+            else if (e.CommandName == "Enable")
+            {
+                using (var dataContext = new DataProvidersDataContext())
+                {
+                    DataProvider dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == id).SingleOrDefault();
+                    dbProv.IsEnabled = !(dbProv.IsEnabled);
+                    dataContext.SubmitChanges();
+                    dataProvidersGridView.DataBind();
+                    DataProviderManager.InitializeDataProviders();
+                }
+            }
         }
 
         #endregion
 
         #region Insert
 
-        
+
         protected void newDataProviderGridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Insert")
@@ -176,13 +182,10 @@ namespace CprBroker.Web.Pages
                             string propName = newDataProviderGridView.DataKeys[item.RowIndex].Value.ToString();
                             dbPrrov[propName] = smartTextBox.Text;
                         }
-
                         dataContext.SubmitChanges();
-
-                        CprBroker.Engine.DataProviderManager.InitializeDataProviders();
                         dataProvidersGridView.DataBind();
-
                         newDataProviderGridView.DataBind();
+                        CprBroker.Engine.DataProviderManager.InitializeDataProviders();
                     }
                 }
                 catch (Exception ex)
@@ -193,7 +196,7 @@ namespace CprBroker.Web.Pages
         }
 
         #endregion
-        
+
         #region Utility methods
 
         protected string GetShortTypeName(string assebblyQualifiedName)

@@ -7,6 +7,7 @@
       <Column Name="TypeName" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="Ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IsExternal" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="DataProvider_DataProviderProperty" Member="DataProviderProperties" ThisKey="DataProviderId" OtherKey="DataProviderId" Type="DataProviderProperty" />
     </Type>
   </Table>
@@ -16,7 +17,7 @@
       <Column Name="DataProviderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Value" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
-      <Association Name="DataProvider_DataProviderProperty" Member="DataProvider" ThisKey="DataProviderId" OtherKey="DataProviderId" Type="DataProvider" IsForeignKey="true" />
+      <Association Name="DataProvider_DataProviderProperty" Member="DataProvider" ThisKey="DataProviderId" OtherKey="DataProviderId" Type="DataProvider" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>
