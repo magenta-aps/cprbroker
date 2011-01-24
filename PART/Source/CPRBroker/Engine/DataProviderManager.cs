@@ -20,6 +20,7 @@ namespace CprBroker.Engine
         static DataProviderManager()
         {
             InitializeDataProviders();
+            SetDataProviderRefreshTimer();
         }
 
         /// <summary>
@@ -28,7 +29,6 @@ namespace CprBroker.Engine
         public static void InitializeDataProviders()
         {
             BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
-            System.Diagnostics.Debugger.Break();
             try
             {
                 // Load from database                
@@ -48,6 +48,17 @@ namespace CprBroker.Engine
             {
                 Local.Admin.LogException(ex);
             }
+        }
+
+        /// <summary>
+        /// Initializes a timer that refreshes the working data provider list. Mainly to re-ping the external data providers
+        /// </summary>
+        private static void SetDataProviderRefreshTimer()
+        {
+            System.Timers.Timer timer = new System.Timers.Timer(Config.Properties.Settings.Default.DataProviderRefreshPeriodMilliseconds);
+            timer.AutoReset = true;
+            timer.Elapsed += new System.Timers.ElapsedEventHandler((sender, e) => InitializeDataProviders());
+            timer.Start();
         }
 
         #endregion
@@ -99,9 +110,9 @@ namespace CprBroker.Engine
                          {
                              return
                                  t.IsClass && !t.IsAbstract
-                                 && 
+                                 &&
                                  (
-                                     (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t) )
+                                     (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t))
                                      ||
                                      (!isExternal && typeof(IDataProvider).IsAssignableFrom(t) && !typeof(IExternalDataProvider).IsAssignableFrom(t))
                                  );

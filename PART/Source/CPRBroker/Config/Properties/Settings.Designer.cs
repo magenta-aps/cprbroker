@@ -62,10 +62,10 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1800")]
-        public int DataProviderSecondsRefreshPeriod {
+        [global::System.Configuration.DefaultSettingValueAttribute("600000")]
+        public int DataProviderRefreshPeriodMilliseconds {
             get {
-                return ((int)(this["DataProviderSecondsRefreshPeriod"]));
+                return ((int)(this["DataProviderRefreshPeriodMilliseconds"]));
             }
         }
         
