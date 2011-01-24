@@ -14,15 +14,6 @@ namespace CprBroker.Web.Pages {
     public partial class DataProviders {
         
         /// <summary>
-        /// dataProviderTypesLinqDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinqDataSource dataProviderTypesLinqDataSource;
-        
-        /// <summary>
         /// dataProviderTypesGridView control.
         /// </summary>
         /// <remarks>
@@ -30,15 +21,6 @@ namespace CprBroker.Web.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView dataProviderTypesGridView;
-        
-        /// <summary>
-        /// dataProvidersLinqDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinqDataSource dataProvidersLinqDataSource;
         
         /// <summary>
         /// dataProvidersGridView control.

@@ -30,9 +30,6 @@ namespace CprBroker.DAL.DataProviders
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertDataProviderType(DataProviderType instance);
-    partial void UpdateDataProviderType(DataProviderType instance);
-    partial void DeleteDataProviderType(DataProviderType instance);
     partial void InsertDataProvider(DataProvider instance);
     partial void UpdateDataProvider(DataProvider instance);
     partial void DeleteDataProvider(DataProvider instance);
@@ -65,14 +62,6 @@ namespace CprBroker.DAL.DataProviders
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<DataProviderType> DataProviderTypes
-		{
-			get
-			{
-				return this.GetTable<DataProviderType>();
-			}
-		}
-		
 		public System.Data.Linq.Table<DataProvider> DataProviders
 		{
 			get
@@ -90,192 +79,6 @@ namespace CprBroker.DAL.DataProviders
 		}
 	}
 	
-	[Table(Name="dbo.DataProviderType")]
-	public partial class DataProviderType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _DataProviderTypeId;
-		
-		private string _Name;
-		
-		private bool _Enabled;
-		
-		private string _TypeName;
-		
-		private bool _IsExternal;
-		
-		private EntitySet<DataProvider> _DataProviders;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnDataProviderTypeIdChanging(int value);
-    partial void OnDataProviderTypeIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnEnabledChanging(bool value);
-    partial void OnEnabledChanged();
-    partial void OnTypeNameChanging(string value);
-    partial void OnTypeNameChanged();
-    partial void OnIsExternalChanging(bool value);
-    partial void OnIsExternalChanged();
-    #endregion
-		
-		public DataProviderType()
-		{
-			this._DataProviders = new EntitySet<DataProvider>(new Action<DataProvider>(this.attach_DataProviders), new Action<DataProvider>(this.detach_DataProviders));
-			OnCreated();
-		}
-		
-		[Column(Storage="_DataProviderTypeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int DataProviderTypeId
-		{
-			get
-			{
-				return this._DataProviderTypeId;
-			}
-			set
-			{
-				if ((this._DataProviderTypeId != value))
-				{
-					this.OnDataProviderTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._DataProviderTypeId = value;
-					this.SendPropertyChanged("DataProviderTypeId");
-					this.OnDataProviderTypeIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Enabled", DbType="Bit NOT NULL")]
-		public bool Enabled
-		{
-			get
-			{
-				return this._Enabled;
-			}
-			set
-			{
-				if ((this._Enabled != value))
-				{
-					this.OnEnabledChanging(value);
-					this.SendPropertyChanging();
-					this._Enabled = value;
-					this.SendPropertyChanged("Enabled");
-					this.OnEnabledChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_TypeName", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
-		public string TypeName
-		{
-			get
-			{
-				return this._TypeName;
-			}
-			set
-			{
-				if ((this._TypeName != value))
-				{
-					this.OnTypeNameChanging(value);
-					this.SendPropertyChanging();
-					this._TypeName = value;
-					this.SendPropertyChanged("TypeName");
-					this.OnTypeNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_IsExternal", DbType="Bit NOT NULL")]
-		public bool IsExternal
-		{
-			get
-			{
-				return this._IsExternal;
-			}
-			set
-			{
-				if ((this._IsExternal != value))
-				{
-					this.OnIsExternalChanging(value);
-					this.SendPropertyChanging();
-					this._IsExternal = value;
-					this.SendPropertyChanged("IsExternal");
-					this.OnIsExternalChanged();
-				}
-			}
-		}
-		
-		[Association(Name="DataProviderType_DataProvider", Storage="_DataProviders", ThisKey="DataProviderTypeId", OtherKey="DataProviderTypeId")]
-		public EntitySet<DataProvider> DataProviders
-		{
-			get
-			{
-				return this._DataProviders;
-			}
-			set
-			{
-				this._DataProviders.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DataProviders(DataProvider entity)
-		{
-			this.SendPropertyChanging();
-			entity.DataProviderType = this;
-		}
-		
-		private void detach_DataProviders(DataProvider entity)
-		{
-			this.SendPropertyChanging();
-			entity.DataProviderType = null;
-		}
-	}
-	
 	[Table(Name="dbo.DataProvider")]
 	public partial class DataProvider : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -286,9 +89,13 @@ namespace CprBroker.DAL.DataProviders
 		
 		private int _DataProviderTypeId;
 		
-		private EntitySet<DataProviderProperty> _DataProviderProperties;
+		private string _TypeName;
 		
-		private EntityRef<DataProviderType> _DataProviderType;
+		private int _Ordinal;
+		
+		private bool _IsExternal;
+		
+		private EntitySet<DataProviderProperty> _DataProviderProperties;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -298,12 +105,17 @@ namespace CprBroker.DAL.DataProviders
     partial void OnDataProviderIdChanged();
     partial void OnDataProviderTypeIdChanging(int value);
     partial void OnDataProviderTypeIdChanged();
+    partial void OnTypeNameChanging(string value);
+    partial void OnTypeNameChanged();
+    partial void OnOrdinalChanging(int value);
+    partial void OnOrdinalChanged();
+    partial void OnIsExternalChanging(bool value);
+    partial void OnIsExternalChanged();
     #endregion
 		
 		public DataProvider()
 		{
 			this._DataProviderProperties = new EntitySet<DataProviderProperty>(new Action<DataProviderProperty>(this.attach_DataProviderProperties), new Action<DataProviderProperty>(this.detach_DataProviderProperties));
-			this._DataProviderType = default(EntityRef<DataProviderType>);
 			OnCreated();
 		}
 		
@@ -338,15 +150,71 @@ namespace CprBroker.DAL.DataProviders
 			{
 				if ((this._DataProviderTypeId != value))
 				{
-					if (this._DataProviderType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnDataProviderTypeIdChanging(value);
 					this.SendPropertyChanging();
 					this._DataProviderTypeId = value;
 					this.SendPropertyChanged("DataProviderTypeId");
 					this.OnDataProviderTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_TypeName", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string TypeName
+		{
+			get
+			{
+				return this._TypeName;
+			}
+			set
+			{
+				if ((this._TypeName != value))
+				{
+					this.OnTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._TypeName = value;
+					this.SendPropertyChanged("TypeName");
+					this.OnTypeNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Ordinal", DbType="Int NOT NULL")]
+		public int Ordinal
+		{
+			get
+			{
+				return this._Ordinal;
+			}
+			set
+			{
+				if ((this._Ordinal != value))
+				{
+					this.OnOrdinalChanging(value);
+					this.SendPropertyChanging();
+					this._Ordinal = value;
+					this.SendPropertyChanged("Ordinal");
+					this.OnOrdinalChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsExternal", DbType="Bit NOT NULL")]
+		public bool IsExternal
+		{
+			get
+			{
+				return this._IsExternal;
+			}
+			set
+			{
+				if ((this._IsExternal != value))
+				{
+					this.OnIsExternalChanging(value);
+					this.SendPropertyChanging();
+					this._IsExternal = value;
+					this.SendPropertyChanged("IsExternal");
+					this.OnIsExternalChanged();
 				}
 			}
 		}
@@ -361,40 +229,6 @@ namespace CprBroker.DAL.DataProviders
 			set
 			{
 				this._DataProviderProperties.Assign(value);
-			}
-		}
-		
-		[Association(Name="DataProviderType_DataProvider", Storage="_DataProviderType", ThisKey="DataProviderTypeId", OtherKey="DataProviderTypeId", IsForeignKey=true)]
-		public DataProviderType DataProviderType
-		{
-			get
-			{
-				return this._DataProviderType.Entity;
-			}
-			set
-			{
-				DataProviderType previousValue = this._DataProviderType.Entity;
-				if (((previousValue != value) 
-							|| (this._DataProviderType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DataProviderType.Entity = null;
-						previousValue.DataProviders.Remove(this);
-					}
-					this._DataProviderType.Entity = value;
-					if ((value != null))
-					{
-						value.DataProviders.Add(this);
-						this._DataProviderTypeId = value.DataProviderTypeId;
-					}
-					else
-					{
-						this._DataProviderTypeId = default(int);
-					}
-					this.SendPropertyChanged("DataProviderType");
-				}
 			}
 		}
 		

@@ -28,7 +28,7 @@ namespace CprBroker.Engine
         /// <returns>The newly created IDataProvider</returns>
         public static IDataProvider ToIDataProvider(this CprBroker.DAL.DataProviders.DataProvider dbDataProvider)
         {
-            Type dataProviderType = Type.GetType(dbDataProvider.DataProviderType.TypeName);
+            Type dataProviderType = Type.GetType(dbDataProvider.TypeName);
             //TODO: throws exception : Object reference not set to an instance of an object
             object providerObj = dataProviderType.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
             IDataProvider dataProvider = providerObj as IDataProvider;
@@ -68,11 +68,10 @@ namespace CprBroker.Engine
             using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
             {
                 DataLoadOptions loadOptions = new DataLoadOptions();
-                loadOptions.LoadWith<DataProvider>((dp) => dp.DataProviderType);
+                //loadOptions.LoadWith<DataProvider>((dp) => dp.DataProviderType);
                 dataContext.LoadOptions = loadOptions;
                 var dbProviders = (from prov in dataContext.DataProviders
-                                   where prov.DataProviderType.Enabled == true
-                                   orderby prov.DataProviderType.IsExternal descending, prov.DataProviderId
+                                   orderby prov.Ordinal
                                    select prov);
 
                 List<IDataProvider> providers = new List<IDataProvider>();

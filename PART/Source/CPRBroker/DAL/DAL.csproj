@@ -189,8 +189,8 @@
   <ItemGroup>
     <None Include="DataProviders\DataProvidersDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataProvidersDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>DataProvidersDataContext.designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

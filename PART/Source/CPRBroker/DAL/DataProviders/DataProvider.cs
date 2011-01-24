@@ -7,6 +7,13 @@ namespace CprBroker.DAL.DataProviders
 {
     public partial class DataProvider
     {
+        public static void SetChildLoadOptions(DataProvidersDataContext dataContext)
+        {
+            System.Data.Linq.DataLoadOptions loadOptions = new System.Data.Linq.DataLoadOptions();
+            loadOptions.LoadWith<DataProvider>(dp => dp.DataProviderProperties);
+            dataContext.LoadOptions = loadOptions;
+        }
+
         private DataProviderProperty GetDataProviderProperty(string key)
         {
             return (from p in this.DataProviderProperties where p.Name == key select p).FirstOrDefault();
@@ -37,6 +44,7 @@ namespace CprBroker.DAL.DataProviders
                 {
                     this.DataProviderProperties.Add(new DataProviderProperty()
                         {
+                            DataProviderPropertyId = Guid.NewGuid(),
                             DataProvider = this,
                             Name = key,
                             Value = value

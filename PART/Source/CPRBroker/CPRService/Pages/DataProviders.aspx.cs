@@ -18,16 +18,33 @@ namespace CprBroker.Web.Pages
 {
     public partial class DataProviders : System.Web.UI.Page
     {
+
+        #region Load & Data bind
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                dataProviderTypesGridView.DataBind();
+                dataProvidersGridView.DataBind();
                 newDataProviderDropDownList.DataBind();
-                newDataProviderDropDownList_SelectedIndexChanged(this, EventArgs.Empty);
+                newDataProviderGridView.DataBind();
             }
         }
 
-        #region Insert
+        protected void dataProviderTypesGridView_DataBinding(object sender, EventArgs e)
+        {
+            dataProviderTypesGridView.DataSource = DataProviderManager.DataProviderTypes;
+        }
+
+        protected void dataProvidersGridView_DataBinding(object sender, EventArgs e)
+        {
+            using (var dataContext = new DataProvidersDataContext())
+            {
+                DataProvider.SetChildLoadOptions(dataContext);
+                dataProvidersGridView.DataSource = dataContext.DataProviders.Where(dp => dp.IsExternal).ToArray();
+            }
+        }
 
         protected void newDataProviderDropDownList_DataBinding(object sender, EventArgs e)
         {
@@ -36,90 +53,73 @@ namespace CprBroker.Web.Pages
 
         protected void newDataProviderDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
-            IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
-            newDataProviderGridView.DataSource = dp.ConfigurationKeys;
             newDataProviderGridView.DataBind();
         }
 
-        protected void newDataProviderGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void newDataProviderGridView_DataBinding(object sender, EventArgs e)
         {
-            if (e.CommandName == "Insert")
-            {
-                try
-                {
-                    using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
-                    {
-                        DataProvider dbPrrov = new DataProvider()
-                        {
-                            DataProviderTypeId = 1
-                        };
-                        dataContext.DataProviders.InsertOnSubmit(dbPrrov);
-
-                        dataProviderProps = new System.Collections.Generic.Dictionary<string, string>();
-                        foreach (GridViewRow item in newDataProviderGridView.Rows)
-                        {
-                            SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
-                            dataProviderProps[newDataProviderGridView.DataKeys[item.RowIndex].ToString()] = smartTextBox.Text;
-                        }
-                        foreach (var kvp in dataProviderProps)
-                        {
-                            dbPrrov[kvp.Key] = kvp.Value;
-                        }
-                        dataContext.SubmitChanges();
-
-                        CprBroker.Engine.DataProviderManager.InitializeDataProviders();
-                        dataProvidersGridView.DataBind();
-                        newDataProviderGridView.DataBind();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Master.AppendError(ex.Message);
-                }
-            }
-        }
-
-        protected void newDataProviderDetailsView_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
-        {
-            e.KeepInInsertMode = true;
-            if (e.Exception != null)
-            {
-                Master.AppendError(e.Exception.Message);
-                e.ExceptionHandled = true;
-            }
-            else
-            {
-                dataProvidersGridView.DataBind();
-                newDataProviderGridView.DataBind();
-                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
-            }
-        }
-
-        protected void dataProvidersLinqDataSource_Inserting(object sender, LinqDataSourceInsertEventArgs e)
-        {
-            DataProvider prov = e.NewObject as DataProvider;
-            prov.DataProviderTypeId = int.Parse(newDataProviderDropDownList.SelectedValue);
-        }
-
-        protected void dataProvidersLinqDataSource_Inserted(object sender, LinqDataSourceStatusEventArgs e)
-        {
-            if (e.Exception == null)
-            {
-                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
-            }
+            Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
+            IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
+            newDataProviderGridView.DataSource = from ck in dp.ConfigurationKeys select new { Value = ck };
         }
 
         #endregion
 
-        #region Delete
-
-        protected void dataProvidersLinqDataSource_Deleted(object sender, LinqDataSourceStatusEventArgs e)
+        #region Update
+        
+        protected void dataProvidersGridView_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            if (e.Exception == null)
+            dataProvidersGridView.EditIndex = e.NewEditIndex;
+            dataProvidersGridView.DataBind();
+            e.Cancel = true;
+        }
+
+        protected void dataProvidersGridView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            dataProvidersGridView.EditIndex = -1;
+            dataProvidersGridView.DataBind();
+        }
+
+        protected void dataProvidersGridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            var valuesDataList = dataProvidersGridView.Rows[e.RowIndex].Cells[0].FindControl("EditDataList") as DataList;            
+            var id = (int)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
+
+            using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
             {
+                DataProvider dbPrrov = (from dp in dataContext.DataProviders where dp.DataProviderId == id select dp).Single();
+                foreach (DataListItem item in valuesDataList.Items)
+                {
+                    SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;                    
+                    dbPrrov[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
+                }
+
+                dataContext.SubmitChanges();
+
                 CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
+            e.Cancel = true;
+            dataProvidersGridView.EditIndex = -1;
+            dataProvidersGridView.DataBind();
+        }
+        
+        #endregion
+
+        #region Delete
+
+        protected void dataProvidersGridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
+            {
+                var id = (int)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
+                var dbProv = dataContext.DataProviders.Where(dp => dp.DataProviderId == id).FirstOrDefault();
+                dataContext.DataProviders.DeleteOnSubmit(dbProv);
+                dataContext.SubmitChanges();
+
+                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
+            }
+            e.Cancel = true;
+            dataProvidersGridView.DataBind();
         }
 
         #endregion
@@ -150,55 +150,70 @@ namespace CprBroker.Web.Pages
 
         #endregion
 
-        #region Update
+        #region Insert
 
-        System.Collections.Generic.Dictionary<string, string> dataProviderProps;
-
-        protected void dataProvidersGridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        
+        protected void newDataProviderGridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            var valuesDataList = dataProvidersGridView.Rows[e.RowIndex].Cells[0].FindControl("EditDataList") as DataList;
-            dataProviderProps = new System.Collections.Generic.Dictionary<string, string>();
-            foreach (DataListItem item in valuesDataList.Items)
+            if (e.CommandName == "Insert")
             {
-                SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
-                dataProviderProps[valuesDataList.DataKeys[item.ItemIndex].ToString()] = smartTextBox.Text;
-            }
-        }
-
-        protected void dataProvidersLinqDataSource_Updating(object sender, LinqDataSourceUpdateEventArgs e)
-        {
-            using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
-            {
-                var id = (e.NewObject as DataProvider).DataProviderId;
-                DataProvider dbPrrov = (from dp in dataContext.DataProviders where dp.DataProviderId == id select dp).Single();
-                foreach (var kvp in dataProviderProps)
+                try
                 {
-                    dbPrrov[kvp.Key] = kvp.Value;
+                    using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
+                    {
+                        DataProvider dbPrrov = new DataProvider()
+                        {
+                            DataProviderTypeId = 1,
+                            IsExternal = true,
+                            TypeName = newDataProviderDropDownList.SelectedValue,
+                            Ordinal = dataContext.DataProviders.Select(dp => dp.Ordinal).Max() + 1
+                        };
+                        dataContext.DataProviders.InsertOnSubmit(dbPrrov);
+
+                        foreach (GridViewRow item in newDataProviderGridView.Rows)
+                        {
+                            SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
+                            string propName = newDataProviderGridView.DataKeys[item.RowIndex].Value.ToString();
+                            dbPrrov[propName] = smartTextBox.Text;
+                        }
+
+                        dataContext.SubmitChanges();
+
+                        CprBroker.Engine.DataProviderManager.InitializeDataProviders();
+                        dataProvidersGridView.DataBind();
+
+                        newDataProviderGridView.DataBind();
+                    }
                 }
-                dataContext.SubmitChanges();
-
-                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
-                e.Cancel = true;
+                catch (Exception ex)
+                {
+                    Master.AppendError(ex.Message);
+                }
             }
-        }
-
-        protected void dataProvidersLinqDataSource_Updated(object sender, LinqDataSourceStatusEventArgs e)
-        {
-            if (e.Exception == null)
-            {
-
-            }
-        }
-
-        protected void dataProvidersGridView_RowUpdated(object sender, GridViewUpdatedEventArgs e)
-        {
-            object o = "";
         }
 
         #endregion
-
         
+        #region Utility methods
 
+        protected string GetShortTypeName(string assebblyQualifiedName)
+        {
+            try
+            {
+                Type t = Type.GetType(assebblyQualifiedName);
+                if (t != null)
+                {
+                    return t.Name;
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.AppendError(ex.Message);
+            }
+            return assebblyQualifiedName;
+        }
+
+        #endregion
 
 
     }

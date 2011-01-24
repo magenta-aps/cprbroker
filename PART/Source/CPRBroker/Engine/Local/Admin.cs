@@ -65,7 +65,7 @@ namespace CprBroker.Engine.Local
                 return dataProviders.ToArray();
             }
         }
-        // TODO: Convert to use generic XML types
+        // TODO: Convert to use generic XML types and new DB structure
         public bool SetCPRDataProviderList(string userToken, string appToken, Schemas.DataProviderType[] dataProviders)
         {
             using (var context = new DataProvidersDataContext())
@@ -73,7 +73,7 @@ namespace CprBroker.Engine.Local
                 #region Delete existing data
                 var currentDataProviders =
                     from dataProvider in context.DataProviders
-                    where dataProvider.DataProviderType.IsExternal == true
+                    //where dataProvider.DataProviderType.IsExternal == true
                     select dataProvider;
 
                 if (currentDataProviders.Count() > 0)
