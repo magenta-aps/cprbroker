@@ -98,19 +98,15 @@ namespace CprBroker.Engine
         /// <summary>
         /// Retries a list of current data providers
         /// </summary>
-        /// <param name="userToken">Security Token for authorizing the current user</param>
-        /// <param name="appToken">Security Token for the application the current application.</param>
         /// <returns></returns>
-        Schemas.DataProviderType[] GetCPRDataProviderList(string userToken, string appToken);
+        Schemas.DataProviderType[] GetDataProviderList();
 
         /// <summary>
         /// Updates the system to use the given list of data providers
         /// </summary>
-        /// <param name="userToken">Security Token for authorizing the current user</param>
-        /// <param name="appToken">Security Token for the application the current application.</param>
         /// <param name="dataProviders">The list of data providers that should be used from now on</param>
         /// <returns></returns>
-        bool SetCPRDataProviderList(string userToken, string appToken, Schemas.DataProviderType[] dataProviders);
+        bool SetDataProviderList(Schemas.DataProviderType[] dataProviders);
     }
 
     /// <summary>

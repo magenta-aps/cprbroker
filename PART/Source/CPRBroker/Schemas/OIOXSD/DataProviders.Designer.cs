@@ -28,6 +28,8 @@ namespace CprBroker.Schemas
 
         private string typeNameField;
 
+        private bool enabledField;
+
         private AttributeType[] attributesField;
 
         /// <remarks/>
@@ -40,6 +42,19 @@ namespace CprBroker.Schemas
             set
             {
                 this.typeNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public bool Enabled
+        {
+            get
+            {
+                return this.enabledField;
+            }
+            set
+            {
+                this.enabledField = value;
             }
         }
 

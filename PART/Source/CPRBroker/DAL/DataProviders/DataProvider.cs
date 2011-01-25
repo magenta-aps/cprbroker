@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 
 namespace CprBroker.DAL.DataProviders
 {
@@ -64,5 +65,40 @@ namespace CprBroker.DAL.DataProviders
             return ret;
         }
 
+        public DataProviderType ToXmlType()
+        {
+            return new DataProviderType()
+            {
+                TypeName = TypeName,
+                Enabled = IsEnabled,
+                Attributes = Array.ConvertAll<DataProviderProperty, AttributeType>(
+                    DataProviderProperties.OrderBy(p => p.Ordinal).ToArray(),
+                    p => new AttributeType()
+                    {
+                        Name = p.Name,
+                        Value = p.Value
+                    }
+                )
+            };
+        }
+
+        public static DataProvider FromXmlType(DataProviderType oio, int ordinal, string[] keysInOrder)
+        {
+            DataProvider dbProv = new DataProvider()
+            {
+                DataProviderId = Guid.NewGuid(),
+                TypeName = oio.TypeName,
+                IsEnabled = oio.Enabled,
+                IsExternal = true,
+                Ordinal = ordinal,
+            };
+            for (int iProp = 0; iProp < keysInOrder.Length; iProp++)
+            {
+                var propName = keysInOrder[iProp];
+                var oioProp = oio.Attributes.FirstOrDefault(p => p.Name == propName);
+                dbProv[propName] = oioProp.Value;
+            }
+            return dbProv;
+        }
     }
 }

@@ -12,6 +12,7 @@
   <complexType name="DataProviderType" >
     <sequence>
       <element name="TypeName" type="string"></element>
+      <element name="Enabled" type="boolean"></element>
       <element name="Attributes" type="tns:AttributeType" maxOccurs="unbounded"></element>
     </sequence>
   </complexType>

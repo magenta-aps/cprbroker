@@ -30,13 +30,13 @@ namespace CprBroker.Engine
             #region Provider list
             public static Schemas.DataProviderType[] GetDataProviderList(string userToken, string appToken)
             {
-                return CallMethod<IDataProviderManager, DataProviderType[]>
-                (userToken, appToken, true, true, (admin) => admin.GetCPRDataProviderList(userToken, appToken), true, null);
+                var facade = new DataProviders.GetDataProviderListFacadeMethodInfo(appToken, userToken);
+                return GetMethodOutput<DataProviderType[]>(facade);
             }
             public static bool SetDataProviderList(string userToken, string appToken, DataProviderType[] dataProviders)
             {
-                return CallMethod<IDataProviderManager, bool>
-                (userToken, appToken, true, true, (admin) => admin.SetCPRDataProviderList(userToken, appToken, dataProviders), true, null);
+                var facade = new DataProviders.SetDataProvidersFacadeMethodInfo(dataProviders, appToken, userToken);
+                return GetMethodOutput<bool>(facade);
             }
             #endregion
 
@@ -74,7 +74,7 @@ namespace CprBroker.Engine
                 (userToken, appToken, true, true, (admin) => admin.UnregisterApp(userToken, appToken, targetAppToken), true, null);
             }
             #endregion
-                        
+
             #region Logging
 
             public static bool Log(string userToken, string appToken, string text)

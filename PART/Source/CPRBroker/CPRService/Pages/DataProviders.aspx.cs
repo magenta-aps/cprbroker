@@ -101,7 +101,7 @@ namespace CprBroker.Web.Pages
         protected void dataProvidersGridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             var valuesDataList = dataProvidersGridView.Rows[e.RowIndex].Cells[0].FindControl("EditDataList") as DataList;
-            var id = (int)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
+            var id = (Guid)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
 
             using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
             {
@@ -126,7 +126,7 @@ namespace CprBroker.Web.Pages
         {
             using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
             {
-                var id = (int)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
+                var id = (Guid)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
                 var dbProv = dataContext.DataProviders.Where(dp => dp.DataProviderId == id).FirstOrDefault();
                 dataContext.DataProviders.DeleteOnSubmit(dbProv);
                 dataContext.SubmitChanges();
@@ -140,12 +140,12 @@ namespace CprBroker.Web.Pages
         #region Ping
 
         protected void dataProvidersGridView_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            var id = Convert.ToInt32(e.CommandArgument);
+        {            
             if (e.CommandName == "Ping")
             {
                 using (var dataContext = new DataProvidersDataContext())
                 {
+                    var id = new Guid(e.CommandArgument.ToString());
                     DataProvider dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == id).OrderBy(dp => dp.Ordinal).SingleOrDefault();
                     IDataProvider prov = DataProviderManager.CreateDataProvider(dbProv);
 
@@ -163,6 +163,7 @@ namespace CprBroker.Web.Pages
             {
                 using (var dataContext = new DataProvidersDataContext())
                 {
+                    var id = new Guid(e.CommandArgument.ToString());
                     DataProvider dbProv = dataContext.DataProviders.Where(p => p.DataProviderId == id).SingleOrDefault();
                     dbProv.IsEnabled = !(dbProv.IsEnabled);
                     dataContext.SubmitChanges();
@@ -174,6 +175,7 @@ namespace CprBroker.Web.Pages
             {
                 using (var dataContext = new DataProvidersDataContext())
                 {
+                    var id = new Guid(e.CommandArgument.ToString());
                     var dataProviders = LoadDataProviders(dataContext);
                     DataProvider dbProv = dataProviders.First(p => p.DataProviderId == id);
 
@@ -219,7 +221,6 @@ namespace CprBroker.Web.Pages
                     {
                         DataProvider dbPrrov = new DataProvider()
                         {
-                            DataProviderTypeId = 1,
                             IsExternal = true,
                             TypeName = newDataProviderDropDownList.SelectedValue,
                             Ordinal = dataContext.DataProviders.Select(dp => dp.Ordinal).Max() + 1,

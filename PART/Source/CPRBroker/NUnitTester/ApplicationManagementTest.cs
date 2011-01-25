@@ -46,6 +46,20 @@ namespace CprBroker.NUnitTester
             var dataProviders = TestRunner.AdminService.GetDataProviderList();
             Assert.IsNotNull(dataProviders);
 
+            if (dataProviders.Length > 1)
+            {
+                // Use 1 data provider
+                var partialUpdateResult = TestRunner.AdminService.SetDataProviderList(dataProviders.Take(1).ToArray());
+                Assert.IsTrue(partialUpdateResult);
+
+                var partialDataProviders = TestRunner.AdminService.GetDataProviderList();
+                Assert.AreEqual(1, partialDataProviders.Length);
+            }
+            else
+            {
+                Console.WriteLine("Less than 2 providers exist, ignoring partial set");
+            }
+
             bool result = TestRunner.AdminService.SetDataProviderList(dataProviders);
             Assert.IsTrue(result);
         }

@@ -30,12 +30,12 @@ namespace CprBroker.DAL.DataProviders
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertDataProvider(DataProvider instance);
-    partial void UpdateDataProvider(DataProvider instance);
-    partial void DeleteDataProvider(DataProvider instance);
     partial void InsertDataProviderProperty(DataProviderProperty instance);
     partial void UpdateDataProviderProperty(DataProviderProperty instance);
     partial void DeleteDataProviderProperty(DataProviderProperty instance);
+    partial void InsertDataProvider(DataProvider instance);
+    partial void UpdateDataProvider(DataProvider instance);
+    partial void DeleteDataProvider(DataProvider instance);
     #endregion
 		
 		public DataProvidersDataContext(string connection) : 
@@ -62,6 +62,14 @@ namespace CprBroker.DAL.DataProviders
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<DataProviderProperty> DataProviderProperties
+		{
+			get
+			{
+				return this.GetTable<DataProviderProperty>();
+			}
+		}
+		
 		public System.Data.Linq.Table<DataProvider> DataProviders
 		{
 			get
@@ -69,12 +77,203 @@ namespace CprBroker.DAL.DataProviders
 				return this.GetTable<DataProvider>();
 			}
 		}
+	}
+	
+	[Table(Name="dbo.DataProviderProperty")]
+	public partial class DataProviderProperty : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		public System.Data.Linq.Table<DataProviderProperty> DataProviderProperties
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _DataProviderPropertyId;
+		
+		private System.Guid _DataProviderId;
+		
+		private int _Ordinal;
+		
+		private string _Name;
+		
+		private string _Value;
+		
+		private EntityRef<DataProvider> _DataProvider;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDataProviderPropertyIdChanging(System.Guid value);
+    partial void OnDataProviderPropertyIdChanged();
+    partial void OnDataProviderIdChanging(System.Guid value);
+    partial void OnDataProviderIdChanged();
+    partial void OnOrdinalChanging(int value);
+    partial void OnOrdinalChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnValueChanging(string value);
+    partial void OnValueChanged();
+    #endregion
+		
+		public DataProviderProperty()
+		{
+			this._DataProvider = default(EntityRef<DataProvider>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_DataProviderPropertyId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid DataProviderPropertyId
 		{
 			get
 			{
-				return this.GetTable<DataProviderProperty>();
+				return this._DataProviderPropertyId;
+			}
+			set
+			{
+				if ((this._DataProviderPropertyId != value))
+				{
+					this.OnDataProviderPropertyIdChanging(value);
+					this.SendPropertyChanging();
+					this._DataProviderPropertyId = value;
+					this.SendPropertyChanged("DataProviderPropertyId");
+					this.OnDataProviderPropertyIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DataProviderId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid DataProviderId
+		{
+			get
+			{
+				return this._DataProviderId;
+			}
+			set
+			{
+				if ((this._DataProviderId != value))
+				{
+					if (this._DataProvider.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDataProviderIdChanging(value);
+					this.SendPropertyChanging();
+					this._DataProviderId = value;
+					this.SendPropertyChanged("DataProviderId");
+					this.OnDataProviderIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Ordinal", DbType="Int NOT NULL")]
+		public int Ordinal
+		{
+			get
+			{
+				return this._Ordinal;
+			}
+			set
+			{
+				if ((this._Ordinal != value))
+				{
+					this.OnOrdinalChanging(value);
+					this.SendPropertyChanging();
+					this._Ordinal = value;
+					this.SendPropertyChanged("Ordinal");
+					this.OnOrdinalChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Value", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string Value
+		{
+			get
+			{
+				return this._Value;
+			}
+			set
+			{
+				if ((this._Value != value))
+				{
+					this.OnValueChanging(value);
+					this.SendPropertyChanging();
+					this._Value = value;
+					this.SendPropertyChanged("Value");
+					this.OnValueChanged();
+				}
+			}
+		}
+		
+		[Association(Name="DataProvider_DataProviderProperty", Storage="_DataProvider", ThisKey="DataProviderId", OtherKey="DataProviderId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public DataProvider DataProvider
+		{
+			get
+			{
+				return this._DataProvider.Entity;
+			}
+			set
+			{
+				DataProvider previousValue = this._DataProvider.Entity;
+				if (((previousValue != value) 
+							|| (this._DataProvider.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DataProvider.Entity = null;
+						previousValue.DataProviderProperties.Remove(this);
+					}
+					this._DataProvider.Entity = value;
+					if ((value != null))
+					{
+						value.DataProviderProperties.Add(this);
+						this._DataProviderId = value.DataProviderId;
+					}
+					else
+					{
+						this._DataProviderId = default(System.Guid);
+					}
+					this.SendPropertyChanged("DataProvider");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -85,9 +284,7 @@ namespace CprBroker.DAL.DataProviders
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _DataProviderId;
-		
-		private int _DataProviderTypeId;
+		private System.Guid _DataProviderId;
 		
 		private string _TypeName;
 		
@@ -103,10 +300,8 @@ namespace CprBroker.DAL.DataProviders
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnDataProviderIdChanging(int value);
+    partial void OnDataProviderIdChanging(System.Guid value);
     partial void OnDataProviderIdChanged();
-    partial void OnDataProviderTypeIdChanging(int value);
-    partial void OnDataProviderTypeIdChanged();
     partial void OnTypeNameChanging(string value);
     partial void OnTypeNameChanged();
     partial void OnOrdinalChanging(int value);
@@ -123,8 +318,8 @@ namespace CprBroker.DAL.DataProviders
 			OnCreated();
 		}
 		
-		[Column(Storage="_DataProviderId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int DataProviderId
+		[Column(Storage="_DataProviderId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid DataProviderId
 		{
 			get
 			{
@@ -139,26 +334,6 @@ namespace CprBroker.DAL.DataProviders
 					this._DataProviderId = value;
 					this.SendPropertyChanged("DataProviderId");
 					this.OnDataProviderIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_DataProviderTypeId", DbType="Int NOT NULL")]
-		public int DataProviderTypeId
-		{
-			get
-			{
-				return this._DataProviderTypeId;
-			}
-			set
-			{
-				if ((this._DataProviderTypeId != value))
-				{
-					this.OnDataProviderTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._DataProviderTypeId = value;
-					this.SendPropertyChanged("DataProviderTypeId");
-					this.OnDataProviderTypeIdChanged();
 				}
 			}
 		}
@@ -286,205 +461,6 @@ namespace CprBroker.DAL.DataProviders
 		{
 			this.SendPropertyChanging();
 			entity.DataProvider = null;
-		}
-	}
-	
-	[Table(Name="dbo.DataProviderProperty")]
-	public partial class DataProviderProperty : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _DataProviderPropertyId;
-		
-		private int _DataProviderId;
-		
-		private System.Nullable<int> _Ordinal;
-		
-		private string _Name;
-		
-		private string _Value;
-		
-		private EntityRef<DataProvider> _DataProvider;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnDataProviderPropertyIdChanging(System.Guid value);
-    partial void OnDataProviderPropertyIdChanged();
-    partial void OnDataProviderIdChanging(int value);
-    partial void OnDataProviderIdChanged();
-    partial void OnOrdinalChanging(System.Nullable<int> value);
-    partial void OnOrdinalChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnValueChanging(string value);
-    partial void OnValueChanged();
-    #endregion
-		
-		public DataProviderProperty()
-		{
-			this._DataProvider = default(EntityRef<DataProvider>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_DataProviderPropertyId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid DataProviderPropertyId
-		{
-			get
-			{
-				return this._DataProviderPropertyId;
-			}
-			set
-			{
-				if ((this._DataProviderPropertyId != value))
-				{
-					this.OnDataProviderPropertyIdChanging(value);
-					this.SendPropertyChanging();
-					this._DataProviderPropertyId = value;
-					this.SendPropertyChanged("DataProviderPropertyId");
-					this.OnDataProviderPropertyIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_DataProviderId", DbType="Int NOT NULL")]
-		public int DataProviderId
-		{
-			get
-			{
-				return this._DataProviderId;
-			}
-			set
-			{
-				if ((this._DataProviderId != value))
-				{
-					if (this._DataProvider.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnDataProviderIdChanging(value);
-					this.SendPropertyChanging();
-					this._DataProviderId = value;
-					this.SendPropertyChanged("DataProviderId");
-					this.OnDataProviderIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Ordinal", DbType="Int")]
-		public System.Nullable<int> Ordinal
-		{
-			get
-			{
-				return this._Ordinal;
-			}
-			set
-			{
-				if ((this._Ordinal != value))
-				{
-					this.OnOrdinalChanging(value);
-					this.SendPropertyChanging();
-					this._Ordinal = value;
-					this.SendPropertyChanged("Ordinal");
-					this.OnOrdinalChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Value", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
-		public string Value
-		{
-			get
-			{
-				return this._Value;
-			}
-			set
-			{
-				if ((this._Value != value))
-				{
-					this.OnValueChanging(value);
-					this.SendPropertyChanging();
-					this._Value = value;
-					this.SendPropertyChanged("Value");
-					this.OnValueChanged();
-				}
-			}
-		}
-		
-		[Association(Name="DataProvider_DataProviderProperty", Storage="_DataProvider", ThisKey="DataProviderId", OtherKey="DataProviderId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public DataProvider DataProvider
-		{
-			get
-			{
-				return this._DataProvider.Entity;
-			}
-			set
-			{
-				DataProvider previousValue = this._DataProvider.Entity;
-				if (((previousValue != value) 
-							|| (this._DataProvider.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DataProvider.Entity = null;
-						previousValue.DataProviderProperties.Remove(this);
-					}
-					this._DataProvider.Entity = value;
-					if ((value != null))
-					{
-						value.DataProviderProperties.Add(this);
-						this._DataProviderId = value.DataProviderId;
-					}
-					else
-					{
-						this._DataProviderId = default(int);
-					}
-					this.SendPropertyChanged("DataProvider");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }

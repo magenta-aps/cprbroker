@@ -170,6 +170,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataProviders\GetDataProviderListFacadeMethodInfo.cs" />
+    <Compile Include="DataProviders\SetDataProvidersFacadeMethodInfo.cs" />
     <Compile Include="Events\DataChangeEventManager.cs" />
     <Compile Include="Events\DequeueDataChangeEventsFacadeMethod.cs" />
     <Compile Include="Events\DequeueDataChangeEventSubMethodInfo.cs" />

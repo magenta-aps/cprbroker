@@ -30,33 +30,22 @@ namespace CprBroker.Engine.Local
         #endregion
 
         #region Provider list
-        // TODO: Convert to use generic XML types
-        public Schemas.DataProviderType[] GetCPRDataProviderList(string userToken, string appToken)
+
+        public Schemas.DataProviderType[] GetDataProviderList()
         {
             // Get data providers from database and convert to the appropriate XML type
             using (var context = new DataProvidersDataContext())
             {
                 DataProvider.SetChildLoadOptions(context);
                 List<Schemas.DataProviderType> dataProviders = new List<CprBroker.Schemas.DataProviderType>();
-                return (
-                    from prov in context.DataProviders
-                    select new DataProviderType()
-                    {
-                        TypeName = prov.TypeName,
-                        Attributes = Array.ConvertAll<DataProviderProperty, AttributeType>(
-                            prov.DataProviderProperties.OrderBy(p => p.Ordinal).ToArray(),
-                            p => new AttributeType()
-                            {
-                                Name = p.Name,
-                                Value = p.Value
-                            }
-                        )
-                    }).ToArray();
+                return context.DataProviders
+                    .Where(prov => prov.IsExternal)
+                    .Select(prov => prov.ToXmlType())
+                    .ToArray();
             }
         }
 
-        // TODO: Convert to use generic XML types and new DB structure
-        public bool SetCPRDataProviderList(string userToken, string appToken, Schemas.DataProviderType[] dataProviders)
+        public bool SetDataProviderList(Schemas.DataProviderType[] dataProviders)
         {
             using (var context = new DataProvidersDataContext())
             {
@@ -75,22 +64,8 @@ namespace CprBroker.Engine.Local
                 for (int iProv = 0; iProv < dataProviders.Length; iProv++)
                 {
                     DataProviderType oio = dataProviders[iProv];
-                    DataProvider dbProv = new DataProvider()
-                    {
-                        TypeName = oio.TypeName,
-                        DataProviderTypeId = 1,
-                        IsEnabled = true,
-                        IsExternal = true,
-                        Ordinal = iProv,
-                    };
                     var provObj = Util.Reflection.CreateInstance<IExternalDataProvider>(oio.TypeName);
-                    var keys = provObj.ConfigurationKeys;
-                    for (int iProp = 0; iProp < keys.Length; iProp++)
-                    {
-                        var propName = keys[iProp];
-                        var oioProp = oio.Attributes.FirstOrDefault(p => p.Name == propName);
-                        dbProv[keys[iProp]] = oioProp.Value;
-                    }
+                    var dbProv = DataProvider.FromXmlType(oio, iProv, provObj.ConfigurationKeys);
                     context.DataProviders.InsertOnSubmit(dbProv);
                 }
                 context.SubmitChanges();
