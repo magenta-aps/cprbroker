@@ -177,6 +177,7 @@
     <Compile Include="Events\GetPersonBirthdatesSubmethodInfo.cs" />
     <Compile Include="Events\IDataChangeEventManager.cs" />
     <Compile Include="Manager.Events.cs" />
+    <Compile Include="Util\Reflection.cs" />
     <None Include="Web References\NotificationQueueService\NotificationQueue.disco" />
     <None Include="Web References\NotificationQueueService\NotificationQueue.wsdl" />
     <None Include="Web References\NotificationQueueService\Reference.map">

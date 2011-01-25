@@ -529,626 +529,8 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
-    public partial class PersonCivilRegistrationStatusStructureType {
-        
-        private PersonCivilRegistrationStatusCodeType personCivilRegistrationStatusCodeField;
-        
-        private System.DateTime personCivilRegistrationStatusStartDateField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
-        public PersonCivilRegistrationStatusCodeType PersonCivilRegistrationStatusCode {
-            get {
-                return this.personCivilRegistrationStatusCodeField;
-            }
-            set {
-                this.personCivilRegistrationStatusCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
-        public System.DateTime PersonCivilRegistrationStatusStartDate {
-            get {
-                return this.personCivilRegistrationStatusStartDateField;
-            }
-            set {
-                this.personCivilRegistrationStatusStartDateField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
-    public enum PersonCivilRegistrationStatusCodeType {
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("01")]
-        Item01,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("03")]
-        Item03,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("05")]
-        Item05,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("07")]
-        Item07,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("20")]
-        Item20,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("30")]
-        Item30,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("50")]
-        Item50,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("60")]
-        Item60,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("70")]
-        Item70,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("80")]
-        Item80,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("90")]
-        Item90,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
-    public partial class PersonNameStructureType {
-        
-        private string personGivenNameField;
-        
-        private string personMiddleNameField;
-        
-        private string personSurnameNameField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonGivenName {
-            get {
-                return this.personGivenNameField;
-            }
-            set {
-                this.personGivenNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonMiddleName {
-            get {
-                return this.personMiddleNameField;
-            }
-            set {
-                this.personMiddleNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonSurnameName {
-            get {
-                return this.personSurnameNameField;
-            }
-            set {
-                this.personSurnameNameField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
-    public partial class SimpleCPRPersonType {
-        
-        private PersonNameStructureType personNameStructureField;
-        
-        private string personCivilRegistrationIdentifierField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
-        public PersonNameStructureType PersonNameStructure {
-            get {
-                return this.personNameStructureField;
-            }
-            set {
-                this.personNameStructureField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/")]
-        public string PersonCivilRegistrationIdentifier {
-            get {
-                return this.personCivilRegistrationIdentifierField;
-            }
-            set {
-                this.personCivilRegistrationIdentifierField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
-    public partial class RegularCPRPersonType {
-        
-        private SimpleCPRPersonType simpleCPRPersonField;
-        
-        private string personNameForAddressingNameField;
-        
-        private PersonGenderCodeType personGenderCodeField;
-        
-        private bool personInformationProtectionIndicatorField;
-        
-        private PersonBirthDateStructureType personBirthDateStructureField;
-        
-        private PersonCivilRegistrationStatusStructureType personCivilRegistrationStatusStructureField;
-        
-        /// <remarks/>
-        public SimpleCPRPersonType SimpleCPRPerson {
-            get {
-                return this.simpleCPRPersonField;
-            }
-            set {
-                this.simpleCPRPersonField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/")]
-        public string PersonNameForAddressingName {
-            get {
-                return this.personNameForAddressingNameField;
-            }
-            set {
-                this.personNameForAddressingNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public PersonGenderCodeType PersonGenderCode {
-            get {
-                return this.personGenderCodeField;
-            }
-            set {
-                this.personGenderCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
-        public bool PersonInformationProtectionIndicator {
-            get {
-                return this.personInformationProtectionIndicatorField;
-            }
-            set {
-                this.personInformationProtectionIndicatorField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
-        public PersonBirthDateStructureType PersonBirthDateStructure {
-            get {
-                return this.personBirthDateStructureField;
-            }
-            set {
-                this.personBirthDateStructureField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public PersonCivilRegistrationStatusStructureType PersonCivilRegistrationStatusStructure {
-            get {
-                return this.personCivilRegistrationStatusStructureField;
-            }
-            set {
-                this.personCivilRegistrationStatusStructureField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-    public enum PersonGenderCodeType {
-        
-        /// <remarks/>
-        male,
-        
-        /// <remarks/>
-        female,
-        
-        /// <remarks/>
-        unknown,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
-    public partial class PersonBirthDateStructureType {
-        
-        private System.DateTime birthDateField;
-        
-        private bool birthDateUncertaintyIndicatorField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", DataType="date")]
-        public System.DateTime BirthDate {
-            get {
-                return this.birthDateField;
-            }
-            set {
-                this.birthDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool BirthDateUncertaintyIndicator {
-            get {
-                return this.birthDateUncertaintyIndicatorField;
-            }
-            set {
-                this.birthDateUncertaintyIndicatorField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
-    public partial class PersonFullStructureType {
-        
-        private RegularCPRPersonType regularCPRPersonField;
-        
-        private MaritalStatusCodeType maritalStatusCodeField;
-        
-        private PersonDeathDateStructureType personDeathDateStructureField;
-        
-        private string personNationalityCodeField;
-        
-        private AddressIdentifierCodeType addressIdentifierCodeField;
-        
-        private bool addressIdentifierCodeFieldSpecified;
-        
-        private object itemField;
-        
-        private string spouseNameField;
-        
-        private int numberOfChildrenField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
-        public RegularCPRPersonType RegularCPRPerson {
-            get {
-                return this.regularCPRPersonField;
-            }
-            set {
-                this.regularCPRPersonField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/")]
-        public MaritalStatusCodeType MaritalStatusCode {
-            get {
-                return this.maritalStatusCodeField;
-            }
-            set {
-                this.maritalStatusCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-        public PersonDeathDateStructureType PersonDeathDateStructure {
-            get {
-                return this.personDeathDateStructureField;
-            }
-            set {
-                this.personDeathDateStructureField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonNationalityCode {
-            get {
-                return this.personNationalityCodeField;
-            }
-            set {
-                this.personNationalityCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-        public AddressIdentifierCodeType AddressIdentifierCode {
-            get {
-                return this.addressIdentifierCodeField;
-            }
-            set {
-                this.addressIdentifierCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool AddressIdentifierCodeSpecified {
-            get {
-                return this.addressIdentifierCodeFieldSpecified;
-            }
-            set {
-                this.addressIdentifierCodeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("DanishAddressStructure", typeof(DanishAddressStructureType), Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-        [System.Xml.Serialization.XmlElementAttribute("ForeignAddressStructure", typeof(ForeignAddressStructureType), Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-        public object Item {
-            get {
-                return this.itemField;
-            }
-            set {
-                this.itemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string SpouseName {
-            get {
-                return this.spouseNameField;
-            }
-            set {
-                this.spouseNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int NumberOfChildren {
-            get {
-                return this.numberOfChildrenField;
-            }
-            set {
-                this.numberOfChildrenField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/")]
-    public enum MaritalStatusCodeType {
-        
-        /// <remarks/>
-        married,
-        
-        /// <remarks/>
-        divorced,
-        
-        /// <remarks/>
-        widow,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("registered partnership")]
-        registeredpartnership,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("abolition of registrered partnership")]
-        abolitionofregistreredpartnership,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("longest living partner")]
-        longestlivingpartner,
-        
-        /// <remarks/>
-        deceased,
-        
-        /// <remarks/>
-        unmarried,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class PersonDeathDateStructureType {
-        
-        private System.DateTime personDeathDateField;
-        
-        private bool personDeathDateUncertaintyIndicatorField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
-        public System.DateTime PersonDeathDate {
-            get {
-                return this.personDeathDateField;
-            }
-            set {
-                this.personDeathDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool PersonDeathDateUncertaintyIndicator {
-            get {
-                return this.personDeathDateUncertaintyIndicatorField;
-            }
-            set {
-                this.personDeathDateUncertaintyIndicatorField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public enum AddressIdentifierCodeType {
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
-        Item3,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class DanishAddressStructureType {
-        
-        private AddressStatusCodeType addressStatusCodeField;
-        
-        private string municipalityNameField;
-        
-        private string careOfNameField;
-        
-        private object itemField;
-        
-        private CompletePostalLabelType completePostalLabelField;
-        
-        /// <remarks/>
-        public AddressStatusCodeType AddressStatusCode {
-            get {
-                return this.addressStatusCodeField;
-            }
-            set {
-                this.addressStatusCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/")]
-        public string MunicipalityName {
-            get {
-                return this.municipalityNameField;
-            }
-            set {
-                this.municipalityNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/")]
-        public string CareOfName {
-            get {
-                return this.careOfNameField;
-            }
-            set {
-                this.careOfNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("AddressCompleteGreenland", typeof(AddressCompleteGreenlandType))]
-        [System.Xml.Serialization.XmlElementAttribute("AddressNotComplete", typeof(AddressNotCompleteType))]
-        [System.Xml.Serialization.XmlElementAttribute("AddressComplete", typeof(AddressCompleteType), Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/")]
-        public object Item {
-            get {
-                return this.itemField;
-            }
-            set {
-                this.itemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/")]
-        public CompletePostalLabelType CompletePostalLabel {
-            get {
-                return this.completePostalLabelField;
-            }
-            set {
-                this.completePostalLabelField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public enum AddressStatusCodeType {
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
-        Item3,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5")]
-        Item5,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7")]
-        Item7,
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("20")]
-        Item20,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class AddressCompleteGreenlandType {
+    public partial class AddressNotCompleteType {
         
         private string municipalityCodeField;
         
@@ -1382,7 +764,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class AddressNotCompleteType {
+    public partial class AddressCompleteGreenlandType {
         
         private string municipalityCodeField;
         
@@ -1551,6 +933,108 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
                 this.countryIdentificationCodeField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class DanishAddressStructureType {
+        
+        private AddressStatusCodeType addressStatusCodeField;
+        
+        private string municipalityNameField;
+        
+        private string careOfNameField;
+        
+        private object itemField;
+        
+        private CompletePostalLabelType completePostalLabelField;
+        
+        /// <remarks/>
+        public AddressStatusCodeType AddressStatusCode {
+            get {
+                return this.addressStatusCodeField;
+            }
+            set {
+                this.addressStatusCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/")]
+        public string MunicipalityName {
+            get {
+                return this.municipalityNameField;
+            }
+            set {
+                this.municipalityNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/")]
+        public string CareOfName {
+            get {
+                return this.careOfNameField;
+            }
+            set {
+                this.careOfNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("AddressCompleteGreenland", typeof(AddressCompleteGreenlandType))]
+        [System.Xml.Serialization.XmlElementAttribute("AddressNotComplete", typeof(AddressNotCompleteType))]
+        [System.Xml.Serialization.XmlElementAttribute("AddressComplete", typeof(AddressCompleteType), Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/")]
+        public object Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/")]
+        public CompletePostalLabelType CompletePostalLabel {
+            get {
+                return this.completePostalLabelField;
+            }
+            set {
+                this.completePostalLabelField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public enum AddressStatusCodeType {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("7")]
+        Item7,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("20")]
+        Item20,
     }
     
     /// <remarks/>
@@ -1988,24 +1472,35 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(KmdDataProviderType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DprDataProviderType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
-    public abstract partial class DataProviderType {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class PersonDeathDateStructureType {
         
-        private string addressField;
+        private System.DateTime personDeathDateField;
+        
+        private bool personDeathDateUncertaintyIndicatorField;
         
         /// <remarks/>
-        public string Address {
+        [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
+        public System.DateTime PersonDeathDate {
             get {
-                return this.addressField;
+                return this.personDeathDateField;
             }
             set {
-                this.addressField = value;
+                this.personDeathDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool PersonDeathDateUncertaintyIndicator {
+            get {
+                return this.personDeathDateUncertaintyIndicatorField;
+            }
+            set {
+                this.personDeathDateUncertaintyIndicatorField = value;
             }
         }
     }
@@ -2016,29 +1511,511 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
-    public partial class KmdDataProviderType : DataProviderType {
+    public partial class PersonFullStructureType {
         
-        private string usernameField;
+        private RegularCPRPersonType regularCPRPersonField;
         
-        private string passwordField;
+        private MaritalStatusCodeType maritalStatusCodeField;
+        
+        private PersonDeathDateStructureType personDeathDateStructureField;
+        
+        private string personNationalityCodeField;
+        
+        private AddressIdentifierCodeType addressIdentifierCodeField;
+        
+        private bool addressIdentifierCodeFieldSpecified;
+        
+        private object itemField;
+        
+        private string spouseNameField;
+        
+        private int numberOfChildrenField;
         
         /// <remarks/>
-        public string Username {
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
+        public RegularCPRPersonType RegularCPRPerson {
             get {
-                return this.usernameField;
+                return this.regularCPRPersonField;
             }
             set {
-                this.usernameField = value;
+                this.regularCPRPersonField = value;
             }
         }
         
         /// <remarks/>
-        public string Password {
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/")]
+        public MaritalStatusCodeType MaritalStatusCode {
             get {
-                return this.passwordField;
+                return this.maritalStatusCodeField;
             }
             set {
-                this.passwordField = value;
+                this.maritalStatusCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+        public PersonDeathDateStructureType PersonDeathDateStructure {
+            get {
+                return this.personDeathDateStructureField;
+            }
+            set {
+                this.personDeathDateStructureField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonNationalityCode {
+            get {
+                return this.personNationalityCodeField;
+            }
+            set {
+                this.personNationalityCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+        public AddressIdentifierCodeType AddressIdentifierCode {
+            get {
+                return this.addressIdentifierCodeField;
+            }
+            set {
+                this.addressIdentifierCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool AddressIdentifierCodeSpecified {
+            get {
+                return this.addressIdentifierCodeFieldSpecified;
+            }
+            set {
+                this.addressIdentifierCodeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("DanishAddressStructure", typeof(DanishAddressStructureType), Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+        [System.Xml.Serialization.XmlElementAttribute("ForeignAddressStructure", typeof(ForeignAddressStructureType), Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+        public object Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string SpouseName {
+            get {
+                return this.spouseNameField;
+            }
+            set {
+                this.spouseNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int NumberOfChildren {
+            get {
+                return this.numberOfChildrenField;
+            }
+            set {
+                this.numberOfChildrenField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
+    public partial class RegularCPRPersonType {
+        
+        private SimpleCPRPersonType simpleCPRPersonField;
+        
+        private string personNameForAddressingNameField;
+        
+        private PersonGenderCodeType personGenderCodeField;
+        
+        private bool personInformationProtectionIndicatorField;
+        
+        private PersonBirthDateStructureType personBirthDateStructureField;
+        
+        private PersonCivilRegistrationStatusStructureType personCivilRegistrationStatusStructureField;
+        
+        /// <remarks/>
+        public SimpleCPRPersonType SimpleCPRPerson {
+            get {
+                return this.simpleCPRPersonField;
+            }
+            set {
+                this.simpleCPRPersonField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/")]
+        public string PersonNameForAddressingName {
+            get {
+                return this.personNameForAddressingNameField;
+            }
+            set {
+                this.personNameForAddressingNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public PersonGenderCodeType PersonGenderCode {
+            get {
+                return this.personGenderCodeField;
+            }
+            set {
+                this.personGenderCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
+        public bool PersonInformationProtectionIndicator {
+            get {
+                return this.personInformationProtectionIndicatorField;
+            }
+            set {
+                this.personInformationProtectionIndicatorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
+        public PersonBirthDateStructureType PersonBirthDateStructure {
+            get {
+                return this.personBirthDateStructureField;
+            }
+            set {
+                this.personBirthDateStructureField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public PersonCivilRegistrationStatusStructureType PersonCivilRegistrationStatusStructure {
+            get {
+                return this.personCivilRegistrationStatusStructureField;
+            }
+            set {
+                this.personCivilRegistrationStatusStructureField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
+    public partial class SimpleCPRPersonType {
+        
+        private PersonNameStructureType personNameStructureField;
+        
+        private string personCivilRegistrationIdentifierField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
+        public PersonNameStructureType PersonNameStructure {
+            get {
+                return this.personNameStructureField;
+            }
+            set {
+                this.personNameStructureField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/")]
+        public string PersonCivilRegistrationIdentifier {
+            get {
+                return this.personCivilRegistrationIdentifierField;
+            }
+            set {
+                this.personCivilRegistrationIdentifierField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
+    public partial class PersonNameStructureType {
+        
+        private string personGivenNameField;
+        
+        private string personMiddleNameField;
+        
+        private string personSurnameNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonGivenName {
+            get {
+                return this.personGivenNameField;
+            }
+            set {
+                this.personGivenNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonMiddleName {
+            get {
+                return this.personMiddleNameField;
+            }
+            set {
+                this.personMiddleNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public string PersonSurnameName {
+            get {
+                return this.personSurnameNameField;
+            }
+            set {
+                this.personSurnameNameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+    public enum PersonGenderCodeType {
+        
+        /// <remarks/>
+        male,
+        
+        /// <remarks/>
+        female,
+        
+        /// <remarks/>
+        unknown,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
+    public partial class PersonBirthDateStructureType {
+        
+        private System.DateTime birthDateField;
+        
+        private bool birthDateUncertaintyIndicatorField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", DataType="date")]
+        public System.DateTime BirthDate {
+            get {
+                return this.birthDateField;
+            }
+            set {
+                this.birthDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool BirthDateUncertaintyIndicator {
+            get {
+                return this.birthDateUncertaintyIndicatorField;
+            }
+            set {
+                this.birthDateUncertaintyIndicatorField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
+    public partial class PersonCivilRegistrationStatusStructureType {
+        
+        private PersonCivilRegistrationStatusCodeType personCivilRegistrationStatusCodeField;
+        
+        private System.DateTime personCivilRegistrationStatusStartDateField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
+        public PersonCivilRegistrationStatusCodeType PersonCivilRegistrationStatusCode {
+            get {
+                return this.personCivilRegistrationStatusCodeField;
+            }
+            set {
+                this.personCivilRegistrationStatusCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
+        public System.DateTime PersonCivilRegistrationStatusStartDate {
+            get {
+                return this.personCivilRegistrationStatusStartDateField;
+            }
+            set {
+                this.personCivilRegistrationStatusStartDateField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/")]
+    public enum PersonCivilRegistrationStatusCodeType {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("01")]
+        Item01,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("03")]
+        Item03,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("05")]
+        Item05,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("07")]
+        Item07,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("20")]
+        Item20,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("30")]
+        Item30,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("50")]
+        Item50,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("60")]
+        Item60,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("70")]
+        Item70,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("80")]
+        Item80,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("90")]
+        Item90,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/")]
+    public enum MaritalStatusCodeType {
+        
+        /// <remarks/>
+        married,
+        
+        /// <remarks/>
+        divorced,
+        
+        /// <remarks/>
+        widow,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("registered partnership")]
+        registeredpartnership,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("abolition of registrered partnership")]
+        abolitionofregistreredpartnership,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("longest living partner")]
+        longestlivingpartner,
+        
+        /// <remarks/>
+        deceased,
+        
+        /// <remarks/>
+        unmarried,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public enum AddressIdentifierCodeType {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
+    public partial class AttributeType {
+        
+        private string nameField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
             }
         }
     }
@@ -2049,29 +2026,30 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
-    public partial class DprDataProviderType : DataProviderType {
+    public partial class DataProviderType {
         
-        private int portField;
+        private string typeNameField;
         
-        private string connectionStringField;
+        private AttributeType[] attributesField;
         
         /// <remarks/>
-        public int Port {
+        public string TypeName {
             get {
-                return this.portField;
+                return this.typeNameField;
             }
             set {
-                this.portField = value;
+                this.typeNameField = value;
             }
         }
         
         /// <remarks/>
-        public string ConnectionString {
+        [System.Xml.Serialization.XmlElementAttribute("Attributes")]
+        public AttributeType[] Attributes {
             get {
-                return this.connectionStringField;
+                return this.attributesField;
             }
             set {
-                this.connectionStringField = value;
+                this.attributesField = value;
             }
         }
     }

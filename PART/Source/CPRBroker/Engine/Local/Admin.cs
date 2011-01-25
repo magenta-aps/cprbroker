@@ -36,35 +36,25 @@ namespace CprBroker.Engine.Local
             // Get data providers from database and convert to the appropriate XML type
             using (var context = new DataProvidersDataContext())
             {
+                DataProvider.SetChildLoadOptions(context);
                 List<Schemas.DataProviderType> dataProviders = new List<CprBroker.Schemas.DataProviderType>();
-                var providers = from prov in context.DataProviders select prov;
-                foreach (var provider in providers)
-                {
-                    Schemas.DataProviderType newProvider = null;
-                    switch ((DataProviderTypes)provider.DataProviderTypeId)
+                return (
+                    from prov in context.DataProviders
+                    select new DataProviderType()
                     {
-                        case DataProviderTypes.DPR:
-                            DprDataProviderType dpr = new DprDataProviderType();
-                            dpr.Port = int.Parse(provider["Port"]);
-                            dpr.ConnectionString = provider["ConnectionString"];
-                            newProvider = dpr;
-                            break;
-                        case DataProviderTypes.KMD:
-                            KmdDataProviderType kmd = new KmdDataProviderType();
-                            kmd.Username = provider["UserName"];
-                            kmd.Password = provider["Password"];
-                            newProvider = kmd;
-                            break;
-                    }
-                    if (newProvider != null)
-                    {
-                        newProvider.Address = provider["Address"];
-                        dataProviders.Add(newProvider);
-                    }
-                }
-                return dataProviders.ToArray();
+                        TypeName = prov.TypeName,
+                        Attributes = Array.ConvertAll<DataProviderProperty, AttributeType>(
+                            prov.DataProviderProperties.OrderBy(p => p.Ordinal).ToArray(),
+                            p => new AttributeType()
+                            {
+                                Name = p.Name,
+                                Value = p.Value
+                            }
+                        )
+                    }).ToArray();
             }
         }
+
         // TODO: Convert to use generic XML types and new DB structure
         public bool SetCPRDataProviderList(string userToken, string appToken, Schemas.DataProviderType[] dataProviders)
         {
@@ -82,29 +72,27 @@ namespace CprBroker.Engine.Local
                 }
                 #endregion
                 // Add new data providers
-                Array.ForEach(dataProviders,
-                    (Schemas.DataProviderType provider) =>
+                for (int iProv = 0; iProv < dataProviders.Length; iProv++)
+                {
+                    DataProviderType oio = dataProviders[iProv];
+                    DataProvider dbProv = new DataProvider()
                     {
-                        DataProvider local = new DataProvider();
-                        local["Address"] = provider.Address;
-
-                        if (provider is Schemas.DprDataProviderType)
-                        {
-                            local.DataProviderTypeId = (int)Schemas.DataProviderTypes.DPR;
-                            Schemas.DprDataProviderType dpr = provider as Schemas.DprDataProviderType;
-                            local["Port"] = dpr.Port.ToString();
-                            local["ConnectionString"] = dpr.ConnectionString;
-                        }
-                        else if (provider is Schemas.KmdDataProviderType)
-                        {
-                            local.DataProviderTypeId = (int)Schemas.DataProviderTypes.KMD;
-                            Schemas.KmdDataProviderType kmd = provider as Schemas.KmdDataProviderType;
-                            local["UserName"] = kmd.Username;
-                            local["Password"] = kmd.Password;
-                        }
-
-                        context.DataProviders.InsertOnSubmit(local);
-                    });
+                        TypeName = oio.TypeName,
+                        DataProviderTypeId = 1,
+                        IsEnabled = true,
+                        IsExternal = true,
+                        Ordinal = iProv,
+                    };
+                    var provObj = Util.Reflection.CreateInstance<IExternalDataProvider>(oio.TypeName);
+                    var keys = provObj.ConfigurationKeys;
+                    for (int iProp = 0; iProp < keys.Length; iProp++)
+                    {
+                        var propName = keys[iProp];
+                        var oioProp = oio.Attributes.FirstOrDefault(p => p.Name == propName);
+                        dbProv[keys[iProp]] = oioProp.Value;
+                    }
+                    context.DataProviders.InsertOnSubmit(dbProv);
+                }
                 context.SubmitChanges();
                 // Refresh current data provider list
                 DataProviderManager.InitializeDataProviders();

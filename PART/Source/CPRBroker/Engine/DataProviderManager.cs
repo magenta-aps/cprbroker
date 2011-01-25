@@ -89,9 +89,7 @@ namespace CprBroker.Engine
 
         private static IDataProvider CreateDataProvider(string typeName)
         {
-            Type dataProviderType = Type.GetType(typeName);
-            object providerObj = dataProviderType.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
-            return providerObj as IDataProvider;
+            return Util.Reflection.CreateInstance<IDataProvider>(typeName);
         }
 
         #endregion

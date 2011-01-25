@@ -5,10 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 
-namespace CPRBroker.Engine.Util
+namespace CprBroker.Engine.Util
 {
     public static class Reflection
     {
+        public static T CreateInstance<T>(string typeName) where T : class
+        {
+            Type t = Type.GetType(typeName);
+            if (t != null)
+            {
+                object providerObj = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
+                return providerObj as T;
+            }
+            return null;
+        }
+
         public static object ChangeNamespace(Type targetType, object sourceObject)
         {
             object targetObject;
