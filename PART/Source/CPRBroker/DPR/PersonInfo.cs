@@ -259,7 +259,7 @@ namespace CprBroker.Providers.DPR
             //dates.AddRange(from c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalEndDate));
             dates.AddRange(from c in CivilStates select Utilities.DateFromDecimal(c.AuthorityTextUpdateDate));
             dates.AddRange(from c in CivilStates select Utilities.DateFromDecimal(c.UpdateDateOfCpr));
-            
+
             return (from d in dates where d.HasValue select d.Value).ToArray();
         }
 
@@ -316,7 +316,7 @@ namespace CprBroker.Providers.DPR
                         HasProtection = pi.HasProtection,
                         PersonName = pi.PersonName,
                         PersonTotal = pi.PersonTotal,
-                        Street = pi.Street,                        
+                        Street = pi.Street,
                     }
                 );
             }
@@ -352,17 +352,17 @@ namespace CprBroker.Providers.DPR
                                 BirthDateUncertaintyIndicator = false
                             },
                             PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar( PersonTotal.Sex),
-                            PersonNameStructure = tempPersonName,
-                            RegisterOplysninger = new RegisterOplysningerType[]
-                            {
-                                new RegisterOplysningerType()
-                                {
-                                    // TODO: Fill this with UdenlandskBorger or CPRBorger or UkendtBorger
-                                    Item = null,
-                                }
-                            },
+                            PersonNameStructure = tempPersonName,                            
                             //TODO: Fill this object
                             Virkning = VirkningType.Create(null,null)
+                        }
+                    },
+                    RegisterOplysninger = new RegisterOplysningerType[]
+                    {
+                        new RegisterOplysningerType()
+                        {
+                            // TODO: Fill this with UdenlandskBorger or CPRBorger or UkendtBorger
+                            Item = null,
                         }
                     },
                     // No extensions at the moment

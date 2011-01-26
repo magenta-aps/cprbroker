@@ -42,15 +42,7 @@ namespace CprBroker.Providers.KMD
                             },
                             //TODO: Change this
                             PersonGenderCode = ToPartGender(uuid.CprNumber),
-                            PersonNameStructure = new PersonNameStructureType(resp.FirstName, resp.LastName),
-                            RegisterOplysninger=new RegisterOplysningerType[]
-                            {
-                                new RegisterOplysningerType()
-                                {
-                                    //TODO: Fill with CPR, Foreign or Unknown
-                                    Item = null,
-                                }
-                            },
+                            PersonNameStructure = new PersonNameStructureType(resp.FirstName, resp.LastName),                            
                             Virkning = VirkningType.Create(null,null),
                             /*
                             Attributes = new PersonAttributes()
@@ -88,7 +80,15 @@ namespace CprBroker.Providers.KMD
                                 }
                             }*/                                
                         },
-                    }
+                    },
+                    RegisterOplysninger = new RegisterOplysningerType[]
+                    {
+                        new RegisterOplysningerType()
+                        {
+                            //TODO: Fill with CPR, Foreign or Unknown
+                            Item = null,
+                        }
+                    },
 
                 },
                 // TODO:See if actor text is different from actor ID
@@ -164,7 +164,7 @@ namespace CprBroker.Providers.KMD
                         isMarried? maritalStatusDate : null,
                         isMarried? null : maritalStatusDate
                    )
-                };                
+                };
             }
             ql = CprBroker.Schemas.QualityLevel.Cpr;
             return ret;

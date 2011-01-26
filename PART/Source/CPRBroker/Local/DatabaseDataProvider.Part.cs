@@ -41,7 +41,7 @@ namespace CprBroker.Providers.Local
                             foreach (var prop in searchCriteria.Soeg.Attributter.SoegEgenskab)
                             {
                                 // Search by name
-                                var name = new Schemas.Part.PersonNameStructureType(prop.NavnTekst);
+                                var name = prop.PersonNameStructure;
                                 if (!name.IsEmpty)
                                 {
                                     var cprNamePred = PredicateBuilder.True<DAL.Part.PersonRegistration>();

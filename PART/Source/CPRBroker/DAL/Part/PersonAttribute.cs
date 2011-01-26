@@ -29,25 +29,25 @@ namespace CprBroker.DAL.Part
                             PersonGivenName=this.FirstName,
                             PersonMiddleName=this.MiddleName,
                             PersonSurnameName=this.LastName
-                        },
-                        RegisterOplysninger = new RegisterOplysningerType[]{new RegisterOplysningerType()},
+                        },                        
                         Virkning = VirkningType.Create(null,null),
                     },
                 },
+                RegisterOplysninger = new RegisterOplysningerType[] { new RegisterOplysningerType() },
                 LokalUdvidelse = null
             };
 
             if (this.CprData != null)
             {
-                ret.Egenskaber[0].RegisterOplysninger[0].Item = CprData.ToXmlType();
+                ret.RegisterOplysninger[0].Item = CprData.ToXmlType();
             }
             else if (this.ForeignCitizenData != null)
             {
-                ret.Egenskaber[0].RegisterOplysninger[0].Item = ForeignCitizenData.ToXmlType();
+                ret.RegisterOplysninger[0].Item = ForeignCitizenData.ToXmlType();
             }
             else if (this.UnknownCitizenData != null)
             {
-                ret.Egenskaber[0].RegisterOplysninger[0].Item = UnknownCitizenData.ToXmlType();
+                ret.RegisterOplysninger[0].Item = UnknownCitizenData.ToXmlType();
             }
             return ret;
         }
