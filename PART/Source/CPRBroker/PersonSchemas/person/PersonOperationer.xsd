@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:oio:sagdok:person:1.0.0"
-	xmlns:person="urn:oio:sagdok:person:1.0.0" 
-	elementFormDefault="qualified"
+	xmlns:person="urn:oio:sagdok:person:1.0.0" elementFormDefault="qualified"
 	xmlns:sd="urn:oio:sagdok:1.0.0">
 	<include schemaLocation="Person.xsd" />
 
-  <import namespace="urn:oio:sagdok:1.0.0" schemaLocation="../generic/SagDokObjekt.xsd" />
+	<import namespace="urn:oio:sagdok:1.0.0" schemaLocation="../generic/SagDokObjekt.xsd" />
 
 	<!-- OPERATIONS -->
 	<!-- IMPORTer -->
@@ -137,7 +136,8 @@
 		<complexContent>
 			<extension base="sd:SoegInputType">
 				<sequence>
-					<element name="Soeg" type="person:SoegObjektType" minOccurs="0" />
+					<element name="Soeg" type="person:SoegObjektType"
+						minOccurs="0" />
 				</sequence>
 			</extension>
 		</complexContent>
@@ -160,8 +160,20 @@
 
 	<complexType name="SoegEgenskabType">
 		<sequence>
-			<element name="NavnTekst" type="string" minOccurs="0" />
-			<element name="Virkning" type="sd:VirkningType" minOccurs="0" />
+			<element ref="personname:PersonNameStructure" minOccurs="0" />
+			<element ref="gendercode:PersonGenderCode" minOccurs="0" />
+			<element ref="birthdate:PersonBirthDateStructure" minOccurs="0" />
+			<element name="fodselsregistreringmyndighed" type="string"
+				minOccurs="0" />
+			<element name="foedested" type="string" minOccurs="0" />
+			<element name="AndreAdresser" type="person:AdresseType"
+				minOccurs="0" />
+			<element name="Kontaktkanal" type="person:KontaktKanalType"
+				minOccurs="0" />
+			<element name="NaermestePaaroerende" type="person:KontaktKanalType"
+				minOccurs="0" />
+			<element name="Virkning" type="sd:SoegVirkningType" 
+				minOccurs="0" />
 		</sequence>
 	</complexType>
 
@@ -169,6 +181,10 @@
 		<sequence>
 			<element name="SoegEgenskab" type="person:SoegEgenskabType"
 				maxOccurs="unbounded" minOccurs="0" />
+			<element name="SoegSundhedsOplysninger" type="person:SundhedsOplysningerType"
+				maxOccurs="unbounded" />
+			<element name="SoegRegisterOplysninger" type="person:RegisterOplysningerType"
+				maxOccurs="unbounded" />
 			<element ref="sd:LokalUdvidelse" minOccurs="0" />
 		</sequence>
 	</complexType>
@@ -179,8 +195,8 @@
 				maxOccurs="unbounded" />
 			<element name="Fader" type="sd:SoegRelationType" minOccurs="0"
 				maxOccurs="unbounded" />
-			<element name="Boern" type="sd:SoegRelationType"
-				minOccurs="0" maxOccurs="unbounded" />
+			<element name="Boern" type="sd:SoegRelationType" minOccurs="0"
+				maxOccurs="unbounded" />
 			<element name="Aegtefaelle" type="sd:SoegRelationType"
 				minOccurs="0" maxOccurs="unbounded" />
 			<element name="RegistreretPartner" type="sd:SoegRelationType"
@@ -204,7 +220,8 @@
 
 	<complexType name="SoegTilstandListeType">
 		<sequence>
-      <!--element ref="orgfaelles:Gyldighed" maxOccurs="unbounded" minOccurs="0" /-->
+			<element ref="orgfaelles:Gyldighed" maxOccurs="unbounded"
+				minOccurs="0" />
 			<element ref="sd:LokalUdvidelse" minOccurs="0" />
 		</sequence>
 	</complexType>

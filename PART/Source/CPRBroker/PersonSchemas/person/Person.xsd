@@ -5,7 +5,8 @@
 	xmlns:gendercode="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/"
 	xmlns:personname="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/"
 	xmlns:birthdate="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/"
-	xmlns:cprnr="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
+	xmlns:cprnr="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"
+	xmlns:erstatningcprnr="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/">
 
 	<import namespace="urn:oio:sagdok:1.0.0" schemaLocation="../generic/SagDokObjekt.xsd" />
 
@@ -21,21 +22,13 @@
 	<import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/"
 		schemaLocation="http://digitaliser.dk/resource/6676/artefact/CPR_PersonBirthDateStructure.xsd" />
 
-	<!-- CPR nummer - er det det rigtige skema ?? 
-          JBR: Nej dette er det "gældende CPR nummer". Det nuværende CPR-nummer er angivet efterfølgende. -->
-	<import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/"
-		schemaLocation="http://digitaliser.dk/resource/2368/artefact/CPR_PersonCivilRegistrationCurrentIdentifier.xsd" />
-		
-	<!-- CPR nummer: 
-          JBR: Dette er det rigtige CPR-nummer -->
+	<!-- CPR nummer: JBR: Dette er det rigtige CPR-nummer -->
 	<import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"
 		schemaLocation="http://digitaliser.dk/resource/3541/artefact/CPR_PersonCivilRegistrationIdentifier.xsd" />
 
-	<!-- Jan - findes denne type som oioxml ??? 
-          JBR: Ja, der gør. Denne her: -->
+	<!-- Jan - findes denne type som oioxml ??? JBR: Ja, der g√∏r. Denne her: -->
 	<import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/"
 		schemaLocation="http://digitaliser.dk/resource/451/artefact/CPR_PersonCivilRegistrationReplacementIdentifier.xsd" />
-	<!-- JBR: Udgår:  <element name="ErstatningsCprNummer" type="string" /> -->
 
 	<element name="RelationListe" type="person:RelationListeType" />
 	<complexType name="RelationListeType">
@@ -68,53 +61,87 @@
 		</sequence>
 	</complexType>
 
+	<!-- find den rigtige type på digitaliser.dk -->
+	<element name="Telefon" type="string" />
+	<!-- find den rigtige type på digitaliser.dk -->
+	<element name="VerdenAdresse" type="string" />
+	<element name="DanskAdresse" type="person:DanskAdresseType" />
+	<!-- JAN her vil jeg gerne have brugt AddressComplete - men den kan jeg 
+		ikke finde på digitaliser.dk ?? føler mig DUM -->
+	<complexType name="DanskAdresseType">
+		<!-- Skal indeholde: adressepunkt, vejkode, socialdistrikt, skoledistrikt, 
+			postdistrikt, sognedistrikt, valgkreds, politidistrikt -->
+	</complexType>
+
+	<element name="GroenlandAdresse" type="person:GroenlandAdresseType" />
+	<complexType name="GroenlandAdresseType">
+		<!-- Skal indeholde: adressepunkt, vejkode, socialdistrikt, skoledistrikt, 
+			postdistrikt, sognedistrikt, valgkreds, politidistrikt -->
+	</complexType>
+
+	<element name="Adresse" type="person:AdresseType" />
 	<complexType name="AdresseType">
-		<!-- TODO 
-			   JBR: ? -->
+		<choice>
+			<element ref="person:DanskAdresse" />
+			<element ref="person:GroenlandAdresse" />
+			<element ref="person:VerdenAdresse" />
+		</choice>
 	</complexType>
 
 	<complexType name="KontaktKanalType">
-		<!-- TODO 
-			  JBR: ? -->
-	</complexType>
-
-	<complexType name="PersonNummerStatusType">
-		<!-- TODO 
-              JBR: Er det denne ? http://digitaliser.dk/resource/868/artefact/CPR_PersonCivilRegistrationStatusCode.xsd -->
-	</complexType>
-
-	<complexType name="LivStatusType">
-		<!-- TODO 
-			  JBR: Angiver denne om man er levende eller død? Hvis det er, så kan denne bruges sikkert: http://digitaliser.dk/resource/3815/artefact/CPR_PersonStatusCode.xsd -->
-	</complexType>
-
-	<complexType name="CivilStatusType">
-		<!-- TODO 
-              JBR: Er det ikke denne du mener: http://digitaliser.dk/resource/4615/artefact/CPR_MaritalStatusCode.xsd ? -->
-	</complexType>
-
-	<element name="Egenskaber" type="person:EgenskaberType" />
-	<complexType name="EgenskaberType">
 		<sequence>
-			<element ref="personname:PersonNameStructure" />
-			<element ref="gendercode:PersonGenderCode" />
-			<element ref="birthdate:PersonBirthDateStructure" />
-			<!-- JAN findes der en oioxml til det allerede? måske som en del af birthday 
-				structure. 
-			    JBR: Jeg kan ikke finde noget  -->
-			<element name="fodselsregistreringmyndighed" type="string" />
-			<!-- JAN findes der en oioxml til det allerede? måske som en del af birthday 
-				structure. 
-				JBR: Der er denne her: http://digitaliser.dk/resource/9107/artefact/FoedestedTekst_20080901.xsd  -->
-			<element name="foedested" type="string" />
-			<element name="AndreAdresser" type="person:AdresseType" />
-			<element name="Kontaktkanal" type="person:KontaktKanalType" />
-			<element name="NaermestePaaroerende" type="person:KontaktKanalType" />
-			<element name="RegisterOplysninger" type="person:RegisterOplysningerType"
-				maxOccurs="unbounded" />
-			<element ref="sd:Virkning" minOccurs="0" />
+			<element name="BegraensetAnvendelse" type="string" minOccurs="0" />
+			<element ref="sd:NoteTekst" minOccurs="0" />
+			<choice>
+				<element ref="person:Adresse" />
+				<element ref="person:Telefon" />
+				<element name="AndenKontaktKanal" type="string" />
+			</choice>
 		</sequence>
 	</complexType>
+
+	<simpleType name="LivStatusKode">
+		<restriction base="string">
+			<enumeration value="Prenatal" />
+			<enumeration value="Foedt" />
+			<enumeration value="Forsvundet" />
+			<enumeration value="Doed" />
+		</restriction>
+	</simpleType>
+
+	<element name="LivStatus" type="person:LivStatusType" />
+	<complexType name="LivStatusType">
+		<sequence>
+			<element ref="sd:TilstandVirkning" minOccurs="0" />
+			<element name="Status" type="person:LivStatusKode" />
+		</sequence>
+	</complexType>
+
+	<!-- TODO JBR: Er det ikke denne du mener: http://digitaliser.dk/resource/4615/artefact/CPR_MaritalStatusCode.xsd 
+		? AP: Nej, den mangler "separeret" ... -->
+	<simpleType name="CivilStatusKode">
+		<restriction base="string">
+			<enumeration value="Ugift" />
+			<enumeration value="Gift" />
+			<enumeration value="RegistreretPartner" />
+			<enumeration value="Separeret" />
+			<enumeration value="Skilt" />
+			<enumeration value="OphaevetPartnerskab" />
+			<enumeration value="Enke" />
+			<enumeration value="Laengstlevende" />
+		</restriction>
+	</simpleType>
+
+	<element name="CivilStatus" type="person:CivilStatusType" />
+	<complexType name="CivilStatusType">
+
+		<sequence>
+			<element ref="sd:TilstandVirkning" minOccurs="0" />
+			<element name="Status" type="person:CivilStatusKode" />
+		</sequence>
+	</complexType>
+
+
 
 	<complexType name="RegisterOplysningerType">
 		<sequence>
@@ -127,37 +154,36 @@
 		</sequence>
 	</complexType>
 
-	<!-- JAN findes der en oioxml til det allerede? 
-			JBR: Ikke så vidt jeg kan se -->
+	<!-- JAN findes der en oioxml til det allerede? -->
 	<complexType name="UdenlandskBorgerType">
 		<sequence>
-			<!-- JAN findes der en oioxml til det allerede? 
-				   JBR: Det tror jeg ikke -->
+			<!-- JAN findes der en oioxml til det allerede? JBR: Det tror jeg ikke -->
 			<element name="PersonID" type="string" />
-			<!-- JAN findes der en oioxml til det allerede? 
-				   JBR: Det tror jeg ikke -->
+			<!-- JAN findes der en oioxml til det allerede? JBR: Det tror jeg ikke -->
 			<element name="Statsborgerskaber" type="string" minOccurs="0"
 				maxOccurs="unbounded" />
-			<!-- JAN findes der en oioxml til det allerede? 
-				   JBR: Ja, er angivet foroven: http://digitaliser.dk/resource/451/artefact/CPR_PersonCivilRegistrationReplacementIdentifier.xsd -->
-      <!--element ref="ErstatningsCprNummer" /-->
-			<!-- JAN findes der en oioxml til det allerede? 
-					JBR: Sjovt nok, så ser det ikke ud til at denne eksisterer i OIOXML -->
+			<!-- JAN findes der en oioxml til det allerede? JBR: Ja, er angivet foroven: 
+				http://digitaliser.dk/resource/451/artefact/CPR_PersonCivilRegistrationReplacementIdentifier.xsd -->
+			<element
+				ref="erstatningcprnr:PersonCivilRegistrationReplacementIdentifier" />
+			<!-- JAN findes der en oioxml til det allerede? JBR: Sjovt nok, s√• ser 
+				det ikke ud til at denne eksisterer i OIOXML PPB: Men det skal vel v√¶re 
+				en kodeliste som f√∏lger ISO-639 : http://www.loc.gov/standards/iso639-2/php/langcodes-search.php -->
 			<element name="Sprog" type="string" minOccurs="0" maxOccurs="unbounded" />
-			<!-- JAN findes der en oioxml til det allerede? 
-				   JBR: Her kan jeg heller ikke finde noget -->
+			<!-- JAN findes der en oioxml til det allerede? JBR: Her kan jeg heller 
+				ikke finde noget PPB: hvad med denne: http://digitaliser.dk/resource/3166/artefact/DKCC_CountryIdentificationCode.xsd -->
 			<element name="FoedselsLand" type="string" minOccurs="0" />
 		</sequence>
 	</complexType>
 
-	<complexType name="CprBorgerType"> 
+	<complexType name="CprBorgerType">
 		<sequence>
-			<!-- JAN er det den korrekte type ?? 
-				   JBR: Den rigtige er PersonCivilRegistrationIdentifier (er importeret foroven) -->
-			<element  ref="cprnr:PersonCivilRegistrationCurrentIdentifier"  />      
-			<element name="PersonNummerStatus" type="person:PersonNummerStatusType" />
-			<!-- JAN findes der en oioxml til det allerede? 
-				   JBR: Det ser ikke sådan ud. Underligt. -->
+			<!-- JAN er det den korrekte type ?? JBR: Den rigtige er PersonCivilRegistrationIdentifier 
+				(er importeret foroven) -->
+			<element ref="cprnr:PersonCivilRegistrationIdentifier" />
+			<element name="PersonNummerGyldighedStatus" type="boolean" />
+			<!-- JAN findes der en oioxml til det allerede? JBR: Det ser ikke s√•dan 
+				ud. Underligt PPB: Igen: http://digitaliser.dk/resource/3166/artefact/DKCC_CountryIdentificationCode.xsd. -->
 			<element name="PersonNationalityCode" type="string" />
 			<element name="PersonInformationProtectionIndicator" type="boolean" />
 			<element name="TelefonNummerBeskyttelseIndikator" type="boolean" />
@@ -169,18 +195,22 @@
 		</sequence>
 	</complexType>
 
-	<!-- JAN findes der en oioxml til det allerede?
-			JBR: Ikke hvad jeg ved af -->
+	<!-- JAN findes der en oioxml til det allerede? JBR: Ikke hvad jeg ved af -->
 	<complexType name="UkendtBorgerType">
 		<sequence>
-			<!-- JBR: Skal ændres som ovenfor -->
-      <!--element ref="ErstatningsCprNummer" /-->
+			<element
+				ref="erstatningcprnr:PersonCivilRegistrationReplacementIdentifier" />
 		</sequence>
 	</complexType>
 
 
-	<!-- JAN findes der en oioxml til det allerede? 
-		  JBR: Ingen anelse. Jeg har aldrig set disse oplysninger i OIOXML -->
+	<!-- JAN findes der en oioxml til det allerede? JBR: Ingen anelse. Jeg har 
+		aldrig set disse oplysninger i OIOXML PPB: DoctorName og AuthorisationIdentifier 
+		findes i Det F√¶lles Medicinkorthttp://digitaliser.dk/resource/42202) -men 
+		det er vist ikke godkendt, selv om det ser ud som om det ville kunne v√¶re 
+		OIOXML Til geng√¶ld overholder de vist "Den gode XML Recept" (http://www.medcom.dk/wm109943) 
+		- en MedCom standard -->
+
 	<complexType name="SundhedsOplysningerType">
 		<sequence>
 			<element name="PraktiserendeLaegeNavn" type="string" />
@@ -200,6 +230,29 @@
 			<element name="RegisterOplysninger" type="person:RegisterOplysningerType"
 				maxOccurs="unbounded" />
 			<element ref="sd:LokalUdvidelse" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+
+	<element name="Egenskaber" type="person:EgenskaberType" />
+	<complexType name="EgenskaberType">
+		<sequence>
+			<element ref="personname:PersonNameStructure" />
+			<element ref="gendercode:PersonGenderCode" />
+			<element ref="birthdate:PersonBirthDateStructure" />
+			<!-- JAN findes der en oioxml til det allerede? måske som en del af birthday 
+				structure -->
+			<!-- JAN findes der en oioxml til det allerede? JBR: Kan ikke finde noget -->
+			<element name="fodselsregistreringmyndighed" type="string" />
+			<!-- JAN findes der en oioxml til det allerede? måske som en del af birthday 
+				structure -->
+			<!-- JAN findes der en oioxml til det allerede? JBR: Der er denne her: 
+				http://digitaliser.dk/resource/9107/artefact/FoedestedTekst_20080901.xsd -->
+			<element name="foedested" type="string" />
+			<element name="AndreAdresser" type="person:AdresseType" />
+			<element name="Kontaktkanal" type="person:KontaktKanalType" />
+			<element name="NaermestePaaroerende" type="person:KontaktKanalType" />
+			<element ref="sd:Virkning" minOccurs="0" />
 		</sequence>
 	</complexType>
 
