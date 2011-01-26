@@ -50,8 +50,8 @@
   <ItemGroup>
     <Compile Include="BaseProvider.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="ClientDataProvider.Tcp.cs" />
-    <Compile Include="PersonInfo.Part.cs" />
+    <Compile Include="ClientDataProvider.cs" />
+    <Compile Include="PersonInfo.cs" />
     <Compile Include="DAL\Child.cs" />
     <Compile Include="DAL\CivilStatus.cs" />
     <Compile Include="DAL\DPR.designer.cs">
@@ -61,7 +61,7 @@
     </Compile>
     <Compile Include="DAL\PersonName.cs" />
     <Compile Include="DAL\PersonTotal.cs" />
-    <Compile Include="DprDatabaseDataProvider.Part.cs" />
+    <Compile Include="DprDatabaseDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>

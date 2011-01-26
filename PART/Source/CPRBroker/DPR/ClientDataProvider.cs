@@ -58,7 +58,6 @@ namespace CprBroker.Providers.DPR
                 if (!exists)
                 {
                     GetPersonData(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.ExtendedData, cprNumber);
-                    // TODO: make sure that deleting the subscription is a good decision
                     if (!KeepSubscription)
                     {
                         GetPersonData(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.ExtendedData, cprNumber);
