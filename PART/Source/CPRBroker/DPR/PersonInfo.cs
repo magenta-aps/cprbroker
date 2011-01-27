@@ -119,13 +119,6 @@ namespace CprBroker.Providers.DPR
                 },
                 States = new PersonStates()
                 {
-                    CivilStatus = new Effect<CprBroker.Schemas.Part.Enums.MaritalStatus>()
-                    {
-                        StartDate = Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate),
-                        // Handled later
-                        EndDate = null,
-                        Value = PersonTotal.PartMaritalStatus,
-                    },
                     LifeStatus = new Effect<CprBroker.Schemas.Part.Enums.LifeStatus>()
                     {
                         StartDate = Utilities.DateFromDecimal(PersonTotal.StatusDate),
@@ -335,33 +328,9 @@ namespace CprBroker.Providers.DPR
             RegistreringType1 ret = new RegistreringType1()
             {
                 AttributListe = new AttributListeType()
-                {
-                    Egenskaber = new EgenskaberType[] 
-                    {
-                        new EgenskaberType()
-                        {
-                            PersonBirthDateStructure = new CprBroker.Schemas.Part.PersonBirthDateStructureType()
-                            {
-                                BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,                                
-                                BirthDateUncertaintyIndicator = PersonTotal.DateOfBirth < 0
-                            },
-                            // Birth registration authority
-                            //TODO: Is this assignment correct?
-                            fodselsregistreringmyndighed=PersonTotal.BirthPlaceOfRegistration,
-                            // Place of birth
-                            foedested=PersonTotal.BirthplaceText,
-                            PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar( PersonTotal.Sex),
-                            PersonNameStructure = tempPersonName,
-                            //TODO: Fill address when address schema is ready
-                            AndreAdresser= null,
-                            //No contact channels implemented
-                            Kontaktkanal=null,
-                            //Next of kin (nearest relative). Not implemented
-                            NaermestePaaroerende=null,
-                            //TODO: Fill this object ******************************************************************************************
-                            Virkning = VirkningType.Create(null,null)
-                        }
-                    },
+                {                    
+                    // Filled later in the code below
+                    Egenskaber=null,
                     // Filled later in the code below
                     RegisterOplysninger = null,
                     // Health information not implemented
@@ -377,28 +346,13 @@ namespace CprBroker.Providers.DPR
                 // FIll with empty object and put the details later
                 RelationListe = new RelationListeType()
                 {
-
+                    
                 },
                 TidspunktDatoTid = TidspunktType.Create(this.RegistrationDate),
                 TilstandListe = new TilstandListeType()
-                {
-                    // TODO: Is it OK to get the full history here?
-                    CivilStatus = new CivilStatusType[]
-                    {
-                        new CivilStatusType()
-                        {
-                            Status = PersonTotal.PartCivilStatus,
-                            TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate))
-                        }
-                    },
-                    LivStatus = new LivStatusType[]
-                    {
-                        new LivStatusType()
-                        {
-                            Status = LivStatusKode.Doed,
-                            TilstandVirkning = TilstandVirkningType.Create(null),
-                        }
-                    },
+                {                    
+                    CivilStatus = null,
+                    LivStatus=null,
                     //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
                     //Gyldighed = null,
 
@@ -407,6 +361,33 @@ namespace CprBroker.Providers.DPR
                 },
                 //TODO: Pass parameters to this method
                 Virkning = VirkningType.Create(null, null)
+            };
+
+            ret.AttributListe.Egenskaber = new EgenskaberType[] 
+            {
+                new EgenskaberType()
+                {
+                    PersonBirthDateStructure = new CprBroker.Schemas.Part.PersonBirthDateStructureType()
+                    {
+                        BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,                                
+                        BirthDateUncertaintyIndicator = PersonTotal.DateOfBirth < 0
+                    },
+                    // Birth registration authority
+                    //TODO: Is this assignment correct?
+                    fodselsregistreringmyndighed=PersonTotal.BirthPlaceOfRegistration,
+                    // Place of birth
+                    foedested=PersonTotal.BirthplaceText,
+                    PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar( PersonTotal.Sex),
+                    PersonNameStructure = tempPersonName,
+                    //TODO: Fill address when address schema is ready
+                    AndreAdresser= null,
+                    //No contact channels implemented
+                    Kontaktkanal=null,
+                    //Next of kin (nearest relative). Not implemented
+                    NaermestePaaroerende=null,
+                    //TODO: Fill this object ******************************************************************************************
+                    Virkning = VirkningType.Create(null,null)
+                }
             };
 
             // Now fill person data
@@ -472,6 +453,24 @@ namespace CprBroker.Providers.DPR
                     PersonCivilRegistrationReplacementIdentifier = Utilities.PersonCivilRegistrationIdentifierFromDecimal(PersonTotal.PNR),
                 };
             }
+
+            // TODO: Is it OK to get the full history here?
+            ret.TilstandListe.CivilStatus= new CivilStatusType[]
+                    {
+                        new CivilStatusType()
+                        {
+                            Status = PersonTotal.PartCivilStatus,
+                            TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate))
+                        }
+                    },
+                    LivStatus = new LivStatusType[]
+                    {
+                        new LivStatusType()
+                        {
+                            Status = PersonTotal.PartLifeStatus,
+                            TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromFirstDecimal(PersonTotal.StatusDate)),
+                        }
+                    },
 
             // Now fill the relations
             var fatherPnr = PersonTotal.GetParent(this.PersonTotal.FatherMarker, this.PersonTotal.FatherPersonalOrBirthdate);

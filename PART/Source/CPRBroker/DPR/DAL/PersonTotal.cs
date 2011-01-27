@@ -71,36 +71,6 @@ namespace CprBroker.Providers.DPR
             return this.ToInternalAddress(civilStatus, street, contactAddress).ToPartAddress(civilStatus);
         }
 
-        public MaritalStatus PartMaritalStatus
-        {
-            get
-            {
-                if (this.MaritalStatus.HasValue)
-                {
-                    switch (this.MaritalStatus)
-                    {
-                        case Constants.MaritalStatus.Unmarried:
-                            return Schemas.Part.Enums.MaritalStatus.single;
-                        case Constants.MaritalStatus.Married:
-                            return Schemas.Part.Enums.MaritalStatus.married;
-                        case Constants.MaritalStatus.Divorced:
-                            return Schemas.Part.Enums.MaritalStatus.divorced;
-                        case Constants.MaritalStatus.Deceased:
-                            return Schemas.Part.Enums.MaritalStatus.deceased;
-                        case Constants.MaritalStatus.Widow:
-                            return Schemas.Part.Enums.MaritalStatus.widow;
-                        case Constants.MaritalStatus.RegisteredPartnership:
-                            return Schemas.Part.Enums.MaritalStatus.registeredpartner;
-                        case Constants.MaritalStatus.AbolitionOfRegisteredPartnership:
-                            return Schemas.Part.Enums.MaritalStatus.repealedpartnership;
-                        case Constants.MaritalStatus.LongestLivingPartner:
-                            return Schemas.Part.Enums.MaritalStatus.surviving;
-                    }
-                }
-                throw new NotSupportedException("Unknown marital status");
-            }
-        }
-
         public CivilStatusKode PartCivilStatus
         {
             get
@@ -130,6 +100,25 @@ namespace CprBroker.Providers.DPR
                     }
                 }
                 throw new NotSupportedException("Unknown marital status");
+            }
+        }
+
+        public LivStatusKode PartLifeStatus
+        {
+            get
+            {
+                switch ((int)this.Status)
+                {
+                    case 70:
+                        return LivStatusKode.Forsvundet;
+                    case 90:
+                        return LivStatusKode.Doed;
+                    default:
+                        if (DateOfBirth != 0)
+                            return LivStatusKode.Prenatal;
+                        else
+                            return LivStatusKode.Foedt;
+                }
             }
         }
 
