@@ -13,6 +13,8 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     internal partial class PersonInfo
     {
+        #region Properties & database expressions
+
         public PersonName PersonName { get; set; }
         public PersonTotal PersonTotal { get; set; }
         public Street Street { get; set; }
@@ -54,6 +56,8 @@ namespace CprBroker.Providers.DPR
              orderby personTotal.StatusDate
              select personTotal
             ).FirstOrDefault();
+
+        #endregion
 
         // TODO: Remove this method
         [Obsolete]
@@ -155,70 +159,7 @@ namespace CprBroker.Providers.DPR
                 }
             }
 
-            //TODO: Fill the relations in DPR
-            /**************/
-            /*
-            ret.Relations.Parents = Array.ConvertAll<Guid, PersonRelation>
-            (
-                DAL.Part.PersonMapping.AssignGuids
-                (
-                    (
-                        from pers in Child.PersonParentsExpression.Compile()(PersonTotal.PNR, dataContext)
-                        select new PersonIdentifier()
-                        {
-                            CprNumber = pers.PNR.ToString("D2")
-                        }
-                    ).ToArray()
-                ),
-                (id) => new PersonRelation() { TargetUUID = id }
-            );
-            ret.Relations.Parents = DAL.Part.PersonMapping.AssignGuids<decimal, PersonRelation>(
-                 (
-                        from pers in Child.PersonParentsExpression.Compile()(PersonTotal.PNR, dataContext)
-                        select pers.PNR
-                    ).ToArray(),
-                    (pnr) => null,
-                    (pnr) => new PersonIdentifier() { CprNumber = pnr.ToString("D2") },
-                    (dd,id)=>dd.TargetUUID = id);
-
-
-            ret.Relations.Children = DAL.Part.PersonMapping.AssignGuids<PersonTotal, Effect<PersonRelation>>
-            (
-                Child.PersonChildrenExpression.Compile()(effectTimeDecimal.Value, PersonTotal.PNR, dataContext).ToArray(),
-                (child) => new Effect<PersonRelation>()
-                {
-                    StartDate = Utilities.DateFromDecimal(child.DateOfBirth),
-                    EndDate = null,
-                    Value = new PersonRelation()
-                },
-                (child) => new PersonIdentifier()
-                {
-                    CprNumber = child.PNR.ToString("D2"),
-                },
-                (rel, id) => rel.Value.TargetUUID = id
-            );
-
-            ret.Relations.Spouse = DAL.Part.PersonMapping.AssignGuids<CivilStatus, Effect<PersonRelation>>
-            (
-                civilStates,
-                (civilStatus) => new Effect<PersonRelation>()
-                {
-                    StartDate = Utilities.DateFromDecimal(civilStatus.MaritalStatusDate),
-                    EndDate = Utilities.DateFromDecimal(civilStatus.MaritalEndDate),
-                    Value = new PersonRelation()
-                    {
-                    }
-                },
-                (civilStatus) => new PersonIdentifier()
-                {
-                    CprNumber = civilStatus.SpousePNR.Value.ToString("D2"),
-                },
-                (p, id) =>
-                {
-                    p.Value.TargetUUID = id;
-                }
-            );
-            */
+          
             return ret;
         }
 
@@ -272,65 +213,21 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-
-        /// <summary>
-        /// Creates a cross product of the person database objects based on the possible registration dates
-        /// </summary>
-        /// <param name="personInfos"></param>
-        /// <returns></returns>
-        public static System.Collections.Generic.ICollection<PersonInfo> Populate(ICollection<PersonInfo> personInfos, DateTime? effectFromDate, DateTime? effectToDate)
-        {
-            var ret = new List<PersonInfo>();
-
-            foreach (var personInfo in personInfos)
-            {
-                var personInfoAsQueryable = new PersonInfo[] { personInfo }.AsQueryable();
-                var dates = new List<DateTime>(personInfo.GetCandidateRegistrationDates());
-
-                dates = dates
-                    .Where(
-                        (d) =>
-                                (!effectFromDate.HasValue || d >= effectFromDate.Value)
-                            && (!effectToDate.HasValue || d <= effectToDate.Value)
-                        )
-                    .Distinct()
-                    .ToList();
-
-                ret.AddRange
-                (
-                    from pi in personInfoAsQueryable
-                    from d in dates.AsQueryable()
-                    orderby d descending
-                    select new PersonInfo()
-                    {
-                        //TODO : Filter these records by dates
-                        CivilStates = pi.CivilStates,
-                        ContactAddress = pi.ContactAddress,
-                        HasProtection = pi.HasProtection,
-                        PersonName = pi.PersonName,
-                        PersonTotal = pi.PersonTotal,
-                        Street = pi.Street,
-                    }
-                );
-            }
-            return ret;
-        }
-
         internal RegistreringType1 ToRegisteringType1(DateTime? effectTime, Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext)
         {
             Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToString());
 
             var civilRegistrationStatus = Schemas.Util.Enums.ToCivilRegistrationStatus(PersonTotal.Status);
             var effectTimeDecimal = Utilities.DecimalFromDate(effectTime);
-            PersonNameStructureType tempPersonName = new PersonNameStructureType(PersonName.FirstName, PersonName.LastName);
 
+            #region Main object
 
             RegistreringType1 ret = new RegistreringType1()
             {
                 AttributListe = new AttributListeType()
-                {                    
+                {
                     // Filled later in the code below
-                    Egenskaber=null,
+                    Egenskaber = null,
                     // Filled later in the code below
                     RegisterOplysninger = null,
                     // Health information not implemented
@@ -346,13 +243,13 @@ namespace CprBroker.Providers.DPR
                 // FIll with empty object and put the details later
                 RelationListe = new RelationListeType()
                 {
-                    
+
                 },
                 TidspunktDatoTid = TidspunktType.Create(this.RegistrationDate),
                 TilstandListe = new TilstandListeType()
-                {                    
+                {
                     CivilStatus = null,
-                    LivStatus=null,
+                    LivStatus = null,
                     //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
                     //Gyldighed = null,
 
@@ -363,14 +260,18 @@ namespace CprBroker.Providers.DPR
                 Virkning = VirkningType.Create(null, null)
             };
 
+            #endregion
+
+            #region Attributes
+
             ret.AttributListe.Egenskaber = new EgenskaberType[] 
             {
                 new EgenskaberType()
                 {
                     PersonBirthDateStructure = new CprBroker.Schemas.Part.PersonBirthDateStructureType()
                     {
-                        BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,                                
-                        BirthDateUncertaintyIndicator = PersonTotal.DateOfBirth < 0
+                        BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,
+                        BirthDateUncertaintyIndicator = PersonTotal.DateOfBirth <= 0
                     },
                     // Birth registration authority
                     //TODO: Is this assignment correct?
@@ -378,7 +279,7 @@ namespace CprBroker.Providers.DPR
                     // Place of birth
                     foedested=PersonTotal.BirthplaceText,
                     PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar( PersonTotal.Sex),
-                    PersonNameStructure = tempPersonName,
+                    PersonNameStructure = new PersonNameStructureType(PersonName.FirstName, PersonName.LastName),
                     //TODO: Fill address when address schema is ready
                     AndreAdresser= null,
                     //No contact channels implemented
@@ -389,6 +290,11 @@ namespace CprBroker.Providers.DPR
                     Virkning = VirkningType.Create(null,null)
                 }
             };
+            // Assign effect date
+            if (!ret.AttributListe.Egenskaber[0].PersonBirthDateStructure.BirthDateUncertaintyIndicator)
+            {
+                ret.AttributListe.Egenskaber[0].Virkning.FraTidspunkt = TidspunktType.Create(ret.AttributListe.Egenskaber[0].PersonBirthDateStructure.BirthDate);
+            }
 
             // Now fill person data
             ret.AttributListe.RegisterOplysninger = new RegisterOplysningerType[]
@@ -396,6 +302,7 @@ namespace CprBroker.Providers.DPR
                 new RegisterOplysningerType()
                 {
                     Item = null,
+                    Virkning = VirkningType.Create(null,null)
                 }
             };
             // Now create the appropriate object based on nationality
@@ -426,7 +333,7 @@ namespace CprBroker.Providers.DPR
                     //Use false since we do not have telephone numbers here
                     // TODO: Check if this is correct
                     TelefonNummerBeskyttelseIndikator = false,
-                };
+                };                
             }
             else if (
                 (!string.Equals(PersonTotal.Nationality, Constants.CprNationality, StringComparison.OrdinalIgnoreCase))
@@ -454,23 +361,31 @@ namespace CprBroker.Providers.DPR
                 };
             }
 
+            #endregion
+
+            #region States
+
             // TODO: Is it OK to get the full history here?
-            ret.TilstandListe.CivilStatus= new CivilStatusType[]
-                    {
-                        new CivilStatusType()
-                        {
-                            Status = PersonTotal.PartCivilStatus,
-                            TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate))
-                        }
-                    },
-                    LivStatus = new LivStatusType[]
-                    {
-                        new LivStatusType()
-                        {
-                            Status = PersonTotal.PartLifeStatus,
-                            TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromFirstDecimal(PersonTotal.StatusDate)),
-                        }
-                    },
+            ret.TilstandListe.CivilStatus = new CivilStatusType[]
+            {
+                new CivilStatusType()
+                {
+                    Status = PersonTotal.PartCivilStatus,
+                    TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate))
+                }
+            };
+            ret.TilstandListe.LivStatus = new LivStatusType[]
+            {
+                new LivStatusType()
+                {
+                    Status = PersonTotal.PartLifeStatus,
+                    TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromFirstDecimal(PersonTotal.StatusDate)),
+                }
+            };
+
+            #endregion
+
+            #region Relations
 
             // Now fill the relations
             var fatherPnr = PersonTotal.GetParent(this.PersonTotal.FatherMarker, this.PersonTotal.FatherPersonalOrBirthdate);
@@ -485,7 +400,6 @@ namespace CprBroker.Providers.DPR
                     )
                 };
             }
-
 
             var motherPnr = PersonTotal.GetParent(this.PersonTotal.MotherMarker, this.PersonTotal.MotherPersonalOrBirthDate);
             if (motherPnr.HasValue)
@@ -533,6 +447,8 @@ namespace CprBroker.Providers.DPR
 
             //TODO: Fill Legal capacity Guardianship Proprietor
             ret.RelationListe.RetligHandleevneVaergemaalsIndehaver = null;
+
+            #endregion
 
             return ret;
         }
