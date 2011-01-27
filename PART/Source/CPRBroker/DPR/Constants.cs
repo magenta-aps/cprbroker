@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.DPR
 {
@@ -21,5 +22,15 @@ namespace CprBroker.Providers.DPR
             public const char AbolitionOfRegisteredPartnership = 'O';
             public const char LongestLivingPartner = 'L';
         }
+
+        public static readonly Guid ActorId = new Guid("{4A953CF9-B4C1-4ce9-BF09-2BF655DC61C7}");
+
+        public const string DenmarkNationality = "Danmark";
+        public const string CprNationality = "Cpr-Kontoret (5001)";
+        public const string Stateless = "Statsløs";
+        //TODO: Add comment text
+        public const string CommentText = "";
+        public const LivscyklusKodeType UpdatedLifecycleStatusCode = LivscyklusKodeType.Item5;
+        
     }
 }

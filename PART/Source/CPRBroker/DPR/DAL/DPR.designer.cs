@@ -856,7 +856,7 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		[Column(Name="LBMRK", Storage="_LBMRK", DbType="VarChar(1)")]
-		public System.Nullable<char> DirectoryProtectionMarker222
+		public System.Nullable<char> DirectoryProtectionMarker
 		{
 			get
 			{

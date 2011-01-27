@@ -132,5 +132,10 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        public static string PersonCivilRegistrationIdentifierFromDecimal(decimal pnr)
+        {
+            return Convert.ToInt64(pnr).ToString("D10");
+        }
+
     }
 }

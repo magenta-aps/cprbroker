@@ -5,18 +5,17 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public partial class VirkningType
+    public partial class TilstandVirkningType
     {
-        public static VirkningType Create(DateTime? fromDate, DateTime? toDate)
+        public static TilstandVirkningType Create(DateTime? fromDate)
         {
-            return new VirkningType()
+            return new TilstandVirkningType()
             {
                 //TODO: Fill actor text
                 AktoerTekst = null,
                 //TODO: Fill comment text
                 CommentText = null,
-                FraTidspunkt = TidspunktType.Create(fromDate),                
-                TilTidspunkt = TidspunktType.Create(toDate)
+                FraTidspunkt = TidspunktType.Create(fromDate)
             };
         }
     }

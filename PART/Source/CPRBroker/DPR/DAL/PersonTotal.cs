@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.ComponentModel;
 using System;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 using CprBroker.Schemas.Part.Enums;
 
 namespace CprBroker.Providers.DPR
@@ -94,6 +95,38 @@ namespace CprBroker.Providers.DPR
                             return Schemas.Part.Enums.MaritalStatus.repealedpartnership;
                         case Constants.MaritalStatus.LongestLivingPartner:
                             return Schemas.Part.Enums.MaritalStatus.surviving;
+                    }
+                }
+                throw new NotSupportedException("Unknown marital status");
+            }
+        }
+
+        public CivilStatusKode PartCivilStatus
+        {
+            get
+            {
+                if (this.MaritalStatus.HasValue)
+                {
+                    switch (this.MaritalStatus)
+                    {
+                        case Constants.MaritalStatus.Unmarried:
+                            return CivilStatusKode.Ugift;
+                        case Constants.MaritalStatus.Married:
+                            return CivilStatusKode.Gift;
+                        case Constants.MaritalStatus.Divorced:
+                            return CivilStatusKode.Skilt;
+                        case Constants.MaritalStatus.Widow:
+                            return CivilStatusKode.Enke;
+                        case Constants.MaritalStatus.RegisteredPartnership:
+                            return CivilStatusKode.RegistreretPartner;
+                        case Constants.MaritalStatus.AbolitionOfRegisteredPartnership:
+                            return CivilStatusKode.OphaevetPartnerskab;
+                        case Constants.MaritalStatus.LongestLivingPartner:
+                            return CivilStatusKode.Laengstlevende;
+                        // TODO : Get from latest marital status before this record
+                        case Constants.MaritalStatus.Deceased:
+                            return CivilStatusKode.Ugift;
+                        // TODO: When to use CivilStatusKode.Separeret?
                     }
                 }
                 throw new NotSupportedException("Unknown marital status");

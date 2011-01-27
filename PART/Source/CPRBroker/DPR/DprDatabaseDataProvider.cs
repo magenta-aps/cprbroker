@@ -13,8 +13,6 @@ namespace CprBroker.Providers.DPR
 {
     public partial class DprDatabaseDataProvider : ClientDataProvider, IPartReadDataProvider
     {
-        public static readonly Guid ActorId = new Guid("{4A953CF9-B4C1-4ce9-BF09-2BF655DC61C7}");
-
         #region IPartReadDataProvider Members
 
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
