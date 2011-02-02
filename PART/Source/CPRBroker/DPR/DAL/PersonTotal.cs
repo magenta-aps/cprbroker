@@ -71,7 +71,7 @@ namespace CprBroker.Providers.DPR
             return this.ToInternalAddress(civilStatus, street, contactAddress).ToPartAddress(civilStatus);
         }
 
-        public CivilStatusKode PartCivilStatus
+        public CivilStatusKodeType PartCivilStatus
         {
             get
             {
@@ -80,22 +80,22 @@ namespace CprBroker.Providers.DPR
                     switch (this.MaritalStatus)
                     {
                         case Constants.MaritalStatus.Unmarried:
-                            return CivilStatusKode.Ugift;
+                            return CivilStatusKodeType.Ugift;
                         case Constants.MaritalStatus.Married:
-                            return CivilStatusKode.Gift;
+                            return CivilStatusKodeType.Gift;
                         case Constants.MaritalStatus.Divorced:
-                            return CivilStatusKode.Skilt;
+                            return CivilStatusKodeType.Skilt;
                         case Constants.MaritalStatus.Widow:
-                            return CivilStatusKode.Enke;
+                            return CivilStatusKodeType.Enke;
                         case Constants.MaritalStatus.RegisteredPartnership:
-                            return CivilStatusKode.RegistreretPartner;
+                            return CivilStatusKodeType.RegistreretPartner;
                         case Constants.MaritalStatus.AbolitionOfRegisteredPartnership:
-                            return CivilStatusKode.OphaevetPartnerskab;
+                            return CivilStatusKodeType.OphaevetPartnerskab;
                         case Constants.MaritalStatus.LongestLivingPartner:
-                            return CivilStatusKode.Laengstlevende;
+                            return CivilStatusKodeType.Laengstlevende;
                         // TODO : GetPropertyValuesOfType fromDate latest marital status before this record
                         case Constants.MaritalStatus.Deceased:
-                            return CivilStatusKode.Ugift;
+                            return CivilStatusKodeType.Ugift;
                         // TODO: When to use CivilStatusKode.Separeret?
                     }
                 }
@@ -103,7 +103,7 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public LivStatusKode PartLifeStatus
+        public LivStatusKodeType PartLifeStatus
         {
             get
             {

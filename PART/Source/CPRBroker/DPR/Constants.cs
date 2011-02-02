@@ -23,14 +23,20 @@ namespace CprBroker.Providers.DPR
             public const char LongestLivingPartner = 'L';
         }
 
-        public static readonly string ActorText = new Guid("{4A953CF9-B4C1-4ce9-BF09-2BF655DC61C7}").ToString();
+        public static UnikIdType Actor
+        {
+            get
+            {
+                // TODO: Fill this object
+                return UnikIdType.Create(new Guid("{4A953CF9-B4C1-4ce9-BF09-2BF655DC61C7}"));
+            }
+        }
 
         public const string DenmarkNationality = "Danmark";
         public const string CprNationality = "Cpr-Kontoret (5001)";
         public const string Stateless = "Statsløs";
         //TODO: Add comment text
         public const string CommentText = "";
-        public const LivscyklusKodeType UpdatedLifecycleStatusCode = LivscyklusKodeType.Item5;
-        
+
     }
 }
