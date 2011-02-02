@@ -44,21 +44,6 @@ namespace CprBroker.Providers.KMD
     }
     namespace WS_AS78207
     {
-        public partial class AS78207Response
-        {
-
-
-            public SimpleCPRPersonType ToSimpleCprPerson()
-            {
-                SimpleCPRPersonType ret = new SimpleCPRPersonType()
-                {
-                    PersonCivilRegistrationIdentifier = this.OutputRecord.EPNR,
-                    PersonNameStructure = new CprBroker.Schemas.PersonNameStructureType(this.OutputRecord.AFORNVN, this.OutputRecord.AEFTER)
-                };
-
-                return ret;
-            }
-        }
 
         public class EnglishAS78207Response
         {
@@ -630,40 +615,35 @@ namespace CprBroker.Providers.KMD
             {
                 return new AttributListeType()
                     {
-                        Egenskaber = new EgenskaberType[]
+                        Egenskab = new EgenskabType[]
                         {
                             ToEgenskaberType()
                         },
-                        RegisterOplysninger = new RegisterOplysningerType[]
+                        RegisterOplysning = new RegisterOplysningType[]
                         {
-                            ToRegisterOplysningerType()
+                            ToRegisterOplysningType()
                         },
 
                         // Health information not implemented
-                        SundhedsOplysninger = null,
+                        SundhedOplysning = null,
 
                         // No extensions at the moment
                         LokalUdvidelse = null
                     };
             }
-            public EgenskaberType ToEgenskaberType()
+            public EgenskabType ToEgenskaberType()
             {
-                var ret = new EgenskaberType()
+                var ret = new EgenskabType()
                 {
-                    PersonBirthDateStructure = new CprBroker.Schemas.Part.PersonBirthDateStructureType()
-                    {
-                        //TODO: Handle null birthdate
-                        BirthDate = Utilities.ToDateTime(BirthDate).Value,
-                        BirthDateUncertaintyIndicator = false
-                    },
+                    BirthDate = Utilities.ToDateTime(BirthDate).Value,
                     AndreAdresser = null,
-                    fodselsregistreringmyndighed = null,
-                    foedested = null,
-                    Kontaktkanal = null,
+                    FoedselsregistreringMyndighedNavn = null,
+                    FoedestedNavn = null,
+                    KontaktKanal = null,
                     NaermestePaaroerende = null,
                     //TODO: Change this
                     PersonGenderCode = Utilities.ToPartGender(this.PNR),
-                    PersonNameStructure = new CprBroker.Schemas.Part.PersonNameStructureType(FirstName, LastName),
+                    NavnStruktur = NavnStrukturType.Create(FirstName, LastName),
                     Virkning = VirkningType.Create(
                         Utilities.GetMaxDate(BirthDate, AbroadDate, NameDate),
                         null)
@@ -671,11 +651,10 @@ namespace CprBroker.Providers.KMD
                 return ret;
             }
 
-            public RegisterOplysningerType ToRegisterOplysningerType()
+            public RegisterOplysningType ToRegisterOplysningType()
             {
-                var ret = new RegisterOplysningerType()
+                var ret = new RegisterOplysningType()
                 {
-                    //TODO: Fill with CPR, Foreign or Unknown
                     Item = null,
                     Virkning = VirkningType.Create(null, null)
                 };
@@ -683,26 +662,24 @@ namespace CprBroker.Providers.KMD
                 {
                     ret.Item = new CprBorgerType()
                     {
-                        // No address note
-                        AdresseNote = null,
+                        // No address note                        
+                        AdresseNoteTekst = null,
                         // Church membership
                         // TODO : Where to fill fromDate?
-                        FolkekirkeMedlemsskab = false,
+                        FolkekirkeMedlemIndikator = false,
                         //TODO: Fill address when class is ready
                         FolkeregisterAdresse = null,
-                        // TODO: What is this (same name as above)
-                        FolkeRegisterAdresse = "",
                         // Research protection
                         // TODO: Check if this is correct
                         ForskerBeskyttelseIndikator = false,
                         // TODO: Ensure that PNR has no dashes
                         PersonCivilRegistrationIdentifier = PNR,
                         // TODO: Check if this is correct
-                        PersonInformationProtectionIndicator = false,
-                        PersonNationalityCode = DAL.Country.GetCountryAlpha2CodeByKmdCode(NationalityCode),
+                        NavneAdresseBeskyttelseIndikator = false,
+                        PersonNationalityCode = Schemas.Part.CountryIdentificationCodeType.Create(CprBroker.Schemas.Part._CountryIdentificationSchemeType.imk, NationalityCode),
                         //PNR validity status,
                         // TODO: Make sure that true is the cirrect value
-                        PersonNummerGyldighedStatus = true,
+                        PersonNummerGyldighedStatusIndikator = true,
                         // TODO: Check if this is correct
                         TelefonNummerBeskyttelseIndikator = false
                     };
@@ -714,13 +691,13 @@ namespace CprBroker.Providers.KMD
                     ret.Item = new UdenlandskBorgerType()
                     {
                         // Birth country.Not in KMD
-                        FoedselsLand = null,
+                        FoedselslandKode = null,
                         // TODO: What is that?
-                        PersonID = "",
+                        PersonIdentifikator = "",
                         // Languages. Not implemented here
-                        Sprog = new string[] { },
+                        SprogKode = new CprBroker.Schemas.Part.CountryIdentificationCodeType[0],
                         // Citizenships
-                        Statsborgerskaber = new string[] { DAL.Country.GetCountryAlpha2CodeByKmdCode(NationalityCode) },
+                        PersonNationalityCode = new CprBroker.Schemas.Part.CountryIdentificationCodeType[] { CprBroker.Schemas.Part.CountryIdentificationCodeType.Create(CprBroker.Schemas.Part._CountryIdentificationSchemeType.imk, NationalityCode) },
                         PersonCivilRegistrationReplacementIdentifier = PNR,
                     };
                     ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(ImmigrationDate, AbroadDate));
@@ -744,22 +721,16 @@ namespace CprBroker.Providers.KMD
                     //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
                     //Gyldighed = null,
 
-                    CivilStatus = new CivilStatusType[]
+                    CivilStatus = new CivilStatusType()
+                   {
+                       CivilStatusKode = Utilities.ToPartMaritalStatus(MaritallStatusCode[0]),
+                       TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(MaritalStatusDate)),
+                   },
+                    LivStatus = new LivStatusType
                     {
-                        new CivilStatusType()
-                       {
-                           Status = Utilities.ToPartMaritalStatus(MaritallStatusCode[0]),
-                           TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(MaritalStatusDate)),
-                       }
-                    },
-                    LivStatus = new LivStatusType[]
-                    {
-                        new LivStatusType
-                        {
-                            //TODO: Status date may not be the correct field (for example, the status may have changed fromDate 01 to  07 at the date, but the life status is still alive)
-                            Status  = Schemas.Util.Enums.ToLifeStatus(Utilities.GetCivilRegistrationStatus(StatusKmd, StatusCpr), Utilities.ToDateTime(BirthDate)),
-                            TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(StatusDate)),                            
-                        }
+                        //TODO: Status date may not be the correct field (for example, the status may have changed fromDate 01 to  07 at the date, but the life status is still alive)
+                        LivStatusKode = Schemas.Util.Enums.ToLifeStatus(Utilities.GetCivilRegistrationStatus(StatusKmd, StatusCpr), Utilities.ToDateTime(BirthDate)),
+                        TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(StatusDate)),
                     },
                     // No extensions now
                     LokalUdvidelse = null

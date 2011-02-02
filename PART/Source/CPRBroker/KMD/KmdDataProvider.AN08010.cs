@@ -63,17 +63,17 @@ namespace CprBroker.Providers.KMD
                 }
             }
 
-            public PersonFlerRelationType[] Filter(params string[] typeFilters)
+            public PersonFlerRelationType[] Filter(string typeFilter, Func<string, Guid> cpr2uuidFunc)
             {
                 return OutputArrayRecord
                     .Where(
-                        per => Array.IndexOf<string>(typeFilters, per.Type) != -1
-                            && !per.IsUnknown
+                        per => per.Type == typeFilter && !per.IsUnknown
                     )
                     .Select(per => new PersonFlerRelationType()
                         {
                             CommentText = null,
-                            ReferenceIDTekst = null,
+                            // TODO: Ensure PNR format is correct
+                            ReferenceID = UnikIdType.Create(cpr2uuidFunc(per.PNR)),
                             Virkning = VirkningType.Create(null, null)
                         }
                     )

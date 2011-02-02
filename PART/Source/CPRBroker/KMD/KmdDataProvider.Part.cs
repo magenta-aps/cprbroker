@@ -29,13 +29,11 @@ namespace CprBroker.Providers.KMD
                 AttributListe = detailsResponse.ToAttributListeType(),
                 TilstandListe = detailsResponse.ToTilstandListeType(),
                 RelationListe = ToRelationListeType(detailsResponse, relationsResponse, cpr2uuidFunc),
-                
-                AktoerTekst = Constants.ActorText,
-                CommentText = Constants.CommentText,
-                LivscyklusKode = Constants.UpdatedLifecycleStatusCode,
 
-                TidspunktDatoTid = TidspunktType.Create(detailsResponse.GetRegistrationDate()),
-                
+                AktoerRef = Constants.Actor,
+                CommentText = Constants.CommentText,
+                LivscyklusKode = LivscyklusKodeType.Rettet,
+                Tidspunkt = TidspunktType.Create(detailsResponse.GetRegistrationDate()),
                 Virkning = null
             };
 
@@ -47,13 +45,13 @@ namespace CprBroker.Providers.KMD
         #endregion
 
         #region Utility methods
-        
+
 
         public RelationListeType ToRelationListeType(EnglishAS78207Response details, EnglishAN08010Response relations, Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RelationListeType();
-            ret.Boern = relations.Filter(RelationTypes.Baby);
-            ret.ForaeldremyndgihdedsBoern = relations.Filter(RelationTypes.ChildOver18);
+            ret.Boern = relations.Filter(RelationTypes.Baby, cpr2uuidFunc);
+            ret.Foraeldremyndighedsboern = relations.Filter(RelationTypes.ChildOver18, cpr2uuidFunc);
             //Children
             if (details.ChildrenPNRs != null)
             {
@@ -81,7 +79,7 @@ namespace CprBroker.Providers.KMD
             {
                 var maritalStatus = Utilities.ToPartMaritalStatus(details.MaritallStatusCode[0]);
                 var maritalStatusDate = Utilities.ToDateTime(details.MaritalStatusDate);
-                bool isMarried = maritalStatus == CivilStatusKode.Gift || maritalStatus == CivilStatusKode.RegistreretPartner;
+                bool isMarried = maritalStatus == CivilStatusKodeType.Gift || maritalStatus == CivilStatusKodeType.RegistreretPartner;
                 var spouseUuid = cpr2uuidFunc(details.SpousePNR);
                 ret.Aegtefaelle = new PersonRelationType[]
                     {

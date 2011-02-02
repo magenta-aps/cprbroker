@@ -46,28 +46,28 @@ namespace CprBroker.Providers.KMD
             }
         }
 
-        public static CivilStatusKode ToPartMaritalStatus(char code)
+        public static CivilStatusKodeType ToPartMaritalStatus(char code)
         {
             switch (char.ToUpper(code))
             {
                 case 'U':
-                    return CivilStatusKode.Ugift;
+                    return CivilStatusKodeType.Ugift;
                 case 'G':
-                    return CivilStatusKode.Gift;
+                    return CivilStatusKodeType.Gift;
                 case 'F':
-                    return CivilStatusKode.Skilt;
+                    return CivilStatusKodeType.Skilt;
                 case 'D':
                     // TODO: No deceased status id PART standard
                     throw new Exception("Unhandled civil status");
                 case 'E':
-                    return CivilStatusKode.Enke;
+                    return CivilStatusKodeType.Enke;
                 case 'P':
-                    return CivilStatusKode.RegistreretPartner;
+                    return CivilStatusKodeType.RegistreretPartner;
                 case 'O':
-                    return CivilStatusKode.OphaevetPartnerskab;
+                    return CivilStatusKodeType.OphaevetPartnerskab;
                 case 'L':
                 default:
-                    return CivilStatusKode.Laengstlevende;
+                    return CivilStatusKodeType.Laengstlevende;
                 // TODO: When to use CivilStatusKode.Separeret?
 
             }
