@@ -34,23 +34,23 @@ namespace CprBroker.Engine.Part
                 return false;
             }
 
-            var invalidUuidErrors = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select new ErrorCode.InvalidUuidErrorCode(uuid)).ToArray();
+            var invalidUuidErrors = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select new ErrorCode.InvalidUuidErrorCode(uuid).ToString()).ToArray();
             if (invalidUuidErrors.Length > 0)
             {
                 invaliInputReturnValue = new ListOutputType1()
                 {
-                    StandardRetur = ErrorCode.Create<ErrorCode.InvalidUuidErrorCode>(invalidUuidErrors)
+                    StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",",invalidUuidErrors))
                 };
                 return false;
             }
 
-            var unknownUuidErrors = new List<ErrorCode.UnknownUuidErrorCode>();
+            var unknownUuidErrors = new List<String>();
             foreach (var inputPersonUuid in input.UUID)
             {
                 var personIdentifier = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
                 if (personIdentifier == null)
                 {
-                    unknownUuidErrors.Add(new ErrorCode.UnknownUuidErrorCode(inputPersonUuid));
+                    unknownUuidErrors.Add("uuid "+ inputPersonUuid+ "valid but not found");
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace CprBroker.Engine.Part
             {
                 invaliInputReturnValue = new ListOutputType1()
                 {
-                    StandardRetur = ErrorCode.Create<ErrorCode.UnknownUuidErrorCode>(unknownUuidErrors.ToArray())
+                    StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST,String.Join(",",unknownUuidErrors.ToArray()))
                 };
                 return false;
             }
@@ -92,7 +92,7 @@ namespace CprBroker.Engine.Part
                     (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
                 ),
                 //TODO: Fill this StandardRetur object
-                StandardRetur = StandardReturType.Create("", "")
+                StandardRetur = StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED)
             };
         }
 
