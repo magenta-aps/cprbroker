@@ -25,17 +25,18 @@ namespace CprBroker.NUnitTester
             if (laesResultat.Item is RegistreringType1)
             {
                 var reg = laesResultat.Item as RegistreringType1;
-                Assert.AreNotEqual("", reg.AktoerTekst, "Empty actor text");
-                Assert.AreNotEqual(Guid.Empty.ToString(), reg.AktoerTekst, "Empty actor text");
+                Assert.NotNull(reg.AktoerRef, "Empty actor");
+                Assert.AreNotEqual("", reg.AktoerRef.Item, "Empty actor text");
+                Assert.AreNotEqual(Guid.Empty.ToString(), reg.AktoerRef.Item, "Empty actor text");
 
                 Assert.NotNull(reg.AttributListe, "Attributes");
-                Assert.NotNull(reg.AttributListe.Egenskaber, "Attributes");
-                Assert.Greater(reg.AttributListe.Egenskaber.Length, 0, "Attributes");
+                Assert.NotNull(reg.AttributListe.Egenskab, "Attributes");
+                Assert.Greater(reg.AttributListe.Egenskab.Length, 0, "Attributes");
 
-                Assert.NotNull(reg.AttributListe.Egenskaber[0].PersonBirthDateStructure, "Birthdate");
-                Assert.NotNull(reg.AttributListe.Egenskaber[0].PersonNameStructure, "Name");
+                Assert.NotNull(reg.AttributListe.Egenskab[0].BirthDate, "Birthdate");
+                Assert.NotNull(reg.AttributListe.Egenskab[0].NavnStruktur, "Name");
                 //Assert.NotNull(reg.AttributListe.Egenskaber[0].RegisterOplysninger, "Birthdate");
-                Assert.NotNull(reg.AttributListe.Egenskaber[0].Virkning, "Effect");
+                Assert.NotNull(reg.AttributListe.Egenskab[0].Virkning, "Effect");
 
                 Assert.NotNull(reg.TilstandListe, "States");
 
@@ -193,7 +194,7 @@ namespace CprBroker.NUnitTester
 
             var searchCriteria = new Part.SoegInputType1()
             {
-                Soeg = new SoegObjektType()
+                SoegObjekt = new SoegObjektType()
                 {
                     BrugervendtNoegleTekst = cprNumber
                 }
@@ -201,15 +202,16 @@ namespace CprBroker.NUnitTester
 
             var result = TestRunner.PartService.Search(searchCriteria);
             Assert.NotNull(result, "Search result");
-            Assert.IsNotNull(result.IdListe, "Search result ids");
+            Assert.IsNotNull(result.Idliste, "Search result ids");
 
-            Assert.AreEqual(1, result.IdListe.Length, "Number of search results");
-            Assert.AreNotEqual(Guid.Empty, result.IdListe[0], "Empty laesResultat uuid from search");
-            Assert.AreEqual(personUuid.ToString(), result.IdListe[0], "Search result returns wrong uuids");
+            Assert.AreEqual(1, result.Idliste.Length, "Number of search results");
+            Assert.AreNotEqual(Guid.Empty, result.Idliste[0], "Empty laesResultat uuid from search");
+            Assert.AreEqual(personUuid.ToString(), result.Idliste[0], "Search result returns wrong uuids");
         }
 
         //[Test]
         //[TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        /*
         public void T410_Search_Name(string cprNumber)
         {
             var personUuid = TestRunner.PartService.GetPersonUuid(cprNumber);
@@ -223,9 +225,9 @@ namespace CprBroker.NUnitTester
             var pp = personObject.LaesResultat.Item as Part.RegistreringType1;
             Schemas.PersonNameStructureType name = new CprBroker.Schemas.PersonNameStructureType()
             {
-                PersonGivenName = pp.AttributListe.Egenskaber[0].PersonNameStructure.PersonGivenName,
-                PersonMiddleName = pp.AttributListe.Egenskaber[0].PersonNameStructure.PersonMiddleName,
-                PersonSurnameName = pp.AttributListe.Egenskaber[0].PersonNameStructure.PersonSurnameName,
+                PersonGivenName = pp.AttributListe.Egenskab[0].PersonNameStructure.PersonGivenName,
+                PersonMiddleName = pp.AttributListe.Egenskab[0].PersonNameStructure.PersonMiddleName,
+                PersonSurnameName = pp.AttributListe.Egenskab[0].PersonNameStructure.PersonSurnameName,
             };
 
             var searchCriteria = new Part.SoegInputType1()
@@ -252,7 +254,7 @@ namespace CprBroker.NUnitTester
             Assert.AreEqual(1, result.IdListe.Length, "Number of search results");
             Assert.AreNotEqual(Guid.Empty, result.IdListe[0], "Empty laesResultat uuid from search");
             Assert.AreEqual(personUuid.ToString(), result.IdListe[0], "Search result returns wrong uuids");
-        }
+        }*/
 
         // TODO: Add more methods to test Search for criteria other than CPR number
 

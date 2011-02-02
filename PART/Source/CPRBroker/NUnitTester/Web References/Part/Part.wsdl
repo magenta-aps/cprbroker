@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:s7="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" xmlns:s2="urn:oio:sagdok:1.0.0" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s5="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s8="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" xmlns:s10="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s3="urn:oio:dkal:1.0.0" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:s6="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:s9="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:s1="urn:oio:sagdok:person:1.0.0" xmlns:s11="http://microsoft.com/wsdl/types/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s4="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:s16="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" xmlns:s7="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:s15="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:s2="urn:oio:dkal:1.0.0" xmlns:s19="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:s13="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s12="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:s5="urn:oio:sagdok:part:1.0.0" xmlns:s8="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:s10="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s17="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:s3="urn:oio:sagdok:1.0.0" xmlns:s23="http://microsoft.com/wsdl/types/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s21="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" xmlns:s22="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" xmlns:tns="http://tempuri.org/" xmlns:s18="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:s20="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" xmlns:s1="urn:oio:sagdok:2.0.0" xmlns:s11="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" xmlns:s6="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s9="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s4="urn:oio:sagdok:person:1.0.0" xmlns:s14="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows accesss to CPR data through a standard PART interface</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="urn:oio:sagdok:2.0.0" />
       <s:import namespace="urn:oio:sagdok:person:1.0.0" />
       <s:import namespace="http://microsoft.com/wsdl/types/" />
       <s:element name="Read">
@@ -15,7 +16,7 @@
       <s:element name="ReadResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" ref="s1:LaesOutput" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:LaesOutput" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -51,7 +52,7 @@
       <s:element name="RefreshRead_x0020_Response">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" ref="s1:LaesOutput" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:LaesOutput" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -65,21 +66,21 @@
       <s:element name="ListResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" ref="s1:ListOutput" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:ListOutput" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="Search">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" ref="s1:SoegInput" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:SoegInput" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="SearchResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" ref="s1:SoegOutput" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:SoegOutput" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -93,466 +94,182 @@
       <s:element name="GetPersonUuidResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetPersonUuidResult" type="s11:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="GetPersonUuidResult" type="s23:guid" />
           </s:sequence>
         </s:complexType>
       </s:element>
     </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:person:1.0.0">
-      <s:import namespace="urn:oio:sagdok:1.0.0" />
-      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" />
-      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" />
-      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
-      <s:element name="LaesInput" type="s2:LaesInputType" />
-      <s:element name="LaesOutput" type="s1:LaesOutputType" />
-      <s:complexType name="LaesOutputType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:BasicOutputType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="LaesResultat" type="s1:LaesResultatType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="RegistreringOutputType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:BasicOutputType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s1:RegistreringType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="RegistreringType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:RegistreringType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="AttributListe" type="s1:AttributListeType" />
-              <s:element minOccurs="0" maxOccurs="1" name="TilstandListe" type="s1:TilstandListeType" />
-              <s:element minOccurs="0" maxOccurs="1" name="RelationListe" type="s1:RelationListeType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="AttributListeType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Egenskaber" type="s1:EgenskaberType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="SundhedsOplysninger" type="s1:SundhedsOplysningerType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="RegisterOplysninger" type="s1:RegisterOplysningerType" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:LokalUdvidelse" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EgenskaberType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s5:PersonNameStructure" />
-          <s:element minOccurs="1" maxOccurs="1" ref="s7:PersonGenderCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s8:PersonBirthDateStructure" />
-          <s:element minOccurs="0" maxOccurs="1" name="fodselsregistreringmyndighed" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="foedested" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="AndreAdresser" type="s1:AdresseType" />
-          <s:element minOccurs="0" maxOccurs="1" name="Kontaktkanal" type="s1:KontaktKanalType" />
-          <s:element minOccurs="0" maxOccurs="1" name="NaermestePaaroerende" type="s1:KontaktKanalType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="RegisterOplysninger" type="s1:RegisterOplysningerType" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:Virkning" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="AdresseType" />
-      <s:complexType name="KontaktKanalType" />
-      <s:complexType name="RegisterOplysningerType">
-        <s:sequence>
-          <s:choice minOccurs="1" maxOccurs="1">
-            <s:element minOccurs="0" maxOccurs="1" name="UkendtBorger" type="s1:UkendtBorgerType" />
-            <s:element minOccurs="0" maxOccurs="1" name="UdenlandskBorger" type="s1:UdenlandskBorgerType" />
-            <s:element minOccurs="0" maxOccurs="1" name="CprBorgerBorger" type="s1:CprBorgerType" />
-          </s:choice>
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:Virkning" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="UkendtBorgerType" />
-      <s:complexType name="UdenlandskBorgerType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="PersonID" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Statsborgerskaber" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Sprog" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="FoedselsLand" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CprBorgerType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:PersonCivilRegistrationCurrentIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" name="PersonNummerStatus" type="s1:PersonNummerStatusType" />
-          <s:element minOccurs="0" maxOccurs="1" name="PersonNationalityCode" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="PersonInformationProtectionIndicator" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="TelefonNummerBeskyttelseIndikator" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="ForskerBeskyttelseIndikator" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="FolkeRegisterAdresse" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="AdresseNote" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="FolkekirkeMedlemsskab" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="FolkeregisterAdresse" type="s1:AdresseType" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="PersonNummerStatusType" />
-      <s:complexType name="SundhedsOplysningerType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="PraktiserendeLaegeNavn" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="PraktiserendeLaegeYderNummer" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="SygesikringsGruppe" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:Virkning" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="TilstandListeType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="LivStatus" type="s1:LivStatusType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CivilStatus" type="s1:CivilStatusType" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:LokalUdvidelse" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="LivStatusType" />
-      <s:complexType name="CivilStatusType" />
-      <s:complexType name="RelationListeType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Moder" type="s2:PersonRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Fader" type="s2:PersonRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Boern" type="s2:PersonFlerRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Aegtefaelle" type="s2:PersonRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="RegistreretPartner" type="s2:PersonRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Bopaelssamling" type="s2:PersonFlerRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ForaeldremyndgihdedsIndehaver" type="s2:PersonFlerRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ForaeldremyndgihdedsBoern" type="s2:PersonFlerRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergeForPersonen" type="s2:PersonFlerRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergemaalsIndehaver" type="s2:PersonFlerRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ErstatningFor" type="s2:PersonRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ErstattesAf" type="s2:PersonFlerRelationType" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:LokalUdvidelse" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="OpretOutputType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:BasicOutputType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Person" type="s1:PersonType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="PersonType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:SagDokObjektType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="unbounded" name="Registrering" type="s1:RegistreringType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="FiltreretOejebliksBillede">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:LaesFiltreretOutputType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="AttributListe" type="s1:AttributListeType" />
-              <s:element minOccurs="0" maxOccurs="1" name="TilstandListe" type="s1:TilstandListeType" />
-              <s:element minOccurs="0" maxOccurs="1" name="RelationListe" type="s1:RelationListeType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="LaesResultatType">
-        <s:sequence>
-          <s:choice minOccurs="1" maxOccurs="1">
-            <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s1:RegistreringType" />
-            <s:element minOccurs="0" maxOccurs="1" name="FitrereretOejebliksBillede" type="s1:FiltreretOejebliksBillede" />
-          </s:choice>
-        </s:sequence>
-      </s:complexType>
-      <s:element name="ListInput" type="s2:ListInputType" />
-      <s:element name="ListOutput" type="s1:ListOutputType" />
-      <s:complexType name="ListOutputType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:ListOutputType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="unbounded" name="LaesResultat" type="s1:LaesResultatType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:element name="SoegInput" type="s1:SoegInputType" />
-      <s:complexType name="SoegInputType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:SoegInputType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Soeg" type="s1:SoegObjektType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="SoegObjektType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:SoegSagDokObjektType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Attributter" type="s1:SoegAttributListeType" />
-              <s:element minOccurs="0" maxOccurs="1" name="Relationer" type="s1:SoegRelationListeType" />
-              <s:element minOccurs="0" maxOccurs="1" name="Tilstande" type="s1:SoegTilstandListeType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="SoegAttributListeType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegEgenskab" type="s1:SoegEgenskabType" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:LokalUdvidelse" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="SoegEgenskabType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="NavnTekst" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s2:VirkningType" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="SoegRelationListeType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Moder" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Fader" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Boern" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Aegtefaelle" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="RegistreretPartner" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Bopaelssamling" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ForaeldremyndgihdedsIndehaver" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ForaeldremyndgihdedsBoern" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergeForPersonen" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergemaalsIndehaver" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ErstatningFor" type="s2:SoegRelationType" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ErstattesAf" type="s2:SoegRelationType" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="SoegTilstandListeType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s2:LokalUdvidelse" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="SoegOutput" type="s2:SoegOutputType" />
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:1.0.0">
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:2.0.0">
       <s:import namespace="urn:oio:dkal:1.0.0" />
+      <s:import namespace="urn:oio:sagdok:1.0.0" />
       <s:import namespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" />
+      <s:element name="LaesInput" type="s1:LaesInputType" />
       <s:complexType name="LaesInputType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s3:UUID" />
-          <s:element minOccurs="0" maxOccurs="1" name="VirkningFraFilter" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="VirkningTilFilter" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="RegistreringFraFilter" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="RegistreringTilFilter" type="s2:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:UUID" />
+          <s:element minOccurs="0" maxOccurs="1" name="VirkningFraFilter" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="VirkningTilFilter" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistreringFraFilter" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistreringTilFilter" type="s1:TidspunktType" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="TidspunktType">
         <s:sequence>
           <s:choice minOccurs="1" maxOccurs="1">
-            <s:element minOccurs="1" maxOccurs="1" name="Tidsstempel" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="GraenseIndikator" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" ref="s3:TidsstempelDatoTid" />
           </s:choice>
         </s:sequence>
       </s:complexType>
       <s:complexType name="BasicOutputType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="s2:StandardReturType" />
+          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="s1:StandardReturType" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="StandardReturType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="StatuskodeKode" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusKode" type="s:integer" />
           <s:element minOccurs="0" maxOccurs="1" name="FejlbeskedTekst" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="RegistreringType">
+      <s:complexType name="SagDokObjektType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="TidspunktDatoTid" type="s2:TidspunktType" />
-          <s:element minOccurs="1" maxOccurs="1" name="LivscyklusKode" type="s2:LivscyklusKodeType" />
-          <s:element minOccurs="0" maxOccurs="1" name="AktoerTekst" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s4:CommentText" />
-          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s2:VirkningType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:UUID" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s3:BrugervendtNoegleTekst" />
         </s:sequence>
       </s:complexType>
-      <s:simpleType name="LivscyklusKodeType">
-        <s:restriction base="s:string">
-          <s:enumeration value="1" />
-          <s:enumeration value="2" />
-          <s:enumeration value="3" />
-          <s:enumeration value="4" />
-          <s:enumeration value="5" />
-        </s:restriction>
-      </s:simpleType>
+      <s:complexType name="LaesFiltreretOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:SagDokObjektType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="KaldenavnTekst" type="s:string" />
+      <s:element name="NoteTekst" type="s:string" />
+      <s:element name="Virkning" type="s1:VirkningType" />
       <s:complexType name="VirkningType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="TilTidspunkt" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="AktoerTekst" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s4:CommentText" />
+          <s:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="TilTidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
         </s:sequence>
       </s:complexType>
-      <s:element name="Virkning" type="s2:VirkningType" />
-      <s:element name="LokalUdvidelse" type="s2:LokalUdvidelseType" />
+      <s:complexType name="UnikIdType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s2:UUID" />
+            <s:element minOccurs="0" maxOccurs="1" name="URNIdentifikator" type="s:string" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LokalUdvidelse" type="s1:LokalUdvidelseType" />
       <s:complexType name="LokalUdvidelseType">
         <s:sequence>
           <s:any minOccurs="0" maxOccurs="unbounded" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="PersonRelationType">
+      <s:element name="TilstandVirkning" type="s1:TilstandVirkningType" />
+      <s:complexType name="TilstandVirkningType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RelationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s1:VirkningType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonFlerRelationType">
         <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
+          <s:extension base="s1:FlerRelationType" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FlerRelationType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s2:VirkningType" />
-          <s:element minOccurs="0" maxOccurs="1" name="ReferenceIDTekst" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s4:CommentText" />
+          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s1:VirkningType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="OrganisationEnhedRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="OrganisationEnhedFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="InteressefaellesskabFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="OrganisationFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="OrganisationFunktionFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ItSystemFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="SagFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="DokumentFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="MyndighedFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="PersonFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="AdresseFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="BrugerFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="AktoerFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="PartFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ArkivFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="KlasseFlerRelationType">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:FlerRelationType" />
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="SagDokObjektType" abstract="true">
+      <s:complexType name="RegistreringType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s3:UUID" />
-          <s:element minOccurs="0" maxOccurs="1" name="BrugervendtNoegleTekst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="1" maxOccurs="1" name="LivscyklusKode" type="s1:LivscyklusKodeType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Virkning" type="s1:VirkningType" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="LaesFiltreretOutputType" abstract="true">
-        <s:complexContent mixed="false">
-          <s:extension base="s2:SagDokObjektType" />
-        </s:complexContent>
-      </s:complexType>
+      <s:simpleType name="LivscyklusKodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Opstaaet" />
+          <s:enumeration value="Importeret" />
+          <s:enumeration value="Passiveret" />
+          <s:enumeration value="Slettet" />
+          <s:enumeration value="Rettet" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ListInput" type="s1:ListInputType" />
       <s:complexType name="ListInputType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" ref="s3:UUID" />
-          <s:element minOccurs="0" maxOccurs="1" name="VirkningFraFilter" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="VirkningTilFilter" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="RegistreringFraFilter" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="RegistreringTilFilter" type="s2:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" ref="s2:UUID" />
+          <s:element minOccurs="0" maxOccurs="1" name="VirkningFraFilter" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="VirkningTilFilter" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistreringFraFilter" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegistreringTilFilter" type="s1:TidspunktType" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ListOutputType" abstract="true">
+      <s:complexType name="ListOutputType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="s2:StandardReturType" />
+          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="s1:StandardReturType" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="SoegInputType" abstract="true">
+      <s:complexType name="SoegInputType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FoersteResultat" type="s:integer" />
-          <s:element minOccurs="0" maxOccurs="1" name="MaksimalAntalResultater" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoersteResultatReference" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" name="MaksimalAntalKvantitet" type="s:integer" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="SoegSagDokObjektType" abstract="true">
+      <s:complexType name="SoegSagDokObjektType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s3:UUID" />
-          <s:element minOccurs="0" maxOccurs="1" name="BrugervendtNoegleTekst" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s2:SoegRegistreringType" />
-          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s2:SoegVirkningType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:UUID" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s3:BrugervendtNoegleTekst" />
+          <s:element minOccurs="0" maxOccurs="1" name="SoegRegistrering" type="s1:SoegRegistreringType" />
+          <s:element minOccurs="0" maxOccurs="1" name="SoegVirkning" type="s1:SoegVirkningType" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="SoegRegistreringType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="TidspunktDatoTid" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="LivscyklusKode" type="s2:LivscyklusKodeType" />
-          <s:element minOccurs="0" maxOccurs="1" name="AktoerTekst" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s4:CommentText" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="LivscyklusKode" type="s1:LivscyklusKodeType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="SoegVirkningType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="TilTidspunkt" type="s2:TidspunktType" />
-          <s:element minOccurs="0" maxOccurs="1" name="AktoerTekst" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s4:CommentText" />
+          <s:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="TilTidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
         </s:sequence>
       </s:complexType>
+      <s:element name="SoegVirkning" type="s1:SoegVirkningType" />
       <s:complexType name="SoegRelationType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s2:SoegVirkningType" />
-          <s:element minOccurs="0" maxOccurs="1" name="ReferenceIDTekst" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s4:CommentText" />
+          <s:element minOccurs="0" maxOccurs="1" name="SoegVirkning" type="s1:SoegVirkningType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="SoegOutputType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="s2:StandardReturType" />
-          <s:element minOccurs="0" maxOccurs="1" name="IdListe" type="s3:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="s1:StandardReturType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s3:Idliste" />
         </s:sequence>
       </s:complexType>
     </s:schema>
@@ -564,17 +281,414 @@
         </s:sequence>
       </s:complexType>
     </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/">
-      <s:element name="CommentText" type="s:string" />
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:1.0.0">
+      <s:import namespace="urn:oio:dkal:1.0.0" />
+      <s:element name="TidsstempelDatoTid" type="s:dateTime" />
+      <s:element name="BrugervendtNoegleTekst" type="s:string" />
+      <s:element name="Idliste" type="s2:ArrayOfString" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:person:1.0.0">
+      <s:import namespace="urn:oio:sagdok:2.0.0" />
+      <s:import namespace="urn:oio:sagdok:part:1.0.0" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" />
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
+      <s:import namespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="LaesOutput" type="s4:LaesOutputType" />
+      <s:complexType name="LaesOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LaesResultat" type="s4:LaesResultatType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="OpretOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Person" type="s4:PersonType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PersonType">
+        <s:complexContent mixed="false">
+          <s:extension base="s5:PartType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="Registrering" type="s4:RegistreringType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FiltreretOejebliksbilledeType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:LaesFiltreretOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AttributListe" type="s4:AttributListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="TilstandListe" type="s4:TilstandListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="RelationListe" type="s4:RelationListeType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AttributListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Egenskab" type="s4:EgenskabType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SundhedOplysning" type="s4:SundhedOplysningType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RegisterOplysning" type="s4:RegisterOplysningType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EgenskabType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NavnStruktur" type="s4:NavnStrukturType" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s9:PersonGenderCode" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s10:BirthDate" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedselsregistreringMyndighedNavn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedestedNavn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KontaktKanal" type="s4:KontaktKanalType" />
+          <s:element minOccurs="0" maxOccurs="1" name="NaermestePaaroerende" type="s4:KontaktKanalType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AndreAdresser" type="s4:AdresseType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:Virkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NavnStrukturType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonNameStructure" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:KaldenavnTekst" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:PersonNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KontaktKanalType">
+        <s:complexContent mixed="false">
+          <s:extension base="s4:KontaktKanalBaseType">
+            <s:sequence>
+              <s:choice minOccurs="1" maxOccurs="1">
+                <s:element minOccurs="0" maxOccurs="1" name="AndenKontaktKanal" type="s4:AndenKontaktKanalType" />
+                <s:element minOccurs="0" maxOccurs="1" name="Telefon" type="s4:TelefonType" />
+                <s:element minOccurs="0" maxOccurs="1" ref="s12:EmailAddressIdentifier" />
+              </s:choice>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="KontaktKanalBaseType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BegraensetAnvendelseTekst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AndenKontaktKanalType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
+          <s:element minOccurs="0" maxOccurs="1" name="KontaktKanalTekst" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TelefonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:TelephoneNumberIdentifier" />
+          <s:element minOccurs="1" maxOccurs="1" name="KanBrugesTilSmsIndikator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AdresseType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="VerdenAdresse" type="s4:VerdenAdresseType" />
+            <s:element minOccurs="0" maxOccurs="1" name="GroenlandAdresse" type="s4:GroenlandAdresseType" />
+            <s:element minOccurs="0" maxOccurs="1" name="DanskAdresse" type="s4:DanskAdresseType" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VerdenAdresseType">
+        <s:complexContent mixed="false">
+          <s:extension base="s4:AdresseBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s17:ForeignAddressStructure" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AdresseBaseType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
+          <s:element minOccurs="1" maxOccurs="1" name="UkendtAdresseIndikator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DanskAdresseType">
+        <s:complexContent mixed="false">
+          <s:extension base="s4:AdresseBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s13:AddressComplete" />
+              <s:element minOccurs="0" maxOccurs="1" ref="s16:AddressPoint" />
+              <s:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="SocialDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SkoleDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PostDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SogneDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ValgkredsDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PolitiDistriktTekst" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="GroenlandAdresseType">
+        <s:complexContent mixed="false">
+          <s:extension base="s4:AdresseBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s17:AddressCompleteGreenland" />
+              <s:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SundhedOplysningType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PraktiserendeLaegeNavn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PraktiserendeLaegeYderNummerIdentifikator" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" name="SygesikringsgruppeKode" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:Virkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegisterOplysningType">
+        <s:complexContent mixed="false">
+          <s:extension base="s4:RegisterOplysningBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s1:Virkning" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RegisterOplysningBaseType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="UkendtBorger" type="s4:UkendtBorgerType" />
+            <s:element minOccurs="0" maxOccurs="1" name="CprBorger" type="s4:CprBorgerType" />
+            <s:element minOccurs="0" maxOccurs="1" name="UdenlandskBorger" type="s4:UdenlandskBorgerType" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UkendtBorgerType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s21:PersonCivilRegistrationReplacementIdentifier" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CprBorgerType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:PersonCivilRegistrationIdentifier" />
+          <s:element minOccurs="1" maxOccurs="1" name="PersonNummerGyldighedStatusIndikator" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s22:PersonNationalityCode" />
+          <s:element minOccurs="1" maxOccurs="1" name="NavneAdresseBeskyttelseIndikator" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="TelefonNummerBeskyttelseIndikator" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForskerBeskyttelseIndikator" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="FolkeregisterAdresse" type="s4:AdresseType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdresseNoteTekst" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FolkekirkeMedlemIndikator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UdenlandskBorgerType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PersonIdentifikator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" ref="s22:PersonNationalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s21:PersonCivilRegistrationReplacementIdentifier" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SprogKode" type="s7:CountryIdentificationCodeType" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedselslandKode" type="s7:CountryIdentificationCodeType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TilstandListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LivStatus" type="s4:LivStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" name="CivilStatus" type="s4:CivilStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LivStatusType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="LivStatusKode" type="s4:LivStatusKodeType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:TilstandVirkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="LivStatusKodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Prenatal" />
+          <s:enumeration value="Foedt" />
+          <s:enumeration value="Forsvundet" />
+          <s:enumeration value="Doed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="CivilStatusType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CivilStatusKode" type="s4:CivilStatusKodeType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:TilstandVirkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CivilStatusKodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ugift" />
+          <s:enumeration value="Gift" />
+          <s:enumeration value="RegistreretPartner" />
+          <s:enumeration value="Separeret" />
+          <s:enumeration value="Skilt" />
+          <s:enumeration value="OphaevetPartnerskab" />
+          <s:enumeration value="Enke" />
+          <s:enumeration value="Laengstlevende" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="RelationListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Moder" type="s4:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Fader" type="s4:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Boern" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Aegtefaelle" type="s4:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RegistreretPartner" type="s4:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Bopaelssamling" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Foraeldremyndighedsindehaver" type="s4:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Foraeldremyndighedsboern" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergeForPersonen" type="s4:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergemaalsindehaver" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErstatningFor" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErstatningAf" type="s4:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:RelationType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RegistreringType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:RegistreringType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AttributListe" type="s4:AttributListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="TilstandListe" type="s4:TilstandListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="RelationListe" type="s4:RelationListeType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RegistreringOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s4:RegistreringType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="LaesResultatType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="FiltreretOejebliksbillede" type="s4:FiltreretOejebliksbilledeType" />
+            <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s4:RegistreringType" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListOutput" type="s4:ListOutputType" />
+      <s:complexType name="ListOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:ListOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="LaesResultat" type="s4:LaesResultatType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SoegInput" type="s4:SoegInputType" />
+      <s:complexType name="SoegInputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:SoegInputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SoegObjekt" type="s4:SoegObjektType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SoegObjektType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:SoegSagDokObjektType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SoegAttributListe" type="s4:SoegAttributListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="SoegTilstandListe" type="s4:SoegTilstandListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="SoegRelationListe" type="s4:SoegRelationListeType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SoegAttributListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegEgenskab" type="s4:SoegEgenskabType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegSundhedOplysning" type="s4:SundhedOplysningType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegRegisterOplysning" type="s4:RegisterOplysningType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegEgenskabType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NavnStruktur" type="s4:NavnStrukturType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:PersonGenderCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:BirthDate" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedselsregistreringMyndighedNavn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedestedNavn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KontaktKanal" type="s4:KontaktKanalType" />
+          <s:element minOccurs="0" maxOccurs="1" name="NaermestePaaroerende" type="s4:KontaktKanalType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AndreAdresser" type="s4:AdresseType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:SoegVirkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegTilstandListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LivStatus" type="s4:LivStatusType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CivilStatus" type="s4:CivilStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoegRelationListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegModer" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegFader" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegBoern" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegAegtefaelle" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegRegistreretPartner" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegBopaelsamling" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegForaeldremyndighedsindehaver" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegForaeldremyndighedsboern" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegRetligHandleevneVaergeForPersonen" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegRetligHandleevneVaergemaalsindehaver" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegErstatningFor" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoegErstattesAf" type="s1:SoegRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SoegOutput" type="s1:SoegOutputType" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:part:1.0.0">
+      <s:import namespace="urn:oio:sagdok:2.0.0" />
+      <s:complexType name="PartType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:SagDokObjektType" />
+        </s:complexContent>
+      </s:complexType>
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/">
       <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
-      <s:element name="PersonNameStructure" type="s5:PersonNameStructureType" />
-      <s:complexType name="PersonNameStructureType">
+      <s:element name="PersonNameStructure" type="s6:NavnStruktur" />
+      <s:complexType name="NavnStruktur">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonGivenName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonMiddleName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonSurnameName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:PersonGivenName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:PersonMiddleName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:PersonSurnameName" />
         </s:sequence>
       </s:complexType>
     </s:schema>
@@ -582,9 +696,32 @@
       <s:element name="PersonGivenName" type="s:string" />
       <s:element name="PersonMiddleName" type="s:string" />
       <s:element name="PersonSurnameName" type="s:string" />
+      <s:element name="StreetBuildingIdentifier" type="s:string" />
+      <s:element name="MailDeliverySublocationIdentifier" type="s:string" />
+      <s:element name="FloorIdentifier" type="s:string" />
+      <s:element name="SuiteIdentifier" type="s:string" />
+      <s:element name="CountryIdentificationCode" type="s7:CountryIdentificationCodeType" />
+      <s:complexType name="CountryIdentificationCodeType">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="scheme" type="s7:_CountryIdentificationSchemeType" use="required" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="_CountryIdentificationSchemeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="iso3166-alpha2" />
+          <s:enumeration value="iso3166-alpha3" />
+          <s:enumeration value="un-numeric3" />
+          <s:enumeration value="imk" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/">
+      <s:element name="PersonNameForAddressingName" type="s:string" />
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/">
-      <s:element name="PersonGenderCode" type="s7:PersonGenderCodeType" />
+      <s:element name="PersonGenderCode" type="s9:PersonGenderCodeType" />
       <s:simpleType name="PersonGenderCodeType">
         <s:restriction base="s:string">
           <s:enumeration value="male" />
@@ -593,21 +730,161 @@
         </s:restriction>
       </s:simpleType>
     </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/">
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
-      <s:element name="PersonBirthDateStructure" type="s8:PersonBirthDateStructureType" />
-      <s:complexType name="PersonBirthDateStructureType">
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/">
+      <s:element name="BirthDate" type="s:date" />
+      <s:element name="StreetName" type="s:string" />
+      <s:element name="DistrictSubdivisionIdentifier" type="s:string" />
+      <s:element name="PostCodeIdentifier" type="s:string" />
+      <s:element name="DistrictName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/">
+      <s:element name="TelephoneNumberIdentifier" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="EmailAddressIdentifier" type="s:string" />
+      <s:element name="AddressAccess" type="s12:AddressAccessType" />
+      <s:complexType name="AddressAccessType">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" ref="s9:BirthDate" />
-          <s:element minOccurs="1" maxOccurs="1" name="BirthDateUncertaintyIndicator" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
         </s:sequence>
       </s:complexType>
     </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/">
-      <s:element name="BirthDate" type="s:date" />
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/">
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" />
+      <s:element name="AddressComplete" type="s13:AddressCompleteType" />
+      <s:complexType name="AddressCompleteType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s12:AddressAccess" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPostal" type="s13:AddressPostalType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressPostalType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostOfficeBoxIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/">
+      <s:element name="MunicipalityCode" type="s:string" />
+      <s:element name="StreetCode" type="s:string" />
+      <s:element name="StreetNameForAddressingName" type="s:string" />
+      <s:element name="PersonCivilRegistrationIdentifier" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/">
+      <s:element name="PostOfficeBoxIdentifier" type="s:integer" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/">
+      <s:element name="AddressPoint" type="s16:AddressPointType" />
+      <s:complexType name="AddressPointType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointIdentifier" type="s:anyURI" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicPointLocation" type="s16:GeographicPointLocationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointStatusStructure" type="s16:AddressPointStatusStructureType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GeographicPointLocationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicCoordinateTuple" type="s16:GeographicCoordinateTupleType" />
+        </s:sequence>
+        <s:attribute name="crsIdentifier" type="s:string" />
+      </s:complexType>
+      <s:complexType name="GeographicCoordinateTupleType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="GeographicEastingMeasure" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="GeographicNorthingMeasure" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicHeightMeasure" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressPointStatusStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AddressPointRevisionDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointValidStartDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointValidEndDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressCoordinateQualityClassCode" type="s16:AddressCoordinateQualityClassCodeType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AddressCoordinateQualityClassCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="A" />
+          <s:enumeration value="B" />
+          <s:enumeration value="U" />
+        </s:restriction>
+      </s:simpleType>
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
-      <s:element name="PersonCivilRegistrationCurrentIdentifier" type="s:string" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
+      <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
+      <s:element name="AddressCompleteGreenland" type="s17:AddressCompleteGreenlandType" />
+      <s:complexType name="AddressCompleteGreenlandType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ForeignAddressStructure" type="s17:ForeignAddressStructureType" />
+      <s:complexType name="ForeignAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressFirstLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressSecondLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressThirdLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressFourthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressFifthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:LocationDescriptionText" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/">
+      <s:element name="PostalAddressFirstLineText" type="s:string" />
+      <s:element name="PostalAddressSecondLineText" type="s:string" />
+      <s:element name="PostalAddressThirdLineText" type="s:string" />
+      <s:element name="PostalAddressFourthLineText" type="s:string" />
+      <s:element name="PostalAddressFifthLineText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/">
+      <s:element name="LocationDescriptionText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/">
+      <s:element name="CommentText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/">
+      <s:element name="PersonCivilRegistrationReplacementIdentifier" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="PersonNationalityCode" type="s7:CountryIdentificationCodeType" />
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
       <s:simpleType name="guid">
@@ -712,7 +989,7 @@ Parameters : RegistrationDate, EffectDate
       <wsdl:output message="tns:SearchSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPersonUuid">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the person's UUID from his CPR number. Calls the UUID assigning authority if not found locally.
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the person's UUID fromDate his CPR number. Calls the UUID assigning authority if not found locally.
 Input : CPR Number
 Output : Person UUID
 </wsdl:documentation>
