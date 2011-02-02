@@ -85,6 +85,7 @@
     <None Include="XSD\GraenseIndikator.xsd" />
     <None Include="XSD\MaksimalAntalKvantitet.xsd" />
     <None Include="XSD\ReferenceID.xsd" />
+    <None Include="XSD\RegistreringFraFilter.xsd" />
     <None Include="XSD\RegistreringTilFilter.xsd" />
     <None Include="XSD\SagDokObjekt.xsd" />
     <None Include="XSD\StatusKode.xsd" />
