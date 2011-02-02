@@ -47,10 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CountryIdentificationCodeType.cs" />
     <Compile Include="Events\DataChangeEventInfo.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="Events\ObjectNotification.cs" />
+    <Compile Include="NavnStrukturType.cs" />
     <Compile Include="PersonFlerRelationType.cs" />
     <Compile Include="NavnStruktur.cs" />
     <Compile Include="PersonRelationType.cs" />
