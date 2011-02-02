@@ -48,19 +48,19 @@ namespace CprBroker.Schemas.Util
             }
         }
 
-        public static LivStatusKode ToLifeStatus(decimal civilRegistrationStatus, DateTime? birthDate)
+        public static LivStatusKodeType ToLifeStatus(decimal civilRegistrationStatus, DateTime? birthDate)
         {
             switch ((int)civilRegistrationStatus)
             {
                 case 70:
-                    return LivStatusKode.Forsvundet;
+                    return LivStatusKodeType.Forsvundet;
                 case 90:
-                    return LivStatusKode.Doed;
+                    return LivStatusKodeType.Doed;
                 default:
                     if (birthDate.HasValue)
-                        return LivStatusKode.Foedt;
+                        return LivStatusKodeType.Foedt;
                     else
-                        return LivStatusKode.Prenatal;
+                        return LivStatusKodeType.Prenatal;
             }
         }
 

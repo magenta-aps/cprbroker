@@ -258,7 +258,7 @@ namespace CprBroker.Schemas.Util
             {
                 return new Part.AddressDenmark()
                 {
-                    AddressComplete = addr.Item as AddressCompleteType,
+                    AddressComplete = addr.Item as Part.AddressCompleteType,
                     AddressPoint = null,
                     AddressUnknown = false,
                     Note = "",
@@ -270,7 +270,7 @@ namespace CprBroker.Schemas.Util
                 return new Part.AddressGreenland()
                 {
                     AddressUnknown = false,
-                    GreenlandicAddress = addr.Item as AddressCompleteGreenlandType,
+                    GreenlandicAddress = addr.Item as Part.AddressCompleteGreenlandType,
                     Note = "",
                     SpecialStreetCode = ""
                 };

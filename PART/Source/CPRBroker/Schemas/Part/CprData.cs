@@ -8,7 +8,7 @@ namespace CprBroker.Schemas.Part
 {
     public class CprData : PersonData
     {
-        public Effect<CprBroker.Schemas.Part.PersonNameStructureType> PersonName { get; set; }
+        public Effect<CprBroker.Schemas.Part.NavnStruktur> PersonName { get; set; }
         //public string FirstName { get; set; }
         //public string MiddleNames { get; set; }
         //public string SurNames { get; set; }
