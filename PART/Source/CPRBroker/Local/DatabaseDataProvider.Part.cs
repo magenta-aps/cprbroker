@@ -27,38 +27,44 @@ namespace CprBroker.Providers.Local
             using (var dataContext = new PartDataContext())
             {
                 var pred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
-                if (searchCriteria.Soeg != null)
+                if (searchCriteria.SoegObjekt != null)
                 {
                     // Search by cpr number
-                    if (!string.IsNullOrEmpty(searchCriteria.Soeg.BrugervendtNoegleTekst))
+                    if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.BrugervendtNoegleTekst))
                     {
-                        pred = pred.And(pr => pr.Person.UserInterfaceKeyText == searchCriteria.Soeg.BrugervendtNoegleTekst);
+                        pred = pred.And(pr => pr.Person.UserInterfaceKeyText == searchCriteria.SoegObjekt.BrugervendtNoegleTekst);
                     }
-                    if (searchCriteria.Soeg.Attributter != null)
+                    if (searchCriteria.SoegObjekt.SoegAttributListe != null)
                     {
-                        if (searchCriteria.Soeg.Attributter.SoegEgenskab != null)
+                        if (searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab != null)
                         {
-                            foreach (var prop in searchCriteria.Soeg.Attributter.SoegEgenskab)
+                            foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab)
                             {
-                                // Search by name
-                                var name = prop.PersonNameStructure;
-                                if (!name.IsEmpty)
+                                if (prop.NavnStruktur != null)
                                 {
-                                    var cprNamePred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
-                                    cprNamePred = cprNamePred.And((pr) => pr.PersonAttribute.CprData != null);
-                                    if (!string.IsNullOrEmpty(name.PersonGivenName))
+                                    if (prop.NavnStruktur.PersonNameStructure != null)
                                     {
-                                        cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.FirstName == name.PersonGivenName);
+                                        // Search by name
+                                        var name = prop.NavnStruktur.PersonNameStructure;
+                                        if (!name.IsEmpty)
+                                        {
+                                            var cprNamePred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
+                                            cprNamePred = cprNamePred.And((pr) => pr.PersonAttribute.CprData != null);
+                                            if (!string.IsNullOrEmpty(name.PersonGivenName))
+                                            {
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.FirstName == name.PersonGivenName);
+                                            }
+                                            if (!string.IsNullOrEmpty(name.PersonMiddleName))
+                                            {
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.MiddleName == name.PersonMiddleName);
+                                            }
+                                            if (!string.IsNullOrEmpty(name.PersonSurnameName))
+                                            {
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.LastName == name.PersonSurnameName);
+                                            }
+                                            pred = pred.And(cprNamePred);
+                                        }
                                     }
-                                    if (!string.IsNullOrEmpty(name.PersonMiddleName))
-                                    {
-                                        cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.MiddleName == name.PersonMiddleName);
-                                    }
-                                    if (!string.IsNullOrEmpty(name.PersonSurnameName))
-                                    {
-                                        cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.LastName == name.PersonSurnameName);
-                                    }
-                                    pred = pred.And(cprNamePred);
                                 }
                             }
                         }
@@ -120,13 +126,13 @@ namespace CprBroker.Providers.Local
 
 
                 int firstResults = 0;
-                if (int.TryParse(searchCriteria.FoersteResultat, out firstResults))
+                if (int.TryParse(searchCriteria.FoersteResultatReference, out firstResults))
                 {
                     result = result.Skip(firstResults);
                 }
 
                 int maxResults = 0;
-                if (int.TryParse(searchCriteria.MaksimalAntalResultater, out maxResults))
+                if (int.TryParse(searchCriteria.MaksimalAntalKvantitet, out maxResults))
                 {
                     result = result.Take(maxResults);
                 }
