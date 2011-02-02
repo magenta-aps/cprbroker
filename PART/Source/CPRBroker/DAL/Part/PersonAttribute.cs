@@ -13,7 +13,7 @@ namespace CprBroker.DAL.Part
         {
             var ret = new AttributListeType()
             {
-                Egenskaber = new EgenskaberType[]
+                /*Egenskaber = new EgenskaberType[]
                 {
                     new EgenskaberType()
                     {
@@ -34,20 +34,20 @@ namespace CprBroker.DAL.Part
                     },
                 },
                 RegisterOplysninger = new RegisterOplysningerType[] { new RegisterOplysningerType() },
-                LokalUdvidelse = null
+                LokalUdvidelse = null*/
             };
 
             if (this.CprData != null)
             {
-                ret.RegisterOplysninger[0].Item = CprData.ToXmlType();
+                //ret.RegisterOplysninger[0].Item = CprData.ToXmlType();
             }
             else if (this.ForeignCitizenData != null)
             {
-                ret.RegisterOplysninger[0].Item = ForeignCitizenData.ToXmlType();
+                //ret.RegisterOplysninger[0].Item = ForeignCitizenData.ToXmlType();
             }
             else if (this.UnknownCitizenData != null)
             {
-                ret.RegisterOplysninger[0].Item = UnknownCitizenData.ToXmlType();
+                //ret.RegisterOplysninger[0].Item = UnknownCitizenData.ToXmlType();
             }
             return ret;
         }
@@ -64,16 +64,16 @@ namespace CprBroker.DAL.Part
 
         public static PersonAttribute FromXmlType(Schemas.Part.AttributListeType partAttributes)
         {
-            var oo = partAttributes.Egenskaber[0];
+            //var oo = partAttributes.Egenskaber[0];
             var ret = new PersonAttribute()
             {
-                BirthDate = oo.PersonBirthDateStructure.BirthDate,
+                /*BirthDate = oo.PersonBirthDateStructure.BirthDate,
                 BirthdateUncertainty = oo.PersonBirthDateStructure.BirthDateUncertaintyIndicator,
                 Effect = Effect.FromXmlType(oo.Virkning),
                 GenderId = DAL.Part.Gender.GetPartCode(oo.PersonGenderCode),
                 FirstName = oo.PersonNameStructure.PersonGivenName,
                 MiddleName = oo.PersonNameStructure.PersonMiddleName,
-                LastName = oo.PersonNameStructure.PersonSurnameName
+                LastName = oo.PersonNameStructure.PersonSurnameName*/
             };
             /*
             if (partAttributes.PersonData is Schemas.Part.CprData)

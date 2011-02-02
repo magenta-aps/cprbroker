@@ -20,11 +20,11 @@ namespace CprBroker.DAL.Part
                 NameAndAddressProtection = this.HasNameAndAddressProtection,
                 NationalityCountryCode = this.NationalityCountryAlpha2Code,
                 NickName = this.NickName,
-                PersonName = new CprBroker.Schemas.Part.Effect<CprBroker.Schemas.Part.PersonNameStructureType>()
+                PersonName = new CprBroker.Schemas.Part.Effect<CprBroker.Schemas.Part.NavnStruktur>()
                 {
                     StartDate = NameStartDate,
                     EndDate = NameEndDate,
-                    Value = new CprBroker.Schemas.Part.PersonNameStructureType
+                    Value = new CprBroker.Schemas.Part.NavnStruktur
                     {
                         PersonGivenName = this.FirstName,
                         PersonMiddleName = this.MiddleName,

@@ -12,7 +12,8 @@ namespace CprBroker.DAL.Part
         {
             return new VirkningType()
             {
-                AktoerTekst = this.ActorText,
+                // TODO: Fill this
+                AktoerRef= UnikIdType.Create(Guid.Empty),
                 CommentText = this.CommentText,
                 FraTidspunkt = TidspunktType.Create(this.FromDate),
                 TilTidspunkt = TidspunktType.Create(this.ToDate)
@@ -24,8 +25,8 @@ namespace CprBroker.DAL.Part
             return new Effect()
             {
                 EffectId = Guid.NewGuid(),
-
-                ActorText = virkning.AktoerTekst,
+                // TODO: Fill this                
+                ActorText = virkning.AktoerRef.Item,
                 CommentText = virkning.CommentText,
                 FromDate = virkning.FraTidspunkt.ToDateTime(),
                 ToDate = virkning.TilTidspunkt.ToDateTime()

@@ -30,7 +30,7 @@ namespace CprBroker.DAL.Part
             return new PersonRelationType
             {
                 CommentText = this.CommentText,
-                ReferenceIDTekst = this.RelatedPersonUuid.ToString(),
+                //ReferenceIDTekst = this.RelatedPersonUuid.ToString(),
                 //TODO: Handle null Effect
                 Virkning = Effect.ToXmlType()
             };
@@ -40,7 +40,7 @@ namespace CprBroker.DAL.Part
             return new PersonFlerRelationType
             {
                 CommentText = this.CommentText,
-                ReferenceIDTekst = this.RelatedPersonUuid.ToString(),
+                //ReferenceIDTekst = this.RelatedPersonUuid.ToString(),
                 //TODO: Handle null Effect
                 Virkning = Effect.ToXmlType()
             };
@@ -53,16 +53,16 @@ namespace CprBroker.DAL.Part
                 Aegtefaelle = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.Spouse),
                 Boern = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.Children),
                 Bopaelssamling = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ResidenceCollection),
-                ErstatningFor = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.ReplacementFor),
-                ErstattesAf = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ReplacedBy),
+                //ErstatningFor = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.ReplacementFor),
+                //ErstattesAf = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ReplacedBy),
                 Fader = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.Father),
                 Moder = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.Mother),
-                ForaeldremyndgihdedsBoern = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ParentingAdultChildren),
-                ForaeldremyndgihdedsIndehaver = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.Custody),
+                //ForaeldremyndgihdedsBoern = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.ParentingAdultChildren),
+                //ForaeldremyndgihdedsIndehaver = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.Custody),
                 LokalUdvidelse = null,
                 RegistreretPartner = FilterRelationsByType<PersonRelationType>(relations, RelationshipTypes.RegisteredPartner),
-                RetligHandleevneVaergeForPersonen = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.GuardianOfPerson),
-                RetligHandleevneVaergemaalsIndehaver = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.GuardianshipOwner),
+                //RetligHandleevneVaergeForPersonen = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.GuardianOfPerson),
+                //RetligHandleevneVaergemaalsIndehaver = FilterRelationsByType<PersonFlerRelationType>(relations, RelationshipTypes.GuardianshipOwner),
             };
         }
 
@@ -86,14 +86,14 @@ namespace CprBroker.DAL.Part
             ret.AddRange(ListFromXmlType(partRelations.Boern, RelationshipTypes.Children));
             ret.AddRange(ListFromXmlType(partRelations.Bopaelssamling, RelationshipTypes.ResidenceCollection));
             ret.AddRange(ListFromXmlType(partRelations.ErstatningFor, RelationshipTypes.ReplacementFor));
-            ret.AddRange(ListFromXmlType(partRelations.ErstattesAf, RelationshipTypes.ReplacedBy));
+            //ret.AddRange(ListFromXmlType(partRelations.ErstattesAf, RelationshipTypes.ReplacedBy));
             ret.AddRange(ListFromXmlType(partRelations.Fader, RelationshipTypes.Father));
             ret.AddRange(ListFromXmlType(partRelations.Moder, RelationshipTypes.Mother));
-            ret.AddRange(ListFromXmlType(partRelations.ForaeldremyndgihdedsBoern, RelationshipTypes.ParentingAdultChildren));
-            ret.AddRange(ListFromXmlType(partRelations.ForaeldremyndgihdedsIndehaver, RelationshipTypes.Custody));
+            //ret.AddRange(ListFromXmlType(partRelations.ForaeldremyndgihdedsBoern, RelationshipTypes.ParentingAdultChildren));
+            //ret.AddRange(ListFromXmlType(partRelations.ForaeldremyndgihdedsIndehaver, RelationshipTypes.Custody));
             ret.AddRange(ListFromXmlType(partRelations.RegistreretPartner, RelationshipTypes.RegisteredPartner));
             ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergeForPersonen, RelationshipTypes.GuardianOfPerson));
-            ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergemaalsIndehaver, RelationshipTypes.GuardianshipOwner));
+            //ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergemaalsIndehaver, RelationshipTypes.GuardianshipOwner));
             return ret;
         }
 
@@ -111,7 +111,7 @@ namespace CprBroker.DAL.Part
                     CommentText = r.CommentText,
                     Effect = Effect.FromXmlType(r.Virkning),
                     PersonRelationshipId = Guid.NewGuid(),
-                    RelatedPersonUuid = new Guid(r.ReferenceIDTekst),
+                    //RelatedPersonUuid = new Guid(r.ReferenceIDTekst),
                     RelationshipTypeId = (int)relType
                 }
             );
@@ -131,7 +131,7 @@ namespace CprBroker.DAL.Part
                     CommentText = r.CommentText,
                     Effect = Effect.FromXmlType(r.Virkning),
                     PersonRelationshipId = Guid.NewGuid(),
-                    RelatedPersonUuid = new Guid(r.ReferenceIDTekst),
+                    //RelatedPersonUuid = new Guid(r.ReferenceIDTekst),
                     RelationshipTypeId = (int)relType
                 }
             );
