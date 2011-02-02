@@ -67,7 +67,11 @@
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BasicOutput.xsd" />
+    <None Include="BBR_AddressPoint.xsd" />
+    <None Include="CPR_AddressCompleteGreenland.xsd" />
     <None Include="CPR_BirthDateUncertaintyIndicator.xsd" />
+    <None Include="CPR_ForeignAddressStructure.xsd" />
     <None Include="CPR_PersonBirthDateStructure.xsd" />
     <None Include="CPR_PersonCivilRegistrationCurrentIdentifier.xsd" />
     <None Include="CPR_PersonCivilRegistrationIdentifier.xsd" />
@@ -77,10 +81,22 @@
     <None Include="DKCC_PersonGenderCode.xsd" />
     <None Include="DKCC_PersonGivenName.xsd" />
     <None Include="DKCC_PersonMiddleName.xsd" />
+    <None Include="DKCC_PersonNationalityCode.xsd" />
     <None Include="DKCC_PersonSurnameName.xsd" />
     <None Include="generic\SagDokObjekt.xsd" />
+    <None Include="ImportInput.xsd" />
+    <None Include="ITST_PersonNameForAddressingName.xsd" />
     <None Include="ITST_PersonNameStructure.xsd" />
+    <None Include="ITST_TelephoneNumberIdentifier.xsd" />
+    <None Include="KaldenavnTekst.xsd" />
+    <None Include="LaesFiltreretOutput.xsd" />
+    <None Include="LaesInput.xsd" />
+    <None Include="ListInput.xsd" />
+    <None Include="ListOutput.xsd" />
+    <None Include="LokalUdvidelse.xsd" />
+    <None Include="NoteTekst.xsd" />
     <None Include="Operations.cd" />
+    <None Include="OpretInput.xsd" />
     <None Include="OtherOperations.cd" />
     <None Include="Other\CPR_BirthDateUncertaintyIndicator.xsd">
       <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
@@ -106,16 +122,31 @@
     <None Include="Other\ITST_PersonNameStructure.xsd">
       <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
     </None>
+    <None Include="PersonFlerRelation.xsd" />
+    <None Include="person\Part.xsd" />
     <None Include="person\Person.xsd">
       <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
     </None>
     <None Include="person\PersonOperationer.xsd">
       <LastGenOutput>PersonOperationer.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Registrering.xsd" />
+    <None Include="Relation.xsd" />
+    <None Include="RetInput.xsd" />
     <None Include="Search.cd" />
+    <None Include="SoegInput.xsd" />
+    <None Include="SoegOutput.xsd" />
+    <None Include="SoegRelation.xsd" />
+    <None Include="SoegSagDokObjekt.xsd" />
+    <None Include="SoegVirkning.xsd" />
     <None Include="Static.cd" />
+    <None Include="TilstandVirkning.xsd" />
     <None Include="UUID.xsd" />
+    <None Include="UuidNoteInput.xsd" />
     <None Include="VEJSEKTOREN_CommentText.xsd" />
+    <None Include="Virkning.xsd" />
+    <None Include="XKOM_AddressComplete.xsd" />
+    <None Include="XKOM_EmailAddressIdentifier.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="person\XSD.txt" />
