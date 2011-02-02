@@ -54,11 +54,6 @@
     <Compile Include="PersonFlerRelationType.cs" />
     <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="PersonRelationType.cs" />
-    <Compile Include="person\PersonOperationer.designer.cs">
-      <DependentUpon>PersonOperationer.xsd</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistreringType1.cs" />
     <Compile Include="StandardReturType.cs" />
@@ -67,36 +62,66 @@
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BasicOutput.xsd" />
-    <None Include="BBR_AddressPoint.xsd" />
-    <None Include="CPR_AddressCompleteGreenland.xsd" />
-    <None Include="CPR_BirthDateUncertaintyIndicator.xsd" />
-    <None Include="CPR_ForeignAddressStructure.xsd" />
-    <None Include="CPR_PersonBirthDateStructure.xsd" />
-    <None Include="CPR_PersonCivilRegistrationCurrentIdentifier.xsd" />
-    <None Include="CPR_PersonCivilRegistrationIdentifier.xsd" />
-    <None Include="CPR_PersonCivilRegistrationReplacementIdentifier.xsd" />
-    <None Include="DKCC_BirthDate.xsd" />
-    <None Include="DKCC_CountryIdentificationCode.xsd" />
-    <None Include="DKCC_PersonGenderCode.xsd" />
-    <None Include="DKCC_PersonGivenName.xsd" />
-    <None Include="DKCC_PersonMiddleName.xsd" />
-    <None Include="DKCC_PersonNationalityCode.xsd" />
-    <None Include="DKCC_PersonSurnameName.xsd" />
-    <None Include="generic\SagDokObjekt.xsd" />
-    <None Include="ImportInput.xsd" />
-    <None Include="ITST_PersonNameForAddressingName.xsd" />
-    <None Include="ITST_PersonNameStructure.xsd" />
-    <None Include="ITST_TelephoneNumberIdentifier.xsd" />
-    <None Include="KaldenavnTekst.xsd" />
-    <None Include="LaesFiltreretOutput.xsd" />
-    <None Include="LaesInput.xsd" />
-    <None Include="ListInput.xsd" />
-    <None Include="ListOutput.xsd" />
-    <None Include="LokalUdvidelse.xsd" />
-    <None Include="NoteTekst.xsd" />
+    <None Include="XSD\BrugervendtNoegleTekst.xsd" />
+    <None Include="XSD\CPR_AuthorityCode.xsd" />
+    <None Include="XSD\FejlbeskedTekst.xsd" />
+    <None Include="XSD\SagDokObjekt.xsd" />
+    <None Include="XSD\StatusKode.xsd" />
+    <None Include="XSD\XKOM_AddressAccess.xsd" />
+    <None Include="XSD\XKOM_AddressPostal.xsd" />
+    <None Include="XSD\AktoerRef.xsd" />
+    <None Include="XSD\BasicOutput.xsd" />
+    <None Include="XSD\BBR_AddressPoint.xsd" />
+    <None Include="XSD\BBR_AddressPointIdentifier.xsd" />
+    <None Include="XSD\BBR_AddressPointStatusStructure.xsd" />
+    <None Include="XSD\BBR_GeographicPointLocation.xsd" />
+    <None Include="XSD\CAPEVO_LocationDescriptionText.xsd" />
+    <None Include="XSD\CPR_AddressCompleteGreenland.xsd" />
+    <None Include="XSD\CPR_BirthDateUncertaintyIndicator.xsd" />
+    <None Include="XSD\CPR_ForeignAddressStructure.xsd" />
+    <None Include="XSD\CPR_GreenlandBuildingIdentifier.xsd" />
+    <None Include="XSD\CPR_MunicipalityCode.xsd" />
+    <None Include="XSD\CPR_PersonBirthDateStructure.xsd" />
+    <None Include="XSD\CPR_PersonCivilRegistrationCurrentIdentifier.xsd" />
+    <None Include="XSD\CPR_PersonCivilRegistrationIdentifier.xsd" />
+    <None Include="XSD\CPR_PersonCivilRegistrationReplacementIdentifier.xsd" />
+    <None Include="XSD\CPR_StreetCode.xsd" />
+    <None Include="XSD\CPR_StreetNameForAddressingName.xsd" />
+    <None Include="XSD\DKCC_BirthDate.xsd" />
+    <None Include="XSD\DKCC_CountryIdentificationCode.xsd" />
+    <None Include="XSD\DKCC_DistrictName.xsd" />
+    <None Include="XSD\DKCC_DistrictSubdivisionIdentifier.xsd" />
+    <None Include="XSD\DKCC_FloorIdentifier.xsd" />
+    <None Include="XSD\DKCC_MailDeliverySublocationIdentifier.xsd" />
+    <None Include="XSD\DKCC_PersonGenderCode.xsd" />
+    <None Include="XSD\DKCC_PersonGivenName.xsd" />
+    <None Include="XSD\DKCC_PersonMiddleName.xsd" />
+    <None Include="XSD\DKCC_PersonNationalityCode.xsd" />
+    <None Include="XSD\DKCC_PersonSurnameName.xsd" />
+    <None Include="XSD\DKCC_PostalAddressFifthLineText.xsd" />
+    <None Include="XSD\DKCC_PostalAddressFirstLineText.xsd" />
+    <None Include="XSD\DKCC_PostalAddressFourthLineText.xsd" />
+    <None Include="XSD\DKCC_PostalAddressSecondLineText.xsd" />
+    <None Include="XSD\DKCC_PostalAddressThirdLineText.xsd" />
+    <None Include="XSD\DKCC_PostCodeIdentifier.xsd" />
+    <None Include="XSD\DKCC_StreetBuildingIdentifier.xsd" />
+    <None Include="XSD\DKCC_StreetName.xsd" />
+    <None Include="XSD\DKCC_SuiteIdentifier.xsd" />
+    <None Include="XSD\Idliste.xsd" />
+    <None Include="XSD\ImportInput.xsd" />
+    <None Include="XSD\ITST_PersonNameForAddressingName.xsd" />
+    <None Include="XSD\ITST_PersonNameStructure.xsd" />
+    <None Include="XSD\ITST_TelephoneNumberIdentifier.xsd" />
+    <None Include="XSD\KaldenavnTekst.xsd" />
+    <None Include="XSD\LaesFiltreretOutput.xsd" />
+    <None Include="XSD\LaesInput.xsd" />
+    <None Include="XSD\ListInput.xsd" />
+    <None Include="XSD\ListOutput.xsd" />
+    <None Include="XSD\LivscyklusKode.xsd" />
+    <None Include="XSD\LokalUdvidelse.xsd" />
+    <None Include="XSD\NoteTekst.xsd" />
     <None Include="Operations.cd" />
-    <None Include="OpretInput.xsd" />
+    <None Include="XSD\OpretInput.xsd" />
     <None Include="OtherOperations.cd" />
     <None Include="Other\CPR_BirthDateUncertaintyIndicator.xsd">
       <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
@@ -122,34 +147,41 @@
     <None Include="Other\ITST_PersonNameStructure.xsd">
       <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
     </None>
-    <None Include="PersonFlerRelation.xsd" />
-    <None Include="person\Part.xsd" />
-    <None Include="person\Person.xsd">
+    <None Include="XSD\PersonFlerRelation.xsd" />
+    <None Include="XSD\Part.xsd" />
+    <None Include="XSD\Person.xsd">
       <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
     </None>
-    <None Include="person\PersonOperationer.xsd">
+    <None Include="XSD\PersonOperationer.xsd">
       <LastGenOutput>PersonOperationer.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Registrering.xsd" />
-    <None Include="Relation.xsd" />
-    <None Include="RetInput.xsd" />
+    <None Include="XSD\Registrering.xsd" />
+    <None Include="XSD\Relation.xsd" />
+    <None Include="XSD\RetInput.xsd" />
     <None Include="Search.cd" />
-    <None Include="SoegInput.xsd" />
-    <None Include="SoegOutput.xsd" />
-    <None Include="SoegRelation.xsd" />
-    <None Include="SoegSagDokObjekt.xsd" />
-    <None Include="SoegVirkning.xsd" />
+    <None Include="XSD\SoegInput.xsd" />
+    <None Include="XSD\SoegOutput.xsd" />
+    <None Include="XSD\SoegRegistrering.xsd" />
+    <None Include="XSD\SoegRelation.xsd" />
+    <None Include="XSD\SoegSagDokObjekt.xsd" />
+    <None Include="XSD\SoegVirkning.xsd" />
+    <None Include="XSD\StandardRetur.xsd" />
     <None Include="Static.cd" />
-    <None Include="TilstandVirkning.xsd" />
-    <None Include="UUID.xsd" />
-    <None Include="UuidNoteInput.xsd" />
-    <None Include="VEJSEKTOREN_CommentText.xsd" />
-    <None Include="Virkning.xsd" />
-    <None Include="XKOM_AddressComplete.xsd" />
-    <None Include="XKOM_EmailAddressIdentifier.xsd" />
+    <None Include="XSD\Tidspunkt.xsd" />
+    <None Include="XSD\TilstandVirkning.xsd" />
+    <None Include="XSD\UUID.xsd" />
+    <None Include="XSD\UuidNoteInput.xsd" />
+    <None Include="XSD\VEJSEKTOREN_CommentText.xsd" />
+    <None Include="XSD\Virkning.xsd" />
+    <None Include="XSD\XKOM_AddressComplete.xsd" />
+    <None Include="XSD\XKOM_EmailAddressIdentifier.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="person\XSD.txt" />
+    <Content Include="XSD.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="generic\" />
+    <Folder Include="person\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
