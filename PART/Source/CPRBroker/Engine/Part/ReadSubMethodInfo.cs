@@ -45,7 +45,7 @@ namespace CprBroker.Engine.Part
         {
             if (base.IsValidResult(result))
             {
-                DateTime? d = result.TidspunktDatoTid.ToDateTime();
+                DateTime? d = result.Tidspunkt.ToDateTime();
                 if (d.HasValue)
                 {
                     return Input.DateRangeIncludes(d.Value);

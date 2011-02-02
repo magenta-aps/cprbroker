@@ -78,7 +78,7 @@ namespace CprBroker.Engine.Part
                 StandardRetur = new StandardReturType()
                 {
                     FejlbeskedTekst = "",
-                    StatuskodeKode = ""
+                    StatusKode = ""
                 }
             };
             QualityLevel = (SubMethodInfos[0] as ReadSubMethodInfo).QualityLevel;

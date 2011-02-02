@@ -68,8 +68,9 @@ namespace CprBroker.Engine.Local
                 // Match db registrations by UUID, ActorId and registration date
                 var existingInDb = (from dbReg in dataContext.PersonRegistrations
                                     where dbReg.UUID == personIdentifier.UUID
-                                    && dbReg.RegistrationDate == TidspunktType.ToDateTime(personRegistraion.TidspunktDatoTid)
-                                    && dbReg.ActorText == personRegistraion.AktoerTekst
+                                    && dbReg.RegistrationDate == TidspunktType.ToDateTime(personRegistraion.Tidspunkt)
+                                    //TODO: Refill this condition
+                                    //&& dbReg.ActorText == personRegistraion.AktoerTekst
                                     select dbReg).ToArray();
 
                 var duplicateExists = existingInDb.Length > 0;
