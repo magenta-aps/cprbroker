@@ -135,7 +135,7 @@
                                                 <br>return bool that represents whether the operation has succeeded.
 
                                                 <br><br><b><u>Notes:</u></b>
-                                                <br>This method is independent from the person's chhildren. Custodies are considered a different type of relationship
+                                                <br>This method is independent fromDate the person's chhildren. Custodies are considered a different type of relationship
 
                                                 <br><br><b><u>Review:</u></b>
                                                 <table>

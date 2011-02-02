@@ -15,9 +15,38 @@ namespace CprBroker.Schemas.Part
                 AktoerTekst = null,
                 //TODO: Fill comment text
                 CommentText = null,
-                FraTidspunkt = TidspunktType.Create(fromDate),                
+                FraTidspunkt = TidspunktType.Create(fromDate),
                 TilTidspunkt = TidspunktType.Create(toDate)
             };
+        }
+
+        public static VirkningType Compose(params VirkningType[] partialEffects)
+        {
+            // TODO: What is the default value for DateTime? in case input array is empty?
+            var fromDate =
+                partialEffects
+                .Select(pe => pe.FraTidspunkt.ToDateTime())
+                .Select(d => d.HasValue ? d.Value : DateTime.MinValue)
+                .OrderBy(d => d)
+                .FirstOrDefault();
+
+            var to =
+                partialEffects
+                .Select(pe => pe.FraTidspunkt.ToDateTime())
+                .Select(d => d.HasValue ? d.Value : DateTime.MaxValue)
+                .OrderByDescending(d => d)
+                .FirstOrDefault();
+            return VirkningType.Create(fromDate, to);
+
+        }
+
+        public static bool IsOpen(VirkningType v)
+        {
+            if (v == null)
+                return true;
+            if (!TidspunktType.ToDateTime(v.FraTidspunkt).HasValue && !TidspunktType.ToDateTime(v.TilTidspunkt).HasValue)
+                return true;
+            return false;
         }
     }
 }

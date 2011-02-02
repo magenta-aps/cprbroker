@@ -93,7 +93,7 @@ namespace CprBroker.Providers.DPR
                             return CivilStatusKode.OphaevetPartnerskab;
                         case Constants.MaritalStatus.LongestLivingPartner:
                             return CivilStatusKode.Laengstlevende;
-                        // TODO : Get from latest marital status before this record
+                        // TODO : GetPropertyValuesOfType fromDate latest marital status before this record
                         case Constants.MaritalStatus.Deceased:
                             return CivilStatusKode.Ugift;
                         // TODO: When to use CivilStatusKode.Separeret?
@@ -107,22 +107,11 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                switch ((int)this.Status)
-                {
-                    case 70:
-                        return LivStatusKode.Forsvundet;
-                    case 90:
-                        return LivStatusKode.Doed;
-                    default:
-                        if (DateOfBirth != 0)
-                            return LivStatusKode.Prenatal;
-                        else
-                            return LivStatusKode.Foedt;
-                }
+                return Schemas.Util.Enums.ToLifeStatus(this.Status, Utilities.DateFromDecimal(DateOfBirth));
             }
         }
 
-        //TODO: Add logic to get value from DTBOERN if not found in DTTOTAL
+        //TODO: Add logic to get value fromDate DTBOERN if not found in DTTOTAL
         public static decimal? GetParent(char? parentMarker, string parentPnrOrBirthdate)
         {
             if (parentMarker.HasValue && parentMarker.Value == '*')

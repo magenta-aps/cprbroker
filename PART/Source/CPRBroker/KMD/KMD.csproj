@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constatnts.cs" />
     <Compile Include="KmdDataProvider.AN08300.cs" />
     <Compile Include="KmdDataProvider.Part.cs" />
     <Compile Include="KmdDataProvider.AS78207.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="KmdDataProvider.AN08002.cs" />
     <Compile Include="KmdDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="Web References\WS_AN08002\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

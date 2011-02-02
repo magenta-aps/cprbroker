@@ -16,7 +16,7 @@ namespace CprBroker.Schemas.Part
                     Virkning = VirkningType.Create(fromDate, toDate)
                 };
         }
-        //TODO: Add from and to parameters
+        //TODO: Add fromDate and to parameters
         public static PersonRelationType[]CreateList(params Guid[] targetUuids)
         {
             return Array.ConvertAll<Guid, PersonRelationType>

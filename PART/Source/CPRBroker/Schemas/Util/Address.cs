@@ -303,7 +303,7 @@ namespace CprBroker.Schemas.Util
         }
 
         /// <summary>
-        /// Creates an Address from an OIO address
+        /// Creates an Address fromDate an OIO address
         /// </summary>
         /// <param name="oioAddress"></param>
         /// <returns></returns>
@@ -472,7 +472,7 @@ namespace CprBroker.Schemas.Util
                                  where ac.Parent == addressField
                                  select ac).SingleOrDefault();
 
-                // If it is a composite, get it from the children
+                // If it is a composite, get it fromDate the children
                 if (composite != null)
                 {
                     var childValues = from childField in composite.Children
@@ -486,8 +486,8 @@ namespace CprBroker.Schemas.Util
                 /*else
                 {
                  * // Cancelled to avoid potential errors
-                    // Try to see if it can be obtained from the parent
-                    var parent = (from ac in AddressCompositions
+                    // Try to see if it can be obtained fromDate the parent
+                    var parent = (fromDate ac in AddressCompositions
                                   where this.ContainsKey(ac.Parent)
                                   && this[ac.Parent] != null
                                   && ac.Children.Contains(addressField)

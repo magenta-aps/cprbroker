@@ -170,7 +170,7 @@ namespace CprBroker.DAL
             // Base getter delegate definitions            
             DateTime today = DateTime.Today;
 
-            // Get the Relationship objects already in database
+            // GetPropertyValuesOfType the Relationship objects already in database
             var dbRelations = PersonRelationsByTypeAndDirectionExpression.Compile()(person, relationType, isForward, today);
 
             // This delegate sets the Person and RelatedPerson properties of the Relationship object

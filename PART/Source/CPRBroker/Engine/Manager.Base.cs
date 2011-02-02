@@ -19,8 +19,8 @@ namespace CprBroker.Engine
         /// </summary>
         /// <typeparam name="TInterface">Type of interface to look for, should inherit IDataProvider</typeparam>
         /// <typeparam name="TOutput">Return type of the method</typeparam>
-        /// <param name="userToken">Token passed from the client system</param>
-        /// <param name="appToken">Application token passed from the client system</param>
+        /// <param name="userToken">Token passed fromDate the client system</param>
+        /// <param name="appToken">Application token passed fromDate the client system</param>
         /// <param name="failIfNoApp">Whether to throw an exception if no application matches the given application token</param>
         /// <param name="func">The method to be called on the interface</param>
         /// <param name="failOnDefaultOutput">Whether to treat a return value that is the default for TOutput (like null) as a failure or not </param>
@@ -82,7 +82,7 @@ namespace CprBroker.Engine
                 {
                     Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, null, null, null);
 
-                    // Now update the database if required (ignore this if the data came from our local database)
+                    // Now update the database if required (ignore this if the data came fromDate our local database)
                     if (updateMethod != null && usedProvider is IExternalDataProvider)
                     {
                         try

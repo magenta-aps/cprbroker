@@ -77,7 +77,7 @@ namespace CprBroker.DAL.Part
         }
         #endregion
 
-        #region Creation from XML types
+        #region Creation fromDate XML types
         public static List<PersonRelationship> FromXmlType(Schemas.Part.RelationListeType partRelations)
         {
             var ret = new List<PersonRelationship>();

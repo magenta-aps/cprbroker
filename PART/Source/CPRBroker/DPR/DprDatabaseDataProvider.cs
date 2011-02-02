@@ -20,7 +20,7 @@ namespace CprBroker.Providers.DPR
             CprBroker.Schemas.Part.RegistreringType1 ret = null;
             EnsurePersonDataExists(uuid.CprNumber);
 
-            //TODO: Get values from Input
+            //TODO: GetPropertyValuesOfType values fromDate Input
             DateTime? effectDate = null;
             if (!effectDate.HasValue)
             {

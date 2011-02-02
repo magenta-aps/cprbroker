@@ -45,7 +45,7 @@ Parameters : RegistrationDate, EffectDate
 ";
 
                 public const string GetPersonUuid =
-@"Gets the person's UUID from his CPR number. Calls the UUID assigning authority if not found locally.
+@"Gets the person's UUID fromDate his CPR number. Calls the UUID assigning authority if not found locally.
 Input : CPR Number
 Output : Person UUID
 ";
@@ -108,7 +108,7 @@ Output : Person UUID
                                                 the 65th. birthday (retirement), the user can subscribe to this event 65 birthday
                                                 minus 3 weeks. This subscription can be created for all persons or for a specific list of persons. 
                                                 It is possible to create several subscriptions
-                                                from the same user application to the same person or list of indiviuals.
+                                                fromDate the same user application to the same person or list of indiviuals.
 
                                                 <br><br><b><u>Signature:</u></b>
                                                 <br>BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, string[] PersonCivilRegistrationIdentifiers)

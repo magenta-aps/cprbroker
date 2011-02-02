@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 using CprBroker.Schemas.Part.Enums;
 
 namespace CprBroker.Schemas.Util
@@ -47,42 +48,21 @@ namespace CprBroker.Schemas.Util
             }
         }
 
-        public static LifeStatus ToLifeStatus(decimal civilRegistrationStatus)
+        public static LivStatusKode ToLifeStatus(decimal civilRegistrationStatus, DateTime? birthDate)
         {
-            switch (Convert.ToInt32(civilRegistrationStatus))
+            switch ((int)civilRegistrationStatus)
             {
                 case 70:
-                    return LifeStatus.disappeared;
+                    return LivStatusKode.Forsvundet;
                 case 90:
-                    return LifeStatus.dead;
+                    return LivStatusKode.Doed;
                 default:
-                    return LifeStatus.born;
+                    if (birthDate.HasValue)
+                        return LivStatusKode.Foedt;
+                    else
+                        return LivStatusKode.Prenatal;
             }
         }
-        public static Part.Enums.MaritalStatus ToPartMaritalStatus(char code)
-        {
-            switch (char.ToUpper(code))
-            {
-                case 'U':
-                    return MaritalStatus.single;
-                case 'G':
-                    return MaritalStatus.married;
-                case 'F':
-                    return MaritalStatus.divorced;
-                case 'D':
-                    return MaritalStatus.deceased;
-                case 'E':
-                    return MaritalStatus.widow;
-                case 'P':
-                    return MaritalStatus.registeredpartner;
-                case 'O':
-                    return MaritalStatus.repealedpartnership;
-                case 'L':
-                default:
-                    return MaritalStatus.surviving;
-            }
-        }
-
 
         public static KeyValuePair<string, TEnum>[] GetEnumValues<TEnum>() where TEnum : struct
         {

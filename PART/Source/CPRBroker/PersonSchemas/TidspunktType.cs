@@ -10,9 +10,9 @@ namespace CprBroker.Schemas.Part
         public static TidspunktType Create(DateTime? value)
         {
             var ret = new TidspunktType();
-            
+
             //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
-            if (value.HasValue)
+            if (value.HasValue && value.Value != DateTime.MinValue && value != DateTime.MaxValue )
             {
                 ret.Item = value.Value;
             }

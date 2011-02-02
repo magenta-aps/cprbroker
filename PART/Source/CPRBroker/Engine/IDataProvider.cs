@@ -17,9 +17,9 @@ namespace CprBroker.Engine
         bool IsAlive();
 
         /// <summary>
-        /// Get the current version for this provider
+        /// GetPropertyValuesOfType the current version for this provider
         /// </summary>
-        //TODO: Remove this property from all data providers
+        //TODO: Remove this property fromDate all data providers
         Version Version { get; }
     }
 
@@ -104,7 +104,7 @@ namespace CprBroker.Engine
         /// <summary>
         /// Updates the system to use the given list of data providers
         /// </summary>
-        /// <param name="dataProviders">The list of data providers that should be used from now on</param>
+        /// <param name="dataProviders">The list of data providers that should be used fromDate now on</param>
         /// <returns></returns>
         bool SetDataProviderList(Schemas.DataProviderType[] dataProviders);
     }
@@ -157,7 +157,7 @@ namespace CprBroker.Engine
         Guid[] Search(SoegInputType1 searchCriteria);
     }
 
-    // Allows retrieval of person UUID from his CPR number
+    // Allows retrieval of person UUID fromDate his CPR number
     public interface IPartPersonMappingDataProvider : IDataProvider
     {
         Guid GetPersonUuid(string cprNumber);

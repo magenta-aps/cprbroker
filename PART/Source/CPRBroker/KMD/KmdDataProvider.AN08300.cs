@@ -35,7 +35,7 @@ namespace CprBroker.Providers.KMD
             }
             if (gender.HasValue)
             {
-                searchData.Gender = FromPartGender(gender).ToString();
+                searchData.Gender = Utilities.FromPartGender(gender).ToString();
             }
 
             AN08300 param = new AN08300()

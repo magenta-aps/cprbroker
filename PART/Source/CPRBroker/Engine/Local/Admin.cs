@@ -33,7 +33,7 @@ namespace CprBroker.Engine.Local
 
         public Schemas.DataProviderType[] GetDataProviderList()
         {
-            // Get data providers from database and convert to the appropriate XML type
+            // GetPropertyValuesOfType data providers fromDate database and convert to the appropriate XML type
             using (var context = new DataProvidersDataContext())
             {
                 DataProvider.SetChildLoadOptions(context);
@@ -80,7 +80,7 @@ namespace CprBroker.Engine.Local
 
         private IQueryable<string> GetMethodNames()
         {
-            // Use reflection to get a list of all methods from MethodNames classes
+            // Use reflection to get a list of all methods fromDate MethodNames classes
             List<System.Reflection.FieldInfo> fields = new List<System.Reflection.FieldInfo>();
             fields.AddRange(typeof(ServiceNames.Person.MethodNames).GetFields());
             fields.AddRange(typeof(ServiceNames.Administrator.MethodNames).GetFields());

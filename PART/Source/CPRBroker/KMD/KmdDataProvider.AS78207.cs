@@ -5,6 +5,7 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AS78207;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.KMD
 {
@@ -52,7 +53,7 @@ namespace CprBroker.Providers.KMD
                 SimpleCPRPersonType ret = new SimpleCPRPersonType()
                 {
                     PersonCivilRegistrationIdentifier = this.OutputRecord.EPNR,
-                    PersonNameStructure = new PersonNameStructureType(this.OutputRecord.AFORNVN, this.OutputRecord.AEFTER)
+                    PersonNameStructure = new CprBroker.Schemas.PersonNameStructureType(this.OutputRecord.AFORNVN, this.OutputRecord.AEFTER)
                 };
 
                 return ret;
@@ -621,9 +622,166 @@ namespace CprBroker.Providers.KMD
                 //address[CprBroker.Schemas.Util.AddressField.StreetNameForAddressing] = "";
 
                 // TODO: validate this Civil Registration Status Code
-                var personCivilRegistrationStatusCodeType = Schemas.Util.Enums.ToCivilRegistrationStatus(KmdDataProvider.GetCivilRegistrationStatus(this.StatusKmd, this.StatusCpr));
+                var personCivilRegistrationStatusCodeType = Schemas.Util.Enums.ToCivilRegistrationStatus(Utilities.GetCivilRegistrationStatus(this.StatusKmd, this.StatusCpr));
                 return address.ToPartAddress(personCivilRegistrationStatusCodeType);
             }
+
+            public AttributListeType ToAttributListeType()
+            {
+                return new AttributListeType()
+                    {
+                        Egenskaber = new EgenskaberType[]
+                        {
+                            ToEgenskaberType()
+                        },
+                        RegisterOplysninger = new RegisterOplysningerType[]
+                        {
+                            ToRegisterOplysningerType()
+                        },
+
+                        // Health information not implemented
+                        SundhedsOplysninger = null,
+
+                        // No extensions at the moment
+                        LokalUdvidelse = null
+                    };
+            }
+            public EgenskaberType ToEgenskaberType()
+            {
+                var ret = new EgenskaberType()
+                {
+                    PersonBirthDateStructure = new CprBroker.Schemas.Part.PersonBirthDateStructureType()
+                    {
+                        //TODO: Handle null birthdate
+                        BirthDate = Utilities.ToDateTime(BirthDate).Value,
+                        BirthDateUncertaintyIndicator = false
+                    },
+                    AndreAdresser = null,
+                    fodselsregistreringmyndighed = null,
+                    foedested = null,
+                    Kontaktkanal = null,
+                    NaermestePaaroerende = null,
+                    //TODO: Change this
+                    PersonGenderCode = Utilities.ToPartGender(this.PNR),
+                    PersonNameStructure = new CprBroker.Schemas.Part.PersonNameStructureType(FirstName, LastName),
+                    Virkning = VirkningType.Create(
+                        Utilities.GetMaxDate(BirthDate, AbroadDate, NameDate),
+                        null)
+                };
+                return ret;
+            }
+
+            public RegisterOplysningerType ToRegisterOplysningerType()
+            {
+                var ret = new RegisterOplysningerType()
+                {
+                    //TODO: Fill with CPR, Foreign or Unknown
+                    Item = null,
+                    Virkning = VirkningType.Create(null, null)
+                };
+                if (string.Equals(NationalityCode, Constants.DanishNationalityCode))
+                {
+                    ret.Item = new CprBorgerType()
+                    {
+                        // No address note
+                        AdresseNote = null,
+                        // Church membership
+                        // TODO : Where to fill fromDate?
+                        FolkekirkeMedlemsskab = false,
+                        //TODO: Fill address when class is ready
+                        FolkeregisterAdresse = null,
+                        // TODO: What is this (same name as above)
+                        FolkeRegisterAdresse = "",
+                        // Research protection
+                        // TODO: Check if this is correct
+                        ForskerBeskyttelseIndikator = false,
+                        // TODO: Ensure that PNR has no dashes
+                        PersonCivilRegistrationIdentifier = PNR,
+                        // TODO: Check if this is correct
+                        PersonInformationProtectionIndicator = false,
+                        PersonNationalityCode = DAL.Country.GetCountryAlpha2CodeByKmdCode(NationalityCode),
+                        //PNR validity status,
+                        // TODO: Make sure that true is the cirrect value
+                        PersonNummerGyldighedStatus = true,
+                        // TODO: Check if this is correct
+                        TelefonNummerBeskyttelseIndikator = false
+                    };
+                    ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(AddressDate, RelocationDate, ImmigrationDate));
+                }
+                else if (!string.IsNullOrEmpty(NationalityCode))
+                {
+                    // TODO: Validate all data in this structure
+                    ret.Item = new UdenlandskBorgerType()
+                    {
+                        // Birth country.Not in KMD
+                        FoedselsLand = null,
+                        // TODO: What is that?
+                        PersonID = "",
+                        // Languages. Not implemented here
+                        Sprog = new string[] { },
+                        // Citizenships
+                        Statsborgerskaber = new string[] { DAL.Country.GetCountryAlpha2CodeByKmdCode(NationalityCode) },
+                        PersonCivilRegistrationReplacementIdentifier = PNR,
+                    };
+                    ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(ImmigrationDate, AbroadDate));
+                }
+                else
+                {
+                    // TODO: Validate all data in this structure
+                    ret.Item = new UkendtBorgerType()
+                    {
+                        PersonCivilRegistrationReplacementIdentifier = PNR,
+                    };
+                    ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(AbroadDate, AddressDate, DisempowermentDate, ImmigrationDate, PaternityDate, RelocationDate, StatusDate));
+                }
+                return ret;
+            }
+
+            public TilstandListeType ToTilstandListeType()
+            {
+                return new TilstandListeType()
+                {
+                    //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
+                    //Gyldighed = null,
+
+                    CivilStatus = new CivilStatusType[]
+                    {
+                        new CivilStatusType()
+                       {
+                           Status = Utilities.ToPartMaritalStatus(MaritallStatusCode[0]),
+                           TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(MaritalStatusDate)),
+                       }
+                    },
+                    LivStatus = new LivStatusType[]
+                    {
+                        new LivStatusType
+                        {
+                            //TODO: Status date may not be the correct field (for example, the status may have changed fromDate 01 to  07 at the date, but the life status is still alive)
+                            Status  = Schemas.Util.Enums.ToLifeStatus(Utilities.GetCivilRegistrationStatus(StatusKmd, StatusCpr), Utilities.ToDateTime(BirthDate)),
+                            TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(StatusDate)),                            
+                        }
+                    },
+                    // No extensions now
+                    LokalUdvidelse = null
+                };
+            }
+
+            public DateTime? GetRegistrationDate()
+            {
+                return Utilities.GetMaxDate(
+                    // TODO : GetPropertyValuesOfType the other possible registration dates
+                    //AbroadDate,
+                    AddressDate,
+                    DisempowermentDate,
+                    ImmigrationDate,
+                    MaritalStatusDate,
+                    //NameDate,
+                    PaternityDate,
+                    RelocationDate,
+                    StatusDate
+                );
+            }
+
             #endregion
         }
     }

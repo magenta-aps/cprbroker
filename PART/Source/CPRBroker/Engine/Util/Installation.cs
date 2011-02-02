@@ -68,7 +68,7 @@ namespace CprBroker.Engine.Util
         public static readonly string ConnectionStringNodePath = "//connectionStrings/add[@name='CprBroker.Config.Properties.Settings.CPRConnectionString']";
 
         /// <summary>
-        /// Gets the connection string from the web.config file of the current installer
+        /// Gets the connection string fromDate the web.config file of the current installer
         /// </summary>
         /// <param name="installer"></param>
         /// <returns></returns>

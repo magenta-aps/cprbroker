@@ -5,23 +5,12 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AN08010;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.KMD
 {
     public partial class KmdDataProvider
     {
-        /// <summary>
-        /// Contains the relation codes as returned from web services
-        /// </summary>
-        private class RelationTypes
-        {
-            public const string Spouse = "Æ";
-            public const string Partner = "P";
-            public const string Baby = "B";
-            public const string ChildOver18 = "O";
-            public const string Parents = "F";
-        }
-
         /// <summary>
         /// Calls the AN08010 web service
         /// </summary>
@@ -48,6 +37,18 @@ namespace CprBroker.Providers.KMD
 
     namespace WS_AN08010
     {
+        /// <summary>
+        /// Contains the relation codes as returned fromDate web services
+        /// </summary>
+        public class RelationTypes
+        {
+            public const string Spouse = "Æ";
+            public const string Partner = "P";
+            public const string Baby = "B";
+            public const string ChildOver18 = "O";
+            public const string Parents = "F";
+        }
+
         public class EnglishAN08010Response
         {
             public ReplyPerson[] OutputArrayRecord { get; private set; }
@@ -61,6 +62,23 @@ namespace CprBroker.Providers.KMD
                     OutputArrayRecord = Array.ConvertAll<SVARPERSONER, ReplyPerson>(innerResponse.OutputArrayRecord, (p) => new ReplyPerson(p));
                 }
             }
+
+            public PersonFlerRelationType[] Filter(params string[] typeFilters)
+            {
+                return OutputArrayRecord
+                    .Where(
+                        per => Array.IndexOf<string>(typeFilters, per.Type) != -1
+                            && !per.IsUnknown
+                    )
+                    .Select(per => new PersonFlerRelationType()
+                        {
+                            CommentText = null,
+                            ReferenceIDTekst = null,
+                            Virkning = VirkningType.Create(null, null)
+                        }
+                    )
+                    .ToArray();
+            }            
         }
 
         public class ReplyPerson
@@ -78,7 +96,7 @@ namespace CprBroker.Providers.KMD
                 return new SimpleCPRPersonType()
                 {
                     PersonCivilRegistrationIdentifier = this.PNR.Replace("-", ""),
-                    PersonNameStructure = new PersonNameStructureType(this.Name)
+                    PersonNameStructure = new Schemas.PersonNameStructureType(this.Name)
                 };
             }
 

@@ -21,7 +21,7 @@ namespace CprBroker.Schemas.Part
         public ContactChannel[] ContactChannel { get; set; }
         /// <summary>
         /// Addresses other than the regitered address
-        /// Cannot be filled from data providers
+        /// Cannot be filled fromDate data providers
         /// Out of CPR Broker context, always empty
         /// </summary>
         public Address[] OtherAddresses { get; set; }

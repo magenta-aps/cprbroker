@@ -39,7 +39,7 @@ namespace CprBroker.Providers.KMD
         /// Filters the list of a person's relations based on the requested relation type
         /// </summary>
         /// <typeparam name="TRelation">Type of OIO relation object</typeparam>
-        /// <param name="persons">Related persons returned from KMD service</param>
+        /// <param name="persons">Related persons returned fromDate KMD service</param>
         /// <param name="typeFilters">The type codes that will be used to filter the relations</param>
         /// <returns>Filtered list of OIO relations</returns>
         private TRelation[] GetPersonRelations<TRelation>(WS_AN08010.ReplyPerson[] persons, params string[] typeFilters) where TRelation : BaseRelationshipType, new()
@@ -71,8 +71,8 @@ namespace CprBroker.Providers.KMD
         /// <summary>
         /// Searches for the return code in a list of error codes, throws an Exception if a match is found
         /// </summary>
-        /// <param name="returnCode">Code returned from web service</param>
-        /// <param name="returnText">Text returned from the web service, used as the Exception's message if thrown</param>
+        /// <param name="returnCode">Code returned fromDate web service</param>
+        /// <param name="returnText">Text returned fromDate the web service, used as the Exception's message if thrown</param>
         private void ValidateReturnCode(string returnCode, string returnText)
         {
             string[] errorCodes = new string[] 
@@ -80,7 +80,7 @@ namespace CprBroker.Providers.KMD
                 //"00",//	Everything ok
                 "07",//	Person is unknown in the municipality
                 "08",//	Person is unknown in the region
-                "10",//	The person is inactive -- moved from region
+                "10",//	The person is inactive -- moved fromDate region
                 //"15",//	Person number is invalid - former double issue
                 //"16",//	Person number is invalid - the person is nynummereret
                 //"17",//	The person is inactive - disappeared
@@ -105,56 +105,7 @@ namespace CprBroker.Providers.KMD
 
         #region Conversion methods
 
-        private PersonCivilRegistrationStatusStructureType ToCivilRegistrationStatusStructureType(string kmdStatus, string cprStatus, string dStatus)
-        {
-            int iKmd = int.Parse(kmdStatus);
-            int iCpr = int.Parse(cprStatus);
-            PersonCivilRegistrationStatusStructureType ret = null;
-            PersonCivilRegistrationStatusCodeType? code = null;
-            if (iKmd == 1)// >10
-            {
-                int status = iCpr * 10;
-                code = Schemas.Util.Enums.ToCivilRegistrationStatus(status);
-            }
-            else
-            {
-                // TODO: differentiate betwee 01, 03, 05 & 07 because cprStatus is always 0 here
-                code = PersonCivilRegistrationStatusCodeType.Item01;
-            }
-            if (code.HasValue)
-            {
-                ret = new PersonCivilRegistrationStatusStructureType()
-                {
-                    PersonCivilRegistrationStatusCode = code.Value,
-                    PersonCivilRegistrationStatusStartDate = ToDateTime(dStatus).Value
-                };
-            }
-            return ret;
-        }
-
-        private DateTime? ToDateTime(string str)
-        {
-            DateTime ret;
-            if (DateTime.TryParseExact(str, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out ret))
-            {
-                return ret;
-            }
-            return null;
-        }
-
-        private PersonGenderCodeType ToGenderCode(string cprNumber)
-        {
-            int cprNum = int.Parse(cprNumber[cprNumber.Length - 1].ToString());
-            if (cprNum % 2 == 0)
-            {
-                return PersonGenderCodeType.female;
-            }
-            else
-            {
-                return PersonGenderCodeType.male;
-            }
-        }
-
+      //TODO: Remove this method
         private PersonDeathDateStructureType ToDeathDate(PersonCivilRegistrationStatusStructureType status)
         {
             if (status != null
@@ -221,6 +172,8 @@ namespace CprBroker.Providers.KMD
 
         #endregion
 
+        #region Configuration properties
+
         public string Address
         {
             get
@@ -245,5 +198,6 @@ namespace CprBroker.Providers.KMD
             }
         }
 
+        #endregion
     }
 }

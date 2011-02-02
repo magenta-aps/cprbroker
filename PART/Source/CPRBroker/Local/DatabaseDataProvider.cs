@@ -72,7 +72,7 @@ namespace CprBroker.Providers.Local
         }
 
         /// <summary>
-        /// Retruns a Person object with at least the given detail level from the database
+        /// Retruns a Person object with at least the given detail level fromDate the database
         /// </summary>
         /// <param name="cprNumber">CPR number</param>
         /// <param name="detailLevel">Minimum detail level</param>

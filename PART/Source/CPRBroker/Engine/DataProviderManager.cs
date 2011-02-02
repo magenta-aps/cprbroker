@@ -31,7 +31,7 @@ namespace CprBroker.Engine
             BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken, true, false, false);
             try
             {
-                // Load from database                
+                // Load fromDate database                
                 var external = LoadExternalDataProviders();
 
                 // Append local data providers
@@ -194,7 +194,7 @@ namespace CprBroker.Engine
 
         internal static List<IDataProvider> GetDataProviderList(Type interfaceType, LocalDataProviderUsageOption localOption)
         {
-            // Get list of all available data providers that are of type TInterface
+            // GetPropertyValuesOfType list of all available data providers that are of type TInterface
             // First copy to local defined list to avoid threading issues
             List<IDataProvider> dataProviders = new List<IDataProvider>();
             DataProvidersLock.AcquireReaderLock(Timeout.Infinite);

@@ -54,7 +54,7 @@ namespace CprBroker.DAL.Applications
                 else if (action == System.Data.Linq.ChangeAction.Delete)
                 {
                     // TODO: Handle this case
-                    /*var hasSubscriptions = (from sub in context.Subscriptions
+                    /*var hasSubscriptions = (fromDate sub in context.Subscriptions
                                             where sub.ApplicationId == this.ApplicationId
                                             select sub).Count() > 0;
                     if (hasSubscriptions)

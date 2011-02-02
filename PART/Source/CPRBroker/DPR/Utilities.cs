@@ -84,6 +84,15 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        public static DateTime? GetMaxDate(params decimal?[] candidateEffectDates)
+        {
+            return candidateEffectDates
+               .Select(s => Utilities.DateFromDecimal(s))
+               .Where(d => d.HasValue)
+               .OrderByDescending(d => d.Value)
+               .FirstOrDefault();
+        }
+
         //TODO: Remove this method
         public static Gender GenderFromChar(char? gen)
         {

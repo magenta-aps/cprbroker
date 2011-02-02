@@ -31,7 +31,7 @@ namespace CprBroker.DAL
         }
 
         /// <summary>
-        /// Gets a Person object from database or creates a new one if not found
+        /// Gets a Person object fromDate database or creates a new one if not found
         /// A later call to SubmitChanges() is required
         /// </summary>
         /// <param name="context">Data context</param>
@@ -45,7 +45,7 @@ namespace CprBroker.DAL
         }
 
         /// <summary>
-        /// Gets a list of Person objects from database or creates new objects if not found
+        /// Gets a list of Person objects fromDate database or creates new objects if not found
         /// A later call to SubmitChanges() is required
         /// </summary>
         /// <param name="context">Data context</param>
@@ -101,7 +101,7 @@ namespace CprBroker.DAL
         }
 
         /// <summary>
-        /// Creates a date from a CPR number
+        /// Creates a date fromDate a CPR number
         /// </summary>
         /// <param name="cprNumber">CPR number</param>
         /// <returns></returns>
@@ -139,7 +139,7 @@ namespace CprBroker.DAL
 
 
         /// <summary>
-        /// Tries to set birthdate from cpr number
+        /// Tries to set birthdate fromDate cpr number
         /// </summary>
         partial void OnPersonNumberChanged()
         {

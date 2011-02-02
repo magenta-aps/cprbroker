@@ -14,12 +14,12 @@ namespace CprBroker.Schemas.Part
                 //TODO: Add comment text
                 CommentText = null,
                 ReferenceIDTekst = uuid.ToString(),
-                // TODO: Fill virkning object from parameters
+                // TODO: Fill virkning object fromDate parameters
                 Virkning = VirkningType.Create(fromDate, toDate)
             };
         }
 
-        //TODO: add parameters for from and to dates
+        //TODO: add parameters for fromDate and to dates
         public static PersonFlerRelationType[] CreateList(params Guid[] targetUuids)
         {
             return Array.ConvertAll<Guid, PersonFlerRelationType>

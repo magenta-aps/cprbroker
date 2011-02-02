@@ -16,7 +16,7 @@ namespace CprBroker.Schemas
         }
 
         /// <summary>
-        /// Creates a person name from an array containing one or more of first, middle and last names
+        /// Creates a person name fromDate an array containing one or more of first, middle and last names
         /// </summary>
         /// <param name="namesArray">String array containing the names, possibly containing commas</param>
         public PersonNameStructureType(params string[] namesArray)
@@ -32,7 +32,7 @@ namespace CprBroker.Schemas
         }
 
         /// <summary>
-        /// Initializes the object from an array of names (no commas)
+        /// Initializes the object fromDate an array of names (no commas)
         /// </summary>
         /// <param name="namesArray">Array of names</param>
         private void Initialize(params string[] namesArray)
