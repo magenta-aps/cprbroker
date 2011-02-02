@@ -148,9 +148,9 @@
     <None Include="XSD\LivscyklusKode.xsd" />
     <None Include="XSD\LokalUdvidelse.xsd" />
     <None Include="XSD\NoteTekst.xsd" />
-    <None Include="Operations.cd" />
+    <None Include="Diagrams\Operations.cd" />
     <None Include="XSD\OpretInput.xsd" />
-    <None Include="OtherOperations.cd" />
+    <None Include="Diagrams\OtherOperations.cd" />
     <None Include="XSD\PersonFlerRelation.xsd" />
     <None Include="XSD\Part.xsd" />
     <None Include="XSD\Person.xsd">
@@ -162,7 +162,7 @@
     <None Include="XSD\Registrering.xsd" />
     <None Include="XSD\Relation.xsd" />
     <None Include="XSD\RetInput.xsd" />
-    <None Include="Search.cd" />
+    <None Include="Diagrams\Search.cd" />
     <None Include="XSD\SoegInput.xsd" />
     <None Include="XSD\SoegOutput.xsd" />
     <None Include="XSD\SoegRegistrering.xsd" />
@@ -170,7 +170,7 @@
     <None Include="XSD\SoegSagDokObjekt.xsd" />
     <None Include="XSD\SoegVirkning.xsd" />
     <None Include="XSD\StandardRetur.xsd" />
-    <None Include="Static.cd" />
+    <None Include="Diagrams\Static.cd" />
     <None Include="XSD\Tidspunkt.xsd" />
     <None Include="XSD\TilstandVirkning.xsd" />
     <None Include="XSD\UUID.xsd" />
