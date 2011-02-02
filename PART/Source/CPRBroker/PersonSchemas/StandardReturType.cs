@@ -28,7 +28,7 @@ namespace CprBroker.Schemas.Part
         {
             return new StandardReturType()
             {
-                StatuskodeKode = code.ToString(),
+                StatusKode = code.ToString(),
                 FejlbeskedTekst = text
             };
         }

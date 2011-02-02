@@ -52,21 +52,46 @@
     <Compile Include="LaesInputType.cs" />
     <Compile Include="Events\ObjectNotification.cs" />
     <Compile Include="PersonFlerRelationType.cs" />
-    <Compile Include="PersonNameStructureType.cs" />
+    <Compile Include="NavnStruktur.cs" />
     <Compile Include="PersonRelationType.cs" />
+    <Compile Include="person\PersonOperationer.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistreringType1.cs" />
     <Compile Include="StandardReturType.cs" />
     <Compile Include="TidspunktType.cs" />
     <Compile Include="TilstandVirkningType.cs" />
+    <Compile Include="UnikIdType.cs" />
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="XSD\BBR_AddressCoordinateQualityClassCode.xsd" />
+    <None Include="XSD\BBR_AddressPointRevisionDateTime.xsd" />
+    <None Include="XSD\BBR_AddressPointValidEndDateTime.xsd" />
+    <None Include="XSD\BBR_AddressPointValidStartDateTime.xsd" />
+    <None Include="XSD\BBR_GeographicCoordinateTuple.xsd" />
+    <None Include="XSD\BBR_GeographicEastingMeasure.xsd" />
+    <None Include="XSD\BBR_GeographicHeightMeasure.xsd" />
+    <None Include="XSD\BBR_GeographicNorthingMeasure.xsd" />
     <None Include="XSD\BrugervendtNoegleTekst.xsd" />
     <None Include="XSD\CPR_AuthorityCode.xsd" />
+    <None Include="XSD\CPR_CompletePostalLabelText.xsd" />
+    <None Include="XSD\DKCC_PostOfficeBoxIdentifier.xsd" />
     <None Include="XSD\FejlbeskedTekst.xsd" />
+    <None Include="XSD\FlerRelation.xsd" />
+    <None Include="XSD\FoersteResultatReference.xsd" />
+    <None Include="XSD\FraTidspunkt.xsd" />
+    <None Include="XSD\GraenseIndikator.xsd" />
+    <None Include="XSD\MaksimalAntalKvantitet.xsd" />
+    <None Include="XSD\ReferenceID.xsd" />
+    <None Include="XSD\RegistreringTilFilter.xsd" />
     <None Include="XSD\SagDokObjekt.xsd" />
     <None Include="XSD\StatusKode.xsd" />
+    <None Include="XSD\TidsstempelDatoTid.xsd" />
+    <None Include="XSD\TilTidspunkt.xsd" />
+    <None Include="XSD\UnikId.xsd" />
+    <None Include="XSD\URNIdentifikator.xsd" />
+    <None Include="XSD\VirkningFraFilter.xsd" />
+    <None Include="XSD\VirkningTilFilter.xsd" />
     <None Include="XSD\XKOM_AddressAccess.xsd" />
     <None Include="XSD\XKOM_AddressPostal.xsd" />
     <None Include="XSD\AktoerRef.xsd" />
@@ -181,7 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="generic\" />
-    <Folder Include="person\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

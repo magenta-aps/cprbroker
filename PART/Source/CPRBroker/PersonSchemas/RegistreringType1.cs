@@ -12,8 +12,10 @@ namespace CprBroker.Schemas.Part
         {
             this.Virkning = null;
             var partialVirkning = GetPropertyValuesOfType<VirkningType>(this)
-                .Where(v => !VirkningType.IsOpen(v));
-            this.Virkning = VirkningType.Compose(partialVirkning.ToArray());
+                .Where(v => !VirkningType.IsOpen(v))
+                .ToArray();
+            // TODO: Check this
+            this.Virkning = partialVirkning;
         }
 
         public static T[] GetPropertyValuesOfType<T>(object root) where T : class

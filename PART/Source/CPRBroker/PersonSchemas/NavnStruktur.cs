@@ -8,9 +8,9 @@ namespace CprBroker.Schemas.Part
     /// <summary>
     /// Extents PersonNameStructureType by adding some utility functions
     /// </summary>
-    public partial class PersonNameStructureType
+    public partial class NavnStruktur
     {
-        public PersonNameStructureType()
+        public NavnStruktur()
         {
 
         }
@@ -19,7 +19,7 @@ namespace CprBroker.Schemas.Part
         /// Creates a person name fromDate an array containing one or more of first, middle and last names
         /// </summary>
         /// <param name="namesArray">String array containing the names, possibly containing commas</param>
-        public PersonNameStructureType(params string[] namesArray)
+        public NavnStruktur(params string[] namesArray)
         {
             string fullName = string.Join(" ", namesArray);
             int commaIndex = fullName.IndexOf(',');

@@ -11,8 +11,8 @@ namespace CprBroker.Schemas.Part
         {
             return new PersonRelationType()
                 {
-                    CommentText = null,
-                    ReferenceIDTekst = targetUuid.ToString(),
+                    CommentText = null,                    
+                    ReferenceID = UnikIdType.Create(targetUuid),                    
                     Virkning = VirkningType.Create(fromDate, toDate)
                 };
         }

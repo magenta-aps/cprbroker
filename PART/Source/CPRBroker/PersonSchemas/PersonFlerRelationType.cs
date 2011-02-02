@@ -13,7 +13,7 @@ namespace CprBroker.Schemas.Part
             {
                 //TODO: Add comment text
                 CommentText = null,
-                ReferenceIDTekst = uuid.ToString(),
+                ReferenceID = UnikIdType.Create(uuid),
                 // TODO: Fill virkning object fromDate parameters
                 Virkning = VirkningType.Create(fromDate, toDate)
             };
