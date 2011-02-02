@@ -56,7 +56,7 @@
     <Compile Include="PersonFlerRelationType.cs" />
     <Compile Include="NavnStruktur.cs" />
     <Compile Include="PersonRelationType.cs" />
-    <Compile Include="person\PersonOperationer.Designer.cs" />
+    <Compile Include="XSD\XSD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistreringType1.cs" />
     <Compile Include="StandardReturType.cs" />
@@ -150,30 +150,6 @@
     <None Include="Operations.cd" />
     <None Include="XSD\OpretInput.xsd" />
     <None Include="OtherOperations.cd" />
-    <None Include="Other\CPR_BirthDateUncertaintyIndicator.xsd">
-      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
-    </None>
-    <None Include="Other\CPR_PersonBirthDateStructure.xsd">
-      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
-    </None>
-    <None Include="Other\DKCC_BirthDate.xsd">
-      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
-    </None>
-    <None Include="Other\DKCC_PersonGenderCode.xsd">
-      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
-    </None>
-    <None Include="Other\DKCC_PersonGivenName.xsd">
-      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
-    </None>
-    <None Include="Other\DKCC_PersonMiddleName.xsd">
-      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
-    </None>
-    <None Include="Other\DKCC_PersonSurnameName.xsd">
-      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
-    </None>
-    <None Include="Other\ITST_PersonNameStructure.xsd">
-      <CustomToolNamespace>CprBroker.PersonSchemas</CustomToolNamespace>
-    </None>
     <None Include="XSD\PersonFlerRelation.xsd" />
     <None Include="XSD\Part.xsd" />
     <None Include="XSD\Person.xsd">
@@ -204,10 +180,7 @@
     <None Include="XSD\XKOM_EmailAddressIdentifier.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="XSD.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="generic\" />
+    <Content Include="XSD\XSD.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
