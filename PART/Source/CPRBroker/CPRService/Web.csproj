@@ -168,6 +168,10 @@
       <Project>{74212D20-BB98-401F-A5F7-03669B2CD07A}</Project>
       <Name>Local</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PersonMaster\PersonMaster.csproj">
+      <Project>{51186183-BEEA-4B6D-8865-B7070EFCA126}</Project>
+      <Name>PersonMaster</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PersonSchemas\PersonSchemas.csproj">
       <Project>{63C643D5-D975-4A69-9D59-02B253BDFDE8}</Project>
       <Name>PersonSchemas</Name>

@@ -68,7 +68,7 @@ namespace CprBroker.Engine
                             new SubMethodInfo<IPartPersonMappingDataProvider,Guid>()
                             {
                                 Method = (prov)=>prov.GetPersonUuid(cprNumber),
-                                LocalDataProviderOption = LocalDataProviderUsageOption.UseLast
+                                LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst
                             }
                         },
 

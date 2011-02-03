@@ -180,9 +180,7 @@ namespace CprBroker.Providers.Local
         // TODO: Move this method to a separate data provider
         public Guid GetPersonUuid(string cprNumber)
         {
-            PersonIdentifier[] identifiers = new PersonIdentifier[] { new PersonIdentifier() { CprNumber = cprNumber } };
-            DAL.Part.PersonMapping.AssignGuids(identifiers);
-            return identifiers[0].UUID.Value;
+            return DAL.Part.PersonMapping.AssignGuids(new string[] { cprNumber })[0];
         }
 
         #endregion

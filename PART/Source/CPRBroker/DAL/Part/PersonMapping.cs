@@ -9,24 +9,23 @@ namespace CprBroker.DAL.Part
 {
     public partial class PersonMapping
     {
+
         /// <summary>
-        /// Maps the passed PersonIdentifier objects to UUIDs
-        /// Any unfound persons are assigned new UUID's and saved to the mapping table
+        /// Maps CPR Numbers to UUIDs
         /// </summary>
-        /// <param name="personIdentifiers"></param>
+        /// <param name="cprNumbers"></param>
         /// <returns></returns>
-        public static Guid[] AssignGuids(params PersonIdentifier[] personIdentifiers)
+        public static Guid[] AssignGuids(params string[] cprNumbers)
         {
-            Guid[] ret = new Guid[personIdentifiers.Length];
+            Guid[] ret = new Guid[cprNumbers.Length];
 
             using (PartDataContext dataContext = new PartDataContext())
             {
                 var foundPersons = dataContext.PersonMappings.AsQueryable();
                 var pred = PredicateBuilder.False<PersonMapping>();
 
-                foreach (var personIdentifier in personIdentifiers)
+                foreach (var cprNumber in cprNumbers)
                 {
-                    string cprNumber = personIdentifier.CprNumber;
                     pred = pred.Or((d) => d.CprNumber == cprNumber);
                 }
 
@@ -34,56 +33,20 @@ namespace CprBroker.DAL.Part
 
                 var foundPersonsArray = foundPersons.ToArray();
 
-                for (int iPerson = 0; iPerson < personIdentifiers.Length; iPerson++)
+                for (int iPerson = 0; iPerson < cprNumbers.Length; iPerson++)
                 {
-                    var personIdentifier = personIdentifiers[iPerson];
-                    var personMapping = (from d in foundPersonsArray where d.CprNumber == personIdentifier.CprNumber select d).FirstOrDefault();
+                    var cprNumber = cprNumbers[iPerson];
+                    var personMapping = (from d in foundPersonsArray where d.CprNumber == cprNumber select d).FirstOrDefault();
 
-                    if (personMapping == null)
+                    if (cprNumber != null)
                     {
-                        personMapping = new PersonMapping();
-                        //TODO: Replace this with a call to Gentofte UUID service
-                        personMapping.UUID = Guid.NewGuid();
-                        personMapping.CprNumber = personIdentifier.CprNumber;
-                        dataContext.PersonMappings.InsertOnSubmit(personMapping);
+                        ret[iPerson] = personMapping.UUID;
                     }
-                    ret[iPerson] = personMapping.UUID;
-                    personIdentifiers[iPerson].UUID = personMapping.UUID;
+
                 }
                 dataContext.SubmitChanges();
             }
             return ret;
-        }
-
-        /// <summary>
-        /// Maps the given objects to other objects that contain a UUID
-        /// Used primarily to directly convert database relation objects (logical) to PersonRelation objects (with physical UUID)
-        /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="objects"></param>
-        /// <param name="converter"></param>
-        /// <param name="personIdentifierGetter"></param>
-        /// <param name="idSetter"></param>
-        /// <returns></returns>
-        public static TResult[] AssignGuids<TSource, TResult>(TSource[] objects, Converter<TSource, TResult> converter, Converter<TSource, PersonIdentifier> personIdentifierGetter, Action<TResult, Guid> idSetter)
-        {
-            var ret = Array.ConvertAll<TSource, TResult>(objects, converter);
-            var identifiers = Array.ConvertAll<TSource, PersonIdentifier>(objects, personIdentifierGetter);
-
-            Guid[] ids = AssignGuids(identifiers);
-            for (int i = 0; i < ids.Length; i++)
-            {
-                idSetter(ret[i], ids[i]);
-            }
-            return ret;
-        }
-
-        // TODO: Move the main logic for UUID assignment to this function bacause it is the most simple
-        public static Guid[] AssignGuids(params string[] cprNumbers)
-        {
-            var pIds = Array.ConvertAll<string, PersonIdentifier>(cprNumbers, (cpr) => new PersonIdentifier() { CprNumber = cpr });
-            return AssignGuids(pIds);
         }
 
         /// <summary>
