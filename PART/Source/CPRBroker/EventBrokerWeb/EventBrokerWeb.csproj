@@ -87,6 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Services\Web.config" />
     <None Include="Templates\Notification.wsdl" />
   </ItemGroup>
   <ItemGroup>

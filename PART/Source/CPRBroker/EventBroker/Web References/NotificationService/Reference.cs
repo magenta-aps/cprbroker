@@ -26,7 +26,7 @@ namespace CprBroker.EventBroker.NotificationService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="NotificationSoap", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="NotificationSoap12", Namespace="http://tempuri.org/")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(object[]))]
     public partial class Notification : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
@@ -38,6 +38,7 @@ namespace CprBroker.EventBroker.NotificationService {
         
         /// <remarks/>
         public Notification() {
+            this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = global::CprBroker.EventBroker.Properties.Settings.Default.CprBroker_EventBroker_NotificationService_Notification;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;

@@ -67,72 +67,51 @@
       </s:simpleType>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="NotifySoapIn">
+  <wsdl:message name="NotifySoap12In">
     <wsdl:part name="parameters" element="tns:Notify" />
   </wsdl:message>
-  <wsdl:message name="NotifySoapOut">
+  <wsdl:message name="NotifySoap12Out">
     <wsdl:part name="parameters" element="tns:NotifyResponse" />
   </wsdl:message>
-  <wsdl:message name="PingSoapIn">
+  <wsdl:message name="PingSoap12In">
     <wsdl:part name="parameters" element="tns:Ping" />
   </wsdl:message>
-  <wsdl:message name="PingSoapOut">
+  <wsdl:message name="PingSoap12Out">
     <wsdl:part name="parameters" element="tns:PingResponse" />
   </wsdl:message>
-  <wsdl:portType name="NotificationSoap">
+  <wsdl:portType name="NotificationSoap12">
     <wsdl:operation name="Notify">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-        Called to tell the client system that a notification has been fired
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">            
+                                                Called to tell the client system that a notification has been fired
 
-        &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
-        &lt;br&gt;void Notify(string appToken, BaseNotificationType notification)
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;void Notify(string appToken, BaseNotificationType notification)
 
-        &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
-        &lt;br&gt;&lt;table&gt;
-        &lt;tr&gt;&lt;td&gt;appToken (input):&lt;/td&gt;&lt;td&gt;Token of subscriber application&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;notification (input):&lt;/td&gt;&lt;td&gt;Object that contains the detailed information that is associated with the event&lt;/td&gt;&lt;/tr&gt;
-        &lt;/table&gt;
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;appToken (input):&lt;/td&gt;&lt;td&gt;Token of subscriber application&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;notification (input):&lt;/td&gt;&lt;td&gt;Object that contains the detailed information that is associated with the event&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
 
-        &lt;br&gt;==============================
-      </wsdl:documentation>
-      <wsdl:input message="tns:NotifySoapIn" />
-      <wsdl:output message="tns:NotifySoapOut" />
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:NotifySoap12In" />
+      <wsdl:output message="tns:NotifySoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="Ping">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-        Called to make sure the service is online
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">            
+                                                Called to make sure the service is online
 
-        &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
-        &lt;br&gt;void Ping()
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;void Ping()
 
-        &lt;br&gt;==============================
-      </wsdl:documentation>
-      <wsdl:input message="tns:PingSoapIn" />
-      <wsdl:output message="tns:PingSoapOut" />
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:PingSoap12In" />
+      <wsdl:output message="tns:PingSoap12Out" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="NotificationSoap" type="tns:NotificationSoap">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="Notify">
-      <soap:operation soapAction="http://tempuri.org/Notify" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Ping">
-      <soap:operation soapAction="http://tempuri.org/Ping" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:binding name="NotificationSoap12" type="tns:NotificationSoap">
+  <wsdl:binding name="NotificationSoap12" type="tns:NotificationSoap12">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Notify">
       <soap12:operation soapAction="http://tempuri.org/Notify" style="document" />
@@ -155,9 +134,6 @@
   </wsdl:binding>
   <wsdl:service name="Notification">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Template for a notification listener web service</wsdl:documentation>
-    <wsdl:port name="NotificationSoap" binding="tns:NotificationSoap">
-      <soap:address location="http://localhost:1552/Services/Notification.asmx" />
-    </wsdl:port>
     <wsdl:port name="NotificationSoap12" binding="tns:NotificationSoap12">
       <soap12:address location="http://localhost:1552/Services/Notification.asmx" />
     </wsdl:port>

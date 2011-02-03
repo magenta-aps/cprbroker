@@ -56,7 +56,7 @@ namespace CprBroker.NUnitTester.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:3800/Services/Subscriptions.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1552/Services/Subscriptions.asmx")]
         public string NUnitTester_Subscriptions_CPRAdministrationWS {
             get {
                 return ((string)(this["NUnitTester_Subscriptions_CPRAdministrationWS"]));

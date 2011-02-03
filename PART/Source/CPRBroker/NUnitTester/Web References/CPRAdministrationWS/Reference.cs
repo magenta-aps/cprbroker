@@ -26,7 +26,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="CPRAdministrationWSSoap", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="CPRAdministrationWSSoap12", Namespace="http://tempuri.org/")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ServiceVersionType[]))]
     public partial class CPRAdministrationWS : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
@@ -58,6 +58,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         public CPRAdministrationWS() {
+            this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = "http://localhost:1551/services/CPRAdministrationWS.asmx";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;

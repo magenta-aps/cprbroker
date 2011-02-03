@@ -26,7 +26,7 @@ namespace CprBroker.EventBroker.EventsService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="EventsSoap", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="EventsSoap12", Namespace="http://tempuri.org/")]
     public partial class Events : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private ApplicationHeader applicationHeaderValueField;
@@ -39,6 +39,7 @@ namespace CprBroker.EventBroker.EventsService {
         
         /// <remarks/>
         public Events() {
+            this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = global::CprBroker.EventBroker.Properties.Settings.Default.CprBroker_EventBroker_EventsService_Events;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;

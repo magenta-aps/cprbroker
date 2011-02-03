@@ -153,10 +153,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NUnitTester_Part_Part</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://localhost:3800/Services/Subscriptions.asmx">
+    <WebReferenceUrl Include="http://localhost:1552/Services/Subscriptions.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\Subscriptions\</RelPath>
-      <UpdateFromURL>http://localhost:3800/Services/Subscriptions.asmx</UpdateFromURL>
+      <UpdateFromURL>http://localhost:1552/Services/Subscriptions.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -241,9 +241,6 @@
     <None Include="Web References\Part\SoegOutputType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\Subscriptions\BaseNotificationType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Subscriptions\BirthdateSubscriptionType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -264,6 +261,9 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Events\Events.disco" />
+    <None Include="Web References\Events\PersonBirthdate.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Events\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

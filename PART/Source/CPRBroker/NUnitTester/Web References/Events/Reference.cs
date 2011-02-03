@@ -26,17 +26,20 @@ namespace CprBroker.NUnitTester.Events {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="EventsSoap", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="EventsSoap12", Namespace="http://tempuri.org/")]
     public partial class Events : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private ApplicationHeader applicationHeaderValueField;
         
         private System.Threading.SendOrPostCallback DequeueDataChangeEventsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetPersonBirthdatesOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
         public Events() {
+            this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = global::CprBroker.NUnitTester.Properties.Settings.Default.CprBroker_NUnitTester_Events_Events;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
@@ -84,6 +87,9 @@ namespace CprBroker.NUnitTester.Events {
         public event DequeueDataChangeEventsCompletedEventHandler DequeueDataChangeEventsCompleted;
         
         /// <remarks/>
+        public event GetPersonBirthdatesCompletedEventHandler GetPersonBirthdatesCompleted;
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DequeueDataChangeEvents", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public DataChangeEventInfo[] DequeueDataChangeEvents(int maxCount) {
@@ -110,6 +116,38 @@ namespace CprBroker.NUnitTester.Events {
             if ((this.DequeueDataChangeEventsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.DequeueDataChangeEventsCompleted(this, new DequeueDataChangeEventsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPersonBirthdates", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public PersonBirthdate[] GetPersonBirthdates([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] System.Nullable<System.Guid> personUuidToStartAfter, int maxCount) {
+            object[] results = this.Invoke("GetPersonBirthdates", new object[] {
+                        personUuidToStartAfter,
+                        maxCount});
+            return ((PersonBirthdate[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPersonBirthdatesAsync(System.Nullable<System.Guid> personUuidToStartAfter, int maxCount) {
+            this.GetPersonBirthdatesAsync(personUuidToStartAfter, maxCount, null);
+        }
+        
+        /// <remarks/>
+        public void GetPersonBirthdatesAsync(System.Nullable<System.Guid> personUuidToStartAfter, int maxCount, object userState) {
+            if ((this.GetPersonBirthdatesOperationCompleted == null)) {
+                this.GetPersonBirthdatesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPersonBirthdatesOperationCompleted);
+            }
+            this.InvokeAsync("GetPersonBirthdates", new object[] {
+                        personUuidToStartAfter,
+                        maxCount}, this.GetPersonBirthdatesOperationCompleted, userState);
+        }
+        
+        private void OnGetPersonBirthdatesOperationCompleted(object arg) {
+            if ((this.GetPersonBirthdatesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPersonBirthdatesCompleted(this, new GetPersonBirthdatesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -185,6 +223,39 @@ namespace CprBroker.NUnitTester.Events {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class PersonBirthdate {
+        
+        private System.Guid personUuidField;
+        
+        private System.DateTime birthdateField;
+        
+        /// <remarks/>
+        public System.Guid PersonUuid {
+            get {
+                return this.personUuidField;
+            }
+            set {
+                this.personUuidField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Birthdate {
+            get {
+                return this.birthdateField;
+            }
+            set {
+                this.birthdateField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class DataChangeEventInfo {
         
         private System.Guid eventIdField;
@@ -246,6 +317,32 @@ namespace CprBroker.NUnitTester.Events {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((DataChangeEventInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    public delegate void GetPersonBirthdatesCompletedEventHandler(object sender, GetPersonBirthdatesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPersonBirthdatesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPersonBirthdatesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public PersonBirthdate[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((PersonBirthdate[])(this.results[0]));
             }
         }
     }

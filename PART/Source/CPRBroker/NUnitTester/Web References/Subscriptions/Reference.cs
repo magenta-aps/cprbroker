@@ -26,7 +26,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="SubscriptionsSoap", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="SubscriptionsSoap12", Namespace="http://tempuri.org/")]
     public partial class Subscriptions : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private ApplicationHeader applicationHeaderValueField;
@@ -41,14 +41,13 @@ namespace CprBroker.NUnitTester.Subscriptions {
         
         private System.Threading.SendOrPostCallback GetActiveSubscriptionsListOperationCompleted;
         
-        private System.Threading.SendOrPostCallback GetLatestNotificationOperationCompleted;
-        
         private System.Threading.SendOrPostCallback PingOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
         public Subscriptions() {
+            this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = global::CprBroker.NUnitTester.Properties.Settings.Default.NUnitTester_Subscriptions_CPRAdministrationWS;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
@@ -106,9 +105,6 @@ namespace CprBroker.NUnitTester.Subscriptions {
         
         /// <remarks/>
         public event GetActiveSubscriptionsListCompletedEventHandler GetActiveSubscriptionsListCompleted;
-        
-        /// <remarks/>
-        public event GetLatestNotificationCompletedEventHandler GetLatestNotificationCompleted;
         
         /// <remarks/>
         public event PingCompletedEventHandler PingCompleted;
@@ -271,36 +267,6 @@ namespace CprBroker.NUnitTester.Subscriptions {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetLatestNotification", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public BaseNotificationType GetLatestNotification(System.Guid SubscriptionId) {
-            object[] results = this.Invoke("GetLatestNotification", new object[] {
-                        SubscriptionId});
-            return ((BaseNotificationType)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetLatestNotificationAsync(System.Guid SubscriptionId) {
-            this.GetLatestNotificationAsync(SubscriptionId, null);
-        }
-        
-        /// <remarks/>
-        public void GetLatestNotificationAsync(System.Guid SubscriptionId, object userState) {
-            if ((this.GetLatestNotificationOperationCompleted == null)) {
-                this.GetLatestNotificationOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetLatestNotificationOperationCompleted);
-            }
-            this.InvokeAsync("GetLatestNotification", new object[] {
-                        SubscriptionId}, this.GetLatestNotificationOperationCompleted, userState);
-        }
-        
-        private void OnGetLatestNotificationOperationCompleted(object arg) {
-            if ((this.GetLatestNotificationCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetLatestNotificationCompleted(this, new GetLatestNotificationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Ping", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string Ping() {
             object[] results = this.Invoke("Ping", new object[0]);
@@ -394,221 +360,6 @@ namespace CprBroker.NUnitTester.Subscriptions {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ChangeNotificationPersonType {
-        
-        private SimpleCPRPersonType simpleCPRPersonField;
-        
-        /// <remarks/>
-        public SimpleCPRPersonType SimpleCPRPerson {
-            get {
-                return this.simpleCPRPersonField;
-            }
-            set {
-                this.simpleCPRPersonField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/")]
-    public partial class SimpleCPRPersonType {
-        
-        private PersonNameStructureType personNameStructureField;
-        
-        private string personCivilRegistrationIdentifierField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
-        public PersonNameStructureType PersonNameStructure {
-            get {
-                return this.personNameStructureField;
-            }
-            set {
-                this.personNameStructureField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/")]
-        public string PersonCivilRegistrationIdentifier {
-            get {
-                return this.personCivilRegistrationIdentifierField;
-            }
-            set {
-                this.personCivilRegistrationIdentifierField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
-    public partial class PersonNameStructureType {
-        
-        private string personGivenNameField;
-        
-        private string personMiddleNameField;
-        
-        private string personSurnameNameField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonGivenName {
-            get {
-                return this.personGivenNameField;
-            }
-            set {
-                this.personGivenNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonMiddleName {
-            get {
-                return this.personMiddleNameField;
-            }
-            set {
-                this.personMiddleNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public string PersonSurnameName {
-            get {
-                return this.personSurnameNameField;
-            }
-            set {
-                this.personSurnameNameField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class BirthdateNotificationPersonType {
-        
-        private SimpleCPRPersonType simpleCPRPersonField;
-        
-        private int ageField;
-        
-        /// <remarks/>
-        public SimpleCPRPersonType SimpleCPRPerson {
-            get {
-                return this.simpleCPRPersonField;
-            }
-            set {
-                this.simpleCPRPersonField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int Age {
-            get {
-                return this.ageField;
-            }
-            set {
-                this.ageField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChangeNotificationType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BirthdateNotificationType))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public abstract partial class BaseNotificationType {
-        
-        private string applicationTokenField;
-        
-        private System.DateTime notificationDateField;
-        
-        /// <remarks/>
-        public string ApplicationToken {
-            get {
-                return this.applicationTokenField;
-            }
-            set {
-                this.applicationTokenField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime NotificationDate {
-            get {
-                return this.notificationDateField;
-            }
-            set {
-                this.notificationDateField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ChangeNotificationType : BaseNotificationType {
-        
-        private ChangeSubscriptionType changeSubscriptionField;
-        
-        private ChangeNotificationPersonType[] personsField;
-        
-        /// <remarks/>
-        public ChangeSubscriptionType ChangeSubscription {
-            get {
-                return this.changeSubscriptionField;
-            }
-            set {
-                this.changeSubscriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Person", IsNullable=false)]
-        public ChangeNotificationPersonType[] Persons {
-            get {
-                return this.personsField;
-            }
-            set {
-                this.personsField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ChangeSubscriptionType : SubscriptionType {
-    }
-    
-    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BirthdateSubscriptionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChangeSubscriptionType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
@@ -680,35 +431,14 @@ namespace CprBroker.NUnitTester.Subscriptions {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FileShareChannelType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FileShareChannelType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public abstract partial class ChannelBaseType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class FileShareChannelType : ChannelBaseType {
-        
-        private string pathField;
-        
-        /// <remarks/>
-        public string Path {
-            get {
-                return this.pathField;
-            }
-            set {
-                this.pathField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -728,6 +458,27 @@ namespace CprBroker.NUnitTester.Subscriptions {
             }
             set {
                 this.webServiceUrlField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class FileShareChannelType : ChannelBaseType {
+        
+        private string pathField;
+        
+        /// <remarks/>
+        public string Path {
+            get {
+                return this.pathField;
+            }
+            set {
+                this.pathField = value;
             }
         }
     }
@@ -772,32 +523,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class BirthdateNotificationType : BaseNotificationType {
-        
-        private BirthdateSubscriptionType birthdateSubscriptionField;
-        
-        private BirthdateNotificationPersonType[] personsField;
-        
-        /// <remarks/>
-        public BirthdateSubscriptionType BirthdateSubscription {
-            get {
-                return this.birthdateSubscriptionField;
-            }
-            set {
-                this.birthdateSubscriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Person", IsNullable=false)]
-        public BirthdateNotificationPersonType[] Persons {
-            get {
-                return this.personsField;
-            }
-            set {
-                this.personsField = value;
-            }
-        }
+    public partial class ChangeSubscriptionType : SubscriptionType {
     }
     
     /// <remarks/>
@@ -926,32 +652,6 @@ namespace CprBroker.NUnitTester.Subscriptions {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((SubscriptionType[])(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
-    public delegate void GetLatestNotificationCompletedEventHandler(object sender, GetLatestNotificationCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetLatestNotificationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetLatestNotificationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public BaseNotificationType Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((BaseNotificationType)(this.results[0]));
             }
         }
     }

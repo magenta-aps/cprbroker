@@ -178,6 +178,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Services\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Config\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

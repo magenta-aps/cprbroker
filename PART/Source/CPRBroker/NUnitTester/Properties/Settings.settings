@@ -12,7 +12,7 @@
       <Value Profile="(Default)">http://localhost:1551/Services/Part.asmx</Value>
     </Setting>
     <Setting Name="NUnitTester_Subscriptions_CPRAdministrationWS" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:3800/Services/Subscriptions.asmx</Value>
+      <Value Profile="(Default)">http://localhost:1552/Services/Subscriptions.asmx</Value>
     </Setting>
     <Setting Name="CprBroker_NUnitTester_Events_Events" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://localhost:1551/Services/Events.asmx</Value>

@@ -72,58 +72,35 @@
       </s:simpleType>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="DequeueDataChangeEventsSoapIn">
+  <wsdl:message name="DequeueDataChangeEventsSoap12In">
     <wsdl:part name="parameters" element="tns:DequeueDataChangeEvents" />
   </wsdl:message>
-  <wsdl:message name="DequeueDataChangeEventsSoapOut">
+  <wsdl:message name="DequeueDataChangeEventsSoap12Out">
     <wsdl:part name="parameters" element="tns:DequeueDataChangeEventsResponse" />
   </wsdl:message>
   <wsdl:message name="DequeueDataChangeEventsApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="GetPersonBirthdatesSoapIn">
+  <wsdl:message name="GetPersonBirthdatesSoap12In">
     <wsdl:part name="parameters" element="tns:GetPersonBirthdates" />
   </wsdl:message>
-  <wsdl:message name="GetPersonBirthdatesSoapOut">
+  <wsdl:message name="GetPersonBirthdatesSoap12Out">
     <wsdl:part name="parameters" element="tns:GetPersonBirthdatesResponse" />
   </wsdl:message>
   <wsdl:message name="GetPersonBirthdatesApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:portType name="EventsSoap">
+  <wsdl:portType name="EventsSoap12">
     <wsdl:operation name="DequeueDataChangeEvents">
-      <wsdl:input message="tns:DequeueDataChangeEventsSoapIn" />
-      <wsdl:output message="tns:DequeueDataChangeEventsSoapOut" />
+      <wsdl:input message="tns:DequeueDataChangeEventsSoap12In" />
+      <wsdl:output message="tns:DequeueDataChangeEventsSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="GetPersonBirthdates">
-      <wsdl:input message="tns:GetPersonBirthdatesSoapIn" />
-      <wsdl:output message="tns:GetPersonBirthdatesSoapOut" />
+      <wsdl:input message="tns:GetPersonBirthdatesSoap12In" />
+      <wsdl:output message="tns:GetPersonBirthdatesSoap12Out" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="EventsSoap" type="tns:EventsSoap">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="DequeueDataChangeEvents">
-      <soap:operation soapAction="http://tempuri.org/DequeueDataChangeEvents" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:DequeueDataChangeEventsApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPersonBirthdates">
-      <soap:operation soapAction="http://tempuri.org/GetPersonBirthdates" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:GetPersonBirthdatesApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:binding name="EventsSoap12" type="tns:EventsSoap">
+  <wsdl:binding name="EventsSoap12" type="tns:EventsSoap12">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="DequeueDataChangeEvents">
       <soap12:operation soapAction="http://tempuri.org/DequeueDataChangeEvents" style="document" />
@@ -147,9 +124,6 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Events">
-    <wsdl:port name="EventsSoap" binding="tns:EventsSoap">
-      <soap:address location="http://localhost:1551/Services/Events.asmx" />
-    </wsdl:port>
     <wsdl:port name="EventsSoap12" binding="tns:EventsSoap12">
       <soap12:address location="http://localhost:1551/Services/Events.asmx" />
     </wsdl:port>
