@@ -159,58 +159,58 @@
       </s:simpleType>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="SubscribeSoapIn">
+  <wsdl:message name="SubscribeSoap12In">
     <wsdl:part name="parameters" element="tns:Subscribe" />
   </wsdl:message>
-  <wsdl:message name="SubscribeSoapOut">
+  <wsdl:message name="SubscribeSoap12Out">
     <wsdl:part name="parameters" element="tns:SubscribeResponse" />
   </wsdl:message>
   <wsdl:message name="SubscribeApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="UnsubscribeSoapIn">
+  <wsdl:message name="UnsubscribeSoap12In">
     <wsdl:part name="parameters" element="tns:Unsubscribe" />
   </wsdl:message>
-  <wsdl:message name="UnsubscribeSoapOut">
+  <wsdl:message name="UnsubscribeSoap12Out">
     <wsdl:part name="parameters" element="tns:UnsubscribeResponse" />
   </wsdl:message>
   <wsdl:message name="UnsubscribeApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="SubscribeOnBirthdateSoapIn">
+  <wsdl:message name="SubscribeOnBirthdateSoap12In">
     <wsdl:part name="parameters" element="tns:SubscribeOnBirthdate" />
   </wsdl:message>
-  <wsdl:message name="SubscribeOnBirthdateSoapOut">
+  <wsdl:message name="SubscribeOnBirthdateSoap12Out">
     <wsdl:part name="parameters" element="tns:SubscribeOnBirthdateResponse" />
   </wsdl:message>
   <wsdl:message name="SubscribeOnBirthdateApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="RemoveBirthDateSubscriptionSoapIn">
+  <wsdl:message name="RemoveBirthDateSubscriptionSoap12In">
     <wsdl:part name="parameters" element="tns:RemoveBirthDateSubscription" />
   </wsdl:message>
-  <wsdl:message name="RemoveBirthDateSubscriptionSoapOut">
+  <wsdl:message name="RemoveBirthDateSubscriptionSoap12Out">
     <wsdl:part name="parameters" element="tns:RemoveBirthDateSubscriptionResponse" />
   </wsdl:message>
   <wsdl:message name="RemoveBirthDateSubscriptionApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="GetActiveSubsciptionsListSoapIn">
+  <wsdl:message name="GetActiveSubsciptionsListSoap12In">
     <wsdl:part name="parameters" element="tns:GetActiveSubsciptionsList" />
   </wsdl:message>
-  <wsdl:message name="GetActiveSubsciptionsListSoapOut">
+  <wsdl:message name="GetActiveSubsciptionsListSoap12Out">
     <wsdl:part name="parameters" element="tns:GetActiveSubsciptionsListResponse" />
   </wsdl:message>
   <wsdl:message name="GetActiveSubsciptionsListApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="PingSoapIn">
+  <wsdl:message name="PingSoap12In">
     <wsdl:part name="parameters" element="tns:Ping" />
   </wsdl:message>
-  <wsdl:message name="PingSoapOut">
+  <wsdl:message name="PingSoap12Out">
     <wsdl:part name="parameters" element="tns:PingResponse" />
   </wsdl:message>
-  <wsdl:portType name="SubscriptionsSoap">
+  <wsdl:portType name="SubscriptionsSoap12">
     <wsdl:operation name="Subscribe">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                                                 Allows a client business application to be notified when there is a change in one or more person's data
@@ -238,8 +238,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:SubscribeSoapIn" />
-      <wsdl:output message="tns:SubscribeSoapOut" />
+      <wsdl:input message="tns:SubscribeSoap12In" />
+      <wsdl:output message="tns:SubscribeSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="Unsubscribe">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -262,8 +262,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:UnsubscribeSoapIn" />
-      <wsdl:output message="tns:UnsubscribeSoapOut" />
+      <wsdl:input message="tns:UnsubscribeSoap12In" />
+      <wsdl:output message="tns:UnsubscribeSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="SubscribeOnBirthdate">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -272,7 +272,7 @@
                                                 the 65th. birthday (retirement), the user can subscribe to this event 65 birthday
                                                 minus 3 weeks. This subscription can be created for all persons or for a specific list of persons. 
                                                 It is possible to create several subscriptions
-                                                from the same user application to the same person or list of indiviuals.
+                                                fromDate the same user application to the same person or list of indiviuals.
 
                                                 &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
                                                 &lt;br&gt;BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable&lt;int&gt; Years, int PriorDays, string[] PersonCivilRegistrationIdentifiers)
@@ -294,8 +294,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:SubscribeOnBirthdateSoapIn" />
-      <wsdl:output message="tns:SubscribeOnBirthdateSoapOut" />
+      <wsdl:input message="tns:SubscribeOnBirthdateSoap12In" />
+      <wsdl:output message="tns:SubscribeOnBirthdateSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="RemoveBirthDateSubscription">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -318,8 +318,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:RemoveBirthDateSubscriptionSoapIn" />
-      <wsdl:output message="tns:RemoveBirthDateSubscriptionSoapOut" />
+      <wsdl:input message="tns:RemoveBirthDateSubscriptionSoap12In" />
+      <wsdl:output message="tns:RemoveBirthDateSubscriptionSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="GetActiveSubscriptionsList">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -341,81 +341,19 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input name="GetActiveSubsciptionsList" message="tns:GetActiveSubsciptionsListSoapIn" />
-      <wsdl:output name="GetActiveSubsciptionsList" message="tns:GetActiveSubsciptionsListSoapOut" />
+      <wsdl:input name="GetActiveSubsciptionsList" message="tns:GetActiveSubsciptionsListSoap12In" />
+      <wsdl:output name="GetActiveSubsciptionsList" message="tns:GetActiveSubsciptionsListSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="Ping">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ping() returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
 &lt;br&gt;Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
 &lt;br&gt;20070403/SDE
 </wsdl:documentation>
-      <wsdl:input message="tns:PingSoapIn" />
-      <wsdl:output message="tns:PingSoapOut" />
+      <wsdl:input message="tns:PingSoap12In" />
+      <wsdl:output message="tns:PingSoap12Out" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="SubscriptionsSoap" type="tns:SubscriptionsSoap">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="Subscribe">
-      <soap:operation soapAction="http://tempuri.org/Subscribe" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:SubscribeApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Unsubscribe">
-      <soap:operation soapAction="http://tempuri.org/Unsubscribe" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:UnsubscribeApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SubscribeOnBirthdate">
-      <soap:operation soapAction="http://tempuri.org/SubscribeOnBirthdate" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:SubscribeOnBirthdateApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RemoveBirthDateSubscription">
-      <soap:operation soapAction="http://tempuri.org/RemoveBirthDateSubscription" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:RemoveBirthDateSubscriptionApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetActiveSubscriptionsList">
-      <soap:operation soapAction="http://tempuri.org/GetActiveSubsciptionsList" style="document" />
-      <wsdl:input name="GetActiveSubsciptionsList">
-        <soap:body use="literal" />
-        <soap:header message="tns:GetActiveSubsciptionsListApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output name="GetActiveSubsciptionsList">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Ping">
-      <soap:operation soapAction="http://tempuri.org/Ping" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:binding name="SubscriptionsSoap12" type="tns:SubscriptionsSoap">
+  <wsdl:binding name="SubscriptionsSoap12" type="tns:SubscriptionsSoap12">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Subscribe">
       <soap12:operation soapAction="http://tempuri.org/Subscribe" style="document" />
@@ -479,9 +417,6 @@
   </wsdl:binding>
   <wsdl:service name="Subscriptions">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Subscriptions</wsdl:documentation>
-    <wsdl:port name="SubscriptionsSoap" binding="tns:SubscriptionsSoap">
-      <soap:address location="http://localhost:1552/Services/Subscriptions.asmx" />
-    </wsdl:port>
     <wsdl:port name="SubscriptionsSoap12" binding="tns:SubscriptionsSoap12">
       <soap12:address location="http://localhost:1552/Services/Subscriptions.asmx" />
     </wsdl:port>

@@ -12,8 +12,8 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SubscriptionsService.SubscriptionsSoap")]
-    public interface SubscriptionsSoap {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SubscriptionsService.SubscriptionsSoap12")]
+    public interface SubscriptionsSoap12 {
         
         // CODEGEN: Generating message contract since message SubscribeRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Subscribe", ReplyAction="*")]
@@ -501,34 +501,34 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public interface SubscriptionsSoapChannel : CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap, System.ServiceModel.IClientChannel {
+    public interface SubscriptionsSoap12Channel : CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public partial class SubscriptionsSoapClient : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap>, CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap {
+    public partial class SubscriptionsSoap12Client : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12>, CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12 {
         
-        public SubscriptionsSoapClient() {
+        public SubscriptionsSoap12Client() {
         }
         
-        public SubscriptionsSoapClient(string endpointConfigurationName) : 
+        public SubscriptionsSoap12Client(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public SubscriptionsSoapClient(string endpointConfigurationName, string remoteAddress) : 
+        public SubscriptionsSoap12Client(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public SubscriptionsSoapClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public SubscriptionsSoap12Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public SubscriptionsSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public SubscriptionsSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.SubscribeResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap.Subscribe(CPR_Business_Application_Demo.SubscriptionsService.SubscribeRequest request) {
+        CPR_Business_Application_Demo.SubscriptionsService.SubscribeResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.Subscribe(CPR_Business_Application_Demo.SubscriptionsService.SubscribeRequest request) {
             return base.Channel.Subscribe(request);
         }
         
@@ -537,12 +537,12 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.NotificationChannel = NotificationChannel;
             inValue.PersonCivilRegistrationIdentifiers = PersonCivilRegistrationIdentifiers;
-            CPR_Business_Application_Demo.SubscriptionsService.SubscribeResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap)(this)).Subscribe(inValue);
+            CPR_Business_Application_Demo.SubscriptionsService.SubscribeResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).Subscribe(inValue);
             return retVal.SubscribeResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap.Unsubscribe(CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest request) {
+        CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.Unsubscribe(CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest request) {
             return base.Channel.Unsubscribe(request);
         }
         
@@ -550,12 +550,12 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
             CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest inValue = new CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.SubscriptionId = SubscriptionId;
-            CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap)(this)).Unsubscribe(inValue);
+            CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).Unsubscribe(inValue);
             return retVal.UnsubscribeResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap.SubscribeOnBirthdate(CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateRequest request) {
+        CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.SubscribeOnBirthdate(CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateRequest request) {
             return base.Channel.SubscribeOnBirthdate(request);
         }
         
@@ -566,12 +566,12 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
             inValue.Years = Years;
             inValue.PriorDays = PriorDays;
             inValue.PersonCivilRegistrationIdentifiers = PersonCivilRegistrationIdentifiers;
-            CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap)(this)).SubscribeOnBirthdate(inValue);
+            CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).SubscribeOnBirthdate(inValue);
             return retVal.SubscribeOnBirthdateResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap.RemoveBirthDateSubscription(CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest request) {
+        CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.RemoveBirthDateSubscription(CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest request) {
             return base.Channel.RemoveBirthDateSubscription(request);
         }
         
@@ -579,19 +579,19 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
             CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest inValue = new CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.SubscriptionId = SubscriptionId;
-            CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap)(this)).RemoveBirthDateSubscription(inValue);
+            CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).RemoveBirthDateSubscription(inValue);
             return retVal.RemoveBirthDateSubscriptionResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList1 CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap.GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList request) {
+        CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList1 CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList request) {
             return base.Channel.GetActiveSubscriptionsList(request);
         }
         
         public SubscriptionType[] GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader) {
             CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList inValue = new CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList();
             inValue.ApplicationHeader = ApplicationHeader;
-            CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList1 retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap)(this)).GetActiveSubscriptionsList(inValue);
+            CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList1 retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).GetActiveSubscriptionsList(inValue);
             return retVal.GetActiveSubsciptionsListResult;
         }
         

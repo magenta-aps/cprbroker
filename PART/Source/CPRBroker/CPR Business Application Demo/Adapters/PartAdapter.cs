@@ -21,7 +21,7 @@ namespace CPR_Business_Application_Demo
                 cprPersonWSUrl += "Part.asmx";
             }
 
-            PartHandler = new PartService.PartSoapClient("PartSoap", cprPersonWSUrl);
+            PartHandler = new PartService.PartSoap12Client("PartSoap", cprPersonWSUrl);
             // Set the timeout to avoid hanging the application for too long when wrong urls were entered
             PartHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 5);
         }
@@ -117,9 +117,9 @@ namespace CPR_Business_Application_Demo
                 PartService.SoegOutputType output = null;
                 PartService.SoegInputType1 input = new CPR_Business_Application_Demo.PartService.SoegInputType1()
                 {
-                    MaksimalAntalResultater = "10",
-                    FoersteResultat = "0",
-                    Soeg = new CPR_Business_Application_Demo.PartService.SoegObjektType()
+                    MaksimalAntalKvantitet = "10",
+                    FoersteResultatReference = "0",
+                    SoegObjekt = new CPR_Business_Application_Demo.PartService.SoegObjektType()
                     {
                         BrugervendtNoegleTekst = cprNumber
                     }
@@ -127,9 +127,9 @@ namespace CPR_Business_Application_Demo
 
                 var ql = PartHandler.Search(CreateApplicationHeader(applicationToken), input, out output);
 
-                if (output != null && output.IdListe != null)
+                if (output != null && output.Idliste != null)
                 {
-                    return output.IdListe;
+                    return output.Idliste;
                 }
             }
             catch (Exception)
@@ -148,20 +148,20 @@ namespace CPR_Business_Application_Demo
                 PartService.SoegOutputType output = null;
                 PartService.SoegInputType1 input = new CPR_Business_Application_Demo.PartService.SoegInputType1()
                 {
-                    MaksimalAntalResultater = "10",
-                    FoersteResultat = "0",
-                    Soeg = new CPR_Business_Application_Demo.PartService.SoegObjektType()
+                    MaksimalAntalKvantitet = "10",
+                    FoersteResultatReference = "0",
+                    SoegObjekt = new CPR_Business_Application_Demo.PartService.SoegObjektType()
                     {
                         BrugervendtNoegleTekst = cprNumber
-			
+
                     }
                 };
 
                 var ql = PartHandler.Search(CreateApplicationHeader(applicationToken), input, out output);
 
-                if (output != null && output.IdListe != null)
+                if (output != null && output.Idliste != null)
                 {
-                    return output.IdListe;
+                    return output.Idliste;
                 }
             }
             catch (Exception)
@@ -174,7 +174,7 @@ namespace CPR_Business_Application_Demo
         #endregion
 
         #region Private Fields
-        private readonly PartService.PartSoapClient PartHandler;
+        private readonly PartService.PartSoap12Client PartHandler;
 
         #endregion
     }

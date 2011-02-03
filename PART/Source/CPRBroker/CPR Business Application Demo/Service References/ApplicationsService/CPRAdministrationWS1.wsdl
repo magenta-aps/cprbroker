@@ -197,30 +197,18 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="Functions" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="DataProviderType" abstract="true">
+      <s:complexType name="DataProviderType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Enabled" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Attributes" type="s1:AttributeType" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="DprDataProviderType">
-        <s:complexContent mixed="false">
-          <s:extension base="s1:DataProviderType">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Port" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="ConnectionString" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="KmdDataProviderType">
-        <s:complexContent mixed="false">
-          <s:extension base="s1:DataProviderType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
+      <s:complexType name="AttributeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
       </s:complexType>
       <s:element name="PersonFullStructure" type="s1:PersonFullStructureType" />
       <s:complexType name="PersonFullStructureType">
@@ -309,10 +297,10 @@
           <s:enumeration value="imk" />
         </s:restriction>
       </s:simpleType>
-      <s:element name="StreetBuildingIdentifier" type="s:string" />
       <s:element name="MailDeliverySublocationIdentifier" type="s:string" />
-      <s:element name="FloorIdentifier" type="s:string" />
+      <s:element name="StreetBuildingIdentifier" type="s:string" />
       <s:element name="SuiteIdentifier" type="s:string" />
+      <s:element name="FloorIdentifier" type="s:string" />
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/">
       <s:element name="PersonCivilRegistrationIdentifier" type="s:string" />
@@ -378,9 +366,9 @@
       <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
       <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/" />
       <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/" />
-      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
       <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
       <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
       <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" />
       <s:element name="PersonDeathDateStructure" type="s10:PersonDeathDateStructureType" />
       <s:complexType name="PersonDeathDateStructureType">
@@ -416,9 +404,9 @@
           <s:element minOccurs="0" maxOccurs="1" ref="s13:MunicipalityName" />
           <s:element minOccurs="0" maxOccurs="1" ref="s14:CareOfName" />
           <s:choice minOccurs="1" maxOccurs="1">
-            <s:element minOccurs="0" maxOccurs="1" ref="s15:AddressComplete" />
-            <s:element minOccurs="0" maxOccurs="1" name="AddressCompleteGreenland" type="s10:AddressCompleteGreenlandType" />
             <s:element minOccurs="0" maxOccurs="1" name="AddressNotComplete" type="s10:AddressNotCompleteType" />
+            <s:element minOccurs="0" maxOccurs="1" name="AddressCompleteGreenland" type="s10:AddressCompleteGreenlandType" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s15:AddressComplete" />
           </s:choice>
           <s:element minOccurs="0" maxOccurs="1" ref="s18:CompletePostalLabel" />
         </s:sequence>
@@ -432,7 +420,7 @@
           <s:enumeration value="20" />
         </s:restriction>
       </s:simpleType>
-      <s:complexType name="AddressCompleteGreenlandType">
+      <s:complexType name="AddressNotCompleteType">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" ref="s5:MunicipalityCode" />
           <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetCode" />
@@ -449,7 +437,7 @@
           <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="AddressNotCompleteType">
+      <s:complexType name="AddressCompleteGreenlandType">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" ref="s5:MunicipalityCode" />
           <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetCode" />
@@ -548,103 +536,103 @@
       <s:element name="AddresseeName" type="s:string" />
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="RequestAppRegistrationSoapIn">
+  <wsdl:message name="RequestAppRegistrationSoap12In">
     <wsdl:part name="parameters" element="tns:RequestAppRegistration" />
   </wsdl:message>
-  <wsdl:message name="RequestAppRegistrationSoapOut">
+  <wsdl:message name="RequestAppRegistrationSoap12Out">
     <wsdl:part name="parameters" element="tns:RequestAppRegistrationResponse" />
   </wsdl:message>
   <wsdl:message name="RequestAppRegistrationApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="ApproveAppRegistrationSoapIn">
+  <wsdl:message name="ApproveAppRegistrationSoap12In">
     <wsdl:part name="parameters" element="tns:ApproveAppRegistration" />
   </wsdl:message>
-  <wsdl:message name="ApproveAppRegistrationSoapOut">
+  <wsdl:message name="ApproveAppRegistrationSoap12Out">
     <wsdl:part name="parameters" element="tns:ApproveAppRegistrationResponse" />
   </wsdl:message>
   <wsdl:message name="ApproveAppRegistrationApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="ListAppRegistrationsSoapIn">
+  <wsdl:message name="ListAppRegistrationsSoap12In">
     <wsdl:part name="parameters" element="tns:ListAppRegistrations" />
   </wsdl:message>
-  <wsdl:message name="ListAppRegistrationsSoapOut">
+  <wsdl:message name="ListAppRegistrationsSoap12Out">
     <wsdl:part name="parameters" element="tns:ListAppRegistrationsResponse" />
   </wsdl:message>
   <wsdl:message name="ListAppRegistrationsApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="UnregisterAppSoapIn">
+  <wsdl:message name="UnregisterAppSoap12In">
     <wsdl:part name="parameters" element="tns:UnregisterApp" />
   </wsdl:message>
-  <wsdl:message name="UnregisterAppSoapOut">
+  <wsdl:message name="UnregisterAppSoap12Out">
     <wsdl:part name="parameters" element="tns:UnregisterAppResponse" />
   </wsdl:message>
   <wsdl:message name="UnregisterAppApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="GetCapabilitiesSoapIn">
+  <wsdl:message name="GetCapabilitiesSoap12In">
     <wsdl:part name="parameters" element="tns:GetCapabilities" />
   </wsdl:message>
-  <wsdl:message name="GetCapabilitiesSoapOut">
+  <wsdl:message name="GetCapabilitiesSoap12Out">
     <wsdl:part name="parameters" element="tns:GetCapabilitiesResponse" />
   </wsdl:message>
   <wsdl:message name="GetCapabilitiesApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="IsImplementingSoapIn">
+  <wsdl:message name="IsImplementingSoap12In">
     <wsdl:part name="parameters" element="tns:IsImplementing" />
   </wsdl:message>
-  <wsdl:message name="IsImplementingSoapOut">
+  <wsdl:message name="IsImplementingSoap12Out">
     <wsdl:part name="parameters" element="tns:IsImplementingResponse" />
   </wsdl:message>
   <wsdl:message name="IsImplementingApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="GetDataProviderListSoapIn">
+  <wsdl:message name="GetDataProviderListSoap12In">
     <wsdl:part name="parameters" element="tns:GetDataProviderList" />
   </wsdl:message>
-  <wsdl:message name="GetDataProviderListSoapOut">
+  <wsdl:message name="GetDataProviderListSoap12Out">
     <wsdl:part name="parameters" element="tns:GetDataProviderListResponse" />
   </wsdl:message>
   <wsdl:message name="GetDataProviderListApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="SetDataProviderListSoapIn">
+  <wsdl:message name="SetDataProviderListSoap12In">
     <wsdl:part name="parameters" element="tns:SetDataProviderList" />
   </wsdl:message>
-  <wsdl:message name="SetDataProviderListSoapOut">
+  <wsdl:message name="SetDataProviderListSoap12Out">
     <wsdl:part name="parameters" element="tns:SetDataProviderListResponse" />
   </wsdl:message>
   <wsdl:message name="SetDataProviderListApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="LogSoapIn">
+  <wsdl:message name="LogSoap12In">
     <wsdl:part name="parameters" element="tns:Log" />
   </wsdl:message>
-  <wsdl:message name="LogSoapOut">
+  <wsdl:message name="LogSoap12Out">
     <wsdl:part name="parameters" element="tns:LogResponse" />
   </wsdl:message>
   <wsdl:message name="LogApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="CreateTestCitizenSoapIn">
+  <wsdl:message name="CreateTestCitizenSoap12In">
     <wsdl:part name="parameters" element="tns:CreateTestCitizen" />
   </wsdl:message>
-  <wsdl:message name="CreateTestCitizenSoapOut">
+  <wsdl:message name="CreateTestCitizenSoap12Out">
     <wsdl:part name="parameters" element="tns:CreateTestCitizenResponse" />
   </wsdl:message>
   <wsdl:message name="CreateTestCitizenApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
   </wsdl:message>
-  <wsdl:message name="PingSoapIn">
+  <wsdl:message name="PingSoap12In">
     <wsdl:part name="parameters" element="tns:Ping" />
   </wsdl:message>
-  <wsdl:message name="PingSoapOut">
+  <wsdl:message name="PingSoap12Out">
     <wsdl:part name="parameters" element="tns:PingResponse" />
   </wsdl:message>
-  <wsdl:portType name="CPRAdministrationWSSoap">
+  <wsdl:portType name="CPRAdministrationWSSoap12">
     <wsdl:operation name="RequestAppRegistration">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                                                 Creates a new un-approved application in the system.
@@ -666,8 +654,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:RequestAppRegistrationSoapIn" />
-      <wsdl:output message="tns:RequestAppRegistrationSoapOut" />
+      <wsdl:input message="tns:RequestAppRegistrationSoap12In" />
+      <wsdl:output message="tns:RequestAppRegistrationSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="ApproveAppRegistration">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -689,8 +677,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:ApproveAppRegistrationSoapIn" />
-      <wsdl:output message="tns:ApproveAppRegistrationSoapOut" />
+      <wsdl:input message="tns:ApproveAppRegistrationSoap12In" />
+      <wsdl:output message="tns:ApproveAppRegistrationSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="ListAppRegistrations">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -711,8 +699,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:ListAppRegistrationsSoapIn" />
-      <wsdl:output message="tns:ListAppRegistrationsSoapOut" />
+      <wsdl:input message="tns:ListAppRegistrationsSoap12In" />
+      <wsdl:output message="tns:ListAppRegistrationsSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="UnregisterApp">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -734,8 +722,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:UnregisterAppSoapIn" />
-      <wsdl:output message="tns:UnregisterAppSoapOut" />
+      <wsdl:input message="tns:UnregisterAppSoap12In" />
+      <wsdl:output message="tns:UnregisterAppSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="GetCapabilities">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -764,8 +752,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:GetCapabilitiesSoapIn" />
-      <wsdl:output message="tns:GetCapabilitiesSoapOut" />
+      <wsdl:input message="tns:GetCapabilitiesSoap12In" />
+      <wsdl:output message="tns:GetCapabilitiesSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="IsImplementing">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -791,8 +779,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:IsImplementingSoapIn" />
-      <wsdl:output message="tns:IsImplementingSoapOut" />
+      <wsdl:input message="tns:IsImplementingSoap12In" />
+      <wsdl:output message="tns:IsImplementingSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="GetDataProviderList">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -814,8 +802,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:GetDataProviderListSoapIn" />
-      <wsdl:output message="tns:GetDataProviderListSoapOut" />
+      <wsdl:input message="tns:GetDataProviderListSoap12In" />
+      <wsdl:output message="tns:GetDataProviderListSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="SetDataProviderList">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -839,8 +827,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:SetDataProviderListSoapIn" />
-      <wsdl:output message="tns:SetDataProviderListSoapOut" />
+      <wsdl:input message="tns:SetDataProviderListSoap12In" />
+      <wsdl:output message="tns:SetDataProviderListSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="Log">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -862,8 +850,8 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:LogSoapIn" />
-      <wsdl:output message="tns:LogSoapOut" />
+      <wsdl:input message="tns:LogSoap12In" />
+      <wsdl:output message="tns:LogSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="CreateTestCitizen">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -886,131 +874,19 @@
                                                 &lt;/table&gt;
                                                 &lt;br&gt;==============================
                                                 </wsdl:documentation>
-      <wsdl:input message="tns:CreateTestCitizenSoapIn" />
-      <wsdl:output message="tns:CreateTestCitizenSoapOut" />
+      <wsdl:input message="tns:CreateTestCitizenSoap12In" />
+      <wsdl:output message="tns:CreateTestCitizenSoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="Ping">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ping() returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
 &lt;br&gt;Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
 &lt;br&gt;20070403/SDE
 </wsdl:documentation>
-      <wsdl:input message="tns:PingSoapIn" />
-      <wsdl:output message="tns:PingSoapOut" />
+      <wsdl:input message="tns:PingSoap12In" />
+      <wsdl:output message="tns:PingSoap12Out" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="CPRAdministrationWSSoap" type="tns:CPRAdministrationWSSoap">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="RequestAppRegistration">
-      <soap:operation soapAction="http://tempuri.org/RequestAppRegistration" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:RequestAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ApproveAppRegistration">
-      <soap:operation soapAction="http://tempuri.org/ApproveAppRegistration" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:ApproveAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ListAppRegistrations">
-      <soap:operation soapAction="http://tempuri.org/ListAppRegistrations" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:ListAppRegistrationsApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UnregisterApp">
-      <soap:operation soapAction="http://tempuri.org/UnregisterApp" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:UnregisterAppApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCapabilities">
-      <soap:operation soapAction="http://tempuri.org/GetCapabilities" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:GetCapabilitiesApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IsImplementing">
-      <soap:operation soapAction="http://tempuri.org/IsImplementing" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:IsImplementingApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDataProviderList">
-      <soap:operation soapAction="http://tempuri.org/GetDataProviderList" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:GetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetDataProviderList">
-      <soap:operation soapAction="http://tempuri.org/SetDataProviderList" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:SetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Log">
-      <soap:operation soapAction="http://tempuri.org/Log" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:LogApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CreateTestCitizen">
-      <soap:operation soapAction="http://tempuri.org/CreateTestCitizen" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-        <soap:header message="tns:CreateTestCitizenApplicationHeader" part="ApplicationHeader" use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Ping">
-      <soap:operation soapAction="http://tempuri.org/Ping" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:binding name="CPRAdministrationWSSoap12" type="tns:CPRAdministrationWSSoap">
+  <wsdl:binding name="CPRAdministrationWSSoap12" type="tns:CPRAdministrationWSSoap12">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="RequestAppRegistration">
       <soap12:operation soapAction="http://tempuri.org/RequestAppRegistration" style="document" />
@@ -1126,9 +1002,6 @@
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
                                                 Contains methods related to administrative functions
                                                 </wsdl:documentation>
-    <wsdl:port name="CPRAdministrationWSSoap" binding="tns:CPRAdministrationWSSoap">
-      <soap:address location="http://localhost:1551/Services/CPRAdministrationWS.asmx" />
-    </wsdl:port>
     <wsdl:port name="CPRAdministrationWSSoap12" binding="tns:CPRAdministrationWSSoap12">
       <soap12:address location="http://localhost:1551/Services/CPRAdministrationWS.asmx" />
     </wsdl:port>
