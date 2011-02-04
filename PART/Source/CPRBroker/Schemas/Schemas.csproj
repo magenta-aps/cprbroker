@@ -75,7 +75,6 @@
     <Compile Include="Part\ForeignCitizenData.cs" />
     <Compile Include="Part\Effect.cs" />
     <Compile Include="Part\Mail.cs" />
-    <Compile Include="Part\OIOXSD\BBR_AddressPoint.Designer.cs" />
     <Compile Include="Part\OtherContactChannel.cs" />
     <Compile Include="Part\PartObject.cs" />
     <Compile Include="Part\Person.cs" />
@@ -179,6 +178,9 @@
       <Project>{63C643D5-D975-4A69-9D59-02B253BDFDE8}</Project>
       <Name>PersonSchemas</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Part\OIOXSD\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

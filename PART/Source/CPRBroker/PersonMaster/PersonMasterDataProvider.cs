@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Engine;
 
-namespace CprBroker.DataProviders.PersonMaster
+namespace CprBroker.Providers.PersonMaster
 {
     public class PersonMasterDataProvider : IPartPersonMappingDataProvider, IExternalDataProvider
     {
@@ -12,7 +12,7 @@ namespace CprBroker.DataProviders.PersonMaster
 
         public Guid GetPersonUuid(string cprNumber)
         {
-            PersonMasterService.BasicOp service = new CprBroker.DataProviders.PersonMaster.PersonMasterService.BasicOp();
+            PersonMasterService.BasicOp service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOp();
             service.Url = Address;
             string aux = null;
 
