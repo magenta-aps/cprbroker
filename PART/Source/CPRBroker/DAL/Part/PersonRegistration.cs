@@ -13,15 +13,16 @@ namespace CprBroker.DAL.Part
         {
             Schemas.Part.RegistreringType1 ret = new CprBroker.Schemas.Part.RegistreringType1()
             {
-                //AktoerTekst = this.ActorText,
-                //TidspunktDatoTid = TidspunktType.Create(this.RegistrationDate),
+                AktoerRef = UnikIdType.Create(ActorId),
+                Tidspunkt = TidspunktType.Create(this.RegistrationDate),
                 AttributListe = this.PersonAttribute.ToXmlType(),
                 TilstandListe = PersonState.ToXmlType(),
                 //ToArray() is called to avoid querying the database again
                 RelationListe = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable()),
                 CommentText = this.CommentText,
                 LivscyklusKode = LifecycleStatus.GetEnum(this.LifecycleStatusId),
-                //Virkning = this.Effect.ToXmlType()
+                // TODO : Multiple Virkning
+                Virkning = new VirkningType[] { this.Effect.ToXmlType() },
 
             };
             return ret;
@@ -50,11 +51,12 @@ namespace CprBroker.DAL.Part
             {
                 PersonRegistrationId = Guid.NewGuid(),
 
-                //ActorText = partRegistration.AktoerTekst,
+                ActorId = new Guid(partRegistration.AktoerRef.Item),
                 CommentText = partRegistration.CommentText,
-                //Effect = DAL.Part.Effect.FromXmlType(partRegistration.Virkning),
+                // TODO : Multiple Virkning
+                Effect = DAL.Part.Effect.FromXmlType(partRegistration.Virkning[0]),
                 LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
-                //RegistrationDate = partRegistration.TidspunktDatoTid.ToDateTime().Value,
+                RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 
                 PersonAttribute = PersonAttribute.FromXmlType(partRegistration.AttributListe),
                 PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)

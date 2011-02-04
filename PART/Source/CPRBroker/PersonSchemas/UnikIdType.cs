@@ -12,8 +12,16 @@ namespace CprBroker.Schemas.Part
             // TODO : Check this code
             return new UnikIdType()
             {
-                Item = targetUuid.ToString(),
+                Item = targetUuid.ToString(""),
                 ItemElementName =  ItemChoiceType.UUID
+            };
+        }
+        public static UnikIdType Create(Uri urn)
+        {
+            return new UnikIdType()
+            {
+                Item = urn.ToString(),
+                ItemElementName = ItemChoiceType.URNIdentifikator
             };
         }
     }

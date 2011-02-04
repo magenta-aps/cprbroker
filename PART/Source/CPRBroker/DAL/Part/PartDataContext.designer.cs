@@ -3414,7 +3414,7 @@ namespace CprBroker.DAL.Part
 		
 		private System.Guid _UUID;
 		
-		private string _ActorText;
+		private System.Guid _ActorText;
 		
 		private System.DateTime _RegistrationDate;
 		
@@ -3446,8 +3446,8 @@ namespace CprBroker.DAL.Part
     partial void OnPersonRegistrationIdChanged();
     partial void OnUUIDChanging(System.Guid value);
     partial void OnUUIDChanged();
-    partial void OnActorTextChanging(string value);
-    partial void OnActorTextChanged();
+    partial void OnActorIdChanging(System.Guid value);
+    partial void OnActorIdChanged();
     partial void OnRegistrationDateChanging(System.DateTime value);
     partial void OnRegistrationDateChanged();
     partial void OnBrokerUpdateDateChanging(System.DateTime value);
@@ -3515,8 +3515,8 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
-		[Column(Storage="_ActorText", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string ActorText
+		[Column(Storage="_ActorText", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid ActorId
 		{
 			get
 			{
@@ -3526,11 +3526,11 @@ namespace CprBroker.DAL.Part
 			{
 				if ((this._ActorText != value))
 				{
-					this.OnActorTextChanging(value);
+					this.OnActorIdChanging(value);
 					this.SendPropertyChanging();
 					this._ActorText = value;
-					this.SendPropertyChanged("ActorText");
-					this.OnActorTextChanged();
+					this.SendPropertyChanged("ActorId");
+					this.OnActorIdChanged();
 				}
 			}
 		}

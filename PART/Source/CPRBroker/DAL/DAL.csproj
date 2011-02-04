@@ -77,14 +77,6 @@
     <Compile Include="Part\LifecycleStatus.cs" />
     <Compile Include="Part\LifeStatusType.cs" />
     <Compile Include="Part\MaritalStatusType.cs" />
-    <Compile Include="Part\PartDataContext.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Part\PartDataContext.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PartDataContext.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Part\PersonAttribute.cs" />
     <Compile Include="Part\PersonMapping.cs" />
     <Compile Include="Part\PersonRegistration.cs" />
@@ -177,6 +169,14 @@
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Events\DataChangeEventDataContext.cs" />
+    <Compile Include="Part\PartDataContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Part\PartDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartDataContext.dbml</DependentUpon>
+    </Compile>
     <None Include="Events\DataChangeEventDataContext.dbml">
       <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>
