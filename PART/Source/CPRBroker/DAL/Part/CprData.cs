@@ -3,66 +3,47 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.DAL.Part
 {
     public partial class CprData
     {
-        public Schemas.Part.CprData ToXmlType()
+        public CprBorgerType ToXmlType()
         {
-            return new Schemas.Part.CprData()
+            return new CprBorgerType()
             {
-                AddressingName = this.AddressingName,
-                BirthDateUncertainty = this.IsBirthdateUncertain,
-                CprNumber = this.CprNumber,
-                //Gender = Gender.GetPartGender(this.PersonAttribute.GenderId),
-                IndividualTrackStatus = this.IndividualTrackStatus,
-                NameAndAddressProtection = this.HasNameAndAddressProtection,
-                NationalityCountryCode = this.NationalityCountryAlpha2Code,
-                NickName = this.NickName,
-                PersonName = new CprBroker.Schemas.Part.Effect<CprBroker.Schemas.Part.NavnStruktur>()
-                {
-                    StartDate = NameStartDate,
-                    EndDate = NameEndDate,
-                    Value = new CprBroker.Schemas.Part.NavnStruktur
-                    {
-                        PersonGivenName = this.FirstName,
-                        PersonMiddleName = this.MiddleName,
-                        PersonSurnameName = this.LastName
-                    },
-                },
-                // TODO: fill address
-                PopulationAddress = null,
+                AdresseNoteTekst = AddressNote,
+                FolkekirkeMedlemIndikator = ChurchMember,
+                FolkeregisterAdresse = Address.ToXmlType(),
+                ForskerBeskyttelseIndikator = ResearchProtection,
+                NavneAdresseBeskyttelseIndikator = NameAndAddressProtectionIndicator,
+                PersonCivilRegistrationIdentifier = CprNumber,
+                PersonNummerGyldighedStatusIndikator = CprNumberValidity,
+                PersonNationalityCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)NationalityCodeScheme, NationalityCode),
+                TelefonNummerBeskyttelseIndikator = TelephoneNumberProtection,
             };
         }
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
         {
-            //loadOptions.LoadWith<CprData>(cpr => cpr.Address);
+            loadOptions.LoadWith<CprData>(cpr => cpr.Address);
         }
 
-        public static CprData FromXmlType(Schemas.Part.CprData partCprData)
+        public static CprData FromXmlType(CprBorgerType partCprData)
         {
-            // TODO: Implement CprData.FromXmlType()
             return new CprData()
             {
-                AddressingName = partCprData.AddressingName,
-                IsBirthdateUncertain = partCprData.BirthDateUncertainty,
-                CprNumber = partCprData.CprNumber,
-                //GenderId = Gender.GetPartCode(partCprData.Gender),
-                IndividualTrackStatus = partCprData.IndividualTrackStatus,
-                HasNameAndAddressProtection = partCprData.NameAndAddressProtection,
-                NationalityCountryAlpha2Code = partCprData.NationalityCountryCode,
-                NickName = partCprData.NickName,
-                NameStartDate = partCprData.PersonName.StartDate,
-                NameEndDate = partCprData.PersonName.EndDate,
-
-                FirstName = partCprData.PersonName.Value.PersonGivenName,
-                MiddleName = partCprData.PersonName.Value.PersonMiddleName,
-                LastName = partCprData.PersonName.Value.PersonSurnameName
-                ,
-                // TODO: fill address
-                //Address = null,
+                AddressNote = partCprData.AdresseNoteTekst,
+                ChurchMember = partCprData.FolkekirkeMedlemIndikator,
+                Address = Address.FromXmlType(partCprData.FolkeregisterAdresse),
+                ResearchProtection = partCprData.ForskerBeskyttelseIndikator,
+                NameAndAddressProtectionIndicator = partCprData.NavneAdresseBeskyttelseIndikator,
+                CprNumber = partCprData.PersonCivilRegistrationIdentifier,
+                CprNumberValidity = partCprData.PersonNummerGyldighedStatusIndikator,
+                NationalityCode = partCprData.PersonNationalityCode.Value,
+                NationalityCodeScheme = (int)partCprData.PersonNationalityCode.scheme,
+                TelephoneNumberProtection = partCprData.TelefonNummerBeskyttelseIndikator,
             };
         }
     }

@@ -175,7 +175,9 @@
     <Compile Include="Part\DanishAddress.cs" />
     <Compile Include="Part\DenmarkAddress.cs" />
     <Compile Include="Part\ForeignAddress.cs" />
+    <Compile Include="Part\ForeignCitizenCountry.cs" />
     <Compile Include="Part\GreenlandicAddress.cs" />
+    <Compile Include="Part\HealthInformation.cs" />
     <Compile Include="Part\PartDataContext.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -184,6 +186,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PartDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Part\PersonProperties.cs" />
     <None Include="Events\DataChangeEventDataContext.dbml">
       <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>

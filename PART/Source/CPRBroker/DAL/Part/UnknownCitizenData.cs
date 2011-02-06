@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.DAL.Part
 {
     public partial class UnknownCitizenData
     {
-        public Schemas.Part.UnknownCitizenData ToXmlType()
+        public UkendtBorgerType ToXmlType()
         {
-            return new Schemas.Part.UnknownCitizenData()
+            return new UkendtBorgerType()
             {
-                ReplacementCprNumber = this.ReplacementCprNumber
+                PersonCivilRegistrationReplacementIdentifier = CprNumber
             };
         }
 
-        public static UnknownCitizenData FromXmlType(Schemas.Part.UnknownCitizenData partUnknownData)
+        public static UnknownCitizenData FromXmlType(UkendtBorgerType partUnknownData)
         {
-            // TODO: Implement UnknownCitizenData.FromXmlType()
-            return new UnknownCitizenData();
+            return new UnknownCitizenData()
+            {
+                CprNumber = partUnknownData.PersonCivilRegistrationReplacementIdentifier,
+            };
         }
     }
 }

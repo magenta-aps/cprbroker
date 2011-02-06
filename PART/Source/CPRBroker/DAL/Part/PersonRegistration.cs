@@ -42,7 +42,7 @@ namespace CprBroker.DAL.Part
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonRelationships);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonState);
 
-            PersonAttribute.SetChildLoadOptions(loadOptions);
+            PersonAttributes.SetChildLoadOptions(loadOptions);
         }
 
         public static PersonRegistration FromXmlType(CprBroker.Schemas.Part.RegistreringType1 partRegistration)
@@ -58,7 +58,7 @@ namespace CprBroker.DAL.Part
                 LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
                 RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 
-                PersonAttribute = PersonAttribute.FromXmlType(partRegistration.AttributListe),
+                PersonAttribute = PersonAttributes.FromXmlType(partRegistration.AttributListe),
                 PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
             };
 

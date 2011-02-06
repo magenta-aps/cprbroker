@@ -7,94 +7,93 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.DAL.Part
 {
-    public partial class PersonAttribute
+    public partial class PersonAttributes
     {
         public Schemas.Part.AttributListeType ToXmlType()
         {
             var ret = new AttributListeType()
             {
-                Egenskab = new EgenskabType[] { ToEgenskabType() },
+                Egenskab = PersonProperties != null ? new EgenskabType[] { this.PersonProperties.ToXmlType() } : null,
+                RegisterOplysning = ToRegisterOplysningType(),
+                LokalUdvidelse = null,
+                SundhedOplysning = HealthInformation != null ? new SundhedOplysningType[] { HealthInformation.ToXmlType() } : null,
+            };
+            return ret;
+        }
 
-                RegisterOplysning = new RegisterOplysningType[] { new RegisterOplysningType() },
-                LokalUdvidelse = null
+        public RegisterOplysningType[] ToRegisterOplysningType()
+        {
+            var ret = new RegisterOplysningType()
+            {
+                Virkning = Effect.ToXmlType(),
+                Item = null
             };
 
             if (this.CprData != null)
             {
-                //ret.RegisterOplysninger[0].Item = CprData.ToXmlType();
+                ret.Item = CprData.ToXmlType();
             }
             else if (this.ForeignCitizenData != null)
             {
-                //ret.RegisterOplysninger[0].Item = ForeignCitizenData.ToXmlType();
+                ret.Item = ForeignCitizenData.ToXmlType();
             }
             else if (this.UnknownCitizenData != null)
             {
-                //ret.RegisterOplysninger[0].Item = UnknownCitizenData.ToXmlType();
+                ret.Item = UnknownCitizenData.ToXmlType();
+            }
+
+            if (ret.Item != null)
+            {
+                return new RegisterOplysningType[] { ret };
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static PersonAttributes FromXmlType(Schemas.Part.AttributListeType oio)
+        {
+            var oiosss = oio.Egenskab[0];
+            var ret = new PersonAttributes()
+            {
+                PersonProperties = oio.Egenskab != null && oio.Egenskab.Length > 0 && oio.Egenskab[0] != null ? PersonProperties.FromXmlType(oio.Egenskab[0]) : null,
+                CprData = null,
+                ForeignCitizenData = null,
+                HealthInformation = null,
+                UnknownCitizenData = null,
+            };
+
+            if (oio.RegisterOplysning != null && oio.RegisterOplysning.Length > 0)
+            {
+                if (oio.RegisterOplysning[0].Item is Schemas.Part.CprData)
+                {
+                    ret.CprData = DAL.Part.CprData.FromXmlType(oio.RegisterOplysning[0].Item as CprBorgerType);
+                }
+                else if (oio.RegisterOplysning[0].Item is UdenlandskBorgerType)
+                {
+                    ret.ForeignCitizenData = DAL.Part.ForeignCitizenData.FromXmlType(oio.RegisterOplysning[0].Item as UdenlandskBorgerType);
+                }
+                else if (oio.RegisterOplysning[0].Item is UkendtBorgerType)
+                {
+                    ret.UnknownCitizenData = DAL.Part.UnknownCitizenData.FromXmlType(oio.RegisterOplysning[0].Item as UkendtBorgerType);
+                }
             }
             return ret;
         }
-
-        public EgenskabType ToEgenskabType()
-        {
-            return new EgenskabType()
-            {
-                BirthDate = this.BirthDate,
-                PersonGenderCode = DAL.Part.Gender.GetPartGender(this.GenderId),
-                NavnStruktur = new NavnStrukturType()
-                {
-                    KaldenavnTekst = NickName,
-                    NoteTekst = NameNoteText,
-                    PersonNameForAddressingName = AddressingName,
-                    PersonNameStructure = new NavnStruktur(FirstName, MiddleName, LastName),
-                },
-                FoedestedNavn = BirthPlace,
-                FoedselsregistreringMyndighedNavn = BirthRegistrationAuthority,
-                KontaktKanal = ContactChannel != null ? ContactChannel.ToXmlType() : null,
-                NaermestePaaroerende = NextOfKinContactChannel != null ? NextOfKinContactChannel.ToXmlType() : null,
-                AndreAdresser = OtherAddress != null ? OtherAddress.ToXmlType() : null,
-                Virkning = Effect != null ? Effect.ToXmlType() : null
-            };
-        }
-
-
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
         {
-            loadOptions.LoadWith<PersonAttribute>(pa => pa.CprData);
-            loadOptions.LoadWith<PersonAttribute>(pa => pa.Effect);
-            loadOptions.LoadWith<PersonAttribute>(pa => pa.ForeignCitizenData);
-            loadOptions.LoadWith<PersonAttribute>(pa => pa.UnknownCitizenData);
+            loadOptions.LoadWith<PersonAttributes>(pa => pa.Effect);
+            loadOptions.LoadWith<PersonAttributes>(pa => pa.PersonProperties);
+            loadOptions.LoadWith<PersonAttributes>(pa => pa.CprData);
+            loadOptions.LoadWith<PersonAttributes>(pa => pa.ForeignCitizenData);
+            loadOptions.LoadWith<PersonAttributes>(pa => pa.UnknownCitizenData);
+            loadOptions.LoadWith<PersonAttributes>(pa => pa.HealthInformation);
 
+            PersonProperties.SetChildLoadOptions(loadOptions);
             CprData.SetChildLoadOptions(loadOptions);
         }
 
-        public static PersonAttribute FromXmlType(Schemas.Part.AttributListeType partAttributes)
-        {
-            //var oo = partAttributes.Egenskaber[0];
-            var ret = new PersonAttribute()
-            {
-                /*BirthDate = oo.PersonBirthDateStructure.BirthDate,
-                BirthdateUncertainty = oo.PersonBirthDateStructure.BirthDateUncertaintyIndicator,
-                Effect = Effect.FromXmlType(oo.Virkning),
-                GenderId = DAL.Part.Gender.GetPartCode(oo.PersonGenderCode),
-                FirstName = oo.PersonNameStructure.PersonGivenName,
-                MiddleName = oo.PersonNameStructure.PersonMiddleName,
-                LastName = oo.PersonNameStructure.PersonSurnameName*/
-            };
-            /*
-            if (partAttributes.PersonData is Schemas.Part.CprData)
-            {
-                ret.CprData = DAL.Part.CprData.FromXmlType(partAttributes.PersonData as Schemas.Part.CprData);
-            }
-            else if (partAttributes.PersonData is Schemas.Part.ForeignCitizenData)
-            {
-                ret.ForeignCitizenData = DAL.Part.ForeignCitizenData.FromXmlType(partAttributes.PersonData as Schemas.Part.ForeignCitizenData);
-            }
-            else if (partAttributes.PersonData is Schemas.Part.UnknownCitizenData)
-            {
-                ret.UnknownCitizenData = DAL.Part.UnknownCitizenData.FromXmlType(partAttributes.PersonData as Schemas.Part.UnknownCitizenData);
-            }*/
-            return ret;
-        }
     }
 }
