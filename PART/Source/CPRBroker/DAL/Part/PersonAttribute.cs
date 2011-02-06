@@ -13,28 +13,10 @@ namespace CprBroker.DAL.Part
         {
             var ret = new AttributListeType()
             {
-                /*Egenskaber = new EgenskaberType[]
-                {
-                    new EgenskaberType()
-                    {
-                        PersonBirthDateStructure = new PersonBirthDateStructureType()
-                        {
-                            //TODO: Check that new DateTime is the correct value here
-                           BirthDate=this.BirthDate.HasValue?this.BirthDate.Value : new DateTime(), 
-                            BirthDateUncertaintyIndicator = this.BirthdateUncertainty,
-                        },
-                        PersonGenderCode = DAL.Part.Gender.GetPartGender(this.GenderId),
-                        PersonNameStructure = new CprBroker.Schemas.Part.PersonNameStructureType( )
-                        {
-                            PersonGivenName=this.FirstName,
-                            PersonMiddleName=this.MiddleName,
-                            PersonSurnameName=this.LastName
-                        },                        
-                        Virkning = VirkningType.Create(null,null),
-                    },
-                },
-                RegisterOplysninger = new RegisterOplysningerType[] { new RegisterOplysningerType() },
-                LokalUdvidelse = null*/
+                Egenskab = new EgenskabType[] { ToEgenskabType() },
+
+                RegisterOplysning = new RegisterOplysningType[] { new RegisterOplysningType() },
+                LokalUdvidelse = null
             };
 
             if (this.CprData != null)
@@ -51,6 +33,30 @@ namespace CprBroker.DAL.Part
             }
             return ret;
         }
+
+        public EgenskabType ToEgenskabType()
+        {
+            return new EgenskabType()
+            {
+                BirthDate = this.BirthDate,
+                PersonGenderCode = DAL.Part.Gender.GetPartGender(this.GenderId),
+                NavnStruktur = new NavnStrukturType()
+                {
+                    KaldenavnTekst = NickName,
+                    NoteTekst = NameNoteText,
+                    PersonNameForAddressingName = AddressingName,
+                    PersonNameStructure = new NavnStruktur(FirstName, MiddleName, LastName),
+                },
+                FoedestedNavn = BirthPlace,
+                FoedselsregistreringMyndighedNavn = BirthRegistrationAuthority,
+                KontaktKanal = ContactChannel != null ? ContactChannel.ToXmlType() : null,
+                NaermestePaaroerende = NextOfKinContactChannel != null ? NextOfKinContactChannel.ToXmlType() : null,
+                AndreAdresser = OtherAddress != null ? OtherAddress.ToXmlType() : null,
+                Virkning = Effect != null ? Effect.ToXmlType() : null
+            };
+        }
+
+
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
         {

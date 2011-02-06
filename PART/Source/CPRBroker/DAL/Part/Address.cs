@@ -2,47 +2,63 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Schemas;
-using CprBroker.Schemas.Util;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.DAL.Part
 {
     public partial class Address
     {
-        public object ToXmlType()
+        public AdresseType ToXmlType()
         {
-            /*
-             * The idea here is to fill the Schemas.UtilAddress fields and then return its ToOioAddress() method
-            */
-
-            Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
-            address[AddressField.Building] = this.StreetBuildingIdentifier;
-            address[AddressField.CareOfName] = this.CareOfName;
-            address[AddressField.Door] = this.SuiteIdentifier;
-            address[AddressField.Floor] = this.FloorIdentifier;
-            address[AddressField.HouseNumber] = this.StreetBuildingIdentifier;
-            address[AddressField.Line1] = this.Line1;
-            address[AddressField.Line2] = this.Line2;
-            address[AddressField.Line3] = this.Line3;
-            address[AddressField.Line4] = this.Line4;
-            address[AddressField.Line5] = this.Line5;
-            address[AddressField.Line6] = this.Line6;
-
-
-            address[AddressField.MunicipalityCode] = this.MunicipalityCode;
-            if (this.Municipality != null)
+            var ret = new AdresseType()
             {
-                address[AddressField.MunicipalityName] = this.Municipality.MunicipalityName;
+                Item = null,
+            };
+
+            if (DenmarkAddress != null)
+            {
+                ret.Item = DenmarkAddress.ToXmlType();
             }
-            address[AddressField.StreetCode] = this.StreetCode;
-            address[AddressField.StreetName] = this.StreetName;
-            address[AddressField.StreetNameForAddressing] = this.StreetNameForAddressing;
+            else if (ForeignAddress != null)
+            {
+                ret.Item = ForeignAddress.ToXmlType();
+            }
+            if (ret != null)
+            {
+                ret.Item.NoteTekst = this.Note;
+                ret.Item.UkendtAdresseIndikator = this.IsUnknown;
+            }
+            return ret;
+        }
 
-            address[AddressField.PostCode] = this.PostCode;
-            address[AddressField.PostDistrictName] = this.PostDistrictName;
+        public static Address FromXmlType(AdresseType oio)
+        {
+            if (oio == null || oio.Item == null)
+            {
+                return null;
+            }
 
-            // TODO: get the correct address status
-            return address.ToOioAddress(PersonCivilRegistrationStatusCodeType.Item01);
+            var ret = new Address()
+            {
+                AddressId = Guid.NewGuid(),
+                IsUnknown = oio.Item.UkendtAdresseIndikator,
+                Note = oio.Item.NoteTekst
+            };
+
+            if (oio.Item is DanskAdresseType)
+            {
+                ret.DenmarkAddress = DenmarkAddress.FromXmlType(oio.Item as DanskAdresseType);
+            }
+            else if (oio.Item is GroenlandAdresseType)
+            {
+                ret.DenmarkAddress = DenmarkAddress.FromXmlType(oio.Item as GroenlandAdresseType);
+            }
+            else if (oio.Item is VerdenAdresseType)
+            {
+                ret.ForeignAddress = ForeignAddress.FromXmlType(oio.Item as VerdenAdresseType);
+            }
+
+            return ret;
         }
     }
 }

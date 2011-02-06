@@ -38,7 +38,7 @@ namespace CprBroker.DAL.Part
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
         {
-            loadOptions.LoadWith<CprData>(cpr => cpr.Address);
+            //loadOptions.LoadWith<CprData>(cpr => cpr.Address);
         }
 
         public static CprData FromXmlType(Schemas.Part.CprData partCprData)
@@ -62,7 +62,7 @@ namespace CprBroker.DAL.Part
                 LastName = partCprData.PersonName.Value.PersonSurnameName
                 ,
                 // TODO: fill address
-                Address = null,
+                //Address = null,
             };
         }
     }

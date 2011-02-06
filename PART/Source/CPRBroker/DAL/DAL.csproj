@@ -169,6 +169,13 @@
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Events\DataChangeEventDataContext.cs" />
+    <Compile Include="Part\AddressPoint.cs" />
+    <Compile Include="Part\ContactChannel.cs" />
+    <Compile Include="Part\ContactChannelType.cs" />
+    <Compile Include="Part\DanishAddress.cs" />
+    <Compile Include="Part\DenmarkAddress.cs" />
+    <Compile Include="Part\ForeignAddress.cs" />
+    <Compile Include="Part\GreenlandicAddress.cs" />
     <Compile Include="Part\PartDataContext.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -194,6 +201,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="DataProviders\DataProvidersDataContext.dbml.layout">
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </None>
