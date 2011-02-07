@@ -2,40 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.DAL.Part
 {
     public partial class PersonState
     {
-        public CprBroker.Schemas.Part.TilstandListeType ToXmlType()
+        public static CprBroker.Schemas.Part.TilstandListeType ToXmlType(PersonState db)
         {
-            // TODO: Implement PersonState.ToXmlType after getting schema details
-            return new Schemas.Part.TilstandListeType()
-                /*
-                    {
-                        CivilStatus = new Schemas.Part.Effect<CprBroker.Schemas.Part.Enums.MaritalStatus>()
-                        {
-                            StartDate = this.MaritalStatusStartDate,
-                            EndDate = this.MaritalStatusEndDate,
-                            // TODO: Handle null values for marital status
-                            Value = MaritalStatusType.GetPartMaritalStatus(this.MaritalStatusTypeId.Value)
-                        },
-                        LifeStatus = new Schemas.Part.Effect<CprBroker.Schemas.Part.Enums.LifeStatus>()
-                        {
-                            StartDate = this.LifeStatusStartDate,
-                            EndDate = this.LifeStatusStartDate,
-                            // TODO: Handle null values for life status
-                            Value = LifeStatusType.GetPartLifeStatus(this.LifeStatusTypeId.Value)
-                        }
-                    }
-                 */
-               ;
+            if (db != null)
+            {
+                return new TilstandListeType()
+                {
+                    CivilStatus = PersonCivilState.ToXmlType(db.PersonCivilState),
+                    LivStatus = PersonLifeState.ToXmlType(db.PersonLifeState),
+                    LokalUdvidelse = null
+                };
+            }
+            return null;
         }
 
         public static PersonState FromXmlType(Schemas.Part.TilstandListeType partState)
         {
-            // TODO: Implement PersonState.FromXmlType after getting schema details
-            return new PersonState();
+            if (partState != null)
+            {
+                var ret = new PersonState()
+                {
+                    PersonCivilState = PersonCivilState.FromXmlType(partState.CivilStatus),
+                    PersonLifeState = PersonLifeState.FromXmlType(partState.LivStatus)
+                };
+            }
+            return null;
         }
     }
 }

@@ -8,36 +8,40 @@ namespace CprBroker.DAL.Part
 {
     public partial class ContactChannel
     {
-        public KontaktKanalType ToXmlType()
+        public static KontaktKanalType ToXmlType(ContactChannel db)
         {
-            KontaktKanalType ret = new KontaktKanalType()
+            if (db != null)
             {
-                BegraensetAnvendelseTekst = UsageLimits,
-                NoteTekst = Note,
-                Item = null
-            };
+                KontaktKanalType ret = new KontaktKanalType()
+                {
+                    BegraensetAnvendelseTekst = db.UsageLimits,
+                    NoteTekst = db.Note,
+                    Item = null
+                };
 
-            switch ((Part.ContactChannelType.ChannelTypes)ContactChannelTypeId)
-            {
-                case ContactChannelType.ChannelTypes.Email:
-                    ret.Item = Value;
-                    break;
-                case ContactChannelType.ChannelTypes.Telephone:
-                    ret.Item = new TelefonType()
-                    {
-                        KanBrugesTilSmsIndikator = CanSendSms.HasValue && CanSendSms.Value,
-                        TelephoneNumberIdentifier = Value,
-                    };
-                    break;
-                case ContactChannelType.ChannelTypes.Other:
-                    ret.Item = new AndenKontaktKanalType()
-                    {
-                        KontaktKanalTekst = Value,
-                        NoteTekst = OtherNote,
-                    };
-                    break;
+                switch ((Part.ContactChannelType.ChannelTypes)db.ContactChannelTypeId)
+                {
+                    case ContactChannelType.ChannelTypes.Email:
+                        ret.Item = db.Value;
+                        break;
+                    case ContactChannelType.ChannelTypes.Telephone:
+                        ret.Item = new TelefonType()
+                        {
+                            KanBrugesTilSmsIndikator = db.CanSendSms.HasValue && db.CanSendSms.Value,
+                            TelephoneNumberIdentifier = db.Value,
+                        };
+                        break;
+                    case ContactChannelType.ChannelTypes.Other:
+                        ret.Item = new AndenKontaktKanalType()
+                        {
+                            KontaktKanalTekst = db.Value,
+                            NoteTekst = db.OtherNote,
+                        };
+                        break;
+                }
+                return ret;
             }
-            return ret;
+            return null;
         }
 
         public static ContactChannel FromXmlType(KontaktKanalType oio)

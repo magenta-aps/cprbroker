@@ -8,46 +8,54 @@ namespace CprBroker.DAL.Part
 {
     public partial class ForeignAddress
     {
-        public VerdenAdresseType ToXmlType()
+        public static VerdenAdresseType ToXmlType(ForeignAddress db)
         {
-            var ret= new VerdenAdresseType()
+            if (db != null)
             {
-                ForeignAddressStructure = new ForeignAddressStructureType()
-                {                    
-                    LocationDescriptionText = this.LocationDescription,
-                    PostalAddressFirstLineText = this.FirstLine,
-                    PostalAddressSecondLineText = this.SecondLine,
-                    PostalAddressThirdLineText = this.ThirdLine,
-                    PostalAddressFourthLineText = this.FourthLine,
-                    PostalAddressFifthLineText = this.FifthLine
+                var ret = new VerdenAdresseType()
+                {
+                    ForeignAddressStructure = new ForeignAddressStructureType()
+                    {
+                        LocationDescriptionText = db.LocationDescription,
+                        PostalAddressFirstLineText = db.FirstLine,
+                        PostalAddressSecondLineText = db.SecondLine,
+                        PostalAddressThirdLineText = db.ThirdLine,
+                        PostalAddressFourthLineText = db.FourthLine,
+                        PostalAddressFifthLineText = db.FifthLine
+                    }
+                };
+                if (db.CountrySchemeTypeId.HasValue)
+                {
+                    ret.ForeignAddressStructure.CountryIdentificationCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)db.CountrySchemeTypeId, db.CountryCode);
                 }
-            };
-            if (this.CountrySchemeTypeId.HasValue)
-            {
-                ret.ForeignAddressStructure.CountryIdentificationCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)CountrySchemeTypeId, CountryCode);
+                return ret;
             }
-            return ret;
+            return null;
         }
 
         public static ForeignAddress FromXmlType(VerdenAdresseType oio)
         {
-            var ret = new ForeignAddress()
+            if (oio != null)
             {
-                LocationDescription = oio.ForeignAddressStructure.LocationDescriptionText,
+                var ret = new ForeignAddress()
+                {
+                    LocationDescription = oio.ForeignAddressStructure.LocationDescriptionText,
 
-                FirstLine = oio.ForeignAddressStructure.PostalAddressFirstLineText,
-                SecondLine = oio.ForeignAddressStructure.PostalAddressSecondLineText,
-                ThirdLine = oio.ForeignAddressStructure.PostalAddressThirdLineText,
-                FourthLine = oio.ForeignAddressStructure.PostalAddressFourthLineText,
-                FifthLine = oio.ForeignAddressStructure.PostalAddressFifthLineText,
+                    FirstLine = oio.ForeignAddressStructure.PostalAddressFirstLineText,
+                    SecondLine = oio.ForeignAddressStructure.PostalAddressSecondLineText,
+                    ThirdLine = oio.ForeignAddressStructure.PostalAddressThirdLineText,
+                    FourthLine = oio.ForeignAddressStructure.PostalAddressFourthLineText,
+                    FifthLine = oio.ForeignAddressStructure.PostalAddressFifthLineText,
 
-            };
-            if (oio.ForeignAddressStructure.CountryIdentificationCode != null)
-            {
-                ret.CountryCode = oio.ForeignAddressStructure.CountryIdentificationCode.Value;
-                ret.CountrySchemeTypeId = (int)oio.ForeignAddressStructure.CountryIdentificationCode.scheme;
+                };
+                if (oio.ForeignAddressStructure.CountryIdentificationCode != null)
+                {
+                    ret.CountryCode = oio.ForeignAddressStructure.CountryIdentificationCode.Value;
+                    ret.CountrySchemeTypeId = (int)oio.ForeignAddressStructure.CountryIdentificationCode.scheme;
+                }
+                return ret;
             }
-            return ret;
+            return null;
         }
     }
 }

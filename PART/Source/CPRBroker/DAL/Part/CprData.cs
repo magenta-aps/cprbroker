@@ -9,20 +9,24 @@ namespace CprBroker.DAL.Part
 {
     public partial class CprData
     {
-        public CprBorgerType ToXmlType()
+        public static CprBorgerType ToXmlType(CprData db)
         {
-            return new CprBorgerType()
+            if (db != null)
             {
-                AdresseNoteTekst = AddressNote,
-                FolkekirkeMedlemIndikator = ChurchMember,
-                FolkeregisterAdresse = Address.ToXmlType(),
-                ForskerBeskyttelseIndikator = ResearchProtection,
-                NavneAdresseBeskyttelseIndikator = NameAndAddressProtectionIndicator,
-                PersonCivilRegistrationIdentifier = CprNumber,
-                PersonNummerGyldighedStatusIndikator = CprNumberValidity,
-                PersonNationalityCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)NationalityCodeScheme, NationalityCode),
-                TelefonNummerBeskyttelseIndikator = TelephoneNumberProtection,
-            };
+                return new CprBorgerType()
+                {
+                    AdresseNoteTekst = db.AddressNote,
+                    FolkekirkeMedlemIndikator = db.ChurchMember,
+                    FolkeregisterAdresse = Address.ToXmlType(db.Address),
+                    ForskerBeskyttelseIndikator = db.ResearchProtection,
+                    NavneAdresseBeskyttelseIndikator = db.NameAndAddressProtectionIndicator,
+                    PersonCivilRegistrationIdentifier = db.CprNumber,
+                    PersonNummerGyldighedStatusIndikator = db.CprNumberValidity,
+                    PersonNationalityCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)db.NationalityCodeScheme, db.NationalityCode),
+                    TelefonNummerBeskyttelseIndikator = db.TelephoneNumberProtection,
+                };
+            }
+            return null;
         }
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
@@ -30,21 +34,34 @@ namespace CprBroker.DAL.Part
             loadOptions.LoadWith<CprData>(cpr => cpr.Address);
         }
 
+        public static CprData FromXmlType(RegisterOplysningType[] oio)
+        {
+            if (oio != null && oio.Length > 0 && oio[0] != null)
+            {
+                return FromXmlType(oio[0].Item as CprBorgerType);
+            }
+            return null;
+        }
+
         public static CprData FromXmlType(CprBorgerType partCprData)
         {
-            return new CprData()
+            if (partCprData != null)
             {
-                AddressNote = partCprData.AdresseNoteTekst,
-                ChurchMember = partCprData.FolkekirkeMedlemIndikator,
-                Address = Address.FromXmlType(partCprData.FolkeregisterAdresse),
-                ResearchProtection = partCprData.ForskerBeskyttelseIndikator,
-                NameAndAddressProtectionIndicator = partCprData.NavneAdresseBeskyttelseIndikator,
-                CprNumber = partCprData.PersonCivilRegistrationIdentifier,
-                CprNumberValidity = partCprData.PersonNummerGyldighedStatusIndikator,
-                NationalityCode = partCprData.PersonNationalityCode.Value,
-                NationalityCodeScheme = (int)partCprData.PersonNationalityCode.scheme,
-                TelephoneNumberProtection = partCprData.TelefonNummerBeskyttelseIndikator,
-            };
+                return new CprData()
+                {
+                    AddressNote = partCprData.AdresseNoteTekst,
+                    ChurchMember = partCprData.FolkekirkeMedlemIndikator,
+                    Address = Address.FromXmlType(partCprData.FolkeregisterAdresse),
+                    ResearchProtection = partCprData.ForskerBeskyttelseIndikator,
+                    NameAndAddressProtectionIndicator = partCprData.NavneAdresseBeskyttelseIndikator,
+                    CprNumber = partCprData.PersonCivilRegistrationIdentifier,
+                    CprNumberValidity = partCprData.PersonNummerGyldighedStatusIndikator,
+                    NationalityCode = partCprData.PersonNationalityCode.Value,
+                    NationalityCodeScheme = (int)partCprData.PersonNationalityCode.scheme,
+                    TelephoneNumberProtection = partCprData.TelefonNummerBeskyttelseIndikator,
+                };
+            }
+            return null;
         }
     }
 }

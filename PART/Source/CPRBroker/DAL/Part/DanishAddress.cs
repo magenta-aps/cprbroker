@@ -8,49 +8,48 @@ namespace CprBroker.DAL.Part
 {
     public partial class DanishAddress
     {
-        public DanskAdresseType ToXmlType()
+        public static DanskAdresseType ToXmlType(DanishAddress db)
         {
-            return new DanskAdresseType()
+            if (db != null && db.DenmarkAddress != null && db.DenmarkAddress.Address != null)
             {
-                AddressComplete = ToAddressCompleteType(),
-                AddressPoint = AddressPoint != null ? AddressPoint.ToXmlType() : null,
-                PolitiDistriktTekst = PoliceDistrict,
-                PostDistriktTekst = PostDistrict,
-                SkoleDistriktTekst = SchoolDistrict,
-                SocialDistriktTekst = SocialDistrict,
-                SogneDistriktTekst = ParishDistrict,
-                SpecielVejkodeIndikator = DenmarkAddress.SpecialRoadCode.HasValue ? DenmarkAddress.SpecialRoadCode.Value : false,
-                SpecielVejkodeIndikatorSpecified = DenmarkAddress.SpecialRoadCode.HasValue,
-                ValgkredsDistriktTekst = ConstituencyDistrict,
-                NoteTekst = DenmarkAddress.Address.Note,
-                UkendtAdresseIndikator = DenmarkAddress.Address.IsUnknown,
-            };
-        }
-
-        public AddressCompleteType ToAddressCompleteType()
-        {
-            return new AddressCompleteType()
-            {
-                AddressAccess = new AddressAccessType()
+                return new DanskAdresseType()
                 {
-                    MunicipalityCode = DenmarkAddress.MunicipalityCode,
-                    StreetBuildingIdentifier = DenmarkAddress.StreetBuildingIdentifier,
-                    StreetCode = DenmarkAddress.StreetCode
-                },
-                AddressPostal = new AddressPostalType()
-                {
-                    CountryIdentificationCode = null,
-                    DistrictName = DenmarkAddress.DistrictName,
-                    DistrictSubdivisionIdentifier = DenmarkAddress.DistrictSubdivisionIdentifier,
-                    FloorIdentifier = DenmarkAddress.FloorIdentifier,
-                    MailDeliverySublocationIdentifier = DenmarkAddress.MailDeliverySublocation,
-                    PostCodeIdentifier = DenmarkAddress.PostCodeIdentifier,
-                    PostOfficeBoxIdentifier = PostOfficeBoxIdentifier,
-                    StreetBuildingIdentifier = DenmarkAddress.StreetBuildingIdentifier,
-                    StreetName = DenmarkAddress.StreetName,
-                    StreetNameForAddressingName = DenmarkAddress.StreetNameForAddressing
-                }
-            };
+                    AddressComplete = new AddressCompleteType()
+                    {
+                        AddressAccess = new AddressAccessType()
+                        {
+                            MunicipalityCode = db.DenmarkAddress.MunicipalityCode,
+                            StreetBuildingIdentifier = db.DenmarkAddress.StreetBuildingIdentifier,
+                            StreetCode = db.DenmarkAddress.StreetCode
+                        },
+                        AddressPostal = new AddressPostalType()
+                        {
+                            CountryIdentificationCode = null,
+                            DistrictName = db.DenmarkAddress.DistrictName,
+                            DistrictSubdivisionIdentifier = db.DenmarkAddress.DistrictSubdivisionIdentifier,
+                            FloorIdentifier = db.DenmarkAddress.FloorIdentifier,
+                            MailDeliverySublocationIdentifier = db.DenmarkAddress.MailDeliverySublocation,
+                            PostCodeIdentifier = db.DenmarkAddress.PostCodeIdentifier,
+                            PostOfficeBoxIdentifier = db.PostOfficeBoxIdentifier,
+                            StreetBuildingIdentifier = db.DenmarkAddress.StreetBuildingIdentifier,
+                            StreetName = db.DenmarkAddress.StreetName,
+                            StreetNameForAddressingName = db.DenmarkAddress.StreetNameForAddressing
+                        }
+                    },
+                    AddressPoint = AddressPoint.ToXmlType(db.AddressPoint),
+                    PolitiDistriktTekst = db.PoliceDistrict,
+                    PostDistriktTekst = db.PostDistrict,
+                    SkoleDistriktTekst = db.SchoolDistrict,
+                    SocialDistriktTekst = db.SocialDistrict,
+                    SogneDistriktTekst = db.ParishDistrict,
+                    SpecielVejkodeIndikator = db.DenmarkAddress.SpecialRoadCode.HasValue ? db.DenmarkAddress.SpecialRoadCode.Value : false,
+                    SpecielVejkodeIndikatorSpecified = db.DenmarkAddress.SpecialRoadCode.HasValue,
+                    ValgkredsDistriktTekst = db.ConstituencyDistrict,
+                    NoteTekst = db.DenmarkAddress.Address.Note,
+                    UkendtAdresseIndikator = db.DenmarkAddress.Address.IsUnknown,
+                };
+            }
+            return null;
         }
 
         public static DanishAddress FromXmlType(DanskAdresseType oio)

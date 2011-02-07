@@ -8,32 +8,49 @@ namespace CprBroker.DAL.Part
 {
     public partial class ForeignCitizenData
     {
-        public UdenlandskBorgerType ToXmlType()
+        public static UdenlandskBorgerType ToXmlType(ForeignCitizenData db)
         {
-            return new UdenlandskBorgerType()
-                {
-                    FoedselslandKode = CountryCodeScheme.HasValue ? CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)CountryCodeScheme.Value, CountryCode) : null,
-                    PersonCivilRegistrationReplacementIdentifier = CivilRegistrationReplacementIdentifier,
-                    PersonIdentifikator = PersonIdentifier,
-                    SprogKode = ForeignCitizenCountry.ToXmlType(ForeignCitizenCountries, false),
-                    PersonNationalityCode = ForeignCitizenCountry.ToXmlType(ForeignCitizenCountries, true),
-                };
+            if (db != null)
+            {
+                return new UdenlandskBorgerType()
+                    {
+                        FoedselslandKode = db.CountryCodeScheme.HasValue ? CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)db.CountryCodeScheme.Value, db.CountryCode) : null,
+                        PersonCivilRegistrationReplacementIdentifier = db.CivilRegistrationReplacementIdentifier,
+                        PersonIdentifikator = db.PersonIdentifier,
+                        SprogKode = ForeignCitizenCountry.ToXmlType(db.ForeignCitizenCountries, false),
+                        PersonNationalityCode = ForeignCitizenCountry.ToXmlType(db.ForeignCitizenCountries, true),
+                    };
+            }
+            return null;
+        }
+
+        public static ForeignCitizenData FromXmlType(RegisterOplysningType[] oio)
+        {
+            if (oio != null && oio.Length > 0 && oio[0] != null)
+            {
+                return FromXmlType(oio[0].Item as UdenlandskBorgerType);
+            }
+            return null;
         }
 
         public static ForeignCitizenData FromXmlType(UdenlandskBorgerType oio)
         {
-            var ret = new ForeignCitizenData()
+            if (oio != null)
             {
-                CountryCode = oio.FoedselslandKode.Value,
-                CountryCodeScheme = (int)oio.FoedselslandKode.scheme,
-                CivilRegistrationReplacementIdentifier = oio.PersonCivilRegistrationReplacementIdentifier,
-                PersonIdentifier = oio.PersonIdentifikator,
-            };
+                var ret = new ForeignCitizenData()
+                {
+                    CountryCode = oio.FoedselslandKode.Value,
+                    CountryCodeScheme = (int)oio.FoedselslandKode.scheme,
+                    CivilRegistrationReplacementIdentifier = oio.PersonCivilRegistrationReplacementIdentifier,
+                    PersonIdentifier = oio.PersonIdentifikator,
+                };
 
-            ret.ForeignCitizenCountries.AddRange(ForeignCitizenCountry.FromXmlType(oio.SprogKode, false));
-            ret.ForeignCitizenCountries.AddRange(ForeignCitizenCountry.FromXmlType(oio.PersonNationalityCode, true));
-            
-            return ret;
+                ret.ForeignCitizenCountries.AddRange(ForeignCitizenCountry.FromXmlType(oio.SprogKode, false));
+                ret.ForeignCitizenCountries.AddRange(ForeignCitizenCountry.FromXmlType(oio.PersonNationalityCode, true));
+
+                return ret;
+            }
+            return null;
         }
     }
 }

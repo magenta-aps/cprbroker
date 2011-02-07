@@ -52,15 +52,15 @@ namespace CprBroker.Providers.Local
                                             cprNamePred = cprNamePred.And((pr) => pr.PersonAttribute.CprData != null);
                                             if (!string.IsNullOrEmpty(name.PersonGivenName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.FirstName == name.PersonGivenName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.PersonProperties.FirstName == name.PersonGivenName);
                                             }
                                             if (!string.IsNullOrEmpty(name.PersonMiddleName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.MiddleName == name.PersonMiddleName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.PersonProperties.MiddleName == name.PersonMiddleName);
                                             }
                                             if (!string.IsNullOrEmpty(name.PersonSurnameName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.CprData.LastName == name.PersonSurnameName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.PersonProperties.LastName == name.PersonSurnameName);
                                             }
                                             pred = pred.And(cprNamePred);
                                         }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="PART" Class="PartDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=PART;Persist Security Info=True;User ID=cpr" SettingsObjectName="CprBroker.DAL.Properties.Settings" SettingsPropertyName="PARTConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.PersonMapping" Member="PersonMappings">
     <Type Name="PersonMapping">
       <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -13,36 +14,10 @@
       <Association Name="Gender_PersonProperties" Member="PersonProperties" ThisKey="GenderId" OtherKey="GenderId" Type="PersonProperties" />
     </Type>
   </Table>
-  <Table Name="dbo.PersonStates" Member="PersonStates">
-    <Type Name="PersonState">
-      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MaritalStatusTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="MaritalStatusStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="MaritalStatusEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="LifeStatusTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LifeStatusStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="LifeStatusEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="PersonRegistration_PersonState" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Municipality" Member="Municipalities">
     <Type Name="Municipality">
       <Column Name="MunicipalityCode" Type="System.String" DbType="VarChar(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="MunicipalityName" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Effect" Member="Effects">
-    <Type Name="Effect">
-      <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ActorText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CommentText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="FromDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ToDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Effect_PersonRelationship" Member="PersonRelationships" ThisKey="EffectId" OtherKey="EffectId" Type="PersonRelationship" />
-      <Association Name="Effect_PersonRegistration" Member="PersonRegistrations" ThisKey="EffectId" OtherKey="EffectId" Type="PersonRegistration" />
-      <Association Name="Effect_PersonAttributes" Member="PersonAttributes" ThisKey="EffectId" OtherKey="EffectId" Type="PersonAttributes" />
-      <Association Name="Effect_PersonProperties" Member="PersonProperties" ThisKey="EffectId" OtherKey="EffectId" Type="PersonProperties" />
-      <Association Name="Effect_HealthInformation" Member="HealthInformations" ThisKey="EffectId" OtherKey="EffectId" Type="HealthInformation" />
     </Type>
   </Table>
   <Table Name="dbo.RelationshipType" Member="RelationshipTypes">
@@ -77,24 +52,6 @@
       <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="UserInterfaceKeyText" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="Person_PersonRegistration" Member="PersonRegistrations" ThisKey="UUID" OtherKey="UUID" Type="PersonRegistration" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PersonRegistration" Member="PersonRegistrations">
-    <Type Name="PersonRegistration">
-      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="ActorId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="BrokerUpdateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="CommentText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="LifecycleStatusId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="PersonRegistration_PersonState" Member="PersonState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonState" Cardinality="One" />
-      <Association Name="PersonRegistration_PersonRelationship" Member="PersonRelationships" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRelationship" />
-      <Association Name="PersonRegistration_PersonAttributes" Member="PersonAttribute" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttributes" Cardinality="One" />
-      <Association Name="Effect_PersonRegistration" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
-      <Association Name="LifecycleStatus_PersonRegistration" Member="LifecycleStatus" ThisKey="LifecycleStatusId" OtherKey="LifecycleStatusId" Type="LifecycleStatus" IsForeignKey="true" />
-      <Association Name="Person_PersonRegistration" Member="Person" ThisKey="UUID" OtherKey="UUID" Type="Person" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Address" Member="Addresses">
@@ -187,21 +144,6 @@
       <Association Name="Address_ForeignAddress" Member="Address" ThisKey="AddressId" OtherKey="AddressId" Type="Address" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.AddressPoint" Member="AddressPoints">
-    <Type Name="AddressPoint">
-      <Column Name="AddressId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Identifier" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Easting" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
-      <Column Name="Northing" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
-      <Column Name="Height" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
-      <Column Name="CrsIdentifier" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="RevisionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ValidStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ValidEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CoordinateQualityTypeCode" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
-      <Association Name="DanishAddress_AddressPoint" Member="DanishAddress" ThisKey="AddressId" OtherKey="AddressId" Type="DanishAddress" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.PersonAttributes" Member="PersonAttributes">
     <Type Name="PersonAttributes">
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -221,9 +163,6 @@
       <Column Name="NickName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="NameNoteText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="AddressingName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="GenderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="BirthPlace" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
@@ -232,12 +171,13 @@
       <Column Name="ContactChannelId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="NextOfKinContactChannelId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="OtherAddressId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="PersonProperties_PersonName" Member="PersonName" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonName" Cardinality="One" />
       <Association Name="Address_PersonProperties" Member="OtherAddress" Storage="_Address" ThisKey="OtherAddressId" OtherKey="AddressId" Type="Address" IsForeignKey="true" />
       <Association Name="ContactChannel_PersonProperties" Member="ContactChannel" ThisKey="ContactChannelId" OtherKey="ContactChannelId" Type="ContactChannel" IsForeignKey="true" />
       <Association Name="ContactChannel_PersonProperties1" Member="NextOfKinContactChannel" Storage="_ContactChannel1" ThisKey="NextOfKinContactChannelId" OtherKey="ContactChannelId" Type="ContactChannel" IsForeignKey="true" />
       <Association Name="Gender_PersonProperties" Member="Gender" ThisKey="GenderId" OtherKey="GenderId" Type="Gender" IsForeignKey="true" />
-      <Association Name="Effect_PersonProperties" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
       <Association Name="PersonAttributes_PersonProperties" Member="PersonAttributes" Storage="_PersonAttribute" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttributes" IsForeignKey="true" />
+      <Association Name="Effect_PersonProperties" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.HealthInformation" Member="HealthInformations">
@@ -247,8 +187,8 @@
       <Column Name="PhysicianProviderNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="HealthInsuranceGroupCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Effect_HealthInformation" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
       <Association Name="PersonAttributes_HealthInformation" Member="PersonAttributes" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttributes" IsForeignKey="true" />
+      <Association Name="Effect_HealthInformation" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CprData" Member="CprDatas">
@@ -295,6 +235,138 @@
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="CprNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="PersonAttributes_UnknownCitizenData" Member="PersonAttributes" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttributes" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Effect" Member="Effects">
+    <Type Name="Effect">
+      <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ActorRefId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="CommentText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FromDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ToDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Effect_PersonRelationship" Member="PersonRelationships" ThisKey="EffectId" OtherKey="EffectId" Type="PersonRelationship" />
+      <Association Name="Effect_PersonAttributes" Member="PersonAttributes" ThisKey="EffectId" OtherKey="EffectId" Type="PersonAttributes" />
+      <Association Name="Effect_PersonProperties" Member="PersonProperties" ThisKey="EffectId" OtherKey="EffectId" Type="PersonProperties" />
+      <Association Name="Effect_HealthInformation" Member="HealthInformations" ThisKey="EffectId" OtherKey="EffectId" Type="HealthInformation" />
+      <Association Name="Effect_PersonRegistration" Member="PersonRegistrations" ThisKey="EffectId" OtherKey="EffectId" Type="PersonRegistration" />
+      <Association Name="Effect_PersonLifeState" Member="PersonLifeStates" ThisKey="EffectId" OtherKey="EffectId" Type="PersonLifeState" />
+      <Association Name="Effect_PersonCivilState" Member="PersonCivilStates" ThisKey="EffectId" OtherKey="EffectId" Type="PersonCivilState" />
+      <Association Name="ActorRef_Effect" Member="ActorRef" ThisKey="ActorRefId" OtherKey="ActorRefId" Type="ActorRef" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonName" Member="PersonNames">
+    <Type Name="PersonName">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="PersonProperties_PersonName" Member="PersonProperties" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonProperties" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ActorRef" Member="ActorRefs">
+    <Type Name="ActorRef">
+      <Column Name="ActorRefId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="ActorRef_Effect" Member="Effects" ThisKey="ActorRefId" OtherKey="ActorRefId" Type="Effect" />
+      <Association Name="ActorRef_PersonRegistration" Member="PersonRegistrations" ThisKey="ActorRefId" OtherKey="ActorRefId" Type="PersonRegistration" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonRegistration" Member="PersonRegistrations">
+    <Type Name="PersonRegistration">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ActorRefId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="BrokerUpdateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CommentText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LifecycleStatusId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="PersonRegistration_PersonRelationship" Member="PersonRelationships" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRelationship" />
+      <Association Name="PersonRegistration_PersonAttributes" Member="PersonAttributes" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttributes" Cardinality="One" />
+      <Association Name="PersonRegistration_PersonState" Member="PersonState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonState" Cardinality="One" />
+      <Association Name="ActorRef_PersonRegistration" Member="ActorRef" ThisKey="ActorRefId" OtherKey="ActorRefId" Type="ActorRef" IsForeignKey="true" />
+      <Association Name="Effect_PersonRegistration" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
+      <Association Name="LifecycleStatus_PersonRegistration" Member="LifecycleStatus" ThisKey="LifecycleStatusId" OtherKey="LifecycleStatusId" Type="LifecycleStatus" IsForeignKey="true" />
+      <Association Name="Person_PersonRegistration" Member="Person" ThisKey="UUID" OtherKey="UUID" Type="Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonState" Member="PersonStates">
+    <Type Name="PersonState">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="PersonState_PersonLifeState" Member="PersonLifeState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonLifeState" Cardinality="One" />
+      <Association Name="PersonState_PersonCivilState" Member="PersonCivilState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonCivilState" Cardinality="One" />
+      <Association Name="PersonRegistration_PersonState" Member="PersonRegistration" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRegistration" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CivilStatusCodeType" Member="CivilStatusCodeTypes">
+    <Type Name="CivilStatusCodeType">
+      <Column Name="CivilStatusCodeTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="CivilStatusCodeType_PersonCivilState" Member="PersonCivilStates" ThisKey="CivilStatusCodeTypeId" OtherKey="CivilStatusCodeTypeId" Type="PersonCivilState" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LifeStatusCodeType" Member="LifeStatusCodeTypes">
+    <Type Name="LifeStatusCodeType">
+      <Column Name="LifeStatusCodeTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="LifeStatusCodeType_PersonLifeState" Member="PersonLifeStates" ThisKey="LifeStatusCodeTypeId" OtherKey="LifeStatusCodeTypeId" Type="PersonLifeState" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonLifeState" Member="PersonLifeStates">
+    <Type Name="PersonLifeState">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LifeStatusCodeTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="Effect_PersonLifeState" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
+      <Association Name="LifeStatusCodeType_PersonLifeState" Member="LifeStatusCodeType" ThisKey="LifeStatusCodeTypeId" OtherKey="LifeStatusCodeTypeId" Type="LifeStatusCodeType" IsForeignKey="true" />
+      <Association Name="PersonState_PersonLifeState" Member="PersonState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonState" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonCivilState" Member="PersonCivilStates">
+    <Type Name="PersonCivilState">
+      <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CivilStatusCodeTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EffectId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="CivilStatusCodeType_PersonCivilState" Member="CivilStatusCodeType" ThisKey="CivilStatusCodeTypeId" OtherKey="CivilStatusCodeTypeId" Type="CivilStatusCodeType" IsForeignKey="true" />
+      <Association Name="Effect_PersonCivilState" Member="Effect" ThisKey="EffectId" OtherKey="EffectId" Type="Effect" IsForeignKey="true" />
+      <Association Name="PersonState_PersonCivilState" Member="PersonState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonState" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AddressPoint" Member="AddressPoints">
+    <Type Name="AddressPoint">
+      <Column Name="AddressId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Identifier" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="AddressPoint_GeographicPointLocation" Member="GeographicPointLocation" ThisKey="AddressId" OtherKey="AddressId" Type="GeographicPointLocation" Cardinality="One" />
+      <Association Name="AddressPoint_AddressPointStatus" Member="AddressPointStatus" ThisKey="AddressId" OtherKey="AddressId" Type="AddressPointStatus" Cardinality="One" />
+      <Association Name="DanishAddress_AddressPoint" Member="DanishAddress" ThisKey="AddressId" OtherKey="AddressId" Type="DanishAddress" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GeographicCoorditaneTuple" Member="GeographicCoorditaneTuples">
+    <Type Name="GeographicCoorditaneTuple">
+      <Column Name="AddressId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Easting" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Northing" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Association Name="GeographicPointLocation_GeographicCoorditaneTuple" Member="GeographicPointLocation" ThisKey="AddressId" OtherKey="AddressId" Type="GeographicPointLocation" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GeographicPointLocation" Member="GeographicPointLocations">
+    <Type Name="GeographicPointLocation">
+      <Column Name="AddressId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CrsIdentifier" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="GeographicPointLocation_GeographicCoorditaneTuple" Member="GeographicCoorditaneTuple" ThisKey="AddressId" OtherKey="AddressId" Type="GeographicCoorditaneTuple" Cardinality="One" />
+      <Association Name="AddressPoint_GeographicPointLocation" Member="AddressPoint" ThisKey="AddressId" OtherKey="AddressId" Type="AddressPoint" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AddressPointStatus" Member="AddressPointStatus">
+    <Type Name="AddressPointStatus">
+      <Column Name="AddressId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RevisionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ValidStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ValidEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CoordinateQualityTypeCode" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Association Name="AddressPoint_AddressPointStatus" Member="AddressPoint" ThisKey="AddressId" OtherKey="AddressId" Type="AddressPoint" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>

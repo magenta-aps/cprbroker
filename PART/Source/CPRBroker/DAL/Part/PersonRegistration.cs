@@ -9,23 +9,23 @@ namespace CprBroker.DAL.Part
 {
     public partial class PersonRegistration
     {
-        public Schemas.Part.RegistreringType1 ToXmlType()
+        public static Schemas.Part.RegistreringType1 ToXmlType(PersonRegistration db)
         {
-            Schemas.Part.RegistreringType1 ret = new CprBroker.Schemas.Part.RegistreringType1()
+            if (db != null)
             {
-                AktoerRef = UnikIdType.Create(ActorId),
-                Tidspunkt = TidspunktType.Create(this.RegistrationDate),
-                AttributListe = this.PersonAttribute.ToXmlType(),
-                TilstandListe = PersonState.ToXmlType(),
-                //ToArray() is called to avoid querying the database again
-                RelationListe = PersonRelationship.ToXmlType(this.PersonRelationships.ToArray().AsQueryable()),
-                CommentText = this.CommentText,
-                LivscyklusKode = LifecycleStatus.GetEnum(this.LifecycleStatusId),
-                // TODO : Multiple Virkning
-                Virkning = new VirkningType[] { this.Effect.ToXmlType() },
-
-            };
-            return ret;
+                return new CprBroker.Schemas.Part.RegistreringType1()
+                {
+                    AktoerRef = ActorRef.ToXmlType(db.ActorRef),
+                    Tidspunkt = TidspunktType.Create(db.RegistrationDate),
+                    AttributListe = PersonAttributes.ToXmlType(db.PersonAttributes),
+                    TilstandListe = PersonState.ToXmlType(db.PersonState),
+                    RelationListe = PersonRelationship.ToXmlType(db.PersonRelationships.ToArray().AsQueryable()),
+                    CommentText = db.CommentText,
+                    LivscyklusKode = LifecycleStatus.GetEnum(db.LifecycleStatusId),
+                    Virkning = Utilities.AsArray<VirkningType>(Effect.ToVirkningType(db.Effect)),
+                };
+            }
+            return null;
         }
 
         public static void SetChildLoadOptions(PartDataContext dataContext)
@@ -38,7 +38,7 @@ namespace CprBroker.DAL.Part
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
         {
             loadOptions.LoadWith<PersonRegistration>(pr => pr.Effect);
-            loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonAttribute);
+            loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonAttributes);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonRelationships);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonState);
 
@@ -51,18 +51,19 @@ namespace CprBroker.DAL.Part
             {
                 PersonRegistrationId = Guid.NewGuid(),
 
-                ActorId = new Guid(partRegistration.AktoerRef.Item),
+                ActorRef = partRegistration.AktoerRef != null ? ActorRef.FromXmlType(partRegistration.AktoerRef) : null,
                 CommentText = partRegistration.CommentText,
-                // TODO : Multiple Virkning
-                Effect = DAL.Part.Effect.FromXmlType(partRegistration.Virkning[0]),
+                Effect = partRegistration.Virkning != null && partRegistration.Virkning.Length > 0 && partRegistration.Virkning[0] != null ? DAL.Part.Effect.FromVirkningType(partRegistration.Virkning[0]) : null,
                 LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
                 RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 
-                PersonAttribute = PersonAttributes.FromXmlType(partRegistration.AttributListe),
-                PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
+                PersonAttributes = partRegistration.AttributListe != null ? PersonAttributes.FromXmlType(partRegistration.AttributListe) : null,
+                PersonState = partRegistration.TilstandListe != null ? PersonState.FromXmlType(partRegistration.TilstandListe) : null
             };
-
-            ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));
+            if (partRegistration.RelationListe != null)
+            {
+                ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));
+            }
             return ret;
         }
     }

@@ -8,29 +8,57 @@ namespace CprBroker.DAL.Part
 {
     public partial class Effect
     {
-        public VirkningType ToXmlType()
+        public static VirkningType ToVirkningType(Effect db)
         {
             return new VirkningType()
             {
-                // TODO: Fill this
-                AktoerRef= UnikIdType.Create(Guid.Empty),
-                CommentText = this.CommentText,
-                FraTidspunkt = TidspunktType.Create(this.FromDate),
-                TilTidspunkt = TidspunktType.Create(this.ToDate)
+                AktoerRef = ActorRef.ToXmlType(db.ActorRef),
+
+                CommentText = db.CommentText,
+                FraTidspunkt = TidspunktType.Create(db.FromDate),
+                TilTidspunkt = TidspunktType.Create(db.ToDate)
             };
         }
 
-        public static Effect FromXmlType(VirkningType virkning)
+        public static TilstandVirkningType ToTilstandVirkningType(Effect db)
         {
-            return new Effect()
+            return new TilstandVirkningType()
             {
-                EffectId = Guid.NewGuid(),
-                // TODO: Fill this                
-                ActorText = virkning.AktoerRef.Item,
-                CommentText = virkning.CommentText,
-                FromDate = virkning.FraTidspunkt.ToDateTime(),
-                ToDate = virkning.TilTidspunkt.ToDateTime()
+                AktoerRef = ActorRef.ToXmlType(db.ActorRef),
+                CommentText = db.CommentText,
+                FraTidspunkt = TidspunktType.Create(db.FromDate),
             };
+        }
+
+        public static Effect FromVirkningType(VirkningType virkning)
+        {
+            if (virkning != null)
+            {
+                return new Effect()
+                {
+                    ActorRef = ActorRef.FromXmlType(virkning.AktoerRef),
+
+                    CommentText = virkning.CommentText,
+                    FromDate = virkning.FraTidspunkt.ToDateTime(),
+                    ToDate = virkning.TilTidspunkt.ToDateTime()
+                };
+            }
+            return null;
+        }
+
+        public static Effect FromTilstandVirkningType(TilstandVirkningType virkning)
+        {
+            if (virkning != null)
+            {
+                return new Effect()
+                {
+                    ActorRef = ActorRef.FromXmlType(virkning.AktoerRef),
+                    CommentText = virkning.CommentText,
+                    FromDate = virkning.FraTidspunkt.ToDateTime(),
+                    ToDate = null
+                };
+            }
+            return null;
         }
 
     }

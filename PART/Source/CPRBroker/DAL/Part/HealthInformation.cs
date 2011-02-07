@@ -8,26 +8,37 @@ namespace CprBroker.DAL.Part
 {
     public partial class HealthInformation
     {
-        public SundhedOplysningType ToXmlType()
+        public static SundhedOplysningType[] ToXmlType(HealthInformation db)
         {
-            return new SundhedOplysningType()
+            if (db != null)
             {
-                PraktiserendeLaegeNavn = PhysicianName,
-                PraktiserendeLaegeYderNummerIdentifikator = PhysicianProviderNumber,
-                SygesikringsgruppeKode = HealthInsuranceGroupCode,
-                Virkning = Effect.ToXmlType(),
-            };
+                return new SundhedOplysningType[]
+                {
+                    new SundhedOplysningType()
+                    {
+                        PraktiserendeLaegeNavn = db.PhysicianName,
+                        PraktiserendeLaegeYderNummerIdentifikator = db.PhysicianProviderNumber,
+                        SygesikringsgruppeKode = db.HealthInsuranceGroupCode,
+                        Virkning = Effect.ToVirkningType(db.Effect),
+                    }
+                };
+            }
+            return null;
         }
 
-        public static HealthInformation FromXmlType(SundhedOplysningType oio)
+        public static HealthInformation FromXmlType(SundhedOplysningType[] oio)
         {
-            return new HealthInformation()
+            if (oio != null && oio.Length > 0 && oio[0] != null)
             {
-                PhysicianName = oio.PraktiserendeLaegeNavn,
-                PhysicianProviderNumber = oio.PraktiserendeLaegeYderNummerIdentifikator,
-                HealthInsuranceGroupCode = oio.SygesikringsgruppeKode,
-                Effect = Effect.FromXmlType(oio.Virkning)
-            };
+                return new HealthInformation()
+                {
+                    PhysicianName = oio[0].PraktiserendeLaegeNavn,
+                    PhysicianProviderNumber = oio[0].PraktiserendeLaegeYderNummerIdentifikator,
+                    HealthInsuranceGroupCode = oio[0].SygesikringsgruppeKode,
+                    Effect = Effect.FromVirkningType(oio[0].Virkning)
+                };
+            }
+            return null;
         }
     }
 }

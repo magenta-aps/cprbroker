@@ -8,31 +8,35 @@ namespace CprBroker.DAL.Part
 {
     public partial class GreenlandicAddress
     {
-        public GroenlandAdresseType ToXmlType()
+        public static GroenlandAdresseType ToXmlType(GreenlandicAddress db)
         {
-            return new GroenlandAdresseType()
+            if (db != null && db.DenmarkAddress != null && db.DenmarkAddress.Address != null)
             {
-                AddressCompleteGreenland = new AddressCompleteGreenlandType()
+                return new GroenlandAdresseType()
                 {
-                    CountryIdentificationCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)DenmarkAddress.CountrySchemeTypeId, DenmarkAddress.CountryCode),
-                    DistrictName = DenmarkAddress.DistrictName,
-                    DistrictSubdivisionIdentifier = DenmarkAddress.DistrictSubdivisionIdentifier,
-                    FloorIdentifier = DenmarkAddress.FloorIdentifier,
-                    GreenlandBuildingIdentifier = this.GreenlandBuildingIdentifierField,
-                    MailDeliverySublocationIdentifier = DenmarkAddress.MailDeliverySublocation,
-                    MunicipalityCode = DenmarkAddress.MunicipalityCode,
-                    PostCodeIdentifier = DenmarkAddress.PostCodeIdentifier,
-                    StreetBuildingIdentifier = DenmarkAddress.StreetBuildingIdentifier,
-                    StreetCode = DenmarkAddress.StreetCode,
-                    StreetName = DenmarkAddress.StreetName,
-                    StreetNameForAddressingName = DenmarkAddress.StreetNameForAddressing,
-                    SuiteIdentifier = DenmarkAddress.SuiteIdentifier,
-                },
-                SpecielVejkodeIndikator = DenmarkAddress.SpecialRoadCode.HasValue ? DenmarkAddress.SpecialRoadCode.Value : false,
-                SpecielVejkodeIndikatorSpecified = DenmarkAddress.SpecialRoadCode.HasValue,
-                NoteTekst = DenmarkAddress.Address.Note,
-                UkendtAdresseIndikator = DenmarkAddress.Address.IsUnknown,
-            };
+                    AddressCompleteGreenland = new AddressCompleteGreenlandType()
+                    {
+                        CountryIdentificationCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)db.DenmarkAddress.CountrySchemeTypeId, db.DenmarkAddress.CountryCode),
+                        DistrictName = db.DenmarkAddress.DistrictName,
+                        DistrictSubdivisionIdentifier = db.DenmarkAddress.DistrictSubdivisionIdentifier,
+                        FloorIdentifier = db.DenmarkAddress.FloorIdentifier,
+                        GreenlandBuildingIdentifier = db.GreenlandBuildingIdentifierField,
+                        MailDeliverySublocationIdentifier = db.DenmarkAddress.MailDeliverySublocation,
+                        MunicipalityCode = db.DenmarkAddress.MunicipalityCode,
+                        PostCodeIdentifier = db.DenmarkAddress.PostCodeIdentifier,
+                        StreetBuildingIdentifier = db.DenmarkAddress.StreetBuildingIdentifier,
+                        StreetCode = db.DenmarkAddress.StreetCode,
+                        StreetName = db.DenmarkAddress.StreetName,
+                        StreetNameForAddressingName = db.DenmarkAddress.StreetNameForAddressing,
+                        SuiteIdentifier = db.DenmarkAddress.SuiteIdentifier,
+                    },
+                    SpecielVejkodeIndikator = db.DenmarkAddress.SpecialRoadCode.HasValue ? db.DenmarkAddress.SpecialRoadCode.Value : false,
+                    SpecielVejkodeIndikatorSpecified = db.DenmarkAddress.SpecialRoadCode.HasValue,
+                    NoteTekst = db.DenmarkAddress.Address.Note,
+                    UkendtAdresseIndikator = db.DenmarkAddress.Address.IsUnknown,
+                };
+            }
+            return null;
         }
 
         public static GreenlandicAddress FromXmlType(GroenlandAdresseType oio)

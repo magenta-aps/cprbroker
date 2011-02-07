@@ -8,15 +8,15 @@ namespace CprBroker.DAL.Part
 {
     public partial class DenmarkAddress
     {
-        public AdresseBaseType ToXmlType()
+        public static AdresseBaseType ToXmlType(DenmarkAddress db)
         {
-            if (this.DanishAddress != null)
+            if (db.DanishAddress != null)
             {
-                return DanishAddress.ToXmlType();
+                return DanishAddress.ToXmlType(db.DanishAddress);
             }
-            else if (this.GreenlandicAddress != null)
+            else if (db.GreenlandicAddress != null)
             {
-                return GreenlandicAddress.ToXmlType();
+                return GreenlandicAddress.ToXmlType(db.GreenlandicAddress);
             }
             return null;
         }

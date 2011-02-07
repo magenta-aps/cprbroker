@@ -9,19 +9,10 @@ namespace CprBroker.Schemas.Part
     {
         public static UnikIdType Create(Guid targetUuid)
         {
-            // TODO : Check this code
             return new UnikIdType()
             {
                 Item = targetUuid.ToString(""),
-                ItemElementName =  ItemChoiceType.UUID
-            };
-        }
-        public static UnikIdType Create(Uri urn)
-        {
-            return new UnikIdType()
-            {
-                Item = urn.ToString(),
-                ItemElementName = ItemChoiceType.URNIdentifikator
+                ItemElementName = ItemChoiceType.UUID
             };
         }
     }

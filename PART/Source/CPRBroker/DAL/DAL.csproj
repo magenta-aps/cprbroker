@@ -169,24 +169,29 @@
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Events\DataChangeEventDataContext.cs" />
+    <Compile Include="Part\ActorRef.cs" />
     <Compile Include="Part\AddressPoint.cs" />
+    <Compile Include="Part\AddressPointStatus.cs" />
+    <Compile Include="Part\CivilState.cs" />
     <Compile Include="Part\ContactChannel.cs" />
     <Compile Include="Part\ContactChannelType.cs" />
     <Compile Include="Part\DanishAddress.cs" />
     <Compile Include="Part\DenmarkAddress.cs" />
     <Compile Include="Part\ForeignAddress.cs" />
     <Compile Include="Part\ForeignCitizenCountry.cs" />
+    <Compile Include="Part\GeographicCoorditaneTuple.cs" />
+    <Compile Include="Part\GeographicPointLocation.cs" />
     <Compile Include="Part\GreenlandicAddress.cs" />
     <Compile Include="Part\HealthInformation.cs" />
-    <Compile Include="Part\PartDataContext.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Part\PartDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PartDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Part\PersonLifeState.cs" />
+    <Compile Include="Part\PersonName.cs" />
     <Compile Include="Part\PersonProperties.cs" />
+    <Compile Include="Utilities.cs" />
     <None Include="Events\DataChangeEventDataContext.dbml">
       <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>

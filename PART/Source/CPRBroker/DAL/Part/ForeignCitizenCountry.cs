@@ -37,7 +37,7 @@ namespace CprBroker.DAL.Part
                 .ToArray();
         }
 
-        public static CountryIdentificationCodeType[] ToXmlType(this EntitySet<ForeignCitizenCountry> fcc, bool isNationality)
+        public static CountryIdentificationCodeType[] ToXmlType(EntitySet<ForeignCitizenCountry> fcc, bool isNationality)
         {
             return fcc.Where(f => f.IsNationality = isNationality).OrderBy(f => f.Ordinal).Select(f => f.ToXmlType()).ToArray();
         }

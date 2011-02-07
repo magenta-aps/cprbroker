@@ -9,77 +9,67 @@ namespace CprBroker.DAL.Part
 {
     public partial class PersonAttributes
     {
-        public Schemas.Part.AttributListeType ToXmlType()
+        public static Schemas.Part.AttributListeType ToXmlType(PersonAttributes db)
         {
-            var ret = new AttributListeType()
+            if (db != null)
             {
-                Egenskab = PersonProperties != null ? new EgenskabType[] { this.PersonProperties.ToXmlType() } : null,
-                RegisterOplysning = ToRegisterOplysningType(),
-                LokalUdvidelse = null,
-                SundhedOplysning = HealthInformation != null ? new SundhedOplysningType[] { HealthInformation.ToXmlType() } : null,
-            };
-            return ret;
+                return new AttributListeType()
+                {
+                    Egenskab = PersonProperties.ToXmlType(db.PersonProperties),
+                    RegisterOplysning = ToRegisterOplysningType(db),
+                    LokalUdvidelse = null,
+                    SundhedOplysning = HealthInformation.ToXmlType(db.HealthInformation),
+                };
+            }
+            return null;
         }
 
-        public RegisterOplysningType[] ToRegisterOplysningType()
+        public static RegisterOplysningType[] ToRegisterOplysningType(PersonAttributes db)
         {
-            var ret = new RegisterOplysningType()
+            if (db != null)
             {
-                Virkning = Effect.ToXmlType(),
-                Item = null
-            };
+                var ret = new RegisterOplysningType()
+                {
+                    Virkning = Effect.ToVirkningType(db.Effect),
+                    Item = null
+                };
 
-            if (this.CprData != null)
-            {
-                ret.Item = CprData.ToXmlType();
-            }
-            else if (this.ForeignCitizenData != null)
-            {
-                ret.Item = ForeignCitizenData.ToXmlType();
-            }
-            else if (this.UnknownCitizenData != null)
-            {
-                ret.Item = UnknownCitizenData.ToXmlType();
-            }
+                if (db.CprData != null)
+                {
+                    ret.Item = CprData.ToXmlType(db.CprData);
+                }
+                else if (db.ForeignCitizenData != null)
+                {
+                    ret.Item = ForeignCitizenData.ToXmlType(db.ForeignCitizenData);
+                }
+                else if (db.UnknownCitizenData != null)
+                {
+                    ret.Item = UnknownCitizenData.ToXmlType(db.UnknownCitizenData);
+                }
 
-            if (ret.Item != null)
-            {
-                return new RegisterOplysningType[] { ret };
+                if (ret.Item != null)
+                {
+                    return new RegisterOplysningType[] { ret };
+                }
             }
-            else
-            {
-                return null;
-            }
+            return new RegisterOplysningType[0];
+
         }
 
         public static PersonAttributes FromXmlType(Schemas.Part.AttributListeType oio)
         {
-            var oiosss = oio.Egenskab[0];
-            var ret = new PersonAttributes()
+            if (oio != null)
             {
-                PersonProperties = oio.Egenskab != null && oio.Egenskab.Length > 0 && oio.Egenskab[0] != null ? PersonProperties.FromXmlType(oio.Egenskab[0]) : null,
-                CprData = null,
-                ForeignCitizenData = null,
-                HealthInformation = null,
-                UnknownCitizenData = null,
-            };
-
-            if (oio.RegisterOplysning != null && oio.RegisterOplysning.Length > 0)
-            {
-                if (oio.RegisterOplysning[0].Item is Schemas.Part.CprData)
+                return new PersonAttributes()
                 {
-                    ret.CprData = DAL.Part.CprData.FromXmlType(oio.RegisterOplysning[0].Item as CprBorgerType);
-                }
-                else if (oio.RegisterOplysning[0].Item is UdenlandskBorgerType)
-                {
-                    ret.ForeignCitizenData = DAL.Part.ForeignCitizenData.FromXmlType(oio.RegisterOplysning[0].Item as UdenlandskBorgerType);
-                }
-                else if (oio.RegisterOplysning[0].Item is UkendtBorgerType)
-                {
-                    ret.UnknownCitizenData = DAL.Part.UnknownCitizenData.FromXmlType(oio.RegisterOplysning[0].Item as UkendtBorgerType);
-                }
+                    PersonProperties = PersonProperties.FromXmlType(oio.Egenskab),
+                    CprData = CprData.FromXmlType(oio.RegisterOplysning),
+                    ForeignCitizenData = ForeignCitizenData.FromXmlType(oio.RegisterOplysning),
+                    UnknownCitizenData = UnknownCitizenData.FromXmlType(oio.RegisterOplysning),
+                    HealthInformation = HealthInformation.FromXmlType(oio.SundhedOplysning),
+                };
             }
-            return ret;
+            return null;
         }
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)

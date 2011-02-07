@@ -8,20 +8,37 @@ namespace CprBroker.DAL.Part
 {
     public partial class UnknownCitizenData
     {
-        public UkendtBorgerType ToXmlType()
+        public static UkendtBorgerType ToXmlType(UnknownCitizenData db)
         {
-            return new UkendtBorgerType()
+            if (db != null)
             {
-                PersonCivilRegistrationReplacementIdentifier = CprNumber
-            };
+                return new UkendtBorgerType()
+                {
+                    PersonCivilRegistrationReplacementIdentifier = db.CprNumber
+                };
+            }
+            return null;
+        }
+
+        public static UnknownCitizenData FromXmlType(RegisterOplysningType[] oio)
+        {
+            if (oio != null && oio.Length > 0 && oio[0] != null)
+            {
+                return FromXmlType(oio[0].Item as UkendtBorgerType);
+            }
+            return null;
         }
 
         public static UnknownCitizenData FromXmlType(UkendtBorgerType partUnknownData)
         {
-            return new UnknownCitizenData()
+            if (partUnknownData != null)
             {
-                CprNumber = partUnknownData.PersonCivilRegistrationReplacementIdentifier,
-            };
+                return new UnknownCitizenData()
+                {
+                    CprNumber = partUnknownData.PersonCivilRegistrationReplacementIdentifier,
+                };
+            }
+            return null;
         }
     }
 }

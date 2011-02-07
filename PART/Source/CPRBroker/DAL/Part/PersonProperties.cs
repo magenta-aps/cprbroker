@@ -9,52 +9,61 @@ namespace CprBroker.DAL.Part
 {
     public partial class PersonProperties
     {
-        public EgenskabType ToXmlType()
+        public static EgenskabType[] ToXmlType(PersonProperties db)
         {
-            return new EgenskabType()
+            if (db != null)
             {
-                BirthDate = this.BirthDate,
-                PersonGenderCode = DAL.Part.Gender.GetPartGender(this.GenderId),
-                NavnStruktur = new NavnStrukturType()
+                return new EgenskabType[]
                 {
-                    KaldenavnTekst = NickName,
-                    NoteTekst = NameNoteText,
-                    PersonNameForAddressingName = AddressingName,
-                    PersonNameStructure = new NavnStruktur(FirstName, MiddleName, LastName),
-                },
-                FoedestedNavn = BirthPlace,
-                FoedselsregistreringMyndighedNavn = BirthRegistrationAuthority,
-                KontaktKanal = ContactChannel != null ? ContactChannel.ToXmlType() : null,
-                NaermestePaaroerende = NextOfKinContactChannel != null ? NextOfKinContactChannel.ToXmlType() : null,
-                AndreAdresser = OtherAddress != null ? OtherAddress.ToXmlType() : null,
-                Virkning = Effect != null ? Effect.ToXmlType() : null
-            };
+                    new EgenskabType()
+                    {
+                        BirthDate = db.BirthDate,
+                        PersonGenderCode = DAL.Part.Gender.GetPartGender(db.GenderId),
+                        NavnStruktur = new NavnStrukturType()
+                        {
+                            KaldenavnTekst = db.NickName,
+                            NoteTekst = db.NameNoteText,
+                            PersonNameForAddressingName = db.AddressingName,
+                            PersonNameStructure = PersonName.ToXmlType(db.PersonName),
+                        },
+                        FoedestedNavn = db.BirthPlace,
+                        FoedselsregistreringMyndighedNavn = db.BirthRegistrationAuthority,
+                        KontaktKanal = ContactChannel.ToXmlType(db.ContactChannel),
+                        NaermestePaaroerende = ContactChannel.ToXmlType(db.NextOfKinContactChannel),
+                        AndreAdresser = Address.ToXmlType(db.OtherAddress),
+                        Virkning = Effect.ToVirkningType(db.Effect)
+                    }
+                };
+            }
+            return null;
         }
 
-        public static PersonProperties FromXmlType(EgenskabType oio)
+        public static PersonProperties FromXmlType(EgenskabType[] oio)
         {
-            return new PersonProperties()
+            if (oio != null && oio.Length > 0 && oio[0] != null)
             {
-                BirthDate = oio.BirthDate,
+                return new PersonProperties()
+                {
+                    BirthDate = oio[0].BirthDate,
 
-                GenderId = DAL.Part.Gender.GetPartCode(oio.PersonGenderCode),
-                BirthPlace = oio.FoedestedNavn,
-                BirthRegistrationAuthority = oio.FoedselsregistreringMyndighedNavn,
+                    GenderId = DAL.Part.Gender.GetPartCode(oio[0].PersonGenderCode),
+                    BirthPlace = oio[0].FoedestedNavn,
+                    BirthRegistrationAuthority = oio[0].FoedselsregistreringMyndighedNavn,
 
-                FirstName = oio.NavnStruktur.PersonNameStructure.PersonGivenName,
-                MiddleName = oio.NavnStruktur.PersonNameStructure.PersonMiddleName,
-                LastName = oio.NavnStruktur.PersonNameStructure.PersonSurnameName,
+                    PersonName = PersonName.FromXmlType(oio[0].NavnStruktur.PersonNameStructure),
 
-                NickName = oio.NavnStruktur.KaldenavnTekst,
-                NameNoteText = oio.NavnStruktur.NoteTekst,
-                AddressingName = oio.NavnStruktur.PersonNameForAddressingName,
+                    NickName = oio[0].NavnStruktur.KaldenavnTekst,
+                    NameNoteText = oio[0].NavnStruktur.NoteTekst,
+                    AddressingName = oio[0].NavnStruktur.PersonNameForAddressingName,
 
-                ContactChannel = ContactChannel.FromXmlType(oio.KontaktKanal),
-                NextOfKinContactChannel = ContactChannel.FromXmlType(oio.NaermestePaaroerende),
-                OtherAddress = Address.FromXmlType(oio.AndreAdresser),
+                    ContactChannel = ContactChannel.FromXmlType(oio[0].KontaktKanal),
+                    NextOfKinContactChannel = ContactChannel.FromXmlType(oio[0].NaermestePaaroerende),
+                    OtherAddress = Address.FromXmlType(oio[0].AndreAdresser),
 
-                Effect = Effect.FromXmlType(oio.Virkning),
-            };
+                    Effect = Effect.FromVirkningType(oio[0].Virkning),
+                };
+            }
+            return null;
         }
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
