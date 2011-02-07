@@ -19,6 +19,7 @@ namespace CprBroker.Providers.DPR
         public PersonTotal PersonTotal { get; set; }
         public Street Street { get; set; }
         public ContactAddress ContactAddress { get; set; }
+        public PersonAddress Address { get; set; }
         //TODO: remove this field
         public bool HasProtection { get; set; }
         public IQueryable<CivilStatus> CivilStates { get; set; }
@@ -28,19 +29,26 @@ namespace CprBroker.Providers.DPR
         /// </summary>
         internal static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
             from personTotal in dataContext.PersonTotals
+            //TODO: Convert to left outer join, beware that this will make it possible for PersonAddress to be null
+            join personAddress in dataContext.PersonAddresses on personTotal.PNR equals personAddress.PNR
             //TODO: Convert to left outer join, beware that this will make it possible for PersonName to be null
             join personName in dataContext.PersonNames on personTotal.PNR equals personName.PNR
             join street in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { street.MunicipalityCode, street.StreetCode } into strt
             join contactAddress in dataContext.ContactAddresses on personName.PNR equals contactAddress.PNR into contactAddr
-            // TODO correct this condition
+
             where
-            personName.NameTerminationDate == null
+                // Active name only
+            personName.CorrectionMarker == null && personName.NameTerminationDate == null
+                // Active address only
+            && personAddress.CorrectionMarker == null && personAddress.AddressEndDate == null
             select new PersonInfo()
             {
-                PersonName = personName,
                 PersonTotal = personTotal,
+                Address = personAddress,
+                PersonName = personName,
                 Street = strt.FirstOrDefault(),
                 ContactAddress = contactAddr.SingleOrDefault(),
+
                 // TODO: include protection type with PNR because the index is on PNR & ProtectionType                
                 HasProtection = (
                    from protection in dataContext.Protections
@@ -265,7 +273,7 @@ namespace CprBroker.Providers.DPR
 
                 NavnStruktur = NavnStrukturType.Create(PersonName.FirstName, PersonName.LastName),
                 //TODO: Fill address when address schema is ready
-                AndreAdresser = null,
+                AndreAdresser = Address.ToForeignAddressFromSupplementary(),
                 //No contact channels implemented
                 KontaktKanal = null,
                 //Next of kin (nearest relative). Not implemented
@@ -296,7 +304,7 @@ namespace CprBroker.Providers.DPR
                     // TODO : Where to fill fromDate?
                     FolkekirkeMedlemIndikator = PersonTotal.ChristianMark.HasValue,
                     //TODO: Fill address when class is ready
-                    FolkeregisterAdresse = ToAdresseType(),
+                    FolkeregisterAdresse = Address.ToAdresseType(Street),
 
                     // Research protection
                     ForskerBeskyttelseIndikator = PersonTotal.DirectoryProtectionMarker == '1',
@@ -437,49 +445,5 @@ namespace CprBroker.Providers.DPR
             return ret;
         }
 
-        public AdresseType ToAdresseType()
-        {
-            return new AdresseType()
-            {
-                Item = new DanskAdresseType()
-                {
-                    AddressComplete = new CprBroker.Schemas.Part.AddressCompleteType()
-                    {
-                        AddressAccess = new CprBroker.Schemas.Part.AddressAccessType()
-                        {
-                            MunicipalityCode = PersonTotal.MunicipalityCode.ToDecimalString(),
-                            StreetBuildingIdentifier = PersonTotal.HouseNumber,
-                            StreetCode = PersonTotal.StreetCode.ToDecimalString()
-                        },
-                        AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
-                        {
-                            CountryIdentificationCode = null,
-                            DistrictName = null,
-                            DistrictSubdivisionIdentifier = null,
-                            FloorIdentifier = PersonTotal.Floor,
-                            MailDeliverySublocationIdentifier = null,
-                            PostCodeIdentifier = PersonTotal.PostCode.ToDecimalString(),
-                            PostOfficeBoxIdentifier = null,
-                            StreetBuildingIdentifier = PersonTotal.HouseNumber,
-                            StreetName = Street.StreetAddressingName,
-                            StreetNameForAddressingName = null,
-                            SuiteIdentifier = PersonTotal.Door,
-                        }
-                    },
-                    // No address point
-                    AddressPoint = null,
-                    NoteTekst = null,
-                    PolitiDistriktTekst = null,
-                    PostDistriktTekst = PersonTotal.PostDistrictName,
-                    SkoleDistriktTekst = null,
-                    SocialDistriktTekst = null,
-                    SogneDistriktTekst = null,
-                    SpecielVejkodeIndikator = false,
-                    SpecielVejkodeIndikatorSpecified = false,
-                    UkendtAdresseIndikator = false,
-                    ValgkredsDistriktTekst = null
-                }
-            };
-        }
     }
 }

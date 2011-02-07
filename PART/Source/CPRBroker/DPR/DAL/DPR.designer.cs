@@ -111,6 +111,14 @@ namespace CprBroker.Providers.DPR
 				return this.GetTable<ContactAddress>();
 			}
 		}
+		
+		public System.Data.Linq.Table<PersonAddress> PersonAddresses
+		{
+			get
+			{
+				return this.GetTable<PersonAddress>();
+			}
+		}
 	}
 	
 	[Table(Name="dbo.DTNAVNE")]
@@ -2169,6 +2177,591 @@ namespace CprBroker.Providers.DPR
 				if ((this._Line5 != value))
 				{
 					this._Line5 = value;
+				}
+			}
+		}
+	}
+	
+	[Table(Name="dbo.DTPERSBO")]
+	public partial class PersonAddress
+	{
+		
+		private decimal _PNR;
+		
+		private decimal _CprUpdateDate;
+		
+		private decimal _MunicipalityCode;
+		
+		private decimal _StreetCode;
+		
+		private string _HouseNumber;
+		
+		private string _Floor;
+		
+		private string _DoorNumber;
+		
+		private string _GreenlandConstructionNumber;
+		
+		private decimal _PostCode;
+		
+		private string _MunicipalityName;
+		
+		private string _StreetAddressingName;
+		
+		private decimal _AddressStartDate;
+		
+		private System.Nullable<char> _ArrivalDateMarker;
+		
+		private System.Nullable<decimal> _AddressEndDate;
+		
+		private System.Nullable<decimal> _LeavingFromMunicipalityCode;
+		
+		private System.Nullable<decimal> _LeavingFromMunicipalityDate;
+		
+		private System.Nullable<decimal> _MunicipalityArrivalDate;
+		
+		private System.Nullable<decimal> _AlwaysNull1;
+		
+		private System.Nullable<decimal> _AlwaysNull2;
+		
+		private System.Nullable<decimal> _AlwaysNull3;
+		
+		private System.Nullable<decimal> _AdditionalAddressDate;
+		
+		private System.Nullable<char> _CorrectionMarker;
+		
+		private string _CareOfName;
+		
+		private string _Town;
+		
+		private string _Location;
+		
+		private string _AdditionalAddressLine1;
+		
+		private string _AdditionalAddressLine2;
+		
+		private string _AdditionalAddressLine3;
+		
+		private System.Nullable<decimal> _AlwaysNull4;
+		
+		private string _AlwaysNull5;
+		
+		private string _AdditionalAddressLine4;
+		
+		private string _AdditionalAddressLine5;
+		
+		public PersonAddress()
+		{
+		}
+		
+		[Column(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this._PNR = value;
+				}
+			}
+		}
+		
+		[Column(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this._CprUpdateDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="KOMKOD", Storage="_MunicipalityCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal MunicipalityCode
+		{
+			get
+			{
+				return this._MunicipalityCode;
+			}
+			set
+			{
+				if ((this._MunicipalityCode != value))
+				{
+					this._MunicipalityCode = value;
+				}
+			}
+		}
+		
+		[Column(Name="VEJKOD", Storage="_StreetCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal StreetCode
+		{
+			get
+			{
+				return this._StreetCode;
+			}
+			set
+			{
+				if ((this._StreetCode != value))
+				{
+					this._StreetCode = value;
+				}
+			}
+		}
+		
+		[Column(Name="HUSNR", Storage="_HouseNumber", DbType="VarChar(4)")]
+		public string HouseNumber
+		{
+			get
+			{
+				return this._HouseNumber;
+			}
+			set
+			{
+				if ((this._HouseNumber != value))
+				{
+					this._HouseNumber = value;
+				}
+			}
+		}
+		
+		[Column(Name="ETAGE", Storage="_Floor", DbType="VarChar(2)")]
+		public string Floor
+		{
+			get
+			{
+				return this._Floor;
+			}
+			set
+			{
+				if ((this._Floor != value))
+				{
+					this._Floor = value;
+				}
+			}
+		}
+		
+		[Column(Name="SIDEDOER", Storage="_DoorNumber", DbType="VarChar(4)")]
+		public string DoorNumber
+		{
+			get
+			{
+				return this._DoorNumber;
+			}
+			set
+			{
+				if ((this._DoorNumber != value))
+				{
+					this._DoorNumber = value;
+				}
+			}
+		}
+		
+		[Column(Name="BNR", Storage="_GreenlandConstructionNumber", DbType="VarChar(4)")]
+		public string GreenlandConstructionNumber
+		{
+			get
+			{
+				return this._GreenlandConstructionNumber;
+			}
+			set
+			{
+				if ((this._GreenlandConstructionNumber != value))
+				{
+					this._GreenlandConstructionNumber = value;
+				}
+			}
+		}
+		
+		[Column(Name="POSTNR", Storage="_PostCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal PostCode
+		{
+			get
+			{
+				return this._PostCode;
+			}
+			set
+			{
+				if ((this._PostCode != value))
+				{
+					this._PostCode = value;
+				}
+			}
+		}
+		
+		[Column(Name="KOMNVN", Storage="_MunicipalityName", DbType="VarChar(20)")]
+		public string MunicipalityName
+		{
+			get
+			{
+				return this._MunicipalityName;
+			}
+			set
+			{
+				if ((this._MunicipalityName != value))
+				{
+					this._MunicipalityName = value;
+				}
+			}
+		}
+		
+		[Column(Name="VEJADNVN", Storage="_StreetAddressingName", DbType="VarChar(20)")]
+		public string StreetAddressingName
+		{
+			get
+			{
+				return this._StreetAddressingName;
+			}
+			set
+			{
+				if ((this._StreetAddressingName != value))
+				{
+					this._StreetAddressingName = value;
+				}
+			}
+		}
+		
+		[Column(Name="TILFDTO", Storage="_AddressStartDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal AddressStartDate
+		{
+			get
+			{
+				return this._AddressStartDate;
+			}
+			set
+			{
+				if ((this._AddressStartDate != value))
+				{
+					this._AddressStartDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="TFDTOMRK", Storage="_ArrivalDateMarker", DbType="VarChar(1)")]
+		public System.Nullable<char> ArrivalDateMarker
+		{
+			get
+			{
+				return this._ArrivalDateMarker;
+			}
+			set
+			{
+				if ((this._ArrivalDateMarker != value))
+				{
+					this._ArrivalDateMarker = value;
+				}
+			}
+		}
+		
+		[Column(Name="FRAFDTO", Storage="_AddressEndDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> AddressEndDate
+		{
+			get
+			{
+				return this._AddressEndDate;
+			}
+			set
+			{
+				if ((this._AddressEndDate != value))
+				{
+					this._AddressEndDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="FRAFKKOD", Storage="_LeavingFromMunicipalityCode", DbType="Decimal(5,0)")]
+		public System.Nullable<decimal> LeavingFromMunicipalityCode
+		{
+			get
+			{
+				return this._LeavingFromMunicipalityCode;
+			}
+			set
+			{
+				if ((this._LeavingFromMunicipalityCode != value))
+				{
+					this._LeavingFromMunicipalityCode = value;
+				}
+			}
+		}
+		
+		[Column(Name="FRAFKDTO", Storage="_LeavingFromMunicipalityDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> LeavingFromMunicipalityDate
+		{
+			get
+			{
+				return this._LeavingFromMunicipalityDate;
+			}
+			set
+			{
+				if ((this._LeavingFromMunicipalityDate != value))
+				{
+					this._LeavingFromMunicipalityDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="TILFKDTO", Storage="_MunicipalityArrivalDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> MunicipalityArrivalDate
+		{
+			get
+			{
+				return this._MunicipalityArrivalDate;
+			}
+			set
+			{
+				if ((this._MunicipalityArrivalDate != value))
+				{
+					this._MunicipalityArrivalDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="ABHAENST", Storage="_AlwaysNull1", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> AlwaysNull1
+		{
+			get
+			{
+				return this._AlwaysNull1;
+			}
+			set
+			{
+				if ((this._AlwaysNull1 != value))
+				{
+					this._AlwaysNull1 = value;
+				}
+			}
+		}
+		
+		[Column(Name="ABSLEDTO", Storage="_AlwaysNull2", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> AlwaysNull2
+		{
+			get
+			{
+				return this._AlwaysNull2;
+			}
+			set
+			{
+				if ((this._AlwaysNull2 != value))
+				{
+					this._AlwaysNull2 = value;
+				}
+			}
+		}
+		
+		[Column(Name="LBHAENST", Storage="_AlwaysNull3", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> AlwaysNull3
+		{
+			get
+			{
+				return this._AlwaysNull3;
+			}
+			set
+			{
+				if ((this._AlwaysNull3 != value))
+				{
+					this._AlwaysNull3 = value;
+				}
+			}
+		}
+		
+		[Column(Name="SAHAENST", Storage="_AdditionalAddressDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> AdditionalAddressDate
+		{
+			get
+			{
+				return this._AdditionalAddressDate;
+			}
+			set
+			{
+				if ((this._AdditionalAddressDate != value))
+				{
+					this._AdditionalAddressDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="ANNKOR", Storage="_CorrectionMarker", DbType="VarChar(1)")]
+		public System.Nullable<char> CorrectionMarker
+		{
+			get
+			{
+				return this._CorrectionMarker;
+			}
+			set
+			{
+				if ((this._CorrectionMarker != value))
+				{
+					this._CorrectionMarker = value;
+				}
+			}
+		}
+		
+		[Column(Name="CONVN", Storage="_CareOfName", DbType="VarChar(34)")]
+		public string CareOfName
+		{
+			get
+			{
+				return this._CareOfName;
+			}
+			set
+			{
+				if ((this._CareOfName != value))
+				{
+					this._CareOfName = value;
+				}
+			}
+		}
+		
+		[Column(Name="BYNVN", Storage="_Town", DbType="VarChar(34)")]
+		public string Town
+		{
+			get
+			{
+				return this._Town;
+			}
+			set
+			{
+				if ((this._Town != value))
+				{
+					this._Town = value;
+				}
+			}
+		}
+		
+		[Column(Name="LOKAL", Storage="_Location", DbType="VarChar(34)")]
+		public string Location
+		{
+			get
+			{
+				return this._Location;
+			}
+			set
+			{
+				if ((this._Location != value))
+				{
+					this._Location = value;
+				}
+			}
+		}
+		
+		[Column(Name="SUPLADR1", Storage="_AdditionalAddressLine1", DbType="VarChar(34)")]
+		public string AdditionalAddressLine1
+		{
+			get
+			{
+				return this._AdditionalAddressLine1;
+			}
+			set
+			{
+				if ((this._AdditionalAddressLine1 != value))
+				{
+					this._AdditionalAddressLine1 = value;
+				}
+			}
+		}
+		
+		[Column(Name="SUPLADR2", Storage="_AdditionalAddressLine2", DbType="VarChar(34)")]
+		public string AdditionalAddressLine2
+		{
+			get
+			{
+				return this._AdditionalAddressLine2;
+			}
+			set
+			{
+				if ((this._AdditionalAddressLine2 != value))
+				{
+					this._AdditionalAddressLine2 = value;
+				}
+			}
+		}
+		
+		[Column(Name="SUPLADR3", Storage="_AdditionalAddressLine3", DbType="VarChar(34)")]
+		public string AdditionalAddressLine3
+		{
+			get
+			{
+				return this._AdditionalAddressLine3;
+			}
+			set
+			{
+				if ((this._AdditionalAddressLine3 != value))
+				{
+					this._AdditionalAddressLine3 = value;
+				}
+			}
+		}
+		
+		[Column(Name="LBSLEDTO", Storage="_AlwaysNull4", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> AlwaysNull4
+		{
+			get
+			{
+				return this._AlwaysNull4;
+			}
+			set
+			{
+				if ((this._AlwaysNull4 != value))
+				{
+					this._AlwaysNull4 = value;
+				}
+			}
+		}
+		
+		[Column(Name="LBINDRAP", Storage="_AlwaysNull5", DbType="VarChar(3)")]
+		public string AlwaysNull5
+		{
+			get
+			{
+				return this._AlwaysNull5;
+			}
+			set
+			{
+				if ((this._AlwaysNull5 != value))
+				{
+					this._AlwaysNull5 = value;
+				}
+			}
+		}
+		
+		[Column(Name="SUPLADR4", Storage="_AdditionalAddressLine4", DbType="VarChar(34)")]
+		public string AdditionalAddressLine4
+		{
+			get
+			{
+				return this._AdditionalAddressLine4;
+			}
+			set
+			{
+				if ((this._AdditionalAddressLine4 != value))
+				{
+					this._AdditionalAddressLine4 = value;
+				}
+			}
+		}
+		
+		[Column(Name="SUPLADR5", Storage="_AdditionalAddressLine5", DbType="VarChar(34)")]
+		public string AdditionalAddressLine5
+		{
+			get
+			{
+				return this._AdditionalAddressLine5;
+			}
+			set
+			{
+				if ((this._AdditionalAddressLine5 != value))
+				{
+					this._AdditionalAddressLine5 = value;
 				}
 			}
 		}

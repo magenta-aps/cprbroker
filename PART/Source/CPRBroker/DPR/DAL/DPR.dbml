@@ -139,4 +139,40 @@
       <Column Name="KADR5" Member="Line5" Modifier="New" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.DTPERSBO" Member="PersonAddresses">
+    <Type Name="PersonAddress">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNR" Member="HouseNumber" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="SIDEDOER" Member="DoorNumber" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="BNR" Member="GreenlandConstructionNumber" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="POSTNR" Member="PostCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="KOMNVN" Member="MunicipalityName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="VEJADNVN" Member="StreetAddressingName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="TILFDTO" Member="AddressStartDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="TFDTOMRK" Member="ArrivalDateMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="FRAFDTO" Member="AddressEndDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="FRAFKKOD" Member="LeavingFromMunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
+      <Column Name="FRAFKDTO" Member="LeavingFromMunicipalityDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="TILFKDTO" Member="MunicipalityArrivalDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="ABHAENST" Member="AlwaysNull1" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="ABSLEDTO" Member="AlwaysNull2" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="LBHAENST" Member="AlwaysNull3" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="SAHAENST" Member="AdditionalAddressDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="CONVN" Member="CareOfName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="BYNVN" Member="Town" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="LOKAL" Member="Location" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="SUPLADR1" Member="AdditionalAddressLine1" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="SUPLADR2" Member="AdditionalAddressLine2" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="SUPLADR3" Member="AdditionalAddressLine3" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="LBSLEDTO" Member="AlwaysNull4" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="LBINDRAP" Member="AlwaysNull5" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="SUPLADR4" Member="AdditionalAddressLine4" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="SUPLADR5" Member="AdditionalAddressLine5" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
