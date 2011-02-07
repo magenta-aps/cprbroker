@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Functional Test of PART broker</title>
+  </head>
+
+  <body>
+    <h1>Functional Test of PART broker</h1>
+    
+
+
+<h2>Registration of applications</h2>
+
+We first check that the Demo application i able to register.
+
+<table border="1" style="border-collapse: collapse">
+<tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
+<tr><td>Request Registration name=testApp1</td><td>Access</td><td></td><td>Select * from application</td><td></td></tr>
+<tr><td>Request Registration name=testApp2</td><td>Access</td><td></td><td>Select * from application</td><td></td></tr>
+<tr><td>List app registration</td><td>Access</td><td></td><td></td><td></td></tr>
+<tr><td>Approve registration name=testApp1</td><td>Access</td><td></td><td>Select * from application where name='testApp1'</td><td></td></tr>
+<tr><td>List app registration</td><td>Access</td><td></td><td></td><td></td></tr>
+<tr><td>Unregister testApp1</td><td>Access</td><td></td><td></td><td></td></tr>
+<tr><td>List app registration</td><td>Access</td><td></td><td></td><td></td></tr>
+<tr><td>Ping using testApp1 registration token</td><td>Subscriptions.asmx?op=Ping</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Ping using testApp2 registration token</td><td>Subscriptions.asmx?op=Ping</td><td>SoapUI</td><td></td><td></td></tr>
+</table>
+
+<h2>PART</h2>
+
+In the following we implicitly use testApp2 registrations.
+
+<h3> UUID og CPR number </h3>
+
+
+<h4> UUID to CPR number </h4>
+<table border="1" style="border-collapse: collapse">
+<tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
+
+<tr><td>CPR number lookup, exist in GTK</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>CPR number lookup, exist but not in GTK</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>CPR number lookup, does not exist</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>invalid CPR number</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td></td></tr>
+</table>
+
+<h4> CPR number </h4>
+<table border="1" style="border-collapse: collapse">
+<tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
+<tr><td>UUID of person in GTK in PART</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>UUID of person not in GTK in PART</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>UUID does not exist in PART</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Invalid UUID</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td></td></tr>
+</table>
+    
+
+<h3>Eventbroker</h3>
+
+<h4>subscription</h4>
+
+We set up two webservice channels webservice1 and webservice2.
+They just accept anything and writes it to a logfile.
+
+
+<p>
+<table border="1" style="border-collapse: collapse">
+<tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
+<tr><td>Ping</td><td>Subscriptions.asmx?op=Ping</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td>Empty</td></tr>
+<tr><td>Subscribe(fileshare1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>result=sub1</td></tr>
+<tr><td>Subscribe(fileshare2, [not existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>result=sub2</td></tr>
+<tr><td>Subscribe(fileshare3, empty list)</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>result=sub3</td></tr>
+<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Subscribe(webservice1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Subscribe(webservice2, [existing uuid,existing uuid,existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>UnSubscribe(sub1)</td><td>Subscriptions.asmx?op=Unsubscribe</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>UnSubscribe(not existing subscription)</td><td>Subscriptions.asmx?op=Unsubscribe</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Birthday(fileshare4, priorDays=1, years=42, CPRno)</td><td>Subscriptions.asmx?op=SubscribeOnbirthday</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Birthday(fileshare5, priorDays=-1, years=42, CPRno)</td><td>Subscriptions.asmx?op=SubscribeOnbirthday</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Birthday(fileshare5, priorDays=1, years=-42, CPRno)</td><td>Subscriptions.asmx?op=SubscribeOnbirthday</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Birthday(fileshare5, priorDays=0, years=-42, CPRno)</td><td>Subscriptions.asmx?op=SubscribeOnbirthday</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Birthday(fileshare6, priorDays=10, years=64, [CPRno1,cpr2])</td><td>Subscriptions.asmx?op=SubscribeOnbirthday</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Birthday(fileshare7, priorDays=10, years=64, empty_list)</td><td>Subscriptions.asmx?op=SubscribeOnbirthday</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
+</table>
+
+<h4>notification</h4>
+
+<ol>
+<li>check fileshare 1-6</li>
+<li>check log from dummy webservice 1-2</li>
+</ol>
+
+
+<h3>Refresh Read</h3>
+<table border="1" style="border-collapse: collapse">
+<tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
+<tr><td>Invalid UUID</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>UUID does not exist</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>UUID=uuid1 does not exist in PART</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td>First update in GTK test DPR, then do RefreshRead, then check the broker DB</td><td></td></tr>
+<tr><td>read uuid1</td> <td>Part?op=Read</td><td>SoapUI</td><td>should be the version from DPR</td><td></td></tr>
+<tr><td>UUID=uuid2 of person in PART</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>read uuid2</td> <td>Part?op=Read</td><td>SoapUI</td><td>should be the version from DPR</td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+</table>
+
+
+
+    <hr>
+    <address><a href="mailto:elgaard@niels.magenta-aps.dk">Niels Elgaard Larsen</a></address>
+<!-- Created: Mon Feb  7 15:53:17 CET 2011 -->
+<!-- hhmts start -->
+Last modified: Mon Feb  7 22:45:28 CET 2011
+<!-- hhmts end -->
+  </body>
+</html>
