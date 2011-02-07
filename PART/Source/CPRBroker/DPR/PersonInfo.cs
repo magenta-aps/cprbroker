@@ -323,8 +323,8 @@ namespace CprBroker.Providers.DPR
                 ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.AddressDate, PersonName.AddressingNameDate, PersonTotal.StatusDate, Address.AddressStartDate, Address.CprUpdateDate, Address.LeavingFromMunicipalityDate, Address.MunicipalityArrivalDate, Nationality.NationalityStartDate), null);
             }
             else if (
-                (!string.Equals(PersonTotal.Nationality, Constants.CprNationalityKmdCode, StringComparison.OrdinalIgnoreCase))
-                && (!string.Equals(PersonTotal.Nationality, Constants.StatelessKmdCode, StringComparison.OrdinalIgnoreCase))
+                (!string.Equals(Nationality.CountryCode.ToDecimalString(), Constants.CprNationalityKmdCode, StringComparison.OrdinalIgnoreCase))
+                && (!string.Equals(Nationality.CountryCode.ToDecimalString(), Constants.StatelessKmdCode, StringComparison.OrdinalIgnoreCase))
                 )
             {
                 ret.Item = new UdenlandskBorgerType()
