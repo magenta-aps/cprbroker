@@ -78,7 +78,7 @@ namespace CprBroker.Engine.Local
                 // Perform a content match if key match is found
                 if (duplicateExists)
                 {
-                    duplicateExists = Array.Exists(existingInDb, (db) => Schemas.Util.Misc.AreEqual<RegistreringType1>(db.ToXmlType(), personRegistraion));
+                    duplicateExists = Array.Exists(existingInDb, (db) => Schemas.Util.Misc.AreEqual<RegistreringType1>(DAL.Part.PersonRegistration.ToXmlType(db), personRegistraion));
                 }
 
                 // If there are really no matches, update the database

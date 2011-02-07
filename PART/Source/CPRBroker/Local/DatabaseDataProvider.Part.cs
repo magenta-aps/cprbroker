@@ -49,18 +49,18 @@ namespace CprBroker.Providers.Local
                                         if (!name.IsEmpty)
                                         {
                                             var cprNamePred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
-                                            cprNamePred = cprNamePred.And((pr) => pr.PersonAttribute.CprData != null);
+                                            cprNamePred = cprNamePred.And((pr) => pr.PersonAttributes.CprData != null);
                                             if (!string.IsNullOrEmpty(name.PersonGivenName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.PersonProperties.FirstName == name.PersonGivenName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.PersonProperties.PersonName.FirstName == name.PersonGivenName);
                                             }
                                             if (!string.IsNullOrEmpty(name.PersonMiddleName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.PersonProperties.MiddleName == name.PersonMiddleName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.PersonProperties.PersonName.MiddleName == name.PersonMiddleName);
                                             }
                                             if (!string.IsNullOrEmpty(name.PersonSurnameName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttribute.PersonProperties.LastName == name.PersonSurnameName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.PersonProperties.PersonName.LastName == name.PersonSurnameName);
                                             }
                                             pred = pred.And(cprNamePred);
                                         }
@@ -168,7 +168,7 @@ namespace CprBroker.Providers.Local
                     // TODO: Filter by effect date
                     orderby personReg.RegistrationDate descending
                     orderby personReg.BrokerUpdateDate descending
-                    select personReg.ToXmlType()
+                    select DAL.Part.PersonRegistration.ToXmlType(personReg)
                 ).FirstOrDefault();
             }
             ql = QualityLevel.LocalCache;
