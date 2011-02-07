@@ -69,7 +69,7 @@
         <elementListCompartment Id="ebcc20e1-4127-4a00-9584-68e21a43655d" absoluteBounds="4.765, 15.21, 1.9700000000000002, 2.67266845703125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.75 : 16.3732922363281); (8.01041666666667 : 16.3732922363281 : JumpStart); (8.17708333333333 : 16.3732922363281 : JumpEnd); (8.25 : 16.3732922363281)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.75 : 16.3732922363281); (7.63541666666667 : 16.3732922363281 : JumpStart); (7.80208333333333 : 16.3732922363281 : JumpEnd); (8.01041666666667 : 16.3732922363281 : JumpStart); (8.17708333333333 : 16.3732922363281 : JumpEnd); (8.25 : 16.3732922363281)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/DenmarkAddress/DenmarkAddress_DanishAddress" />
       <nodes>
         <classShapeMoniker Id="6fe7910a-5352-4c0d-b934-da32240a4da1" />
@@ -89,7 +89,7 @@
         <elementListCompartment Id="098cbb2b-ae46-40ac-8f0b-a3bbf6a6ad9d" absoluteBounds="8.015, 18.585, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.75 : 14.96875); (8.09375 : 14.96875); (8.09375 : 18.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.75 : 14.96875); (7.63541666666667 : 14.96875 : JumpStart); (7.80208333333333 : 14.96875 : JumpEnd); (8.09375 : 14.96875); (8.09375 : 18.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/DenmarkAddress/DenmarkAddress_GreenlandicAddress" />
       <nodes>
         <classShapeMoniker Id="6fe7910a-5352-4c0d-b934-da32240a4da1" />
@@ -140,21 +140,21 @@
         <elementListCompartment Id="3ea491aa-90b3-4162-92a3-f1cac26019bb" absoluteBounds="17.39, 2.4600000000000009, 1.9700000000000002, 2.17962646484375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.375 : 10.5052502441406); (7.63541666666667 : 10.5052502441406 : JumpStart); (7.80208333333333 : 10.5052502441406 : JumpEnd); (8.625 : 10.5052502441406); (8.625 : 8.875); (8.96354041666667 : 8.875 : JumpStart); (9.13020708333333 : 8.875 : JumpEnd); (9.26041416666667 : 8.875 : JumpStart); (9.42708083333333 : 8.875 : JumpEnd); (9.52604041666667 : 8.875 : JumpStart); (9.69270708333333 : 8.875 : JumpEnd); (9.79166666666667 : 8.875 : JumpStart); (9.95833333333333 : 8.875 : JumpEnd); (10.3229191666667 : 8.875 : JumpStart); (10.4895858333333 : 8.875 : JumpEnd); (12.6354141666667 : 8.875 : JumpStart); (12.8020808333333 : 8.875 : JumpEnd); (13.1666666666667 : 8.875 : JumpStart); (13.3333333333333 : 8.875 : JumpEnd); (13.6979191666667 : 8.875 : JumpStart); (13.8645858333333 : 8.875 : JumpEnd); (17 : 8.875); (17 : 6.375); (18.3203105 : 6.375); (18.3203105 : 4.73962646484375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.375 : 10.5052502441406); (7.63541666666667 : 10.5052502441406 : JumpStart); (7.80208333333333 : 10.5052502441406 : JumpEnd); (8.625 : 10.5052502441406); (8.625 : 8.875); (8.96354041666667 : 8.875 : JumpStart); (9.13020708333333 : 8.875 : JumpEnd); (9.26041416666667 : 8.875 : JumpStart); (9.42708083333333 : 8.875 : JumpEnd); (13.1666666666667 : 8.875 : JumpStart); (13.3333333333333 : 8.875 : JumpEnd); (17 : 8.875); (17 : 6.375); (18.3203105 : 6.375); (18.3203105 : 4.73962646484375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/Address/Address_PersonProperties" />
       <nodes>
         <classShapeMoniker Id="8a17d9be-f03e-4677-af08-3257b15f06c6" />
         <classShapeMoniker Id="f20cd1ae-db4f-4b0f-9d00-0491b64dea34" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.125 : 12.40625); (6.19791666666667 : 12.40625 : JumpStart); (6.36458333333333 : 12.40625 : JumpEnd); (10.3385391666667 : 12.40625 : JumpStart); (10.5052058333333 : 12.40625 : JumpEnd); (10.6822941666667 : 12.40625 : JumpStart); (10.8489608333333 : 12.40625 : JumpEnd); (13.1666666666667 : 12.40625 : JumpStart); (13.3333333333333 : 12.40625 : JumpEnd); (19.328125 : 12.40625); (19.328125 : 4.73962646484375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.125 : 12.40625); (6.19791666666667 : 12.40625 : JumpStart); (6.36458333333333 : 12.40625 : JumpEnd); (7.63541666666667 : 12.40625 : JumpStart); (7.80208333333333 : 12.40625 : JumpEnd); (10.3385391666667 : 12.40625 : JumpStart); (10.5052058333333 : 12.40625 : JumpEnd); (10.5104166666667 : 12.40625 : JumpStart); (10.6770833333333 : 12.40625 : JumpEnd); (10.6822941666667 : 12.40625 : JumpStart); (10.8489608333333 : 12.40625 : JumpEnd); (12.6354141666667 : 12.40625 : JumpStart); (12.8020808333333 : 12.40625 : JumpEnd); (13.1666666666667 : 12.40625 : JumpStart); (13.3333333333333 : 12.40625 : JumpEnd); (19.328125 : 12.40625); (19.328125 : 4.73962646484375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/ContactChannel/ContactChannel_PersonProperties" />
       <nodes>
         <classShapeMoniker Id="1f9360a1-99fa-4d16-9cd6-1f0a010b5798" />
         <classShapeMoniker Id="f20cd1ae-db4f-4b0f-9d00-0491b64dea34" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.125 : 13.975771484375); (6.19791666666667 : 13.975771484375 : JumpStart); (6.36458333333333 : 13.975771484375 : JumpEnd); (10.3385391666667 : 13.975771484375 : JumpStart); (10.5052058333333 : 13.975771484375 : JumpEnd); (10.5104166666667 : 13.975771484375 : JumpStart); (10.6770833333333 : 13.975771484375 : JumpEnd); (10.6822941666667 : 13.975771484375 : JumpStart); (10.8489608333333 : 13.975771484375 : JumpEnd); (13.1666666666667 : 13.975771484375 : JumpStart); (13.3333333333333 : 13.975771484375 : JumpEnd); (19.359375 : 13.975771484375); (19.359375 : 4.73962646484375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.125 : 13.975771484375); (6.19791666666667 : 13.975771484375 : JumpStart); (6.36458333333333 : 13.975771484375 : JumpEnd); (7.63541666666667 : 13.975771484375 : JumpStart); (7.80208333333333 : 13.975771484375 : JumpEnd); (10.3385391666667 : 13.975771484375 : JumpStart); (10.5052058333333 : 13.975771484375 : JumpEnd); (10.5104166666667 : 13.975771484375 : JumpStart); (10.6770833333333 : 13.975771484375 : JumpEnd); (10.6822941666667 : 13.975771484375 : JumpStart); (10.8489608333333 : 13.975771484375 : JumpEnd); (13.1666666666667 : 13.975771484375 : JumpStart); (13.3333333333333 : 13.975771484375 : JumpEnd); (19.359375 : 13.975771484375); (19.359375 : 4.73962646484375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/ContactChannel/ContactChannel_PersonProperties1" />
       <nodes>
         <classShapeMoniker Id="1f9360a1-99fa-4d16-9cd6-1f0a010b5798" />
@@ -194,14 +194,14 @@
         <elementListCompartment Id="0b725f67-2684-48d1-ab0a-28af07906f67" absoluteBounds="17.265, 7.0850000000000009, 1.9700000000000002, 2.015279134114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.34375 : 9.875); (6.34375 : 8.18927124023438); (8.96354041666667 : 8.18927124023438 : JumpStart); (9.13020708333333 : 8.18927124023438 : JumpEnd); (9.52604041666667 : 8.18927124023438 : JumpStart); (9.69270708333333 : 8.18927124023438 : JumpEnd); (9.79166666666667 : 8.18927124023438 : JumpStart); (9.95833333333333 : 8.18927124023438 : JumpEnd); (10.3229191666667 : 8.18927124023438 : JumpStart); (10.4895858333333 : 8.18927124023438 : JumpEnd); (13.1666666666667 : 8.18927124023438 : JumpStart); (13.3333333333333 : 8.18927124023438 : JumpEnd); (13.6979191666667 : 8.18927124023438 : JumpStart); (13.8645858333333 : 8.18927124023438 : JumpEnd); (17.25 : 8.18927124023438)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.34375 : 9.875); (6.34375 : 8.18927124023438); (17.25 : 8.18927124023438)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/Address/Address_CprData" />
       <nodes>
         <classShapeMoniker Id="8a17d9be-f03e-4677-af08-3257b15f06c6" />
         <classShapeMoniker Id="aa3754b3-0934-4f40-bcd7-d666beabd8bc" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(14.25 : 7.04807657877604); (17.25 : 7.04807657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(14.25 : 7.04807657877604); (16.9166666666667 : 7.04807657877604 : JumpStart); (17.0833333333333 : 7.04807657877604 : JumpEnd); (17.25 : 7.04807657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/PersonAttributes/PersonAttributes_CprData" />
       <nodes>
         <classShapeMoniker Id="7d36f28f-f642-4a46-8236-8cb8de854451" />
@@ -253,7 +253,7 @@
         <elementListCompartment Id="17bfa666-52f1-4ada-8a40-8be56bfae8f3" absoluteBounds="8.89, 9.585, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(9.875 : 9.125); (9.875 : 7.00177124023438); (9.69270708333333 : 7.00177124023438 : JumpStart); (9.52604041666667 : 7.00177124023438 : JumpEnd); (9.13020708333333 : 7.00177124023438 : JumpStart); (8.96354041666667 : 7.00177124023438 : JumpEnd); (6.125 : 7.00177124023438)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.875 : 9.125); (9.875 : 7.00177124023438); (9.69270708333333 : 7.00177124023438 : JumpStart); (9.52604041666667 : 7.00177124023438 : JumpEnd); (9.42708083333333 : 7.00177124023438 : JumpStart); (9.26041416666667 : 7.00177124023438 : JumpEnd); (9.13020708333333 : 7.00177124023438 : JumpStart); (8.96354041666667 : 7.00177124023438 : JumpEnd); (7.80208333333333 : 7.00177124023438 : JumpStart); (7.63541666666667 : 7.00177124023438 : JumpEnd); (6.125 : 7.00177124023438)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/Effect/Effect_PersonRelationship" />
       <nodes>
         <classShapeMoniker Id="8019153c-e009-444a-82c4-102abaa1c75e" />
@@ -267,7 +267,7 @@
         <classShapeMoniker Id="7d36f28f-f642-4a46-8236-8cb8de854451" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.3437475 : 9.125); (9.3437475 : 2.98511663492839); (9.96354041666667 : 2.98511663492839 : JumpStart); (10.1302070833333 : 2.98511663492839 : JumpEnd); (17.375 : 2.98511663492839)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.3437475 : 9.125); (9.3437475 : 2.98511663492839); (17.375 : 2.98511663492839)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/Effect/Effect_PersonProperties" />
       <nodes>
         <classShapeMoniker Id="8019153c-e009-444a-82c4-102abaa1c75e" />
@@ -320,21 +320,21 @@
         <classShapeMoniker Id="6ee938b8-98cc-4e4a-8b25-0474c9c8bbaf" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.75 : 4.87591985839844); (8.96354041666667 : 4.87591985839844 : JumpStart); (9.13020708333333 : 4.87591985839844 : JumpEnd); (12.7187475 : 4.87591985839844); (12.7187475 : 6.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.75 : 4.87591985839844); (7.63541666666667 : 4.87591985839844 : JumpStart); (7.80208333333333 : 4.87591985839844 : JumpEnd); (8.96354041666667 : 4.87591985839844 : JumpStart); (9.13020708333333 : 4.87591985839844 : JumpEnd); (9.26041416666667 : 4.87591985839844 : JumpStart); (9.42708083333333 : 4.87591985839844 : JumpEnd); (9.52604041666667 : 4.87591985839844 : JumpStart); (9.69270708333333 : 4.87591985839844 : JumpEnd); (12.7187475 : 4.87591985839844); (12.7187475 : 6.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/PersonRegistration/PersonRegistration_PersonAttributes" />
       <nodes>
         <classShapeMoniker Id="8edae611-c749-44bc-ba61-f83c4cd57262" />
         <classShapeMoniker Id="7d36f28f-f642-4a46-8236-8cb8de854451" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(10.04687375 : 1.76050048828125); (10.04687375 : 3.96920742919922); (9.13020708333333 : 3.96920742919922 : JumpStart); (8.96354041666667 : 3.96920742919922 : JumpEnd); (6.75 : 3.96920742919922)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(10.04687375 : 1.76050048828125); (10.04687375 : 3.96920742919922); (9.42708083333333 : 3.96920742919922 : JumpStart); (9.26041416666667 : 3.96920742919922 : JumpEnd); (9.13020708333333 : 3.96920742919922 : JumpStart); (8.96354041666667 : 3.96920742919922 : JumpEnd); (7.80208333333333 : 3.96920742919922 : JumpStart); (7.63541666666667 : 3.96920742919922 : JumpEnd); (6.75 : 3.96920742919922)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/ActorRef/ActorRef_PersonRegistration" />
       <nodes>
         <classShapeMoniker Id="31d8c08b-e1e2-4d01-a16c-d57b1465bea8" />
         <classShapeMoniker Id="8edae611-c749-44bc-ba61-f83c4cd57262" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.60937375 : 9.125); (9.60937375 : 4.42256364379883); (9.13020708333333 : 4.42256364379883 : JumpStart); (8.96354041666667 : 4.42256364379883 : JumpEnd); (6.75 : 4.42256364379883)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.60937375 : 9.125); (9.60937375 : 4.42256364379883); (9.42708083333333 : 4.42256364379883 : JumpStart); (9.26041416666667 : 4.42256364379883 : JumpEnd); (9.13020708333333 : 4.42256364379883 : JumpStart); (8.96354041666667 : 4.42256364379883 : JumpEnd); (7.80208333333333 : 4.42256364379883 : JumpStart); (7.63541666666667 : 4.42256364379883 : JumpEnd); (6.75 : 4.42256364379883)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/Effect/Effect_PersonRegistration" />
       <nodes>
         <classShapeMoniker Id="8019153c-e009-444a-82c4-102abaa1c75e" />
@@ -406,7 +406,7 @@
         <classShapeMoniker Id="a54c578f-0142-4b9a-a2ea-818667b6ebfd" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.5 : 24.1302502441406); (10.3385391666667 : 24.1302502441406 : JumpStart); (10.5052058333333 : 24.1302502441406 : JumpEnd); (11 : 24.1302502441406)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.5 : 24.1302502441406); (11 : 24.1302502441406)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/PersonState/PersonState_PersonLifeState" />
       <nodes>
         <classShapeMoniker Id="5b50f42d-e752-4541-9e17-96f40b587b9e" />
@@ -459,14 +459,14 @@
         <elementListCompartment Id="73181067-c3a6-4074-9ed8-805bf3dd53ec" absoluteBounds="11.64, 20.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(13.625 : 20.423076578776); (14.625 : 20.423076578776)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(13.625 : 20.423076578776); (14.625 : 20.423076578776)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/GeographicPointLocation/GeographicPointLocation_GeographicCoorditaneTuple" />
       <nodes>
         <classShapeMoniker Id="210095ae-b917-4356-ba41-8ec8b6bdea82" />
         <classShapeMoniker Id="054af2f5-ad44-4533-b591-2159c22cab4b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(12.875 : 18.3461531575521); (12.875 : 19.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(12.875 : 18.3461531575521); (12.875 : 19.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/AddressPoint/AddressPoint_GeographicPointLocation" />
       <nodes>
         <classShapeMoniker Id="fc0de60a-6d0d-4b76-a25a-06e2ec3a08d5" />
@@ -479,7 +479,7 @@
         <elementListCompartment Id="6343eb36-a8f5-45fa-9ac4-43e5ea2c8875" absoluteBounds="15.14, 18.085, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(14.125 : 17.985576578776); (15.125 : 17.985576578776)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(14.125 : 17.985576578776); (15.125 : 17.985576578776)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PartDataContext/AddressPoint/AddressPoint_AddressPointStatus" />
       <nodes>
         <classShapeMoniker Id="fc0de60a-6d0d-4b76-a25a-06e2ec3a08d5" />

@@ -134,12 +134,6 @@ namespace CprBroker.DAL.Part
     partial void DeleteAddressPointStatus(AddressPointStatus instance);
     #endregion
 		
-		public PartDataContext() : 
-				base(global::CprBroker.DAL.Properties.Settings.Default.PARTConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public PartDataContext(string connection) : 
 				base(connection, mappingSource)
 		{

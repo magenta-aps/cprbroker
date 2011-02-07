@@ -213,6 +213,7 @@
     <None Include="DataProviders\DataProvidersDataContext.dbml.layout">
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </None>
+    <None Include="Part\PartDataContext.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
