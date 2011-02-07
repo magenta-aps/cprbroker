@@ -24,7 +24,7 @@ namespace CprBroker.Providers.DPR
                         },
                         AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
                         {
-                            CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, Constants.DenmarkAlpha2Code),
+                            CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode),
                             DistrictName = Town,
                             DistrictSubdivisionIdentifier = null,
                             FloorIdentifier = Floor,
@@ -61,7 +61,7 @@ namespace CprBroker.Providers.DPR
                 {
                     ForeignAddressStructure = new ForeignAddressStructureType()
                     {
-                        CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, Constants.DenmarkAlpha2Code),
+                        CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, Constants.DenmarkKmdCode),
                         LocationDescriptionText = Location,
                         PostalAddressFirstLineText = AdditionalAddressLine1,
                         PostalAddressSecondLineText = AdditionalAddressLine2,

@@ -17,6 +17,7 @@ namespace CprBroker.Providers.DPR
 
         public PersonName PersonName { get; set; }
         public PersonTotal PersonTotal { get; set; }
+        public Nationality Nationality { get; set; }
         public Street Street { get; set; }
         public ContactAddress ContactAddress { get; set; }
         public PersonAddress Address { get; set; }
@@ -29,6 +30,7 @@ namespace CprBroker.Providers.DPR
         /// </summary>
         internal static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
             from personTotal in dataContext.PersonTotals
+            join personNationality in dataContext.Nationalities on personTotal.PNR equals personNationality.PNR
             //TODO: Convert to left outer join, beware that this will make it possible for PersonAddress to be null
             join personAddress in dataContext.PersonAddresses on personTotal.PNR equals personAddress.PNR
             //TODO: Convert to left outer join, beware that this will make it possible for PersonName to be null
@@ -37,8 +39,10 @@ namespace CprBroker.Providers.DPR
             join contactAddress in dataContext.ContactAddresses on personName.PNR equals contactAddress.PNR into contactAddr
 
             where
+                // Active nationality only
+            personNationality.CorrectionMarker == null && personNationality.NationalityEndDate == null
                 // Active name only
-            personName.CorrectionMarker == null && personName.NameTerminationDate == null
+            && personName.CorrectionMarker == null && personName.NameTerminationDate == null
                 // Active address only
             && personAddress.CorrectionMarker == null && personAddress.AddressEndDate == null
             select new PersonInfo()
@@ -272,7 +276,7 @@ namespace CprBroker.Providers.DPR
                 PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar(PersonTotal.Sex),
 
                 NavnStruktur = NavnStrukturType.Create(PersonName.FirstName, PersonName.LastName),
-                //TODO: Fill address when address schema is ready
+
                 AndreAdresser = Address.ToForeignAddressFromSupplementary(),
                 //No contact channels implemented
                 KontaktKanal = null,
@@ -294,38 +298,33 @@ namespace CprBroker.Providers.DPR
                        Virkning = VirkningType.Create(null, null)
                    };
             // Now create the appropriate object based on nationality
-            if (string.Equals(PersonTotal.Nationality, Constants.DenmarkNationality, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
             {
                 ret.Item = new CprBorgerType()
                 {
-                    // No address note
                     AdresseNoteTekst = null,
-                    // Church membership
-                    // TODO : Where to fill fromDate?
-                    FolkekirkeMedlemIndikator = PersonTotal.ChristianMark.HasValue,
-                    //TODO: Fill address when class is ready
                     FolkeregisterAdresse = Address.ToAdresseType(Street),
-
-                    // Research protection
                     ForskerBeskyttelseIndikator = PersonTotal.DirectoryProtectionMarker == '1',
-                    // TODO : What to put here? Could it be PersonTotal.AddressProtectionMarker?
-                    NavneAdresseBeskyttelseIndikator = false,
-
                     PersonCivilRegistrationIdentifier = PersonTotal.PNR.ToDecimalString(),
+                    PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality)),
 
-                    PersonNationalityCode = new CountryIdentificationCodeType(),// DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality),
                     //PNR validity status
                     // TODO: Make sure that true is the correct value
                     PersonNummerGyldighedStatusIndikator = true,
+                    // TODO : What to put here? Could it be PersonTotal.AddressProtectionMarker?
+                    NavneAdresseBeskyttelseIndikator = false,
+                    // Church membership
+                    // TODO : Where to fill fromDate?
+                    FolkekirkeMedlemIndikator = PersonTotal.ChristianMark.HasValue,
                     //Use false since we do not have telephone numbers here
                     // TODO: Check if this is correct
                     TelefonNummerBeskyttelseIndikator = false,
                 };
-                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.AddressDate, PersonName.AddressingNameDate, PersonTotal.StatusDate), null);
+                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.AddressDate, PersonName.AddressingNameDate, PersonTotal.StatusDate, Address.AddressStartDate, Address.CprUpdateDate, Address.LeavingFromMunicipalityDate, Address.MunicipalityArrivalDate, Nationality.NationalityStartDate), null);
             }
             else if (
-                (!string.Equals(PersonTotal.Nationality, Constants.CprNationality, StringComparison.OrdinalIgnoreCase))
-                && (!string.Equals(PersonTotal.Nationality, Constants.Stateless, StringComparison.OrdinalIgnoreCase))
+                (!string.Equals(PersonTotal.Nationality, Constants.CprNationalityKmdCode, StringComparison.OrdinalIgnoreCase))
+                && (!string.Equals(PersonTotal.Nationality, Constants.StatelessKmdCode, StringComparison.OrdinalIgnoreCase))
                 )
             {
                 ret.Item = new UdenlandskBorgerType()
@@ -337,8 +336,10 @@ namespace CprBroker.Providers.DPR
                     // Languages. Not implemented here
                     SprogKode = new CountryIdentificationCodeType[] { },
                     // Citizenships
-                    PersonNationalityCode = new CountryIdentificationCodeType[] { 
-                        CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, CprBroker.DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality)) },
+                    PersonNationalityCode = new CountryIdentificationCodeType[] 
+                    { 
+                        CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Nationality.CountryCode.ToDecimalString()) 
+                    },
                     PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToDecimalString(),
                 };
                 ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);

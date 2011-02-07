@@ -32,11 +32,11 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public const string DenmarkNationality = "Danmark";
-        public const string CprNationality = "Cpr-Kontoret (5001)";
-        public const string Stateless = "Statsløs";
 
-        public const string DenmarkAlpha2Code = "DK";
+        public const string CprNationalityKmdCode = "5001";
+        public const string StatelessKmdCode = "5103";
+        public const string DenmarkKmdCode = "5100";
+
         //TODO: Add comment text
         public const string CommentText = "";
 

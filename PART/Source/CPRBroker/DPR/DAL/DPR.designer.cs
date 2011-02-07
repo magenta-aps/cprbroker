@@ -32,6 +32,12 @@ namespace CprBroker.Providers.DPR
     partial void OnCreated();
     #endregion
 		
+		public DPRDataContext() : 
+				base(global::CprBroker.Providers.DPR.Properties.Settings.Default.DPRConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
+		
 		public DPRDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -117,6 +123,14 @@ namespace CprBroker.Providers.DPR
 			get
 			{
 				return this.GetTable<PersonAddress>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Nationality> Nationalities
+		{
+			get
+			{
+				return this.GetTable<Nationality>();
 			}
 		}
 	}
@@ -2762,6 +2776,123 @@ namespace CprBroker.Providers.DPR
 				if ((this._AdditionalAddressLine5 != value))
 				{
 					this._AdditionalAddressLine5 = value;
+				}
+			}
+		}
+	}
+	
+	[Table(Name="dbo.DTSTAT")]
+	public partial class Nationality
+	{
+		
+		private decimal _PNR;
+		
+		private decimal _CprUpdateDate;
+		
+		private decimal _CountryCode;
+		
+		private decimal _NationalityStartDate;
+		
+		private System.Nullable<decimal> _NationalityEndDate;
+		
+		private System.Nullable<char> _CorrectionMarker;
+		
+		public Nationality()
+		{
+		}
+		
+		[Column(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this._PNR = value;
+				}
+			}
+		}
+		
+		[Column(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this._CprUpdateDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="MYNKOD", Storage="_CountryCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal CountryCode
+		{
+			get
+			{
+				return this._CountryCode;
+			}
+			set
+			{
+				if ((this._CountryCode != value))
+				{
+					this._CountryCode = value;
+				}
+			}
+		}
+		
+		[Column(Name="HAENST", Storage="_NationalityStartDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal NationalityStartDate
+		{
+			get
+			{
+				return this._NationalityStartDate;
+			}
+			set
+			{
+				if ((this._NationalityStartDate != value))
+				{
+					this._NationalityStartDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="HAENSLUT", Storage="_NationalityEndDate", DbType="Decimal(13,0)")]
+		public System.Nullable<decimal> NationalityEndDate
+		{
+			get
+			{
+				return this._NationalityEndDate;
+			}
+			set
+			{
+				if ((this._NationalityEndDate != value))
+				{
+					this._NationalityEndDate = value;
+				}
+			}
+		}
+		
+		[Column(Name="ANNKOR", Storage="_CorrectionMarker", DbType="VarChar(1)")]
+		public System.Nullable<char> CorrectionMarker
+		{
+			get
+			{
+				return this._CorrectionMarker;
+			}
+			set
+			{
+				if ((this._CorrectionMarker != value))
+				{
+					this._CorrectionMarker = value;
 				}
 			}
 		}

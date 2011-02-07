@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 13.625" name="DPR">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 13.875" name="DPR">
   <DataContextMoniker Name="/DPRDataContext" />
   <nestedChildShapes>
     <classShape Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" absoluteBounds="4, 0.625, 2, 3.8900577799479166">
@@ -48,6 +48,12 @@
       <DataClassMoniker Name="/DPRDataContext/PersonAddress" />
       <nestedChildShapes>
         <elementListCompartment Id="0a5d93da-5484-4e68-bb06-4e1e53998632" absoluteBounds="4.14, 5.96, 1.9700000000000002, 5.466573079427083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b8bebd5d-955c-48ad-acac-5526af185947" absoluteBounds="4.125, 11.875, 2, 1.75354248046875">
+      <DataClassMoniker Name="/DPRDataContext/Nationality" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ea8c750d-dc6e-472a-b9f3-dbde91a9c35d" absoluteBounds="4.14, 12.335, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

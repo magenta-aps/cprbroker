@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="DPR" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" AccessModifier="Internal" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=DPR;Persist Security Info=True;User ID=sa" SettingsObjectName="CprBroker.Providers.DPR.Properties.Settings" SettingsPropertyName="DPRConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.DTNAVNE" Member="PersonNames">
     <Type Name="PersonName">
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
@@ -173,6 +174,16 @@
       <Column Name="LBINDRAP" Member="AlwaysNull5" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
       <Column Name="SUPLADR4" Member="AdditionalAddressLine4" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="SUPLADR5" Member="AdditionalAddressLine5" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTSTAT" Member="Nationalities">
+    <Type Name="Nationality">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNKOD" Member="CountryCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HAENST" Member="NationalityStartDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HAENSLUT" Member="NationalityEndDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
