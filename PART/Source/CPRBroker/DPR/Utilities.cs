@@ -140,11 +140,13 @@ namespace CprBroker.Providers.DPR
                     return null;
             }
         }
+    }
 
-        public static string PersonCivilRegistrationIdentifierFromDecimal(decimal pnr)
+    public static class Extensions
+    {
+        public static string ToDecimalString(this decimal val)
         {
-            return Convert.ToInt64(pnr).ToString("D10");
+            return val.ToString("F0");
         }
-
     }
 }

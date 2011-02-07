@@ -51,6 +51,7 @@
     <Compile Include="BaseProvider.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ClientDataProvider.cs" />
+    <Compile Include="DAL\ContactAddress.cs" />
     <Compile Include="PersonInfo.cs" />
     <Compile Include="DAL\Child.cs" />
     <Compile Include="DAL\CivilStatus.cs" />

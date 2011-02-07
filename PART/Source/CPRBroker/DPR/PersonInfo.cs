@@ -96,14 +96,14 @@ namespace CprBroker.Providers.DPR
                         AddressingName = PersonName.AddressingName,
                         BirthDateUncertainty = null,
 
-                        CprNumber = Utilities.PersonCivilRegistrationIdentifierFromDecimal(PersonName.PNR),
+                        CprNumber = PersonName.PNR.ToDecimalString(),
 
                         Gender = Utilities.GenderFromChar(PersonTotal.Sex),
                         //TODO: correct this field
                         IndividualTrackStatus = true,
 
                         NameAndAddressProtection = HasProtection,
-                        NationalityCountryCode = DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality),
+                        NationalityCountryCode = CprBroker.DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality),
                         //TODO: find if applicable
                         NickName = null,
                         // TODO: Ensure that ContactAddress is the right object to pass
@@ -296,14 +296,14 @@ namespace CprBroker.Providers.DPR
                     // TODO : Where to fill fromDate?
                     FolkekirkeMedlemIndikator = PersonTotal.ChristianMark.HasValue,
                     //TODO: Fill address when class is ready
-                    FolkeregisterAdresse = null,
+                    FolkeregisterAdresse = ToAdresseType(),
 
                     // Research protection
                     ForskerBeskyttelseIndikator = PersonTotal.DirectoryProtectionMarker == '1',
                     // TODO : What to put here? Could it be PersonTotal.AddressProtectionMarker?
                     NavneAdresseBeskyttelseIndikator = false,
 
-                    PersonCivilRegistrationIdentifier = Utilities.PersonCivilRegistrationIdentifierFromDecimal(PersonTotal.PNR),
+                    PersonCivilRegistrationIdentifier = PersonTotal.PNR.ToDecimalString(),
 
                     PersonNationalityCode = new CountryIdentificationCodeType(),// DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality),
                     //PNR validity status
@@ -330,8 +330,8 @@ namespace CprBroker.Providers.DPR
                     SprogKode = new CountryIdentificationCodeType[] { },
                     // Citizenships
                     PersonNationalityCode = new CountryIdentificationCodeType[] { 
-                        CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality)) },
-                    PersonCivilRegistrationReplacementIdentifier = Utilities.PersonCivilRegistrationIdentifierFromDecimal(PersonTotal.PNR),
+                        CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, CprBroker.DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality)) },
+                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToDecimalString(),
                 };
                 ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
             }
@@ -339,7 +339,7 @@ namespace CprBroker.Providers.DPR
             {
                 ret.Item = new UkendtBorgerType()
                 {
-                    PersonCivilRegistrationReplacementIdentifier = Utilities.PersonCivilRegistrationIdentifierFromDecimal(PersonTotal.PNR),
+                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToDecimalString(),
                 };
                 ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
             }
@@ -435,6 +435,51 @@ namespace CprBroker.Providers.DPR
             ret.Foraeldremyndighedsindehaver = null;
 
             return ret;
+        }
+
+        public AdresseType ToAdresseType()
+        {
+            return new AdresseType()
+            {
+                Item = new DanskAdresseType()
+                {
+                    AddressComplete = new CprBroker.Schemas.Part.AddressCompleteType()
+                    {
+                        AddressAccess = new CprBroker.Schemas.Part.AddressAccessType()
+                        {
+                            MunicipalityCode = PersonTotal.MunicipalityCode.ToDecimalString(),
+                            StreetBuildingIdentifier = PersonTotal.HouseNumber,
+                            StreetCode = PersonTotal.StreetCode.ToDecimalString()
+                        },
+                        AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
+                        {
+                            CountryIdentificationCode = null,
+                            DistrictName = null,
+                            DistrictSubdivisionIdentifier = null,
+                            FloorIdentifier = PersonTotal.Floor,
+                            MailDeliverySublocationIdentifier = null,
+                            PostCodeIdentifier = PersonTotal.PostCode.ToDecimalString(),
+                            PostOfficeBoxIdentifier = null,
+                            StreetBuildingIdentifier = PersonTotal.HouseNumber,
+                            StreetName = Street.StreetAddressingName,
+                            StreetNameForAddressingName = null,
+                            SuiteIdentifier = PersonTotal.Door,
+                        }
+                    },
+                    // No address point
+                    AddressPoint = null,
+                    NoteTekst = null,
+                    PolitiDistriktTekst = null,
+                    PostDistriktTekst = PersonTotal.PostDistrictName,
+                    SkoleDistriktTekst = null,
+                    SocialDistriktTekst = null,
+                    SogneDistriktTekst = null,
+                    SpecielVejkodeIndikator = false,
+                    SpecielVejkodeIndikatorSpecified = false,
+                    UkendtAdresseIndikator = false,
+                    ValgkredsDistriktTekst = null
+                }
+            };
         }
     }
 }
