@@ -115,7 +115,7 @@ namespace CprBroker.Providers.DPR
                         IndividualTrackStatus = true,
 
                         NameAndAddressProtection = HasProtection,
-                        NationalityCountryCode = CprBroker.DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality),
+                        //NationalityCountryCode = CprBroker.DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality),
                         //TODO: find if applicable
                         NickName = null,
                         // TODO: Ensure that ContactAddress is the right object to pass
@@ -306,7 +306,7 @@ namespace CprBroker.Providers.DPR
                     FolkeregisterAdresse = Address.ToAdresseType(Street),
                     ForskerBeskyttelseIndikator = PersonTotal.DirectoryProtectionMarker == '1',
                     PersonCivilRegistrationIdentifier = PersonTotal.PNR.ToDecimalString(),
-                    PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality)),
+                    PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Nationality.CountryCode.ToDecimalString()),
 
                     //PNR validity status
                     // TODO: Make sure that true is the correct value

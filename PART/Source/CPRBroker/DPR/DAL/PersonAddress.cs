@@ -61,7 +61,7 @@ namespace CprBroker.Providers.DPR
                 {
                     ForeignAddressStructure = new ForeignAddressStructureType()
                     {
-                        CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.iso3166alpha2, Constants.DenmarkKmdCode),
+                        CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode),
                         LocationDescriptionText = Location,
                         PostalAddressFirstLineText = AdditionalAddressLine1,
                         PostalAddressSecondLineText = AdditionalAddressLine2,
