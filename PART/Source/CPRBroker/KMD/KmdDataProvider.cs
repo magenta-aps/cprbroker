@@ -16,6 +16,7 @@ namespace CprBroker.Providers.KMD
         {
             AN08002,
             AN08010,
+            AS78205,
             AS78206,
             AS78207,
             AN08300,

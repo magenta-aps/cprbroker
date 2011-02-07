@@ -19,14 +19,12 @@ namespace CprBroker.Providers.KMD
         {
             RegistreringType1 ret = null;
             var detailsResponse = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
-            var addressResponse = CallAN08002(uuid.CprNumber);
+            var addressResponse = CallAS78205(uuid.CprNumber);
             var relationsResponse = CallAN08010(uuid.CprNumber);
-
-            bool protectAddress = detailsResponse.AddressProtection.Equals("B") || detailsResponse.AddressProtection.Equals("L");
 
             ret = new RegistreringType1()
             {
-                AttributListe = detailsResponse.ToAttributListeType(),
+                AttributListe = detailsResponse.ToAttributListeType(addressResponse),
                 TilstandListe = detailsResponse.ToTilstandListeType(),
                 RelationListe = ToRelationListeType(detailsResponse, relationsResponse, cpr2uuidFunc),
 

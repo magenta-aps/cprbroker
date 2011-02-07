@@ -240,7 +240,7 @@ namespace CprBroker.Providers.KMD
                 }
             }
 
-            public string AddressProtection
+            public string Protection
             {
                 get
                 {
@@ -611,7 +611,7 @@ namespace CprBroker.Providers.KMD
                 return address.ToPartAddress(personCivilRegistrationStatusCodeType);
             }
 
-            public AttributListeType ToAttributListeType()
+            public AttributListeType ToAttributListeType(WS_AS78205.EnglishAS78205Response addressResponse)
             {
                 return new AttributListeType()
                     {
@@ -621,7 +621,7 @@ namespace CprBroker.Providers.KMD
                         },
                         RegisterOplysning = new RegisterOplysningType[]
                         {
-                            ToRegisterOplysningType()
+                            ToRegisterOplysningType(addressResponse)
                         },
 
                         // Health information not implemented
@@ -651,7 +651,7 @@ namespace CprBroker.Providers.KMD
                 return ret;
             }
 
-            public RegisterOplysningType ToRegisterOplysningType()
+            public RegisterOplysningType ToRegisterOplysningType(WS_AS78205.EnglishAS78205Response addressResponse)
             {
                 var ret = new RegisterOplysningType()
                 {
@@ -662,26 +662,22 @@ namespace CprBroker.Providers.KMD
                 {
                     ret.Item = new CprBorgerType()
                     {
-                        // No address note                        
-                        AdresseNoteTekst = null,
-                        // Church membership
-                        // TODO : Where to fill fromDate?
-                        FolkekirkeMedlemIndikator = false,
-                        //TODO: Fill address when class is ready
-                        FolkeregisterAdresse = null,
-                        // Research protection
-                        // TODO: Check if this is correct
-                        ForskerBeskyttelseIndikator = false,
-                        // TODO: Ensure that PNR has no dashes
                         PersonCivilRegistrationIdentifier = PNR,
-                        // TODO: Check if this is correct
-                        NavneAdresseBeskyttelseIndikator = false,
                         PersonNationalityCode = Schemas.Part.CountryIdentificationCodeType.Create(CprBroker.Schemas.Part._CountryIdentificationSchemeType.imk, NationalityCode),
-                        //PNR validity status,
-                        // TODO: Make sure that true is the cirrect value
-                        PersonNummerGyldighedStatusIndikator = true,
+                        FolkeregisterAdresse = addressResponse.ToAdresseType(),
+                        // Research protection
+                        ForskerBeskyttelseIndikator = Protection.Equals(Constants.ResearchProtection),
+                        // Name and address protection
+                        NavneAdresseBeskyttelseIndikator = Protection.Equals(Constants.AddressProtection),
+                        // Church membership                        
+                        FolkekirkeMedlemIndikator = ChurchRelationship.Length > 0,
+                        // No address not
+                        AdresseNoteTekst = null,
+                        //PNR validity status,                        
+                        PersonNummerGyldighedStatusIndikator = int.Parse(ReturnCode) < 10,
+
                         // TODO: Check if this is correct
-                        TelefonNummerBeskyttelseIndikator = false
+                        TelefonNummerBeskyttelseIndikator = Protection.Equals(Constants.AddressProtection),
                     };
                     ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(AddressDate, RelocationDate, ImmigrationDate));
                 }
@@ -736,6 +732,8 @@ namespace CprBroker.Providers.KMD
                     LokalUdvidelse = null
                 };
             }
+
+
 
             public DateTime? GetRegistrationDate()
             {

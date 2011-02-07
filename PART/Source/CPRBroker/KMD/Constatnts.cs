@@ -8,7 +8,7 @@ namespace CprBroker.Providers.KMD
 {
     public static class Constants
     {
-        public static UnikIdType Actor 
+        public static UnikIdType Actor
         {
             get
             {
@@ -17,10 +17,12 @@ namespace CprBroker.Providers.KMD
             }
         }
 
-        // TODO: Validate that this code is correct
         public const string DanishNationalityCode = "5100";
 
         //TODO: Add comment text
         public const string CommentText = "";
+
+        public const string AddressProtection = "B";
+        public const string ResearchProtection = "L";
     }
 }

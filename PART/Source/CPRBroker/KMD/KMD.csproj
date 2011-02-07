@@ -111,6 +111,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="C:\Documents and Settings\Beemen\My Documents\Magenta Workspace\PART\Source\Test\KMD\KMD WSDL\AS78205.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WS_AS78205\</RelPath>
+      <UpdateFromURL>C:\Documents and Settings\Beemen\My Documents\Magenta Workspace\PART\Source\Test\KMD\KMD WSDL\AS78205.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CprBroker_Providers_KMD_WS_AS78205_WS_AS78205</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Documents and Settings\besharab\My Documents\Workspace\CopenhagenSource\CPR Broker\trunk\CPRBroker\KMD\WSDL\AN08002.wsdl">
       <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\WS_AN08002\</RelPath>
@@ -161,6 +172,22 @@
     <None Include="WSDL\AS78207.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KmdDataProvider.AS78205.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WS_AS78205\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Web References\WS_AN08002\AN08002.wsdl" />
     <None Include="Web References\WS_AN08002\AN08002Response1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -179,6 +206,14 @@
     </None>
     <None Include="Web References\WS_AN08100\an08100.xsd" />
     <None Include="Web References\WS_AN08300\an08300.xsd" />
+    <None Include="Web References\WS_AS78205\AS78205.wsdl" />
+    <None Include="Web References\WS_AS78205\AS78205Response.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WS_AS78205\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Web References\WS_AS78206\AS78206.wsdl" />
     <None Include="Web References\WS_AS78206\AS78206Response.datasource">
       <DependentUpon>Reference.map</DependentUpon>
