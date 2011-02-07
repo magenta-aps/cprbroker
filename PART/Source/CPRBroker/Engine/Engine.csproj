@@ -133,6 +133,7 @@
     <Compile Include="Events\GetPersonBirthdatesSubmethodInfo.cs" />
     <Compile Include="Events\IDataChangeEventManager.cs" />
     <Compile Include="Manager.Events.cs" />
+    <Compile Include="Part\GerPersonUuidFacadeMethodInfo.cs" />
     <Compile Include="Util\Reflection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

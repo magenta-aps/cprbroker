@@ -57,24 +57,7 @@ namespace CprBroker.Engine
 
             public static Guid GetPersonUuid(string userToken, string appToken, string cprNumber)
             {
-                var facadeMethod = new FacadeMethodInfo<Guid>()
-                    {
-                        UserToken = userToken,
-                        ApplicationToken = appToken,
-                        ApplicationTokenRequired = true,
-
-                        SubMethodInfos = new SubMethodInfo[]
-                        {
-                            new SubMethodInfo<IPartPersonMappingDataProvider,Guid>()
-                            {
-                                Method = (prov)=>prov.GetPersonUuid(cprNumber),
-                                LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst
-                            }
-                        },
-
-                        AggregationMethod = (results) => (Guid)results[0],
-                    };
-
+                var facadeMethod = new GerPersonUuidFacadeMethodInfo(cprNumber, appToken, userToken, true);
                 var ret = GetMethodOutput<Guid>(facadeMethod);
                 return ret;
             }

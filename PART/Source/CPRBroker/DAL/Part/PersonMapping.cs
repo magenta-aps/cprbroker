@@ -38,7 +38,7 @@ namespace CprBroker.DAL.Part
                     var cprNumber = cprNumbers[iPerson];
                     var personMapping = (from d in foundPersonsArray where d.CprNumber == cprNumber select d).FirstOrDefault();
 
-                    if (cprNumber != null)
+                    if (personMapping != null)
                     {
                         ret[iPerson] = personMapping.UUID;
                     }

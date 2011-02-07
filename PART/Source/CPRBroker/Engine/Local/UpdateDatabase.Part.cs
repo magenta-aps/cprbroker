@@ -107,5 +107,19 @@ namespace CprBroker.Engine.Local
             }
             return false;
         }
+
+        public static void UpdatePersonUuid(string cprNumber, Guid uuid)
+        {
+            using (var dataContext = new PartDataContext())
+            {
+                PersonMapping map = new PersonMapping()
+                {
+                    CprNumber = cprNumber,
+                    UUID = uuid
+                };
+                dataContext.PersonMappings.InsertOnSubmit(map);
+                dataContext.SubmitChanges();
+            }
+        }
     }
 }
