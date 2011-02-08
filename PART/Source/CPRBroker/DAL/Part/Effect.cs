@@ -10,24 +10,32 @@ namespace CprBroker.DAL.Part
     {
         public static VirkningType ToVirkningType(Effect db)
         {
-            return new VirkningType()
+            if (db != null)
             {
-                AktoerRef = ActorRef.ToXmlType(db.ActorRef),
+                return new VirkningType()
+                {
+                    AktoerRef = ActorRef.ToXmlType(db.ActorRef),
 
-                CommentText = db.CommentText,
-                FraTidspunkt = TidspunktType.Create(db.FromDate),
-                TilTidspunkt = TidspunktType.Create(db.ToDate)
-            };
+                    CommentText = db.CommentText,
+                    FraTidspunkt = TidspunktType.Create(db.FromDate),
+                    TilTidspunkt = TidspunktType.Create(db.ToDate)
+                };
+            }
+            return null;
         }
 
         public static TilstandVirkningType ToTilstandVirkningType(Effect db)
         {
-            return new TilstandVirkningType()
+            if (db != null)
             {
-                AktoerRef = ActorRef.ToXmlType(db.ActorRef),
-                CommentText = db.CommentText,
-                FraTidspunkt = TidspunktType.Create(db.FromDate),
-            };
+                return new TilstandVirkningType()
+                {
+                    AktoerRef = ActorRef.ToXmlType(db.ActorRef),
+                    CommentText = db.CommentText,
+                    FraTidspunkt = TidspunktType.Create(db.FromDate),
+                };
+            }
+            return null;
         }
 
         public static Effect FromVirkningType(VirkningType virkning)
@@ -36,8 +44,8 @@ namespace CprBroker.DAL.Part
             {
                 return new Effect()
                 {
+                    EffectId = Guid.NewGuid(),
                     ActorRef = ActorRef.FromXmlType(virkning.AktoerRef),
-
                     CommentText = virkning.CommentText,
                     FromDate = virkning.FraTidspunkt.ToDateTime(),
                     ToDate = virkning.TilTidspunkt.ToDateTime()
@@ -52,6 +60,7 @@ namespace CprBroker.DAL.Part
             {
                 return new Effect()
                 {
+                    EffectId = Guid.NewGuid(),
                     ActorRef = ActorRef.FromXmlType(virkning.AktoerRef),
                     CommentText = virkning.CommentText,
                     FromDate = virkning.FraTidspunkt.ToDateTime(),

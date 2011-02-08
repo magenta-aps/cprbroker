@@ -51,14 +51,14 @@ namespace CprBroker.DAL.Part
             {
                 PersonRegistrationId = Guid.NewGuid(),
 
-                ActorRef = partRegistration.AktoerRef != null ? ActorRef.FromXmlType(partRegistration.AktoerRef) : null,
+                ActorRef = ActorRef.FromXmlType(partRegistration.AktoerRef),
                 CommentText = partRegistration.CommentText,
                 Effect = partRegistration.Virkning != null && partRegistration.Virkning.Length > 0 && partRegistration.Virkning[0] != null ? DAL.Part.Effect.FromVirkningType(partRegistration.Virkning[0]) : null,
                 LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
                 RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 
-                PersonAttributes = partRegistration.AttributListe != null ? PersonAttributes.FromXmlType(partRegistration.AttributListe) : null,
-                PersonState = partRegistration.TilstandListe != null ? PersonState.FromXmlType(partRegistration.TilstandListe) : null
+                PersonAttributes = PersonAttributes.FromXmlType(partRegistration.AttributListe),
+                PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
             };
             if (partRegistration.RelationListe != null)
             {

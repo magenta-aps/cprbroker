@@ -46,28 +46,32 @@ namespace CprBroker.DAL.Part
 
         public static ContactChannel FromXmlType(KontaktKanalType oio)
         {
-            var ret = new ContactChannel()
+            if (oio != null)
             {
-                UsageLimits = oio.BegraensetAnvendelseTekst,
-                Note = oio.NoteTekst,
-            };
-            if (oio.Item is string)
-            {
-                ret.Value = oio.Item as string;
+                var ret = new ContactChannel()
+                {
+                    UsageLimits = oio.BegraensetAnvendelseTekst,
+                    Note = oio.NoteTekst,
+                };
+                if (oio.Item is string)
+                {
+                    ret.Value = oio.Item as string;
+                }
+                else if (oio.Item is TelefonType)
+                {
+                    var tel = oio.Item as TelefonType;
+                    ret.CanSendSms = tel.KanBrugesTilSmsIndikator;
+                    ret.Value = tel.TelephoneNumberIdentifier;
+                }
+                else if (oio.Item is AndenKontaktKanalType)
+                {
+                    var other = oio.Item as AndenKontaktKanalType;
+                    ret.Value = other.KontaktKanalTekst;
+                    ret.OtherNote = other.NoteTekst;
+                }
+                return ret;
             }
-            else if (oio.Item is TelefonType)
-            {
-                var tel = oio.Item as TelefonType;
-                ret.CanSendSms = tel.KanBrugesTilSmsIndikator;
-                ret.Value = tel.TelephoneNumberIdentifier;
-            }
-            else if (oio.Item is AndenKontaktKanalType)
-            {
-                var other = oio.Item as AndenKontaktKanalType;
-                ret.Value = other.KontaktKanalTekst;
-                ret.OtherNote = other.NoteTekst;
-            }
-            return ret;
+            return null;
         }
     }
 }

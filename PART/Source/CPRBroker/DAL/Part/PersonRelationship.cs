@@ -75,26 +75,30 @@ namespace CprBroker.DAL.Part
         }
         #endregion
 
-        #region Creation fromDate XML types
+        #region Creation from XML types
         public static PersonRelationship[] FromXmlType(Schemas.Part.RelationListeType partRelations)
         {
-            var ret = new List<PersonRelationship>();
             if (partRelations != null)
             {
-                ret.AddRange(ListFromXmlType(partRelations.Aegtefaelle, RelationshipTypes.Spouse));
-                ret.AddRange(ListFromXmlType(partRelations.Boern, RelationshipTypes.Children));
-                ret.AddRange(ListFromXmlType(partRelations.Bopaelssamling, RelationshipTypes.ResidenceCollection));
-                ret.AddRange(ListFromXmlType(partRelations.ErstatningFor, RelationshipTypes.ReplacementFor));
-                ret.AddRange(ListFromXmlType(partRelations.ErstatningAf, RelationshipTypes.ReplacedBy));
-                ret.AddRange(ListFromXmlType(partRelations.Fader, RelationshipTypes.Father));
-                ret.AddRange(ListFromXmlType(partRelations.Moder, RelationshipTypes.Mother));
-                ret.AddRange(ListFromXmlType(partRelations.Foraeldremyndighedsboern, RelationshipTypes.ParentingAdultChildren));
-                ret.AddRange(ListFromXmlType(partRelations.Foraeldremyndighedsindehaver, RelationshipTypes.Custody));
-                ret.AddRange(ListFromXmlType(partRelations.RegistreretPartner, RelationshipTypes.RegisteredPartner));
-                ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergeForPersonen, RelationshipTypes.GuardianOfPerson));
-                ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergemaalsindehaver, RelationshipTypes.GuardianshipOwner));
+                var ret = new List<PersonRelationship>();
+                if (partRelations != null)
+                {
+                    ret.AddRange(ListFromXmlType(partRelations.Aegtefaelle, RelationshipTypes.Spouse));
+                    ret.AddRange(ListFromXmlType(partRelations.Boern, RelationshipTypes.Children));
+                    ret.AddRange(ListFromXmlType(partRelations.Bopaelssamling, RelationshipTypes.ResidenceCollection));
+                    ret.AddRange(ListFromXmlType(partRelations.ErstatningFor, RelationshipTypes.ReplacementFor));
+                    ret.AddRange(ListFromXmlType(partRelations.ErstatningAf, RelationshipTypes.ReplacedBy));
+                    ret.AddRange(ListFromXmlType(partRelations.Fader, RelationshipTypes.Father));
+                    ret.AddRange(ListFromXmlType(partRelations.Moder, RelationshipTypes.Mother));
+                    ret.AddRange(ListFromXmlType(partRelations.Foraeldremyndighedsboern, RelationshipTypes.ParentingAdultChildren));
+                    ret.AddRange(ListFromXmlType(partRelations.Foraeldremyndighedsindehaver, RelationshipTypes.Custody));
+                    ret.AddRange(ListFromXmlType(partRelations.RegistreretPartner, RelationshipTypes.RegisteredPartner));
+                    ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergeForPersonen, RelationshipTypes.GuardianOfPerson));
+                    ret.AddRange(ListFromXmlType(partRelations.RetligHandleevneVaergemaalsindehaver, RelationshipTypes.GuardianshipOwner));
+                }
+                return ret.ToArray();
             }
-            return ret.ToArray();
+            return new PersonRelationship[0];
         }
 
         private static PersonRelationship[] ListFromXmlType(PersonRelationType[] oio, RelationshipTypes relType)
@@ -136,7 +140,7 @@ namespace CprBroker.DAL.Part
                     )
                     .ToArray();
             }
-            return null;
+            return new PersonRelationship[0];
         }
         #endregion
     }

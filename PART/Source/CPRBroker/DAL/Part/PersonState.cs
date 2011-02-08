@@ -26,7 +26,7 @@ namespace CprBroker.DAL.Part
         {
             if (partState != null)
             {
-                var ret = new PersonState()
+                return new PersonState()
                 {
                     PersonCivilState = PersonCivilState.FromXmlType(partState.CivilStatus),
                     PersonLifeState = PersonLifeState.FromXmlType(partState.LivStatus)

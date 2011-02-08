@@ -48,6 +48,7 @@ namespace CprBroker.Providers.DPR
             select new PersonInfo()
             {
                 PersonTotal = personTotal,
+                Nationality = personNationality,
                 Address = personAddress,
                 PersonName = personName,
                 Street = strt.FirstOrDefault(),
