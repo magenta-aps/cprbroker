@@ -10,21 +10,29 @@ namespace CprBroker.DAL.Part
     {
         public static CountryIdentificationCodeType ToXmlType(CountryRef db)
         {
-            return new CountryIdentificationCodeType()
+            if (db != null)
             {
-                scheme = (_CountryIdentificationSchemeType)db.CountrySchemeTypeId,
-                Value = db.Value
-            };
+                return new CountryIdentificationCodeType()
+                {
+                    scheme = (_CountryIdentificationSchemeType)db.CountrySchemeTypeId,
+                    Value = db.Value
+                };
+            }
+            return null;
         }
 
         public static CountryRef FromXmlType(CountryIdentificationCodeType oio)
         {
-            return new CountryRef()
+            if (oio != null)
             {
-                CountryRefId = Guid.NewGuid(),
-                Value = oio.Value,
-                CountrySchemeTypeId = (int)oio.scheme,
-            };
+                return new CountryRef()
+                {
+                    CountryRefId = Guid.NewGuid(),
+                    Value = oio.Value,
+                    CountrySchemeTypeId = (int)oio.scheme,
+                };
+            }
+            return null;
         }
     }
 }

@@ -37,6 +37,7 @@ namespace CprBroker.DAL.Part
             {
                 return new ForeignCitizenCountry()
                 {
+                    ForeignCitizenCountryId = Guid.NewGuid(),
                     CountryRef = CountryRef.FromXmlType(oio),
                     IsNationality = isNationality,
                     Ordinal = ordinal,

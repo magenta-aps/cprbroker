@@ -25,6 +25,7 @@ namespace CprBroker.DAL.Part
                     Virkning = null,
                 };
                 ret.CalculateVirkning();
+                return ret;
             }
             return null;
         }
