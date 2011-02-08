@@ -16,6 +16,7 @@ namespace CprBroker.DAL.Part
                 {
                     ForeignAddressStructure = new ForeignAddressStructureType()
                     {
+                        CountryIdentificationCode = CountryRef.ToXmlType(db.CountryRef),
                         LocationDescriptionText = db.LocationDescription,
                         PostalAddressFirstLineText = db.FirstLine,
                         PostalAddressSecondLineText = db.SecondLine,
@@ -24,10 +25,6 @@ namespace CprBroker.DAL.Part
                         PostalAddressFifthLineText = db.FifthLine
                     }
                 };
-                if (db.CountrySchemeTypeId.HasValue)
-                {
-                    ret.ForeignAddressStructure.CountryIdentificationCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)db.CountrySchemeTypeId, db.CountryCode);
-                }
                 return ret;
             }
             return null;
@@ -40,19 +37,13 @@ namespace CprBroker.DAL.Part
                 var ret = new ForeignAddress()
                 {
                     LocationDescription = oio.ForeignAddressStructure.LocationDescriptionText,
-
+                    CountryRef = CountryRef.FromXmlType(oio.ForeignAddressStructure.CountryIdentificationCode),
                     FirstLine = oio.ForeignAddressStructure.PostalAddressFirstLineText,
                     SecondLine = oio.ForeignAddressStructure.PostalAddressSecondLineText,
                     ThirdLine = oio.ForeignAddressStructure.PostalAddressThirdLineText,
                     FourthLine = oio.ForeignAddressStructure.PostalAddressFourthLineText,
                     FifthLine = oio.ForeignAddressStructure.PostalAddressFifthLineText,
-
                 };
-                if (oio.ForeignAddressStructure.CountryIdentificationCode != null)
-                {
-                    ret.CountryCode = oio.ForeignAddressStructure.CountryIdentificationCode.Value;
-                    ret.CountrySchemeTypeId = (int)oio.ForeignAddressStructure.CountryIdentificationCode.scheme;
-                }
                 return ret;
             }
             return null;

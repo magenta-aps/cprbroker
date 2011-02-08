@@ -14,7 +14,7 @@ namespace CprBroker.DAL.Part
             {
                 return new UdenlandskBorgerType()
                     {
-                        FoedselslandKode = db.CountryCodeScheme.HasValue ? CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)db.CountryCodeScheme.Value, db.CountryCode) : null,
+                        FoedselslandKode = CountryRef.ToXmlType(db.BirthCountryRef),
                         PersonCivilRegistrationReplacementIdentifier = db.CivilRegistrationReplacementIdentifier,
                         PersonIdentifikator = db.PersonIdentifier,
                         SprogKode = ForeignCitizenCountry.ToXmlType(db.ForeignCitizenCountries, false),
@@ -39,8 +39,7 @@ namespace CprBroker.DAL.Part
             {
                 var ret = new ForeignCitizenData()
                 {
-                    CountryCode = oio.FoedselslandKode.Value,
-                    CountryCodeScheme = (int)oio.FoedselslandKode.scheme,
+                    BirthCountryRef = CountryRef.FromXmlType(oio.FoedselslandKode),
                     CivilRegistrationReplacementIdentifier = oio.PersonCivilRegistrationReplacementIdentifier,
                     PersonIdentifier = oio.PersonIdentifikator,
                 };

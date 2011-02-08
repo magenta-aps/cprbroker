@@ -16,7 +16,7 @@ namespace CprBroker.DAL.Part
                 {
                     AddressCompleteGreenland = new AddressCompleteGreenlandType()
                     {
-                        CountryIdentificationCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)db.DenmarkAddress.CountrySchemeTypeId, db.DenmarkAddress.CountryCode),
+                        CountryIdentificationCode = CountryRef.ToXmlType(db.DenmarkAddress.CountryRef),
                         DistrictName = db.DenmarkAddress.DistrictName,
                         DistrictSubdivisionIdentifier = db.DenmarkAddress.DistrictSubdivisionIdentifier,
                         FloorIdentifier = db.DenmarkAddress.FloorIdentifier,
@@ -51,8 +51,7 @@ namespace CprBroker.DAL.Part
                         IsUnknown = oio.UkendtAdresseIndikator,
                         Note = oio.NoteTekst,
                     },
-                    CountryCode = oio.AddressCompleteGreenland.CountryIdentificationCode.Value,
-                    CountrySchemeTypeId = (int)oio.AddressCompleteGreenland.CountryIdentificationCode.scheme,
+                    CountryRef = CountryRef.FromXmlType(oio.AddressCompleteGreenland.CountryIdentificationCode),
                     DistrictName = oio.AddressCompleteGreenland.DistrictName,
                     DistrictSubdivisionIdentifier = oio.AddressCompleteGreenland.DistrictSubdivisionIdentifier,
                     FloorIdentifier = oio.AddressCompleteGreenland.FloorIdentifier,

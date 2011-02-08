@@ -22,7 +22,7 @@ namespace CprBroker.DAL.Part
                     NavneAdresseBeskyttelseIndikator = db.NameAndAddressProtectionIndicator,
                     PersonCivilRegistrationIdentifier = db.CprNumber,
                     PersonNummerGyldighedStatusIndikator = db.CprNumberValidity,
-                    PersonNationalityCode = CountryIdentificationCodeType.Create((_CountryIdentificationSchemeType)db.NationalityCodeScheme, db.NationalityCode),
+                    PersonNationalityCode = CountryRef.ToXmlType(db.NationalityCountryRef),
                     TelefonNummerBeskyttelseIndikator = db.TelephoneNumberProtection,
                 };
             }
@@ -56,8 +56,7 @@ namespace CprBroker.DAL.Part
                     NameAndAddressProtectionIndicator = partCprData.NavneAdresseBeskyttelseIndikator,
                     CprNumber = partCprData.PersonCivilRegistrationIdentifier,
                     CprNumberValidity = partCprData.PersonNummerGyldighedStatusIndikator,
-                    NationalityCode = partCprData.PersonNationalityCode.Value,
-                    NationalityCodeScheme = (int)partCprData.PersonNationalityCode.scheme,
+                    NationalityCountryRef = CountryRef.FromXmlType(partCprData.PersonNationalityCode),
                     TelephoneNumberProtection = partCprData.TelefonNummerBeskyttelseIndikator,
                 };
             }

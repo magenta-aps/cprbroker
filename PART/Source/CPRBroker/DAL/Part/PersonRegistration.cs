@@ -13,7 +13,7 @@ namespace CprBroker.DAL.Part
         {
             if (db != null)
             {
-                return new CprBroker.Schemas.Part.RegistreringType1()
+                var ret = new CprBroker.Schemas.Part.RegistreringType1()
                 {
                     AktoerRef = ActorRef.ToXmlType(db.ActorRef),
                     Tidspunkt = TidspunktType.Create(db.RegistrationDate),
@@ -22,8 +22,9 @@ namespace CprBroker.DAL.Part
                     RelationListe = PersonRelationship.ToXmlType(db.PersonRelationships.ToArray().AsQueryable()),
                     CommentText = db.CommentText,
                     LivscyklusKode = LifecycleStatus.GetEnum(db.LifecycleStatusId),
-                    Virkning = Utilities.AsArray<VirkningType>(Effect.ToVirkningType(db.Effect)),
+                    Virkning = null,
                 };
+                ret.CalculateVirkning();
             }
             return null;
         }
@@ -37,7 +38,6 @@ namespace CprBroker.DAL.Part
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
         {
-            loadOptions.LoadWith<PersonRegistration>(pr => pr.Effect);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonAttributes);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonRelationships);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonState);
@@ -53,7 +53,6 @@ namespace CprBroker.DAL.Part
 
                 ActorRef = ActorRef.FromXmlType(partRegistration.AktoerRef),
                 CommentText = partRegistration.CommentText,
-                Effect = partRegistration.Virkning != null && partRegistration.Virkning.Length > 0 && partRegistration.Virkning[0] != null ? DAL.Part.Effect.FromVirkningType(partRegistration.Virkning[0]) : null,
                 LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
                 RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 

@@ -58,8 +58,7 @@ namespace CprBroker.DAL.Part
                 {
                     DenmarkAddress = new DenmarkAddress()
                     {
-                        CountryCode = oio.AddressComplete.AddressPostal.CountryIdentificationCode.Value,
-                        CountrySchemeTypeId = (int)oio.AddressComplete.AddressPostal.CountryIdentificationCode.scheme,
+                        CountryRef = CountryRef.FromXmlType(oio.AddressComplete.AddressPostal.CountryIdentificationCode),
                         DistrictName = oio.AddressComplete.AddressPostal.DistrictName,
                         SpecialRoadCode = oio.SpecielVejkodeIndikator,
                         StreetBuildingIdentifier = oio.AddressComplete.AddressPostal.StreetBuildingIdentifier,

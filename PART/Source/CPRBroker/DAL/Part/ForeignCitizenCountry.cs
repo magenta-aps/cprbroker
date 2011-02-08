@@ -9,38 +9,56 @@ namespace CprBroker.DAL.Part
 {
     public partial class ForeignCitizenCountry
     {
-        public CountryIdentificationCodeType ToXmlType()
+        public static CountryIdentificationCodeType ToXmlType(ForeignCitizenCountry db)
         {
-            return new CountryIdentificationCodeType()
+            if (db != null)
             {
-                scheme = (_CountryIdentificationSchemeType)CountryCodeScheme,
-                Value = CountryCode
-            };
-        }
-
-        public static ForeignCitizenCountry FromXmlType(CountryIdentificationCodeType oio, bool isNationality, int ordinal)
-        {
-            return new ForeignCitizenCountry()
-            {
-                CountryCode = oio.Value,
-                CountryCodeScheme = (int)oio.scheme,
-                IsNationality = isNationality,
-                Ordinal = ordinal,
-            };
-        }
-
-        public static ForeignCitizenCountry[] FromXmlType(CountryIdentificationCodeType[] countries, bool isNationality)
-        {
-            int ordinal = 0;
-            return countries
-                .Select(c => ForeignCitizenCountry.FromXmlType(c, isNationality, ordinal++))
-                .ToArray();
+                return CountryRef.ToXmlType(db.CountryRef);
+            }
+            return null;
         }
 
         public static CountryIdentificationCodeType[] ToXmlType(EntitySet<ForeignCitizenCountry> fcc, bool isNationality)
         {
-            return fcc.Where(f => f.IsNationality = isNationality).OrderBy(f => f.Ordinal).Select(f => f.ToXmlType()).ToArray();
+            if (fcc != null)
+            {
+                return fcc.Where(f => f.IsNationality = isNationality)
+                    .OrderBy(f => f.Ordinal)
+                    .Select(f => ForeignCitizenCountry.ToXmlType(f))
+                    .Where(c => c != null)
+                    .ToArray();
+            }
+            return null;
         }
+
+        public static ForeignCitizenCountry FromXmlType(CountryIdentificationCodeType oio, bool isNationality, int ordinal)
+        {
+            if (oio != null)
+            {
+                return new ForeignCitizenCountry()
+                {
+                    CountryRef = CountryRef.FromXmlType(oio),
+                    IsNationality = isNationality,
+                    Ordinal = ordinal,
+                };
+            }
+            return null;
+        }
+
+        public static ForeignCitizenCountry[] FromXmlType(CountryIdentificationCodeType[] countries, bool isNationality)
+        {
+            if (countries != null)
+            {
+                int ordinal = 0;
+                return countries
+                    .Select(c => ForeignCitizenCountry.FromXmlType(c, isNationality, ordinal++))
+                    .Where(c => c != null)
+                    .ToArray();
+            }
+            return new ForeignCitizenCountry[0];
+        }
+
+
     }
 
 
