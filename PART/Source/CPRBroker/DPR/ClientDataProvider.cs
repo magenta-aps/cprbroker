@@ -52,8 +52,8 @@ namespace CprBroker.Providers.DPR
             decimal cprNum = Convert.ToDecimal(cprNumber);
             using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
             {
-                var exists = (from personName in dataContext.PersonNames
-                              select personName.PNR).Contains(cprNum);
+                var exists = (from personTotal in dataContext.PersonTotals
+                              select personTotal.PNR).Contains(cprNum);
 
                 if (!exists)
                 {

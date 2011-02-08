@@ -32,7 +32,7 @@ namespace CprBroker.Providers.DPR
                             PostCodeIdentifier = PostCode.ToDecimalString(),
                             PostOfficeBoxIdentifier = null,
                             StreetBuildingIdentifier = HouseNumber,
-                            StreetName = street.StreetAddressingName,
+                            StreetName = street != null ? street.StreetAddressingName : null,
                             StreetNameForAddressingName = StreetAddressingName,
                             SuiteIdentifier = DoorNumber,
                         }

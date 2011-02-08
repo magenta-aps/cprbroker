@@ -19,48 +19,38 @@ namespace CprBroker.Providers.DPR
         public PersonTotal PersonTotal { get; set; }
         public Nationality Nationality { get; set; }
         public Street Street { get; set; }
-        public ContactAddress ContactAddress { get; set; }
         public PersonAddress Address { get; set; }
-        //TODO: remove this field
-        public bool HasProtection { get; set; }
-        public IQueryable<CivilStatus> CivilStates { get; set; }
 
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
         /// </summary>
         internal static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
             from personTotal in dataContext.PersonTotals
-            join personNationality in dataContext.Nationalities on personTotal.PNR equals personNationality.PNR
-            //TODO: Convert to left outer join, beware that this will make it possible for PersonAddress to be null
-            join personAddress in dataContext.PersonAddresses on personTotal.PNR equals personAddress.PNR
-            //TODO: Convert to left outer join, beware that this will make it possible for PersonName to be null
-            join personName in dataContext.PersonNames on personTotal.PNR equals personName.PNR
-            join street in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { street.MunicipalityCode, street.StreetCode } into strt
-            join contactAddress in dataContext.ContactAddresses on personName.PNR equals contactAddress.PNR into contactAddr
+            join pNationality in dataContext.Nationalities on personTotal.PNR equals pNationality.PNR into personNationalities
+            join pAddr in dataContext.PersonAddresses on personTotal.PNR equals pAddr.PNR into personAddresses
+            join pName in dataContext.PersonNames on personTotal.PNR equals pName.PNR into personNames
+            join strt in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { strt.MunicipalityCode, strt.StreetCode } into streets
+
+            from personNationality in personNationalities.DefaultIfEmpty()
+            from personAddress in personAddresses.DefaultIfEmpty()
+            from personName in personNames.DefaultIfEmpty()
+            from street in streets.DefaultIfEmpty()
 
             where
                 // Active nationality only
-            personNationality.CorrectionMarker == null && personNationality.NationalityEndDate == null
+            (personNationality == null || (personNationality.CorrectionMarker == null && personNationality.NationalityEndDate == null))
                 // Active name only
-            && personName.CorrectionMarker == null && personName.NameTerminationDate == null
+            && (personName == null || (personName.CorrectionMarker == null && personName.NameTerminationDate == null))
                 // Active address only
-            && personAddress.CorrectionMarker == null && personAddress.AddressEndDate == null
+            && (personAddress != null || (personAddress.CorrectionMarker == null && personAddress.AddressEndDate == null))
+
             select new PersonInfo()
             {
                 PersonTotal = personTotal,
                 Nationality = personNationality,
                 Address = personAddress,
                 PersonName = personName,
-                Street = strt.FirstOrDefault(),
-                ContactAddress = contactAddr.SingleOrDefault(),
-
-                // TODO: include protection type with PNR because the index is on PNR & ProtectionType                
-                HasProtection = (
-                   from protection in dataContext.Protections
-                   select protection.PNR
-                ).Contains(personName.PNR),
-                //TODO: Beware that there might be time range intersections in the last day of an older period, like a marriage period after a divorce period
-                CivilStates = (from civ in dataContext.CivilStatus where !civ.CorrectionMarker.HasValue && (civ.PNR == personTotal.PNR || civ.SpousePNR == personTotal.PNR) select civ),
+                Street = street,
             };
 
         internal static readonly Expression<Func<decimal, decimal, DPRDataContext, PersonTotal>> NextPersonTotalExpression = (pnr, statusDate, dataContext) =>
@@ -71,100 +61,6 @@ namespace CprBroker.Providers.DPR
             ).FirstOrDefault();
 
         #endregion
-
-        // TODO: Remove this method
-        [Obsolete]
-        private PersonRegistration ToPersonRegistration(DateTime? effectTime, DPRDataContext dataContext)
-        {
-            var civilRegistrationStatus = Schemas.Util.Enums.ToCivilRegistrationStatus(PersonTotal.Status);
-            var effectTimeDecimal = Utilities.DecimalFromDate(effectTime);
-            NavnStruktur tempPersonName = new NavnStruktur(PersonName.FirstName, PersonName.LastName);
-            var civilStates = (from civilStatus in dataContext.CivilStatus
-                               where civilStatus.PNR == PersonTotal.PNR && civilStatus.MaritalStatusDate <= effectTimeDecimal.Value
-                               orderby civilStatus.MaritalStatusDate
-                               select civilStatus).ToArray();
-
-            PersonRegistration ret = new PersonRegistration()
-            {
-                Attributes = new PersonAttributes()
-                {
-                    BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,
-                    OtherAddresses = new Address[0],
-                    ContactChannel = new ContactChannel[0],
-                    Gender = Utilities.GenderFromChar(PersonTotal.Sex),
-                    Name = new Effect<string>()
-                    {
-                        StartDate = Utilities.DateFromDecimal(PersonName.NameStartDate),
-                        EndDate = Utilities.DateFromDecimal(PersonName.NameTerminationDate),
-                        Value = tempPersonName.ToString(),
-                    },
-                    PersonData = new CprData()
-                    {
-                        PersonName = new Effect<NavnStruktur>()
-                        {
-                            StartDate = Utilities.DateFromDecimal(PersonName.NameStartDate),
-                            EndDate = Utilities.DateFromDecimal(PersonName.NameTerminationDate),
-                            Value = tempPersonName
-                        },
-                        AddressingName = PersonName.AddressingName,
-                        BirthDateUncertainty = null,
-
-                        CprNumber = PersonName.PNR.ToDecimalString(),
-
-                        Gender = Utilities.GenderFromChar(PersonTotal.Sex),
-                        //TODO: correct this field
-                        IndividualTrackStatus = true,
-
-                        NameAndAddressProtection = HasProtection,
-                        //NationalityCountryCode = CprBroker.DAL.Country.GetCountryAlpha2CodeByDanishName(PersonTotal.Nationality),
-                        //TODO: find if applicable
-                        NickName = null,
-                        // TODO: Ensure that ContactAddress is the right object to pass
-                        PopulationAddress = PersonTotal.ToPartAddress(civilRegistrationStatus, Street, ContactAddress),
-                    },
-                },
-                //TODO: Fix calculation of registration date in DPR
-                RegistrationDate = Utilities.DateFromDecimal(this.PersonName.NameStartDate).Value,
-                // TODO: Add relations
-                Relations = new PersonRelations()
-                {
-                    Children = new Effect<PersonRelation>[0],
-                    Parents = new PersonRelation[0],
-                    ReplacedBy = null,
-                    Spouses = new Effect<PersonRelation>[0],
-                    SubstituteFor = new Effect<PersonRelation>[0],
-                },
-            };
-
-            // Now fill the null EndDate(s)
-            if (effectTime.HasValue && effectTime.Value.Date < DateTime.Today)
-            {
-                if (PersonTotal.StatusDate.HasValue)
-                {
-                    var nextPersonTotal = NextPersonTotalExpression.Compile()(PersonTotal.PNR, PersonTotal.StatusDate.Value, dataContext);
-                    if (nextPersonTotal != null)
-                    {
-                        ret.States.LifeStatus.EndDate = Utilities.DateFromDecimal(nextPersonTotal.StatusDate);
-                    }
-                }
-                if (PersonTotal.MaritalStatusDate.HasValue)
-                {
-                    var maritalStatus =
-                        (
-                            from ms in civilStates
-                            where ms.MaritalStatusDate == PersonTotal.MaritalStatusDate
-                            select ms
-                        ).FirstOrDefault();
-                    if (maritalStatus != null)
-                    {
-                        ret.States.CivilStatus.EndDate = Utilities.DateFromDecimal(maritalStatus.MaritalEndDate);
-                    }
-                }
-            }
-
-
-            return ret;
-        }
 
         public DateTime[] GetCandidateRegistrationDates()
         {
@@ -179,23 +75,20 @@ namespace CprBroker.Providers.DPR
             //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.UnderGuardianshipDate));
             //dates.Add(Utilities.DateFromDecimal(personInfo.PersonTotal.VotingDate));
 
-            //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.AddressingNameDate));
-            dates.Add(Utilities.DateFromDecimal(PersonName.AuthorityTextUpdateDate));
-            dates.Add(Utilities.DateFromDecimal(PersonName.CprUpdateDate));
+            if (PersonName != null)
+            {
+                //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.AddressingNameDate));
+                dates.Add(Utilities.DateFromDecimal(PersonName.AuthorityTextUpdateDate));
+                dates.Add(Utilities.DateFromDecimal(PersonName.CprUpdateDate));
+            }
+            if (Address != null)
+            {
+                dates.Add(Utilities.DateFromDecimal(Address.CprUpdateDate));
+            }
             //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameStartDate));
             //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.NameTerminationDate));
             //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.SearchNameDate));
             //dates.Add(Utilities.DateFromDecimal(personInfo.PersonName.StatusDate));
-
-            if (ContactAddress != null)
-            {
-                //dates.Add(Utilities.DateFromDecimal(personInfo.ContactAddress.ContactAddressDate));
-                dates.Add(Utilities.DateFromDecimal(ContactAddress.UpdateDate));
-            }
-            //dates.AddRange(fromDate c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalStatusDate));
-            //dates.AddRange(fromDate c in personInfo.CivilStates select Utilities.DateFromDecimal(c.MaritalEndDate));
-            dates.AddRange(from c in CivilStates select Utilities.DateFromDecimal(c.AuthorityTextUpdateDate));
-            dates.AddRange(from c in CivilStates select Utilities.DateFromDecimal(c.UpdateDateOfCpr));
 
             return (from d in dates where d.HasValue select d.Value).ToArray();
         }
@@ -276,16 +169,20 @@ namespace CprBroker.Providers.DPR
 
                 PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar(PersonTotal.Sex),
 
-                NavnStruktur = NavnStrukturType.Create(PersonName.FirstName, PersonName.LastName),
+                NavnStruktur = PersonName != null ? NavnStrukturType.Create(PersonName.FirstName, PersonName.LastName) : null,
 
-                AndreAdresser = Address.ToForeignAddressFromSupplementary(),
+                AndreAdresser = Address != null ? Address.ToForeignAddressFromSupplementary() : null,
                 //No contact channels implemented
                 KontaktKanal = null,
                 //Next of kin (nearest relative). Not implemented
                 NaermestePaaroerende = null,
                 //TODO: Fill this object
-                Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.DateOfBirth, PersonName.NameStartDate, PersonTotal.StatusDate), null)
+                Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.DateOfBirth, PersonTotal.StatusDate), null)
             };
+            if (PersonName != null)
+            {
+                ret.Virkning = VirkningType.Compose(ret.Virkning, VirkningType.Create(Utilities.DateFromDecimal(PersonName.NameStartDate), null));
+            }
             // TODO: More effect date fields here
             ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(PersonTotal.DateOfBirth));
             return ret;
@@ -294,17 +191,28 @@ namespace CprBroker.Providers.DPR
         public RegisterOplysningType ToRegisterOplysningType()
         {
             var ret = new RegisterOplysningType()
-                   {
-                       Item = null,
-                       Virkning = VirkningType.Create(null, null)
-                   };
+            {
+                Item = null,
+                Virkning = VirkningType.Create(null, null)
+            };
             // Now create the appropriate object based on nationality
-            if (string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
+            if (
+                Nationality == null
+                || Nationality.CountryCode.ToDecimalString().Equals(Constants.CprNationalityKmdCode)
+                || Nationality.CountryCode.ToDecimalString().Equals(Constants.StatelessKmdCode))
+            {
+                ret.Item = new UkendtBorgerType()
+                {
+                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToDecimalString(),
+                };
+                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
+            }
+            else if (string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
             {
                 ret.Item = new CprBorgerType()
                 {
                     AdresseNoteTekst = null,
-                    FolkeregisterAdresse = Address.ToAdresseType(Street),
+                    FolkeregisterAdresse = Address != null ? Address.ToAdresseType(Street) : null,
                     ForskerBeskyttelseIndikator = PersonTotal.DirectoryProtectionMarker == '1',
                     PersonCivilRegistrationIdentifier = PersonTotal.PNR.ToDecimalString(),
                     PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Nationality.CountryCode.ToDecimalString()),
@@ -321,12 +229,16 @@ namespace CprBroker.Providers.DPR
                     // TODO: Check if this is correct
                     TelefonNummerBeskyttelseIndikator = false,
                 };
-                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.AddressDate, PersonName.AddressingNameDate, PersonTotal.StatusDate, Address.AddressStartDate, Address.CprUpdateDate, Address.LeavingFromMunicipalityDate, Address.MunicipalityArrivalDate, Nationality.NationalityStartDate), null);
+
+                List<decimal?> effects = new List<decimal?>();
+                effects.AddRange(new decimal?[] { PersonTotal.AddressDate, PersonTotal.StatusDate, Nationality.NationalityStartDate });
+                if (Address != null)
+                {
+                    effects.AddRange(new decimal?[] { Address.AddressStartDate, Address.CprUpdateDate, Address.LeavingFromMunicipalityDate, Address.MunicipalityArrivalDate });
+                }
+                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(effects.ToArray()), null);
             }
-            else if (
-                (!string.Equals(Nationality.CountryCode.ToDecimalString(), Constants.CprNationalityKmdCode, StringComparison.OrdinalIgnoreCase))
-                && (!string.Equals(Nationality.CountryCode.ToDecimalString(), Constants.StatelessKmdCode, StringComparison.OrdinalIgnoreCase))
-                )
+            else
             {
                 ret.Item = new UdenlandskBorgerType()
                 {
@@ -345,14 +257,7 @@ namespace CprBroker.Providers.DPR
                 };
                 ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
             }
-            else
-            {
-                ret.Item = new UkendtBorgerType()
-                {
-                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToDecimalString(),
-                };
-                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
-            }
+
             return ret;
         }
 

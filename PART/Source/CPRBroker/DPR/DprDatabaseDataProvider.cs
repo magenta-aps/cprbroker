@@ -31,7 +31,7 @@ namespace CprBroker.Providers.DPR
                 var db =
                 (
                     from personInfo in PersonInfo.PersonInfoExpression.Compile()(dataContext)
-                    where personInfo.PersonName.PNR == Decimal.Parse(uuid.CprNumber)
+                    where personInfo.PersonTotal.PNR == Decimal.Parse(uuid.CprNumber)
                     select personInfo
                 ).FirstOrDefault();
 
