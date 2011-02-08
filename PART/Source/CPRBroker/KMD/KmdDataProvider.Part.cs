@@ -20,7 +20,15 @@ namespace CprBroker.Providers.KMD
             RegistreringType1 ret = null;
             var detailsResponse = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
             var addressResponse = CallAS78205(uuid.CprNumber);
-            var relationsResponse = CallAN08010(uuid.CprNumber);
+            EnglishAN08010Response relationsResponse = null;
+            try
+            {
+                CallAN08010(uuid.CprNumber);
+            }
+            catch (Exception ex)
+            {
+                CprBroker.Engine.Local.Admin.LogException(ex);
+            }
 
             ret = new RegistreringType1()
             {
@@ -48,10 +56,14 @@ namespace CprBroker.Providers.KMD
         public RelationListeType ToRelationListeType(EnglishAS78207Response details, EnglishAN08010Response relations, Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RelationListeType();
-            ret.Boern = relations.Filter(RelationTypes.Baby, cpr2uuidFunc);
-            ret.Foraeldremyndighedsboern = relations.Filter(RelationTypes.ChildOver18, cpr2uuidFunc);
+
             //Children
-            if (details.ChildrenPNRs != null)
+            if (relations != null)
+            {
+                ret.Boern = relations.Filter(RelationTypes.Baby, cpr2uuidFunc);
+                ret.Foraeldremyndighedsboern = relations.Filter(RelationTypes.ChildOver18, cpr2uuidFunc);
+            }
+            else if (details.ChildrenPNRs != null)
             {
                 var childPnrs = (from pnr in details.ChildrenPNRs where pnr.Replace("-", "").Length > 0 select pnr.Replace("-", "")).ToArray();
                 var uuids = Array.ConvertAll<string, Guid>(childPnrs, (cpr) => cpr2uuidFunc(cpr));
@@ -61,6 +73,7 @@ namespace CprBroker.Providers.KMD
                     (pId) => PersonFlerRelationType.Create(pId, null, null)
                 );
             }
+
             //Father
             if (Convert.ToDecimal(details.FatherPNR) > 0)
             {
