@@ -21,6 +21,7 @@ namespace CprBroker.DAL.Part
         {
             return new CountryRef()
             {
+                CountryRefId = Guid.NewGuid(),
                 Value = oio.Value,
                 CountrySchemeTypeId = (int)oio.scheme,
             };

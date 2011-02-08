@@ -27,6 +27,7 @@ namespace CprBroker.DAL.Part
             {
                 return new ActorRef()
                 {
+                    ActorRefId = Guid.NewGuid(),
                     Value = oio.Item,
                     Type = (int)oio.ItemElementName,
                 };
