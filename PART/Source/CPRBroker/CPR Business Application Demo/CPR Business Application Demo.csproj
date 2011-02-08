@@ -262,8 +262,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ApplicationsService\CPRAdministrationWS1.disco" />
-    <None Include="Service References\ApplicationsService\CPRAdministrationWS1.wsdl" />
     <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.ApplicationType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -273,6 +271,10 @@
     <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.ServiceVersionType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ApplicationsService\Admin.disco" />
+    <None Include="Service References\ApplicationsService\Admin.wsdl" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
