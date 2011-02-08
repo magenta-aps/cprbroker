@@ -15,7 +15,7 @@ namespace CprBroker.Web.Services
     /// <summary>
     /// Contains web methods related to administration of the system
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/", Name = ServiceNames.Administrator.Service, Description = ServiceDescription.Administrator.Service)]
+    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = ServiceNames.Administrator.Service, Description = ServiceDescription.Administrator.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
     public class CPRAdministrationWS : GKApp.WS.wsBaseV2
@@ -89,7 +89,7 @@ namespace CprBroker.Web.Services
             return Manager.Admin.SetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken, DataProviders);
         }
         #endregion
-        
+
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.Log, Description = ServiceDescription.Administrator.Log)]
         public bool Log(string Text)

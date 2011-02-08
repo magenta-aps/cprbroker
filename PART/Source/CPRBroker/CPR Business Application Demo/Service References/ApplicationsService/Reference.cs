@@ -12,70 +12,70 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ApplicationsService.CPRAdministrationWSSoap12")]
-    public interface CPRAdministrationWSSoap12 {
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="ApplicationsService.AdminSoap12")]
+    public interface AdminSoap12 {
         
         // CODEGEN: Generating message contract since message RequestAppRegistrationRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RequestAppRegistration", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/RequestAppRegistration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest request);
         
         // CODEGEN: Generating message contract since message ApproveAppRegistrationRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ApproveAppRegistration", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ApproveAppRegistration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest request);
         
         // CODEGEN: Generating message contract since message ListAppRegistrationsRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListAppRegistrations", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ListAppRegistrations", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest request);
         
         // CODEGEN: Generating message contract since message UnregisterAppRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UnregisterApp", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/UnregisterApp", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest request);
         
         // CODEGEN: Generating message contract since message GetCapabilitiesRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetCapabilities", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetCapabilities", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest request);
         
         // CODEGEN: Generating message contract since message IsImplementingRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IsImplementing", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IsImplementing", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse IsImplementing(CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest request);
         
         // CODEGEN: Generating message contract since message GetDataProviderListRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetDataProviderList", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetDataProviderList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest request);
         
         // CODEGEN: Generating message contract since message SetDataProviderListRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SetDataProviderList", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/SetDataProviderList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest request);
         
         // CODEGEN: Generating message contract since message LogRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Log", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Log", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.LogResponse Log(CPR_Business_Application_Demo.ApplicationsService.LogRequest request);
         
         // CODEGEN: Generating message contract since message CreateTestCitizenRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateTestCitizen", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/CreateTestCitizen", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenResponse CreateTestCitizen(CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ping", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Ping", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         string Ping();
@@ -86,7 +86,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
@@ -146,10 +146,8 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/")]
-    public partial class CompletePostalLabelType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string addresseeNameField;
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class ForeignAddressStructureType : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string postalAddressFirstLineTextField;
         
@@ -161,22 +159,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         
         private string postalAddressFifthLineTextField;
         
-        private string postalAddressSixthLineTextField;
+        private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        private string locationDescriptionTextField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/", Order=0)]
-        public string AddresseeName {
-            get {
-                return this.addresseeNameField;
-            }
-            set {
-                this.addresseeNameField = value;
-                this.RaisePropertyChanged("AddresseeName");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=0)]
         public string PostalAddressFirstLineText {
             get {
                 return this.postalAddressFirstLineTextField;
@@ -188,7 +176,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
         public string PostalAddressSecondLineText {
             get {
                 return this.postalAddressSecondLineTextField;
@@ -200,7 +188,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
         public string PostalAddressThirdLineText {
             get {
                 return this.postalAddressThirdLineTextField;
@@ -212,7 +200,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
         public string PostalAddressFourthLineText {
             get {
                 return this.postalAddressFourthLineTextField;
@@ -224,7 +212,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
         public string PostalAddressFifthLineText {
             get {
                 return this.postalAddressFifthLineTextField;
@@ -236,179 +224,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=6)]
-        public string PostalAddressSixthLineText {
-            get {
-                return this.postalAddressSixthLineTextField;
-            }
-            set {
-                this.postalAddressSixthLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressSixthLineText");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/")]
-    public partial class AddressPostalType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string mailDeliverySublocationIdentifierField;
-        
-        private string streetNameField;
-        
-        private string streetNameForAddressingNameField;
-        
-        private string streetBuildingIdentifierField;
-        
-        private string floorIdentifierField;
-        
-        private string suiteIdentifierField;
-        
-        private string districtSubdivisionIdentifierField;
-        
-        private string postOfficeBoxIdentifierField;
-        
-        private string postCodeIdentifierField;
-        
-        private string districtNameField;
-        
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=0)]
-        public string MailDeliverySublocationIdentifier {
-            get {
-                return this.mailDeliverySublocationIdentifierField;
-            }
-            set {
-                this.mailDeliverySublocationIdentifierField = value;
-                this.RaisePropertyChanged("MailDeliverySublocationIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=1)]
-        public string StreetName {
-            get {
-                return this.streetNameField;
-            }
-            set {
-                this.streetNameField = value;
-                this.RaisePropertyChanged("StreetName");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/", Order=2)]
-        public string StreetNameForAddressingName {
-            get {
-                return this.streetNameForAddressingNameField;
-            }
-            set {
-                this.streetNameForAddressingNameField = value;
-                this.RaisePropertyChanged("StreetNameForAddressingName");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=3)]
-        public string StreetBuildingIdentifier {
-            get {
-                return this.streetBuildingIdentifierField;
-            }
-            set {
-                this.streetBuildingIdentifierField = value;
-                this.RaisePropertyChanged("StreetBuildingIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=4)]
-        public string FloorIdentifier {
-            get {
-                return this.floorIdentifierField;
-            }
-            set {
-                this.floorIdentifierField = value;
-                this.RaisePropertyChanged("FloorIdentifier");
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
-        public string SuiteIdentifier {
-            get {
-                return this.suiteIdentifierField;
-            }
-            set {
-                this.suiteIdentifierField = value;
-                this.RaisePropertyChanged("SuiteIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=6)]
-        public string DistrictSubdivisionIdentifier {
-            get {
-                return this.districtSubdivisionIdentifierField;
-            }
-            set {
-                this.districtSubdivisionIdentifierField = value;
-                this.RaisePropertyChanged("DistrictSubdivisionIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/", DataType="integer", Order=7)]
-        public string PostOfficeBoxIdentifier {
-            get {
-                return this.postOfficeBoxIdentifierField;
-            }
-            set {
-                this.postOfficeBoxIdentifierField = value;
-                this.RaisePropertyChanged("PostOfficeBoxIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=8)]
-        public string PostCodeIdentifier {
-            get {
-                return this.postCodeIdentifierField;
-            }
-            set {
-                this.postCodeIdentifierField = value;
-                this.RaisePropertyChanged("PostCodeIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=9)]
-        public string DistrictName {
-            get {
-                return this.districtNameField;
-            }
-            set {
-                this.districtNameField = value;
-                this.RaisePropertyChanged("DistrictName");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=10)]
         public CountryIdentificationCodeType CountryIdentificationCode {
             get {
                 return this.countryIdentificationCodeField;
@@ -416,6 +232,18 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.countryIdentificationCodeField = value;
                 this.RaisePropertyChanged("CountryIdentificationCode");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/", Order=6)]
+        public string LocationDescriptionText {
+            get {
+                return this.locationDescriptionTextField;
+            }
+            set {
+                this.locationDescriptionTextField = value;
+                this.RaisePropertyChanged("LocationDescriptionText");
             }
         }
         
@@ -502,60 +330,34 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/")]
-    public partial class AddressCompleteType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private AddressAccessType addressAccessField;
-        
-        private AddressPostalType addressPostalField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/", Order=0)]
-        public AddressAccessType AddressAccess {
-            get {
-                return this.addressAccessField;
-            }
-            set {
-                this.addressAccessField = value;
-                this.RaisePropertyChanged("AddressAccess");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public AddressPostalType AddressPostal {
-            get {
-                return this.addressPostalField;
-            }
-            set {
-                this.addressPostalField = value;
-                this.RaisePropertyChanged("AddressPostal");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/")]
-    public partial class AddressAccessType : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class AddressNotCompleteType : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string municipalityCodeField;
         
         private string streetCodeField;
         
+        private string mailDeliverySublocationIdentifierField;
+        
+        private string streetNameField;
+        
+        private string streetNameForAddressingNameField;
+        
         private string streetBuildingIdentifierField;
+        
+        private string greenlandBuildingIdentifierField;
+        
+        private string suiteIdentifierField;
+        
+        private string floorIdentifierField;
+        
+        private string districtSubdivisionIdentifierField;
+        
+        private string postCodeIdentifierField;
+        
+        private string districtNameField;
+        
+        private CountryIdentificationCodeType countryIdentificationCodeField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/", Order=0)]
@@ -583,6 +385,42 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=2)]
+        public string MailDeliverySublocationIdentifier {
+            get {
+                return this.mailDeliverySublocationIdentifierField;
+            }
+            set {
+                this.mailDeliverySublocationIdentifierField = value;
+                this.RaisePropertyChanged("MailDeliverySublocationIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=3)]
+        public string StreetName {
+            get {
+                return this.streetNameField;
+            }
+            set {
+                this.streetNameField = value;
+                this.RaisePropertyChanged("StreetName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/", Order=4)]
+        public string StreetNameForAddressingName {
+            get {
+                return this.streetNameForAddressingNameField;
+            }
+            set {
+                this.streetNameForAddressingNameField = value;
+                this.RaisePropertyChanged("StreetNameForAddressingName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
         public string StreetBuildingIdentifier {
             get {
                 return this.streetBuildingIdentifierField;
@@ -590,6 +428,90 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.streetBuildingIdentifierField = value;
                 this.RaisePropertyChanged("StreetBuildingIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public string GreenlandBuildingIdentifier {
+            get {
+                return this.greenlandBuildingIdentifierField;
+            }
+            set {
+                this.greenlandBuildingIdentifierField = value;
+                this.RaisePropertyChanged("GreenlandBuildingIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=7)]
+        public string SuiteIdentifier {
+            get {
+                return this.suiteIdentifierField;
+            }
+            set {
+                this.suiteIdentifierField = value;
+                this.RaisePropertyChanged("SuiteIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=8)]
+        public string FloorIdentifier {
+            get {
+                return this.floorIdentifierField;
+            }
+            set {
+                this.floorIdentifierField = value;
+                this.RaisePropertyChanged("FloorIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=9)]
+        public string DistrictSubdivisionIdentifier {
+            get {
+                return this.districtSubdivisionIdentifierField;
+            }
+            set {
+                this.districtSubdivisionIdentifierField = value;
+                this.RaisePropertyChanged("DistrictSubdivisionIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=10)]
+        public string PostCodeIdentifier {
+            get {
+                return this.postCodeIdentifierField;
+            }
+            set {
+                this.postCodeIdentifierField = value;
+                this.RaisePropertyChanged("PostCodeIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=11)]
+        public string DistrictName {
+            get {
+                return this.districtNameField;
+            }
+            set {
+                this.districtNameField = value;
+                this.RaisePropertyChanged("DistrictName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=12)]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+                this.RaisePropertyChanged("CountryIdentificationCode");
             }
         }
         
@@ -808,12 +730,8 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class AddressNotCompleteType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string municipalityCodeField;
-        
-        private string streetCodeField;
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/")]
+    public partial class AddressPostalType : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string mailDeliverySublocationIdentifierField;
         
@@ -823,19 +741,221 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         
         private string streetBuildingIdentifierField;
         
-        private string greenlandBuildingIdentifierField;
+        private string floorIdentifierField;
         
         private string suiteIdentifierField;
         
-        private string floorIdentifierField;
-        
         private string districtSubdivisionIdentifierField;
+        
+        private string postOfficeBoxIdentifierField;
         
         private string postCodeIdentifierField;
         
         private string districtNameField;
         
         private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=0)]
+        public string MailDeliverySublocationIdentifier {
+            get {
+                return this.mailDeliverySublocationIdentifierField;
+            }
+            set {
+                this.mailDeliverySublocationIdentifierField = value;
+                this.RaisePropertyChanged("MailDeliverySublocationIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=1)]
+        public string StreetName {
+            get {
+                return this.streetNameField;
+            }
+            set {
+                this.streetNameField = value;
+                this.RaisePropertyChanged("StreetName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/", Order=2)]
+        public string StreetNameForAddressingName {
+            get {
+                return this.streetNameForAddressingNameField;
+            }
+            set {
+                this.streetNameForAddressingNameField = value;
+                this.RaisePropertyChanged("StreetNameForAddressingName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=3)]
+        public string StreetBuildingIdentifier {
+            get {
+                return this.streetBuildingIdentifierField;
+            }
+            set {
+                this.streetBuildingIdentifierField = value;
+                this.RaisePropertyChanged("StreetBuildingIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=4)]
+        public string FloorIdentifier {
+            get {
+                return this.floorIdentifierField;
+            }
+            set {
+                this.floorIdentifierField = value;
+                this.RaisePropertyChanged("FloorIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
+        public string SuiteIdentifier {
+            get {
+                return this.suiteIdentifierField;
+            }
+            set {
+                this.suiteIdentifierField = value;
+                this.RaisePropertyChanged("SuiteIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=6)]
+        public string DistrictSubdivisionIdentifier {
+            get {
+                return this.districtSubdivisionIdentifierField;
+            }
+            set {
+                this.districtSubdivisionIdentifierField = value;
+                this.RaisePropertyChanged("DistrictSubdivisionIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/", DataType="integer", Order=7)]
+        public string PostOfficeBoxIdentifier {
+            get {
+                return this.postOfficeBoxIdentifierField;
+            }
+            set {
+                this.postOfficeBoxIdentifierField = value;
+                this.RaisePropertyChanged("PostOfficeBoxIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=8)]
+        public string PostCodeIdentifier {
+            get {
+                return this.postCodeIdentifierField;
+            }
+            set {
+                this.postCodeIdentifierField = value;
+                this.RaisePropertyChanged("PostCodeIdentifier");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=9)]
+        public string DistrictName {
+            get {
+                return this.districtNameField;
+            }
+            set {
+                this.districtNameField = value;
+                this.RaisePropertyChanged("DistrictName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=10)]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+                this.RaisePropertyChanged("CountryIdentificationCode");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/")]
+    public partial class AddressCompleteType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private AddressAccessType addressAccessField;
+        
+        private AddressPostalType addressPostalField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/", Order=0)]
+        public AddressAccessType AddressAccess {
+            get {
+                return this.addressAccessField;
+            }
+            set {
+                this.addressAccessField = value;
+                this.RaisePropertyChanged("AddressAccess");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public AddressPostalType AddressPostal {
+            get {
+                return this.addressPostalField;
+            }
+            set {
+                this.addressPostalField = value;
+                this.RaisePropertyChanged("AddressPostal");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/")]
+    public partial class AddressAccessType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string municipalityCodeField;
+        
+        private string streetCodeField;
+        
+        private string streetBuildingIdentifierField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/", Order=0)]
@@ -863,42 +983,6 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=2)]
-        public string MailDeliverySublocationIdentifier {
-            get {
-                return this.mailDeliverySublocationIdentifierField;
-            }
-            set {
-                this.mailDeliverySublocationIdentifierField = value;
-                this.RaisePropertyChanged("MailDeliverySublocationIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=3)]
-        public string StreetName {
-            get {
-                return this.streetNameField;
-            }
-            set {
-                this.streetNameField = value;
-                this.RaisePropertyChanged("StreetName");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/", Order=4)]
-        public string StreetNameForAddressingName {
-            get {
-                return this.streetNameForAddressingNameField;
-            }
-            set {
-                this.streetNameForAddressingNameField = value;
-                this.RaisePropertyChanged("StreetNameForAddressingName");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
         public string StreetBuildingIdentifier {
             get {
                 return this.streetBuildingIdentifierField;
@@ -906,90 +990,6 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.streetBuildingIdentifierField = value;
                 this.RaisePropertyChanged("StreetBuildingIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
-        public string GreenlandBuildingIdentifier {
-            get {
-                return this.greenlandBuildingIdentifierField;
-            }
-            set {
-                this.greenlandBuildingIdentifierField = value;
-                this.RaisePropertyChanged("GreenlandBuildingIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=7)]
-        public string SuiteIdentifier {
-            get {
-                return this.suiteIdentifierField;
-            }
-            set {
-                this.suiteIdentifierField = value;
-                this.RaisePropertyChanged("SuiteIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=8)]
-        public string FloorIdentifier {
-            get {
-                return this.floorIdentifierField;
-            }
-            set {
-                this.floorIdentifierField = value;
-                this.RaisePropertyChanged("FloorIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=9)]
-        public string DistrictSubdivisionIdentifier {
-            get {
-                return this.districtSubdivisionIdentifierField;
-            }
-            set {
-                this.districtSubdivisionIdentifierField = value;
-                this.RaisePropertyChanged("DistrictSubdivisionIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=10)]
-        public string PostCodeIdentifier {
-            get {
-                return this.postCodeIdentifierField;
-            }
-            set {
-                this.postCodeIdentifierField = value;
-                this.RaisePropertyChanged("PostCodeIdentifier");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/", Order=11)]
-        public string DistrictName {
-            get {
-                return this.districtNameField;
-            }
-            set {
-                this.districtNameField = value;
-                this.RaisePropertyChanged("DistrictName");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=12)]
-        public CountryIdentificationCodeType CountryIdentificationCode {
-            get {
-                return this.countryIdentificationCodeField;
-            }
-            set {
-                this.countryIdentificationCodeField = value;
-                this.RaisePropertyChanged("CountryIdentificationCode");
             }
         }
         
@@ -1125,8 +1125,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class ForeignAddressStructureType : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/")]
+    public partial class CompletePostalLabelType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string addresseeNameField;
         
         private string postalAddressFirstLineTextField;
         
@@ -1138,12 +1140,22 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         
         private string postalAddressFifthLineTextField;
         
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        private string locationDescriptionTextField;
+        private string postalAddressSixthLineTextField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/", Order=0)]
+        public string AddresseeName {
+            get {
+                return this.addresseeNameField;
+            }
+            set {
+                this.addresseeNameField = value;
+                this.RaisePropertyChanged("AddresseeName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
         public string PostalAddressFirstLineText {
             get {
                 return this.postalAddressFirstLineTextField;
@@ -1155,7 +1167,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
         public string PostalAddressSecondLineText {
             get {
                 return this.postalAddressSecondLineTextField;
@@ -1167,7 +1179,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
         public string PostalAddressThirdLineText {
             get {
                 return this.postalAddressThirdLineTextField;
@@ -1179,7 +1191,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
         public string PostalAddressFourthLineText {
             get {
                 return this.postalAddressFourthLineTextField;
@@ -1191,7 +1203,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=5)]
         public string PostalAddressFifthLineText {
             get {
                 return this.postalAddressFifthLineTextField;
@@ -1203,26 +1215,14 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
-        public CountryIdentificationCodeType CountryIdentificationCode {
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=6)]
+        public string PostalAddressSixthLineText {
             get {
-                return this.countryIdentificationCodeField;
+                return this.postalAddressSixthLineTextField;
             }
             set {
-                this.countryIdentificationCodeField = value;
-                this.RaisePropertyChanged("CountryIdentificationCode");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/", Order=6)]
-        public string LocationDescriptionText {
-            get {
-                return this.locationDescriptionTextField;
-            }
-            set {
-                this.locationDescriptionTextField = value;
-                this.RaisePropertyChanged("LocationDescriptionText");
+                this.postalAddressSixthLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressSixthLineText");
             }
         }
         
@@ -2118,13 +2118,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="RequestAppRegistration", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RequestAppRegistration", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class RequestAppRegistrationRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public string ApplicationName;
         
         public RequestAppRegistrationRequest() {
@@ -2138,7 +2138,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="RequestAppRegistrationResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RequestAppRegistrationResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class RequestAppRegistrationResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/", Order=0)]
@@ -2154,13 +2154,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ApproveAppRegistration", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ApproveAppRegistration", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class ApproveAppRegistrationRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public string ApplicationToken;
         
         public ApproveAppRegistrationRequest() {
@@ -2174,10 +2174,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ApproveAppRegistrationResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ApproveAppRegistrationResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class ApproveAppRegistrationResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public bool ApproveAppRegistrationResult;
         
         public ApproveAppRegistrationResponse() {
@@ -2190,10 +2190,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ListAppRegistrations", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListAppRegistrations", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class ListAppRegistrationsRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
         public ListAppRegistrationsRequest() {
@@ -2206,10 +2206,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ListAppRegistrationsResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListAppRegistrationsResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class ListAppRegistrationsResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public ApplicationType[] ListAppRegistrationsResult;
         
         public ListAppRegistrationsResponse() {
@@ -2222,13 +2222,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="UnregisterApp", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UnregisterApp", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class UnregisterAppRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public string ApplicationToken;
         
         public UnregisterAppRequest() {
@@ -2242,10 +2242,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="UnregisterAppResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UnregisterAppResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class UnregisterAppResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public bool UnregisterAppResult;
         
         public UnregisterAppResponse() {
@@ -2258,10 +2258,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetCapabilities", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetCapabilities", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetCapabilitiesRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
         public GetCapabilitiesRequest() {
@@ -2274,10 +2274,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetCapabilitiesResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetCapabilitiesResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetCapabilitiesResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public ServiceVersionType[] GetCapabilitiesResult;
         
         public GetCapabilitiesResponse() {
@@ -2290,16 +2290,16 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="IsImplementing", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="IsImplementing", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class IsImplementingRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public string serviceName;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=1)]
         public string serviceVersion;
         
         public IsImplementingRequest() {
@@ -2314,10 +2314,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="IsImplementingResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="IsImplementingResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class IsImplementingResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public bool IsImplementingResult;
         
         public IsImplementingResponse() {
@@ -2330,10 +2330,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetDataProviderList", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetDataProviderList", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetDataProviderListRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
         public GetDataProviderListRequest() {
@@ -2346,10 +2346,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetDataProviderListResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetDataProviderListResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetDataProviderListResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public DataProviderType[] GetDataProviderListResult;
         
         public GetDataProviderListResponse() {
@@ -2362,13 +2362,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SetDataProviderList", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SetDataProviderList", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SetDataProviderListRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public DataProviderType[] DataProviders;
         
         public SetDataProviderListRequest() {
@@ -2382,10 +2382,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SetDataProviderListResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SetDataProviderListResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SetDataProviderListResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public bool SetDataProviderListResult;
         
         public SetDataProviderListResponse() {
@@ -2398,13 +2398,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Log", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Log", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class LogRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public string Text;
         
         public LogRequest() {
@@ -2418,10 +2418,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="LogResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="LogResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class LogResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public bool LogResult;
         
         public LogResponse() {
@@ -2434,10 +2434,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="CreateTestCitizen", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="CreateTestCitizen", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class CreateTestCitizenRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/", Order=0)]
@@ -2454,10 +2454,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="CreateTestCitizenResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="CreateTestCitizenResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class CreateTestCitizenResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public bool CreateTestCitizenResult;
         
         public CreateTestCitizenResponse() {
@@ -2469,34 +2469,34 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public interface CPRAdministrationWSSoap12Channel : CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12, System.ServiceModel.IClientChannel {
+    public interface AdminSoap12Channel : CPR_Business_Application_Demo.ApplicationsService.AdminSoap12, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public partial class CPRAdministrationWSSoap12Client : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12>, CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12 {
+    public partial class AdminSoap12Client : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.ApplicationsService.AdminSoap12>, CPR_Business_Application_Demo.ApplicationsService.AdminSoap12 {
         
-        public CPRAdministrationWSSoap12Client() {
+        public AdminSoap12Client() {
         }
         
-        public CPRAdministrationWSSoap12Client(string endpointConfigurationName) : 
+        public AdminSoap12Client(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public CPRAdministrationWSSoap12Client(string endpointConfigurationName, string remoteAddress) : 
+        public AdminSoap12Client(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public CPRAdministrationWSSoap12Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public AdminSoap12Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public CPRAdministrationWSSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public AdminSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest request) {
             return base.Channel.RequestAppRegistration(request);
         }
         
@@ -2504,12 +2504,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.ApplicationName = ApplicationName;
-            CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).RequestAppRegistration(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).RequestAppRegistration(inValue);
             return retVal.Application;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest request) {
             return base.Channel.ApproveAppRegistration(request);
         }
         
@@ -2517,24 +2517,24 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.ApplicationToken = ApplicationToken;
-            CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).ApproveAppRegistration(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).ApproveAppRegistration(inValue);
             return retVal.ApproveAppRegistrationResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest request) {
             return base.Channel.ListAppRegistrations(request);
         }
         
         public ApplicationType[] ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
             CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest();
             inValue.ApplicationHeader = ApplicationHeader;
-            CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).ListAppRegistrations(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).ListAppRegistrations(inValue);
             return retVal.ListAppRegistrationsResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest request) {
             return base.Channel.UnregisterApp(request);
         }
         
@@ -2542,24 +2542,24 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.ApplicationToken = ApplicationToken;
-            CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).UnregisterApp(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).UnregisterApp(inValue);
             return retVal.UnregisterAppResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest request) {
             return base.Channel.GetCapabilities(request);
         }
         
         public ServiceVersionType[] GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
             CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest();
             inValue.ApplicationHeader = ApplicationHeader;
-            CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).GetCapabilities(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).GetCapabilities(inValue);
             return retVal.GetCapabilitiesResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.IsImplementing(CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.IsImplementing(CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest request) {
             return base.Channel.IsImplementing(request);
         }
         
@@ -2568,24 +2568,24 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.serviceName = serviceName;
             inValue.serviceVersion = serviceVersion;
-            CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).IsImplementing(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).IsImplementing(inValue);
             return retVal.IsImplementingResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest request) {
             return base.Channel.GetDataProviderList(request);
         }
         
         public DataProviderType[] GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
             CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest();
             inValue.ApplicationHeader = ApplicationHeader;
-            CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).GetDataProviderList(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).GetDataProviderList(inValue);
             return retVal.GetDataProviderListResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest request) {
             return base.Channel.SetDataProviderList(request);
         }
         
@@ -2593,12 +2593,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.DataProviders = DataProviders;
-            CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).SetDataProviderList(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).SetDataProviderList(inValue);
             return retVal.SetDataProviderListResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.LogResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.Log(CPR_Business_Application_Demo.ApplicationsService.LogRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.LogResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.Log(CPR_Business_Application_Demo.ApplicationsService.LogRequest request) {
             return base.Channel.Log(request);
         }
         
@@ -2606,12 +2606,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             CPR_Business_Application_Demo.ApplicationsService.LogRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.LogRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.Text = Text;
-            CPR_Business_Application_Demo.ApplicationsService.LogResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).Log(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.LogResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).Log(inValue);
             return retVal.LogResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenResponse CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12.CreateTestCitizen(CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenRequest request) {
+        CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.CreateTestCitizen(CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenRequest request) {
             return base.Channel.CreateTestCitizen(request);
         }
         
@@ -2619,7 +2619,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.PersonFullStructure = PersonFullStructure;
-            CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.CPRAdministrationWSSoap12)(this)).CreateTestCitizen(inValue);
+            CPR_Business_Application_Demo.ApplicationsService.CreateTestCitizenResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).CreateTestCitizen(inValue);
             return retVal.CreateTestCitizenResult;
         }
         

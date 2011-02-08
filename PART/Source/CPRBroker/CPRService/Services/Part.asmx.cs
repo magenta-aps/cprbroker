@@ -13,7 +13,7 @@ namespace CprBroker.Web.Services
     /// <summary>
     /// Summary description for Part
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/", Name = CprBroker.Schemas.Part.ServiceNames.Part.Service, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Service)]
+    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Part.Service, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     public class Part : System.Web.Services.WebService

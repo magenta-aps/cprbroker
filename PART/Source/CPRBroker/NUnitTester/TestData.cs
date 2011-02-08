@@ -93,7 +93,7 @@ namespace CprBroker.NUnitTester
         public const string LogTextFieldName = "LogText";
 
         public static readonly string testPersonNumber = new Random().Next(10001, 99999).ToString() + new Random().Next(10001, 99999).ToString();
-        public static CPRAdministrationWS.PersonFullStructureType testFullPerson;
+        public static Admin.PersonFullStructureType testFullPerson;
 
         public static void Initialize()
         {
@@ -102,15 +102,15 @@ namespace CprBroker.NUnitTester
 
 
             // Create test laesResultat
-            testFullPerson = new NUnitTester.CPRAdministrationWS.PersonFullStructureType()
+            testFullPerson = new NUnitTester.Admin.PersonFullStructureType()
             {
                 Item = new
 
-            NUnitTester.CPRAdministrationWS.DanishAddressStructureType()
+            NUnitTester.Admin.DanishAddressStructureType()
                 {
-                    AddressStatusCode = NUnitTester.CPRAdministrationWS.AddressStatusCodeType.Item1,
+                    AddressStatusCode = NUnitTester.Admin.AddressStatusCodeType.Item1,
                     CareOfName = "DDD ",
-                    CompletePostalLabel = new NUnitTester.CPRAdministrationWS.CompletePostalLabelType()
+                    CompletePostalLabel = new NUnitTester.Admin.CompletePostalLabelType()
                     {
                         AddresseeName = "SSS",
                         PostalAddressFirstLineText = "Line1",
@@ -119,30 +119,30 @@ namespace CprBroker.NUnitTester
                         PostalAddressFourthLineText = "Line4",
                         PostalAddressFifthLineText = "Line5"
                     },
-                    Item = new NUnitTester.CPRAdministrationWS.AddressCompleteType()
+                    Item = new NUnitTester.Admin.AddressCompleteType()
                     {
-                        AddressAccess = new NUnitTester.CPRAdministrationWS.AddressAccessType(),
-                        AddressPostal = new NUnitTester.CPRAdministrationWS.AddressPostalType()
+                        AddressAccess = new NUnitTester.Admin.AddressAccessType(),
+                        AddressPostal = new NUnitTester.Admin.AddressPostalType()
                     }
                 },
-                MaritalStatusCode = NUnitTester.CPRAdministrationWS.MaritalStatusCodeType.unmarried,
+                MaritalStatusCode = NUnitTester.Admin.MaritalStatusCodeType.unmarried,
                 //PersonInformationProtectionIndicator = true,
                 PersonNationalityCode = "DK",
-                RegularCPRPerson = new NUnitTester.CPRAdministrationWS.RegularCPRPersonType()
+                RegularCPRPerson = new NUnitTester.Admin.RegularCPRPersonType()
                 {
-                    PersonBirthDateStructure = new NUnitTester.CPRAdministrationWS.PersonBirthDateStructureType()
+                    PersonBirthDateStructure = new NUnitTester.Admin.PersonBirthDateStructureType()
                     {
                         BirthDate = new DateTime(2000, 1, 1),
                         BirthDateUncertaintyIndicator = false
                     },
 
-                    PersonGenderCode = NUnitTester.CPRAdministrationWS.PersonGenderCodeType.male,
+                    PersonGenderCode = NUnitTester.Admin.PersonGenderCodeType.male,
                     PersonInformationProtectionIndicator = true,
                     PersonNameForAddressingName = "DDD FFF",
-                    SimpleCPRPerson = new NUnitTester.CPRAdministrationWS.SimpleCPRPersonType()
+                    SimpleCPRPerson = new NUnitTester.Admin.SimpleCPRPersonType()
                     {
                         PersonCivilRegistrationIdentifier = testPersonNumber,
-                        PersonNameStructure = new NUnitTester.CPRAdministrationWS.PersonNameStructureType()
+                        PersonNameStructure = new NUnitTester.Admin.PersonNameStructureType()
                         {
                             PersonGivenName = "KLjlksadfj",
                             PersonMiddleName = "DD",

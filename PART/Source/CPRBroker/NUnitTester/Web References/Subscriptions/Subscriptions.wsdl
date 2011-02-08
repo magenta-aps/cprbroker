@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://dk.itst" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://dk.itst" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Subscriptions</wsdl:documentation>
   <wsdl:types>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+    <s:schema elementFormDefault="qualified" targetNamespace="http://dk.itst">
       <s:import namespace="http://microsoft.com/wsdl/types/" />
       <s:element name="Subscribe">
         <s:complexType>
@@ -13,20 +13,20 @@
         </s:complexType>
       </s:element>
       <s:complexType name="ChannelBaseType" abstract="true" />
-      <s:complexType name="FileShareChannelType">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:ChannelBaseType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
       <s:complexType name="WebServiceChannelType">
         <s:complexContent mixed="false">
           <s:extension base="tns:ChannelBaseType">
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="WebServiceUrl" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FileShareChannelType">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ChannelBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -356,7 +356,7 @@
   <wsdl:binding name="SubscriptionsSoap12" type="tns:SubscriptionsSoap12">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Subscribe">
-      <soap12:operation soapAction="http://tempuri.org/Subscribe" style="document" />
+      <soap12:operation soapAction="http://dk.itst/Subscribe" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:SubscribeApplicationHeader" part="ApplicationHeader" use="literal" />
@@ -366,7 +366,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Unsubscribe">
-      <soap12:operation soapAction="http://tempuri.org/Unsubscribe" style="document" />
+      <soap12:operation soapAction="http://dk.itst/Unsubscribe" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:UnsubscribeApplicationHeader" part="ApplicationHeader" use="literal" />
@@ -376,7 +376,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="SubscribeOnBirthdate">
-      <soap12:operation soapAction="http://tempuri.org/SubscribeOnBirthdate" style="document" />
+      <soap12:operation soapAction="http://dk.itst/SubscribeOnBirthdate" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:SubscribeOnBirthdateApplicationHeader" part="ApplicationHeader" use="literal" />
@@ -386,7 +386,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RemoveBirthDateSubscription">
-      <soap12:operation soapAction="http://tempuri.org/RemoveBirthDateSubscription" style="document" />
+      <soap12:operation soapAction="http://dk.itst/RemoveBirthDateSubscription" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:RemoveBirthDateSubscriptionApplicationHeader" part="ApplicationHeader" use="literal" />
@@ -396,7 +396,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetActiveSubscriptionsList">
-      <soap12:operation soapAction="http://tempuri.org/GetActiveSubsciptionsList" style="document" />
+      <soap12:operation soapAction="http://dk.itst/GetActiveSubsciptionsList" style="document" />
       <wsdl:input name="GetActiveSubsciptionsList">
         <soap12:body use="literal" />
         <soap12:header message="tns:GetActiveSubsciptionsListApplicationHeader" part="ApplicationHeader" use="literal" />
@@ -406,7 +406,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Ping">
-      <soap12:operation soapAction="http://tempuri.org/Ping" style="document" />
+      <soap12:operation soapAction="http://dk.itst/Ping" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

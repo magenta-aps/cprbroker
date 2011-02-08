@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="mtoR27rV4ikaWU8HLOJ0/MRf6Tg=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="bnvPpBVeg2oFgAHntrFoKXCz91c=">
   <bindingConfigurations>
-    <bindingConfiguration bindingType="customBinding" name="CPRAdministrationWSSoap12">
+    <bindingConfiguration bindingType="customBinding" name="AdminSoap12">
       <properties>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>CPRAdministrationWSSoap12</serializedValue>
+          <serializedValue>AdminSoap12</serializedValue>
         </property>
         <property path="/closeTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -115,10 +115,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="CPRAdministrationWSSoap12" contract="ApplicationsService.CPRAdministrationWSSoap12" bindingType="customBinding" address="http://localhost:1551/Services/CPRAdministrationWS.asmx" bindingConfiguration="CPRAdministrationWSSoap12">
+    <endpoint name="AdminSoap12" contract="ApplicationsService.AdminSoap12" bindingType="customBinding" address="http://localhost:1551/Services/Admin.asmx" bindingConfiguration="AdminSoap12">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:1551/Services/CPRAdministrationWS.asmx</serializedValue>
+          <serializedValue>http://localhost:1551/Services/Admin.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -127,10 +127,10 @@
           <serializedValue>customBinding</serializedValue>
         </property>
         <property path="/bindingConfiguration" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>CPRAdministrationWSSoap12</serializedValue>
+          <serializedValue>AdminSoap12</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ApplicationsService.CPRAdministrationWSSoap12</serializedValue>
+          <serializedValue>ApplicationsService.AdminSoap12</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>
@@ -190,7 +190,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>CPRAdministrationWSSoap12</serializedValue>
+          <serializedValue>AdminSoap12</serializedValue>
         </property>
       </properties>
     </endpoint>

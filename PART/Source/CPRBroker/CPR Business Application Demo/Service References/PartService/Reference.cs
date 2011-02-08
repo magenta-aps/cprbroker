@@ -12,11 +12,11 @@ namespace CPR_Business_Application_Demo.PartService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="PartService.PartSoap12")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="PartService.PartSoap12")]
     public interface PartSoap12 {
         
         // CODEGEN: Generating message contract since message ReadRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Read", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Read", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -32,7 +32,7 @@ namespace CPR_Business_Application_Demo.PartService {
         CPR_Business_Application_Demo.PartService.ReadResponse Read(CPR_Business_Application_Demo.PartService.ReadRequest request);
         
         // CODEGEN: Generating message contract since the wrapper name (RefreshRead_x0020_) of message RefreshRead_x0020_ does not match the default value (RefreshRead)
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RefreshRead ", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/RefreshRead ", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -48,7 +48,7 @@ namespace CPR_Business_Application_Demo.PartService {
         CPR_Business_Application_Demo.PartService.RefreshRead1 RefreshRead(CPR_Business_Application_Demo.PartService.RefreshRead request);
         
         // CODEGEN: Generating message contract since message ListRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/List", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/List", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -64,7 +64,7 @@ namespace CPR_Business_Application_Demo.PartService {
         CPR_Business_Application_Demo.PartService.ListResponse List(CPR_Business_Application_Demo.PartService.ListRequest request);
         
         // CODEGEN: Generating message contract since message SearchRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Search", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Search", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -80,7 +80,7 @@ namespace CPR_Business_Application_Demo.PartService {
         CPR_Business_Application_Demo.PartService.SearchResponse Search(CPR_Business_Application_Demo.PartService.SearchRequest request);
         
         // CODEGEN: Generating message contract since message GetPersonUuidRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetPersonUuid", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetPersonUuid", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -101,7 +101,7 @@ namespace CPR_Business_Application_Demo.PartService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
@@ -4673,7 +4673,7 @@ namespace CPR_Business_Application_Demo.PartService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class QualityHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private System.Nullable<QualityLevel> qualityLevelField;
@@ -4717,7 +4717,7 @@ namespace CPR_Business_Application_Demo.PartService {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public enum QualityLevel {
         
         /// <remarks/>
@@ -4924,10 +4924,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Read", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Read", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class ReadRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:2.0.0", Order=0)]
@@ -4944,10 +4944,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ReadResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ReadResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class ReadResponse {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
@@ -4964,10 +4964,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="RefreshRead ", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RefreshRead ", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class RefreshRead {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:2.0.0", Order=0)]
@@ -4984,10 +4984,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="RefreshRead Response", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RefreshRead Response", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class RefreshRead1 {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
@@ -5004,10 +5004,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="List", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="List", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class ListRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:2.0.0", Order=0)]
@@ -5024,10 +5024,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ListResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class ListResponse {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
@@ -5044,10 +5044,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Search", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Search", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SearchRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
@@ -5064,10 +5064,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SearchResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SearchResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SearchResponse {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
@@ -5084,13 +5084,13 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPersonUuid", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPersonUuid", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetPersonUuidRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public string cprNumber;
         
         public GetPersonUuidRequest() {
@@ -5104,10 +5104,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPersonUuidResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPersonUuidResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetPersonUuidResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public System.Guid GetPersonUuidResult;
         
         public GetPersonUuidResponse() {

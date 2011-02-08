@@ -26,7 +26,7 @@ namespace CprBroker.NUnitTester.Events {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="EventsSoap12", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="EventsSoap12", Namespace="http://dk.itst")]
     public partial class Events : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private ApplicationHeader applicationHeaderValueField;
@@ -91,7 +91,7 @@ namespace CprBroker.NUnitTester.Events {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DequeueDataChangeEvents", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/DequeueDataChangeEvents", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public DataChangeEventInfo[] DequeueDataChangeEvents(int maxCount) {
             object[] results = this.Invoke("DequeueDataChangeEvents", new object[] {
                         maxCount});
@@ -121,7 +121,7 @@ namespace CprBroker.NUnitTester.Events {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPersonBirthdates", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/GetPersonBirthdates", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public PersonBirthdate[] GetPersonBirthdates([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] System.Nullable<System.Guid> personUuidToStartAfter, int maxCount) {
             object[] results = this.Invoke("GetPersonBirthdates", new object[] {
                         personUuidToStartAfter,
@@ -175,8 +175,8 @@ namespace CprBroker.NUnitTester.Events {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://dk.itst", IsNullable=false)]
     public partial class ApplicationHeader : System.Web.Services.Protocols.SoapHeader {
         
         private string applicationTokenField;
@@ -222,7 +222,7 @@ namespace CprBroker.NUnitTester.Events {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class PersonBirthdate {
         
         private System.Guid personUuidField;
@@ -255,7 +255,7 @@ namespace CprBroker.NUnitTester.Events {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class DataChangeEventInfo {
         
         private System.Guid eventIdField;

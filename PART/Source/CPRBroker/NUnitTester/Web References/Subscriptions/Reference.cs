@@ -26,7 +26,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="SubscriptionsSoap12", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="SubscriptionsSoap12", Namespace="http://dk.itst")]
     public partial class Subscriptions : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private ApplicationHeader applicationHeaderValueField;
@@ -111,7 +111,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Subscribe", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/Subscribe", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public ChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, System.Guid[] PersonCivilRegistrationIdentifiers) {
             object[] results = this.Invoke("Subscribe", new object[] {
                         NotificationChannel,
@@ -143,7 +143,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Unsubscribe", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/Unsubscribe", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public bool Unsubscribe(System.Guid SubscriptionId) {
             object[] results = this.Invoke("Unsubscribe", new object[] {
                         SubscriptionId});
@@ -173,7 +173,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SubscribeOnBirthdate", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/SubscribeOnBirthdate", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] System.Nullable<int> Years, int PriorDays, System.Guid[] PersonCivilRegistrationIdentifiers) {
             object[] results = this.Invoke("SubscribeOnBirthdate", new object[] {
                         NotificationChannel,
@@ -209,7 +209,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RemoveBirthDateSubscription", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/RemoveBirthDateSubscription", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public bool RemoveBirthDateSubscription(System.Guid SubscriptionId) {
             object[] results = this.Invoke("RemoveBirthDateSubscription", new object[] {
                         SubscriptionId});
@@ -239,7 +239,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetActiveSubsciptionsList", RequestElementName="GetActiveSubsciptionsList", RequestNamespace="http://tempuri.org/", ResponseElementName="GetActiveSubsciptionsListResponse", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/GetActiveSubsciptionsList", RequestElementName="GetActiveSubsciptionsList", RequestNamespace="http://dk.itst", ResponseElementName="GetActiveSubsciptionsListResponse", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlArrayAttribute("GetActiveSubsciptionsListResult")]
         public SubscriptionType[] GetActiveSubscriptionsList() {
             object[] results = this.Invoke("GetActiveSubscriptionsList", new object[0]);
@@ -267,7 +267,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Ping", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/Ping", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string Ping() {
             object[] results = this.Invoke("Ping", new object[0]);
             return ((string)(results[0]));
@@ -317,8 +317,8 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://dk.itst", IsNullable=false)]
     public partial class ApplicationHeader : System.Web.Services.Protocols.SoapHeader {
         
         private string applicationTokenField;
@@ -366,7 +366,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public abstract partial class SubscriptionType {
         
         private string subscriptionIdField;
@@ -431,13 +431,13 @@ namespace CprBroker.NUnitTester.Subscriptions {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FileShareChannelType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public abstract partial class ChannelBaseType {
     }
     
@@ -446,28 +446,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class WebServiceChannelType : ChannelBaseType {
-        
-        private string webServiceUrlField;
-        
-        /// <remarks/>
-        public string WebServiceUrl {
-            get {
-                return this.webServiceUrlField;
-            }
-            set {
-                this.webServiceUrlField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class FileShareChannelType : ChannelBaseType {
         
         private string pathField;
@@ -488,7 +467,28 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public partial class WebServiceChannelType : ChannelBaseType {
+        
+        private string webServiceUrlField;
+        
+        /// <remarks/>
+        public string WebServiceUrl {
+            get {
+                return this.webServiceUrlField;
+            }
+            set {
+                this.webServiceUrlField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BirthdateSubscriptionType : SubscriptionType {
         
         private System.Nullable<int> ageYearsField;
@@ -522,7 +522,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ChangeSubscriptionType : SubscriptionType {
     }
     

@@ -12,35 +12,35 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SubscriptionsService.SubscriptionsSoap12")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="SubscriptionsService.SubscriptionsSoap12")]
     public interface SubscriptionsSoap12 {
         
         // CODEGEN: Generating message contract since message SubscribeRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Subscribe", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Subscribe", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         CPR_Business_Application_Demo.SubscriptionsService.SubscribeResponse Subscribe(CPR_Business_Application_Demo.SubscriptionsService.SubscribeRequest request);
         
         // CODEGEN: Generating message contract since message UnsubscribeRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Unsubscribe", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Unsubscribe", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeResponse Unsubscribe(CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest request);
         
         // CODEGEN: Generating message contract since message SubscribeOnBirthdateRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SubscribeOnBirthdate", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/SubscribeOnBirthdate", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse SubscribeOnBirthdate(CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateRequest request);
         
         // CODEGEN: Generating message contract since message RemoveBirthDateSubscriptionRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RemoveBirthDateSubscription", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/RemoveBirthDateSubscription", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionResponse RemoveBirthDateSubscription(CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetActiveSubsciptionsList) of message GetActiveSubsciptionsList does not match the default value (GetActiveSubscriptionsList)
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetActiveSubsciptionsList", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetActiveSubsciptionsList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList1 GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ping", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Ping", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         string Ping();
     }
@@ -50,7 +50,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
@@ -112,7 +112,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public abstract partial class SubscriptionType : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string subscriptionIdField;
@@ -196,13 +196,13 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FileShareChannelType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebServiceChannelType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public abstract partial class ChannelBaseType : object, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
@@ -220,30 +220,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class WebServiceChannelType : ChannelBaseType {
-        
-        private string webServiceUrlField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string WebServiceUrl {
-            get {
-                return this.webServiceUrlField;
-            }
-            set {
-                this.webServiceUrlField = value;
-                this.RaisePropertyChanged("WebServiceUrl");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class FileShareChannelType : ChannelBaseType {
         
         private string pathField;
@@ -266,7 +243,30 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public partial class WebServiceChannelType : ChannelBaseType {
+        
+        private string webServiceUrlField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string WebServiceUrl {
+            get {
+                return this.webServiceUrlField;
+            }
+            set {
+                this.webServiceUrlField = value;
+                this.RaisePropertyChanged("WebServiceUrl");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BirthdateSubscriptionType : SubscriptionType {
         
         private System.Nullable<int> ageYearsField;
@@ -303,22 +303,22 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ChangeSubscriptionType : SubscriptionType {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Subscribe", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Subscribe", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SubscribeRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=1)]
         public System.Guid[] PersonCivilRegistrationIdentifiers;
         
         public SubscribeRequest() {
@@ -333,10 +333,10 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SubscribeResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public CPR_Business_Application_Demo.SubscriptionsService.ChangeSubscriptionType SubscribeResult;
         
         public SubscribeResponse() {
@@ -349,13 +349,13 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Unsubscribe", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Unsubscribe", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class UnsubscribeRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public System.Guid SubscriptionId;
         
         public UnsubscribeRequest() {
@@ -369,10 +369,10 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="UnsubscribeResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UnsubscribeResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class UnsubscribeResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public bool UnsubscribeResult;
         
         public UnsubscribeResponse() {
@@ -385,23 +385,23 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdate", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdate", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SubscribeOnBirthdateRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public System.Nullable<int> Years;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=2)]
         public int PriorDays;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=3)]
         public System.Guid[] PersonCivilRegistrationIdentifiers;
         
         public SubscribeOnBirthdateRequest() {
@@ -418,10 +418,10 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdateResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdateResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SubscribeOnBirthdateResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public CPR_Business_Application_Demo.SubscriptionsService.BirthdateSubscriptionType SubscribeOnBirthdateResult;
         
         public SubscribeOnBirthdateResponse() {
@@ -434,13 +434,13 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="RemoveBirthDateSubscription", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RemoveBirthDateSubscription", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class RemoveBirthDateSubscriptionRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public System.Guid SubscriptionId;
         
         public RemoveBirthDateSubscriptionRequest() {
@@ -454,10 +454,10 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="RemoveBirthDateSubscriptionResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RemoveBirthDateSubscriptionResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class RemoveBirthDateSubscriptionResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public bool RemoveBirthDateSubscriptionResult;
         
         public RemoveBirthDateSubscriptionResponse() {
@@ -470,10 +470,10 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetActiveSubsciptionsList", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetActiveSubsciptionsList", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetActiveSubsciptionsList {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
         public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
         
         public GetActiveSubsciptionsList() {
@@ -486,10 +486,10 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetActiveSubsciptionsListResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetActiveSubsciptionsListResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetActiveSubsciptionsList1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public SubscriptionType[] GetActiveSubsciptionsListResult;
         
         public GetActiveSubsciptionsList1() {

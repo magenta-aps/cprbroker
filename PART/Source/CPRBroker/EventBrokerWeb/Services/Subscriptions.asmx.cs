@@ -15,7 +15,7 @@ namespace CprBroker.EventBroker.Web.Services
     /// <summary>
     /// Contains web methods related to administration of the system
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/", Name = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Service, Description = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Service)]
+    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Service, Description = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
     public class Subscriptions : GKApp.WS.wsBaseV2
@@ -27,7 +27,7 @@ namespace CprBroker.EventBroker.Web.Services
         {
             BaseInit();
         }
-       
+
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Subscribe, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.Subscribe)]
         public ChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, Guid[] PersonCivilRegistrationIdentifiers)
@@ -70,6 +70,6 @@ namespace CprBroker.EventBroker.Web.Services
             return Manager.Subscriptions.GetLatestNotification(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }*/
 
-        
+
     }
 }

@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace CprBroker.NUnitTester.CPRAdministrationWS {
+namespace CprBroker.NUnitTester.Admin {
     using System.Diagnostics;
     using System.Web.Services;
     using System.ComponentModel;
@@ -26,9 +26,9 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="CPRAdministrationWSSoap12", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="AdminSoap12", Namespace="http://dk.itst")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ServiceVersionType[]))]
-    public partial class CPRAdministrationWS : System.Web.Services.Protocols.SoapHttpClientProtocol {
+    public partial class Admin : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private ApplicationHeader applicationHeaderValueField;
         
@@ -57,9 +57,9 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
-        public CPRAdministrationWS() {
+        public Admin() {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
-            this.Url = "http://localhost:1551/services/CPRAdministrationWS.asmx";
+            this.Url = "http://localhost:1551/services/Admin.asmx";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -137,7 +137,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RequestAppRegistration", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/RequestAppRegistration", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("Application", Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
         public ApplicationType RequestAppRegistration(string ApplicationName) {
             object[] results = this.Invoke("RequestAppRegistration", new object[] {
@@ -168,7 +168,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ApproveAppRegistration", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/ApproveAppRegistration", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public bool ApproveAppRegistration(string ApplicationToken) {
             object[] results = this.Invoke("ApproveAppRegistration", new object[] {
                         ApplicationToken});
@@ -198,7 +198,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ListAppRegistrations", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/ListAppRegistrations", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public ApplicationType[] ListAppRegistrations() {
             object[] results = this.Invoke("ListAppRegistrations", new object[0]);
             return ((ApplicationType[])(results[0]));
@@ -226,7 +226,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UnregisterApp", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/UnregisterApp", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public bool UnregisterApp(string ApplicationToken) {
             object[] results = this.Invoke("UnregisterApp", new object[] {
                         ApplicationToken});
@@ -256,7 +256,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetCapabilities", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/GetCapabilities", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public ServiceVersionType[] GetCapabilities() {
             object[] results = this.Invoke("GetCapabilities", new object[0]);
             return ((ServiceVersionType[])(results[0]));
@@ -284,7 +284,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IsImplementing", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/IsImplementing", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public bool IsImplementing(string serviceName, string serviceVersion) {
             object[] results = this.Invoke("IsImplementing", new object[] {
                         serviceName,
@@ -316,7 +316,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDataProviderList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/GetDataProviderList", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public DataProviderType[] GetDataProviderList() {
             object[] results = this.Invoke("GetDataProviderList", new object[0]);
             return ((DataProviderType[])(results[0]));
@@ -344,7 +344,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetDataProviderList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/SetDataProviderList", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public bool SetDataProviderList(DataProviderType[] DataProviders) {
             object[] results = this.Invoke("SetDataProviderList", new object[] {
                         DataProviders});
@@ -374,7 +374,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Log", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/Log", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public bool Log(string Text) {
             object[] results = this.Invoke("Log", new object[] {
                         Text});
@@ -404,7 +404,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CreateTestCitizen", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/CreateTestCitizen", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public bool CreateTestCitizen([System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")] PersonFullStructureType PersonFullStructure) {
             object[] results = this.Invoke("CreateTestCitizen", new object[] {
                         PersonFullStructure});
@@ -433,7 +433,7 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Ping", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/Ping", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string Ping() {
             object[] results = this.Invoke("Ping", new object[0]);
             return ((string)(results[0]));
@@ -483,8 +483,8 @@ namespace CprBroker.NUnitTester.CPRAdministrationWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://dk.itst", IsNullable=false)]
     public partial class ApplicationHeader : System.Web.Services.Protocols.SoapHeader {
         
         private string applicationTokenField;

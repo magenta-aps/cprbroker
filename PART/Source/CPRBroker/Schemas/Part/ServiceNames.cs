@@ -7,6 +7,8 @@ namespace CprBroker.Schemas.Part
 {
     public static class ServiceNames
     {
+        public const string Namespace = "http://dk.itst";
+
         public class Part
         {
             public const string Service = "Part";

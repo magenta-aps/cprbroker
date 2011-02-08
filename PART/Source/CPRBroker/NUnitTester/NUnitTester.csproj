@@ -84,7 +84,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\CPRAdministrationWS\Reference.cs">
+    <Compile Include="Web References\Admin\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -120,10 +120,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NUnitTester_Access_Access</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://localhost:1551/services/CPRAdministrationWS.asmx">
+    <WebReferenceUrl Include="http://localhost:1551/services/Admin.asmx">
       <UrlBehavior>Static</UrlBehavior>
-      <RelPath>Web References\CPRAdministrationWS\</RelPath>
-      <UpdateFromURL>http://localhost:1551/services/CPRAdministrationWS.asmx</UpdateFromURL>
+      <RelPath>Web References\Admin\</RelPath>
+      <UpdateFromURL>http://localhost:1551/services/Admin.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -166,16 +166,12 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\CPRAdministrationWS\CPRAdministrationWS.wsdl" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Web References\Access\Access.wsdl" />
     <None Include="Web References\Access\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\CPRAdministrationWS\CPRAdministrationWS.disco" />
-    <None Include="Web References\CPRAdministrationWS\Reference.map">
+    <None Include="Web References\Admin\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -222,15 +218,6 @@
     <None Include="Web References\Access\SendNotificationsResult1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\CPRAdministrationWS\ApplicationType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRAdministrationWS\DataProviderType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\CPRAdministrationWS\ServiceVersionType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Events\Events.wsdl" />
     <None Include="Web References\Part\LaesOutputType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -257,6 +244,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Web References\Admin\Admin.wsdl" />
+    <None Include="Web References\Admin\ApplicationType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Admin\DataProviderType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Admin\ServiceVersionType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Events\DataChangeEventInfo.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -268,6 +265,9 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Admin\Admin.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

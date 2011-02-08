@@ -13,7 +13,7 @@ namespace CprService.Services
     /// <summary>
     /// Summary description for Events
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called fromDate script, using ASP.NET AJAX, uncomment the following line. 

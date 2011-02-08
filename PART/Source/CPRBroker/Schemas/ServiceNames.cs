@@ -29,7 +29,7 @@ namespace CprBroker.Schemas
 
         public static class Administrator
         {
-            public const string Service = "CPRAdministrationWS";
+            public const string Service = "Admin";
 
             public static class MethodNames
             {

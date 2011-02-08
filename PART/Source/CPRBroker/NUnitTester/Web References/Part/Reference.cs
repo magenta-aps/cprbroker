@@ -26,7 +26,7 @@ namespace CprBroker.NUnitTester.Part {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="PartSoap12", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="PartSoap12", Namespace="http://dk.itst")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegSagDokObjektType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegInputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ListOutputType))]
@@ -127,9 +127,9 @@ namespace CprBroker.NUnitTester.Part {
         public event GetPersonUuidCompletedEventHandler GetPersonUuidCompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Read", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/Read", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("LaesOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
         public LaesOutputType Read([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:2.0.0")] LaesInputType LaesInput) {
             object[] results = this.Invoke("Read", new object[] {
@@ -159,9 +159,9 @@ namespace CprBroker.NUnitTester.Part {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RefreshRead ", RequestElementName="RefreshRead ", RequestNamespace="http://tempuri.org/", ResponseElementName="RefreshRead Response", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/RefreshRead ", RequestElementName="RefreshRead ", RequestNamespace="http://dk.itst", ResponseElementName="RefreshRead Response", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("LaesOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
         public LaesOutputType RefreshRead([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:2.0.0")] LaesInputType LaesInput) {
             object[] results = this.Invoke("RefreshRead", new object[] {
@@ -191,9 +191,9 @@ namespace CprBroker.NUnitTester.Part {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/List", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/List", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("ListOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
         public ListOutputType1 List([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:2.0.0")] ListInputType ListInput) {
             object[] results = this.Invoke("List", new object[] {
@@ -223,9 +223,9 @@ namespace CprBroker.NUnitTester.Part {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Search", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/Search", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("SoegOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
         public SoegOutputType Search([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:person:1.0.0")] SoegInputType1 SoegInput) {
             object[] results = this.Invoke("Search", new object[] {
@@ -256,7 +256,7 @@ namespace CprBroker.NUnitTester.Part {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPersonUuid", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/GetPersonUuid", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Guid GetPersonUuid(string cprNumber) {
             object[] results = this.Invoke("GetPersonUuid", new object[] {
                         cprNumber});
@@ -308,33 +308,22 @@ namespace CprBroker.NUnitTester.Part {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
-    public partial class ApplicationHeader : System.Web.Services.Protocols.SoapHeader {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://dk.itst", IsNullable=false)]
+    public partial class QualityHeader : System.Web.Services.Protocols.SoapHeader {
         
-        private string applicationTokenField;
-        
-        private string userTokenField;
+        private System.Nullable<QualityLevel> qualityLevelField;
         
         private System.Xml.XmlAttribute[] anyAttrField;
         
         /// <remarks/>
-        public string ApplicationToken {
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<QualityLevel> QualityLevel {
             get {
-                return this.applicationTokenField;
+                return this.qualityLevelField;
             }
             set {
-                this.applicationTokenField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string UserToken {
-            get {
-                return this.userTokenField;
-            }
-            set {
-                this.userTokenField = value;
+                this.qualityLevelField = value;
             }
         }
         
@@ -348,6 +337,22 @@ namespace CprBroker.NUnitTester.Part {
                 this.anyAttrField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public enum QualityLevel {
+        
+        /// <remarks/>
+        Cpr,
+        
+        /// <remarks/>
+        DataProvider,
+        
+        /// <remarks/>
+        LocalCache,
     }
     
     /// <remarks/>
@@ -3821,10 +3826,10 @@ namespace CprBroker.NUnitTester.Part {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4240,22 +4245,33 @@ namespace CprBroker.NUnitTester.Part {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/", IsNullable=false)]
-    public partial class QualityHeader : System.Web.Services.Protocols.SoapHeader {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://dk.itst", IsNullable=false)]
+    public partial class ApplicationHeader : System.Web.Services.Protocols.SoapHeader {
         
-        private System.Nullable<QualityLevel> qualityLevelField;
+        private string applicationTokenField;
+        
+        private string userTokenField;
         
         private System.Xml.XmlAttribute[] anyAttrField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<QualityLevel> QualityLevel {
+        public string ApplicationToken {
             get {
-                return this.qualityLevelField;
+                return this.applicationTokenField;
             }
             set {
-                this.qualityLevelField = value;
+                this.applicationTokenField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string UserToken {
+            get {
+                return this.userTokenField;
+            }
+            set {
+                this.userTokenField = value;
             }
         }
         
@@ -4269,22 +4285,6 @@ namespace CprBroker.NUnitTester.Part {
                 this.anyAttrField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum QualityLevel {
-        
-        /// <remarks/>
-        Cpr,
-        
-        /// <remarks/>
-        DataProvider,
-        
-        /// <remarks/>
-        LocalCache,
     }
     
     /// <remarks/>

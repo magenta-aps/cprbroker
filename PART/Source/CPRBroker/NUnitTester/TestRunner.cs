@@ -11,7 +11,7 @@ namespace CprBroker.NUnitTester
     public static class TestRunner
     {
 
-        public static CPRAdministrationWS.CPRAdministrationWS AdminService;
+        public static Admin.Admin AdminService;
         public static Access.Access AccessService;
         public static Part.Part PartService;
         public static Subscriptions.Subscriptions SubscriptionsService;
@@ -19,8 +19,8 @@ namespace CprBroker.NUnitTester
 
         public static void Initialize()
         {
-            AdminService = new NUnitTester.CPRAdministrationWS.CPRAdministrationWS();
-            AdminService.ApplicationHeaderValue = new NUnitTester.CPRAdministrationWS.ApplicationHeader()
+            AdminService = new NUnitTester.Admin.Admin();
+            AdminService.ApplicationHeaderValue = new NUnitTester.Admin.ApplicationHeader()
             {
                 ApplicationToken = TestData.BaseAppToken,
                 UserToken = TestData.userToken
