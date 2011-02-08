@@ -12,19 +12,10 @@ namespace CprBroker.Providers.PersonMaster
 
         public Guid GetPersonUuid(string cprNumber)
         {
-            PersonMasterService.BasicOp service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOp();
-            service.Url = Address;
+            PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient("wsBasicHttp");
             string aux = null;
-
-            string uuidString = service.GetObjectIDFromCpr(Context, cprNumber, ref aux);
-            if (Engine.Util.Strings.IsGuid(uuidString))
-            {
-                return new Guid(uuidString);
-            }
-            else
-            {
-                return Guid.Empty;
-            }
+            var ret = service.GetObjectIDFromCpr(Context, cprNumber, ref aux);
+            return ret;
         }
 
         #endregion

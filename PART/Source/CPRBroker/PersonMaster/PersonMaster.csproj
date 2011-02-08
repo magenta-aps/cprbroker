@@ -36,6 +36,12 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -54,27 +60,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Web References\PersonMasterService\Reference.cs">
+    <Compile Include="Service References\PersonMasterService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PersonMasterService\</RelPath>
-      <UpdateFromURL>http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>CprBroker_DataProviders_PersonMaster_PersonMasterService_BasicOp</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -83,21 +73,35 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\PersonMasterService\BasicOp.wsdl" />
-    <None Include="Web References\PersonMasterService\PersonmasterServiceLibrary.wsdl" />
-    <None Include="Web References\PersonMasterService\PersonmasterServiceLibrary.xsd" />
-    <None Include="Web References\PersonMasterService\PersonmasterServiceLibrary0.xsd" />
-    <None Include="Web References\PersonMasterService\PersonmasterServiceLibrary1.xsd" />
-    <None Include="Web References\PersonMasterService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <None Include="Service References\PersonMasterService\BasicOp.wsdl" />
+    <None Include="Service References\PersonMasterService\PersonmasterServiceLibrary.wsdl" />
+    <None Include="Service References\PersonMasterService\PersonmasterServiceLibrary.xsd" />
+    <None Include="Service References\PersonMasterService\PersonmasterServiceLibrary1.xsd" />
+    <None Include="Service References\PersonMasterService\PersonmasterServiceLibrary2.xsd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
       <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\PersonMasterService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PersonMasterService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PersonMasterService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PersonMasterService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
