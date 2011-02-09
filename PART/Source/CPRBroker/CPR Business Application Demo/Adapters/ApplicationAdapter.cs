@@ -24,7 +24,7 @@ namespace CPR_Business_Application_Demo.Adapters
                 applicationsWsUrl += "CPRAdministrationWS.asmx";
             }
 
-            applicationsHandler = new   CPRAdministrationWSSoap12Client("CPRAdministrationWSSoap", applicationsWsUrl);
+            applicationsHandler = new AdminSoap12Client("CPRAdministrationWSSoap", applicationsWsUrl);
 
             // Set the timeout to avoid hanging the application for too long when wrong urls were entered
             applicationsHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 5);
@@ -75,7 +75,7 @@ namespace CPR_Business_Application_Demo.Adapters
         #endregion
 
         #region Private Fields
-        private readonly CPRAdministrationWSSoap12Client applicationsHandler;
+        private readonly AdminSoap12Client applicationsHandler;
         #endregion
 
     }
