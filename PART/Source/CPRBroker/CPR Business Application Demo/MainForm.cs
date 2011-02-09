@@ -201,82 +201,7 @@ namespace CPR_Business_Application_Demo
 
         private void personQueryButton_Click(object sender, EventArgs e)
         {
-            var personController = new CPRPersonController(Properties.Settings.Default);
-
-            var personalCivilIdentificationNumber = personalCivilIdentificationNumberTextBox.Text;
-            PersonBasicStructureType person = personController.GetCitizenBasic(personalCivilIdentificationNumber);
-            if (person != null)
-            {
-                FillPersonResults(person);
-            }
-
-            PersonNameAndAddressStructureType personNameAndAddress =
-                personController.GetCitizenNameAndAddress(personalCivilIdentificationNumber);
-            if (personNameAndAddress != null)
-            {
-                FillPersonNameAndAddressResults(personNameAndAddress);
-            }
-
-            QualityHeader qualityHeader;
-            var custodyChildren = personController.GetCitizenChildren(personalCivilIdentificationNumber, false, out qualityHeader);
-            if (custodyChildren != null)
-            {
-                RelationsTextBox.Text += "Non-Custody children:\r\n";
-                foreach (var child in custodyChildren)
-                {
-                    RelationsTextBox.Text += "  "
-                                          + child.PersonCivilRegistrationIdentifier
-                                          + ": "
-                                          + child.PersonNameStructure.PersonGivenName
-                                          + " "
-                                          + child.PersonNameStructure.PersonSurnameName
-                                          + "\r\n";
-                }
-            }
-            else
-            {
-                RelationsTextBox.Text += "No non-custody children\r\n";
-            }
-
-            custodyChildren = personController.GetCitizenChildren(personalCivilIdentificationNumber, true, out qualityHeader);
-            if (custodyChildren != null)
-            {
-                RelationsTextBox.Text += "Custody children:\r\n";
-                foreach (var child in custodyChildren)
-                {
-                    RelationsTextBox.Text += "  "
-                                          + child.PersonCivilRegistrationIdentifier
-                                          + ": "
-                                          + child.PersonNameStructure.PersonGivenName
-                                          + " "
-                                          + child.PersonNameStructure.PersonSurnameName
-                                          + "\r\n";
-                }
-            }
-            else
-            {
-                RelationsTextBox.Text += "No custody children\r\n";
-            }
-
-            var relations = personController.GetCitizenRelations(personalCivilIdentificationNumber, out qualityHeader);
-            if (relations != null)
-            {
-                RelationsTextBox.Text += "Spouses:\r\n";
-                foreach (var spouse in relations.Spouses)
-                {
-                    RelationsTextBox.Text += "  "
-                                             + spouse.SimpleCPRPerson.PersonCivilRegistrationIdentifier
-                                             + ": "
-                                             + spouse.SimpleCPRPerson.PersonNameStructure.PersonGivenName
-                                             + " "
-                                             + spouse.SimpleCPRPerson.PersonNameStructure.PersonSurnameName
-                                             + "\r\n";
-                }
-            }
-            else
-            {
-                RelationsTextBox.Text += "No spouses\r\n";
-            }
+          
         }
 
         private void subscribeCprButton_Click(object sender, EventArgs e)
@@ -294,7 +219,7 @@ namespace CPR_Business_Application_Demo
             else
             {
                 ConsoleWriteLine("FAILED!!!");
-            }
+            }            
         }
 
         private void GetServiceInfoButton_Click(object sender, EventArgs e)

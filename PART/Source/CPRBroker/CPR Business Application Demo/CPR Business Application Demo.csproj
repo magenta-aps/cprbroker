@@ -55,9 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\ApplicationAdapter.cs" />
-    <Compile Include="Adapters\CPRPersonAdapter.cs" />
     <Compile Include="BLL\ApplicationsController.cs" />
-    <Compile Include="BLL\CPRPersonController.cs" />
     <Compile Include="BLL\INotificationListener.cs" />
     <Compile Include="BLL\NotificationController.cs" />
     <Compile Include="MainForm.cs">

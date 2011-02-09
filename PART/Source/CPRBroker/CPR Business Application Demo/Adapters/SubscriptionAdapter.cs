@@ -24,7 +24,7 @@ namespace CPR_Business_Application_Demo.Adapters
                 subscriptionsWsUrl += "Subscriptions.asmx";
             }
 
-            subscriptionsHandler = new SubscriptionsSoap12Client("SubscriptionsSoap", subscriptionsWsUrl);
+            subscriptionsHandler = new SubscriptionsSoap12Client("SubscriptionsSoap12", subscriptionsWsUrl);
 
             // Set the timeout to avoid hanging the application for too long when wrong urls were entered
             subscriptionsHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 5);
