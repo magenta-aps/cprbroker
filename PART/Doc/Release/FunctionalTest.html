@@ -5,18 +5,159 @@
   </head>
 
   <body>
-    <h1>Functional Test of PART broker</h1>
+    <h1>Functional Test of the PART CPR Broker</h1>
     
+This is a test of the CPR broker. It is mainly a black-box test using Soap UI
+
+UUIDs used for input in this test are created using <a href="http://createguid.com/"> CreateGUUID</a>.
+
+<pre>
+Applicatíon1 token : 12BDB789-A8C0-452A-89E4-297F3583C3FB
+</pre>
+
+
+<h2> How to perform test</H2>
+Install SoapUI.
+Create projects for the three webservices: 
+
+<ul>
+<li>http://cprbroker20110208/Services/Admin.asmx?WSDL
+<li>http://cprbroker20110208/Services/Part.asmx?WSDL
+<li>http://eventbroker20110208/Services/Notification.asmx?WSDL
+</ul>
+
+
+Fill in input for east test and check the output. 
+
+The test are basicly black-box test that study mostly XML request and XML replies, a few of files (e.g. notification file channels to verify delivery of notifications), the web pages for administration, and a few queries on the database.
+
+For example for requst registration. We supply
+<quote>
+<pre>
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst"&gt;
+   &lt;soap:Header&gt;
+      &lt;dk:ApplicationHeader&gt;
+      &lt;/dk:ApplicationHeader&gt;
+   &lt;/soap:Header&gt;
+   &lt;soap:Body&gt;
+      &lt;dk:RequestAppRegistration&gt;
+         &lt;!--Optional:--&gt;
+         &lt;dk:ApplicationName&gt;testapp4&lt;/dk:ApplicationName&gt;
+      &lt;/dk:RequestAppRegistration&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+</pre>
+</quote>
+
+And the result is 
+
+<quote>
+<pre>
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+   &lt;soap:Body&gt;
+      &lt;RequestAppRegistrationResponse xmlns="http://dk.itst"&gt;
+         &lt;Application xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"&gt;
+            &lt;ApplicationId&gt;a7caf270-4e5c-48db-9154-5c3964ae0409&lt;/ApplicationId&gt;
+            &lt;Token&gt;bf7f12f2-a9ae-48ea-96c4-b23c989a5bc3&lt;/Token&gt;
+            &lt;Name&gt;testapp4&lt;/Name&gt;
+            &lt;RegistrationDate&gt;2011-02-10T17:57:53.4605862+01:00&lt;/RegistrationDate&gt;
+            &lt;IsApproved&gt;false&lt;/IsApproved&gt;
+            &lt;ApprovedDate&gt;0001-01-01T00:00:00&lt;/ApprovedDate&gt;
+         &lt;/Application&gt;
+      &lt;/RequestAppRegistrationResponse&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+</pre>
+</quote>
+
+We do the same for testapp5 but this time leave in the optional header to ensure that it does not make a differens. The application headers contain the credentials necessary for accessing the CPR Broker. They are necessary for all applications and all operation - except the request for approval.
+<p>
+
+Then we use the ApproveAppRegistration test case to approve the request for testapp4. To bootstrap this test we have to use the master admin token:
+
+
+<quote>
+<pre>
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst"&gt;
+   &lt;soap:Header&gt;
+      &lt;dk:ApplicationHeader&gt;
+         &lt;!--Optional:--&gt;
+         &lt;dk:ApplicationToken&gt;07059250-E448-4040-B695-9C03F9E59E38&lt;/dk:ApplicationToken&gt;
+         &lt;!--Optional:--&gt;
+         &lt;dk:UserToken&gt;Base application&lt;/dk:UserToken&gt;
+      &lt;/dk:ApplicationHeader&gt;
+   &lt;/soap:Header&gt;
+   &lt;soap:Body&gt;
+      &lt;dk:ApproveAppRegistration&gt;
+         &lt;!--Optional:--&gt;
+         &lt;dk:ApplicationToken&gt;bf7f12f2-a9ae-48ea-96c4-b23c989a5bc3&lt;/dk:ApplicationToken&gt;
+      &lt;/dk:ApproveAppRegistration&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+</pre>
+</quote>
+
+
+And get the reciepts.
+
+<quote>
+<pre>
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+   &lt;soap:Body&gt;
+      &lt;ApproveAppRegistrationResponse xmlns="http://dk.itst"&gt;
+         &lt;ApproveAppRegistrationResult&gt;true&lt;/ApproveAppRegistrationResult&gt;
+      &lt;/ApproveAppRegistrationResponse&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+</pre>
+</quote>
+
+
+We can then also check that the admin web user interface agrees with this state of affairs:
+
+
+At <url>http://cprbroker20110208/Pages/Applications.aspx</url> we see:
+
+<pre>
+	<table cellspacing="0" cellpadding="2" rules="all" border="1" id="ctl00_Contents_applicationsGridView" style="border-collapse:collapse;">
+		<tr class="GridHeader" style="white-space:nowrap;">
+			<th scope="col" style="white-space:nowrap;">Name</th><th scope="col" style="white-space:nowrap;">Token</th><th scope="col">Registration date</th><th scope="col">Approved</th><th scope="col">Approved date</th><th scope="col">&nbsp;</th><th scope="col">&nbsp;</th>
+		</tr><tr class="Row">
+			<td style="white-space:nowrap;">
+                    <span id="ctl00_Contents_applicationsGridView_ctl02_Label1">CPR Business Application Demo</span>
+                </td><td style="white-space:nowrap;">
+                    <span id="ctl00_Contents_applicationsGridView_ctl02_Label2">5f8b7af5-422e-46bb-9273-5e244dc37505</span>
+                </td><td>14-12-2010 12:31:09</td><td><span disabled="disabled"><input id="ctl00_Contents_applicationsGridView_ctl02_ctl00" type="checkbox" name="ctl00$Contents$applicationsGridView$ctl02$ctl00" checked="checked" disabled="disabled" /></span></td><td>&nbsp;</td><td><a class="CommandButton" href="javascript:__doPostBack('ctl00$Contents$applicationsGridView','Edit$0')">Edit</a></td><td><a class="CommandButton" href="javascript:__doPostBack('ctl00$Contents$applicationsGridView','Delete$0')">Delete</a></td>
+		</tr>		</tr><tr class="AlternateRow">
+			<td style="white-space:nowrap;">
+                    <span id="ctl00_Contents_applicationsGridView_ctl09_Label1">testapp4</span>
+                </td><td style="white-space:nowrap;">
+                    <span id="ctl00_Contents_applicationsGridView_ctl09_Label2">bf7f12f2-a9ae-48ea-96c4-b23c989a5bc3</span>
+                </td><td>10-02-2011 17:57:53</td><td><span disabled="disabled"><input id="ctl00_Contents_applicationsGridView_ctl09_ctl00" type="checkbox" name="ctl00$Contents$applicationsGridView$ctl09$ctl00" checked="checked" disabled="disabled" /></span></td><td>10-02-2011 18:25:59</td><td><a class="CommandButton" href="javascript:__doPostBack('ctl00$Contents$applicationsGridView','Edit$7')">Edit</a></td><td><a class="CommandButton" href="javascript:__doPostBack('ctl00$Contents$applicationsGridView','Delete$7')">Delete</a></td>
+		</tr><tr class="Row">
+			<td style="white-space:nowrap;">
+                    <span id="ctl00_Contents_applicationsGridView_ctl10_Label1">testapp5</span>
+                </td><td style="white-space:nowrap;">
+                    <span id="ctl00_Contents_applicationsGridView_ctl10_Label2">5a8d561d-810e-4075-85d0-dd39f84b34d2</span>
+                </td><td>10-02-2011 18:18:23</td><td><span disabled="disabled"><input id="ctl00_Contents_applicationsGridView_ctl10_ctl00" type="checkbox" name="ctl00$Contents$applicationsGridView$ctl10$ctl00" disabled="disabled" /></span></td><td>&nbsp;</td><td><a class="CommandButton" href="javascript:__doPostBack('ctl00$Contents$applicationsGridView','Edit$8')">Edit</a></td><td><a class="CommandButton" href="javascript:__doPostBack('ctl00$Contents$applicationsGridView','Delete$8')">Delete</a></td>
+		</tr>
+	</table>
+<pre>
+
+This show that the user web interface work, that it confirms that testapp4 was approved and that testapp5 is not approved.
+
+
 
 
 <h2>Registration of applications</h2>
 
-We first check that the Demo application i able to register.
+We first check that the Demo application is able to register using the Admin Webservice
 
 <table border="1" style="border-collapse: collapse">
 <tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
-<tr><td>Request Registration name=testApp1</td><td>Access</td><td></td><td>Select * from application</td><td></td></tr>
-<tr><td>Request Registration name=testApp2</td><td>Access</td><td></td><td>Select * from application</td><td></td></tr>
+<tr><td>RequestAppRegistration name=testapp4</td><td>Access</td><td></td><td>Select * from application</td><td>with the optional soap headers removed, result:  ApplicationId=a7caf270-4e5c-48db-9154-5c3964ae0409, Token=bf7f12f2-a9ae-48ea-96c4-b23c989a5bc3, IsApproved=false</td></tr>
+
+<tr><td>RequestAppRegistration name=testApp5</td><td>Access</td><td></td><td>Select * from application</td><td>ApplicationId>ec31c196-4e15-471a-8b81-8f540e8a48a3, Token=5a8d561d-810e-4075-85d0-dd39f84b34d2, IsApproved=false</td></tr>
 <tr><td>List app registration</td><td>Access</td><td></td><td></td><td></td></tr>
 <tr><td>Approve registration name=testApp1</td><td>Access</td><td></td><td>Select * from application where name='testApp1'</td><td></td></tr>
 <tr><td>List app registration</td><td>Access</td><td></td><td></td><td></td></tr>
@@ -114,7 +255,7 @@ They just accept anything and writes it to a logfile.
     <address><a href="mailto:elgaard@niels.magenta-aps.dk">Niels Elgaard Larsen</a></address>
 <!-- Created: Mon Feb  7 15:53:17 CET 2011 -->
 <!-- hhmts start -->
-Last modified: Mon Feb  7 22:45:28 CET 2011
+Last modified: Thu Feb 10 18:45:35 Romance Standard Time 2011
 <!-- hhmts end -->
   </body>
 </html>
