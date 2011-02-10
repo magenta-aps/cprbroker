@@ -23,7 +23,7 @@ namespace CPR_Business_Application_Demo
 
             PartHandler = new PartService.PartSoap12Client("PartSoap12", cprPersonWSUrl);
             // Set the timeout to avoid hanging the application for too long when wrong urls were entered
-            PartHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 5);
+            PartHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 15);
         }
         #endregion
 
