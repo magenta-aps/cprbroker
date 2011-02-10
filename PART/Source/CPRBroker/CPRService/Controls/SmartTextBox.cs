@@ -20,16 +20,24 @@ namespace CprBroker.Web.Controls
     [Designer("CprBroker.Web.Controls.SmartTextBoxDesigner")]
     public class SmartTextBox : WebControl, INamingContainer
     {
+        public T FromViewstate<T>(string key)
+        {
+            var obj = ViewState[key];
+            if (obj == null)
+                ViewState[key] = default(T);
+            return (T)ViewState[key];
+        }
+
         [DefaultValue(false)]
         public bool Required
         {
             get
             {
-                return requiredValidator.Enabled;
+                return FromViewstate<bool>("Required");
             }
             set
             {
-                requiredValidator.Enabled = value;
+                ViewState["Required"] = value;
             }
         }
 
@@ -37,11 +45,11 @@ namespace CprBroker.Web.Controls
         {
             get
             {
-                return InnerTextBox.TextMode == TextBoxMode.Password;
+                return FromViewstate<bool>("Confidential");
             }
             set
             {
-                InnerTextBox.TextMode = value ? TextBoxMode.Password : TextBoxMode.SingleLine;
+                ViewState["Confidential"] = value;
             }
         }
 
@@ -79,11 +87,13 @@ namespace CprBroker.Web.Controls
         protected override void CreateChildControls()
         {
             InnerTextBox.ID = "txt";
+            InnerTextBox.TextMode = Confidential ? TextBoxMode.Password : TextBoxMode.SingleLine;
             Controls.Add(InnerTextBox);
 
             requiredValidator.ControlToValidate = "txt";
             requiredValidator.Text = "Required";
             requiredValidator.ValidationGroup = ValidationGroup;
+            requiredValidator.Enabled = Required;
             Controls.Add(requiredValidator);
 
             regularExpressionValidator.ControlToValidate = "txt";

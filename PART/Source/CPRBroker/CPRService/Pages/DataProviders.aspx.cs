@@ -244,7 +244,7 @@ namespace CprBroker.Web.Pages
                             DataProviderId = Guid.NewGuid(),
                             IsExternal = true,
                             TypeName = newDataProviderDropDownList.SelectedValue,
-                            Ordinal = dataContext.DataProviders.Select(dp => dp.Ordinal).Max() + 1,
+                            Ordinal = dataContext.DataProviders.OrderByDescending(dp => dp.Ordinal).Select(p => p.Ordinal).FirstOrDefault() + 1,
                             IsEnabled = true
                         };
 
