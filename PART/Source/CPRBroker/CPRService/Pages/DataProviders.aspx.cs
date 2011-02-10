@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -12,7 +12,9 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using CprBroker.DAL.DataProviders;
 using CprBroker.Engine;
+using CprBroker.Schemas;
 using CprBroker.Web.Controls;
+using System.Web.Configuration;
 
 namespace CprBroker.Web.Pages
 {
@@ -78,7 +80,7 @@ namespace CprBroker.Web.Pages
         {
             Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
             IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
-            newDataProviderGridView.DataSource = from ck in dp.ConfigurationKeys select new { Value = ck };
+            newDataProviderGridView.DataSource = dp.ConfigurationKeys;
         }
 
         #endregion
@@ -140,7 +142,7 @@ namespace CprBroker.Web.Pages
         #region Ping
 
         protected void dataProvidersGridView_RowCommand(object sender, GridViewCommandEventArgs e)
-        {            
+        {
             if (e.CommandName == "Ping")
             {
                 using (var dataContext = new DataProvidersDataContext())
@@ -217,23 +219,44 @@ namespace CprBroker.Web.Pages
             {
                 try
                 {
+                    /*Schemas.DataProviderType oioProv = new CprBroker.Schemas.DataProviderType()
+                    {
+                        TypeName = newDataProviderDropDownList.SelectedValue,
+                        Enabled=true,
+                    };
+                    var attr = new List<AttributeType>();
+                    foreach (GridViewRow item in newDataProviderGridView.Rows)
+                    {
+                        SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
+                        string propName = newDataProviderGridView.DataKeys[item.RowIndex].Value.ToString();
+                        attr.Add(new AttributeType()
+                            {
+                                Name= propName,
+                                Value= smartTextBox.Text
+                            });
+                    }
+                    oioProv.Attributes = attr.ToArray();*/
+
                     using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
                     {
-                        DataProvider dbPrrov = new DataProvider()
+                        DataProvider dbProv = new DataProvider()
                         {
+                            DataProviderId = Guid.NewGuid(),
                             IsExternal = true,
                             TypeName = newDataProviderDropDownList.SelectedValue,
                             Ordinal = dataContext.DataProviders.Select(dp => dp.Ordinal).Max() + 1,
                             IsEnabled = true
                         };
-                        dataContext.DataProviders.InsertOnSubmit(dbPrrov);
 
                         foreach (GridViewRow item in newDataProviderGridView.Rows)
                         {
                             SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
                             string propName = newDataProviderGridView.DataKeys[item.RowIndex].Value.ToString();
-                            dbPrrov[propName] = smartTextBox.Text;
+                            dbProv[propName] = smartTextBox.Text;
                         }
+
+
+                        dataContext.DataProviders.InsertOnSubmit(dbProv);
                         dataContext.SubmitChanges();
                         dataProvidersGridView.DataBind();
                         newDataProviderGridView.DataBind();
@@ -268,11 +291,10 @@ namespace CprBroker.Web.Pages
             return assebblyQualifiedName;
         }
 
-        protected DataProviderProperty[] SortDataProviderProperties(object props)
+        protected Schemas.AttributeType[] GetAttributes(object dbProvider)
         {
-            return (props as System.Data.Linq.EntitySet<DataProviderProperty>).OrderBy(p => p.Ordinal).ToArray();
+            return (dbProvider as DAL.DataProviders.DataProvider).GetProperties();
         }
-
         protected DataProvider[] LoadDataProviders(DataProvidersDataContext dataContext)
         {
             return dataContext.DataProviders.Where(dp => dp.IsExternal).OrderBy(dp => dp.Ordinal).ToArray();

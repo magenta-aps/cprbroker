@@ -126,5 +126,14 @@ namespace CprBroker.Config.Properties {
                 return ((string)(this["DataChangeEventConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EncryptionKeyXmlFile {
+            get {
+                return ((string)(this["EncryptionKeyXmlFile"]));
+            }
+        }
     }
 }

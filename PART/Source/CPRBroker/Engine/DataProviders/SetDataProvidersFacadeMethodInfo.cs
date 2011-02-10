@@ -35,8 +35,9 @@ namespace CprBroker.Engine.DataProviders
                     return false;
                 }
                 var propNames = dataProvider.ConfigurationKeys;
-                foreach (string propName in propNames)
+                foreach (var propInfo in propNames)
                 {
+                    var propName = propInfo.Name;
                     var prop = dp.Attributes.FirstOrDefault(p => p.Name.ToLower() == propName.ToLower());
                     if (prop == null || string.IsNullOrEmpty(prop.Value))
                     {

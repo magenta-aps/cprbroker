@@ -65,7 +65,7 @@ namespace CprBroker.Engine.Local
                 {
                     DataProviderType oio = dataProviders[iProv];
                     var provObj = Util.Reflection.CreateInstance<IExternalDataProvider>(oio.TypeName);
-                    var dbProv = DataProvider.FromXmlType(oio, iProv, provObj.ConfigurationKeys);
+                    var dbProv = DataProvider.FromXmlType(oio, iProv, provObj.ConfigurationKeys.Select(p => p.Name).ToArray());
                     context.DataProviders.InsertOnSubmit(dbProv);
                 }
                 context.SubmitChanges();

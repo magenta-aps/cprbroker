@@ -30,7 +30,13 @@ namespace CprBroker.Engine
     {
         //DAL.DataProviders.DataProvider DatabaseObject { get; set; } 
         Dictionary<string, string> ConfigurationProperties { get; set; }
-        string[] ConfigurationKeys { get; }
+        DataProviderConfigPropertyInfo[] ConfigurationKeys { get; }
+    }
+
+    public class DataProviderConfigPropertyInfo
+    {
+        public string Name { get; set; }
+        public bool IsConfidential { get; set; }
     }
 
 

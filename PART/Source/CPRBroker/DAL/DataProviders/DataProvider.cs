@@ -11,13 +11,25 @@ namespace CprBroker.DAL.DataProviders
         public static void SetChildLoadOptions(DataProvidersDataContext dataContext)
         {
             System.Data.Linq.DataLoadOptions loadOptions = new System.Data.Linq.DataLoadOptions();
-            loadOptions.LoadWith<DataProvider>(dp => dp.DataProviderProperties);
             dataContext.LoadOptions = loadOptions;
         }
 
-        private DataProviderProperty GetDataProviderProperty(string key)
+        partial void OnLoaded()
         {
-            return (from p in this.DataProviderProperties where p.Name == key select p).FirstOrDefault();
+            if (Data != null)
+            {
+                Properties.AddRange(Utilities.DecryptObject<AttributeType[]>(Data.ToArray()));
+            }
+        }
+        private AttributeType GetDataProviderProperty(string key)
+        {
+            return (from p in this.Properties where p.Name == key select p).FirstOrDefault();
+        }
+
+        private readonly List<AttributeType> Properties = new List<AttributeType>();
+        public AttributeType[] GetProperties()
+        {
+            return Properties.Select(p => new AttributeType() { Name = p.Name, Value = p.Value }).ToArray();
         }
 
         public string this[string key]
@@ -43,15 +55,13 @@ namespace CprBroker.DAL.DataProviders
                 }
                 else
                 {
-                    this.DataProviderProperties.Add(new DataProviderProperty()
+                    this.Properties.Add(new AttributeType()
                         {
-                            DataProviderPropertyId = Guid.NewGuid(),
-                            DataProvider = this,
                             Name = key,
                             Value = value,
-                            Ordinal = DataProviderProperties.Count
                         });
                 }
+                Data = Utilities.EncryptObject(Properties.ToArray());
             }
         }
 
@@ -71,14 +81,7 @@ namespace CprBroker.DAL.DataProviders
             {
                 TypeName = TypeName,
                 Enabled = IsEnabled,
-                Attributes = Array.ConvertAll<DataProviderProperty, AttributeType>(
-                    DataProviderProperties.OrderBy(p => p.Ordinal).ToArray(),
-                    p => new AttributeType()
-                    {
-                        Name = p.Name,
-                        Value = p.Value
-                    }
-                )
+                Attributes = GetProperties()
             };
         }
 
@@ -91,7 +94,9 @@ namespace CprBroker.DAL.DataProviders
                 IsEnabled = oio.Enabled,
                 IsExternal = true,
                 Ordinal = ordinal,
+                Data = null,
             };
+
             for (int iProp = 0; iProp < keysInOrder.Length; iProp++)
             {
                 var propName = keysInOrder[iProp];

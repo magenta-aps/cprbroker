@@ -32,7 +32,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Details">
                 <ItemTemplate>
-                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'>
+                    <asp:Repeater ID="DataList1" runat="server" DataSource='<%# GetAttributes(Container.DataItem) %>'>
                         <ItemTemplate>
                             <b>
                                 <%# Eval("Name")%>:</b>
@@ -43,7 +43,7 @@
                     </asp:Repeater>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# SortDataProviderProperties( Eval("DataProviderProperties")) %>'
+                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# GetAttributes(Container.DataItem) %>'
                         DataKeyField="Name" RepeatDirection="Horizontal">
                         <ItemTemplate>
                             <b>
@@ -108,12 +108,12 @@
         OnDataBinding="newDataProviderDropDownList_DataBinding">
     </asp:DropDownList>
     <asp:GridView runat="server" ID="newDataProviderGridView" AutoGenerateColumns="false"
-        DataKeyNames="Value" ShowFooter="true" OnRowCommand="newDataProviderGridView_RowCommand"
+        DataKeyNames="Name" ShowFooter="true" OnRowCommand="newDataProviderGridView_RowCommand"
         OnDataBinding="newDataProviderGridView_DataBinding">
         <Columns>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <%# Eval("Value") %>:
+                    <%# Eval("Name") %>:
                 </ItemTemplate>
                 <FooterTemplate>
                     <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" CssClass="CommandButton"

@@ -52,5 +52,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=SQLServer;Initial Catalog=PART;User ID=cpr;Password=cpr</Value>
     </Setting>
+    <Setting Name="EncryptionKeyXmlFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

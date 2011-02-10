@@ -106,7 +106,7 @@ namespace CprBroker.Providers.KMD
 
         #region Conversion methods
 
-      //TODO: Remove this method
+        //TODO: Remove this method
         private PersonDeathDateStructureType ToDeathDate(PersonCivilRegistrationStatusStructureType status)
         {
             if (status != null
@@ -163,11 +163,16 @@ namespace CprBroker.Providers.KMD
 
         public Dictionary<string, string> ConfigurationProperties { get; set; }
 
-        public string[] ConfigurationKeys
+        public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get
             {
-                return new string[] { "Address", "Username", "Password" };
+                return new DataProviderConfigPropertyInfo[] 
+                { 
+                    new DataProviderConfigPropertyInfo(){Name="Address",IsConfidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Username",IsConfidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Password" ,IsConfidential=true}
+                };
             }
         }
 

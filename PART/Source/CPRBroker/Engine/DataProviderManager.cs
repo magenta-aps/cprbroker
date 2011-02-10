@@ -77,7 +77,7 @@ namespace CprBroker.Engine
                 try
                 {
                     IExternalDataProvider externalProvider = dataProvider as IExternalDataProvider;
-                    externalProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(externalProvider.ConfigurationKeys);
+                    externalProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(externalProvider.ConfigurationKeys.Select(p=>p.Name).ToArray());
                 }
                 catch (Exception ex)
                 {
@@ -145,7 +145,7 @@ namespace CprBroker.Engine
 
                 List<IExternalDataProvider> providers = new List<IExternalDataProvider>();
 
-                // Append external data providers
+                // Append external clearData providers
                 foreach (var dbProv in dbProviders)
                 {
                     try
@@ -194,7 +194,7 @@ namespace CprBroker.Engine
 
         internal static List<IDataProvider> GetDataProviderList(Type interfaceType, LocalDataProviderUsageOption localOption)
         {
-            // GetPropertyValuesOfType list of all available data providers that are of type TInterface
+            // GetPropertyValuesOfType list of all available clearData providers that are of type TInterface
             // First copy to local defined list to avoid threading issues
             List<IDataProvider> dataProviders = new List<IDataProvider>();
             DataProvidersLock.AcquireReaderLock(Timeout.Infinite);
@@ -209,7 +209,7 @@ namespace CprBroker.Engine
                     select dp
                  ).ToList();
 
-            // Now add the local data providers if needed
+            // Now add the local clearData providers if needed
             if (localOption != LocalDataProviderUsageOption.Forbidden)
             {
                 var availableLocalProviders =

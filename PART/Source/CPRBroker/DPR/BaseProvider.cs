@@ -23,11 +23,16 @@ namespace CprBroker.Providers.DPR
 
         public Dictionary<string, string> ConfigurationProperties { get; set; }
 
-        public string[] ConfigurationKeys
+        public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get
             {
-                return new string[] { "Address", "Port", "ConnectionString", "KeepSubscription" };
+                return new DataProviderConfigPropertyInfo[] { 
+                    new DataProviderConfigPropertyInfo(){Name="Address",IsConfidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Port",IsConfidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="ConnectionString",IsConfidential=true},
+                    new DataProviderConfigPropertyInfo(){Name="KeepSubscription" ,IsConfidential=false}
+                };
             }
         }
 

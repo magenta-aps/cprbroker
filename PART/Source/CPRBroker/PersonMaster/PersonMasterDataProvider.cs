@@ -53,11 +53,15 @@ namespace CprBroker.Providers.PersonMaster
 
         public Dictionary<string, string> ConfigurationProperties { get; set; }
 
-        public string[] ConfigurationKeys
+        public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get
             {
-                return new string[] { "Address", "Context" };
+                return new DataProviderConfigPropertyInfo[] 
+                {
+                    new DataProviderConfigPropertyInfo(){Name="Address",IsConfidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Context",IsConfidential=false}
+                };
             }
         }
 

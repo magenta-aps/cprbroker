@@ -59,31 +59,7 @@ namespace CprBroker.Engine.Util
             return directory;
         }
 
-        /// <summary>
-        /// Serializes the given object to an XML string
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static string SerializeObject(object obj)
-        {
-            string ret = "";
-            if (obj != null)
-            {
-                XmlSerializer serializer = new XmlSerializer(obj.GetType());
-                StringWriter writer = new StringWriter();
-                serializer.Serialize(writer, obj);
-                ret = writer.ToString();
-            }
-            return ret;
-        }
-
-        public static T Deserialize<T>(string xml)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            StringReader writer = new StringReader(xml);
-            object o = serializer.Deserialize(writer);
-            return (T)o;
-        }
+       
 
         /// <summary>
         /// Converts an object to a string

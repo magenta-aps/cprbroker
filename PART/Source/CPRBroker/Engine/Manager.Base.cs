@@ -91,7 +91,7 @@ namespace CprBroker.Engine
                         }
                         catch (Exception updateException)
                         {
-                            string xml = Util.Strings.SerializeObject(output);
+                            string xml = DAL.Utilities.SerializeObject(output);
                             Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, updateException.ToString(), typeof(TOutput).ToString(), xml);
                         }
                     }
@@ -114,7 +114,7 @@ namespace CprBroker.Engine
         {
             try
             {
-                #region Initialization and loading of data providers
+                #region Initialization and loading of clearData providers
                 // Initialize context
                 BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken, facade.ApplicationTokenRequired, true, false);
 
@@ -129,7 +129,7 @@ namespace CprBroker.Engine
                 // Initialize facade method
                 facade.Initialize();
 
-                // have a list of data provider types and corresponding methods to call
+                // have a list of clearData provider types and corresponding methods to call
                 var subMethodRunStates =
                     (
                         from mi in facade.SubMethodInfos
@@ -140,7 +140,7 @@ namespace CprBroker.Engine
                        }
                    ).ToArray();
 
-                // Now check that each method call info either has at least one data provider implementation or can be safely ignored. 
+                // Now check that each method call info either has at least one clearData provider implementation or can be safely ignored. 
                 var missingDataProvidersExist = (
                         (
                             from mi in subMethodRunStates
@@ -170,7 +170,7 @@ namespace CprBroker.Engine
                             BrokerContext.Current = currentBrokerContext;
 
                             SubMethodRunState subMethodInfo = subMethodRunStates[(int)o];
-                            // Loop over data providers until one succeeds
+                            // Loop over clearData providers until one succeeds
                             foreach (IDataProvider prov in subMethodInfo.DataProviders)
                             {
                                 try
@@ -186,7 +186,7 @@ namespace CprBroker.Engine
                                         }
                                         catch (Exception updateException)
                                         {
-                                            string xml = Util.Strings.SerializeObject(subResult);
+                                            string xml = DAL.Utilities.SerializeObject(subResult);
                                             Local.Admin.LogException(updateException);
                                         }
                                     }
@@ -242,7 +242,7 @@ namespace CprBroker.Engine
                     }
                     else
                     {
-                        string xml = Util.Strings.SerializeObject(output);
+                        string xml = DAL.Utilities.SerializeObject(output);
                         Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.ResultGatheringFailed, typeof(TOutput).ToString(), xml);
                     }
                 }
