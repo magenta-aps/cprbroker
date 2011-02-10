@@ -19,8 +19,6 @@ namespace CprBroker.Providers.DPR
 
         #region IExternalDataProvider Members
 
-        //public CprBroker.DAL.DataProviders.DataProvider DatabaseObject { get; set; }
-
         public Dictionary<string, string> ConfigurationProperties { get; set; }
 
         public DataProviderConfigPropertyInfo[] ConfigurationKeys
@@ -28,24 +26,29 @@ namespace CprBroker.Providers.DPR
             get
             {
                 return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){Name="Address",Required=true,Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Port",Required=true,Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="ConnectionString",Required=true,Confidential=true},
-                    new DataProviderConfigPropertyInfo(){Name="KeepSubscription" ,Required=true,Confidential=false}
+                    new DataProviderConfigPropertyInfo(){Name="Address", Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Port", Required=true, Confidential=false},                    
+                    new DataProviderConfigPropertyInfo(){Name="Keep Subscription" , Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Data Source", Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Initial Catalog", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="User ID", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Password", Required=false, Confidential=true},
+                    new DataProviderConfigPropertyInfo(){Name="Integrated Security", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Other Connection String", Required=false, Confidential=false},
                 };
             }
         }
 
         #endregion
 
-        public string Address
+        protected string Address
         {
             get
             {
                 return ConfigurationProperties["Address"];
             }
         }
-        public int Port
+        protected int Port
         {
             get
             {
@@ -53,11 +56,40 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public string ConnectionString
+        protected string ConnectionString
         {
             get
             {
-                return ConfigurationProperties["ConnectionString"];
+                string other = string.Format("{0}", ConfigurationProperties["Other Connection String"]);
+                string dataSource = string.Format("{0}", ConfigurationProperties["Data Source"]);
+                string initialCatalog = string.Format("{0}", ConfigurationProperties["Initial Catalog"]);
+                string userId = string.Format("{0}", ConfigurationProperties["User ID"]);
+                string password = string.Format("{0}", ConfigurationProperties["Password"]);
+                string integratedSecurity = string.Format("{0}", ConfigurationProperties["Integrated Security"]);
+
+                System.Data.SqlClient.SqlConnectionStringBuilder connectionBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder(other);
+                if (!string.IsNullOrEmpty(dataSource))
+                {
+                    connectionBuilder.DataSource = dataSource;
+                }
+                if (!string.IsNullOrEmpty(initialCatalog))
+                {
+                    connectionBuilder.InitialCatalog = initialCatalog;
+                }
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    connectionBuilder.UserID = userId;
+                }
+                if (!string.IsNullOrEmpty(password))
+                {
+                    connectionBuilder.Password = password;
+                }
+                if (!string.IsNullOrEmpty(integratedSecurity))
+                {
+                    connectionBuilder.IntegratedSecurity = integratedSecurity.ToUpper() == "SSPI" || bool.Parse(integratedSecurity);
+                }
+
+                return connectionBuilder.ToString();
             }
         }
 
