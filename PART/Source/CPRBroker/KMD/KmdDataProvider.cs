@@ -104,29 +104,6 @@ namespace CprBroker.Providers.KMD
         }
         #endregion
 
-        #region Conversion methods
-
-        //TODO: Remove this method
-        private PersonDeathDateStructureType ToDeathDate(PersonCivilRegistrationStatusStructureType status)
-        {
-            if (status != null
-                && status.PersonCivilRegistrationStatusCode == PersonCivilRegistrationStatusCodeType.Item90 // dead
-                )
-            {
-                return new PersonDeathDateStructureType()
-                {
-                    PersonDeathDate = status.PersonCivilRegistrationStatusStartDate,
-                    PersonDeathDateUncertaintyIndicator = false,
-                };
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        #endregion
-
         #region IDataProvider Members
 
         public bool IsAlive()
