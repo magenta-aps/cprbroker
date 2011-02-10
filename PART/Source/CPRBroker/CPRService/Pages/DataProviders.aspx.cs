@@ -291,10 +291,23 @@ namespace CprBroker.Web.Pages
             return assebblyQualifiedName;
         }
 
-        protected Schemas.AttributeType[] GetAttributes(object dbProvider)
+        protected Array GetAttributes(object dbProvider)
         {
-            return (dbProvider as DAL.DataProviders.DataProvider).GetProperties();
+            var dbProv = dbProvider as DAL.DataProviders.DataProvider;
+            var prov = DataProviderManager.CreateDataProvider(dbProv);
+            var properties = dbProv.GetProperties();
+            return (from pInfo in prov.ConfigurationKeys
+                    from pp in properties
+                    where pInfo.Name == pp.Name
+                    select new
+                    {
+                        Name = pp.Name,
+                        Value = pInfo.Confidential ? null : pp.Value,
+                        Confidential = pInfo.Confidential,
+                        Required = pInfo.Required
+                    }).ToArray();
         }
+
         protected DataProvider[] LoadDataProviders(DataProvidersDataContext dataContext)
         {
             return dataContext.DataProviders.Where(dp => dp.IsExternal).OrderBy(dp => dp.Ordinal).ToArray();

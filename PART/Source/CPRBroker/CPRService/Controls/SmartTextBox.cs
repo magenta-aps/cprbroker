@@ -33,6 +33,18 @@ namespace CprBroker.Web.Controls
             }
         }
 
+        public bool Confidential
+        {
+            get
+            {
+                return InnerTextBox.TextMode == TextBoxMode.Password;
+            }
+            set
+            {
+                InnerTextBox.TextMode = value ? TextBoxMode.Password : TextBoxMode.SingleLine;
+            }
+        }
+
         [DefaultValue(null)]
         public string ValidationGroup
         {

@@ -169,9 +169,9 @@ namespace CprBroker.Providers.KMD
             {
                 return new DataProviderConfigPropertyInfo[] 
                 { 
-                    new DataProviderConfigPropertyInfo(){Name="Address",IsConfidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Username",IsConfidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Password" ,IsConfidential=true}
+                    new DataProviderConfigPropertyInfo(){Name="Address",Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Username",Required=true,Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Password" ,Required=true,Confidential=true}
                 };
             }
         }

@@ -59,8 +59,8 @@ namespace CprBroker.Providers.PersonMaster
             {
                 return new DataProviderConfigPropertyInfo[] 
                 {
-                    new DataProviderConfigPropertyInfo(){Name="Address",IsConfidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Context",IsConfidential=false}
+                    new DataProviderConfigPropertyInfo(){Name="Address",Required=true,Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Context",Required=true,Confidential=false}
                 };
             }
         }

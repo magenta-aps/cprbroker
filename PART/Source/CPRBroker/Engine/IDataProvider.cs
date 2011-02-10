@@ -36,7 +36,8 @@ namespace CprBroker.Engine
     public class DataProviderConfigPropertyInfo
     {
         public string Name { get; set; }
-        public bool IsConfidential { get; set; }
+        public bool Confidential { get; set; }
+        public bool Required { get; set; }
     }
 
 

@@ -28,10 +28,10 @@ namespace CprBroker.Providers.DPR
             get
             {
                 return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){Name="Address",IsConfidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Port",IsConfidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="ConnectionString",IsConfidential=true},
-                    new DataProviderConfigPropertyInfo(){Name="KeepSubscription" ,IsConfidential=false}
+                    new DataProviderConfigPropertyInfo(){Name="Address",Required=true,Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Port",Required=true,Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="ConnectionString",Required=true,Confidential=true},
+                    new DataProviderConfigPropertyInfo(){Name="KeepSubscription" ,Required=true,Confidential=false}
                 };
             }
         }

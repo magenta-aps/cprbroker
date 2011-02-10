@@ -22,8 +22,7 @@
         DataKeyNames="DataProviderId" EmptyDataText="(None)" OnRowCommand="dataProvidersGridView_RowCommand"
         OnRowUpdating="dataProvidersGridView_RowUpdating" OnDataBinding="dataProvidersGridView_DataBinding"
         OnRowDeleting="dataProvidersGridView_RowDeleting" OnRowCancelingEdit="dataProvidersGridView_RowCancelingEdit"
-        OnRowEditing="dataProvidersGridView_RowEditing" 
-        ondatabound="dataProvidersGridView_DataBound">
+        OnRowEditing="dataProvidersGridView_RowEditing" OnDataBound="dataProvidersGridView_DataBound">
         <Columns>
             <asp:TemplateField HeaderText="Type">
                 <ItemTemplate>
@@ -36,7 +35,7 @@
                         <ItemTemplate>
                             <b>
                                 <%# Eval("Name")%>:</b>
-                            <%# Eval("Value")%>
+                            <%# (bool)Eval("Confidential")?"********": Eval("Value")%>
                         </ItemTemplate>
                         <SeparatorTemplate>
                             &nbsp;</SeparatorTemplate>
@@ -48,7 +47,7 @@
                         <ItemTemplate>
                             <b>
                                 <%# Eval("Name")%>:</b>
-                            <cc1:SmartTextBox ID="SmartTextBox" runat="server" Text='<%# Bind("Value") %>' Required="True" />
+                            <cc1:SmartTextBox ID="SmartTextBox" runat="server" Text='<%# Bind("Value") %>' Required='<%# Bind("Required") %>' Confidential='<%# Bind("Confidential") %>' />
                         </ItemTemplate>
                     </asp:DataList>
                 </EditItemTemplate>
@@ -122,7 +121,8 @@
             </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <cc1:SmartTextBox ID="SmartTextBox" runat="server" Required="True" ValidationGroup="Add" />
+                    <cc1:SmartTextBox ID="SmartTextBox" runat="server" Required='<%# Eval("Required") %>'
+                        Confidential='<%# Eval("Confidential") %>' ValidationGroup="Add" />
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
