@@ -38,6 +38,10 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.parttabPage = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cpr = new System.Windows.Forms.TextBox();
+            this.cpr_button = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.resultXmlTextBox = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -90,13 +94,27 @@
             this.GetServiceInfoButton = new System.Windows.Forms.Button();
             this.InfoText = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.search_button = new System.Windows.Forms.Button();
+            this.search_result = new System.Windows.Forms.TextBox();
+            this.erstatning_af = new System.Windows.Forms.Label();
+            this.erstatning_for = new System.Windows.Forms.Label();
+            this.RetligHandleevneVaergemaalsIndehaver = new System.Windows.Forms.Label();
+            this.RetligHandleevneVaergeForPersonen = new System.Windows.Forms.Label();
+            this.ForaeldremyndgihdedsBoern = new System.Windows.Forms.Label();
+            this.search_erstatning_af = new System.Windows.Forms.TextBox();
+            this.search_erstatning_for = new System.Windows.Forms.TextBox();
+            this.search_RetligHandleevneVaergemaalsIndehaver = new System.Windows.Forms.TextBox();
+            this.search_RetligHandleevneVaergeForPersonen = new System.Windows.Forms.TextBox();
+            this.search_ForaeldremyndgihdedsBoern = new System.Windows.Forms.TextBox();
+            this.search_bopael = new System.Windows.Forms.TextBox();
+            this.search_partner = new System.Windows.Forms.TextBox();
             this.ForaeldremyndgihdedsIndehaver = new System.Windows.Forms.Label();
             this.bopael = new System.Windows.Forms.Label();
             this.partner = new System.Windows.Forms.Label();
             this.spouse = new System.Windows.Forms.Label();
-            this.children = new System.Windows.Forms.Label();
-            this.father = new System.Windows.Forms.Label();
             this.searchmotherlabel = new System.Windows.Forms.Label();
+            this.father = new System.Windows.Forms.Label();
+            this.children = new System.Windows.Forms.Label();
             this.search_spouse = new System.Windows.Forms.TextBox();
             this.search_ForaeldremyndgihdedsIndehaver = new System.Windows.Forms.TextBox();
             this.search_children = new System.Windows.Forms.TextBox();
@@ -112,27 +130,14 @@
             this.label12 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.search_partner = new System.Windows.Forms.TextBox();
-            this.search_bopael = new System.Windows.Forms.TextBox();
-            this.search_ForaeldremyndgihdedsBoern = new System.Windows.Forms.TextBox();
-            this.search_RetligHandleevneVaergeForPersonen = new System.Windows.Forms.TextBox();
-            this.search_RetligHandleevneVaergemaalsIndehaver = new System.Windows.Forms.TextBox();
-            this.search_erstatning_for = new System.Windows.Forms.TextBox();
-            this.search_erstatning_af = new System.Windows.Forms.TextBox();
-            this.ForaeldremyndgihdedsBoern = new System.Windows.Forms.Label();
-            this.RetligHandleevneVaergeForPersonen = new System.Windows.Forms.Label();
-            this.RetligHandleevneVaergemaalsIndehaver = new System.Windows.Forms.Label();
-            this.erstatning_for = new System.Windows.Forms.Label();
-            this.erstatning_af = new System.Windows.Forms.Label();
-            this.search_result = new System.Windows.Forms.TextBox();
-            this.search_button = new System.Windows.Forms.Button();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.cpr = new System.Windows.Forms.TextBox();
-            this.cpr_button = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
+            this.fornavn = new System.Windows.Forms.Label();
+            this.efternavn = new System.Windows.Forms.Label();
+            this.virkningFra = new System.Windows.Forms.Label();
+            this.virkningTil = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.parttabPage.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.personTabPage.SuspendLayout();
@@ -150,7 +155,6 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -170,13 +174,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(95, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // toolsToolStripMenuItem
@@ -186,34 +190,34 @@
             this.CreateTestPersonToolStripMenuItem,
             this.checkRegistrationToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // CreateTestPersonToolStripMenuItem
             // 
             this.CreateTestPersonToolStripMenuItem.Name = "CreateTestPersonToolStripMenuItem";
-            this.CreateTestPersonToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.CreateTestPersonToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.CreateTestPersonToolStripMenuItem.Text = "Create Test Person";
             this.CreateTestPersonToolStripMenuItem.Click += new System.EventHandler(this.CreateTestPersonToolStripMenuItem_Click);
             // 
             // checkRegistrationToolStripMenuItem
             // 
             this.checkRegistrationToolStripMenuItem.Name = "checkRegistrationToolStripMenuItem";
-            this.checkRegistrationToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.checkRegistrationToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.checkRegistrationToolStripMenuItem.Text = "Check Registration";
             this.checkRegistrationToolStripMenuItem.Click += new System.EventHandler(this.checkRegistrationToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // mainTabControl
@@ -242,11 +246,53 @@
             this.parttabPage.Text = "PART";
             this.parttabPage.UseVisualStyleBackColor = true;
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.cpr);
+            this.groupBox10.Controls.Add(this.cpr_button);
+            this.groupBox10.Controls.Add(this.label16);
+            this.groupBox10.Location = new System.Drawing.Point(6, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(659, 48);
+            this.groupBox10.TabIndex = 3;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Query parameters";
+            // 
+            // cpr
+            // 
+            this.cpr.Location = new System.Drawing.Point(185, 19);
+            this.cpr.Name = "cpr";
+            this.cpr.Size = new System.Drawing.Size(180, 20);
+            this.cpr.TabIndex = 1;
+            // 
+            // cpr_button
+            // 
+            this.cpr_button.Location = new System.Drawing.Point(423, 19);
+            this.cpr_button.Name = "cpr_button";
+            this.cpr_button.Size = new System.Drawing.Size(153, 23);
+            this.cpr_button.TabIndex = 1;
+            this.cpr_button.Text = "Look up CPR no";
+            this.cpr_button.UseVisualStyleBackColor = true;
+            this.cpr_button.Click += new System.EventHandler(this.cpr_button_Click_1);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(36, 29);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(47, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "CPR no:";
+            // 
             // groupBox9
             // 
             this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox9.Controls.Add(this.virkningTil);
+            this.groupBox9.Controls.Add(this.virkningFra);
+            this.groupBox9.Controls.Add(this.efternavn);
+            this.groupBox9.Controls.Add(this.fornavn);
             this.groupBox9.Controls.Add(this.resultXmlTextBox);
             this.groupBox9.Location = new System.Drawing.Point(6, 134);
             this.groupBox9.Name = "groupBox9";
@@ -260,10 +306,12 @@
             this.resultXmlTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.resultXmlTextBox.Location = new System.Drawing.Point(9, 19);
+            this.resultXmlTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.resultXmlTextBox.Location = new System.Drawing.Point(9, 85);
             this.resultXmlTextBox.Multiline = true;
             this.resultXmlTextBox.Name = "resultXmlTextBox";
-            this.resultXmlTextBox.Size = new System.Drawing.Size(864, 388);
+            this.resultXmlTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.resultXmlTextBox.Size = new System.Drawing.Size(864, 322);
             this.resultXmlTextBox.TabIndex = 0;
             // 
             // groupBox8
@@ -804,6 +852,121 @@
             this.tabPage2.Text = "Search";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // search_button
+            // 
+            this.search_button.Location = new System.Drawing.Point(187, 464);
+            this.search_button.Name = "search_button";
+            this.search_button.Size = new System.Drawing.Size(153, 23);
+            this.search_button.TabIndex = 32;
+            this.search_button.Text = "SEARCH";
+            this.search_button.UseVisualStyleBackColor = true;
+            this.search_button.Click += new System.EventHandler(this.search_button_Click);
+            // 
+            // search_result
+            // 
+            this.search_result.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.search_result.Location = new System.Drawing.Point(455, 18);
+            this.search_result.Multiline = true;
+            this.search_result.Name = "search_result";
+            this.search_result.Size = new System.Drawing.Size(422, 452);
+            this.search_result.TabIndex = 31;
+            // 
+            // erstatning_af
+            // 
+            this.erstatning_af.AutoSize = true;
+            this.erstatning_af.Location = new System.Drawing.Point(142, 396);
+            this.erstatning_af.Name = "erstatning_af";
+            this.erstatning_af.Size = new System.Drawing.Size(65, 13);
+            this.erstatning_af.TabIndex = 30;
+            this.erstatning_af.Text = "erstatning af";
+            // 
+            // erstatning_for
+            // 
+            this.erstatning_for.AutoSize = true;
+            this.erstatning_for.Location = new System.Drawing.Point(145, 370);
+            this.erstatning_for.Name = "erstatning_for";
+            this.erstatning_for.Size = new System.Drawing.Size(68, 13);
+            this.erstatning_for.TabIndex = 29;
+            this.erstatning_for.Text = "erstatning for";
+            // 
+            // RetligHandleevneVaergemaalsIndehaver
+            // 
+            this.RetligHandleevneVaergemaalsIndehaver.AutoSize = true;
+            this.RetligHandleevneVaergemaalsIndehaver.Location = new System.Drawing.Point(39, 344);
+            this.RetligHandleevneVaergemaalsIndehaver.Name = "RetligHandleevneVaergemaalsIndehaver";
+            this.RetligHandleevneVaergemaalsIndehaver.Size = new System.Drawing.Size(201, 13);
+            this.RetligHandleevneVaergemaalsIndehaver.TabIndex = 28;
+            this.RetligHandleevneVaergemaalsIndehaver.Text = "RetligHandleevneVaergemaalsIndehaver";
+            // 
+            // RetligHandleevneVaergeForPersonen
+            // 
+            this.RetligHandleevneVaergeForPersonen.AutoSize = true;
+            this.RetligHandleevneVaergeForPersonen.Location = new System.Drawing.Point(54, 314);
+            this.RetligHandleevneVaergeForPersonen.Name = "RetligHandleevneVaergeForPersonen";
+            this.RetligHandleevneVaergeForPersonen.Size = new System.Drawing.Size(186, 13);
+            this.RetligHandleevneVaergeForPersonen.TabIndex = 27;
+            this.RetligHandleevneVaergeForPersonen.Text = "RetligHandleevneVaergeForPersonen";
+            // 
+            // ForaeldremyndgihdedsBoern
+            // 
+            this.ForaeldremyndgihdedsBoern.AutoSize = true;
+            this.ForaeldremyndgihdedsBoern.Location = new System.Drawing.Point(96, 292);
+            this.ForaeldremyndgihdedsBoern.Name = "ForaeldremyndgihdedsBoern";
+            this.ForaeldremyndgihdedsBoern.Size = new System.Drawing.Size(144, 13);
+            this.ForaeldremyndgihdedsBoern.TabIndex = 26;
+            this.ForaeldremyndgihdedsBoern.Text = "ForaeldremyndgihdedsBoern ";
+            // 
+            // search_erstatning_af
+            // 
+            this.search_erstatning_af.Location = new System.Drawing.Point(246, 389);
+            this.search_erstatning_af.Name = "search_erstatning_af";
+            this.search_erstatning_af.Size = new System.Drawing.Size(180, 20);
+            this.search_erstatning_af.TabIndex = 24;
+            // 
+            // search_erstatning_for
+            // 
+            this.search_erstatning_for.Location = new System.Drawing.Point(246, 363);
+            this.search_erstatning_for.Name = "search_erstatning_for";
+            this.search_erstatning_for.Size = new System.Drawing.Size(180, 20);
+            this.search_erstatning_for.TabIndex = 23;
+            // 
+            // search_RetligHandleevneVaergemaalsIndehaver
+            // 
+            this.search_RetligHandleevneVaergemaalsIndehaver.Location = new System.Drawing.Point(246, 337);
+            this.search_RetligHandleevneVaergemaalsIndehaver.Name = "search_RetligHandleevneVaergemaalsIndehaver";
+            this.search_RetligHandleevneVaergemaalsIndehaver.Size = new System.Drawing.Size(180, 20);
+            this.search_RetligHandleevneVaergemaalsIndehaver.TabIndex = 22;
+            // 
+            // search_RetligHandleevneVaergeForPersonen
+            // 
+            this.search_RetligHandleevneVaergeForPersonen.Location = new System.Drawing.Point(246, 311);
+            this.search_RetligHandleevneVaergeForPersonen.Name = "search_RetligHandleevneVaergeForPersonen";
+            this.search_RetligHandleevneVaergeForPersonen.Size = new System.Drawing.Size(180, 20);
+            this.search_RetligHandleevneVaergeForPersonen.TabIndex = 21;
+            // 
+            // search_ForaeldremyndgihdedsBoern
+            // 
+            this.search_ForaeldremyndgihdedsBoern.Location = new System.Drawing.Point(246, 285);
+            this.search_ForaeldremyndgihdedsBoern.Name = "search_ForaeldremyndgihdedsBoern";
+            this.search_ForaeldremyndgihdedsBoern.Size = new System.Drawing.Size(180, 20);
+            this.search_ForaeldremyndgihdedsBoern.TabIndex = 20;
+            // 
+            // search_bopael
+            // 
+            this.search_bopael.Location = new System.Drawing.Point(246, 237);
+            this.search_bopael.Name = "search_bopael";
+            this.search_bopael.Size = new System.Drawing.Size(180, 20);
+            this.search_bopael.TabIndex = 19;
+            // 
+            // search_partner
+            // 
+            this.search_partner.Location = new System.Drawing.Point(246, 211);
+            this.search_partner.Name = "search_partner";
+            this.search_partner.Size = new System.Drawing.Size(180, 20);
+            this.search_partner.TabIndex = 18;
+            // 
             // ForaeldremyndgihdedsIndehaver
             // 
             this.ForaeldremyndgihdedsIndehaver.AutoSize = true;
@@ -840,14 +1003,14 @@
             this.spouse.TabIndex = 14;
             this.spouse.Text = "Spouse";
             // 
-            // children
+            // searchmotherlabel
             // 
-            this.children.AutoSize = true;
-            this.children.Location = new System.Drawing.Point(143, 158);
-            this.children.Name = "children";
-            this.children.Size = new System.Drawing.Size(44, 13);
-            this.children.TabIndex = 13;
-            this.children.Text = "children";
+            this.searchmotherlabel.AutoSize = true;
+            this.searchmotherlabel.Location = new System.Drawing.Point(143, 106);
+            this.searchmotherlabel.Name = "searchmotherlabel";
+            this.searchmotherlabel.Size = new System.Drawing.Size(40, 13);
+            this.searchmotherlabel.TabIndex = 11;
+            this.searchmotherlabel.Text = "Mother";
             // 
             // father
             // 
@@ -858,14 +1021,14 @@
             this.father.TabIndex = 12;
             this.father.Text = "father";
             // 
-            // searchmotherlabel
+            // children
             // 
-            this.searchmotherlabel.AutoSize = true;
-            this.searchmotherlabel.Location = new System.Drawing.Point(143, 106);
-            this.searchmotherlabel.Name = "searchmotherlabel";
-            this.searchmotherlabel.Size = new System.Drawing.Size(40, 13);
-            this.searchmotherlabel.TabIndex = 11;
-            this.searchmotherlabel.Text = "Mother";
+            this.children.AutoSize = true;
+            this.children.Location = new System.Drawing.Point(143, 158);
+            this.children.Name = "children";
+            this.children.Size = new System.Drawing.Size(44, 13);
+            this.children.TabIndex = 13;
+            this.children.Text = "children";
             // 
             // search_spouse
             // 
@@ -935,19 +1098,19 @@
             // currentActionStatusLabel
             // 
             this.currentActionStatusLabel.Name = "currentActionStatusLabel";
-            this.currentActionStatusLabel.Size = new System.Drawing.Size(25, 17);
+            this.currentActionStatusLabel.Size = new System.Drawing.Size(28, 17);
             this.currentActionStatusLabel.Text = "Idle";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(807, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(793, 17);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // registeredStatusLabel
             // 
             this.registeredStatusLabel.Name = "registeredStatusLabel";
-            this.registeredStatusLabel.Size = new System.Drawing.Size(76, 17);
+            this.registeredStatusLabel.Size = new System.Drawing.Size(87, 17);
             this.registeredStatusLabel.Text = "Not registered";
             // 
             // textBox1
@@ -980,159 +1143,43 @@
             this.textBox8.Size = new System.Drawing.Size(180, 20);
             this.textBox8.TabIndex = 10;
             // 
-            // search_partner
+            // fornavn
             // 
-            this.search_partner.Location = new System.Drawing.Point(246, 211);
-            this.search_partner.Name = "search_partner";
-            this.search_partner.Size = new System.Drawing.Size(180, 20);
-            this.search_partner.TabIndex = 18;
+            this.fornavn.AutoSize = true;
+            this.fornavn.Location = new System.Drawing.Point(55, 30);
+            this.fornavn.Name = "fornavn";
+            this.fornavn.Size = new System.Drawing.Size(43, 13);
+            this.fornavn.TabIndex = 1;
+            this.fornavn.Text = "fornavn";
+            this.fornavn.Click += new System.EventHandler(this.label15_Click_1);
             // 
-            // search_bopael
+            // efternavn
             // 
-            this.search_bopael.Location = new System.Drawing.Point(246, 237);
-            this.search_bopael.Name = "search_bopael";
-            this.search_bopael.Size = new System.Drawing.Size(180, 20);
-            this.search_bopael.TabIndex = 19;
+            this.efternavn.AutoSize = true;
+            this.efternavn.Location = new System.Drawing.Point(131, 30);
+            this.efternavn.Name = "efternavn";
+            this.efternavn.Size = new System.Drawing.Size(52, 13);
+            this.efternavn.TabIndex = 2;
+            this.efternavn.Text = "efternavn";
             // 
-            // search_ForaeldremyndgihdedsBoern
+            // virkningFra
             // 
-            this.search_ForaeldremyndgihdedsBoern.Location = new System.Drawing.Point(246, 285);
-            this.search_ForaeldremyndgihdedsBoern.Name = "search_ForaeldremyndgihdedsBoern";
-            this.search_ForaeldremyndgihdedsBoern.Size = new System.Drawing.Size(180, 20);
-            this.search_ForaeldremyndgihdedsBoern.TabIndex = 20;
+            this.virkningFra.AutoSize = true;
+            this.virkningFra.Location = new System.Drawing.Point(241, 29);
+            this.virkningFra.Name = "virkningFra";
+            this.virkningFra.Size = new System.Drawing.Size(59, 13);
+            this.virkningFra.TabIndex = 3;
+            this.virkningFra.Text = "virkningFra";
+            this.virkningFra.Click += new System.EventHandler(this.gade_Click);
             // 
-            // search_RetligHandleevneVaergeForPersonen
+            // virkningTil
             // 
-            this.search_RetligHandleevneVaergeForPersonen.Location = new System.Drawing.Point(246, 311);
-            this.search_RetligHandleevneVaergeForPersonen.Name = "search_RetligHandleevneVaergeForPersonen";
-            this.search_RetligHandleevneVaergeForPersonen.Size = new System.Drawing.Size(180, 20);
-            this.search_RetligHandleevneVaergeForPersonen.TabIndex = 21;
-            // 
-            // search_RetligHandleevneVaergemaalsIndehaver
-            // 
-            this.search_RetligHandleevneVaergemaalsIndehaver.Location = new System.Drawing.Point(246, 337);
-            this.search_RetligHandleevneVaergemaalsIndehaver.Name = "search_RetligHandleevneVaergemaalsIndehaver";
-            this.search_RetligHandleevneVaergemaalsIndehaver.Size = new System.Drawing.Size(180, 20);
-            this.search_RetligHandleevneVaergemaalsIndehaver.TabIndex = 22;
-            // 
-            // search_erstatning_for
-            // 
-            this.search_erstatning_for.Location = new System.Drawing.Point(246, 363);
-            this.search_erstatning_for.Name = "search_erstatning_for";
-            this.search_erstatning_for.Size = new System.Drawing.Size(180, 20);
-            this.search_erstatning_for.TabIndex = 23;
-            // 
-            // search_erstatning_af
-            // 
-            this.search_erstatning_af.Location = new System.Drawing.Point(246, 389);
-            this.search_erstatning_af.Name = "search_erstatning_af";
-            this.search_erstatning_af.Size = new System.Drawing.Size(180, 20);
-            this.search_erstatning_af.TabIndex = 24;
-            // 
-            // ForaeldremyndgihdedsBoern
-            // 
-            this.ForaeldremyndgihdedsBoern.AutoSize = true;
-            this.ForaeldremyndgihdedsBoern.Location = new System.Drawing.Point(96, 292);
-            this.ForaeldremyndgihdedsBoern.Name = "ForaeldremyndgihdedsBoern";
-            this.ForaeldremyndgihdedsBoern.Size = new System.Drawing.Size(144, 13);
-            this.ForaeldremyndgihdedsBoern.TabIndex = 26;
-            this.ForaeldremyndgihdedsBoern.Text = "ForaeldremyndgihdedsBoern ";
-            // 
-            // RetligHandleevneVaergeForPersonen
-            // 
-            this.RetligHandleevneVaergeForPersonen.AutoSize = true;
-            this.RetligHandleevneVaergeForPersonen.Location = new System.Drawing.Point(54, 314);
-            this.RetligHandleevneVaergeForPersonen.Name = "RetligHandleevneVaergeForPersonen";
-            this.RetligHandleevneVaergeForPersonen.Size = new System.Drawing.Size(186, 13);
-            this.RetligHandleevneVaergeForPersonen.TabIndex = 27;
-            this.RetligHandleevneVaergeForPersonen.Text = "RetligHandleevneVaergeForPersonen";
-            // 
-            // RetligHandleevneVaergemaalsIndehaver
-            // 
-            this.RetligHandleevneVaergemaalsIndehaver.AutoSize = true;
-            this.RetligHandleevneVaergemaalsIndehaver.Location = new System.Drawing.Point(39, 344);
-            this.RetligHandleevneVaergemaalsIndehaver.Name = "RetligHandleevneVaergemaalsIndehaver";
-            this.RetligHandleevneVaergemaalsIndehaver.Size = new System.Drawing.Size(201, 13);
-            this.RetligHandleevneVaergemaalsIndehaver.TabIndex = 28;
-            this.RetligHandleevneVaergemaalsIndehaver.Text = "RetligHandleevneVaergemaalsIndehaver";
-            // 
-            // erstatning_for
-            // 
-            this.erstatning_for.AutoSize = true;
-            this.erstatning_for.Location = new System.Drawing.Point(145, 370);
-            this.erstatning_for.Name = "erstatning_for";
-            this.erstatning_for.Size = new System.Drawing.Size(68, 13);
-            this.erstatning_for.TabIndex = 29;
-            this.erstatning_for.Text = "erstatning for";
-            // 
-            // erstatning_af
-            // 
-            this.erstatning_af.AutoSize = true;
-            this.erstatning_af.Location = new System.Drawing.Point(142, 396);
-            this.erstatning_af.Name = "erstatning_af";
-            this.erstatning_af.Size = new System.Drawing.Size(65, 13);
-            this.erstatning_af.TabIndex = 30;
-            this.erstatning_af.Text = "erstatning af";
-            // 
-            // search_result
-            // 
-            this.search_result.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.search_result.Location = new System.Drawing.Point(455, 18);
-            this.search_result.Multiline = true;
-            this.search_result.Name = "search_result";
-            this.search_result.Size = new System.Drawing.Size(422, 452);
-            this.search_result.TabIndex = 31;
-            // 
-            // search_button
-            // 
-            this.search_button.Location = new System.Drawing.Point(187, 464);
-            this.search_button.Name = "search_button";
-            this.search_button.Size = new System.Drawing.Size(153, 23);
-            this.search_button.TabIndex = 32;
-            this.search_button.Text = "SEARCH";
-            this.search_button.UseVisualStyleBackColor = true;
-            this.search_button.Click += new System.EventHandler(this.search_button_Click);
-
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.cpr);
-            this.groupBox10.Controls.Add(this.cpr_button);
-            this.groupBox10.Controls.Add(this.label16);
-            this.groupBox10.Location = new System.Drawing.Point(6, 6);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(659, 48);
-            this.groupBox10.TabIndex = 3;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Query parameters";
-            // 
-            // cpr
-            // 
-            this.cpr.Location = new System.Drawing.Point(185, 19);
-            this.cpr.Name = "cpr";
-            this.cpr.Size = new System.Drawing.Size(180, 20);
-            this.cpr.TabIndex = 1;
-            // 
-            // cpr_button
-            // 
-            this.cpr_button.Location = new System.Drawing.Point(423, 19);
-            this.cpr_button.Name = "cpr_button";
-            this.cpr_button.Size = new System.Drawing.Size(153, 23);
-            this.cpr_button.TabIndex = 1;
-            this.cpr_button.Text = "Look up CPR no";
-            this.cpr_button.UseVisualStyleBackColor = true;
-            this.cpr_button.Click += new System.EventHandler(this.cpr_button_Click_1);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(36, 29);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(47, 13);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "CPR no:";
+            this.virkningTil.AutoSize = true;
+            this.virkningTil.Location = new System.Drawing.Point(341, 30);
+            this.virkningTil.Name = "virkningTil";
+            this.virkningTil.Size = new System.Drawing.Size(55, 13);
+            this.virkningTil.TabIndex = 4;
+            this.virkningTil.Text = "virkningTil";
             // 
             // MainForm
             // 
@@ -1150,6 +1197,8 @@
             this.mainMenuStrip.PerformLayout();
             this.mainTabControl.ResumeLayout(false);
             this.parttabPage.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
@@ -1179,8 +1228,6 @@
             this.tabPage2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1290,6 +1337,10 @@
         private System.Windows.Forms.TextBox cpr;
         private System.Windows.Forms.Button cpr_button;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label virkningFra;
+        private System.Windows.Forms.Label efternavn;
+        private System.Windows.Forms.Label fornavn;
+        private System.Windows.Forms.Label virkningTil;
     }
 }
 

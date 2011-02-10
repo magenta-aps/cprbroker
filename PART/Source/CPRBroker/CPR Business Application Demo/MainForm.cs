@@ -308,7 +308,7 @@ namespace CPR_Business_Application_Demo
             ConsoleWriteLine("  looking up cpr:" + personCpr);
             Guid puid = adapter.GetPersonUuid(Properties.Settings.Default.AdminAppToken, personCpr);
             uuidTextBox.Text = puid.ToString();
-            resultXmlTextBox.Text = "  result for cpr:" + personCpr +" : "+ puid;
+            resultXmlTextBox.Text = "  result for cpr:" + personCpr +" : "+ puid + "\r\n";
         }
 
         private void readButton_Click(object sender, EventArgs e)
@@ -321,7 +321,16 @@ namespace CPR_Business_Application_Demo
             System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(PartService.RegistreringType1));
             StringWriter w = new StringWriter();
             ser.Serialize(w, personReg);
+            
+            fornavn.Text = personReg.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.PersonGivenName;
+            efternavn.Text = personReg.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.PersonSurnameName;
+            virkningFra.Text = personReg.AttributListe.Egenskab[0].Virkning.FraTidspunkt.Item.ToString();
+            virkningTil.Text = personReg.AttributListe.Egenskab[0].Virkning.TilTidspunkt.Item.ToString();
+            
+            //gade.Text = personReg.AttributListe.RegisterOplysning[0]. CprBorger.FolkeregisterAdresse.DanskAdresse.AddressPostal.StreetName;
+
             resultXmlTextBox.Text = "  result for uid:" + personUuid + "    \r\n" + w.ToString();
+            //    " attributes=" + personReg.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.PersonGivenName;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -335,6 +344,16 @@ namespace CPR_Business_Application_Demo
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label15_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gade_Click(object sender, EventArgs e)
         {
 
         }
