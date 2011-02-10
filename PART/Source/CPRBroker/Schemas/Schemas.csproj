@@ -58,6 +58,9 @@
   <ItemGroup>
     <Compile Include="ApplicationHeader.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
+    <Compile Include="Events\DataChangeEventInfo.cs" />
+    <Compile Include="Events\ObjectNotification.cs" />
+    <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="NavnStruktur.cs" />
     <Compile Include="NavnStrukturType.cs" />
@@ -209,12 +212,6 @@
     <None Include="OIOXSD\XKOM_AddressComplete.xsd" />
     <None Include="OIOXSD\XKOM_AddressPostal.xsd" />
     <None Include="OIOXSD\XKOM_EmailAddressIdentifier.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PersonSchemas\PersonSchemas.csproj">
-      <Project>{63C643D5-D975-4A69-9D59-02B253BDFDE8}</Project>
-      <Name>PersonSchemas</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="OIOXSD\XSD.txt" />
