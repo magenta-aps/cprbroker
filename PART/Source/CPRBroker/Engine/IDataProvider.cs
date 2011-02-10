@@ -83,21 +83,6 @@ namespace CprBroker.Engine
     }
 
     /// <summary>
-    /// Contains methods related to test citizens
-    /// </summary>
-    public interface ITestCitizenManager : IDataProvider
-    {
-        /// <summary>
-        /// Adds a new test citizen to the database
-        /// </summary>
-        /// <param name="userToken">Security Token for authorizing the current user</param>
-        /// <param name="appToken">Security Token for the application the current application.</param>
-        /// <param name="oioPerson">Full person object</param>
-        /// <returns></returns>
-        bool CreateTestCitizen(string userToken, string appToken, PersonFullStructureType oioPerson);
-    }
-
-    /// <summary>
     /// Contains methods related to data provider management
     /// </summary>
     public interface IDataProviderManager : IDataProvider

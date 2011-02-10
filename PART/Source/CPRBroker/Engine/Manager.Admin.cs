@@ -40,14 +40,6 @@ namespace CprBroker.Engine
             }
             #endregion
 
-            #region Test User
-            public static bool CreateTestCitizen(string userToken, string appToken, PersonFullStructureType oioPerson)
-            {
-                return CallMethod<ITestCitizenManager, bool>
-                (userToken, appToken, true, true, (admin) => admin.CreateTestCitizen(userToken, appToken, oioPerson), true, null);
-            }
-            #endregion
-
             #region Application
             public static ApplicationType RequestAppRegistration(string userToken, string name)
             {

@@ -96,12 +96,6 @@ namespace CprBroker.Web.Services
         {
             return Manager.Admin.Log(applicationHeader.UserToken, applicationHeader.ApplicationToken, Text);
         }
-
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.CreateTestCitizen, Description = ServiceDescription.Administrator.CreateTestCitizen)]
-        public bool CreateTestCitizen(PersonFullStructureType OioPerson)
-        {
-            return Manager.Admin.CreateTestCitizen(applicationHeader.UserToken, applicationHeader.ApplicationToken, OioPerson);
-        }
+     
     }
 }
