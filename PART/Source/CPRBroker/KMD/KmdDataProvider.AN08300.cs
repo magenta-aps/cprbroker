@@ -15,7 +15,7 @@ namespace CprBroker.Providers.KMD
         /// </summary>
         /// <param name="cprNumber"></param>
         /// <returns></returns>
-        private WS_AN08300.ReplyPeople[] CallAN08300(NavnStruktur name, Schemas.Part.Enums.Gender? gender)
+        private WS_AN08300.ReplyPeople[] CallAN08300(NavnStruktur name, Schemas.Part.PersonGenderCodeType? gender)
         {
             // TODO: use correct service objects
             //var service = new CprBroker.Providers.KMD.WS_AN08300.WS_AN08300();

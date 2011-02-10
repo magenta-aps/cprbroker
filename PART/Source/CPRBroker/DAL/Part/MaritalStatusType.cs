@@ -7,7 +7,7 @@ namespace CprBroker.DAL.Part
 {
     public partial class MaritalStatusType
     {
-        private static List<KeyValuePair<string, Schemas.Part.Enums.MaritalStatus>> _PartValues = new List<KeyValuePair<string, Schemas.Part.Enums.MaritalStatus>>();
+        private static List<KeyValuePair<string, Schemas.Part.CivilStatusKodeType>> _PartValues = new List<KeyValuePair<string, Schemas.Part.CivilStatusKodeType>>();
 
         private static void LoadPartValues()
         {
@@ -15,12 +15,12 @@ namespace CprBroker.DAL.Part
             {
                 if (_PartValues.Count == 0)
                 {
-                    _PartValues.AddRange(CprBroker.Schemas.Util.Enums.GetEnumValues<Schemas.Part.Enums.MaritalStatus>());
+                    _PartValues.AddRange(CprBroker.Schemas.Util.Enums.GetEnumValues<Schemas.Part.CivilStatusKodeType>());
                 }
             }
         }
 
-        public static int? GetPartCode(Schemas.Part.Enums.MaritalStatus? maritalStatusCode)
+        public static int? GetPartCode(Schemas.Part.CivilStatusKodeType? maritalStatusCode)
         {
             if (maritalStatusCode.HasValue)
             {
@@ -31,7 +31,7 @@ namespace CprBroker.DAL.Part
             return null;
         }
 
-        public static Schemas.Part.Enums.MaritalStatus? GetPartMaritalStatus(int? code)
+        public static Schemas.Part.CivilStatusKodeType? GetPartMaritalStatus(int? code)
         {
             if (code.HasValue)
             {

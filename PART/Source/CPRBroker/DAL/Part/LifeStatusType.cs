@@ -7,7 +7,7 @@ namespace CprBroker.DAL.Part
 {
     public partial class LifeStatusType
     {
-        private static List<KeyValuePair<string, Schemas.Part.Enums.LifeStatus>> _PartValues = new List<KeyValuePair<string, Schemas.Part.Enums.LifeStatus>>();
+        private static List<KeyValuePair<string, Schemas.Part.LivStatusKodeType>> _PartValues = new List<KeyValuePair<string, Schemas.Part.LivStatusKodeType>>();
 
         private static void LoadPartValues()
         {
@@ -15,19 +15,19 @@ namespace CprBroker.DAL.Part
             {
                 if (_PartValues.Count == 0)
                 {
-                    _PartValues.AddRange(CprBroker.Schemas.Util.Enums.GetEnumValues<Schemas.Part.Enums.LifeStatus>());
+                    _PartValues.AddRange(CprBroker.Schemas.Util.Enums.GetEnumValues<Schemas.Part.LivStatusKodeType>());
                 }
             }
         }
 
-        public static int GetPartCode(Schemas.Part.Enums.LifeStatus lifeStatusCode)
+        public static int GetPartCode(Schemas.Part.LivStatusKodeType lifeStatusCode)
         {
             LoadPartValues();
             var code = (from kvp in _PartValues where kvp.Value == lifeStatusCode select kvp.Key).FirstOrDefault();
             return Convert.ToInt32(code);
         }
 
-        public static Schemas.Part.Enums.LifeStatus GetPartLifeStatus(int code)
+        public static Schemas.Part.LivStatusKodeType GetPartLifeStatus(int code)
         {
             LoadPartValues();
             string sCode = code.ToString();

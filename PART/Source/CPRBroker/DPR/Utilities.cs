@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
-using CprBroker.Schemas.Part.Enums;
 
 namespace CprBroker.Providers.DPR
 {
@@ -93,22 +92,7 @@ namespace CprBroker.Providers.DPR
                .FirstOrDefault();
         }
 
-        //TODO: Remove this method
-        public static Gender GenderFromChar(char? gen)
-        {
-            switch (gen)
-            {
-                case 'M':
-                    return Gender.Male;
-                    break;
-                case 'K':
-                    return Gender.Female;
-                    break;
-                default:
-                    return Gender.Unknown;
-                    break;
-            }
-        }
+       
 
         public static Schemas.Part.PersonGenderCodeType PersonGenderCodeTypeFromChar(char? gen)
         {
@@ -125,21 +109,7 @@ namespace CprBroker.Providers.DPR
                     break;
             }
         }
-
-        public static char? CharFromGender(Gender? gen)
-        {
-            switch (gen)
-            {
-                case Gender.Male:
-                    return 'M';
-                    break;
-                case Gender.Female:
-                    return 'K';
-                    break;
-                default:
-                    return null;
-            }
-        }
+    
     }
 
     public static class Extensions

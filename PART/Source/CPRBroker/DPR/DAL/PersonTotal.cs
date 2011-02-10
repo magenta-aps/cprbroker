@@ -9,7 +9,6 @@ using System.ComponentModel;
 using System;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-using CprBroker.Schemas.Part.Enums;
 
 namespace CprBroker.Providers.DPR
 {

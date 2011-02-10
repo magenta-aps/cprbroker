@@ -59,9 +59,6 @@
     <Compile Include="ApplicationHeader.cs" />
     <Compile Include="OIOXSD\Subscription.Designer.cs" />
     <Compile Include="OIOXSD\Version.Designer.cs" />
-    <Compile Include="Part\Enums\MaritalStatus.cs" />
-    <Compile Include="Part\Enums\Gender.cs" />
-    <Compile Include="Part\Enums\LifeStatus.cs" />
     <Compile Include="Part\Events\CommonEventStructureType.cs" />
     <Compile Include="Part\Events\EventDetailStructureType.cs" />
     <Compile Include="Part\Events\EventInfoStructureType.cs" />

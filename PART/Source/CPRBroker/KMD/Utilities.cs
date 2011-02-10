@@ -82,15 +82,14 @@ namespace CprBroker.Providers.KMD
                .FirstOrDefault();
         }
 
-        //TODO: Remove this method
-        public static char FromPartGender(Schemas.Part.Enums.Gender? gender)
+        public static char FromPartGender(Schemas.Part.PersonGenderCodeType? gender)
         {
             switch (gender)
             {
-                case Schemas.Part.Enums.Gender.Male:
+                case Schemas.Part.PersonGenderCodeType.male:
                     return 'M';
                     break;
-                case Schemas.Part.Enums.Gender.Female:
+                case Schemas.Part.PersonGenderCodeType.female:
                     return 'K';
                     break;
                 default:
