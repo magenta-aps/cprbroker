@@ -57,8 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationHeader.cs" />
+    <Compile Include="CountryIdentificationCodeType.cs" />
+    <Compile Include="LaesInputType.cs" />
+    <Compile Include="NavnStruktur.cs" />
+    <Compile Include="NavnStrukturType.cs" />
     <Compile Include="OIOXSD\Subscription.Designer.cs" />
     <Compile Include="OIOXSD\Version.Designer.cs" />
+    <Compile Include="OIOXSD\XSD.cs" />
     <Compile Include="Part\Events\CommonEventStructureType.cs" />
     <Compile Include="Part\Events\EventDetailStructureType.cs" />
     <Compile Include="Part\Events\EventInfoStructureType.cs" />
@@ -70,6 +75,9 @@
     <Compile Include="Part\ServiceNames.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PersonFlerRelationType.cs" />
+    <Compile Include="PersonRelationType.cs" />
+    <Compile Include="RegistreringType1.cs" />
     <Compile Include="ServiceNames.cs" />
     <Compile Include="OIOXSD\Application.Designer.cs" />
     <Compile Include="OIOXSD\DataProviders.Designer.cs" />
@@ -78,21 +86,134 @@
     <Compile Include="QualityHeader.cs" />
     <Compile Include="ServiceDescription.cs" />
     <Compile Include="PersonIdentifier.cs" />
+    <Compile Include="StandardReturType.cs" />
+    <Compile Include="TidspunktType.cs" />
+    <Compile Include="TilstandVirkningType.cs" />
+    <Compile Include="UnikIdType.cs" />
     <Compile Include="Util\Enums.cs" />
     <Compile Include="Util\Misc.cs" />
     <Compile Include="Util\PredicateBuilder.cs" />
+    <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="OIOXSD\AktoerRef.xsd" />
     <None Include="OIOXSD\Application.xsd" />
+    <None Include="OIOXSD\BasicOutput.xsd" />
+    <None Include="OIOXSD\BBR_AddressCoordinateQualityClassCode.xsd" />
+    <None Include="OIOXSD\BBR_AddressPoint.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointIdentifier.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointRevisionDateTime.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointStatusStructure.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointValidEndDateTime.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointValidStartDateTime.xsd" />
+    <None Include="OIOXSD\BBR_GeographicCoordinateTuple.xsd" />
+    <None Include="OIOXSD\BBR_GeographicEastingMeasure.xsd" />
+    <None Include="OIOXSD\BBR_GeographicHeightMeasure.xsd" />
+    <None Include="OIOXSD\BBR_GeographicNorthingMeasure.xsd" />
+    <None Include="OIOXSD\BBR_GeographicPointLocation.xsd" />
+    <None Include="OIOXSD\BrugervendtNoegleTekst.xsd" />
+    <None Include="OIOXSD\CAPEVO_LocationDescriptionText.xsd" />
+    <None Include="OIOXSD\CPR_AddressCompleteGreenland.xsd" />
+    <None Include="OIOXSD\CPR_AuthorityCode.xsd" />
+    <None Include="OIOXSD\CPR_BirthDateUncertaintyIndicator.xsd" />
+    <None Include="OIOXSD\CPR_CompletePostalLabelText.xsd" />
+    <None Include="OIOXSD\CPR_ForeignAddressStructure.xsd" />
+    <None Include="OIOXSD\CPR_GreenlandBuildingIdentifier.xsd" />
+    <None Include="OIOXSD\CPR_MunicipalityCode.xsd" />
+    <None Include="OIOXSD\CPR_PersonBirthDateStructure.xsd" />
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationCurrentIdentifier.xsd" />
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationIdentifier.xsd" />
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationReplacementIdentifier.xsd" />
+    <None Include="OIOXSD\CPR_StreetCode.xsd" />
+    <None Include="OIOXSD\CPR_StreetNameForAddressingName.xsd" />
     <None Include="OIOXSD\DataProviders.xsd" />
+    <None Include="OIOXSD\DKCC_BirthDate.xsd" />
+    <None Include="OIOXSD\DKCC_CountryIdentificationCode.xsd" />
+    <None Include="OIOXSD\DKCC_DistrictName.xsd" />
+    <None Include="OIOXSD\DKCC_DistrictSubdivisionIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_FloorIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_MailDeliverySublocationIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_PersonGenderCode.xsd" />
+    <None Include="OIOXSD\DKCC_PersonGivenName.xsd" />
+    <None Include="OIOXSD\DKCC_PersonMiddleName.xsd" />
+    <None Include="OIOXSD\DKCC_PersonNationalityCode.xsd" />
+    <None Include="OIOXSD\DKCC_PersonSurnameName.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressFifthLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressFirstLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressFourthLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressSecondLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressThirdLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostCodeIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_PostOfficeBoxIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_StreetBuildingIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_StreetName.xsd" />
+    <None Include="OIOXSD\DKCC_SuiteIdentifier.xsd" />
+    <None Include="OIOXSD\FejlbeskedTekst.xsd" />
+    <None Include="OIOXSD\FlerRelation.xsd" />
+    <None Include="OIOXSD\FoersteResultatReference.xsd" />
+    <None Include="OIOXSD\FraTidspunkt.xsd" />
+    <None Include="OIOXSD\GraenseIndikator.xsd" />
+    <None Include="OIOXSD\Idliste.xsd" />
+    <None Include="OIOXSD\ImportInput.xsd" />
+    <None Include="OIOXSD\ITST_PersonNameForAddressingName.xsd" />
+    <None Include="OIOXSD\ITST_PersonNameStructure.xsd" />
+    <None Include="OIOXSD\ITST_TelephoneNumberIdentifier.xsd" />
+    <None Include="OIOXSD\KaldenavnTekst.xsd" />
+    <None Include="OIOXSD\LaesFiltreretOutput.xsd" />
+    <None Include="OIOXSD\LaesInput.xsd" />
+    <None Include="OIOXSD\ListInput.xsd" />
+    <None Include="OIOXSD\ListOutput.xsd" />
+    <None Include="OIOXSD\LivscyklusKode.xsd" />
+    <None Include="OIOXSD\LokalUdvidelse.xsd" />
+    <None Include="OIOXSD\MaksimalAntalKvantitet.xsd" />
+    <None Include="OIOXSD\NoteTekst.xsd" />
+    <None Include="OIOXSD\OpretInput.xsd" />
+    <None Include="OIOXSD\Part.xsd" />
+    <None Include="OIOXSD\Person.xsd" />
+    <None Include="OIOXSD\PersonFlerRelation.xsd" />
+    <None Include="OIOXSD\PersonOperationer.xsd" />
+    <None Include="OIOXSD\ReferenceID.xsd" />
+    <None Include="OIOXSD\Registrering.xsd" />
+    <None Include="OIOXSD\RegistreringFraFilter.xsd" />
+    <None Include="OIOXSD\RegistreringTilFilter.xsd" />
+    <None Include="OIOXSD\Relation.xsd" />
+    <None Include="OIOXSD\RetInput.xsd" />
+    <None Include="OIOXSD\SagDokObjekt.xsd" />
+    <None Include="OIOXSD\SoegInput.xsd" />
+    <None Include="OIOXSD\SoegOutput.xsd" />
+    <None Include="OIOXSD\SoegRegistrering.xsd" />
+    <None Include="OIOXSD\SoegRelation.xsd" />
+    <None Include="OIOXSD\SoegSagDokObjekt.xsd" />
+    <None Include="OIOXSD\SoegVirkning.xsd" />
+    <None Include="OIOXSD\StandardRetur.xsd" />
+    <None Include="OIOXSD\StatusKode.xsd" />
     <None Include="OIOXSD\Subscription.xsd" />
+    <None Include="OIOXSD\Tidspunkt.xsd" />
+    <None Include="OIOXSD\TidsstempelDatoTid.xsd" />
+    <None Include="OIOXSD\TilstandVirkning.xsd" />
+    <None Include="OIOXSD\TilTidspunkt.xsd" />
+    <None Include="OIOXSD\UnikId.xsd" />
+    <None Include="OIOXSD\URNIdentifikator.xsd" />
+    <None Include="OIOXSD\UUID.xsd" />
+    <None Include="OIOXSD\UuidNoteInput.xsd" />
+    <None Include="OIOXSD\VEJSEKTOREN_CommentText.xsd" />
     <None Include="OIOXSD\Version.xsd" />
+    <None Include="OIOXSD\Virkning.xsd" />
+    <None Include="OIOXSD\VirkningFraFilter.xsd" />
+    <None Include="OIOXSD\VirkningTilFilter.xsd" />
+    <None Include="OIOXSD\XKOM_AddressAccess.xsd" />
+    <None Include="OIOXSD\XKOM_AddressComplete.xsd" />
+    <None Include="OIOXSD\XKOM_AddressPostal.xsd" />
+    <None Include="OIOXSD\XKOM_EmailAddressIdentifier.xsd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PersonSchemas\PersonSchemas.csproj">
       <Project>{63C643D5-D975-4A69-9D59-02B253BDFDE8}</Project>
       <Name>PersonSchemas</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OIOXSD\XSD.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
