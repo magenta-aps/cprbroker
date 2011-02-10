@@ -36,41 +36,7 @@ namespace CprBroker.Providers.KMD
             ValidateReturnCode(englishResponse.ReturnCode, englishResponse.ReturnText);
             return englishResponse;
         }
-
-        private PersonNameAndAddressStructureType ToPersonNameAndAddress(EnglishAN08002Response englishResponse)
-        {
-            PersonNameAndAddressStructureType personNameAndAddress = new PersonNameAndAddressStructureType();
-            personNameAndAddress.AddressIdentifierCode = AddressIdentifierCodeType.Item1;
-            //personNameAndAddress.AddressIdentifierCodeSpecified = true;
-
-            Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
-            //address[CprBroker.Schemas.Util.AddressField.Building] = 
-            address[CprBroker.Schemas.Util.AddressField.Door] = englishResponse.AddressDoor;
-            address[CprBroker.Schemas.Util.AddressField.Floor] = englishResponse.AddressFloor;
-            address[CprBroker.Schemas.Util.AddressField.HouseNumber] = string.Format("{0}{1}", englishResponse.AddressHouseNumber, englishResponse.AddressHouseNumberChar);
-            address[CprBroker.Schemas.Util.AddressField.PostCode] = englishResponse.EPostNumber;
-            address[CprBroker.Schemas.Util.AddressField.PostDistrictName] = englishResponse.AddressPost_20;
-            address[CprBroker.Schemas.Util.AddressField.StreetName] = englishResponse.Route;
-            address[CprBroker.Schemas.Util.AddressField.StreetCode] = englishResponse.RouteCode;
-            address[CprBroker.Schemas.Util.AddressField.MunicipalityCode] = englishResponse.MunicipalityCode;
-            address[CprBroker.Schemas.Util.AddressField.MunicipalityName] = englishResponse.MunicipalityName;
-
-            address[CprBroker.Schemas.Util.AddressField.Line1] = englishResponse.AddressLine_1;
-            address[CprBroker.Schemas.Util.AddressField.Line2] = englishResponse.AddressLine_2;
-            address[CprBroker.Schemas.Util.AddressField.Line3] = englishResponse.AddressLine_3;
-            address[CprBroker.Schemas.Util.AddressField.Line4] = englishResponse.AddressLine_4;
-            address[CprBroker.Schemas.Util.AddressField.Line5] = englishResponse.AddressLine_5;
-
-            personNameAndAddress.Item = address.ToOioAddress(PersonCivilRegistrationStatusCodeType.Item01);
-
-            //personNameAndAddress.PersonInformationProtectionIndicator = true;
-
-            personNameAndAddress.SimpleCPRPerson = englishResponse.ToSimpleCprPerson();
-
-            return personNameAndAddress;
-        }
     }
-
     
     namespace WS_AN08002
     {
@@ -321,7 +287,7 @@ namespace CprBroker.Providers.KMD
             }
 
             public SimpleCPRPersonType ToSimpleCprPerson()
-            {                
+            {
                 return new SimpleCPRPersonType()
                 {
                     PersonCivilRegistrationIdentifier = this.PersonNumber,

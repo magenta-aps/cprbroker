@@ -56,14 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Part\AddressWorld.cs" />
     <Compile Include="ApplicationHeader.cs" />
-    <Compile Include="Part\Address.cs" />
-    <Compile Include="Part\AddressDenmark.cs" />
-    <Compile Include="Part\AddressGreenland.cs" />
-    <Compile Include="Part\ContactChannel.cs" />
-    <Compile Include="Part\CprData.cs" />
-    <Compile Include="Part\EffectDateHeader.cs" />
     <Compile Include="Part\Enums\MaritalStatus.cs" />
     <Compile Include="Part\Enums\Gender.cs" />
     <Compile Include="Part\Enums\LifeStatus.cs" />
@@ -72,26 +65,12 @@
     <Compile Include="Part\Events\EventInfoStructureType.cs" />
     <Compile Include="Part\Events\EventObjectStructureType.cs" />
     <Compile Include="Part\Events\ExtensionStructureType.cs" />
-    <Compile Include="Part\ForeignCitizenData.cs" />
-    <Compile Include="Part\Effect.cs" />
-    <Compile Include="Part\Mail.cs" />
-    <Compile Include="Part\OtherContactChannel.cs" />
-    <Compile Include="Part\PartObject.cs" />
-    <Compile Include="Part\Person.cs" />
-    <Compile Include="Part\PersonAttributes.cs" />
-    <Compile Include="Part\PersonData.cs" />
-    <Compile Include="Part\PersonRegistration.cs" />
-    <Compile Include="Part\PersonRelation.cs" />
-    <Compile Include="Part\PersonRelations.cs" />
-    <Compile Include="Part\PersonStates.cs" />
-    <Compile Include="Part\Registration.cs" />
-    <Compile Include="Part\RegistrationDateHeader.cs" />
-    <Compile Include="Part\Relationship.cs" />
-    <Compile Include="Part\PersonSearchCriteria.cs" />
-    <Compile Include="Part\ServiceDescription.cs" />
-    <Compile Include="Part\ServiceNames.cs" />
-    <Compile Include="Part\Telephone.cs" />
-    <Compile Include="Part\UnknownCitizenData.cs" />
+    <Compile Include="Part\ServiceDescription.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Part\ServiceNames.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ServiceNames.cs" />
     <Compile Include="OIOXSD\Application.Designer.cs" />
     <Compile Include="OIOXSD\CPR_AddressCompleteGreenland.Designer.cs" />
@@ -128,7 +107,6 @@
     <Compile Include="QualityHeader.cs" />
     <Compile Include="ServiceDescription.cs" />
     <Compile Include="PersonIdentifier.cs" />
-    <Compile Include="Util\Address.cs" />
     <Compile Include="Util\Enums.cs" />
     <Compile Include="Util\Misc.cs" />
     <Compile Include="Util\PredicateBuilder.cs" />
@@ -170,8 +148,6 @@
     <None Include="OIOXSD\XKOM_AddressAccess.xsd" />
     <None Include="OIOXSD\XKOM_AddressComplete.xsd" />
     <None Include="OIOXSD\XKOM_AddressPostal.xsd" />
-    <None Include="Part\Address classes.cd" />
-    <None Include="Part\Person classes.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PersonSchemas\PersonSchemas.csproj">

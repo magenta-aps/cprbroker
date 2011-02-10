@@ -569,47 +569,7 @@ namespace CprBroker.Providers.KMD
             }
             #endregion
 
-            #region Converters
-            /// <summary>
-            /// Converts the address to an OIO address by using Schemas.Util.Address class
-            /// </summary>
-            /// <param name="personCivilRegistrationStatusCodeType"></param>
-            /// <returns></returns>            
-            public Schemas.Part.Address ToPartAddress()
-            {
-                Schemas.Util.Address address = new CprBroker.Schemas.Util.Address();
-                var a = this.InnerResponse.OutputRecord;
-                address[CprBroker.Schemas.Util.AddressField.Building] = this.BuildingNumber;
-                address[CprBroker.Schemas.Util.AddressField.CareOfName] = this.CareOfName;
-                //address[CprBroker.Schemas.Util.AddressField.CountryCode] = "";
-                //address[CprBroker.Schemas.Util.AddressField.CountryName] = "";
-                //address[CprBroker.Schemas.Util.AddressField.DistrictSubDivisionIdentifier] = "";
-                address[CprBroker.Schemas.Util.AddressField.Door] = this.DoorNumber;
-                address[CprBroker.Schemas.Util.AddressField.Floor] = this.Floor;
-                address[CprBroker.Schemas.Util.AddressField.HouseNumber] = this.HouseNumber;
-                //TODO: Add house letter to Address fields
-
-                //address[CprBroker.Schemas.Util.AddressField.Line1] = "";
-                //address[CprBroker.Schemas.Util.AddressField.Line2] = "";
-                //address[CprBroker.Schemas.Util.AddressField.Line3] = "";
-                //address[CprBroker.Schemas.Util.AddressField.Line4] = "";
-                //address[CprBroker.Schemas.Util.AddressField.Line5] = "";
-                //address[CprBroker.Schemas.Util.AddressField.Line6] = "";
-                //address[CprBroker.Schemas.Util.AddressField.LocationDescription] = "";
-                //address[CprBroker.Schemas.Util.AddressField.MailDeliverSubLocationIdentifier] = "";
-                address[CprBroker.Schemas.Util.AddressField.MunicipalityCode] = this.MunicipalityCode;
-                //address[CprBroker.Schemas.Util.AddressField.MunicipalityName] = "";
-                address[CprBroker.Schemas.Util.AddressField.PostBox] = "";
-                address[CprBroker.Schemas.Util.AddressField.PostCode] = this.PostCode;
-                //address[CprBroker.Schemas.Util.AddressField.PostDistrict] = "";
-                address[CprBroker.Schemas.Util.AddressField.StreetCode] = this.StreetCode;
-                //address[CprBroker.Schemas.Util.AddressField.StreetName] = "";
-                //address[CprBroker.Schemas.Util.AddressField.StreetNameForAddressing] = "";
-
-                // TODO: validate this Civil Registration Status Code
-                var personCivilRegistrationStatusCodeType = Schemas.Util.Enums.ToCivilRegistrationStatus(Utilities.GetCivilRegistrationStatus(this.StatusKmd, this.StatusCpr));
-                return address.ToPartAddress(personCivilRegistrationStatusCodeType);
-            }
+            #region Converters           
 
             public AttributListeType ToAttributListeType(WS_AS78205.EnglishAS78205Response addressResponse)
             {
