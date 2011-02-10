@@ -37,39 +37,6 @@ namespace CprBroker.Providers.KMD
         }
 
         /// <summary>
-        /// Filters the list of a person's relations based on the requested relation type
-        /// </summary>
-        /// <typeparam name="TRelation">Type of OIO relation object</typeparam>
-        /// <param name="persons">Related persons returned fromDate KMD service</param>
-        /// <param name="typeFilters">The type codes that will be used to filter the relations</param>
-        /// <returns>Filtered list of OIO relations</returns>
-        private TRelation[] GetPersonRelations<TRelation>(WS_AN08010.ReplyPerson[] persons, params string[] typeFilters) where TRelation : BaseRelationshipType, new()
-        {
-            if (persons == null)
-            {
-                persons = new WS_AN08010.ReplyPerson[0];
-            }
-
-            var filteredPersons = from person in persons
-                                  where Array.IndexOf<string>(typeFilters, person.Type) != -1
-                                  && person.IsUnknown == false
-                                  select person;
-            List<TRelation> ret = new List<TRelation>();
-            foreach (var person in filteredPersons)
-            {
-                SimpleCPRPersonType oioPerson = person.ToSimpleCprPerson();
-                if (oioPerson.PersonNameStructure.IsEmpty)
-                {
-                    var an08002 = CallAN08002(oioPerson.PersonCivilRegistrationIdentifier);
-                    oioPerson = an08002.ToSimpleCprPerson();
-                }
-                ret.Add(new TRelation() { SimpleCPRPerson = oioPerson });
-            }
-
-            return ret.ToArray();
-        }
-
-        /// <summary>
         /// Searches for the return code in a list of error codes, throws an Exception if a match is found
         /// </summary>
         /// <param name="returnCode">Code returned fromDate web service</param>

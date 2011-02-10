@@ -15,14 +15,6 @@ namespace CprBroker.Providers.DPR
 {
     public partial class PersonTotal
     {
-        public MaritalStatusCodeType MaritalStatusCodeType
-        {
-            get
-            {
-                return Schemas.Util.Enums.GetMaritalStatus(MaritalStatus.Value);
-            }
-        }
-
         public CivilStatusKodeType PartCivilStatus
         {
             get

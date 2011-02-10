@@ -113,7 +113,6 @@ namespace CprBroker.Providers.DPR
         {
             Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToString());
 
-            var civilRegistrationStatus = Schemas.Util.Enums.ToCivilRegistrationStatus(PersonTotal.Status);
             var effectTimeDecimal = Utilities.DecimalFromDate(effectTime);
 
             RegistreringType1 ret = new RegistreringType1()

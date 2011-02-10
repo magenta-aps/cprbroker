@@ -78,7 +78,7 @@ namespace CprBroker.Providers.KMD
                         }
                     )
                     .ToArray();
-            }            
+            }
         }
 
         public class ReplyPerson
@@ -91,14 +91,6 @@ namespace CprBroker.Providers.KMD
             }
 
             #region Extra properties
-            public SimpleCPRPersonType ToSimpleCprPerson()
-            {
-                return new SimpleCPRPersonType()
-                {
-                    PersonCivilRegistrationIdentifier = this.PNR.Replace("-", ""),
-                    PersonNameStructure = new Schemas.PersonNameStructureType(this.Name)
-                };
-            }
 
             public bool IsUnknown
             {

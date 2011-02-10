@@ -12,42 +12,7 @@ namespace CprBroker.Schemas.Util
     /// </summary>
     public static class Enums
     {
-        public static PersonCivilRegistrationStatusCodeType ToCivilRegistrationStatus(decimal status)
-        {
-            return ToCivilRegistrationStatus(status.ToString());
-        }
-        public static PersonCivilRegistrationStatusCodeType ToCivilRegistrationStatus(string status)
-        {
-            return (PersonCivilRegistrationStatusCodeType)Enum.Parse(
-                    typeof(PersonCivilRegistrationStatusCodeType),
-                    "Item" + Convert.ToInt32(status).ToString("D2")
-                    );
-        }
-
-        public static MaritalStatusCodeType GetMaritalStatus(char code)
-        {
-            switch (char.ToUpper(code))
-            {
-                case 'U':
-                    return MaritalStatusCodeType.unmarried;
-                case 'G':
-                    return MaritalStatusCodeType.married;
-                case 'F':
-                    return MaritalStatusCodeType.divorced;
-                case 'D':
-                    return MaritalStatusCodeType.deceased;
-                case 'E':
-                    return MaritalStatusCodeType.widow;
-                case 'P':
-                    return MaritalStatusCodeType.registeredpartnership;
-                case 'O':
-                    return MaritalStatusCodeType.abolitionofregistreredpartnership;
-                case 'L':
-                default:
-                    return MaritalStatusCodeType.longestlivingpartner;
-            }
-        }
-
+       
         public static LivStatusKodeType ToLifeStatus(decimal civilRegistrationStatus, DateTime? birthDate)
         {
             switch ((int)civilRegistrationStatus)

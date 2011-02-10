@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationHeader.cs" />
+    <Compile Include="OIOXSD\Subscription.Designer.cs" />
+    <Compile Include="OIOXSD\Version.Designer.cs" />
     <Compile Include="Part\Enums\MaritalStatus.cs" />
     <Compile Include="Part\Enums\Gender.cs" />
     <Compile Include="Part\Enums\LifeStatus.cs" />
@@ -73,36 +75,8 @@
     </Compile>
     <Compile Include="ServiceNames.cs" />
     <Compile Include="OIOXSD\Application.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_AddressCompleteGreenland.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_AddressIdentifierCode.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_AddressNotComplete.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_AddressStatusCode.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_CompletePostalLabel.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_DanishAddressStructure.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_ForeignAddressStructure.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_MaritalStatusCode.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_PersonBirthDateStructure.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_PersonCivilRegistrationStatusCode.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_PersonCivilRegistrationStatusStructure.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_PersonDeathDateStructure.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_RegularCPRPerson.Designer.cs" />
-    <Compile Include="OIOXSD\CPR_SimpleCPRPerson.Designer.cs" />
     <Compile Include="OIOXSD\DataProviders.Designer.cs" />
     <Compile Include="OIOXSD\DataProviderTypes.cs" />
-    <Compile Include="OIOXSD\DKCC_CountryIdentificationCode.Designer.cs" />
-    <Compile Include="OIOXSD\DKCC_PersonGenderCode.Designer.cs" />
-    <Compile Include="OIOXSD\ITST_PersonNameStructure.Designer.cs" />
-    <Compile Include="OIOXSD\NotificationData.Designer.cs" />
-    <Compile Include="OIOXSD\PersonBasicStructure.Designer.cs" />
-    <Compile Include="OIOXSD\PersonFull.Designer.cs" />
-    <Compile Include="OIOXSD\PersonNameAndAddress.Designer.cs" />
-    <Compile Include="OIOXSD\PersonRelations.Designer.cs" />
-    <Compile Include="OIOXSD\Subscription.Designer.cs" />
-    <Compile Include="OIOXSD\Version.Designer.cs" />
-    <Compile Include="OIOXSD\XKOM_AddressAccess.Designer.cs" />
-    <Compile Include="OIOXSD\XKOM_AddressComplete.Designer.cs" />
-    <Compile Include="OIOXSD\XKOM_AddressPostal.Designer.cs" />
-    <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QualityHeader.cs" />
     <Compile Include="ServiceDescription.cs" />
@@ -113,41 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="OIOXSD\Application.xsd" />
-    <None Include="OIOXSD\CPR_AddressCompleteGreenland.xsd" />
-    <None Include="OIOXSD\CPR_AddressIdentifierCode.xsd" />
-    <None Include="OIOXSD\CPR_AddressNotComplete.xsd" />
-    <None Include="OIOXSD\CPR_AddressStatusCode.xsd" />
-    <None Include="OIOXSD\CPR_CompletePostalLabel.xsd" />
-    <None Include="OIOXSD\CPR_DanishAddressStructure.xsd" />
-    <None Include="OIOXSD\CPR_ForeignAddressStructure.xsd" />
-    <None Include="OIOXSD\CPR_PersonBirthDateStructure.xsd" />
-    <None Include="OIOXSD\CPR_PersonCivilRegistrationStatusCode.xsd" />
-    <None Include="OIOXSD\CPR_PersonCivilRegistrationStatusStructure.xsd" />
-    <None Include="OIOXSD\CPR_PersonDeathDateStructure.xsd" />
-    <None Include="OIOXSD\CPR_RegularCPRPerson.xsd" />
     <None Include="OIOXSD\DataProviders.xsd" />
-    <None Include="OIOXSD\DKCC_CountryIdentificationCode.xsd" />
-    <None Include="OIOXSD\DKCC_PersonGenderCode.xsd">
-    </None>
-    <None Include="OIOXSD\NotificationData.xsd">
-      <SubType>
-      </SubType>
-    </None>
-    <None Include="OIOXSD\PersonFull.xsd" />
-    <None Include="OIOXSD\PersonRelations.xsd" />
-    <None Include="OIOXSD\CPR_MaritalStatusCode.xsd" />
-    <None Include="OIOXSD\CPR_PersonCivilRegistrationIdentifier.xsd">
-      <SubType>
-      </SubType>
-    </None>
-    <None Include="OIOXSD\CPR_SimpleCPRPerson.xsd" />
-    <None Include="OIOXSD\PersonBasicStructure.xsd" />
-    <None Include="OIOXSD\PersonNameAndAddress.xsd" />
     <None Include="OIOXSD\Subscription.xsd" />
     <None Include="OIOXSD\Version.xsd" />
-    <None Include="OIOXSD\XKOM_AddressAccess.xsd" />
-    <None Include="OIOXSD\XKOM_AddressComplete.xsd" />
-    <None Include="OIOXSD\XKOM_AddressPostal.xsd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PersonSchemas\PersonSchemas.csproj">

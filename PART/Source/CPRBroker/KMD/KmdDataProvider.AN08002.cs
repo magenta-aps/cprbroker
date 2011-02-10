@@ -37,7 +37,7 @@ namespace CprBroker.Providers.KMD
             return englishResponse;
         }
     }
-    
+
     namespace WS_AN08002
     {
         /// <summary>
@@ -286,14 +286,6 @@ namespace CprBroker.Providers.KMD
                 }
             }
 
-            public SimpleCPRPersonType ToSimpleCprPerson()
-            {
-                return new SimpleCPRPersonType()
-                {
-                    PersonCivilRegistrationIdentifier = this.PersonNumber,
-                    PersonNameStructure = new PersonNameStructureType(this.AddressingName_34)
-                };
-            }
         }
     }
 

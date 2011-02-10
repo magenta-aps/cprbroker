@@ -55,13 +55,11 @@
     <Compile Include="DAL\PersonAddress.cs" />
     <Compile Include="PersonInfo.cs" />
     <Compile Include="DAL\Child.cs" />
-    <Compile Include="DAL\CivilStatus.cs" />
     <Compile Include="DAL\DPR.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DPR.dbml</DependentUpon>
     </Compile>
-    <Compile Include="DAL\PersonName.cs" />
     <Compile Include="DAL\PersonTotal.cs" />
     <Compile Include="DprDatabaseDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
