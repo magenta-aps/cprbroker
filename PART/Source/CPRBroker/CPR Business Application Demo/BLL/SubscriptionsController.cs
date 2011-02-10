@@ -15,8 +15,8 @@ namespace CPR_Business_Application_Demo.Business
             UserToken = settings["UserToken"].ToString();
             AppToken = settings["AppToken"].ToString();
             AppName = settings["ApplicationName"].ToString();
-            CprAdminWebServiceUrl = settings["CPRBrokerWebServiceUrl"].ToString();
-            Console.Write("new cpradmController uT=" + UserToken + " , appT=" + AppToken + ", nm=" + AppName + " url=" + CprAdminWebServiceUrl + "\n");
+            CprSubscriptionsWebServiceUrl = settings["EventBrokerWebServiceUrl"].ToString();
+            Console.Write("new cpradmController uT=" + UserToken + " , appT=" + AppToken + ", nm=" + AppName + " url=" + CprSubscriptionsWebServiceUrl + "\n");
         }
         #endregion
 
@@ -60,7 +60,7 @@ namespace CPR_Business_Application_Demo.Business
         {
             try
             {
-                var cprAdministrationAdapter = new SubscriptionAdapter(CprAdminWebServiceUrl);
+                var cprAdministrationAdapter = new SubscriptionAdapter(CprSubscriptionsWebServiceUrl);
 
                 var notificationMode = (int)Settings["NotificationMode"];
 
@@ -80,7 +80,7 @@ namespace CPR_Business_Application_Demo.Business
                 return string.Empty;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return string.Empty;
             }
@@ -90,7 +90,7 @@ namespace CPR_Business_Application_Demo.Business
         {
             try
             {
-                var cprAdministrationAdapter = new SubscriptionAdapter(CprAdminWebServiceUrl);
+                var cprAdministrationAdapter = new SubscriptionAdapter(CprSubscriptionsWebServiceUrl);
                 var notificationMode = (int)Settings["NotificationMode"];
 
                 switch (notificationMode)
@@ -134,7 +134,7 @@ namespace CPR_Business_Application_Demo.Business
         private readonly string UserToken;
         private readonly string AppToken;
         private readonly string AppName;
-        private readonly string CprAdminWebServiceUrl;
+        private readonly string CprSubscriptionsWebServiceUrl;
         #endregion
 
 

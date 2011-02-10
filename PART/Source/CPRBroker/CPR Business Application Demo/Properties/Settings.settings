@@ -14,9 +14,6 @@
     <Setting Name="NotificationCallbackWebServiceUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="NotificationFileShare" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="FirstTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -34,6 +31,9 @@
     </Setting>
     <Setting Name="EventBrokerWebServiceUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://localhost:1552/Services/</Value>
+    </Setting>
+    <Setting Name="NotificationFileShare" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\</Value>
     </Setting>
   </Settings>
 </SettingsFile>

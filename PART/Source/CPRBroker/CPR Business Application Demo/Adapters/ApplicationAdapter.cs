@@ -16,12 +16,12 @@ namespace CPR_Business_Application_Demo.Adapters
             // Make sure the provided URL is pointing to the applications web service
             if (!applicationsWsUrl.EndsWith("/"))
 	      {
-                if (!applicationsWsUrl.EndsWith("CPRAdministrationWS.asmx"))
-                    applicationsWsUrl += "/CPRAdministrationWS.asmx";
+                if (!applicationsWsUrl.EndsWith("Admin.asmx"))
+                    applicationsWsUrl += "/Admin.asmx";
             }
             else
             {
-                applicationsWsUrl += "CPRAdministrationWS.asmx";
+                applicationsWsUrl += "Admin.asmx";
             }
 
             applicationsHandler = new AdminSoap12Client("AdminSoap12", applicationsWsUrl);

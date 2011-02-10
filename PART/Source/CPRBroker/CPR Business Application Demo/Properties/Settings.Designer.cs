@@ -73,18 +73,6 @@ namespace CPR_Business_Application_Demo.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string NotificationFileShare {
-            get {
-                return ((string)(this["NotificationFileShare"]));
-            }
-            set {
-                this["NotificationFileShare"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool FirstTime {
             get {
@@ -149,6 +137,18 @@ namespace CPR_Business_Application_Demo.Properties {
             }
             set {
                 this["EventBrokerWebServiceUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\")]
+        public string NotificationFileShare {
+            get {
+                return ((string)(this["NotificationFileShare"]));
+            }
+            set {
+                this["NotificationFileShare"] = value;
             }
         }
     }
