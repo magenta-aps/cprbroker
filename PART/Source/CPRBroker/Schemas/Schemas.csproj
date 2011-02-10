@@ -96,6 +96,10 @@
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Diagrams\Operations.cd" />
+    <None Include="Diagrams\OtherOperations.cd" />
+    <None Include="Diagrams\Search.cd" />
+    <None Include="Diagrams\Static.cd" />
     <None Include="OIOXSD\AktoerRef.xsd" />
     <None Include="OIOXSD\Application.xsd" />
     <None Include="OIOXSD\BasicOutput.xsd" />
