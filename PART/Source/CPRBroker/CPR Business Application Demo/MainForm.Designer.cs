@@ -93,33 +93,9 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.GetServiceInfoButton = new System.Windows.Forms.Button();
             this.InfoText = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.searchTabPage = new System.Windows.Forms.TabPage();
             this.search_button = new System.Windows.Forms.Button();
             this.search_result = new System.Windows.Forms.TextBox();
-            this.erstatning_af = new System.Windows.Forms.Label();
-            this.erstatning_for = new System.Windows.Forms.Label();
-            this.RetligHandleevneVaergemaalsIndehaver = new System.Windows.Forms.Label();
-            this.RetligHandleevneVaergeForPersonen = new System.Windows.Forms.Label();
-            this.ForaeldremyndgihdedsBoern = new System.Windows.Forms.Label();
-            this.search_erstatning_af = new System.Windows.Forms.TextBox();
-            this.search_erstatning_for = new System.Windows.Forms.TextBox();
-            this.search_RetligHandleevneVaergemaalsIndehaver = new System.Windows.Forms.TextBox();
-            this.search_RetligHandleevneVaergeForPersonen = new System.Windows.Forms.TextBox();
-            this.search_ForaeldremyndgihdedsBoern = new System.Windows.Forms.TextBox();
-            this.search_bopael = new System.Windows.Forms.TextBox();
-            this.search_partner = new System.Windows.Forms.TextBox();
-            this.ForaeldremyndgihdedsIndehaver = new System.Windows.Forms.Label();
-            this.bopael = new System.Windows.Forms.Label();
-            this.partner = new System.Windows.Forms.Label();
-            this.spouse = new System.Windows.Forms.Label();
-            this.searchmotherlabel = new System.Windows.Forms.Label();
-            this.father = new System.Windows.Forms.Label();
-            this.children = new System.Windows.Forms.Label();
-            this.search_spouse = new System.Windows.Forms.TextBox();
-            this.search_ForaeldremyndgihdedsIndehaver = new System.Windows.Forms.TextBox();
-            this.search_children = new System.Windows.Forms.TextBox();
-            this.search_father = new System.Windows.Forms.TextBox();
-            this.search_moder = new System.Windows.Forms.TextBox();
             this.personuuidsearch = new System.Windows.Forms.Label();
             this.searchuuid = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -153,7 +129,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AgeSpin)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.searchTabPage.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -226,7 +202,7 @@
             this.mainTabControl.Controls.Add(this.personTabPage);
             this.mainTabControl.Controls.Add(this.subscriptionTabPage);
             this.mainTabControl.Controls.Add(this.tabPage1);
-            this.mainTabControl.Controls.Add(this.tabPage2);
+            this.mainTabControl.Controls.Add(this.searchTabPage);
             this.mainTabControl.Location = new System.Drawing.Point(12, 27);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
@@ -814,43 +790,19 @@
             this.InfoText.Size = new System.Drawing.Size(891, 265);
             this.InfoText.TabIndex = 0;
             // 
-            // tabPage2
+            // searchTabPage
             // 
-            this.tabPage2.Controls.Add(this.search_button);
-            this.tabPage2.Controls.Add(this.search_result);
-            this.tabPage2.Controls.Add(this.erstatning_af);
-            this.tabPage2.Controls.Add(this.erstatning_for);
-            this.tabPage2.Controls.Add(this.RetligHandleevneVaergemaalsIndehaver);
-            this.tabPage2.Controls.Add(this.RetligHandleevneVaergeForPersonen);
-            this.tabPage2.Controls.Add(this.ForaeldremyndgihdedsBoern);
-            this.tabPage2.Controls.Add(this.search_erstatning_af);
-            this.tabPage2.Controls.Add(this.search_erstatning_for);
-            this.tabPage2.Controls.Add(this.search_RetligHandleevneVaergemaalsIndehaver);
-            this.tabPage2.Controls.Add(this.search_RetligHandleevneVaergeForPersonen);
-            this.tabPage2.Controls.Add(this.search_ForaeldremyndgihdedsBoern);
-            this.tabPage2.Controls.Add(this.search_bopael);
-            this.tabPage2.Controls.Add(this.search_partner);
-            this.tabPage2.Controls.Add(this.ForaeldremyndgihdedsIndehaver);
-            this.tabPage2.Controls.Add(this.bopael);
-            this.tabPage2.Controls.Add(this.partner);
-            this.tabPage2.Controls.Add(this.spouse);
-            this.tabPage2.Controls.Add(this.searchmotherlabel);
-            this.tabPage2.Controls.Add(this.father);
-            this.tabPage2.Controls.Add(this.children);
-            this.tabPage2.Controls.Add(this.search_spouse);
-            this.tabPage2.Controls.Add(this.search_ForaeldremyndgihdedsIndehaver);
-            this.tabPage2.Controls.Add(this.search_children);
-            this.tabPage2.Controls.Add(this.search_father);
-            this.tabPage2.Controls.Add(this.search_moder);
-            this.tabPage2.Controls.Add(this.personuuidsearch);
-            this.tabPage2.Controls.Add(this.searchuuid);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(891, 553);
-            this.tabPage2.TabIndex = 4;
-            this.tabPage2.Text = "Search";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.searchTabPage.Controls.Add(this.search_button);
+            this.searchTabPage.Controls.Add(this.search_result);
+            this.searchTabPage.Controls.Add(this.personuuidsearch);
+            this.searchTabPage.Controls.Add(this.searchuuid);
+            this.searchTabPage.Location = new System.Drawing.Point(4, 22);
+            this.searchTabPage.Name = "searchTabPage";
+            this.searchTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.searchTabPage.Size = new System.Drawing.Size(891, 553);
+            this.searchTabPage.TabIndex = 4;
+            this.searchTabPage.Text = "Search";
+            this.searchTabPage.UseVisualStyleBackColor = true;
             // 
             // search_button
             // 
@@ -872,198 +824,6 @@
             this.search_result.Name = "search_result";
             this.search_result.Size = new System.Drawing.Size(422, 452);
             this.search_result.TabIndex = 31;
-            // 
-            // erstatning_af
-            // 
-            this.erstatning_af.AutoSize = true;
-            this.erstatning_af.Location = new System.Drawing.Point(142, 396);
-            this.erstatning_af.Name = "erstatning_af";
-            this.erstatning_af.Size = new System.Drawing.Size(65, 13);
-            this.erstatning_af.TabIndex = 30;
-            this.erstatning_af.Text = "erstatning af";
-            // 
-            // erstatning_for
-            // 
-            this.erstatning_for.AutoSize = true;
-            this.erstatning_for.Location = new System.Drawing.Point(145, 370);
-            this.erstatning_for.Name = "erstatning_for";
-            this.erstatning_for.Size = new System.Drawing.Size(68, 13);
-            this.erstatning_for.TabIndex = 29;
-            this.erstatning_for.Text = "erstatning for";
-            // 
-            // RetligHandleevneVaergemaalsIndehaver
-            // 
-            this.RetligHandleevneVaergemaalsIndehaver.AutoSize = true;
-            this.RetligHandleevneVaergemaalsIndehaver.Location = new System.Drawing.Point(39, 344);
-            this.RetligHandleevneVaergemaalsIndehaver.Name = "RetligHandleevneVaergemaalsIndehaver";
-            this.RetligHandleevneVaergemaalsIndehaver.Size = new System.Drawing.Size(201, 13);
-            this.RetligHandleevneVaergemaalsIndehaver.TabIndex = 28;
-            this.RetligHandleevneVaergemaalsIndehaver.Text = "RetligHandleevneVaergemaalsIndehaver";
-            // 
-            // RetligHandleevneVaergeForPersonen
-            // 
-            this.RetligHandleevneVaergeForPersonen.AutoSize = true;
-            this.RetligHandleevneVaergeForPersonen.Location = new System.Drawing.Point(54, 314);
-            this.RetligHandleevneVaergeForPersonen.Name = "RetligHandleevneVaergeForPersonen";
-            this.RetligHandleevneVaergeForPersonen.Size = new System.Drawing.Size(186, 13);
-            this.RetligHandleevneVaergeForPersonen.TabIndex = 27;
-            this.RetligHandleevneVaergeForPersonen.Text = "RetligHandleevneVaergeForPersonen";
-            // 
-            // ForaeldremyndgihdedsBoern
-            // 
-            this.ForaeldremyndgihdedsBoern.AutoSize = true;
-            this.ForaeldremyndgihdedsBoern.Location = new System.Drawing.Point(96, 292);
-            this.ForaeldremyndgihdedsBoern.Name = "ForaeldremyndgihdedsBoern";
-            this.ForaeldremyndgihdedsBoern.Size = new System.Drawing.Size(144, 13);
-            this.ForaeldremyndgihdedsBoern.TabIndex = 26;
-            this.ForaeldremyndgihdedsBoern.Text = "ForaeldremyndgihdedsBoern ";
-            // 
-            // search_erstatning_af
-            // 
-            this.search_erstatning_af.Location = new System.Drawing.Point(246, 389);
-            this.search_erstatning_af.Name = "search_erstatning_af";
-            this.search_erstatning_af.Size = new System.Drawing.Size(180, 20);
-            this.search_erstatning_af.TabIndex = 24;
-            // 
-            // search_erstatning_for
-            // 
-            this.search_erstatning_for.Location = new System.Drawing.Point(246, 363);
-            this.search_erstatning_for.Name = "search_erstatning_for";
-            this.search_erstatning_for.Size = new System.Drawing.Size(180, 20);
-            this.search_erstatning_for.TabIndex = 23;
-            // 
-            // search_RetligHandleevneVaergemaalsIndehaver
-            // 
-            this.search_RetligHandleevneVaergemaalsIndehaver.Location = new System.Drawing.Point(246, 337);
-            this.search_RetligHandleevneVaergemaalsIndehaver.Name = "search_RetligHandleevneVaergemaalsIndehaver";
-            this.search_RetligHandleevneVaergemaalsIndehaver.Size = new System.Drawing.Size(180, 20);
-            this.search_RetligHandleevneVaergemaalsIndehaver.TabIndex = 22;
-            // 
-            // search_RetligHandleevneVaergeForPersonen
-            // 
-            this.search_RetligHandleevneVaergeForPersonen.Location = new System.Drawing.Point(246, 311);
-            this.search_RetligHandleevneVaergeForPersonen.Name = "search_RetligHandleevneVaergeForPersonen";
-            this.search_RetligHandleevneVaergeForPersonen.Size = new System.Drawing.Size(180, 20);
-            this.search_RetligHandleevneVaergeForPersonen.TabIndex = 21;
-            // 
-            // search_ForaeldremyndgihdedsBoern
-            // 
-            this.search_ForaeldremyndgihdedsBoern.Location = new System.Drawing.Point(246, 285);
-            this.search_ForaeldremyndgihdedsBoern.Name = "search_ForaeldremyndgihdedsBoern";
-            this.search_ForaeldremyndgihdedsBoern.Size = new System.Drawing.Size(180, 20);
-            this.search_ForaeldremyndgihdedsBoern.TabIndex = 20;
-            // 
-            // search_bopael
-            // 
-            this.search_bopael.Location = new System.Drawing.Point(246, 237);
-            this.search_bopael.Name = "search_bopael";
-            this.search_bopael.Size = new System.Drawing.Size(180, 20);
-            this.search_bopael.TabIndex = 19;
-            // 
-            // search_partner
-            // 
-            this.search_partner.Location = new System.Drawing.Point(246, 211);
-            this.search_partner.Name = "search_partner";
-            this.search_partner.Size = new System.Drawing.Size(180, 20);
-            this.search_partner.TabIndex = 18;
-            // 
-            // ForaeldremyndgihdedsIndehaver
-            // 
-            this.ForaeldremyndgihdedsIndehaver.AutoSize = true;
-            this.ForaeldremyndgihdedsIndehaver.Location = new System.Drawing.Point(79, 266);
-            this.ForaeldremyndgihdedsIndehaver.Name = "ForaeldremyndgihdedsIndehaver";
-            this.ForaeldremyndgihdedsIndehaver.Size = new System.Drawing.Size(161, 13);
-            this.ForaeldremyndgihdedsIndehaver.TabIndex = 17;
-            this.ForaeldremyndgihdedsIndehaver.Text = "ForaeldremyndgihdedsIndehaver";
-            // 
-            // bopael
-            // 
-            this.bopael.AutoSize = true;
-            this.bopael.Location = new System.Drawing.Point(143, 240);
-            this.bopael.Name = "bopael";
-            this.bopael.Size = new System.Drawing.Size(38, 13);
-            this.bopael.TabIndex = 16;
-            this.bopael.Text = "Bopæl";
-            // 
-            // partner
-            // 
-            this.partner.AutoSize = true;
-            this.partner.Location = new System.Drawing.Point(143, 214);
-            this.partner.Name = "partner";
-            this.partner.Size = new System.Drawing.Size(40, 13);
-            this.partner.TabIndex = 15;
-            this.partner.Text = "partner";
-            // 
-            // spouse
-            // 
-            this.spouse.AutoSize = true;
-            this.spouse.Location = new System.Drawing.Point(143, 188);
-            this.spouse.Name = "spouse";
-            this.spouse.Size = new System.Drawing.Size(43, 13);
-            this.spouse.TabIndex = 14;
-            this.spouse.Text = "Spouse";
-            // 
-            // searchmotherlabel
-            // 
-            this.searchmotherlabel.AutoSize = true;
-            this.searchmotherlabel.Location = new System.Drawing.Point(143, 106);
-            this.searchmotherlabel.Name = "searchmotherlabel";
-            this.searchmotherlabel.Size = new System.Drawing.Size(40, 13);
-            this.searchmotherlabel.TabIndex = 11;
-            this.searchmotherlabel.Text = "Mother";
-            // 
-            // father
-            // 
-            this.father.AutoSize = true;
-            this.father.Location = new System.Drawing.Point(143, 136);
-            this.father.Name = "father";
-            this.father.Size = new System.Drawing.Size(34, 13);
-            this.father.TabIndex = 12;
-            this.father.Text = "father";
-            // 
-            // children
-            // 
-            this.children.AutoSize = true;
-            this.children.Location = new System.Drawing.Point(143, 158);
-            this.children.Name = "children";
-            this.children.Size = new System.Drawing.Size(44, 13);
-            this.children.TabIndex = 13;
-            this.children.Text = "children";
-            // 
-            // search_spouse
-            // 
-            this.search_spouse.Location = new System.Drawing.Point(246, 185);
-            this.search_spouse.Name = "search_spouse";
-            this.search_spouse.Size = new System.Drawing.Size(180, 20);
-            this.search_spouse.TabIndex = 8;
-            // 
-            // search_ForaeldremyndgihdedsIndehaver
-            // 
-            this.search_ForaeldremyndgihdedsIndehaver.Location = new System.Drawing.Point(246, 259);
-            this.search_ForaeldremyndgihdedsIndehaver.Name = "search_ForaeldremyndgihdedsIndehaver";
-            this.search_ForaeldremyndgihdedsIndehaver.Size = new System.Drawing.Size(180, 20);
-            this.search_ForaeldremyndgihdedsIndehaver.TabIndex = 7;
-            // 
-            // search_children
-            // 
-            this.search_children.Location = new System.Drawing.Point(246, 155);
-            this.search_children.Name = "search_children";
-            this.search_children.Size = new System.Drawing.Size(180, 20);
-            this.search_children.TabIndex = 6;
-            // 
-            // search_father
-            // 
-            this.search_father.Location = new System.Drawing.Point(246, 129);
-            this.search_father.Name = "search_father";
-            this.search_father.Size = new System.Drawing.Size(180, 20);
-            this.search_father.TabIndex = 5;
-            // 
-            // search_moder
-            // 
-            this.search_moder.Location = new System.Drawing.Point(246, 103);
-            this.search_moder.Name = "search_moder";
-            this.search_moder.Size = new System.Drawing.Size(180, 20);
-            this.search_moder.TabIndex = 4;
             // 
             // personuuidsearch
             // 
@@ -1224,8 +984,8 @@
             this.groupBox5.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.searchTabPage.ResumeLayout(false);
+            this.searchTabPage.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1302,35 +1062,10 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.TextBox resultXmlTextBox;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox searchuuid;
         private System.Windows.Forms.Label personuuidsearch;
-        private System.Windows.Forms.Label ForaeldremyndgihdedsIndehaver;
-        private System.Windows.Forms.Label bopael;
-        private System.Windows.Forms.Label partner;
-        private System.Windows.Forms.Label spouse;
-        private System.Windows.Forms.Label children;
-        private System.Windows.Forms.Label father;
-        private System.Windows.Forms.Label searchmotherlabel;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox search_spouse;
-        private System.Windows.Forms.TextBox search_ForaeldremyndgihdedsIndehaver;
-        private System.Windows.Forms.TextBox search_children;
-        private System.Windows.Forms.TextBox search_father;
-        private System.Windows.Forms.TextBox search_moder;
-        private System.Windows.Forms.TextBox search_partner;
-        private System.Windows.Forms.TextBox search_bopael;
-        private System.Windows.Forms.Label erstatning_af;
-        private System.Windows.Forms.Label erstatning_for;
-        private System.Windows.Forms.Label RetligHandleevneVaergemaalsIndehaver;
-        private System.Windows.Forms.Label RetligHandleevneVaergeForPersonen;
-        private System.Windows.Forms.Label ForaeldremyndgihdedsBoern;
-        private System.Windows.Forms.TextBox search_erstatning_af;
-        private System.Windows.Forms.TextBox search_erstatning_for;
-        private System.Windows.Forms.TextBox search_RetligHandleevneVaergemaalsIndehaver;
-        private System.Windows.Forms.TextBox search_RetligHandleevneVaergeForPersonen;
-        private System.Windows.Forms.TextBox search_ForaeldremyndgihdedsBoern;
         private System.Windows.Forms.TextBox search_result;
         private System.Windows.Forms.Button search_button;
         private System.Windows.Forms.GroupBox groupBox10;
@@ -1341,6 +1076,7 @@
         private System.Windows.Forms.Label efternavn;
         private System.Windows.Forms.Label fornavn;
         private System.Windows.Forms.Label virkningTil;
+        internal System.Windows.Forms.TabPage searchTabPage;
     }
 }
 
