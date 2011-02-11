@@ -2,6 +2,17 @@
 <html>
   <head>
     <title>Functional Test of PART broker</title>
+<style type="text/css">
+  h2 { margin-left:-2%; color: blue; background: white; }
+  h1 { margin-left:-4%; color: red; background: white; }
+  h2 { margin-left:-2%; color: blue; background: white; }
+  h3 { margin-left:-2%; color: blue; background: white; }
+  h4 { margin-left:-2%; color: blue; background: white; }
+  body { margin-left:5%; color: black; background: white; }
+  code { color: black; background-color:yellow;}
+  li { width: 1000; list-style: none;}
+</style>
+
   </head>
 
   <body>
@@ -16,14 +27,14 @@ Applicatíon1 token : 12BDB789-A8C0-452A-89E4-297F3583C3FB
 </pre>
 
 
-<h2> How to perform test</H2>
+<h2> How to perform the tests</H2>
 Install SoapUI.
 Create projects for the three webservices: 
 
 <ul>
-<li>http://cprbroker20110208/Services/Admin.asmx?WSDL
-<li>http://cprbroker20110208/Services/Part.asmx?WSDL
-<li>http://eventbroker20110208/Services/Notification.asmx?WSDL
+<li>http://cprbroker20110208/Services/Admin.asmx?WSDL</li>
+<li>http://cprbroker20110208/Services/Part.asmx?WSDL</li>
+<li>http://eventbroker20110208/Services/Notification.asmx?WSDL</li>
 </ul>
 
 
@@ -32,8 +43,8 @@ Fill in input for east test and check the output.
 The test are basicly black-box test that study mostly XML request and XML replies, a few of files (e.g. notification file channels to verify delivery of notifications), the web pages for administration, and a few queries on the database.
 
 For example for requst registration. We supply
-<quote>
 <pre>
+<p style="background-color:yellow;width:90%">
 &lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst"&gt;
    &lt;soap:Header&gt;
       &lt;dk:ApplicationHeader&gt;
@@ -46,14 +57,17 @@ For example for requst registration. We supply
       &lt;/dk:RequestAppRegistration&gt;
    &lt;/soap:Body&gt;
 &lt;/soap:Envelope&gt;
+
+</p>
 </pre>
-</quote>
 
 And the result is 
 
 <quote>
 <pre>
-&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+<p style="background-color:yellow;width:90%">
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
    &lt;soap:Body&gt;
       &lt;RequestAppRegistrationResponse xmlns="http://dk.itst"&gt;
          &lt;Application xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"&gt;
@@ -67,6 +81,8 @@ And the result is
       &lt;/RequestAppRegistrationResponse&gt;
    &lt;/soap:Body&gt;
 &lt;/soap:Envelope&gt;
+
+</p>
 </pre>
 </quote>
 
@@ -78,6 +94,7 @@ Then we use the ApproveAppRegistration test case to approve the request for test
 
 <quote>
 <pre>
+<p style="background-color:yellow;width:90%">
 &lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst"&gt;
    &lt;soap:Header&gt;
       &lt;dk:ApplicationHeader&gt;
@@ -94,7 +111,7 @@ Then we use the ApproveAppRegistration test case to approve the request for test
       &lt;/dk:ApproveAppRegistration&gt;
    &lt;/soap:Body&gt;
 &lt;/soap:Envelope&gt;
-</pre>
+</p></pre>
 </quote>
 
 
@@ -102,13 +119,16 @@ And get the reciepts.
 
 <quote>
 <pre>
-&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+<p style="background-color:yellow;width:90%">
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
    &lt;soap:Body&gt;
       &lt;ApproveAppRegistrationResponse xmlns="http://dk.itst"&gt;
          &lt;ApproveAppRegistrationResult&gt;true&lt;/ApproveAppRegistrationResult&gt;
       &lt;/ApproveAppRegistrationResponse&gt;
    &lt;/soap:Body&gt;
 &lt;/soap:Envelope&gt;
+</p>
 </pre>
 </quote>
 
@@ -255,7 +275,7 @@ They just accept anything and writes it to a logfile.
     <address><a href="mailto:elgaard@niels.magenta-aps.dk">Niels Elgaard Larsen</a></address>
 <!-- Created: Mon Feb  7 15:53:17 CET 2011 -->
 <!-- hhmts start -->
-Last modified: Thu Feb 10 18:45:35 Romance Standard Time 2011
+Last modified: Fri Feb 11 14:23:02 Romance Standard Time 2011
 <!-- hhmts end -->
   </body>
 </html>
