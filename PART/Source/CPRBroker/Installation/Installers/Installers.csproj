@@ -55,55 +55,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseForm.cs">
+    <Compile Include="UI\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomTextBox.cs">
+    <Compile Include="UI\CustomTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DatabaseForm.cs">
+    <Compile Include="UI\DatabaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DatabaseForm.Designer.cs">
+    <Compile Include="UI\DatabaseForm.Designer.cs">
       <DependentUpon>DatabaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DBInstaller.cs">
+    <Compile Include="Installers\DBInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DBInstaller.Designer.cs">
+    <Compile Include="Installers\DBInstaller.Designer.cs">
       <DependentUpon>DBInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="DropDatabaseForm.cs">
+    <Compile Include="UI\DropDatabaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DropDatabaseForm.Designer.cs">
+    <Compile Include="UI\DropDatabaseForm.Designer.cs">
       <DependentUpon>DropDatabaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ICprInstaller.cs" />
-    <Compile Include="Impersonation.cs" />
-    <Compile Include="LoginInfo.cs">
+    <Compile Include="Installers\ICprInstaller.cs" />
+    <Compile Include="Utilities\Impersonation.cs" />
+    <Compile Include="UI\LoginInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="LoginInfo.Designer.cs">
+    <Compile Include="UI\LoginInfo.Designer.cs">
       <DependentUpon>LoginInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="LookupInsertionParameters.cs" />
-    <Compile Include="Messages.cs" />
+    <Compile Include="Utilities\LookupInsertionParameters.cs" />
+    <Compile Include="Utilities\Messages.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProjectInstaller.cs">
+    <Compile Include="Installers\ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BaseForm.resx">
+    <EmbeddedResource Include="UI\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DatabaseForm.resx">
+    <EmbeddedResource Include="UI\DatabaseForm.resx">
       <DependentUpon>DatabaseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DropDatabaseForm.resx">
+    <EmbeddedResource Include="UI\DropDatabaseForm.resx">
       <DependentUpon>DropDatabaseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginInfo.resx">
+    <EmbeddedResource Include="UI\LoginInfo.resx">
       <DependentUpon>LoginInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -111,7 +111,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WebSiteForm.resx">
+    <EmbeddedResource Include="UI\WebSiteForm.resx">
       <DependentUpon>WebSiteForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -145,22 +145,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="CprBrokerInstaller.cs">
+    <Compile Include="Installers\CprBrokerInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SavedStateWrapper.cs" />
-    <Compile Include="SetupInfo.cs" />
-    <Compile Include="WebInstallationInfo.cs" />
-    <Compile Include="WebSiteForm.cs">
+    <Compile Include="Utilities\SavedStateWrapper.cs" />
+    <Compile Include="Utilities\SetupInfo.cs" />
+    <Compile Include="Utilities\WebInstallationInfo.cs" />
+    <Compile Include="UI\WebSiteForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WebSiteForm.designer.cs">
+    <Compile Include="UI\WebSiteForm.designer.cs">
       <DependentUpon>WebSiteForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebSiteInstaller.cs">
+    <Compile Include="Installers\WebSiteInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WindowsServiceInfoInstaller.cs">
+    <Compile Include="Installers\WindowsServiceInfoInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
