@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 
-namespace CPRBroker.SetupDatabase
+namespace CprBroker.SetupDatabase
 {
     /// <summary>
     /// Contains the database information that are gathered from the user and used throughout the application

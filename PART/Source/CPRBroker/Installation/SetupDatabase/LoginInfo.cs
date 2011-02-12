@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace CPRBroker.SetupDatabase
+namespace CprBroker.SetupDatabase
 {
     /// <summary>
     /// Contains login information for a database connection

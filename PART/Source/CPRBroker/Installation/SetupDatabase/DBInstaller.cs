@@ -13,11 +13,11 @@ using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System.IO;
 using System.Xml;
-using CPRBroker.DAL;
-using CPRBroker.Engine.Util;
+using CprBroker.DAL;
+using CprBroker.Engine.Util;
 using System.Reflection;
 
-namespace CPRBroker.SetupDatabase
+namespace CprBroker.SetupDatabase
 {
     /// <summary>
     /// Installs the system's database
@@ -26,7 +26,7 @@ namespace CPRBroker.SetupDatabase
     public partial class DBInstaller : Installer
     {
 
-        private SetupInfo SetupInfo = new SetupInfo() { DatabaseName = "CPRBroker" };
+        private SetupInfo SetupInfo = new SetupInfo() { DatabaseName = "CprBroker" };
 
         public DBInstaller()
         {

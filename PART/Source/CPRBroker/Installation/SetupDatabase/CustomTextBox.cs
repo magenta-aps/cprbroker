@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace CPRBroker.SetupDatabase
+namespace CprBroker.SetupDatabase
 {
     /// <summary>
     /// Extentds the TextBox class by adding validation capabilites

@@ -1,4 +1,4 @@
-﻿namespace CPRBroker.SetupDatabase
+﻿namespace CprBroker.SetupDatabase
 {
     partial class LoginInfo
     {

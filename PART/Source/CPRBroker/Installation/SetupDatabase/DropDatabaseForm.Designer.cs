@@ -1,4 +1,4 @@
-﻿namespace CPRBroker.SetupDatabase
+﻿namespace CprBroker.SetupDatabase
 {
     partial class DropDatabaseForm
     {
@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CPRBroker.SetupDatabase.SetupInfo.AuthenticationInfo authenticationInfo1 = new CPRBroker.SetupDatabase.SetupInfo.AuthenticationInfo();
+            CprBroker.SetupDatabase.SetupInfo.AuthenticationInfo authenticationInfo1 = new CprBroker.SetupDatabase.SetupInfo.AuthenticationInfo();
             this.questionLabel = new System.Windows.Forms.Label();
             this.yesRadioButton = new System.Windows.Forms.RadioButton();
             this.noRadioButton = new System.Windows.Forms.RadioButton();
             this.okButton = new System.Windows.Forms.Button();
             this.loginInfoGroupBox = new System.Windows.Forms.GroupBox();
-            this.adminLoginInfo = new CPRBroker.SetupDatabase.LoginInfo();
+            this.adminLoginInfo = new CprBroker.SetupDatabase.LoginInfo();
             this.databaseNameLabelabel = new System.Windows.Forms.Label();
             this.databaseNameTextBox = new System.Windows.Forms.TextBox();
             this.cancelButton = new System.Windows.Forms.Button();

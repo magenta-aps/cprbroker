@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 
-namespace CPRBroker.SetupDatabase
+namespace CprBroker.SetupDatabase
 {
     public partial class DropDatabaseForm : BaseForm
     {

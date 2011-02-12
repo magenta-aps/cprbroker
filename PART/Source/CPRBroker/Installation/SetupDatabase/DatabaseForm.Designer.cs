@@ -1,4 +1,4 @@
-﻿namespace CPRBroker.SetupDatabase
+﻿namespace CprBroker.SetupDatabase
 {
     partial class DatabaseForm
     {
@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CPRBroker.SetupDatabase.SetupInfo.AuthenticationInfo authenticationInfo1 = new CPRBroker.SetupDatabase.SetupInfo.AuthenticationInfo();
-            CPRBroker.SetupDatabase.SetupInfo.AuthenticationInfo authenticationInfo2 = new CPRBroker.SetupDatabase.SetupInfo.AuthenticationInfo();
+            CprBroker.SetupDatabase.SetupInfo.AuthenticationInfo authenticationInfo1 = new CprBroker.SetupDatabase.SetupInfo.AuthenticationInfo();
+            CprBroker.SetupDatabase.SetupInfo.AuthenticationInfo authenticationInfo2 = new CprBroker.SetupDatabase.SetupInfo.AuthenticationInfo();
             this.adminLoginGroupBox = new System.Windows.Forms.GroupBox();
-            this.adminLoginInfo = new CPRBroker.SetupDatabase.LoginInfo();
+            this.adminLoginInfo = new CprBroker.SetupDatabase.LoginInfo();
             this.testAdminConnectionButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -40,9 +40,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.applicationLoginGroupBox = new System.Windows.Forms.GroupBox();
             this.sameAsAdminCheckBox = new System.Windows.Forms.CheckBox();
-            this.applicationLoginInfo = new CPRBroker.SetupDatabase.LoginInfo();
-            this.databaseNameTextBox = new CPRBroker.SetupDatabase.CustomTextBox();
-            this.serverNameTextBox = new CPRBroker.SetupDatabase.CustomTextBox();
+            this.applicationLoginInfo = new CprBroker.SetupDatabase.LoginInfo();
+            this.databaseNameTextBox = new CprBroker.SetupDatabase.CustomTextBox();
+            this.serverNameTextBox = new CprBroker.SetupDatabase.CustomTextBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.adminLoginGroupBox.SuspendLayout();
             this.applicationLoginGroupBox.SuspendLayout();
@@ -183,7 +183,7 @@
             this.databaseNameTextBox.Required = true;
             this.databaseNameTextBox.Size = new System.Drawing.Size(122, 20);
             this.databaseNameTextBox.TabIndex = 5;
-            this.databaseNameTextBox.Text = "CPRBroker";
+            this.databaseNameTextBox.Text = "CprBroker";
             this.databaseNameTextBox.ValidationExpression = null;
             this.databaseNameTextBox.TextChanged += new System.EventHandler(this.databaseNameTextBox_TextChanged);
             // 

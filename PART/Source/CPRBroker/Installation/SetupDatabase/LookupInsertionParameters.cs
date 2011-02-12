@@ -6,11 +6,15 @@ using System.Data;
 using System.IO;
 using System.Configuration.Install;
 using System.Data.OleDb;
-using CPRBroker.Engine.Util;
-using CPRBroker.DAL;
+using CprBroker.Engine.Util;
+using CprBroker.DAL;
+using CprBroker.DAL.Applications;
+using CprBroker.DAL.Part;
+using CprBroker.DAL.DataProviders;
+using CprBroker.EventBroker.DAL;
 using System.Data.SqlClient;
 
-namespace CPRBroker.SetupDatabase
+namespace CprBroker.SetupDatabase
 {
     public class LookupInsertionParameters
     {
@@ -116,25 +120,17 @@ namespace CPRBroker.SetupDatabase
         {
             List<LookupInsertionParameters> ret = new List<LookupInsertionParameters>();
 
-            ret.Add(new LookupInsertionParameters(installer, typeof(AddressStatus), Properties.Resources.AddressStatus));
-            ret.Add(new LookupInsertionParameters(installer, typeof(CPRBroker.DAL.Application), Properties.Resources.Application,
+            //ret.Add(new LookupInsertionParameters(installer, typeof(AddressStatus), Properties.Resources.AddressStatus));
+            ret.Add(new LookupInsertionParameters(installer, typeof(CprBroker.DAL.Applications.Application), Properties.Resources.Application,
                 new ColumnType() { Name = "ApplicationId", Type = typeof(Guid) }
                 ));
             ret.Add(new LookupInsertionParameters(installer, typeof(ChannelType), Properties.Resources.ChannelType));
-            ret.Add(new LookupInsertionParameters(installer, typeof(Country), Properties.Resources.Country));
-            ret.Add(new LookupInsertionParameters(installer, typeof(DataProviderType), Properties.Resources.DataProviderType));
             ret.Add(new LookupInsertionParameters(installer, typeof(DataProvider), Properties.Resources.DataProvider));
-            ret.Add(new LookupInsertionParameters(installer, typeof(DetailLevel), Properties.Resources.DetailLevel));
             ret.Add(new LookupInsertionParameters(installer, typeof(Gender), Properties.Resources.Gender));
             ret.Add(new LookupInsertionParameters(installer, typeof(LogType), Properties.Resources.LogType));
             ret.Add(new LookupInsertionParameters(installer, typeof(MaritalStatusType), Properties.Resources.MaritalStatusType));
             ret.Add(new LookupInsertionParameters(installer, typeof(Municipality), Properties.Resources.Municipality,
                 new ColumnType() { Name = "MunicipalityCode", Type = typeof(string) }
-                ));
-            ret.Add(new LookupInsertionParameters(installer, typeof(OperationType), Properties.Resources.OperationType));
-            ret.Add(new LookupInsertionParameters(installer, typeof(PersonStatusType), Properties.Resources.PersonStatusType,
-                new ColumnType() { Name = "PersonStatusTypeCode", Type = typeof(string), Index = 1 },
-                new ColumnType() { Name = "PersonStatusName", Type = typeof(string), Index = 2 }
                 ));
             ret.Add(new LookupInsertionParameters(installer, typeof(RelationshipType), Properties.Resources.RelationshipType));
             ret.Add(new LookupInsertionParameters(installer, typeof(SubscriptionType), Properties.Resources.SubscriptionType));

@@ -8,8 +8,8 @@
     <ProjectGuid>{9E7BDF57-94F9-45D4-840B-B1A216BD2026}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CPRBroker.SetupDatabase</RootNamespace>
-    <AssemblyName>CPRBroker.SetupDatabase</AssemblyName>
+    <RootNamespace>CprBroker.SetupDatabase</RootNamespace>
+    <AssemblyName>CprBroker.SetupDatabase</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
@@ -156,6 +156,10 @@
     <ProjectReference Include="..\..\Engine\Engine.csproj">
       <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
       <Name>Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EventBroker\EventBroker.csproj">
+      <Project>{D8FC2102-488A-480A-8197-8842B8192E68}</Project>
+      <Name>EventBroker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
