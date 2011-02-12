@@ -9,9 +9,9 @@ using System.Windows.Forms;
 using System.Configuration.Install;
 using System.DirectoryServices;
 
-namespace CPRBroker.SetupCpr
+namespace CprBroker.SetupCpr
 {
-    public partial class WebSiteForm : CPRBroker.SetupDatabase.BaseForm
+    public partial class WebSiteForm : CprBroker.SetupDatabase.BaseForm
     {
         public WebInstallationInfo InstallationInfo;
 

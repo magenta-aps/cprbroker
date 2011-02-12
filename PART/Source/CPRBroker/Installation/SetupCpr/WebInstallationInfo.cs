@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.DirectoryServices;
 
-namespace CPRBroker.SetupCpr
+namespace CprBroker.SetupCpr
 {
     public class WebInstallationInfo
     {

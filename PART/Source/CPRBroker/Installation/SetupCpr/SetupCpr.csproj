@@ -59,6 +59,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WebSiteForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="WebSiteForm.designer.cs">
       <DependentUpon>WebSiteForm.cs</DependentUpon>

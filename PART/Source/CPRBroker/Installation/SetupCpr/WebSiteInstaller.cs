@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Configuration.Install;
 using System.DirectoryServices;
-using CPRBroker.Engine.Util;
+using CprBroker.Engine.Util;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
 
-namespace CPRBroker.SetupCpr
+namespace CprBroker.SetupCpr
 {
     [System.ComponentModel.RunInstaller(true)]
     public class WebSiteInstaller : Installer
@@ -29,7 +29,7 @@ namespace CPRBroker.SetupCpr
                 SavedStateWrapper = new SavedStateWrapper(stateSaver);
 
                 WebSiteForm form = new WebSiteForm() { InstallationInfo = this.InstallationInfo };
-                CPRBroker.SetupDatabase.BaseForm.ShowAsDialog(form, this.InstallerWindowWrapper());
+                CprBroker.SetupDatabase.BaseForm.ShowAsDialog(form, this.InstallerWindowWrapper());
 
                 string websitePath = this.GetWebFolderPath();
                 bool exists = InstallationInfo.TargetEntryExists;

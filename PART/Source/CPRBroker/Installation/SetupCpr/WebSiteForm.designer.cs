@@ -1,4 +1,4 @@
-﻿namespace CPRBroker.SetupCpr
+﻿namespace CprBroker.SetupCpr
 {
     partial class WebSiteForm
     {
@@ -31,11 +31,11 @@
             this.virtualDirectoryRadio = new System.Windows.Forms.RadioButton();
             this.newWebSiteRadio = new System.Windows.Forms.RadioButton();
             this.sitesComboBox = new System.Windows.Forms.ComboBox();
-            this.newWebSiteNameTextBox = new CPRBroker.SetupDatabase.CustomTextBox();
+            this.newWebSiteNameTextBox = new CprBroker.SetupDatabase.CustomTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.virtualDirectoryNameTextBox = new CPRBroker.SetupDatabase.CustomTextBox();
+            this.virtualDirectoryNameTextBox = new CprBroker.SetupDatabase.CustomTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.virtualDirectoryGroupBox = new System.Windows.Forms.GroupBox();
             this.newWebSiteGroupBox = new System.Windows.Forms.GroupBox();
@@ -99,7 +99,7 @@
             this.newWebSiteNameTextBox.Required = true;
             this.newWebSiteNameTextBox.Size = new System.Drawing.Size(369, 20);
             this.newWebSiteNameTextBox.TabIndex = 1;
-            this.newWebSiteNameTextBox.Text = "CPRBroker";
+            this.newWebSiteNameTextBox.Text = "CprBroker";
             this.newWebSiteNameTextBox.ValidationExpression = "\\A\\w+\\Z";
             // 
             // label1
@@ -149,7 +149,7 @@
             this.virtualDirectoryNameTextBox.Required = true;
             this.virtualDirectoryNameTextBox.Size = new System.Drawing.Size(305, 20);
             this.virtualDirectoryNameTextBox.TabIndex = 3;
-            this.virtualDirectoryNameTextBox.Text = "CPRBroker";
+            this.virtualDirectoryNameTextBox.Text = "CprBroker";
             this.virtualDirectoryNameTextBox.ValidationExpression = "\\A\\w+\\Z";
             // 
             // label3
@@ -247,11 +247,11 @@
         private System.Windows.Forms.RadioButton virtualDirectoryRadio;
         private System.Windows.Forms.RadioButton newWebSiteRadio;
         private System.Windows.Forms.ComboBox sitesComboBox;
-        private CPRBroker.SetupDatabase.CustomTextBox newWebSiteNameTextBox;
+        private CprBroker.SetupDatabase.CustomTextBox newWebSiteNameTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Label label2;
-        private CPRBroker.SetupDatabase.CustomTextBox virtualDirectoryNameTextBox;
+        private CprBroker.SetupDatabase.CustomTextBox virtualDirectoryNameTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox virtualDirectoryGroupBox;
         private System.Windows.Forms.GroupBox newWebSiteGroupBox;
