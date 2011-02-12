@@ -19,8 +19,6 @@ namespace CprBroker.Installers
         public ProjectInstaller(IContainer container)
         {
             container.Add(this);
-
-
         }
 
         public override void Install(System.Collections.IDictionary stateSaver)
@@ -29,11 +27,15 @@ namespace CprBroker.Installers
             {
                 if (inst is ICprInstaller)
                 {
+                    (inst as Installer).Context = Context;
                     var cprInstaller = inst as ICprInstaller;
-                    cprInstaller.GetInstallInfoFromUser();
+                    cprInstaller.GetInstallInfoFromUser(stateSaver);
                 }
             }
-
+            foreach (var inst in Installers)
+            {
+                (inst as Installer).Install(stateSaver);
+            }
         }
 
         public override void Uninstall(System.Collections.IDictionary savedState)
@@ -43,7 +45,7 @@ namespace CprBroker.Installers
                 if (inst is ICprInstaller)
                 {
                     var cprInstaller = inst as ICprInstaller;
-                    cprInstaller.GetUnInstallInfoFromUser();
+                    cprInstaller.GetUnInstallInfoFromUser(savedState);
                 }
             }
         }

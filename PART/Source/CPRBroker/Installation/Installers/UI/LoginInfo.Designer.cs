@@ -29,13 +29,12 @@
         private void InitializeComponent()
         {
             this.loginInfoPanel = new System.Windows.Forms.Panel();
-            this.passwordTextBox = new Installers.CustomTextBox();
+            this.passwordTextBox = new CprBroker.Installers.CustomTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.userIdTextBox = new Installers.CustomTextBox();
+            this.userIdTextBox = new CprBroker.Installers.CustomTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.windowsAuthenticationRadio = new System.Windows.Forms.RadioButton();
             this.sqlAuthenticationRadio = new System.Windows.Forms.RadioButton();
-            this.dbInstaller1 = new Installers.DBInstaller();
             this.loginInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passwordTextBox.ErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userIdTextBox.ErrorProvider)).BeginInit();
@@ -166,6 +165,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton windowsAuthenticationRadio;
         private System.Windows.Forms.RadioButton sqlAuthenticationRadio;
-        private DBInstaller dbInstaller1;
     }
 }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CprBroker.Installers.SetupInfo.AuthenticationInfo authenticationInfo1 = new CprBroker.Installers.SetupInfo.AuthenticationInfo();
-            CprBroker.Installers.SetupInfo.AuthenticationInfo authenticationInfo2 = new CprBroker.Installers.SetupInfo.AuthenticationInfo();
+            CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo authenticationInfo1 = new CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo();
+            CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo authenticationInfo2 = new CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo();
             this.adminLoginGroupBox = new System.Windows.Forms.GroupBox();
             this.adminLoginInfo = new CprBroker.Installers.LoginInfo();
             this.testAdminConnectionButton = new System.Windows.Forms.Button();
@@ -254,10 +254,10 @@
         #endregion
 
         private System.Windows.Forms.GroupBox adminLoginGroupBox;
-        private Installers.CustomTextBox serverNameTextBox;
+        private CprBroker.Installers.CustomTextBox serverNameTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        private Installers.CustomTextBox databaseNameTextBox;
+        private CprBroker.Installers.CustomTextBox databaseNameTextBox;
         private System.Windows.Forms.Button testAdminConnectionButton;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Label label5;

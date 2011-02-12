@@ -11,12 +11,26 @@ using System.IO;
 
 namespace CprBroker.Installers
 {
-    [System.ComponentModel.RunInstaller(true)]
-    public class WebSiteInstaller : Installer
+    public class WebSiteInstaller : Installer, ICprInstaller
     {
-        private WebInstallationInfo InstallationInfo = new WebInstallationInfo();
+        private WebInstallationInfo InstallationInfo;
         private SavedStateWrapper SavedStateWrapper = null;
 
+        private WebSiteInstaller()
+        { }
+        public WebSiteInstaller(string websiteName)
+        {
+            InstallationInfo = new WebInstallationInfo();
+        }
+
+        #region Install
+        public void GetInstallInfoFromUser(System.Collections.IDictionary stateSaver)
+        {
+            SavedStateWrapper = new SavedStateWrapper(stateSaver);
+
+            WebSiteForm form = new WebSiteForm() { InstallationInfo = this.InstallationInfo };
+            CprBroker.Installers.BaseForm.ShowAsDialog(form, this.InstallerWindowWrapper());
+        }
 
         public override void Install(System.Collections.IDictionary stateSaver)
         {
@@ -25,11 +39,6 @@ namespace CprBroker.Installers
                 base.Install(stateSaver);
 
                 this.EnsureIISComponents();
-
-                SavedStateWrapper = new SavedStateWrapper(stateSaver);
-
-                WebSiteForm form = new WebSiteForm() { InstallationInfo = this.InstallationInfo };
-                CprBroker.Installers.BaseForm.ShowAsDialog(form, this.InstallerWindowWrapper());
 
                 string websitePath = this.GetWebFolderPath();
                 bool exists = InstallationInfo.TargetEntryExists;
@@ -102,6 +111,9 @@ namespace CprBroker.Installers
             }
         }
 
+        #endregion
+
+        #region Rollback
         public override void Rollback(System.Collections.IDictionary savedState)
         {
             try
@@ -114,6 +126,14 @@ namespace CprBroker.Installers
             {
                 Messages.ShowException(ex);
             }
+        }
+        #endregion
+
+        #region Uninstall
+
+        public void GetUnInstallInfoFromUser(System.Collections.IDictionary stateSaver)
+        {
+
         }
 
         public override void Uninstall(System.Collections.IDictionary savedState)
@@ -129,6 +149,9 @@ namespace CprBroker.Installers
                 Messages.ShowException(ex);
             }
         }
+        #endregion
+
+        #region Utility methods
 
         /// <summary>
         /// Tries to access IIS via directory services to make sure that all IIS components are installed
@@ -186,5 +209,8 @@ namespace CprBroker.Installers
                 }
             }
         }
+
+        #endregion
+
     }
 }

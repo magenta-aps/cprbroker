@@ -30,8 +30,8 @@ namespace CprBroker.Installers
             AuthenticationInfo.IntegratedSecurity = windowsAuthenticationRadio.Checked;
         }
 
-        private SetupInfo.AuthenticationInfo _AuthenticationInfo = new SetupInfo.AuthenticationInfo();
-        public SetupInfo.AuthenticationInfo AuthenticationInfo
+        private DatabaseSetupInfo.AuthenticationInfo _AuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
+        public DatabaseSetupInfo.AuthenticationInfo AuthenticationInfo
         {
             get
             {

@@ -7,7 +7,7 @@ namespace CprBroker.Installers
 {
     public interface ICprInstaller
     {
-        void GetInstallInfoFromUser();
-        void GetUnInstallInfoFromUser();
+        void GetInstallInfoFromUser(System.Collections.IDictionary stateSaver);
+        void GetUnInstallInfoFromUser(System.Collections.IDictionary stateSaver);
     }
 }

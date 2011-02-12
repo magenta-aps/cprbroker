@@ -22,20 +22,64 @@ namespace CprBroker.Installers
     /// <summary>
     /// Installs the system's database
     /// </summary>
-    [RunInstaller(true)]
-    public partial class DBInstaller : Installer
+    public partial class DBInstaller : Installer, ICprInstaller
     {
 
-        private SetupInfo SetupInfo = new SetupInfo() { DatabaseName = "CprBroker" };
+        private string SuggestedDatabaseName;
 
-        public DBInstaller()
+        public DBInstaller(string databaseName)
         {
             InitializeComponent();
+            SuggestedDatabaseName = databaseName;
         }
 
-        SavedStateWrapper SavedStateWrapper = null;
-
         #region Overrides
+
+        public void GetInstallInfoFromUser(IDictionary stateSaver)
+        {
+            DatabaseForm frm = new DatabaseForm();
+            var setupInfo = new DatabaseSetupInfo() { DatabaseName = SuggestedDatabaseName };
+            var savedStateWrapper = new SavedStateWrapper(stateSaver);
+            frm.SetupInfo = setupInfo;
+
+            do
+            {
+                BaseForm.ShowAsDialog(frm, this.InstallerWindowWrapper());
+                savedStateWrapper.AdminConnectionString = setupInfo.CreateConnectionString(true, true);
+
+                string adminConnectionString = setupInfo.CreateConnectionString(true, false);
+                ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
+                Server dbServer = new Server(dbServerConnection);
+
+                if (dbServer.Databases.Contains(setupInfo.DatabaseName))
+                {
+                    DialogResult useExisting = MessageBox.Show(this.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo);
+                    if (useExisting == DialogResult.Yes)
+                    {
+                        goto WindowsAuth;
+                    }
+                }
+
+            WindowsAuth:
+                if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+                {
+                    DialogResult useWindowsAuth = MessageBox.Show(this.InstallerWindowWrapper(), Messages.WindowsAuthenticationContactAdmin, "", MessageBoxButtons.YesNo);
+                    if (useWindowsAuth == DialogResult.Yes)
+                    {
+                        break;
+                    }
+                }
+            } while (true);
+            savedStateWrapper.DatabaseSetupInfo = setupInfo;
+        }
+
+        protected virtual string[] ConfigFileNames
+        {
+            get
+            {
+                return new string[0];
+            }
+        }
 
         /// <summary>
         /// Creates the system's database based on user parameters
@@ -48,23 +92,15 @@ namespace CprBroker.Installers
             {
                 base.Install(stateSaver);
                 this.LoadAllAssemlies();
-                CreateDatabaseResult createDatabaseResult;
-                // Get database parameters and create database if needed                
-                SavedStateWrapper = new SavedStateWrapper(stateSaver);
-                do
-                {
-                    GetConnectionStringFromUser();
-                    createDatabaseResult = CreateDatabase();
-                } while (createDatabaseResult == CreateDatabaseResult.ExistsAndSelectAnother);
 
-                CreateDatabaseUser();
-                if (createDatabaseResult == CreateDatabaseResult.Success)
+                DatabaseSetupInfo setupInfo = new SavedStateWrapper(stateSaver).DatabaseSetupInfo;
+                new SavedStateWrapper(stateSaver).DatabaseCreated = CreateDatabase(setupInfo);
+                CreateDatabaseUser(setupInfo);
+
+                foreach (string configFileName in this.ConfigFileNames)
                 {
-                    SavedStateWrapper.DatabaseCreated = true;
-                    LookupInsertionParameters[] insertParameters = LookupInsertionParameters.InitializeInsertionParameters(this);
-                    LookupInsertionParameters.InsertLookups(insertParameters, SetupInfo.CreateConnectionString(true, true));
+                    this.SetConnectionStringInConfigFile(configFileName, setupInfo.CreateConnectionString(false, true));
                 }
-                this.SetConnectionStringInConfigFile(this.GetWebConfigFilePath(), SetupInfo.CreateConnectionString(false, true));
             }
             catch (InstallException ex)
             {
@@ -81,9 +117,11 @@ namespace CprBroker.Installers
             try
             {
                 base.Rollback(savedState);
-                SavedStateWrapper = new SavedStateWrapper(savedState);
-                SetupInfo = SetupInfo.FromConnectionString(SavedStateWrapper.AdminConnectionString);
-                DeleteDatabase(false);
+                var w = new SavedStateWrapper(savedState);
+                if (w.DatabaseCreated)
+                {
+                    DeleteDatabase(w.DatabaseSetupInfo, false);
+                }
             }
             catch (Exception ex)
             {
@@ -96,9 +134,8 @@ namespace CprBroker.Installers
             try
             {
                 base.Uninstall(savedState);
-                SavedStateWrapper = new SavedStateWrapper(savedState);
-                SetupInfo = SetupInfo.FromConnectionString(SavedStateWrapper.AdminConnectionString);
-                DeleteDatabase(true);
+                var setupInfo = DatabaseSetupInfo.FromConnectionString(new SavedStateWrapper(savedState).AdminConnectionString);
+                DeleteDatabase(setupInfo, true);
             }
             catch (Exception ex)
             {
@@ -123,64 +160,21 @@ namespace CprBroker.Installers
             }
         }
 
-        private void GetConnectionStringFromUser()
-        {
-            DatabaseForm frm = new DatabaseForm();
-            frm.SetupInfo = SetupInfo;
-            BaseForm.ShowAsDialog(frm, this.InstallerWindowWrapper());
-            SavedStateWrapper.AdminConnectionString = SetupInfo.CreateConnectionString(true, true);
-        }
-
-        enum CreateDatabaseResult
-        {
-            Success,
-            ExistsAndUse,
-            ExistsAndSelectAnother
-        }
-
-        private CreateDatabaseResult CreateDatabase()
-        {
-            string adminConnectionString = SetupInfo.CreateConnectionString(true, false);
-            ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
-            Server dbServer = new Server(dbServerConnection);
-            if (dbServer.Databases.Contains(SetupInfo.DatabaseName))
-            {
-                DialogResult useExisting = MessageBox.Show(this.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo);
-                if (useExisting == DialogResult.Yes)
-                {
-                    return CreateDatabaseResult.ExistsAndUse;
-                }
-                else //if (useExisting == DialogResult.No)
-                {
-                    return CreateDatabaseResult.ExistsAndSelectAnother;
-                }
-            }
-            else
-            {
-                Database db = new Database(dbServer, SetupInfo.DatabaseName);
-                db.Create();
-                string sql = Properties.Resources.CreateDatabaseObjects;
-                db.ExecuteNonQuery(sql);
-                SavedStateWrapper.DatabaseCreated = true;
-                return CreateDatabaseResult.Success;
-            }
-        }
-
         /// <summary>
         /// Creates a new user in the database if needed
         /// </summary>
-        private void CreateDatabaseUser()
+        private void CreateDatabaseUser(DatabaseSetupInfo setupInfo)
         {
-            string adminConnectionString = SetupInfo.CreateConnectionString(true, false);
+            string adminConnectionString = setupInfo.CreateConnectionString(true, false);
             ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
             Server dbServer = new Server(dbServerConnection);
-            Database db = dbServer.Databases[SetupInfo.DatabaseName];
+            Database db = dbServer.Databases[setupInfo.DatabaseName];
 
             string userName;
             LoginType loginType;
             Action<Login> createLoginMethod;
 
-            if (SetupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+            if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
             {
                 userName = @"NT AUTHORITY\NETWORK SERVICE";
                 loginType = LoginType.WindowsUser;
@@ -188,9 +182,9 @@ namespace CprBroker.Installers
             }
             else
             {
-                userName = SetupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
                 loginType = LoginType.SqlLogin;
-                createLoginMethod = (login) => login.Create(SetupInfo.EffectiveApplicationAuthenticationInfo.Password);
+                createLoginMethod = (login) => login.Create(setupInfo.EffectiveApplicationAuthenticationInfo.Password);
             }
 
             User[] usersArray = new User[db.Users.Count];
@@ -215,37 +209,74 @@ namespace CprBroker.Installers
                 newUser.Create();
                 newUser.AddToRole("db_owner");
             }
-            if (SetupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+        }
+
+        protected virtual string CreateDatabaseObjectsSql
+        {
+            get
             {
-                MessageBox.Show(this.InstallerWindowWrapper(), Messages.WindowsAuthenticationContactAdmin);
+                return "";
+            }
+        }
+
+        protected virtual LookupInsertionParameters[] GetLookupInsertionParameters()
+        {
+            return new LookupInsertionParameters[0];
+        }
+
+        public bool CreateDatabase(DatabaseSetupInfo setupInfo)
+        {
+            string adminConnectionString = setupInfo.CreateConnectionString(true, false);
+            ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
+            Server dbServer = new Server(dbServerConnection);
+
+            if (!dbServer.Databases.Contains(setupInfo.DatabaseName))
+            {
+                Database db = new Database(dbServer, setupInfo.DatabaseName);
+                db.Create();
+                string sql = Properties.Resources.CreateDatabaseObjects;
+                db.ExecuteNonQuery(sql);
+
+                LookupInsertionParameters.InsertLookups(GetLookupInsertionParameters(), setupInfo.CreateConnectionString(true, true));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Uninstall
+
+        private void DeleteDatabase(DatabaseSetupInfo setupInfo, bool askUser)
+        {
+            Server dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
+
+            if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && dbServer.Databases.Contains(setupInfo.DatabaseName))
+            {
+                DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
+                {
+                    SetupInfo = setupInfo
+                };
+
+                if (!askUser || BaseForm.ShowAsDialog(dropDatabaseForm, this.InstallerWindowWrapper()) == DialogResult.Yes)
+                {
+                    dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
+                    dbServer.KillAllProcesses(setupInfo.DatabaseName);
+                    dbServer.KillDatabase(setupInfo.DatabaseName);
+                }
             }
         }
 
         #endregion
 
-        #region Uninstall
+        #region ICprInstaller Members
 
-        private void DeleteDatabase(bool askUser)
+
+        public void GetUnInstallInfoFromUser(IDictionary stateSaver)
         {
-            if (SavedStateWrapper.DatabaseCreated)
-            {
-                Server dbServer = new Server(new ServerConnection(new SqlConnection(SetupInfo.CreateConnectionString(true, false))));
-
-                if (!string.IsNullOrEmpty(SetupInfo.DatabaseName) && dbServer.Databases.Contains(SetupInfo.DatabaseName))
-                {
-                    DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
-                    {
-                        SetupInfo = SetupInfo
-                    };
-
-                    if (!askUser || BaseForm.ShowAsDialog(dropDatabaseForm, this.InstallerWindowWrapper()) == DialogResult.Yes)
-                    {
-                        dbServer = new Server(new ServerConnection(new SqlConnection(SetupInfo.CreateConnectionString(true, false))));
-                        dbServer.KillAllProcesses(SetupInfo.DatabaseName);
-                        dbServer.KillDatabase(SetupInfo.DatabaseName);
-                    }
-                }
-            }
+            throw new NotImplementedException();
         }
 
         #endregion

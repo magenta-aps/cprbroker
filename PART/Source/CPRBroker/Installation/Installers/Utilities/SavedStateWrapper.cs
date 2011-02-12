@@ -9,7 +9,7 @@ namespace CprBroker.Installers
     public class SavedStateWrapper
     {
         private IDictionary savedState;
-        
+
         private SavedStateWrapper()
         { }
 
@@ -67,5 +67,18 @@ namespace CprBroker.Installers
                 savedState["DatabaseCreated"] = value;
             }
         }
+
+        public DatabaseSetupInfo DatabaseSetupInfo
+        {
+            get
+            {
+                return savedState["DatabaseSetupInfo"] as DatabaseSetupInfo;
+            }
+            set
+            {
+                savedState["DatabaseSetupInfo"] = value;
+            }
+        }
+
     }
 }

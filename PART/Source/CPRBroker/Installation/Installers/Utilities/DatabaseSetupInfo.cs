@@ -11,7 +11,7 @@ namespace CprBroker.Installers
     /// <summary>
     /// Contains the database information that are gathered from the user and used throughout the application
     /// </summary>
-    public class SetupInfo
+    public class DatabaseSetupInfo
     {
         /// <summary>
         /// Contains database login information
@@ -30,8 +30,7 @@ namespace CprBroker.Installers
         public readonly AuthenticationInfo AdminAuthenticationInfo = new AuthenticationInfo();
         public readonly AuthenticationInfo ApplicationAuthenticationInfo = new AuthenticationInfo();
 
-
-        public SetupInfo()
+        public DatabaseSetupInfo()
         {
             ApplicationAuthenticationInfo.IntegratedSecurity = false;
         }
@@ -82,11 +81,11 @@ namespace CprBroker.Installers
         /// Creates a new object from a connection string, copying the info to AdminAuthenticationInfo
         /// </summary>
         /// <param name="connectionString">The connection string to use</param>
-        /// <returns>The new SetupInfo object</returns>
-        public static SetupInfo FromConnectionString(string connectionString)
+        /// <returns>The new DatabaseSetupInfo object</returns>
+        public static DatabaseSetupInfo FromConnectionString(string connectionString)
         {
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString);
-            SetupInfo ret = new SetupInfo();
+            DatabaseSetupInfo ret = new DatabaseSetupInfo();
             ret.ServerName = builder.DataSource;
             ret.DatabaseName = builder.InitialCatalog;
             ret.AdminAuthenticationInfo.IntegratedSecurity = builder.IntegratedSecurity;

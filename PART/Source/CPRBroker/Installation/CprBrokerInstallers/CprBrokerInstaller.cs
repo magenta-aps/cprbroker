@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.Installers
+namespace CprBroker.Installers.CprBrokerInstallers
 {
     public partial class CprBrokerInstaller : ProjectInstaller
     {

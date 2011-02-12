@@ -145,11 +145,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Installers\CprBrokerInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Utilities\SavedStateWrapper.cs" />
-    <Compile Include="Utilities\SetupInfo.cs" />
+    <Compile Include="Utilities\DatabaseSetupInfo.cs" />
     <Compile Include="Utilities\WebInstallationInfo.cs" />
     <Compile Include="UI\WebSiteForm.cs">
       <SubType>Form</SubType>

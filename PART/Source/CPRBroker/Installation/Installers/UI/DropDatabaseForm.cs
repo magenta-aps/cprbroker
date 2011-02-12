@@ -14,7 +14,7 @@ namespace CprBroker.Installers
 {
     public partial class DropDatabaseForm : BaseForm
     {
-        public SetupInfo SetupInfo { get; set; }
+        public DatabaseSetupInfo SetupInfo { get; set; }
 
         public DropDatabaseForm()
         {

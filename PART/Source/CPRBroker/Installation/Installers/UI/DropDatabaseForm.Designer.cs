@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CprBroker.Installers.SetupInfo.AuthenticationInfo authenticationInfo1 = new CprBroker.Installers.SetupInfo.AuthenticationInfo();
+            CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo authenticationInfo1 = new CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo();
             this.questionLabel = new System.Windows.Forms.Label();
             this.yesRadioButton = new System.Windows.Forms.RadioButton();
             this.noRadioButton = new System.Windows.Forms.RadioButton();

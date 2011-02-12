@@ -100,7 +100,7 @@
             this.newWebSiteNameTextBox.Size = new System.Drawing.Size(369, 20);
             this.newWebSiteNameTextBox.TabIndex = 1;
             this.newWebSiteNameTextBox.Text = "CprBroker";
-            this.newWebSiteNameTextBox.ValidationExpression = "\\A\\w+\\Z";
+            this.newWebSiteNameTextBox.ValidationExpression = "\\A\\savedStateWrapper+\\Z";
             // 
             // label1
             // 
@@ -150,7 +150,7 @@
             this.virtualDirectoryNameTextBox.Size = new System.Drawing.Size(305, 20);
             this.virtualDirectoryNameTextBox.TabIndex = 3;
             this.virtualDirectoryNameTextBox.Text = "CprBroker";
-            this.virtualDirectoryNameTextBox.ValidationExpression = "\\A\\w+\\Z";
+            this.virtualDirectoryNameTextBox.ValidationExpression = "\\A\\savedStateWrapper+\\Z";
             // 
             // label3
             // 

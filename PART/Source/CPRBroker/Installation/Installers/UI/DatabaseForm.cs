@@ -17,9 +17,9 @@ namespace CprBroker.Installers
         public DatabaseForm()
         {
             InitializeComponent();
-            SetupInfo = new SetupInfo();
+            SetupInfo = new DatabaseSetupInfo();
         }
-        public SetupInfo SetupInfo { get; set; }
+        public DatabaseSetupInfo SetupInfo { get; set; }
 
         private void DatabaseForm_Load(object sender, EventArgs e)
         {
