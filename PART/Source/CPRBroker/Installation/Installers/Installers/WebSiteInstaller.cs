@@ -36,7 +36,6 @@ namespace CprBroker.Installers
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(stateSaver);
             try
             {
-                System.Diagnostics.Debugger.Break();
                 base.Install(stateSaver);
 
                 this.EnsureIISComponents();

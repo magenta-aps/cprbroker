@@ -106,6 +106,12 @@
         "Entry"
         {
         "MsmKey" = "8:_1C7436A216426988F4CF53CD6D93C2C1"
+        "OwnerKey" = "8:_D5A312BB34C348CDA989600F0A5F7DB7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1C7436A216426988F4CF53CD6D93C2C1"
         "OwnerKey" = "8:_BD61039FD4E24F1895E1E3F275AE8F3E"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -309,12 +315,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AF90B77DBE9C445925D6C8ABA9A900E3"
-        "OwnerKey" = "8:_D5A312BB34C348CDA989600F0A5F7DB7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_BD61039FD4E24F1895E1E3F275AE8F3E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -412,12 +412,6 @@
         "Entry"
         {
         "MsmKey" = "8:_F8C01E11AFC8CAB34D1ADF7899D653B0"
-        "OwnerKey" = "8:_80133813CB83F1C483F20B13EBCF2787"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F8C01E11AFC8CAB34D1ADF7899D653B0"
         "OwnerKey" = "8:_D5A312BB34C348CDA989600F0A5F7DB7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -435,14 +429,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4293E4C922D47E4B2EE1BF1FF9891CD0"
+        "MsmKey" = "8:_F8C01E11AFC8CAB34D1ADF7899D653B0"
+        "OwnerKey" = "8:_80133813CB83F1C483F20B13EBCF2787"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AF90B77DBE9C445925D6C8ABA9A900E3"
+        "OwnerKey" = "8:_BD61039FD4E24F1895E1E3F275AE8F3E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F8C01E11AFC8CAB34D1ADF7899D653B0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -491,18 +491,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_80133813CB83F1C483F20B13EBCF2787"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F8C01E11AFC8CAB34D1ADF7899D653B0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BD61039FD4E24F1895E1E3F275AE8F3E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -575,6 +563,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1C7436A216426988F4CF53CD6D93C2C1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4293E4C922D47E4B2EE1BF1FF9891CD0"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -1220,37 +1214,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AF90B77DBE9C445925D6C8ABA9A900E3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CprBroker.Schemas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_AF90B77DBE9C445925D6C8ABA9A900E3"
-                    {
-                    "Name" = "8:CprBroker.Schemas.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:CprBroker.Schemas.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_22620717DF9C4AD6AD6528F2C97D2D66"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CBAFE68BA0C0527CF1841AB8F6558840"
             {
             "AssemblyRegister" = "3:1"
@@ -1498,7 +1461,7 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:CPRBroker"
+        "ProductName" = "8:CPR Broker"
         "ProductCode" = "8:{0C26A57B-D528-48E6-BE80-C173969F374A}"
         "PackageCode" = "8:{5392CACF-6F0F-4D88-85C3-584A10008499}"
         "UpgradeCode" = "8:{FF0F6556-3323-43A8-9AB3-E567BEF13F6A}"
@@ -1507,12 +1470,12 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Gentofte Kommune"
+        "Manufacturer" = "8:ITST"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:CPR Broker"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Gentofte Kommune"
+        "ARPCONTACT" = "8:ITST"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
