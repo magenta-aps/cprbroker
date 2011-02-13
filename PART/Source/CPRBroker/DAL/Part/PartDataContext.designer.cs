@@ -36,9 +36,6 @@ namespace CprBroker.DAL.Part
     partial void InsertGender(Gender instance);
     partial void UpdateGender(Gender instance);
     partial void DeleteGender(Gender instance);
-    partial void InsertMunicipality(Municipality instance);
-    partial void UpdateMunicipality(Municipality instance);
-    partial void DeleteMunicipality(Municipality instance);
     partial void InsertRelationshipType(RelationshipType instance);
     partial void UpdateRelationshipType(RelationshipType instance);
     partial void DeleteRelationshipType(RelationshipType instance);
@@ -111,9 +108,6 @@ namespace CprBroker.DAL.Part
     partial void InsertGeographicPointLocation(GeographicPointLocation instance);
     partial void UpdateGeographicPointLocation(GeographicPointLocation instance);
     partial void DeleteGeographicPointLocation(GeographicPointLocation instance);
-    partial void InsertAddressPointStatus(AddressPointStatus instance);
-    partial void UpdateAddressPointStatus(AddressPointStatus instance);
-    partial void DeleteAddressPointStatus(AddressPointStatus instance);
     partial void InsertPersonRegistration(PersonRegistration instance);
     partial void UpdatePersonRegistration(PersonRegistration instance);
     partial void DeletePersonRegistration(PersonRegistration instance);
@@ -135,6 +129,15 @@ namespace CprBroker.DAL.Part
     partial void InsertDenmarkAddress(DenmarkAddress instance);
     partial void UpdateDenmarkAddress(DenmarkAddress instance);
     partial void DeleteDenmarkAddress(DenmarkAddress instance);
+    partial void InsertCountrySchemeType(CountrySchemeType instance);
+    partial void UpdateCountrySchemeType(CountrySchemeType instance);
+    partial void DeleteCountrySchemeType(CountrySchemeType instance);
+    partial void InsertAddressPointStatus(AddressPointStatus instance);
+    partial void UpdateAddressPointStatus(AddressPointStatus instance);
+    partial void DeleteAddressPointStatus(AddressPointStatus instance);
+    partial void InsertAddressCoordinateQualityType(AddressCoordinateQualityType instance);
+    partial void UpdateAddressCoordinateQualityType(AddressCoordinateQualityType instance);
+    partial void DeleteAddressCoordinateQualityType(AddressCoordinateQualityType instance);
     #endregion
 		
 		public PartDataContext(string connection) : 
@@ -174,14 +177,6 @@ namespace CprBroker.DAL.Part
 			get
 			{
 				return this.GetTable<Gender>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Municipality> Municipalities
-		{
-			get
-			{
-				return this.GetTable<Municipality>();
 			}
 		}
 		
@@ -377,14 +372,6 @@ namespace CprBroker.DAL.Part
 			}
 		}
 		
-		public System.Data.Linq.Table<AddressPointStatus> AddressPointStatus
-		{
-			get
-			{
-				return this.GetTable<AddressPointStatus>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PersonRegistration> PersonRegistrations
 		{
 			get
@@ -438,6 +425,30 @@ namespace CprBroker.DAL.Part
 			get
 			{
 				return this.GetTable<DenmarkAddress>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CountrySchemeType> CountrySchemeTypes
+		{
+			get
+			{
+				return this.GetTable<CountrySchemeType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AddressPointStatus> AddressPointStatus
+		{
+			get
+			{
+				return this.GetTable<AddressPointStatus>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AddressCoordinateQualityType> AddressCoordinateQualityTypes
+		{
+			get
+			{
+				return this.GetTable<AddressCoordinateQualityType>();
 			}
 		}
 	}
@@ -639,92 +650,6 @@ namespace CprBroker.DAL.Part
 		{
 			this.SendPropertyChanging();
 			entity.Gender = null;
-		}
-	}
-	
-	[Table(Name="dbo.Municipality")]
-	public partial class Municipality : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _MunicipalityCode;
-		
-		private string _MunicipalityName;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMunicipalityCodeChanging(string value);
-    partial void OnMunicipalityCodeChanged();
-    partial void OnMunicipalityNameChanging(string value);
-    partial void OnMunicipalityNameChanged();
-    #endregion
-		
-		public Municipality()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_MunicipalityCode", DbType="VarChar(4) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string MunicipalityCode
-		{
-			get
-			{
-				return this._MunicipalityCode;
-			}
-			set
-			{
-				if ((this._MunicipalityCode != value))
-				{
-					this.OnMunicipalityCodeChanging(value);
-					this.SendPropertyChanging();
-					this._MunicipalityCode = value;
-					this.SendPropertyChanged("MunicipalityCode");
-					this.OnMunicipalityCodeChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_MunicipalityName", DbType="NVarChar(24) NOT NULL", CanBeNull=false)]
-		public string MunicipalityName
-		{
-			get
-			{
-				return this._MunicipalityName;
-			}
-			set
-			{
-				if ((this._MunicipalityName != value))
-				{
-					this.OnMunicipalityNameChanging(value);
-					this.SendPropertyChanging();
-					this._MunicipalityName = value;
-					this.SendPropertyChanged("MunicipalityName");
-					this.OnMunicipalityNameChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -5869,205 +5794,6 @@ namespace CprBroker.DAL.Part
 		}
 	}
 	
-	[Table(Name="dbo.AddressPointStatus")]
-	public partial class AddressPointStatus : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _AddressId;
-		
-		private System.DateTime _RevisionDate;
-		
-		private System.Nullable<System.DateTime> _ValidStartDate;
-		
-		private System.Nullable<System.DateTime> _ValidEndDate;
-		
-		private System.Nullable<char> _CoordinateQualityTypeCode;
-		
-		private EntityRef<AddressPoint> _AddressPoint;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnAddressIdChanging(System.Guid value);
-    partial void OnAddressIdChanged();
-    partial void OnRevisionDateChanging(System.DateTime value);
-    partial void OnRevisionDateChanged();
-    partial void OnValidStartDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnValidStartDateChanged();
-    partial void OnValidEndDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnValidEndDateChanged();
-    partial void OnCoordinateQualityTypeCodeChanging(System.Nullable<char> value);
-    partial void OnCoordinateQualityTypeCodeChanged();
-    #endregion
-		
-		public AddressPointStatus()
-		{
-			this._AddressPoint = default(EntityRef<AddressPoint>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_AddressId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid AddressId
-		{
-			get
-			{
-				return this._AddressId;
-			}
-			set
-			{
-				if ((this._AddressId != value))
-				{
-					if (this._AddressPoint.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAddressIdChanging(value);
-					this.SendPropertyChanging();
-					this._AddressId = value;
-					this.SendPropertyChanged("AddressId");
-					this.OnAddressIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_RevisionDate", DbType="DateTime NOT NULL")]
-		public System.DateTime RevisionDate
-		{
-			get
-			{
-				return this._RevisionDate;
-			}
-			set
-			{
-				if ((this._RevisionDate != value))
-				{
-					this.OnRevisionDateChanging(value);
-					this.SendPropertyChanging();
-					this._RevisionDate = value;
-					this.SendPropertyChanged("RevisionDate");
-					this.OnRevisionDateChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ValidStartDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ValidStartDate
-		{
-			get
-			{
-				return this._ValidStartDate;
-			}
-			set
-			{
-				if ((this._ValidStartDate != value))
-				{
-					this.OnValidStartDateChanging(value);
-					this.SendPropertyChanging();
-					this._ValidStartDate = value;
-					this.SendPropertyChanged("ValidStartDate");
-					this.OnValidStartDateChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ValidEndDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ValidEndDate
-		{
-			get
-			{
-				return this._ValidEndDate;
-			}
-			set
-			{
-				if ((this._ValidEndDate != value))
-				{
-					this.OnValidEndDateChanging(value);
-					this.SendPropertyChanging();
-					this._ValidEndDate = value;
-					this.SendPropertyChanged("ValidEndDate");
-					this.OnValidEndDateChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_CoordinateQualityTypeCode", DbType="Char(1)")]
-		public System.Nullable<char> CoordinateQualityTypeCode
-		{
-			get
-			{
-				return this._CoordinateQualityTypeCode;
-			}
-			set
-			{
-				if ((this._CoordinateQualityTypeCode != value))
-				{
-					this.OnCoordinateQualityTypeCodeChanging(value);
-					this.SendPropertyChanging();
-					this._CoordinateQualityTypeCode = value;
-					this.SendPropertyChanged("CoordinateQualityTypeCode");
-					this.OnCoordinateQualityTypeCodeChanged();
-				}
-			}
-		}
-		
-		[Association(Name="AddressPoint_AddressPointStatus", Storage="_AddressPoint", ThisKey="AddressId", OtherKey="AddressId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public AddressPoint AddressPoint
-		{
-			get
-			{
-				return this._AddressPoint.Entity;
-			}
-			set
-			{
-				AddressPoint previousValue = this._AddressPoint.Entity;
-				if (((previousValue != value) 
-							|| (this._AddressPoint.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._AddressPoint.Entity = null;
-						previousValue.AddressPointStatus = null;
-					}
-					this._AddressPoint.Entity = value;
-					if ((value != null))
-					{
-						value.AddressPointStatus = this;
-						this._AddressId = value.AddressId;
-					}
-					else
-					{
-						this._AddressId = default(System.Guid);
-					}
-					this.SendPropertyChanged("AddressPoint");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[Table(Name="dbo.PersonRegistration")]
 	public partial class PersonRegistration : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -6511,6 +6237,8 @@ namespace CprBroker.DAL.Part
 		
 		private EntitySet<DenmarkAddress> _DenmarkAddresses;
 		
+		private EntityRef<CountrySchemeType> _CountrySchemeType;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -6530,6 +6258,7 @@ namespace CprBroker.DAL.Part
 			this._ForeignAddresses = new EntitySet<ForeignAddress>(new Action<ForeignAddress>(this.attach_ForeignAddresses), new Action<ForeignAddress>(this.detach_ForeignAddresses));
 			this._CprDatas = new EntitySet<CprData>(new Action<CprData>(this.attach_CprDatas), new Action<CprData>(this.detach_CprDatas));
 			this._DenmarkAddresses = new EntitySet<DenmarkAddress>(new Action<DenmarkAddress>(this.attach_DenmarkAddresses), new Action<DenmarkAddress>(this.detach_DenmarkAddresses));
+			this._CountrySchemeType = default(EntityRef<CountrySchemeType>);
 			OnCreated();
 		}
 		
@@ -6564,6 +6293,10 @@ namespace CprBroker.DAL.Part
 			{
 				if ((this._CountrySchemeTypeId != value))
 				{
+					if (this._CountrySchemeType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnCountrySchemeTypeIdChanging(value);
 					this.SendPropertyChanging();
 					this._CountrySchemeTypeId = value;
@@ -6655,6 +6388,40 @@ namespace CprBroker.DAL.Part
 			set
 			{
 				this._DenmarkAddresses.Assign(value);
+			}
+		}
+		
+		[Association(Name="CountrySchemeType_CountryRef", Storage="_CountrySchemeType", ThisKey="CountrySchemeTypeId", OtherKey="Id", IsForeignKey=true)]
+		public CountrySchemeType CountrySchemeType
+		{
+			get
+			{
+				return this._CountrySchemeType.Entity;
+			}
+			set
+			{
+				CountrySchemeType previousValue = this._CountrySchemeType.Entity;
+				if (((previousValue != value) 
+							|| (this._CountrySchemeType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CountrySchemeType.Entity = null;
+						previousValue.CountryRefs.Remove(this);
+					}
+					this._CountrySchemeType.Entity = value;
+					if ((value != null))
+					{
+						value.CountryRefs.Add(this);
+						this._CountrySchemeTypeId = value.Id;
+					}
+					else
+					{
+						this._CountrySchemeTypeId = default(int);
+					}
+					this.SendPropertyChanged("CountrySchemeType");
+				}
 			}
 		}
 		
@@ -8453,6 +8220,474 @@ namespace CprBroker.DAL.Part
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[Table(Name="dbo.CountrySchemeType")]
+	public partial class CountrySchemeType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private EntitySet<CountryRef> _CountryRefs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public CountrySchemeType()
+		{
+			this._CountryRefs = new EntitySet<CountryRef>(new Action<CountryRef>(this.attach_CountryRefs), new Action<CountryRef>(this.detach_CountryRefs));
+			OnCreated();
+		}
+		
+		[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="VarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Association(Name="CountrySchemeType_CountryRef", Storage="_CountryRefs", ThisKey="Id", OtherKey="CountrySchemeTypeId")]
+		public EntitySet<CountryRef> CountryRefs
+		{
+			get
+			{
+				return this._CountryRefs;
+			}
+			set
+			{
+				this._CountryRefs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_CountryRefs(CountryRef entity)
+		{
+			this.SendPropertyChanging();
+			entity.CountrySchemeType = this;
+		}
+		
+		private void detach_CountryRefs(CountryRef entity)
+		{
+			this.SendPropertyChanging();
+			entity.CountrySchemeType = null;
+		}
+	}
+	
+	[Table(Name="dbo.AddressPointStatus")]
+	public partial class AddressPointStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _AddressId;
+		
+		private System.DateTime _RevisionDate;
+		
+		private System.Nullable<System.DateTime> _ValidStartDate;
+		
+		private System.Nullable<System.DateTime> _ValidEndDate;
+		
+		private System.Nullable<char> _AddressCoordinateQualityTypeCode;
+		
+		private EntityRef<AddressPoint> _AddressPoint;
+		
+		private EntityRef<AddressCoordinateQualityType> _AddressCoordinateQualityType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAddressIdChanging(System.Guid value);
+    partial void OnAddressIdChanged();
+    partial void OnRevisionDateChanging(System.DateTime value);
+    partial void OnRevisionDateChanged();
+    partial void OnValidStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnValidStartDateChanged();
+    partial void OnValidEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnValidEndDateChanged();
+    partial void OnAddressCoordinateQualityTypeCodeChanging(System.Nullable<char> value);
+    partial void OnAddressCoordinateQualityTypeCodeChanged();
+    #endregion
+		
+		public AddressPointStatus()
+		{
+			this._AddressPoint = default(EntityRef<AddressPoint>);
+			this._AddressCoordinateQualityType = default(EntityRef<AddressCoordinateQualityType>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_AddressId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid AddressId
+		{
+			get
+			{
+				return this._AddressId;
+			}
+			set
+			{
+				if ((this._AddressId != value))
+				{
+					if (this._AddressPoint.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAddressIdChanging(value);
+					this.SendPropertyChanging();
+					this._AddressId = value;
+					this.SendPropertyChanged("AddressId");
+					this.OnAddressIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RevisionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime RevisionDate
+		{
+			get
+			{
+				return this._RevisionDate;
+			}
+			set
+			{
+				if ((this._RevisionDate != value))
+				{
+					this.OnRevisionDateChanging(value);
+					this.SendPropertyChanging();
+					this._RevisionDate = value;
+					this.SendPropertyChanged("RevisionDate");
+					this.OnRevisionDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ValidStartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ValidStartDate
+		{
+			get
+			{
+				return this._ValidStartDate;
+			}
+			set
+			{
+				if ((this._ValidStartDate != value))
+				{
+					this.OnValidStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._ValidStartDate = value;
+					this.SendPropertyChanged("ValidStartDate");
+					this.OnValidStartDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ValidEndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ValidEndDate
+		{
+			get
+			{
+				return this._ValidEndDate;
+			}
+			set
+			{
+				if ((this._ValidEndDate != value))
+				{
+					this.OnValidEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._ValidEndDate = value;
+					this.SendPropertyChanged("ValidEndDate");
+					this.OnValidEndDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_AddressCoordinateQualityTypeCode", DbType="Char(1)")]
+		public System.Nullable<char> AddressCoordinateQualityTypeCode
+		{
+			get
+			{
+				return this._AddressCoordinateQualityTypeCode;
+			}
+			set
+			{
+				if ((this._AddressCoordinateQualityTypeCode != value))
+				{
+					if (this._AddressCoordinateQualityType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAddressCoordinateQualityTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._AddressCoordinateQualityTypeCode = value;
+					this.SendPropertyChanged("AddressCoordinateQualityTypeCode");
+					this.OnAddressCoordinateQualityTypeCodeChanged();
+				}
+			}
+		}
+		
+		[Association(Name="AddressPoint_AddressPointStatus", Storage="_AddressPoint", ThisKey="AddressId", OtherKey="AddressId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public AddressPoint AddressPoint
+		{
+			get
+			{
+				return this._AddressPoint.Entity;
+			}
+			set
+			{
+				AddressPoint previousValue = this._AddressPoint.Entity;
+				if (((previousValue != value) 
+							|| (this._AddressPoint.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._AddressPoint.Entity = null;
+						previousValue.AddressPointStatus = null;
+					}
+					this._AddressPoint.Entity = value;
+					if ((value != null))
+					{
+						value.AddressPointStatus = this;
+						this._AddressId = value.AddressId;
+					}
+					else
+					{
+						this._AddressId = default(System.Guid);
+					}
+					this.SendPropertyChanged("AddressPoint");
+				}
+			}
+		}
+		
+		[Association(Name="AddressCoordinateQualityType_AddressPointStatus", Storage="_AddressCoordinateQualityType", ThisKey="AddressCoordinateQualityTypeCode", OtherKey="Code", IsForeignKey=true)]
+		public AddressCoordinateQualityType AddressCoordinateQualityType
+		{
+			get
+			{
+				return this._AddressCoordinateQualityType.Entity;
+			}
+			set
+			{
+				AddressCoordinateQualityType previousValue = this._AddressCoordinateQualityType.Entity;
+				if (((previousValue != value) 
+							|| (this._AddressCoordinateQualityType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._AddressCoordinateQualityType.Entity = null;
+						previousValue.AddressPointStatus.Remove(this);
+					}
+					this._AddressCoordinateQualityType.Entity = value;
+					if ((value != null))
+					{
+						value.AddressPointStatus.Add(this);
+						this._AddressCoordinateQualityTypeCode = value.Code;
+					}
+					else
+					{
+						this._AddressCoordinateQualityTypeCode = default(Nullable<char>);
+					}
+					this.SendPropertyChanged("AddressCoordinateQualityType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.AddressCoordinateQualityType")]
+	public partial class AddressCoordinateQualityType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private char _Code;
+		
+		private string _Name;
+		
+		private EntitySet<AddressPointStatus> _AddressPointStatus;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCodeChanging(char value);
+    partial void OnCodeChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public AddressCoordinateQualityType()
+		{
+			this._AddressPointStatus = new EntitySet<AddressPointStatus>(new Action<AddressPointStatus>(this.attach_AddressPointStatus), new Action<AddressPointStatus>(this.detach_AddressPointStatus));
+			OnCreated();
+		}
+		
+		[Column(Storage="_Code", DbType="Char(1) NOT NULL", IsPrimaryKey=true)]
+		public char Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Association(Name="AddressCoordinateQualityType_AddressPointStatus", Storage="_AddressPointStatus", ThisKey="Code", OtherKey="AddressCoordinateQualityTypeCode")]
+		public EntitySet<AddressPointStatus> AddressPointStatus
+		{
+			get
+			{
+				return this._AddressPointStatus;
+			}
+			set
+			{
+				this._AddressPointStatus.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_AddressPointStatus(AddressPointStatus entity)
+		{
+			this.SendPropertyChanging();
+			entity.AddressCoordinateQualityType = this;
+		}
+		
+		private void detach_AddressPointStatus(AddressPointStatus entity)
+		{
+			this.SendPropertyChanging();
+			entity.AddressCoordinateQualityType = null;
 		}
 	}
 }

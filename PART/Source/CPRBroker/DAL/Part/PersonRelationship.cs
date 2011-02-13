@@ -10,18 +10,18 @@ namespace CprBroker.DAL.Part
     {
         public enum RelationshipTypes
         {
-            Mother = 1,
-            Father = 2,
-            Children = 3,
-            Spouse = 4,
-            RegisteredPartner = 5,
-            ResidenceCollection = 6,
-            Custody = 7,
-            ParentingAdultChildren = 8,
-            GuardianOfPerson = 9,
-            GuardianshipOwner = 10,
-            ReplacementFor = 11,
-            ReplacedBy = 12,
+            Mother = 0,
+            Father = 1,
+            Children = 2,
+            Spouse = 3,
+            RegisteredPartner = 4,
+            ResidenceCollection = 5,
+            Custody = 6,
+            ParentingAdultChildren = 7,
+            GuardianOfPerson = 8,
+            GuardianshipOwner = 9,
+            ReplacementFor = 10,
+            ReplacedBy = 11,
         }
 
         #region Conversion to XML types

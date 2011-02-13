@@ -7,11 +7,6 @@ using System.IO;
 using System.Configuration.Install;
 using System.Data.OleDb;
 using CprBroker.Engine.Util;
-using CprBroker.DAL;
-using CprBroker.DAL.Applications;
-using CprBroker.DAL.Part;
-using CprBroker.DAL.DataProviders;
-using CprBroker.EventBroker.DAL;
 using System.Data.SqlClient;
 
 namespace CprBroker.Installers
@@ -114,28 +109,6 @@ namespace CprBroker.Installers
             File.Delete(SchemaFilePath);
             File.Delete(DataFilePath);
             Directory.Delete(FolderPath);
-        }
-
-        public static LookupInsertionParameters[] InitializeInsertionParameters(Installer installer)
-        {
-            List<LookupInsertionParameters> ret = new List<LookupInsertionParameters>();
-
-            //ret.Add(new LookupInsertionParameters(installer, typeof(AddressStatus), Properties.Resources.AddressStatus));
-            ret.Add(new LookupInsertionParameters(installer, typeof(CprBroker.DAL.Applications.Application), Properties.Resources.Application,
-                new ColumnType() { Name = "ApplicationId", Type = typeof(Guid) }
-                ));
-            ret.Add(new LookupInsertionParameters(installer, typeof(ChannelType), Properties.Resources.ChannelType));
-            ret.Add(new LookupInsertionParameters(installer, typeof(DataProvider), Properties.Resources.DataProvider));
-            ret.Add(new LookupInsertionParameters(installer, typeof(Gender), Properties.Resources.Gender));
-            ret.Add(new LookupInsertionParameters(installer, typeof(LogType), Properties.Resources.LogType));
-            ret.Add(new LookupInsertionParameters(installer, typeof(MaritalStatusType), Properties.Resources.MaritalStatusType));
-            ret.Add(new LookupInsertionParameters(installer, typeof(Municipality), Properties.Resources.Municipality,
-                new ColumnType() { Name = "MunicipalityCode", Type = typeof(string) }
-                ));
-            ret.Add(new LookupInsertionParameters(installer, typeof(RelationshipType), Properties.Resources.RelationshipType));
-            ret.Add(new LookupInsertionParameters(installer, typeof(SubscriptionType), Properties.Resources.SubscriptionType));
-
-            return ret.ToArray();
         }
 
         public static void InsertLookups(LookupInsertionParameters[] parameters, string connectionString)

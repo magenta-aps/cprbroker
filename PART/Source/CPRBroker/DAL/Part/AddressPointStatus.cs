@@ -14,8 +14,8 @@ namespace CprBroker.DAL.Part
             {
                 new AddressPointStatusStructureType()
                 {
-                    AddressCoordinateQualityClassCode = db.CoordinateQualityTypeCode.HasValue ? (AddressCoordinateQualityClassCodeType)Enum.Parse(typeof(AddressCoordinateQualityClassCodeType), db.CoordinateQualityTypeCode.Value.ToString()) : AddressCoordinateQualityClassCodeType.A,
-                    AddressCoordinateQualityClassCodeSpecified = db.CoordinateQualityTypeCode.HasValue,
+                    AddressCoordinateQualityClassCode = db.AddressCoordinateQualityTypeCode.HasValue ? (AddressCoordinateQualityClassCodeType)Enum.Parse(typeof(AddressCoordinateQualityClassCodeType), db.AddressCoordinateQualityTypeCode.Value.ToString()) : AddressCoordinateQualityClassCodeType.A,
+                    AddressCoordinateQualityClassCodeSpecified = db.AddressCoordinateQualityTypeCode.HasValue,
                     AddressPointRevisionDateTime = db.RevisionDate,
                     AddressPointValidEndDateTime = db.ValidEndDate.HasValue ? db.ValidEndDate.Value : new DateTime(),
                     AddressPointValidEndDateTimeSpecified = db.ValidEndDate.HasValue,
@@ -32,7 +32,7 @@ namespace CprBroker.DAL.Part
             {
                 return new AddressPointStatus()
                 {
-                    CoordinateQualityTypeCode = oio.AddressCoordinateQualityClassCodeSpecified ? oio.AddressCoordinateQualityClassCode.ToString()[0] : (char?)null,
+                    AddressCoordinateQualityTypeCode = oio.AddressCoordinateQualityClassCodeSpecified ? oio.AddressCoordinateQualityClassCode.ToString()[0] : (char?)null,
                     RevisionDate = oio.AddressPointRevisionDateTime,
                     ValidEndDate = oio.AddressPointValidEndDateTimeSpecified ? oio.AddressPointValidEndDateTime : (DateTime?)null,
                     ValidStartDate = oio.AddressPointValidStartDateTimeSpecified ? oio.AddressPointValidStartDateTime : (DateTime?)null,

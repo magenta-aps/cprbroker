@@ -17,7 +17,7 @@ namespace CprBroker.DAL.Part
                     GeographicEastingMeasure = db.Easting,
                     GeographicHeightMeasure = db.Height.HasValue ? db.Height.Value : 0,
                     GeographicHeightMeasureSpecified = db.Height.HasValue,
-                    GeographicNorthingMeasure = db.Northing
+                    GeographicNorthingMeasure = db.Northing,
                 };
             }
             return null;

@@ -9,9 +9,9 @@ namespace CprBroker.DAL.Part
     {
         public enum ChannelTypes
         {
-            Email = 1,
-            Telephone = 2,
-            Other = 3
+            Email = 0,
+            Telephone = 1,
+            Other = 2
         }
     }
 }

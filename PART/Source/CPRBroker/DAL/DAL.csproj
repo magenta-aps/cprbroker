@@ -73,7 +73,6 @@
     <Compile Include="Part\Gender.cs" />
     <Compile Include="Part\LifecycleStatus.cs" />
     <Compile Include="Part\LifeStatusType.cs" />
-    <Compile Include="Part\MaritalStatusType.cs" />
     <Compile Include="Part\PersonAttribute.cs" />
     <Compile Include="Part\PersonMapping.cs" />
     <Compile Include="Part\PersonRegistration.cs" />

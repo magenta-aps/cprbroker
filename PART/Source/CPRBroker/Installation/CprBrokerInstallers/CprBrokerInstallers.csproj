@@ -71,7 +71,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\CreateDatabaseObjects.sql" />
+    <None Include="Resources\AddressCoordinateQualityType.csv" />
+    <None Include="Resources\Application.csv" />
+    <None Include="Resources\CivilStatusCodeType.csv" />
+    <None Include="Resources\ContactChannelType.csv" />
+    <None Include="Resources\CountrySchemeType.csv" />
+    <None Include="Resources\CreatePartDatabaseObjects.sql" />
+    <None Include="Resources\Gender.csv" />
+    <None Include="Resources\LifecycleStatus.csv" />
+    <None Include="Resources\LifeStatusCodeType.csv" />
+    <None Include="Resources\LogType.csv" />
+    <None Include="Resources\RelationshipType.csv" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -79,6 +89,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DAL\DAL.csproj">
+      <Project>{BBD25F50-FA7A-4799-9832-287AF59FB6C4}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Engine.csproj">
       <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
       <Name>Engine</Name>
@@ -88,6 +102,9 @@
       <Name>Installers</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="GenerateScript.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -96,4 +113,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>

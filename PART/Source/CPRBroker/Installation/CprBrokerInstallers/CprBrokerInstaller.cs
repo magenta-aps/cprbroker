@@ -7,6 +7,7 @@ using System.Text;
 
 namespace CprBroker.Installers.CprBrokerInstallers
 {
+    [System.ComponentModel.RunInstaller(false)]
     public partial class CprBrokerInstaller : ProjectInstaller
     {
         public CprBrokerInstaller()
@@ -22,7 +23,7 @@ namespace CprBroker.Installers.CprBrokerInstallers
 
         private void InitializeComponent()
         {
-            //Installers.Add(new WebSiteInstaller("CprBroker") { Context = Context });
+            Installers.Add(new WebSiteInstaller("CprBroker") { Context = Context });
             Installers.Add(new CprBrokerDatabaseInstaller() { Context = Context });
         }
     }

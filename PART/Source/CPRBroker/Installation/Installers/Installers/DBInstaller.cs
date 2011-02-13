@@ -22,7 +22,7 @@ namespace CprBroker.Installers
     /// <summary>
     /// Installs the system's database
     /// </summary>
-    public partial class DBInstaller : Installer, ICprInstaller
+    public partial class DBInstaller : Installer//, ICprInstaller
     {
 
         private string SuggestedDatabaseName;
@@ -35,7 +35,11 @@ namespace CprBroker.Installers
 
         #region Overrides
 
-        public void GetInstallInfoFromUser(IDictionary stateSaver)
+        protected override void OnBeforeInstall(IDictionary savedState)
+        {
+            GetInstallInfoFromUser(savedState);
+        }
+        private void GetInstallInfoFromUser(IDictionary stateSaver)
         {
             DatabaseForm frm = new DatabaseForm();
             var setupInfo = new DatabaseSetupInfo() { DatabaseName = SuggestedDatabaseName };
