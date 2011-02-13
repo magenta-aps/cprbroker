@@ -8,10 +8,12 @@ namespace CprBroker.Installers.CprBrokerInstallers
     [System.ComponentModel.RunInstaller(true)]
     public class CprBrokerWebSiteInstaller : Installers.WebSiteInstaller
     {
-        public CprBrokerWebSiteInstaller()
-            : base("CPRBroker")
+        protected override string DefaultWebsiteName
         {
-            
+            get
+            {
+                return "CprBroker";
+            }
         }
     }
 }

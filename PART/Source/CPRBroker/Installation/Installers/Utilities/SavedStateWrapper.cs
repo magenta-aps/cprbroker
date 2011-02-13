@@ -80,5 +80,17 @@ namespace CprBroker.Installers
             }
         }
 
+        public WebInstallationInfo WebInstallationInfo
+        {
+            get
+            {
+                return savedState["WebInstallationInfo"] as WebInstallationInfo;
+            }
+            set
+            {
+                savedState["WebInstallationInfo"] = value;
+            }
+        }
+
     }
 }

@@ -150,7 +150,7 @@
             this.virtualDirectoryNameTextBox.Size = new System.Drawing.Size(305, 20);
             this.virtualDirectoryNameTextBox.TabIndex = 3;
             this.virtualDirectoryNameTextBox.Text = "CprBroker";
-            this.virtualDirectoryNameTextBox.ValidationExpression = "\\A\\savedStateWrapper+\\Z";
+            this.virtualDirectoryNameTextBox.ValidationExpression = "\\A\\w+\\Z";
             // 
             // label3
             // 

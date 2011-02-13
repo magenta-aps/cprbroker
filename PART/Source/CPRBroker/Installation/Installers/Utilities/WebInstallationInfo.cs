@@ -6,6 +6,7 @@ using System.DirectoryServices;
 
 namespace CprBroker.Installers
 {
+    [Serializable]
     public class WebInstallationInfo
     {
         public bool CreateAsWebsite = false;
@@ -14,6 +15,7 @@ namespace CprBroker.Installers
         public string VirtualDirectoryName;
 
         public static readonly string ServerRoot = "IIS://localhost/w3svc";
+
         public bool TargetEntryExists
         {
             get
@@ -59,7 +61,7 @@ namespace CprBroker.Installers
                     {
                         return ID;
                     }
-                    
+
                     if (ID >= siteID)
                     {
                         siteID = ID + 1;
