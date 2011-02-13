@@ -34,7 +34,7 @@ namespace CprBroker.EventBroker.Backend
                     base.Install(stateSaver);
                 }
             }
-            this.SetConnectionStringInConfigFile(this.GetAssemblyConfigFilePath(), this.GetConnectionStringFromWebConfig());
+            this.SetConnectionStringInConfigFile(this.GetInstallerAssemblyConfigFilePath(), this.GetConnectionStringFromWebConfig());
 
             ServiceController serviceController = new ServiceController(this.backendServiceInstaller.ServiceName);
             if (backendServiceInstaller.StartType == ServiceStartMode.Automatic)

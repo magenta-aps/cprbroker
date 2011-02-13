@@ -16,11 +16,11 @@ namespace CprBroker.Installers.CprBrokerInstallers
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            CprBrokerInstaller inst = new CprBrokerInstaller();
+            /*CprBrokerInstaller inst = new CprBrokerInstaller();
             inst.Context = new System.Configuration.Install.InstallContext();
             System.Collections.Hashtable stateSaver = new System.Collections.Hashtable();
             inst.Context.Parameters["assemblypath"] = AppDomain.CurrentDomain.BaseDirectory + "CprBroker.Installers.CprBrokerInstallers.exe";
-            inst.Install(stateSaver);
+            inst.Install(stateSaver);*/
         }
     }
 }

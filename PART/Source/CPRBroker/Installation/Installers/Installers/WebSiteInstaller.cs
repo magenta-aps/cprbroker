@@ -11,7 +11,7 @@ using System.IO;
 
 namespace CprBroker.Installers
 {
-    public class WebSiteInstaller : Installer, ICprInstaller
+    public class WebSiteInstaller : Installer
     {
         private WebInstallationInfo InstallationInfo;
         private SavedStateWrapper SavedStateWrapper = null;
@@ -24,6 +24,10 @@ namespace CprBroker.Installers
         }
 
         #region Install
+        protected override void OnBeforeInstall(System.Collections.IDictionary savedState)
+        {
+            GetInstallInfoFromUser(savedState);
+        }
         public void GetInstallInfoFromUser(System.Collections.IDictionary stateSaver)
         {
             SavedStateWrapper = new SavedStateWrapper(stateSaver);
@@ -36,6 +40,7 @@ namespace CprBroker.Installers
         {
             try
             {
+                System.Diagnostics.Debugger.Break();
                 base.Install(stateSaver);
 
                 this.EnsureIISComponents();
@@ -141,7 +146,6 @@ namespace CprBroker.Installers
             try
             {
                 base.Uninstall(savedState);
-                SavedStateWrapper = new SavedStateWrapper(savedState);
                 DeleteApplication();
             }
             catch (Exception ex)

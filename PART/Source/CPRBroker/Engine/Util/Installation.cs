@@ -19,7 +19,7 @@ namespace CprBroker.Engine.Util
         /// </summary>
         /// <param name="installer"></param>
         /// <returns></returns>
-        public static string GetAssemblyFilePath(this Installer installer)
+        public static string GetInstallerAssemblyFilePath(this Installer installer)
         {
             return installer.Context.Parameters["assemblypath"]; ;
         }
@@ -29,9 +29,9 @@ namespace CprBroker.Engine.Util
         /// </summary>
         /// <param name="installer"></param>
         /// <returns></returns>
-        public static string GetAssemblyConfigFilePath(this Installer installer)
+        public static string GetInstallerAssemblyConfigFilePath(this Installer installer)
         {
-            return installer.GetAssemblyFilePath() + ".config";
+            return installer.GetInstallerAssemblyFilePath() + ".config";
         }
 
         /// <summary>
@@ -39,26 +39,27 @@ namespace CprBroker.Engine.Util
         /// </summary>
         /// <param name="installer"></param>
         /// <returns></returns>
-        public static string GetAssemblyFolderPath(this Installer installer)
+        public static string GetInstallerAssemblyFolderPath(this Installer installer)
         {
-            string exePath = installer.GetAssemblyFilePath();
+            string exePath = installer.GetInstallerAssemblyFilePath();
             FileInfo fileInfo = new FileInfo(exePath);
             return fileInfo.Directory.FullName;
         }
 
         public static string GetWebFolderPath(this Installer installer)
         {
-            string assemblyFolderPath = installer.GetAssemblyFolderPath();
-            return assemblyFolderPath + "\\Web";
+            var installerAssemblyDir = new DirectoryInfo(installer.GetInstallerAssemblyFolderPath());
+            return installerAssemblyDir.Parent.FullName;
         }
         /// <summary>
         /// Gets the full path of the web config of the file that contains the current exe installer
         /// </summary>
         /// <param name="installer"></param>
         /// <returns></returns>
-        public static string GetWebConfigFilePath(this Installer installer)
+        public static string GetWebConfigFilePathFromInstaller(this Installer installer)
         {
-            string configFileName = installer.GetWebFolderPath() + "\\web.config";
+            var webDir = new DirectoryInfo(installer.GetWebFolderPath());
+            string configFileName = webDir + "\\web.config";
             return configFileName;
         }
 
@@ -67,6 +68,30 @@ namespace CprBroker.Engine.Util
         /// </summary>
         public static readonly string ConnectionStringNodePath = "//connectionStrings/add[@name='CprBroker.Config.Properties.Settings.CPRConnectionString']";
 
+        public static XmlNode GetConnectionStringsNode(string configFileName)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            doc.Load(configFileName);
+            XmlNode connectionStringNode = doc.SelectSingleNode(ConnectionStringNodePath);
+            if (connectionStringNode != null)
+            {
+                if (connectionStringNode.Attributes["configSource"] == null)
+                {
+                    return connectionStringNode;
+                }
+                else
+                {
+                    var connectionStringsFileName = new FileInfo(configFileName).Directory.FullName + "\\" + connectionStringNode.Attributes["configSource"].Value;
+                    var connectionStringsDoc = new XmlDocument();
+                    connectionStringsDoc.Load(connectionStringsFileName);
+                    return connectionStringsDoc.SelectSingleNode("//connectionStrings");
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Gets the connection string fromDate the web.config file of the current installer
         /// </summary>
@@ -74,7 +99,7 @@ namespace CprBroker.Engine.Util
         /// <returns></returns>
         public static string GetConnectionStringFromWebConfig(this Installer installer)
         {
-            string configFileName = installer.GetWebConfigFilePath();
+            string configFileName = installer.GetWebConfigFilePathFromInstaller();
             XmlDocument doc = new XmlDocument();
             try
             {
@@ -96,7 +121,7 @@ namespace CprBroker.Engine.Util
         /// <param name="installer"></param>
         /// <param name="configFilePath"></param>
         /// <param name="connectionString"></param>
-        public static void SetConnectionStringInConfigFile(this Installer installer, string configFilePath, string connectionString)
+        public static void SetConnectionStringInConfigFile(string configFilePath, string connectionString)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(configFilePath);

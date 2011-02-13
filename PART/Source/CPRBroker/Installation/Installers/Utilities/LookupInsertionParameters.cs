@@ -37,7 +37,7 @@ namespace CprBroker.Installers
         {
             get
             {
-                return string.Format("{0}\\{1}\\{2}", Installer.GetAssemblyFolderPath(), FolderName, ShortFileName);
+                return string.Format("{0}\\{1}\\{2}", Installer.GetInstallerAssemblyFolderPath(), FolderName, ShortFileName);
             }
         }
 
@@ -45,7 +45,7 @@ namespace CprBroker.Installers
         {
             get
             {
-                return string.Format("{0}\\{1}\\Schema.ini", Installer.GetAssemblyFolderPath(), FolderName);
+                return string.Format("{0}\\{1}\\Schema.ini", Installer.GetInstallerAssemblyFolderPath(), FolderName);
             }
         }
 
@@ -53,7 +53,7 @@ namespace CprBroker.Installers
         {
             get
             {
-                return string.Format("{0}\\{1}", Installer.GetAssemblyFolderPath(), FolderName);
+                return string.Format("{0}\\{1}", Installer.GetInstallerAssemblyFolderPath(), FolderName);
             }
         }
 

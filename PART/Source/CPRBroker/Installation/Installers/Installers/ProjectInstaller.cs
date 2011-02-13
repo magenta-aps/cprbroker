@@ -23,8 +23,6 @@ namespace CprBroker.Installers
         
         public override void Install(System.Collections.IDictionary stateSaver)
         {
-            base.Install(stateSaver);
-            return;
             foreach (var inst in Installers)
             {
                 if (inst is ICprInstaller)

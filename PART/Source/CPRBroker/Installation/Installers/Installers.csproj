@@ -124,22 +124,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\AddressStatus.csv" />
-    <None Include="Resources\Application.csv" />
-    <None Include="Resources\ChannelType.csv" />
-    <None Include="Resources\Country.csv" />
-    <None Include="Resources\CreateDatabaseObjects.sql" />
-    <None Include="Resources\DataProvider.csv" />
-    <None Include="Resources\DataProviderType.csv" />
-    <None Include="Resources\DetailLevel.csv" />
-    <None Include="Resources\Gender.csv" />
-    <None Include="Resources\LogType.csv" />
-    <None Include="Resources\MaritalStatusType.csv" />
-    <None Include="Resources\Municipality.csv" />
-    <None Include="Resources\OperationType.csv" />
-    <None Include="Resources\PersonStatusType.csv" />
-    <None Include="Resources\RelationshipType.csv" />
-    <None Include="Resources\SubscriptionType.csv" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -176,7 +160,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\InstallerPicture.JPG" />
+    <Content Include="Resources\InstallerPicture.JPG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

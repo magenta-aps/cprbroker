@@ -22,7 +22,7 @@ namespace CprBroker.Installers
     /// <summary>
     /// Installs the system's database
     /// </summary>
-    public partial class DBInstaller : Installer//, ICprInstaller
+    public partial class DBInstaller : Installer, ICprInstaller
     {
 
         private string SuggestedDatabaseName;
@@ -39,41 +39,40 @@ namespace CprBroker.Installers
         {
             GetInstallInfoFromUser(savedState);
         }
-        private void GetInstallInfoFromUser(IDictionary stateSaver)
+        public void GetInstallInfoFromUser(IDictionary stateSaver)
         {
             DatabaseForm frm = new DatabaseForm();
             var setupInfo = new DatabaseSetupInfo() { DatabaseName = SuggestedDatabaseName };
             var savedStateWrapper = new SavedStateWrapper(stateSaver);
             frm.SetupInfo = setupInfo;
 
-            do
+
+        ShowForm:
+            BaseForm.ShowAsDialog(frm, this.InstallerWindowWrapper());
+            savedStateWrapper.AdminConnectionString = setupInfo.CreateConnectionString(true, true);
+
+            string adminConnectionString = setupInfo.CreateConnectionString(true, false);
+            ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
+            Server dbServer = new Server(dbServerConnection);
+
+            if (dbServer.Databases.Contains(setupInfo.DatabaseName))
             {
-                BaseForm.ShowAsDialog(frm, this.InstallerWindowWrapper());
-                savedStateWrapper.AdminConnectionString = setupInfo.CreateConnectionString(true, true);
-
-                string adminConnectionString = setupInfo.CreateConnectionString(true, false);
-                ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
-                Server dbServer = new Server(dbServerConnection);
-
-                if (dbServer.Databases.Contains(setupInfo.DatabaseName))
+                DialogResult useExisting = MessageBox.Show(this.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo);
+                if (useExisting == DialogResult.No)
                 {
-                    DialogResult useExisting = MessageBox.Show(this.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo);
-                    if (useExisting == DialogResult.Yes)
-                    {
-                        goto WindowsAuth;
-                    }
+                    goto ShowForm;
                 }
+            }
 
-            WindowsAuth:
-                if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+            if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+            {
+                DialogResult useWindowsAuth = MessageBox.Show(this.InstallerWindowWrapper(), Messages.WindowsAuthenticationContactAdmin, "", MessageBoxButtons.YesNo);
+                if (useWindowsAuth == DialogResult.No)
                 {
-                    DialogResult useWindowsAuth = MessageBox.Show(this.InstallerWindowWrapper(), Messages.WindowsAuthenticationContactAdmin, "", MessageBoxButtons.YesNo);
-                    if (useWindowsAuth == DialogResult.Yes)
-                    {
-                        break;
-                    }
+                    goto ShowForm;
                 }
-            } while (true);
+            }
+
             savedStateWrapper.DatabaseSetupInfo = setupInfo;
         }
 
@@ -97,13 +96,14 @@ namespace CprBroker.Installers
                 base.Install(stateSaver);
                 this.LoadAllAssemlies();
 
-                DatabaseSetupInfo setupInfo = new SavedStateWrapper(stateSaver).DatabaseSetupInfo;
-                new SavedStateWrapper(stateSaver).DatabaseCreated = CreateDatabase(setupInfo);
+                var savedStateWrapper = new SavedStateWrapper(stateSaver);
+                DatabaseSetupInfo setupInfo = savedStateWrapper.DatabaseSetupInfo;
+                savedStateWrapper.DatabaseCreated = CreateDatabase(setupInfo);
                 CreateDatabaseUser(setupInfo);
 
                 foreach (string configFileName in this.ConfigFileNames)
                 {
-                    this.SetConnectionStringInConfigFile(configFileName, setupInfo.CreateConnectionString(false, true));
+                    CprBroker.Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, setupInfo.CreateConnectionString(false, true));
                 }
             }
             catch (InstallException ex)
@@ -121,10 +121,10 @@ namespace CprBroker.Installers
             try
             {
                 base.Rollback(savedState);
-                var w = new SavedStateWrapper(savedState);
-                if (w.DatabaseCreated)
+                var savedStateWrapper = new SavedStateWrapper(savedState);
+                if (savedStateWrapper.DatabaseCreated)
                 {
-                    DeleteDatabase(w.DatabaseSetupInfo, false);
+                    DeleteDatabase(savedStateWrapper.DatabaseSetupInfo, false);
                 }
             }
             catch (Exception ex)
@@ -138,7 +138,8 @@ namespace CprBroker.Installers
             try
             {
                 base.Uninstall(savedState);
-                var setupInfo = DatabaseSetupInfo.FromConnectionString(new SavedStateWrapper(savedState).AdminConnectionString);
+                var savedStateWrapper = new SavedStateWrapper(savedState);
+                var setupInfo = DatabaseSetupInfo.FromConnectionString(savedStateWrapper.AdminConnectionString);
                 DeleteDatabase(setupInfo, true);
             }
             catch (Exception ex)
@@ -156,7 +157,7 @@ namespace CprBroker.Installers
         /// </summary>
         private void LoadAllAssemlies()
         {
-            string[] fileNames = Directory.GetFiles(this.GetAssemblyFolderPath(), "*.dll");
+            string[] fileNames = Directory.GetFiles(this.GetInstallerAssemblyFolderPath(), "*.dll");
             foreach (string fileName in fileNames)
             {
                 AssemblyName asmName = AssemblyName.GetAssemblyName(fileName);
@@ -238,9 +239,8 @@ namespace CprBroker.Installers
             {
                 Database db = new Database(dbServer, setupInfo.DatabaseName);
                 db.Create();
-                string sql = Properties.Resources.CreateDatabaseObjects;
+                string sql = CreateDatabaseObjectsSql;
                 db.ExecuteNonQuery(sql);
-
                 LookupInsertionParameters.InsertLookups(GetLookupInsertionParameters(), setupInfo.CreateConnectionString(true, true));
                 return true;
             }

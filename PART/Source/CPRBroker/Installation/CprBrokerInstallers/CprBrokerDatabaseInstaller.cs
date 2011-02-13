@@ -43,8 +43,7 @@ namespace CprBroker.Installers.CprBrokerInstallers
             ret.Add(new LookupInsertionParameters(this, typeof(LifecycleStatus), Properties.Resources.LifecycleStatus));
             ret.Add(new LookupInsertionParameters(this, typeof(LifeStatusCodeType), Properties.Resources.LifeStatusCodeType));
             ret.Add(new LookupInsertionParameters(this, typeof(LogType), Properties.Resources.LogType));
-            ret.Add(new LookupInsertionParameters(this, typeof(RelationshipType), Properties.Resources.RelationshipType));
-            ret.Add(new LookupInsertionParameters(this, typeof(RelationshipType), Properties.Resources.RelationshipType));
+            ret.Add(new LookupInsertionParameters(this, typeof(RelationshipType), Properties.Resources.RelationshipType));            
 
             return ret.ToArray();
         }
@@ -55,7 +54,7 @@ namespace CprBroker.Installers.CprBrokerInstallers
             {
                 return new string[] 
                 { 
-                    CprBroker.Engine.Util.Installation.GetWebConfigFilePath(this) 
+                    //CprBroker.Engine.Util.Installation.GetWebConfigFilePathFromInstaller(this) 
                 };
             }
         }

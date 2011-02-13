@@ -11,11 +11,13 @@ namespace CprBroker.Installers
     /// <summary>
     /// Contains the database information that are gathered from the user and used throughout the application
     /// </summary>
+    [Serializable]
     public class DatabaseSetupInfo
     {
         /// <summary>
         /// Contains database login information
         /// </summary>
+        [Serializable]
         public class AuthenticationInfo
         {
             public bool IntegratedSecurity = true;
