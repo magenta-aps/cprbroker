@@ -14,7 +14,7 @@ namespace CprBroker.EventBroker.Backend
     /// <summary>
     /// This service is responsible for the scheduling of publishing events to subscribers
     /// </summary>
-    public partial class BackendService : GKApp.WinSvc.winsvcBase
+    public partial class BackendService : System.ServiceProcess.ServiceBase
     {
         public BackendService()
         {

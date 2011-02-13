@@ -45,5 +45,17 @@ namespace CprBroker.Installers
             savedState["WebInstallationInfo"] = DAL.Utilities.SerializeObject(value);
         }
 
+        public string ServiceName
+        {
+            get
+            {
+                return string.Format("{0}", savedState["ServiceName"]);
+            }
+            set
+            {
+                savedState["ServiceName"] = value;
+            }
+        }
+
     }
 }

@@ -38,9 +38,15 @@ namespace CprBroker.Installers.EventBrokerInstallers
         {
             var ret = new Dictionary<string, Dictionary<string, string>>();
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(savedState);
+
             var webConfigPath = CprBroker.Engine.Util.Installation.GetWebConfigFilePathFromInstaller(this);
             ret[webConfigPath] = new Dictionary<string, string>();
             ret[webConfigPath]["CprBroker.Config.Properties.Settings.EventBrokerConnectionString"] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
+
+            var backEndConfigFileName = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location + ".config";
+            ret[backEndConfigFileName] = new Dictionary<string, string>();
+            ret[backEndConfigFileName]["CprBroker.Config.Properties.Settings.EventBrokerConnectionString"] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
+
             return ret;
         }
     }
