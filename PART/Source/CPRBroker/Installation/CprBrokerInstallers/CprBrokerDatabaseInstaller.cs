@@ -49,20 +49,19 @@ namespace CprBroker.Installers.CprBrokerInstallers
             ret.Add(new LookupInsertionParameters(this, typeof(LifecycleStatus), Properties.Resources.LifecycleStatus));
             ret.Add(new LookupInsertionParameters(this, typeof(LifeStatusCodeType), Properties.Resources.LifeStatusCodeType));
             ret.Add(new LookupInsertionParameters(this, typeof(LogType), Properties.Resources.LogType));
-            ret.Add(new LookupInsertionParameters(this, typeof(RelationshipType), Properties.Resources.RelationshipType));            
+            ret.Add(new LookupInsertionParameters(this, typeof(RelationshipType), Properties.Resources.RelationshipType));
 
             return ret.ToArray();
         }
 
-        protected override string[] ConfigFileNames
+        protected override Dictionary<string, Dictionary<string, string>> GetConnectionStringsToConfigure(System.Collections.IDictionary savedState)
         {
-            get
-            {
-                return new string[] 
-                { 
-                    //CprBroker.Engine.Util.Installation.GetWebConfigFilePathFromInstaller(this) 
-                };
-            }
+            var ret = new Dictionary<string, Dictionary<string, string>>();
+            SavedStateWrapper savedStateWrapper = new SavedStateWrapper(savedState);
+            var webConfigPath = CprBroker.Engine.Util.Installation.GetWebConfigFilePathFromInstaller(this);
+            ret[webConfigPath] = new Dictionary<string, string>();
+            ret[webConfigPath]["CprBrokerConnectionString"] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
+            return ret;
         }
     }
 }

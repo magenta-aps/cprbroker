@@ -35,7 +35,7 @@ namespace CprBroker.EventBroker.Backend
                 }
             }
 
-            Installation.SetConnectionStringInConfigFile(this.GetInstallerAssemblyConfigFilePath(), this.GetConnectionStringFromWebConfig());
+            //Installation.SetConnectionStringInConfigFile(this.GetInstallerAssemblyConfigFilePath(), this.GetConnectionStringFromWebConfig());
             ServiceController serviceController = new ServiceController(this.backendServiceInstaller.ServiceName);
             if (backendServiceInstaller.StartType == ServiceStartMode.Automatic)
             {

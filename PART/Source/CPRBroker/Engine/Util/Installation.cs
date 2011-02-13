@@ -6,6 +6,7 @@ using System.IO;
 using System.Configuration.Install;
 using System.Xml;
 using System.Runtime.InteropServices;
+using System.Configuration;
 
 namespace CprBroker.Engine.Util
 {
@@ -62,7 +63,7 @@ namespace CprBroker.Engine.Util
             string configFileName = webDir + "\\web.config";
             return configFileName;
         }
-
+        /*
         /// <summary>
         /// XPath of the connection string node in config files
         /// </summary>
@@ -90,8 +91,8 @@ namespace CprBroker.Engine.Util
             }
 
             return null;
-        }
-
+        }*/
+        /*
         /// <summary>
         /// Gets the connection string fromDate the web.config file of the current installer
         /// </summary>
@@ -113,7 +114,7 @@ namespace CprBroker.Engine.Util
             catch (Exception)
             { }
             return CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString;
-        }
+        }*/
 
         /// <summary>
         /// Sets the connection string value in the given config file
@@ -121,13 +122,22 @@ namespace CprBroker.Engine.Util
         /// <param name="installer"></param>
         /// <param name="configFilePath"></param>
         /// <param name="connectionString"></param>
-        public static void SetConnectionStringInConfigFile(string configFilePath, string connectionString)
+        public static void SetConnectionStringInConfigFile(string configFilePath, string name, string connectionString)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(configFilePath);
-            XmlNode connectionStringNode = doc.SelectSingleNode(Installation.ConnectionStringNodePath);
-            connectionStringNode.Attributes["connectionString"].Value = connectionString;
-            doc.Save(configFilePath);
+            var map = new ExeConfigurationFileMap();
+            map.ExeConfigFilename = configFilePath;
+            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+
+            System.Configuration.ConnectionStringsSection sec = configuration.GetSection("connectionStrings") as ConnectionStringsSection;
+            if (sec.ConnectionStrings[name] == null)
+            {
+                sec.ConnectionStrings.Add(new ConnectionStringSettings(name, connectionString));
+            }
+            else
+            {
+                sec.ConnectionStrings[name].ConnectionString = connectionString;
+            }
+            configuration.Save();
         }
 
         const int MAX_PATH = 256;
