@@ -28,7 +28,6 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         protected override bool ValidateContents()
         {
-            System.Diagnostics.Debugger.Break();
             if (!base.ValidateContents())
                 return false;
 

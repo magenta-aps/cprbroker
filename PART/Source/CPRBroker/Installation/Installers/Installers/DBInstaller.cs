@@ -217,7 +217,6 @@ namespace CprBroker.Installers
 
         private void SetConnectionStrings(System.Collections.IDictionary stateSaver)
         {
-            System.Diagnostics.Debugger.Break();
             foreach (var configFile in this.GetConnectionStringsToConfigure(stateSaver))
             {
                 var configFileName = configFile.Key;
