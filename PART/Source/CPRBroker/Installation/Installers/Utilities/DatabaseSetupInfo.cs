@@ -29,12 +29,18 @@ namespace CprBroker.Installers
         public string DatabaseName = "";
         public bool ApplicationAuthenticationSameAsAdmin = true;
 
-        public readonly AuthenticationInfo AdminAuthenticationInfo = new AuthenticationInfo();
-        public readonly AuthenticationInfo ApplicationAuthenticationInfo = new AuthenticationInfo();
+        public AuthenticationInfo AdminAuthenticationInfo { get; set; }
+        public AuthenticationInfo ApplicationAuthenticationInfo { get; set; }
+
+        public bool DatabaseCreated;
 
         public DatabaseSetupInfo()
         {
-            ApplicationAuthenticationInfo.IntegratedSecurity = false;
+            AdminAuthenticationInfo = new AuthenticationInfo();
+            ApplicationAuthenticationInfo = new AuthenticationInfo() 
+            { 
+                IntegratedSecurity = false 
+            };
         }
 
         /// <summary>
@@ -257,6 +263,12 @@ namespace CprBroker.Installers
             }
             return true;
         }
+
+        public void ClearSensitiveDate()
+        {
+            ApplicationAuthenticationInfo = new AuthenticationInfo();
+        }
+
     }
 
 }

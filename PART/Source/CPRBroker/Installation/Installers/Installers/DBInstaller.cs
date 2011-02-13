@@ -25,12 +25,17 @@ namespace CprBroker.Installers
     public partial class DBInstaller : Installer, ICprInstaller
     {
 
-        private string SuggestedDatabaseName;
+        protected virtual string SuggestedDatabaseName
+        {
+            get
+            {
+                return "";
+            }
+        }
 
-        public DBInstaller(string databaseName)
+        public DBInstaller()
         {
             InitializeComponent();
-            SuggestedDatabaseName = databaseName;
         }
 
         #region Overrides
@@ -48,8 +53,7 @@ namespace CprBroker.Installers
 
 
         ShowForm:
-            BaseForm.ShowAsDialog(frm, this.InstallerWindowWrapper());
-            savedStateWrapper.AdminConnectionString = setupInfo.CreateConnectionString(true, true);
+            BaseForm.ShowAsDialog(frm, this.InstallerWindowWrapper());            
 
             string adminConnectionString = setupInfo.CreateConnectionString(true, false);
             ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
@@ -72,8 +76,7 @@ namespace CprBroker.Installers
                     goto ShowForm;
                 }
             }
-
-            savedStateWrapper.DatabaseSetupInfo = setupInfo;
+            savedStateWrapper.SetDatabaseSetupInfo(setupInfo);
         }
 
         protected virtual string[] ConfigFileNames
@@ -97,14 +100,16 @@ namespace CprBroker.Installers
                 this.LoadAllAssemlies();
 
                 var savedStateWrapper = new SavedStateWrapper(stateSaver);
-                DatabaseSetupInfo setupInfo = savedStateWrapper.DatabaseSetupInfo;
-                savedStateWrapper.DatabaseCreated = CreateDatabase(setupInfo);
+                DatabaseSetupInfo setupInfo = savedStateWrapper.GetDatabaseSetupInfo();
+                setupInfo.DatabaseCreated = CreateDatabase(setupInfo);
+                savedStateWrapper.SetDatabaseSetupInfo(setupInfo);   
                 CreateDatabaseUser(setupInfo);
 
                 foreach (string configFileName in this.ConfigFileNames)
                 {
                     CprBroker.Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, setupInfo.CreateConnectionString(false, true));
                 }
+                savedStateWrapper.ClearDatabaseSensitiveDate();
             }
             catch (InstallException ex)
             {
@@ -122,9 +127,10 @@ namespace CprBroker.Installers
             {
                 base.Rollback(savedState);
                 var savedStateWrapper = new SavedStateWrapper(savedState);
-                if (savedStateWrapper.DatabaseCreated)
+                var setupInfo = savedStateWrapper.GetDatabaseSetupInfo();
+                if (setupInfo.DatabaseCreated)
                 {
-                    DeleteDatabase(savedStateWrapper.DatabaseSetupInfo, false);
+                    DeleteDatabase(savedStateWrapper.GetDatabaseSetupInfo(), false);
                 }
             }
             catch (Exception ex)
@@ -138,8 +144,8 @@ namespace CprBroker.Installers
             try
             {
                 base.Uninstall(savedState);
-                var savedStateWrapper = new SavedStateWrapper(savedState);
-                var setupInfo = DatabaseSetupInfo.FromConnectionString(savedStateWrapper.AdminConnectionString);
+                var savedStateWrapper = new SavedStateWrapper(savedState);                
+                var setupInfo = savedStateWrapper.GetDatabaseSetupInfo();
                 DeleteDatabase(setupInfo, true);
             }
             catch (Exception ex)

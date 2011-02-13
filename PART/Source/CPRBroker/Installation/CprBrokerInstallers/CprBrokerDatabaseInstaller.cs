@@ -15,11 +15,17 @@ namespace CprBroker.Installers.CprBrokerInstallers
     public class CprBrokerDatabaseInstaller : CprBroker.Installers.DBInstaller
     {
         public CprBrokerDatabaseInstaller()
-            : base("CprBroker")
         {
 
         }
 
+        protected override string SuggestedDatabaseName
+        {
+            get
+            {
+                return "CprBroker";
+            }
+        }
         protected override string CreateDatabaseObjectsSql
         {
             get

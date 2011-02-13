@@ -106,10 +106,14 @@ namespace CprBroker.DAL
 
         public static T Deserialize<T>(string xml)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            StringReader writer = new StringReader(xml);
-            object o = serializer.Deserialize(writer);
-            return (T)o;
+            if (!string.IsNullOrEmpty(xml))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                StringReader writer = new StringReader(xml);
+                object o = serializer.Deserialize(writer);
+                return (T)o;
+            }
+            return default(T);
         }
     }
 }

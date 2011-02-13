@@ -44,40 +44,21 @@ namespace CprBroker.Installers
             }
         }
 
-        public string AdminConnectionString
+        public DatabaseSetupInfo GetDatabaseSetupInfo()
         {
-            get
-            {
-                return Convert.ToString(savedState["AdminConnectionString"]);
-            }
-            set
-            {
-                savedState["AdminConnectionString"] = value;
-            }
+            var xml = string.Format("{0}", savedState["DatabaseSetupInfo"]);
+            return DAL.Utilities.Deserialize<DatabaseSetupInfo>(xml);
         }
 
-        public bool DatabaseCreated
+        public void SetDatabaseSetupInfo(DatabaseSetupInfo value)
         {
-            get
-            {
-                return Convert.ToBoolean(savedState["DatabaseCreated"]);
-            }
-            set
-            {
-                savedState["DatabaseCreated"] = value;
-            }
+            savedState["DatabaseSetupInfo"] = DAL.Utilities.SerializeObject(value);
         }
 
-        public DatabaseSetupInfo DatabaseSetupInfo
+        public void ClearDatabaseSensitiveDate()
         {
-            get
-            {
-                return savedState["DatabaseSetupInfo"] as DatabaseSetupInfo;
-            }
-            set
-            {
-                savedState["DatabaseSetupInfo"] = value;
-            }
+            var dbSetupInfo = GetDatabaseSetupInfo();
+            dbSetupInfo.ClearSensitiveDate();
         }
 
         public WebInstallationInfo WebInstallationInfo
