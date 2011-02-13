@@ -13,6 +13,7 @@ namespace CprBroker.EventBroker.Backend
         /// </summary>
         static void Main()
         {
+            string s = CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString;
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
 			{ 

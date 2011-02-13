@@ -36,9 +36,9 @@ namespace CprBroker.Config.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLServer;Initial Catalog=PART;User ID=cpr;Password=cpr")]
-        public string CPRConnectionString {
+        public string CprBrokerConnectionString {
             get {
-                return ((string)(this["CPRConnectionString"]));
+                return ((string)(this["CprBrokerConnectionString"]));
             }
         }
         
@@ -91,16 +91,6 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLServer;Initial Catalog=PART;User ID=cpr;Password=cpr")]
-        public string ApplicationsConnectionString {
-            get {
-                return ((string)(this["ApplicationsConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int EventBrokerNotificationBatchSize {
             get {
@@ -114,16 +104,6 @@ namespace CprBroker.Config.Properties {
         public int EventBrokerPollIntervalMilliseconds {
             get {
                 return ((int)(this["EventBrokerPollIntervalMilliseconds"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQLServer;Initial Catalog=PART;User ID=cpr;Password=cpr")]
-        public string DataChangeEventConnectionString {
-            get {
-                return ((string)(this["DataChangeEventConnectionString"]));
             }
         }
         

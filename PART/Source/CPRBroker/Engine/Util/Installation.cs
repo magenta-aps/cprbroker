@@ -112,7 +112,7 @@ namespace CprBroker.Engine.Util
             }
             catch (Exception)
             { }
-            return CprBroker.Config.Properties.Settings.Default.CPRConnectionString;
+            return CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString;
         }
 
         /// <summary>

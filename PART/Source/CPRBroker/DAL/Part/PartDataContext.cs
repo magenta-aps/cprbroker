@@ -10,7 +10,7 @@ namespace CprBroker.DAL.Part
     public partial class PartDataContext
     {
         public PartDataContext()
-            : base(Config.Properties.Settings.Default.CPRConnectionString)
+            : base(Config.Properties.Settings.Default.CprBrokerConnectionString)
         {
             OnCreated();
             /*if (!Directory.Exists(@"C:\Log"))
