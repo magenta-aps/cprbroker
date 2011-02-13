@@ -29,7 +29,7 @@ var record
 
 try {
 
-    var dllFileName = "CprBroker.Installers.CprBrokerInstallers.dll";
+    var dllFileName = "CprBroker.Installers.EventBrokerInstallers.dll";
     var dllId = null;
 
     // Select all files

@@ -60,7 +60,7 @@ namespace CprBroker.Installers.CprBrokerInstallers
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(savedState);
             var webConfigPath = CprBroker.Engine.Util.Installation.GetWebConfigFilePathFromInstaller(this);
             ret[webConfigPath] = new Dictionary<string, string>();
-            ret[webConfigPath]["CprBrokerConnectionString"] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
+            ret[webConfigPath]["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
             return ret;
         }
     }
