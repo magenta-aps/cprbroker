@@ -181,7 +181,8 @@
     <Content Include="Services\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Config\" />
+    <Content Include="Config\applicationSettings.config" />
+    <Content Include="Config\connectionStrings.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

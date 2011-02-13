@@ -134,7 +134,6 @@ namespace CprBroker.Installers
 
         public override void Uninstall(IDictionary savedState)
         {
-            System.Diagnostics.Debugger.Break();
             try
             {
                 base.Uninstall(savedState);

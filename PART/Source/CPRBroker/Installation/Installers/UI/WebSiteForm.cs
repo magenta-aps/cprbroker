@@ -33,6 +33,10 @@ namespace CprBroker.Installers
 
         private void TargetWebSiteForm_Load(object sender, EventArgs e)
         {
+            // Default site name
+            virtualDirectoryNameTextBox.Text = InstallationInfo.VirtualDirectoryName;
+            newWebSiteNameTextBox.Text = InstallationInfo.WebsiteName;
+
             // enumerate web sites
             DirectoryEntry w3svc = new DirectoryEntry(WebInstallationInfo.ServerRoot);
             List<DirectoryEntry> websites = new List<DirectoryEntry>();

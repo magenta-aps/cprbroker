@@ -26,7 +26,11 @@ namespace CprBroker.Installers
         public void GetInstallInfoFromUser(System.Collections.IDictionary stateSaver)
         {
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(stateSaver);
-            var webInstallationInfo = new WebInstallationInfo() { WebsiteName = DefaultWebsiteName };
+            var webInstallationInfo = new WebInstallationInfo() 
+            { 
+                VirtualDirectoryName = DefaultWebsiteName, 
+                WebsiteName = DefaultWebsiteName 
+            };
             WebSiteForm form = new WebSiteForm() { InstallationInfo = webInstallationInfo };
             CprBroker.Installers.BaseForm.ShowAsDialog(form, this.InstallerWindowWrapper());
             savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
@@ -142,7 +146,6 @@ namespace CprBroker.Installers
 
         public override void Uninstall(System.Collections.IDictionary savedState)
         {
-            System.Diagnostics.Debugger.Break();
             try
             {
                 base.Uninstall(savedState);
