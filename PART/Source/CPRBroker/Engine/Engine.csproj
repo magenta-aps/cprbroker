@@ -94,8 +94,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tasks\Task.cs" />
-    <Compile Include="Tasks\TaskQueue.cs" />
     <Compile Include="Trace\LocalTraceListener.cs" />
     <Compile Include="UI\WindowHandleWrapper.cs" />
     <Compile Include="Util\Installation.cs" />

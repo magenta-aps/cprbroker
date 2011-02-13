@@ -31,6 +31,7 @@ namespace CprBroker.EventBroker.Notifications
                 ApplicationToken = Constants.BaseApplicationToken.ToString(),
                 UserToken = ""
             };
+            this.EventsService.Url = Config.Properties.Settings.Default.EventsServiceUrl;
         }
 
     }

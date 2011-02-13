@@ -44,15 +44,6 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int TaskQueueMaxThreads {
-            get {
-                return ((int)(this["TaskQueueMaxThreads"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int DataContextDeadLockWaitMilliseconds {
             get {
@@ -81,16 +72,6 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1552/Services/NotificationQueue.asmx")]
-        public string NotificationQueueServiceUrl {
-            get {
-                return ((string)(this["NotificationQueueServiceUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int EventBrokerNotificationBatchSize {
             get {
@@ -113,6 +94,16 @@ namespace CprBroker.Config.Properties {
         public string EncryptionKeyXmlFile {
             get {
                 return ((string)(this["EncryptionKeyXmlFile"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://CprBroker/Services/Events.asmx")]
+        public string EventsServiceUrl {
+            get {
+                return ((string)(this["EventsServiceUrl"]));
             }
         }
     }

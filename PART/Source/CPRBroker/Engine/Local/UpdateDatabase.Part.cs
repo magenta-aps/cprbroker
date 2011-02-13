@@ -41,21 +41,7 @@ namespace CprBroker.Engine.Local
                 };
                 dataContext.DataChangeEvents.InsertOnSubmit(pp);
                 dataContext.SubmitChanges();
-            }
-            /*
-            dataContext.DataChangeEvents.InsertOnSubmit(pp);
-            dataContext.SubmitChanges();
-
-            NotificationQueueService.NotificationQueue notificationQueueService = new CprBroker.Engine.NotificationQueueService.NotificationQueue();
-            notificationQueueService.Url = Config.Properties.Settings.Default.NotificationQueueServiceUrl;
-            notificationQueueService.ApplicationHeaderValue = new CprBroker.Engine.NotificationQueueService.ApplicationHeader()
-            {
-                ApplicationToken = DAL.Applications.Application.BaseApplicationToken.ToString(),
-                UserToken = Constants.UserToken
-            };
-            // TODO: use the value of the result
-            bool result = notificationQueueService.Enqueue(personUuid);
-             * */
+            }           
         }
 
         private static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 personRegistraion)
