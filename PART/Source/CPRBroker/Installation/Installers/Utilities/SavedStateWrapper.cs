@@ -18,32 +18,6 @@ namespace CprBroker.Installers
             savedState = state;
         }
 
-        private static readonly string ApplicationPathKeyName = "ApplicationPath";
-        public string ApplicationPath
-        {
-            get
-            {
-                return Convert.ToString(this.savedState[ApplicationPathKeyName]);
-            }
-            set
-            {
-                this.savedState[ApplicationPathKeyName] = value;
-            }
-        }
-
-        private static readonly string ApplicationInstalledKeyName = "ApplicationInstalled";
-        public bool ApplicationInstalled
-        {
-            get
-            {
-                return Convert.ToBoolean(this.savedState[ApplicationInstalledKeyName]);
-            }
-            set
-            {
-                this.savedState[ApplicationInstalledKeyName] = value;
-            }
-        }
-
         public DatabaseSetupInfo GetDatabaseSetupInfo()
         {
             var xml = string.Format("{0}", savedState["DatabaseSetupInfo"]);
@@ -61,16 +35,14 @@ namespace CprBroker.Installers
             dbSetupInfo.ClearSensitiveDate();
         }
 
-        public WebInstallationInfo WebInstallationInfo
+        public WebInstallationInfo GetWebInstallationInfo()
         {
-            get
-            {
-                return savedState["WebInstallationInfo"] as WebInstallationInfo;
-            }
-            set
-            {
-                savedState["WebInstallationInfo"] = value;
-            }
+            var xml = string.Format("{0}", savedState["WebInstallationInfo"]);
+            return DAL.Utilities.Deserialize<WebInstallationInfo>(xml);
+        }
+        public void SetWebInstallationInfo(WebInstallationInfo value)
+        {
+            savedState["WebInstallationInfo"] = DAL.Utilities.SerializeObject(value);
         }
 
     }

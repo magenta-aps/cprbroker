@@ -16,6 +16,10 @@ namespace CprBroker.Installers
 
         public static readonly string ServerRoot = "IIS://localhost/w3svc";
 
+        public bool ApplicationInstalled;
+        public string ApplicationPath;
+
+
         public bool TargetEntryExists
         {
             get
