@@ -172,46 +172,50 @@ namespace CprBroker.Installers
             string adminConnectionString = setupInfo.CreateConnectionString(true, false);
             ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
             Server dbServer = new Server(dbServerConnection);
-            Database db = dbServer.Databases[setupInfo.DatabaseName];
 
-            string userName;
-            LoginType loginType;
-            Action<Login> createLoginMethod;
-
-            if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+            if (!dbServer.Databases.Contains(setupInfo.DatabaseName))
             {
-                userName = @"NT AUTHORITY\NETWORK SERVICE";
-                loginType = LoginType.WindowsUser;
-                createLoginMethod = (login) => login.Create();
-            }
-            else
-            {
-                userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
-                loginType = LoginType.SqlLogin;
-                createLoginMethod = (login) => login.Create(setupInfo.EffectiveApplicationAuthenticationInfo.Password);
-            }
+                Database db = dbServer.Databases[setupInfo.DatabaseName];
 
-            User[] usersArray = new User[db.Users.Count];
-            db.Users.CopyTo(usersArray, 0);
-            var existingUser = (
-                from User user in usersArray
-                where user.Name.ToLower() == userName.ToLower() || user.Login.ToLower() == userName.ToLower()
-                select user
-                ).FirstOrDefault();
+                string userName;
+                LoginType loginType;
+                Action<Login> createLoginMethod;
 
-            if (existingUser == null)
-            {
-                if (!dbServer.Logins.Contains(userName))
+                if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
                 {
-                    Login newLogin = new Login(dbServer, userName);
-                    newLogin.PasswordPolicyEnforced = false;
-                    newLogin.LoginType = loginType;
-                    createLoginMethod(newLogin);
+                    userName = @"NT AUTHORITY\NETWORK SERVICE";
+                    loginType = LoginType.WindowsUser;
+                    createLoginMethod = (login) => login.Create();
                 }
-                User newUser = new User(db, userName);
-                newUser.Login = newUser.Name;
-                newUser.Create();
-                newUser.AddToRole("db_owner");
+                else
+                {
+                    userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                    loginType = LoginType.SqlLogin;
+                    createLoginMethod = (login) => login.Create(setupInfo.EffectiveApplicationAuthenticationInfo.Password);
+                }
+
+                User[] usersArray = new User[db.Users.Count];
+                db.Users.CopyTo(usersArray, 0);
+                var existingUser = (
+                    from User user in usersArray
+                    where user.Name.ToLower() == userName.ToLower() || user.Login.ToLower() == userName.ToLower()
+                    select user
+                    ).FirstOrDefault();
+
+                if (existingUser == null)
+                {
+                    if (!dbServer.Logins.Contains(userName))
+                    {
+                        Login newLogin = new Login(dbServer, userName);
+                        newLogin.PasswordPolicyEnforced = false;
+                        newLogin.LoginType = loginType;
+                        createLoginMethod(newLogin);
+                    }
+                    User newUser = new User(db, userName);
+                    newUser.Login = newUser.Name;
+                    newUser.Create();
+                    newUser.AddToRole("db_owner");
+                }
             }
         }
 
