@@ -1199,6 +1199,78 @@ Output : Person UUID</wsdl:documentation>
          </urn:LaesInput>
       </dk:Read>
    </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/ReadRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="PersonInGTK"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Read>
+         <!--Optional:-->
+         <urn:LaesInput>
+            <!--Optional:-->
+            <urn1:UUID>3662f5bd-ba25-49a6-b8e1-0bebe288XXXX</urn1:UUID>
+         </urn:LaesInput>
+      </dk:Read>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/ReadRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="PersonNotInGTK"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Read>
+         <!--Optional:-->
+         <urn:LaesInput>
+            <!--Optional:-->
+            <urn1:UUID> bc7c0e5e-affe-4020-8cc5-8c51957d741b</urn1:UUID>
+         </urn:LaesInput>
+      </dk:Read>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/ReadRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="unknownUUID"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Read>
+         <!--Optional:-->
+         <urn:LaesInput>
+            <!--Optional:-->
+            <urn1:UUID> FCC1728E-3835-11E0-866A-1D75DFD72085</urn1:UUID>
+         </urn:LaesInput>
+      </dk:Read>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/ReadRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="invalidUUID"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Read>
+         <!--Optional:-->
+         <urn:LaesInput>
+            <!--Optional:-->
+            <urn1:UUID>42</urn1:UUID>
+         </urn:LaesInput>
+      </dk:Read>
+   </soap:Body>
 </soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/ReadRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/RefreshRead " name="RefreshRead" bindingOperationName="RefreshRead" type="Request-Response" outputName="RefreshRead_x0020_" inputName="RefreshRead_x0020_" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
    <soap:Header>
       <dk:ApplicationHeader>
