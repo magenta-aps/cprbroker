@@ -161,7 +161,8 @@ namespace CprBroker.Engine.Util
             {
                 settingElement = new SettingElement(settingName, SettingsSerializeAs.String);
             }
-            settingElement.Value.ValueXml = new XmlDocument().CreateNode(XmlNodeType.Element, "value", value);
+            settingElement.Value.ValueXml = new XmlDocument().CreateNode(XmlNodeType.Element, "value", "");
+            settingElement.Value.ValueXml.InnerText = value;
             configSettings.Settings.Add(settingElement);
             conf.Save(ConfigurationSaveMode.Full);
         }
