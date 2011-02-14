@@ -12,10 +12,9 @@ using System.Windows.Forms;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
-    [RunInstaller(true)]
-    public partial class ProjectInstaller : Installer
+    public partial class EventBrokerBackendServiceInstaller : Installer
     {
-        public ProjectInstaller()
+        public EventBrokerBackendServiceInstaller()
         {
             InitializeComponent();
         }

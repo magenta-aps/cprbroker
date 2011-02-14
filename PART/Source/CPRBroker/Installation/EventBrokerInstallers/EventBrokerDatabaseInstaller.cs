@@ -6,7 +6,6 @@ using CprBroker.EventBroker.DAL;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
-    [System.ComponentModel.RunInstaller(true)]
     public class EventBrokerDatabaseInstaller : DBInstaller
     {
         protected override string CreateDatabaseObjectsSql

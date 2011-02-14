@@ -53,6 +53,12 @@
     <Compile Include="EventBrokerDatabaseInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="EventBrokerInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EventBrokerInstaller.Designer.cs">
+      <DependentUpon>EventBrokerInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="EventBrokerWebSiteInstaller.cs">
       <SubType>Component</SubType>
     </Compile>

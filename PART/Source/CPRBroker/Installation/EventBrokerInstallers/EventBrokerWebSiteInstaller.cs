@@ -5,7 +5,6 @@ using System.Text;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
-    [System.ComponentModel.RunInstaller(true)]
     public class EventBrokerWebSiteInstaller : WebSiteInstaller
     {
         protected override string DefaultWebsiteName

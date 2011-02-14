@@ -1,6 +1,6 @@
 ﻿namespace CprBroker.Installers.EventBrokerInstallers
 {
-    partial class ProjectInstaller
+    partial class EventBrokerBackendServiceInstaller
     {
         /// <summary>
         /// Required designer variable.
