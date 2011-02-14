@@ -26,10 +26,10 @@ namespace CprBroker.Installers
         public void GetInstallInfoFromUser(System.Collections.IDictionary stateSaver)
         {
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(stateSaver);
-            var webInstallationInfo = new WebInstallationInfo() 
-            { 
-                VirtualDirectoryName = DefaultWebsiteName, 
-                WebsiteName = DefaultWebsiteName 
+            var webInstallationInfo = new WebInstallationInfo()
+            {
+                VirtualDirectoryName = DefaultWebsiteName,
+                WebsiteName = DefaultWebsiteName
             };
             WebSiteForm form = new WebSiteForm() { InstallationInfo = webInstallationInfo };
             CprBroker.Installers.BaseForm.ShowAsDialog(form, this.InstallerWindowWrapper());
@@ -109,6 +109,8 @@ namespace CprBroker.Installers
                 // Mark as done
                 webInstallationInfo.ApplicationInstalled = true;
                 savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
+
+                Engine.Util.Installation.SetApplicationSettingInConfigFile(this.GetWebConfigFilePathFromInstaller(), typeof(CprBroker.Config.Properties.Settings), "EncryptConnectionStrings", "True");
             }
             catch (InstallException ex)
             {

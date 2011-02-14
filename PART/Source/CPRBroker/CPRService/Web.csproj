@@ -77,6 +77,9 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Applications.aspx.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -148,6 +151,10 @@
     <Content Include="Pages\Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Config\Config.csproj">
+      <Project>{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}</Project>
+      <Name>Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{BBD25F50-FA7A-4799-9832-287AF59FB6C4}</Project>
       <Name>DAL</Name>
@@ -183,6 +190,7 @@
   <ItemGroup>
     <Content Include="Config\applicationSettings.config" />
     <Content Include="Config\connectionStrings.config" />
+    <Content Include="Global.asax" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

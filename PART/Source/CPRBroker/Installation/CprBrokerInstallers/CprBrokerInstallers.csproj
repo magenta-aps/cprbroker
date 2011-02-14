@@ -57,6 +57,12 @@
     <Compile Include="CprBrokerDatabaseInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CprBrokerInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CprBrokerInstaller.Designer.cs">
+      <DependentUpon>CprBrokerInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="CprBrokerWebSiteInstaller.cs">
       <SubType>Component</SubType>
     </Compile>

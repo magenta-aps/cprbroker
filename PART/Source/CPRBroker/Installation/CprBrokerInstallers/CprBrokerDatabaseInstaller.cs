@@ -11,7 +11,6 @@ using CprBroker.DAL.DataProviders;
 
 namespace CprBroker.Installers.CprBrokerInstallers
 {
-    [System.ComponentModel.RunInstaller(true)]
     public class CprBrokerDatabaseInstaller : CprBroker.Installers.DBInstaller
     {
         public CprBrokerDatabaseInstaller()

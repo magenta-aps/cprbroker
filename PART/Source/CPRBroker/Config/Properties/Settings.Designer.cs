@@ -106,5 +106,14 @@ namespace CprBroker.Config.Properties {
                 return ((string)(this["EventsServiceUrl"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EncryptConnectionStrings {
+            get {
+                return ((bool)(this["EncryptConnectionStrings"]));
+            }
+        }
     }
 }

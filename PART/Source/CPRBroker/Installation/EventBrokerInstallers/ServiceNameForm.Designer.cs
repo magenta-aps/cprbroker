@@ -227,7 +227,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ServiceNameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Windows service parameters";
+            this.Text = "Event broker parameters";
             ((System.ComponentModel.ISupportInitialize)(this.serviceNameTextBox.ErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cprBrokerEventsServiceUrlCustomTextBox.ErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseNameTextBox.ErrorProvider)).EndInit();

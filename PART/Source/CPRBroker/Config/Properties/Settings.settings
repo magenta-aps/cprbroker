@@ -38,5 +38,8 @@
     <Setting Name="EventsServiceUrl" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://CprBroker/Services/Events.asmx</Value>
     </Setting>
+    <Setting Name="EncryptConnectionStrings" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

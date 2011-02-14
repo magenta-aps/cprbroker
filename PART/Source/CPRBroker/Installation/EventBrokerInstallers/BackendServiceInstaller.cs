@@ -50,7 +50,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
         }
 
         public override void Uninstall(IDictionary savedState)
-        {            
+        {
             this.backendServiceInstaller.ServiceName = new SavedStateWrapper(savedState).ServiceName;
             base.Uninstall(savedState);
         }
@@ -59,6 +59,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
         {
             var configFileName = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location + ".config";
 
+            Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EncryptConnectionStrings", "True");
             Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EventsServiceUrl", cprEventsServiceUrl);
             Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, typeof(Config.Properties.Settings).FullName + ".CprBrokerConnectionString", cprBrokerConnectionString);
         }
