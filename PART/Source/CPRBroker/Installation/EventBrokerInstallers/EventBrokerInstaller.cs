@@ -24,18 +24,13 @@ namespace CprBroker.Installers.EventBrokerInstallers
             AddInstallers();
         }
 
-        protected override void OnBeforeInstall(System.Collections.IDictionary savedState)
-        {
-            savedState["DDDD"] = "DDDD";
-        }
-
         private void AddInstallers()
         {
             Installers.Add(new EventBrokerDatabaseInstaller());
             Installers.Add(new EventBrokerWebSiteInstaller());
             Installers.Add(new EventBrokerBackendServiceInstaller());
-            
-            
+            Installers.Add(new ConnectionStringsInstaller());
+
         }
     }
 }

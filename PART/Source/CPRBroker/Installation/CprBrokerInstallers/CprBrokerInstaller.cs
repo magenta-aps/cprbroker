@@ -28,6 +28,7 @@ namespace CprBroker.Installers.CprBrokerInstallers
         {
             Installers.Add(new CprBrokerDatabaseInstaller());
             Installers.Add(new CprBrokerWebSiteInstaller());
+            Installers.Add(new ConnectionStringsInstaller());
         }
     }
 }

@@ -56,11 +56,22 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         private void UpdateConfiguration(string cprEventsServiceUrl, string cprBrokerConnectionString)
         {
-            var configFileName = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location + ".config";
+            string configFileName = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location + ".config";
 
-            Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EncryptConnectionStrings", "True");
+            ConnectionStringsInstaller.RegisterConnectionString(
+                configFileName,
+                typeof(Config.Properties.Settings).FullName + ".CprBrokerConnectionString",
+                cprBrokerConnectionString
+                );
+
+            ConnectionStringsInstaller.RegisterConnectionString(
+                this.GetWebConfigFilePathFromInstaller(),
+                typeof(Config.Properties.Settings).FullName + ".CprBrokerConnectionString",
+                cprBrokerConnectionString
+                );
+
             Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EventsServiceUrl", cprEventsServiceUrl);
-            Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, typeof(Config.Properties.Settings).FullName + ".CprBrokerConnectionString", cprBrokerConnectionString);
+
         }
 
         private void StartService()

@@ -10,6 +10,12 @@ namespace CprBroker.NUnitTester
     {
         public static void Main()
         {
+            var o = new Subscriptions.ChangeSubscriptionType();
+            o.NotificationChannel = new Subscriptions.FileShareChannelType() { Path = "c:\\" };
+
+            var xml = CprBroker.DAL.Utilities.SerializeObject(o);
+            object s = "";
+            
 
         }
     }

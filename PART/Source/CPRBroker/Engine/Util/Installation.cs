@@ -63,58 +63,6 @@ namespace CprBroker.Engine.Util
             string configFileName = webDir + "\\web.config";
             return configFileName;
         }
-        /*
-        /// <summary>
-        /// XPath of the connection string node in config files
-        /// </summary>
-        public static readonly string ConnectionStringNodePath = "//connectionStrings/add[@name='CprBroker.Config.Properties.Settings.CPRConnectionString']";
-
-        public static XmlNode GetConnectionStringsNode(string configFileName)
-        {
-            XmlDocument doc = new XmlDocument();
-
-            doc.Load(configFileName);
-            XmlNode connectionStringNode = doc.SelectSingleNode(ConnectionStringNodePath);
-            if (connectionStringNode != null)
-            {
-                if (connectionStringNode.Attributes["configSource"] == null)
-                {
-                    return connectionStringNode;
-                }
-                else
-                {
-                    var connectionStringsFileName = new FileInfo(configFileName).Directory.FullName + "\\" + connectionStringNode.Attributes["configSource"].Value;
-                    var connectionStringsDoc = new XmlDocument();
-                    connectionStringsDoc.Load(connectionStringsFileName);
-                    return connectionStringsDoc.SelectSingleNode("//connectionStrings");
-                }
-            }
-
-            return null;
-        }*/
-        /*
-        /// <summary>
-        /// Gets the connection string fromDate the web.config file of the current installer
-        /// </summary>
-        /// <param name="installer"></param>
-        /// <returns></returns>
-        public static string GetConnectionStringFromWebConfig(this Installer installer)
-        {
-            string configFileName = installer.GetWebConfigFilePathFromInstaller();
-            XmlDocument doc = new XmlDocument();
-            try
-            {
-                doc.Load(configFileName);
-                XmlNode connectionStringNode = doc.SelectSingleNode(ConnectionStringNodePath);
-                if (connectionStringNode != null)
-                {
-                    return connectionStringNode.Attributes["connectionString"].Value;
-                }
-            }
-            catch (Exception)
-            { }
-            return CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString;
-        }*/
 
         /// <summary>
         /// Sets the connection string value in the given config file

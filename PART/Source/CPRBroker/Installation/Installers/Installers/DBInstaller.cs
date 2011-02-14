@@ -224,7 +224,7 @@ namespace CprBroker.Installers
                 var configFileName = configFile.Key;
                 foreach (var connStr in configFile.Value)
                 {
-                    CprBroker.Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, connStr.Key, connStr.Value);
+                    ConnectionStringsInstaller.RegisterConnectionString(configFileName, connStr.Key, connStr.Value);
                 }
             }
         }

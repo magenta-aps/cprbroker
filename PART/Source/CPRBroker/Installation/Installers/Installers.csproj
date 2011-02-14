@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Installers\ConnectionStringsInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
