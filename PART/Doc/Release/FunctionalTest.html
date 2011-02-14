@@ -39,8 +39,13 @@ Create projects for the three webservices:
 <li>http://cprbroker20110208/Services/Admin.asmx?WSDL</li>
 <li>http://cprbroker20110208/Services/Part.asmx?WSDL</li>
 <li>http://eventbroker20110208/Services/Notification.asmx?WSDL</li>
+<li>http://eventbroker20110208/Services/Subscriptions.asmx?WSDL</li>
 </ul>
 
+
+We also check the application page: http://cprbroker20110208/Pages/Applications.aspx
+
+<p>
 
 Fill in input for east test and check the output. 
 
@@ -253,7 +258,8 @@ Now we test Read, which take a UUID and return data on the person identified by 
 
 <h2>Eventbroker</h2>
 
-The Event Broker
+The Event Broker allow client to subscribe to events.
+We will first test the subscribtion, then the delivery of events.
 
 <h3>subscription</h3>
 
@@ -264,11 +270,15 @@ They just accept anything and writes it to a logfile.
 <p>
 <table border="1" style="border-collapse: collapse">
 <tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
-<tr><td>Ping</td><td>Subscriptions.asmx?op=Ping</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>Ping</td><td>Subscriptions.asmx?op=Ping</td><td>SoapUI</td><td></td><td>User=[/ ], Auth type=[], IsAuthenticated=[False], Server=[USVMV361]</td></tr>
+
 <tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td>Empty</td></tr>
-<tr><td>Subscribe(fileshare1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>result=sub1</td></tr>
-<tr><td>Subscribe(fileshare2, [not existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>result=sub2</td></tr>
-<tr><td>Subscribe(fileshare3, empty list)</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>result=sub3</td></tr>
+<tr><td>Subscribe(fileshare1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>got SubscribeResponse with SubscriptionId>982ebe30-0d42-42c2-a9bb-91a9ad468c96, ApplicationToken = 07059250-E448-4040-B695-9C03F9E59E38 (sub1) </td></tr>
+<tr><td>Subscribe(fileshare2, [not existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>   
+&lt;soap:Body&gt;      &lt;SubscribeResponse xmlns="http://dk.itst"/&gt; &lt;/soap:Body&gt;, should return error
+</td></tr>
+<tr><td>Subscribe(fileshare3, empty list)</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>&lt;soap:Body&gt;&lt;SubscribeResponse xmlns="http://dk.itst"/&gt; &lt;/soap:Body&gt;, should return error
+</td></tr>
 <tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
 <tr><td>Subscribe(webservice1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td></td></tr>
 <tr><td>Subscribe(webservice2, [existing uuid,existing uuid,existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td></td></tr>
@@ -314,7 +324,7 @@ They just accept anything and writes it to a logfile.
     <address><a href="mailto:elgaard@niels.magenta-aps.dk">Niels Elgaard Larsen</a></address>
 <!-- Created: Mon Feb  7 15:53:17 CET 2011 -->
 <!-- hhmts start -->
-Last modified: Mon Feb 14 13:40:40 Romance Standard Time 2011
+Last modified: Mon Feb 14 19:30:00 Romance Standard Time 2011
 <!-- hhmts end -->
   </body>
 </html>
