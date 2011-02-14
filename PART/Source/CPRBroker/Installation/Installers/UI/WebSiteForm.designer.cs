@@ -100,7 +100,7 @@
             this.newWebSiteNameTextBox.Size = new System.Drawing.Size(369, 20);
             this.newWebSiteNameTextBox.TabIndex = 1;
             this.newWebSiteNameTextBox.Text = "CprBroker";
-            this.newWebSiteNameTextBox.ValidationExpression = "\\A\\savedStateWrapper+\\Z";
+            this.newWebSiteNameTextBox.ValidationExpression = "\\A\\w+\\Z";
             // 
             // label1
             // 

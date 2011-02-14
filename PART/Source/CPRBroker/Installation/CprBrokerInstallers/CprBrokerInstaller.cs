@@ -30,5 +30,17 @@ namespace CprBroker.Installers.CprBrokerInstallers
             Installers.Add(new CprBrokerWebSiteInstaller());
             Installers.Add(new ConnectionStringsInstaller());
         }
+
+        public override void Uninstall(System.Collections.IDictionary savedState)
+        {
+            try
+            {
+                base.Uninstall(savedState);
+            }
+            catch (Exception ex)
+            {
+                Messages.ShowException(this, "", ex);
+            }
+        }
     }
 }

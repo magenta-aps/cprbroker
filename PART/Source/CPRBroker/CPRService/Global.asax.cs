@@ -14,7 +14,12 @@ namespace CprBroker.Web
         {
             if (CprBroker.Config.Properties.Settings.Default.EncryptConnectionStrings)
             {
-                CprBroker.Engine.Util.Security.EncryptConnectionStrings();
+                try
+                {
+                    CprBroker.Engine.Util.Security.EncryptConnectionStrings();
+                }
+                catch (Exception ex)
+                { }
             }
         }
 

@@ -27,7 +27,7 @@ namespace CprBroker.Engine.Util
             Configuration config;
             if (HttpContext.Current != null)
             {
-                config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
+                config = WebConfigurationManager.OpenWebConfiguration(null);
             }
             else
             {

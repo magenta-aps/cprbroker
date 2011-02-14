@@ -30,7 +30,18 @@ namespace CprBroker.Installers.EventBrokerInstallers
             Installers.Add(new EventBrokerWebSiteInstaller());
             Installers.Add(new EventBrokerBackendServiceInstaller());
             Installers.Add(new ConnectionStringsInstaller());
+        }
 
+        public override void Uninstall(System.Collections.IDictionary savedState)
+        {
+            try
+            {
+                base.Uninstall(savedState);
+            }
+            catch (Exception ex)
+            {
+                Messages.ShowException(this, "", ex);
+            }
         }
     }
 }
