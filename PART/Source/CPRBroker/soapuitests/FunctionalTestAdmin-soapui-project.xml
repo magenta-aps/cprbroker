@@ -1222,19 +1222,19 @@
    <soap:Body>
       <dk:GetCapabilities/>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/GetCapabilitiesRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/GetDataProviderList" name="GetDataProviderList" bindingOperationName="GetDataProviderList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/GetCapabilitiesRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/GetDataProviderList" name="GetDataProviderList" bindingOperationName="GetDataProviderList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
-         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
          <!--Optional:-->
-         <dk:UserToken>?</dk:UserToken>
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
       <dk:GetDataProviderList/>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/GetDataProviderListRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/IsImplementing" name="IsImplementing" bindingOperationName="IsImplementing" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/GetDataProviderListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/IsImplementing" name="IsImplementing" bindingOperationName="IsImplementing" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -1320,13 +1320,13 @@
          <dk:ApplicationName>testappT</dk:ApplicationName>
       </dk:RequestAppRegistration>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/RequestAppRegistrationRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/SetDataProviderList" name="SetDataProviderList" bindingOperationName="SetDataProviderList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/RequestAppRegistrationRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/SetDataProviderList" name="SetDataProviderList" bindingOperationName="SetDataProviderList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
-         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
          <!--Optional:-->
-         <dk:UserToken>?</dk:UserToken>
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
@@ -1336,20 +1336,21 @@
             <!--Zero or more repetitions:-->
             <dk:DataProviderType>
                <!--Optional:-->
-               <ns:TypeName>?</ns:TypeName>
-               <ns:Enabled>?</ns:Enabled>
+               <ns:TypeName>KMD</ns:TypeName>
+               <ns:Enabled>true</ns:Enabled>
                <!--Zero or more repetitions:-->
                <ns:Attributes>
                   <!--Optional:-->
-                  <ns:Name>?</ns:Name>
-                  <!--Optional:-->
-                  <ns:Value>?</ns:Value>
+                  <ns:Name>Address</ns:Name>
+                  <ns:Value>http://agol.dk/ds</ns:Value>
+ <ns:Name>Username</ns:Name><ns:Value>foo</ns:Value>
+ <ns:Name>Password</ns:Name><ns:Value>bar</ns:Value>
                </ns:Attributes>
             </dk:DataProviderType>
          </dk:DataProviders>
       </dk:SetDataProviderList>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/SetDataProviderListRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/UnregisterApp" name="UnregisterApp" bindingOperationName="UnregisterApp" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="unregisterTestAppT"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/SetDataProviderListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/UnregisterApp" name="UnregisterApp" bindingOperationName="UnregisterApp" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="unregisterTestAppT"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
