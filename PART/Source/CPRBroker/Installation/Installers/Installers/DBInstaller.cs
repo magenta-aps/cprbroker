@@ -128,7 +128,7 @@ namespace CprBroker.Installers
             }
             catch (Exception ex)
             {
-                Messages.ShowException(ex);
+                Messages.ShowException(this, "", ex);
             }
         }
 
@@ -143,7 +143,7 @@ namespace CprBroker.Installers
             }
             catch (Exception ex)
             {
-                Messages.ShowException(ex);
+                Messages.ShowException(this, "", ex);
             }
         }
 

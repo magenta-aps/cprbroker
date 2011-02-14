@@ -110,7 +110,18 @@ namespace CprBroker.Installers
                 webInstallationInfo.ApplicationInstalled = true;
                 savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
 
+
                 Engine.Util.Installation.SetApplicationSettingInConfigFile(this.GetWebConfigFilePathFromInstaller(), typeof(CprBroker.Config.Properties.Settings), "EncryptConnectionStrings", "True");
+
+                var rootUrl = webInstallationInfo.RootUrl;
+                ConnectionStringsInstaller.RegisterCommitAction(
+                    this.GetWebConfigFilePathFromInstaller(),
+                    () =>
+                    {
+                        var wc = new System.Net.WebClient();
+                        wc.DownloadData(rootUrl);
+                    }
+                    );
             }
             catch (InstallException ex)
             {
@@ -134,7 +145,7 @@ namespace CprBroker.Installers
             }
             catch (Exception ex)
             {
-                Messages.ShowException(ex);
+                Messages.ShowException(this, "", ex);
             }
         }
         #endregion
@@ -155,7 +166,7 @@ namespace CprBroker.Installers
             }
             catch (Exception ex)
             {
-                Messages.ShowException(ex);
+                Messages.ShowException(this, "", ex);
             }
         }
         #endregion

@@ -33,7 +33,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
             base.Install(stateSaver);
 
-            UpdateConfiguration(eventsServiceUrl, frm.CprBrokerDatabaseInfo.CreateConnectionString(false, true));
+            UpdateConfiguration(serviceName, eventsServiceUrl, frm.CprBrokerDatabaseInfo.CreateConnectionString(false, true));
             StartService();
         }
 
@@ -45,16 +45,25 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 base.Uninstall(savedState);
             }
             catch (Exception ex)
-            { }
+            {
+                Messages.ShowException(this, "", ex);
+            }
         }
 
         public override void Uninstall(IDictionary savedState)
         {
-            this.backendServiceInstaller.ServiceName = new SavedStateWrapper(savedState).ServiceName;
-            base.Uninstall(savedState);
+            try
+            {
+                this.backendServiceInstaller.ServiceName = new SavedStateWrapper(savedState).ServiceName;
+                base.Uninstall(savedState);
+            }
+            catch (Exception ex)
+            {
+                Messages.ShowException(this, "", ex);
+            }
         }
 
-        private void UpdateConfiguration(string cprEventsServiceUrl, string cprBrokerConnectionString)
+        private void UpdateConfiguration(string serviceName, string cprEventsServiceUrl, string cprBrokerConnectionString)
         {
             string configFileName = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location + ".config";
 
@@ -70,6 +79,14 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 cprBrokerConnectionString
                 );
 
+            ConnectionStringsInstaller.RegisterCommitAction(
+                configFileName,
+                () =>
+                {
+                    ServiceController serviceController = new ServiceController(serviceName);
+                    serviceController.Start();
+                }
+                );
             Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EventsServiceUrl", cprEventsServiceUrl);
 
         }
@@ -91,7 +108,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 try
                 {
                     ServiceController serviceController = new ServiceController(this.backendServiceInstaller.ServiceName);
-                    serviceController.Start();
+                    //serviceController.Start();
                 }
                 catch (Exception ex)
                 {

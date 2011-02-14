@@ -74,5 +74,20 @@ namespace CprBroker.Installers
             }
             return siteID;
         }
+
+        public string RootUrl
+        {
+            get
+            {
+                if (CreateAsWebsite)
+                {
+                    return string.Format("http://{0}/", WebsiteName);
+                }
+                else
+                {
+                    return string.Format("http://localhost/{0}", VirtualDirectoryName);
+                }
+            }
+        }
     }
 }

@@ -70,7 +70,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to local Cpr Broker. Please validate the URL");
+                MessageBox.Show("Unable to connect to Cpr Broker. Please validate the URL");
                 return false;
             }
 

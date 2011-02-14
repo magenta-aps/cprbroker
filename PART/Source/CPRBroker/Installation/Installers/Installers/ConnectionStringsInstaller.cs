@@ -20,6 +20,21 @@ namespace CprBroker.Installers
                     Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, connectionString.Name, connectionString.Value);
                 }
                 Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EncryptConnectionStrings", "True");
+                if (configFile.CommitAction != null)
+                {
+                    try
+                    {
+                        configFile.CommitAction();
+                    }
+                    catch (Exception ex)
+                    {
+                        string message = string.Format(
+                            "Could not commit action for config file \"{0}\", you may need to look at the file.",
+                            configFile.FileName
+                        );
+                        Messages.ShowException(this, message, ex);
+                    }
+                }
             }
         }
 
@@ -43,6 +58,17 @@ namespace CprBroker.Installers
             connectionString.Value = value;
         }
 
+        public static void RegisterCommitAction(string fileName, Action action)
+        {
+            var file = _Files.FirstOrDefault(f => f.FileName == fileName);
+            if (file == null)
+            {
+                file = new File() { FileName = fileName };
+                _Files.Add(file);
+            }
+            file.CommitAction = action;
+        }
+
         public class ConnectionString
         {
             public string Name;
@@ -53,6 +79,7 @@ namespace CprBroker.Installers
         {
             public string FileName;
             public List<ConnectionString> ConnectionStrings = new List<ConnectionString>();
+            public Action CommitAction = null;
         }
     }
 }

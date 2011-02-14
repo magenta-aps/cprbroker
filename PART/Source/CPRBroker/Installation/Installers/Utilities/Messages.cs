@@ -9,7 +9,7 @@ namespace CprBroker.Installers
     /// <summary>
     /// Contains text messages displayed by the application
     /// </summary>
-    public class Messages 
+    public class Messages
     {
         public static readonly string WebsiteExists = "Website already exists. Do you want to overwrite it?";
         public static readonly string WebAppExists = "Web application already exists. Do you want to overwrite it?";
@@ -40,9 +40,14 @@ namespace CprBroker.Installers
         public static readonly string AnErrorHasOccurredAndInstallationWillBeCancelled = "An error has occurred. Installation will be cancelled";
         public static readonly string AnErrorHasOccurredAndItWillBeIgnored = "An error has occurred. The process will ignore it and continue.";
 
-        public static void ShowException(Exception ex)
+        public static void ShowException(System.Configuration.Install.Installer installer, string message, Exception ex)
         {
-            MessageBox.Show(AnErrorHasOccurredAndItWillBeIgnored);
+            message = string.Format("{0}\r\n{1}\r\n",
+                AnErrorHasOccurredAndItWillBeIgnored,
+                message,
+                ex.ToString()
+                );
+            MessageBox.Show(Engine.Util.Installation.InstallerWindowWrapper(installer), message);
         }
     }
 }
