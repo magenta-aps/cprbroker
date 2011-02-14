@@ -14,20 +14,20 @@
         <elementListCompartment Id="11c33df8-4bec-4066-947f-0ef38c61c238" absoluteBounds="0.765, 5.71, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="5ef4db03-8fba-4d8e-8385-17d5ab9e3bb2" absoluteBounds="3.625, 1.25, 2, 2.4109318033854166">
+    <classShape Id="5ef4db03-8fba-4d8e-8385-17d5ab9e3bb2" absoluteBounds="3.75, 1.5, 2, 2.4109318033854166">
       <DataClassMoniker Name="/ApplicationDataContext/LogEntry" />
       <nestedChildShapes>
-        <elementListCompartment Id="624450d4-f365-4417-bda4-b3d82c46e769" absoluteBounds="3.64, 1.71, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="624450d4-f365-4417-bda4-b3d82c46e769" absoluteBounds="3.765, 1.96, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 6.12677124023438); (4.625 : 6.12677124023438); (4.625 : 3.66093180338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.12677124023438); (4.75 : 6.12677124023438); (4.75 : 3.91093180338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ApplicationDataContext/Application/Application_LogEntry" />
       <nodes>
         <classShapeMoniker Id="9b96cfb3-8844-4000-ac64-192f87630515" />
         <classShapeMoniker Id="5ef4db03-8fba-4d8e-8385-17d5ab9e3bb2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 2.17307657877604); (3.625 : 2.17307657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.17307657877604); (3.75 : 2.17307657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ApplicationDataContext/LogType/LogType_LogEntry" />
       <nodes>
         <classShapeMoniker Id="22a1dacc-114e-4ec3-a52e-b654d9cc50ae" />

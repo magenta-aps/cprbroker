@@ -50,7 +50,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
         }
 
         public override void Uninstall(IDictionary savedState)
-        {
+        {            
             this.backendServiceInstaller.ServiceName = new SavedStateWrapper(savedState).ServiceName;
             base.Uninstall(savedState);
         }
