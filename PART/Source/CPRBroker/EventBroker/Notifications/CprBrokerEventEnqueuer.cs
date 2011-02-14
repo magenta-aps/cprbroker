@@ -13,14 +13,18 @@ namespace CprBroker.EventBroker.Notifications
 
         public CprBrokerEventEnqueuer()
         {
-            InitializeComponent();
-            InitializeEventsService();
+            InitializeComponent();            
         }
 
         public CprBrokerEventEnqueuer(IContainer container)
         {
             container.Add(this);
             InitializeComponent();
+            InitializeEventsService();
+        }
+
+        protected override void OnBeforeStart()
+        {
             InitializeEventsService();
         }
 
@@ -33,6 +37,8 @@ namespace CprBroker.EventBroker.Notifications
             };
             this.EventsService.Url = Config.Properties.Settings.Default.EventsServiceUrl;
         }
+
+        
 
     }
 }

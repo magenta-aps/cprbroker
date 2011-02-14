@@ -45,7 +45,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
             var backEndConfigFileName = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location + ".config";
             ret[backEndConfigFileName] = new Dictionary<string, string>();
-            ret[backEndConfigFileName]["CprBroker.Config.Properties.Settings.EventBrokerConnectionString"] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
+            ret[backEndConfigFileName]["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
 
             return ret;
         }

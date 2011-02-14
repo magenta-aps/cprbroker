@@ -33,8 +33,13 @@ namespace CprBroker.EventBroker.Notifications
             ActionTimer.Elapsed += new System.Timers.ElapsedEventHandler(ActionTimer_Elapsed);
         }
 
+        protected virtual void OnBeforeStart()
+        {
+        }
+
         public void Start()
         {
+            OnBeforeStart();
             SetActionTimerInterval();
             ActionTimer.Start();
         }

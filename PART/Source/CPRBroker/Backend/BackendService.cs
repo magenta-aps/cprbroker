@@ -27,6 +27,7 @@ namespace CprBroker.EventBroker.Backend
 
         private void StartQueues()
         {
+            System.Diagnostics.Debugger.Break();
             this.BirthdateEventEnqueuer.Start();
             this.DataChangeEventEnqueuer.Start();
             this.NotificationSender.Start();

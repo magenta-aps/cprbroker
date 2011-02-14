@@ -80,6 +80,10 @@
       <Project>{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}</Project>
       <Name>Backend</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Config\Config.csproj">
+      <Project>{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}</Project>
+      <Name>Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Engine.csproj">
       <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
       <Name>Engine</Name>

@@ -140,6 +140,32 @@ namespace CprBroker.Engine.Util
             configuration.Save();
         }
 
+        public static void SetApplicationSettingInConfigFile(string configFileName, Type settingsType, string settingName, string value)
+        {
+            var map = new ExeConfigurationFileMap() { ExeConfigFilename = configFileName };
+            Configuration conf = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+            var applicationSettings = conf.SectionGroups["applicationSettings"] as ApplicationSettingsGroup;
+            if (applicationSettings == null)
+            {
+                applicationSettings = new ApplicationSettingsGroup();
+                conf.SectionGroups.Add("applicationSettings", applicationSettings);
+            }
+            var configSettings = applicationSettings.Sections[settingsType.FullName] as ClientSettingsSection;
+            if (configSettings == null)
+            {
+                configSettings = new ClientSettingsSection();
+                applicationSettings.Sections.Add(settingsType.FullName, configSettings);
+            }
+            var settingElement = configSettings.Settings.Get(settingName);
+            if (settingElement == null)
+            {
+                settingElement = new SettingElement(settingName, SettingsSerializeAs.String);
+            }
+            settingElement.Value.ValueXml = new XmlDocument().CreateNode(XmlNodeType.Element, "value", value);
+            configSettings.Settings.Add(settingElement);
+            conf.Save(ConfigurationSaveMode.Full);
+        }
+
         const int MAX_PATH = 256;
         public static string GetNetFrameworkDirectory()
         {

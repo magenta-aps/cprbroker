@@ -25,49 +25,17 @@ namespace CprBroker.Installers.EventBrokerInstallers
             ServiceNameForm frm = new ServiceNameForm() { ServiceName = "Event Broker backend service" };
             BaseForm.ShowAsDialog(frm, this.InstallerWindowWrapper());
 
-            new SavedStateWrapper(stateSaver).ServiceName = frm.ServiceName;
+            string serviceName = frm.ServiceName;
             var eventsServiceUrl = frm.CprEventsServiceUrl;
 
-            this.backendServiceInstaller.ServiceName = frm.ServiceName;
+            var savedStateWrapper = new SavedStateWrapper(stateSaver);
+            savedStateWrapper.ServiceName = serviceName;
+            this.backendServiceInstaller.ServiceName = serviceName;
 
             base.Install(stateSaver);
 
-            ServiceController serviceController = new ServiceController(this.backendServiceInstaller.ServiceName);
-            System.Diagnostics.Debugger.Break();
-            var map = new ExeConfigurationFileMap()
-            {
-                ExeConfigFilename = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location + ".config"
-            };
-            Configuration conf = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
-            var applicationSettings = conf.SectionGroups["applicationSettings"] as ApplicationSettingsGroup;
-
-            var configSettings = applicationSettings.Sections["CprBroker.Config.Properties.Settings"] as ClientSettingsSection;
-
-            var settingElement = configSettings.Settings.Get("EventsServiceUrl");
-            if (settingElement == null)
-            {
-                settingElement = new SettingElement("EventsServiceUrl", SettingsSerializeAs.String);                
-            }
-
-            settingElement.Value.ValueXml.InnerText = eventsServiceUrl;
-            configSettings.Settings.Add(settingElement);
-            conf.Save(ConfigurationSaveMode.Full);
-
-            if (backendServiceInstaller.StartType == ServiceStartMode.Automatic)
-            {
-                try
-                {
-                    serviceController.Start();
-                }
-                catch (Exception ex)
-                {
-                    string message = string.Format(
-                        "Could not start service \"{0}\", the installation will continue but you need to start the service manually.\r\nThe error was\r\n\t\"{1}\"",
-                        serviceController.ServiceName,
-                        ex.Message);
-                    System.Windows.Forms.MessageBox.Show(message);
-                }
-            }
+            UpdateConfiguration(eventsServiceUrl, frm.CprBrokerDatabaseInfo.CreateConnectionString(false, true));
+            StartService();
         }
 
         public override void Rollback(IDictionary savedState)
@@ -85,6 +53,44 @@ namespace CprBroker.Installers.EventBrokerInstallers
         {
             this.backendServiceInstaller.ServiceName = new SavedStateWrapper(savedState).ServiceName;
             base.Uninstall(savedState);
+        }
+
+        private void UpdateConfiguration(string cprEventsServiceUrl, string cprBrokerConnectionString)
+        {
+            var configFileName = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location + ".config";
+
+            Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EventsServiceUrl", cprEventsServiceUrl);
+            Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, typeof(Config.Properties.Settings).FullName + ".CprBrokerConnectionString", cprBrokerConnectionString);
+        }
+
+        private void StartService()
+        {
+            RegistryKey hklm = Registry.LocalMachine;
+            hklm = hklm.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\" + backendServiceInstaller.ServiceName, true);
+            var path = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location;
+            if (path.IndexOf(" ") != -1)
+            {
+                path = "\"" + path + "\"";
+            }
+            hklm.SetValue("ImagePath", path);
+            hklm.Flush();
+
+            if (backendServiceInstaller.StartType == ServiceStartMode.Automatic)
+            {
+                try
+                {
+                    ServiceController serviceController = new ServiceController(this.backendServiceInstaller.ServiceName);
+                    serviceController.Start();
+                }
+                catch (Exception ex)
+                {
+                    string message = string.Format(
+                        "Could not start service \"{0}\", the installation will continue but you need to start the service manually.\r\nThe error was\r\n\t\"{1}\"",
+                        this.backendServiceInstaller.ServiceName,
+                        ex.Message);
+                    System.Windows.Forms.MessageBox.Show(message);
+                }
+            }
         }
     }
 }
