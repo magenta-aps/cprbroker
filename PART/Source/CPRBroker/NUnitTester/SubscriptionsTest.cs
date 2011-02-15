@@ -35,7 +35,6 @@ namespace CprBroker.NUnitTester
         {
             MapCprNumbers();
             var uuids = GetPersonUuids(cprNumbers);
-
             var sub = TestRunner.SubscriptionsService.SubscribeOnBirthdate(TestData.fileShareChannel, TestData.birthdateYears, TestData.birthdateDays, uuids);
             Assert.IsNotNull(sub);
             Assert.IsInstanceOf<Subscriptions.BirthdateSubscriptionType>(sub);
@@ -103,6 +102,7 @@ namespace CprBroker.NUnitTester
             var uuids = GetPersonUuids(cprNumbers);
             var sub = TestRunner.SubscriptionsService.Subscribe(TestData.fileShareChannel, uuids);
             Assert.IsNotNull(sub);
+            Assert.AreEqual(TestRunner.SubscriptionsService.ApplicationHeaderValue.ApplicationToken, sub.ApplicationToken);
             Assert.IsInstanceOf<Subscriptions.ChangeSubscriptionType>(sub);
             TestData.changeSubscriptions.Add(sub);
         }

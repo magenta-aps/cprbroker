@@ -30,9 +30,6 @@ namespace CprBroker.EventBroker.DAL
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertApplication(Application instance);
-    partial void UpdateApplication(Application instance);
-    partial void DeleteApplication(Application instance);
     partial void InsertSubscriptionType(SubscriptionType instance);
     partial void UpdateSubscriptionType(SubscriptionType instance);
     partial void DeleteSubscriptionType(SubscriptionType instance);
@@ -99,14 +96,6 @@ namespace CprBroker.EventBroker.DAL
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Application> Applications
-		{
-			get
-			{
-				return this.GetTable<Application>();
-			}
 		}
 		
 		public System.Data.Linq.Table<SubscriptionType> SubscriptionTypes
@@ -221,13 +210,6 @@ namespace CprBroker.EventBroker.DAL
 			}
 		}
 		
-		[Function(Name="dbo.GetDueNotifications")]
-		public int GetDueNotifications([Parameter(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [Parameter(Name="LastTime", DbType="DateTime")] System.Nullable<System.DateTime> lastTime)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, lastTime);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[Function(Name="dbo.InsertChangeNotificationData")]
 		public int InsertChangeNotificationData([Parameter(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [Parameter(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today, [Parameter(Name="LastTime", DbType="DateTime")] System.Nullable<System.DateTime> lastTime)
 		{
@@ -254,216 +236,6 @@ namespace CprBroker.EventBroker.DAL
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, subscriptionTypeId);
 			return ((int)(result.ReturnValue));
-		}
-	}
-	
-	[Table(Name="dbo.Application")]
-	public partial class Application : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _ApplicationId;
-		
-		private string _Name;
-		
-		private string _Token;
-		
-		private System.DateTime _RegistrationDate;
-		
-		private bool _IsApproved;
-		
-		private System.Nullable<System.DateTime> _ApprovedDate;
-		
-		private EntitySet<Subscription> _Subscriptions;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnApplicationIdChanging(System.Guid value);
-    partial void OnApplicationIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnTokenChanging(string value);
-    partial void OnTokenChanged();
-    partial void OnRegistrationDateChanging(System.DateTime value);
-    partial void OnRegistrationDateChanged();
-    partial void OnIsApprovedChanging(bool value);
-    partial void OnIsApprovedChanged();
-    partial void OnApprovedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnApprovedDateChanged();
-    #endregion
-		
-		public Application()
-		{
-			this._Subscriptions = new EntitySet<Subscription>(new Action<Subscription>(this.attach_Subscriptions), new Action<Subscription>(this.detach_Subscriptions));
-			OnCreated();
-		}
-		
-		[Column(Storage="_ApplicationId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid ApplicationId
-		{
-			get
-			{
-				return this._ApplicationId;
-			}
-			set
-			{
-				if ((this._ApplicationId != value))
-				{
-					this.OnApplicationIdChanging(value);
-					this.SendPropertyChanging();
-					this._ApplicationId = value;
-					this.SendPropertyChanged("ApplicationId");
-					this.OnApplicationIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Name", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Token", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Token
-		{
-			get
-			{
-				return this._Token;
-			}
-			set
-			{
-				if ((this._Token != value))
-				{
-					this.OnTokenChanging(value);
-					this.SendPropertyChanging();
-					this._Token = value;
-					this.SendPropertyChanged("Token");
-					this.OnTokenChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_RegistrationDate", DbType="DateTime NOT NULL")]
-		public System.DateTime RegistrationDate
-		{
-			get
-			{
-				return this._RegistrationDate;
-			}
-			set
-			{
-				if ((this._RegistrationDate != value))
-				{
-					this.OnRegistrationDateChanging(value);
-					this.SendPropertyChanging();
-					this._RegistrationDate = value;
-					this.SendPropertyChanged("RegistrationDate");
-					this.OnRegistrationDateChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_IsApproved", DbType="Bit NOT NULL")]
-		public bool IsApproved
-		{
-			get
-			{
-				return this._IsApproved;
-			}
-			set
-			{
-				if ((this._IsApproved != value))
-				{
-					this.OnIsApprovedChanging(value);
-					this.SendPropertyChanging();
-					this._IsApproved = value;
-					this.SendPropertyChanged("IsApproved");
-					this.OnIsApprovedChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ApprovedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ApprovedDate
-		{
-			get
-			{
-				return this._ApprovedDate;
-			}
-			set
-			{
-				if ((this._ApprovedDate != value))
-				{
-					this.OnApprovedDateChanging(value);
-					this.SendPropertyChanging();
-					this._ApprovedDate = value;
-					this.SendPropertyChanged("ApprovedDate");
-					this.OnApprovedDateChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Application_Subscription", Storage="_Subscriptions", ThisKey="ApplicationId", OtherKey="ApplicationId")]
-		public EntitySet<Subscription> Subscriptions
-		{
-			get
-			{
-				return this._Subscriptions;
-			}
-			set
-			{
-				this._Subscriptions.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Subscriptions(Subscription entity)
-		{
-			this.SendPropertyChanging();
-			entity.Application = this;
-		}
-		
-		private void detach_Subscriptions(Subscription entity)
-		{
-			this.SendPropertyChanging();
-			entity.Application = null;
 		}
 	}
 	
@@ -1652,8 +1424,6 @@ namespace CprBroker.EventBroker.DAL
 		
 		private EntitySet<EventNotification> _EventNotifications;
 		
-		private EntityRef<Application> _Application;
-		
 		private EntityRef<SubscriptionType> _SubscriptionType;
 		
     #region Extensibility Method Definitions
@@ -1678,7 +1448,6 @@ namespace CprBroker.EventBroker.DAL
 			this._SubscriptionPersons = new EntitySet<SubscriptionPerson>(new Action<SubscriptionPerson>(this.attach_SubscriptionPersons), new Action<SubscriptionPerson>(this.detach_SubscriptionPersons));
 			this._Notifications = new EntitySet<Notification>(new Action<Notification>(this.attach_Notifications), new Action<Notification>(this.detach_Notifications));
 			this._EventNotifications = new EntitySet<EventNotification>(new Action<EventNotification>(this.attach_EventNotifications), new Action<EventNotification>(this.detach_EventNotifications));
-			this._Application = default(EntityRef<Application>);
 			this._SubscriptionType = default(EntityRef<SubscriptionType>);
 			OnCreated();
 		}
@@ -1738,10 +1507,6 @@ namespace CprBroker.EventBroker.DAL
 			{
 				if ((this._ApplicationId != value))
 				{
-					if (this._Application.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnApplicationIdChanging(value);
 					this.SendPropertyChanging();
 					this._ApplicationId = value;
@@ -1878,40 +1643,6 @@ namespace CprBroker.EventBroker.DAL
 			set
 			{
 				this._EventNotifications.Assign(value);
-			}
-		}
-		
-		[Association(Name="Application_Subscription", Storage="_Application", ThisKey="ApplicationId", OtherKey="ApplicationId", IsForeignKey=true)]
-		public Application Application
-		{
-			get
-			{
-				return this._Application.Entity;
-			}
-			set
-			{
-				Application previousValue = this._Application.Entity;
-				if (((previousValue != value) 
-							|| (this._Application.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Application.Entity = null;
-						previousValue.Subscriptions.Remove(this);
-					}
-					this._Application.Entity = value;
-					if ((value != null))
-					{
-						value.Subscriptions.Add(this);
-						this._ApplicationId = value.ApplicationId;
-					}
-					else
-					{
-						this._ApplicationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("Application");
-				}
 			}
 		}
 		

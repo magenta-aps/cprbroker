@@ -17,10 +17,9 @@ namespace CprBroker.EventBroker.DAL
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.DataSubscription);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.BirthdateSubscription);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.Channels);
-            loadOptions.LoadWith<Subscription>((Subscription sub) => sub.Application);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.SubscriptionPersons);            
         }
-        public CprBroker.Schemas.SubscriptionType ToOioSubscription()
+        public CprBroker.Schemas.SubscriptionType ToOioSubscription(string appToken)
         {
             CprBroker.Schemas.SubscriptionType ret = null;
             if (this.DataSubscription != null)
@@ -36,7 +35,7 @@ namespace CprBroker.EventBroker.DAL
                 ret = birthdateSubscription;
             }
             ret.SubscriptionId = this.SubscriptionId.ToString();
-            ret.ApplicationToken = Application.Token;
+            ret.ApplicationToken = appToken;
             ret.ForAllPersons = this.IsForAllPersons;
 
             Channel channel = this.Channels.Single();

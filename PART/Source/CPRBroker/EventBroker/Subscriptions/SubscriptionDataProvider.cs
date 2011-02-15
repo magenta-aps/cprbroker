@@ -147,7 +147,7 @@ namespace CprBroker.EventBroker.Subscriptions
                 if (subscription != null)
                 {
                     // Now get the subscription from the database to make sure everything is OK
-                    return GetActiveSubscriptionsList(userToken, appToken, subscription.SubscriptionId).SingleOrDefault() as ChangeSubscriptionType;
+                    return GetActiveSubscriptionsList(subscription.SubscriptionId).SingleOrDefault() as ChangeSubscriptionType;
                 }
             }
             return null;
@@ -180,7 +180,7 @@ namespace CprBroker.EventBroker.Subscriptions
                 if (subscription != null)
                 {
                     // Now get the subscription from the database to make sure everything is OK
-                    return GetActiveSubscriptionsList(userToken, appToken, subscription.SubscriptionId).SingleOrDefault() as BirthdateSubscriptionType;
+                    return GetActiveSubscriptionsList(subscription.SubscriptionId).SingleOrDefault() as BirthdateSubscriptionType;
                 }
             }
             return null;
@@ -199,7 +199,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// </summary>
         public CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken)
         {
-            return GetActiveSubscriptionsList(userToken, appToken, null);
+            return GetActiveSubscriptionsList(null);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <param name="appToken"></param>
         /// <param name="subscriptionId"></param>
         /// <returns></returns>
-        private CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken, Nullable<Guid> subscriptionId)
+        private CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList( Nullable<Guid> subscriptionId)
         {
             List<CprBroker.Schemas.SubscriptionType> listType = new List<CprBroker.Schemas.SubscriptionType>();
             using (EventBrokerDataContext context = new EventBrokerDataContext())
@@ -239,31 +239,13 @@ namespace CprBroker.EventBroker.Subscriptions
                 // Now create list of OIO subscriptions
                 foreach (var sub in subscriptions)
                 {
-                    CprBroker.Schemas.SubscriptionType subscriptionType = sub.ToOioSubscription();
+                    CprBroker.Schemas.SubscriptionType subscriptionType = sub.ToOioSubscription(CprBroker.Engine.BrokerContext.Current.ApplicationToken);
                     listType.Add(subscriptionType);
                 }
                 return listType.ToArray();
             }
         }
-
-        /*
-        /// <summary>
-        /// Interface implementation
-        /// </summary>
-        public BaseNotificationType GetLatestNotification(string userToken, string appToken, Guid subscriptionId)
-        {
-            using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
-            {
-                return (
-                    from n in dataContext.Notifications
-                    where n.SubscriptionId == subscriptionId
-                    orderby n.NotificationDate descending, n.CreatedDate descending
-                    select n.ToOioNotification()
-                    ).FirstOrDefault();
-            }
-        }
-        */
-
+        
         #region IDataProvider Members
 
         public bool IsAlive()

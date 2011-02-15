@@ -12,7 +12,7 @@ namespace CprBroker.NUnitTester
     public class TestData
     {
 
-        public static string BaseAppToken = "07059250-E448-4040-B695-9C03F9E59E38";
+        public static string BaseAppToken = "5f8b7af5-422e-46bb-9273-5e244dc37505" ;//"07059250-E448-4040-B695-9C03F9E59E38";
         public static string userToken = "testUser";
         public static string AppToken = "";
         public static string AppNamePrefix = "Unit test app";
