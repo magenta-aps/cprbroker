@@ -51,8 +51,8 @@ namespace CprBroker.Engine
         /// <param name="userToken">User token supplied by the client</param>
         /// <param name="userName">Current user name</param>
         /// <param name="failInNoApp">Whether to throw an exception if no approved application is found to match the token</param>
-        /// <param name="authenticateWebMethod">Whether to validate the permissions of the current user allows him to access the current method'd message name</param>
-        public static void Initialize(string appToken, string userToken, bool failInNoApp, bool authenticateWebMethod)
+        /// 
+        public static void Initialize(string appToken, string userToken, bool failInNoApp)
         {
             if (Current != null)
             {
@@ -64,7 +64,7 @@ namespace CprBroker.Engine
                 Current.ActivityId = Guid.NewGuid();
                 Current.ApplicationToken = appToken;
                 Current.UserToken = userToken;
-                Current.UserName = Util.Security.CurrentUser;                
+                Current.UserName = Util.Security.CurrentUser;
 
                 Application currentApplication = dataContext.Applications.SingleOrDefault(app => app.Token.ToString() == appToken && app.IsApproved == true);
                 if (currentApplication != null)
@@ -74,13 +74,14 @@ namespace CprBroker.Engine
                 }
                 else if (failInNoApp)
                 {
-                    Console.Write("Invalid token exception aT="+appToken+ ", uT="+ userToken+"\n");
+                    Console.Write("Invalid token exception aT=" + appToken + ", uT=" + userToken + "\n");
                     throw new InvalidTokenException(appToken, userToken);
                 }
 
                 // Now find if current user is authorized to access the current method
-                if (authenticateWebMethod)
+                if (System.Web.HttpContext.Current != null)
                 {
+                    var ctx = System.Web.HttpContext.Current;
                     // Search up the stack to find the Method's message name
                     System.Reflection.MethodBase method = null;
                     for (int i = 1; true; i++)
@@ -102,7 +103,7 @@ namespace CprBroker.Engine
                         );
                     if (!isAuthorized)
                     {
-                        Console.Write("not authoriced exception"+Current.WebMethodMessageName);
+                        Console.Write("not authoriced exception" + Current.WebMethodMessageName);
                         throw new System.Security.Authentication.AuthenticationException();
                     }
                 }

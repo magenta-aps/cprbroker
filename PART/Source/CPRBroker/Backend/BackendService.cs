@@ -41,7 +41,7 @@ namespace CprBroker.EventBroker.Backend
 
         protected override void OnStart(string[] args)
         {
-            BrokerContext.Initialize(EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false);
+            BrokerContext.Initialize(EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true);
             if (Config.Properties.Settings.Default.EncryptConnectionStrings)
             {
                 try
