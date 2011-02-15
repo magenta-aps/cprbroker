@@ -31,7 +31,7 @@ namespace CprBroker.Engine
             try
             {
                 // Initialize the context
-                BrokerContext.Initialize(appToken, userToken, failIfNoApp, true, false);
+                BrokerContext.Initialize(appToken, userToken, failIfNoApp, true);
 
                 List<IDataProvider> availableProviders = DataProviderManager.GetDataProviderList<TInterface>(allowLocalProvider);
                 // Log an error if no provider is found
@@ -116,7 +116,7 @@ namespace CprBroker.Engine
             {
                 #region Initialization and loading of clearData providers
                 // Initialize context
-                BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken, facade.ApplicationTokenRequired, true, false);
+                BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken, facade.ApplicationTokenRequired, true);
 
                 // Validate
                 TOutput invalidInputReturn = default(TOutput);

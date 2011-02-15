@@ -66,7 +66,7 @@ namespace CprBroker.EventBroker.Notifications
                         this.EventLog.WriteEntry(string.Format("{0} : {1}", CprBroker.Engine.TextMessages.TimerEventStarted, this.GetType()));
                     }
 
-                    BrokerContext.Initialize(EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false, true);
+                    BrokerContext.Initialize(EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken, true, false);
 
                     ActionTimer.Interval = this.CalculateActionTimerInterval(TimeSpan.FromMilliseconds(ActionTimer.Interval)).TotalMilliseconds;
 

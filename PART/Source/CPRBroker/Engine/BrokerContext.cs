@@ -25,7 +25,6 @@ namespace CprBroker.Engine
         public string UserName { get; private set; }
         public Nullable<Guid> ApplicationId { get; private set; }
         public string ApplicationName { get; private set; }
-        public bool IsFixed { get; private set; }
         public string WebMethodMessageName { get; private set; }
 
         public static readonly string ContextKey = typeof(BrokerContext).ToString();
@@ -36,11 +35,9 @@ namespace CprBroker.Engine
             get
             {
                 BrokerContext ret = CallContext.GetData(ContextKey) as BrokerContext;
-                //TODO: Create a default context if none has been created. This will help actions fromDate backend service
                 return ret;
             }
-            //TODO : This was originally 'internal'
-            set
+            internal set
             {
                 CallContext.SetData(ContextKey, value);
             }
@@ -55,9 +52,9 @@ namespace CprBroker.Engine
         /// <param name="userName">Current user name</param>
         /// <param name="failInNoApp">Whether to throw an exception if no approved application is found to match the token</param>
         /// <param name="authenticateWebMethod">Whether to validate the permissions of the current user allows him to access the current method'd message name</param>
-        public static void Initialize(string appToken, string userToken, bool failInNoApp, bool authenticateWebMethod, bool initializeAsFixed)
+        public static void Initialize(string appToken, string userToken, bool failInNoApp, bool authenticateWebMethod)
         {
-            if (Current != null && Current.IsFixed)
+            if (Current != null)
             {
                 return;
             }
@@ -67,8 +64,7 @@ namespace CprBroker.Engine
                 Current.ActivityId = Guid.NewGuid();
                 Current.ApplicationToken = appToken;
                 Current.UserToken = userToken;
-                Current.UserName = Util.Security.CurrentUser;
-                Current.IsFixed = initializeAsFixed;
+                Current.UserName = Util.Security.CurrentUser;                
 
                 Application currentApplication = dataContext.Applications.SingleOrDefault(app => app.Token.ToString() == appToken && app.IsApproved == true);
                 if (currentApplication != null)
