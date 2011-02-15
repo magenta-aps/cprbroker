@@ -16,7 +16,7 @@ namespace CprBroker.Engine.DataProviders
             Input = inp;
         }
 
-        public override bool IsValidInput(ref bool invaliInputReturnValue)
+        public override bool IsValidInput(ref bool invalidInputReturnValue)
         {
             if (Input == null)
             {

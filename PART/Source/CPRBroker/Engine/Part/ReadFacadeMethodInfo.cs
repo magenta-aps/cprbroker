@@ -24,11 +24,11 @@ namespace CprBroker.Engine.Part
             this.LocalAction = localAction;
         }
 
-        public override bool IsValidInput(ref LaesOutputType invaliInputReturnValue)
+        public override bool IsValidInput(ref LaesOutputType invalidInputReturnValue)
         {
             if (Input == null)
             {
-                invaliInputReturnValue = new LaesOutputType()
+                invalidInputReturnValue = new LaesOutputType()
                 {
                     StandardRetur = new ErrorCode.NullInputErrorCode().ToStandardReturn()
                 };
@@ -37,7 +37,7 @@ namespace CprBroker.Engine.Part
 
             if (!Util.Strings.IsGuid(Input.UUID))
             {
-                invaliInputReturnValue = new LaesOutputType()
+                invalidInputReturnValue = new LaesOutputType()
                 {
                     StandardRetur = new ErrorCode.InvalidUuidErrorCode(Input.UUID).ToStandardReturn()
                 };
@@ -47,7 +47,7 @@ namespace CprBroker.Engine.Part
             pId = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(Input.UUID));
             if (pId == null)
             {
-                invaliInputReturnValue = new LaesOutputType()
+                invalidInputReturnValue = new LaesOutputType()
                 {
                     StandardRetur = new ErrorCode.UnknownUuidErrorCode(Input.UUID).ToStandardReturn()
                 };

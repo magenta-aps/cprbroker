@@ -15,7 +15,7 @@ namespace CprBroker.Engine.Events
             this.MaxCount = maxCount;
         }
 
-        public override bool IsValidInput(ref CprBroker.Schemas.Part.Events.DataChangeEventInfo[] invaliInputReturnValue)
+        public override bool IsValidInput(ref CprBroker.Schemas.Part.Events.DataChangeEventInfo[] invalidInputReturnValue)
         {
             return MaxCount > 0;
         }

@@ -23,11 +23,11 @@ namespace CprBroker.Engine.Part
             this.InitializationMethod = new Action(InitializationMethod);
         }
 
-        public override bool IsValidInput(ref ListOutputType1 invaliInputReturnValue)
+        public override bool IsValidInput(ref ListOutputType1 invalidInputReturnValue)
         {
             if (input == null || input.UUID == null || input.UUID.Length == 0)
             {
-                invaliInputReturnValue = new ListOutputType1()
+                invalidInputReturnValue = new ListOutputType1()
                 {
                     StandardRetur = new ErrorCode.NullInputErrorCode().ToStandardReturn()
                 };
@@ -37,7 +37,7 @@ namespace CprBroker.Engine.Part
             var invalidUuidErrors = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select new ErrorCode.InvalidUuidErrorCode(uuid).ToString()).ToArray();
             if (invalidUuidErrors.Length > 0)
             {
-                invaliInputReturnValue = new ListOutputType1()
+                invalidInputReturnValue = new ListOutputType1()
                 {
                     StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",",invalidUuidErrors))
                 };
@@ -59,7 +59,7 @@ namespace CprBroker.Engine.Part
             }
             if (unknownUuidErrors.Count > 0)
             {
-                invaliInputReturnValue = new ListOutputType1()
+                invalidInputReturnValue = new ListOutputType1()
                 {
                     StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST,String.Join(",",unknownUuidErrors.ToArray()))
                 };

@@ -16,7 +16,7 @@ namespace CprBroker.Engine.Events
             this.PersonUuidToStartAfter = personUuidToStartAfter;
         }
 
-        public override bool IsValidInput(ref CprBroker.Schemas.Part.Events.PersonBirthdate[] invaliInputReturnValue)
+        public override bool IsValidInput(ref CprBroker.Schemas.Part.Events.PersonBirthdate[] invalidInputReturnValue)
         {
             return MaxCount > 0;
         }
