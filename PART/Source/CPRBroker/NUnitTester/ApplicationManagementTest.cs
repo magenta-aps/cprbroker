@@ -41,7 +41,19 @@ namespace CprBroker.NUnitTester
         }
 
         [Test]
-        public void T100_GetAndSetDataProviderList()
+        public void T100_GetDataProviderList()
+        {
+            var dataProviders = TestRunner.AdminService.GetDataProviderList();
+            Assert.IsNotNull(dataProviders);
+            foreach (var dataProvider in dataProviders)
+            {
+                Assert.NotNull(dataProvider);
+                Assert.IsNotEmpty(dataProvider.TypeName);
+                Assert.IsNotEmpty(dataProvider.Attributes);                
+            }
+        }
+
+        public void T110_GetAndSetDataProviderList()
         {
             var dataProviders = TestRunner.AdminService.GetDataProviderList();
             Assert.IsNotNull(dataProviders);

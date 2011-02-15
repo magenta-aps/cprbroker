@@ -38,10 +38,35 @@ namespace CprBroker.Engine.Local
             {
                 DataProvider.SetChildLoadOptions(context);
                 List<Schemas.DataProviderType> dataProviders = new List<CprBroker.Schemas.DataProviderType>();
-                return context.DataProviders
+                var ret = context.DataProviders
                     .Where(prov => prov.IsExternal)
                     .Select(prov => prov.ToXmlType())
                     .ToArray();
+
+                // Now clear any confidential data
+                foreach (var oioProv in ret)
+                {
+                    var prov = DataProviderManager.CreateDataProvider(oioProv.TypeName) as IExternalDataProvider;
+                    if (prov != null)
+                    {
+                        foreach (var configKey in prov.ConfigurationKeys)
+                        {
+                            if (configKey.Confidential)
+                            {
+                                var oioAttr = oioProv.Attributes.Where(a => a.Name == configKey.Name).FirstOrDefault();
+                                if (oioAttr != null)
+                                {
+                                    oioAttr.Value = "";
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Array.ForEach<AttributeType>(oioProv.Attributes, a => a.Value = "");
+                    }
+                }
+                return ret;
             }
         }
 

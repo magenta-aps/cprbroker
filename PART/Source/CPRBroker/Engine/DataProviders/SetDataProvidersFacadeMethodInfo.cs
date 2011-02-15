@@ -39,7 +39,7 @@ namespace CprBroker.Engine.DataProviders
                 {
                     var propName = propInfo.Name;
                     var prop = dp.Attributes.FirstOrDefault(p => p.Name.ToLower() == propName.ToLower());
-                    if (prop == null || string.IsNullOrEmpty(prop.Value))
+                    if (prop == null || (propInfo.Required && string.IsNullOrEmpty(prop.Value)))
                     {
                         return false;
                     }

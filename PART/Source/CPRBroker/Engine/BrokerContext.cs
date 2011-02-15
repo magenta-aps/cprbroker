@@ -88,23 +88,26 @@ namespace CprBroker.Engine
                     {
                         StackFrame stackFrame = new StackFrame(i);
                         method = stackFrame.GetMethod();
-                        if (method.IsDefined(typeof(WebMethodAttribute), false) && method.DeclaringType.IsSubclassOf(typeof(System.Web.Services.WebService)))
+                        if (method ==null || method.IsDefined(typeof(WebMethodAttribute), false) && method.DeclaringType.IsSubclassOf(typeof(System.Web.Services.WebService)))
                         {
                             break;
                         }
                     }
-                    // Now get the method's message name
-                    WebMethodAttribute webMethodAttribute = (from attr in method.GetCustomAttributes(typeof(WebMethodAttribute), false) select attr).First() as WebMethodAttribute;
-                    Current.WebMethodMessageName = string.IsNullOrEmpty(webMethodAttribute.MessageName) ? method.Name : webMethodAttribute.MessageName;
-                    bool isAuthorized = System.Web.Security.UrlAuthorizationModule.CheckUrlAccessForPrincipal(
-                        string.Format("{0}/{1}", System.Web.HttpContext.Current.Request.Path, Current.WebMethodMessageName),
-                        System.Web.HttpContext.Current.User,
-                        "GET"
-                        );
-                    if (!isAuthorized)
+                    if (method != null)
                     {
-                        Console.Write("not authoriced exception" + Current.WebMethodMessageName);
-                        throw new System.Security.Authentication.AuthenticationException();
+                        // Now get the method's message name
+                        WebMethodAttribute webMethodAttribute = (from attr in method.GetCustomAttributes(typeof(WebMethodAttribute), false) select attr).First() as WebMethodAttribute;
+                        Current.WebMethodMessageName = string.IsNullOrEmpty(webMethodAttribute.MessageName) ? method.Name : webMethodAttribute.MessageName;
+                        bool isAuthorized = System.Web.Security.UrlAuthorizationModule.CheckUrlAccessForPrincipal(
+                            string.Format("{0}/{1}", System.Web.HttpContext.Current.Request.Path, Current.WebMethodMessageName),
+                            System.Web.HttpContext.Current.User,
+                            "GET"
+                            );
+                        if (!isAuthorized)
+                        {
+                            Console.Write("not authoriced exception" + Current.WebMethodMessageName);
+                            throw new System.Security.Authentication.AuthenticationException();
+                        }
                     }
                 }
             }

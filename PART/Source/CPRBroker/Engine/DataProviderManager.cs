@@ -87,7 +87,7 @@ namespace CprBroker.Engine
             return dataProvider;
         }
 
-        private static IDataProvider CreateDataProvider(string typeName)
+        public static IDataProvider CreateDataProvider(string typeName)
         {
             return Util.Reflection.CreateInstance<IDataProvider>(typeName);
         }
