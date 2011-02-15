@@ -10,11 +10,10 @@ namespace CprBroker.Engine
         public FacadeMethodInfo()
         { }
 
-        public FacadeMethodInfo(string appToken, string userToken, bool appTokenRequired)
+        public FacadeMethodInfo(string appToken, string userToken)
         {
             ApplicationToken = appToken;
             UserToken = userToken;
-            ApplicationTokenRequired = appTokenRequired;
         }
 
         //TODO: Write code for this method
@@ -65,7 +64,6 @@ namespace CprBroker.Engine
 
         public string ApplicationToken;
         public string UserToken;
-        public bool ApplicationTokenRequired = true;
 
         public SubMethodInfo[] SubMethodInfos = new SubMethodInfo[0];
     }

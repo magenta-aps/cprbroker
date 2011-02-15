@@ -12,13 +12,13 @@ namespace CprBroker.Engine
         {
             public static DataChangeEventInfo[] DequeueDataChangeEvents(string userToken, string appToken, int maxCount)
             {
-                var methodInfo = new CprBroker.Engine.Events.DequeueDataChangeEventsFacadeMethod(maxCount, appToken, userToken, true);
+                var methodInfo = new CprBroker.Engine.Events.DequeueDataChangeEventsFacadeMethod(maxCount, appToken, userToken);
                 return GetMethodOutput<Schemas.Part.Events.DataChangeEventInfo[]>(methodInfo);
             }
 
             public static PersonBirthdate[] GetPersonBirthdates(string userToken, string appToken, Guid? personUuidToStartAfter, int maxCount)
             {
-                var methodInfo = new CprBroker.Engine.Events.GetPersonBirthdatesFacadeMethodInfo(personUuidToStartAfter, maxCount, appToken, userToken, true);
+                var methodInfo = new CprBroker.Engine.Events.GetPersonBirthdatesFacadeMethodInfo(personUuidToStartAfter, maxCount, appToken, userToken);
                 return GetMethodOutput<PersonBirthdate[]>(methodInfo);
             }
         }

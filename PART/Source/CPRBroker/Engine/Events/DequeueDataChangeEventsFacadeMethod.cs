@@ -9,8 +9,8 @@ namespace CprBroker.Engine.Events
     {
         public int MaxCount = 0;
 
-        public DequeueDataChangeEventsFacadeMethod(int maxCount, string appToken, string userToken, bool appTokenRequired)
-            : base(appToken, userToken, appTokenRequired)
+        public DequeueDataChangeEventsFacadeMethod(int maxCount, string appToken, string userToken)
+            : base(appToken, userToken)
         {
             this.MaxCount = maxCount;
         }

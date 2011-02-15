@@ -9,7 +9,7 @@ namespace CprBroker.Engine.DataProviders
     public class GetDataProviderListFacadeMethodInfo : FacadeMethodInfo<DataProviderType[]>
     {
         public GetDataProviderListFacadeMethodInfo(string appToken, string userToken)
-            : base(appToken, userToken, true)
+            : base(appToken, userToken)
         {
         }
         public override void Initialize()

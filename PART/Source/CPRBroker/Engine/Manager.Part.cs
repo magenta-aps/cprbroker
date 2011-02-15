@@ -27,7 +27,7 @@ namespace CprBroker.Engine
 
             private static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel, LocalDataProviderUsageOption localAction)
             {
-                ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken, true);
+                ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken);
                 var ret = GetMethodOutput<LaesOutputType>(facadeMethod);
                 qualityLevel = facadeMethod.QualityLevel;
                 return ret;
@@ -38,7 +38,7 @@ namespace CprBroker.Engine
                 ListOutputType1 ret = null;
 
                 ret = GetMethodOutput<ListOutputType1>(
-                    new ListFacadeMethodInfo(input, appToken, userToken, true)
+                    new ListFacadeMethodInfo(input, appToken, userToken)
                     );
 
                 //TODO: remove quality level because it applies to individual elements rather than the whole result
@@ -57,7 +57,7 @@ namespace CprBroker.Engine
 
             public static Guid GetPersonUuid(string userToken, string appToken, string cprNumber)
             {
-                var facadeMethod = new GerPersonUuidFacadeMethodInfo(cprNumber, appToken, userToken, true);
+                var facadeMethod = new GerPersonUuidFacadeMethodInfo(cprNumber, appToken, userToken);
                 var ret = GetMethodOutput<Guid>(facadeMethod);
                 return ret;
             }

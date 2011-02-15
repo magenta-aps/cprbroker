@@ -12,7 +12,7 @@ namespace CprBroker.Engine.Part
         { }
 
         public SearchFacadeMethodInfo(SoegInputType1 input, string appToken, string userToken)
-            : base(appToken, userToken, true)
+            : base(appToken, userToken)
         {
             this.SubMethodInfos = new SubMethodInfo[] { new SearchSubMethodInfo(input) };
         }

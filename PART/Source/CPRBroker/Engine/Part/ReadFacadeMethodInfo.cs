@@ -17,8 +17,8 @@ namespace CprBroker.Engine.Part
         private ReadFacadeMethodInfo()
         { }
 
-        public ReadFacadeMethodInfo(LaesInputType input, LocalDataProviderUsageOption localAction, string appToken, string userToken, bool appTokenRequired)
-            : base(appToken, userToken, appTokenRequired)
+        public ReadFacadeMethodInfo(LaesInputType input, LocalDataProviderUsageOption localAction, string appToken, string userToken)
+            : base(appToken, userToken)
         {
             this.Input = input;
             this.LocalAction = localAction;

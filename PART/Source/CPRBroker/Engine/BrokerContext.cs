@@ -52,7 +52,7 @@ namespace CprBroker.Engine
         /// <param name="userName">Current user name</param>
         /// <param name="failInNoApp">Whether to throw an exception if no approved application is found to match the token</param>
         /// 
-        public static void Initialize(string appToken, string userToken, bool failInNoApp)
+        public static void Initialize(string appToken, string userToken)
         {
             if (Current != null)
             {
@@ -72,7 +72,7 @@ namespace CprBroker.Engine
                     Current.ApplicationId = currentApplication.ApplicationId;
                     Current.ApplicationName = currentApplication.Name;
                 }
-                else if (failInNoApp)
+                else
                 {
                     Console.Write("Invalid token exception aT=" + appToken + ", uT=" + userToken + "\n");
                     throw new InvalidTokenException(appToken, userToken);

@@ -11,7 +11,7 @@ namespace CprBroker.Engine.DataProviders
         private DataProviderType[] Input;
 
         public SetDataProvidersFacadeMethodInfo(DataProviderType[] inp, string appToken, string userToken)
-            : base(appToken, userToken, true)
+            : base(appToken, userToken)
         {
             Input = inp;
         }

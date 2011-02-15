@@ -9,8 +9,8 @@ namespace CprBroker.Engine.Part
     {
         public string Input;
 
-        public GerPersonUuidFacadeMethodInfo(string input, string appToken, string userToken, bool appTokenRequired)
-            : base(appToken, userToken, appTokenRequired)
+        public GerPersonUuidFacadeMethodInfo(string input, string appToken, string userToken)
+            : base(appToken, userToken)
         {
             Input = input;
         }

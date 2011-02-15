@@ -33,7 +33,7 @@ namespace CprBroker.Web.Services
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.RequestAppRegistration, Description = ServiceDescription.Administrator.RequestAppRegistration)]
         public ApplicationType RequestAppRegistration(string ApplicationName)
         {
-            return Manager.Admin.RequestAppRegistration(applicationHeader.UserToken, ApplicationName);
+            return Manager.Admin.RequestAppRegistration(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationName);
         }
 
         [SoapHeader(ApplicationHeaderName)]
@@ -96,6 +96,6 @@ namespace CprBroker.Web.Services
         {
             return Manager.Admin.Log(applicationHeader.UserToken, applicationHeader.ApplicationToken, Text);
         }
-     
+
     }
 }

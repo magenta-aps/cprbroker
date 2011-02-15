@@ -18,12 +18,12 @@ namespace CprBroker.Engine
             public static ServiceVersionType[] GetCapabilities(string userToken, string appToken)
             {
                 return CallMethod<IVersionManager, ServiceVersionType[]>
-                (userToken, appToken, true, true, (admin) => admin.GetCapabilities(userToken, appToken), true, null);
+                (userToken, appToken, true, (admin) => admin.GetCapabilities(userToken, appToken), true, null);
             }
             public static bool IsImplementing(string userToken, string appToken, string methodName, string version)
             {
                 return CallMethod<IVersionManager, bool>
-                (userToken, appToken, true, true, (admin) => admin.IsImplementing(userToken, appToken, methodName, version), false, null);
+                (userToken, appToken, true, (admin) => admin.IsImplementing(userToken, appToken, methodName, version), false, null);
             }
             #endregion
 
@@ -41,29 +41,29 @@ namespace CprBroker.Engine
             #endregion
 
             #region Application
-            public static ApplicationType RequestAppRegistration(string userToken, string name)
+            public static ApplicationType RequestAppRegistration(string userToken, string appToken, string name)
             {
                 return CallMethod<IApplicationManager, ApplicationType>
-                (userToken, "", false, true, (admin) => admin.RequestAppRegistration(userToken, name), true, null);
+                (userToken, appToken, true, (admin) => admin.RequestAppRegistration(userToken, name), true, null);
             }
 
             public static bool ApproveAppRegistration(string userToken, string appToken, string targetAppToken)
             {
-                  Console.Write("Manager to approve app registration:  aT="+appToken+ ", uT="+ userToken+ ", target="+targetAppToken+"\n");
-                    return CallMethod<IApplicationManager, bool>
-                (userToken, appToken, true, true, (admin) => admin.ApproveAppRegistration(userToken, appToken, targetAppToken), true, null);
+                Console.Write("Manager to approve app registration:  aT=" + appToken + ", uT=" + userToken + ", target=" + targetAppToken + "\n");
+                return CallMethod<IApplicationManager, bool>
+            (userToken, appToken, true, (admin) => admin.ApproveAppRegistration(userToken, appToken, targetAppToken), true, null);
             }
 
             public static ApplicationType[] ListAppRegistrations(string userToken, string appToken)
             {
                 return CallMethod<IApplicationManager, ApplicationType[]>
-                (userToken, appToken, true, true, (admin) => admin.ListAppRegistration(userToken, appToken), true, null);
+                (userToken, appToken, true, (admin) => admin.ListAppRegistration(userToken, appToken), true, null);
             }
 
             public static bool UnregisterApp(string userToken, string appToken, string targetAppToken)
             {
                 return CallMethod<IApplicationManager, bool>
-                (userToken, appToken, true, true, (admin) => admin.UnregisterApp(userToken, appToken, targetAppToken), true, null);
+                (userToken, appToken, true, (admin) => admin.UnregisterApp(userToken, appToken, targetAppToken), true, null);
             }
             #endregion
 
@@ -71,7 +71,7 @@ namespace CprBroker.Engine
 
             public static bool Log(string userToken, string appToken, string text)
             {
-                return CallMethod<ILoggingDataProvider, bool>(userToken, appToken, true, true, (ILoggingDataProvider log) => log.Log(userToken, appToken, text), true, null);
+                return CallMethod<ILoggingDataProvider, bool>(userToken, appToken, true, (ILoggingDataProvider log) => log.Log(userToken, appToken, text), true, null);
             }
             #endregion
 

@@ -16,8 +16,8 @@ namespace CprBroker.Engine.Part
         private ListFacadeMethodInfo()
         { }
 
-        public ListFacadeMethodInfo(ListInputType inp, string appToken, string userToken, bool appTokenRequired)
-            : base(appToken, userToken, appTokenRequired)
+        public ListFacadeMethodInfo(ListInputType inp, string appToken, string userToken)
+            : base(appToken, userToken)
         {
             input = inp;
             this.InitializationMethod = new Action(InitializationMethod);

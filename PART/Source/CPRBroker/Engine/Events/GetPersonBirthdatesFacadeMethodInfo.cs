@@ -10,8 +10,8 @@ namespace CprBroker.Engine.Events
         Guid? PersonUuidToStartAfter;
         int MaxCount;
 
-        public GetPersonBirthdatesFacadeMethodInfo(Guid? personUuidToStartAfter, int maxCount, string appToken, string userToken, bool appTokenRequired)
-            : base(appToken, userToken, appTokenRequired)
+        public GetPersonBirthdatesFacadeMethodInfo(Guid? personUuidToStartAfter, int maxCount, string appToken, string userToken)
+            : base(appToken, userToken)
         {
             this.PersonUuidToStartAfter = personUuidToStartAfter;
         }
