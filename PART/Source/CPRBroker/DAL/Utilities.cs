@@ -52,7 +52,7 @@ namespace CprBroker.DAL
         {
             var ret = new List<byte>();
             var xml = SerializeObject(o);
-            int maxLen = 80;
+            /*int maxLen = 80;
             var rsa = new RSACryptoServiceProvider();
             rsa.FromXmlString(EncryptionKeyXml);
             for (int i = 0; i < xml.Length; i += maxLen)
@@ -63,12 +63,13 @@ namespace CprBroker.DAL
                 var encryptedData = rsa.Encrypt(clearData, true);
                 ret.AddRange(encryptedData);
             }
-            return ret.ToArray();
+            return ret.ToArray();*/
+            return System.Text.Encoding.UTF8.GetBytes(xml);
         }
 
         public static T DecryptObject<T>(byte[] encryptedData)
         {
-            var rsa = new RSACryptoServiceProvider();
+            /*var rsa = new RSACryptoServiceProvider();
             rsa.FromXmlString(EncryptionKeyXml);
             var size = 128;
             StringBuilder xmlBuilder = new StringBuilder();
@@ -81,7 +82,8 @@ namespace CprBroker.DAL
                 xmlBuilder.Append(subXml);
             }
             var ret = Deserialize<T>(xmlBuilder.ToString());
-            return ret;
+            return ret;*/
+            return Deserialize<T>(System.Text.Encoding.UTF8.GetString(encryptedData));
         }
 
 
