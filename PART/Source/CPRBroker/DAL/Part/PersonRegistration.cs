@@ -79,6 +79,10 @@ namespace CprBroker.DAL.Part
         public bool Equals(RegistreringType1 oio)
         {
             var xml = DAL.Utilities.SerializeObject(oio);
+            // Repeat serialization to avoid empty text
+            oio = Utilities.Deserialize<RegistreringType1>(xml);
+            xml = DAL.Utilities.SerializeObject(oio);
+
             var thisOio = ToXmlType(this);
             var thisXml = DAL.Utilities.SerializeObject(thisOio);
             return string.Equals(xml, thisXml);
