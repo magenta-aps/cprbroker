@@ -505,7 +505,7 @@
      <dk:SubscriptionId>42427ed0-1704-4df1-86b9-b3428945412e</dk:SubscriptionId>
      <dk:PersonCivilRegistrationIdentifiers>
             <!--Zero or more repetitions:-->
-      <dk:guid>361d1d32-ed7d-4e8a-bd3c-92f52c2dffff</dk:guid>
+      <dk:guid>361d1d32-ed7d-4e8a-bd3c-92f52c2dff</dk:guid>
    </dk:PersonCivilRegistrationIdentifiers>
       </dk:Subscribe>
    </soap:Body>
@@ -589,10 +589,10 @@
   <soap12:Body>
     <Subscribe xmlns="http://dk.itst">
 <NotificationChannel xsi:type="WebServiceChannelType" xmlns="http://dk.itst">
-   <WebServiceUrl>http://localhost:9999/mockNotificationSoap12</WebServiceUrl>
+   <WebServiceUrl>http://10.10.4.111:9999/mockNotificationSoap12</WebServiceUrl>
  </NotificationChannel>
       <PersonCivilRegistrationIdentifiers>
-        <guid>46b647a7-9312-4b03-a159-61908eb0ffff</guid>
+        <guid>46b647a7-9312-4b03-a159-61908eb0a4e0</guid>
       </PersonCivilRegistrationIdentifiers>
     </Subscribe>
   </soap12:Body>

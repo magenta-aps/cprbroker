@@ -1115,6 +1115,36 @@ Output : Person UUID</wsdl:documentation>
          <dk:cprNumber>1807690244</dk:cprNumber>
       </dk:GetPersonUuid>
    </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNonsense10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetPersonUuid>
+         <!--Optional:-->
+         <dk:cprNumber>9999999999</dk:cprNumber>
+      </dk:GetPersonUuid>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNonsense0000000000"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetPersonUuid>
+         <!--Optional:-->
+         <dk:cprNumber>0000000000</dk:cprNumber>
+      </dk:GetPersonUuid>
+   </soap:Body>
 </soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/List" name="List" bindingOperationName="List" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
    <soap:Header>
       <dk:ApplicationHeader>
