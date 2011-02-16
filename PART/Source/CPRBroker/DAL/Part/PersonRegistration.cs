@@ -42,8 +42,16 @@ namespace CprBroker.DAL.Part
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonAttributes);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonRelationships);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonState);
+            loadOptions.LoadWith<PersonRegistration>(pr => pr.ActorRef);
+            loadOptions.LoadWith<PersonRegistration>(pr => pr.LifecycleStatus);
+
+
+            Effect.SetChildLoadOptions(loadOptions);
+            CountryRef.SetChildLoadOptions(loadOptions);
 
             PersonAttributes.SetChildLoadOptions(loadOptions);
+            PersonRelationship.SetChildLoadOptions(loadOptions);
+            PersonState.SetChildLoadOptions(loadOptions);
         }
 
         public static PersonRegistration FromXmlType(CprBroker.Schemas.Part.RegistreringType1 partRegistration)

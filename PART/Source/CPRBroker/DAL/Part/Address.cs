@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
@@ -61,6 +62,15 @@ namespace CprBroker.DAL.Part
                 return ret;
             }
             return null;
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<Address>(a => a.DenmarkAddress);
+            loadOptions.LoadWith<Address>(a => a.ForeignAddress);
+
+            DenmarkAddress.SetChildLoadOptions(loadOptions);
+            ForeignAddress.SetChildLoadOptions(loadOptions);
         }
     }
 }

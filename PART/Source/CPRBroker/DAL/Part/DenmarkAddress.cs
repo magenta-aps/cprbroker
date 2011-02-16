@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
@@ -32,6 +33,15 @@ namespace CprBroker.DAL.Part
                 return GreenlandicAddress.FromXmlType(oio as GroenlandAdresseType).DenmarkAddress;
             }
             return null;
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<DenmarkAddress>(da => da.CountryRef);
+            loadOptions.LoadWith<DenmarkAddress>(da => da.DanishAddress);
+            loadOptions.LoadWith<DenmarkAddress>(da => da.GreenlandicAddress);
+
+            DanishAddress.SetChildLoadOptions(loadOptions);
         }
     }
 }

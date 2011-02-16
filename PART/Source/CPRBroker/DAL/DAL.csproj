@@ -140,7 +140,7 @@
     <Compile Include="Part\ActorRef.cs" />
     <Compile Include="Part\AddressPoint.cs" />
     <Compile Include="Part\AddressPointStatus.cs" />
-    <Compile Include="Part\CivilState.cs" />
+    <Compile Include="Part\PersonCivilState.cs" />
     <Compile Include="Part\ContactChannel.cs" />
     <Compile Include="Part\ContactChannelType.cs" />
     <Compile Include="Part\CountryRef.cs" />

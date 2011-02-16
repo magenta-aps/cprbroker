@@ -59,8 +59,10 @@ namespace CprBroker.DAL.Part
             return new ForeignCitizenCountry[0];
         }
 
-
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<ForeignCitizenCountry>(fcc => fcc.CountryRef);
+        }
     }
-
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using System.Data.Linq;
 
 namespace CprBroker.DAL.Part
 {
@@ -33,6 +34,12 @@ namespace CprBroker.DAL.Part
                 };
             }
             return null;
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<PersonState>(ps => ps.PersonCivilState);
+            loadOptions.LoadWith<PersonState>(ps => ps.PersonLifeState);
         }
     }
 }

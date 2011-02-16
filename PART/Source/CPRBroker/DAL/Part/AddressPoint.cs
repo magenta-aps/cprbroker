@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
 
@@ -34,6 +35,15 @@ namespace CprBroker.DAL.Part
                };
             }
             return null;
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<AddressPoint>(ap => ap.AddressPointStatus);
+            loadOptions.LoadWith<AddressPoint>(ap => ap.GeographicPointLocation);
+
+            AddressPointStatus.SetChildLoadOptions(loadOptions);
+            GeographicPointLocation.SetChildLoadOptions(loadOptions);
         }
     }
 }

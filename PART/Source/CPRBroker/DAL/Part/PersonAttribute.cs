@@ -83,6 +83,8 @@ namespace CprBroker.DAL.Part
 
             PersonProperties.SetChildLoadOptions(loadOptions);
             CprData.SetChildLoadOptions(loadOptions);
+            ForeignCitizenData.SetChildLoadOptions(loadOptions);
+            HealthInformation.SetChildLoadOptions(loadOptions);
         }
 
     }

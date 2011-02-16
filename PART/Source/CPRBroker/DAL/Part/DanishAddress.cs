@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
@@ -87,6 +88,13 @@ namespace CprBroker.DAL.Part
                     SchoolDistrict = oio.SkoleDistriktTekst,
                     SocialDistrict = oio.SocialDistriktTekst,
                 };
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<DanishAddress>(da => da.AddressPoint);
+
+            AddressPoint.SetChildLoadOptions(loadOptions);
         }
     }
 }

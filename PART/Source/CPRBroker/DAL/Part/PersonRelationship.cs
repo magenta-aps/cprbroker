@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using System.Data.Linq;
 
 namespace CprBroker.DAL.Part
 {
@@ -22,6 +23,12 @@ namespace CprBroker.DAL.Part
             GuardianshipOwner = 9,
             ReplacementFor = 10,
             ReplacedBy = 11,
+        }
+
+        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
+        {
+            loadOptions.LoadWith<PersonRelationship>(pr => pr.Effect);
+            loadOptions.LoadWith<PersonRelationship>(pr => pr.RelationshipType);
         }
 
         #region Conversion to XML types

@@ -69,8 +69,14 @@ namespace CprBroker.DAL.Part
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
         {
             loadOptions.LoadWith<PersonProperties>(pp => pp.ContactChannel);
+            loadOptions.LoadWith<PersonProperties>(pp => pp.NextOfKinContactChannel);
             loadOptions.LoadWith<PersonProperties>(pp => pp.OtherAddress);
             loadOptions.LoadWith<PersonProperties>(pp => pp.Effect);
+            loadOptions.LoadWith<PersonProperties>(pp => pp.Gender);
+            loadOptions.LoadWith<PersonProperties>(pp => pp.PersonName);
+
+            ContactChannel.SetChildLoadOptions(loadOptions);
+            Address.SetChildLoadOptions(loadOptions);
         }
     }
 }
