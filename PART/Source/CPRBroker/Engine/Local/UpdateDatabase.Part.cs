@@ -107,5 +107,28 @@ namespace CprBroker.Engine.Local
                 dataContext.SubmitChanges();
             }
         }
+
+        public static void ImportPersonRegistrationFromXmlFile(string path)
+        {
+            var xml = System.IO.File.ReadAllText(path);
+            var oio = DAL.Utilities.Deserialize<Schemas.Part.RegistreringType1>(xml);
+
+            var uuid = new PersonIdentifier() { UUID = new Guid(path.Substring(path.LastIndexOf("\\") + 1)) };
+
+            if (oio.AttributListe.RegisterOplysning[0].Item is CprBroker.Schemas.Part.CprBorgerType)
+            {
+                uuid.CprNumber = (oio.AttributListe.RegisterOplysning[0].Item as Schemas.Part.CprBorgerType).PersonCivilRegistrationIdentifier;
+            }
+            else if (oio.AttributListe.RegisterOplysning[0].Item is Schemas.Part.UdenlandskBorgerType)
+            {
+                uuid.CprNumber = (oio.AttributListe.RegisterOplysning[0].Item as Schemas.Part.UdenlandskBorgerType).PersonCivilRegistrationReplacementIdentifier;
+            }
+            else
+            {
+                uuid.CprNumber = (oio.AttributListe.RegisterOplysning[0].Item as Schemas.Part.UkendtBorgerType).PersonCivilRegistrationReplacementIdentifier;
+            }
+            UpdatePersonUuid(uuid.CprNumber, uuid.UUID.Value);
+            UpdatePersonRegistration(uuid, oio);
+        }
     }
 }
