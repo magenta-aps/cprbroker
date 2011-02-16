@@ -4,6 +4,8 @@ using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using System.Xml.Linq;
+using System.IO;
 
 namespace CprBroker.DAL.Part
 {
@@ -13,19 +15,8 @@ namespace CprBroker.DAL.Part
         {
             if (db != null)
             {
-                var ret = new CprBroker.Schemas.Part.RegistreringType1()
-                {
-                    AktoerRef = ActorRef.ToXmlType(db.ActorRef),
-                    Tidspunkt = TidspunktType.Create(db.RegistrationDate),
-                    AttributListe = PersonAttributes.ToXmlType(db.PersonAttributes),
-                    TilstandListe = PersonState.ToXmlType(db.PersonState),
-                    RelationListe = PersonRelationship.ToXmlType(db.PersonRelationships.ToArray().AsQueryable()),
-                    CommentText = db.CommentText,
-                    LivscyklusKode = LifecycleStatus.GetEnum(db.LifecycleStatusId),
-                    Virkning = null,
-                };
-                ret.CalculateVirkning();
-                return ret;
+                var xml = db.Contents.ToString();
+                return Utilities.Deserialize<RegistreringType1>(xml);
             }
             return null;
         }
@@ -59,21 +50,28 @@ namespace CprBroker.DAL.Part
 
         public static PersonRegistration FromXmlType(CprBroker.Schemas.Part.RegistreringType1 partRegistration)
         {
-            PersonRegistration ret = new PersonRegistration()
+            PersonRegistration ret = null;
+            if (partRegistration != null)
             {
-                PersonRegistrationId = Guid.NewGuid(),
+                ret = new PersonRegistration()
+                {
+                    PersonRegistrationId = Guid.NewGuid(),
 
-                ActorRef = ActorRef.FromXmlType(partRegistration.AktoerRef),
-                CommentText = partRegistration.CommentText,
-                LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
-                RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
+                    ActorRef = ActorRef.FromXmlType(partRegistration.AktoerRef),
+                    CommentText = partRegistration.CommentText,
+                    LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
+                    RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 
-                PersonAttributes = PersonAttributes.FromXmlType(partRegistration.AttributListe),
-                PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
-            };
-            if (partRegistration.RelationListe != null)
-            {
-                ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));
+                    PersonAttributes = PersonAttributes.FromXmlType(partRegistration.AttributListe),
+                    PersonState = PersonState.FromXmlType(partRegistration.TilstandListe),
+                };
+                if (partRegistration.RelationListe != null)
+                {
+                    ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));
+                }
+
+                var xml = Utilities.SerializeObject(partRegistration);
+                ret.Contents = System.Xml.Linq.XElement.Load(new StringReader(xml));
             }
             return ret;
         }

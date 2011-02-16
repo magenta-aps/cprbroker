@@ -164,7 +164,7 @@ namespace CprBroker.Engine
                 for (int iSubMethod = 0; iSubMethod < subMethodRunStates.Length; iSubMethod++)
                 {
 
-                    subMethodRunStates[iSubMethod].Thread = new Thread(new ParameterizedThreadStart((o) =>
+                    subMethodRunStates[iSubMethod].ThreadStart = new ParameterizedThreadStart((o) =>
                         {
                             // Copy the broker context to this new thread
                             BrokerContext.Current = currentBrokerContext;
@@ -175,8 +175,9 @@ namespace CprBroker.Engine
                             {
                                 try
                                 {
+                                    Local.Admin.LogSuccess("Start Operation " + BrokerContext.Current.WebMethodMessageName);
                                     object subResult = subMethodInfo.SubMethodInfo.Invoke(prov);
-
+                                    Local.Admin.LogSuccess("End Operation " + BrokerContext.Current.WebMethodMessageName);
                                     // See if result can be used to update local database
                                     if (prov is IExternalDataProvider && subMethodInfo.SubMethodInfo.IsUpdatableOutput(subResult))
                                     {
@@ -212,19 +213,30 @@ namespace CprBroker.Engine
                             // Signal the end of processing
                             subMethodInfo.WaitHandle.Set();
                         }
-                    ));
-                    subMethodRunStates[iSubMethod].Thread.Start(iSubMethod);
+                    );
+
+                    if (subMethodRunStates.Length > 1)
+                    {
+                        subMethodRunStates[iSubMethod].Thread = new Thread(subMethodRunStates[iSubMethod].ThreadStart);
+                        subMethodRunStates[iSubMethod].Thread.Start(iSubMethod);
+                    }
                 }
                 #endregion
 
                 #region Threads control
-
-                // Wait for sub results to continue
-                var waitHandles = (from mi in subMethodRunStates select mi.WaitHandle).ToArray();
-                WaitHandle.WaitAll(waitHandles, Config.Properties.Settings.Default.DataProviderMillisecondsTimeout);
-                foreach (var mi in subMethodRunStates)
+                if (subMethodRunStates.Length > 1)
                 {
-                    mi.Thread.Abort();
+                    // Wait for sub results to continue
+                    var waitHandles = (from mi in subMethodRunStates select mi.WaitHandle).ToArray();
+                    WaitHandle.WaitAll(waitHandles, Config.Properties.Settings.Default.DataProviderMillisecondsTimeout);
+                    foreach (var mi in subMethodRunStates)
+                    {
+                        mi.Thread.Abort();
+                    }
+                }
+                else
+                {
+                    subMethodRunStates[0].ThreadStart.Invoke(0);
                 }
                 #endregion
 
@@ -261,6 +273,7 @@ namespace CprBroker.Engine
             public SubMethodInfo SubMethodInfo;
             public List<IDataProvider> DataProviders;
             public object Result = null;
+            public ParameterizedThreadStart ThreadStart;
             public Thread Thread;
             public bool Succeeded = false;
             public ManualResetEvent WaitHandle = new ManualResetEvent(false);

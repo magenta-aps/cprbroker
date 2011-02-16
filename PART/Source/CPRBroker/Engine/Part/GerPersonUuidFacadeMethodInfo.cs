@@ -25,10 +25,10 @@ namespace CprBroker.Engine.Part
                     Method = (prov)=>prov.GetPersonUuid(Input),
                     LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst,
                     FailOnDefaultOutput=true,
+                    FailIfNoDataProvider=true,
                     UpdateMethod=uuid=>Local.UpdateDatabase.UpdatePersonUuid(Input,uuid),
                 }
             };
         }
-
     }
 }
