@@ -9,7 +9,6 @@ using CprBroker.DAL;
 using CprBroker.DAL.Events;
 using CprBroker.DAL.Part;
 
-
 namespace CprBroker.Engine.Local
 {
 
@@ -41,30 +40,42 @@ namespace CprBroker.Engine.Local
                 };
                 dataContext.DataChangeEvents.InsertOnSubmit(pp);
                 dataContext.SubmitChanges();
-            }           
+            }
         }
 
-        private static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 personRegistraion)
+        private static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 oioRegistration)
         {
             //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
             using (var dataContext = new PartDataContext())
             {
-                DAL.Part.PersonRegistration.SetChildLoadOptions(dataContext);
-
                 // Match db registrations by UUID, ActorId and registration date
-                var existingInDb = (from dbReg in dataContext.PersonRegistrations
-                                    where dbReg.UUID == personIdentifier.UUID
-                                    && dbReg.RegistrationDate == TidspunktType.ToDateTime(personRegistraion.Tidspunkt)
-                                    //TODO: Refill this condition
-                                    //&& dbReg.ActorText == personRegistraion.AktoerTekst
-                                    select dbReg).ToArray();
+                var existingInDb = (
+                        from dbReg in dataContext.PersonRegistrations
+                        where dbReg.UUID == personIdentifier.UUID
+                        && dbReg.RegistrationDate == TidspunktType.ToDateTime(oioRegistration.Tidspunkt)
+                        &&
+                        (
+                            (
+                                oioRegistration.AktoerRef == null
+                                && dbReg.ActorRef == null
+                            )
+                            ||
+                            (
+                                oioRegistration.AktoerRef != null
+                                && dbReg.ActorRef != null
+                                && oioRegistration.AktoerRef.Item == dbReg.ActorRef.Value
+                                && (int)oioRegistration.AktoerRef.ItemElementName == dbReg.ActorRef.Type
+                            )
+                        )
+                        select dbReg
+                    ).ToArray();
 
                 var duplicateExists = existingInDb.Length > 0;
 
                 // Perform a content match if key match is found
                 if (duplicateExists)
                 {
-                    duplicateExists = Array.Exists(existingInDb, (db) => Schemas.Util.Misc.AreEqual<RegistreringType1>(DAL.Part.PersonRegistration.ToXmlType(db), personRegistraion));
+                    duplicateExists = Array.Exists<PersonRegistration>(existingInDb, db => db.Equals(oioRegistration));
                 }
 
                 // If there are really no matches, update the database
@@ -82,7 +93,7 @@ namespace CprBroker.Engine.Local
                         };
                         dataContext.Persons.InsertOnSubmit(dbPerson);
                     }
-                    var dbReg = DAL.Part.PersonRegistration.FromXmlType(personRegistraion);
+                    var dbReg = DAL.Part.PersonRegistration.FromXmlType(oioRegistration);
                     dbReg.Person = dbPerson;
                     dbReg.BrokerUpdateDate = DateTime.Now;
                     dataContext.PersonRegistrations.InsertOnSubmit(dbReg);

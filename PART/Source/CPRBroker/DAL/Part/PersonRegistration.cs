@@ -75,5 +75,13 @@ namespace CprBroker.DAL.Part
             }
             return ret;
         }
+
+        public bool Equals(RegistreringType1 oio)
+        {
+            var xml = DAL.Utilities.SerializeObject(oio);
+            var thisOio = ToXmlType(this);
+            var thisXml = DAL.Utilities.SerializeObject(thisOio);
+            return string.Equals(xml, thisXml);
+        }
     }
 }
