@@ -32,6 +32,9 @@ namespace CprBroker.DAL.Part
 
         public static void SetChildLoadOptions(PartDataContext dataContext)
         {
+            // TODO: LoadOptions actually slows down performance
+            return;
+
             DataLoadOptions loadOptions = new DataLoadOptions();
             SetChildLoadOptions(loadOptions);
             dataContext.LoadOptions = loadOptions;
