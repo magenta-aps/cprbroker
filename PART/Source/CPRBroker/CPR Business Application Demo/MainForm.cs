@@ -307,7 +307,7 @@ namespace CPR_Business_Application_Demo
             PartAdapter adapter = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
 
             ConsoleWriteLine("  looking up cpr:" + personCpr);
-            Guid puid = adapter.GetPersonUuid(Properties.Settings.Default.AdminAppToken, personCpr);
+            Guid puid = adapter.GetUuid(Properties.Settings.Default.AdminAppToken, personCpr);
             uuidTextBox.Text = puid.ToString();
             resultXmlTextBox.Text = "  result for cpr:" + personCpr +" : "+ puid + "\r\n";
         }

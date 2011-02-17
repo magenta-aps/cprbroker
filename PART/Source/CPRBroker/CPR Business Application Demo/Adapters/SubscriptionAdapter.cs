@@ -33,22 +33,22 @@ namespace CPR_Business_Application_Demo.Adapters
         #endregion
 
         #region Subscription
-        private Guid[] GetPersonUuids(ApplicationHeader applicationHeader, string [] cprNumbers)
+        private Guid[] GetUuids(ApplicationHeader applicationHeader, string [] cprNumbers)
         {
             PartAdapter adpt = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
-            return Array.ConvertAll<string, Guid>(cprNumbers, cpr => adpt.GetPersonUuid(applicationHeader.ApplicationToken, cpr));
+            return Array.ConvertAll<string, Guid>(cprNumbers, cpr => adpt.GetUuid(applicationHeader.ApplicationToken, cpr));
         }
 
         public ChangeSubscriptionType Subscribe(ApplicationHeader applicationHeader, ChannelBaseType notificationChannel, string[] personCivilRegistrationIdentifiers)
         {
-            return subscriptionsHandler.Subscribe(applicationHeader, notificationChannel, GetPersonUuids(applicationHeader,personCivilRegistrationIdentifiers));
+            return subscriptionsHandler.Subscribe(applicationHeader, notificationChannel, GetUuids(applicationHeader,personCivilRegistrationIdentifiers));
         }
 
         public BirthdateSubscriptionType SubscribeOnBirthdate(ApplicationHeader applicationHeader, ChannelBaseType notificationChannel,
                                                               int? age, int priorDays,
                                                               string[] personCivilRegistrationIdentifiers)
         {
-            return subscriptionsHandler.SubscribeOnBirthdate(applicationHeader, notificationChannel, age, priorDays, GetPersonUuids(applicationHeader, personCivilRegistrationIdentifiers));
+            return subscriptionsHandler.SubscribeOnBirthdate(applicationHeader, notificationChannel, age, priorDays, GetUuids(applicationHeader, personCivilRegistrationIdentifiers));
         }
 
         public SubscriptionType[] GetActiveSubscriptions(ApplicationHeader applicationHeader)

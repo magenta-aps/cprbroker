@@ -41,11 +41,12 @@ namespace CPR_Business_Application_Demo
             return CreateApplicationHeader(appToken, "");
         }
 
-        public Guid GetPersonUuid(string applicationToken, string cprNumber)
+        public Guid GetUuid(string applicationToken, string cprNumber)
         {
             try
             {
-                return PartHandler.GetPersonUuid(CreateApplicationHeader(applicationToken), cprNumber);
+                var ret= PartHandler.GetUuid(CreateApplicationHeader(applicationToken), cprNumber);
+                return new Guid(ret.UUID);
             }
             catch (Exception)
             {

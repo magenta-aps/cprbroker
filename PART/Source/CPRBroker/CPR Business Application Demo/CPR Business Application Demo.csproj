@@ -273,6 +273,9 @@
   <ItemGroup>
     <None Include="Service References\ApplicationsService\Admin.disco" />
     <None Include="Service References\ApplicationsService\Admin.wsdl" />
+    <None Include="Service References\PartService\CPR_Business_Application_Demo.PartService.GetUuidOutputType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
