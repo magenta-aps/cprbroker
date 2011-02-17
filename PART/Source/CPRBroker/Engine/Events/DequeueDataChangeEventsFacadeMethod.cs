@@ -17,9 +17,13 @@ namespace CprBroker.Engine.Events
             this.MaxCount = maxCount;
         }
 
-        public override bool IsValidInput(ref BasicOutputType<DataChangeEventInfo[]> invalidInputReturnValue)
+        public override StandardReturType ValidateInput()
         {
-            return MaxCount > 0;
+            if (MaxCount <= 0 || MaxCount > 10000)
+            {
+                return StandardReturType.ValueOutOfRange(MaxCount);
+            }
+            return StandardReturType.OK();
         }
 
         public override void Initialize()
@@ -27,5 +31,15 @@ namespace CprBroker.Engine.Events
             base.Initialize();
             SubMethodInfos = new SubMethodInfo[] { new Events.DequeueDataChangeEventSubMethodInfo(MaxCount) };
         }
+
+        public override BasicOutputType<DataChangeEventInfo[]> Aggregate(object[] results)
+        {
+            return new BasicOutputType<DataChangeEventInfo[]>()
+            {
+                StandardRetur = StandardReturType.OK(),
+                Item = results[0] as DataChangeEventInfo[],
+            };
+        }
+       
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Engine.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 
@@ -17,23 +18,23 @@ namespace CprBroker.Engine.DataProviders
             Input = inp;
         }
 
-        public override bool IsValidInput(ref BasicOutputType<bool> invalidInputReturnValue)
+        public override StandardReturType ValidateInput()
         {
             if (Input == null)
             {
-                return false;
+                return StandardReturType.NullInput();
             }
             foreach (var dp in Input)
             {
                 if (dp == null || string.IsNullOrEmpty(dp.TypeName) || dp.Attributes == null)
                 {
-                    return false;
+                    return StandardReturType.NullInput();
                 }
 
                 var dataProvider = Util.Reflection.CreateInstance<IExternalDataProvider>(dp.TypeName);
                 if (dataProvider == null)
                 {
-                    return false;
+                    return StandardReturType.UnknownObject(dp.TypeName);
                 }
                 var propNames = dataProvider.ConfigurationKeys;
                 foreach (var propInfo in propNames)
@@ -42,11 +43,11 @@ namespace CprBroker.Engine.DataProviders
                     var prop = dp.Attributes.FirstOrDefault(p => p.Name.ToLower() == propName.ToLower());
                     if (prop == null || (propInfo.Required && string.IsNullOrEmpty(prop.Value)))
                     {
-                        return false;
+                        return StandardReturType.NullInput(propName);
                     }
                 }
             }
-            return true;
+            return StandardReturType.OK();
         }
 
         public override void Initialize()
@@ -59,8 +60,7 @@ namespace CprBroker.Engine.DataProviders
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=true,
                     LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst,
-                    UpdateMethod=null                   
-
+                    UpdateMethod=null
                 }
             };
         }

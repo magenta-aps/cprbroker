@@ -68,10 +68,11 @@ namespace CprBroker.NUnitTester
         public void T200_GetUuid(string cprNumber)
         {
             var uuid = TestRunner.PartService.GetUuid(cprNumber);
-            Assert.AreNotEqual(uuid, Guid.Empty);
+            Validate(uuid);
 
             var uuid2 = TestRunner.PartService.GetUuid(cprNumber);
-            Assert.AreEqual(uuid, uuid2);
+            Validate(uuid);
+            Assert.AreEqual(uuid.UUID, uuid2.UUID);
         }
 
         [Test]
@@ -83,7 +84,7 @@ namespace CprBroker.NUnitTester
 
             LaesInputType input = new LaesInputType()
             {
-                UUID = uuid.ToString(),
+                UUID = uuid.UUID,
             };
             var person = TestRunner.PartService.Read(input);
             Validate(new Guid(uuid.UUID), person, TestRunner.PartService);
@@ -159,11 +160,12 @@ namespace CprBroker.NUnitTester
             string[] cprNumbers = new string[] { cprNumber };
             ListInputType input = new ListInputType()
             {
-                UUID = Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).ToString()),
+                UUID = Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).UUID),
             };
 
             var persons = TestRunner.PartService.List(input);
-            Assert.IsNotNull(persons, "Persons array is null");
+            Assert.IsNotNull(persons, "List response is null");
+            Assert.IsNotNull(persons.LaesResultat, "Persons array is null");
             Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
             for (int i = 0; i < cprNumbers.Length; i++)
             {
@@ -177,7 +179,7 @@ namespace CprBroker.NUnitTester
         {
             ListInputType input = new ListInputType()
             {
-                UUID = cprNumbers == null ? null : Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).ToString()),
+                UUID = cprNumbers == null ? null : Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).UUID),
             };
 
             var persons = TestRunner.PartService.List(input);
@@ -186,7 +188,8 @@ namespace CprBroker.NUnitTester
 
             if (cprNumbers != null)
             {
-                Assert.IsNotNull(persons, "Persons array is null");
+                Assert.IsNotNull(persons, "List response is null");
+                Assert.IsNotNull(persons.LaesResultat, "Persons array is null");
                 Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
                 for (int i = 0; i < cprNumbers.Length; i++)
                 {
@@ -199,7 +202,7 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T400_Search_CprNumber(string cprNumber)
         {
-            var personUuid = TestRunner.PartService.GetUuid(cprNumber);
+            var personUuid = TestRunner.PartService.GetUuid(cprNumber).UUID;
 
             var searchCriteria = new Part.SoegInputType1()
             {

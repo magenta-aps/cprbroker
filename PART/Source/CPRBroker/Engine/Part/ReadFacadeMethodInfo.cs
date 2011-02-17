@@ -24,37 +24,25 @@ namespace CprBroker.Engine.Part
             this.LocalAction = localAction;
         }
 
-        public override bool IsValidInput(ref LaesOutputType invalidInputReturnValue)
+        public override StandardReturType ValidateInput()
         {
             if (Input == null)
             {
-                invalidInputReturnValue = new LaesOutputType()
-                {
-                    StandardRetur = new ErrorCode.NullInputErrorCode().ToStandardReturn()
-                };
-                return false;
+                return StandardReturType.NullInput();
             }
 
             if (!Util.Strings.IsGuid(Input.UUID))
             {
-                invalidInputReturnValue = new LaesOutputType()
-                {
-                    StandardRetur = new ErrorCode.InvalidUuidErrorCode(Input.UUID).ToStandardReturn()
-                };
-                return false;
+                return StandardReturType.InvalidUuid(Input.UUID);
             }
 
             pId = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(Input.UUID));
             if (pId == null)
             {
-                invalidInputReturnValue = new LaesOutputType()
-                {
-                    StandardRetur = new ErrorCode.UnknownUuidErrorCode(Input.UUID).ToStandardReturn()
-                };
-                return false;
+                return StandardReturType.UnknownUuid(Input.UUID);
             }
 
-            return true;
+            return StandardReturType.OK();
         }
 
         public override void Initialize()

@@ -6,7 +6,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
-    public class FacadeMethodInfo<TOutput> where TOutput : IBasicOutput
+    public class FacadeMethodInfo<TOutput> where TOutput : class, IBasicOutput, new()
     {
         public FacadeMethodInfo()
         { }
@@ -17,10 +17,9 @@ namespace CprBroker.Engine
             UserToken = userToken;
         }
 
-        //TODO: Write code for this method
-        public virtual bool IsValidInput(ref TOutput invalidInputReturnValue)
+        public virtual StandardReturType ValidateInput()
         {
-            return true;
+            return StandardReturType.OK();
         }
 
         public virtual void Initialize()

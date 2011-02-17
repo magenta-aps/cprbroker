@@ -27,7 +27,7 @@ namespace CprBroker.Schemas.Part
         {
             return new StandardReturType()
             {
-                StatusKode = code.ToString(),
+                StatusKode = ((int)code).ToString(),
                 FejlbeskedTekst = text
             };
         }
@@ -39,10 +39,50 @@ namespace CprBroker.Schemas.Part
                 int code;
                 if (int.TryParse(ret.StatusKode, out code))
                 {
-                    return code == 0;
+                    return code == (int)HttpErrorCode.OK;
                 }
             }
             return false;
+        }
+
+        public static StandardReturType OK()
+        {
+            return Create(HttpErrorCode.OK);
+        }
+
+        public static StandardReturType UnspecifiedError()
+        {
+            return Create(HttpErrorCode.UNSPECIFIED);
+        }
+
+        public static StandardReturType NullInput()
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Input cannot be null");
+        }
+
+        public static StandardReturType NullInput(string valueName)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Input cannot be null: {0}", valueName));
+        }
+
+        public static StandardReturType UnknownObject(string value)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Unknown: {0}", value));
+        }
+
+        public static StandardReturType ValueOutOfRange(object value)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Value \"{0}\" is out of valid range", value));
+        }
+
+        public static StandardReturType InvalidUuid(string uuid)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid UUID: {0}", uuid));
+        }
+
+        public static StandardReturType UnknownUuid(string uuid)
+        {
+            return Create(HttpErrorCode.NOT_FOUND, string.Format("UUID valid but not found : {0}", uuid));
         }
     }
 }

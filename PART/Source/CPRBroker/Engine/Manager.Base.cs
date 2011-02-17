@@ -111,7 +111,7 @@ namespace CprBroker.Engine
             return default(TOutput);
         }
 
-        public static TOutput GetMethodOutput<TOutput>(FacadeMethodInfo<TOutput> facade) where TOutput : IBasicOutput
+        public static TOutput GetMethodOutput<TOutput>(FacadeMethodInfo<TOutput> facade) where TOutput : class, IBasicOutput, new()
         {
             try
             {
@@ -120,11 +120,14 @@ namespace CprBroker.Engine
                 BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken);
 
                 // Validate
-                TOutput invalidInputReturn = default(TOutput);
-                if (!facade.IsValidInput(ref invalidInputReturn))
+                StandardReturType validationRet = facade.ValidateInput();
+                if (!StandardReturType.IsSucceeded(validationRet))
                 {
                     Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.InvalidInput, null, null);
-                    return invalidInputReturn;
+                    return new TOutput()
+                    {
+                        StandardRetur = validationRet
+                    };
                 }
 
                 // Initialize facade method

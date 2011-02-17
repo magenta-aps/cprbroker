@@ -23,25 +23,25 @@ namespace CprBroker.Engine.Part
             this.InitializationMethod = new Action(InitializationMethod);
         }
 
-        public override bool IsValidInput(ref ListOutputType1 invalidInputReturnValue)
+        public override StandardReturType ValidateInput()
         {
             if (input == null || input.UUID == null || input.UUID.Length == 0)
             {
-                invalidInputReturnValue = new ListOutputType1()
-                {
-                    StandardRetur = new ErrorCode.NullInputErrorCode().ToStandardReturn()
-                };
-                return false;
+                return StandardReturType.NullInput();
             }
 
-            var invalidUuidErrors = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select new ErrorCode.InvalidUuidErrorCode(uuid).ToString()).ToArray();
-            if (invalidUuidErrors.Length > 0)
+            foreach (var uuid in input.UUID)
             {
-                invalidInputReturnValue = new ListOutputType1()
+                if (string.IsNullOrEmpty(uuid))
                 {
-                    StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidUuidErrors))
-                };
-                return false;
+                    return StandardReturType.NullInput();
+                }
+            }
+
+            var invalidUuids = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select uuid).ToArray();
+            if (invalidUuids.Length > 0)
+            {
+                return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidUuids));
             }
 
             var unknownUuidErrors = new List<String>();
@@ -59,14 +59,10 @@ namespace CprBroker.Engine.Part
             }
             if (unknownUuidErrors.Count > 0)
             {
-                invalidInputReturnValue = new ListOutputType1()
-                {
-                    StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", unknownUuidErrors.ToArray()))
-                };
-                return false;
+                return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", unknownUuidErrors.ToArray()));
             }
 
-            return true;
+            return StandardReturType.OK();
         }
 
         public override void Initialize()

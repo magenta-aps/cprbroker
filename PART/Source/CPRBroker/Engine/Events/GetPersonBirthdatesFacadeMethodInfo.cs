@@ -16,16 +16,30 @@ namespace CprBroker.Engine.Events
             : base(appToken, userToken)
         {
             this.PersonUuidToStartAfter = personUuidToStartAfter;
+            MaxCount = maxCount;
         }
 
-        public override bool IsValidInput(ref BasicOutputType<PersonBirthdate[]> invalidInputReturnValue)
+        public override StandardReturType ValidateInput()
         {
-            return MaxCount > 0;
+            if (MaxCount <= 0 || MaxCount > 10000)
+            {
+                return StandardReturType.ValueOutOfRange(MaxCount);
+            }
+            return StandardReturType.OK();
         }
 
         public override void Initialize()
         {
             SubMethodInfos = new SubMethodInfo[] { new GetPersonBirthdatesSubmethodInfo(PersonUuidToStartAfter, MaxCount) };
+        }
+
+        public override BasicOutputType<PersonBirthdate[]> Aggregate(object[] results)
+        {
+            return new BasicOutputType<PersonBirthdate[]>()
+            {
+                StandardRetur = StandardReturType.OK(),
+                Item = results[0] as PersonBirthdate[],
+            };
         }
     }
 }
