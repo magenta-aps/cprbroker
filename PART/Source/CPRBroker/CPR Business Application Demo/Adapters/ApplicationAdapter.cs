@@ -50,11 +50,7 @@ namespace CPR_Business_Application_Demo.Adapters
         #endregion
 
         #region Misc
-        public bool CreateTestCitizen(ApplicationHeader applicationheader, PersonFullStructureType person)
-        {
-            return applicationsHandler.CreateTestCitizen(applicationheader, person);
-        }
-
+        
         public ServiceVersionType[] GetCapabillities(ApplicationHeader applicationHeader)
         {
             return applicationsHandler.GetCapabilities(applicationHeader);

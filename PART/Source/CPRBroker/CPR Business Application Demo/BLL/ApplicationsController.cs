@@ -132,20 +132,6 @@ namespace CPR_Business_Application_Demo.Business
             }
         }
 
-        public bool CreateTestCitizen(PersonFullStructureType person)
-        {
-            try
-            {
-                var cprAdministrationAdapter = new ApplicationAdapter(Settings["CPRBrokerWebServiceUrl"].ToString());
-                return cprAdministrationAdapter.CreateTestCitizen(GetHeader(), person);
-
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
         public ServiceVersionType[] GetCapabillities()
         {
             try

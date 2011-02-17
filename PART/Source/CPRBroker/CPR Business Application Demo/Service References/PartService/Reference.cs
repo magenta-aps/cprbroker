@@ -21,12 +21,12 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CPR_Business_Application_Demo.PartService.ReadResponse Read(CPR_Business_Application_Demo.PartService.ReadRequest request);
@@ -37,12 +37,12 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CPR_Business_Application_Demo.PartService.RefreshRead1 RefreshRead(CPR_Business_Application_Demo.PartService.RefreshRead request);
@@ -53,12 +53,12 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CPR_Business_Application_Demo.PartService.ListResponse List(CPR_Business_Application_Demo.PartService.ListRequest request);
@@ -69,12 +69,12 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CPR_Business_Application_Demo.PartService.SearchResponse Search(CPR_Business_Application_Demo.PartService.SearchRequest request);
@@ -85,12 +85,12 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CPR_Business_Application_Demo.PartService.GetUuidResponse GetUuid(CPR_Business_Application_Demo.PartService.GetUuidRequest request);
@@ -161,15 +161,15 @@ namespace CPR_Business_Application_Demo.PartService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class GetUuidOutputType : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
+    public partial class SoegOutputType : object, System.ComponentModel.INotifyPropertyChanged {
         
         private StandardReturType standardReturField;
         
-        private string uUIDField;
+        private string[] idlisteField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:2.0.0", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public StandardReturType StandardRetur {
             get {
                 return this.standardReturField;
@@ -181,14 +181,15 @@ namespace CPR_Business_Application_Demo.PartService {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0", Order=1)]
-        public string UUID {
+        [System.Xml.Serialization.XmlArrayAttribute(Namespace="urn:oio:sagdok:1.0.0", Order=1)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("UUID", Namespace="urn:oio:dkal:1.0.0", IsNullable=false)]
+        public string[] Idliste {
             get {
-                return this.uUIDField;
+                return this.idlisteField;
             }
             set {
-                this.uUIDField = value;
-                this.RaisePropertyChanged("UUID");
+                this.idlisteField = value;
+                this.RaisePropertyChanged("Idliste");
             }
         }
         
@@ -235,53 +236,6 @@ namespace CPR_Business_Application_Demo.PartService {
             set {
                 this.fejlbeskedTekstField = value;
                 this.RaisePropertyChanged("FejlbeskedTekst");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
-    public partial class SoegOutputType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private StandardReturType standardReturField;
-        
-        private string[] idlisteField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public StandardReturType StandardRetur {
-            get {
-                return this.standardReturField;
-            }
-            set {
-                this.standardReturField = value;
-                this.RaisePropertyChanged("StandardRetur");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Namespace="urn:oio:sagdok:1.0.0", Order=1)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("UUID", Namespace="urn:oio:dkal:1.0.0", IsNullable=false)]
-        public string[] Idliste {
-            get {
-                return this.idlisteField;
-            }
-            set {
-                this.idlisteField = value;
-                this.RaisePropertyChanged("Idliste");
             }
         }
         
@@ -2347,9 +2301,9 @@ namespace CPR_Business_Application_Demo.PartService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2382,145 +2336,6 @@ namespace CPR_Business_Application_Demo.PartService {
             set {
                 this.ukendtAdresseIndikatorField = value;
                 this.RaisePropertyChanged("UkendtAdresseIndikator");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class VerdenAdresseType : AdresseBaseType {
-        
-        private ForeignAddressStructureType foreignAddressStructureField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/", Order=0)]
-        public ForeignAddressStructureType ForeignAddressStructure {
-            get {
-                return this.foreignAddressStructureField;
-            }
-            set {
-                this.foreignAddressStructureField = value;
-                this.RaisePropertyChanged("ForeignAddressStructure");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class ForeignAddressStructureType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string postalAddressFirstLineTextField;
-        
-        private string postalAddressSecondLineTextField;
-        
-        private string postalAddressThirdLineTextField;
-        
-        private string postalAddressFourthLineTextField;
-        
-        private string postalAddressFifthLineTextField;
-        
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        private string locationDescriptionTextField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=0)]
-        public string PostalAddressFirstLineText {
-            get {
-                return this.postalAddressFirstLineTextField;
-            }
-            set {
-                this.postalAddressFirstLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFirstLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
-        public string PostalAddressSecondLineText {
-            get {
-                return this.postalAddressSecondLineTextField;
-            }
-            set {
-                this.postalAddressSecondLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressSecondLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
-        public string PostalAddressThirdLineText {
-            get {
-                return this.postalAddressThirdLineTextField;
-            }
-            set {
-                this.postalAddressThirdLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressThirdLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
-        public string PostalAddressFourthLineText {
-            get {
-                return this.postalAddressFourthLineTextField;
-            }
-            set {
-                this.postalAddressFourthLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFourthLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
-        public string PostalAddressFifthLineText {
-            get {
-                return this.postalAddressFifthLineTextField;
-            }
-            set {
-                this.postalAddressFifthLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFifthLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
-        public CountryIdentificationCodeType CountryIdentificationCode {
-            get {
-                return this.countryIdentificationCodeField;
-            }
-            set {
-                this.countryIdentificationCodeField = value;
-                this.RaisePropertyChanged("CountryIdentificationCode");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/", Order=6)]
-        public string LocationDescriptionText {
-            get {
-                return this.locationDescriptionTextField;
-            }
-            set {
-                this.locationDescriptionTextField = value;
-                this.RaisePropertyChanged("LocationDescriptionText");
             }
         }
         
@@ -2772,6 +2587,145 @@ namespace CPR_Business_Application_Demo.PartService {
             set {
                 this.countryIdentificationCodeField = value;
                 this.RaisePropertyChanged("CountryIdentificationCode");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class VerdenAdresseType : AdresseBaseType {
+        
+        private ForeignAddressStructureType foreignAddressStructureField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/", Order=0)]
+        public ForeignAddressStructureType ForeignAddressStructure {
+            get {
+                return this.foreignAddressStructureField;
+            }
+            set {
+                this.foreignAddressStructureField = value;
+                this.RaisePropertyChanged("ForeignAddressStructure");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class ForeignAddressStructureType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string postalAddressFirstLineTextField;
+        
+        private string postalAddressSecondLineTextField;
+        
+        private string postalAddressThirdLineTextField;
+        
+        private string postalAddressFourthLineTextField;
+        
+        private string postalAddressFifthLineTextField;
+        
+        private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        private string locationDescriptionTextField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=0)]
+        public string PostalAddressFirstLineText {
+            get {
+                return this.postalAddressFirstLineTextField;
+            }
+            set {
+                this.postalAddressFirstLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFirstLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
+        public string PostalAddressSecondLineText {
+            get {
+                return this.postalAddressSecondLineTextField;
+            }
+            set {
+                this.postalAddressSecondLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressSecondLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
+        public string PostalAddressThirdLineText {
+            get {
+                return this.postalAddressThirdLineTextField;
+            }
+            set {
+                this.postalAddressThirdLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressThirdLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
+        public string PostalAddressFourthLineText {
+            get {
+                return this.postalAddressFourthLineTextField;
+            }
+            set {
+                this.postalAddressFourthLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFourthLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
+        public string PostalAddressFifthLineText {
+            get {
+                return this.postalAddressFifthLineTextField;
+            }
+            set {
+                this.postalAddressFifthLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFifthLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+                this.RaisePropertyChanged("CountryIdentificationCode");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/", Order=6)]
+        public string LocationDescriptionText {
+            get {
+                return this.locationDescriptionTextField;
+            }
+            set {
+                this.locationDescriptionTextField = value;
+                this.RaisePropertyChanged("LocationDescriptionText");
             }
         }
         
@@ -4404,10 +4358,10 @@ namespace CPR_Business_Application_Demo.PartService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4777,8 +4731,9 @@ namespace CPR_Business_Application_Demo.PartService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
@@ -4817,19 +4772,19 @@ namespace CPR_Business_Application_Demo.PartService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class OpretOutputType : BasicOutputType {
+    public partial class GetUuidOutputType : BasicOutputType {
         
-        private PersonType personField;
+        private string uUIDField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public PersonType Person {
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0", Order=0)]
+        public string UUID {
             get {
-                return this.personField;
+                return this.uUIDField;
             }
             set {
-                this.personField = value;
-                this.RaisePropertyChanged("Person");
+                this.uUIDField = value;
+                this.RaisePropertyChanged("UUID");
             }
         }
     }
@@ -4853,6 +4808,29 @@ namespace CPR_Business_Application_Demo.PartService {
             set {
                 this.registreringField = value;
                 this.RaisePropertyChanged("Registrering");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class OpretOutputType : BasicOutputType {
+        
+        private PersonType personField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public PersonType Person {
+            get {
+                return this.personField;
+            }
+            set {
+                this.personField = value;
+                this.RaisePropertyChanged("Person");
             }
         }
     }

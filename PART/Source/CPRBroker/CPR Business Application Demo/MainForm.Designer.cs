@@ -33,7 +33,6 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CreateTestPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkRegistrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl = new System.Windows.Forms.TabControl();
@@ -43,6 +42,10 @@
             this.cpr_button = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.virkningTil = new System.Windows.Forms.Label();
+            this.virkningFra = new System.Windows.Forms.Label();
+            this.efternavn = new System.Windows.Forms.Label();
+            this.fornavn = new System.Windows.Forms.Label();
             this.resultXmlTextBox = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.uuidTextBox = new System.Windows.Forms.TextBox();
@@ -106,10 +109,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.fornavn = new System.Windows.Forms.Label();
-            this.efternavn = new System.Windows.Forms.Label();
-            this.virkningFra = new System.Windows.Forms.Label();
-            this.virkningTil = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.parttabPage.SuspendLayout();
@@ -150,50 +149,42 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(95, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem,
-            this.CreateTestPersonToolStripMenuItem,
             this.checkRegistrationToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
-            // 
-            // CreateTestPersonToolStripMenuItem
-            // 
-            this.CreateTestPersonToolStripMenuItem.Name = "CreateTestPersonToolStripMenuItem";
-            this.CreateTestPersonToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.CreateTestPersonToolStripMenuItem.Text = "Create Test Person";
-            this.CreateTestPersonToolStripMenuItem.Click += new System.EventHandler(this.CreateTestPersonToolStripMenuItem_Click);
             // 
             // checkRegistrationToolStripMenuItem
             // 
             this.checkRegistrationToolStripMenuItem.Name = "checkRegistrationToolStripMenuItem";
-            this.checkRegistrationToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.checkRegistrationToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.checkRegistrationToolStripMenuItem.Text = "Check Registration";
             this.checkRegistrationToolStripMenuItem.Click += new System.EventHandler(this.checkRegistrationToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // mainTabControl
@@ -256,7 +247,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(36, 29);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(47, 13);
+            this.label16.Size = new System.Drawing.Size(46, 13);
             this.label16.TabIndex = 0;
             this.label16.Text = "CPR no:";
             // 
@@ -276,6 +267,44 @@
             this.groupBox9.TabIndex = 2;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Result";
+            // 
+            // virkningTil
+            // 
+            this.virkningTil.AutoSize = true;
+            this.virkningTil.Location = new System.Drawing.Point(341, 30);
+            this.virkningTil.Name = "virkningTil";
+            this.virkningTil.Size = new System.Drawing.Size(54, 13);
+            this.virkningTil.TabIndex = 4;
+            this.virkningTil.Text = "virkningTil";
+            // 
+            // virkningFra
+            // 
+            this.virkningFra.AutoSize = true;
+            this.virkningFra.Location = new System.Drawing.Point(241, 29);
+            this.virkningFra.Name = "virkningFra";
+            this.virkningFra.Size = new System.Drawing.Size(60, 13);
+            this.virkningFra.TabIndex = 3;
+            this.virkningFra.Text = "virkningFra";
+            this.virkningFra.Click += new System.EventHandler(this.gade_Click);
+            // 
+            // efternavn
+            // 
+            this.efternavn.AutoSize = true;
+            this.efternavn.Location = new System.Drawing.Point(131, 30);
+            this.efternavn.Name = "efternavn";
+            this.efternavn.Size = new System.Drawing.Size(55, 13);
+            this.efternavn.TabIndex = 2;
+            this.efternavn.Text = "efternavn";
+            // 
+            // fornavn
+            // 
+            this.fornavn.AutoSize = true;
+            this.fornavn.Location = new System.Drawing.Point(55, 30);
+            this.fornavn.Name = "fornavn";
+            this.fornavn.Size = new System.Drawing.Size(45, 13);
+            this.fornavn.TabIndex = 1;
+            this.fornavn.Text = "fornavn";
+            this.fornavn.Click += new System.EventHandler(this.label15_Click_1);
             // 
             // resultXmlTextBox
             // 
@@ -324,7 +353,7 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(36, 29);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(73, 13);
+            this.label13.Size = new System.Drawing.Size(72, 13);
             this.label13.TabIndex = 0;
             this.label13.Text = "Person UUID:";
             // 
@@ -418,7 +447,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(6, 161);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(36, 13);
+            this.label10.Size = new System.Drawing.Size(35, 13);
             this.label10.TabIndex = 11;
             this.label10.Text = "Line 6";
             // 
@@ -427,7 +456,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(6, 135);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(36, 13);
+            this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 10;
             this.label11.Text = "Line 5";
             // 
@@ -468,7 +497,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 106);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 13);
+            this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 3;
             this.label8.Text = "Line 4";
             // 
@@ -477,7 +506,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 80);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 2;
             this.label7.Text = "Line 3";
             // 
@@ -486,7 +515,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 54);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(36, 13);
+            this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "Line 2";
             // 
@@ -495,7 +524,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 28);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Line 1";
             // 
@@ -552,7 +581,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.Size = new System.Drawing.Size(67, 13);
             this.label3.TabIndex = 1;
             this.label3.Text = "Middle Name";
             // 
@@ -561,7 +590,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "First Name";
             // 
@@ -599,7 +628,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 13);
+            this.label1.Size = new System.Drawing.Size(180, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Personal Civil Identification Number:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -668,7 +697,7 @@
             this.IgnoreAgeCheckBox.AutoSize = true;
             this.IgnoreAgeCheckBox.Location = new System.Drawing.Point(289, 22);
             this.IgnoreAgeCheckBox.Name = "IgnoreAgeCheckBox";
-            this.IgnoreAgeCheckBox.Size = new System.Drawing.Size(77, 17);
+            this.IgnoreAgeCheckBox.Size = new System.Drawing.Size(79, 17);
             this.IgnoreAgeCheckBox.TabIndex = 6;
             this.IgnoreAgeCheckBox.Text = "Ignore age";
             this.IgnoreAgeCheckBox.UseVisualStyleBackColor = true;
@@ -690,7 +719,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(21, 48);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(110, 13);
+            this.label14.Size = new System.Drawing.Size(116, 13);
             this.label14.TabIndex = 4;
             this.label14.Text = "Days prior to birthdate";
             // 
@@ -711,7 +740,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(21, 22);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.Size = new System.Drawing.Size(30, 13);
             this.label9.TabIndex = 2;
             this.label9.Text = "Age:";
             // 
@@ -858,19 +887,19 @@
             // currentActionStatusLabel
             // 
             this.currentActionStatusLabel.Name = "currentActionStatusLabel";
-            this.currentActionStatusLabel.Size = new System.Drawing.Size(28, 17);
+            this.currentActionStatusLabel.Size = new System.Drawing.Size(25, 17);
             this.currentActionStatusLabel.Text = "Idle";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(793, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(807, 17);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // registeredStatusLabel
             // 
             this.registeredStatusLabel.Name = "registeredStatusLabel";
-            this.registeredStatusLabel.Size = new System.Drawing.Size(87, 17);
+            this.registeredStatusLabel.Size = new System.Drawing.Size(76, 17);
             this.registeredStatusLabel.Text = "Not registered";
             // 
             // textBox1
@@ -902,44 +931,6 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(180, 20);
             this.textBox8.TabIndex = 10;
-            // 
-            // fornavn
-            // 
-            this.fornavn.AutoSize = true;
-            this.fornavn.Location = new System.Drawing.Point(55, 30);
-            this.fornavn.Name = "fornavn";
-            this.fornavn.Size = new System.Drawing.Size(43, 13);
-            this.fornavn.TabIndex = 1;
-            this.fornavn.Text = "fornavn";
-            this.fornavn.Click += new System.EventHandler(this.label15_Click_1);
-            // 
-            // efternavn
-            // 
-            this.efternavn.AutoSize = true;
-            this.efternavn.Location = new System.Drawing.Point(131, 30);
-            this.efternavn.Name = "efternavn";
-            this.efternavn.Size = new System.Drawing.Size(52, 13);
-            this.efternavn.TabIndex = 2;
-            this.efternavn.Text = "efternavn";
-            // 
-            // virkningFra
-            // 
-            this.virkningFra.AutoSize = true;
-            this.virkningFra.Location = new System.Drawing.Point(241, 29);
-            this.virkningFra.Name = "virkningFra";
-            this.virkningFra.Size = new System.Drawing.Size(59, 13);
-            this.virkningFra.TabIndex = 3;
-            this.virkningFra.Text = "virkningFra";
-            this.virkningFra.Click += new System.EventHandler(this.gade_Click);
-            // 
-            // virkningTil
-            // 
-            this.virkningTil.AutoSize = true;
-            this.virkningTil.Location = new System.Drawing.Point(341, 30);
-            this.virkningTil.Name = "virkningTil";
-            this.virkningTil.Size = new System.Drawing.Size(55, 13);
-            this.virkningTil.TabIndex = 4;
-            this.virkningTil.Text = "virkningTil";
             // 
             // MainForm
             // 
@@ -1051,7 +1042,6 @@
         private System.Windows.Forms.NumericUpDown PriorDaysSpin;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.CheckBox IgnoreAgeCheckBox;
-        private System.Windows.Forms.ToolStripMenuItem CreateTestPersonToolStripMenuItem;
         private System.Windows.Forms.GroupBox RelationsGroupBox;
         private System.Windows.Forms.TextBox RelationsTextBox;
         private System.Windows.Forms.ToolStripMenuItem checkRegistrationToolStripMenuItem;

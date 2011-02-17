@@ -171,17 +171,6 @@ namespace CPR_Business_Application_Demo
         #endregion
 
         #region Events
-        private void CreateTestPersonToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var createForm = new CreateTestCitizenForm();
-            var dialogResult = createForm.ShowDialog(this);
-            if (dialogResult == DialogResult.OK)
-            {
-                var person = createForm.GetPerson();
-                var adminController = new ApplicationsController(Properties.Settings.Default);
-                var result = adminController.CreateTestCitizen(person);
-            }
-        }
 
         private void checkRegistrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -202,7 +191,7 @@ namespace CPR_Business_Application_Demo
 
         private void personQueryButton_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void subscribeCprButton_Click(object sender, EventArgs e)
@@ -220,7 +209,7 @@ namespace CPR_Business_Application_Demo
             else
             {
                 ConsoleWriteLine("FAILED!!!");
-            }            
+            }
         }
 
         private void GetServiceInfoButton_Click(object sender, EventArgs e)
@@ -294,7 +283,7 @@ namespace CPR_Business_Application_Demo
 
             var search_results = adapter.Search(Properties.Settings.Default.AdminAppToken, personUuid.ToString());
             ConsoleWriteLine("  looking up uid:" + personUuid);
-            search_result.Text = "  result for uid:" + personUuid +"  "+ search_results.Length+ " results :\r\n" + String.Join("\r\n", search_results);         	
+            search_result.Text = "  result for uid:" + personUuid + "  " + search_results.Length + " results :\r\n" + String.Join("\r\n", search_results);
         }
 
 
@@ -309,7 +298,7 @@ namespace CPR_Business_Application_Demo
             ConsoleWriteLine("  looking up cpr:" + personCpr);
             Guid puid = adapter.GetUuid(Properties.Settings.Default.AdminAppToken, personCpr);
             uuidTextBox.Text = puid.ToString();
-            resultXmlTextBox.Text = "  result for cpr:" + personCpr +" : "+ puid + "\r\n";
+            resultXmlTextBox.Text = "  result for cpr:" + personCpr + " : " + puid + "\r\n";
         }
 
         private void readButton_Click(object sender, EventArgs e)
@@ -322,12 +311,12 @@ namespace CPR_Business_Application_Demo
             System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(PartService.RegistreringType1));
             StringWriter w = new StringWriter();
             ser.Serialize(w, personReg);
-            
+
             fornavn.Text = personReg.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.PersonGivenName;
             efternavn.Text = personReg.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.PersonSurnameName;
             virkningFra.Text = personReg.AttributListe.Egenskab[0].Virkning.FraTidspunkt.Item.ToString();
             virkningTil.Text = personReg.AttributListe.Egenskab[0].Virkning.TilTidspunkt.Item.ToString();
-            
+
             //gade.Text = personReg.AttributListe.RegisterOplysning[0]. CprBorger.FolkeregisterAdresse.DanskAdresse.AddressPostal.StreetName;
 
             resultXmlTextBox.Text = "  result for uid:" + personUuid + "    \r\n" + w.ToString();
