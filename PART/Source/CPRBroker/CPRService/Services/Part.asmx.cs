@@ -57,10 +57,10 @@ namespace CprBroker.Web.Services
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetPersonUuid, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.GetPersonUuid)]
-        public Guid GetPersonUuid(string cprNumber)
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuid, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.GetUuid)]
+        public GetUuidOutputType GetUuid(string cprNumber)
         {
-            return Manager.Part.GetPersonUuid(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumber);
+            return Manager.Part.GetUuid(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumber);
         }
     }
 

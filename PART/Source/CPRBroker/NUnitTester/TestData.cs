@@ -12,7 +12,7 @@ namespace CprBroker.NUnitTester
     public class TestData
     {
 
-        public static string BaseAppToken = "5f8b7af5-422e-46bb-9273-5e244dc37505" ;//"07059250-E448-4040-B695-9C03F9E59E38";
+        public static string BaseAppToken = "5f8b7af5-422e-46bb-9273-5e244dc37505";//"07059250-E448-4040-B695-9C03F9E59E38";
         public static string userToken = "testUser";
         public static string AppToken = "";
         public static string AppNamePrefix = "Unit test app";
@@ -93,64 +93,11 @@ namespace CprBroker.NUnitTester
         public const string LogTextFieldName = "LogText";
 
         public static readonly string testPersonNumber = new Random().Next(10001, 99999).ToString() + new Random().Next(10001, 99999).ToString();
-        public static Admin.PersonFullStructureType testFullPerson;
 
         public static void Initialize()
         {
             birthdateSubscriptions.Clear();
             changeSubscriptions.Clear();
-
-
-            // Create test laesResultat
-            testFullPerson = new NUnitTester.Admin.PersonFullStructureType()
-            {
-                Item = new
-
-            NUnitTester.Admin.DanishAddressStructureType()
-                {
-                    AddressStatusCode = NUnitTester.Admin.AddressStatusCodeType.Item1,
-                    CareOfName = "DDD ",
-                    CompletePostalLabel = new NUnitTester.Admin.CompletePostalLabelType()
-                    {
-                        AddresseeName = "SSS",
-                        PostalAddressFirstLineText = "Line1",
-                        PostalAddressSecondLineText = "Line2",
-                        PostalAddressThirdLineText = "Line3",
-                        PostalAddressFourthLineText = "Line4",
-                        PostalAddressFifthLineText = "Line5"
-                    },
-                    Item = new NUnitTester.Admin.AddressCompleteType()
-                    {
-                        AddressAccess = new NUnitTester.Admin.AddressAccessType(),
-                        AddressPostal = new NUnitTester.Admin.AddressPostalType()
-                    }
-                },
-                MaritalStatusCode = NUnitTester.Admin.MaritalStatusCodeType.unmarried,
-                //PersonInformationProtectionIndicator = true,
-                PersonNationalityCode = "DK",
-                RegularCPRPerson = new NUnitTester.Admin.RegularCPRPersonType()
-                {
-                    PersonBirthDateStructure = new NUnitTester.Admin.PersonBirthDateStructureType()
-                    {
-                        BirthDate = new DateTime(2000, 1, 1),
-                        BirthDateUncertaintyIndicator = false
-                    },
-
-                    PersonGenderCode = NUnitTester.Admin.PersonGenderCodeType.male,
-                    PersonInformationProtectionIndicator = true,
-                    PersonNameForAddressingName = "DDD FFF",
-                    SimpleCPRPerson = new NUnitTester.Admin.SimpleCPRPersonType()
-                    {
-                        PersonCivilRegistrationIdentifier = testPersonNumber,
-                        PersonNameStructure = new NUnitTester.Admin.PersonNameStructureType()
-                        {
-                            PersonGivenName = "KLjlksadfj",
-                            PersonMiddleName = "DD",
-                            PersonSurnameName = "KLJklj"
-                        }
-                    }
-                }
-            };
         }
 
         public LaesInputType[] EmptyReadInput = new LaesInputType[] { null, new LaesInputType() };
@@ -159,7 +106,7 @@ namespace CprBroker.NUnitTester
         public string[] InvalidReadInput = new string[] { null, "", Guid.NewGuid().ToString().Substring(10) };
         public const string InvalidReadInputFieldName = "InvalidReadInput";
 
-        public string[] NonExistingUuidReadInput = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString()};
+        public string[] NonExistingUuidReadInput = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
         public const string NonExistingUuidReadInputFieldName = "NonExistingUuidReadInput";
     }
 }

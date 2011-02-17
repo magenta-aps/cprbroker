@@ -55,10 +55,10 @@ namespace CprBroker.Engine
                 return ret;
             }
 
-            public static Guid GetPersonUuid(string userToken, string appToken, string cprNumber)
+            public static GetUuidOutputType GetUuid(string userToken, string appToken, string cprNumber)
             {
                 var facadeMethod = new GerPersonUuidFacadeMethodInfo(cprNumber, appToken, userToken);
-                var ret = GetMethodOutput<Guid>(facadeMethod);
+                var ret = GetMethodOutput<GetUuidOutputType>(facadeMethod);
                 return ret;
             }
 

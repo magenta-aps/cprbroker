@@ -15,9 +15,9 @@ namespace CprBroker.DAL.Part
         /// </summary>
         /// <param name="cprNumbers"></param>
         /// <returns></returns>
-        public static Guid[] AssignGuids(params string[] cprNumbers)
+        public static Guid?[] AssignGuids(params string[] cprNumbers)
         {
-            Guid[] ret = new Guid[cprNumbers.Length];
+            Guid?[] ret = new Guid?[cprNumbers.Length];
 
             using (PartDataContext dataContext = new PartDataContext())
             {

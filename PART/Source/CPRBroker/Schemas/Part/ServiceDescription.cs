@@ -44,10 +44,10 @@ Output : ID List
 Parameters : RegistrationDate, EffectDate
 ";
 
-                public const string GetPersonUuid =
-@"Gets the person's UUID fromDate his CPR number. Calls the UUID assigning authority if not found locally.
+                public const string GetUuid =
+@"Gets the person's UUID from his CPR number. Calls the UUID assigning authority if not found locally.
 Input : CPR Number
-Output : Person UUID
+Output : GetUuidOutputType contating the person's UUID
 ";
             }
         }

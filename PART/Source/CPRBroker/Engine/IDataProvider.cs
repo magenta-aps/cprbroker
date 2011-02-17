@@ -152,6 +152,6 @@ namespace CprBroker.Engine
     // Allows retrieval of person UUID fromDate his CPR number
     public interface IPartPersonMappingDataProvider : IDataProvider
     {
-        Guid GetPersonUuid(string cprNumber);
+        Guid? GetPersonUuid(string cprNumber);
     }
 }

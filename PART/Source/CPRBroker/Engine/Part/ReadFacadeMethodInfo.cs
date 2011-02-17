@@ -59,10 +59,9 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            //TODO: Do not authenticate web method into this call because it will throw an exception
             SubMethodInfos = new SubMethodInfo[] 
             {
-                new ReadSubMethodInfo(pId,Input,(cpr)=>Manager.Part.GetPersonUuid(UserToken, ApplicationToken, cpr),LocalAction)
+                new ReadSubMethodInfo(pId, Input, LocalAction)
             };
         }
 

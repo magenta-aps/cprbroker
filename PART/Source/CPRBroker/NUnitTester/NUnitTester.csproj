@@ -79,11 +79,6 @@
     <Compile Include="TestData.cs" />
     <Compile Include="TestRunner.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="Web References\Access\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\Admin\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,17 +104,6 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:1551/services/Access.asmx">
-      <UrlBehavior>Static</UrlBehavior>
-      <RelPath>Web References\Access\</RelPath>
-      <UpdateFromURL>http://localhost:1551/services/Access.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NUnitTester_Access_Access</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1551/services/Admin.asmx">
       <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\Admin\</RelPath>
@@ -166,11 +150,6 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\Access\Access.wsdl" />
-    <None Include="Web References\Access\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Web References\Admin\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -195,9 +174,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\Access\Access.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -212,12 +188,6 @@
     <None Include="Web References\Subscriptions\Subscriptions.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\Access\RefreshPersonsDataResult1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Access\SendNotificationsResult1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Events\Events.wsdl" />
     <None Include="Web References\Part\LaesOutputType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -268,6 +238,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\Admin\Admin.disco" />
+    <None Include="Web References\Part\GetUuidOutputType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,7 +15,7 @@ namespace CprBroker.Schemas.Part
                 KaldenavnTekst = null,
                 NoteTekst=null,
                 PersonNameForAddressingName=null,
-                PersonNameStructure = new NavnStruktur(names),
+                PersonNameStructure = new PersonNameStructureType(names),
             };
         }
     }

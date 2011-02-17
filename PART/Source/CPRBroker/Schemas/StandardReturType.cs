@@ -6,7 +6,6 @@ using System.Text;
 namespace CprBroker.Schemas.Part
 {
 
-
     public enum HttpErrorCode
     {
         OK = 200,
@@ -16,7 +15,7 @@ namespace CprBroker.Schemas.Part
         NOT_FOUND = 404, /*  */
         NOT_IMPLEMENTED = 501
     }
-    
+
     public partial class StandardReturType
     {
         public static StandardReturType Create(HttpErrorCode code)
@@ -31,6 +30,19 @@ namespace CprBroker.Schemas.Part
                 StatusKode = code.ToString(),
                 FejlbeskedTekst = text
             };
+        }
+
+        public static bool IsSucceeded(StandardReturType ret)
+        {
+            if (ret != null)
+            {
+                int code;
+                if (int.TryParse(ret.StatusKode, out code))
+                {
+                    return code == 0;
+                }
+            }
+            return false;
         }
     }
 }

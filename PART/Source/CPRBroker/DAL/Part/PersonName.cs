@@ -8,16 +8,16 @@ namespace CprBroker.DAL.Part
 {
     public partial class PersonName
     {
-        public static NavnStruktur ToXmlType(PersonName db)
+        public static PersonNameStructureType ToXmlType(PersonName db)
         {
             if (db != null)
             {
-                return new NavnStruktur(db.FirstName, db.MiddleName, db.LastName);
+                return new PersonNameStructureType(db.FirstName, db.MiddleName, db.LastName);
             }
             return null;
         }
 
-        public static PersonName FromXmlType(NavnStruktur oio)
+        public static PersonName FromXmlType(PersonNameStructureType oio)
         {
             if (oio != null)
             {

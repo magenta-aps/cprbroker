@@ -12,7 +12,6 @@ namespace CprBroker.NUnitTester
     {
 
         public static Admin.Admin AdminService;
-        public static Access.Access AccessService;
         public static Part.Part PartService;
         public static Subscriptions.Subscriptions SubscriptionsService;
         public static Events.Events EventsService;
@@ -57,10 +56,6 @@ namespace CprBroker.NUnitTester
             ReplaceServiceUrl(EventsService, SystemType.CprBroker);
             Console.WriteLine(EventsService.Url);
 
-
-            AccessService = new NUnitTester.Access.Access();
-            ReplaceServiceUrl(AccessService, SystemType.EventBroker);
-            Console.WriteLine(AccessService.Url);
         }
 
         private enum SystemType

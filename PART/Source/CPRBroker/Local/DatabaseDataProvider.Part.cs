@@ -177,8 +177,8 @@ namespace CprBroker.Providers.Local
         #endregion
 
         #region IPartPersonMappingDataProvider Members
-        // TODO: Move this method to a separate clearData provider
-        public Guid GetPersonUuid(string cprNumber)
+        
+        public Guid? GetPersonUuid(string cprNumber)
         {
             return DAL.Part.PersonMapping.AssignGuids(new string[] { cprNumber })[0];
         }

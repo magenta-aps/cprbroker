@@ -17,11 +17,11 @@ namespace CprBroker.NUnitTester
             {
                 if (!CprNumberMap.ContainsKey(cprNumber))
                 {
-                    CprNumberMap[cprNumber] = TestRunner.PartService.GetPersonUuid(cprNumber);
+                    CprNumberMap[cprNumber] = new Guid(TestRunner.PartService.GetUuid(cprNumber).UUID);
                 }
             }
         }
-        private Guid[] GetPersonUuids(string[] cprNumbers)
+        private Guid[] GetUuids(string[] cprNumbers)
         {
             if (cprNumbers == null)
                 return null;
@@ -34,7 +34,7 @@ namespace CprBroker.NUnitTester
         public void T500_SubscribeOnBirthdate(string[] cprNumbers)
         {
             MapCprNumbers();
-            var uuids = GetPersonUuids(cprNumbers);
+            var uuids = GetUuids(cprNumbers);
             var sub = TestRunner.SubscriptionsService.SubscribeOnBirthdate(TestData.fileShareChannel, TestData.birthdateYears, TestData.birthdateDays, uuids);
             Assert.IsNotNull(sub);
             Assert.IsInstanceOf<Subscriptions.BirthdateSubscriptionType>(sub);
@@ -99,7 +99,7 @@ namespace CprBroker.NUnitTester
         public void T520_Subscribe(string[] cprNumbers)
         {
             MapCprNumbers();
-            var uuids = GetPersonUuids(cprNumbers);
+            var uuids = GetUuids(cprNumbers);
             var sub = TestRunner.SubscriptionsService.Subscribe(TestData.fileShareChannel, uuids);
             Assert.IsNotNull(sub);
             Assert.AreEqual(TestRunner.SubscriptionsService.ApplicationHeaderValue.ApplicationToken, sub.ApplicationToken);

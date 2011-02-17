@@ -62,7 +62,7 @@
     <Compile Include="Events\ObjectNotification.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="LaesInputType.cs" />
-    <Compile Include="NavnStruktur.cs" />
+    <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="NavnStrukturType.cs" />
     <Compile Include="OIOXSD\Subscription.Designer.cs" />
     <Compile Include="OIOXSD\Version.Designer.cs" />
@@ -175,6 +175,7 @@
     <None Include="OIOXSD\MaksimalAntalKvantitet.xsd" />
     <None Include="OIOXSD\NoteTekst.xsd" />
     <None Include="OIOXSD\OpretInput.xsd" />
+    <None Include="OIOXSD\OtherOperations.xsd" />
     <None Include="OIOXSD\Part.xsd" />
     <None Include="OIOXSD\Person.xsd" />
     <None Include="OIOXSD\PersonFlerRelation.xsd" />
@@ -212,6 +213,7 @@
     <None Include="OIOXSD\XKOM_AddressComplete.xsd" />
     <None Include="OIOXSD\XKOM_AddressPostal.xsd" />
     <None Include="OIOXSD\XKOM_EmailAddressIdentifier.xsd" />
+    <None Include="OIOXSD\XSD.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="OIOXSD\XSD.txt" />

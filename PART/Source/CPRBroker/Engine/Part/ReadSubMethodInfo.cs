@@ -11,7 +11,6 @@ namespace CprBroker.Engine.Part
     {
         PersonIdentifier PersonIdentifier;
         LaesInputType Input;
-        Func<string, Guid> CprToUuidConverter;
         internal QualityLevel? QualityLevel;
 
         private ReadSubMethodInfo()
@@ -20,12 +19,11 @@ namespace CprBroker.Engine.Part
             FailOnDefaultOutput = true;
         }
 
-        public ReadSubMethodInfo(PersonIdentifier pId, LaesInputType input, Func<string, Guid> cprFunc, LocalDataProviderUsageOption localAction)
+        public ReadSubMethodInfo(PersonIdentifier pId, LaesInputType input, LocalDataProviderUsageOption localAction)
             : this()
         {
             PersonIdentifier = pId;
             this.Input = input;
-            this.CprToUuidConverter = cprFunc;
             LocalDataProviderOption = localAction;
             UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(PersonIdentifier, personRegistration);
         }
@@ -36,7 +34,7 @@ namespace CprBroker.Engine.Part
            (
                 this.PersonIdentifier,
                Input,
-               CprToUuidConverter,
+               (cprNumber) => CprToUuid(cprNumber),
                out QualityLevel
            );
         }
@@ -52,6 +50,16 @@ namespace CprBroker.Engine.Part
                 }
             }
             return false;
+        }
+
+        private Guid CprToUuid(string cprNumber)
+        {
+            var uuid = Manager.Part.GetUuid(BrokerContext.Current.UserToken, BrokerContext.Current.ApplicationToken, cprNumber);
+            if (StandardReturType.IsSucceeded(uuid.StandardRetur))
+            {
+                return new Guid(uuid.UUID);
+            }
+            return Guid.Empty;
         }
 
     }

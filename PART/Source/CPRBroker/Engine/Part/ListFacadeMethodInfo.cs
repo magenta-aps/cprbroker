@@ -39,7 +39,7 @@ namespace CprBroker.Engine.Part
             {
                 invalidInputReturnValue = new ListOutputType1()
                 {
-                    StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",",invalidUuidErrors))
+                    StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidUuidErrors))
                 };
                 return false;
             }
@@ -50,7 +50,7 @@ namespace CprBroker.Engine.Part
                 var personIdentifier = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
                 if (personIdentifier == null)
                 {
-                    unknownUuidErrors.Add("uuid "+ inputPersonUuid+ "valid but not found");
+                    unknownUuidErrors.Add("uuid " + inputPersonUuid + "valid but not found");
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace CprBroker.Engine.Part
             {
                 invalidInputReturnValue = new ListOutputType1()
                 {
-                    StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST,String.Join(",",unknownUuidErrors.ToArray()))
+                    StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", unknownUuidErrors.ToArray()))
                 };
                 return false;
             }
@@ -77,7 +77,6 @@ namespace CprBroker.Engine.Part
                 (pUUID) => new ReadSubMethodInfo(
                     inputUuidToPersonIdentifierMap[pUUID],
                     LaesInputType.Create(pUUID, input),
-                    (cpr) => Manager.Part.GetPersonUuid(UserToken, ApplicationToken, cpr),
                     LocalDataProviderUsageOption.UseFirst)
            );
         }

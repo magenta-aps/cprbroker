@@ -387,7 +387,7 @@ namespace CprBroker.Schemas.Part {
     [System.Xml.Serialization.XmlRootAttribute("NavnStruktur", Namespace="urn:oio:sagdok:person:1.0.0", IsNullable=false)]
     public partial class NavnStrukturType {
         
-        private NavnStruktur personNameStructureField;
+        private PersonNameStructureType personNameStructureField;
         
         private string kaldenavnTekstField;
         
@@ -397,7 +397,7 @@ namespace CprBroker.Schemas.Part {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
-        public NavnStruktur PersonNameStructure {
+        public PersonNameStructureType PersonNameStructure {
             get {
                 return this.personNameStructureField;
             }
@@ -447,7 +447,7 @@ namespace CprBroker.Schemas.Part {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
     [System.Xml.Serialization.XmlRootAttribute("PersonNameStructure", Namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/", IsNullable=false)]
-    public partial class NavnStruktur {
+    public partial class PersonNameStructureType {
         
         private string personGivenNameField;
         
@@ -4300,6 +4300,42 @@ namespace CprBroker.Schemas.Part {
             }
             set {
                 this.idlisteField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    [System.Xml.Serialization.XmlRootAttribute("GetUuidOutput", Namespace="urn:oio:sagdok:person:1.0.0", IsNullable=false)]
+    public partial class GetUuidOutputType {
+        
+        private StandardReturType standardReturField;
+        
+        private string uUIDField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:2.0.0")]
+        public StandardReturType StandardRetur {
+            get {
+                return this.standardReturField;
+            }
+            set {
+                this.standardReturField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0")]
+        public string UUID {
+            get {
+                return this.uUIDField;
+            }
+            set {
+                this.uUIDField = value;
             }
         }
     }

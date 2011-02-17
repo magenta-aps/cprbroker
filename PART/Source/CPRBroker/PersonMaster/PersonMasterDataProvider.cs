@@ -10,9 +10,9 @@ namespace CprBroker.Providers.PersonMaster
     {
         #region IPartPersonMappingDataProvider Members
 
-        public Guid GetPersonUuid(string cprNumber)
+        public Guid? GetPersonUuid(string cprNumber)
         {
-            PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient("wsBasicHttp");
+            PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient("wsBasicHttp",Address);
             string aux = null;
             var ret = service.GetObjectIDFromCpr(Context, cprNumber, ref aux);
             return ret;
