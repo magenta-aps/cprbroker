@@ -199,13 +199,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\EventsService\DataChangeEventInfo.datasource">
+    <None Include="Web References\EventsService\BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\EventsService\BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\EventsService\Events.disco" />
-    <None Include="Web References\EventsService\PersonBirthdate.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\EventsService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

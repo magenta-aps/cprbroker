@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using CprBroker.Engine;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 using CprBroker.Schemas.Part.Events;
 
 namespace CprService.Services
@@ -25,14 +26,14 @@ namespace CprService.Services
 
         [WebMethod]
         [SoapHeader(ApplicationHeaderName)]
-        public DataChangeEventInfo[] DequeueDataChangeEvents(int maxCount)
+        public BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(int maxCount)
         {
             return Manager.Events.DequeueDataChangeEvents(applicationHeader.UserToken, applicationHeader.ApplicationToken, maxCount);
         }
 
         [WebMethod]
         [SoapHeader(ApplicationHeaderName)]
-        public PersonBirthdate[] GetPersonBirthdates(Guid? personUuidToStartAfter, int maxCount)
+        public BasicOutputType<PersonBirthdate[]> GetPersonBirthdates(Guid? personUuidToStartAfter, int maxCount)
         {
             return Manager.Events.GetPersonBirthdates(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuidToStartAfter, maxCount);
         }

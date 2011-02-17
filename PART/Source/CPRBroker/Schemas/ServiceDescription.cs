@@ -1,9 +1,9 @@
-﻿namespace CprBroker.Schemas
+﻿namespace CprBroker.Schemas.Part
 {
     /// <summary>
     /// Contains text descriptions for all web services
     /// </summary>
-    public class ServiceDescription
+    public partial class ServiceDescription
     {
         public abstract class Person
         {

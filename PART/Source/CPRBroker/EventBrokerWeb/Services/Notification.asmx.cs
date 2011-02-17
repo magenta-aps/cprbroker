@@ -15,7 +15,7 @@ namespace CprBroker.Web
     /// <summary>
     /// Template for a notification listener web service
     /// </summary>
-    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = Schemas.ServiceNames.Notification.Service, Description = Schemas.ServiceDescription.Notification.Service)]
+    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = ServiceNames.Notification.Service, Description = ServiceDescription.Notification.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
     public class Notification : System.Web.Services.WebService
@@ -26,13 +26,13 @@ namespace CprBroker.Web
 
         }
 
-        [WebMethod(MessageName = Schemas.ServiceNames.Notification.MethodNames.Notify, Description = Schemas.ServiceDescription.Notification.Notify)]
+        [WebMethod(MessageName = ServiceNames.Notification.MethodNames.Notify, Description = ServiceDescription.Notification.Notify)]
         public void Notify(Schemas.Part.Events.CommonEventStructureType notification)
         {
             Engine.Manager.Admin.Log("", EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.DAL.Utilities.SerializeObject(notification));
         }
 
-        [WebMethod(MessageName = Schemas.ServiceNames.Notification.MethodNames.Ping, Description = Schemas.ServiceDescription.Notification.Ping)]
+        [WebMethod(MessageName = ServiceNames.Notification.MethodNames.Ping, Description = ServiceDescription.Notification.Ping)]
         public void Ping()
         {
         }

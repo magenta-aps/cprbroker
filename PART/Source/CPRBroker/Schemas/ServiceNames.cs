@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.Schemas
+namespace CprBroker.Schemas.Part
 {
     /// <summary>
     /// Contains service and message names
     /// </summary>
-    public class ServiceNames
+    public partial class ServiceNames
     {
         public static class Person
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 using CprBroker.Engine;
 using CprBroker.DAL;
 using CprBroker.DAL.DataProviders;

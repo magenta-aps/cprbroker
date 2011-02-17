@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public static class ServiceNames
+    public static partial class ServiceNames
     {
         public const string Namespace = "http://dk.itst";
 

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.DataProviders
 {
-    public class GetDataProviderListFacadeMethodInfo : FacadeMethodInfo<DataProviderType[]>
+    public class GetDataProviderListFacadeMethodInfo : FacadeMethodInfo<BasicOutputType<DataProviderType[]>>
     {
         public GetDataProviderListFacadeMethodInfo(string appToken, string userToken)
             : base(appToken, userToken)

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Part.Events;
 
 namespace CprBroker.Engine.Events
 {
-    public class DequeueDataChangeEventsFacadeMethod:FacadeMethodInfo<Schemas.Part.Events.DataChangeEventInfo[]>
+    public class DequeueDataChangeEventsFacadeMethod : FacadeMethodInfo<BasicOutputType<DataChangeEventInfo[]>>
     {
         public int MaxCount = 0;
 
@@ -15,7 +17,7 @@ namespace CprBroker.Engine.Events
             this.MaxCount = maxCount;
         }
 
-        public override bool IsValidInput(ref CprBroker.Schemas.Part.Events.DataChangeEventInfo[] invalidInputReturnValue)
+        public override bool IsValidInput(ref BasicOutputType<DataChangeEventInfo[]> invalidInputReturnValue)
         {
             return MaxCount > 0;
         }

@@ -68,6 +68,7 @@ namespace CprBroker.Schemas.Part {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
@@ -123,6 +124,29 @@ namespace CprBroker.Schemas.Part {
             }
             set {
                 this.fejlbeskedTekstField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    [System.Xml.Serialization.XmlRootAttribute("GetUuidOutput", Namespace="urn:oio:sagdok:person:1.0.0", IsNullable=false)]
+    public partial class GetUuidOutputType : BasicOutputType {
+        
+        private string uUIDField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0")]
+        public string UUID {
+            get {
+                return this.uUIDField;
+            }
+            set {
+                this.uUIDField = value;
             }
         }
     }
@@ -4300,42 +4324,6 @@ namespace CprBroker.Schemas.Part {
             }
             set {
                 this.idlisteField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    [System.Xml.Serialization.XmlRootAttribute("GetUuidOutput", Namespace="urn:oio:sagdok:person:1.0.0", IsNullable=false)]
-    public partial class GetUuidOutputType {
-        
-        private StandardReturType standardReturField;
-        
-        private string uUIDField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:2.0.0")]
-        public StandardReturType StandardRetur {
-            get {
-                return this.standardReturField;
-            }
-            set {
-                this.standardReturField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0")]
-        public string UUID {
-            get {
-                return this.uUIDField;
-            }
-            set {
-                this.uUIDField = value;
             }
         }
     }

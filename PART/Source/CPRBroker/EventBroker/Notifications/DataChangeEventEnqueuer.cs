@@ -7,19 +7,19 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public partial class DataChangeEventEnqueuer : CprBrokerEventEnqueuer 
+    public partial class DataChangeEventEnqueuer : CprBrokerEventEnqueuer
     {
         public int BatchSize = 10;
 
         public DataChangeEventEnqueuer()
         {
-            InitializeComponent();        
+            InitializeComponent();
         }
 
         public DataChangeEventEnqueuer(IContainer container)
         {
             container.Add(this);
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
@@ -27,13 +27,14 @@ namespace CprBroker.EventBroker.Notifications
             return TimeSpan.FromMinutes(1);
         }
 
-        protected override void  PerformTimerAction()
+        protected override void PerformTimerAction()
         {
             bool moreChangesExist = true;
 
             while (moreChangesExist)
             {
-                var changedPeople = EventsService.DequeueDataChangeEvents(BatchSize);
+                var resp = EventsService.DequeueDataChangeEvents(BatchSize);
+                var changedPeople = resp.Item;
                 moreChangesExist = changedPeople.Length == BatchSize;
 
                 using (var dataContext = new DAL.EventBrokerDataContext())

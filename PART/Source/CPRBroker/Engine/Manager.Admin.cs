@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
@@ -28,15 +29,15 @@ namespace CprBroker.Engine
             #endregion
 
             #region Provider list
-            public static Schemas.DataProviderType[] GetDataProviderList(string userToken, string appToken)
+            public static BasicOutputType<Schemas.DataProviderType[]> GetDataProviderList(string userToken, string appToken)
             {
                 var facade = new DataProviders.GetDataProviderListFacadeMethodInfo(appToken, userToken);
-                return GetMethodOutput<DataProviderType[]>(facade);
+                return GetMethodOutput<BasicOutputType<DataProviderType[]>>(facade);
             }
-            public static bool SetDataProviderList(string userToken, string appToken, DataProviderType[] dataProviders)
+            public static BasicOutputType<bool> SetDataProviderList(string userToken, string appToken, DataProviderType[] dataProviders)
             {
                 var facade = new DataProviders.SetDataProvidersFacadeMethodInfo(dataProviders, appToken, userToken);
-                return GetMethodOutput<bool>(facade);
+                return GetMethodOutput<BasicOutputType<bool>>(facade);
             }
             #endregion
 

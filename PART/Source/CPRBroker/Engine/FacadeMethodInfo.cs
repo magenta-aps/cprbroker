@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
-    public class FacadeMethodInfo<TOutput>
+    public class FacadeMethodInfo<TOutput> where TOutput : IBasicOutput
     {
         public FacadeMethodInfo()
         { }

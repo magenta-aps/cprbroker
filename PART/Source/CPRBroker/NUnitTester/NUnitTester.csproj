@@ -218,9 +218,6 @@
     <None Include="Web References\Admin\ApplicationType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\Admin\DataProviderType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Admin\ServiceVersionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -238,6 +235,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\Admin\Admin.disco" />
+    <None Include="Web References\Admin\BasicOutputTypeOfArrayOfDataProviderType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Admin\BasicOutputTypeOfBoolean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Part\GetUuidOutputType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

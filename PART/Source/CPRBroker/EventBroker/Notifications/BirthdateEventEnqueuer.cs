@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public partial class BirthdateEventEnqueuer : CprBrokerEventEnqueuer 
+    public partial class BirthdateEventEnqueuer : CprBrokerEventEnqueuer
     {
         public int BatchSize = 10;
 
@@ -48,7 +48,8 @@ namespace CprBroker.EventBroker.Notifications
             Guid? lastPersonGuid = null;
             while (morePersons)
             {
-                var personBirthdates = EventsService.GetPersonBirthdates(lastPersonGuid, BatchSize);
+                var resp = EventsService.GetPersonBirthdates(lastPersonGuid, BatchSize);
+                var personBirthdates = resp.Item;
 
                 if (personBirthdates.Length > 0)
                 {

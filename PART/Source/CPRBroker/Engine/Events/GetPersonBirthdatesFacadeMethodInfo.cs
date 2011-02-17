@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
+using CprBroker.Schemas.Part.Events;
 
 namespace CprBroker.Engine.Events
 {
-    public class GetPersonBirthdatesFacadeMethodInfo : FacadeMethodInfo<Schemas.Part.Events.PersonBirthdate[]>
+    public class GetPersonBirthdatesFacadeMethodInfo : FacadeMethodInfo<BasicOutputType<PersonBirthdate[]>>
     {
         Guid? PersonUuidToStartAfter;
         int MaxCount;
@@ -16,7 +18,7 @@ namespace CprBroker.Engine.Events
             this.PersonUuidToStartAfter = personUuidToStartAfter;
         }
 
-        public override bool IsValidInput(ref CprBroker.Schemas.Part.Events.PersonBirthdate[] invalidInputReturnValue)
+        public override bool IsValidInput(ref BasicOutputType<PersonBirthdate[]> invalidInputReturnValue)
         {
             return MaxCount > 0;
         }

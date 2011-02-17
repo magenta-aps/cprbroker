@@ -45,7 +45,8 @@ namespace CprBroker.NUnitTester
         {
             var dataProviders = TestRunner.AdminService.GetDataProviderList();
             Assert.IsNotNull(dataProviders);
-            foreach (var dataProvider in dataProviders)
+            Assert.IsNotNull(dataProviders.Item);
+            foreach (var dataProvider in dataProviders.Item)
             {
                 Assert.NotNull(dataProvider);
                 Assert.IsNotEmpty(dataProvider.TypeName);
@@ -57,23 +58,24 @@ namespace CprBroker.NUnitTester
         {
             var dataProviders = TestRunner.AdminService.GetDataProviderList();
             Assert.IsNotNull(dataProviders);
+            Assert.IsNotNull(dataProviders.Item);
 
-            if (dataProviders.Length > 1)
+            if (dataProviders.Item.Length > 1)
             {
                 // Use 1 data provider
-                var partialUpdateResult = TestRunner.AdminService.SetDataProviderList(dataProviders.Take(1).ToArray());
-                Assert.IsTrue(partialUpdateResult);
+                var partialUpdateResult = TestRunner.AdminService.SetDataProviderList(dataProviders.Item.Take(1).ToArray());
+                Assert.IsTrue(partialUpdateResult.Item);
 
                 var partialDataProviders = TestRunner.AdminService.GetDataProviderList();
-                Assert.AreEqual(1, partialDataProviders.Length);
+                Assert.AreEqual(1, partialDataProviders.Item.Length);
             }
             else
             {
                 Console.WriteLine("Less than 2 providers exist, ignoring partial set");
             }
 
-            bool result = TestRunner.AdminService.SetDataProviderList(dataProviders);
-            Assert.IsTrue(result);
+            var result = TestRunner.AdminService.SetDataProviderList(dataProviders.Item);
+            Assert.IsTrue(result.Item);
         }
 
         #region Legacy methods

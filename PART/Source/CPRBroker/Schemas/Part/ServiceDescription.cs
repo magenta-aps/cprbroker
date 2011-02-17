@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public static class ServiceDescription
+    public static partial class ServiceDescription
     {
         public static class Part
         {

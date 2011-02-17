@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.DataProviders
 {
-    public class SetDataProvidersFacadeMethodInfo : FacadeMethodInfo<bool>
+    public class SetDataProvidersFacadeMethodInfo : FacadeMethodInfo<BasicOutputType<bool>>
     {
         private DataProviderType[] Input;
 
@@ -16,7 +17,7 @@ namespace CprBroker.Engine.DataProviders
             Input = inp;
         }
 
-        public override bool IsValidInput(ref bool invalidInputReturnValue)
+        public override bool IsValidInput(ref BasicOutputType<bool> invalidInputReturnValue)
         {
             if (Input == null)
             {

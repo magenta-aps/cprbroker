@@ -8,6 +8,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 using CprBroker.Engine;
 
 namespace CprBroker.Web.Services
@@ -77,14 +78,14 @@ namespace CprBroker.Web.Services
         #region Provier list
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.GetDataProviderList, Description = ServiceDescription.Administrator.GetDataProviderList)]
-        public DataProviderType[] GetDataProviderList()
+        public BasicOutputType< DataProviderType[]> GetDataProviderList()
         {
             return Manager.Admin.GetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.SetDataProviderList, Description = ServiceDescription.Administrator.SetDataProviderList)]
-        public bool SetDataProviderList(DataProviderType[] DataProviders)
+        public BasicOutputType< bool> SetDataProviderList(DataProviderType[] DataProviders)
         {
             return Manager.Admin.SetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken, DataProviders);
         }

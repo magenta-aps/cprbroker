@@ -5,6 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Threading;
 using System.Data.Linq;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
@@ -110,7 +111,7 @@ namespace CprBroker.Engine
             return default(TOutput);
         }
 
-        public static TOutput GetMethodOutput<TOutput>(FacadeMethodInfo<TOutput> facade)
+        public static TOutput GetMethodOutput<TOutput>(FacadeMethodInfo<TOutput> facade) where TOutput : IBasicOutput
         {
             try
             {
