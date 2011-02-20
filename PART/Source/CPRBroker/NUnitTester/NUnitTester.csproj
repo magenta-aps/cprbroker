@@ -198,20 +198,11 @@
     <None Include="Web References\Part\SoegOutputType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\Subscriptions\BirthdateSubscriptionType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Subscriptions\ChangeSubscriptionType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Subscriptions\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\Subscriptions\Subscriptions.disco" />
-    <None Include="Web References\Subscriptions\SubscriptionType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\Admin\Admin.wsdl" />
@@ -245,6 +236,18 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Part\GetUuidOutputType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Subscriptions\BasicOutputTypeOfArrayOfSubscriptionType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Subscriptions\BasicOutputTypeOfBirthdateSubscriptionType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Subscriptions\BasicOutputTypeOfBoolean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Subscriptions\BasicOutputTypeOfChangeSubscriptionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>

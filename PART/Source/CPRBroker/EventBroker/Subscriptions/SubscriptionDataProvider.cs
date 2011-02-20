@@ -30,7 +30,7 @@ namespace CprBroker.EventBroker.Subscriptions
             subscription.ApplicationId = applicationId;
 
 
-            #region Get IDs of the persons that match the person's CPR numbers
+            #region Set IsForAllPersons
             if (personUuids != null && personUuids.Length > 0)
             {
                 subscription.IsForAllPersons = false;
@@ -42,34 +42,8 @@ namespace CprBroker.EventBroker.Subscriptions
             #endregion
 
             #region Set the channel
-
-            Channel dbChannel = new Channel();
-            dbChannel.ChannelId = Guid.NewGuid();
-            dbChannel.Subscription = subscription;
-
-            if (notificationChannel is WebServiceChannelType)
-            {
-                WebServiceChannelType webServiceChannel = notificationChannel as WebServiceChannelType;
-                dbChannel.ChannelTypeId = (int)ChannelType.ChannelTypes.WebService;
-                dbChannel.Url = webServiceChannel.WebServiceUrl;
-            }
-            else if (notificationChannel is FileShareChannelType)
-            {
-                FileShareChannelType fileShareChannel = notificationChannel as FileShareChannelType;
-                dbChannel.ChannelTypeId = (int)ChannelType.ChannelTypes.FileShare;
-                dbChannel.Url = fileShareChannel.Path;
-            }
-            else
-            {
-                return null;
-            }
-
-            // Test The channel
-            Notifications.Channel channel = Notifications.Channel.Create(dbChannel);
-            if (channel == null || !channel.IsAlive())
-            {
-                return null;
-            }
+            var dbChannel = Channel.FromXmlType(notificationChannel);
+            subscription.Channels.Add(dbChannel);
             #endregion
 
             // Mark the new objects to be inserted later
@@ -134,7 +108,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public ChangeSubscriptionType Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, Guid[] personUuids)
+        public ChangeSubscriptionType Subscribe(ChannelBaseType notificationChannel, Guid[] personUuids)
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
@@ -156,7 +130,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public bool Unsubscribe(string userToken, string appToken, Guid subscriptionId)
+        public bool Unsubscribe(Guid subscriptionId)
         {
             return DeleteSubscription(subscriptionId, DAL.SubscriptionType.SubscriptionTypes.DataChange);
         }
@@ -164,7 +138,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public BirthdateSubscriptionType SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, Guid[] personUuids)
+        public BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, Guid[] personUuids)
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
@@ -189,7 +163,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public bool RemoveBirthDateSubscription(string userToken, string appToken, Guid subscriptionId)
+        public bool RemoveBirthDateSubscription(Guid subscriptionId)
         {
             return DeleteSubscription(subscriptionId, DAL.SubscriptionType.SubscriptionTypes.Birthdate);
         }
@@ -197,7 +171,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(string userToken, string appToken)
+        public CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList()
         {
             return GetActiveSubscriptionsList(null);
         }
@@ -205,11 +179,9 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Retrieves the subscriptions that match the supplied criteria
         /// </summary>
-        /// <param name="userToken"></param>
-        /// <param name="appToken"></param>
         /// <param name="subscriptionId"></param>
         /// <returns></returns>
-        private CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList( Nullable<Guid> subscriptionId)
+        private CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(Nullable<Guid> subscriptionId)
         {
             List<CprBroker.Schemas.SubscriptionType> listType = new List<CprBroker.Schemas.SubscriptionType>();
             using (EventBrokerDataContext context = new EventBrokerDataContext())
@@ -245,7 +217,7 @@ namespace CprBroker.EventBroker.Subscriptions
                 return listType.ToArray();
             }
         }
-        
+
         #region IDataProvider Members
 
         public bool IsAlive()

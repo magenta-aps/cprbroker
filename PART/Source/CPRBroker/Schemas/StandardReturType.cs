@@ -80,6 +80,11 @@ namespace CprBroker.Schemas.Part
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Value \"{0}\" is out of valid range", value));
         }
 
+        public static StandardReturType ValueOutOfRange(string name, object value)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Value \"{0}\" for \"{1}\" is out of valid range", value, name));
+        }
+
         public static StandardReturType InvalidUuid(string uuid)
         {
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid UUID: {0}", uuid));
@@ -88,6 +93,11 @@ namespace CprBroker.Schemas.Part
         public static StandardReturType UnknownUuid(string uuid)
         {
             return Create(HttpErrorCode.NOT_FOUND, string.Format("UUID valid but not found : {0}", uuid));
+        }
+
+        public static StandardReturType UnreachableChannel()
+        {
+            return Create(HttpErrorCode.NOT_FOUND, "NotificationChannel unreachable");
         }
     }
 }

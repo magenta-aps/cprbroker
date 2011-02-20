@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DAL\Channel.cs" />
     <Compile Include="DAL\ChannelType.cs" />
     <Compile Include="DAL\EventBrokerDataContext.cs">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
@@ -71,6 +72,9 @@
     <Compile Include="Notifications\CprBrokerEventEnqueuer.Designer.cs">
       <DependentUpon>CprBrokerEventEnqueuer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Subscriptions\GetActiveSubscriptionsListFacadeMethod.cs" />
+    <Compile Include="Subscriptions\SubscribeOnBirthdateFacadeMethod.cs" />
+    <Compile Include="Subscriptions\SubscribeFacadeMethod.cs" />
     <Compile Include="Subscriptions\ISubscriptionDataProvider.cs" />
     <Compile Include="Subscriptions\Manager.Subscription.cs" />
     <Compile Include="Notifications\BirthdateEventEnqueuer.cs">
@@ -105,6 +109,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Subscriptions\SubscriptionDataProvider.cs" />
+    <Compile Include="Subscriptions\UnsubscribeFacadeMethod.cs" />
     <Compile Include="Web References\EventsService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
