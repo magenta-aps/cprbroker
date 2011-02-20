@@ -215,9 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\Admin\Admin.wsdl" />
-    <None Include="Web References\Admin\ApplicationType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Admin\ServiceVersionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -235,6 +232,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\Admin\Admin.disco" />
+    <None Include="Web References\Admin\BasicOutputTypeOfApplicationType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Admin\BasicOutputTypeOfArrayOfApplicationType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Admin\BasicOutputTypeOfArrayOfDataProviderType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

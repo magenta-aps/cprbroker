@@ -53,7 +53,7 @@ namespace CprBroker.Engine
         /// <param name="userToken">Security Token for authorizing the current user</param>        
         /// <param name="name">Application name</param>
         /// <returns></returns>
-        ApplicationType RequestAppRegistration(string userToken, string name);
+        ApplicationType RequestAppRegistration(string name);
 
         /// <summary>
         /// Approves an application that has the given token
@@ -62,7 +62,7 @@ namespace CprBroker.Engine
         /// <param name="appToken">Security Token for the application the current application.</param>
         /// <param name="targetAppToken">Application token of the application to be approved</param>
         /// <returns></returns>
-        bool ApproveAppRegistration(string userToken, string appToken, string targetAppToken);
+        bool ApproveAppRegistration(string targetAppToken);
 
         /// <summary>
         /// Returns a list of all applications
@@ -70,7 +70,7 @@ namespace CprBroker.Engine
         /// <param name="userToken">Security Token for authorizing the current user</param>
         /// <param name="appToken">Security Token for the application the current application.</param>
         /// <returns></returns>
-        ApplicationType[] ListAppRegistration(string userToken, string appToken);
+        ApplicationType[] ListAppRegistration();
 
         /// <summary>
         /// Unregisters the application with the supplied token

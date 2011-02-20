@@ -13,6 +13,19 @@ namespace CprBroker.Schemas.Part
     public class BasicOutputType<T> : BasicOutputType
     {
         public T Item { get; set; }
+        public static BasicOutputType<T> CreateAsOK(T item)
+        {
+            return new BasicOutputType<T>()
+            {
+                Item = item,
+                StandardRetur = StandardReturType.OK()
+            };
+        }
+
+        public static BasicOutputType<T> CreateAsOKFromFirstResult(object[] result)
+        {
+            return CreateAsOK((T)result[0]);
+        }
     }
 
     public partial class SoegOutputType : IBasicOutput

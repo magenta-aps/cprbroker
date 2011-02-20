@@ -7,11 +7,11 @@ using CprBroker.Schemas;
 
 namespace CprBroker.Engine.Local
 {
-    public class ApplicationDataProvider:IApplicationManager
+    public class ApplicationDataProvider : IApplicationManager
     {
         #region IApplicationManager Members
 
-        public ApplicationType RequestAppRegistration(string userToken, string name)
+        public ApplicationType RequestAppRegistration(string name)
         {
             // Create a new application and assign a new app token
             using (ApplicationDataContext context = new ApplicationDataContext())
@@ -25,20 +25,19 @@ namespace CprBroker.Engine.Local
                 application.Name = name;
                 application.RegistrationDate = DateTime.Now;
                 application.IsApproved = false;
-                Console.WriteLine("Request App reg apT="+application.Token + ", AppID="+ application.ApplicationId+ " nm="+ application.Name);
+                Console.WriteLine("Request App reg apT=" + application.Token + ", AppID=" + application.ApplicationId + " nm=" + application.Name);
 
                 context.SubmitChanges();
                 return application.ToXmlType();
             }
         }
 
-        public bool ApproveAppRegistration(string userToken, string appToken, string targetAppToken)
+        public bool ApproveAppRegistration(string targetAppToken)
         {
             // Mark the application as approved
             using (ApplicationDataContext context = new ApplicationDataContext())
             {
                 var application = context.Applications.SingleOrDefault(app => app.Token == targetAppToken);
-                Console.WriteLine("Approve App reg " + appToken + ", targetApp="+ targetAppToken + "uT="+userToken );
 
                 if (application != null)
                 {
@@ -51,7 +50,7 @@ namespace CprBroker.Engine.Local
             }
         }
 
-        public ApplicationType[] ListAppRegistration(string userToken, string appToken)
+        public ApplicationType[] ListAppRegistration()
         {
             List<ApplicationType> applications = new List<ApplicationType>();
             // Retrieve list of applications and convert to XML
@@ -81,7 +80,7 @@ namespace CprBroker.Engine.Local
                 return false;
             }
         }
-        
+
         #endregion
 
         #region IDataProvider Members
@@ -93,7 +92,7 @@ namespace CprBroker.Engine.Local
 
         public Version Version
         {
-            get { return new Version(Versioning.Major,Versioning.Minor); }
+            get { return new Version(Versioning.Major, Versioning.Minor); }
         }
 
         #endregion

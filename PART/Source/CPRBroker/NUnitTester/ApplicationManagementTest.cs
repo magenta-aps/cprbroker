@@ -13,18 +13,20 @@ namespace CprBroker.NUnitTester
         public void T010_RequestAppRegistration()
         {
             string newAppName = TestData.AppNamePrefix + new Random().Next(10000, int.MaxValue);
-            var app = TestRunner.AdminService.RequestAppRegistration(newAppName);
-            Assert.IsNotNull(app);
-            Assert.AreEqual(app.Name, newAppName);
+            var res = TestRunner.AdminService.RequestAppRegistration(newAppName);
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.StandardRetur);
+            Assert.AreEqual(res.Item.Name, newAppName);
 
-            TestData.AppToken = app.Token;
+            TestData.AppToken = res.Item.Token;
         }
 
         [Test]
         public void T020_ApproveAppRegistration()
         {
-            bool result = TestRunner.AdminService.ApproveAppRegistration(TestData.AppToken);
-            Assert.IsTrue(result);
+            var result = TestRunner.AdminService.ApproveAppRegistration(TestData.AppToken);
+            Assert.NotNull(result.StandardRetur);
+            Assert.IsTrue(result.Item);
 
             //TestRunner.AdminService.ApplicationHeaderValue.ApplicationToken = TestData.AppToken;
             //TestRunner.PersonService.ApplicationHeaderValue.ApplicationToken = TestData.AppToken;
@@ -33,9 +35,9 @@ namespace CprBroker.NUnitTester
         [Test]
         public void T030_ListAppRegistrations()
         {
-            var apps = TestRunner.AdminService.ListAppRegistrations();
-            Assert.IsNotNull(apps);
-            var targetApp = (from app in apps where app.Token == TestData.AppToken select app).SingleOrDefault();
+            var result = TestRunner.AdminService.ListAppRegistrations();
+            Assert.IsNotNull(result);
+            var targetApp = (from app in result.Item where app.Token == TestData.AppToken select app).SingleOrDefault();
             Assert.IsNotNull(targetApp);
             Assert.Greater(targetApp.RegistrationDate, DateTime.Today);
         }

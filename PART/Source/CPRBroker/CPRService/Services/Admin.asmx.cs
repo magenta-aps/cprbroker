@@ -32,21 +32,21 @@ namespace CprBroker.Web.Services
         #region Application manager
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.RequestAppRegistration, Description = ServiceDescription.Administrator.RequestAppRegistration)]
-        public ApplicationType RequestAppRegistration(string ApplicationName)
+        public BasicOutputType<ApplicationType> RequestAppRegistration(string ApplicationName)
         {
             return Manager.Admin.RequestAppRegistration(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationName);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.ApproveAppRegistration, Description = ServiceDescription.Administrator.ApproveAppRegistration)]
-        public bool ApproveAppRegistration(string ApplicationToken)
+        public BasicOutputType<bool> ApproveAppRegistration(string ApplicationToken)
         {
             return Manager.Admin.ApproveAppRegistration(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.ListAppRegistrations, Description = ServiceDescription.Administrator.ListAppRegistrations)]
-        public ApplicationType[] ListAppRegistrations()
+        public BasicOutputType<ApplicationType[]> ListAppRegistrations()
         {
             return Manager.Admin.ListAppRegistrations(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
@@ -78,14 +78,14 @@ namespace CprBroker.Web.Services
         #region Provier list
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.GetDataProviderList, Description = ServiceDescription.Administrator.GetDataProviderList)]
-        public BasicOutputType< DataProviderType[]> GetDataProviderList()
+        public BasicOutputType<DataProviderType[]> GetDataProviderList()
         {
             return Manager.Admin.GetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.SetDataProviderList, Description = ServiceDescription.Administrator.SetDataProviderList)]
-        public BasicOutputType< bool> SetDataProviderList(DataProviderType[] DataProviders)
+        public BasicOutputType<bool> SetDataProviderList(DataProviderType[] DataProviders)
         {
             return Manager.Admin.SetDataProviderList(applicationHeader.UserToken, applicationHeader.ApplicationToken, DataProviders);
         }

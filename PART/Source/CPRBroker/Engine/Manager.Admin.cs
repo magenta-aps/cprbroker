@@ -42,23 +42,22 @@ namespace CprBroker.Engine
             #endregion
 
             #region Application
-            public static ApplicationType RequestAppRegistration(string userToken, string appToken, string name)
+            public static BasicOutputType<ApplicationType> RequestAppRegistration(string userToken, string appToken, string name)
             {
-                return CallMethod<IApplicationManager, ApplicationType>
-                (userToken, appToken, true, (admin) => admin.RequestAppRegistration(userToken, name), true, null);
+                var facade = new RequestAppRegistrationFacadeMethod(name, appToken, userToken);
+                return GetMethodOutput<BasicOutputType<ApplicationType>>(facade);
             }
 
-            public static bool ApproveAppRegistration(string userToken, string appToken, string targetAppToken)
+            public static BasicOutputType<bool> ApproveAppRegistration(string userToken, string appToken, string targetAppToken)
             {
-                Console.Write("Manager to approve app registration:  aT=" + appToken + ", uT=" + userToken + ", target=" + targetAppToken + "\n");
-                return CallMethod<IApplicationManager, bool>
-            (userToken, appToken, true, (admin) => admin.ApproveAppRegistration(userToken, appToken, targetAppToken), true, null);
+                var facade = new ApproveAppRegistrationFacadeMethod(targetAppToken, appToken, userToken);
+                return GetMethodOutput<BasicOutputType<bool>>(facade);
             }
 
-            public static ApplicationType[] ListAppRegistrations(string userToken, string appToken)
+            public static BasicOutputType<ApplicationType[]> ListAppRegistrations(string userToken, string appToken)
             {
-                return CallMethod<IApplicationManager, ApplicationType[]>
-                (userToken, appToken, true, (admin) => admin.ListAppRegistration(userToken, appToken), true, null);
+                var facade = new ListAppRegistrationsFacadeMethod(appToken, userToken);
+                return GetMethodOutput<BasicOutputType<ApplicationType[]>>(facade);
             }
 
             public static bool UnregisterApp(string userToken, string appToken, string targetAppToken)

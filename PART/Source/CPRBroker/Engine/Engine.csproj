@@ -117,6 +117,9 @@
     <Compile Include="SubMethodInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applications\ApproveAppRegistrationFacadeMethod.cs" />
+    <Compile Include="Applications\ListAppRegistrationsFacadeMethod.cs" />
+    <Compile Include="Applications\RequestAppRegistrationFacadeMethod.cs" />
     <Compile Include="DataProviders\GetDataProviderListFacadeMethodInfo.cs" />
     <Compile Include="DataProviders\SetDataProvidersFacadeMethodInfo.cs" />
     <Compile Include="Events\DataChangeEventManager.cs" />

@@ -70,6 +70,11 @@ namespace CprBroker.Schemas.Part
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Unknown: {0}", value));
         }
 
+        public static StandardReturType UnknownObject(string name, string value)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Unknown {0}: {1}", name, value));
+        }
+
         public static StandardReturType ValueOutOfRange(object value)
         {
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Value \"{0}\" is out of valid range", value));
