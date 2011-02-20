@@ -60,10 +60,10 @@ namespace CprBroker.Engine
                 return GetMethodOutput<BasicOutputType<ApplicationType[]>>(facade);
             }
 
-            public static bool UnregisterApp(string userToken, string appToken, string targetAppToken)
+            public static BasicOutputType<bool> UnregisterApp(string userToken, string appToken, string targetAppToken)
             {
-                return CallMethod<IApplicationManager, bool>
-                (userToken, appToken, true, (admin) => admin.UnregisterApp(userToken, appToken, targetAppToken), true, null);
+                var facade = new UnregisterAppFacadeMethod(targetAppToken, appToken, userToken);
+                return GetMethodOutput<BasicOutputType<bool>>(facade);
             }
             #endregion
 

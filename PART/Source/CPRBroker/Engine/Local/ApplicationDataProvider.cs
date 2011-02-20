@@ -65,7 +65,7 @@ namespace CprBroker.Engine.Local
             }
         }
 
-        public bool UnregisterApp(string userToken, string appToken, string targetAppToken)
+        public bool UnregisterApp(string targetAppToken)
         {
             // Mark the application as unregistered
             using (ApplicationDataContext context = new ApplicationDataContext())

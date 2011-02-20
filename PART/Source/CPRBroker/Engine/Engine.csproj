@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Applications\ApproveAppRegistrationFacadeMethod.cs" />
+    <Compile Include="Applications\UnregisterAppFacadeMethod.cs" />
     <Compile Include="Applications\ListAppRegistrationsFacadeMethod.cs" />
     <Compile Include="Applications\RequestAppRegistrationFacadeMethod.cs" />
     <Compile Include="DataProviders\GetDataProviderListFacadeMethodInfo.cs" />

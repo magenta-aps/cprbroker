@@ -79,7 +79,7 @@ namespace CprBroker.Engine
         /// <param name="appToken">Security Token for the application the current application.</param>
         /// <param name="targetAppToken">Token of the application that will be removed</param>
         /// <returns></returns>
-        bool UnregisterApp(string userToken, string appToken, string targetAppToken);
+        bool UnregisterApp(string targetAppToken);
     }
 
     /// <summary>

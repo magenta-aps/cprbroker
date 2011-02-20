@@ -95,7 +95,7 @@
       <s:element name="UnregisterAppResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="UnregisterAppResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="UnregisterAppResult" type="tns:BasicOutputTypeOfBoolean" />
           </s:sequence>
         </s:complexType>
       </s:element>

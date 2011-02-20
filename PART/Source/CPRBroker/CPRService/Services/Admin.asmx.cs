@@ -53,7 +53,7 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.UnregisterApp, Description = ServiceDescription.Administrator.UnregisterApp)]
-        public bool UnregisterApp(string ApplicationToken)
+        public BasicOutputType<bool> UnregisterApp(string ApplicationToken)
         {
             return Manager.Admin.UnregisterApp(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationToken);
         }

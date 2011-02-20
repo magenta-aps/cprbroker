@@ -229,10 +229,10 @@ namespace CprBroker.NUnitTester.Admin {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/UnregisterApp", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool UnregisterApp(string ApplicationToken) {
+        public BasicOutputTypeOfBoolean UnregisterApp(string ApplicationToken) {
             object[] results = this.Invoke("UnregisterApp", new object[] {
                         ApplicationToken});
-            return ((bool)(results[0]));
+            return ((BasicOutputTypeOfBoolean)(results[0]));
         }
         
         /// <remarks/>
@@ -3806,10 +3806,10 @@ namespace CprBroker.NUnitTester.Admin {
         }
         
         /// <remarks/>
-        public bool Result {
+        public BasicOutputTypeOfBoolean Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
+                return ((BasicOutputTypeOfBoolean)(this.results[0]));
             }
         }
     }

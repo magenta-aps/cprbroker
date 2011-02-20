@@ -52,7 +52,7 @@ namespace CprBroker.NUnitTester
             {
                 Assert.NotNull(dataProvider);
                 Assert.IsNotEmpty(dataProvider.TypeName);
-                Assert.IsNotEmpty(dataProvider.Attributes);                
+                Assert.IsNotEmpty(dataProvider.Attributes);
             }
         }
 
@@ -103,8 +103,9 @@ namespace CprBroker.NUnitTester
         [Test]
         public void T990_UnregisterApp()
         {
-            bool res = TestRunner.AdminService.UnregisterApp(TestData.AppToken);
-            Assert.IsTrue(res);
+            var res = TestRunner.AdminService.UnregisterApp(TestData.AppToken);
+            Assert.NotNull(res);
+            Assert.IsTrue(res.Item);
         }
     }
 }
