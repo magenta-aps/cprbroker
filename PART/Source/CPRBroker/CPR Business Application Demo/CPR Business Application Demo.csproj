@@ -245,15 +245,6 @@
     <None Include="Service References\SubscriptionsService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.BirthdateSubscriptionType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.ChangeSubscriptionType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.SubscriptionType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\SubscriptionsService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -280,6 +271,15 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\PartService\CPR_Business_Application_Demo.PartService.GetUuidOutputType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfArrayOfSubscriptionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfChangeSubscriptionType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>

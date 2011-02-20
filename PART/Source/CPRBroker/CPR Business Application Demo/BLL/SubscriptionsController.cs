@@ -46,7 +46,7 @@ namespace CPR_Business_Application_Demo.Business
             try
             {
                 var cprAdministrationAdapter = new SubscriptionAdapter(Settings["CPRBrokerWebServiceUrl"].ToString());
-                return cprAdministrationAdapter.GetActiveSubscriptions(GetHeader());
+                return cprAdministrationAdapter.GetActiveSubscriptions(GetHeader()).Item;
 
             }
             catch (Exception)
@@ -74,7 +74,7 @@ namespace CPR_Business_Application_Demo.Business
                         var fileShareChannel = new FileShareChannelType();
                         fileShareChannel.Path = Settings["NotificationFileShare"].ToString();
                         var result = cprAdministrationAdapter.Subscribe(GetHeader(), fileShareChannel, personCivilRegistrationIdentifiers);
-                        return result.SubscriptionId;
+                        return result.Item.SubscriptionId;
                 }
 
                 return string.Empty;
@@ -103,7 +103,7 @@ namespace CPR_Business_Application_Demo.Business
                         var fileShareChannel = new FileShareChannelType();
                         fileShareChannel.Path = Settings["NotificationFileShare"].ToString();
                         var result = cprAdministrationAdapter.SubscribeOnBirthdate(GetHeader(), fileShareChannel, age, priorDays, personCivilRegistrationIdentifiers);
-                        return result.SubscriptionId;
+                        return result.Item.SubscriptionId;
                 }
                 return string.Empty;
 
