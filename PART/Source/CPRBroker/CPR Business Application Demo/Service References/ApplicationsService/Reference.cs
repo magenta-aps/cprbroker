@@ -18,7 +18,6 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message RequestAppRegistrationRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/RequestAppRegistration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -26,13 +25,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest request);
         
         // CODEGEN: Generating message contract since message ApproveAppRegistrationRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ApproveAppRegistration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -40,13 +39,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest request);
         
         // CODEGEN: Generating message contract since message ListAppRegistrationsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ListAppRegistrations", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -54,13 +53,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest request);
         
         // CODEGEN: Generating message contract since message UnregisterAppRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/UnregisterApp", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -68,13 +67,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest request);
         
         // CODEGEN: Generating message contract since message GetCapabilitiesRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetCapabilities", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -82,13 +81,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest request);
         
         // CODEGEN: Generating message contract since message IsImplementingRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IsImplementing", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -96,13 +95,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse IsImplementing(CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest request);
         
         // CODEGEN: Generating message contract since message GetDataProviderListRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetDataProviderList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -110,13 +109,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest request);
         
         // CODEGEN: Generating message contract since message SetDataProviderListRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/SetDataProviderList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -124,13 +123,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest request);
         
         // CODEGEN: Generating message contract since message LogRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Log", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -138,12 +137,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.LogResponse Log(CPR_Business_Application_Demo.ApplicationsService.LogRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Ping", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
@@ -151,6 +150,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         string Ping();
     }
@@ -202,6 +202,67 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.anyAttrField = value;
                 this.RaisePropertyChanged("AnyAttr");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
+    public partial class ServiceVersionType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string versionField;
+        
+        private string[] functionsField;
+        
+        private object detailsField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string Version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+                this.RaisePropertyChanged("Version");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Order=1)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Functions", IsNullable=false)]
+        public string[] Functions {
+            get {
+                return this.functionsField;
+            }
+            set {
+                this.functionsField = value;
+                this.RaisePropertyChanged("Functions");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public object Details {
+            get {
+                return this.detailsField;
+            }
+            set {
+                this.detailsField = value;
+                this.RaisePropertyChanged("Details");
             }
         }
         
@@ -1673,9 +1734,9 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1708,6 +1769,145 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.ukendtAdresseIndikatorField = value;
                 this.RaisePropertyChanged("UkendtAdresseIndikator");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class VerdenAdresseType : AdresseBaseType {
+        
+        private ForeignAddressStructureType foreignAddressStructureField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/", Order=0)]
+        public ForeignAddressStructureType ForeignAddressStructure {
+            get {
+                return this.foreignAddressStructureField;
+            }
+            set {
+                this.foreignAddressStructureField = value;
+                this.RaisePropertyChanged("ForeignAddressStructure");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class ForeignAddressStructureType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string postalAddressFirstLineTextField;
+        
+        private string postalAddressSecondLineTextField;
+        
+        private string postalAddressThirdLineTextField;
+        
+        private string postalAddressFourthLineTextField;
+        
+        private string postalAddressFifthLineTextField;
+        
+        private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        private string locationDescriptionTextField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=0)]
+        public string PostalAddressFirstLineText {
+            get {
+                return this.postalAddressFirstLineTextField;
+            }
+            set {
+                this.postalAddressFirstLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFirstLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
+        public string PostalAddressSecondLineText {
+            get {
+                return this.postalAddressSecondLineTextField;
+            }
+            set {
+                this.postalAddressSecondLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressSecondLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
+        public string PostalAddressThirdLineText {
+            get {
+                return this.postalAddressThirdLineTextField;
+            }
+            set {
+                this.postalAddressThirdLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressThirdLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
+        public string PostalAddressFourthLineText {
+            get {
+                return this.postalAddressFourthLineTextField;
+            }
+            set {
+                this.postalAddressFourthLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFourthLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
+        public string PostalAddressFifthLineText {
+            get {
+                return this.postalAddressFifthLineTextField;
+            }
+            set {
+                this.postalAddressFifthLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFifthLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+                this.RaisePropertyChanged("CountryIdentificationCode");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/", Order=6)]
+        public string LocationDescriptionText {
+            get {
+                return this.locationDescriptionTextField;
+            }
+            set {
+                this.locationDescriptionTextField = value;
+                this.RaisePropertyChanged("LocationDescriptionText");
             }
         }
         
@@ -1959,145 +2159,6 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.countryIdentificationCodeField = value;
                 this.RaisePropertyChanged("CountryIdentificationCode");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class VerdenAdresseType : AdresseBaseType {
-        
-        private ForeignAddressStructureType foreignAddressStructureField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/", Order=0)]
-        public ForeignAddressStructureType ForeignAddressStructure {
-            get {
-                return this.foreignAddressStructureField;
-            }
-            set {
-                this.foreignAddressStructureField = value;
-                this.RaisePropertyChanged("ForeignAddressStructure");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class ForeignAddressStructureType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string postalAddressFirstLineTextField;
-        
-        private string postalAddressSecondLineTextField;
-        
-        private string postalAddressThirdLineTextField;
-        
-        private string postalAddressFourthLineTextField;
-        
-        private string postalAddressFifthLineTextField;
-        
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        private string locationDescriptionTextField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=0)]
-        public string PostalAddressFirstLineText {
-            get {
-                return this.postalAddressFirstLineTextField;
-            }
-            set {
-                this.postalAddressFirstLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFirstLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
-        public string PostalAddressSecondLineText {
-            get {
-                return this.postalAddressSecondLineTextField;
-            }
-            set {
-                this.postalAddressSecondLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressSecondLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
-        public string PostalAddressThirdLineText {
-            get {
-                return this.postalAddressThirdLineTextField;
-            }
-            set {
-                this.postalAddressThirdLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressThirdLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
-        public string PostalAddressFourthLineText {
-            get {
-                return this.postalAddressFourthLineTextField;
-            }
-            set {
-                this.postalAddressFourthLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFourthLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
-        public string PostalAddressFifthLineText {
-            get {
-                return this.postalAddressFifthLineTextField;
-            }
-            set {
-                this.postalAddressFifthLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFifthLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
-        public CountryIdentificationCodeType CountryIdentificationCode {
-            get {
-                return this.countryIdentificationCodeField;
-            }
-            set {
-                this.countryIdentificationCodeField = value;
-                this.RaisePropertyChanged("CountryIdentificationCode");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/", Order=6)]
-        public string LocationDescriptionText {
-            get {
-                return this.locationDescriptionTextField;
-            }
-            set {
-                this.locationDescriptionTextField = value;
-                this.RaisePropertyChanged("LocationDescriptionText");
             }
         }
         
@@ -3571,34 +3632,34 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
-    public partial class StandardReturType : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
+    public partial class AttributeType : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private string statusKodeField;
+        private string nameField;
         
-        private string fejlbeskedTekstField;
+        private string valueField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="integer", Order=0)]
-        public string StatusKode {
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string Name {
             get {
-                return this.statusKodeField;
+                return this.nameField;
             }
             set {
-                this.statusKodeField = value;
-                this.RaisePropertyChanged("StatusKode");
+                this.nameField = value;
+                this.RaisePropertyChanged("Name");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string FejlbeskedTekst {
+        public string Value {
             get {
-                return this.fejlbeskedTekstField;
+                return this.valueField;
             }
             set {
-                this.fejlbeskedTekstField = value;
-                this.RaisePropertyChanged("FejlbeskedTekst");
+                this.valueField = value;
+                this.RaisePropertyChanged("Value");
             }
         }
         
@@ -3608,182 +3669,6 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfBoolean))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfDataProviderType))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
-    public partial class BasicOutputType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private StandardReturType standardReturField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public StandardReturType StandardRetur {
-            get {
-                return this.standardReturField;
-            }
-            set {
-                this.standardReturField = value;
-                this.RaisePropertyChanged("StandardRetur");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class GetUuidOutputType : BasicOutputType {
-        
-        private string uUIDField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0", Order=0)]
-        public string UUID {
-            get {
-                return this.uUIDField;
-            }
-            set {
-                this.uUIDField = value;
-                this.RaisePropertyChanged("UUID");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class RegistreringOutputType : BasicOutputType {
-        
-        private RegistreringType1 registreringField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public RegistreringType1 Registrering {
-            get {
-                return this.registreringField;
-            }
-            set {
-                this.registreringField = value;
-                this.RaisePropertyChanged("Registrering");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class LaesOutputType : BasicOutputType {
-        
-        private LaesResultatType laesResultatField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public LaesResultatType LaesResultat {
-            get {
-                return this.laesResultatField;
-            }
-            set {
-                this.laesResultatField = value;
-                this.RaisePropertyChanged("LaesResultat");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class OpretOutputType : BasicOutputType {
-        
-        private PersonType personField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public PersonType Person {
-            get {
-                return this.personField;
-            }
-            set {
-                this.personField = value;
-                this.RaisePropertyChanged("Person");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
-    public partial class BasicOutputTypeOfBoolean : BasicOutputType {
-        
-        private bool itemField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public bool Item {
-            get {
-                return this.itemField;
-            }
-            set {
-                this.itemField = value;
-                this.RaisePropertyChanged("Item");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
-    public partial class BasicOutputTypeOfArrayOfDataProviderType : BasicOutputType {
-        
-        private DataProviderType[] itemField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=0)]
-        public DataProviderType[] Item {
-            get {
-                return this.itemField;
-            }
-            set {
-                this.itemField = value;
-                this.RaisePropertyChanged("Item");
             }
         }
     }
@@ -3835,113 +3720,6 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.attributesField = value;
                 this.RaisePropertyChanged("Attributes");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
-    public partial class AttributeType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string nameField;
-        
-        private string valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string Name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-                this.RaisePropertyChanged("Name");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-                this.RaisePropertyChanged("Value");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
-    public partial class ServiceVersionType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string versionField;
-        
-        private string[] functionsField;
-        
-        private object detailsField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string Version {
-            get {
-                return this.versionField;
-            }
-            set {
-                this.versionField = value;
-                this.RaisePropertyChanged("Version");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=1)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Functions", IsNullable=false)]
-        public string[] Functions {
-            get {
-                return this.functionsField;
-            }
-            set {
-                this.functionsField = value;
-                this.RaisePropertyChanged("Functions");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public object Details {
-            get {
-                return this.detailsField;
-            }
-            set {
-                this.detailsField = value;
-                this.RaisePropertyChanged("Details");
             }
         }
         
@@ -4057,6 +3835,276 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
     }
     
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
+    public partial class StandardReturType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string statusKodeField;
+        
+        private string fejlbeskedTekstField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="integer", Order=0)]
+        public string StatusKode {
+            get {
+                return this.statusKodeField;
+            }
+            set {
+                this.statusKodeField = value;
+                this.RaisePropertyChanged("StatusKode");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string FejlbeskedTekst {
+            get {
+                return this.fejlbeskedTekstField;
+            }
+            set {
+                this.fejlbeskedTekstField = value;
+                this.RaisePropertyChanged("FejlbeskedTekst");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfDataProviderType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfApplicationType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfBoolean))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfApplicationType))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
+    public partial class BasicOutputType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private StandardReturType standardReturField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public StandardReturType StandardRetur {
+            get {
+                return this.standardReturField;
+            }
+            set {
+                this.standardReturField = value;
+                this.RaisePropertyChanged("StandardRetur");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class LaesOutputType : BasicOutputType {
+        
+        private LaesResultatType laesResultatField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public LaesResultatType LaesResultat {
+            get {
+                return this.laesResultatField;
+            }
+            set {
+                this.laesResultatField = value;
+                this.RaisePropertyChanged("LaesResultat");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class RegistreringOutputType : BasicOutputType {
+        
+        private RegistreringType1 registreringField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public RegistreringType1 Registrering {
+            get {
+                return this.registreringField;
+            }
+            set {
+                this.registreringField = value;
+                this.RaisePropertyChanged("Registrering");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class GetUuidOutputType : BasicOutputType {
+        
+        private string uUIDField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0", Order=0)]
+        public string UUID {
+            get {
+                return this.uUIDField;
+            }
+            set {
+                this.uUIDField = value;
+                this.RaisePropertyChanged("UUID");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class OpretOutputType : BasicOutputType {
+        
+        private PersonType personField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public PersonType Person {
+            get {
+                return this.personField;
+            }
+            set {
+                this.personField = value;
+                this.RaisePropertyChanged("Person");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public partial class BasicOutputTypeOfArrayOfDataProviderType : BasicOutputType {
+        
+        private DataProviderType[] itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Order=0)]
+        public DataProviderType[] Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+                this.RaisePropertyChanged("Item");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public partial class BasicOutputTypeOfArrayOfApplicationType : BasicOutputType {
+        
+        private ApplicationType[] itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Order=0)]
+        public ApplicationType[] Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+                this.RaisePropertyChanged("Item");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public partial class BasicOutputTypeOfBoolean : BasicOutputType {
+        
+        private bool itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public bool Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+                this.RaisePropertyChanged("Item");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public partial class BasicOutputTypeOfApplicationType : BasicOutputType {
+        
+        private ApplicationType itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public ApplicationType Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+                this.RaisePropertyChanged("Item");
+            }
+        }
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(WrapperName="RequestAppRegistration", WrapperNamespace="http://dk.itst", IsWrapped=true)]
@@ -4082,14 +4130,14 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     [System.ServiceModel.MessageContractAttribute(WrapperName="RequestAppRegistrationResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class RequestAppRegistrationResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/", Order=0)]
-        public CPR_Business_Application_Demo.ApplicationsService.ApplicationType Application;
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType RequestAppRegistrationResult;
         
         public RequestAppRegistrationResponse() {
         }
         
-        public RequestAppRegistrationResponse(CPR_Business_Application_Demo.ApplicationsService.ApplicationType Application) {
-            this.Application = Application;
+        public RequestAppRegistrationResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType RequestAppRegistrationResult) {
+            this.RequestAppRegistrationResult = RequestAppRegistrationResult;
         }
     }
     
@@ -4119,12 +4167,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     public partial class ApproveAppRegistrationResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public bool ApproveAppRegistrationResult;
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean ApproveAppRegistrationResult;
         
         public ApproveAppRegistrationResponse() {
         }
         
-        public ApproveAppRegistrationResponse(bool ApproveAppRegistrationResult) {
+        public ApproveAppRegistrationResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean ApproveAppRegistrationResult) {
             this.ApproveAppRegistrationResult = ApproveAppRegistrationResult;
         }
     }
@@ -4151,12 +4199,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     public partial class ListAppRegistrationsResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public ApplicationType[] ListAppRegistrationsResult;
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrationsResult;
         
         public ListAppRegistrationsResponse() {
         }
         
-        public ListAppRegistrationsResponse(ApplicationType[] ListAppRegistrationsResult) {
+        public ListAppRegistrationsResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrationsResult) {
             this.ListAppRegistrationsResult = ListAppRegistrationsResult;
         }
     }
@@ -4187,12 +4235,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     public partial class UnregisterAppResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public bool UnregisterAppResult;
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean UnregisterAppResult;
         
         public UnregisterAppResponse() {
         }
         
-        public UnregisterAppResponse(bool UnregisterAppResult) {
+        public UnregisterAppResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean UnregisterAppResult) {
             this.UnregisterAppResult = UnregisterAppResult;
         }
     }
@@ -4405,12 +4453,12 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             return base.Channel.RequestAppRegistration(request);
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.ApplicationType RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationName) {
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationName) {
             CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.ApplicationName = ApplicationName;
             CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).RequestAppRegistration(inValue);
-            return retVal.Application;
+            return retVal.RequestAppRegistrationResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -4418,7 +4466,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             return base.Channel.ApproveAppRegistration(request);
         }
         
-        public bool ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationToken) {
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationToken) {
             CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.ApplicationToken = ApplicationToken;
@@ -4431,7 +4479,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             return base.Channel.ListAppRegistrations(request);
         }
         
-        public ApplicationType[] ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
             CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).ListAppRegistrations(inValue);
@@ -4443,7 +4491,7 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             return base.Channel.UnregisterApp(request);
         }
         
-        public bool UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationToken) {
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationToken) {
             CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest();
             inValue.ApplicationHeader = ApplicationHeader;
             inValue.ApplicationToken = ApplicationToken;

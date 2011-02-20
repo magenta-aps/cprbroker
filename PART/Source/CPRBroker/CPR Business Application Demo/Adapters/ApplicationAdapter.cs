@@ -33,17 +33,17 @@ namespace CPR_Business_Application_Demo.Adapters
         #endregion
 
         #region Application Registration
-        public ApplicationType RequestAppRegistration(ApplicationHeader applicationHeader, string applicationName)
+        public BasicOutputTypeOfApplicationType RequestAppRegistration(ApplicationHeader applicationHeader, string applicationName)
         {
             return applicationsHandler.RequestAppRegistration(applicationHeader, applicationName);
         }
 
-        public bool ApproveAppRegistration(ApplicationHeader applicationHeader, string applicationToken)
+        public BasicOutputTypeOfBoolean ApproveAppRegistration(ApplicationHeader applicationHeader, string applicationToken)
         {
             return applicationsHandler.ApproveAppRegistration(applicationHeader, applicationToken);
         }
 
-        public ApplicationType[] ListAppRegistration(ApplicationHeader applicationHeader)
+        public BasicOutputTypeOfArrayOfApplicationType ListAppRegistration(ApplicationHeader applicationHeader)
         {
             return applicationsHandler.ListAppRegistrations(applicationHeader);
         }

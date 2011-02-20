@@ -47,10 +47,10 @@ namespace CPR_Business_Application_Demo.Business
             {
                 var cprAdministrationAdapter = new ApplicationAdapter(url);
 
-                ApplicationType applicationType = cprAdministrationAdapter.RequestAppRegistration(GetHeader(), AppName);
+                var result= cprAdministrationAdapter.RequestAppRegistration(GetHeader(), AppName);
 
-                if (applicationType != null)
-                    return applicationType.Token;
+                if (result != null && result.Item!=null)
+                    return result.Item.Token;
 
                 return String.Empty;
 
@@ -73,7 +73,7 @@ namespace CPR_Business_Application_Demo.Business
                 // an application
                 var header = GetHeader();
                 header.ApplicationToken = adminAppToken;
-                return cprAdministrationAdapter.ApproveAppRegistration(header, AppToken);
+                return cprAdministrationAdapter.ApproveAppRegistration(header, AppToken).Item;
             }
             catch (Exception ex)
             {
@@ -94,12 +94,12 @@ namespace CPR_Business_Application_Demo.Business
             {
                 var cprAdministrationAdapter = new ApplicationAdapter(url);
 
-                ApplicationType[] applicationTypes = cprAdministrationAdapter.ListAppRegistration(GetHeader());
-                if (applicationTypes == null || applicationTypes.Length == 0)
+                var applicationTypes = cprAdministrationAdapter.ListAppRegistration(GetHeader());
+                if (applicationTypes == null || applicationTypes.Item==null || applicationTypes.Item.Length == 0)
                     return null;
 
                 // Loop through all registered application to see if one of them is ourself
-                foreach (var applicationType in applicationTypes)
+                foreach (var applicationType in applicationTypes.Item)
                 {
                     if (applicationType.Token == AppToken)
                     {
