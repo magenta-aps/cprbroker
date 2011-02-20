@@ -24,66 +24,68 @@ namespace CprBroker.DAL
             }
         }
 
-        public static string EncryptionKeyXml
+        private static byte[] RijndaelEncryptionKey
         {
             get
             {
-                if (string.IsNullOrEmpty(Config.Properties.Settings.Default.EncryptionKeyXmlFile))
+                if (!string.IsNullOrEmpty(Config.Properties.Settings.Default.RijndaelEncryptionKeyFile))
                 {
-                    return @"<RSAKeyValue>
-  <Modulus>t5DwWMD+NhpRglloEcF1Hc7X2mzD52e9kVXQPs5Ges+sQhk5a1zg9vi3FK/TdDuQYELqazHHbmBhaY5kHC55ge4ubYKNNwrbUBWZwIquw9YbFo+5g4f4zhvyhYfZFEi5X5I8YW49A+9pSoxVojaPZ+qaLm+LHnuPRb1OQMjvAEM=</Modulus>
-  <Exponent>AQAB</Exponent>
-  <P>90XrhZD0seML3k64laFMerndPAXu2E53UditpBXSKxueDaUdW5cUYGHnMVT3oh/+1a++ecPsI4vxQrwWedeq4w==</P>
-  <Q>vgtvVh8e7Ta6/YfUbOamcRAcerlc8uaLZ/5lB8jyyXvGqKfYgXLgZ7vAVhMP1t5dkPmC89QsBkaMa1YW3IpzIQ==</Q>
-  <DP>bOqEYlHGJnCusp4UGfxxVoF13FF0shxl3ExHt8XQzCIfDT2UX9p9JDMbhZQ6e1QCiJcfnDzbT5D9lPqKH+MKJw==</DP>
-  <DQ>rE834nETHGdcQZWPUDIMxUSjXc6FbSMFUQQCXH2hTHeylqagkjYzKzq7WA+uc9ZoJZNlXWiJhiMfHA8RaWMKoQ==</DQ>
-  <InverseQ>onjDR4ztV6/Zaf9EA+Ick3H9wHtmWIo+n4iuk7dFEr7yw9e9IGAbfhTWmDx+PPxGaBqLUA/KFpiVqkK2BRazGg==</InverseQ>
-  <D>pnaqbmH9ZcSyG9nGFSvxb+mON0ag1O1vrCc8pGfc5CwFkx9awbDFVVGwfPMBd4s4XwLvn+vRZZfDXrzArgm7JvrqB6sIKMHkDPQzvzx9rsB+dAGTzw3AJGTAbYVs1Zl/AwWFdW+D9P72iUvDyKqVqPKqfdNhtl5TKr0eBqi/d8E=</D>
-</RSAKeyValue>";
+                    string text = File.ReadAllText(Config.Properties.Settings.Default.RijndaelEncryptionKeyFile);
+                    string[] arr = text.Split(new char[] { ' ', ';', ',', '-', '_' }, StringSplitOptions.RemoveEmptyEntries);
+                    var ret = Array.ConvertAll<string, byte>(arr, s => byte.Parse(s));
+                    return ret;
                 }
                 else
                 {
-                    return System.IO.File.ReadAllText(Config.Properties.Settings.Default.EncryptionKeyXmlFile);
+                    return new byte[] { 64, 95, 48, 189, 85, 19, 22, 231, 82, 67, 73, 99, 33, 233, 112, 174, 64, 95, 48, 189, 85, 19, 22, 231, 82, 67, 73, 99, 33, 233, 112, 174 };
                 }
             }
         }
+
+        private static byte[] RijndaelIV = new byte[] { 55, 35, 92, 173, 56, 28, 94, 202, 55, 35, 92, 173, 56, 28, 94, 202 };
 
         public static byte[] EncryptObject(object o)
         {
             var ret = new List<byte>();
             var xml = SerializeObject(o);
-            /*int maxLen = 80;
-            var rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(EncryptionKeyXml);
-            for (int i = 0; i < xml.Length; i += maxLen)
+
+            RijndaelManaged m = new RijndaelManaged() { IV = RijndaelIV, Key = RijndaelEncryptionKey };
+
+            var transform = m.CreateEncryptor();
+
+            MemoryStream ms = new MemoryStream();
+            using (CryptoStream cs = new CryptoStream(ms, transform, CryptoStreamMode.Write))
             {
-                var size = Math.Min(maxLen, xml.Length - i);
-                var subStr = xml.Substring(i, size);
-                byte[] clearData = Encoding.UTF8.GetBytes(subStr);
-                var encryptedData = rsa.Encrypt(clearData, true);
-                ret.AddRange(encryptedData);
+                using (StreamWriter w = new StreamWriter(cs))
+                {
+                    w.Write(xml);
+                }
             }
-            return ret.ToArray();*/
-            return System.Text.Encoding.UTF8.GetBytes(xml);
+
+            var encryptedData = ms.ToArray();
+            return encryptedData;
         }
 
         public static T DecryptObject<T>(byte[] encryptedData)
         {
-            /*var rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(EncryptionKeyXml);
-            var size = 128;
-            StringBuilder xmlBuilder = new StringBuilder();
-            for (int i = 0; i < encryptedData.Length; i += size)
+            string xml = null;
+            RijndaelManaged m = new RijndaelManaged() { IV = RijndaelIV, Key = RijndaelEncryptionKey };
+            var transform = m.CreateDecryptor();
+
+            using (MemoryStream msDecrypt = new MemoryStream(encryptedData))
             {
-                var subEncryptedData = new byte[size];
-                Array.Copy(encryptedData, i, subEncryptedData, 0, size);
-                var clearData = rsa.Decrypt(subEncryptedData, true);
-                var subXml = Encoding.UTF8.GetString(clearData);
-                xmlBuilder.Append(subXml);
+                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, transform, CryptoStreamMode.Read))
+                {
+                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    {
+                        // Read the decrypted bytes from the decrypting stream
+                        // and place them in a string.
+                        xml = srDecrypt.ReadToEnd();
+                    }
+                }
             }
-            var ret = Deserialize<T>(xmlBuilder.ToString());
-            return ret;*/
-            return Deserialize<T>(System.Text.Encoding.UTF8.GetString(encryptedData));
+            var ret = Deserialize<T>(xml);
+            return ret;
         }
 
 

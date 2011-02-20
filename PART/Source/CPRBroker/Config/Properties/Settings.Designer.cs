@@ -91,9 +91,9 @@ namespace CprBroker.Config.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string EncryptionKeyXmlFile {
+        public string RijndaelEncryptionKeyFile {
             get {
-                return ((string)(this["EncryptionKeyXmlFile"]));
+                return ((string)(this["RijndaelEncryptionKeyFile"]));
             }
         }
         
