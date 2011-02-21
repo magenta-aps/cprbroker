@@ -14,13 +14,13 @@ namespace CprBroker.Engine
             public static BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(string userToken, string appToken, int maxCount)
             {
                 var methodInfo = new CprBroker.Engine.Events.DequeueDataChangeEventsFacadeMethod(maxCount, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<DataChangeEventInfo[]>>(methodInfo);
+                return GetMethodOutput<DataChangeEventInfo[]>(methodInfo);
             }
 
             public static BasicOutputType<PersonBirthdate[]> GetPersonBirthdates(string userToken, string appToken, Guid? personUuidToStartAfter, int maxCount)
             {
                 var methodInfo = new CprBroker.Engine.Events.GetPersonBirthdatesFacadeMethodInfo(personUuidToStartAfter, maxCount, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<PersonBirthdate[]>>(methodInfo);
+                return GetMethodOutput<PersonBirthdate[]>(methodInfo);
             }
         }
     }

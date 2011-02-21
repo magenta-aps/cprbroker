@@ -11,7 +11,7 @@ using CprBroker.EventBroker.Subscriptions;
 
 namespace CprBroker.EventBroker
 {
-    public class SubscribeOnBirthdateFacadeMethod : FacadeMethodInfo<BasicOutputType<BirthdateSubscriptionType>>
+    public class SubscribeOnBirthdateFacadeMethod : GenericFacadeMethodInfo<BirthdateSubscriptionType>
     {
         ChannelBaseType NotificationChannel;
         Guid[] PersonUuids;

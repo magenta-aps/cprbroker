@@ -32,12 +32,12 @@ namespace CprBroker.Engine
             public static BasicOutputType<Schemas.DataProviderType[]> GetDataProviderList(string userToken, string appToken)
             {
                 var facade = new DataProviders.GetDataProviderListFacadeMethodInfo(appToken, userToken);
-                return GetMethodOutput<BasicOutputType<DataProviderType[]>>(facade);
+                return GetMethodOutput<DataProviderType[]>(facade);
             }
             public static BasicOutputType<bool> SetDataProviderList(string userToken, string appToken, DataProviderType[] dataProviders)
             {
                 var facade = new DataProviders.SetDataProvidersFacadeMethodInfo(dataProviders, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<bool>>(facade);
+                return GetMethodOutput<bool>(facade);
             }
             #endregion
 
@@ -45,25 +45,25 @@ namespace CprBroker.Engine
             public static BasicOutputType<ApplicationType> RequestAppRegistration(string userToken, string appToken, string name)
             {
                 var facade = new RequestAppRegistrationFacadeMethod(name, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<ApplicationType>>(facade);
+                return GetMethodOutput<ApplicationType>(facade);
             }
 
             public static BasicOutputType<bool> ApproveAppRegistration(string userToken, string appToken, string targetAppToken)
             {
                 var facade = new ApproveAppRegistrationFacadeMethod(targetAppToken, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<bool>>(facade);
+                return GetMethodOutput<bool>(facade);
             }
 
             public static BasicOutputType<ApplicationType[]> ListAppRegistrations(string userToken, string appToken)
             {
                 var facade = new ListAppRegistrationsFacadeMethod(appToken, userToken);
-                return GetMethodOutput<BasicOutputType<ApplicationType[]>>(facade);
+                return GetMethodOutput<ApplicationType[]>(facade);
             }
 
             public static BasicOutputType<bool> UnregisterApp(string userToken, string appToken, string targetAppToken)
             {
                 var facade = new UnregisterAppFacadeMethod(targetAppToken, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<bool>>(facade);
+                return GetMethodOutput<bool>(facade);
             }
             #endregion
 

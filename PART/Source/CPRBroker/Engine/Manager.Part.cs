@@ -28,7 +28,7 @@ namespace CprBroker.Engine
             private static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel, LocalDataProviderUsageOption localAction)
             {
                 ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken);
-                var ret = GetMethodOutput<LaesOutputType>(facadeMethod);
+                var ret = GetMethodOutput<LaesOutputType, LaesResultatType>(facadeMethod);
                 qualityLevel = facadeMethod.QualityLevel;
                 return ret;
             }
@@ -37,7 +37,7 @@ namespace CprBroker.Engine
             {
                 ListOutputType1 ret = null;
 
-                ret = GetMethodOutput<ListOutputType1>(
+                ret = GetMethodOutput<ListOutputType1, LaesResultatType[]>(
                     new ListFacadeMethodInfo(input, appToken, userToken)
                     );
 
@@ -49,7 +49,7 @@ namespace CprBroker.Engine
             public static SoegOutputType Search(string userToken, string appToken, SoegInputType1 searchCriteria, out QualityLevel? qualityLevel)
             {
                 SearchFacadeMethodInfo facadeMethod = new SearchFacadeMethodInfo(searchCriteria, appToken, userToken);
-                var ret = GetMethodOutput<SoegOutputType>(facadeMethod);
+                var ret = GetMethodOutput<SoegOutputType, string[]>(facadeMethod);
                 //TODO: Move into Search method of data provider
                 qualityLevel = QualityLevel.LocalCache;
                 return ret;
@@ -58,7 +58,7 @@ namespace CprBroker.Engine
             public static GetUuidOutputType GetUuid(string userToken, string appToken, string cprNumber)
             {
                 var facadeMethod = new GerPersonUuidFacadeMethodInfo(cprNumber, appToken, userToken);
-                var ret = GetMethodOutput<GetUuidOutputType>(facadeMethod);
+                var ret = GetMethodOutput<GetUuidOutputType, Guid>(facadeMethod);
                 return ret;
             }
 

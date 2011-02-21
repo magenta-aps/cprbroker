@@ -111,7 +111,12 @@ namespace CprBroker.Engine
             return default(TOutput);
         }
 
-        public static TOutput GetMethodOutput<TOutput>(FacadeMethodInfo<TOutput> facade) where TOutput : class, IBasicOutput, new()
+        public static BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
+        {
+            return GetMethodOutput<BasicOutputType<TItem>, TItem>(facade);
+        }
+
+        public static TOutput GetMethodOutput<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
         {
             try
             {

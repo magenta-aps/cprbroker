@@ -7,7 +7,7 @@ using CprBroker.Schemas.Part.Events;
 
 namespace CprBroker.Engine.Events
 {
-    public class GetPersonBirthdatesFacadeMethodInfo : FacadeMethodInfo<BasicOutputType<PersonBirthdate[]>>
+    public class GetPersonBirthdatesFacadeMethodInfo : GenericFacadeMethodInfo<PersonBirthdate[]>
     {
         Guid? PersonUuidToStartAfter;
         int MaxCount;

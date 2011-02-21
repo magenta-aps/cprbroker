@@ -6,7 +6,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.Part
 {
-    public class SearchFacadeMethodInfo : FacadeMethodInfo<SoegOutputType>
+    public class SearchFacadeMethodInfo : FacadeMethodInfo<SoegOutputType, string[]>
     {
         private SearchFacadeMethodInfo()
         { }

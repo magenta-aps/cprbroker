@@ -13,9 +13,22 @@ namespace CprBroker.NUnitTester
     {
         #region Utility methods
 
+        public void Validate(Part.StandardReturType ret)
+        {
+            Assert.IsNotNull(ret);
+            base.Validate(ret.StatusKode, ret.FejlbeskedTekst);
+        }
+
+        public void ValidateInvalid(Part.StandardReturType ret)
+        {
+            Assert.IsNotNull(ret);
+            base.ValidateInvalid(ret.StatusKode, ret.FejlbeskedTekst);
+        }
+
         private void Validate(Guid uuid, LaesOutputType laesOutput, Part.Part service)
         {
             Assert.IsNotNull(laesOutput, "Laes output is null{0}", uuid);
+            Validate(laesOutput.StandardRetur);
             Validate(uuid, laesOutput.LaesResultat, service);
         }
 
@@ -56,8 +69,7 @@ namespace CprBroker.NUnitTester
         private void Validate(GetUuidOutputType uuid)
         {
             Assert.NotNull(uuid);
-            Assert.NotNull(uuid.StandardRetur);
-            Assert.AreEqual("200", uuid.StandardRetur.StatusKode);
+            Validate(uuid.StandardRetur);
             Assert.NotNull(uuid.UUID);
             Assert.AreNotEqual(uuid.UUID, Guid.Empty.ToString());
         }
@@ -65,9 +77,7 @@ namespace CprBroker.NUnitTester
         private void ValidateInvalid(GetUuidOutputType uuid)
         {
             Assert.NotNull(uuid);
-            Assert.NotNull(uuid.StandardRetur);
-            Assert.IsNotNullOrEmpty(uuid.StandardRetur.StatusKode);
-            Assert.AreNotEqual("200", uuid.StandardRetur.StatusKode);
+            ValidateInvalid(uuid.StandardRetur);
             Assert.IsNullOrEmpty(uuid.UUID);
         }
 
@@ -115,7 +125,7 @@ namespace CprBroker.NUnitTester
         {
             var person = TestRunner.PartService.Read(inp);
             Assert.IsNotNull(person);
-            Assert.IsNotNull(person.StandardRetur);
+            ValidateInvalid(person.StandardRetur);
             Assert.IsNull(person.LaesResultat);
         }
 
@@ -129,7 +139,7 @@ namespace CprBroker.NUnitTester
             };
             var person = TestRunner.PartService.Read(input);
             Assert.IsNotNull(person);
-            Assert.IsNotNull(person.StandardRetur);
+            ValidateInvalid(person.StandardRetur);
             Assert.IsNull(person.LaesResultat);
         }
 
@@ -143,7 +153,7 @@ namespace CprBroker.NUnitTester
             };
             var person = TestRunner.PartService.Read(input);
             Assert.IsNotNull(person);
-            Assert.IsNotNull(person.StandardRetur);
+            ValidateInvalid(person.StandardRetur);
             Assert.IsNull(person.LaesResultat);
         }
 
@@ -183,6 +193,7 @@ namespace CprBroker.NUnitTester
 
             var persons = TestRunner.PartService.List(input);
             Assert.IsNotNull(persons, "List response is null");
+            Validate(persons.StandardRetur);
             Assert.IsNotNull(persons.LaesResultat, "Persons array is null");
             Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
             for (int i = 0; i < cprNumbers.Length; i++)
@@ -203,9 +214,9 @@ namespace CprBroker.NUnitTester
             var persons = TestRunner.PartService.List(input);
 
             Assert.IsNotNull(persons);
-
             if (cprNumbers != null)
             {
+                Validate(persons.StandardRetur);
                 Assert.IsNotNull(persons, "List response is null");
                 Assert.IsNotNull(persons.LaesResultat, "Persons array is null");
                 Assert.AreEqual(cprNumbers.Length, persons.LaesResultat.Length, "Incorrect length of returned array");
@@ -213,6 +224,11 @@ namespace CprBroker.NUnitTester
                 {
                     Validate(new Guid(input.UUID[i]), persons.LaesResultat[i], TestRunner.PartService);
                 }
+            }
+            else
+            {
+                ValidateInvalid(persons.StandardRetur);
+                Assert.IsNull(persons.LaesResultat);
             }
         }
 
@@ -232,6 +248,7 @@ namespace CprBroker.NUnitTester
 
             var result = TestRunner.PartService.Search(searchCriteria);
             Assert.NotNull(result, "Search result");
+            Validate(result.StandardRetur);
             Assert.IsNotNull(result.Idliste, "Search result ids");
 
             Assert.AreEqual(1, result.Idliste.Length, "Number of search results");

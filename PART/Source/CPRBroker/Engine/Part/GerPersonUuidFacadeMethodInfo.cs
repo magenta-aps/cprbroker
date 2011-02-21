@@ -6,7 +6,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.Part
 {
-    public class GerPersonUuidFacadeMethodInfo : FacadeMethodInfo<GetUuidOutputType>
+    public class GerPersonUuidFacadeMethodInfo : FacadeMethodInfo<GetUuidOutputType,Guid>
     {
         public string Input;
 

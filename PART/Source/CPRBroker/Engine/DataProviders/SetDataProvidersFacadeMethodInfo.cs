@@ -8,7 +8,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.DataProviders
 {
-    public class SetDataProvidersFacadeMethodInfo : FacadeMethodInfo<BasicOutputType<bool>>
+    public class SetDataProvidersFacadeMethodInfo : GenericFacadeMethodInfo<bool>
     {
         private DataProviderType[] Input;
 

@@ -6,7 +6,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
-    public class FacadeMethodInfo<TOutput> where TOutput : class, IBasicOutput, new()
+    public class FacadeMethodInfo<TOutput, TItem> where TOutput : class, IBasicOutput<TItem>, new()
     {
         public FacadeMethodInfo()
         { }

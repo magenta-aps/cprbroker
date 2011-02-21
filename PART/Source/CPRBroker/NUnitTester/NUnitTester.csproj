@@ -209,13 +209,7 @@
     <None Include="Web References\Admin\ServiceVersionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\Events\DataChangeEventInfo.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Events\Events.disco" />
-    <None Include="Web References\Events\PersonBirthdate.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Events\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -233,6 +227,12 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Admin\BasicOutputTypeOfBoolean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Events\BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Events\BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Part\GetUuidOutputType.datasource">

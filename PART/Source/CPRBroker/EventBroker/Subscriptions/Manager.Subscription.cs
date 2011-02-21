@@ -16,41 +16,41 @@ namespace CprBroker.EventBroker.Subscriptions
         /// </summary>
         public class Subscriptions
         {
-            public static TOutput GetMethodOutput<TOutput>(FacadeMethodInfo<TOutput> facade) where TOutput : class, IBasicOutput, new()
+            public static BasicOutputType<TItem> GetMethodOutput<TItem>(GenericFacadeMethodInfo<TItem> facade)
             {
-                return CprBroker.Engine.Manager.GetMethodOutput<TOutput>(facade);
+                return CprBroker.Engine.Manager.GetMethodOutput<TItem>(facade);
             }
 
             #region Subscription
             public static BasicOutputType<ChangeSubscriptionType> Subscribe(string userToken, string appToken, ChannelBaseType notificationChannel, Guid[] personUuids)
             {
                 SubscribeFacadeMethod facade = new SubscribeFacadeMethod(notificationChannel, personUuids, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<ChangeSubscriptionType>>(facade);
+                return GetMethodOutput<ChangeSubscriptionType>(facade);
 
             }
 
             public static BasicOutputType<bool> Unsubscribe(string userToken, string appToken, Guid subscriptionId)
             {
                 UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.DataChange, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<bool>>(facade);
+                return GetMethodOutput<bool>(facade);
             }
 
             public static BasicOutputType<BirthdateSubscriptionType> SubscribeOnBirthdate(string userToken, string appToken, ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, Guid[] PersonCivilRegistrationIdentifiers)
             {
                 SubscribeOnBirthdateFacadeMethod facade = new SubscribeOnBirthdateFacadeMethod(notificationChannel, years, priorDays, PersonCivilRegistrationIdentifiers, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<BirthdateSubscriptionType>>(facade);
+                return GetMethodOutput<BirthdateSubscriptionType>(facade);
             }
 
             public static BasicOutputType<bool> RemoveBirthDateSubscription(string userToken, string appToken, Guid subscriptionId)
             {
                 UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.Birthdate, appToken, userToken);
-                return GetMethodOutput<BasicOutputType<bool>>(facade);
+                return GetMethodOutput<bool>(facade);
             }
 
             public static BasicOutputType<SubscriptionType[]> GetActiveSubscriptionsList(string userToken, string appToken)
             {
                 GetActiveSubscriptionsListFacadeMethod facade = new GetActiveSubscriptionsListFacadeMethod(appToken, userToken);
-                return GetMethodOutput<BasicOutputType<SubscriptionType[]>>(facade);
+                return GetMethodOutput<SubscriptionType[]>(facade);
             }
 
             #endregion

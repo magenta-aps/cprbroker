@@ -10,7 +10,7 @@ using CprBroker.Engine;
 
 namespace CprBroker.EventBroker.Subscriptions
 {
-    public class UnsubscribeFacadeMethod : FacadeMethodInfo<BasicOutputType<bool>>
+    public class UnsubscribeFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         Guid SubscriptionId;
         DAL.SubscriptionType.SubscriptionTypes SubscriptionType;

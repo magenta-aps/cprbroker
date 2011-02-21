@@ -7,7 +7,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.Part
 {
-    public class ReadFacadeMethodInfo : FacadeMethodInfo<LaesOutputType>
+    public class ReadFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
     {
         LaesInputType Input = null;
         PersonIdentifier pId = null;

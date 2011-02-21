@@ -8,7 +8,7 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Engine.Part
 {
     //TODO: Modify to never return null even if input is wrong
-    public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1>
+    public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1,LaesResultatType[]>
     {
         public ListInputType input;
         public Dictionary<string, PersonIdentifier> inputUuidToPersonIdentifierMap = new Dictionary<string, PersonIdentifier>();

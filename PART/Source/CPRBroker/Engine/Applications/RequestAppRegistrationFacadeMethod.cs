@@ -7,7 +7,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
-    public class RequestAppRegistrationFacadeMethod : FacadeMethodInfo<BasicOutputType<ApplicationType>>
+    public class RequestAppRegistrationFacadeMethod : GenericFacadeMethodInfo<ApplicationType>
     {
         string ApplicationName;
         public RequestAppRegistrationFacadeMethod(string appName, string appToken, string userToken)

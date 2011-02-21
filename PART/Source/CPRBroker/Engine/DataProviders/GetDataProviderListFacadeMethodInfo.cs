@@ -7,7 +7,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.DataProviders
 {
-    public class GetDataProviderListFacadeMethodInfo : FacadeMethodInfo<BasicOutputType<DataProviderType[]>>
+    public class GetDataProviderListFacadeMethodInfo : GenericFacadeMethodInfo<DataProviderType[]>
     {
         public GetDataProviderListFacadeMethodInfo(string appToken, string userToken)
             : base(appToken, userToken)
@@ -24,6 +24,14 @@ namespace CprBroker.Engine.DataProviders
                 Method=prov=>prov.GetDataProviderList(),
                 UpdateMethod=null                
             } };
+        }
+
+        public override BasicOutputType<DataProviderType[]> Aggregate(object[] results)
+        {
+            return new BasicOutputType<DataProviderType[]>()
+            {
+                Item = (DataProviderType[])results[0]
+            };
         }
     }
 }

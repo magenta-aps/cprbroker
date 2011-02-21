@@ -11,6 +11,12 @@ namespace CprBroker.NUnitTester
     [TestFixture]
     public class EventTest : BaseTest
     {
+        public void Validate(Events.StandardReturType ret)
+        {
+            Assert.IsNotNull(ret);
+            base.Validate(ret.StatusKode, ret.FejlbeskedTekst);
+        }
+
         [Test]
         [TestCase(1)]
         [TestCase(2)]
@@ -18,8 +24,10 @@ namespace CprBroker.NUnitTester
         {
             var result = TestRunner.EventsService.DequeueDataChangeEvents(maxCount);
             Assert.IsNotNull(result);
-            Assert.LessOrEqual(result.Length, maxCount);
-            foreach (var ev in result)
+            Validate(result.StandardRetur);
+            Assert.IsNotNull(result.Item);
+            Assert.LessOrEqual(result.Item.Length, maxCount);
+            foreach (var ev in result.Item)
             {
                 Assert.IsNotNull(ev);
                 Assert.AreNotEqual(Guid.Empty, ev.EventId);

@@ -8,7 +8,7 @@ using CprBroker.DAL.Applications;
 
 namespace CprBroker.Engine
 {
-    public class UnregisterAppFacadeMethod : FacadeMethodInfo<BasicOutputType<bool>>
+    public class UnregisterAppFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         string TargetApplicationToken;
 
