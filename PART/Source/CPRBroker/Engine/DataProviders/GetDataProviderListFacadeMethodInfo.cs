@@ -13,6 +13,7 @@ namespace CprBroker.Engine.DataProviders
             : base(appToken, userToken)
         {
         }
+
         public override void Initialize()
         {
             SubMethodInfos = new SubMethodInfo[] { new SubMethodInfo<IDataProviderManager, DataProviderType[]>() 

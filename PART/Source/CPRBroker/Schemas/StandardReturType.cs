@@ -90,6 +90,11 @@ namespace CprBroker.Schemas.Part
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid UUID: {0}", uuid));
         }
 
+        public static StandardReturType InvalidCprNumber(string cpr)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid CPR number: {0}", cpr));
+        }
+
         public static StandardReturType UnknownUuid(string uuid)
         {
             return Create(HttpErrorCode.NOT_FOUND, string.Format("UUID valid but not found : {0}", uuid));

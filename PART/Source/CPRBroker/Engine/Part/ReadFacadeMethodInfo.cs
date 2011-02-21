@@ -61,12 +61,7 @@ namespace CprBroker.Engine.Part
                 {
                     Item = results[0]
                 },
-                //TODO: Fill this StandardRetur object
-                StandardRetur = new StandardReturType()
-                {
-                    FejlbeskedTekst = "",
-                    StatusKode = ""
-                }
+                StandardRetur = StandardReturType.OK(),
             };
             QualityLevel = (SubMethodInfos[0] as ReadSubMethodInfo).QualityLevel;
             return o;

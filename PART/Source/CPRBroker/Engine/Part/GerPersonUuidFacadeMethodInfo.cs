@@ -16,6 +16,33 @@ namespace CprBroker.Engine.Part
             Input = input;
         }
 
+        public override StandardReturType ValidateInput()
+        {
+            if(string.IsNullOrEmpty(Input))
+            {
+                return StandardReturType.NullInput();
+            }
+
+            var pattern=@"\A\d{10}\Z";
+            if (!System.Text.RegularExpressions.Regex.Match(Input, pattern).Success)
+            {
+                return StandardReturType.InvalidCprNumber(Input);
+            }
+
+            long val;
+            if (!long.TryParse(Input, out val))
+            {
+                return StandardReturType.InvalidCprNumber(Input);
+            }
+
+            if (!Util.Strings.PersonNumberToDate(Input).HasValue)
+            {
+                return StandardReturType.InvalidCprNumber(Input);
+            }
+
+            return StandardReturType.OK();
+        } 
+
         public override void Initialize()
         {
 
@@ -36,11 +63,7 @@ namespace CprBroker.Engine.Part
         {
             return new GetUuidOutputType()
             {
-                StandardRetur = new StandardReturType()
-                {
-                    FejlbeskedTekst = "",
-                    StatusKode = ""
-                },
+                StandardRetur = StandardReturType.OK(),
                 UUID = results[0].ToString()
             };
         }

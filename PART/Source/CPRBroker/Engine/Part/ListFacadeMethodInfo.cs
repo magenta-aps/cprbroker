@@ -86,8 +86,7 @@ namespace CprBroker.Engine.Part
                     results,
                     (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
                 ),
-                //TODO: Fill this StandardRetur object
-                StandardRetur = StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED)
+                StandardRetur = StandardReturType.OK(),
             };
         }
 

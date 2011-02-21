@@ -38,6 +38,21 @@ namespace CprBroker.NUnitTester
         };
         public const string CprNumbersFieldName = "cprNumbers";
 
+        public static readonly string[] invalidCprNumbers = new string[]{
+            null,
+            "",
+            "adsa",
+            "1234567894342324",
+            "jkash77",
+            "          ",
+            "ddddd",
+            "  12345678",
+            "    56    "
+        };
+        public const string InvalidCprNumbersFieldName = "invalidCprNumbers";
+
+
+
         public static string[] cprNumbersWithChildren = new string[] { "1305763892" };
         public const string CprNumbersWithChildrenFieldName = "cprNumbersWithChildren";
 

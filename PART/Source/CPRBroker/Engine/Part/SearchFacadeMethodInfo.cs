@@ -19,7 +19,11 @@ namespace CprBroker.Engine.Part
 
         public override SoegOutputType Aggregate(object[] results)
         {
-            var ret = new SoegOutputType();
+            var ret = new SoegOutputType()
+            {
+                StandardRetur = StandardReturType.OK(),
+                Idliste = new string[0]
+            };
             var foundIds = results[0] as Guid[];
             if (foundIds != null)
             {

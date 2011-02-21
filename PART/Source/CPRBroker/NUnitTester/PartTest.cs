@@ -57,8 +57,18 @@ namespace CprBroker.NUnitTester
         {
             Assert.NotNull(uuid);
             Assert.NotNull(uuid.StandardRetur);
+            Assert.AreEqual("200", uuid.StandardRetur.StatusKode);
             Assert.NotNull(uuid.UUID);
             Assert.AreNotEqual(uuid.UUID, Guid.Empty.ToString());
+        }
+
+        private void ValidateInvalid(GetUuidOutputType uuid)
+        {
+            Assert.NotNull(uuid);
+            Assert.NotNull(uuid.StandardRetur);
+            Assert.IsNotNullOrEmpty(uuid.StandardRetur.StatusKode);
+            Assert.AreNotEqual("200", uuid.StandardRetur.StatusKode);
+            Assert.IsNullOrEmpty(uuid.UUID);
         }
 
         #endregion
@@ -71,13 +81,21 @@ namespace CprBroker.NUnitTester
             Validate(uuid);
 
             var uuid2 = TestRunner.PartService.GetUuid(cprNumber);
-            Validate(uuid);
+            Validate(uuid2);
             Assert.AreEqual(uuid.UUID, uuid2.UUID);
         }
 
         [Test]
+        [TestCaseSource(typeof(TestData), TestData.InvalidCprNumbersFieldName)]
+        public void T210_GetUuid_Invalid(string cprNumber)
+        {
+            var uuid = TestRunner.PartService.GetUuid(cprNumber);
+            ValidateInvalid(uuid);
+        }
+
+        [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
-        public void T200_Read(string cprNumber)
+        public void T300_Read(string cprNumber)
         {
             var uuid = TestRunner.PartService.GetUuid(cprNumber);
             Validate(uuid);
@@ -93,7 +111,7 @@ namespace CprBroker.NUnitTester
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.EmptyReadInputFieldName)]
-        public void T210_Read_Empty(LaesInputType inp)
+        public void T310_Read_Empty(LaesInputType inp)
         {
             var person = TestRunner.PartService.Read(inp);
             Assert.IsNotNull(person);
@@ -103,7 +121,7 @@ namespace CprBroker.NUnitTester
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.InvalidReadInputFieldName)]
-        public void T220_Read_InvalidUuid(string uuid)
+        public void T320_Read_InvalidUuid(string uuid)
         {
             LaesInputType input = new LaesInputType()
             {
@@ -117,7 +135,7 @@ namespace CprBroker.NUnitTester
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.NonExistingUuidReadInputFieldName)]
-        public void T220_Read_NonexistingUuid(string uuid)
+        public void T330_Read_NonexistingUuid(string uuid)
         {
             LaesInputType input = new LaesInputType()
             {
@@ -132,7 +150,7 @@ namespace CprBroker.NUnitTester
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
-        public void T250_RefreshRead(string cprNumber)
+        public void T350_RefreshRead(string cprNumber)
         {
             var uuid = TestRunner.PartService.GetUuid(cprNumber);
             Validate(uuid);
@@ -155,7 +173,7 @@ namespace CprBroker.NUnitTester
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
-        public void T300_List_Single(string cprNumber)
+        public void T400_List_Single(string cprNumber)
         {
             string[] cprNumbers = new string[] { cprNumber };
             ListInputType input = new ListInputType()
@@ -175,7 +193,7 @@ namespace CprBroker.NUnitTester
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersToSubscribeFieldName)]
-        public void T310_List_All(string[] cprNumbers)
+        public void T410_List_All(string[] cprNumbers)
         {
             ListInputType input = new ListInputType()
             {
@@ -200,7 +218,7 @@ namespace CprBroker.NUnitTester
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
-        public void T400_Search_CprNumber(string cprNumber)
+        public void T500_Search_CprNumber(string cprNumber)
         {
             var personUuid = TestRunner.PartService.GetUuid(cprNumber).UUID;
 
@@ -273,7 +291,7 @@ namespace CprBroker.NUnitTester
 
         //[Test]
         //[TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
-        public void T500_Database_Update(string cprNumber)
+        public void T600_Database_Update(string cprNumber)
         {
             var uuid = TestRunner.PartService.GetUuid(cprNumber);
             LaesInputType input = new LaesInputType()
