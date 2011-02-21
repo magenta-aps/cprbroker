@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using CPR_Business_Application_Demo.Business;
-using CPR_Business_Application_Demo.Adapters.CPRPersonWS;
 
 namespace CPR_Business_Application_Demo
 {
@@ -20,33 +19,6 @@ namespace CPR_Business_Application_Demo
             this.mainTabControl.TabPages.Remove(this.personTabPage);
             this.mainTabControl.TabPages.Remove(this.searchTabPage);
         }
-
-
-        private void FillPersonResults(PersonBasicStructureType person)
-        {
-            // General information.
-            personFirstNameTextBox.Text = person.RegularCPRPerson.SimpleCPRPerson.PersonNameStructure.PersonGivenName;
-            personMiddleNameTextBox.Text = person.RegularCPRPerson.SimpleCPRPerson.PersonNameStructure.PersonMiddleName;
-            personSurnameTextBox.Text = person.RegularCPRPerson.SimpleCPRPerson.PersonNameStructure.PersonSurnameName;
-
-            var address = person.Item as DanishAddressStructureType;
-            if (address != null)
-            {
-                AddressLine1TextBox.Text = address.CompletePostalLabel.PostalAddressFirstLineText;
-                AddressLine2TextBox.Text = address.CompletePostalLabel.PostalAddressSecondLineText;
-                AddressLine3TextBox.Text = address.CompletePostalLabel.PostalAddressThirdLineText;
-                AddressLine4TextBox.Text = address.CompletePostalLabel.PostalAddressFourthLineText;
-                AddressLine5TextBox.Text = address.CompletePostalLabel.PostalAddressFifthLineText;
-                AddressLine6TextBox.Text = address.CompletePostalLabel.PostalAddressSixthLineText;
-            }
-        }
-
-        private static void FillPersonNameAndAddressResults(PersonNameAndAddressStructureType nameAndAddress)
-        {
-            //AddressIdentifierCodeType
-            //nameAndAddress.
-        }
-
 
         private void ConsoleWriteLine(string message)
         {

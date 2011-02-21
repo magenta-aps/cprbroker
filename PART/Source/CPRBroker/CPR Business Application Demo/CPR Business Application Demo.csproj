@@ -129,11 +129,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\CPRPersonWS\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\PartService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -153,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ApplicationsService\" />
-    <WCFMetadataStorage Include="Service References\CPRPersonWS\" />
     <WCFMetadataStorage Include="Service References\PartService\" />
     <WCFMetadataStorage Include="Service References\SubscriptionsService\" />
   </ItemGroup>
@@ -165,43 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ApplicationsService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CPRPersonWS\CPRPersonWS.disco" />
-    <None Include="Service References\CPRPersonWS\CPRPersonWS.wsdl" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CPRPersonWS\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CPRPersonWS\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.ParentAuthorityRelationshipType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonBasicStructureType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonFullStructureType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonNameAndAddressStructureType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.PersonRelationsType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.QualityHeader.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRPersonWS\CPR_Business_Application_Demo.Adapters.CPRPersonWS.SimpleCPRPersonType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CPRPersonWS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
