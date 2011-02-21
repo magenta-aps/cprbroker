@@ -47,15 +47,15 @@ namespace CprBroker.Schemas.Part
         public void SetMainItem(LaesResultatType[] mainItem)
         {
             LaesResultat = mainItem;
-        }        
+        }
     }
 
-    public partial class GetUuidOutputType : IBasicOutput<Guid>
+    public partial class GetUuidOutputType : IBasicOutput<string>
     {
-        public void SetMainItem(Guid mainItem)
+        public void SetMainItem(string mainItem)
         {
-            UUID= mainItem.ToString();
-        }        
+            UUID = mainItem;
+        }
     }
 
     public partial class LaesOutputType : IBasicOutput<LaesResultatType>
@@ -63,6 +63,6 @@ namespace CprBroker.Schemas.Part
         public void SetMainItem(LaesResultatType mainItem)
         {
             LaesResultat = mainItem;
-        }        
+        }
     }
 }

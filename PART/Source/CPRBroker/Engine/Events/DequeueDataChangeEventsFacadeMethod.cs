@@ -32,14 +32,5 @@ namespace CprBroker.Engine.Events
             SubMethodInfos = new SubMethodInfo[] { new Events.DequeueDataChangeEventSubMethodInfo(MaxCount) };
         }
 
-        public override BasicOutputType<DataChangeEventInfo[]> Aggregate(object[] results)
-        {
-            return new BasicOutputType<DataChangeEventInfo[]>()
-            {
-                StandardRetur = StandardReturType.OK(),
-                Item = results[0] as DataChangeEventInfo[],
-            };
-        }
-
     }
 }

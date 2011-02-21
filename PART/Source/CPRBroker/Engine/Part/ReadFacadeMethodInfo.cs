@@ -53,18 +53,15 @@ namespace CprBroker.Engine.Part
             };
         }
 
-        public override LaesOutputType Aggregate(object[] results)
+        public override LaesResultatType Aggregate(object[] results)
         {
-            LaesOutputType o = new LaesOutputType()
+            var LaesResultat = new LaesResultatType()
             {
-                LaesResultat = new LaesResultatType()
-                {
-                    Item = results[0]
-                },
-                StandardRetur = StandardReturType.OK(),
+                Item = results[0]
             };
+
             QualityLevel = (SubMethodInfos[0] as ReadSubMethodInfo).QualityLevel;
-            return o;
+            return LaesResultat;
         }
     }
 }

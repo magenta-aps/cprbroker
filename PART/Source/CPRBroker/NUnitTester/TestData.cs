@@ -47,7 +47,8 @@ namespace CprBroker.NUnitTester
             "          ",
             "ddddd",
             "  12345678",
-            "    56    "
+            "    56    ",
+            "2610800588"
         };
         public const string InvalidCprNumbersFieldName = "invalidCprNumbers";
 

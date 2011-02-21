@@ -6,7 +6,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.Part
 {
-    public class GerPersonUuidFacadeMethodInfo : FacadeMethodInfo<GetUuidOutputType,Guid>
+    public class GerPersonUuidFacadeMethodInfo : FacadeMethodInfo<GetUuidOutputType, string>
     {
         public string Input;
 
@@ -18,12 +18,12 @@ namespace CprBroker.Engine.Part
 
         public override StandardReturType ValidateInput()
         {
-            if(string.IsNullOrEmpty(Input))
+            if (string.IsNullOrEmpty(Input))
             {
                 return StandardReturType.NullInput();
             }
 
-            var pattern=@"\A\d{10}\Z";
+            var pattern = @"\A\d{10}\Z";
             if (!System.Text.RegularExpressions.Regex.Match(Input, pattern).Success)
             {
                 return StandardReturType.InvalidCprNumber(Input);
@@ -41,7 +41,7 @@ namespace CprBroker.Engine.Part
             }
 
             return StandardReturType.OK();
-        } 
+        }
 
         public override void Initialize()
         {
@@ -59,13 +59,9 @@ namespace CprBroker.Engine.Part
             };
         }
 
-        public override GetUuidOutputType Aggregate(object[] results)
+        public override string Aggregate(object[] results)
         {
-            return new GetUuidOutputType()
-            {
-                StandardRetur = StandardReturType.OK(),
-                UUID = results[0].ToString()
-            };
+            return results[0].ToString();
         }
     }
 }

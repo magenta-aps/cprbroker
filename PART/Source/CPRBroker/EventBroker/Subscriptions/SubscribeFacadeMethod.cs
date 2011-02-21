@@ -60,9 +60,5 @@ namespace CprBroker.EventBroker
             return StandardReturType.OK();
         }
 
-        public override BasicOutputType<ChangeSubscriptionType> Aggregate(object[] results)
-        {
-            return BasicOutputType<ChangeSubscriptionType>.CreateAsOKFromFirstResult(results);
-        }
     }
 }

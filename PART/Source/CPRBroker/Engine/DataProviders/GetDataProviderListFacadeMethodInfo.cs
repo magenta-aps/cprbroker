@@ -26,12 +26,5 @@ namespace CprBroker.Engine.DataProviders
             } };
         }
 
-        public override BasicOutputType<DataProviderType[]> Aggregate(object[] results)
-        {
-            return new BasicOutputType<DataProviderType[]>()
-            {
-                Item = (DataProviderType[])results[0]
-            };
-        }
     }
 }

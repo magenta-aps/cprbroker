@@ -77,9 +77,5 @@ namespace CprBroker.EventBroker
             return StandardReturType.OK();
         }
 
-        public override BasicOutputType<BirthdateSubscriptionType> Aggregate(object[] results)
-        {
-            return BasicOutputType<BirthdateSubscriptionType>.CreateAsOKFromFirstResult(results);
-        }
     }
 }

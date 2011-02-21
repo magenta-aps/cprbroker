@@ -262,19 +262,17 @@ namespace CprBroker.Engine
                 if (subResultsFinished)
                 {
                     var subResults = (from mi in subMethodRunStates select mi.Result).ToArray();
-                    var output = facade.Aggregate(subResults);
-                    if (facade.IsValidResult(output))
+                    var outputMainItem = facade.Aggregate(subResults);
+                    if (facade.IsValidResult(outputMainItem))
                     {
                         Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.Succeeded, null, null);
-                        if (output.StandardRetur == null)
-                        {
-                            output.StandardRetur = StandardReturType.OK();
-                        }
+                        var output = new TOutput() { StandardRetur = StandardReturType.OK() };
+                        output.SetMainItem(outputMainItem);
                         return output;
                     }
                     else
                     {
-                        string xml = DAL.Utilities.SerializeObject(output);
+                        string xml = DAL.Utilities.SerializeObject(outputMainItem);
                         Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.ResultGatheringFailed, typeof(TOutput).ToString(), xml);
                         return new TOutput() { StandardRetur = StandardReturType.UnspecifiedError("Aggregation failed") };
                     }

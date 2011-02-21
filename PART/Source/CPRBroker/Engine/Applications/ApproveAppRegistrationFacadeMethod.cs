@@ -51,9 +51,5 @@ namespace CprBroker.Engine
             return StandardReturType.OK();
         }
 
-        public override BasicOutputType<bool> Aggregate(object[] results)
-        {
-            return BasicOutputType<bool>.CreateAsOKFromFirstResult(results);
-        }
     }
 }

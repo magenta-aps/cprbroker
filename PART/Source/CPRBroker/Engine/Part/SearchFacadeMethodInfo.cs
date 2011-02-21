@@ -17,19 +17,10 @@ namespace CprBroker.Engine.Part
             this.SubMethodInfos = new SubMethodInfo[] { new SearchSubMethodInfo(input) };
         }
 
-        public override SoegOutputType Aggregate(object[] results)
+        public override string[] Aggregate(object[] results)
         {
-            var ret = new SoegOutputType()
-            {
-                StandardRetur = StandardReturType.OK(),
-                Idliste = new string[0]
-            };
             var foundIds = results[0] as Guid[];
-            if (foundIds != null)
-            {
-                ret.Idliste = (from id in foundIds select id.ToString()).ToArray();
-            }
-            return ret;
+            return (from id in foundIds select id.ToString()).ToArray();
         }
     }
 }

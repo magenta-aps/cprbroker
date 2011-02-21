@@ -32,34 +32,21 @@ namespace CprBroker.Engine
         public Action InitializationMethod = () => { };
 
 
-        public virtual TOutput Aggregate(object[] results)
+        public virtual TItem Aggregate(object[] results)
         {
-            if (AggregationMethod != null)
+            if (results != null && results.Length == 1)
             {
-                return AggregationMethod(results);
+                return (TItem)(object)results[0];
             }
             else
             {
-                return default(TOutput);
+                return default(TItem);
             }
         }
 
-        public Func<object[], TOutput> AggregationMethod =
-            (results) =>
-            {
-                if (results != null && results.Length == 1)
-                {
-                    return (TOutput)(object)results[0];
-                }
-                else
-                {
-                    return default(TOutput);
-                }
-            };
-
-        public virtual bool IsValidResult(TOutput output)
+        public virtual bool IsValidResult(TItem output)
         {
-            return !object.Equals(output, default(TOutput));
+            return !object.Equals(output, default(TItem));
         }
 
         public string ApplicationToken;

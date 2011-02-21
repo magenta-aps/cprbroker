@@ -33,13 +33,5 @@ namespace CprBroker.Engine.Events
             SubMethodInfos = new SubMethodInfo[] { new GetPersonBirthdatesSubmethodInfo(PersonUuidToStartAfter, MaxCount) };
         }
 
-        public override BasicOutputType<PersonBirthdate[]> Aggregate(object[] results)
-        {
-            return new BasicOutputType<PersonBirthdate[]>()
-            {
-                StandardRetur = StandardReturType.OK(),
-                Item = results[0] as PersonBirthdate[],
-            };
-        }
     }
 }

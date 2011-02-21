@@ -8,7 +8,7 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Engine.Part
 {
     //TODO: Modify to never return null even if input is wrong
-    public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1,LaesResultatType[]>
+    public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1, LaesResultatType[]>
     {
         public ListInputType input;
         public Dictionary<string, PersonIdentifier> inputUuidToPersonIdentifierMap = new Dictionary<string, PersonIdentifier>();
@@ -77,17 +77,13 @@ namespace CprBroker.Engine.Part
            );
         }
 
-        public override ListOutputType1 Aggregate(object[] results)
+        public override LaesResultatType[] Aggregate(object[] results)
         {
-            return new ListOutputType1()
-            {
-                LaesResultat = Array.ConvertAll<object, LaesResultatType>
+            return Array.ConvertAll<object, LaesResultatType>
                 (
                     results,
                     (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
-                ),
-                StandardRetur = StandardReturType.OK(),
-            };
+                );
         }
 
     }
