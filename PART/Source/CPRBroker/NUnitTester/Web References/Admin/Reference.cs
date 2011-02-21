@@ -259,9 +259,9 @@ namespace CprBroker.NUnitTester.Admin {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/GetCapabilities", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public ServiceVersionType[] GetCapabilities() {
+        public BasicOutputTypeOfArrayOfServiceVersionType GetCapabilities() {
             object[] results = this.Invoke("GetCapabilities", new object[0]);
-            return ((ServiceVersionType[])(results[0]));
+            return ((BasicOutputTypeOfArrayOfServiceVersionType)(results[0]));
         }
         
         /// <remarks/>
@@ -287,11 +287,11 @@ namespace CprBroker.NUnitTester.Admin {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/IsImplementing", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool IsImplementing(string serviceName, string serviceVersion) {
+        public BasicOutputTypeOfBoolean IsImplementing(string serviceName, string serviceVersion) {
             object[] results = this.Invoke("IsImplementing", new object[] {
                         serviceName,
                         serviceVersion});
-            return ((bool)(results[0]));
+            return ((BasicOutputTypeOfBoolean)(results[0]));
         }
         
         /// <remarks/>
@@ -377,10 +377,10 @@ namespace CprBroker.NUnitTester.Admin {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/Log", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool Log(string Text) {
+        public BasicOutputTypeOfBoolean Log(string Text) {
             object[] results = this.Invoke("Log", new object[] {
                         Text});
-            return ((bool)(results[0]));
+            return ((BasicOutputTypeOfBoolean)(results[0]));
         }
         
         /// <remarks/>
@@ -493,52 +493,6 @@ namespace CprBroker.NUnitTester.Admin {
             }
             set {
                 this.anyAttrField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
-    public partial class ServiceVersionType {
-        
-        private string versionField;
-        
-        private string[] functionsField;
-        
-        private object detailsField;
-        
-        /// <remarks/>
-        public string Version {
-            get {
-                return this.versionField;
-            }
-            set {
-                this.versionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Functions", IsNullable=false)]
-        public string[] Functions {
-            get {
-                return this.functionsField;
-            }
-            set {
-                this.functionsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public object Details {
-            get {
-                return this.detailsField;
-            }
-            set {
-                this.detailsField = value;
             }
         }
     }
@@ -1743,8 +1697,8 @@ namespace CprBroker.NUnitTester.Admin {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3403,6 +3357,52 @@ namespace CprBroker.NUnitTester.Admin {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
+    public partial class ServiceVersionType {
+        
+        private string versionField;
+        
+        private string[] functionsField;
+        
+        private object detailsField;
+        
+        /// <remarks/>
+        public string Version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("Functions", IsNullable=false)]
+        public string[] Functions {
+            get {
+                return this.functionsField;
+            }
+            set {
+                this.functionsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public object Details {
+            get {
+                return this.detailsField;
+            }
+            set {
+                this.detailsField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
     public partial class ApplicationType {
         
         private string applicationIdField;
@@ -3513,11 +3513,12 @@ namespace CprBroker.NUnitTester.Admin {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfDataProviderType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfServiceVersionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfApplicationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfBoolean))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfApplicationType))]
@@ -3537,27 +3538,6 @@ namespace CprBroker.NUnitTester.Admin {
             }
             set {
                 this.standardReturField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class LaesOutputType : BasicOutputType {
-        
-        private LaesResultatType laesResultatField;
-        
-        /// <remarks/>
-        public LaesResultatType LaesResultat {
-            get {
-                return this.laesResultatField;
-            }
-            set {
-                this.laesResultatField = value;
             }
         }
     }
@@ -3611,6 +3591,27 @@ namespace CprBroker.NUnitTester.Admin {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class LaesOutputType : BasicOutputType {
+        
+        private LaesResultatType laesResultatField;
+        
+        /// <remarks/>
+        public LaesResultatType LaesResultat {
+            get {
+                return this.laesResultatField;
+            }
+            set {
+                this.laesResultatField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
     public partial class OpretOutputType : BasicOutputType {
         
         private PersonType personField;
@@ -3638,6 +3639,27 @@ namespace CprBroker.NUnitTester.Admin {
         
         /// <remarks/>
         public DataProviderType[] Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public partial class BasicOutputTypeOfArrayOfServiceVersionType : BasicOutputType {
+        
+        private ServiceVersionType[] itemField;
+        
+        /// <remarks/>
+        public ServiceVersionType[] Item {
             get {
                 return this.itemField;
             }
@@ -3832,10 +3854,10 @@ namespace CprBroker.NUnitTester.Admin {
         }
         
         /// <remarks/>
-        public ServiceVersionType[] Result {
+        public BasicOutputTypeOfArrayOfServiceVersionType Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((ServiceVersionType[])(this.results[0]));
+                return ((BasicOutputTypeOfArrayOfServiceVersionType)(this.results[0]));
             }
         }
     }
@@ -3858,10 +3880,10 @@ namespace CprBroker.NUnitTester.Admin {
         }
         
         /// <remarks/>
-        public bool Result {
+        public BasicOutputTypeOfBoolean Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
+                return ((BasicOutputTypeOfBoolean)(this.results[0]));
             }
         }
     }
@@ -3936,10 +3958,10 @@ namespace CprBroker.NUnitTester.Admin {
         }
         
         /// <remarks/>
-        public bool Result {
+        public BasicOutputTypeOfBoolean Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
+                return ((BasicOutputTypeOfBoolean)(this.results[0]));
             }
         }
     }

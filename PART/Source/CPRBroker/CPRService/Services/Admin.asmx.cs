@@ -62,14 +62,14 @@ namespace CprBroker.Web.Services
         #region Versioning
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.GetCapabilities, Description = ServiceDescription.Administrator.GetCapabilities)]
-        public ServiceVersionType[] GetCapabilities()
+        public BasicOutputType<ServiceVersionType[]> GetCapabilities()
         {
             return Manager.Admin.GetCapabilities(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.IsImplementing, Description = ServiceDescription.Administrator.IsImplementing)]
-        public bool IsImplementing(string serviceName, string serviceVersion)
+        public BasicOutputType<bool> IsImplementing(string serviceName, string serviceVersion)
         {
             return Manager.Admin.IsImplementing(applicationHeader.UserToken, applicationHeader.ApplicationToken, serviceName, serviceVersion);
         }
@@ -93,7 +93,7 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = ServiceNames.Administrator.MethodNames.Log, Description = ServiceDescription.Administrator.Log)]
-        public bool Log(string Text)
+        public BasicOutputType<bool> Log(string Text)
         {
             return Manager.Admin.Log(applicationHeader.UserToken, applicationHeader.ApplicationToken, Text);
         }

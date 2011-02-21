@@ -377,66 +377,7 @@
                                                 </table>
                                                 <br>==============================
                                                 ";
-            public const string CreateTestCitizen = @"
-                                                Creates a non-existing  citizen (Dummy), so that the services can later return a usable query result. 
-
-                                                <br><br><b><u>Signature:</u></b>
-                                                <br>bool CreateTestCitizen(PersonFullStructureType OioPerson)
-
-                                                <br><br><b><u>Parameter Description:</u></b>
-                                                <br><table>
-                                                <tr><td>OioPerson (input):</td><td>PersonFullStructureType that represent the user you want to create as a test citizen</td></tr>
-                                                </table>
-
-                                                <br><b><u>Return Value:</u></b>
-                                                <br>return bool that represents whether the operation has succeeded.
-
-                                                <br><br><b><u>Review:</u></b>
-                                                <table>
-                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
-                                                </table>
-                                                <br>==============================
-                                                ";
             #endregion
-        }
-
-        public static class Access
-        {
-            public const string Service = "Allows web access for certain administrative functions";
-
-            public const string SendNotifications = @"            
-                                                Causes the system to check for due notifications and send them
-
-                                                <br><br><b><u>Signature:</u></b>
-                                                <br>bool SendNotifications(DateTime today)
-
-                                                <br><br><b><u>Parameter Description:</u></b>
-                                                <br><table>
-                                                <tr><td>today (input):</td><td>Due date of notifications</td></tr>
-                                                </table>
-
-                                                <br><b><u>Return Value:</u></b>
-                                                <br>return SendNotificationsResult that represents the result of the operation.
-                                                
-                                                <br>==============================
-                                                ";
-
-            public const string RefreshPersonsData = @"            
-                                                Causes the system to refresh data of all the persons that are part of a data change subscription
-
-                                                <br><br><b><u>Signature:</u></b>
-                                                <br>RefreshPersonsDataResult RefreshPersonsData()
-
-                                                <br><br><b><u>Parameter Description:</u></b>
-                                                <br><table>                                                
-                                                </table>
-
-                                                <br><b><u>Return Value:</u></b>
-                                                <br>return RefreshPersonsDataResult that represents the result of the operation.
-                                                
-                                                <br>==============================
-                                                ";
-
         }
 
         public static class Notification

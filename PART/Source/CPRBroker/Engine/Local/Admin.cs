@@ -108,13 +108,13 @@ namespace CprBroker.Engine.Local
         {
             // Use reflection to get a list of all methods fromDate MethodNames classes
             List<System.Reflection.FieldInfo> fields = new List<System.Reflection.FieldInfo>();
-            fields.AddRange(typeof(ServiceNames.Person.MethodNames).GetFields());
+            fields.AddRange(typeof(ServiceNames.Part.Methods).GetFields());
             fields.AddRange(typeof(ServiceNames.Administrator.MethodNames).GetFields());
             return
                 from f in fields.AsQueryable()
                 select f.Name;
         }
-        public ServiceVersionType[] GetCapabilities(string userToken, string appToken)
+        public ServiceVersionType[] GetCapabilities()
         {
             ServiceVersionType cprVersion = new ServiceVersionType();
 
@@ -124,7 +124,7 @@ namespace CprBroker.Engine.Local
             return new ServiceVersionType[] { cprVersion };
         }
 
-        public bool IsImplementing(string userToken, string appToken, string methodName, string version)
+        public bool IsImplementing(string methodName, string version)
         {
             IQueryable<string> fields = GetMethodNames();
             foreach (var field in fields)
@@ -138,7 +138,7 @@ namespace CprBroker.Engine.Local
         #endregion
 
         #region ILoggingDataProvider Members
-        public bool Log(string userToken, string appToken, string text)
+        public bool Log(string text)
         {
             CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "LogFunctions", text, null, null);
             return true;

@@ -137,7 +137,7 @@ namespace CPR_Business_Application_Demo.Business
             try
             {
                 var cprAdministrationAdapter = new ApplicationAdapter(CprAdminWebServiceUrl);
-                return cprAdministrationAdapter.GetCapabillities(GetHeader());
+                return cprAdministrationAdapter.GetCapabillities(GetHeader()).Item;
 
             }
             catch (Exception)

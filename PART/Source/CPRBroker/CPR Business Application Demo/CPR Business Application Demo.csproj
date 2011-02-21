@@ -208,11 +208,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.ServiceVersionType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\ApplicationsService\Admin.disco" />
     <None Include="Service References\ApplicationsService\Admin.wsdl" />
     <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType.datasource">
@@ -222,6 +217,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfDataProviderType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfServiceVersionType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean.datasource">

@@ -9,6 +9,12 @@ namespace CprBroker.NUnitTester
     [TestFixture]
     public class ApplicationManagementTest : BaseTest
     {
+        public void Validate(Admin.StandardReturType ret)
+        {
+            Assert.IsNotNull(ret);
+            base.Validate(ret.StatusKode, ret.FejlbeskedTekst);
+        }
+
         [Test]
         public void T010_RequestAppRegistration()
         {
@@ -25,7 +31,7 @@ namespace CprBroker.NUnitTester
         public void T020_ApproveAppRegistration()
         {
             var result = TestRunner.AdminService.ApproveAppRegistration(TestData.AppToken);
-            Assert.NotNull(result.StandardRetur);
+            Validate(result.StandardRetur);
             Assert.IsTrue(result.Item);
 
             //TestRunner.AdminService.ApplicationHeaderValue.ApplicationToken = TestData.AppToken;
@@ -37,6 +43,7 @@ namespace CprBroker.NUnitTester
         {
             var result = TestRunner.AdminService.ListAppRegistrations();
             Assert.IsNotNull(result);
+            Validate(result.StandardRetur);
             var targetApp = (from app in result.Item where app.Token == TestData.AppToken select app).SingleOrDefault();
             Assert.IsNotNull(targetApp);
             Assert.Greater(targetApp.RegistrationDate, DateTime.Today);
@@ -47,6 +54,7 @@ namespace CprBroker.NUnitTester
         {
             var dataProviders = TestRunner.AdminService.GetDataProviderList();
             Assert.IsNotNull(dataProviders);
+            Validate(dataProviders.StandardRetur);
             Assert.IsNotNull(dataProviders.Item);
             foreach (var dataProvider in dataProviders.Item)
             {
@@ -60,6 +68,7 @@ namespace CprBroker.NUnitTester
         {
             var dataProviders = TestRunner.AdminService.GetDataProviderList();
             Assert.IsNotNull(dataProviders);
+            Validate(dataProviders.StandardRetur);
             Assert.IsNotNull(dataProviders.Item);
 
             if (dataProviders.Item.Length > 1)
@@ -86,17 +95,20 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.IncorrectMethodNamesFieldName)]
         public void T410_IsImplementing(string serviceName)
         {
-            bool imp = TestRunner.AdminService.IsImplementing(serviceName, TestData.serviceVersion);
-            Assert.AreEqual(Array.IndexOf<string>(TestData.correctMethodNames, serviceName) != -1, imp);
-            Assert.AreNotEqual(Array.IndexOf<string>(TestData.incorrectMethodNames, serviceName) != -1, imp);
+            var imp = TestRunner.AdminService.IsImplementing(serviceName, TestData.serviceVersion);
+            Validate(imp.StandardRetur);
+            Assert.AreEqual(Array.IndexOf<string>(TestData.correctMethodNames, serviceName) != -1, imp.Item);
+            Assert.AreNotEqual(Array.IndexOf<string>(TestData.incorrectMethodNames, serviceName) != -1, imp.Item);
         }
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.LogTextFieldName)]
         public void T600_Log(string text)
         {
-            bool ret = TestRunner.AdminService.Log(text);
-            Assert.IsTrue(ret);
+            var ret = TestRunner.AdminService.Log(text);
+            Assert.NotNull(ret);
+            Validate(ret.StandardRetur);
+            Assert.IsTrue(ret.Item);
         }
         #endregion
 

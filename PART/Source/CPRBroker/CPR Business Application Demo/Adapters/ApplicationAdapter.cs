@@ -51,7 +51,7 @@ namespace CPR_Business_Application_Demo.Adapters
 
         #region Misc
         
-        public ServiceVersionType[] GetCapabillities(ApplicationHeader applicationHeader)
+        public BasicOutputTypeOfArrayOfServiceVersionType GetCapabillities(ApplicationHeader applicationHeader)
         {
             return applicationsHandler.GetCapabilities(applicationHeader);
         }

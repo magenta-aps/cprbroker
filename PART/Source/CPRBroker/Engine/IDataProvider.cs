@@ -109,20 +109,16 @@ namespace CprBroker.Engine
         /// <summary>
         /// Gets an object that contains all the capabilities of the current system
         /// </summary>
-        /// <param name="userToken">Security Token for authorizing the current user</param>
-        /// <param name="appToken">Security Token for the application the current application.</param>
         /// <returns></returns>
-        ServiceVersionType[] GetCapabilities(string userToken, string appToken);
+        ServiceVersionType[] GetCapabilities();
 
         /// <summary>
         /// Check if this method exist in the current version
         /// </summary>
         /// <param name="userToken">Security Token for authorizing the current user</param>
         /// <param name="appToken">Security Token for the application the current application.</param>
-        /// <param name="methodName">Method name to check its version</param>
-        /// <param name="version">version number as string formated as(Num.Num) e.g "1.0"</param>
         /// <returns></returns>
-        bool IsImplementing(string userToken, string appToken, string methodName, string version);
+        bool IsImplementing(string methodName, string version);
     }
 
     /// <summary>
@@ -130,7 +126,7 @@ namespace CprBroker.Engine
     /// </summary>
     public interface ILoggingDataProvider : IDataProvider
     {
-        bool Log(string userToken, string appToken, string text);
+        bool Log(string text);
     }
 
     /// <summary>

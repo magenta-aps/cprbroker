@@ -121,6 +121,9 @@
     <Compile Include="Applications\UnregisterAppFacadeMethod.cs" />
     <Compile Include="Applications\ListAppRegistrationsFacadeMethod.cs" />
     <Compile Include="Applications\RequestAppRegistrationFacadeMethod.cs" />
+    <Compile Include="Capabilites\IsImplementingFacadeMethod.cs" />
+    <Compile Include="Capabilites\GetCapabilitiesFacadeMethod.cs" />
+    <Compile Include="Capabilites\LogFacadeMethod.cs" />
     <Compile Include="GenericFacadeMethodInfo.cs" />
     <Compile Include="DataProviders\GetDataProviderListFacadeMethodInfo.cs" />
     <Compile Include="DataProviders\SetDataProvidersFacadeMethodInfo.cs" />

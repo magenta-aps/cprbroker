@@ -16,15 +16,15 @@ namespace CprBroker.Engine
         public class Admin
         {
             #region Versioning management
-            public static ServiceVersionType[] GetCapabilities(string userToken, string appToken)
+            public static BasicOutputType<ServiceVersionType[]> GetCapabilities(string userToken, string appToken)
             {
-                return CallMethod<IVersionManager, ServiceVersionType[]>
-                (userToken, appToken, true, (admin) => admin.GetCapabilities(userToken, appToken), true, null);
+                var facade = new GetCapabilitiesFacadeMethod(appToken, userToken);
+                return GetMethodOutput<ServiceVersionType[]>(facade);
             }
-            public static bool IsImplementing(string userToken, string appToken, string methodName, string version)
+            public static BasicOutputType<bool> IsImplementing(string userToken, string appToken, string methodName, string version)
             {
-                return CallMethod<IVersionManager, bool>
-                (userToken, appToken, true, (admin) => admin.IsImplementing(userToken, appToken, methodName, version), false, null);
+                var facade = new IsImplementingFacadeMethod(appToken, userToken, methodName, version);
+                return GetMethodOutput<bool>(facade);
             }
             #endregion
 
@@ -69,9 +69,10 @@ namespace CprBroker.Engine
 
             #region Logging
 
-            public static bool Log(string userToken, string appToken, string text)
+            public static BasicOutputType<bool> Log(string userToken, string appToken, string text)
             {
-                return CallMethod<ILoggingDataProvider, bool>(userToken, appToken, true, (ILoggingDataProvider log) => log.Log(userToken, appToken, text), true, null);
+                var facade = new LogFacadeMethod(text, appToken, userToken);
+                return GetMethodOutput<bool>(facade);
             }
             #endregion
 

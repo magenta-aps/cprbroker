@@ -206,9 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\Admin\Admin.wsdl" />
-    <None Include="Web References\Admin\ServiceVersionType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Events\Events.disco" />
     <None Include="Web References\Events\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -224,6 +221,9 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Admin\BasicOutputTypeOfArrayOfDataProviderType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Admin\BasicOutputTypeOfArrayOfServiceVersionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Admin\BasicOutputTypeOfBoolean.datasource">

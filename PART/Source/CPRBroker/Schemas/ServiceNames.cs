@@ -10,22 +10,7 @@ namespace CprBroker.Schemas.Part
     /// </summary>
     public partial class ServiceNames
     {
-        public static class Person
-        {
-            public const string Service = "CPRPersonWS";
-
-            public static class MethodNames
-            {
-                public const string GetCitizenBasic = "GetCitizenBasic";
-                public const string GetCitizenNameAndAddress = "GetCitizenNameAndAddress";
-                public const string GetCitizenFull = "GetCitizenFull";
-                public const string GetCitizenRelations = "GetCitizenRelations";
-                public const string GetCitizenChildren = "GetCitizenChildren";
-                public const string RemoveParentAuthorityOverChild = "RemoveParentAuthorityOverChild";
-                public const string SetParentAuthorityOverChild = "SetParentAuthorityOverChild";
-                public const string GetParentAuthorityOverChildChanges = "GetParentAuthorityOverChildChanges";
-            }
-        }
+        
 
         public static class Administrator
         {
@@ -42,7 +27,6 @@ namespace CprBroker.Schemas.Part
                 public const string GetDataProviderList = "GetDataProviderList";
                 public const string SetDataProviderList = "SetDataProviderList";
                 public const string Log = "Log";
-                public const string CreateTestCitizen = "CreateTestCitizen";
             }
         }
 
@@ -56,16 +40,6 @@ namespace CprBroker.Schemas.Part
                 public const string Ping = "Ping";
             }
         }
-
-        public static class Access
-        {
-            public const string Service = "Access";
-
-            public static class MethodNames
-            {
-                public const string SendNotifications = "SendNotifications";
-                public const string RefreshPersonsData = "RefreshPersonsData";
-            }
-        }
+       
     }
 }
