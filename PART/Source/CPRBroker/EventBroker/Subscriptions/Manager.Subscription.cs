@@ -16,11 +16,6 @@ namespace CprBroker.EventBroker.Subscriptions
         /// </summary>
         public class Subscriptions
         {
-            public static TOutput CallMethod<TInterface, TOutput>(string userToken, string appToken, bool allowLocalProvider, Func<TInterface, TOutput> func, bool failOnDefaultOutput, Action<TOutput> updateMethod) where TInterface : class, IDataProvider
-            {
-                return CprBroker.Engine.Manager.CallMethod<TInterface, TOutput>(userToken, appToken, allowLocalProvider, func, failOnDefaultOutput, updateMethod);
-            }
-
             public static TOutput GetMethodOutput<TOutput>(FacadeMethodInfo<TOutput> facade) where TOutput : class, IBasicOutput, new()
             {
                 return CprBroker.Engine.Manager.GetMethodOutput<TOutput>(facade);

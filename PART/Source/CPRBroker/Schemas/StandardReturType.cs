@@ -55,6 +55,11 @@ namespace CprBroker.Schemas.Part
             return Create(HttpErrorCode.UNSPECIFIED);
         }
 
+        public static StandardReturType UnspecifiedError(string text)
+        {
+            return Create(HttpErrorCode.UNSPECIFIED,text);
+        }
+
         public static StandardReturType NullInput()
         {
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Input cannot be null");
@@ -85,6 +90,11 @@ namespace CprBroker.Schemas.Part
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Value \"{0}\" for \"{1}\" is out of valid range", value, name));
         }
 
+        public static StandardReturType InvalidApplicationToken(string appToken)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid application token: {0}", appToken));
+        }
+        
         public static StandardReturType InvalidUuid(string uuid)
         {
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid UUID: {0}", uuid));

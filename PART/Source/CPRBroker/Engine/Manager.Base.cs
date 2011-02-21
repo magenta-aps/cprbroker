@@ -117,13 +117,27 @@ namespace CprBroker.Engine
             {
                 #region Initialization and loading of clearData providers
                 // Initialize context
-                BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken);
+                try
+                {
+                    BrokerContext.Initialize(facade.ApplicationToken, facade.UserToken);
+                }
+                catch (Exception ex)
+                {
+                    return new TOutput()
+                    {
+                        StandardRetur = StandardReturType.InvalidApplicationToken(facade.ApplicationToken)
+                    };
+                }
 
                 // Validate
                 StandardReturType validationRet = facade.ValidateInput();
                 if (!StandardReturType.IsSucceeded(validationRet))
                 {
                     Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.InvalidInput, null, null);
+                    if (validationRet == null)
+                    {
+                        validationRet = StandardReturType.UnspecifiedError("Validation failed");
+                    }
                     return new TOutput()
                     {
                         StandardRetur = validationRet
@@ -134,29 +148,24 @@ namespace CprBroker.Engine
                 facade.Initialize();
 
                 // have a list of clearData provider types and corresponding methods to call
-                var subMethodRunStates =
-                    (
-                        from mi in facade.SubMethodInfos
-                        select new SubMethodRunState()
-                       {
-                           SubMethodInfo = mi,
-                           DataProviders = DataProviderManager.GetDataProviderList(mi.InterfaceType, mi.LocalDataProviderOption)
-                       }
-                   ).ToArray();
+                var subMethodRunStates = facade.SubMethodInfos
+                    .Select(mi => new SubMethodRunState()
+                    {
+                        SubMethodInfo = mi,
+                        DataProviders = DataProviderManager.GetDataProviderList(mi.InterfaceType, mi.LocalDataProviderOption)
+                    })
+                    .ToArray();
 
                 // Now check that each method call info either has at least one clearData provider implementation or can be safely ignored. 
-                var missingDataProvidersExist = (
-                        (
-                            from mi in subMethodRunStates
-                            where mi.SubMethodInfo.FailIfNoDataProvider && mi.DataProviders.Count == 0
-                            select mi
-                        ).FirstOrDefault() != null
-                    );
+                var missingDataProvidersExist = subMethodRunStates.Where(mi => mi.SubMethodInfo.FailIfNoDataProvider && mi.DataProviders.Count == 0).FirstOrDefault() != null;
 
                 if (missingDataProvidersExist)
                 {
                     Local.Admin.AddNewLog(TraceEventType.Warning, BrokerContext.Current.WebMethodMessageName, TextMessages.NoDataProvidersFound, null, null);
-                    return default(TOutput);
+                    return new TOutput()
+                    {
+                        StandardRetur = StandardReturType.Create(HttpErrorCode.DATASOURCE_UNAVAILABLE)
+                    };
                 }
                 #endregion
 
@@ -179,9 +188,7 @@ namespace CprBroker.Engine
                             {
                                 try
                                 {
-                                    Local.Admin.LogSuccess("Start Operation " + BrokerContext.Current.WebMethodMessageName);
                                     object subResult = subMethodInfo.SubMethodInfo.Invoke(prov);
-                                    Local.Admin.LogSuccess("End Operation " + BrokerContext.Current.WebMethodMessageName);
                                     // See if result can be used to update local database
                                     if (prov is IExternalDataProvider && subMethodInfo.SubMethodInfo.IsUpdatableOutput(subResult))
                                     {
@@ -254,13 +261,22 @@ namespace CprBroker.Engine
                     if (facade.IsValidResult(output))
                     {
                         Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.Succeeded, null, null);
+                        if (output.StandardRetur == null)
+                        {
+                            output.StandardRetur = StandardReturType.OK();
+                        }
                         return output;
                     }
                     else
                     {
                         string xml = DAL.Utilities.SerializeObject(output);
                         Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.ResultGatheringFailed, typeof(TOutput).ToString(), xml);
+                        return new TOutput() { StandardRetur = StandardReturType.UnspecifiedError("Aggregation failed") };
                     }
+                }
+                else
+                {
+                    return new TOutput() { StandardRetur = StandardReturType.Create(HttpErrorCode.DATASOURCE_UNAVAILABLE) };
                 }
                 #endregion
 
@@ -268,8 +284,8 @@ namespace CprBroker.Engine
             catch (Exception ex)
             {
                 Local.Admin.LogException(ex);
+                return new TOutput() { StandardRetur = StandardReturType.UnspecifiedError() };
             }
-            return default(TOutput);
         }
 
         private class SubMethodRunState
