@@ -40,7 +40,12 @@ namespace CprBroker.EventBroker.Web
 
         protected void Application_Error(object sender, EventArgs e)
         {
-
+            var ex = Server.GetLastError();
+            if (ex is HttpUnhandledException && ex.InnerException != null)
+            {
+                Engine.BrokerContext.Initialize(CprBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), Engine.Constants.UserToken);
+                Engine.Local.Admin.LogCriticalException(ex.InnerException);
+            }
         }
 
         protected void Session_End(object sender, EventArgs e)

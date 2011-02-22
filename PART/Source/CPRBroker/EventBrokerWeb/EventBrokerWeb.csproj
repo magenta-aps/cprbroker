@@ -110,6 +110,7 @@
     <Content Include="Services\Web.config" />
     <Content Include="Config\connectionStrings.config" />
     <Content Include="Config\applicationSettings.config" />
+    <Content Include="Config\loggingConfiguration.config" />
     <None Include="Templates\Notification.wsdl" />
   </ItemGroup>
   <ItemGroup>
