@@ -308,6 +308,16 @@ namespace CprBroker.NUnitTester
             Assert.AreEqual(personUuid.UUID, result.Idliste[0], "Search result returns wrong uuids");
         }
 
+        [Test]        
+        [TestCaseSource(typeof(TestData), TestData.InvalidSearchCriteriaFieldName)]
+        public void T520_Search_Invalid(SoegInputType1 searchCriteria)
+        {
+            var result = TestRunner.PartService.Search(searchCriteria);
+            Assert.NotNull(result);
+            Assert.IsNull(result.Idliste);
+            ValidateInvalid(result.StandardRetur);
+        }
+
         // TODO: Add more methods to test Search for criteria other than CPR number
 
 

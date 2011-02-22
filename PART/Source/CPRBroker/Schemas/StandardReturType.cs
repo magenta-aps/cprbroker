@@ -57,7 +57,7 @@ namespace CprBroker.Schemas.Part
 
         public static StandardReturType UnspecifiedError(string text)
         {
-            return Create(HttpErrorCode.UNSPECIFIED,text);
+            return Create(HttpErrorCode.UNSPECIFIED, text);
         }
 
         public static StandardReturType NullInput()
@@ -94,7 +94,7 @@ namespace CprBroker.Schemas.Part
         {
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid application token: {0}", appToken));
         }
-        
+
         public static StandardReturType InvalidUuid(string uuid)
         {
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid UUID: {0}", uuid));
@@ -103,6 +103,11 @@ namespace CprBroker.Schemas.Part
         public static StandardReturType InvalidCprNumber(string cpr)
         {
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid CPR number: {0}", cpr));
+        }
+
+        public static StandardReturType InvalidValue(string name, string val)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid {0}: {1}", name, val));
         }
 
         public static StandardReturType UnknownUuid(string uuid)

@@ -52,7 +52,26 @@ namespace CprBroker.NUnitTester
         };
         public const string InvalidCprNumbersFieldName = "invalidCprNumbers";
 
-
+        public static readonly SoegInputType1[] InvalidSearchCriteria = new SoegInputType1[]
+        {
+            null,
+            new SoegInputType1(),
+            new SoegInputType1()
+            {
+                SoegObjekt=new SoegObjektType(){ UUID=Guid.NewGuid().ToString()+"D"}
+            },
+            new SoegInputType1()
+            {
+                SoegObjekt=new SoegObjektType(),
+                FoersteResultatReference="dd"
+            },
+            new SoegInputType1()
+            {
+                SoegObjekt=new SoegObjektType(),
+                MaksimalAntalKvantitet="-1"
+            },
+        };
+        public const string InvalidSearchCriteriaFieldName = "InvalidSearchCriteria";
 
         public static string[] cprNumbersWithChildren = new string[] { "1305763892" };
         public const string CprNumbersWithChildrenFieldName = "cprNumbersWithChildren";

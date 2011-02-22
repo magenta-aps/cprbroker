@@ -29,6 +29,11 @@ namespace CprBroker.Providers.Local
                 var pred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
                 if (searchCriteria.SoegObjekt != null)
                 {
+                    if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.UUID))
+                    {
+                        var personUuid=new Guid(searchCriteria.SoegObjekt.UUID);
+                        pred = pred.And(p => p.UUID == personUuid);
+                    }
                     // Search by cpr number
                     if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.BrugervendtNoegleTekst))
                     {
@@ -40,7 +45,7 @@ namespace CprBroker.Providers.Local
                         {
                             foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab)
                             {
-                                if (prop.NavnStruktur != null)
+                                if (prop!=null && prop.NavnStruktur != null)
                                 {
                                     if (prop.NavnStruktur.PersonNameStructure != null)
                                     {
@@ -82,10 +87,12 @@ namespace CprBroker.Providers.Local
                 }
 
                 int maxResults = 0;
-                if (int.TryParse(searchCriteria.MaksimalAntalKvantitet, out maxResults))
+                int.TryParse(searchCriteria.MaksimalAntalKvantitet, out maxResults);
+                if (maxResults <= 0)
                 {
-                    result = result.Take(maxResults);
+                    maxResults = 1000;
                 }
+                result = result.Take(maxResults);
                 ret = result.ToArray();
             }
             // TODO: filter by effect date            
