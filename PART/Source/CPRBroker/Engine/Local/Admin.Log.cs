@@ -29,6 +29,11 @@ namespace CprBroker.Engine.Local
             AddNewLog(TraceEventType.Error, ex.Source, ex.ToString(), null, null);
         }
 
+        public static void LogCriticalException(Exception ex)
+        {
+            AddNewLog(TraceEventType.Critical, ex.Source, ex.ToString(), null, null);
+        }
+
         public static void LogException(Exception ex, string moreText)
         {
             AddNewLog(TraceEventType.Error, ex.Source, string.Format("{0}{1}{2}", moreText, Environment.NewLine, ex.ToString()), null, null);

@@ -15,7 +15,7 @@ namespace CprBroker.Engine.Util
         {
             get
             {
-                if (System.Web.HttpContext.Current != null)
+                if (System.Web.HttpContext.Current != null && System.Web.HttpContext.Current.User != null && System.Web.HttpContext.Current.User.Identity != null)
                     return System.Web.HttpContext.Current.User.Identity.Name;
                 else
                     return System.Security.Principal.WindowsIdentity.GetCurrent().Name;
@@ -47,6 +47,6 @@ namespace CprBroker.Engine.Util
             EncryptConfigSection("connectionStrings");
         }
 
-        
+
     }
 }

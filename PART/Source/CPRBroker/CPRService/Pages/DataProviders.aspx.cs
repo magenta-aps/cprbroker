@@ -78,9 +78,12 @@ namespace CprBroker.Web.Pages
 
         protected void newDataProviderGridView_DataBinding(object sender, EventArgs e)
         {
-            Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
-            IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
-            newDataProviderGridView.DataSource = dp.ConfigurationKeys;
+            if (newDataProviderDropDownList.Items.Count > 0)
+            {
+                Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
+                IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
+                newDataProviderGridView.DataSource = dp.ConfigurationKeys;
+            }
         }
 
         #endregion
