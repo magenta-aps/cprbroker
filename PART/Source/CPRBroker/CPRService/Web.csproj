@@ -192,6 +192,9 @@
     <Content Include="Config\connectionStrings.config" />
     <Content Include="Global.asax" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\loggingConfiguration.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
