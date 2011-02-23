@@ -75,19 +75,17 @@ namespace CprBroker.Installers
             return siteID;
         }
 
-        public string RootUrl
+        public string GetAppRelativePath()
         {
-            get
+            if (this.CreateAsWebsite)
             {
-                if (CreateAsWebsite)
-                {
-                    return string.Format("http://{0}/", WebsiteName);
-                }
-                else
-                {
-                    return string.Format("http://localhost/{0}", VirtualDirectoryName);
-                }
+                return "/";
+            }
+            else
+            {
+                return "/" + VirtualDirectoryName;
             }
         }
+      
     }
 }

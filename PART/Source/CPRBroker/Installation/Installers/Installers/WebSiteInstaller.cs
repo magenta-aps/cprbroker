@@ -49,11 +49,13 @@ namespace CprBroker.Installers
                 var webInstallationInfo = savedStateWrapper.GetWebInstallationInfo();
                 bool exists = webInstallationInfo.TargetEntryExists;
 
+                int siteID = webInstallationInfo.GetSiteId();
+                int scriptMapVersion;
+
                 if (webInstallationInfo.CreateAsWebsite)
                 {
                     using (DirectoryEntry machineRoot = new DirectoryEntry(WebInstallationInfo.ServerRoot))
                     {
-                        int siteID = webInstallationInfo.GetSiteId();
 
                         using (DirectoryEntry site = exists ? new DirectoryEntry(machineRoot.Path + "/" + siteID) : machineRoot.Invoke("Create", "IIsWebServer", siteID) as System.DirectoryServices.DirectoryEntry)
                         {
@@ -78,6 +80,7 @@ namespace CprBroker.Installers
                                 siteRoot.InvokeSet("DefaultDoc", "Default.aspx");
                                 siteRoot.Invoke("AppCreate", true);
                                 siteRoot.CommitChanges();
+                                scriptMapVersion = GetScriptMapsVersion(siteRoot);
                             }
                         }
                     }
@@ -96,32 +99,28 @@ namespace CprBroker.Installers
                             webInstallationInfo.ApplicationPath = applicationEntry.Path;
                             savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
                         }
+                        scriptMapVersion = GetScriptMapsVersion(websiteEntry);
                     }
                 }
 
                 // Set ASP.NET to version 2.0
-                RunRegIIS("-i");
+                if (scriptMapVersion < 2)
+                {
+                    RunRegIIS("-i");
 
-                string localSitePath = webInstallationInfo.ApplicationPath;
-                localSitePath = localSitePath.Remove(0, "IIS://localhost".Length);
-                RunRegIIS(string.Format("-s {0}", localSitePath));
+                    string localSitePath = webInstallationInfo.ApplicationPath;
+                    localSitePath = localSitePath.Remove(0, "IIS://localhost".Length);
+                    RunRegIIS(string.Format("-s {0}", localSitePath));
+                }
 
                 // Mark as done
                 webInstallationInfo.ApplicationInstalled = true;
                 savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
 
-
+                // Set connection strings and enqueue their encryption
                 Engine.Util.Installation.SetApplicationSettingInConfigFile(this.GetWebConfigFilePathFromInstaller(), typeof(CprBroker.Config.Properties.Settings), "EncryptConnectionStrings", "True");
-
-                var rootUrl = webInstallationInfo.RootUrl;
-                ConnectionStringsInstaller.RegisterCommitAction(
-                    this.GetWebConfigFilePathFromInstaller(),
-                    () =>
-                    {
-                        var wc = new System.Net.WebClient();
-                        wc.DownloadData(rootUrl);
-                    }
-                    );
+                var appRelativePath = webInstallationInfo.GetAppRelativePath();
+                ConnectionStringsInstaller.RegisterCommitAction(this.GetWebConfigFilePathFromInstaller(), () => EncryptConnectionStrings(siteID.ToString(), appRelativePath));
             }
             catch (InstallException ex)
             {
@@ -192,6 +191,35 @@ namespace CprBroker.Installers
                 throw new InstallException("", ex);
             }
         }
+
+        int GetScriptMapsVersion(DirectoryEntry site)
+        {
+            PropertyValueCollection vals = site.Properties["ScriptMaps"];
+            foreach (string val in vals)
+            {
+                if (val.StartsWith(".aspx"))
+                {
+                    string framework = "Framework\\v";
+                    int startIndex = val.IndexOf(framework);
+                    if (startIndex != -1)
+                    {
+                        startIndex += framework.Length;
+                        int endIndex = val.IndexOf(".", startIndex);
+                        if (endIndex != -1)
+                        {
+                            string version = val.Substring(startIndex, endIndex - startIndex);
+                            int intVersion;
+                            if (int.TryParse(version, out intVersion))
+                            {
+                                return intVersion;
+                            }
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
         private void RunRegIIS(string args)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -213,6 +241,21 @@ namespace CprBroker.Installers
             {
                 throw new InstallException(string.Format("Process '{0} {1}' failed", startInfo.FileName, startInfo.Arguments));
             }
+        }
+
+        private void EncryptConnectionStrings(string site, string app)
+        {
+            string[] users = new string[]
+            {
+                Environment.MachineName+ "\\ASPNET",
+                "NT AUTHORITY\\NETWORK SERVICE"
+            };
+            foreach (string user in users)
+            {
+                RunRegIIS(string.Format("-pa \"NetFrameworkConfigurationKey\" \"{0}\"", user));
+            }
+
+            RunRegIIS(string.Format("-pe \"connectionStrings\" -site \"{0}\" -app \"{1}\"", site, app));
         }
 
         private void DeleteApplication(System.Collections.IDictionary savedState)

@@ -12,6 +12,7 @@ namespace CprBroker.Installers
     {
         public override void Install(System.Collections.IDictionary stateSaver)
         {
+            base.Install(stateSaver);
             foreach (var configFile in _Files)
             {
                 string configFileName = configFile.FileName;
@@ -29,7 +30,7 @@ namespace CprBroker.Installers
                     catch (Exception ex)
                     {
                         string message = string.Format(
-                            "Could not commit action for config file \"{0}\", you may need to look at the file.",
+                            "Could not encrypt connection strings in config file \"{0}\", you may need to look at the file.",
                             configFile.FileName
                         );
                         Messages.ShowException(this, message, ex);
