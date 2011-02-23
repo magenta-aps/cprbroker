@@ -84,7 +84,6 @@
     <Compile Include="UI\DropDatabaseForm.Designer.cs">
       <DependentUpon>DropDatabaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Installers\ICprInstaller.cs" />
     <Compile Include="Utilities\Impersonation.cs" />
     <Compile Include="UI\LoginInfo.cs">
       <SubType>UserControl</SubType>
@@ -94,9 +93,6 @@
     </Compile>
     <Compile Include="Utilities\LookupInsertionParameters.cs" />
     <Compile Include="Utilities\Messages.cs" />
-    <Compile Include="Installers\ProjectInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
@@ -143,9 +139,6 @@
       <DependentUpon>WebSiteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Installers\WebSiteInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Installers\WindowsServiceInfoInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
