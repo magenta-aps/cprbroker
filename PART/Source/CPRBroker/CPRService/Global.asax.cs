@@ -12,15 +12,7 @@ namespace CprBroker.Web
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            if (CprBroker.Config.Properties.Settings.Default.EncryptConnectionStrings)
-            {
-                try
-                {
-                    CprBroker.Engine.Util.Security.EncryptConnectionStrings();
-                }
-                catch (Exception ex)
-                { }
-            }
+
         }
 
         protected void Session_Start(object sender, EventArgs e)

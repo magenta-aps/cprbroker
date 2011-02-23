@@ -42,16 +42,14 @@ namespace CprBroker.EventBroker.Backend
         protected override void OnStart(string[] args)
         {
             BrokerContext.Initialize(EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken);
-            if (Config.Properties.Settings.Default.EncryptConnectionStrings)
+
+            try
             {
-                try
-                {
-                    Engine.Util.Security.EncryptConnectionStrings();
-                }
-                catch (Exception ex)
-                {
-                    CprBroker.Engine.Local.Admin.LogException(ex);
-                }
+                Engine.Util.Security.EncryptConnectionStrings();
+            }
+            catch (Exception ex)
+            {
+                CprBroker.Engine.Local.Admin.LogException(ex);
             }
 
             CprBroker.Engine.Local.Admin.LogSuccess(CprBroker.Engine.TextMessages.BackendServiceStarted);

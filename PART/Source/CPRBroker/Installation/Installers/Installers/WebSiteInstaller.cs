@@ -118,7 +118,6 @@ namespace CprBroker.Installers
                 savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
 
                 // Set connection strings and enqueue their encryption
-                Engine.Util.Installation.SetApplicationSettingInConfigFile(this.GetWebConfigFilePathFromInstaller(), typeof(CprBroker.Config.Properties.Settings), "EncryptConnectionStrings", "True");
                 var appRelativePath = webInstallationInfo.GetAppRelativePath();
                 ConnectionStringsInstaller.RegisterCommitAction(this.GetWebConfigFilePathFromInstaller(), () => EncryptConnectionStrings(siteID.ToString(), appRelativePath));
             }

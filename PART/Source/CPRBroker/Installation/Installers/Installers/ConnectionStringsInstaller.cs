@@ -19,8 +19,7 @@ namespace CprBroker.Installers
                 foreach (var connectionString in configFile.ConnectionStrings)
                 {
                     Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, connectionString.Name, connectionString.Value);
-                }
-                Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EncryptConnectionStrings", "True");
+                }                
                 if (configFile.CommitAction != null)
                 {
                     try
