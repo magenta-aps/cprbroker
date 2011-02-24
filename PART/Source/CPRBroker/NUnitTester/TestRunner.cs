@@ -16,18 +16,20 @@ namespace CprBroker.NUnitTester
 
         public static Admin.AdminClient AdminService;
         public static Part.PartClient PartService;
-        public static Subscriptions.Subscriptions SubscriptionsService;
+        public static Subscriptions.SubscriptionsClient SubscriptionsService;
         public static Events.EventsClient EventsService;
         public static Part.ApplicationHeader PartApplicationHeader;
         public static Admin.ApplicationHeader AdminApplicationHeader;
         public static Events.ApplicationHeader EventsApplicationHeader;
+        public static Subscriptions.ApplicationHeader SubscriptionsApplicationHeader;
 
         public static void Initialize()
         {
             PartApplicationHeader = new Part.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             AdminApplicationHeader = new NUnitTester.Admin.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             EventsApplicationHeader = new CprBroker.NUnitTester.Events.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
-            
+            SubscriptionsApplicationHeader = new CprBroker.NUnitTester.Subscriptions.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
+
             AdminService = new NUnitTester.Admin.AdminClient("WSHttpBinding_IAdmin");
             ReplaceServiceUrl(AdminService, SystemType.CprBroker);
             Console.WriteLine(AdminService.Endpoint.Address.Uri);
@@ -36,14 +38,9 @@ namespace CprBroker.NUnitTester
             ReplaceServiceUrl(PartService, SystemType.CprBroker);
             Console.WriteLine(PartService.Endpoint.Address.Uri);
 
-            SubscriptionsService = new NUnitTester.Subscriptions.Subscriptions();
-            SubscriptionsService.ApplicationHeaderValue = new NUnitTester.Subscriptions.ApplicationHeader()
-            {
-                ApplicationToken = TestData.BaseAppToken,
-                UserToken = TestData.userToken
-            };
+            SubscriptionsService = new NUnitTester.Subscriptions.SubscriptionsClient();            
             ReplaceServiceUrl(SubscriptionsService, SystemType.EventBroker);
-            Console.WriteLine(SubscriptionsService.Url);
+            Console.WriteLine(SubscriptionsService.Endpoint.Address.Uri);
 
             EventsService = new CprBroker.NUnitTester.Events.EventsClient();            
             ReplaceServiceUrl(EventsService, SystemType.CprBroker);

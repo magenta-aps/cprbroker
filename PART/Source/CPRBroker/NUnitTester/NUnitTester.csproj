@@ -91,31 +91,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Subscriptions\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="SubscriptionsTest.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="TestRunner.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="Web References\Subscriptions\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:1552/Services/Subscriptions.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\Subscriptions\</RelPath>
-      <UpdateFromURL>http://localhost:1552/Services/Subscriptions.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NUnitTester_Subscriptions_CPRAdministrationWS</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
@@ -141,28 +128,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\Subscriptions\Subscriptions.wsdl" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\Subscriptions\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\Subscriptions\Subscriptions.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\Subscriptions\BasicOutputTypeOfArrayOfSubscriptionType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Subscriptions\BasicOutputTypeOfBirthdateSubscriptionType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Subscriptions\BasicOutputTypeOfBoolean.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Subscriptions\BasicOutputTypeOfChangeSubscriptionType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -171,6 +136,7 @@
     <WCFMetadataStorage Include="Service References\Admin\" />
     <WCFMetadataStorage Include="Service References\Events\" />
     <WCFMetadataStorage Include="Service References\Part\" />
+    <WCFMetadataStorage Include="Service References\Subscriptions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Part\Part.disco" />
@@ -326,6 +292,58 @@
     <None Include="Service References\Events\Events68.xsd" />
     <None Include="Service References\Events\Events69.xsd" />
     <None Include="Service References\Events\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Subscriptions\Subscriptions.wsdl" />
+    <None Include="Service References\Subscriptions\Subscriptions.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions1.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions10.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions11.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions12.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions13.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions14.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions15.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions16.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions17.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions18.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions19.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions2.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions20.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions21.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions3.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions4.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions5.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions6.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions7.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions8.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions9.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Subscriptions\Subscriptions.disco" />
+    <None Include="Service References\Subscriptions\Subscriptions22.xsd" />
+    <None Include="Service References\Subscriptions\Subscriptions23.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Subscriptions\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Subscriptions\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Subscriptions\CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfArrayOfSubscriptionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Subscriptions\CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfBirthdateSubscriptionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Subscriptions\CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfBoolean.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Subscriptions\CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfChangeSubscriptionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Subscriptions\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

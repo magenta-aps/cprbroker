@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd1" namespace="http://microsoft.com/wsdl/types/" />
+  <xs:import schemaLocation="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd2" namespace="urn:oio:sagdok:2.0.0" />
+  <xs:element name="Subscribe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="personUuids" type="tns:ArrayOfGuid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ApplicationHeader">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UserToken" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChannelBaseType" abstract="true" />
+  <xs:complexType name="WebServiceChannelType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ChannelBaseType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="WebServiceUrl" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FileShareChannelType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ChannelBaseType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Path" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfGuid">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://microsoft.com/wsdl/types/" minOccurs="0" maxOccurs="unbounded" name="guid" type="q1:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubscribeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SubscribeResult" type="tns:BasicOutputTypeOfChangeSubscriptionType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfChangeSubscriptionType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="urn:oio:sagdok:2.0.0" base="q2:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ChangeSubscriptionType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ChangeSubscriptionType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SubscriptionType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SubscriptionType" abstract="true">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="SubscriptionId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ForAllPersons" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PersonUuids" type="tns:ArrayOfString" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BirthdateSubscriptionType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SubscriptionType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="AgeYears" nillable="true" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="PriorDays" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Unsubscribe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element xmlns:q3="http://microsoft.com/wsdl/types/" minOccurs="1" maxOccurs="1" name="SubscriptionId" type="q3:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnsubscribeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="UnsubscribeResult" type="tns:BasicOutputTypeOfBoolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfBoolean">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="urn:oio:sagdok:2.0.0" base="q4:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Item" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SubscribeOnBirthdate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="NotificationChannel" type="tns:ChannelBaseType" />
+        <xs:element minOccurs="1" maxOccurs="1" name="Years" nillable="true" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="PriorDays" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifiers" type="tns:ArrayOfGuid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubscribeOnBirthdateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SubscribeOnBirthdateResult" type="tns:BasicOutputTypeOfBirthdateSubscriptionType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfBirthdateSubscriptionType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q5="urn:oio:sagdok:2.0.0" base="q5:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Item" type="tns:BirthdateSubscriptionType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RemoveBirthDateSubscription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element xmlns:q6="http://microsoft.com/wsdl/types/" minOccurs="1" maxOccurs="1" name="SubscriptionId" type="q6:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveBirthDateSubscriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="RemoveBirthDateSubscriptionResult" type="tns:BasicOutputTypeOfBoolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActiveSubscriptionsList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActiveSubscriptionsListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetActiveSubscriptionsListResult" type="tns:BasicOutputTypeOfArrayOfSubscriptionType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfArrayOfSubscriptionType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q7="urn:oio:sagdok:2.0.0" base="q7:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ArrayOfSubscriptionType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfSubscriptionType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubscriptionType" nillable="true" type="tns:SubscriptionType" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

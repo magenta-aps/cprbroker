@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="MunicipalityCode" type="xs:string" />
+  <xs:element name="StreetCode" type="xs:string" />
+  <xs:element name="StreetNameForAddressingName" type="xs:string" />
+  <xs:element name="PersonCivilRegistrationIdentifier" type="xs:string" />
+</xs:schema>

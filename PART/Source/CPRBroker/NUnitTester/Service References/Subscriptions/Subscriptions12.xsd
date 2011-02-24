@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="PersonNameForAddressingName" type="xs:string" />
+</xs:schema>

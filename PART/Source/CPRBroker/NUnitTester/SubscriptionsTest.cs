@@ -23,7 +23,8 @@ namespace CprBroker.NUnitTester
             {
                 if (!CprNumberMap.ContainsKey(cprNumber))
                 {
-                    CprNumberMap[cprNumber] = new Guid(TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber).UUID);
+                    var uuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+                    CprNumberMap[cprNumber] = new Guid(uuid.UUID);
                 }
             }
         }
@@ -41,7 +42,7 @@ namespace CprBroker.NUnitTester
         {
             MapCprNumbers();
             var uuids = GetUuids(cprNumbers);
-            var res = TestRunner.SubscriptionsService.SubscribeOnBirthdate(TestData.fileShareChannel, TestData.birthdateYears, TestData.birthdateDays, uuids);
+            var res = TestRunner.SubscriptionsService.SubscribeOnBirthdate(TestRunner.SubscriptionsApplicationHeader, TestData.fileShareChannel, TestData.birthdateYears, TestData.birthdateDays, uuids);
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsNotNull(res.Item);
@@ -60,11 +61,11 @@ namespace CprBroker.NUnitTester
         {
             MapCprNumbers();
             var uuids = GetUuids(cprNumbers);
-            var res = TestRunner.SubscriptionsService.Subscribe(TestData.fileShareChannel, uuids);
+            var res = TestRunner.SubscriptionsService.Subscribe(TestRunner.SubscriptionsApplicationHeader, TestData.fileShareChannel, uuids);
             Assert.IsNotNull(res);
             Assert.IsNotNull(res.Item);
             Validate(res.StandardRetur);
-            Assert.AreEqual(TestRunner.SubscriptionsService.ApplicationHeaderValue.ApplicationToken, res.Item.ApplicationToken);
+            Assert.AreEqual(TestRunner.SubscriptionsApplicationHeader.ApplicationToken, res.Item.ApplicationToken);
             Assert.IsInstanceOf<Subscriptions.ChangeSubscriptionType>(res.Item);
             TestData.changeSubscriptions.Add(res.Item);
         }
@@ -77,7 +78,7 @@ namespace CprBroker.NUnitTester
         [Test]
         public void T550_GetActiveSubscriptionList()
         {
-            var res = TestRunner.SubscriptionsService.GetActiveSubscriptionsList();
+            var res = TestRunner.SubscriptionsService.GetActiveSubscriptionsList(TestRunner.SubscriptionsApplicationHeader);
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsNotNull(res.Item);
@@ -89,7 +90,7 @@ namespace CprBroker.NUnitTester
         public void T560_RemoveBirthdateSubscription(Func<Subscriptions.BirthdateSubscriptionType> subscriptionFunc)
         {
             Subscriptions.BirthdateSubscriptionType subscription = subscriptionFunc();
-            var res = TestRunner.SubscriptionsService.RemoveBirthDateSubscription(new Guid(subscription.SubscriptionId));
+            var res = TestRunner.SubscriptionsService.RemoveBirthDateSubscription(TestRunner.SubscriptionsApplicationHeader, new Guid(subscription.SubscriptionId));
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsTrue(res.Item);
@@ -100,7 +101,7 @@ namespace CprBroker.NUnitTester
         public void T570_Unsubscribe(Func<Subscriptions.ChangeSubscriptionType> subscriptionFunc)
         {
             Subscriptions.ChangeSubscriptionType sub = subscriptionFunc();
-            var res = TestRunner.SubscriptionsService.Unsubscribe(new Guid(sub.SubscriptionId));
+            var res = TestRunner.SubscriptionsService.Unsubscribe(TestRunner.SubscriptionsApplicationHeader, new Guid(sub.SubscriptionId));
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsTrue(res.Item);
