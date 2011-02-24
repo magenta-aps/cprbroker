@@ -84,17 +84,17 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetPersonUuid">
+      <s:element name="GetUuid">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="cprNumber" type="s:string"/>
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetPersonUuidResponse">
+      <s:element name="GetUuidResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetPersonUuidResult" type="s23:guid"/>
+            <s:element minOccurs="1" maxOccurs="1" name="GetUuidResult" type="s23:guid"/>
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -942,13 +942,13 @@
   <wsdl:message name="SearchQualityHeader">
     <wsdl:part name="QualityHeader" element="tns:QualityHeader"/>
   </wsdl:message>
-  <wsdl:message name="GetPersonUuidSoap12In">
-    <wsdl:part name="parameters" element="tns:GetPersonUuid"/>
+  <wsdl:message name="GetUuidSoap12In">
+    <wsdl:part name="parameters" element="tns:GetUuid"/>
   </wsdl:message>
-  <wsdl:message name="GetPersonUuidSoap12Out">
-    <wsdl:part name="parameters" element="tns:GetPersonUuidResponse"/>
+  <wsdl:message name="GetUuidSoap12Out">
+    <wsdl:part name="parameters" element="tns:GetUuidResponse"/>
   </wsdl:message>
-  <wsdl:message name="GetPersonUuidApplicationHeader">
+  <wsdl:message name="GetUuidApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
   </wsdl:message>
   <wsdl:portType name="PartSoap12">
@@ -984,12 +984,12 @@ Parameters : RegistrationDate, EffectDate</wsdl:documentation>
       <wsdl:input message="tns:SearchSoap12In"/>
       <wsdl:output message="tns:SearchSoap12Out"/>
     </wsdl:operation>
-    <wsdl:operation name="GetPersonUuid">
+    <wsdl:operation name="GetUuid">
       <wsdl:documentation>Gets the person's UUID fromDate his CPR number. Calls the UUID assigning authority if not found locally.
 Input : CPR Number
 Output : Person UUID</wsdl:documentation>
-      <wsdl:input message="tns:GetPersonUuidSoap12In"/>
-      <wsdl:output message="tns:GetPersonUuidSoap12Out"/>
+      <wsdl:input message="tns:GetUuidSoap12In"/>
+      <wsdl:output message="tns:GetUuidSoap12Out"/>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PartSoap12" type="tns:PartSoap12">
@@ -1038,11 +1038,11 @@ Output : Person UUID</wsdl:documentation>
         <soap12:header message="tns:SearchQualityHeader" part="QualityHeader" use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPersonUuid">
-      <soap12:operation soapAction="http://dk.itst/GetPersonUuid" style="document"/>
+    <wsdl:operation name="GetUuid">
+      <soap12:operation soapAction="http://dk.itst/GetUuid" style="document"/>
       <wsdl:input>
         <soap12:body use="literal"/>
-        <soap12:header message="tns:GetPersonUuidApplicationHeader" part="ApplicationHeader" use="literal"/>
+        <soap12:header message="tns:GetUuidApplicationHeader" part="ApplicationHeader" use="literal"/>
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal"/>
@@ -1055,7 +1055,7 @@ Output : Person UUID</wsdl:documentation>
       <soap12:address location="http://cprbroker20110208/Services/Part.asmx"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://dk.itst/GetPersonUuid" name="GetPersonUuid" bindingOperationName="GetPersonUuid" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="lookupNiels"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://dk.itst/GetUuid" name="GetUuid" bindingOperationName="GetUuid" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="lookupNiels"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -1065,12 +1065,12 @@ Output : Person UUID</wsdl:documentation>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
-      <dk:GetPersonUuid>
+      <dk:GetUuid>
          <!--Optional:-->
          <dk:cprNumber>0404662023</dk:cprNumber>
-      </dk:GetPersonUuid>
+      </dk:GetUuid>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNonsense"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNonsense"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -1080,12 +1080,12 @@ Output : Person UUID</wsdl:documentation>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
-      <dk:GetPersonUuid>
+      <dk:GetUuid>
          <!--Optional:-->
          <dk:cprNumber>42</dk:cprNumber>
-      </dk:GetPersonUuid>
+      </dk:GetUuid>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNotExist"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNotExist"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -1095,12 +1095,12 @@ Output : Person UUID</wsdl:documentation>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
-      <dk:GetPersonUuid>
+      <dk:GetUuid>
          <!--Optional:-->
          <dk:cprNumber>0202223345</dk:cprNumber>
-      </dk:GetPersonUuid>
+      </dk:GetUuid>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="llookupinGTK"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="llookupinGTK"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -1110,12 +1110,12 @@ Output : Person UUID</wsdl:documentation>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
-      <dk:GetPersonUuid>
+      <dk:GetUuid>
          <!--Optional:-->
          <dk:cprNumber>1807690244</dk:cprNumber>
-      </dk:GetPersonUuid>
+      </dk:GetUuid>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNonsense10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNonsense10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -1125,12 +1125,12 @@ Output : Person UUID</wsdl:documentation>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
-      <dk:GetPersonUuid>
+      <dk:GetUuid>
          <!--Optional:-->
          <dk:cprNumber>9999999999</dk:cprNumber>
-      </dk:GetPersonUuid>
+      </dk:GetUuid>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNonsense0000000000"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetUuidRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="lookupNonsense0000000000"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -1140,12 +1140,12 @@ Output : Person UUID</wsdl:documentation>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
-      <dk:GetPersonUuid>
+      <dk:GetUuid>
          <!--Optional:-->
          <dk:cprNumber>0000000000</dk:cprNumber>
-      </dk:GetPersonUuid>
+      </dk:GetUuid>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/List" name="List" bindingOperationName="List" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/GetUuidRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/List" name="List" bindingOperationName="List" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -2426,7 +2426,7 @@ Output : Person UUID</wsdl:documentation>
          </urn:SoegInput>
       </dk:Search>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/SearchRequest"/></con:call></con:operation></con:interface><con:testSuite name="PartSoap12 TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetPersonUuid TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="GetPersonUuid"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PartSoap12</con:interface><con:operation>GetPersonUuid</con:operation><con:request name="GetPersonUuid"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/PartSoap12/SearchRequest"/></con:call></con:operation></con:interface><con:testSuite name="PartSoap12 TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetUuid TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="GetUuid"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PartSoap12</con:interface><con:operation>GetUuid</con:operation><con:request name="GetUuid"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -2436,12 +2436,12 @@ Output : Person UUID</wsdl:documentation>
       </dk:ApplicationHeader>
    </soap:Header>
    <soap:Body>
-      <dk:GetPersonUuid>
+      <dk:GetUuid>
          <!--Optional:-->
          <dk:cprNumber>?</dk:cprNumber>
-      </dk:GetPersonUuid>
+      </dk:GetUuid>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/PartSoap12/GetPersonUuidRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="List TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="List"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PartSoap12</con:interface><con:operation>List</con:operation><con:request name="List"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/PartSoap12/GetUuidRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="List TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="List"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PartSoap12</con:interface><con:operation>List</con:operation><con:request name="List"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Part.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:urn="urn:oio:sagdok:2.0.0" xmlns:urn1="urn:oio:dkal:1.0.0" xmlns:urn2="urn:oio:sagdok:1.0.0">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
