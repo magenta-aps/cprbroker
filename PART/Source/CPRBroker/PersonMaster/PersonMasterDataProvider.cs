@@ -12,7 +12,7 @@ namespace CprBroker.Providers.PersonMaster
 
         public Guid? GetPersonUuid(string cprNumber)
         {
-            PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient("wsBasicHttp",Address);
+            PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient("wsBasicHttp", Address);
             string aux = null;
             var ret = service.GetObjectIDFromCpr(Context, cprNumber, ref aux);
             return ret;
@@ -24,21 +24,16 @@ namespace CprBroker.Providers.PersonMaster
 
         public bool IsAlive()
         {
-            System.Net.WebClient client = new System.Net.WebClient();
             try
             {
-                System.Uri uri = new Uri(Address);
-                uri = new Uri(uri, "?wsdl");
-                client.DownloadData(uri);
-                return true;
+                PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient("wsBasicHttp", Address);
+                string aux = null;
+                var res = service.Probe(Context, ref aux);
+                return true; ;
             }
             catch
             {
                 return false;
-            }
-            finally
-            {
-                client.Dispose();
             }
         }
 
