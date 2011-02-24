@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="PersonGenderCode" type="tns:PersonGenderCodeType" />
+  <xs:simpleType name="PersonGenderCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="male" />
+      <xs:enumeration value="female" />
+      <xs:enumeration value="unspecified" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

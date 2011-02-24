@@ -71,10 +71,9 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Services\Admin.asmx" />
     <Compile Include="Controls\SmartTextBox.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -122,14 +121,14 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Admin.asmx.cs">
-      <DependentUpon>Admin.asmx</DependentUpon>
-      <SubType>Component</SubType>
+    <Compile Include="Services\Admin.svc.cs">
+      <DependentUpon>Admin.svc</DependentUpon>
     </Compile>
     <Compile Include="Services\Events.asmx.cs">
       <DependentUpon>Events.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\IAdmin.cs" />
     <Compile Include="Services\IPart.cs" />
     <Compile Include="Services\Part.svc.cs">
       <DependentUpon>Part.svc</DependentUpon>
@@ -199,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\loggingConfiguration.config" />
+    <Content Include="Services\Admin.svc" />
     <Content Include="Services\Part.svc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

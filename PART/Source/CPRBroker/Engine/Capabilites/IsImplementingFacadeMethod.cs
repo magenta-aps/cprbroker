@@ -33,5 +33,10 @@ namespace CprBroker.Engine
                 }
             };
         }
+
+        public override bool IsValidResult(bool output)
+        {
+            return true;
+        }
     }
 }

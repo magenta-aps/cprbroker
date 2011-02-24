@@ -78,7 +78,7 @@ namespace CprBroker.NUnitTester
         public static string[] cprNumbersWithChildren = new string[] { "1305763892" };
         public const string CprNumbersWithChildrenFieldName = "cprNumbersWithChildren";
 
-        public static string[] correctMethodNames = new string[] { "GetCitizenFull" };
+        public static string[] correctMethodNames = new string[] { "GetUuid" };
         public const string CorrectMethodNamesFieldName = "correctMethodNames";
 
         public static string[] incorrectMethodNames = new string[] { "sadaklsjfkl", "sadfkafka" };

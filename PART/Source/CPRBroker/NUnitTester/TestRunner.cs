@@ -14,37 +14,25 @@ namespace CprBroker.NUnitTester
     public static class TestRunner
     {
 
-        public static Admin.Admin AdminService;
+        public static Admin.AdminClient AdminService;
         public static Part.PartClient PartService;
         public static Subscriptions.Subscriptions SubscriptionsService;
         public static Events.Events EventsService;
         public static Part.ApplicationHeader PartApplicationHeader;
+        public static Admin.ApplicationHeader AdminApplicationHeader;
 
         public static void Initialize()
         {
-            PartApplicationHeader = new Part.ApplicationHeader()
-            {
-                ApplicationToken = TestData.BaseAppToken,
-                UserToken = TestData.userToken
-            };
+            PartApplicationHeader = new Part.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
+            AdminApplicationHeader = new NUnitTester.Admin.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
 
-            AdminService = new NUnitTester.Admin.Admin();
-            AdminService.ApplicationHeaderValue = new NUnitTester.Admin.ApplicationHeader()
-            {
-                ApplicationToken = TestData.BaseAppToken,
-                UserToken = TestData.userToken
-            };
-            ReplaceServiceUrl(AdminService, SystemType.CprBroker);
-            Console.WriteLine(AdminService.Url);
-
-            var binding = new WSHttpBinding() 
-            {
-                MaxReceivedMessageSize = int.MaxValue                 
-            };
             
-            //PartService = new NUnitTester.Part.PartClient(binding, new EndpointAddress("http://localhost:1551/Services/Part.svc"));
+            AdminService = new NUnitTester.Admin.AdminClient("WSHttpBinding_IAdmin");
+            ReplaceServiceUrl(AdminService, SystemType.CprBroker);
+            Console.WriteLine(AdminService.Endpoint.Address.Uri);
+            
             PartService = new CprBroker.NUnitTester.Part.PartClient("WSHttpBinding_IPart");
-            //ReplaceServiceUrl(PartService, SystemType.CprBroker);
+            ReplaceServiceUrl(PartService, SystemType.CprBroker);
             Console.WriteLine(PartService.Endpoint.Address.Uri);
 
             SubscriptionsService = new NUnitTester.Subscriptions.Subscriptions();

@@ -76,6 +76,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Admin\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Part\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,11 +90,6 @@
     <Compile Include="TestData.cs" />
     <Compile Include="TestRunner.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="Web References\Admin\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\Events\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -105,17 +105,6 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:1551/services/Admin.asmx">
-      <UrlBehavior>Static</UrlBehavior>
-      <RelPath>Web References\Admin\</RelPath>
-      <UpdateFromURL>http://localhost:1551/services/Admin.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NUnitTester_CPRAdministrationWS_CPRAdministrationWS</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1551/Services/Events.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\Events\</RelPath>
@@ -138,12 +127,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NUnitTester_Subscriptions_CPRAdministrationWS</CachedSettingsPropName>
     </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\Admin\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
@@ -180,7 +163,6 @@
     <None Include="Web References\Subscriptions\Subscriptions.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\Admin\Admin.wsdl" />
     <None Include="Web References\Events\Events.disco" />
     <None Include="Web References\Events\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -188,22 +170,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\Admin\Admin.disco" />
-    <None Include="Web References\Admin\BasicOutputTypeOfApplicationType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Admin\BasicOutputTypeOfArrayOfApplicationType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Admin\BasicOutputTypeOfArrayOfDataProviderType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Admin\BasicOutputTypeOfArrayOfServiceVersionType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Admin\BasicOutputTypeOfBoolean.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Events\BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -227,6 +193,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Admin\" />
     <WCFMetadataStorage Include="Service References\Part\" />
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +218,12 @@
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.LaesOutputType.datasource" />
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.ListOutputType1.datasource" />
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.SoegOutputType.datasource" />
+    <None Include="Service References\Admin\Admin.xsd" />
+    <None Include="Service References\Admin\Admin1.xsd" />
+    <None Include="Service References\Admin\Admin2.xsd" />
+    <None Include="Service References\Admin\Admin3.xsd" />
+    <None Include="Service References\Admin\Admin4.xsd" />
+    <None Include="Service References\Admin\Admin5.xsd" />
     <None Include="Service References\Part\CprBroker.NUnitTester.Part.GetUuidOutputType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -280,6 +253,55 @@
     <None Include="Service References\Part\Part78.xsd" />
     <None Include="Service References\Part\Part79.xsd" />
     <None Include="Service References\Part\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Admin\Admin.disco" />
+    <None Include="Service References\Admin\Admin.wsdl" />
+    <None Include="Service References\Admin\Admin10.xsd" />
+    <None Include="Service References\Admin\Admin11.xsd" />
+    <None Include="Service References\Admin\Admin12.xsd" />
+    <None Include="Service References\Admin\Admin13.xsd" />
+    <None Include="Service References\Admin\Admin14.xsd" />
+    <None Include="Service References\Admin\Admin15.xsd" />
+    <None Include="Service References\Admin\Admin16.xsd" />
+    <None Include="Service References\Admin\Admin17.xsd" />
+    <None Include="Service References\Admin\Admin18.xsd" />
+    <None Include="Service References\Admin\Admin19.xsd" />
+    <None Include="Service References\Admin\Admin20.xsd" />
+    <None Include="Service References\Admin\Admin21.xsd" />
+    <None Include="Service References\Admin\Admin22.xsd" />
+    <None Include="Service References\Admin\Admin23.xsd" />
+    <None Include="Service References\Admin\Admin6.xsd" />
+    <None Include="Service References\Admin\Admin7.xsd" />
+    <None Include="Service References\Admin\Admin8.xsd" />
+    <None Include="Service References\Admin\Admin9.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Admin\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Admin\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Admin\CprBroker.NUnitTester.Admin.BasicOutputTypeOfApplicationType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Admin\CprBroker.NUnitTester.Admin.BasicOutputTypeOfArrayOfApplicationType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Admin\CprBroker.NUnitTester.Admin.BasicOutputTypeOfArrayOfDataProviderType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Admin\CprBroker.NUnitTester.Admin.BasicOutputTypeOfArrayOfServiceVersionType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Admin\CprBroker.NUnitTester.Admin.BasicOutputTypeOfBoolean.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Admin\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

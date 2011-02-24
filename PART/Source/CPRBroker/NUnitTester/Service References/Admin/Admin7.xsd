@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd18" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
+  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd7" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd19" namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
+  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd14" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd10" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+  <xs:element name="ForeignAddressStructure" type="tns:ForeignAddressStructureType" />
+  <xs:complexType name="ForeignAddressStructureType">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" minOccurs="0" maxOccurs="1" ref="q1:PostalAddressFirstLineText" />
+      <xs:element xmlns:q2="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" minOccurs="0" maxOccurs="1" ref="q2:PostalAddressSecondLineText" />
+      <xs:element xmlns:q3="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" minOccurs="0" maxOccurs="1" ref="q3:PostalAddressThirdLineText" />
+      <xs:element xmlns:q4="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" minOccurs="0" maxOccurs="1" ref="q4:PostalAddressFourthLineText" />
+      <xs:element xmlns:q5="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" minOccurs="0" maxOccurs="1" ref="q5:PostalAddressFifthLineText" />
+      <xs:element xmlns:q6="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" minOccurs="0" maxOccurs="1" ref="q6:CountryIdentificationCode" />
+      <xs:element xmlns:q7="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" minOccurs="0" maxOccurs="1" ref="q7:LocationDescriptionText" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AddressCompleteGreenland" type="tns:AddressCompleteGreenlandType" />
+  <xs:complexType name="AddressCompleteGreenlandType">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" minOccurs="0" maxOccurs="1" ref="q8:MunicipalityCode" />
+      <xs:element xmlns:q9="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" minOccurs="0" maxOccurs="1" ref="q9:StreetCode" />
+      <xs:element xmlns:q10="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" minOccurs="0" maxOccurs="1" ref="q10:MailDeliverySublocationIdentifier" />
+      <xs:element xmlns:q11="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" minOccurs="0" maxOccurs="1" ref="q11:StreetName" />
+      <xs:element xmlns:q12="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" minOccurs="0" maxOccurs="1" ref="q12:StreetNameForAddressingName" />
+      <xs:element xmlns:q13="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" minOccurs="0" maxOccurs="1" ref="q13:StreetBuildingIdentifier" />
+      <xs:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="xs:string" />
+      <xs:element xmlns:q14="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" minOccurs="0" maxOccurs="1" ref="q14:SuiteIdentifier" />
+      <xs:element xmlns:q15="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" minOccurs="0" maxOccurs="1" ref="q15:FloorIdentifier" />
+      <xs:element xmlns:q16="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" minOccurs="0" maxOccurs="1" ref="q16:DistrictSubdivisionIdentifier" />
+      <xs:element xmlns:q17="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" minOccurs="0" maxOccurs="1" ref="q17:PostCodeIdentifier" />
+      <xs:element xmlns:q18="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" minOccurs="0" maxOccurs="1" ref="q18:DistrictName" />
+      <xs:element xmlns:q19="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" minOccurs="0" maxOccurs="1" ref="q19:CountryIdentificationCode" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

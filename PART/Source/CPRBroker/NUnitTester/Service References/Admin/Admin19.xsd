@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd23" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+  <xs:element name="RequestAppRegistration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="ApplicationName" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ApplicationHeader">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UserToken" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RequestAppRegistrationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="RequestAppRegistrationResult" type="tns:BasicOutputTypeOfApplicationType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfApplicationType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="urn:oio:sagdok:2.0.0" base="q1:BasicOutputType">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" minOccurs="0" maxOccurs="1" name="Item" type="q2:ApplicationType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ApproveAppRegistration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ApproveAppRegistrationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ApproveAppRegistrationResult" type="tns:BasicOutputTypeOfBoolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfBoolean">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="urn:oio:sagdok:2.0.0" base="q3:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Item" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ListAppRegistrations">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListAppRegistrationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ListAppRegistrationsResult" type="tns:BasicOutputTypeOfArrayOfApplicationType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfArrayOfApplicationType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="urn:oio:sagdok:2.0.0" base="q4:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ArrayOfApplicationType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfApplicationType">
+    <xs:sequence>
+      <xs:element xmlns:q5="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" minOccurs="0" maxOccurs="unbounded" name="ApplicationType" nillable="true" type="q5:ApplicationType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnregisterApp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnregisterAppResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="UnregisterAppResult" type="tns:BasicOutputTypeOfBoolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCapabilities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCapabilitiesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetCapabilitiesResult" type="tns:BasicOutputTypeOfArrayOfServiceVersionType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfArrayOfServiceVersionType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q6="urn:oio:sagdok:2.0.0" base="q6:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ArrayOfServiceVersionType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfServiceVersionType">
+    <xs:sequence>
+      <xs:element xmlns:q7="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" minOccurs="0" maxOccurs="unbounded" name="ServiceVersionType" nillable="true" type="q7:ServiceVersionType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IsImplementing">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="serviceName" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="serviceVersion" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsImplementingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="IsImplementingResult" type="tns:BasicOutputTypeOfBoolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataProviderList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfDataProviderType">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" minOccurs="0" maxOccurs="unbounded" name="DataProviderType" nillable="true" type="q8:DataProviderType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetDataProviderListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetDataProviderListResult" type="tns:BasicOutputTypeOfArrayOfDataProviderType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BasicOutputTypeOfArrayOfDataProviderType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q9="urn:oio:sagdok:2.0.0" base="q9:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ArrayOfDataProviderType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SetDataProviderList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="DataProviders" type="tns:ArrayOfDataProviderType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDataProviderListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SetDataProviderListResult" type="tns:BasicOutputTypeOfBoolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Log">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Text" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="LogResult" type="tns:BasicOutputTypeOfBoolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

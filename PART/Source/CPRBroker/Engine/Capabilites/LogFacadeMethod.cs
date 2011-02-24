@@ -6,11 +6,12 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
-    public class LogFacadeMethod:GenericFacadeMethodInfo<bool>
+    public class LogFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         string Text;
 
         public LogFacadeMethod(string text, string appToken, string userToken)
+            : base(appToken, userToken)
         {
             Text = text;
         }
