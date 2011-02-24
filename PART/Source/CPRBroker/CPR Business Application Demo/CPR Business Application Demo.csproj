@@ -185,10 +185,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\SubscriptionsService\Subscriptions.disco" />
-    <None Include="Service References\SubscriptionsService\Subscriptions.wsdl" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\SubscriptionsService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +279,34 @@
     <None Include="Service References\ApplicationsService\Admin7.xsd" />
     <None Include="Service References\ApplicationsService\Admin8.xsd" />
     <None Include="Service References\ApplicationsService\Admin9.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions1.wsdl" />
+    <None Include="Service References\SubscriptionsService\Subscriptions1.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions10.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions11.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions12.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions13.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions14.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions15.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions16.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions17.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions18.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions19.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions2.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions20.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions21.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions3.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions4.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions5.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions6.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions7.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions8.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions9.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SubscriptionsService\Subscriptions1.disco" />
+    <None Include="Service References\SubscriptionsService\Subscriptions22.xsd" />
+    <None Include="Service References\SubscriptionsService\Subscriptions23.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

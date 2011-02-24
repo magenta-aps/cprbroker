@@ -16,15 +16,15 @@ namespace CPR_Business_Application_Demo.Adapters
             // Make sure the provided URL is pointing to the administration web service
             if (!subscriptionsWsUrl.EndsWith("/"))
             {
-                if (!subscriptionsWsUrl.EndsWith("Subscriptions.asmx"))
-                    subscriptionsWsUrl += "/Subscriptions.asmx";
+                if (!subscriptionsWsUrl.EndsWith("Subscriptions.svc"))
+                    subscriptionsWsUrl += "/Subscriptions.svc";
             }
             else
             {
-                subscriptionsWsUrl += "Subscriptions.asmx";
+                subscriptionsWsUrl += "Subscriptions.svc";
             }
 
-            subscriptionsHandler = new SubscriptionsSoap12Client("SubscriptionsSoap12", subscriptionsWsUrl);
+            subscriptionsHandler = new SubscriptionsClient("WSHttpBinding_ISubscriptions", subscriptionsWsUrl);
 
             // Set the timeout to avoid hanging the application for too long when wrong urls were entered
             subscriptionsHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 5);
@@ -58,7 +58,7 @@ namespace CPR_Business_Application_Demo.Adapters
         #endregion
 
         #region Private Fields
-        private readonly SubscriptionsService.SubscriptionsSoap12Client subscriptionsHandler;
+        private readonly SubscriptionsService.SubscriptionsClient subscriptionsHandler;
         #endregion
 
     }

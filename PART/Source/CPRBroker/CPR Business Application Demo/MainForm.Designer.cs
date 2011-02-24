@@ -80,6 +80,8 @@
             this.personQueryButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.subscriptionTabPage = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.notificationPersonsTextBox = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.ListActiveSubscriptionsButton = new System.Windows.Forms.Button();
             this.notificationResultsConsoleTextBox = new System.Windows.Forms.TextBox();
@@ -91,7 +93,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.BirthDaySubscriptionButton = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.notificationPersonsTextBox = new System.Windows.Forms.TextBox();
             this.subscribeCprButton = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.GetServiceInfoButton = new System.Windows.Forms.Button();
@@ -635,6 +636,8 @@
             // 
             // subscriptionTabPage
             // 
+            this.subscriptionTabPage.Controls.Add(this.label15);
+            this.subscriptionTabPage.Controls.Add(this.notificationPersonsTextBox);
             this.subscriptionTabPage.Controls.Add(this.groupBox7);
             this.subscriptionTabPage.Controls.Add(this.groupBox6);
             this.subscriptionTabPage.Controls.Add(this.groupBox5);
@@ -645,6 +648,23 @@
             this.subscriptionTabPage.TabIndex = 1;
             this.subscriptionTabPage.Text = "Subscribe";
             this.subscriptionTabPage.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(9, 19);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(73, 13);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "Person UUIDs";
+            // 
+            // notificationPersonsTextBox
+            // 
+            this.notificationPersonsTextBox.Location = new System.Drawing.Point(12, 35);
+            this.notificationPersonsTextBox.Multiline = true;
+            this.notificationPersonsTextBox.Name = "notificationPersonsTextBox";
+            this.notificationPersonsTextBox.Size = new System.Drawing.Size(437, 208);
+            this.notificationPersonsTextBox.TabIndex = 4;
             // 
             // groupBox7
             // 
@@ -685,9 +705,9 @@
             this.groupBox6.Controls.Add(this.AgeSpin);
             this.groupBox6.Controls.Add(this.label9);
             this.groupBox6.Controls.Add(this.BirthDaySubscriptionButton);
-            this.groupBox6.Location = new System.Drawing.Point(461, 6);
+            this.groupBox6.Location = new System.Drawing.Point(461, 112);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(424, 240);
+            this.groupBox6.Size = new System.Drawing.Size(424, 134);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Subscribe on age";
@@ -747,7 +767,7 @@
             // BirthDaySubscriptionButton
             // 
             this.BirthDaySubscriptionButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BirthDaySubscriptionButton.Location = new System.Drawing.Point(3, 205);
+            this.BirthDaySubscriptionButton.Location = new System.Drawing.Point(3, 99);
             this.BirthDaySubscriptionButton.Name = "BirthDaySubscriptionButton";
             this.BirthDaySubscriptionButton.Size = new System.Drawing.Size(418, 32);
             this.BirthDaySubscriptionButton.TabIndex = 0;
@@ -757,29 +777,20 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.notificationPersonsTextBox);
             this.groupBox5.Controls.Add(this.subscribeCprButton);
-            this.groupBox5.Location = new System.Drawing.Point(6, 6);
+            this.groupBox5.Location = new System.Drawing.Point(461, 19);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(449, 240);
+            this.groupBox5.Size = new System.Drawing.Size(421, 80);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Subscribe on CPR";
-            // 
-            // notificationPersonsTextBox
-            // 
-            this.notificationPersonsTextBox.Location = new System.Drawing.Point(6, 19);
-            this.notificationPersonsTextBox.Multiline = true;
-            this.notificationPersonsTextBox.Name = "notificationPersonsTextBox";
-            this.notificationPersonsTextBox.Size = new System.Drawing.Size(437, 180);
-            this.notificationPersonsTextBox.TabIndex = 4;
+            this.groupBox5.Text = "Subscribe on data changes";
             // 
             // subscribeCprButton
             // 
             this.subscribeCprButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.subscribeCprButton.Location = new System.Drawing.Point(3, 205);
+            this.subscribeCprButton.Location = new System.Drawing.Point(3, 45);
             this.subscribeCprButton.Name = "subscribeCprButton";
-            this.subscribeCprButton.Size = new System.Drawing.Size(443, 32);
+            this.subscribeCprButton.Size = new System.Drawing.Size(415, 32);
             this.subscribeCprButton.TabIndex = 3;
             this.subscribeCprButton.Text = "Subscribe";
             this.subscribeCprButton.UseVisualStyleBackColor = true;
@@ -965,6 +976,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.subscriptionTabPage.ResumeLayout(false);
+            this.subscriptionTabPage.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -972,7 +984,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.PriorDaysSpin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AgeSpin)).EndInit();
             this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.searchTabPage.ResumeLayout(false);
@@ -1067,6 +1078,7 @@
         private System.Windows.Forms.Label fornavn;
         private System.Windows.Forms.Label virkningTil;
         internal System.Windows.Forms.TabPage searchTabPage;
+        private System.Windows.Forms.Label label15;
     }
 }
 

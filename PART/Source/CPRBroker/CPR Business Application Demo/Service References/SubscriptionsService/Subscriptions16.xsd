@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CommentText" type="xs:string" />
+</xs:schema>

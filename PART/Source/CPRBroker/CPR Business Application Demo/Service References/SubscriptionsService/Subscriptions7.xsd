@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:oio:sagdok:2.0.0" elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:2.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd5" namespace="urn:oio:dkal:1.0.0" />
+  <xs:import schemaLocation="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd6" namespace="urn:oio:sagdok:1.0.0" />
+  <xs:import schemaLocation="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd21" namespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" />
+  <xs:complexType name="BasicOutputType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="tns:StandardReturType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StandardReturType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="StatusKode" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FejlbeskedTekst" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SagDokObjektType">
+    <xs:sequence>
+      <xs:element xmlns:q1="urn:oio:dkal:1.0.0" minOccurs="0" maxOccurs="1" ref="q1:UUID" />
+      <xs:element xmlns:q2="urn:oio:sagdok:1.0.0" minOccurs="0" maxOccurs="1" ref="q2:BrugervendtNoegleTekst" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LaesFiltreretOutputType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SagDokObjektType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="KaldenavnTekst" type="xs:string" />
+  <xs:element name="NoteTekst" type="xs:string" />
+  <xs:element name="Virkning" type="tns:VirkningType" />
+  <xs:complexType name="VirkningType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="tns:TidspunktType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TilTidspunkt" type="tns:TidspunktType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="tns:UnikIdType" />
+      <xs:element xmlns:q3="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" minOccurs="0" maxOccurs="1" ref="q3:CommentText" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TidspunktType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element xmlns:q4="urn:oio:sagdok:1.0.0" minOccurs="1" maxOccurs="1" ref="q4:TidsstempelDatoTid" />
+        <xs:element minOccurs="1" maxOccurs="1" name="GraenseIndikator" type="xs:boolean" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnikIdType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element xmlns:q5="urn:oio:dkal:1.0.0" minOccurs="0" maxOccurs="1" ref="q5:UUID" />
+        <xs:element minOccurs="0" maxOccurs="1" name="URNIdentifikator" type="xs:string" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LokalUdvidelse" type="tns:LokalUdvidelseType" />
+  <xs:complexType name="LokalUdvidelseType">
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TilstandVirkning" type="tns:TilstandVirkningType" />
+  <xs:complexType name="TilstandVirkningType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="tns:TidspunktType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="tns:UnikIdType" />
+      <xs:element xmlns:q6="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" minOccurs="0" maxOccurs="1" ref="q6:CommentText" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RelationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Virkning" type="tns:VirkningType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="tns:UnikIdType" />
+      <xs:element xmlns:q7="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" minOccurs="0" maxOccurs="1" ref="q7:CommentText" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PersonFlerRelationType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:FlerRelationType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FlerRelationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Virkning" type="tns:VirkningType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="tns:UnikIdType" />
+      <xs:element xmlns:q8="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" minOccurs="0" maxOccurs="1" ref="q8:CommentText" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegistreringType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Tidspunkt" type="tns:TidspunktType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LivscyklusKode" type="tns:LivscyklusKodeType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="tns:UnikIdType" />
+      <xs:element xmlns:q9="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" minOccurs="0" maxOccurs="1" ref="q9:CommentText" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Virkning" type="tns:VirkningType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="LivscyklusKodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Opstaaet" />
+      <xs:enumeration value="Importeret" />
+      <xs:enumeration value="Passiveret" />
+      <xs:enumeration value="Slettet" />
+      <xs:enumeration value="Rettet" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

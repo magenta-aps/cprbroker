@@ -12,85 +12,69 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="SubscriptionsService.SubscriptionsSoap12")]
-    public interface SubscriptionsSoap12 {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SubscriptionsService.ISubscriptions")]
+    public interface ISubscriptions {
         
-        // CODEGEN: Generating message contract since message SubscribeRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Subscribe", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/Subscribe", ReplyAction="http://tempuri.org/ISubscriptions/SubscribeResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.SubscriptionsService.SubscribeResponse Subscribe(CPR_Business_Application_Demo.SubscriptionsService.SubscribeRequest request);
+        CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfChangeSubscriptionType Subscribe(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel, System.Guid[] personUuids);
         
-        // CODEGEN: Generating message contract since message UnsubscribeRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Unsubscribe", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/Unsubscribe", ReplyAction="http://tempuri.org/ISubscriptions/UnsubscribeResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeResponse Unsubscribe(CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest request);
+        CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean Unsubscribe(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader, System.Guid SubscriptionId);
         
-        // CODEGEN: Generating message contract since message SubscribeOnBirthdateRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/SubscribeOnBirthdate", ReplyAction="*")]
+        // CODEGEN: Parameter 'Years' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/SubscribeOnBirthdate", ReplyAction="http://tempuri.org/ISubscriptions/SubscribeOnBirthdateResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse SubscribeOnBirthdate(CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateRequest request);
         
-        // CODEGEN: Generating message contract since message RemoveBirthDateSubscriptionRequest has headers
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/RemoveBirthDateSubscription", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/RemoveBirthDateSubscription", ReplyAction="http://tempuri.org/ISubscriptions/RemoveBirthDateSubscriptionResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionResponse RemoveBirthDateSubscription(CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest request);
+        CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean RemoveBirthDateSubscription(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader, System.Guid SubscriptionId);
         
-        // CODEGEN: Generating message contract since the wrapper name (GetActiveSubsciptionsList) of message GetActiveSubsciptionsList does not match the default value (GetActiveSubscriptionsList)
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetActiveSubsciptionsList", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/GetActiveSubscriptionsList", ReplyAction="http://tempuri.org/ISubscriptions/GetActiveSubscriptionsListResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList1 GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Ping", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        string Ping();
+        CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfArrayOfSubscriptionType GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader);
     }
     
     /// <remarks/>
@@ -98,14 +82,12 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
         
         private string userTokenField;
-        
-        private System.Xml.XmlAttribute[] anyAttrField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -128,18 +110,6 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
             set {
                 this.userTokenField = value;
                 this.RaisePropertyChanged("UserToken");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
-        public System.Xml.XmlAttribute[] AnyAttr {
-            get {
-                return this.anyAttrField;
-            }
-            set {
-                this.anyAttrField = value;
-                this.RaisePropertyChanged("AnyAttr");
             }
         }
         
@@ -1611,9 +1581,9 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1646,6 +1616,145 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
             set {
                 this.ukendtAdresseIndikatorField = value;
                 this.RaisePropertyChanged("UkendtAdresseIndikator");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class VerdenAdresseType : AdresseBaseType {
+        
+        private ForeignAddressStructureType foreignAddressStructureField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/", Order=0)]
+        public ForeignAddressStructureType ForeignAddressStructure {
+            get {
+                return this.foreignAddressStructureField;
+            }
+            set {
+                this.foreignAddressStructureField = value;
+                this.RaisePropertyChanged("ForeignAddressStructure");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class ForeignAddressStructureType : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string postalAddressFirstLineTextField;
+        
+        private string postalAddressSecondLineTextField;
+        
+        private string postalAddressThirdLineTextField;
+        
+        private string postalAddressFourthLineTextField;
+        
+        private string postalAddressFifthLineTextField;
+        
+        private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        private string locationDescriptionTextField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=0)]
+        public string PostalAddressFirstLineText {
+            get {
+                return this.postalAddressFirstLineTextField;
+            }
+            set {
+                this.postalAddressFirstLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFirstLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
+        public string PostalAddressSecondLineText {
+            get {
+                return this.postalAddressSecondLineTextField;
+            }
+            set {
+                this.postalAddressSecondLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressSecondLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
+        public string PostalAddressThirdLineText {
+            get {
+                return this.postalAddressThirdLineTextField;
+            }
+            set {
+                this.postalAddressThirdLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressThirdLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
+        public string PostalAddressFourthLineText {
+            get {
+                return this.postalAddressFourthLineTextField;
+            }
+            set {
+                this.postalAddressFourthLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFourthLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
+        public string PostalAddressFifthLineText {
+            get {
+                return this.postalAddressFifthLineTextField;
+            }
+            set {
+                this.postalAddressFifthLineTextField = value;
+                this.RaisePropertyChanged("PostalAddressFifthLineText");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+                this.RaisePropertyChanged("CountryIdentificationCode");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/", Order=6)]
+        public string LocationDescriptionText {
+            get {
+                return this.locationDescriptionTextField;
+            }
+            set {
+                this.locationDescriptionTextField = value;
+                this.RaisePropertyChanged("LocationDescriptionText");
             }
         }
         
@@ -1897,145 +2006,6 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
             set {
                 this.countryIdentificationCodeField = value;
                 this.RaisePropertyChanged("CountryIdentificationCode");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class VerdenAdresseType : AdresseBaseType {
-        
-        private ForeignAddressStructureType foreignAddressStructureField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/", Order=0)]
-        public ForeignAddressStructureType ForeignAddressStructure {
-            get {
-                return this.foreignAddressStructureField;
-            }
-            set {
-                this.foreignAddressStructureField = value;
-                this.RaisePropertyChanged("ForeignAddressStructure");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class ForeignAddressStructureType : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string postalAddressFirstLineTextField;
-        
-        private string postalAddressSecondLineTextField;
-        
-        private string postalAddressThirdLineTextField;
-        
-        private string postalAddressFourthLineTextField;
-        
-        private string postalAddressFifthLineTextField;
-        
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        private string locationDescriptionTextField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=0)]
-        public string PostalAddressFirstLineText {
-            get {
-                return this.postalAddressFirstLineTextField;
-            }
-            set {
-                this.postalAddressFirstLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFirstLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=1)]
-        public string PostalAddressSecondLineText {
-            get {
-                return this.postalAddressSecondLineTextField;
-            }
-            set {
-                this.postalAddressSecondLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressSecondLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=2)]
-        public string PostalAddressThirdLineText {
-            get {
-                return this.postalAddressThirdLineTextField;
-            }
-            set {
-                this.postalAddressThirdLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressThirdLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=3)]
-        public string PostalAddressFourthLineText {
-            get {
-                return this.postalAddressFourthLineTextField;
-            }
-            set {
-                this.postalAddressFourthLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFourthLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/", Order=4)]
-        public string PostalAddressFifthLineText {
-            get {
-                return this.postalAddressFifthLineTextField;
-            }
-            set {
-                this.postalAddressFifthLineTextField = value;
-                this.RaisePropertyChanged("PostalAddressFifthLineText");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/", Order=5)]
-        public CountryIdentificationCodeType CountryIdentificationCode {
-            get {
-                return this.countryIdentificationCodeField;
-            }
-            set {
-                this.countryIdentificationCodeField = value;
-                this.RaisePropertyChanged("CountryIdentificationCode");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/", Order=6)]
-        public string LocationDescriptionText {
-            get {
-                return this.locationDescriptionTextField;
-            }
-            set {
-                this.locationDescriptionTextField = value;
-                this.RaisePropertyChanged("LocationDescriptionText");
             }
         }
         
@@ -3511,7 +3481,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public abstract partial class SubscriptionType : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string subscriptionIdField;
@@ -3601,7 +3571,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public abstract partial class ChannelBaseType : object, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
@@ -3619,7 +3589,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class FileShareChannelType : ChannelBaseType {
         
         private string pathField;
@@ -3642,7 +3612,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class WebServiceChannelType : ChannelBaseType {
         
         private string webServiceUrlField;
@@ -3665,7 +3635,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class BirthdateSubscriptionType : SubscriptionType {
         
         private System.Nullable<int> ageYearsField;
@@ -3702,7 +3672,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class ChangeSubscriptionType : SubscriptionType {
     }
     
@@ -3753,10 +3723,10 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfSubscriptionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfBirthdateSubscriptionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfBoolean))]
@@ -3788,6 +3758,29 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class RegistreringOutputType : BasicOutputType {
+        
+        private RegistreringType1 registreringField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public RegistreringType1 Registrering {
+            get {
+                return this.registreringField;
+            }
+            set {
+                this.registreringField = value;
+                this.RaisePropertyChanged("Registrering");
             }
         }
     }
@@ -3866,30 +3859,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class RegistreringOutputType : BasicOutputType {
-        
-        private RegistreringType1 registreringField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public RegistreringType1 Registrering {
-            get {
-                return this.registreringField;
-            }
-            set {
-                this.registreringField = value;
-                this.RaisePropertyChanged("Registrering");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class BasicOutputTypeOfArrayOfSubscriptionType : BasicOutputType {
         
         private SubscriptionType[] itemField;
@@ -3912,7 +3882,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class BasicOutputTypeOfBirthdateSubscriptionType : BasicOutputType {
         
         private BirthdateSubscriptionType itemField;
@@ -3935,7 +3905,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class BasicOutputTypeOfBoolean : BasicOutputType {
         
         private bool itemField;
@@ -3958,7 +3928,7 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class BasicOutputTypeOfChangeSubscriptionType : BasicOutputType {
         
         private ChangeSubscriptionType itemField;
@@ -3978,106 +3948,30 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Subscribe", WrapperNamespace="http://dk.itst", IsWrapped=true)]
-    public partial class SubscribeRequest {
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
-        public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=1)]
-        public System.Guid[] personUuids;
-        
-        public SubscribeRequest() {
-        }
-        
-        public SubscribeRequest(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel, System.Guid[] personUuids) {
-            this.ApplicationHeader = ApplicationHeader;
-            this.NotificationChannel = NotificationChannel;
-            this.personUuids = personUuids;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
-    public partial class SubscribeResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfChangeSubscriptionType SubscribeResult;
-        
-        public SubscribeResponse() {
-        }
-        
-        public SubscribeResponse(CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfChangeSubscriptionType SubscribeResult) {
-            this.SubscribeResult = SubscribeResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Unsubscribe", WrapperNamespace="http://dk.itst", IsWrapped=true)]
-    public partial class UnsubscribeRequest {
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
-        public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public System.Guid SubscriptionId;
-        
-        public UnsubscribeRequest() {
-        }
-        
-        public UnsubscribeRequest(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader, System.Guid SubscriptionId) {
-            this.ApplicationHeader = ApplicationHeader;
-            this.SubscriptionId = SubscriptionId;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="UnsubscribeResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
-    public partial class UnsubscribeResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean UnsubscribeResult;
-        
-        public UnsubscribeResponse() {
-        }
-        
-        public UnsubscribeResponse(CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean UnsubscribeResult) {
-            this.UnsubscribeResult = UnsubscribeResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdate", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdate", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class SubscribeOnBirthdateRequest {
         
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
-        public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
         public CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=1)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public System.Nullable<int> Years;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=2)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
         public int PriorDays;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=3)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=4)]
         public System.Guid[] PersonCivilRegistrationIdentifiers;
         
         public SubscribeOnBirthdateRequest() {
         }
         
-        public SubscribeOnBirthdateRequest(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel, System.Nullable<int> Years, int PriorDays, System.Guid[] PersonCivilRegistrationIdentifiers) {
-            this.ApplicationHeader = ApplicationHeader;
+        public SubscribeOnBirthdateRequest(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel, System.Nullable<int> Years, int PriorDays, System.Guid[] PersonCivilRegistrationIdentifiers) {
+            this.applicationHeader = applicationHeader;
             this.NotificationChannel = NotificationChannel;
             this.Years = Years;
             this.PriorDays = PriorDays;
@@ -4087,10 +3981,10 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdateResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdateResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class SubscribeOnBirthdateResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
         public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBirthdateSubscriptionType SubscribeOnBirthdateResult;
         
         public SubscribeOnBirthdateResponse() {
@@ -4101,171 +3995,63 @@ namespace CPR_Business_Application_Demo.SubscriptionsService {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="RemoveBirthDateSubscription", WrapperNamespace="http://dk.itst", IsWrapped=true)]
-    public partial class RemoveBirthDateSubscriptionRequest {
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
-        public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public System.Guid SubscriptionId;
-        
-        public RemoveBirthDateSubscriptionRequest() {
-        }
-        
-        public RemoveBirthDateSubscriptionRequest(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader, System.Guid SubscriptionId) {
-            this.ApplicationHeader = ApplicationHeader;
-            this.SubscriptionId = SubscriptionId;
-        }
+    public interface ISubscriptionsChannel : CPR_Business_Application_Demo.SubscriptionsService.ISubscriptions, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="RemoveBirthDateSubscriptionResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
-    public partial class RemoveBirthDateSubscriptionResponse {
+    public partial class SubscriptionsClient : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.SubscriptionsService.ISubscriptions>, CPR_Business_Application_Demo.SubscriptionsService.ISubscriptions {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean RemoveBirthDateSubscriptionResult;
-        
-        public RemoveBirthDateSubscriptionResponse() {
+        public SubscriptionsClient() {
         }
         
-        public RemoveBirthDateSubscriptionResponse(CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean RemoveBirthDateSubscriptionResult) {
-            this.RemoveBirthDateSubscriptionResult = RemoveBirthDateSubscriptionResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetActiveSubsciptionsList", WrapperNamespace="http://dk.itst", IsWrapped=true)]
-    public partial class GetActiveSubsciptionsList {
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
-        public CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader;
-        
-        public GetActiveSubsciptionsList() {
-        }
-        
-        public GetActiveSubsciptionsList(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader) {
-            this.ApplicationHeader = ApplicationHeader;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetActiveSubsciptionsListResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
-    public partial class GetActiveSubsciptionsList1 {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfArrayOfSubscriptionType GetActiveSubsciptionsListResult;
-        
-        public GetActiveSubsciptionsList1() {
-        }
-        
-        public GetActiveSubsciptionsList1(CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfArrayOfSubscriptionType GetActiveSubsciptionsListResult) {
-            this.GetActiveSubsciptionsListResult = GetActiveSubsciptionsListResult;
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public interface SubscriptionsSoap12Channel : CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12, System.ServiceModel.IClientChannel {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public partial class SubscriptionsSoap12Client : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12>, CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12 {
-        
-        public SubscriptionsSoap12Client() {
-        }
-        
-        public SubscriptionsSoap12Client(string endpointConfigurationName) : 
+        public SubscriptionsClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public SubscriptionsSoap12Client(string endpointConfigurationName, string remoteAddress) : 
+        public SubscriptionsClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public SubscriptionsSoap12Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public SubscriptionsClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public SubscriptionsSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public SubscriptionsClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.SubscribeResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.Subscribe(CPR_Business_Application_Demo.SubscriptionsService.SubscribeRequest request) {
-            return base.Channel.Subscribe(request);
+        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfChangeSubscriptionType Subscribe(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel, System.Guid[] personUuids) {
+            return base.Channel.Subscribe(applicationHeader, NotificationChannel, personUuids);
         }
         
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfChangeSubscriptionType Subscribe(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel, System.Guid[] personUuids) {
-            CPR_Business_Application_Demo.SubscriptionsService.SubscribeRequest inValue = new CPR_Business_Application_Demo.SubscriptionsService.SubscribeRequest();
-            inValue.ApplicationHeader = ApplicationHeader;
-            inValue.NotificationChannel = NotificationChannel;
-            inValue.personUuids = personUuids;
-            CPR_Business_Application_Demo.SubscriptionsService.SubscribeResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).Subscribe(inValue);
-            return retVal.SubscribeResult;
+        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean Unsubscribe(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader, System.Guid SubscriptionId) {
+            return base.Channel.Unsubscribe(applicationHeader, SubscriptionId);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.Unsubscribe(CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest request) {
-            return base.Channel.Unsubscribe(request);
-        }
-        
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean Unsubscribe(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader, System.Guid SubscriptionId) {
-            CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest inValue = new CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeRequest();
-            inValue.ApplicationHeader = ApplicationHeader;
-            inValue.SubscriptionId = SubscriptionId;
-            CPR_Business_Application_Demo.SubscriptionsService.UnsubscribeResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).Unsubscribe(inValue);
-            return retVal.UnsubscribeResult;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.SubscribeOnBirthdate(CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateRequest request) {
+        CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse CPR_Business_Application_Demo.SubscriptionsService.ISubscriptions.SubscribeOnBirthdate(CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateRequest request) {
             return base.Channel.SubscribeOnBirthdate(request);
         }
         
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBirthdateSubscriptionType SubscribeOnBirthdate(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel, System.Nullable<int> Years, int PriorDays, System.Guid[] PersonCivilRegistrationIdentifiers) {
+        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBirthdateSubscriptionType SubscribeOnBirthdate(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.SubscriptionsService.ChannelBaseType NotificationChannel, System.Nullable<int> Years, int PriorDays, System.Guid[] PersonCivilRegistrationIdentifiers) {
             CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateRequest inValue = new CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateRequest();
-            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.applicationHeader = applicationHeader;
             inValue.NotificationChannel = NotificationChannel;
             inValue.Years = Years;
             inValue.PriorDays = PriorDays;
             inValue.PersonCivilRegistrationIdentifiers = PersonCivilRegistrationIdentifiers;
-            CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).SubscribeOnBirthdate(inValue);
+            CPR_Business_Application_Demo.SubscriptionsService.SubscribeOnBirthdateResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.ISubscriptions)(this)).SubscribeOnBirthdate(inValue);
             return retVal.SubscribeOnBirthdateResult;
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionResponse CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.RemoveBirthDateSubscription(CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest request) {
-            return base.Channel.RemoveBirthDateSubscription(request);
+        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean RemoveBirthDateSubscription(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader, System.Guid SubscriptionId) {
+            return base.Channel.RemoveBirthDateSubscription(applicationHeader, SubscriptionId);
         }
         
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfBoolean RemoveBirthDateSubscription(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader, System.Guid SubscriptionId) {
-            CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest inValue = new CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionRequest();
-            inValue.ApplicationHeader = ApplicationHeader;
-            inValue.SubscriptionId = SubscriptionId;
-            CPR_Business_Application_Demo.SubscriptionsService.RemoveBirthDateSubscriptionResponse retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).RemoveBirthDateSubscription(inValue);
-            return retVal.RemoveBirthDateSubscriptionResult;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList1 CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12.GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList request) {
-            return base.Channel.GetActiveSubscriptionsList(request);
-        }
-        
-        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfArrayOfSubscriptionType GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader ApplicationHeader) {
-            CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList inValue = new CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList();
-            inValue.ApplicationHeader = ApplicationHeader;
-            CPR_Business_Application_Demo.SubscriptionsService.GetActiveSubsciptionsList1 retVal = ((CPR_Business_Application_Demo.SubscriptionsService.SubscriptionsSoap12)(this)).GetActiveSubscriptionsList(inValue);
-            return retVal.GetActiveSubsciptionsListResult;
-        }
-        
-        public string Ping() {
-            return base.Channel.Ping();
+        public CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfArrayOfSubscriptionType GetActiveSubscriptionsList(CPR_Business_Application_Demo.SubscriptionsService.ApplicationHeader applicationHeader) {
+            return base.Channel.GetActiveSubscriptionsList(applicationHeader);
         }
     }
 }
