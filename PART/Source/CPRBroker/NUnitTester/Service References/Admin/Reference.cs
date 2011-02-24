@@ -12,10 +12,10 @@ namespace CprBroker.NUnitTester.Admin {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Admin.IAdmin")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="Admin.IAdmin")]
     public interface IAdmin {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/RequestAppRegistration", ReplyAction="http://tempuri.org/IAdmin/RequestAppRegistrationResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/RequestAppRegistration", ReplyAction="http://dk.itst/IAdmin/RequestAppRegistrationResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -28,7 +28,7 @@ namespace CprBroker.NUnitTester.Admin {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CprBroker.NUnitTester.Admin.BasicOutputTypeOfApplicationType RequestAppRegistration(CprBroker.NUnitTester.Admin.ApplicationHeader applicationHeader, string ApplicationName);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/ApproveAppRegistration", ReplyAction="http://tempuri.org/IAdmin/ApproveAppRegistrationResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/ApproveAppRegistration", ReplyAction="http://dk.itst/IAdmin/ApproveAppRegistrationResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -41,7 +41,7 @@ namespace CprBroker.NUnitTester.Admin {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CprBroker.NUnitTester.Admin.BasicOutputTypeOfBoolean ApproveAppRegistration(CprBroker.NUnitTester.Admin.ApplicationHeader applicationHeader, string ApplicationToken);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/ListAppRegistrations", ReplyAction="http://tempuri.org/IAdmin/ListAppRegistrationsResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/ListAppRegistrations", ReplyAction="http://dk.itst/IAdmin/ListAppRegistrationsResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -54,7 +54,7 @@ namespace CprBroker.NUnitTester.Admin {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CprBroker.NUnitTester.Admin.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrations(CprBroker.NUnitTester.Admin.ApplicationHeader applicationHeader);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/UnregisterApp", ReplyAction="http://tempuri.org/IAdmin/UnregisterAppResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/UnregisterApp", ReplyAction="http://dk.itst/IAdmin/UnregisterAppResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -67,7 +67,7 @@ namespace CprBroker.NUnitTester.Admin {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CprBroker.NUnitTester.Admin.BasicOutputTypeOfBoolean UnregisterApp(CprBroker.NUnitTester.Admin.ApplicationHeader applicationHeader, string ApplicationToken);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/GetCapabilities", ReplyAction="http://tempuri.org/IAdmin/GetCapabilitiesResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/GetCapabilities", ReplyAction="http://dk.itst/IAdmin/GetCapabilitiesResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -80,7 +80,7 @@ namespace CprBroker.NUnitTester.Admin {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CprBroker.NUnitTester.Admin.BasicOutputTypeOfArrayOfServiceVersionType GetCapabilities(CprBroker.NUnitTester.Admin.ApplicationHeader applicationHeader);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/IsImplementing", ReplyAction="http://tempuri.org/IAdmin/IsImplementingResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/IsImplementing", ReplyAction="http://dk.itst/IAdmin/IsImplementingResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -93,7 +93,7 @@ namespace CprBroker.NUnitTester.Admin {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CprBroker.NUnitTester.Admin.BasicOutputTypeOfBoolean IsImplementing(CprBroker.NUnitTester.Admin.ApplicationHeader applicationHeader, string serviceName, string serviceVersion);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/GetDataProviderList", ReplyAction="http://tempuri.org/IAdmin/GetDataProviderListResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/GetDataProviderList", ReplyAction="http://dk.itst/IAdmin/GetDataProviderListResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -106,7 +106,7 @@ namespace CprBroker.NUnitTester.Admin {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CprBroker.NUnitTester.Admin.BasicOutputTypeOfArrayOfDataProviderType GetDataProviderList(CprBroker.NUnitTester.Admin.ApplicationHeader applicationHeader);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/SetDataProviderList", ReplyAction="http://tempuri.org/IAdmin/SetDataProviderListResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/SetDataProviderList", ReplyAction="http://dk.itst/IAdmin/SetDataProviderListResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -119,7 +119,7 @@ namespace CprBroker.NUnitTester.Admin {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CprBroker.NUnitTester.Admin.BasicOutputTypeOfBoolean SetDataProviderList(CprBroker.NUnitTester.Admin.ApplicationHeader applicationHeader, DataProviderType[] DataProviders);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAdmin/Log", ReplyAction="http://tempuri.org/IAdmin/LogResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/Log", ReplyAction="http://dk.itst/IAdmin/LogResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -138,7 +138,7 @@ namespace CprBroker.NUnitTester.Admin {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
@@ -3983,7 +3983,7 @@ namespace CprBroker.NUnitTester.Admin {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfArrayOfDataProviderType : BasicOutputType {
         
         private DataProviderType[] itemField;
@@ -4006,7 +4006,7 @@ namespace CprBroker.NUnitTester.Admin {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfArrayOfServiceVersionType : BasicOutputType {
         
         private ServiceVersionType[] itemField;
@@ -4029,7 +4029,7 @@ namespace CprBroker.NUnitTester.Admin {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfArrayOfApplicationType : BasicOutputType {
         
         private ApplicationType[] itemField;
@@ -4052,7 +4052,7 @@ namespace CprBroker.NUnitTester.Admin {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfBoolean : BasicOutputType {
         
         private bool itemField;
@@ -4075,7 +4075,7 @@ namespace CprBroker.NUnitTester.Admin {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfApplicationType : BasicOutputType {
         
         private ApplicationType itemField;

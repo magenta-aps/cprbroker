@@ -13,6 +13,7 @@ using CprBroker.Schemas.Part.Events;
 namespace CprBroker.Web.Services
 {
     // NOTE: If you change the class name "Events" here, you must also update the reference to "Events" in Web.config.
+    [ServiceBehavior(Namespace = "http://dk.itst")]
     public class Events : IEvents
     {
         public BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(ApplicationHeader applicationHeader, int maxCount)

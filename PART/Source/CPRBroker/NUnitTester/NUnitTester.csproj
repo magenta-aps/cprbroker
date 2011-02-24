@@ -139,17 +139,6 @@
     <WCFMetadataStorage Include="Service References\Subscriptions\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\Part\Part.disco" />
-    <None Include="Service References\Part\Part.wsdl" />
-    <None Include="Service References\Part\Part.xsd" />
-    <None Include="Service References\Part\Part1.xsd" />
-    <None Include="Service References\Part\Part2.xsd" />
-    <None Include="Service References\Part\Part3.xsd" />
-    <None Include="Service References\Part\Part4.xsd" />
-    <None Include="Service References\Part\Part5.xsd" />
-    <None Include="Service References\Part\Part6.xsd" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\Part\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -160,12 +149,6 @@
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.LaesOutputType.datasource" />
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.ListOutputType1.datasource" />
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.SoegOutputType.datasource" />
-    <None Include="Service References\Admin\Admin.xsd" />
-    <None Include="Service References\Admin\Admin1.xsd" />
-    <None Include="Service References\Admin\Admin2.xsd" />
-    <None Include="Service References\Admin\Admin3.xsd" />
-    <None Include="Service References\Admin\Admin4.xsd" />
-    <None Include="Service References\Admin\Admin5.xsd" />
     <None Include="Service References\Part\CprBroker.NUnitTester.Part.GetUuidOutputType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -178,48 +161,10 @@
     <None Include="Service References\Part\CprBroker.NUnitTester.Part.SoegOutputType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\Part\Part7.xsd" />
-    <None Include="Service References\Part\Part71.xsd" />
-    <None Include="Service References\Part\Part710.xsd" />
-    <None Include="Service References\Part\Part711.xsd" />
-    <None Include="Service References\Part\Part712.xsd" />
-    <None Include="Service References\Part\Part713.xsd" />
-    <None Include="Service References\Part\Part714.xsd" />
-    <None Include="Service References\Part\Part715.xsd" />
-    <None Include="Service References\Part\Part72.xsd" />
-    <None Include="Service References\Part\Part73.xsd" />
-    <None Include="Service References\Part\Part74.xsd" />
-    <None Include="Service References\Part\Part75.xsd" />
-    <None Include="Service References\Part\Part76.xsd" />
-    <None Include="Service References\Part\Part77.xsd" />
-    <None Include="Service References\Part\Part78.xsd" />
-    <None Include="Service References\Part\Part79.xsd" />
     <None Include="Service References\Part\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Admin\Admin.disco" />
-    <None Include="Service References\Admin\Admin.wsdl" />
-    <None Include="Service References\Admin\Admin10.xsd" />
-    <None Include="Service References\Admin\Admin11.xsd" />
-    <None Include="Service References\Admin\Admin12.xsd" />
-    <None Include="Service References\Admin\Admin13.xsd" />
-    <None Include="Service References\Admin\Admin14.xsd" />
-    <None Include="Service References\Admin\Admin15.xsd" />
-    <None Include="Service References\Admin\Admin16.xsd" />
-    <None Include="Service References\Admin\Admin17.xsd" />
-    <None Include="Service References\Admin\Admin18.xsd" />
-    <None Include="Service References\Admin\Admin19.xsd" />
-    <None Include="Service References\Admin\Admin20.xsd" />
-    <None Include="Service References\Admin\Admin21.xsd" />
-    <None Include="Service References\Admin\Admin22.xsd" />
-    <None Include="Service References\Admin\Admin23.xsd" />
-    <None Include="Service References\Admin\Admin6.xsd" />
-    <None Include="Service References\Admin\Admin7.xsd" />
-    <None Include="Service References\Admin\Admin8.xsd" />
-    <None Include="Service References\Admin\Admin9.xsd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Admin\configuration91.svcinfo" />
@@ -247,16 +192,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\Events\Events.wsdl" />
-    <None Include="Service References\Events\Events.xsd" />
-    <None Include="Service References\Events\Events1.xsd" />
-    <None Include="Service References\Events\Events2.xsd" />
-    <None Include="Service References\Events\Events3.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Events\Events.disco" />
-    <None Include="Service References\Events\Events4.xsd" />
-    <None Include="Service References\Events\Events5.xsd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Events\configuration91.svcinfo" />
@@ -273,24 +208,6 @@
     <None Include="Service References\Events\CprBroker.NUnitTester.Events.BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\Events\Events6.xsd" />
-    <None Include="Service References\Events\Events61.xsd" />
-    <None Include="Service References\Events\Events610.xsd" />
-    <None Include="Service References\Events\Events611.xsd" />
-    <None Include="Service References\Events\Events612.xsd" />
-    <None Include="Service References\Events\Events613.xsd" />
-    <None Include="Service References\Events\Events614.xsd" />
-    <None Include="Service References\Events\Events615.xsd" />
-    <None Include="Service References\Events\Events616.xsd" />
-    <None Include="Service References\Events\Events617.xsd" />
-    <None Include="Service References\Events\Events62.xsd" />
-    <None Include="Service References\Events\Events63.xsd" />
-    <None Include="Service References\Events\Events64.xsd" />
-    <None Include="Service References\Events\Events65.xsd" />
-    <None Include="Service References\Events\Events66.xsd" />
-    <None Include="Service References\Events\Events67.xsd" />
-    <None Include="Service References\Events\Events68.xsd" />
-    <None Include="Service References\Events\Events69.xsd" />
     <None Include="Service References\Events\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -331,6 +248,10 @@
     <None Include="Service References\Subscriptions\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\Admin\Admin24.xsd" />
+    <None Include="Service References\Admin\Admin241.xsd" />
+    <None Include="Service References\Admin\Admin242.xsd" />
+    <None Include="Service References\Admin\Admin243.xsd" />
     <None Include="Service References\Subscriptions\CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfArrayOfSubscriptionType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -347,6 +268,85 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Admin\Admin1.disco" />
+    <None Include="Service References\Admin\Admin1.wsdl" />
+    <None Include="Service References\Admin\Admin2410.xsd" />
+    <None Include="Service References\Admin\Admin2411.xsd" />
+    <None Include="Service References\Admin\Admin2412.xsd" />
+    <None Include="Service References\Admin\Admin2413.xsd" />
+    <None Include="Service References\Admin\Admin2414.xsd" />
+    <None Include="Service References\Admin\Admin2415.xsd" />
+    <None Include="Service References\Admin\Admin2416.xsd" />
+    <None Include="Service References\Admin\Admin2417.xsd" />
+    <None Include="Service References\Admin\Admin2418.xsd" />
+    <None Include="Service References\Admin\Admin2419.xsd" />
+    <None Include="Service References\Admin\Admin2420.xsd" />
+    <None Include="Service References\Admin\Admin2421.xsd" />
+    <None Include="Service References\Admin\Admin2422.xsd" />
+    <None Include="Service References\Admin\Admin2423.xsd" />
+    <None Include="Service References\Admin\Admin244.xsd" />
+    <None Include="Service References\Admin\Admin245.xsd" />
+    <None Include="Service References\Admin\Admin246.xsd" />
+    <None Include="Service References\Admin\Admin247.xsd" />
+    <None Include="Service References\Admin\Admin248.xsd" />
+    <None Include="Service References\Admin\Admin249.xsd" />
+    <None Include="Service References\Events\Events1.wsdl" />
+    <None Include="Service References\Events\Events7.xsd" />
+    <None Include="Service References\Events\Events71.xsd" />
+    <None Include="Service References\Events\Events710.xsd" />
+    <None Include="Service References\Events\Events711.xsd" />
+    <None Include="Service References\Events\Events712.xsd" />
+    <None Include="Service References\Events\Events72.xsd" />
+    <None Include="Service References\Events\Events73.xsd" />
+    <None Include="Service References\Events\Events74.xsd" />
+    <None Include="Service References\Events\Events75.xsd" />
+    <None Include="Service References\Events\Events76.xsd" />
+    <None Include="Service References\Events\Events77.xsd" />
+    <None Include="Service References\Events\Events78.xsd" />
+    <None Include="Service References\Events\Events79.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Events\Events1.disco" />
+    <None Include="Service References\Events\Events713.xsd" />
+    <None Include="Service References\Events\Events714.xsd" />
+    <None Include="Service References\Events\Events715.xsd" />
+    <None Include="Service References\Events\Events716.xsd" />
+    <None Include="Service References\Events\Events717.xsd" />
+    <None Include="Service References\Events\Events718.xsd" />
+    <None Include="Service References\Events\Events719.xsd" />
+    <None Include="Service References\Events\Events720.xsd" />
+    <None Include="Service References\Events\Events721.xsd" />
+    <None Include="Service References\Events\Events722.xsd" />
+    <None Include="Service References\Events\Events723.xsd" />
+    <None Include="Service References\Part\Part2.wsdl" />
+    <None Include="Service References\Part\Part8.xsd" />
+    <None Include="Service References\Part\Part81.xsd" />
+    <None Include="Service References\Part\Part810.xsd" />
+    <None Include="Service References\Part\Part811.xsd" />
+    <None Include="Service References\Part\Part812.xsd" />
+    <None Include="Service References\Part\Part813.xsd" />
+    <None Include="Service References\Part\Part814.xsd" />
+    <None Include="Service References\Part\Part815.xsd" />
+    <None Include="Service References\Part\Part816.xsd" />
+    <None Include="Service References\Part\Part817.xsd" />
+    <None Include="Service References\Part\Part818.xsd" />
+    <None Include="Service References\Part\Part819.xsd" />
+    <None Include="Service References\Part\Part82.xsd" />
+    <None Include="Service References\Part\Part83.xsd" />
+    <None Include="Service References\Part\Part84.xsd" />
+    <None Include="Service References\Part\Part85.xsd" />
+    <None Include="Service References\Part\Part86.xsd" />
+    <None Include="Service References\Part\Part87.xsd" />
+    <None Include="Service References\Part\Part88.xsd" />
+    <None Include="Service References\Part\Part89.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Part\Part1.disco" />
+    <None Include="Service References\Part\Part820.xsd" />
+    <None Include="Service References\Part\Part821.xsd" />
+    <None Include="Service References\Part\Part822.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

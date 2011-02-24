@@ -7,12 +7,11 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine;
+using System.ServiceModel;
 
 namespace CprBroker.Web.Services
 {
-    /// <summary>
-    /// Contains web methods related to administration of the system
-    /// </summary>    
+    [ServiceBehavior(Namespace = "http://dk.itst")]
     public class Admin : IAdmin
     {
         

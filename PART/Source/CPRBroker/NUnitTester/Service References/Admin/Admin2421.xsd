@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:oio:sagdok:person:1.0.0" elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:person:1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd3" namespace="urn:oio:sagdok:part:1.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd6" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd8" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd9" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd10" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd11" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd12" namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd13" namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd16" namespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd17" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd21" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd14" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd22" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd7" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd4" namespace="urn:oio:dkal:1.0.0" />
+  <xs:complexType name="OpretOutputType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="urn:oio:sagdok:2.0.0" base="q1:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Person" type="tns:PersonType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="urn:oio:sagdok:part:1.0.0" base="q2:PartType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Registrering" type="tns:RegistreringType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FiltreretOejebliksbilledeType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="urn:oio:sagdok:2.0.0" base="q3:LaesFiltreretOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="AttributListe" type="tns:AttributListeType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TilstandListe" type="tns:TilstandListeType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RelationListe" type="tns:RelationListeType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AttributListeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Egenskab" type="tns:EgenskabType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SundhedOplysning" type="tns:SundhedOplysningType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RegisterOplysning" type="tns:RegisterOplysningType" />
+      <xs:element xmlns:q4="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q4:LokalUdvidelse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EgenskabType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="NavnStruktur" type="tns:NavnStrukturType" />
+      <xs:element xmlns:q5="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" minOccurs="1" maxOccurs="1" ref="q5:PersonGenderCode" />
+      <xs:element xmlns:q6="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" minOccurs="1" maxOccurs="1" ref="q6:BirthDate" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FoedselsregistreringMyndighedNavn" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FoedestedNavn" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="KontaktKanal" type="tns:KontaktKanalType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="NaermestePaaroerende" type="tns:KontaktKanalType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AndreAdresser" type="tns:AdresseType" />
+      <xs:element xmlns:q7="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q7:Virkning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NavnStrukturType">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" minOccurs="0" maxOccurs="1" ref="q8:PersonNameStructure" />
+      <xs:element xmlns:q9="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q9:KaldenavnTekst" />
+      <xs:element xmlns:q10="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" minOccurs="0" maxOccurs="1" ref="q10:PersonNameForAddressingName" />
+      <xs:element xmlns:q11="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q11:NoteTekst" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KontaktKanalType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:KontaktKanalBaseType">
+        <xs:sequence>
+          <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element minOccurs="0" maxOccurs="1" name="Telefon" type="tns:TelefonType" />
+            <xs:element xmlns:q12="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" minOccurs="0" maxOccurs="1" ref="q12:EmailAddressIdentifier" />
+            <xs:element minOccurs="0" maxOccurs="1" name="AndenKontaktKanal" type="tns:AndenKontaktKanalType" />
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="KontaktKanalBaseType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="BegraensetAnvendelseTekst" type="xs:string" />
+      <xs:element xmlns:q13="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q13:NoteTekst" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TelefonType">
+    <xs:sequence>
+      <xs:element xmlns:q14="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" minOccurs="0" maxOccurs="1" ref="q14:TelephoneNumberIdentifier" />
+      <xs:element minOccurs="1" maxOccurs="1" name="KanBrugesTilSmsIndikator" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AndenKontaktKanalType">
+    <xs:sequence>
+      <xs:element xmlns:q15="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q15:NoteTekst" />
+      <xs:element minOccurs="0" maxOccurs="1" name="KontaktKanalTekst" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AdresseType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element minOccurs="0" maxOccurs="1" name="GroenlandAdresse" type="tns:GroenlandAdresseType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="DanskAdresse" type="tns:DanskAdresseType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="VerdenAdresse" type="tns:VerdenAdresseType" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GroenlandAdresseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AdresseBaseType">
+        <xs:sequence>
+          <xs:element xmlns:q16="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" minOccurs="0" maxOccurs="1" ref="q16:AddressCompleteGreenland" />
+          <xs:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AdresseBaseType">
+    <xs:sequence>
+      <xs:element xmlns:q17="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q17:NoteTekst" />
+      <xs:element minOccurs="1" maxOccurs="1" name="UkendtAdresseIndikator" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DanskAdresseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AdresseBaseType">
+        <xs:sequence>
+          <xs:element xmlns:q18="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" minOccurs="0" maxOccurs="1" ref="q18:AddressComplete" />
+          <xs:element xmlns:q19="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" minOccurs="0" maxOccurs="1" ref="q19:AddressPoint" />
+          <xs:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="SocialDistriktTekst" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="SkoleDistriktTekst" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PostDistriktTekst" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="SogneDistriktTekst" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ValgkredsDistriktTekst" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PolitiDistriktTekst" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="VerdenAdresseType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:AdresseBaseType">
+        <xs:sequence>
+          <xs:element xmlns:q20="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" minOccurs="0" maxOccurs="1" ref="q20:ForeignAddressStructure" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SundhedOplysningType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PraktiserendeLaegeNavn" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PraktiserendeLaegeYderNummerIdentifikator" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SygesikringsgruppeKode" type="xs:integer" />
+      <xs:element xmlns:q21="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q21:Virkning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegisterOplysningType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RegisterOplysningBaseType">
+        <xs:sequence>
+          <xs:element xmlns:q22="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q22:Virkning" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RegisterOplysningBaseType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element minOccurs="0" maxOccurs="1" name="UkendtBorger" type="tns:UkendtBorgerType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="CprBorger" type="tns:CprBorgerType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="UdenlandskBorger" type="tns:UdenlandskBorgerType" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UkendtBorgerType">
+    <xs:sequence>
+      <xs:element xmlns:q23="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" minOccurs="0" maxOccurs="1" ref="q23:PersonCivilRegistrationReplacementIdentifier" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CprBorgerType">
+    <xs:sequence>
+      <xs:element xmlns:q24="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" minOccurs="0" maxOccurs="1" ref="q24:PersonCivilRegistrationIdentifier" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PersonNummerGyldighedStatusIndikator" type="xs:boolean" />
+      <xs:element xmlns:q25="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" minOccurs="0" maxOccurs="1" ref="q25:PersonNationalityCode" />
+      <xs:element minOccurs="1" maxOccurs="1" name="NavneAdresseBeskyttelseIndikator" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TelefonNummerBeskyttelseIndikator" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ForskerBeskyttelseIndikator" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FolkeregisterAdresse" type="tns:AdresseType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AdresseNoteTekst" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="FolkekirkeMedlemIndikator" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UdenlandskBorgerType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PersonIdentifikator" type="xs:string" />
+      <xs:element xmlns:q26="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" minOccurs="0" maxOccurs="unbounded" ref="q26:PersonNationalityCode" />
+      <xs:element xmlns:q27="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" minOccurs="0" maxOccurs="1" ref="q27:PersonCivilRegistrationReplacementIdentifier" />
+      <xs:element xmlns:q28="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" minOccurs="0" maxOccurs="unbounded" name="SprogKode" type="q28:CountryIdentificationCodeType" />
+      <xs:element xmlns:q29="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" minOccurs="0" maxOccurs="1" name="FoedselslandKode" type="q29:CountryIdentificationCodeType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TilstandListeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="LivStatus" type="tns:LivStatusType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CivilStatus" type="tns:CivilStatusType" />
+      <xs:element xmlns:q30="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q30:LokalUdvidelse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LivStatusType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="LivStatusKode" type="tns:LivStatusKodeType" />
+      <xs:element xmlns:q31="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q31:TilstandVirkning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="LivStatusKodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Prenatal" />
+      <xs:enumeration value="Foedt" />
+      <xs:enumeration value="Forsvundet" />
+      <xs:enumeration value="Doed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CivilStatusType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="CivilStatusKode" type="tns:CivilStatusKodeType" />
+      <xs:element xmlns:q32="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q32:TilstandVirkning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CivilStatusKodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ugift" />
+      <xs:enumeration value="Gift" />
+      <xs:enumeration value="RegistreretPartner" />
+      <xs:enumeration value="Separeret" />
+      <xs:enumeration value="Skilt" />
+      <xs:enumeration value="OphaevetPartnerskab" />
+      <xs:enumeration value="Enke" />
+      <xs:enumeration value="Laengstlevende" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="RelationListeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Moder" type="tns:PersonRelationType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Fader" type="tns:PersonRelationType" />
+      <xs:element xmlns:q33="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="unbounded" name="Boern" type="q33:PersonFlerRelationType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Aegtefaelle" type="tns:PersonRelationType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RegistreretPartner" type="tns:PersonRelationType" />
+      <xs:element xmlns:q34="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="unbounded" name="Bopaelssamling" type="q34:PersonFlerRelationType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Foraeldremyndighedsindehaver" type="tns:PersonRelationType" />
+      <xs:element xmlns:q35="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="unbounded" name="Foraeldremyndighedsboern" type="q35:PersonFlerRelationType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergeForPersonen" type="tns:PersonRelationType" />
+      <xs:element xmlns:q36="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergemaalsindehaver" type="q36:PersonFlerRelationType" />
+      <xs:element xmlns:q37="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="unbounded" name="ErstatningFor" type="q37:PersonFlerRelationType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ErstatningAf" type="tns:PersonRelationType" />
+      <xs:element xmlns:q38="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" ref="q38:LokalUdvidelse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PersonRelationType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q39="urn:oio:sagdok:2.0.0" base="q39:RelationType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RegistreringType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q40="urn:oio:sagdok:2.0.0" base="q40:RegistreringType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="AttributListe" type="tns:AttributListeType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TilstandListe" type="tns:TilstandListeType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RelationListe" type="tns:RelationListeType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LaesOutputType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q41="urn:oio:sagdok:2.0.0" base="q41:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="LaesResultat" type="tns:LaesResultatType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LaesResultatType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element minOccurs="0" maxOccurs="1" name="FiltreretOejebliksbillede" type="tns:FiltreretOejebliksbilledeType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Registrering" type="tns:RegistreringType" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetUuidOutputType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q42="urn:oio:sagdok:2.0.0" base="q42:BasicOutputType">
+        <xs:sequence>
+          <xs:element xmlns:q43="urn:oio:dkal:1.0.0" minOccurs="0" maxOccurs="1" ref="q43:UUID" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RegistreringOutputType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q44="urn:oio:sagdok:2.0.0" base="q44:BasicOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Registrering" type="tns:RegistreringType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

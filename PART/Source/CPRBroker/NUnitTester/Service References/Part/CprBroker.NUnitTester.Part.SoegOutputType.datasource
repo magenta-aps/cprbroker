@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="SoegOutputType" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>CprBroker.NUnitTester.Part.SoegOutputType</TypeInfo>
+   <TypeInfo>CprBroker.NUnitTester.Part.SoegOutputType, CprBroker.NUnitTester, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

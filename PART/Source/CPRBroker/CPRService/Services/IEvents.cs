@@ -12,7 +12,7 @@ using CprBroker.Schemas.Part.Events;
 namespace CprBroker.Web.Services
 {
     // NOTE: If you change the interface name "IEvents" here, you must also update the reference to "IEvents" in Web.config.
-    [ServiceContract]
+    [ServiceContract(Namespace = "http://dk.itst")]    
     [XmlSerializerFormat]
     public interface IEvents
     {

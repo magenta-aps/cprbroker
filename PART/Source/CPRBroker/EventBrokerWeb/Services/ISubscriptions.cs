@@ -10,7 +10,7 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.EventBroker.Web.Services
 {
     // NOTE: If you change the interface name "ISubscriptions" here, you must also update the reference to "ISubscriptions" in Web.config.
-    [ServiceContract]
+    [ServiceContract(Namespace = "http://dk.itst")]
     [XmlSerializerFormat]
     public interface ISubscriptions
     {

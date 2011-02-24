@@ -12,80 +12,80 @@ namespace CprBroker.NUnitTester.Part {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Part.IPart")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="Part.IPart")]
     public interface IPart {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/Read", ReplyAction="http://tempuri.org/IPart/ReadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/Read", ReplyAction="http://dk.itst/IPart/ReadResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CprBroker.NUnitTester.Part.LaesOutputType Read(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.LaesInputType input);
+        CprBroker.NUnitTester.Part.LaesOutputType Read(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.LaesInputType LaesInput);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/RefreshRead", ReplyAction="http://tempuri.org/IPart/RefreshReadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/RefreshRead", ReplyAction="http://dk.itst/IPart/RefreshReadResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CprBroker.NUnitTester.Part.LaesOutputType RefreshRead(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.LaesInputType input);
+        CprBroker.NUnitTester.Part.LaesOutputType RefreshRead(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.LaesInputType LaesInput);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/List", ReplyAction="http://tempuri.org/IPart/ListResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/List", ReplyAction="http://dk.itst/IPart/ListResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CprBroker.NUnitTester.Part.ListOutputType1 List(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.ListInputType input);
+        CprBroker.NUnitTester.Part.ListOutputType1 List(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.ListInputType ListInput);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/Search", ReplyAction="http://tempuri.org/IPart/SearchResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/Search", ReplyAction="http://dk.itst/IPart/SearchResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CprBroker.NUnitTester.Part.SoegOutputType Search(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.SoegInputType1 searchCriteria);
+        CprBroker.NUnitTester.Part.SoegOutputType Search(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.SoegInputType1 SoegInput);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/GetUuid", ReplyAction="http://tempuri.org/IPart/GetUuidResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/GetUuid", ReplyAction="http://dk.itst/IPart/GetUuidResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CprBroker.NUnitTester.Part.GetUuidOutputType GetUuid(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, string cprNumber);
@@ -96,7 +96,7 @@ namespace CprBroker.NUnitTester.Part {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
@@ -4339,10 +4339,10 @@ namespace CprBroker.NUnitTester.Part {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4892,20 +4892,20 @@ namespace CprBroker.NUnitTester.Part {
                 base(binding, remoteAddress) {
         }
         
-        public CprBroker.NUnitTester.Part.LaesOutputType Read(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.LaesInputType input) {
-            return base.Channel.Read(applicationHeader, input);
+        public CprBroker.NUnitTester.Part.LaesOutputType Read(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.LaesInputType LaesInput) {
+            return base.Channel.Read(applicationHeader, LaesInput);
         }
         
-        public CprBroker.NUnitTester.Part.LaesOutputType RefreshRead(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.LaesInputType input) {
-            return base.Channel.RefreshRead(applicationHeader, input);
+        public CprBroker.NUnitTester.Part.LaesOutputType RefreshRead(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.LaesInputType LaesInput) {
+            return base.Channel.RefreshRead(applicationHeader, LaesInput);
         }
         
-        public CprBroker.NUnitTester.Part.ListOutputType1 List(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.ListInputType input) {
-            return base.Channel.List(applicationHeader, input);
+        public CprBroker.NUnitTester.Part.ListOutputType1 List(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.ListInputType ListInput) {
+            return base.Channel.List(applicationHeader, ListInput);
         }
         
-        public CprBroker.NUnitTester.Part.SoegOutputType Search(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.SoegInputType1 searchCriteria) {
-            return base.Channel.Search(applicationHeader, searchCriteria);
+        public CprBroker.NUnitTester.Part.SoegOutputType Search(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Part.SoegInputType1 SoegInput) {
+            return base.Channel.Search(applicationHeader, SoegInput);
         }
         
         public CprBroker.NUnitTester.Part.GetUuidOutputType GetUuid(CprBroker.NUnitTester.Part.ApplicationHeader applicationHeader, string cprNumber) {

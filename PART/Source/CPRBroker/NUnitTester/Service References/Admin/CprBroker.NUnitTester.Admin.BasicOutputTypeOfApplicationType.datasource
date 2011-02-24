@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="BasicOutputTypeOfApplicationType" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>CprBroker.NUnitTester.Admin.BasicOutputTypeOfApplicationType, Web References.Admin.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>CprBroker.NUnitTester.Admin.BasicOutputTypeOfApplicationType, CprBroker.NUnitTester, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

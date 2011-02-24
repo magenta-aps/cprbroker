@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="urn:oio:sagdok:1.0.0" elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd2" namespace="urn:oio:dkal:1.0.0" />
-  <xs:element name="TidsstempelDatoTid" type="xs:dateTime" />
-  <xs:element name="BrugervendtNoegleTekst" type="xs:string" />
-  <xs:element xmlns:q1="urn:oio:dkal:1.0.0" name="Idliste" type="q1:ArrayOfString" />
-</xs:schema>

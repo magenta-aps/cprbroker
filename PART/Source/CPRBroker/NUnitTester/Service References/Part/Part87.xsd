@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://dk.itst" elementFormDefault="qualified" targetNamespace="http://dk.itst" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd4" namespace="urn:oio:sagdok:person:1.0.0" />
+  <xs:element name="Read">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element xmlns:q1="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="LaesInput" type="q1:LaesInputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ApplicationHeader">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UserToken" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="urn:oio:sagdok:person:1.0.0" minOccurs="0" maxOccurs="1" name="ReadResult" type="q2:LaesOutputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RefreshRead">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element xmlns:q3="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="LaesInput" type="q3:LaesInputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RefreshReadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="urn:oio:sagdok:person:1.0.0" minOccurs="0" maxOccurs="1" name="RefreshReadResult" type="q4:LaesOutputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="List">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element xmlns:q5="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="ListInput" type="q5:ListInputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="urn:oio:sagdok:person:1.0.0" minOccurs="0" maxOccurs="1" name="ListResult" type="q6:ListOutputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Search">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element xmlns:q7="urn:oio:sagdok:person:1.0.0" minOccurs="0" maxOccurs="1" name="SoegInput" type="q7:SoegInputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="SearchResult" type="q8:SoegOutputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUuid">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
+        <xs:element minOccurs="0" maxOccurs="1" name="cprNumber" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUuidResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="urn:oio:sagdok:person:1.0.0" minOccurs="0" maxOccurs="1" name="GetUuidResult" type="q9:GetUuidOutputType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

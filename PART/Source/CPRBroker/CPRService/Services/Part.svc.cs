@@ -11,6 +11,7 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Web.Services
 {
     // NOTE: If you change the class name "Part" here, you must also update the reference to "Part" in Web.config.
+    [ServiceBehavior(Namespace = "http://dk.itst")]
     public class Part : IPart
     {
         private QualityHeader qualityHeader = new QualityHeader();

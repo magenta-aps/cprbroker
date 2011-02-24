@@ -9,21 +9,21 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Web.Services
 {
-    [ServiceContract]
+    [ServiceContract(Namespace = "http://dk.itst")]
     [XmlSerializerFormat]
     public interface IPart
     {
         [OperationContract]
-        LaesOutputType Read(ApplicationHeader applicationHeader, LaesInputType input);
+        LaesOutputType Read(ApplicationHeader applicationHeader, LaesInputType LaesInput);
 
         [OperationContract]
-        LaesOutputType RefreshRead(ApplicationHeader applicationHeader, LaesInputType input);
+        LaesOutputType RefreshRead(ApplicationHeader applicationHeader, LaesInputType LaesInput);
 
         [OperationContract]
-        ListOutputType1 List(ApplicationHeader applicationHeader, ListInputType input);
+        ListOutputType1 List(ApplicationHeader applicationHeader, ListInputType ListInput);
 
         [OperationContract]
-        SoegOutputType Search(ApplicationHeader applicationHeader, SoegInputType1 searchCriteria);
+        SoegOutputType Search(ApplicationHeader applicationHeader, SoegInputType1 SoegInput);
 
         [OperationContract]
         GetUuidOutputType GetUuid(ApplicationHeader applicationHeader, string cprNumber);

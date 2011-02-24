@@ -198,40 +198,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\EventsService\Events.wsdl" />
-    <None Include="Service References\EventsService\Events.xsd" />
-    <None Include="Service References\EventsService\Events1.xsd" />
-    <None Include="Service References\EventsService\Events10.xsd" />
-    <None Include="Service References\EventsService\Events11.xsd" />
-    <None Include="Service References\EventsService\Events12.xsd" />
-    <None Include="Service References\EventsService\Events13.xsd" />
-    <None Include="Service References\EventsService\Events14.xsd" />
-    <None Include="Service References\EventsService\Events15.xsd" />
-    <None Include="Service References\EventsService\Events16.xsd" />
-    <None Include="Service References\EventsService\Events17.xsd" />
-    <None Include="Service References\EventsService\Events18.xsd" />
-    <None Include="Service References\EventsService\Events19.xsd" />
-    <None Include="Service References\EventsService\Events2.xsd" />
-    <None Include="Service References\EventsService\Events20.xsd" />
-    <None Include="Service References\EventsService\Events21.xsd" />
-    <None Include="Service References\EventsService\Events3.xsd" />
-    <None Include="Service References\EventsService\Events4.xsd" />
-    <None Include="Service References\EventsService\Events5.xsd" />
-    <None Include="Service References\EventsService\Events6.xsd" />
-    <None Include="Service References\EventsService\Events7.xsd" />
-    <None Include="Service References\EventsService\Events8.xsd" />
-    <None Include="Service References\EventsService\Events9.xsd" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\EventsService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EventsService\Events.disco" />
-    <None Include="Service References\EventsService\Events22.xsd" />
-    <None Include="Service References\EventsService\Events23.xsd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\EventsService\configuration91.svcinfo" />
@@ -246,10 +216,38 @@
     <None Include="Service References\EventsService\CprBroker.EventBroker.EventsService.BasicOutputTypeOfArrayOfPersonBirthdate1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\EventsService\Events1.wsdl" />
+    <None Include="Service References\EventsService\Events24.xsd" />
+    <None Include="Service References\EventsService\Events241.xsd" />
+    <None Include="Service References\EventsService\Events2410.xsd" />
+    <None Include="Service References\EventsService\Events2411.xsd" />
+    <None Include="Service References\EventsService\Events2412.xsd" />
+    <None Include="Service References\EventsService\Events242.xsd" />
+    <None Include="Service References\EventsService\Events243.xsd" />
+    <None Include="Service References\EventsService\Events244.xsd" />
+    <None Include="Service References\EventsService\Events245.xsd" />
+    <None Include="Service References\EventsService\Events246.xsd" />
+    <None Include="Service References\EventsService\Events247.xsd" />
+    <None Include="Service References\EventsService\Events248.xsd" />
+    <None Include="Service References\EventsService\Events249.xsd" />
     <None Include="Service References\EventsService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EventsService\Events1.disco" />
+    <None Include="Service References\EventsService\Events2413.xsd" />
+    <None Include="Service References\EventsService\Events2414.xsd" />
+    <None Include="Service References\EventsService\Events2415.xsd" />
+    <None Include="Service References\EventsService\Events2416.xsd" />
+    <None Include="Service References\EventsService\Events2417.xsd" />
+    <None Include="Service References\EventsService\Events2418.xsd" />
+    <None Include="Service References\EventsService\Events2419.xsd" />
+    <None Include="Service References\EventsService\Events2420.xsd" />
+    <None Include="Service References\EventsService\Events2421.xsd" />
+    <None Include="Service References\EventsService\Events2422.xsd" />
+    <None Include="Service References\EventsService\Events2423.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

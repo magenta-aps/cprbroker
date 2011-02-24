@@ -12,10 +12,10 @@ namespace CprBroker.NUnitTester.Events {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Events.IEvents")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="Events.IEvents")]
     public interface IEvents {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvents/DequeueDataChangeEvents", ReplyAction="http://tempuri.org/IEvents/DequeueDataChangeEventsResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IEvents/DequeueDataChangeEvents", ReplyAction="http://dk.itst/IEvents/DequeueDataChangeEventsResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -28,7 +28,7 @@ namespace CprBroker.NUnitTester.Events {
         CprBroker.NUnitTester.Events.BasicOutputTypeOfArrayOfDataChangeEventInfo DequeueDataChangeEvents(CprBroker.NUnitTester.Events.ApplicationHeader applicationHeader, int maxCount);
         
         // CODEGEN: Parameter 'personUuidToStartAfter' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvents/GetPersonBirthdates", ReplyAction="http://tempuri.org/IEvents/GetPersonBirthdatesResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IEvents/GetPersonBirthdates", ReplyAction="http://dk.itst/IEvents/GetPersonBirthdatesResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -46,7 +46,7 @@ namespace CprBroker.NUnitTester.Events {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
@@ -3443,7 +3443,7 @@ namespace CprBroker.NUnitTester.Events {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class PersonBirthdate : object, System.ComponentModel.INotifyPropertyChanged {
         
         private System.Guid personUuidField;
@@ -3489,7 +3489,7 @@ namespace CprBroker.NUnitTester.Events {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class DataChangeEventInfo : object, System.ComponentModel.INotifyPropertyChanged {
         
         private System.Guid eventIdField;
@@ -3725,7 +3725,7 @@ namespace CprBroker.NUnitTester.Events {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfArrayOfPersonBirthdate : BasicOutputType {
         
         private PersonBirthdate[] itemField;
@@ -3748,7 +3748,7 @@ namespace CprBroker.NUnitTester.Events {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfArrayOfDataChangeEventInfo : BasicOutputType {
         
         private DataChangeEventInfo[] itemField;
@@ -3768,17 +3768,17 @@ namespace CprBroker.NUnitTester.Events {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPersonBirthdates", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPersonBirthdates", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetPersonBirthdatesRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public CprBroker.NUnitTester.Events.ApplicationHeader applicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=1)]
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public System.Nullable<System.Guid> personUuidToStartAfter;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=2)]
         public int maxCount;
         
         public GetPersonBirthdatesRequest() {
@@ -3793,10 +3793,10 @@ namespace CprBroker.NUnitTester.Events {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPersonBirthdatesResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPersonBirthdatesResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class GetPersonBirthdatesResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public CprBroker.NUnitTester.Events.BasicOutputTypeOfArrayOfPersonBirthdate GetPersonBirthdatesResult;
         
         public GetPersonBirthdatesResponse() {

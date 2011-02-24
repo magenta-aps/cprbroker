@@ -10,7 +10,7 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Web.Services
 {
     // NOTE: If you change the interface name "IAdmin" here, you must also update the reference to "IAdmin" in Web.config.
-    [ServiceContract]
+    [ServiceContract(Namespace = "http://dk.itst")]
     [XmlSerializerFormat]
     public interface IAdmin
     {

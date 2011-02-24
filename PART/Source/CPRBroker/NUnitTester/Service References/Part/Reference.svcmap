@@ -20,31 +20,31 @@
     <MetadataSource Address="http://localhost:1551/Services/Part.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Part3.xsd" MetadataType="Schema" ID="742b3a9d-8a41-46a9-a61a-d37552516c38" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd6" />
-    <MetadataFile FileName="Part7.xsd" MetadataType="Schema" ID="16c4f001-2fc9-4f77-9da3-df2d0ee1f181" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd8" />
-    <MetadataFile FileName="Part6.xsd" MetadataType="Schema" ID="f43392bf-3ffc-4609-bba0-d36804849bc6" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd2" />
-    <MetadataFile FileName="Part71.xsd" MetadataType="Schema" ID="96836ec5-142c-4916-9605-298135315bcc" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd21" />
-    <MetadataFile FileName="Part1.xsd" MetadataType="Schema" ID="3de63dc1-f580-42b8-8cd0-512466c8e6cd" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd0" />
-    <MetadataFile FileName="Part72.xsd" MetadataType="Schema" ID="db36b7ad-6d73-4974-91fa-93f763869b43" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd7" />
-    <MetadataFile FileName="Part73.xsd" MetadataType="Schema" ID="9645878e-bcd2-4369-9b35-bcd47b3d4c63" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd9" />
-    <MetadataFile FileName="Part74.xsd" MetadataType="Schema" ID="e2235b53-6e4b-4b4f-aac8-4e0993177fb8" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd11" />
-    <MetadataFile FileName="Part75.xsd" MetadataType="Schema" ID="e5e2bed7-e528-46df-9349-dc33cf3b3a99" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd10" />
-    <MetadataFile FileName="Part.disco" MetadataType="Disco" ID="93d5961f-322d-4d78-a3ac-75bdcb325eae" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?disco" />
-    <MetadataFile FileName="Part76.xsd" MetadataType="Schema" ID="06d838c8-e866-4705-a12e-2606d6c4882e" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd12" />
-    <MetadataFile FileName="Part77.xsd" MetadataType="Schema" ID="8421b78c-a0e6-45f1-8965-10fa0aa772c9" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd15" />
-    <MetadataFile FileName="Part78.xsd" MetadataType="Schema" ID="9c157c30-1c9e-4fab-9740-cd6733570f6f" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd14" />
-    <MetadataFile FileName="Part79.xsd" MetadataType="Schema" ID="92fda3a2-f30a-47f6-bb6a-d2f3025654ff" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd20" />
-    <MetadataFile FileName="Part710.xsd" MetadataType="Schema" ID="bd74e9d4-1928-4d23-b0fe-66e3dfc666e9" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd16" />
-    <MetadataFile FileName="Part5.xsd" MetadataType="Schema" ID="37113dbe-47e7-4417-ae16-f745b5d8ee32" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd1" />
-    <MetadataFile FileName="Part711.xsd" MetadataType="Schema" ID="e8859701-d78d-4cee-bb5a-91fe9a98fdd9" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd17" />
-    <MetadataFile FileName="Part712.xsd" MetadataType="Schema" ID="b3f4f181-84c8-4f96-9604-fdc2efbcc6a4" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd22" />
-    <MetadataFile FileName="Part713.xsd" MetadataType="Schema" ID="39d29003-afef-4c70-b94f-90049cd32923" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd13" />
-    <MetadataFile FileName="Part714.xsd" MetadataType="Schema" ID="e20a2abc-418f-4234-b6c0-51febc70d842" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd18" />
-    <MetadataFile FileName="Part715.xsd" MetadataType="Schema" ID="fcb1ed77-373c-4d08-bcdf-4526d42ed116" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd19" />
-    <MetadataFile FileName="Part2.xsd" MetadataType="Schema" ID="5ab3800b-e75f-47f4-b9d6-9d30d90595f6" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd3" />
-    <MetadataFile FileName="Part4.xsd" MetadataType="Schema" ID="a1ebd7e4-8ab8-48fb-98bf-94224de16209" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd4" />
-    <MetadataFile FileName="Part.wsdl" MetadataType="Wsdl" ID="af886f59-0de2-4035-b293-b21d7f2912a0" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?wsdl" />
-    <MetadataFile FileName="Part.xsd" MetadataType="Schema" ID="55dfd513-ff6e-4e9e-a4a3-7544cfebcc8d" SourceId="1" SourceUrl="http://localhost:1551/Services/Part.svc?xsd=xsd5" />
+    <MetadataFile FileName="Part8.xsd" MetadataType="Schema" ID="1213edc6-4d09-413a-b9d7-ea6c6b34035a" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd22" />
+    <MetadataFile FileName="Part81.xsd" MetadataType="Schema" ID="d49993b6-835b-453b-ac9f-95a7e218446d" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd3" />
+    <MetadataFile FileName="Part82.xsd" MetadataType="Schema" ID="988717d9-ab6a-44ee-8981-431b5ebd48ed" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd5" />
+    <MetadataFile FileName="Part83.xsd" MetadataType="Schema" ID="1e95629f-b3ca-4f58-98f8-0ad4ec966439" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd12" />
+    <MetadataFile FileName="Part84.xsd" MetadataType="Schema" ID="260567da-bb73-4704-b42d-4af5fb36fa21" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd20" />
+    <MetadataFile FileName="Part85.xsd" MetadataType="Schema" ID="8739fddd-2267-45b0-8068-b9e79a39ef02" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd17" />
+    <MetadataFile FileName="Part86.xsd" MetadataType="Schema" ID="1bd01cbe-bcf4-4c20-976b-917cf63f0f15" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd19" />
+    <MetadataFile FileName="Part87.xsd" MetadataType="Schema" ID="2dac347e-5c04-46bf-9539-b38174a191d3" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd0" />
+    <MetadataFile FileName="Part88.xsd" MetadataType="Schema" ID="d013cc0d-ce44-4b1a-befa-3b287c2f1262" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd18" />
+    <MetadataFile FileName="Part89.xsd" MetadataType="Schema" ID="a3f27e8f-1fd0-4f32-b056-4e04b936865d" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd1" />
+    <MetadataFile FileName="Part2.wsdl" MetadataType="Wsdl" ID="d8c4cce2-9348-429d-9362-09c1829d16f8" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?wsdl" />
+    <MetadataFile FileName="Part810.xsd" MetadataType="Schema" ID="952fa31f-96f6-4c67-8e6e-e05916cd7237" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd8" />
+    <MetadataFile FileName="Part811.xsd" MetadataType="Schema" ID="9f13d1e9-fd90-4826-9dd9-8c9901c4f82f" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd9" />
+    <MetadataFile FileName="Part812.xsd" MetadataType="Schema" ID="f0c3c89e-7049-41ca-b6cf-a891c031465c" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd11" />
+    <MetadataFile FileName="Part813.xsd" MetadataType="Schema" ID="5e04daa9-6183-4e45-ac81-1bff8bfb9e1d" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd10" />
+    <MetadataFile FileName="Part814.xsd" MetadataType="Schema" ID="a5b60f14-2333-4e76-aba8-b0ac565a4f17" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd13" />
+    <MetadataFile FileName="Part815.xsd" MetadataType="Schema" ID="c40a5d4f-b212-4210-a757-1501af665f9d" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd6" />
+    <MetadataFile FileName="Part816.xsd" MetadataType="Schema" ID="05842c1b-0ff6-4b76-b578-52a1f67fa990" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd15" />
+    <MetadataFile FileName="Part817.xsd" MetadataType="Schema" ID="f2384fe4-cedc-4bd6-a154-39f5b5676ee5" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd14" />
+    <MetadataFile FileName="Part818.xsd" MetadataType="Schema" ID="04adb10a-f1f4-4b79-8a6c-4362b81bf0c8" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd7" />
+    <MetadataFile FileName="Part819.xsd" MetadataType="Schema" ID="ccfa13dd-4b8e-433b-bae0-573d24fc911d" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd16" />
+    <MetadataFile FileName="Part1.disco" MetadataType="Disco" ID="5b5218f3-abf0-4f77-a2cb-fc3d46e67f0d" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?disco" />
+    <MetadataFile FileName="Part820.xsd" MetadataType="Schema" ID="4efd7d06-6553-410d-a2f8-57a6136f6b5e" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd4" />
+    <MetadataFile FileName="Part821.xsd" MetadataType="Schema" ID="72e41102-b20f-4d0b-acdd-9f7f2fb23285" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd2" />
+    <MetadataFile FileName="Part822.xsd" MetadataType="Schema" ID="6ead0f43-d82f-465c-8bd3-18eb5bc41790" SourceId="1" SourceUrl="http://localhost:1551/services/Part.svc?xsd=xsd21" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

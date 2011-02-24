@@ -12,10 +12,10 @@ namespace CprBroker.NUnitTester.Subscriptions {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Subscriptions.ISubscriptions")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="Subscriptions.ISubscriptions")]
     public interface ISubscriptions {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/Subscribe", ReplyAction="http://tempuri.org/ISubscriptions/SubscribeResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ISubscriptions/Subscribe", ReplyAction="http://dk.itst/ISubscriptions/SubscribeResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -27,7 +27,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfChangeSubscriptionType Subscribe(CprBroker.NUnitTester.Subscriptions.ApplicationHeader applicationHeader, CprBroker.NUnitTester.Subscriptions.ChannelBaseType NotificationChannel, System.Guid[] personUuids);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/Unsubscribe", ReplyAction="http://tempuri.org/ISubscriptions/UnsubscribeResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ISubscriptions/Unsubscribe", ReplyAction="http://dk.itst/ISubscriptions/UnsubscribeResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -40,7 +40,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfBoolean Unsubscribe(CprBroker.NUnitTester.Subscriptions.ApplicationHeader applicationHeader, System.Guid SubscriptionId);
         
         // CODEGEN: Parameter 'Years' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/SubscribeOnBirthdate", ReplyAction="http://tempuri.org/ISubscriptions/SubscribeOnBirthdateResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ISubscriptions/SubscribeOnBirthdate", ReplyAction="http://dk.itst/ISubscriptions/SubscribeOnBirthdateResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -52,7 +52,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CprBroker.NUnitTester.Subscriptions.SubscribeOnBirthdateResponse SubscribeOnBirthdate(CprBroker.NUnitTester.Subscriptions.SubscribeOnBirthdateRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/RemoveBirthDateSubscription", ReplyAction="http://tempuri.org/ISubscriptions/RemoveBirthDateSubscriptionResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ISubscriptions/RemoveBirthDateSubscription", ReplyAction="http://dk.itst/ISubscriptions/RemoveBirthDateSubscriptionResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -64,7 +64,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfBoolean RemoveBirthDateSubscription(CprBroker.NUnitTester.Subscriptions.ApplicationHeader applicationHeader, System.Guid SubscriptionId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISubscriptions/GetActiveSubscriptionsList", ReplyAction="http://tempuri.org/ISubscriptions/GetActiveSubscriptionsListResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ISubscriptions/GetActiveSubscriptionsList", ReplyAction="http://dk.itst/ISubscriptions/GetActiveSubscriptionsListResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -82,7 +82,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
@@ -3481,7 +3481,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public abstract partial class SubscriptionType : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string subscriptionIdField;
@@ -3571,7 +3571,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public abstract partial class ChannelBaseType : object, System.ComponentModel.INotifyPropertyChanged {
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
@@ -3589,7 +3589,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class FileShareChannelType : ChannelBaseType {
         
         private string pathField;
@@ -3612,7 +3612,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class WebServiceChannelType : ChannelBaseType {
         
         private string webServiceUrlField;
@@ -3635,7 +3635,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BirthdateSubscriptionType : SubscriptionType {
         
         private System.Nullable<int> ageYearsField;
@@ -3672,7 +3672,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ChangeSubscriptionType : SubscriptionType {
     }
     
@@ -3859,7 +3859,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfArrayOfSubscriptionType : BasicOutputType {
         
         private SubscriptionType[] itemField;
@@ -3882,7 +3882,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfBirthdateSubscriptionType : BasicOutputType {
         
         private BirthdateSubscriptionType itemField;
@@ -3905,7 +3905,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfBoolean : BasicOutputType {
         
         private bool itemField;
@@ -3928,7 +3928,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class BasicOutputTypeOfChangeSubscriptionType : BasicOutputType {
         
         private ChangeSubscriptionType itemField;
@@ -3948,23 +3948,23 @@ namespace CprBroker.NUnitTester.Subscriptions {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdate", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdate", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SubscribeOnBirthdateRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public CprBroker.NUnitTester.Subscriptions.ApplicationHeader applicationHeader;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=1)]
         public CprBroker.NUnitTester.Subscriptions.ChannelBaseType NotificationChannel;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public System.Nullable<int> Years;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=3)]
         public int PriorDays;
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=4)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=4)]
         public System.Guid[] PersonCivilRegistrationIdentifiers;
         
         public SubscribeOnBirthdateRequest() {
@@ -3981,10 +3981,10 @@ namespace CprBroker.NUnitTester.Subscriptions {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdateResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SubscribeOnBirthdateResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
     public partial class SubscribeOnBirthdateResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
         public CprBroker.NUnitTester.Subscriptions.BasicOutputTypeOfBirthdateSubscriptionType SubscribeOnBirthdateResult;
         
         public SubscribeOnBirthdateResponse() {

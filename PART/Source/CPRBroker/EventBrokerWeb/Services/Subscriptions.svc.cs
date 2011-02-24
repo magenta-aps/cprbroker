@@ -11,6 +11,7 @@ using CprBroker.EventBroker.Subscriptions;
 namespace CprBroker.EventBroker.Web.Services
 {
     // NOTE: If you change the class name "Subscriptions" here, you must also update the reference to "Subscriptions" in Web.config.
+    [ServiceBehavior(Namespace = "http://dk.itst")]
     public class Subscriptions : ISubscriptions
     {
         public BasicOutputType<ChangeSubscriptionType> Subscribe(ApplicationHeader applicationHeader, ChannelBaseType NotificationChannel, Guid[] personUuids)
