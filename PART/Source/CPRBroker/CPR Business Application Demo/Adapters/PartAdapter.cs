@@ -13,15 +13,15 @@ namespace CPR_Business_Application_Demo
             // Make sure the provided URL points to the person web service.
             if (!cprPersonWSUrl.EndsWith("/"))
             {
-                if (!cprPersonWSUrl.EndsWith("Part.asmx"))
-                    cprPersonWSUrl += "/Part.asmx";
+                if (!cprPersonWSUrl.EndsWith("Part.svc"))
+                    cprPersonWSUrl += "/Part.svc";
             }
             else
             {
-                cprPersonWSUrl += "Part.asmx";
+                cprPersonWSUrl += "Part.svc";
             }
 
-            PartHandler = new PartService.PartSoap12Client("PartSoap12", cprPersonWSUrl);
+            PartHandler = new PartService.PartClient("WSHttpBinding_IPart", cprPersonWSUrl);
             // Set the timeout to avoid hanging the application for too long when wrong urls were entered
             PartHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 15);
         }
@@ -45,7 +45,7 @@ namespace CPR_Business_Application_Demo
         {
             try
             {
-                var ret= PartHandler.GetUuid(CreateApplicationHeader(applicationToken), cprNumber);
+                var ret = PartHandler.GetUuid(CreateApplicationHeader(applicationToken), cprNumber);
                 return new Guid(ret.UUID);
             }
             catch (Exception)
@@ -59,7 +59,6 @@ namespace CPR_Business_Application_Demo
         {
             try
             {
-                PartService.LaesOutputType output = null;
                 PartService.LaesInputType input = new CPR_Business_Application_Demo.PartService.LaesInputType()
                 {
                     RegistreringFraFilter = null,
@@ -69,7 +68,7 @@ namespace CPR_Business_Application_Demo
                     VirkningTilFilter = null
                 };
 
-                var ql = PartHandler.Read(CreateApplicationHeader(applicationToken), input, out output);
+                var output = PartHandler.Read(CreateApplicationHeader(applicationToken), input);
 
                 if (output != null && output.LaesResultat != null && output.LaesResultat.Item is PartService.RegistreringType1)
                 {
@@ -87,7 +86,6 @@ namespace CPR_Business_Application_Demo
         {
             try
             {
-                PartService.ListOutputType1 output = null;
                 PartService.ListInputType input = new CPR_Business_Application_Demo.PartService.ListInputType()
                 {
                     RegistreringFraFilter = null,
@@ -97,7 +95,7 @@ namespace CPR_Business_Application_Demo
                     VirkningTilFilter = null
                 };
 
-                var ql = PartHandler.List(CreateApplicationHeader(applicationToken), input, out output);
+                var output = PartHandler.List(CreateApplicationHeader(applicationToken), input);
 
                 if (output != null && output.LaesResultat != null && Array.TrueForAll<PartService.LaesResultatType>(output.LaesResultat, lr => lr.Item is PartService.RegistreringType1))
                 {
@@ -115,7 +113,6 @@ namespace CPR_Business_Application_Demo
         {
             try
             {
-                PartService.SoegOutputType output = null;
                 PartService.SoegInputType1 input = new CPR_Business_Application_Demo.PartService.SoegInputType1()
                 {
                     MaksimalAntalKvantitet = "10",
@@ -126,7 +123,7 @@ namespace CPR_Business_Application_Demo
                     }
                 };
 
-                var ql = PartHandler.Search(CreateApplicationHeader(applicationToken), input, out output);
+                var output = PartHandler.Search(CreateApplicationHeader(applicationToken), input);
 
                 if (output != null && output.Idliste != null)
                 {
@@ -146,7 +143,6 @@ namespace CPR_Business_Application_Demo
         {
             try
             {
-                PartService.SoegOutputType output = null;
                 PartService.SoegInputType1 input = new CPR_Business_Application_Demo.PartService.SoegInputType1()
                 {
                     MaksimalAntalKvantitet = "10",
@@ -158,7 +154,7 @@ namespace CPR_Business_Application_Demo
                     }
                 };
 
-                var ql = PartHandler.Search(CreateApplicationHeader(applicationToken), input, out output);
+                var output = PartHandler.Search(CreateApplicationHeader(applicationToken), input);
 
                 if (output != null && output.Idliste != null)
                 {
@@ -175,7 +171,7 @@ namespace CPR_Business_Application_Demo
         #endregion
 
         #region Private Fields
-        private readonly PartService.PartSoap12Client PartHandler;
+        private readonly PartService.PartClient PartHandler;
 
         #endregion
     }

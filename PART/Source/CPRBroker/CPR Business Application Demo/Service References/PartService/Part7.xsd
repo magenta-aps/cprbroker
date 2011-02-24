@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="TelephoneNumberIdentifier" type="xs:string" />
+</xs:schema>
