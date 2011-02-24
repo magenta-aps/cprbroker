@@ -39,7 +39,13 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -71,6 +77,11 @@
     </Compile>
     <Compile Include="Notifications\CprBrokerEventEnqueuer.Designer.cs">
       <DependentUpon>CprBrokerEventEnqueuer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\EventsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Subscriptions\GetActiveSubscriptionsListFacadeMethod.cs" />
     <Compile Include="Subscriptions\SubscribeOnBirthdateFacadeMethod.cs" />
@@ -110,11 +121,6 @@
     </Compile>
     <Compile Include="Subscriptions\SubscriptionDataProvider.cs" />
     <Compile Include="Subscriptions\UnsubscribeFacadeMethod.cs" />
-    <Compile Include="Web References\EventsService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\NotificationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -158,7 +164,6 @@
     <None Include="DAL\EventBrokerDataContext.dbml.layout">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
     </None>
-    <None Include="Web References\EventsService\Events.wsdl" />
     <None Include="Web References\NotificationService\Notification.wsdl" />
     <None Include="Web References\NotificationService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -169,17 +174,6 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:1551/Services/Events.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\EventsService\</RelPath>
-      <UpdateFromURL>http://localhost:1551/Services/Events.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>CprBroker_EventBroker_EventsService_Events</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1552/Templates/Notification.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\NotificationService\</RelPath>
@@ -204,15 +198,56 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\EventsService\BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
+    <None Include="Service References\EventsService\Events.wsdl" />
+    <None Include="Service References\EventsService\Events.xsd" />
+    <None Include="Service References\EventsService\Events1.xsd" />
+    <None Include="Service References\EventsService\Events10.xsd" />
+    <None Include="Service References\EventsService\Events11.xsd" />
+    <None Include="Service References\EventsService\Events12.xsd" />
+    <None Include="Service References\EventsService\Events13.xsd" />
+    <None Include="Service References\EventsService\Events14.xsd" />
+    <None Include="Service References\EventsService\Events15.xsd" />
+    <None Include="Service References\EventsService\Events16.xsd" />
+    <None Include="Service References\EventsService\Events17.xsd" />
+    <None Include="Service References\EventsService\Events18.xsd" />
+    <None Include="Service References\EventsService\Events19.xsd" />
+    <None Include="Service References\EventsService\Events2.xsd" />
+    <None Include="Service References\EventsService\Events20.xsd" />
+    <None Include="Service References\EventsService\Events21.xsd" />
+    <None Include="Service References\EventsService\Events3.xsd" />
+    <None Include="Service References\EventsService\Events4.xsd" />
+    <None Include="Service References\EventsService\Events5.xsd" />
+    <None Include="Service References\EventsService\Events6.xsd" />
+    <None Include="Service References\EventsService\Events7.xsd" />
+    <None Include="Service References\EventsService\Events8.xsd" />
+    <None Include="Service References\EventsService\Events9.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\EventsService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EventsService\Events.disco" />
+    <None Include="Service References\EventsService\Events22.xsd" />
+    <None Include="Service References\EventsService\Events23.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EventsService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EventsService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EventsService\CprBroker.EventBroker.EventsService.BasicOutputTypeOfArrayOfDataChangeEventInfo1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Web References\EventsService\BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
+    <None Include="Service References\EventsService\CprBroker.EventBroker.EventsService.BasicOutputTypeOfArrayOfPersonBirthdate1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Web References\EventsService\Events.disco" />
-    <None Include="Web References\EventsService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
+    <None Include="Service References\EventsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>

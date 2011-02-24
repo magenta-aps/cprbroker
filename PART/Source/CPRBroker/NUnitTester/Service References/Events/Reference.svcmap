@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ec2286ad-6340-4f49-8f95-eacd10d39084" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1551/Services/Events.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Events6.xsd" MetadataType="Schema" ID="8cf7bf51-17a4-42fb-8dfc-51b36dddb05b" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd23" />
+    <MetadataFile FileName="Events1.xsd" MetadataType="Schema" ID="011d1a5b-3d74-46a3-871c-96f96bdc88c5" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd2" />
+    <MetadataFile FileName="Events61.xsd" MetadataType="Schema" ID="8553135e-0175-4432-ac49-79b9349936b6" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd16" />
+    <MetadataFile FileName="Events62.xsd" MetadataType="Schema" ID="12869f02-8daa-4d29-a366-ec295b8f3ea6" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd18" />
+    <MetadataFile FileName="Events63.xsd" MetadataType="Schema" ID="f3316a8d-1968-4698-b50d-88d61befec84" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd7" />
+    <MetadataFile FileName="Events.wsdl" MetadataType="Wsdl" ID="253a1ee6-6aac-4a37-aca0-a9c49d185ca2" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?wsdl" />
+    <MetadataFile FileName="Events64.xsd" MetadataType="Schema" ID="9f578f79-8801-4478-b7ca-903f3e4f2907" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd20" />
+    <MetadataFile FileName="Events2.xsd" MetadataType="Schema" ID="91f292f4-f887-43b5-b4ba-416034273867" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd0" />
+    <MetadataFile FileName="Events65.xsd" MetadataType="Schema" ID="fa550ec3-ece6-4c76-b559-93c74f9910c3" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd8" />
+    <MetadataFile FileName="Events3.xsd" MetadataType="Schema" ID="fe850a1c-4071-4342-970c-d2e08c71f2cb" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd5" />
+    <MetadataFile FileName="Events66.xsd" MetadataType="Schema" ID="f9289e12-c53f-41b9-93aa-ddae7ad3c5b3" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd12" />
+    <MetadataFile FileName="Events67.xsd" MetadataType="Schema" ID="8a9a63c8-29bd-41ae-a51c-ce4b3ba58708" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd15" />
+    <MetadataFile FileName="Events68.xsd" MetadataType="Schema" ID="ebd1bb11-42a7-4195-9062-e17e3c9a0a41" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd11" />
+    <MetadataFile FileName="Events69.xsd" MetadataType="Schema" ID="2c6fd1e7-5c61-4e68-9127-7d2381733d81" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd6" />
+    <MetadataFile FileName="Events.xsd" MetadataType="Schema" ID="67f74944-4924-43a0-a61a-25fd8a3b7af6" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd1" />
+    <MetadataFile FileName="Events610.xsd" MetadataType="Schema" ID="e002730e-9ae0-44ca-b852-57817a5ad880" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd17" />
+    <MetadataFile FileName="Events611.xsd" MetadataType="Schema" ID="6dfc2a6b-f3eb-4a77-a112-75d73f199fc4" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd19" />
+    <MetadataFile FileName="Events612.xsd" MetadataType="Schema" ID="80a3b334-09e6-46f9-a334-5cc18f934cce" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd21" />
+    <MetadataFile FileName="Events4.xsd" MetadataType="Schema" ID="e8c1f3ef-ac31-4a9a-af0b-7290a5d10a40" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd3" />
+    <MetadataFile FileName="Events613.xsd" MetadataType="Schema" ID="419c2f98-247c-4108-ba4c-e4a9a101b6bb" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd14" />
+    <MetadataFile FileName="Events5.xsd" MetadataType="Schema" ID="a6741a2f-1054-4dd7-9d63-1874a42a1f2b" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd4" />
+    <MetadataFile FileName="Events614.xsd" MetadataType="Schema" ID="c7f2f5aa-7f2a-44a2-ab86-a7cd0681ffa0" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd10" />
+    <MetadataFile FileName="Events615.xsd" MetadataType="Schema" ID="6a04a00e-7a5c-44d1-a6ba-137633ba0cd4" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd13" />
+    <MetadataFile FileName="Events.disco" MetadataType="Disco" ID="bd6517f5-9922-401d-8dc5-570b97c38b66" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?disco" />
+    <MetadataFile FileName="Events616.xsd" MetadataType="Schema" ID="558322ec-e9d7-44a7-9745-e4c8141e288d" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd9" />
+    <MetadataFile FileName="Events617.xsd" MetadataType="Schema" ID="9c9ec880-db87-487d-a593-0d35b34727b9" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd22" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

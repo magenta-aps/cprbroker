@@ -124,11 +124,11 @@
     <Compile Include="Services\Admin.svc.cs">
       <DependentUpon>Admin.svc</DependentUpon>
     </Compile>
-    <Compile Include="Services\Events.asmx.cs">
-      <DependentUpon>Events.asmx</DependentUpon>
-      <SubType>Component</SubType>
+    <Compile Include="Services\Events.svc.cs">
+      <DependentUpon>Events.svc</DependentUpon>
     </Compile>
     <Compile Include="Services\IAdmin.cs" />
+    <Compile Include="Services\IEvents.cs" />
     <Compile Include="Services\IPart.cs" />
     <Compile Include="Services\Part.svc.cs">
       <DependentUpon>Part.svc</DependentUpon>
@@ -150,7 +150,6 @@
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Images\unn_bottom.gif" />
     <Content Include="Pages\LogEntries.aspx" />
-    <Content Include="Services\Events.asmx" />
     <Content Include="Web.sitemap" />
     <Content Include="Pages\Site.Master" />
   </ItemGroup>
@@ -199,6 +198,7 @@
   <ItemGroup>
     <Content Include="Config\loggingConfiguration.config" />
     <Content Include="Services\Admin.svc" />
+    <Content Include="Services\Events.svc" />
     <Content Include="Services\Part.svc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

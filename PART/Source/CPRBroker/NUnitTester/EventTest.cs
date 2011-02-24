@@ -22,7 +22,7 @@ namespace CprBroker.NUnitTester
         [TestCase(2)]
         public void T100_Dequeue(int maxCount)
         {
-            var result = TestRunner.EventsService.DequeueDataChangeEvents(maxCount);
+            var result = TestRunner.EventsService.DequeueDataChangeEvents(TestRunner.EventsApplicationHeader, maxCount);
             Assert.IsNotNull(result);
             Validate(result.StandardRetur);
             Assert.IsNotNull(result.Item);

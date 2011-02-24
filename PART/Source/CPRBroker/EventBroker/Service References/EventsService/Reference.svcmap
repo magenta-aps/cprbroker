@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="724312cb-b3f3-4e43-bf49-ab06597f6c4d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1551/Services/Events.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Events.xsd" MetadataType="Schema" ID="101a36d2-96bf-49d1-adf6-78873ae30b74" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd23" />
+    <MetadataFile FileName="Events1.xsd" MetadataType="Schema" ID="d54cd43e-4021-4872-a325-93056a3d0285" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd2" />
+    <MetadataFile FileName="Events2.xsd" MetadataType="Schema" ID="911afc4b-8d89-4744-a882-d17ffeda835b" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd16" />
+    <MetadataFile FileName="Events3.xsd" MetadataType="Schema" ID="d4d96e9f-30a1-415e-ac4d-9984634240ff" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd18" />
+    <MetadataFile FileName="Events4.xsd" MetadataType="Schema" ID="67010e17-f032-4209-81ee-615ff0d9683d" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd7" />
+    <MetadataFile FileName="Events.wsdl" MetadataType="Wsdl" ID="180f9db0-163a-450c-bc6b-066cafe3a2c0" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?wsdl" />
+    <MetadataFile FileName="Events5.xsd" MetadataType="Schema" ID="e345b18c-aa02-4ec9-90e5-3fe7014e04b8" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd20" />
+    <MetadataFile FileName="Events6.xsd" MetadataType="Schema" ID="6430a4a1-23fd-4e00-ab2f-65315816180f" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd0" />
+    <MetadataFile FileName="Events7.xsd" MetadataType="Schema" ID="e11db226-d8fe-47d7-a3a7-5608bcc13ac5" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd8" />
+    <MetadataFile FileName="Events8.xsd" MetadataType="Schema" ID="3c6b2f56-7118-46a4-a459-4289c82f8b29" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd5" />
+    <MetadataFile FileName="Events9.xsd" MetadataType="Schema" ID="e20575b5-8b80-4ec3-99ab-d25114eebdc7" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd12" />
+    <MetadataFile FileName="Events10.xsd" MetadataType="Schema" ID="221617ac-34b7-462a-88d0-24f856597e02" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd15" />
+    <MetadataFile FileName="Events11.xsd" MetadataType="Schema" ID="867fe1c7-db92-4e11-8a3d-8204431d393b" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd11" />
+    <MetadataFile FileName="Events12.xsd" MetadataType="Schema" ID="a17cfc2a-3879-4a8e-8b8b-53cf15be1868" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd6" />
+    <MetadataFile FileName="Events13.xsd" MetadataType="Schema" ID="77e227d3-5237-448b-885f-c6ed9c7793c4" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd1" />
+    <MetadataFile FileName="Events14.xsd" MetadataType="Schema" ID="8af1bdb6-ad6a-43fb-9dec-5930d73cf2b9" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd17" />
+    <MetadataFile FileName="Events15.xsd" MetadataType="Schema" ID="1596b364-b010-45c9-80ab-70f6488c4937" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd19" />
+    <MetadataFile FileName="Events16.xsd" MetadataType="Schema" ID="4301e955-3bbd-497d-8209-96f5a2085731" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd21" />
+    <MetadataFile FileName="Events17.xsd" MetadataType="Schema" ID="61859ff7-bdee-4746-9252-31005d24372a" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd3" />
+    <MetadataFile FileName="Events18.xsd" MetadataType="Schema" ID="5cf407f9-ddf7-4318-baeb-c213281be801" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd14" />
+    <MetadataFile FileName="Events19.xsd" MetadataType="Schema" ID="61cd0a00-5693-406d-b57a-044dcc44b93e" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd4" />
+    <MetadataFile FileName="Events20.xsd" MetadataType="Schema" ID="2478e805-e74c-4a03-9782-67aaae290a35" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd10" />
+    <MetadataFile FileName="Events21.xsd" MetadataType="Schema" ID="c0930399-75e7-4ffe-8751-3221f60e31be" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd13" />
+    <MetadataFile FileName="Events.disco" MetadataType="Disco" ID="9bb0c998-e82a-47cb-8231-7435031dfdd3" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?disco" />
+    <MetadataFile FileName="Events22.xsd" MetadataType="Schema" ID="0e243eb6-4eb7-44da-9fe1-6e6e67dfe7be" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd9" />
+    <MetadataFile FileName="Events23.xsd" MetadataType="Schema" ID="c00ddb69-f4f1-43f5-8c00-7d337f2c00d0" SourceId="1" SourceUrl="http://localhost:1551/Services/Events.svc?xsd=xsd22" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

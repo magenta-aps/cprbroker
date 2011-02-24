@@ -17,15 +17,16 @@ namespace CprBroker.NUnitTester
         public static Admin.AdminClient AdminService;
         public static Part.PartClient PartService;
         public static Subscriptions.Subscriptions SubscriptionsService;
-        public static Events.Events EventsService;
+        public static Events.EventsClient EventsService;
         public static Part.ApplicationHeader PartApplicationHeader;
         public static Admin.ApplicationHeader AdminApplicationHeader;
+        public static Events.ApplicationHeader EventsApplicationHeader;
 
         public static void Initialize()
         {
             PartApplicationHeader = new Part.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             AdminApplicationHeader = new NUnitTester.Admin.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
-
+            EventsApplicationHeader = new CprBroker.NUnitTester.Events.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             
             AdminService = new NUnitTester.Admin.AdminClient("WSHttpBinding_IAdmin");
             ReplaceServiceUrl(AdminService, SystemType.CprBroker);
@@ -44,14 +45,9 @@ namespace CprBroker.NUnitTester
             ReplaceServiceUrl(SubscriptionsService, SystemType.EventBroker);
             Console.WriteLine(SubscriptionsService.Url);
 
-            EventsService = new CprBroker.NUnitTester.Events.Events();
-            EventsService.ApplicationHeaderValue = new NUnitTester.Events.ApplicationHeader()
-            {
-                ApplicationToken = TestData.BaseAppToken,
-                UserToken = TestData.userToken
-            };
+            EventsService = new CprBroker.NUnitTester.Events.EventsClient();            
             ReplaceServiceUrl(EventsService, SystemType.CprBroker);
-            Console.WriteLine(EventsService.Url);
+            Console.WriteLine(EventsService.Endpoint.Address.Uri);
 
         }
 

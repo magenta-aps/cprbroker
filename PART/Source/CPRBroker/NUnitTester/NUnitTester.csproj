@@ -81,6 +81,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Events\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Part\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,11 +95,6 @@
     <Compile Include="TestData.cs" />
     <Compile Include="TestRunner.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="Web References\Events\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\Subscriptions\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -105,17 +105,6 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:1551/Services/Events.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\Events\</RelPath>
-      <UpdateFromURL>http://localhost:1551/Services/Events.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>CprBroker_NUnitTester_Events_Events</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1552/Services/Subscriptions.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\Subscriptions\</RelPath>
@@ -155,7 +144,6 @@
     <None Include="Web References\Subscriptions\Subscriptions.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\Events\Events.wsdl" />
     <None Include="Web References\Subscriptions\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -163,19 +151,6 @@
     <None Include="Web References\Subscriptions\Subscriptions.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\Events\Events.disco" />
-    <None Include="Web References\Events\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\Events\BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Events\BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Subscriptions\BasicOutputTypeOfArrayOfSubscriptionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -194,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Admin\" />
+    <WCFMetadataStorage Include="Service References\Events\" />
     <WCFMetadataStorage Include="Service References\Part\" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +278,54 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\Admin\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Events\Events.wsdl" />
+    <None Include="Service References\Events\Events.xsd" />
+    <None Include="Service References\Events\Events1.xsd" />
+    <None Include="Service References\Events\Events2.xsd" />
+    <None Include="Service References\Events\Events3.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Events\Events.disco" />
+    <None Include="Service References\Events\Events4.xsd" />
+    <None Include="Service References\Events\Events5.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Events\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Events\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\CprBroker.Schemas.Part.Events.DataChangeEventInfo.datasource" />
+    <None Include="Properties\DataSources\CprBroker.Schemas.Part.Events.PersonBirthdate.datasource" />
+    <None Include="Service References\Events\CprBroker.NUnitTester.Events.BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Events\CprBroker.NUnitTester.Events.BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Events\Events6.xsd" />
+    <None Include="Service References\Events\Events61.xsd" />
+    <None Include="Service References\Events\Events610.xsd" />
+    <None Include="Service References\Events\Events611.xsd" />
+    <None Include="Service References\Events\Events612.xsd" />
+    <None Include="Service References\Events\Events613.xsd" />
+    <None Include="Service References\Events\Events614.xsd" />
+    <None Include="Service References\Events\Events615.xsd" />
+    <None Include="Service References\Events\Events616.xsd" />
+    <None Include="Service References\Events\Events617.xsd" />
+    <None Include="Service References\Events\Events62.xsd" />
+    <None Include="Service References\Events\Events63.xsd" />
+    <None Include="Service References\Events\Events64.xsd" />
+    <None Include="Service References\Events\Events65.xsd" />
+    <None Include="Service References\Events\Events66.xsd" />
+    <None Include="Service References\Events\Events67.xsd" />
+    <None Include="Service References\Events\Events68.xsd" />
+    <None Include="Service References\Events\Events69.xsd" />
+    <None Include="Service References\Events\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -25,6 +25,9 @@ EndProject
 Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "DB", "DB\DB.dbp", "{C7063C65-7677-4CAA-99AB-2AAB9A5AB6DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBroker", "EventBroker\EventBroker.csproj", "{D8FC2102-488A-480A-8197-8842B8192E68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4964BBE5-F111-454F-86C1-766960A72396} = {4964BBE5-F111-454F-86C1-766960A72396}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBrokerWeb", "EventBrokerWeb\EventBrokerWeb.csproj", "{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}"
 EndProject
