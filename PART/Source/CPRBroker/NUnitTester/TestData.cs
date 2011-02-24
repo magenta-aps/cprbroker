@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.NUnitTester.Part;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.NUnitTester
 {
@@ -52,22 +54,22 @@ namespace CprBroker.NUnitTester
         };
         public const string InvalidCprNumbersFieldName = "invalidCprNumbers";
 
-        public static readonly SoegInputType1[] InvalidSearchCriteria = new SoegInputType1[]
+        public static readonly Part.SoegInputType1[] InvalidSearchCriteria = new Part.SoegInputType1[]
         {
             null,
-            new SoegInputType1(),
-            new SoegInputType1()
+            new Part.SoegInputType1(),
+            new Part.SoegInputType1()
             {
-                SoegObjekt=new SoegObjektType(){ UUID=Guid.NewGuid().ToString()+"D"}
+                SoegObjekt=new Part.SoegObjektType(){ UUID=Guid.NewGuid().ToString()+"D"}
             },
-            new SoegInputType1()
+            new Part.SoegInputType1()
             {
-                SoegObjekt=new SoegObjektType(),
+                SoegObjekt=new Part.SoegObjektType(),
                 FoersteResultatReference="dd"
             },
-            new SoegInputType1()
+            new Part.SoegInputType1()
             {
-                SoegObjekt=new SoegObjektType(),
+                SoegObjekt=new Part.SoegObjektType(),
                 MaksimalAntalKvantitet="-1"
             },
         };
@@ -135,7 +137,7 @@ namespace CprBroker.NUnitTester
             changeSubscriptions.Clear();
         }
 
-        public LaesInputType[] EmptyReadInput = new LaesInputType[] { null, new LaesInputType() };
+        public Part.LaesInputType[] EmptyReadInput = new Part.LaesInputType[] { null, new Part.LaesInputType() };
         public const string EmptyReadInputFieldName = "EmptyReadInput";
 
         public string[] InvalidReadInput = new string[] { null, "", Guid.NewGuid().ToString().Substring(10) };

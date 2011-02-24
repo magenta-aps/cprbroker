@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using CprBroker.Schemas;
 
 namespace CprBroker.NUnitTester
 {
@@ -12,12 +15,19 @@ namespace CprBroker.NUnitTester
     {
 
         public static Admin.Admin AdminService;
-        public static Part.Part PartService;
+        public static Part.PartClient PartService;
         public static Subscriptions.Subscriptions SubscriptionsService;
         public static Events.Events EventsService;
+        public static Part.ApplicationHeader PartApplicationHeader;
 
         public static void Initialize()
         {
+            PartApplicationHeader = new Part.ApplicationHeader()
+            {
+                ApplicationToken = TestData.BaseAppToken,
+                UserToken = TestData.userToken
+            };
+
             AdminService = new NUnitTester.Admin.Admin();
             AdminService.ApplicationHeaderValue = new NUnitTester.Admin.ApplicationHeader()
             {
@@ -27,16 +37,15 @@ namespace CprBroker.NUnitTester
             ReplaceServiceUrl(AdminService, SystemType.CprBroker);
             Console.WriteLine(AdminService.Url);
 
-            PartService = new NUnitTester.Part.Part();
-            PartService.ApplicationHeaderValue = new NUnitTester.Part.ApplicationHeader()
+            var binding = new WSHttpBinding() 
             {
-                ApplicationToken = TestData.BaseAppToken,
-                UserToken = TestData.userToken
+                MaxReceivedMessageSize = int.MaxValue                 
             };
-
-            ReplaceServiceUrl(PartService, SystemType.CprBroker);
-            Console.WriteLine(PartService.Url);
-
+            
+            //PartService = new NUnitTester.Part.PartClient(binding, new EndpointAddress("http://localhost:1551/Services/Part.svc"));
+            PartService = new CprBroker.NUnitTester.Part.PartClient("WSHttpBinding_IPart");
+            //ReplaceServiceUrl(PartService, SystemType.CprBroker);
+            Console.WriteLine(PartService.Endpoint.Address.Uri);
 
             SubscriptionsService = new NUnitTester.Subscriptions.Subscriptions();
             SubscriptionsService.ApplicationHeaderValue = new NUnitTester.Subscriptions.ApplicationHeader()
@@ -80,6 +89,26 @@ namespace CprBroker.NUnitTester
             {
                 service.Url = service.Url.Replace(hostAndPort, "localhost:1552");
             }
+        }
+
+        private static void ReplaceServiceUrl<T>(System.ServiceModel.ClientBase<T> service, SystemType systemType) where T : class
+        {
+            Uri uri = new Uri(service.Endpoint.Address.Uri.ToString());
+            string hostAndPort = uri.Host;
+            if (!uri.IsDefaultPort)
+            {
+                hostAndPort += ":" + uri.Port;
+            }
+            string url = uri.ToString();
+            if (systemType == SystemType.CprBroker)
+            {
+                url = url.Replace(hostAndPort, "localhost:1551");
+            }
+            else
+            {
+                url = url.Replace(hostAndPort, "localhost:1552");
+            }
+            service.Endpoint.Address = new EndpointAddress(url);
         }
     }
 }

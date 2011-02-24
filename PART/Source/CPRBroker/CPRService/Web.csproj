@@ -50,6 +50,12 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Design" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -124,9 +130,9 @@
       <DependentUpon>Events.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Services\Part.asmx.cs">
-      <DependentUpon>Part.asmx</DependentUpon>
-      <SubType>Component</SubType>
+    <Compile Include="Services\IPart.cs" />
+    <Compile Include="Services\Part.svc.cs">
+      <DependentUpon>Part.svc</DependentUpon>
     </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
@@ -146,7 +152,6 @@
     <Content Include="Pages\Images\unn_bottom.gif" />
     <Content Include="Pages\LogEntries.aspx" />
     <Content Include="Services\Events.asmx" />
-    <Content Include="Services\Part.asmx" />
     <Content Include="Web.sitemap" />
     <Content Include="Pages\Site.Master" />
   </ItemGroup>
@@ -194,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\loggingConfiguration.config" />
+    <Content Include="Services\Part.svc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />

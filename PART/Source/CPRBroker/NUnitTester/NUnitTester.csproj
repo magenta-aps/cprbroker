@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Schemas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dll\nunit.framework.dll</HintPath>
@@ -75,6 +76,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Part\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="SubscriptionsTest.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="TestRunner.cs" />
@@ -85,11 +91,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\Events\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\Part\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -125,17 +126,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>CprBroker_NUnitTester_Events_Events</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://localhost:1551/Services/Part.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\Part\</RelPath>
-      <UpdateFromURL>http://localhost:1551/Services/Part.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NUnitTester_Part_Part</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1552/Services/Subscriptions.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -179,25 +169,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\Part\Part.disco" />
-    <None Include="Web References\Part\Part.wsdl" />
-    <None Include="Web References\Part\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Web References\Subscriptions\Subscriptions.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\Events\Events.wsdl" />
-    <None Include="Web References\Part\LaesOutputType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Part\ListOutputType1.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Part\SoegOutputType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Subscriptions\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -235,9 +210,6 @@
     <None Include="Web References\Events\BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\Part\GetUuidOutputType.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Subscriptions\BasicOutputTypeOfArrayOfSubscriptionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -249,6 +221,67 @@
     </None>
     <None Include="Web References\Subscriptions\BasicOutputTypeOfChangeSubscriptionType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Part\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Part\Part.disco" />
+    <None Include="Service References\Part\Part.wsdl" />
+    <None Include="Service References\Part\Part.xsd" />
+    <None Include="Service References\Part\Part1.xsd" />
+    <None Include="Service References\Part\Part2.xsd" />
+    <None Include="Service References\Part\Part3.xsd" />
+    <None Include="Service References\Part\Part4.xsd" />
+    <None Include="Service References\Part\Part5.xsd" />
+    <None Include="Service References\Part\Part6.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Part\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Part\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\CprBroker.Schemas.Part.GetUuidOutputType.datasource" />
+    <None Include="Properties\DataSources\CprBroker.Schemas.Part.LaesOutputType.datasource" />
+    <None Include="Properties\DataSources\CprBroker.Schemas.Part.ListOutputType1.datasource" />
+    <None Include="Properties\DataSources\CprBroker.Schemas.Part.SoegOutputType.datasource" />
+    <None Include="Service References\Part\CprBroker.NUnitTester.Part.GetUuidOutputType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Part\CprBroker.NUnitTester.Part.LaesOutputType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Part\CprBroker.NUnitTester.Part.ListOutputType1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Part\CprBroker.NUnitTester.Part.SoegOutputType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Part\Part7.xsd" />
+    <None Include="Service References\Part\Part71.xsd" />
+    <None Include="Service References\Part\Part710.xsd" />
+    <None Include="Service References\Part\Part711.xsd" />
+    <None Include="Service References\Part\Part712.xsd" />
+    <None Include="Service References\Part\Part713.xsd" />
+    <None Include="Service References\Part\Part714.xsd" />
+    <None Include="Service References\Part\Part715.xsd" />
+    <None Include="Service References\Part\Part72.xsd" />
+    <None Include="Service References\Part\Part73.xsd" />
+    <None Include="Service References\Part\Part74.xsd" />
+    <None Include="Service References\Part\Part75.xsd" />
+    <None Include="Service References\Part\Part76.xsd" />
+    <None Include="Service References\Part\Part77.xsd" />
+    <None Include="Service References\Part\Part78.xsd" />
+    <None Include="Service References\Part\Part79.xsd" />
+    <None Include="Service References\Part\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
