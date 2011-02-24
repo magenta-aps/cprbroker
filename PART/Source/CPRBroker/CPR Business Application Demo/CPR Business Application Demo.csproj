@@ -201,8 +201,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ApplicationsService\Admin.disco" />
-    <None Include="Service References\ApplicationsService\Admin.wsdl" />
     <None Include="Service References\ApplicationsService\CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -241,6 +239,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\ApplicationsService\Admin.xsd" />
+    <None Include="Service References\ApplicationsService\Admin1.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2.xsd" />
+    <None Include="Service References\ApplicationsService\Admin3.xsd" />
+    <None Include="Service References\ApplicationsService\Admin4.xsd" />
+    <None Include="Service References\ApplicationsService\Admin5.xsd" />
     <None Include="Service References\PartService\Part1.disco" />
     <None Include="Service References\PartService\Part1.wsdl" />
     <None Include="Service References\PartService\Part10.xsd" />
@@ -257,6 +261,28 @@
     <None Include="Service References\PartService\Part21.xsd" />
     <None Include="Service References\PartService\Part22.xsd" />
     <None Include="Service References\PartService\Part9.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ApplicationsService\Admin1.disco" />
+    <None Include="Service References\ApplicationsService\Admin1.wsdl" />
+    <None Include="Service References\ApplicationsService\Admin10.xsd" />
+    <None Include="Service References\ApplicationsService\Admin11.xsd" />
+    <None Include="Service References\ApplicationsService\Admin12.xsd" />
+    <None Include="Service References\ApplicationsService\Admin13.xsd" />
+    <None Include="Service References\ApplicationsService\Admin14.xsd" />
+    <None Include="Service References\ApplicationsService\Admin15.xsd" />
+    <None Include="Service References\ApplicationsService\Admin16.xsd" />
+    <None Include="Service References\ApplicationsService\Admin17.xsd" />
+    <None Include="Service References\ApplicationsService\Admin18.xsd" />
+    <None Include="Service References\ApplicationsService\Admin19.xsd" />
+    <None Include="Service References\ApplicationsService\Admin20.xsd" />
+    <None Include="Service References\ApplicationsService\Admin21.xsd" />
+    <None Include="Service References\ApplicationsService\Admin22.xsd" />
+    <None Include="Service References\ApplicationsService\Admin23.xsd" />
+    <None Include="Service References\ApplicationsService\Admin6.xsd" />
+    <None Include="Service References\ApplicationsService\Admin7.xsd" />
+    <None Include="Service References\ApplicationsService\Admin8.xsd" />
+    <None Include="Service References\ApplicationsService\Admin9.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

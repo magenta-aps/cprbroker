@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="PersonGivenName" type="xs:string" />
+  <xs:element name="PersonMiddleName" type="xs:string" />
+  <xs:element name="PersonSurnameName" type="xs:string" />
+  <xs:element name="StreetBuildingIdentifier" type="xs:string" />
+  <xs:element name="MailDeliverySublocationIdentifier" type="xs:string" />
+  <xs:element name="FloorIdentifier" type="xs:string" />
+  <xs:element name="SuiteIdentifier" type="xs:string" />
+  <xs:element name="CountryIdentificationCode" type="tns:CountryIdentificationCodeType" />
+  <xs:complexType name="CountryIdentificationCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="scheme" type="tns:_CountryIdentificationSchemeType" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="_CountryIdentificationSchemeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="iso3166-alpha2" />
+      <xs:enumeration value="iso3166-alpha3" />
+      <xs:enumeration value="un-numeric3" />
+      <xs:enumeration value="imk" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

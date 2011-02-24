@@ -27,12 +27,12 @@ namespace CPR_Business_Application_Demo.Business
             {
                 var cprAdministrationAdapter = new ApplicationAdapter(url);
 
-                string pingResult = cprAdministrationAdapter.Ping();
+                var pingResult = cprAdministrationAdapter.IsImplementing(GetHeader(),"Read","1.0");
 
                 // If we have a successful connection the server will send some information
                 // back stating who it thinks we are, etc. If we cannot connect we will get
                 // an exception. Just to be sure - we expect the pingResult to contain at least something
-                return (pingResult.Length > 0);
+                return pingResult.Item;
             }
             catch (Exception ex)
             {

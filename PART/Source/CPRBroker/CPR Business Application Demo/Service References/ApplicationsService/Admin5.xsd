@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="BirthDate" type="xs:date" />
+  <xs:element name="StreetName" type="xs:string" />
+  <xs:element name="DistrictSubdivisionIdentifier" type="xs:string" />
+  <xs:element name="PostCodeIdentifier" type="xs:string" />
+  <xs:element name="DistrictName" type="xs:string" />
+</xs:schema>

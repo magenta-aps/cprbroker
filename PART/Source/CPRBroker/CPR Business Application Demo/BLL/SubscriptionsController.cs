@@ -20,26 +20,7 @@ namespace CPR_Business_Application_Demo.Business
         }
         #endregion
 
-        #region Methods
-        public bool TestWSConnection(string url)
-        {
-            try
-            {
-                var subscriptionsAdapter = new ApplicationAdapter(url);
-
-                string pingResult = subscriptionsAdapter.Ping();
-
-                // If we have a successful connection the server will send some information
-                // back stating who it thinks we are, etc. If we cannot connect we will get
-                // an exception. Just to be sure - we expect the pingResult to contain at least something
-                return (pingResult.Length > 0);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine ( "ping exception for URL:"+url + ":: " + ex ) ;
-                return false;
-            }
-        }
+        #region Methods       
 
         public SubscriptionType[] GetActiveSubscriptions()
         {

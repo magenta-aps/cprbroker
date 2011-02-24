@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ApplicationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplicationId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Token" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RegistrationDate" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsApproved" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ApprovedDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ServiceVersionType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Version" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Functions" type="tns:ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Details" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Functions" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DataProviderType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="TypeName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Enabled" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Attributes" type="tns:AttributeType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttributeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
