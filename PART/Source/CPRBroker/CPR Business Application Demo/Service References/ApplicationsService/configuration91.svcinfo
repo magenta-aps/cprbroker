@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="UARGYmKvGJnJud8HWeKXC+xEcK0=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="pkZRmLBBdhYkKnFNdGqlS41Ex6c=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsHttpBinding" name="WSHttpBinding_IAdmin">
       <properties>
@@ -127,10 +127,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WSHttpBinding_IAdmin" contract="ApplicationsService.IAdmin" bindingType="wsHttpBinding" address="http://localhost:1551/Services/Admin.svc" bindingConfiguration="WSHttpBinding_IAdmin">
+    <endpoint name="WSHttpBinding_IAdmin" contract="ApplicationsService.IAdmin" bindingType="wsHttpBinding" address="http://localhost:1551/services/Admin.svc" bindingConfiguration="WSHttpBinding_IAdmin">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:1551/Services/Admin.svc</serializedValue>
+          <serializedValue>http://localhost:1551/services/Admin.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

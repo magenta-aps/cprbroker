@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd7" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd7" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
   <xs:element name="PersonNameStructure" type="tns:PersonNameStructureType" />
   <xs:complexType name="PersonNameStructureType">
     <xs:sequence>

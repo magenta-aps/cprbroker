@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="urn:oio:sagdok:person:1.0.0" elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:person:1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd5" namespace="urn:oio:sagdok:part:1.0.0" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd6" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd8" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd9" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd10" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd11" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd12" namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd13" namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd16" namespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd17" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd21" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd14" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd22" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd7" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd2" namespace="urn:oio:dkal:1.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd5" namespace="urn:oio:sagdok:part:1.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd6" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd8" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd9" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd10" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd11" namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd12" namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd13" namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd16" namespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd17" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd21" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd14" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd22" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd7" namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd2" namespace="urn:oio:dkal:1.0.0" />
   <xs:complexType name="LaesOutputType">
     <xs:complexContent mixed="false">
       <xs:extension xmlns:q1="urn:oio:sagdok:2.0.0" base="q1:BasicOutputType">

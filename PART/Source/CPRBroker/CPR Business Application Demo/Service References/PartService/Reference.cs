@@ -12,10 +12,10 @@ namespace CPR_Business_Application_Demo.PartService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="PartService.IPart")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="PartService.IPart")]
     public interface IPart {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/Read", ReplyAction="http://tempuri.org/IPart/ReadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/Read", ReplyAction="http://dk.itst/IPart/ReadResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -28,9 +28,9 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.LaesOutputType Read(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType input);
+        CPR_Business_Application_Demo.PartService.LaesOutputType Read(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/RefreshRead", ReplyAction="http://tempuri.org/IPart/RefreshReadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/RefreshRead", ReplyAction="http://dk.itst/IPart/RefreshReadResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -43,9 +43,9 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.LaesOutputType RefreshRead(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType input);
+        CPR_Business_Application_Demo.PartService.LaesOutputType RefreshRead(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/List", ReplyAction="http://tempuri.org/IPart/ListResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/List", ReplyAction="http://dk.itst/IPart/ListResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -58,9 +58,9 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.ListOutputType1 List(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.ListInputType input);
+        CPR_Business_Application_Demo.PartService.ListOutputType1 List(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.ListInputType ListInput);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/Search", ReplyAction="http://tempuri.org/IPart/SearchResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/Search", ReplyAction="http://dk.itst/IPart/SearchResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -73,9 +73,9 @@ namespace CPR_Business_Application_Demo.PartService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.SoegOutputType Search(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.SoegInputType1 searchCriteria);
+        CPR_Business_Application_Demo.PartService.SoegOutputType Search(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.SoegInputType1 SoegInput);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPart/GetUuid", ReplyAction="http://tempuri.org/IPart/GetUuidResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/GetUuid", ReplyAction="http://dk.itst/IPart/GetUuidResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
@@ -96,7 +96,7 @@ namespace CPR_Business_Application_Demo.PartService {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
     public partial class ApplicationHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string applicationTokenField;
@@ -4892,20 +4892,20 @@ namespace CPR_Business_Application_Demo.PartService {
                 base(binding, remoteAddress) {
         }
         
-        public CPR_Business_Application_Demo.PartService.LaesOutputType Read(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType input) {
-            return base.Channel.Read(applicationHeader, input);
+        public CPR_Business_Application_Demo.PartService.LaesOutputType Read(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput) {
+            return base.Channel.Read(applicationHeader, LaesInput);
         }
         
-        public CPR_Business_Application_Demo.PartService.LaesOutputType RefreshRead(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType input) {
-            return base.Channel.RefreshRead(applicationHeader, input);
+        public CPR_Business_Application_Demo.PartService.LaesOutputType RefreshRead(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput) {
+            return base.Channel.RefreshRead(applicationHeader, LaesInput);
         }
         
-        public CPR_Business_Application_Demo.PartService.ListOutputType1 List(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.ListInputType input) {
-            return base.Channel.List(applicationHeader, input);
+        public CPR_Business_Application_Demo.PartService.ListOutputType1 List(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.ListInputType ListInput) {
+            return base.Channel.List(applicationHeader, ListInput);
         }
         
-        public CPR_Business_Application_Demo.PartService.SoegOutputType Search(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.SoegInputType1 searchCriteria) {
-            return base.Channel.Search(applicationHeader, searchCriteria);
+        public CPR_Business_Application_Demo.PartService.SoegOutputType Search(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.SoegInputType1 SoegInput) {
+            return base.Channel.Search(applicationHeader, SoegInput);
         }
         
         public CPR_Business_Application_Demo.PartService.GetUuidOutputType GetUuid(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, string cprNumber) {

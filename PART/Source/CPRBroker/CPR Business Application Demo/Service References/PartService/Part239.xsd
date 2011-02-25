@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="urn:oio:sagdok:2.0.0" elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:2.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd2" namespace="urn:oio:dkal:1.0.0" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd3" namespace="urn:oio:sagdok:1.0.0" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd20" namespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd2" namespace="urn:oio:dkal:1.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd3" namespace="urn:oio:sagdok:1.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd20" namespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" />
   <xs:complexType name="LaesInputType">
     <xs:sequence>
       <xs:element xmlns:q1="urn:oio:dkal:1.0.0" minOccurs="0" maxOccurs="1" ref="q1:UUID" />

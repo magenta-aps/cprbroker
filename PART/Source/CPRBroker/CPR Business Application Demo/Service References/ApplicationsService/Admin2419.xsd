@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Admin.svc?xsd=xsd23" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+<xs:schema xmlns:tns="http://dk.itst" elementFormDefault="qualified" targetNamespace="http://dk.itst" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Admin.svc?xsd=xsd23" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
   <xs:element name="RequestAppRegistration">
     <xs:complexType>
       <xs:sequence>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
-  <xs:import schemaLocation="http://localhost:1551/Services/Part.svc?xsd=xsd4" namespace="urn:oio:sagdok:person:1.0.0" />
+<xs:schema xmlns:tns="http://dk.itst" elementFormDefault="qualified" targetNamespace="http://dk.itst" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd1" namespace="urn:oio:sagdok:2.0.0" />
+  <xs:import schemaLocation="http://localhost:1551/services/Part.svc?xsd=xsd4" namespace="urn:oio:sagdok:person:1.0.0" />
   <xs:element name="Read">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
-        <xs:element xmlns:q1="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="input" type="q1:LaesInputType" />
+        <xs:element xmlns:q1="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="LaesInput" type="q1:LaesInputType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -27,7 +27,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
-        <xs:element xmlns:q3="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="input" type="q3:LaesInputType" />
+        <xs:element xmlns:q3="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="LaesInput" type="q3:LaesInputType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -42,7 +42,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
-        <xs:element xmlns:q5="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="input" type="q5:ListInputType" />
+        <xs:element xmlns:q5="urn:oio:sagdok:2.0.0" minOccurs="0" maxOccurs="1" name="ListInput" type="q5:ListInputType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -57,7 +57,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="1" name="applicationHeader" type="tns:ApplicationHeader" />
-        <xs:element xmlns:q7="urn:oio:sagdok:person:1.0.0" minOccurs="0" maxOccurs="1" name="searchCriteria" type="q7:SoegInputType" />
+        <xs:element xmlns:q7="urn:oio:sagdok:person:1.0.0" minOccurs="0" maxOccurs="1" name="SoegInput" type="q7:SoegInputType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

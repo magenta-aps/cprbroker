@@ -20,32 +20,32 @@
     <MetadataSource Address="http://localhost:1551/Services/Admin.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Admin.xsd" MetadataType="Schema" ID="30c5841b-e79b-49e6-8583-a31f8d5987ca" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd8" />
-    <MetadataFile FileName="Admin1.xsd" MetadataType="Schema" ID="1dd643fb-108b-4dae-8859-1e16c7da375d" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd9" />
-    <MetadataFile FileName="Admin2.xsd" MetadataType="Schema" ID="fb83839e-2ba1-480f-8d91-5b92d818ae50" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd15" />
-    <MetadataFile FileName="Admin3.xsd" MetadataType="Schema" ID="6a87d783-aec2-4233-ad72-512e6ef1eb3f" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd18" />
-    <MetadataFile FileName="Admin4.xsd" MetadataType="Schema" ID="5a03185e-7deb-4dab-8a86-7db0d5cc26bb" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd13" />
-    <MetadataFile FileName="Admin5.xsd" MetadataType="Schema" ID="a89a31a0-bedf-4e65-84c5-924e990d6c8d" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd10" />
-    <MetadataFile FileName="Admin1.disco" MetadataType="Disco" ID="a0c3ec34-1a16-471a-8405-1413523422ee" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?disco" />
-    <MetadataFile FileName="Admin6.xsd" MetadataType="Schema" ID="75eca443-d575-437f-b4fd-73c600e50678" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd14" />
-    <MetadataFile FileName="Admin7.xsd" MetadataType="Schema" ID="44d71d3a-25ff-4f99-89df-60f08eded088" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd17" />
-    <MetadataFile FileName="Admin8.xsd" MetadataType="Schema" ID="06579316-97f3-4eff-85e0-26d86bcf4eb0" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd12" />
-    <MetadataFile FileName="Admin9.xsd" MetadataType="Schema" ID="3ec47ace-b2f8-40a5-b3de-7b7e63171093" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd22" />
-    <MetadataFile FileName="Admin10.xsd" MetadataType="Schema" ID="19e21705-c1ff-4bd4-84b6-179845d18a72" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd2" />
-    <MetadataFile FileName="Admin11.xsd" MetadataType="Schema" ID="4459bc4d-1e7f-4f2b-95d2-29322ea80a14" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd19" />
-    <MetadataFile FileName="Admin1.wsdl" MetadataType="Wsdl" ID="d4b701cd-0484-4e83-9953-62d21fc023d8" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?wsdl" />
-    <MetadataFile FileName="Admin12.xsd" MetadataType="Schema" ID="1137b140-6a82-4ed0-99b0-13c3e067c9f8" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd11" />
-    <MetadataFile FileName="Admin13.xsd" MetadataType="Schema" ID="c4330bc0-f8dc-48cd-beb1-655fef6bc3ce" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd21" />
-    <MetadataFile FileName="Admin14.xsd" MetadataType="Schema" ID="e1e245ae-c040-4719-a6b0-800abd4bb4a4" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd16" />
-    <MetadataFile FileName="Admin15.xsd" MetadataType="Schema" ID="9886e4d9-1493-4532-9ef2-2f35c55152f2" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd4" />
-    <MetadataFile FileName="Admin16.xsd" MetadataType="Schema" ID="e8524461-e7ca-4e91-b85a-9a7e0061aa6a" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd5" />
-    <MetadataFile FileName="Admin17.xsd" MetadataType="Schema" ID="b12d2c1c-826a-4f62-be8b-730d06da60ad" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd6" />
-    <MetadataFile FileName="Admin18.xsd" MetadataType="Schema" ID="eac121a5-7090-4628-884c-a94494bce999" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd7" />
-    <MetadataFile FileName="Admin19.xsd" MetadataType="Schema" ID="cb8d975b-3fe5-447c-b540-595c4a5db277" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd0" />
-    <MetadataFile FileName="Admin20.xsd" MetadataType="Schema" ID="26c5f256-5778-4564-9184-23a58a574585" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd1" />
-    <MetadataFile FileName="Admin21.xsd" MetadataType="Schema" ID="ca45a02e-f706-40c4-a781-3ee6591533c3" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd23" />
-    <MetadataFile FileName="Admin22.xsd" MetadataType="Schema" ID="45ee9c15-8daf-4539-b8a0-06cafc5d1409" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd3" />
-    <MetadataFile FileName="Admin23.xsd" MetadataType="Schema" ID="259789cf-12b0-47f1-9ea9-e7e1c3223b66" SourceId="1" SourceUrl="http://localhost:1551/Services/Admin.svc?xsd=xsd20" />
+    <MetadataFile FileName="Admin24.xsd" MetadataType="Schema" ID="c2ab6235-dc94-4623-9dc8-474ea43f03f9" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd8" />
+    <MetadataFile FileName="Admin241.xsd" MetadataType="Schema" ID="935cb01f-ace3-4ce0-986a-20e329ce76a5" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd9" />
+    <MetadataFile FileName="Admin242.xsd" MetadataType="Schema" ID="4fae24ab-860b-4b74-b454-c54415ae57b3" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd16" />
+    <MetadataFile FileName="Admin243.xsd" MetadataType="Schema" ID="9d5452c9-f45f-470c-81c6-4d9134b6f631" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd14" />
+    <MetadataFile FileName="Admin.disco" MetadataType="Disco" ID="5ae53737-5e42-4c03-94de-63f4810d783c" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?disco" />
+    <MetadataFile FileName="Admin244.xsd" MetadataType="Schema" ID="d6f49cd7-da4b-4de1-a63d-e01d2e3b1c11" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd10" />
+    <MetadataFile FileName="Admin245.xsd" MetadataType="Schema" ID="0cf603ea-61a5-470d-8a01-009274adc78c" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd20" />
+    <MetadataFile FileName="Admin246.xsd" MetadataType="Schema" ID="6ce6771e-bb63-49e9-a51a-c51e503c648e" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd13" />
+    <MetadataFile FileName="Admin247.xsd" MetadataType="Schema" ID="2b3bf567-e167-4603-bd6f-094be7d9c10a" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd17" />
+    <MetadataFile FileName="Admin248.xsd" MetadataType="Schema" ID="539195e4-d846-495c-9c07-98f1eff2c870" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd15" />
+    <MetadataFile FileName="Admin249.xsd" MetadataType="Schema" ID="18b68e07-55ba-479a-b2c1-47701ddd9a72" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd12" />
+    <MetadataFile FileName="Admin2410.xsd" MetadataType="Schema" ID="39782c0d-fbf5-4bbd-be66-4765450884ca" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd22" />
+    <MetadataFile FileName="Admin2411.xsd" MetadataType="Schema" ID="3fe6c238-a037-444d-ac27-0f25541f7f82" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd19" />
+    <MetadataFile FileName="Admin2412.xsd" MetadataType="Schema" ID="8b561a83-701c-4ef7-81e7-eb9242dcf01d" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd18" />
+    <MetadataFile FileName="Admin2413.xsd" MetadataType="Schema" ID="77853a9f-2aaf-4cf7-98bc-e280cc372e8e" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd11" />
+    <MetadataFile FileName="Admin2414.xsd" MetadataType="Schema" ID="6f39c987-4dfb-464c-80d6-2606f419c758" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd21" />
+    <MetadataFile FileName="Admin.wsdl" MetadataType="Wsdl" ID="cf1e560e-e67a-4e1f-a958-ce5349cea40e" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?wsdl" />
+    <MetadataFile FileName="Admin2415.xsd" MetadataType="Schema" ID="cc64fe7a-c25e-44c0-85ec-c671093ebfaf" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd6" />
+    <MetadataFile FileName="Admin2416.xsd" MetadataType="Schema" ID="468a7811-e2e1-4ed4-a4a9-9496c044c905" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd4" />
+    <MetadataFile FileName="Admin2417.xsd" MetadataType="Schema" ID="f5891b54-6ccb-4769-b631-1004befdc0f3" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd5" />
+    <MetadataFile FileName="Admin2418.xsd" MetadataType="Schema" ID="c42e1570-55ac-4522-b8f5-a4818b372aa9" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd7" />
+    <MetadataFile FileName="Admin2419.xsd" MetadataType="Schema" ID="ccd17f75-0339-4110-910b-d01c077d64ed" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd0" />
+    <MetadataFile FileName="Admin2420.xsd" MetadataType="Schema" ID="8a64fb29-2c7c-4263-af9e-bdf1a963cb65" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd1" />
+    <MetadataFile FileName="Admin2421.xsd" MetadataType="Schema" ID="094dc72a-0e83-4d04-9779-f4c9a29a62c6" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd2" />
+    <MetadataFile FileName="Admin2422.xsd" MetadataType="Schema" ID="b6ad777a-b44a-47d7-9223-08147bc9a780" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd23" />
+    <MetadataFile FileName="Admin2423.xsd" MetadataType="Schema" ID="d675a05f-6502-4498-9af1-717d0afdec9c" SourceId="1" SourceUrl="http://localhost:1551/services/Admin.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

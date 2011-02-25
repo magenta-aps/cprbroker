@@ -215,15 +215,6 @@
     <None Include="Service References\PartService\CPR_Business_Application_Demo.PartService.GetUuidOutputType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\PartService\Part.xsd" />
-    <None Include="Service References\PartService\Part1.xsd" />
-    <None Include="Service References\PartService\Part2.xsd" />
-    <None Include="Service References\PartService\Part3.xsd" />
-    <None Include="Service References\PartService\Part4.xsd" />
-    <None Include="Service References\PartService\Part5.xsd" />
-    <None Include="Service References\PartService\Part6.xsd" />
-    <None Include="Service References\PartService\Part7.xsd" />
-    <None Include="Service References\PartService\Part8.xsd" />
     <None Include="Service References\SubscriptionsService\CPR_Business_Application_Demo.SubscriptionsService.BasicOutputTypeOfArrayOfSubscriptionType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -235,50 +226,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ApplicationsService\Admin.xsd" />
-    <None Include="Service References\ApplicationsService\Admin1.xsd" />
-    <None Include="Service References\ApplicationsService\Admin2.xsd" />
-    <None Include="Service References\ApplicationsService\Admin3.xsd" />
-    <None Include="Service References\ApplicationsService\Admin4.xsd" />
-    <None Include="Service References\ApplicationsService\Admin5.xsd" />
-    <None Include="Service References\PartService\Part1.disco" />
-    <None Include="Service References\PartService\Part1.wsdl" />
-    <None Include="Service References\PartService\Part10.xsd" />
-    <None Include="Service References\PartService\Part11.xsd" />
-    <None Include="Service References\PartService\Part12.xsd" />
-    <None Include="Service References\PartService\Part13.xsd" />
-    <None Include="Service References\PartService\Part14.xsd" />
-    <None Include="Service References\PartService\Part15.xsd" />
-    <None Include="Service References\PartService\Part16.xsd" />
-    <None Include="Service References\PartService\Part17.xsd" />
-    <None Include="Service References\PartService\Part18.xsd" />
-    <None Include="Service References\PartService\Part19.xsd" />
-    <None Include="Service References\PartService\Part20.xsd" />
-    <None Include="Service References\PartService\Part21.xsd" />
-    <None Include="Service References\PartService\Part22.xsd" />
-    <None Include="Service References\PartService\Part9.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ApplicationsService\Admin1.disco" />
-    <None Include="Service References\ApplicationsService\Admin1.wsdl" />
-    <None Include="Service References\ApplicationsService\Admin10.xsd" />
-    <None Include="Service References\ApplicationsService\Admin11.xsd" />
-    <None Include="Service References\ApplicationsService\Admin12.xsd" />
-    <None Include="Service References\ApplicationsService\Admin13.xsd" />
-    <None Include="Service References\ApplicationsService\Admin14.xsd" />
-    <None Include="Service References\ApplicationsService\Admin15.xsd" />
-    <None Include="Service References\ApplicationsService\Admin16.xsd" />
-    <None Include="Service References\ApplicationsService\Admin17.xsd" />
-    <None Include="Service References\ApplicationsService\Admin18.xsd" />
-    <None Include="Service References\ApplicationsService\Admin19.xsd" />
-    <None Include="Service References\ApplicationsService\Admin20.xsd" />
-    <None Include="Service References\ApplicationsService\Admin21.xsd" />
-    <None Include="Service References\ApplicationsService\Admin22.xsd" />
-    <None Include="Service References\ApplicationsService\Admin23.xsd" />
-    <None Include="Service References\ApplicationsService\Admin6.xsd" />
-    <None Include="Service References\ApplicationsService\Admin7.xsd" />
-    <None Include="Service References\ApplicationsService\Admin8.xsd" />
-    <None Include="Service References\ApplicationsService\Admin9.xsd" />
     <None Include="Service References\SubscriptionsService\Subscriptions.xsd" />
     <None Include="Service References\SubscriptionsService\Subscriptions1.wsdl" />
     <None Include="Service References\SubscriptionsService\Subscriptions1.xsd" />
@@ -304,9 +251,64 @@
     <None Include="Service References\SubscriptionsService\Subscriptions9.xsd" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\ApplicationsService\Admin24.xsd" />
+    <None Include="Service References\ApplicationsService\Admin241.xsd" />
+    <None Include="Service References\ApplicationsService\Admin242.xsd" />
+    <None Include="Service References\ApplicationsService\Admin243.xsd" />
     <None Include="Service References\SubscriptionsService\Subscriptions1.disco" />
     <None Include="Service References\SubscriptionsService\Subscriptions22.xsd" />
     <None Include="Service References\SubscriptionsService\Subscriptions23.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ApplicationsService\Admin.disco" />
+    <None Include="Service References\ApplicationsService\Admin.wsdl" />
+    <None Include="Service References\ApplicationsService\Admin2410.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2411.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2412.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2413.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2414.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2415.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2416.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2417.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2418.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2419.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2420.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2421.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2422.xsd" />
+    <None Include="Service References\ApplicationsService\Admin2423.xsd" />
+    <None Include="Service References\ApplicationsService\Admin244.xsd" />
+    <None Include="Service References\ApplicationsService\Admin245.xsd" />
+    <None Include="Service References\ApplicationsService\Admin246.xsd" />
+    <None Include="Service References\ApplicationsService\Admin247.xsd" />
+    <None Include="Service References\ApplicationsService\Admin248.xsd" />
+    <None Include="Service References\ApplicationsService\Admin249.xsd" />
+    <None Include="Service References\PartService\Part.wsdl" />
+    <None Include="Service References\PartService\Part23.xsd" />
+    <None Include="Service References\PartService\Part231.xsd" />
+    <None Include="Service References\PartService\Part2310.xsd" />
+    <None Include="Service References\PartService\Part2311.xsd" />
+    <None Include="Service References\PartService\Part2312.xsd" />
+    <None Include="Service References\PartService\Part2313.xsd" />
+    <None Include="Service References\PartService\Part2314.xsd" />
+    <None Include="Service References\PartService\Part2315.xsd" />
+    <None Include="Service References\PartService\Part2316.xsd" />
+    <None Include="Service References\PartService\Part2317.xsd" />
+    <None Include="Service References\PartService\Part2318.xsd" />
+    <None Include="Service References\PartService\Part2319.xsd" />
+    <None Include="Service References\PartService\Part232.xsd" />
+    <None Include="Service References\PartService\Part233.xsd" />
+    <None Include="Service References\PartService\Part234.xsd" />
+    <None Include="Service References\PartService\Part235.xsd" />
+    <None Include="Service References\PartService\Part236.xsd" />
+    <None Include="Service References\PartService\Part237.xsd" />
+    <None Include="Service References\PartService\Part238.xsd" />
+    <None Include="Service References\PartService\Part239.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PartService\Part.disco" />
+    <None Include="Service References\PartService\Part2320.xsd" />
+    <None Include="Service References\PartService\Part2321.xsd" />
+    <None Include="Service References\PartService\Part2322.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
