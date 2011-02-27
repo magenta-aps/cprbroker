@@ -1696,7 +1696,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CPR Broker"
         "ProductCode" = "8:{0C26A57B-D528-48E6-BE80-C173969F374A}"
-        "PackageCode" = "8:{3AB3590B-1547-4EAE-BA1A-4E8D17A647C7}"
+        "PackageCode" = "8:{DB0012B4-18CF-4FA9-807C-36DE5F9C7314}"
         "UpgradeCode" = "8:{FF0F6556-3323-43A8-9AB3-E567BEF13F6A}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -1718,7 +1718,7 @@
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
-        "PostBuildEvent" = "8:cscript.exe \"$(ProjectDir)CustomAction_Impersonate.js\" \"$(BuiltOuputPath)\"\r\ncopy InstallCPRBroker.msi ..\\..\\..\\Output\\ /y"
+        "PostBuildEvent" = "8:cscript.exe \"$(ProjectDir)CustomAction_Impersonate.js\" \"$(BuiltOuputPath)\"\r\ncopy InstallCPRBroker.msi ..\\..\\..\\Output\\ /y\r\ncopy setup.exe ..\\..\\..\\Output\\ /y"
         "RunPostBuildEvent" = "3:0"
         }
         "Registry"
