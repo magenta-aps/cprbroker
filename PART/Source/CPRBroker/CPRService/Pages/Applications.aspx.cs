@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using CprBroker.DAL;
+using CprBroker.Utilities;
 
 namespace CprBroker.Web.Pages
 {
@@ -24,12 +25,12 @@ namespace CprBroker.Web.Pages
 
         protected void baseApplicationLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            e.WhereParameters["ApplicationId"] = CprBroker.DAL.Applications.Application.BaseApplicationId;
+            e.WhereParameters["ApplicationId"] = Constants.BaseApplicationId;
         }
 
         protected void applicationsLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            e.WhereParameters["ApplicationId"] = CprBroker.DAL.Applications.Application.BaseApplicationId;
+            e.WhereParameters["ApplicationId"] = Constants.BaseApplicationId;
         }
 
         protected void applicationsLinqDataSource_Updating(object sender, LinqDataSourceUpdateEventArgs e)

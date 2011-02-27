@@ -9,12 +9,6 @@ namespace CprBroker.DAL.Applications
     public partial class Application
     {
         /// <summary>
-        /// Token of preapproved base application that comes with a first installation
-        /// </summary>
-        public static readonly Guid BaseApplicationId = new Guid("3E9890FF-0038-42A4-987A-99B63E8BC865");
-        public static readonly Guid BaseApplicationToken = new Guid("07059250-E448-4040-B695-9C03F9E59E38");
-
-        /// <summary>
         /// Converts the object to an OIO object
         /// </summary>
         /// <returns></returns>

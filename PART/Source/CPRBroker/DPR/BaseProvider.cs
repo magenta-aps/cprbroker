@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Engine;
 using System.Net.Sockets;
+using CprBroker.Utilities;
 
 namespace CprBroker.Providers.DPR
 {
@@ -112,7 +113,7 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                return new Version(Versioning.Major, Versioning.Minor);
+                return new Version(CprBroker.Utilities.Constants.Versioning.Major, CprBroker.Utilities.Constants.Versioning.Minor);
             }
         }
 

@@ -78,7 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
     <Compile Include="DAL\Channel.cs" />
     <Compile Include="DAL\ChannelType.cs" />
     <Compile Include="DAL\EventBrokerDataContext.cs">

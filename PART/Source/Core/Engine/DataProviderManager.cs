@@ -29,7 +29,7 @@ namespace CprBroker.Engine
         /// </summary>
         public static void InitializeDataProviders()
         {
-            BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Constants.UserToken);
+            BrokerContext.Initialize(Constants.BaseApplicationToken.ToString(), Constants.UserToken);
             try
             {
                 // Load fromDate database                

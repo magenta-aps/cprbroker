@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -33,7 +34,7 @@ namespace CprBroker.EventBroker.Notifications
         {
             ApplicationHeader = new CprBroker.EventBroker.EventsService.ApplicationHeader()
             {
-                ApplicationToken = Constants.BaseApplicationToken.ToString(),
+                ApplicationToken = Constants.EventBrokerApplicationToken.ToString(),
                 UserToken = ""
             };
             this.EventsService.Endpoint.Address = new System.ServiceModel.EndpointAddress(Config.Properties.Settings.Default.EventsServiceUrl);

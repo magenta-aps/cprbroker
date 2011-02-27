@@ -27,7 +27,7 @@ namespace CprBroker.Engine.Local
 
         public Version Version
         {
-            get { return new Version(Versioning.Major, Versioning.Minor); }
+            get { return new Version(Constants.Versioning.Major, Constants.Versioning.Minor); }
         }
         #endregion
 
@@ -119,7 +119,7 @@ namespace CprBroker.Engine.Local
         {
             ServiceVersionType cprVersion = new ServiceVersionType();
 
-            cprVersion.Version = string.Format("{0}.{1}", Versioning.Major, Versioning.Minor);
+            cprVersion.Version = string.Format("{0}.{1}", Constants.Versioning.Major, Constants.Versioning.Minor);
             cprVersion.Functions.AddRange(GetMethodNames());
 
             return new ServiceVersionType[] { cprVersion };
@@ -131,7 +131,7 @@ namespace CprBroker.Engine.Local
             foreach (var field in fields)
             {
                 if (string.Equals(field.ToLower(), methodName.ToLower()) &&
-                    string.Equals(version.ToLower(), string.Format("{0}.{1}", Versioning.Major, Versioning.Minor).ToLower()))
+                    string.Equals(version.ToLower(), string.Format("{0}.{1}", Constants.Versioning.Major, Constants.Versioning.Minor).ToLower()))
                     return true;
             }
             return false;

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using CprBroker.Schemas;
 using CprBroker.Engine;
 using CprBroker.DAL;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Local
 {

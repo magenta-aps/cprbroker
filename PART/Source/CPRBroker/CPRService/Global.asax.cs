@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using CprBroker.Utilities;
 
 namespace CprBroker.Web
 {
@@ -35,7 +36,7 @@ namespace CprBroker.Web
             var ex = Server.GetLastError();
             if (ex is HttpUnhandledException && ex.InnerException != null)
             {
-                Engine.BrokerContext.Initialize(DAL.Applications.Application.BaseApplicationToken.ToString(), Engine.Constants.UserToken);
+                Engine.BrokerContext.Initialize(Constants.BaseApplicationToken.ToString(), Constants.UserToken);
                 Engine.Local.Admin.LogCriticalException(ex.InnerException);
             }
         }

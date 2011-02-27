@@ -30,7 +30,7 @@ namespace CprBroker.Web
         [WebMethod(MessageName = ServiceNames.Notification.MethodNames.Notify, Description = ServiceDescription.Notification.Notify)]
         public void Notify(Schemas.Part.Events.CommonEventStructureType notification)
         {
-            Engine.Manager.Admin.Log("", EventBroker.Constants.BaseApplicationToken.ToString(), Strings.SerializeObject(notification));
+            Engine.Manager.Admin.Log("", Constants.EventBrokerApplicationToken.ToString(), Strings.SerializeObject(notification));
         }
 
         [WebMethod(MessageName = ServiceNames.Notification.MethodNames.Ping, Description = ServiceDescription.Notification.Ping)]

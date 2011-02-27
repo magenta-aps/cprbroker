@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.EventBroker.DAL;
+using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Subscriptions
 {
@@ -227,7 +228,7 @@ namespace CprBroker.EventBroker.Subscriptions
 
         public Version Version
         {
-            get { return new Version(CprBroker.Engine.Versioning.Major, CprBroker.Engine.Versioning.Minor); }
+            get { return new Version(Constants.Versioning.Major, Constants.Versioning.Minor); }
         }
 
         #endregion

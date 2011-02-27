@@ -19,7 +19,7 @@ namespace CprBroker.Engine.Events
 
         public Version Version
         {
-            get { return new Version(Versioning.Major, Versioning.Minor); }
+            get { return new Version(Constants.Versioning.Major, Constants.Versioning.Minor); }
         }
         #endregion
 

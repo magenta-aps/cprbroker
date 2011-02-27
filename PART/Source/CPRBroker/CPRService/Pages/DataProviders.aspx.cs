@@ -15,6 +15,7 @@ using CprBroker.Engine;
 using CprBroker.Schemas;
 using CprBroker.Web.Controls;
 using System.Web.Configuration;
+using CprBroker.Utilities;
 
 namespace CprBroker.Web.Pages
 {
@@ -25,7 +26,7 @@ namespace CprBroker.Web.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BrokerContext.Initialize(CprBroker.DAL.Applications.Application.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken);
+            BrokerContext.Initialize(Constants.BaseApplicationToken.ToString(), Constants.UserToken);
             if (!IsPostBack)
             {
                 dataProviderTypesGridView.DataBind();

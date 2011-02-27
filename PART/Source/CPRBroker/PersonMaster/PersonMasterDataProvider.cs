@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Engine;
+using CprBroker.Utilities;
 
 namespace CprBroker.Providers.PersonMaster
 {
@@ -39,7 +40,7 @@ namespace CprBroker.Providers.PersonMaster
 
         public Version Version
         {
-            get { return new Version(CprBroker.Engine.Versioning.Major, CprBroker.Engine.Versioning.Minor); }
+            get { return new Version(Constants.Versioning.Major, Constants.Versioning.Minor); }
         }
 
         #endregion

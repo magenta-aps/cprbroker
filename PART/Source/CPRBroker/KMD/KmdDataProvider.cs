@@ -96,7 +96,7 @@ namespace CprBroker.Providers.KMD
         {
             get
             {
-                return new Version(Versioning.Major, Versioning.Minor);
+                return new Version(CprBroker.Utilities.Constants.Versioning.Major, CprBroker.Utilities.Constants.Versioning.Minor);
             }
         }
 

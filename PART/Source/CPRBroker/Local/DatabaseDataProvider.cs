@@ -8,6 +8,7 @@ using CprBroker.DAL;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Util;
 using CprBroker.Engine.Local;
+using CprBroker.Utilities;
 
 namespace CprBroker.Providers.Local
 {
@@ -25,7 +26,7 @@ namespace CprBroker.Providers.Local
 
         Version IDataProvider.Version
         {
-            get { return new Version(Versioning.Major, Versioning.Minor); }
+            get { return new Version(Constants.Versioning.Major, Constants.Versioning.Minor); }
         }
 
         #endregion

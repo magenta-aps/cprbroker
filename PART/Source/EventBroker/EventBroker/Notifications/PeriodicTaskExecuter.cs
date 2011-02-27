@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using CprBroker.Engine;
+using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -66,7 +67,7 @@ namespace CprBroker.EventBroker.Notifications
                         this.EventLog.WriteEntry(string.Format("{0} : {1}", CprBroker.Engine.TextMessages.TimerEventStarted, this.GetType()));
                     }
 
-                    BrokerContext.Initialize(EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.Engine.Constants.UserToken);
+                    BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
 
                     ActionTimer.Interval = this.CalculateActionTimerInterval(TimeSpan.FromMilliseconds(ActionTimer.Interval)).TotalMilliseconds;
 

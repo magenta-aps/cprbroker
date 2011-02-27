@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.DAL.Applications;
 using CprBroker.Schemas;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Local
 {
@@ -92,7 +93,7 @@ namespace CprBroker.Engine.Local
 
         public Version Version
         {
-            get { return new Version(Versioning.Major, Versioning.Minor); }
+            get { return new Version(Constants.Versioning.Major, Constants.Versioning.Minor); }
         }
 
         #endregion
