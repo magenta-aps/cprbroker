@@ -52,24 +52,7 @@ namespace CprBroker.NUnitTester
             CprBroker,
             EventBroker
         }
-        private static void ReplaceServiceUrl(System.Web.Services.Protocols.SoapHttpClientProtocol service, SystemType systemType)
-        {
-            Uri uri = new Uri(service.Url);
-            string hostAndPort = uri.Host;
-            if (!uri.IsDefaultPort)
-            {
-                hostAndPort += ":" + uri.Port;
-            }
-
-            if (systemType == SystemType.CprBroker)
-            {
-                service.Url = service.Url.Replace(hostAndPort, "localhost:1551");
-            }
-            else
-            {
-                service.Url = service.Url.Replace(hostAndPort, "localhost:1552");
-            }
-        }
+     
 
         private static void ReplaceServiceUrl<T>(System.ServiceModel.ClientBase<T> service, SystemType systemType) where T : class
         {
