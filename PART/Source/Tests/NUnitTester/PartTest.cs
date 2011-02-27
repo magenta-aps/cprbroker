@@ -168,13 +168,8 @@ namespace CprBroker.NUnitTester
 
             Part.LaesInputType input = new Part.LaesInputType()
             {
-                UUID = uuid.ToString(),
+                UUID = uuid.UUID,
             };
-
-            // Call read to ensure laesResultat is actually in the database
-            var person = TestRunner.PartService.Read(TestRunner.PartApplicationHeader, input);
-            Assert.NotNull(person);
-            Assert.NotNull(person.LaesResultat);
 
             var freshPerson = TestRunner.PartService.RefreshRead(TestRunner.PartApplicationHeader, input);
             Validate(new Guid(uuid.UUID), freshPerson, TestRunner.PartService);
