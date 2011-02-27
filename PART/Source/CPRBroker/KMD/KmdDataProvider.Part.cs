@@ -7,7 +7,6 @@ using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AS78207;
 using CprBroker.Providers.KMD.WS_AN08010;
 using CprBroker.Schemas.Part;
-using CprBroker.DAL;
 
 namespace CprBroker.Providers.KMD
 {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using CprBroker.Schemas;
 
 namespace CprBroker.NUnitTester
 {

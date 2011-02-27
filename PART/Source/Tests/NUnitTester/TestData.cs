@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.NUnitTester.Part;
-using CprBroker.Schemas;
-using CprBroker.Schemas.Part;
 
 namespace CprBroker.NUnitTester
 {

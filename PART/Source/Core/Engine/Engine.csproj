@@ -146,7 +146,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>md ..\..\..\Output\$(ConfigurationName)\
-copy $(TargetFileName) ..\..\..\Output\$(ConfigurationName)\ /y</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

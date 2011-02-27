@@ -5,7 +5,6 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AN08002;
 using CprBroker.Schemas;
-using CprBroker.DAL;
 
 namespace CprBroker.Providers.KMD
 {

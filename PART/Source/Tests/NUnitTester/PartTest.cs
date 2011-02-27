@@ -5,8 +5,6 @@ using System.Text;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using CprBroker.NUnitTester.Part;
-using CprBroker.Schemas;
-using CprBroker.Schemas.Part;
 
 namespace CprBroker.NUnitTester
 {

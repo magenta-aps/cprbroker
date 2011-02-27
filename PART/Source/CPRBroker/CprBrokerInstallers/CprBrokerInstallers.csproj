@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{67EC8A41-03B9-49A5-AFFE-98B9EC073366}</ProjectGuid>
+    <ProjectGuid>{F8B47B28-686A-4005-A242-68F570705257}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CprBroker.Installers.CprBrokerInstallers</RootNamespace>
@@ -33,6 +33,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Installers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Installers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core">
@@ -99,24 +111,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DAL\DAL.csproj">
-      <Project>{BBD25F50-FA7A-4799-9832-287AF59FB6C4}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\Engine.csproj">
-      <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Schemas\Schemas.csproj">
-      <Project>{5B4A9C51-D19A-4F4D-B8D8-FC9B26AA7EF5}</Project>
-      <Name>Schemas</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Installers\Installers.csproj">
-      <Project>{301C6060-336E-4363-BF63-9ED84A0770FB}</Project>
-      <Name>Installers</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="GenerateScript.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -130,5 +124,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

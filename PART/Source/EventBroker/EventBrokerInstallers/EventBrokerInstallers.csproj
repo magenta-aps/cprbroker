@@ -31,6 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Installers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Installers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -82,25 +94,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Backend\Backend.csproj">
+    <ProjectReference Include="..\Backend\Backend.csproj">
       <Project>{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}</Project>
       <Name>Backend</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Config\Config.csproj">
-      <Project>{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}</Project>
-      <Name>Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\Engine.csproj">
-      <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\EventBroker\EventBroker.csproj">
+    <ProjectReference Include="..\EventBroker\EventBroker.csproj">
       <Project>{D8FC2102-488A-480A-8197-8842B8192E68}</Project>
       <Name>EventBroker</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Installers\Installers.csproj">
-      <Project>{301C6060-336E-4363-BF63-9ED84A0770FB}</Project>
-      <Name>Installers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -132,4 +132,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

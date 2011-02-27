@@ -33,6 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Schemas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -91,20 +99,6 @@
   <ItemGroup>
     <None Include="WSDL\ADUser.wsdl" />
     <None Include="WSDL\AN08002.wsdl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{BBD25F50-FA7A-4799-9832-287AF59FB6C4}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Schemas\Schemas.csproj">
-      <Project>{5B4A9C51-D19A-4F4D-B8D8-FC9B26AA7EF5}</Project>
-      <Name>Schemas</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WebReferenceUrl Include="C:\Documents and Settings\Beemen\My Documents\Magenta Workspace\PART\Source\Test\KMD\KMD WSDL\AS78205.wsdl">
@@ -236,4 +230,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
