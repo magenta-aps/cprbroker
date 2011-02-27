@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "DB", "DB\DB.dbp", "{9A8F23D7-E12D-4174-8B34-E8BCC705235E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBroker", "EventBroker\EventBroker.csproj", "{D8FC2102-488A-480A-8197-8842B8192E68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBrokerWeb", "EventBrokerWeb\EventBrokerWeb.csproj", "{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBrokerInstallers", "EventBrokerInstallers\EventBrokerInstallers.csproj", "{F6890247-F6CC-4EFB-B3DF-0D60D9DACAEE}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallEventBroker", "InstallEventBroker\InstallEventBroker.vdproj", "{1F171FA6-8DDE-4892-95BD-26F59B10A20B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8FC2102-488A-480A-8197-8842B8192E68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3FC6479-AE9B-4CAE-9083-2192F1266A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6A8258-ED37-44F4-A8F4-5253D1A2B1E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6890247-F6CC-4EFB-B3DF-0D60D9DACAEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6890247-F6CC-4EFB-B3DF-0D60D9DACAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6890247-F6CC-4EFB-B3DF-0D60D9DACAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6890247-F6CC-4EFB-B3DF-0D60D9DACAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F171FA6-8DDE-4892-95BD-26F59B10A20B}.Debug|Any CPU.ActiveCfg = Debug
+		{1F171FA6-8DDE-4892-95BD-26F59B10A20B}.Debug|Any CPU.Build.0 = Debug
+		{1F171FA6-8DDE-4892-95BD-26F59B10A20B}.Release|Any CPU.ActiveCfg = Release
+		{1F171FA6-8DDE-4892-95BD-26F59B10A20B}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
