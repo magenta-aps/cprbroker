@@ -245,9 +245,8 @@ namespace CprBroker.Installers
         private void EncryptConnectionStrings(string site, string app)
         {
             string[] users = new string[]
-            {
-                Environment.MachineName+ "\\ASPNET",
-                "NT AUTHORITY\\NETWORK SERVICE"
+            {                
+                "AUTHENTICATED USERS"
             };
             foreach (string user in users)
             {
