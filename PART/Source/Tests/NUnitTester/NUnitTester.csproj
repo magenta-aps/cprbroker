@@ -338,6 +338,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y
+copy $(TargetFileName).config ..\..\..\Output\ /y
+copy nunit.framework*.* ..\..\..\Output\ /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
