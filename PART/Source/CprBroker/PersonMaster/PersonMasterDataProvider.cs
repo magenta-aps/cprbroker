@@ -13,7 +13,7 @@ namespace CprBroker.Providers.PersonMaster
 
         public Guid? GetPersonUuid(string cprNumber)
         {
-            PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient("wsBasicHttp", Address);
+            PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient();
             string aux = null;
             var ret = service.GetObjectIDFromCpr(Context, cprNumber, ref aux);
             return ret;
@@ -27,7 +27,7 @@ namespace CprBroker.Providers.PersonMaster
         {
             try
             {
-                PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient("wsBasicHttp", Address);
+                PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient();
                 string aux = null;
                 var res = service.Probe(Context, ref aux);
                 return true; ;
