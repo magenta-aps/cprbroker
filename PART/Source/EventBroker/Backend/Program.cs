@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
+using CprBroker.Engine;
+using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Backend
 {
@@ -13,13 +15,21 @@ namespace CprBroker.EventBroker.Backend
         /// </summary>
         static void Main()
         {
-            string s = CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString;
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
+            BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
+            try
+            {
+                string s = CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString;
+                ServiceBase[] ServicesToRun;
+                ServicesToRun = new ServiceBase[] 
 			{ 
 				new BackendService() 
 			};
-            ServiceBase.Run(ServicesToRun);
+                ServiceBase.Run(ServicesToRun);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
