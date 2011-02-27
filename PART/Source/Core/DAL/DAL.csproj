@@ -194,4 +194,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>md ..\..\..\Output\$(ConfigurationName)\
+copy $(TargetFileName) ..\..\..\Output\$(ConfigurationName)\ /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
