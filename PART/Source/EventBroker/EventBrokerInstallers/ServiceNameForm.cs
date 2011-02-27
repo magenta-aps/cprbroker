@@ -12,7 +12,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
     public partial class ServiceNameForm : BaseForm
     {
         public string ServiceName = "Event broker service";
-        public string CprEventsServiceUrl = "http://CprBroker/Services/Events.asmx";
+        public string CprEventsServiceUrl = "";
 
         public DatabaseSetupInfo CprBrokerDatabaseInfo { get; set; }
 
@@ -21,7 +21,6 @@ namespace CprBroker.Installers.EventBrokerInstallers
             InitializeComponent();
 
             serviceNameTextBox.Text = ServiceName;
-            cprBrokerEventsServiceUrlCustomTextBox.Text = CprEventsServiceUrl;
 
             CprBrokerDatabaseInfo = new DatabaseSetupInfo();
             CprBrokerDatabaseInfo.ApplicationAuthenticationSameAsAdmin = false;
@@ -53,7 +52,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 return false;
 
             ServiceName = serviceNameTextBox.Text;
-            CprEventsServiceUrl = cprBrokerEventsServiceUrlCustomTextBox.Text;
+            CprEventsServiceUrl = cprBrokerEventsServiceUrlCustomTextBox.Text + cprBrokerEventsServiceUrlLabel.Text;
 
             var services = System.ServiceProcess.ServiceController.GetServices();
             if (services.Where(sc => sc.ServiceName.ToLower() == ServiceName.ToLower()).Count() > 0)

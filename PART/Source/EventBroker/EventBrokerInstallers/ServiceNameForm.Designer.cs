@@ -41,6 +41,7 @@
             this.serverNameTextBox = new CprBroker.Installers.CustomTextBox();
             this.loginGroupBox = new System.Windows.Forms.GroupBox();
             this.applicationLoginInfo = new CprBroker.Installers.LoginInfo();
+            this.cprBrokerEventsServiceUrlLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.serviceNameTextBox.ErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cprBrokerEventsServiceUrlCustomTextBox.ErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseNameTextBox.ErrorProvider)).BeginInit();
@@ -113,9 +114,9 @@
             this.cprBrokerEventsServiceUrlCustomTextBox.MinimumValueIncluded = true;
             this.cprBrokerEventsServiceUrlCustomTextBox.Name = "cprBrokerEventsServiceUrlCustomTextBox";
             this.cprBrokerEventsServiceUrlCustomTextBox.Required = true;
-            this.cprBrokerEventsServiceUrlCustomTextBox.Size = new System.Drawing.Size(310, 20);
+            this.cprBrokerEventsServiceUrlCustomTextBox.Size = new System.Drawing.Size(196, 20);
             this.cprBrokerEventsServiceUrlCustomTextBox.TabIndex = 3;
-            this.cprBrokerEventsServiceUrlCustomTextBox.Text = "http://CprBroker/Services/Events.asmx";
+            this.cprBrokerEventsServiceUrlCustomTextBox.Text = "http://CprBroker";
             this.cprBrokerEventsServiceUrlCustomTextBox.ValidationExpression = null;
             // 
             // label2
@@ -207,6 +208,15 @@
             this.applicationLoginInfo.Size = new System.Drawing.Size(216, 149);
             this.applicationLoginInfo.TabIndex = 9;
             // 
+            // cprBrokerEventsServiceUrlLabel
+            // 
+            this.cprBrokerEventsServiceUrlLabel.AutoSize = true;
+            this.cprBrokerEventsServiceUrlLabel.Location = new System.Drawing.Point(375, 59);
+            this.cprBrokerEventsServiceUrlLabel.Name = "cprBrokerEventsServiceUrlLabel";
+            this.cprBrokerEventsServiceUrlLabel.Size = new System.Drawing.Size(108, 13);
+            this.cprBrokerEventsServiceUrlLabel.TabIndex = 12;
+            this.cprBrokerEventsServiceUrlLabel.Text = "/Services/Events.svc";
+            // 
             // ServiceNameForm
             // 
             this.AcceptButton = this.okButton;
@@ -214,6 +224,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(495, 381);
+            this.Controls.Add(this.cprBrokerEventsServiceUrlLabel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.databaseNameTextBox);
             this.Controls.Add(this.label3);
@@ -252,5 +263,6 @@
         private CustomTextBox serverNameTextBox;
         private System.Windows.Forms.GroupBox loginGroupBox;
         private LoginInfo applicationLoginInfo;
+        private System.Windows.Forms.Label cprBrokerEventsServiceUrlLabel;
     }
 }
