@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
@@ -36,7 +37,7 @@ namespace CprBroker.Engine.Part
                 return StandardReturType.NullInput("SoegObjekt");
             }
 
-            if (!string.IsNullOrEmpty(Input.SoegObjekt.UUID) && !Util.Strings.IsGuid(Input.SoegObjekt.UUID))
+            if (!string.IsNullOrEmpty(Input.SoegObjekt.UUID) && !Strings.IsGuid(Input.SoegObjekt.UUID))
             {
                 return StandardReturType.InvalidUuid(Input.SoegObjekt.UUID);
             }

@@ -8,7 +8,7 @@ using System.Xml;
 using System.Runtime.InteropServices;
 using System.Configuration;
 
-namespace CprBroker.Engine.Util
+namespace CprBroker.Utilities
 {
     /// <summary>
     /// Utility class with methods that assist the installation process by extending the Installer class
@@ -135,9 +135,9 @@ namespace CprBroker.Engine.Util
                 int cchBuf,
                 ref int cchRequired);
 
-        public static CprBroker.Engine.UI.WindowHandleWrapper InstallerWindowWrapper(this Installer installer)
+        public static WindowHandleWrapper InstallerWindowWrapper(this Installer installer)
         {
-            return new CprBroker.Engine.UI.WindowHandleWrapper(installer.Context.Parameters["productName"]);
+            return new WindowHandleWrapper(installer.Context.Parameters["productName"]);
         }
     }
 }

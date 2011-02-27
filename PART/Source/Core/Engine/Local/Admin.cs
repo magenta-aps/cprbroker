@@ -9,6 +9,7 @@ using CprBroker.Engine;
 using CprBroker.DAL;
 using CprBroker.DAL.DataProviders;
 using CprBroker.DAL.Applications;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Local
 {
@@ -90,7 +91,7 @@ namespace CprBroker.Engine.Local
                 for (int iProv = 0; iProv < dataProviders.Length; iProv++)
                 {
                     DataProviderType oio = dataProviders[iProv];
-                    var provObj = Util.Reflection.CreateInstance<IExternalDataProvider>(oio.TypeName);
+                    var provObj = Reflection.CreateInstance<IExternalDataProvider>(oio.TypeName);
                     var dbProv = DataProvider.FromXmlType(oio, iProv, provObj.ConfigurationKeys.Select(p => p.Name).ToArray());
                     context.DataProviders.InsertOnSubmit(dbProv);
                 }

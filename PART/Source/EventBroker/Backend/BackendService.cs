@@ -7,7 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using CprBroker.Engine;
-using CprBroker.DAL.Applications;
+using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Backend
 {
@@ -45,7 +45,7 @@ namespace CprBroker.EventBroker.Backend
 
             try
             {
-                Engine.Util.Security.EncryptConnectionStrings();
+                Security.EncryptConnectionStrings();
             }
             catch (Exception ex)
             {

@@ -6,8 +6,8 @@ using System.Data;
 using System.IO;
 using System.Configuration.Install;
 using System.Data.OleDb;
-using CprBroker.Engine.Util;
 using System.Data.SqlClient;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {

@@ -5,6 +5,7 @@ using System.Text;
 using CprBroker.Engine.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.DataProviders
 {
@@ -31,7 +32,7 @@ namespace CprBroker.Engine.DataProviders
                     return StandardReturType.NullInput();
                 }
 
-                var dataProvider = Util.Reflection.CreateInstance<IExternalDataProvider>(dp.TypeName);
+                var dataProvider = Reflection.CreateInstance<IExternalDataProvider>(dp.TypeName);
                 if (dataProvider == null)
                 {
                     return StandardReturType.UnknownObject(dp.TypeName);

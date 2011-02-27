@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Configuration.Install;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
@@ -18,7 +19,7 @@ namespace CprBroker.Installers
                 string configFileName = configFile.FileName;
                 foreach (var connectionString in configFile.ConnectionStrings)
                 {
-                    Engine.Util.Installation.SetConnectionStringInConfigFile(configFileName, connectionString.Name, connectionString.Value);
+                    Installation.SetConnectionStringInConfigFile(configFileName, connectionString.Name, connectionString.Value);
                 }                
                 if (configFile.CommitAction != null)
                 {

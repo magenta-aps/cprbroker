@@ -14,8 +14,8 @@ using Microsoft.SqlServer.Management.Smo;
 using System.IO;
 using System.Xml;
 using CprBroker.DAL;
-using CprBroker.Engine.Util;
 using System.Reflection;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {

@@ -6,8 +6,7 @@ using System.Configuration;
 using System.Web.Configuration;
 using System.Web;
 
-
-namespace CprBroker.Engine.Util
+namespace CprBroker.Utilities
 {
     public static class Security
     {

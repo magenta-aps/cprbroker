@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using CprBroker.DAL.Applications;
 using Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Trace
 {
@@ -39,11 +40,11 @@ namespace CprBroker.Engine.Trace
                     dbLogEntry.UserToken = BrokerContext.Current.UserToken;
                     dbLogEntry.UserId = BrokerContext.Current.UserName;
 
-                    dbLogEntry.MethodName = Util.Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.MethodName]);
+                    dbLogEntry.MethodName = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.MethodName]);
                     dbLogEntry.Text = logEntry.Message;
 
-                    dbLogEntry.DataObjectType = Util.Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectType]);
-                    dbLogEntry.DataObjectXml = Util.Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectXml]);
+                    dbLogEntry.DataObjectType = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectType]);
+                    dbLogEntry.DataObjectXml = Strings.ObjectToString(logEntry.ExtendedProperties[Constants.Logging.DataObjectXml]);
                     dbLogEntry.LogDate = logEntry.TimeStamp;
 
                     context.LogEntries.InsertOnSubmit(dbLogEntry);

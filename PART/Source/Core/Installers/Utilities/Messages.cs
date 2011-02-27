@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
@@ -47,7 +48,7 @@ namespace CprBroker.Installers
                 message,
                 ex.ToString()
                 );
-            MessageBox.Show(Engine.Util.Installation.InstallerWindowWrapper(installer), message);
+            MessageBox.Show(Installation.InstallerWindowWrapper(installer), message);
         }
     }
 }

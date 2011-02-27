@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Configuration.Install;
 using System.DirectoryServices;
-using CprBroker.Engine.Util;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
@@ -222,7 +222,7 @@ namespace CprBroker.Installers
         private void RunRegIIS(string args)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = Engine.Util.Installation.GetNetFrameworkDirectory() + "aspnet_regiis.exe";
+            startInfo.FileName = Installation.GetNetFrameworkDirectory() + "aspnet_regiis.exe";
             // use aspnet_regiis for 64 bit machines whenever possible
             string fileName64 = startInfo.FileName.Replace("Framework", "Framework64");
             if (File.Exists(fileName64))

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
@@ -38,7 +39,7 @@ namespace CprBroker.Engine.Part
                 }
             }
 
-            var invalidUuids = (from uuid in input.UUID where !Util.Strings.IsGuid(uuid) select uuid).ToArray();
+            var invalidUuids = (from uuid in input.UUID where !Strings.IsGuid(uuid) select uuid).ToArray();
             if (invalidUuids.Length > 0)
             {
                 return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidUuids));

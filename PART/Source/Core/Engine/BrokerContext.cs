@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Web.Services;
 using CprBroker.DAL.Applications;
 using CprBroker.Engine.Exceptions;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
@@ -64,7 +65,7 @@ namespace CprBroker.Engine
                 Current.ActivityId = Guid.NewGuid();
                 Current.ApplicationToken = appToken;
                 Current.UserToken = userToken;
-                Current.UserName = Util.Security.CurrentUser;
+                Current.UserName = Security.CurrentUser;
 
                 Application currentApplication = dataContext.Applications.SingleOrDefault(app => app.Token.ToString() == appToken && app.IsApproved == true);
                 if (currentApplication != null)

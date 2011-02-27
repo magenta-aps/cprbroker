@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 
-namespace CprBroker.Engine.Util
+namespace CprBroker.Utilities
 {
     public static class Reflection
     {

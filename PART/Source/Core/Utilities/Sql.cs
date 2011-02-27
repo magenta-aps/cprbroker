@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.Engine.Util
+namespace CprBroker.Utilities
 {
     /// <summary>
     /// Contains utility methods that support SQL server access
@@ -19,7 +19,7 @@ namespace CprBroker.Engine.Util
         {
             if (value == null)
                 return null;
-            if (value <= DAL.Constants.MinSqlDate)
+            if (value <= Constants.MinSqlDate)
                 return null;
             return value;
         }

@@ -9,6 +9,7 @@ using System.Web.Services.Protocols;
 using System.Xml.Linq;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Web
 {
@@ -29,7 +30,7 @@ namespace CprBroker.Web
         [WebMethod(MessageName = ServiceNames.Notification.MethodNames.Notify, Description = ServiceDescription.Notification.Notify)]
         public void Notify(Schemas.Part.Events.CommonEventStructureType notification)
         {
-            Engine.Manager.Admin.Log("", EventBroker.Constants.BaseApplicationToken.ToString(), CprBroker.DAL.Utilities.SerializeObject(notification));
+            Engine.Manager.Admin.Log("", EventBroker.Constants.BaseApplicationToken.ToString(), Strings.SerializeObject(notification));
         }
 
         [WebMethod(MessageName = ServiceNames.Notification.MethodNames.Ping, Description = ServiceDescription.Notification.Ping)]

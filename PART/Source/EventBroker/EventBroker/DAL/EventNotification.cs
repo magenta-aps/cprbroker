@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part.Events;
-using CprBroker.Engine.Util;
+using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.DAL
 {

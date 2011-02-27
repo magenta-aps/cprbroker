@@ -155,6 +155,10 @@
       <Project>{9CB902C0-C352-447D-8E42-5EA5E2E23873}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{E0D551C1-574F-4B69-8981-CF5F44391E5E}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\InstallerPicture.JPG" />

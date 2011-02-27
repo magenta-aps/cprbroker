@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -113,7 +114,7 @@ namespace CprBroker.EventBroker.Notifications
             }
             var oioNotif = notification.ToOioNotification();
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(oioNotif.GetType());
-            string filePath = CprBroker.Engine.Util.Strings.NewUniquePath(folder, "xml");
+            string filePath = Strings.NewUniquePath(folder, "xml");
             System.IO.StreamWriter w = new System.IO.StreamWriter(filePath);
             serializer.Serialize(w, oioNotif);
             w.Close();

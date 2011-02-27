@@ -8,7 +8,7 @@ using CprBroker.DAL;
 using CprBroker.DAL.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-using CprBroker.Schemas.Util;
+using CprBroker.Utilities;
 using CprBroker.Engine.Local;
 
 namespace CprBroker.Providers.Local

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.EventBroker.DAL;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
@@ -39,7 +40,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(savedState);
             string connectionStringKey = typeof(Config.Properties.Settings).FullName + ".EventBrokerConnectionString";
 
-            var webConfigPath = CprBroker.Engine.Util.Installation.GetWebConfigFilePathFromInstaller(this);
+            var webConfigPath = Installation.GetWebConfigFilePathFromInstaller(this);
             ret[webConfigPath] = new Dictionary<string, string>();
             ret[webConfigPath][connectionStringKey] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
 

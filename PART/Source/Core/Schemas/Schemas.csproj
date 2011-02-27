@@ -95,8 +95,6 @@
     <Compile Include="TilstandVirkningType.cs" />
     <Compile Include="UnikIdType.cs" />
     <Compile Include="Util\Enums.cs" />
-    <Compile Include="Util\Misc.cs" />
-    <Compile Include="Util\PredicateBuilder.cs" />
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
   <ItemGroup>

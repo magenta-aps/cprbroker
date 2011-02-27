@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace CprBroker.Engine.UI
+namespace CprBroker.Utilities
 {
     public class WindowHandleWrapper : IWin32Window
     {

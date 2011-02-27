@@ -7,6 +7,7 @@ using System.Threading;
 using System.Data.Linq;
 using System.IO;
 using CprBroker.DAL.DataProviders;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
@@ -89,7 +90,7 @@ namespace CprBroker.Engine
 
         public static IDataProvider CreateDataProvider(string typeName)
         {
-            return Util.Reflection.CreateInstance<IDataProvider>(typeName);
+            return Reflection.CreateInstance<IDataProvider>(typeName);
         }
 
         #endregion

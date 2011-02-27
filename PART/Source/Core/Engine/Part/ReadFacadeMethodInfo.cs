@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
@@ -31,7 +32,7 @@ namespace CprBroker.Engine.Part
                 return StandardReturType.NullInput();
             }
 
-            if (!Util.Strings.IsGuid(Input.UUID))
+            if (!Strings.IsGuid(Input.UUID))
             {
                 return StandardReturType.InvalidUuid(Input.UUID);
             }

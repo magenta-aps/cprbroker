@@ -6,6 +6,7 @@ using System.Text;
 using CprBroker.Schemas.Part;
 using System.Xml.Linq;
 using System.IO;
+using CprBroker.Utilities;
 
 namespace CprBroker.DAL.Part
 {
@@ -16,7 +17,7 @@ namespace CprBroker.DAL.Part
             if (db != null)
             {
                 var xml = db.Contents.ToString();
-                return Utilities.Deserialize<RegistreringType1>(xml);
+                return Strings.Deserialize<RegistreringType1>(xml);
             }
             return null;
         }
@@ -70,7 +71,7 @@ namespace CprBroker.DAL.Part
                     ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));
                 }
 
-                var xml = Utilities.SerializeObject(partRegistration);
+                var xml = Strings.SerializeObject(partRegistration);
                 ret.Contents = System.Xml.Linq.XElement.Load(new StringReader(xml));
             }
             return ret;
@@ -78,13 +79,13 @@ namespace CprBroker.DAL.Part
 
         public bool Equals(RegistreringType1 oio)
         {
-            var xml = DAL.Utilities.SerializeObject(oio);
+            var xml = Strings.SerializeObject(oio);
             // Repeat serialization to avoid empty text
-            oio = Utilities.Deserialize<RegistreringType1>(xml);
-            xml = DAL.Utilities.SerializeObject(oio);
+            oio = Strings.Deserialize<RegistreringType1>(xml);
+            xml = Strings.SerializeObject(oio);
 
             var thisOio = ToXmlType(this);
-            var thisXml = DAL.Utilities.SerializeObject(thisOio);
+            var thisXml = Strings.SerializeObject(thisOio);
             return string.Equals(xml, thisXml);
         }
     }

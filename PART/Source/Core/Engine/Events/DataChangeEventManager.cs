@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Events
 {
@@ -68,7 +69,7 @@ namespace CprBroker.Engine.Events
                     {
                         PersonUuid = p.UUID,
                         // TODO: Handle invalid Cpr numbers that will return null here
-                        Birthdate = Util.Strings.PersonNumberToDate(p.CprNumber).Value,
+                        Birthdate = Strings.PersonNumberToDate(p.CprNumber).Value,
                     }
                 );
             }

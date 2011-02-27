@@ -122,7 +122,7 @@ namespace CprBroker.Engine.Local
         public static void ImportPersonRegistrationFromXmlFile(string path)
         {
             var xml = System.IO.File.ReadAllText(path);
-            var oio = DAL.Utilities.Deserialize<Schemas.Part.RegistreringType1>(xml);
+            var oio = Utilities.Strings.Deserialize<Schemas.Part.RegistreringType1>(xml);
 
             var uuid = new PersonIdentifier() { UUID = new Guid(path.Substring(path.LastIndexOf("\\") + 1)) };
 

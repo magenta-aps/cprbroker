@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
@@ -21,12 +22,12 @@ namespace CprBroker.Installers
         public DatabaseSetupInfo GetDatabaseSetupInfo()
         {
             var xml = string.Format("{0}", savedState["DatabaseSetupInfo"]);
-            return DAL.Utilities.Deserialize<DatabaseSetupInfo>(xml);
+            return Strings.Deserialize<DatabaseSetupInfo>(xml);
         }
 
         public void SetDatabaseSetupInfo(DatabaseSetupInfo value)
         {
-            savedState["DatabaseSetupInfo"] = DAL.Utilities.SerializeObject(value);
+            savedState["DatabaseSetupInfo"] = Strings.SerializeObject(value);
         }
 
         public void ClearDatabaseSensitiveDate()
@@ -38,11 +39,11 @@ namespace CprBroker.Installers
         public WebInstallationInfo GetWebInstallationInfo()
         {
             var xml = string.Format("{0}", savedState["WebInstallationInfo"]);
-            return DAL.Utilities.Deserialize<WebInstallationInfo>(xml);
+            return Strings.Deserialize<WebInstallationInfo>(xml);
         }
         public void SetWebInstallationInfo(WebInstallationInfo value)
         {
-            savedState["WebInstallationInfo"] = DAL.Utilities.SerializeObject(value);
+            savedState["WebInstallationInfo"] = Strings.SerializeObject(value);
         }
 
         public string ServiceName

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
@@ -35,7 +36,7 @@ namespace CprBroker.Engine.Part
                 return StandardReturType.InvalidCprNumber(Input);
             }
 
-            if (!Util.Strings.PersonNumberToDate(Input).HasValue)
+            if (!Strings.PersonNumberToDate(Input).HasValue)
             {
                 return StandardReturType.InvalidCprNumber(Input);
             }

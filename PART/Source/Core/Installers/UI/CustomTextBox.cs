@@ -47,7 +47,7 @@ namespace CprBroker.Installers
         /// <summary>
         /// Maximum length allowed
         /// </summary>
-        public Nullable<int> MaxLength
+        public new Nullable<int> MaxLength
         {
             get
             {

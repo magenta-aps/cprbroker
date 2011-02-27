@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
-using CprBroker.Schemas.Util;
+using CprBroker.Utilities;
 
 namespace CprBroker.DAL.Part
 {

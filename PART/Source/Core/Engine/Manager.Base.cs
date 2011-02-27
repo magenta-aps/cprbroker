@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Data.Linq;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
@@ -108,7 +109,7 @@ namespace CprBroker.Engine
                                         }
                                         catch (Exception updateException)
                                         {
-                                            string xml = DAL.Utilities.SerializeObject(subResult);
+                                            string xml = Strings.SerializeObject(subResult);
                                             Local.Admin.LogException(updateException);
                                         }
                                     }
@@ -177,7 +178,7 @@ namespace CprBroker.Engine
                     }
                     else
                     {
-                        string xml = DAL.Utilities.SerializeObject(outputMainItem);
+                        string xml = Strings.SerializeObject(outputMainItem);
                         Local.Admin.AddNewLog(TraceEventType.Error, BrokerContext.Current.WebMethodMessageName, TextMessages.ResultGatheringFailed, typeof(TOutput).ToString(), xml);
                         return new TOutput() { StandardRetur = StandardReturType.UnspecifiedError("Aggregation failed") };
                     }

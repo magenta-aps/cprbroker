@@ -7,7 +7,7 @@ using CprBroker.DAL;
 using CprBroker.DAL.Applications;
 using CprBroker.DAL.Part;
 using CprBroker.DAL.DataProviders;
-
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers.CprBrokerInstallers
 {
@@ -57,7 +57,7 @@ namespace CprBroker.Installers.CprBrokerInstallers
         {
             var ret = new Dictionary<string, Dictionary<string, string>>();
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(savedState);
-            var webConfigPath = CprBroker.Engine.Util.Installation.GetWebConfigFilePathFromInstaller(this);
+            var webConfigPath = Installation.GetWebConfigFilePathFromInstaller(this);
             ret[webConfigPath] = new Dictionary<string, string>();
             ret[webConfigPath]["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"] = savedStateWrapper.GetDatabaseSetupInfo().CreateConnectionString(false, true);
             return ret;

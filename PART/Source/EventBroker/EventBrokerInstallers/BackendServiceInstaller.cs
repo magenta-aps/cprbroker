@@ -7,8 +7,8 @@ using System.Configuration.Install;
 using System.Linq;
 using System.ServiceProcess;
 using Microsoft.Win32;
-using CprBroker.Engine.Util;
 using System.Windows.Forms;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
@@ -87,7 +87,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
                     serviceController.Start();
                 }
                 );
-            Engine.Util.Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EventsServiceUrl", cprEventsServiceUrl);
+            Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EventsServiceUrl", cprEventsServiceUrl);
 
         }
 

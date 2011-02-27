@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace CprBroker.Engine.Util
+namespace CprBroker.Utilities
 {
     /// <summary>
     /// Contains string processing utility methods
@@ -173,6 +171,37 @@ namespace CprBroker.Engine.Util
         {
             return new Uri(string.Format("urn:uuid:{0}", uuid.ToString("")));
         }
+
+        /// <summary>
+        /// Serializes the given object to an XML string
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string SerializeObject(object obj)
+        {
+            string ret = "";
+            if (obj != null)
+            {
+                XmlSerializer serializer = new XmlSerializer(obj.GetType());
+                StringWriter writer = new StringWriter();
+                serializer.Serialize(writer, obj);
+                ret = writer.ToString();
+            }
+            return ret;
+        }
+
+        public static T Deserialize<T>(string xml)
+        {
+            if (!string.IsNullOrEmpty(xml))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                StringReader writer = new StringReader(xml);
+                object o = serializer.Deserialize(writer);
+                return (T)o;
+            }
+            return default(T);
+        }
+
     }
 
 }

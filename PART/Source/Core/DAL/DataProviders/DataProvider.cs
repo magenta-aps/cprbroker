@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
+using CprBroker.Utilities;
 
 namespace CprBroker.DAL.DataProviders
 {
@@ -18,7 +19,7 @@ namespace CprBroker.DAL.DataProviders
         {
             if (Data != null)
             {
-                Properties.AddRange(Utilities.DecryptObject<AttributeType[]>(Data.ToArray()));
+                Properties.AddRange(Encryption.DecryptObject<AttributeType[]>(Data.ToArray()));
             }
         }
         private AttributeType GetDataProviderProperty(string key)
@@ -61,7 +62,7 @@ namespace CprBroker.DAL.DataProviders
                             Value = value,
                         });
                 }
-                Data = Utilities.EncryptObject(Properties.ToArray());
+                Data = Encryption.EncryptObject(Properties.ToArray());
             }
         }
 
