@@ -23,7 +23,7 @@ namespace CprBroker.NUnitTester
             {
                 if (!CprNumberMap.ContainsKey(cprNumber))
                 {
-                    var uuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+                    var uuid = TestRunner.PartService.GetUuid(cprNumber);
                     CprNumberMap[cprNumber] = new Guid(uuid.UUID);
                 }
             }

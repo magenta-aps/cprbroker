@@ -85,11 +85,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\Part\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\Subscriptions\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,6 +94,11 @@
     <Compile Include="TestData.cs" />
     <Compile Include="TestRunner.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="Web References\Part\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
@@ -116,36 +116,13 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Admin\" />
     <WCFMetadataStorage Include="Service References\Events\" />
-    <WCFMetadataStorage Include="Service References\Part\" />
     <WCFMetadataStorage Include="Service References\Subscriptions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Part\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Part\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.GetUuidOutputType.datasource" />
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.LaesOutputType.datasource" />
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.ListOutputType1.datasource" />
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.SoegOutputType.datasource" />
-    <None Include="Service References\Part\CprBroker.NUnitTester.Part.GetUuidOutputType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Part\CprBroker.NUnitTester.Part.LaesOutputType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Part\CprBroker.NUnitTester.Part.ListOutputType1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Part\CprBroker.NUnitTester.Part.SoegOutputType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Part\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Admin\configuration91.svcinfo" />
@@ -301,33 +278,39 @@
     <None Include="Service References\Events\Events721.xsd" />
     <None Include="Service References\Events\Events722.xsd" />
     <None Include="Service References\Events\Events723.xsd" />
-    <None Include="Service References\Part\Part2.wsdl" />
-    <None Include="Service References\Part\Part8.xsd" />
-    <None Include="Service References\Part\Part81.xsd" />
-    <None Include="Service References\Part\Part810.xsd" />
-    <None Include="Service References\Part\Part811.xsd" />
-    <None Include="Service References\Part\Part812.xsd" />
-    <None Include="Service References\Part\Part813.xsd" />
-    <None Include="Service References\Part\Part814.xsd" />
-    <None Include="Service References\Part\Part815.xsd" />
-    <None Include="Service References\Part\Part816.xsd" />
-    <None Include="Service References\Part\Part817.xsd" />
-    <None Include="Service References\Part\Part818.xsd" />
-    <None Include="Service References\Part\Part819.xsd" />
-    <None Include="Service References\Part\Part82.xsd" />
-    <None Include="Service References\Part\Part83.xsd" />
-    <None Include="Service References\Part\Part84.xsd" />
-    <None Include="Service References\Part\Part85.xsd" />
-    <None Include="Service References\Part\Part86.xsd" />
-    <None Include="Service References\Part\Part87.xsd" />
-    <None Include="Service References\Part\Part88.xsd" />
-    <None Include="Service References\Part\Part89.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\Part\Part1.disco" />
-    <None Include="Service References\Part\Part820.xsd" />
-    <None Include="Service References\Part\Part821.xsd" />
-    <None Include="Service References\Part\Part822.xsd" />
+    <WebReferenceUrl Include="http://localhost:1551/Services/Part.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Part\</RelPath>
+      <UpdateFromURL>http://localhost:1551/Services/Part.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CprBroker_NUnitTester_Part_Part</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Part\GetUuidOutputType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Part\LaesOutputType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Part\ListOutputType1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Part\Part.disco" />
+    <None Include="Web References\Part\Part.wsdl" />
+    <None Include="Web References\Part\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Part\SoegOutputType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

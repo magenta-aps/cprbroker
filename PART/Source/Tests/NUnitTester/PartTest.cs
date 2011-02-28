@@ -25,14 +25,14 @@ namespace CprBroker.NUnitTester
             base.ValidateInvalid(ret.StatusKode, ret.FejlbeskedTekst);
         }
 
-        private void Validate(Guid uuid, Part.LaesOutputType laesOutput, Part.PartClient service)
+        private void Validate(Guid uuid, Part.LaesOutputType laesOutput, Part.Part service)
         {
             Assert.IsNotNull(laesOutput, "Laes output is null{0}", uuid);
             Validate(laesOutput.StandardRetur);
             Validate(uuid, laesOutput.LaesResultat, service);
         }
 
-        private void Validate(Guid uuid, Part.LaesResultatType laesResultat, Part.PartClient service)
+        private void Validate(Guid uuid, Part.LaesResultatType laesResultat, Part.Part service)
         {
             Assert.IsNotNull(laesResultat, "Person not found : {0}", uuid);
             if (laesResultat.Item is Part.RegistreringType1)
@@ -87,10 +87,10 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T200_GetUuid(string cprNumber)
         {
-            var uuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+            var uuid = TestRunner.PartService.GetUuid(cprNumber);
             Validate(uuid);
 
-            var uuid2 = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+            var uuid2 = TestRunner.PartService.GetUuid(cprNumber);
             Validate(uuid2);
             Assert.AreEqual(uuid.UUID, uuid2.UUID);
         }
@@ -99,7 +99,7 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.InvalidCprNumbersFieldName)]
         public void T210_GetUuid_Invalid(string cprNumber)
         {
-            var uuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+            var uuid = TestRunner.PartService.GetUuid(cprNumber);
             ValidateInvalid(uuid);
         }
 
@@ -107,15 +107,14 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T300_Read(string cprNumber)
         {
-            var uuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+            var uuid = TestRunner.PartService.GetUuid(cprNumber);
             Validate(uuid);
 
             Part.LaesInputType input = new Part.LaesInputType()
             {
                 UUID = uuid.UUID,
             };
-
-            var person = TestRunner.PartService.Read(TestRunner.PartApplicationHeader, input);
+            LaesOutputType person = TestRunner.PartService.Read(input);
             Validate(new Guid(uuid.UUID), person, TestRunner.PartService);
         }
 
@@ -124,7 +123,7 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.EmptyReadInputFieldName)]
         public void T310_Read_Empty(Part.LaesInputType inp)
         {
-            var person = TestRunner.PartService.Read(TestRunner.PartApplicationHeader, inp);
+            var person = TestRunner.PartService.Read(inp);
             Assert.IsNotNull(person);
             ValidateInvalid(person.StandardRetur);
             Assert.IsNull(person.LaesResultat);
@@ -138,7 +137,7 @@ namespace CprBroker.NUnitTester
             {
                 UUID = uuid,
             };
-            var person = TestRunner.PartService.Read(TestRunner.PartApplicationHeader, input);
+            var person = TestRunner.PartService.Read(input);
             Assert.IsNotNull(person);
             ValidateInvalid(person.StandardRetur);
             Assert.IsNull(person.LaesResultat);
@@ -152,7 +151,7 @@ namespace CprBroker.NUnitTester
             {
                 UUID = uuid,
             };
-            var person = TestRunner.PartService.Read(TestRunner.PartApplicationHeader, input);
+            var person = TestRunner.PartService.Read(input);
             Assert.IsNotNull(person);
             ValidateInvalid(person.StandardRetur);
             Assert.IsNull(person.LaesResultat);
@@ -163,15 +162,14 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T350_RefreshRead(string cprNumber)
         {
-            var uuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+            var uuid = TestRunner.PartService.GetUuid(cprNumber);
             Validate(uuid);
 
             Part.LaesInputType input = new Part.LaesInputType()
             {
                 UUID = uuid.UUID,
             };
-
-            var freshPerson = TestRunner.PartService.RefreshRead(TestRunner.PartApplicationHeader, input);
+            var freshPerson = TestRunner.PartService.RefreshRead(input);
             Validate(new Guid(uuid.UUID), freshPerson, TestRunner.PartService);
 
             //Assert.AreNotEqual(TestRunner.PartService.QualityHeaderValue.QualityLevel.Value, Part.QualityLevel.LocalCache);
@@ -184,10 +182,10 @@ namespace CprBroker.NUnitTester
             string[] cprNumbers = new string[] { cprNumber };
             Part.ListInputType input = new Part.ListInputType()
             {
-                UUID = Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cpr).UUID),
+                UUID = Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).UUID),
             };
 
-            var persons = TestRunner.PartService.List(TestRunner.PartApplicationHeader, input);
+            var persons = TestRunner.PartService.List(input);
             Assert.IsNotNull(persons, "List response is null");
             Validate(persons.StandardRetur);
             Assert.IsNotNull(persons.LaesResultat, "Persons array is null");
@@ -204,10 +202,10 @@ namespace CprBroker.NUnitTester
         {
             Part.ListInputType input = new Part.ListInputType()
             {
-                UUID = cprNumbers == null ? null : Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cpr).UUID),
+                UUID = cprNumbers == null ? null : Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).UUID),
             };
 
-            var persons = TestRunner.PartService.List(TestRunner.PartApplicationHeader, input);
+            var persons=TestRunner.PartService.List(input);
 
             Assert.IsNotNull(persons);
             if (cprNumbers != null)
@@ -232,7 +230,7 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T500_Search_CprNumber(string cprNumber)
         {
-            var personUuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber).UUID;
+            var personUuid = TestRunner.PartService.GetUuid(cprNumber).UUID;
 
             var searchCriteria = new Part.SoegInputType1()
             {
@@ -242,7 +240,7 @@ namespace CprBroker.NUnitTester
                 }
             };
 
-            var result = TestRunner.PartService.Search(TestRunner.PartApplicationHeader, searchCriteria);
+            var result = TestRunner.PartService.Search(searchCriteria);
             Assert.NotNull(result, "Search result");
             Validate(result.StandardRetur);
             Assert.IsNotNull(result.Idliste, "Search result ids");
@@ -256,14 +254,14 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T510_Search_Name(string cprNumber)
         {
-            var personUuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+            var personUuid = TestRunner.PartService.GetUuid(cprNumber);
             Validate(personUuid);
 
             Part.LaesInputType input = new Part.LaesInputType()
             {
                 UUID = personUuid.UUID,
             };
-            var personObject = TestRunner.PartService.Read(TestRunner.PartApplicationHeader, input);
+            var personObject = TestRunner.PartService.Read(input);
             Validate(new Guid(personUuid.UUID), personObject, TestRunner.PartService);
 
             var personRegistration = personObject.LaesResultat.Item as Part.RegistreringType1;
@@ -294,7 +292,7 @@ namespace CprBroker.NUnitTester
                 }
             };
 
-            var result = TestRunner.PartService.Search(TestRunner.PartApplicationHeader, searchCriteria);
+            var result = TestRunner.PartService.Search(searchCriteria);
             Assert.NotNull(result, "Search result");
             Validate(result.StandardRetur);
             Assert.IsNotNull(result.Idliste, "Search result ids");
@@ -308,7 +306,7 @@ namespace CprBroker.NUnitTester
         [TestCaseSource(typeof(TestData), TestData.InvalidSearchCriteriaFieldName)]
         public void T520_Search_Invalid(Part.SoegInputType1 searchCriteria)
         {
-            var result = TestRunner.PartService.Search(TestRunner.PartApplicationHeader, searchCriteria);
+            var result = TestRunner.PartService.Search(searchCriteria);
             Assert.NotNull(result);
             Assert.IsNull(result.Idliste);
             ValidateInvalid(result.StandardRetur);
@@ -321,16 +319,16 @@ namespace CprBroker.NUnitTester
         //[TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T600_Database_Update(string cprNumber)
         {
-            var uuid = TestRunner.PartService.GetUuid(TestRunner.PartApplicationHeader, cprNumber);
+            var uuid = TestRunner.PartService.GetUuid(cprNumber);
             Part.LaesInputType input = new Part.LaesInputType()
             {
                 UUID = uuid.UUID.ToString(),
             };
-            var fresh = TestRunner.PartService.RefreshRead(TestRunner.PartApplicationHeader, input);
+            var fresh = TestRunner.PartService.RefreshRead(input);
             Validate(new Guid(uuid.UUID), fresh, TestRunner.PartService);
             //Assert.AreNotEqual(Part.QualityLevel.LocalCache, TestRunner.PartService.QualityHeaderValue.QualityLevel.Value);
 
-            var cached = TestRunner.PartService.Read(TestRunner.PartApplicationHeader, input);
+            var cached = TestRunner.PartService.Read(input);
             Validate(new Guid(uuid.UUID), cached, TestRunner.PartService);
             //Assert.AreEqual(Part.QualityLevel.LocalCache, TestRunner.PartService.QualityHeaderValue.QualityLevel.Value);
 
