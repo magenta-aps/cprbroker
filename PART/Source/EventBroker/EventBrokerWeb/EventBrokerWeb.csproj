@@ -46,6 +46,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
+    <Reference Include="GKApp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dll\GKApp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -95,6 +99,10 @@
       <DependentUpon>Notification.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\Subscriptions.asmx.cs">
+      <DependentUpon>Subscriptions.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\Subscriptions.svc.cs">
       <DependentUpon>Subscriptions.svc</DependentUpon>
     </Compile>
@@ -108,6 +116,7 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Services\Subscriptions.asmx" />
     <Content Include="Services\Subscriptions.svc" />
     <Content Include="Services\Web.config" />
     <Content Include="Config\connectionStrings.config" />
