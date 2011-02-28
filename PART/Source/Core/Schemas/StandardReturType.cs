@@ -109,6 +109,10 @@ namespace CprBroker.Schemas.Part
         {
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Invalid {0}: {1}", name, val));
         }
+        public static StandardReturType MalformedXml()
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Malformed XML");
+        }
 
         public static StandardReturType UnknownUuid(string uuid)
         {

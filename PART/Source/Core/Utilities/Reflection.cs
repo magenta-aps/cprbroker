@@ -14,10 +14,15 @@ namespace CprBroker.Utilities
             Type t = Type.GetType(typeName);
             if (t != null)
             {
-                object providerObj = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
-                return providerObj as T;
+                object ret = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
+                return ret as T;
             }
             return null;
+        }
+
+        public static object CreateInstance(Type type)
+        {
+            return type.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);
         }
 
         public static object ChangeNamespace(Type targetType, object sourceObject)

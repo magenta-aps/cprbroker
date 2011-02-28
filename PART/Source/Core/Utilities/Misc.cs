@@ -35,5 +35,14 @@ namespace CprBroker.Utilities
             bool ret = s1.Equals(s2);
             return ret;
         }
+
+        public static Exception GetDeepestInnerException(Exception ex)
+        {
+            while (ex.InnerException != null)
+            {
+                ex = ex.InnerException;
+            }
+            return ex;
+        }
     }
 }

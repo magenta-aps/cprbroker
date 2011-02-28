@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
@@ -57,7 +58,7 @@ namespace CprBroker.Utilities
             return directory;
         }
 
-       
+
 
         /// <summary>
         /// Converts an object to a string
@@ -108,7 +109,7 @@ namespace CprBroker.Utilities
             string prefixPattern = "0[xX]";
             string compositePattern =
                 @"\{"
-                +prefixPattern+ RepeatString(digitPattern,8) + ", "
+                + prefixPattern + RepeatString(digitPattern, 8) + ", "
                 + prefixPattern + RepeatString(digitPattern, 4) + ", "
                 + prefixPattern + RepeatString(digitPattern, 4) + ","
                 + @"\{"
@@ -172,12 +173,17 @@ namespace CprBroker.Utilities
             return new Uri(string.Format("urn:uuid:{0}", uuid.ToString("")));
         }
 
+
+        public static string SerializeObject(object obj)
+        {
+            return SerializeObject(obj, false);
+        }
         /// <summary>
         /// Serializes the given object to an XML string
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string SerializeObject(object obj)
+        public static string SerializeObject(object obj, bool excludeDeclaration)
         {
             string ret = "";
             if (obj != null)
@@ -186,8 +192,17 @@ namespace CprBroker.Utilities
                 StringWriter writer = new StringWriter();
                 serializer.Serialize(writer, obj);
                 ret = writer.ToString();
+
+                if (excludeDeclaration)
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.LoadXml(ret);
+                    ret = doc.ChildNodes[1].OuterXml;
+                }
             }
             return ret;
+
+
         }
 
         public static T Deserialize<T>(string xml)

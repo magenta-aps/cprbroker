@@ -5,9 +5,13 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public interface IBasicOutput<T>
+    public interface IBasicOutput
     {
         StandardReturType StandardRetur { get; set; }
+    }
+
+    public interface IBasicOutput<T> : IBasicOutput
+    {
         void SetMainItem(T mainItem);
     }
 
