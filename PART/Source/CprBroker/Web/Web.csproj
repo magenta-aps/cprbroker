@@ -48,7 +48,7 @@
     </Reference>
     <Reference Include="GKApp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dll\GKApp.dll</HintPath>
+      <HintPath>..\..\Dll\GKApp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -137,8 +137,16 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Admin.asmx.cs">
+      <DependentUpon>Admin.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\Admin.svc.cs">
       <DependentUpon>Admin.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Events.asmx.cs">
+      <DependentUpon>Events.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\Events.svc.cs">
       <DependentUpon>Events.svc</DependentUpon>
@@ -146,8 +154,13 @@
     <Compile Include="Services\IAdmin.cs" />
     <Compile Include="Services\IEvents.cs" />
     <Compile Include="Services\IPart.cs" />
+    <Compile Include="Services\Part.asmx.cs">
+      <DependentUpon>Part.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\Part.svc.cs">
       <DependentUpon>Part.svc</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
@@ -197,8 +210,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\loggingConfiguration.config" />
+    <Content Include="Services\Admin.asmx" />
     <Content Include="Services\Admin.svc" />
+    <Content Include="Services\Events.asmx" />
     <Content Include="Services\Events.svc" />
+    <Content Include="Services\Part.asmx" />
     <Content Include="Services\Part.svc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
