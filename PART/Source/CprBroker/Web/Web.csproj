@@ -160,7 +160,6 @@
     </Compile>
     <Compile Include="Services\Part.svc.cs">
       <DependentUpon>Part.svc</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utilities.cs" />
   </ItemGroup>
