@@ -7,6 +7,9 @@ using System.Reflection;
 
 namespace CprBroker.Utilities
 {
+    /// <summary>
+    /// Utility methods related to reflection
+    /// </summary>
     public static class Reflection
     {
         public static T CreateInstance<T>(string typeName) where T : class

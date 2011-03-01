@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Utilities
 {
+    /// <summary>
+    /// Miscellaneous utility methods
+    /// </summary>
     public static class Misc
     {
         public static string FirstNonEmptyString(ref int index, params string[] args)

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Utilities
 {
+    /// <summary>
+    /// Text messages used by the broker
+    /// </summary>
     public static class TextMessages
     {
         public static readonly string NameOrTokenAlreadyExists = "Application name or token already exists";

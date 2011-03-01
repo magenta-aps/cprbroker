@@ -5,6 +5,10 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
+    /// <summary>
+    /// Represents an interface that all web method outputs should implement
+    /// This is used to ensure that a StandardReturType is always returned from a web method
+    /// </summary>
     public interface IBasicOutput
     {
         StandardReturType StandardRetur { get; set; }

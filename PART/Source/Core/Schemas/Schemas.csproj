@@ -59,7 +59,6 @@
     <Compile Include="ApplicationHeader.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
     <Compile Include="Events\DataChangeEventInfo.cs" />
-    <Compile Include="Events\ObjectNotification.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="IBasicOutput.cs" />
     <Compile Include="LaesInputType.cs" />
@@ -99,7 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\Operations.cd" />
-    <None Include="Diagrams\OtherOperations.cd" />
     <None Include="Diagrams\Search.cd" />
     <None Include="Diagrams\Static.cd" />
     <None Include="OIOXSD\AktoerRef.xsd" />
@@ -216,6 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OIOXSD\XSD.txt" />
+    <Content Include="Part\Events\Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

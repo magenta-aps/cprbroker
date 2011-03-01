@@ -10,6 +10,9 @@ using System.Security.Cryptography;
 
 namespace CprBroker.Utilities
 {
+    /// <summary>
+    /// Utility methods for encryption
+    /// </summary>
     public static class Encryption
     {
         public static T[] AsArray<T>(object o) where T : class

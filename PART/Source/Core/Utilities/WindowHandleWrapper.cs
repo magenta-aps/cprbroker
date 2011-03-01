@@ -8,6 +8,10 @@ using System.Runtime.InteropServices;
 
 namespace CprBroker.Utilities
 {
+    /// <summary>
+    /// Wraps a window
+    /// Used by the installers to make the custom installers UI a child for the main installer (msi) UI
+    /// </summary>
     public class WindowHandleWrapper : IWin32Window
     {
         [DllImport("user32.dll")]

@@ -5,9 +5,11 @@ using System.Text;
 
 namespace CprBroker.Utilities
 {
+    /// <summary>
+    /// Contains all the constants used by the broker
+    /// </summary>
     public static class Constants
-    {
-        
+    {       
 
         public static readonly DateTime MinSqlDate = new DateTime(1753, 1, 1);
         public static readonly DateTime MaxSqlDate = new DateTime(9999, 12, 31);

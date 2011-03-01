@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace CprBroker.Utilities
 {
+    /// <summary>
+    /// Used to build a dynamic where clause in LINQ
+    /// </summary>
     public static class PredicateBuilder
     {
         public static Expression<Func<T, bool>> True<T>() { return f => true; }

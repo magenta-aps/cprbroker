@@ -8,6 +8,9 @@ using System.Web;
 
 namespace CprBroker.Utilities
 {
+    /// <summary>
+    /// Utility methods related to security
+    /// </summary>
     public static class Security
     {
         public static string CurrentUser

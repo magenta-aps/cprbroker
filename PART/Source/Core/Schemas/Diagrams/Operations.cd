@@ -7,7 +7,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAEAAAAAgAAAQAAA=</HashCode>
-      <FileName>TidspunktType.cs</FileName>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.BasicOutputType">
@@ -17,6 +17,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="StandardRetur" />
@@ -28,8 +29,8 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAKAAAAAAAAAAAgAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>StandardReturType.cs</FileName>
+      <HashCode>ABAEIIAAEAAAAAQABAAAAIACAEEgAEAgIAQBAAAACAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.LaesOutputType">
@@ -39,11 +40,13 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>IBasicOutput.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="LaesResultat" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="CprBroker.Schemas.Part.LaesResultatType">
     <Position X="6.5" Y="4.5" Width="1.5" />
@@ -52,6 +55,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.LaesInputType">
@@ -61,7 +65,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAgEAQAAAEAAAAAAAEAAAAEgAAAQAAIEAAAA=</HashCode>
+      <HashCode>AAAABIAAAgEAQAAAEAAAAAAAEAAAAEgAAAQAAIEAAAA=</HashCode>
       <FileName>LaesInputType.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -73,6 +77,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAABAAAAgEAQAAAEAAAAAAAEAAAAAgAAAQAAIEAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.ListOutputType1">
@@ -90,11 +95,13 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>IBasicOutput.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="LaesResultat" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="CprBroker.Schemas.Part.ListOutputType">
     <Position X="2.75" Y="4.5" Width="1.5" />
@@ -104,6 +111,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.RegistreringType1">
@@ -113,22 +121,25 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAIAAAABAAAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAIAAAAFAEAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CprBroker.Schemas.Part.FiltreretOejebliksBillede">
+  <Class Name="CprBroker.Schemas.Part.RetInputType1">
     <Position X="9.75" Y="6" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAQAAAAAAIAAAABAAAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.LaesFiltreretOutputType">
     <Position X="12.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.SagDokObjektType">
@@ -138,6 +149,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAEAAAAQAAAAAAAAgAAAAAAAAAAgA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.RegistreringType">
@@ -147,7 +159,8 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>EAAAAABABAAAgAgAAAAAAAAAAAAAAAAAAEAACgAACAA=</HashCode>
+      <HashCode>EAAAAAQABAAAgACAAAEAAAAAAIAAAAAAAAAACgAACAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Virkning" />
@@ -159,8 +172,8 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>EAAAAABABAAAAAAAAAAAAACAAAAAQEAAAAAAIQAAAAA=</HashCode>
-      <FileName>VirkningType.cs</FileName>
+      <HashCode>MAAAAAQAFAAAAACAAAAAAACAAAAAQEAAAAAAIQAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CprBroker.Schemas.Part.AttributListeType">
@@ -169,31 +182,8 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAgAAACAAAABAAAAAAAAAwAAAIAQAAAAAAAAAAAAAAA=</HashCode>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Egenskaber" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="CprBroker.Schemas.Part.EgenskaberType">
-    <Position X="15.25" Y="8" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AIAAAAAAAEAEgAAAAAAAQwBAAIlIAACwCAAAiCAAAAA=</HashCode>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="RegisterOplysninger" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="CprBroker.Schemas.Part.RegisterOplysningerType">
-    <Position X="18.75" Y="8" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAEAAAAAAAAAAAgCAAAAAA=</HashCode>
+      <HashCode>AEgAAAAAgAAAAAAAAAABAAAAAIABBAAAAABAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Tahoma" Size="8.25" />
