@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Facade method for Log
+    /// </summary>
     public class LogFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         string Text;

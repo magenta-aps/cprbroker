@@ -6,6 +6,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Events
 {
+    /// <summary>
+    /// Data provider that allows the Event Broker to get information from Cpr Broker
+    /// </summary>
     public class DataChangeEventManager : IDataChangeEventManager
     {
         public static readonly object QueueLock = new object();

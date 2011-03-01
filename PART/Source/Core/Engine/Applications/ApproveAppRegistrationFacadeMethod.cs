@@ -8,6 +8,9 @@ using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Facade method for ApproveAppRegistration
+    /// </summary>
     public class ApproveAppRegistrationFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         string TargetApplicationToken;

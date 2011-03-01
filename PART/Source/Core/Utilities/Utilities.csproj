@@ -59,6 +59,7 @@
     <Compile Include="Sql.cs" />
     <Compile Include="Strings.cs" />
     <Compile Include="Encryption.cs" />
+    <Compile Include="TextMessages.cs" />
     <Compile Include="WindowHandleWrapper.cs" />
   </ItemGroup>
   <ItemGroup>

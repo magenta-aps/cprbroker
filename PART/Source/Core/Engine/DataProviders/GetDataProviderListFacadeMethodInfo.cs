@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.DataProviders
 {
+    /// <summary>
+    /// Facade method for GetDataProviderList
+    /// </summary>
     public class GetDataProviderListFacadeMethodInfo : GenericFacadeMethodInfo<DataProviderType[]>
     {
         public GetDataProviderListFacadeMethodInfo(string appToken, string userToken)

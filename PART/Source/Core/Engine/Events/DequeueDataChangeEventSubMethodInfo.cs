@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Engine.Events
 {
+    /// <summary>
+    /// Sub method for DequeueDataChangeEvent
+    /// </summary>
     public class DequeueDataChangeEventSubMethodInfo : SubMethodInfo<IDataChangeEventManager, Schemas.Part.Events.DataChangeEventInfo[]>
     {
         public int MaxCount;

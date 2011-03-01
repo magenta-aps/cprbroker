@@ -7,11 +7,14 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
-    public class GerPersonUuidFacadeMethodInfo : FacadeMethodInfo<GetUuidOutputType, string>
+    /// <summary>
+    /// Facade method for GetUuid
+    /// </summary>
+    public class GerUuidFacadeMethodInfo : FacadeMethodInfo<GetUuidOutputType, string>
     {
         public string Input;
 
-        public GerPersonUuidFacadeMethodInfo(string input, string appToken, string userToken)
+        public GerUuidFacadeMethodInfo(string input, string appToken, string userToken)
             : base(appToken, userToken)
         {
             Input = input;

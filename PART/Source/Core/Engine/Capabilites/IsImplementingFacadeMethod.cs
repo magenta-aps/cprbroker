@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Facade method for IsImplementing
+    /// </summary>
     public class IsImplementingFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         string MethodName;

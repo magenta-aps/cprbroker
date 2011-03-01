@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Possible ways of using local data providers
+    /// </summary>
     public enum LocalDataProviderUsageOption
     {
         UseFirst,

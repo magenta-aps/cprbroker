@@ -6,6 +6,12 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Represents a facade method
+    /// A web method maps to a facade method
+    /// </summary>
+    /// <typeparam name="TOutput">Type of object returned from the web method call. It must implement IBasicOutput (contains StandardRetur)</typeparam>
+    /// <typeparam name="TItem">Type of the inner item of the result</typeparam>
     public class FacadeMethodInfo<TOutput, TItem> where TOutput : class, IBasicOutput<TItem>, new()
     {
         public FacadeMethodInfo()

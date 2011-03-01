@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Facade method for GetCapabilities
+    /// </summary>
     public class GetCapabilitiesFacadeMethod:GenericFacadeMethodInfo<ServiceVersionType[]>
     {
         public GetCapabilitiesFacadeMethod(string appToken, string userToken)

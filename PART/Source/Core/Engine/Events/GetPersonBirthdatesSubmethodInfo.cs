@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Engine.Events
 {
+    /// <summary>
+    /// Sub method for GetPersonBirthdates
+    /// </summary>
     public class GetPersonBirthdatesSubmethodInfo : SubMethodInfo<IDataChangeEventManager, Schemas.Part.Events.PersonBirthdate[]>
     {
         Guid? PersonUuidToStartAfter;

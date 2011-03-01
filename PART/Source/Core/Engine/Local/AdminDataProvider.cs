@@ -16,7 +16,7 @@ namespace CprBroker.Engine.Local
     /// <summary>
     /// Implementation of administration web methods
     /// </summary>
-    public partial class Admin : IDataProviderManager, IVersionManager, ILoggingDataProvider
+    public partial class AdminDataProvider : IDataProviderManager, IVersionManager, ILoggingDataProvider
     {
         #region IDataProvider Members
 

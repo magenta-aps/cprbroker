@@ -9,6 +9,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine.DataProviders
 {
+    /// <summary>
+    /// Facade method for SetDataProviders
+    /// </summary>
     public class SetDataProvidersFacadeMethodInfo : GenericFacadeMethodInfo<bool>
     {
         private DataProviderType[] Input;

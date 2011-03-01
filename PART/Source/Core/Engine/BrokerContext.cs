@@ -13,7 +13,7 @@ namespace CprBroker.Engine
 {
     /// <summary>
     /// Contains data related to the current method call
-    /// An object of this class is created and stored in CallContext my means of a call to Initialize()
+    /// An object of this class is created and stored in CallContext by means of a call to Initialize()
     /// </summary>
     public class BrokerContext
     {

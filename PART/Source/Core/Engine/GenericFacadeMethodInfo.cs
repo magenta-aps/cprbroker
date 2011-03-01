@@ -6,6 +6,11 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Generic facade method
+    /// Allows werapping of non IBasicOutputType into a BasicOutputType
+    /// </summary>
+    /// <typeparam name="TItem">Type of inner item</typeparam>
     public class GenericFacadeMethodInfo<TItem> : FacadeMethodInfo<BasicOutputType<TItem>, TItem>
     {
         public GenericFacadeMethodInfo()

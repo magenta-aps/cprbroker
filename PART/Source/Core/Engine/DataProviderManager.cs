@@ -11,6 +11,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Manages the loading and selection of data providers
+    /// </summary>
     public static class DataProviderManager
     {
         private static List<IDataProvider> DataProviders = new List<IDataProvider>();

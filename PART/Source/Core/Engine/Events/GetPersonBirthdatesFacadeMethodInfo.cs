@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part.Events;
 
 namespace CprBroker.Engine.Events
 {
+    /// <summary>
+    /// Facade method for GetPersonBirthdates
+    /// </summary>
     public class GetPersonBirthdatesFacadeMethodInfo : GenericFacadeMethodInfo<PersonBirthdate[]>
     {
         Guid? PersonUuidToStartAfter;

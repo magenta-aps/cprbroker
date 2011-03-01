@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.Part
 {
+    /// <summary>
+    /// Sub method for Search
+    /// </summary>
     public class SearchSubMethodInfo : SubMethodInfo<IPartSearchDataProvider, Guid[]>
     {
         SoegInputType1 searchCriteria;

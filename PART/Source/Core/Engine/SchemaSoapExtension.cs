@@ -13,6 +13,9 @@ using System.Web.Services;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Used to guarantee that a StandardReturType object is always returned from web methods, even if the request is wrong
+    /// </summary>
     public class SchemaSoapExtension : System.Web.Services.Protocols.SoapExtension
     {
         #region Initialization

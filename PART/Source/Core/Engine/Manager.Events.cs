@@ -9,6 +9,9 @@ namespace CprBroker.Engine
 {
     public partial class Manager
     {
+        /// <summary>
+        /// Contains methods for getting event information
+        /// </summary>
         public class Events
         {
             public static BasicOutputType<DataChangeEventInfo[]> DequeueDataChangeEvents(string userToken, string appToken, int maxCount)

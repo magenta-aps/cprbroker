@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part.Events;
 
 namespace CprBroker.Engine.Events
 {
+    /// <summary>
+    /// Facade method for DequeueDataChangeEvents
+    /// </summary>
     public class DequeueDataChangeEventsFacadeMethod : GenericFacadeMethodInfo<DataChangeEventInfo[]>
     {
         public int MaxCount = 0;

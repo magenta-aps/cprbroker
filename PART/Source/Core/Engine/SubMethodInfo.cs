@@ -6,6 +6,10 @@ using System.Threading;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Represents a facade sub method
+    /// A sub method is responsible for getting one part of the needed output of a facade method
+    /// </summary>
     public abstract class SubMethodInfo
     {
         public abstract Type InterfaceType { get; }

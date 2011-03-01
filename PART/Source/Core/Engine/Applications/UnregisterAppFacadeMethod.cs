@@ -8,6 +8,9 @@ using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Facade method for UnregisterApp
+    /// </summary>
     public class UnregisterAppFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         string TargetApplicationToken;

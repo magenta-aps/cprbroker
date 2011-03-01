@@ -8,6 +8,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
+    /// <summary>
+    /// Facade method for Read and RefreshRead
+    /// </summary>
     public class ReadFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
     {
         LaesInputType Input = null;

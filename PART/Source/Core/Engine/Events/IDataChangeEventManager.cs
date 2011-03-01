@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Engine.Events
 {
+    /// <summary>
+    /// Interface for getting information by EventBroker from CprBroker
+    /// </summary>
     public interface IDataChangeEventManager : IDataProvider
     {
         Schemas.Part.Events.DataChangeEventInfo[] DequeueEvents(int maxCount);

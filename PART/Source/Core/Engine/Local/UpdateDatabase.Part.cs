@@ -11,7 +11,9 @@ using CprBroker.Data.Part;
 
 namespace CprBroker.Engine.Local
 {
-
+    /// <summary>
+    /// Updates the local database with new data versions from external data providers
+    /// </summary>
     public partial class UpdateDatabase
     {
         /// <summary>

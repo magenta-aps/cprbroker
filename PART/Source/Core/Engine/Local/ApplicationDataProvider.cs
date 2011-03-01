@@ -8,6 +8,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Local
 {
+    /// <summary>
+    /// Implements application management methods
+    /// </summary>
     public class ApplicationDataProvider : IApplicationManager
     {
         #region IApplicationManager Members

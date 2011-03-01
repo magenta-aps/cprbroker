@@ -8,7 +8,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
-    //TODO: Modify to never return null even if input is wrong
+    /// <summary>
+    /// Facade method for List
+    /// </summary>
     public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1, LaesResultatType[]>
     {
         public ListInputType input;

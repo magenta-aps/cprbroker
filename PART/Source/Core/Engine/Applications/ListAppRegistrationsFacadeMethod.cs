@@ -8,6 +8,9 @@ using CprBroker.Data.Applications;
 
 namespace CprBroker.Engine
 {
+    /// <summary>
+    /// Facade method for ListAppRegistrations
+    /// </summary>
     public class ListAppRegistrationsFacadeMethod : GenericFacadeMethodInfo<ApplicationType[]>
     {
 

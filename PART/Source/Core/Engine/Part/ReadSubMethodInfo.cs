@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine.Part
 {
+    /// <summary>
+    /// Sub method info for Read and RefreshRead
+    /// </summary>
     public class ReadSubMethodInfo : SubMethodInfo<IPartReadDataProvider, RegistreringType1>
     {
         PersonIdentifier PersonIdentifier;
