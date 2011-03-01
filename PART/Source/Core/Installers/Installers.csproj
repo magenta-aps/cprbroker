@@ -147,7 +147,7 @@
       <Project>{3CC541EB-6E9A-4A16-B0E1-AC88AEF969FC}</Project>
       <Name>Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAL\Data.csproj">
+    <ProjectReference Include="..\Data\Data.csproj">
       <Project>{BBD25F50-FA7A-4799-9832-287AF59FB6C4}</Project>
       <Name>Data</Name>
     </ProjectReference>
