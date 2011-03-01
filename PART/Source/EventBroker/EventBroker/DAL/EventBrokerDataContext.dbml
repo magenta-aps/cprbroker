@@ -127,14 +127,6 @@
     <Parameter Name="LastTime" Parameter="lastTime" Type="System.DateTime" DbType="DateTime" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.CreateSynonym" Method="CreateSynonym">
-    <Parameter Name="Synonym" Parameter="synonym" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Server" Parameter="server" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Database" Parameter="database" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Schema" Parameter="schema" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Table" Parameter="table" Type="System.String" DbType="VarChar(50)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.EnqueueBirthdateEventNotifications" Method="EnqueueBirthdateEventNotifications">
     <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
     <Parameter Name="Today" Parameter="today" Type="System.DateTime" DbType="DateTime" />

@@ -217,13 +217,6 @@ namespace CprBroker.EventBroker.DAL
 			return ((int)(result.ReturnValue));
 		}
 		
-		[Function(Name="dbo.CreateSynonym")]
-		public int CreateSynonym([Parameter(Name="Synonym", DbType="VarChar(50)")] string synonym, [Parameter(Name="Server", DbType="VarChar(50)")] string server, [Parameter(Name="Database", DbType="VarChar(50)")] string database, [Parameter(Name="Schema", DbType="VarChar(50)")] string schema, [Parameter(Name="Table", DbType="VarChar(50)")] string table)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), synonym, server, database, schema, table);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[Function(Name="dbo.EnqueueBirthdateEventNotifications")]
 		public int EnqueueBirthdateEventNotifications([Parameter(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [Parameter(Name="Today", DbType="DateTime")] System.Nullable<System.DateTime> today)
 		{
