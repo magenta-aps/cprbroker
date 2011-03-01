@@ -64,7 +64,7 @@ namespace CprBroker.EventBroker.Notifications
 
                     if (EventLog != null)
                     {
-                        this.EventLog.WriteEntry(string.Format("{0} : {1}", CprBroker.Engine.TextMessages.TimerEventStarted, this.GetType()));
+                        this.EventLog.WriteEntry(string.Format("{0} : {1}", TextMessages.TimerEventStarted, this.GetType()));
                     }
 
                     BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
@@ -82,7 +82,7 @@ namespace CprBroker.EventBroker.Notifications
 
                     if (EventLog != null)
                     {
-                        this.EventLog.WriteEntry(string.Format("{0} : {1}", CprBroker.Engine.TextMessages.TimerEventFinished, this.GetType()));
+                        this.EventLog.WriteEntry(string.Format("{0} : {1}", TextMessages.TimerEventFinished, this.GetType()));
                     }
                 }
                 finally

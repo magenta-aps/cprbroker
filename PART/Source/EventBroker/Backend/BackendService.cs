@@ -52,7 +52,7 @@ namespace CprBroker.EventBroker.Backend
                 CprBroker.Engine.Local.Admin.LogException(ex);
             }
 
-            CprBroker.Engine.Local.Admin.LogSuccess(CprBroker.Engine.TextMessages.BackendServiceStarted);
+            CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarted);
 
             StartQueues();
         }
