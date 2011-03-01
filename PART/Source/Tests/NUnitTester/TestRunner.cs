@@ -16,7 +16,7 @@ namespace CprBroker.NUnitTester
         public static Admin.Admin AdminService;
         public static Part.Part PartService;
         public static Subscriptions.SubscriptionsClient SubscriptionsService;
-        public static Events.EventsClient EventsService;
+        public static Events.Events EventsService;
         public static Part.ApplicationHeader PartApplicationHeader;
         public static Admin.ApplicationHeader AdminApplicationHeader;
         public static Events.ApplicationHeader EventsApplicationHeader;
@@ -25,7 +25,6 @@ namespace CprBroker.NUnitTester
         public static void Initialize()
         {
 
-            EventsApplicationHeader = new CprBroker.NUnitTester.Events.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             SubscriptionsApplicationHeader = new CprBroker.NUnitTester.Subscriptions.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
 
             // Admin
@@ -48,9 +47,12 @@ namespace CprBroker.NUnitTester
             ReplaceServiceUrl(SubscriptionsService, SystemType.EventBroker);
             Console.WriteLine(SubscriptionsService.Endpoint.Address.Uri);
 
-            EventsService = new CprBroker.NUnitTester.Events.EventsClient();
+            EventsService = new CprBroker.NUnitTester.Events.Events();
             ReplaceServiceUrl(EventsService, SystemType.CprBroker);
-            Console.WriteLine(EventsService.Endpoint.Address.Uri);
+            Console.WriteLine(EventsService.Url);
+
+            EventsApplicationHeader = new CprBroker.NUnitTester.Events.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
+            EventsService.ApplicationHeaderValue = EventsApplicationHeader;
 
         }
 

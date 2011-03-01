@@ -75,11 +75,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Service References\Events\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\Subscriptions\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,6 +85,11 @@
     <Compile Include="TestRunner.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Web References\Admin\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Events\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -114,7 +114,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\Events\" />
     <WCFMetadataStorage Include="Service References\Subscriptions\" />
   </ItemGroup>
   <ItemGroup>
@@ -124,24 +123,8 @@
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.SoegOutputType.datasource" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\Events\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Events\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.Events.DataChangeEventInfo.datasource" />
     <None Include="Properties\DataSources\CprBroker.Schemas.Part.Events.PersonBirthdate.datasource" />
-    <None Include="Service References\Events\CprBroker.NUnitTester.Events.BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Events\CprBroker.NUnitTester.Events.BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Events\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\Subscriptions\Subscriptions.wsdl" />
     <None Include="Service References\Subscriptions\Subscriptions.xsd" />
     <None Include="Service References\Subscriptions\Subscriptions1.xsd" />
@@ -196,36 +179,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\Events\Events1.wsdl" />
-    <None Include="Service References\Events\Events7.xsd" />
-    <None Include="Service References\Events\Events71.xsd" />
-    <None Include="Service References\Events\Events710.xsd" />
-    <None Include="Service References\Events\Events711.xsd" />
-    <None Include="Service References\Events\Events712.xsd" />
-    <None Include="Service References\Events\Events72.xsd" />
-    <None Include="Service References\Events\Events73.xsd" />
-    <None Include="Service References\Events\Events74.xsd" />
-    <None Include="Service References\Events\Events75.xsd" />
-    <None Include="Service References\Events\Events76.xsd" />
-    <None Include="Service References\Events\Events77.xsd" />
-    <None Include="Service References\Events\Events78.xsd" />
-    <None Include="Service References\Events\Events79.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Events\Events1.disco" />
-    <None Include="Service References\Events\Events713.xsd" />
-    <None Include="Service References\Events\Events714.xsd" />
-    <None Include="Service References\Events\Events715.xsd" />
-    <None Include="Service References\Events\Events716.xsd" />
-    <None Include="Service References\Events\Events717.xsd" />
-    <None Include="Service References\Events\Events718.xsd" />
-    <None Include="Service References\Events\Events719.xsd" />
-    <None Include="Service References\Events\Events720.xsd" />
-    <None Include="Service References\Events\Events721.xsd" />
-    <None Include="Service References\Events\Events722.xsd" />
-    <None Include="Service References\Events\Events723.xsd" />
-  </ItemGroup>
-  <ItemGroup>
     <WebReferenceUrl Include="http://localhost:1551/Services/Admin.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\Admin\</RelPath>
@@ -236,6 +189,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>CprBroker_NUnitTester_Admin_Admin</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://localhost:1551/Services/Events.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Events\</RelPath>
+      <UpdateFromURL>http://localhost:1551/Services/Events.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CprBroker_NUnitTester_Events_Events_</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1551/Services/Part.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -288,6 +252,20 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Admin\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Events\Events.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Events\BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Events\BasicOutputTypeOfArrayOfPersonBirthdate.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Events\Events.disco" />
+    <None Include="Web References\Events\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

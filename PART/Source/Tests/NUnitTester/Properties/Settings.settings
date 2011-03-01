@@ -8,5 +8,8 @@
     <Setting Name="CprBroker_NUnitTester_Admin_Admin" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://localhost:1551/Services/Admin.asmx</Value>
     </Setting>
+    <Setting Name="CprBroker_NUnitTester_Events_Events_" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:1551/Services/Events.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
