@@ -10,6 +10,9 @@ using CprBroker.Engine;
 
 namespace CprBroker.EventBroker.Subscriptions
 {
+    /// <summary>
+    /// Facade method for Unsubscribe & RemoveBirthdateSubscription web methods
+    /// </summary>
     public class UnsubscribeFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         Guid SubscriptionId;

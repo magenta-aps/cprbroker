@@ -7,6 +7,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
+    /// <summary>
+    /// Installs Event Broker database
+    /// </summary>
     public class EventBrokerDatabaseInstaller : DatabaseInstaller
     {
         protected override string CreateDatabaseObjectsSql

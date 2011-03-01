@@ -12,6 +12,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
+    /// <summary>
+    /// Installs Backend service
+    /// </summary>
     public partial class EventBrokerBackendServiceInstaller : Installer
     {
         public EventBrokerBackendServiceInstaller()

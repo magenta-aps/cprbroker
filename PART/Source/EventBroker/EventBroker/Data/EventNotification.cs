@@ -7,11 +7,14 @@ using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Data
 {
+    /// <summary>
+    /// Represents the EventNotification table
+    /// </summary>
     public partial class EventNotification
     {
         public CprBroker.Schemas.Part.Events.CommonEventStructureType ToOioNotification()
         {
-            //TODO: Implement this method
+            //TODO: Fill urls
             var ret = new Schemas.Part.Events.CommonEventStructureType()
             {
                 EventDetailStructure = null,
@@ -38,7 +41,7 @@ namespace CprBroker.EventBroker.Data
 
         public NotificationService.CommonEventStructureType ToWsdl()
         {
-            //TODO: Implement this method
+            //TODO: Fill urls
             var ret = new NotificationService.CommonEventStructureType()
             {
                 EventDetailStructure = null,

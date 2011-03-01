@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Data
 {
+    /// <summary>
+    /// Represents the ChannelType table
+    /// </summary>
     public partial class ChannelType
     {
         public enum ChannelTypes

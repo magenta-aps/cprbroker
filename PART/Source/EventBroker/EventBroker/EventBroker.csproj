@@ -101,7 +101,7 @@
     <Compile Include="Subscriptions\SubscribeOnBirthdateFacadeMethod.cs" />
     <Compile Include="Subscriptions\SubscribeFacadeMethod.cs" />
     <Compile Include="Subscriptions\ISubscriptionDataProvider.cs" />
-    <Compile Include="Subscriptions\Manager.Subscription.cs" />
+    <Compile Include="Subscriptions\SubscriptionManager.cs" />
     <Compile Include="Notifications\BirthdateEventEnqueuer.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -8,6 +8,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Notifications
 {
+    /// <summary>
+    /// Base class for getting information for Event Broker from Cpr Broker
+    /// </summary>
     public partial class CprBrokerEventEnqueuer : PeriodicTaskExecuter
     {
         protected readonly EventsService.Events EventsService = new CprBroker.EventBroker.EventsService.Events();

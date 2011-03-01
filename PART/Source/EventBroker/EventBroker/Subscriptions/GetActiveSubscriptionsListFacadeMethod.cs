@@ -8,6 +8,9 @@ using CprBroker.Engine;
 
 namespace CprBroker.EventBroker.Subscriptions
 {
+    /// <summary>
+    /// Facade method for GetActiveSubscriptionsList
+    /// </summary>
     public class GetActiveSubscriptionsListFacadeMethod : GenericFacadeMethodInfo<SubscriptionType[]>
     {
         public GetActiveSubscriptionsListFacadeMethod(string appToken, string userToken)

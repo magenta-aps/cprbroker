@@ -7,6 +7,9 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Notifications
 {
+    /// <summary>
+    /// Syncronizes birthdates from Cpr broker and then enqueues any needed birthdate notifications
+    /// </summary>
     public partial class BirthdateEventEnqueuer : CprBrokerEventEnqueuer
     {
         public int BatchSize = 10;

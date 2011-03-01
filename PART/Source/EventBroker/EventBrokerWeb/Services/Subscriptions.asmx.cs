@@ -33,35 +33,35 @@ namespace CprBroker.EventBroker.Web.Services
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Subscribe, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.Subscribe)]
         public BasicOutputType<ChangeSubscriptionType> Subscribe(ChannelBaseType NotificationChannel, Guid[] personUuids)
         {
-            return Manager.Subscriptions.Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, personUuids);
+            return SubscriptionManager.Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, personUuids);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Unsubscribe, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.Unsubscribe)]
         public BasicOutputType<bool> Unsubscribe(Guid SubscriptionId)
         {
-            return Manager.Subscriptions.Unsubscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
+            return SubscriptionManager.Unsubscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.SubscribeOnBirthdate, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.SubscribeOnBirthdate)]
         public BasicOutputType<BirthdateSubscriptionType> SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, Guid[] PersonCivilRegistrationIdentifiers)
         {
-            return Manager.Subscriptions.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, PersonCivilRegistrationIdentifiers);
+            return SubscriptionManager.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, PersonCivilRegistrationIdentifiers);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.RemoveBirthDateSubscription, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.RemoveBirthDateSubscriptions)]
         public BasicOutputType<bool> RemoveBirthDateSubscription(Guid SubscriptionId)
         {
-            return Manager.Subscriptions.RemoveBirthDateSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
+            return SubscriptionManager.RemoveBirthDateSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.GetActiveSubscriptionsList, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.GetActiveSubscriptionsList)]
         public BasicOutputType<SubscriptionType[]> GetActiveSubscriptionsList()
         {
-            return Manager.Subscriptions.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+            return SubscriptionManager.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
     }

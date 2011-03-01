@@ -9,6 +9,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Notifications
 {
+    /// <summary>
+    /// Base class for running a task once whenever a period passes
+    /// </summary>
     public partial class PeriodicTaskExecuter : Component
     {
         private System.Threading.AutoResetEvent SyncObject = new System.Threading.AutoResetEvent(true);

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Data
 {
+    /// <summary>
+    /// Represents the SubscriptionType table
+    /// </summary>
     partial class SubscriptionType
     {
         public enum SubscriptionTypes

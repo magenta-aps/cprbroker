@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
+    /// <summary>
+    /// Gets information from user about the backend service name and how to connect to CPR Broker
+    /// </summary>
     public partial class ServiceNameForm : BaseForm
     {
         public string ServiceName = "Event broker service";

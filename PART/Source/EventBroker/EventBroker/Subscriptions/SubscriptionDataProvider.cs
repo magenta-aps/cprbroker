@@ -8,6 +8,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Subscriptions
 {
+    /// <summary>
+    /// Data provider that implements subscription methods
+    /// </summary>
     public partial class SubscriptionDataProvider : ISubscriptionDataProvider
     {
         /// <summary>

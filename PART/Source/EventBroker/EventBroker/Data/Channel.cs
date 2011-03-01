@@ -6,6 +6,9 @@ using CprBroker.Schemas;
 
 namespace CprBroker.EventBroker.Data
 {
+    /// <summary>
+    /// Represents the Channel table
+    /// </summary>
     public partial class Channel
     {
         public static Channel FromXmlType(ChannelBaseType oio)

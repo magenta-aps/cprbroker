@@ -7,6 +7,9 @@ using System.Text;
 
 namespace CprBroker.EventBroker.Notifications
 {
+    /// <summary>
+    /// Gets data change events for Event Broker from Cpr Broker
+    /// </summary>
     public partial class DataChangeEventEnqueuer : CprBrokerEventEnqueuer
     {
         public int BatchSize = 10;

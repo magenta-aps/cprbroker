@@ -7,6 +7,9 @@ using System.Text;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
+    /// <summary>
+    /// Installs the Event Broker system
+    /// </summary>
     [System.ComponentModel.RunInstaller(true)]
     public partial class EventBrokerInstaller : System.Configuration.Install.Installer
     {
