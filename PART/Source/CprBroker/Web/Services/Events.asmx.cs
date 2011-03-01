@@ -14,12 +14,12 @@ namespace CprService.Services
     /// <summary>
     /// Summary description for Events
     /// </summary>
-    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace)]
+    [WebService( Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called fromDate script, using ASP.NET AJAX, uncomment the following line. 
     // [System.Web.Script.Services.ScriptService]
-    public class Events_ : System.Web.Services.WebService
+    public class Events : System.Web.Services.WebService
     {
         public ApplicationHeader applicationHeader;
         private const string ApplicationHeaderName = "applicationHeader";

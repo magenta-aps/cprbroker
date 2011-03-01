@@ -19,12 +19,12 @@ namespace CprBroker.Web.Services
     [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = ServiceNames.Administrator.Service, Description = ServiceDescription.Administrator.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
-    public class CPRAdministrationWS_ : GKApp.WS.wsBaseV2
+    public class Admin : GKApp.WS.wsBaseV2
     {
         public ApplicationHeader applicationHeader;
         private const string ApplicationHeaderName = "applicationHeader";
 
-        public CPRAdministrationWS_()
+        public Admin()
         {
             BaseInit();
         }

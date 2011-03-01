@@ -19,12 +19,12 @@ namespace CprBroker.EventBroker.Web.Services
     [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Service, Description = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
-    public class Subscriptions_ : GKApp.WS.wsBaseV2
+    public class Subscriptions : GKApp.WS.wsBaseV2
     {
         public ApplicationHeader applicationHeader;
         private const string ApplicationHeaderName = "applicationHeader";
 
-        public Subscriptions_()
+        public Subscriptions()
         {
             BaseInit();
         }

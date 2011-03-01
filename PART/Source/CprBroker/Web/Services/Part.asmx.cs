@@ -16,7 +16,7 @@ namespace CprBroker.Web.Services
     [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Part.Service, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    public class Part_ : System.Web.Services.WebService
+    public class Part : System.Web.Services.WebService
     {
         public ApplicationHeader applicationHeader;
         private const string ApplicationHeaderName = "applicationHeader";

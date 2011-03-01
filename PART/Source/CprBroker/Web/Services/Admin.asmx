@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="Admin.asmx.cs" Class="CprBroker.Web.Services.CPRAdministrationWS_" %>
+﻿<%@ WebService Language="C#" CodeBehind="Admin.asmx.cs" Class="CprBroker.Web.Services.Admin" %>
