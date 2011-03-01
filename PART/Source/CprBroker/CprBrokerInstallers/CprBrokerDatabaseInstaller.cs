@@ -11,7 +11,7 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Installers.CprBrokerInstallers
 {
-    public class CprBrokerDatabaseInstaller : CprBroker.Installers.DBInstaller
+    public class CprBrokerDatabaseInstaller : CprBroker.Installers.DatabaseInstaller
     {
         public CprBrokerDatabaseInstaller()
         {
