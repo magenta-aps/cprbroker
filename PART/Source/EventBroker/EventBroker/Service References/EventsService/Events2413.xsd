@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="urn:oio:dkal:1.0.0" elementFormDefault="qualified" targetNamespace="urn:oio:dkal:1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="UUID" type="xs:string" />
-</xs:schema>

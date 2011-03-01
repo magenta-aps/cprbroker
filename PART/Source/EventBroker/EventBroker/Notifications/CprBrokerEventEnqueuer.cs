@@ -10,12 +10,9 @@ namespace CprBroker.EventBroker.Notifications
 {
     public partial class CprBrokerEventEnqueuer : PeriodicTaskExecuter
     {
-        protected readonly EventsService.EventsClient EventsService
-            = new CprBroker.EventBroker.EventsService.EventsClient(
-                new System.ServiceModel.WSHttpBinding(),
-                new System.ServiceModel.EndpointAddress(Config.Properties.Settings.Default.EventsServiceUrl)
-            );
-        protected EventBroker.EventsService.ApplicationHeader ApplicationHeader = new CprBroker.EventBroker.EventsService.ApplicationHeader();
+        protected readonly EventsService.Events EventsService = new CprBroker.EventBroker.EventsService.Events();
+
+        private EventBroker.EventsService.ApplicationHeader ApplicationHeader = new CprBroker.EventBroker.EventsService.ApplicationHeader();
 
         public CprBrokerEventEnqueuer()
         {
@@ -41,6 +38,9 @@ namespace CprBroker.EventBroker.Notifications
                 ApplicationToken = Constants.EventBrokerApplicationToken.ToString(),
                 UserToken = ""
             };
+
+            EventsService.ApplicationHeaderValue = ApplicationHeader;
+            EventsService.Url = Config.Properties.Settings.Default.EventsServiceUrl;
         }
 
     }

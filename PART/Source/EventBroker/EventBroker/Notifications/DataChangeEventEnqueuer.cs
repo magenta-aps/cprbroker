@@ -33,7 +33,7 @@ namespace CprBroker.EventBroker.Notifications
 
             while (moreChangesExist)
             {
-                var resp = EventsService.DequeueDataChangeEvents(ApplicationHeader, BatchSize);
+                var resp = EventsService.DequeueDataChangeEvents(BatchSize);
                 var changedPeople = resp.Item;
                 moreChangesExist = changedPeople.Length == BatchSize;
 

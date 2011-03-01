@@ -48,7 +48,7 @@ namespace CprBroker.EventBroker.Notifications
             Guid? lastPersonGuid = null;
             while (morePersons)
             {
-                var resp = EventsService.GetPersonBirthdates(ApplicationHeader, lastPersonGuid, BatchSize);
+                var resp = EventsService.GetPersonBirthdates(lastPersonGuid, BatchSize);
                 var personBirthdates = resp.Item;
 
                 if (personBirthdates.Length > 0)

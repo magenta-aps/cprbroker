@@ -213,9 +213,9 @@
             this.cprBrokerEventsServiceUrlLabel.AutoSize = true;
             this.cprBrokerEventsServiceUrlLabel.Location = new System.Drawing.Point(375, 59);
             this.cprBrokerEventsServiceUrlLabel.Name = "cprBrokerEventsServiceUrlLabel";
-            this.cprBrokerEventsServiceUrlLabel.Size = new System.Drawing.Size(108, 13);
+            this.cprBrokerEventsServiceUrlLabel.Size = new System.Drawing.Size(117, 13);
             this.cprBrokerEventsServiceUrlLabel.TabIndex = 12;
-            this.cprBrokerEventsServiceUrlLabel.Text = "/Services/Events.svc";
+            this.cprBrokerEventsServiceUrlLabel.Text = "/Services/Events.asmx";
             // 
             // ServiceNameForm
             // 

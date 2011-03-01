@@ -13,5 +13,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=10.20.1.20;Initial Catalog=PartEventBroker;Persist Security Info=True;User ID=sa</Value>
     </Setting>
+    <Setting Name="CprBroker_EventBroker_EventsService_Events" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:1551/Services/Events.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

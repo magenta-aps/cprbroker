@@ -43,5 +43,15 @@ namespace CprBroker.EventBroker.Properties {
                 return ((string)(this["PartEventBrokerConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1551/Services/Events.asmx")]
+        public string CprBroker_EventBroker_EventsService_Events {
+            get {
+                return ((string)(this["CprBroker_EventBroker_EventsService_Events"]));
+            }
+        }
     }
 }
