@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.Remoting.Messaging;
 using System.Diagnostics;
 using System.Web.Services;
-using CprBroker.DAL.Applications;
+using CprBroker.Data.Applications;
 using CprBroker.Engine.Exceptions;
 using CprBroker.Utilities;
 

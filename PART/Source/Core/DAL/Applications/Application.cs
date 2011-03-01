@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 
-namespace CprBroker.DAL.Applications
+namespace CprBroker.Data.Applications
 {
     public partial class Application
     {

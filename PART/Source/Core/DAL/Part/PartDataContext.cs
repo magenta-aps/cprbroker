@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 
-namespace CprBroker.DAL.Part
+namespace CprBroker.Data.Part
 {
     public partial class PartDataContext
     {

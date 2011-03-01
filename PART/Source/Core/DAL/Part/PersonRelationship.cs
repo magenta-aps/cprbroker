@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas.Part;
 using System.Data.Linq;
 
-namespace CprBroker.DAL.Part
+namespace CprBroker.Data.Part
 {
     public partial class PersonRelationship
     {

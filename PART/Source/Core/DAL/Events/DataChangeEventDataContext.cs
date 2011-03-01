@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.DAL.Events
+namespace CprBroker.Data.Events
 {
     public partial class DataChangeEventDataContext
     {

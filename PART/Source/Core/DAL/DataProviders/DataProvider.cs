@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Utilities;
 
-namespace CprBroker.DAL.DataProviders
+namespace CprBroker.Data.DataProviders
 {
     public partial class DataProvider
     {

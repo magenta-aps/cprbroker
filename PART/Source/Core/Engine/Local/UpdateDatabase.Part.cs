@@ -5,9 +5,9 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-using CprBroker.DAL;
-using CprBroker.DAL.Events;
-using CprBroker.DAL.Part;
+using CprBroker.Data;
+using CprBroker.Data.Events;
+using CprBroker.Data.Part;
 
 namespace CprBroker.Engine.Local
 {
@@ -86,14 +86,14 @@ namespace CprBroker.Engine.Local
                                     select dbPers).FirstOrDefault();
                     if (dbPerson == null)
                     {
-                        dbPerson = new CprBroker.DAL.Part.Person()
+                        dbPerson = new CprBroker.Data.Part.Person()
                         {
                             UUID = personIdentifier.UUID.Value,
                             UserInterfaceKeyText = personIdentifier.CprNumber
                         };
                         dataContext.Persons.InsertOnSubmit(dbPerson);
                     }
-                    var dbReg = DAL.Part.PersonRegistration.FromXmlType(oioRegistration);
+                    var dbReg = Data.Part.PersonRegistration.FromXmlType(oioRegistration);
                     dbReg.Person = dbPerson;
                     dbReg.BrokerUpdateDate = DateTime.Now;
                     dataContext.PersonRegistrations.InsertOnSubmit(dbReg);

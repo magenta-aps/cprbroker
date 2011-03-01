@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
-using CprBroker.DAL.Applications;
+using CprBroker.Data.Applications;
 using Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners;
 using CprBroker.Utilities;
 
@@ -32,7 +32,7 @@ namespace CprBroker.Engine.Trace
             {
                 using (ApplicationDataContext context = new ApplicationDataContext())
                 {
-                    DAL.Applications.LogEntry dbLogEntry = new DAL.Applications.LogEntry();
+                    Data.Applications.LogEntry dbLogEntry = new Data.Applications.LogEntry();
 
                     dbLogEntry.LogEntryId = Guid.NewGuid();
                     dbLogEntry.LogTypeId = (int)logEntry.Severity;

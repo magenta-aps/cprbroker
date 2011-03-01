@@ -37,7 +37,7 @@ namespace CprBroker.Engine.Part
                 return StandardReturType.InvalidUuid(Input.UUID);
             }
 
-            pId = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(Input.UUID));
+            pId = Data.Part.PersonMapping.GetPersonIdentifier(new Guid(Input.UUID));
             if (pId == null)
             {
                 return StandardReturType.UnknownUuid(Input.UUID);

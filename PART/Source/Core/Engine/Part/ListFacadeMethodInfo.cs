@@ -48,7 +48,7 @@ namespace CprBroker.Engine.Part
             var unknownUuidErrors = new List<String>();
             foreach (var inputPersonUuid in input.UUID)
             {
-                var personIdentifier = DAL.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
+                var personIdentifier = Data.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
                 if (personIdentifier == null)
                 {
                     unknownUuidErrors.Add("uuid " + inputPersonUuid + "valid but not found");

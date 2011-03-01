@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using System.IO;
 using CprBroker.Utilities;
 
-namespace CprBroker.DAL.Part
+namespace CprBroker.Data.Part
 {
     public partial class PersonRegistration
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Data.Linq;
 using System.IO;
-using CprBroker.DAL.DataProviders;
+using CprBroker.Data.DataProviders;
 using CprBroker.Utilities;
 
 namespace CprBroker.Engine
@@ -70,7 +70,7 @@ namespace CprBroker.Engine
         /// </summary>
         /// <param name="dbDataProvider">The database object that represents the data provider</param>
         /// <returns>The newly created IDataProvider</returns>
-        public static IExternalDataProvider CreateDataProvider(CprBroker.DAL.DataProviders.DataProvider dbDataProvider)
+        public static IExternalDataProvider CreateDataProvider(CprBroker.Data.DataProviders.DataProvider dbDataProvider)
         {
             IExternalDataProvider dataProvider = CreateDataProvider(dbDataProvider.TypeName) as IExternalDataProvider;
             if (dataProvider is IExternalDataProvider)
@@ -135,7 +135,7 @@ namespace CprBroker.Engine
 
         private static IExternalDataProvider[] LoadExternalDataProviders()
         {
-            using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
+            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
             {
                 DataProvider.SetChildLoadOptions(dataContext);
 

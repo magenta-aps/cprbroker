@@ -5,7 +5,7 @@ using System.Data.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.DAL.Part
+namespace CprBroker.Data.Part
 {
     public partial class AddressPoint
     {

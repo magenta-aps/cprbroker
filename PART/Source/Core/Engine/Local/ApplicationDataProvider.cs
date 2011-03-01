@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.DAL.Applications;
+using CprBroker.Data.Applications;
 using CprBroker.Schemas;
 using CprBroker.Utilities;
 

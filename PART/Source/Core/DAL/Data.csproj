@@ -8,8 +8,8 @@
     <ProjectGuid>{BBD25F50-FA7A-4799-9832-287AF59FB6C4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CprBroker.DAL</RootNamespace>
-    <AssemblyName>CprBroker.DAL</AssemblyName>
+    <RootNamespace>CprBroker.Data</RootNamespace>
+    <AssemblyName>CprBroker.Data</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -107,7 +107,6 @@
     <None Include="Part\PartDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +168,6 @@
     <None Include="Events\DataChangeEventDataContext.dbml">
       <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataChangeEventDataContext.designer.cs</LastGenOutput>
     </None>
     <None Include="Events\DataChangeEventDataContext.dbml.layout">
       <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
@@ -179,7 +177,6 @@
     <None Include="DataProviders\DataProvidersDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>DataProvidersDataContext.designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

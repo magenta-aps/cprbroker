@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Utilities;
 
-namespace CprBroker.DAL.Part
+namespace CprBroker.Data.Part
 {
     public partial class PersonMapping
     {

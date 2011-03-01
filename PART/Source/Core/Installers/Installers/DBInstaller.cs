@@ -13,7 +13,7 @@ using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System.IO;
 using System.Xml;
-using CprBroker.DAL;
+using CprBroker.Data;
 using System.Reflection;
 using CprBroker.Utilities;
 

@@ -30,11 +30,11 @@ namespace CprBroker.Engine.Events
         {
             lock (QueueLock)
             {
-                using (var dataContext = new DAL.Events.DataChangeEventDataContext())
+                using (var dataContext = new Data.Events.DataChangeEventDataContext())
                 {
                     var events = dataContext.DataChangeEvents.Take(maxCount).ToArray();
 
-                    var ret = Array.ConvertAll<DAL.Events.DataChangeEvent, CprBroker.Schemas.Part.Events.DataChangeEventInfo>(
+                    var ret = Array.ConvertAll<Data.Events.DataChangeEvent, CprBroker.Schemas.Part.Events.DataChangeEventInfo>(
                         events,
                         ev => new Schemas.Part.Events.DataChangeEventInfo()
                         {
@@ -52,7 +52,7 @@ namespace CprBroker.Engine.Events
 
         public CprBroker.Schemas.Part.Events.PersonBirthdate[] GetPersonBirthdates(Guid? personUuidToStartAfter, int maxCount)
         {
-            using (var dataConvext = new DAL.Part.PartDataContext())
+            using (var dataConvext = new Data.Part.PartDataContext())
             {
                 var persons = dataConvext.PersonMappings.AsQueryable();
                 if (personUuidToStartAfter.HasValue)
@@ -62,7 +62,7 @@ namespace CprBroker.Engine.Events
                 persons = persons.OrderBy(p => p.UUID);
                 persons = persons.Take(maxCount);
 
-                return Array.ConvertAll<DAL.Part.PersonMapping, Schemas.Part.Events.PersonBirthdate>
+                return Array.ConvertAll<Data.Part.PersonMapping, Schemas.Part.Events.PersonBirthdate>
                 (
                     persons.ToArray(),
                     p => new Schemas.Part.Events.PersonBirthdate()

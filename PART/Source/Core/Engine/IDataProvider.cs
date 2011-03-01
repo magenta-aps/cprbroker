@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-using CprBroker.DAL;
+using CprBroker.Data;
 
 namespace CprBroker.Engine
 {
@@ -28,7 +28,6 @@ namespace CprBroker.Engine
     /// </summary>
     public interface IExternalDataProvider : IDataProvider
     {
-        //DAL.DataProviders.DataProvider DatabaseObject { get; set; } 
         Dictionary<string, string> ConfigurationProperties { get; set; }
         DataProviderConfigPropertyInfo[] ConfigurationKeys { get; }
     }

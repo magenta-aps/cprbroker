@@ -1,4 +1,4 @@
-namespace CprBroker.DAL.Applications
+namespace CprBroker.Data.Applications
 {
     partial class ApplicationDataContext
     {

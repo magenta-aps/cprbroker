@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.DAL.Part
+namespace CprBroker.Data.Part
 {
     public partial class PersonProperties
     {
@@ -18,7 +18,7 @@ namespace CprBroker.DAL.Part
                     new EgenskabType()
                     {
                         BirthDate = db.BirthDate,
-                        PersonGenderCode = DAL.Part.Gender.GetPartGender(db.GenderId),
+                        PersonGenderCode = Data.Part.Gender.GetPartGender(db.GenderId),
                         NavnStruktur = new NavnStrukturType()
                         {
                             KaldenavnTekst = db.NickName,
@@ -46,7 +46,7 @@ namespace CprBroker.DAL.Part
                 {
                     BirthDate = oio[0].BirthDate,
 
-                    GenderId = DAL.Part.Gender.GetPartCode(oio[0].PersonGenderCode),
+                    GenderId = Data.Part.Gender.GetPartCode(oio[0].PersonGenderCode),
                     BirthPlace = oio[0].FoedestedNavn,
                     BirthRegistrationAuthority = oio[0].FoedselsregistreringMyndighedNavn,
 
