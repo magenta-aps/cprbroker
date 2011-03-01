@@ -17,35 +17,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:1552/Services/Subscriptions.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:1552/Services/Subscriptions.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Subscriptions.xsd" MetadataType="Schema" ID="051f41d4-da7c-4c47-b9fe-5429723902bf" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd20" />
-    <MetadataFile FileName="Subscriptions1.xsd" MetadataType="Schema" ID="9bb1710a-9493-4a96-aa52-e57c303643c3" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd15" />
-    <MetadataFile FileName="Subscriptions2.xsd" MetadataType="Schema" ID="f60b387b-7fcd-4e5d-a794-a1b59f273fc7" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd14" />
-    <MetadataFile FileName="Subscriptions3.xsd" MetadataType="Schema" ID="6e56d32a-458b-463e-90a6-8799aa6d03cd" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd16" />
-    <MetadataFile FileName="Subscriptions4.xsd" MetadataType="Schema" ID="aa2bcd6a-a12a-4829-a600-e208778af3d4" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd1" />
-    <MetadataFile FileName="Subscriptions5.xsd" MetadataType="Schema" ID="a0f45d31-cb2d-48c9-a6b3-6ff6ffb4ac15" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd0" />
-    <MetadataFile FileName="Subscriptions6.xsd" MetadataType="Schema" ID="a430d5e8-4de5-4cd6-bc33-a5e4781dffc5" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd3" />
-    <MetadataFile FileName="Subscriptions7.xsd" MetadataType="Schema" ID="b2114e58-0ca1-4e1e-9a44-3d9964366e85" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd2" />
-    <MetadataFile FileName="Subscriptions8.xsd" MetadataType="Schema" ID="971f6566-089c-43bc-96b6-b097e6c89f63" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd5" />
-    <MetadataFile FileName="Subscriptions9.xsd" MetadataType="Schema" ID="4b3ed887-3952-47ec-befb-8a4d3d7fcf9a" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd4" />
-    <MetadataFile FileName="Subscriptions10.xsd" MetadataType="Schema" ID="423ab041-f7b3-4138-9607-90401f44646d" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd7" />
-    <MetadataFile FileName="Subscriptions11.xsd" MetadataType="Schema" ID="952e13cc-da4c-420e-9db0-da6d94e12fdd" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd6" />
-    <MetadataFile FileName="Subscriptions12.xsd" MetadataType="Schema" ID="95028d82-df8b-4424-9f11-2d85155957fd" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd9" />
-    <MetadataFile FileName="Subscriptions13.xsd" MetadataType="Schema" ID="479623e9-ea0f-48ad-b5a0-6dd8269f2500" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd8" />
-    <MetadataFile FileName="Subscriptions14.xsd" MetadataType="Schema" ID="d18afd88-a8cb-4c9d-92ee-d52ab222ddb5" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd11" />
-    <MetadataFile FileName="Subscriptions15.xsd" MetadataType="Schema" ID="c7bb78eb-8ce5-433b-beef-fade7ae1d1c1" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd19" />
-    <MetadataFile FileName="Subscriptions16.xsd" MetadataType="Schema" ID="67e16684-d939-4b52-b439-6e1b2b4b2f92" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd21" />
-    <MetadataFile FileName="Subscriptions17.xsd" MetadataType="Schema" ID="1bd2636f-41dd-4213-b9d5-083627ba1592" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd13" />
-    <MetadataFile FileName="Subscriptions18.xsd" MetadataType="Schema" ID="ae274e2c-bafc-4c39-bffc-2488a03099de" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd23" />
-    <MetadataFile FileName="Subscriptions19.xsd" MetadataType="Schema" ID="1ecdb630-e64b-489c-8b17-cf55bd240379" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd12" />
-    <MetadataFile FileName="Subscriptions1.wsdl" MetadataType="Wsdl" ID="ba5a2aa9-ef7d-42be-a135-b8922b68ad08" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?wsdl" />
-    <MetadataFile FileName="Subscriptions20.xsd" MetadataType="Schema" ID="12052b69-3d88-4714-ad01-54d07274add5" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd22" />
-    <MetadataFile FileName="Subscriptions21.xsd" MetadataType="Schema" ID="a20dc4d4-c856-488f-a178-46659821baa8" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd17" />
-    <MetadataFile FileName="Subscriptions1.disco" MetadataType="Disco" ID="6caeefed-0336-498b-b88a-2706fc4d71e6" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?disco" />
-    <MetadataFile FileName="Subscriptions22.xsd" MetadataType="Schema" ID="ee091281-1041-44cf-9e30-79824a67aab0" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd18" />
-    <MetadataFile FileName="Subscriptions23.xsd" MetadataType="Schema" ID="4a7a0fed-39f4-49b2-a257-fbbe0596aae7" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.svc?xsd=xsd10" />
+    <MetadataFile FileName="Subscriptions1.disco" MetadataType="Disco" ID="abb141f2-5e6c-404b-9071-a6e120302343" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.asmx?disco" />
+    <MetadataFile FileName="Subscriptions1.wsdl" MetadataType="Wsdl" ID="53a82e2f-ea58-4a51-a453-ca8d2d34504a" SourceId="1" SourceUrl="http://localhost:1552/Services/Subscriptions.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

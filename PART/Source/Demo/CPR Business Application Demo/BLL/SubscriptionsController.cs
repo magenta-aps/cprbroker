@@ -26,13 +26,12 @@ namespace CPR_Business_Application_Demo.Business
         {
             try
             {
-                var cprAdministrationAdapter = new SubscriptionAdapter(Settings["CPRBrokerWebServiceUrl"].ToString());
+                var cprAdministrationAdapter = new SubscriptionAdapter(CprSubscriptionsWebServiceUrl);
                 return cprAdministrationAdapter.GetActiveSubscriptions(GetHeader()).Item;
 
             }
-            catch (Exception)
-            {
-                
+            catch (Exception ex)
+            {                
                 return new SubscriptionType[]{};
             }
         }

@@ -12,10 +12,11 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="ApplicationsService.IAdmin")]
-    public interface IAdmin {
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="ApplicationsService.AdminSoap12")]
+    public interface AdminSoap12 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/RequestAppRegistration", ReplyAction="http://dk.itst/IAdmin/RequestAppRegistrationResponse")]
+        // CODEGEN: Generating message contract since message RequestAppRegistrationRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/RequestAppRegistration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -26,9 +27,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string ApplicationName);
+        CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/ApproveAppRegistration", ReplyAction="http://dk.itst/IAdmin/ApproveAppRegistrationResponse")]
+        // CODEGEN: Generating message contract since message ApproveAppRegistrationRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ApproveAppRegistration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -39,9 +41,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string ApplicationToken);
+        CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/ListAppRegistrations", ReplyAction="http://dk.itst/IAdmin/ListAppRegistrationsResponse")]
+        // CODEGEN: Generating message contract since message ListAppRegistrationsRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ListAppRegistrations", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -52,9 +55,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader);
+        CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/UnregisterApp", ReplyAction="http://dk.itst/IAdmin/UnregisterAppResponse")]
+        // CODEGEN: Generating message contract since message UnregisterAppRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/UnregisterApp", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -65,9 +69,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string ApplicationToken);
+        CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/GetCapabilities", ReplyAction="http://dk.itst/IAdmin/GetCapabilitiesResponse")]
+        // CODEGEN: Generating message contract since message GetCapabilitiesRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetCapabilities", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -78,9 +83,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfServiceVersionType GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader);
+        CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/IsImplementing", ReplyAction="http://dk.itst/IAdmin/IsImplementingResponse")]
+        // CODEGEN: Generating message contract since message IsImplementingRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IsImplementing", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -91,9 +97,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean IsImplementing(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string serviceName, string serviceVersion);
+        CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse IsImplementing(CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/GetDataProviderList", ReplyAction="http://dk.itst/IAdmin/GetDataProviderListResponse")]
+        // CODEGEN: Generating message contract since message GetDataProviderListRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetDataProviderList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -104,9 +111,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfDataProviderType GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader);
+        CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/SetDataProviderList", ReplyAction="http://dk.itst/IAdmin/SetDataProviderListResponse")]
+        // CODEGEN: Generating message contract since message SetDataProviderListRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/SetDataProviderList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -117,9 +125,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, DataProviderType[] DataProviders);
+        CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IAdmin/Log", ReplyAction="http://dk.itst/IAdmin/LogResponse")]
+        // CODEGEN: Generating message contract since message LogRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Log", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
@@ -130,7 +139,20 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean Log(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string Text);
+        CPR_Business_Application_Demo.ApplicationsService.LogResponse Log(CPR_Business_Application_Demo.ApplicationsService.LogRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Ping", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
+        string Ping();
     }
     
     /// <remarks/>
@@ -144,6 +166,8 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         private string applicationTokenField;
         
         private string userTokenField;
+        
+        private System.Xml.XmlAttribute[] anyAttrField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -166,6 +190,18 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.userTokenField = value;
                 this.RaisePropertyChanged("UserToken");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr {
+            get {
+                return this.anyAttrField;
+            }
+            set {
+                this.anyAttrField = value;
+                this.RaisePropertyChanged("AnyAttr");
             }
         }
         
@@ -1638,8 +1674,8 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3846,8 +3882,8 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfDataProviderType))]
@@ -3892,29 +3928,6 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class RegistreringOutputType : BasicOutputType {
-        
-        private RegistreringType1 registreringField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public RegistreringType1 Registrering {
-            get {
-                return this.registreringField;
-            }
-            set {
-                this.registreringField = value;
-                this.RaisePropertyChanged("Registrering");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
     public partial class GetUuidOutputType : BasicOutputType {
         
         private string uUIDField;
@@ -3928,6 +3941,29 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.uUIDField = value;
                 this.RaisePropertyChanged("UUID");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class RegistreringOutputType : BasicOutputType {
+        
+        private RegistreringType1 registreringField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public RegistreringType1 Registrering {
+            get {
+                return this.registreringField;
+            }
+            set {
+                this.registreringField = value;
+                this.RaisePropertyChanged("Registrering");
             }
         }
     }
@@ -4093,67 +4129,466 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public interface IAdminChannel : CPR_Business_Application_Demo.ApplicationsService.IAdmin, System.ServiceModel.IClientChannel {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RequestAppRegistration", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class RequestAppRegistrationRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public string ApplicationName;
+        
+        public RequestAppRegistrationRequest() {
+        }
+        
+        public RequestAppRegistrationRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationName) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.ApplicationName = ApplicationName;
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public partial class AdminClient : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.ApplicationsService.IAdmin>, CPR_Business_Application_Demo.ApplicationsService.IAdmin {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RequestAppRegistrationResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class RequestAppRegistrationResponse {
         
-        public AdminClient() {
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType RequestAppRegistrationResult;
+        
+        public RequestAppRegistrationResponse() {
         }
         
-        public AdminClient(string endpointConfigurationName) : 
+        public RequestAppRegistrationResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType RequestAppRegistrationResult) {
+            this.RequestAppRegistrationResult = RequestAppRegistrationResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ApproveAppRegistration", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class ApproveAppRegistrationRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public string ApplicationToken;
+        
+        public ApproveAppRegistrationRequest() {
+        }
+        
+        public ApproveAppRegistrationRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationToken) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.ApplicationToken = ApplicationToken;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ApproveAppRegistrationResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class ApproveAppRegistrationResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean ApproveAppRegistrationResult;
+        
+        public ApproveAppRegistrationResponse() {
+        }
+        
+        public ApproveAppRegistrationResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean ApproveAppRegistrationResult) {
+            this.ApproveAppRegistrationResult = ApproveAppRegistrationResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListAppRegistrations", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class ListAppRegistrationsRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        public ListAppRegistrationsRequest() {
+        }
+        
+        public ListAppRegistrationsRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+            this.ApplicationHeader = ApplicationHeader;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListAppRegistrationsResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class ListAppRegistrationsResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrationsResult;
+        
+        public ListAppRegistrationsResponse() {
+        }
+        
+        public ListAppRegistrationsResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrationsResult) {
+            this.ListAppRegistrationsResult = ListAppRegistrationsResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UnregisterApp", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class UnregisterAppRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public string ApplicationToken;
+        
+        public UnregisterAppRequest() {
+        }
+        
+        public UnregisterAppRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationToken) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.ApplicationToken = ApplicationToken;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UnregisterAppResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class UnregisterAppResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean UnregisterAppResult;
+        
+        public UnregisterAppResponse() {
+        }
+        
+        public UnregisterAppResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean UnregisterAppResult) {
+            this.UnregisterAppResult = UnregisterAppResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetCapabilities", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class GetCapabilitiesRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        public GetCapabilitiesRequest() {
+        }
+        
+        public GetCapabilitiesRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+            this.ApplicationHeader = ApplicationHeader;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetCapabilitiesResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class GetCapabilitiesResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfServiceVersionType GetCapabilitiesResult;
+        
+        public GetCapabilitiesResponse() {
+        }
+        
+        public GetCapabilitiesResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfServiceVersionType GetCapabilitiesResult) {
+            this.GetCapabilitiesResult = GetCapabilitiesResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="IsImplementing", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class IsImplementingRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public string serviceName;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=1)]
+        public string serviceVersion;
+        
+        public IsImplementingRequest() {
+        }
+        
+        public IsImplementingRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string serviceName, string serviceVersion) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.serviceName = serviceName;
+            this.serviceVersion = serviceVersion;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="IsImplementingResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class IsImplementingResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean IsImplementingResult;
+        
+        public IsImplementingResponse() {
+        }
+        
+        public IsImplementingResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean IsImplementingResult) {
+            this.IsImplementingResult = IsImplementingResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetDataProviderList", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class GetDataProviderListRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        public GetDataProviderListRequest() {
+        }
+        
+        public GetDataProviderListRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+            this.ApplicationHeader = ApplicationHeader;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetDataProviderListResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class GetDataProviderListResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfDataProviderType GetDataProviderListResult;
+        
+        public GetDataProviderListResponse() {
+        }
+        
+        public GetDataProviderListResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfDataProviderType GetDataProviderListResult) {
+            this.GetDataProviderListResult = GetDataProviderListResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SetDataProviderList", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class SetDataProviderListRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public DataProviderType[] DataProviders;
+        
+        public SetDataProviderListRequest() {
+        }
+        
+        public SetDataProviderListRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, DataProviderType[] DataProviders) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.DataProviders = DataProviders;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SetDataProviderListResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class SetDataProviderListResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean SetDataProviderListResult;
+        
+        public SetDataProviderListResponse() {
+        }
+        
+        public SetDataProviderListResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean SetDataProviderListResult) {
+            this.SetDataProviderListResult = SetDataProviderListResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Log", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class LogRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public string Text;
+        
+        public LogRequest() {
+        }
+        
+        public LogRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string Text) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.Text = Text;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="LogResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class LogResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean LogResult;
+        
+        public LogResponse() {
+        }
+        
+        public LogResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean LogResult) {
+            this.LogResult = LogResult;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    public interface AdminSoap12Channel : CPR_Business_Application_Demo.ApplicationsService.AdminSoap12, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    public partial class AdminSoap12Client : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.ApplicationsService.AdminSoap12>, CPR_Business_Application_Demo.ApplicationsService.AdminSoap12 {
+        
+        public AdminSoap12Client() {
+        }
+        
+        public AdminSoap12Client(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public AdminClient(string endpointConfigurationName, string remoteAddress) : 
+        public AdminSoap12Client(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public AdminClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public AdminSoap12Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public AdminClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public AdminSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string ApplicationName) {
-            return base.Channel.RequestAppRegistration(applicationHeader, ApplicationName);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest request) {
+            return base.Channel.RequestAppRegistration(request);
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string ApplicationToken) {
-            return base.Channel.ApproveAppRegistration(applicationHeader, ApplicationToken);
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfApplicationType RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationName) {
+            CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.ApplicationName = ApplicationName;
+            CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).RequestAppRegistration(inValue);
+            return retVal.RequestAppRegistrationResult;
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader) {
-            return base.Channel.ListAppRegistrations(applicationHeader);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest request) {
+            return base.Channel.ApproveAppRegistration(request);
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string ApplicationToken) {
-            return base.Channel.UnregisterApp(applicationHeader, ApplicationToken);
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationToken) {
+            CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.ApplicationToken = ApplicationToken;
+            CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).ApproveAppRegistration(inValue);
+            return retVal.ApproveAppRegistrationResult;
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfServiceVersionType GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader) {
-            return base.Channel.GetCapabilities(applicationHeader);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest request) {
+            return base.Channel.ListAppRegistrations(request);
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean IsImplementing(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string serviceName, string serviceVersion) {
-            return base.Channel.IsImplementing(applicationHeader, serviceName, serviceVersion);
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfApplicationType ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+            CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).ListAppRegistrations(inValue);
+            return retVal.ListAppRegistrationsResult;
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfDataProviderType GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader) {
-            return base.Channel.GetDataProviderList(applicationHeader);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest request) {
+            return base.Channel.UnregisterApp(request);
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, DataProviderType[] DataProviders) {
-            return base.Channel.SetDataProviderList(applicationHeader, DataProviders);
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string ApplicationToken) {
+            CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.ApplicationToken = ApplicationToken;
+            CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).UnregisterApp(inValue);
+            return retVal.UnregisterAppResult;
         }
         
-        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean Log(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader applicationHeader, string Text) {
-            return base.Channel.Log(applicationHeader, Text);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest request) {
+            return base.Channel.GetCapabilities(request);
+        }
+        
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfServiceVersionType GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+            CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).GetCapabilities(inValue);
+            return retVal.GetCapabilitiesResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.IsImplementing(CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest request) {
+            return base.Channel.IsImplementing(request);
+        }
+        
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean IsImplementing(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string serviceName, string serviceVersion) {
+            CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.serviceName = serviceName;
+            inValue.serviceVersion = serviceVersion;
+            CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).IsImplementing(inValue);
+            return retVal.IsImplementingResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest request) {
+            return base.Channel.GetDataProviderList(request);
+        }
+        
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfArrayOfDataProviderType GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+            CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).GetDataProviderList(inValue);
+            return retVal.GetDataProviderListResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest request) {
+            return base.Channel.SetDataProviderList(request);
+        }
+        
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, DataProviderType[] DataProviders) {
+            CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.DataProviders = DataProviders;
+            CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).SetDataProviderList(inValue);
+            return retVal.SetDataProviderListResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.LogResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.Log(CPR_Business_Application_Demo.ApplicationsService.LogRequest request) {
+            return base.Channel.Log(request);
+        }
+        
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean Log(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader, string Text) {
+            CPR_Business_Application_Demo.ApplicationsService.LogRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.LogRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.Text = Text;
+            CPR_Business_Application_Demo.ApplicationsService.LogResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).Log(inValue);
+            return retVal.LogResult;
+        }
+        
+        public string Ping() {
+            return base.Channel.Ping();
         }
     }
 }

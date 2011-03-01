@@ -12,83 +12,88 @@ namespace CPR_Business_Application_Demo.PartService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="PartService.IPart")]
-    public interface IPart {
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://dk.itst", ConfigurationName="PartService.PartSoap12")]
+    public interface PartSoap12 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/Read", ReplyAction="http://dk.itst/IPart/ReadResponse")]
+        // CODEGEN: Generating message contract since message ReadRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Read", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.LaesOutputType Read(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput);
+        CPR_Business_Application_Demo.PartService.ReadResponse Read(CPR_Business_Application_Demo.PartService.ReadRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/RefreshRead", ReplyAction="http://dk.itst/IPart/RefreshReadResponse")]
+        // CODEGEN: Generating message contract since the wrapper name (RefreshRead_x0020_) of message RefreshRead_x0020_ does not match the default value (RefreshRead)
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/RefreshRead ", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.LaesOutputType RefreshRead(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput);
+        CPR_Business_Application_Demo.PartService.RefreshRead1 RefreshRead(CPR_Business_Application_Demo.PartService.RefreshRead request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/List", ReplyAction="http://dk.itst/IPart/ListResponse")]
+        // CODEGEN: Generating message contract since message ListRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/List", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.ListOutputType1 List(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.ListInputType ListInput);
+        CPR_Business_Application_Demo.PartService.ListResponse List(CPR_Business_Application_Demo.PartService.ListRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/Search", ReplyAction="http://dk.itst/IPart/SearchResponse")]
+        // CODEGEN: Generating message contract since message SearchRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Search", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.SoegOutputType Search(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.SoegInputType1 SoegInput);
+        CPR_Business_Application_Demo.PartService.SearchResponse Search(CPR_Business_Application_Demo.PartService.SearchRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IPart/GetUuid", ReplyAction="http://dk.itst/IPart/GetUuidResponse")]
+        // CODEGEN: Generating message contract since message GetUuidRequest has headers
+        [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetUuid", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegSagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SoegInputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ListOutputType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
-        CPR_Business_Application_Demo.PartService.GetUuidOutputType GetUuid(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, string cprNumber);
+        CPR_Business_Application_Demo.PartService.GetUuidResponse GetUuid(CPR_Business_Application_Demo.PartService.GetUuidRequest request);
     }
     
     /// <remarks/>
@@ -102,6 +107,8 @@ namespace CPR_Business_Application_Demo.PartService {
         private string applicationTokenField;
         
         private string userTokenField;
+        
+        private System.Xml.XmlAttribute[] anyAttrField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -124,6 +131,18 @@ namespace CPR_Business_Application_Demo.PartService {
             set {
                 this.userTokenField = value;
                 this.RaisePropertyChanged("UserToken");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr {
+            get {
+                return this.anyAttrField;
+            }
+            set {
+                this.anyAttrField = value;
+                this.RaisePropertyChanged("AnyAttr");
             }
         }
         
@@ -2283,8 +2302,8 @@ namespace CPR_Business_Application_Demo.PartService {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4339,10 +4358,10 @@ namespace CPR_Business_Application_Demo.PartService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4650,8 +4669,70 @@ namespace CPR_Business_Application_Demo.PartService {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public partial class QualityHeader : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private System.Nullable<QualityLevel> qualityLevelField;
+        
+        private System.Xml.XmlAttribute[] anyAttrField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
+        public System.Nullable<QualityLevel> QualityLevel {
+            get {
+                return this.qualityLevelField;
+            }
+            set {
+                this.qualityLevelField = value;
+                this.RaisePropertyChanged("QualityLevel");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr {
+            get {
+                return this.anyAttrField;
+            }
+            set {
+                this.anyAttrField = value;
+                this.RaisePropertyChanged("AnyAttr");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dk.itst")]
+    public enum QualityLevel {
+        
+        /// <remarks/>
+        Cpr,
+        
+        /// <remarks/>
+        DataProvider,
+        
+        /// <remarks/>
+        LocalCache,
+    }
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
@@ -4691,29 +4772,6 @@ namespace CPR_Business_Application_Demo.PartService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class RegistreringOutputType : BasicOutputType {
-        
-        private RegistreringType1 registreringField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public RegistreringType1 Registrering {
-            get {
-                return this.registreringField;
-            }
-            set {
-                this.registreringField = value;
-                this.RaisePropertyChanged("Registrering");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
     public partial class GetUuidOutputType : BasicOutputType {
         
         private string uUIDField;
@@ -4727,6 +4785,29 @@ namespace CPR_Business_Application_Demo.PartService {
             set {
                 this.uUIDField = value;
                 this.RaisePropertyChanged("UUID");
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class RegistreringOutputType : BasicOutputType {
+        
+        private RegistreringType1 registreringField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public RegistreringType1 Registrering {
+            get {
+                return this.registreringField;
+            }
+            set {
+                this.registreringField = value;
+                this.RaisePropertyChanged("Registrering");
             }
         }
     }
@@ -4865,51 +4946,296 @@ namespace CPR_Business_Application_Demo.PartService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public interface IPartChannel : CPR_Business_Application_Demo.PartService.IPart, System.ServiceModel.IClientChannel {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Read", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class ReadRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:2.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.LaesInputType LaesInput;
+        
+        public ReadRequest() {
+        }
+        
+        public ReadRequest(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.LaesInput = LaesInput;
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public partial class PartClient : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.PartService.IPart>, CPR_Business_Application_Demo.PartService.IPart {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ReadResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class ReadResponse {
         
-        public PartClient() {
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.LaesOutputType LaesOutput;
+        
+        public ReadResponse() {
         }
         
-        public PartClient(string endpointConfigurationName) : 
+        public ReadResponse(CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader, CPR_Business_Application_Demo.PartService.LaesOutputType LaesOutput) {
+            this.QualityHeader = QualityHeader;
+            this.LaesOutput = LaesOutput;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RefreshRead ", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class RefreshRead {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:2.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.LaesInputType LaesInput;
+        
+        public RefreshRead() {
+        }
+        
+        public RefreshRead(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.LaesInput = LaesInput;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RefreshRead Response", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class RefreshRead1 {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.LaesOutputType LaesOutput;
+        
+        public RefreshRead1() {
+        }
+        
+        public RefreshRead1(CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader, CPR_Business_Application_Demo.PartService.LaesOutputType LaesOutput) {
+            this.QualityHeader = QualityHeader;
+            this.LaesOutput = LaesOutput;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="List", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class ListRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:2.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.ListInputType ListInput;
+        
+        public ListRequest() {
+        }
+        
+        public ListRequest(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.PartService.ListInputType ListInput) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.ListInput = ListInput;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ListResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class ListResponse {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.ListOutputType1 ListOutput;
+        
+        public ListResponse() {
+        }
+        
+        public ListResponse(CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader, CPR_Business_Application_Demo.PartService.ListOutputType1 ListOutput) {
+            this.QualityHeader = QualityHeader;
+            this.ListOutput = ListOutput;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Search", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class SearchRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.SoegInputType1 SoegInput;
+        
+        public SearchRequest() {
+        }
+        
+        public SearchRequest(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.PartService.SoegInputType1 SoegInput) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.SoegInput = SoegInput;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SearchResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class SearchResponse {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.SoegOutputType SoegOutput;
+        
+        public SearchResponse() {
+        }
+        
+        public SearchResponse(CPR_Business_Application_Demo.PartService.QualityHeader QualityHeader, CPR_Business_Application_Demo.PartService.SoegOutputType SoegOutput) {
+            this.QualityHeader = QualityHeader;
+            this.SoegOutput = SoegOutput;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetUuid", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class GetUuidRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public string cprNumber;
+        
+        public GetUuidRequest() {
+        }
+        
+        public GetUuidRequest(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, string cprNumber) {
+            this.ApplicationHeader = ApplicationHeader;
+            this.cprNumber = cprNumber;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetUuidResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class GetUuidResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:oio:sagdok:person:1.0.0", Order=0)]
+        public CPR_Business_Application_Demo.PartService.GetUuidOutputType GetUuidOutput;
+        
+        public GetUuidResponse() {
+        }
+        
+        public GetUuidResponse(CPR_Business_Application_Demo.PartService.GetUuidOutputType GetUuidOutput) {
+            this.GetUuidOutput = GetUuidOutput;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    public interface PartSoap12Channel : CPR_Business_Application_Demo.PartService.PartSoap12, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    public partial class PartSoap12Client : System.ServiceModel.ClientBase<CPR_Business_Application_Demo.PartService.PartSoap12>, CPR_Business_Application_Demo.PartService.PartSoap12 {
+        
+        public PartSoap12Client() {
+        }
+        
+        public PartSoap12Client(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public PartClient(string endpointConfigurationName, string remoteAddress) : 
+        public PartSoap12Client(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public PartClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public PartSoap12Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public PartClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public PartSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        public CPR_Business_Application_Demo.PartService.LaesOutputType Read(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput) {
-            return base.Channel.Read(applicationHeader, LaesInput);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.PartService.ReadResponse CPR_Business_Application_Demo.PartService.PartSoap12.Read(CPR_Business_Application_Demo.PartService.ReadRequest request) {
+            return base.Channel.Read(request);
         }
         
-        public CPR_Business_Application_Demo.PartService.LaesOutputType RefreshRead(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput) {
-            return base.Channel.RefreshRead(applicationHeader, LaesInput);
+        public CPR_Business_Application_Demo.PartService.QualityHeader Read(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput, out CPR_Business_Application_Demo.PartService.LaesOutputType LaesOutput) {
+            CPR_Business_Application_Demo.PartService.ReadRequest inValue = new CPR_Business_Application_Demo.PartService.ReadRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.LaesInput = LaesInput;
+            CPR_Business_Application_Demo.PartService.ReadResponse retVal = ((CPR_Business_Application_Demo.PartService.PartSoap12)(this)).Read(inValue);
+            LaesOutput = retVal.LaesOutput;
+            return retVal.QualityHeader;
         }
         
-        public CPR_Business_Application_Demo.PartService.ListOutputType1 List(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.ListInputType ListInput) {
-            return base.Channel.List(applicationHeader, ListInput);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.PartService.RefreshRead1 CPR_Business_Application_Demo.PartService.PartSoap12.RefreshRead(CPR_Business_Application_Demo.PartService.RefreshRead request) {
+            return base.Channel.RefreshRead(request);
         }
         
-        public CPR_Business_Application_Demo.PartService.SoegOutputType Search(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, CPR_Business_Application_Demo.PartService.SoegInputType1 SoegInput) {
-            return base.Channel.Search(applicationHeader, SoegInput);
+        public CPR_Business_Application_Demo.PartService.QualityHeader RefreshRead(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.PartService.LaesInputType LaesInput, out CPR_Business_Application_Demo.PartService.LaesOutputType LaesOutput) {
+            CPR_Business_Application_Demo.PartService.RefreshRead inValue = new CPR_Business_Application_Demo.PartService.RefreshRead();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.LaesInput = LaesInput;
+            CPR_Business_Application_Demo.PartService.RefreshRead1 retVal = ((CPR_Business_Application_Demo.PartService.PartSoap12)(this)).RefreshRead(inValue);
+            LaesOutput = retVal.LaesOutput;
+            return retVal.QualityHeader;
         }
         
-        public CPR_Business_Application_Demo.PartService.GetUuidOutputType GetUuid(CPR_Business_Application_Demo.PartService.ApplicationHeader applicationHeader, string cprNumber) {
-            return base.Channel.GetUuid(applicationHeader, cprNumber);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.PartService.ListResponse CPR_Business_Application_Demo.PartService.PartSoap12.List(CPR_Business_Application_Demo.PartService.ListRequest request) {
+            return base.Channel.List(request);
+        }
+        
+        public CPR_Business_Application_Demo.PartService.QualityHeader List(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.PartService.ListInputType ListInput, out CPR_Business_Application_Demo.PartService.ListOutputType1 ListOutput) {
+            CPR_Business_Application_Demo.PartService.ListRequest inValue = new CPR_Business_Application_Demo.PartService.ListRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.ListInput = ListInput;
+            CPR_Business_Application_Demo.PartService.ListResponse retVal = ((CPR_Business_Application_Demo.PartService.PartSoap12)(this)).List(inValue);
+            ListOutput = retVal.ListOutput;
+            return retVal.QualityHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.PartService.SearchResponse CPR_Business_Application_Demo.PartService.PartSoap12.Search(CPR_Business_Application_Demo.PartService.SearchRequest request) {
+            return base.Channel.Search(request);
+        }
+        
+        public CPR_Business_Application_Demo.PartService.QualityHeader Search(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, CPR_Business_Application_Demo.PartService.SoegInputType1 SoegInput, out CPR_Business_Application_Demo.PartService.SoegOutputType SoegOutput) {
+            CPR_Business_Application_Demo.PartService.SearchRequest inValue = new CPR_Business_Application_Demo.PartService.SearchRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.SoegInput = SoegInput;
+            CPR_Business_Application_Demo.PartService.SearchResponse retVal = ((CPR_Business_Application_Demo.PartService.PartSoap12)(this)).Search(inValue);
+            SoegOutput = retVal.SoegOutput;
+            return retVal.QualityHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.PartService.GetUuidResponse CPR_Business_Application_Demo.PartService.PartSoap12.GetUuid(CPR_Business_Application_Demo.PartService.GetUuidRequest request) {
+            return base.Channel.GetUuid(request);
+        }
+        
+        public CPR_Business_Application_Demo.PartService.GetUuidOutputType GetUuid(CPR_Business_Application_Demo.PartService.ApplicationHeader ApplicationHeader, string cprNumber) {
+            CPR_Business_Application_Demo.PartService.GetUuidRequest inValue = new CPR_Business_Application_Demo.PartService.GetUuidRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            inValue.cprNumber = cprNumber;
+            CPR_Business_Application_Demo.PartService.GetUuidResponse retVal = ((CPR_Business_Application_Demo.PartService.PartSoap12)(this)).GetUuid(inValue);
+            return retVal.GetUuidOutput;
         }
     }
 }

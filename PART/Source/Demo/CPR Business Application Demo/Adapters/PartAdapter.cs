@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CPR_Business_Application_Demo.PartService;
 
 namespace CPR_Business_Application_Demo
 {
@@ -13,15 +14,15 @@ namespace CPR_Business_Application_Demo
             // Make sure the provided URL points to the person web service.
             if (!cprPersonWSUrl.EndsWith("/"))
             {
-                if (!cprPersonWSUrl.EndsWith("Part.svc"))
-                    cprPersonWSUrl += "/Part.svc";
+                if (!cprPersonWSUrl.EndsWith("Part.asmx"))
+                    cprPersonWSUrl += "/Part.asmx";
             }
             else
             {
-                cprPersonWSUrl += "Part.svc";
+                cprPersonWSUrl += "Part.asmx";
             }
 
-            PartHandler = new PartService.PartClient("WSHttpBinding_IPart", cprPersonWSUrl);
+            PartHandler = new PartService.PartSoap12Client("PartSoap12", cprPersonWSUrl);
             // Set the timeout to avoid hanging the application for too long when wrong urls were entered
             PartHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 15);
         }
@@ -68,7 +69,8 @@ namespace CPR_Business_Application_Demo
                     VirkningTilFilter = null
                 };
 
-                var output = PartHandler.Read(CreateApplicationHeader(applicationToken), input);
+                LaesOutputType output;
+                PartHandler.Read(CreateApplicationHeader(applicationToken), input, out output);
 
                 if (output != null && output.LaesResultat != null && output.LaesResultat.Item is PartService.RegistreringType1)
                 {
@@ -95,7 +97,8 @@ namespace CPR_Business_Application_Demo
                     VirkningTilFilter = null
                 };
 
-                var output = PartHandler.List(CreateApplicationHeader(applicationToken), input);
+                ListOutputType1 output;
+                PartHandler.List(CreateApplicationHeader(applicationToken), input, out output);
 
                 if (output != null && output.LaesResultat != null && Array.TrueForAll<PartService.LaesResultatType>(output.LaesResultat, lr => lr.Item is PartService.RegistreringType1))
                 {
@@ -123,7 +126,8 @@ namespace CPR_Business_Application_Demo
                     }
                 };
 
-                var output = PartHandler.Search(CreateApplicationHeader(applicationToken), input);
+                SoegOutputType output;
+                PartHandler.Search(CreateApplicationHeader(applicationToken), input, out output);
 
                 if (output != null && output.Idliste != null)
                 {
@@ -154,7 +158,8 @@ namespace CPR_Business_Application_Demo
                     }
                 };
 
-                var output = PartHandler.Search(CreateApplicationHeader(applicationToken), input);
+                SoegOutputType output;
+                PartHandler.Search(CreateApplicationHeader(applicationToken), input, out output);
 
                 if (output != null && output.Idliste != null)
                 {
@@ -171,7 +176,7 @@ namespace CPR_Business_Application_Demo
         #endregion
 
         #region Private Fields
-        private readonly PartService.PartClient PartHandler;
+        private readonly PartService.PartSoap12Client PartHandler;
 
         #endregion
     }

@@ -16,15 +16,15 @@ namespace CPR_Business_Application_Demo.Adapters
             // Make sure the provided URL is pointing to the applications web service
             if (!applicationsWsUrl.EndsWith("/"))
 	      {
-                if (!applicationsWsUrl.EndsWith("Admin.svc"))
-                    applicationsWsUrl += "/Admin.svc";
+                if (!applicationsWsUrl.EndsWith("Admin.asmx"))
+                    applicationsWsUrl += "/Admin.asmx";
             }
             else
             {
-                applicationsWsUrl += "Admin.svc";
+                applicationsWsUrl += "Admin.asmx";
             }
 
-            applicationsHandler = new AdminClient("WSHttpBinding_IAdmin", applicationsWsUrl);
+            applicationsHandler = new AdminSoap12Client("AdminSoap12", applicationsWsUrl);
 
             // Set the timeout to avoid hanging the application for too long when wrong urls were entered
             applicationsHandler.InnerChannel.OperationTimeout = new TimeSpan(0, 0, 15);
@@ -65,7 +65,7 @@ namespace CPR_Business_Application_Demo.Adapters
         #endregion
 
         #region Private Fields
-        private readonly AdminClient applicationsHandler;
+        private readonly AdminSoap12Client applicationsHandler;
         #endregion
 
     }
