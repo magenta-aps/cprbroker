@@ -1,6 +1,6 @@
 ﻿namespace CprBroker.Installers
 {
-    partial class DBInstaller
+    partial class DatabaseInstaller
     {
         /// <summary>
         /// Required designer variable.

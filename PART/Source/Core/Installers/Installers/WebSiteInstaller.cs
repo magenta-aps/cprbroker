@@ -11,6 +11,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
+    /// <summary>
+    /// Installs a website
+    /// </summary>
     public class WebSiteInstaller : Installer
     {
         protected virtual string DefaultWebsiteName

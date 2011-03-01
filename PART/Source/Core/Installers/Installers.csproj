@@ -72,11 +72,11 @@
     <Compile Include="UI\DatabaseForm.Designer.cs">
       <DependentUpon>DatabaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Installers\DBInstaller.cs">
+    <Compile Include="Installers\DatabaseInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Installers\DBInstaller.Designer.cs">
-      <DependentUpon>DBInstaller.cs</DependentUpon>
+    <Compile Include="Installers\DatabaseInstaller.Designer.cs">
+      <DependentUpon>DatabaseInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\DropDatabaseForm.cs">
       <SubType>Form</SubType>

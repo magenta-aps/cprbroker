@@ -9,6 +9,11 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
+    /// <summary>
+    /// Responsible for setting and encryption of connection strings in config files
+    /// This installer is usually the last installer of a series.
+    /// Requested connection strings are registered here and then set in the Install method
+    /// </summary>
     public class ConnectionStringsInstaller : Installer
     {
         public override void Install(System.Collections.IDictionary stateSaver)

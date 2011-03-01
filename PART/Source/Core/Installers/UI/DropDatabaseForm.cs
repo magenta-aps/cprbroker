@@ -12,6 +12,9 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace CprBroker.Installers
 {
+    /// <summary>
+    /// Asks the user if a database should be removed with uninstall operation
+    /// </summary>
     public partial class DropDatabaseForm : BaseForm
     {
         public DatabaseSetupInfo SetupInfo { get; set; }

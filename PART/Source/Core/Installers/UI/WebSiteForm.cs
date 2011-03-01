@@ -11,6 +11,9 @@ using System.DirectoryServices;
 
 namespace CprBroker.Installers
 {
+    /// <summary>
+    /// Allows the user to select where to install a website
+    /// </summary>
     public partial class WebSiteForm : CprBroker.Installers.BaseForm
     {
         public WebInstallationInfo InstallationInfo;

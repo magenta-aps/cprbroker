@@ -22,7 +22,7 @@ namespace CprBroker.Installers
     /// <summary>
     /// Installs the system's database
     /// </summary>
-    public partial class DBInstaller : Installer
+    public partial class DatabaseInstaller : Installer
     {
 
         protected virtual string SuggestedDatabaseName
@@ -33,7 +33,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public DBInstaller()
+        public DatabaseInstaller()
         {
             InitializeComponent();
         }
