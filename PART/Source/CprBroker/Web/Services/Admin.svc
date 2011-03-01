@@ -1,1 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="CprBroker.Web.Services.Admin" CodeBehind="Admin.svc.cs" %>
