@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="PersonCivilRegistrationReplacementIdentifier" type="xs:string" />
-</xs:schema>

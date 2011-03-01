@@ -13,7 +13,7 @@ namespace CprBroker.NUnitTester
     public static class TestRunner
     {
 
-        public static Admin.AdminClient AdminService;
+        public static Admin.Admin AdminService;
         public static Part.Part PartService;
         public static Subscriptions.SubscriptionsClient SubscriptionsService;
         public static Events.EventsClient EventsService;
@@ -25,15 +25,18 @@ namespace CprBroker.NUnitTester
         public static void Initialize()
         {
 
-            AdminApplicationHeader = new NUnitTester.Admin.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             EventsApplicationHeader = new CprBroker.NUnitTester.Events.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             SubscriptionsApplicationHeader = new CprBroker.NUnitTester.Subscriptions.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
 
-            AdminService = new NUnitTester.Admin.AdminClient("WSHttpBinding_IAdmin");
+            // Admin
+            AdminService = new NUnitTester.Admin.Admin();
             ReplaceServiceUrl(AdminService, SystemType.CprBroker);
-            Console.WriteLine(AdminService.Endpoint.Address.Uri);
+            Console.WriteLine(AdminService.Url);
 
+            AdminApplicationHeader = new NUnitTester.Admin.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
+            AdminService.ApplicationHeaderValue = AdminApplicationHeader;
 
+            // Part
             PartService = new CprBroker.NUnitTester.Part.Part();
             ReplaceServiceUrl(PartService, SystemType.CprBroker);
             Console.WriteLine(PartService.Url);

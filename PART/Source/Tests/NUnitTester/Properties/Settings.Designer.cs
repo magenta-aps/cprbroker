@@ -32,5 +32,15 @@ namespace CprBroker.NUnitTester.Properties {
                 return ((string)(this["CprBroker_NUnitTester_Part_Part"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1551/Services/Admin.asmx")]
+        public string CprBroker_NUnitTester_Admin_Admin {
+            get {
+                return ((string)(this["CprBroker_NUnitTester_Admin_Admin"]));
+            }
+        }
     }
 }
