@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 
-namespace CprBroker.EventBroker.DAL
+namespace CprBroker.EventBroker.Data
 {
     public partial class Channel
     {

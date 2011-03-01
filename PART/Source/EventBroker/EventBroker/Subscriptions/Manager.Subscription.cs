@@ -31,7 +31,7 @@ namespace CprBroker.EventBroker.Subscriptions
 
             public static BasicOutputType<bool> Unsubscribe(string userToken, string appToken, Guid subscriptionId)
             {
-                UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.DataChange, appToken, userToken);
+                UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange, appToken, userToken);
                 return GetMethodOutput<bool>(facade);
             }
 
@@ -43,7 +43,7 @@ namespace CprBroker.EventBroker.Subscriptions
 
             public static BasicOutputType<bool> RemoveBirthDateSubscription(string userToken, string appToken, Guid subscriptionId)
             {
-                UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.Birthdate, appToken, userToken);
+                UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.Birthdate, appToken, userToken);
                 return GetMethodOutput<bool>(facade);
             }
 

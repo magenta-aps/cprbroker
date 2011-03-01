@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.EventBroker;
-using CprBroker.EventBroker.DAL;
+using CprBroker.EventBroker.Data;
 using CprBroker.Engine;
 
 namespace CprBroker.EventBroker.Subscriptions
@@ -13,9 +13,9 @@ namespace CprBroker.EventBroker.Subscriptions
     public class UnsubscribeFacadeMethod : GenericFacadeMethodInfo<bool>
     {
         Guid SubscriptionId;
-        DAL.SubscriptionType.SubscriptionTypes SubscriptionType;
+        Data.SubscriptionType.SubscriptionTypes SubscriptionType;
 
-        public UnsubscribeFacadeMethod(Guid subscriptionId, DAL.SubscriptionType.SubscriptionTypes subscriptionType, string appToken, string userToken)
+        public UnsubscribeFacadeMethod(Guid subscriptionId, Data.SubscriptionType.SubscriptionTypes subscriptionType, string appToken, string userToken)
             : base(appToken, userToken)
         {
             SubscriptionId = subscriptionId;
@@ -32,7 +32,7 @@ namespace CprBroker.EventBroker.Subscriptions
                     FailOnDefaultOutput=true,
                     LocalDataProviderOption= LocalDataProviderUsageOption.UseFirst,
                     Method= prov=>
-                        SubscriptionType== CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.Birthdate?
+                        SubscriptionType== CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.Birthdate?
                             prov.RemoveBirthDateSubscription(SubscriptionId)
                             : prov.Unsubscribe(SubscriptionId),
                     UpdateMethod=null,
@@ -47,7 +47,7 @@ namespace CprBroker.EventBroker.Subscriptions
                 return StandardReturType.NullInput();
             }
 
-            using (var dataContext = new DAL.EventBrokerDataContext())
+            using (var dataContext = new Data.EventBrokerDataContext())
             {
                 var subscription = (from sub in dataContext.Subscriptions
                                     where sub.SubscriptionId == SubscriptionId && sub.SubscriptionTypeId == (int)this.SubscriptionType

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.EventBroker.DAL;
+using CprBroker.EventBroker.Data;
 using CprBroker.Utilities;
 
 namespace CprBroker.Installers.EventBrokerInstallers

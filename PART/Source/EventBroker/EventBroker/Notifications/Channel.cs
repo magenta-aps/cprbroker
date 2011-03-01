@@ -15,12 +15,12 @@ namespace CprBroker.EventBroker.Notifications
         /// <summary>
         /// Maps channel types (enum) to actual CLR types
         /// </summary>
-        static Dictionary<DAL.ChannelType.ChannelTypes, Type> TypesMap;
+        static Dictionary<Data.ChannelType.ChannelTypes, Type> TypesMap;
         static Channel()
         {
-            TypesMap = new Dictionary<DAL.ChannelType.ChannelTypes, Type>();
-            TypesMap[DAL.ChannelType.ChannelTypes.FileShare] = typeof(FileShareChannel);
-            TypesMap[DAL.ChannelType.ChannelTypes.WebService] = typeof(WebServiceChannel);
+            TypesMap = new Dictionary<Data.ChannelType.ChannelTypes, Type>();
+            TypesMap[Data.ChannelType.ChannelTypes.FileShare] = typeof(FileShareChannel);
+            TypesMap[Data.ChannelType.ChannelTypes.WebService] = typeof(WebServiceChannel);
         }
 
         /// <summary>
@@ -28,9 +28,9 @@ namespace CprBroker.EventBroker.Notifications
         /// </summary>
         /// <param name="dbChannel"></param>
         /// <returns></returns>
-        public static Channel Create(DAL.Channel dbChannel)
+        public static Channel Create(Data.Channel dbChannel)
         {
-            DAL.ChannelType.ChannelTypes channelType = (DAL.ChannelType.ChannelTypes)dbChannel.ChannelTypeId;
+            Data.ChannelType.ChannelTypes channelType = (Data.ChannelType.ChannelTypes)dbChannel.ChannelTypeId;
 
             Type clrChannelType = TypesMap[channelType];
             Channel channel = clrChannelType.InvokeMember(
@@ -45,7 +45,7 @@ namespace CprBroker.EventBroker.Notifications
             return channel;
         }
 
-        protected DAL.Channel DatabaseObject { get; private set; }
+        protected Data.Channel DatabaseObject { get; private set; }
 
         /// <summary>
         /// Pings the channel
@@ -57,7 +57,7 @@ namespace CprBroker.EventBroker.Notifications
         /// Send the supplied notification through the channel
         /// </summary>
         /// <param name="notification"></param>
-        public abstract void Notify(DAL.EventNotification notification);
+        public abstract void Notify(Data.EventNotification notification);
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ namespace CprBroker.EventBroker.Notifications
         /// Notifies by calling a CPR Notification web service
         /// </summary>
         /// <param name="notification"></param>
-        public override void Notify(DAL.EventNotification notification)
+        public override void Notify(Data.EventNotification notification)
         {
             NotificationService.Notification notificationService = new NotificationService.Notification();
             notificationService.Url = DatabaseObject.Url;            
@@ -105,7 +105,7 @@ namespace CprBroker.EventBroker.Notifications
         /// Notifies by serializing the notification into an XML file
         /// </summary>
         /// <param name="notification"></param>
-        public override void Notify(DAL.EventNotification notification)
+        public override void Notify(Data.EventNotification notification)
         {
             string folder = DatabaseObject.Url;
             if (!Directory.Exists(folder))

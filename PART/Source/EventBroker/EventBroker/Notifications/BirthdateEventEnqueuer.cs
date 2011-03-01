@@ -57,13 +57,13 @@ namespace CprBroker.EventBroker.Notifications
                 }
                 morePersons = personBirthdates.Length < BatchSize;
 
-                using (var dataContext = new DAL.EventBrokerDataContext())
+                using (var dataContext = new Data.EventBrokerDataContext())
                 {
                     var newPersons =
                     (
                         from pb in personBirthdates
                         where !(from dpb in dataContext.PersonBirthdates select dpb.PersonUuid).Contains(pb.PersonUuid)
-                        select new DAL.PersonBirthdate()
+                        select new Data.PersonBirthdate()
                         {
                             PersonUuid = pb.PersonUuid,
                             Birthdate = pb.Birthdate
@@ -78,7 +78,7 @@ namespace CprBroker.EventBroker.Notifications
 
         private void EnqueueBirthdateSvents()
         {
-            using (var dataContext = new DAL.EventBrokerDataContext())
+            using (var dataContext = new Data.EventBrokerDataContext())
             {
                 DateTime today = DateTime.Today;
 

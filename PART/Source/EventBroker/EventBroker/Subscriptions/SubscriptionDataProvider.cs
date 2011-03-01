@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
-using CprBroker.EventBroker.DAL;
+using CprBroker.EventBroker.Data;
 using CprBroker.Utilities;
 
 namespace CprBroker.EventBroker.Subscriptions
@@ -21,7 +21,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <param name="PersonCivilRegistrationIdentifiers"></param>
         /// <param name="notificationChannel"></param>
         /// <returns></returns>
-        private Subscription AddSubscription(EventBrokerDataContext dataContext, CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, Guid[] personUuids, ChannelBaseType notificationChannel)
+        private Subscription AddSubscription(EventBrokerDataContext dataContext, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, Guid[] personUuids, ChannelBaseType notificationChannel)
         {
             List<Guid> listOfPersonsIDs = new List<Guid>();
 
@@ -68,7 +68,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <param name="subscriptionId"></param>
         /// <param name="subscriptionType"></param>
         /// <returns></returns>
-        private bool DeleteSubscription(Guid subscriptionId, CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes subscriptionType)
+        private bool DeleteSubscription(Guid subscriptionId, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes subscriptionType)
         {
             // Find the Subscription object and delete it and its children
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
@@ -86,10 +86,10 @@ namespace CprBroker.EventBroker.Subscriptions
                 {
                     switch (subscriptionType)
                     {
-                        case CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.DataChange:
+                        case CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange:
                             dataContext.DataSubscriptions.DeleteOnSubmit(subscription.DataSubscription);
                             break;
-                        case CprBroker.EventBroker.DAL.SubscriptionType.SubscriptionTypes.Birthdate:
+                        case CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.Birthdate:
                             dataContext.BirthdateSubscriptions.DeleteOnSubmit(subscription.BirthdateSubscription);
                             break;
                     }
@@ -113,7 +113,7 @@ namespace CprBroker.EventBroker.Subscriptions
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                DAL.Subscription subscription = AddSubscription(dataContext, DAL.SubscriptionType.SubscriptionTypes.DataChange, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
+                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.DataChange, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
                 if (subscription != null)
                 {
                     subscription.DataSubscription = new DataSubscription();
@@ -133,7 +133,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// </summary>
         public bool Unsubscribe(Guid subscriptionId)
         {
-            return DeleteSubscription(subscriptionId, DAL.SubscriptionType.SubscriptionTypes.DataChange);
+            return DeleteSubscription(subscriptionId, Data.SubscriptionType.SubscriptionTypes.DataChange);
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace CprBroker.EventBroker.Subscriptions
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                DAL.Subscription subscription = AddSubscription(dataContext, DAL.SubscriptionType.SubscriptionTypes.Birthdate, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
+                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.Birthdate, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
                 if (subscription != null)
                 {
                     subscription.BirthdateSubscription = new BirthdateSubscription();
@@ -166,7 +166,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// </summary>
         public bool RemoveBirthDateSubscription(Guid subscriptionId)
         {
-            return DeleteSubscription(subscriptionId, DAL.SubscriptionType.SubscriptionTypes.Birthdate);
+            return DeleteSubscription(subscriptionId, Data.SubscriptionType.SubscriptionTypes.Birthdate);
         }
 
         /// <summary>

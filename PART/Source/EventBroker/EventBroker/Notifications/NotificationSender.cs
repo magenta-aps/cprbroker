@@ -33,10 +33,10 @@ namespace CprBroker.EventBroker.Notifications
         
         protected override void PerformTimerAction()
         {
-            using (var dataContext = new DAL.EventBrokerDataContext())
+            using (var dataContext = new Data.EventBrokerDataContext())
             {
                 int batchSize = CprBroker.Config.Properties.Settings.Default.EventBrokerNotificationBatchSize;
-                DAL.EventNotification[] dueNotifications = new CprBroker.EventBroker.DAL.EventNotification[0];
+                Data.EventNotification[] dueNotifications = new CprBroker.EventBroker.Data.EventNotification[0];
                 do
                 {
                     dueNotifications =

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.EventBroker.DAL
+namespace CprBroker.EventBroker.Data
 {
     public partial class ChannelType
     {

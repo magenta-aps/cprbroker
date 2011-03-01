@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas.Part.Events;
 using CprBroker.Utilities;
 
-namespace CprBroker.EventBroker.DAL
+namespace CprBroker.EventBroker.Data
 {
     public partial class EventNotification
     {

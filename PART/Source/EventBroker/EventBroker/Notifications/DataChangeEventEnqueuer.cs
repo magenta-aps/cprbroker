@@ -37,11 +37,11 @@ namespace CprBroker.EventBroker.Notifications
                 var changedPeople = resp.Item;
                 moreChangesExist = changedPeople.Length == BatchSize;
 
-                using (var dataContext = new DAL.EventBrokerDataContext())
+                using (var dataContext = new Data.EventBrokerDataContext())
                 {
-                    var dbObjects = Array.ConvertAll<EventsService.DataChangeEventInfo, DAL.DataChangeEvent>(
+                    var dbObjects = Array.ConvertAll<EventsService.DataChangeEventInfo, Data.DataChangeEvent>(
                         changedPeople,
-                        p => new DAL.DataChangeEvent()
+                        p => new Data.DataChangeEvent()
                         {
                             DataChangeEventId = p.EventId,
                             DueDate = p.ReceivedDate,
@@ -55,7 +55,7 @@ namespace CprBroker.EventBroker.Notifications
 
                     DateTime startDate = DateTime.Now;
 
-                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, (int)DAL.SubscriptionType.SubscriptionTypes.DataChange);
+                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
                     //TODO: Move this logic to above stored procedure
                     dataContext.DataChangeEvents.DeleteAllOnSubmit(dbObjects);

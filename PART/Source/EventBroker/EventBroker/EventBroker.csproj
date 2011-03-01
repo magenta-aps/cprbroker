@@ -78,19 +78,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\Channel.cs" />
-    <Compile Include="DAL\ChannelType.cs" />
-    <Compile Include="DAL\EventBrokerDataContext.cs">
+    <Compile Include="Data\Channel.cs" />
+    <Compile Include="Data\ChannelType.cs" />
+    <Compile Include="Data\EventBrokerDataContext.cs">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
     </Compile>
-    <Compile Include="DAL\EventBrokerDataContext.designer.cs">
+    <Compile Include="Data\EventBrokerDataContext.designer.cs">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="DAL\EventNotification.cs" />
-    <Compile Include="DAL\Subscription.cs" />
-    <Compile Include="DAL\SubscriptionType.cs" />
+    <Compile Include="Data\EventNotification.cs" />
+    <Compile Include="Data\Subscription.cs" />
+    <Compile Include="Data\SubscriptionType.cs" />
     <Compile Include="Notifications\CprBrokerEventEnqueuer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -150,7 +150,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DAL\EventBrokerDataContext.dbml">
+    <None Include="Data\EventBrokerDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>EventBrokerDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -162,7 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="DAL\EventBrokerDataContext.dbml.layout">
+    <None Include="Data\EventBrokerDataContext.dbml.layout">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
     </None>
     <None Include="Web References\EventsService\Events.wsdl" />

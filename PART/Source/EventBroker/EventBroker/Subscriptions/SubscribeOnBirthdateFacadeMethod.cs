@@ -5,7 +5,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine;
-using CprBroker.EventBroker.DAL;
+using CprBroker.EventBroker.Data;
 using CprBroker.EventBroker.Notifications;
 using CprBroker.EventBroker.Subscriptions;
 
@@ -49,7 +49,7 @@ namespace CprBroker.EventBroker
                 return StandardReturType.NullInput("NotificationChannel");
             }
 
-            var dbChannel = DAL.Channel.FromXmlType(NotificationChannel);
+            var dbChannel = Data.Channel.FromXmlType(NotificationChannel);
             if (dbChannel == null)
             {
                 return StandardReturType.UnknownObject("NotificationChannel");
