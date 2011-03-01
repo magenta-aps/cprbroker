@@ -7,9 +7,12 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the PersonMapping table
+    /// Responsible for local mapping between UUID's and CPR numbers
+    /// </summary>
     public partial class PersonMapping
     {
-
         /// <summary>
         /// Maps CPR Numbers to UUIDs
         /// </summary>

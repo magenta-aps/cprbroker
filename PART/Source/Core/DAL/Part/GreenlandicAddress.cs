@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the GreenlandicAddress table
+    /// </summary>
     public partial class GreenlandicAddress
     {
         public static GroenlandAdresseType ToXmlType(GreenlandicAddress db)

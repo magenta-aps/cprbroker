@@ -6,6 +6,9 @@ using CprBroker.Schemas;
 
 namespace CprBroker.Data.Applications
 {
+    /// <summary>
+    /// Represets the Application table
+    /// </summary>
     public partial class Application
     {
         /// <summary>

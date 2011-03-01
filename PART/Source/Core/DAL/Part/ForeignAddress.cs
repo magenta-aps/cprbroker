@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the ForeignAddress table
+    /// </summary>
     public partial class ForeignAddress
     {
         public static VerdenAdresseType ToXmlType(ForeignAddress db)

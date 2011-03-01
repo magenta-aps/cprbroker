@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the PersonName table
+    /// </summary>
     public partial class PersonName
     {
         public static PersonNameStructureType ToXmlType(PersonName db)

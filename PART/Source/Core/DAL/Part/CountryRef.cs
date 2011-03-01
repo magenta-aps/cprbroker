@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the CountryRef table
+    /// </summary>
     public partial class CountryRef
     {
         public static CountryIdentificationCodeType ToXmlType(CountryRef db)

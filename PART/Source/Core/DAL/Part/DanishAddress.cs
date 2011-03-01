@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the DanishAddress table
+    /// </summary>
     public partial class DanishAddress
     {
         public static DanskAdresseType ToXmlType(DanishAddress db)

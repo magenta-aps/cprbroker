@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the ContactChannel table
+    /// </summary>
     public partial class ContactChannel
     {
         public static KontaktKanalType ToXmlType(ContactChannel db)

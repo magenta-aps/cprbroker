@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the PersonCivilState table
+    /// </summary>
     public partial class PersonCivilState
     {
         public static CivilStatusType ToXmlType(PersonCivilState db)

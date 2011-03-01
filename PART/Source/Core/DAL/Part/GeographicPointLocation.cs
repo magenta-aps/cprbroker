@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the GeographicPointLocation table
+    /// </summary>
     public partial class GeographicPointLocation
     {
         public static GeographicPointLocationType ToXmlType(GeographicPointLocation db)

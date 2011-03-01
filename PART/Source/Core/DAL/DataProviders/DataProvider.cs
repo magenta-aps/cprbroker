@@ -7,6 +7,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Data.DataProviders
 {
+    /// <summary>
+    /// Represents the DataProvider table
+    /// </summary>
     public partial class DataProvider
     {
         public static void SetChildLoadOptions(DataProvidersDataContext dataContext)
@@ -22,6 +25,7 @@ namespace CprBroker.Data.DataProviders
                 Properties.AddRange(Encryption.DecryptObject<AttributeType[]>(Data.ToArray()));
             }
         }
+
         private AttributeType GetDataProviderProperty(string key)
         {
             return (from p in this.Properties where p.Name == key select p).FirstOrDefault();

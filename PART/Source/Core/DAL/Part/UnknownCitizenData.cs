@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the UnknownCitizenData table
+    /// </summary>
     public partial class UnknownCitizenData
     {
         public static UkendtBorgerType ToXmlType(UnknownCitizenData db)

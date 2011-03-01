@@ -9,6 +9,9 @@ namespace CprBroker.Data.Part
 {
     public partial class ForeignCitizenData
     {
+        /// <summary>
+        /// Represents the ForeignCitizenData table
+        /// </summary>    
         public static UdenlandskBorgerType ToXmlType(ForeignCitizenData db)
         {
             if (db != null)

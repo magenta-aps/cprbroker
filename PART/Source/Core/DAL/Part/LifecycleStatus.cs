@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the LifecycleStatus table
+    /// </summary>
     public partial class LifecycleStatus
     {
         private static List<KeyValuePair<string, LivscyklusKodeType>> _Values = new List<KeyValuePair<string, LivscyklusKodeType>>();

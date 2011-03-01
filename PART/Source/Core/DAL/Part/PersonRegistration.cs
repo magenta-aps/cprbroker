@@ -10,6 +10,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the PersonRegistration table
+    /// </summary>
     public partial class PersonRegistration
     {
         public static Schemas.Part.RegistreringType1 ToXmlType(PersonRegistration db)
@@ -17,6 +20,7 @@ namespace CprBroker.Data.Part
             if (db != null)
             {
                 var xml = db.Contents.ToString();
+                // Deserialize the stored XML for maximum performance
                 return Strings.Deserialize<RegistreringType1>(xml);
             }
             return null;
@@ -24,7 +28,7 @@ namespace CprBroker.Data.Part
 
         public static void SetChildLoadOptions(PartDataContext dataContext)
         {
-            // TODO: LoadOptions actually slows down performance
+            // Do Nothing, because setting load options slows down the loading
             return;
 
             DataLoadOptions loadOptions = new DataLoadOptions();

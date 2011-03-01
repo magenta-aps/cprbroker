@@ -7,6 +7,10 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the ForeignCitizenCountry table
+    /// Acts as a nationality or as a language (based on IsNationality column)
+    /// </summary>
     public partial class ForeignCitizenCountry
     {
         public static CountryIdentificationCodeType ToXmlType(ForeignCitizenCountry db)

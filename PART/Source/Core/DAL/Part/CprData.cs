@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the CprData table
+    /// </summary>
     public partial class CprData
     {
         public static CprBorgerType ToXmlType(CprData db)

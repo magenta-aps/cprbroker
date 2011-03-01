@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the GeographicCoorditaneTuple table
+    /// </summary>
     public partial class GeographicCoorditaneTuple
     {
         public static GeographicCoordinateTupleType ToXmlType(GeographicCoorditaneTuple db)

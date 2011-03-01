@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the ActorRef table
+    /// </summary>
     public partial class ActorRef
     {
         public static UnikIdType ToXmlType(ActorRef db)

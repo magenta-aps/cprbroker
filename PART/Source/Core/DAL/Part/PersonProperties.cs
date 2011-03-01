@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the PersonProperties table
+    /// </summary>
     public partial class PersonProperties
     {
         public static EgenskabType[] ToXmlType(PersonProperties db)

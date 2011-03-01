@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the LifeStatusType table
+    /// </summary>
     public partial class LifeStatusType
     {
         private static List<KeyValuePair<string, Schemas.Part.LivStatusKodeType>> _PartValues = new List<KeyValuePair<string, Schemas.Part.LivStatusKodeType>>();

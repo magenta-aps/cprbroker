@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Data.DataProviders
 {
+    /// <summary>
+    /// Represents the data context for data providers
+    /// </summary>
     public partial class DataProvidersDataContext
     {
         public DataProvidersDataContext()

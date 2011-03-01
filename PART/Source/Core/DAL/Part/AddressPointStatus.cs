@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the AddressPointStatus table
+    /// </summary>
     public partial class AddressPointStatus
     {
         public static AddressPointStatusStructureType ToXmlType(AddressPointStatus db)

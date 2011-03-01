@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the HealthInformation table
+    /// </summary>
     public partial class HealthInformation
     {
         public static SundhedOplysningType[] ToXmlType(HealthInformation db)

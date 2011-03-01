@@ -7,8 +7,14 @@ using System.Data.Linq;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the PersonRelationship table
+    /// </summary>
     public partial class PersonRelationship
     {
+        /// <summary>
+        /// Contains all possible types of relationships between people
+        /// </summary>
         public enum RelationshipTypes
         {
             Mother = 0,

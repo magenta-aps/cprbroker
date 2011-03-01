@@ -7,6 +7,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the Effect table
+    /// </summary>
     public partial class Effect
     {
         public static VirkningType ToVirkningType(Effect db)

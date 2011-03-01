@@ -7,6 +7,9 @@ using System.Data.Linq;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the PersonState table
+    /// </summary>
     public partial class PersonState
     {
         public static CprBroker.Schemas.Part.TilstandListeType ToXmlType(PersonState db)

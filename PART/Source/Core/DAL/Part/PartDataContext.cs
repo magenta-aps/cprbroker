@@ -7,6 +7,9 @@ using System.Diagnostics;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the data context for all PART preson tables
+    /// </summary>
     public partial class PartDataContext
     {
         public PartDataContext()

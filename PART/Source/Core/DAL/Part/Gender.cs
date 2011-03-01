@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Data.Part
 {
+    /// <summary>
+    /// Represents the Gender table
+    /// </summary>
     public partial class Gender
     {
         private static List<KeyValuePair<string, Schemas.Part.PersonGenderCodeType>> _PartValues = new List<KeyValuePair<string, Schemas.Part.PersonGenderCodeType>>();
