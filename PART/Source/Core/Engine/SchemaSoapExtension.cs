@@ -117,7 +117,7 @@ namespace CprBroker.Engine
         private XmlNode GetBodyNode(Stream sourceStream)
         {
             // Now modify the response
-            newStream.Position = 0;
+            sourceStream.Position = 0;
             TextReader reader = new StreamReader(sourceStream);
             string xml = reader.ReadToEnd();
 
@@ -129,7 +129,7 @@ namespace CprBroker.Engine
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
             XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable);
-            nsmgr.AddNamespace("soap", doc.LastChild.GetNamespaceOfPrefix("soap"));
+            nsmgr.AddNamespace("soap", "http://www.w3.org/2003/05/soap-envelope");
 
             var bodyNode = doc.SelectSingleNode("//soap:Body", nsmgr);
             return bodyNode;
@@ -138,7 +138,6 @@ namespace CprBroker.Engine
         private XmlNode GetMethodNode(XmlNode bodyNode, string messageName, string serviceNamespace)
         {
             XmlNamespaceManager nsmgr = new XmlNamespaceManager(bodyNode.OwnerDocument.NameTable);
-            //var prefix = bodyNode.OwnerDocument.GetPrefixOfNamespace(serviceNamespace);
             nsmgr.AddNamespace("rt", serviceNamespace);
             var methodNode = bodyNode.SelectSingleNode(string.Format("rt:{0}", messageName), nsmgr);
             return methodNode;
