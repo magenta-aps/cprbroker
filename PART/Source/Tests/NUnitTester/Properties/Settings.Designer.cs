@@ -52,5 +52,15 @@ namespace CprBroker.NUnitTester.Properties {
                 return ((string)(this["CprBroker_NUnitTester_Events_Events_"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1552/Services/Subscriptions.asmx")]
+        public string CprBroker_NUnitTester_Subscriptions_Subscriptions {
+            get {
+                return ((string)(this["CprBroker_NUnitTester_Subscriptions_Subscriptions"]));
+            }
+        }
     }
 }
