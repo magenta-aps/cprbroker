@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
+using CprBroker.Utilities;
 
 namespace CprBroker.Data.Applications
 {
@@ -45,7 +46,7 @@ namespace CprBroker.Data.Applications
                                   select app).Count() > 0;
                     if (exists)
                     {
-                        throw new Exception(TextMessages.NameOrTokenAlreadyExists);
+                        throw new Exception(Constants.TextMessages.NameOrTokenAlreadyExists);
                     }
                 }
                 else if (action == System.Data.Linq.ChangeAction.Delete)

@@ -84,7 +84,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="TextMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Config\Config.csproj">
@@ -184,6 +183,13 @@
     <None Include="DataProviders\DataProvidersDataContext.dbml.layout">
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Applications\Readme.txt" />
+    <Content Include="DataProviders\Readme.txt" />
+    <Content Include="Events\Readme.txt" />
+    <Content Include="Part\Readme.txt" />
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
