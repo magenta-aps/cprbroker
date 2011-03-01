@@ -2,7 +2,7 @@
     MasterPageFile="~/Pages/Site.Master" Title="Log" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
-    <asp:LinqDataSource ID="logEntriesLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.Applications.ApplicationDataContext"
+    <asp:LinqDataSource ID="logEntriesLinqDataSource" runat="server" ContextTypeName="CprBroker.Data.Applications.ApplicationDataContext"
         OrderBy="LogDate desc" TableName="LogEntries" AutoPage="true" 
         onselected="logEntriesLinqDataSource_Selected">
     </asp:LinqDataSource>

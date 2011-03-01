@@ -4,8 +4,8 @@ using System.Linq;
 using System.Data.Linq;
 using System.Text;
 using CprBroker.Engine;
-using CprBroker.DAL;
-using CprBroker.DAL.Part;
+using CprBroker.Data;
+using CprBroker.Data.Part;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
@@ -26,7 +26,7 @@ namespace CprBroker.Providers.Local
             Guid[] ret = null;
             using (var dataContext = new PartDataContext())
             {
-                var pred = PredicateBuilder.True<DAL.Part.PersonRegistration>();
+                var pred = PredicateBuilder.True<Data.Part.PersonRegistration>();
                 if (searchCriteria.SoegObjekt != null)
                 {
                     if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.UUID))
@@ -53,7 +53,7 @@ namespace CprBroker.Providers.Local
                                         var name = prop.NavnStruktur.PersonNameStructure;
                                         if (!name.IsEmpty)
                                         {
-                                            var cprNamePred = PredicateBuilder.True<DAL.Part.PersonRegistration>();                                            
+                                            var cprNamePred = PredicateBuilder.True<Data.Part.PersonRegistration>();                                            
                                             if (!string.IsNullOrEmpty(name.PersonGivenName))
                                             {
                                                 cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.PersonProperties.PersonName.FirstName == name.PersonGivenName);
@@ -114,7 +114,7 @@ namespace CprBroker.Providers.Local
 
             using (var dataContext = new PartDataContext())
             {
-                DAL.Part.PersonRegistration.SetChildLoadOptions(dataContext);
+                Data.Part.PersonRegistration.SetChildLoadOptions(dataContext);
                 ret =
                 (
                     from personReg in dataContext.PersonRegistrations
@@ -125,7 +125,7 @@ namespace CprBroker.Providers.Local
                     // TODO: Filter by effect date
                     orderby personReg.RegistrationDate descending
                     orderby personReg.BrokerUpdateDate descending
-                    select DAL.Part.PersonRegistration.ToXmlType(personReg)
+                    select Data.Part.PersonRegistration.ToXmlType(personReg)
                 ).FirstOrDefault();
             }
             ql = QualityLevel.LocalCache;
@@ -137,7 +137,7 @@ namespace CprBroker.Providers.Local
         
         public Guid? GetPersonUuid(string cprNumber)
         {
-            return DAL.Part.PersonMapping.AssignGuids(new string[] { cprNumber })[0];
+            return Data.Part.PersonMapping.AssignGuids(new string[] { cprNumber })[0];
         }
 
         #endregion

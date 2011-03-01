@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using CprBroker.DAL;
+using CprBroker.Data;
 using CprBroker.Utilities;
 
 namespace CprBroker.Web.Pages
@@ -35,8 +35,8 @@ namespace CprBroker.Web.Pages
 
         protected void applicationsLinqDataSource_Updating(object sender, LinqDataSourceUpdateEventArgs e)
         {
-            CprBroker.DAL.Applications.Application newApp = e.NewObject as CprBroker.DAL.Applications.Application;
-            CprBroker.DAL.Applications.Application orgApp = e.OriginalObject as CprBroker.DAL.Applications.Application;
+            CprBroker.Data.Applications.Application newApp = e.NewObject as CprBroker.Data.Applications.Application;
+            CprBroker.Data.Applications.Application orgApp = e.OriginalObject as CprBroker.Data.Applications.Application;
 
             // Approved date
             if (newApp.IsApproved && !orgApp.IsApproved)
@@ -73,7 +73,7 @@ namespace CprBroker.Web.Pages
 
         protected void applicationsLinqDataSource_Inserting(object sender, LinqDataSourceInsertEventArgs e)
         {
-            CprBroker.DAL.Applications.Application newApp = e.NewObject as CprBroker.DAL.Applications.Application;
+            CprBroker.Data.Applications.Application newApp = e.NewObject as CprBroker.Data.Applications.Application;
             newApp.ApplicationId = Guid.NewGuid();
             newApp.RegistrationDate = DateTime.Now;
             if (newApp.IsApproved)

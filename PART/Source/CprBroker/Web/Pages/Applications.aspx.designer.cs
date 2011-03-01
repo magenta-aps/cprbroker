@@ -18,7 +18,7 @@ namespace CprBroker.Web.Pages {
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify move field declaration fromDate designer file to code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinqDataSource baseApplicationLinqDataSource;
         
@@ -27,7 +27,7 @@ namespace CprBroker.Web.Pages {
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify move field declaration fromDate designer file to code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DetailsView baseApplicationDetailsView;
         
@@ -36,7 +36,7 @@ namespace CprBroker.Web.Pages {
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify move field declaration fromDate designer file to code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinqDataSource applicationsLinqDataSource;
         
@@ -45,7 +45,7 @@ namespace CprBroker.Web.Pages {
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify move field declaration fromDate designer file to code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView applicationsGridView;
         
@@ -54,7 +54,7 @@ namespace CprBroker.Web.Pages {
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify move field declaration fromDate designer file to code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DetailsView newApplicationDetailsView;
         

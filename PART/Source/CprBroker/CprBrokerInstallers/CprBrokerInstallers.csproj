@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CprBroker.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CprBroker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Core\Output\CprBroker.DAL.dll</HintPath>
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
     </Reference>
     <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

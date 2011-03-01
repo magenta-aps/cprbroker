@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Installers;
-using CprBroker.DAL;
-using CprBroker.DAL.Applications;
-using CprBroker.DAL.Part;
-using CprBroker.DAL.DataProviders;
+using CprBroker.Data;
+using CprBroker.Data.Applications;
+using CprBroker.Data.Part;
+using CprBroker.Data.DataProviders;
 using CprBroker.Utilities;
 
 namespace CprBroker.Installers.CprBrokerInstallers
@@ -37,8 +37,8 @@ namespace CprBroker.Installers.CprBrokerInstallers
         {
             List<LookupInsertionParameters> ret = new List<LookupInsertionParameters>();
 
-            ret.Add(new LookupInsertionParameters(this, typeof(CprBroker.DAL.Part.AddressCoordinateQualityType), Properties.Resources.AddressCoordinateQualityType));
-            ret.Add(new LookupInsertionParameters(this, typeof(CprBroker.DAL.Applications.Application), Properties.Resources.Application,
+            ret.Add(new LookupInsertionParameters(this, typeof(CprBroker.Data.Part.AddressCoordinateQualityType), Properties.Resources.AddressCoordinateQualityType));
+            ret.Add(new LookupInsertionParameters(this, typeof(CprBroker.Data.Applications.Application), Properties.Resources.Application,
                 new LookupInsertionParameters.ColumnType() { Name = "ApplicationId", Type = typeof(Guid) }
                 ));
             ret.Add(new LookupInsertionParameters(this, typeof(CivilStatusCodeType), Properties.Resources.CivilStatusCodeType));

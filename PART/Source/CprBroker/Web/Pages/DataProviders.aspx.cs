@@ -10,7 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using CprBroker.DAL.DataProviders;
+using CprBroker.Data.DataProviders;
 using CprBroker.Engine;
 using CprBroker.Schemas;
 using CprBroker.Web.Controls;
@@ -109,7 +109,7 @@ namespace CprBroker.Web.Pages
             var valuesDataList = dataProvidersGridView.Rows[e.RowIndex].Cells[0].FindControl("EditDataList") as DataList;
             var id = (Guid)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
 
-            using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
+            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
             {
                 DataProvider dbPrrov = (from dp in dataContext.DataProviders where dp.DataProviderId == id select dp).Single();
                 foreach (DataListItem item in valuesDataList.Items)
@@ -130,7 +130,7 @@ namespace CprBroker.Web.Pages
 
         protected void dataProvidersGridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
+            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
             {
                 var id = (Guid)this.dataProvidersGridView.DataKeys[e.RowIndex].Value;
                 var dbProv = dataContext.DataProviders.Where(dp => dp.DataProviderId == id).FirstOrDefault();
@@ -241,7 +241,7 @@ namespace CprBroker.Web.Pages
                     }
                     oioProv.Attributes = attr.ToArray();*/
 
-                    using (var dataContext = new CprBroker.DAL.DataProviders.DataProvidersDataContext())
+                    using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
                     {
                         DataProvider dbProv = new DataProvider()
                         {
@@ -297,7 +297,7 @@ namespace CprBroker.Web.Pages
 
         protected Array GetAttributes(object dbProvider)
         {
-            var dbProv = dbProvider as DAL.DataProviders.DataProvider;
+            var dbProv = dbProvider as Data.DataProviders.DataProvider;
             var prov = DataProviderManager.CreateDataProvider(dbProv);
             var properties = dbProv.GetProperties();
             return (from pInfo in prov.ConfigurationKeys

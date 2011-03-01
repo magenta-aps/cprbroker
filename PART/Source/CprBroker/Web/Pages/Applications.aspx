@@ -8,7 +8,7 @@
         Admin application</h3>
     This is the root application that is pre-created in the system.It cannot be edited
     or deleted.
-    <asp:LinqDataSource ID="baseApplicationLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.Applications.ApplicationDataContext"
+    <asp:LinqDataSource ID="baseApplicationLinqDataSource" runat="server" ContextTypeName="CprBroker.Data.Applications.ApplicationDataContext"
         TableName="Applications" OnSelecting="baseApplicationLinqDataSource_Selecting"
         EnableUpdate="True" Where="ApplicationId == @ApplicationId">
         <WhereParameters>
@@ -37,7 +37,7 @@
         Applications</h3>
     These are new applications that can be used to access the system. You need a working
     application token to access the system's web services.
-    <asp:LinqDataSource ID="applicationsLinqDataSource" runat="server" ContextTypeName="CprBroker.DAL.Applications.ApplicationDataContext"
+    <asp:LinqDataSource ID="applicationsLinqDataSource" runat="server" ContextTypeName="CprBroker.Data.Applications.ApplicationDataContext"
         TableName="Applications" EnableUpdate="True" OrderBy="RegistrationDate" OnSelecting="applicationsLinqDataSource_Selecting"
         Where="ApplicationId != @ApplicationId" OnUpdating="applicationsLinqDataSource_Updating"
         EnableInsert="True" EnableDelete="true" OnInserting="applicationsLinqDataSource_Inserting">
