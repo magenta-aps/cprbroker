@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.KMD
 {
+    /// <summary>
+    /// Contains utility methods used into KMD
+    /// </summary>
     public static class Utilities
     {
         public static DateTime? ToDateTime(string str)

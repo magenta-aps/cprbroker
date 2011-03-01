@@ -64,16 +64,16 @@
     <Compile Include="BaseProvider.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ClientDataProvider.cs" />
-    <Compile Include="DAL\ContactAddress.cs" />
-    <Compile Include="DAL\PersonAddress.cs" />
+    <Compile Include="Data\ContactAddress.cs" />
+    <Compile Include="Data\PersonAddress.cs" />
     <Compile Include="PersonInfo.cs" />
-    <Compile Include="DAL\Child.cs" />
-    <Compile Include="DAL\DPR.designer.cs">
+    <Compile Include="Data\Child.cs" />
+    <Compile Include="Data\DPR.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DPR.dbml</DependentUpon>
     </Compile>
-    <Compile Include="DAL\PersonTotal.cs" />
+    <Compile Include="Data\PersonTotal.cs" />
     <Compile Include="DprDatabaseDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -84,7 +84,7 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DAL\DPR.dbml">
+    <None Include="Data\DPR.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DPR.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -92,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="DAL\DPR.dbml.layout">
+    <None Include="Data\DPR.dbml.layout">
       <DependentUpon>DPR.dbml</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">

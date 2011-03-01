@@ -10,6 +10,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.KMD
 {
+    /// <summary>
+    /// Implements the Read operation of the Part standard
+    /// </summary>
     public partial class KmdDataProvider : IPartReadDataProvider
     {
         #region IPartReadDataProvider Members

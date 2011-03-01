@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.DPR
 {
+    /// <summary>
+    /// Represents the DTKADR table
+    /// </summary>
     public partial class ContactAddress
     {
         public static AdresseType ToXmlType(ContactAddress db)

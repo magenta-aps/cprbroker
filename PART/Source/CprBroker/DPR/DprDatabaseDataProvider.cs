@@ -11,6 +11,9 @@ using System.Linq.Expressions;
 
 namespace CprBroker.Providers.DPR
 {
+    /// <summary>
+    /// Implements the Read operation of Part standard
+    /// </summary>
     public partial class DprDatabaseDataProvider : ClientDataProvider, IPartReadDataProvider
     {
         #region IPartReadDataProvider Members

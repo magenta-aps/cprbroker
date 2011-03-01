@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CprBroker.Installers.CprBrokerInstallers
 {
+    /// <summary>
+    /// Installs Cpr broker website
+    /// </summary>
     public class CprBrokerWebSiteInstaller : CprBroker.Installers.WebSiteInstaller
     {
         protected override string DefaultWebsiteName

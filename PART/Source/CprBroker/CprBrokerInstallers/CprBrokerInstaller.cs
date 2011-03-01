@@ -7,6 +7,10 @@ using System.Text;
 
 namespace CprBroker.Installers.CprBrokerInstallers
 {
+    /// <summary>
+    /// Installs Cpr Broker
+    /// Contains child installers for various parts of the installation process
+    /// </summary>
     [System.ComponentModel.RunInstaller(true)]
     public partial class CprBrokerInstaller : System.Configuration.Install.Installer
     {

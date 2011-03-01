@@ -10,7 +10,7 @@ namespace CprBroker.Providers.KMD
     public partial class KmdDataProvider
     {
         /// <summary>
-        /// Calls the AN08002 web service
+        /// Calls the AS78205 web service
         /// </summary>
         /// <param name="cprNumber"></param>
         /// <returns></returns>

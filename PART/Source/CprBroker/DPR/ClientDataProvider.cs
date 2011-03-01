@@ -9,6 +9,9 @@ using System.Linq.Expressions;
 
 namespace CprBroker.Providers.DPR
 {
+    /// <summary>
+    /// Contains code for access of DPR diversion
+    /// </summary>
     public abstract class ClientDataProvider : BaseProvider
     {
         enum InquiryType

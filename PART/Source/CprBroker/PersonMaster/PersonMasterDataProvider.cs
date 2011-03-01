@@ -7,6 +7,9 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.PersonMaster
 {
+    /// <summary>
+    /// Gets person UUIDs from GK web services
+    /// </summary>
     public class PersonMasterDataProvider : IPartPersonMappingDataProvider, IExternalDataProvider
     {
         #region IPartPersonMappingDataProvider Members

@@ -6,6 +6,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.KMD
 {
+    /// <summary>
+    /// Contains various constants returned from KMD services
+    /// </summary>
     public static class Constants
     {
         public static UnikIdType Actor

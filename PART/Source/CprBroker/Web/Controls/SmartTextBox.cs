@@ -58,7 +58,7 @@ namespace CprBroker.Web.Controls
         {
             get
             {
-                return Utilities.ObjectFromViewState<string>(ViewState, "ValidationGroup");
+                return Utilities.Web.ObjectFromViewState<string>(ViewState, "ValidationGroup");
             }
             set
             {

@@ -12,6 +12,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.DPR
 {
+    /// <summary>
+    /// Represents the DTTOTAL table
+    /// </summary>
     public partial class PersonTotal
     {
         public CivilStatusKodeType PartCivilStatus

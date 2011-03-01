@@ -8,6 +8,9 @@ using CprBroker.Schemas;
 
 namespace CprBroker.Providers.KMD
 {
+    /// <summary>
+    /// Contains the base methods for accessing KMD web services
+    /// </summary>
     public partial class KmdDataProvider : IDataProvider, IExternalDataProvider
     {
 

@@ -149,7 +149,6 @@
       <DependentUpon>Part.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\DefaultTheme\Default.skin" />
