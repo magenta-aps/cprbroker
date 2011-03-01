@@ -50,6 +50,9 @@ namespace CprBroker.Engine
         class HeaderException : Exception
         {
         }
+        class MissingRequestException : Exception
+        {
+        }
 
         private void Copy(Stream from, Stream to)
         {
@@ -76,6 +79,10 @@ namespace CprBroker.Engine
             else if (ex is HeaderException)
             {
                 output.StandardRetur = StandardReturType.NullInput("applicationHeader");
+            }
+            else if (ex is MissingRequestException)
+            {
+                output.StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Missing request element: {0}", message.MethodInfo.Name));
             }
             else
             {
@@ -107,11 +114,11 @@ namespace CprBroker.Engine
             }
         }
 
-        private XmlNode GetBodyNode()
+        private XmlNode GetBodyNode(Stream sourceStream)
         {
             // Now modify the response
             newStream.Position = 0;
-            TextReader reader = new StreamReader(newStream);
+            TextReader reader = new StreamReader(sourceStream);
             string xml = reader.ReadToEnd();
 
             if (string.IsNullOrEmpty(xml))
@@ -126,6 +133,15 @@ namespace CprBroker.Engine
 
             var bodyNode = doc.SelectSingleNode("//soap:Body", nsmgr);
             return bodyNode;
+        }
+
+        private XmlNode GetMethodNode(XmlNode bodyNode, string messageName, string serviceNamespace)
+        {
+            XmlNamespaceManager nsmgr = new XmlNamespaceManager(bodyNode.OwnerDocument.NameTable);
+            //var prefix = bodyNode.OwnerDocument.GetPrefixOfNamespace(serviceNamespace);
+            nsmgr.AddNamespace("rt", serviceNamespace);
+            var methodNode = bodyNode.SelectSingleNode(string.Format("rt:{0}", messageName), nsmgr);
+            return methodNode;
         }
 
         private void WriteResponse(XmlDocument responseSoap)
@@ -157,6 +173,16 @@ namespace CprBroker.Engine
 
         void OnBeforeDeserialize(SoapMessage message)
         {
+            // Validate that there is a node that matched the message action
+            string messageName, serviceNamespace;
+            GetWebMethodNames(message, out messageName, out serviceNamespace);
+
+            var bodyNode = GetBodyNode(oldStream);
+            var methodNode = GetMethodNode(bodyNode, messageName, serviceNamespace);
+            if (methodNode == null)
+            {
+                throw new MissingRequestException();
+            }
             Copy(oldStream, newStream);
         }
 
@@ -181,7 +207,7 @@ namespace CprBroker.Engine
                 string messageName, serviceNamespace;
                 GetWebMethodNames(message, out messageName, out serviceNamespace);
 
-                var bodyNode = GetBodyNode();
+                var bodyNode = GetBodyNode(newStream);
                 var outNode = bodyNode.OwnerDocument.CreateElement("", messageName + "Response", serviceNamespace);
 
                 string bodyInnerXml = Strings.SerializeObject(output, true);
