@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "DB", "DB\DB.dbp", "{9A8F23D7-E12D-4174-8B34-E8BCC705235E}"
+Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "Scripts", "DB\Scripts.dbp", "{9A8F23D7-E12D-4174-8B34-E8BCC705235E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBroker", "EventBroker\EventBroker.csproj", "{D8FC2102-488A-480A-8197-8842B8192E68}"
 EndProject
