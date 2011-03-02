@@ -7,6 +7,9 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using System.Security.Cryptography;
+using System.Configuration;
+using CprBroker.Config;
+using System.Web;
 
 namespace CprBroker.Utilities
 {
@@ -27,32 +30,14 @@ namespace CprBroker.Utilities
             }
         }
 
-        private static byte[] RijndaelEncryptionKey
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(Config.Properties.Settings.Default.RijndaelEncryptionKeyFile))
-                {
-                    string text = File.ReadAllText(Config.Properties.Settings.Default.RijndaelEncryptionKeyFile);
-                    string[] arr = text.Split(new char[] { ' ', ';', ',', '-', '_' }, StringSplitOptions.RemoveEmptyEntries);
-                    var ret = Array.ConvertAll<string, byte>(arr, s => byte.Parse(s));
-                    return ret;
-                }
-                else
-                {
-                    return new byte[] { 64, 95, 48, 189, 85, 19, 22, 231, 82, 67, 73, 99, 33, 233, 112, 174, 64, 95, 48, 189, 85, 19, 22, 231, 82, 67, 73, 99, 33, 233, 112, 174 };
-                }
-            }
-        }
-
-        private static byte[] RijndaelIV = new byte[] { 55, 35, 92, 173, 56, 28, 94, 202, 55, 35, 92, 173, 56, 28, 94, 202 };
 
         public static byte[] EncryptObject(object o)
         {
+            InitializeKeysConfiguration();
             var ret = new List<byte>();
             var xml = Strings.SerializeObject(o);
 
-            RijndaelManaged m = new RijndaelManaged() { IV = RijndaelIV, Key = RijndaelEncryptionKey };
+            RijndaelManaged m = LoadKeys();
 
             var transform = m.CreateEncryptor();
 
@@ -71,8 +56,9 @@ namespace CprBroker.Utilities
 
         public static T DecryptObject<T>(byte[] encryptedData)
         {
+            InitializeKeysConfiguration();
             string xml = null;
-            RijndaelManaged m = new RijndaelManaged() { IV = RijndaelIV, Key = RijndaelEncryptionKey };
+            RijndaelManaged m = LoadKeys();
             var transform = m.CreateDecryptor();
 
             using (MemoryStream msDecrypt = new MemoryStream(encryptedData))
@@ -89,6 +75,66 @@ namespace CprBroker.Utilities
             }
             var ret = Strings.Deserialize<T>(xml);
             return ret;
-        }      
+        }
+
+        private static RijndaelManaged LoadKeys()
+        {
+            Configuration configFile = GetConfigFile();
+            DataProviderKeysSection section = configFile.Sections[DataProviderKeysSection.SectionName] as DataProviderKeysSection;
+            RijndaelManaged rm = new RijndaelManaged();
+            rm.IV = Strings.Deserialize<byte[]>(section.IV);
+            rm.Key = Strings.Deserialize<byte[]>(section.Key);
+            return rm;
+        }
+
+        private static void InitializeKeysConfiguration()
+        {
+            Configuration configFile = GetConfigFile();
+            DataProviderKeysSection section = configFile.Sections[DataProviderKeysSection.SectionName] as DataProviderKeysSection;
+            if (!DataProviderKeysSection.IsNullOrEmpty(section))
+            {
+                InitializeKeysConfiguration(configFile, true);
+                section = configFile.Sections[DataProviderKeysSection.SectionName] as DataProviderKeysSection;
+                if (!section.SectionInformation.IsProtected)
+                {
+                    section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                    configFile.Save();
+                }
+                ConfigurationManager.RefreshSection(DataProviderKeysSection.SectionName);
+            }
+        }
+
+        public static void InitializeKeysConfiguration(Configuration configFile, bool overwrite)
+        {
+            DataProviderKeysSection section = configFile.Sections[DataProviderKeysSection.SectionName] as DataProviderKeysSection;
+            if (section == null)
+            {
+                section = new DataProviderKeysSection();
+                configFile.Sections.Add(DataProviderKeysSection.SectionName, section);
+                overwrite = true;
+            }
+            if (DataProviderKeysSection.IsNullOrEmpty(section) || overwrite)
+            {
+                RijndaelManaged rm = new RijndaelManaged();
+                rm.GenerateIV();
+                rm.GenerateKey();
+                section.IV = Strings.SerializeObject(rm.IV);
+                section.Key = Strings.SerializeObject(rm.Key);
+            }
+            configFile.Save();
+        }
+
+        private static Configuration GetConfigFile()
+        {
+            if (HttpContext.Current != null)
+            {
+                return System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/");
+            }
+            else
+            {
+                return ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            }
+        }
+
     }
 }
