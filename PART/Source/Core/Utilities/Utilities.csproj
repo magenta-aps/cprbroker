@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DataProviderKeysSection.cs" />
     <Compile Include="Installation.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="PredicateBuilder.cs" />

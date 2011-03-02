@@ -88,6 +88,19 @@ namespace CprBroker.Utilities
             configuration.Save();
         }
 
+        public static void RemoveSectionNode(string configFileName, string nodeName)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(configFileName);
+            XmlNode node = doc.SelectSingleNode("//" + nodeName);
+            if (node != null)
+            {
+                var parentNode = node.ParentNode;
+                parentNode.RemoveChild(node);
+                doc.Save(configFileName);
+            }
+        }
+
         public static void SetApplicationSettingInConfigFile(string configFileName, Type settingsType, string settingName, string value)
         {
             var map = new ExeConfigurationFileMap() { ExeConfigFilename = configFileName };

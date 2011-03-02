@@ -120,6 +120,9 @@ namespace CprBroker.Installers
                 webInstallationInfo.ApplicationInstalled = true;
                 savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
 
+                // Remove encryption key node
+                Installation.RemoveSectionNode(this.GetWebConfigFilePathFromInstaller(), Utilities.DataProviderKeysSection.SectionName);
+                
                 // Set connection strings and enqueue their encryption
                 var appRelativePath = webInstallationInfo.GetAppRelativePath();
                 ConnectionStringsInstaller.RegisterCommitAction(this.GetWebConfigFilePathFromInstaller(), () => EncryptConnectionStrings(siteID.ToString(), appRelativePath));

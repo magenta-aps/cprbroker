@@ -33,11 +33,10 @@ namespace CprBroker.Utilities
 
         public static byte[] EncryptObject(object o)
         {
-            InitializeKeysConfiguration();
             var ret = new List<byte>();
             var xml = Strings.SerializeObject(o);
 
-            RijndaelManaged m = LoadKeys();
+            RijndaelManaged m = DataProviderKeysSection.GetFromConfig();
 
             var transform = m.CreateEncryptor();
 
@@ -55,10 +54,9 @@ namespace CprBroker.Utilities
         }
 
         public static T DecryptObject<T>(byte[] encryptedData)
-        {
-            InitializeKeysConfiguration();
+        {            
             string xml = null;
-            RijndaelManaged m = LoadKeys();
+            RijndaelManaged m = DataProviderKeysSection.GetFromConfig();
             var transform = m.CreateDecryptor();
 
             using (MemoryStream msDecrypt = new MemoryStream(encryptedData))
@@ -76,65 +74,5 @@ namespace CprBroker.Utilities
             var ret = Strings.Deserialize<T>(xml);
             return ret;
         }
-
-        private static RijndaelManaged LoadKeys()
-        {
-            Configuration configFile = GetConfigFile();
-            DataProviderKeysSection section = configFile.Sections[DataProviderKeysSection.SectionName] as DataProviderKeysSection;
-            RijndaelManaged rm = new RijndaelManaged();
-            rm.IV = Strings.Deserialize<byte[]>(section.IV);
-            rm.Key = Strings.Deserialize<byte[]>(section.Key);
-            return rm;
-        }
-
-        private static void InitializeKeysConfiguration()
-        {
-            Configuration configFile = GetConfigFile();
-            DataProviderKeysSection section = configFile.Sections[DataProviderKeysSection.SectionName] as DataProviderKeysSection;
-            if (!DataProviderKeysSection.IsNullOrEmpty(section))
-            {
-                InitializeKeysConfiguration(configFile, true);
-                section = configFile.Sections[DataProviderKeysSection.SectionName] as DataProviderKeysSection;
-                if (!section.SectionInformation.IsProtected)
-                {
-                    section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
-                    configFile.Save();
-                }
-                ConfigurationManager.RefreshSection(DataProviderKeysSection.SectionName);
-            }
-        }
-
-        public static void InitializeKeysConfiguration(Configuration configFile, bool overwrite)
-        {
-            DataProviderKeysSection section = configFile.Sections[DataProviderKeysSection.SectionName] as DataProviderKeysSection;
-            if (section == null)
-            {
-                section = new DataProviderKeysSection();
-                configFile.Sections.Add(DataProviderKeysSection.SectionName, section);
-                overwrite = true;
-            }
-            if (DataProviderKeysSection.IsNullOrEmpty(section) || overwrite)
-            {
-                RijndaelManaged rm = new RijndaelManaged();
-                rm.GenerateIV();
-                rm.GenerateKey();
-                section.IV = Strings.SerializeObject(rm.IV);
-                section.Key = Strings.SerializeObject(rm.Key);
-            }
-            configFile.Save();
-        }
-
-        private static Configuration GetConfigFile()
-        {
-            if (HttpContext.Current != null)
-            {
-                return System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/");
-            }
-            else
-            {
-                return ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            }
-        }
-
     }
 }
