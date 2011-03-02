@@ -81,5 +81,15 @@ namespace CprBroker.Utilities
                 return source;
             }
         }
+
+        public static string CurrentExePath()
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            if (System.Web.HttpContext.Current != null)
+            {
+                path += "bin\\";
+            }
+            return path;
+        }
     }
 }

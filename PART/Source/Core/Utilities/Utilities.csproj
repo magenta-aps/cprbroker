@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataProviderKeysSection.cs" />
     <Compile Include="Installation.cs" />

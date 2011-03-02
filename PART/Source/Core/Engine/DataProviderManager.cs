@@ -81,7 +81,7 @@ namespace CprBroker.Engine
                 try
                 {
                     IExternalDataProvider externalProvider = dataProvider as IExternalDataProvider;
-                    externalProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(externalProvider.ConfigurationKeys.Select(p=>p.Name).ToArray());
+                    externalProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(externalProvider.ConfigurationKeys.Select(p => p.Name).ToArray());
                 }
                 catch (Exception ex)
                 {
@@ -102,74 +102,88 @@ namespace CprBroker.Engine
 
         public static Type[] GetAvailableDataProviderTypes(bool isExternal)
         {
-            // Load available types
             List<Type> neededTypes = new List<Type>();
-            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            try
             {
-                try
+                DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
+                if (section != null)
                 {
-                    var assemblyTypes = asm.GetTypes();
-                    foreach (Type t in assemblyTypes)
+                    for (int i = 0; i < section.Types.Count; i++)
                     {
-                        if (t.IsClass && !t.IsAbstract)
+                        try
                         {
-                            if (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t))
+                            string typeName = section.Types[i].TypeName;
+                            Type t = Type.GetType(typeName);
+                            if (t.IsClass && !t.IsAbstract && typeof(IDataProvider).IsAssignableFrom(t))
                             {
-                                neededTypes.Add(t);
+                                if (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t))
+                                {
+                                    neededTypes.Add(t);
+                                }
+                                else if (!isExternal && !typeof(IExternalDataProvider).IsAssignableFrom(t))
+                                {
+                                    neededTypes.Add(t);
+                                }
                             }
-                            else if (!isExternal && typeof(IDataProvider).IsAssignableFrom(t) && !typeof(IExternalDataProvider).IsAssignableFrom(t))
-                            {
-                                neededTypes.Add(t);
-                            }
+                        }
+                        catch (System.Reflection.ReflectionTypeLoadException ex)
+                        {
+                            Local.Admin.LogException(ex, ex.LoaderExceptions);
+                        }
+                        catch (Exception ex)
+                        {
+                            Local.Admin.LogException(ex);
                         }
                     }
                 }
-                catch (System.Reflection.ReflectionTypeLoadException ex)
-                {
-                    Local.Admin.LogException(ex, ex.LoaderExceptions);
-                }
-                catch (Exception ex)
-                {
-                    Local.Admin.LogException(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                Local.Admin.LogException(ex);
             }
             return neededTypes.ToArray();
         }
 
         private static IExternalDataProvider[] LoadExternalDataProviders()
         {
-            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
+            List<IExternalDataProvider> providers = new List<IExternalDataProvider>();
+            try
             {
-                DataProvider.SetChildLoadOptions(dataContext);
-
-                var dbProviders = (from prov in dataContext.DataProviders
-                                   where prov.IsEnabled
-                                   orderby prov.Ordinal
-                                   select prov);
-
-                List<IExternalDataProvider> providers = new List<IExternalDataProvider>();
-
-                // Append external clearData providers
-                foreach (var dbProv in dbProviders)
+                using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
                 {
-                    try
+                    DataProvider.SetChildLoadOptions(dataContext);
+
+                    var dbProviders = (from prov in dataContext.DataProviders
+                                       where prov.IsEnabled
+                                       orderby prov.Ordinal
+                                       select prov);
+
+                    // Append external clearData providers
+                    foreach (var dbProv in dbProviders)
                     {
-                        IExternalDataProvider dataProvider = CreateDataProvider(dbProv) as IExternalDataProvider;
-                        if (dataProvider != null)
+                        try
                         {
-                            if (dataProvider.IsAlive())
+                            IExternalDataProvider dataProvider = CreateDataProvider(dbProv) as IExternalDataProvider;
+                            if (dataProvider != null)
                             {
-                                providers.Add(dataProvider);
+                                if (dataProvider.IsAlive())
+                                {
+                                    providers.Add(dataProvider);
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Local.Admin.LogException(ex);
+                        catch (Exception ex)
+                        {
+                            Local.Admin.LogException(ex);
+                        }
                     }
                 }
-                return providers.ToArray();
             }
+            catch (Exception ex)
+            {
+                Local.Admin.LogException(ex);
+            }
+            return providers.ToArray();
         }
 
         private static IDataProvider[] LoadLocalDataProviders()

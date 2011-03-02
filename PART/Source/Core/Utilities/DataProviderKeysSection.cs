@@ -78,7 +78,7 @@ namespace CprBroker.Utilities
         public static RijndaelManaged GetFromConfig()
         {
             RijndaelManaged rm = new RijndaelManaged();                
-            Configuration configFile = GetConfigFile();
+            Configuration configFile = Config.GetConfigFile();
             DataProviderKeysSection section = configFile.Sections[SectionName] as DataProviderKeysSection;
             if (!IsValid(section))
             {
@@ -105,17 +105,7 @@ namespace CprBroker.Utilities
             return rm;
         }
 
-        private static Configuration GetConfigFile()
-        {
-            if (HttpContext.Current != null)
-            {
-                return System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
-            }
-            else
-            {
-                return ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            }
-        }
+        
 
     }
 }
