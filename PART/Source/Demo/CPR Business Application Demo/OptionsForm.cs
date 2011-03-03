@@ -105,7 +105,6 @@ namespace CPR_Business_Application_Demo
 
             bool testOk = adminController.TestWSConnection(cprBrokerWebServiceUrlTextBox.Text);
             appRegistrationGroupBox.Enabled = testOk;
-            Properties.Settings.Default.CPRBrokerWebServiceUrlTestOk = testOk;
             if (testOk)
             {
                 MessageBox.Show(this, "Connection succeeded. The Web Service URL is correct.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -122,6 +121,29 @@ namespace CPR_Business_Application_Demo
                                 MessageBoxIcon.Warning);
             }
 
+        }
+
+        private void testEventBrokerConnectionButton_Click(object sender, EventArgs e)
+        {
+            CPRBrokerLogPage.Links.Clear();
+            var subscriptionsController = new SubscriptionsController(Properties.Settings.Default);
+
+            bool testOk = subscriptionsController.TestWSConnection(eventBrokerWebServiceUrlTextBox.Text);
+            appRegistrationGroupBox.Enabled = testOk;            
+            if (testOk)
+            {
+                MessageBox.Show(this, "Connection succeeded. The Web Service URL is correct.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Properties.Settings.Default.EventBrokerWebServiceUrl = eventBrokerWebServiceUrlTextBox.Text;                
+                VerifyRegistrationAndApproval();
+            }
+            else
+            {
+                MessageBox.Show(this,
+                                "Connection failed. The Web Service URL is incorrect or the service is unavailable",
+                                "Connection failure",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
         }
 
         private void registerApplicationButton_Click(object sender, EventArgs e)
@@ -199,8 +221,8 @@ namespace CPR_Business_Application_Demo
 
         private void cprBrokerWebServiceUrlTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (cprBrokerWebServiceUrlTextBox.Text != Properties.Settings.Default.CPRBrokerWebServiceUrl)
-                Properties.Settings.Default.CPRBrokerWebServiceUrlTestOk = false;
+            
+                
         }
 
         private void notificationModeCallbackWebServiceRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -243,6 +265,8 @@ namespace CPR_Business_Application_Demo
         }
 
         #endregion
+
+       
 
     }
 }

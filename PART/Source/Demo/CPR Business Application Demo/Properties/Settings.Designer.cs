@@ -83,18 +83,6 @@ namespace CPR_Business_Application_Demo.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CPRBrokerWebServiceUrlTestOk {
-            get {
-                return ((bool)(this["CPRBrokerWebServiceUrlTestOk"]));
-            }
-            set {
-                this["CPRBrokerWebServiceUrlTestOk"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("CPR Business Application Demo")]

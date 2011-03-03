@@ -278,16 +278,11 @@ namespace CPR_Business_Application_Demo
             PartAdapter adapter = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
 
             Guid personUuid = new Guid(uuidTextBox.Text);
-            var personReg = adapter.Read(Properties.Settings.Default.AdminAppToken, personUuid);
+            var readResult = adapter.Read(Properties.Settings.Default.AdminAppToken, personUuid);
             ConsoleWriteLine("  looking up uid:" + personUuid);
-            System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(PartService.RegistreringType1));
+            System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(PartService.LaesOutputType));
             StringWriter w = new StringWriter();
-            ser.Serialize(w, personReg);
-
-            fornavn.Text = personReg.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.PersonGivenName;
-            efternavn.Text = personReg.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure.PersonSurnameName;
-            virkningFra.Text = personReg.AttributListe.Egenskab[0].Virkning.FraTidspunkt.Item.ToString();
-            virkningTil.Text = personReg.AttributListe.Egenskab[0].Virkning.TilTidspunkt.Item.ToString();
+            ser.Serialize(w, readResult);            
 
             //gade.Text = personReg.AttributListe.RegisterOplysning[0]. CprBorger.FolkeregisterAdresse.DanskAdresse.AddressPostal.StreetName;
 

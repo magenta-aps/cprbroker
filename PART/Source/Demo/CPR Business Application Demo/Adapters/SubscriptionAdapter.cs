@@ -33,7 +33,7 @@ namespace CPR_Business_Application_Demo.Adapters
         #endregion
 
         #region Subscription
-        private Guid[] GetUuids(ApplicationHeader applicationHeader, string [] cprNumbers)
+        private Guid[] GetUuids(ApplicationHeader applicationHeader, string[] cprNumbers)
         {
             PartAdapter adpt = new PartAdapter(Properties.Settings.Default.CPRBrokerWebServiceUrl);
             return Array.ConvertAll<string, Guid>(cprNumbers, cpr => adpt.GetUuid(applicationHeader.ApplicationToken, cpr));
@@ -41,7 +41,7 @@ namespace CPR_Business_Application_Demo.Adapters
 
         public BasicOutputTypeOfChangeSubscriptionType Subscribe(ApplicationHeader applicationHeader, ChannelBaseType notificationChannel, string[] personCivilRegistrationIdentifiers)
         {
-            return subscriptionsHandler.Subscribe(applicationHeader, notificationChannel, GetUuids(applicationHeader,personCivilRegistrationIdentifiers));
+            return subscriptionsHandler.Subscribe(applicationHeader, notificationChannel, GetUuids(applicationHeader, personCivilRegistrationIdentifiers));
         }
 
         public BasicOutputTypeOfBirthdateSubscriptionType SubscribeOnBirthdate(ApplicationHeader applicationHeader, ChannelBaseType notificationChannel,
@@ -56,6 +56,13 @@ namespace CPR_Business_Application_Demo.Adapters
             return subscriptionsHandler.GetActiveSubscriptionsList(applicationHeader);
         }
         #endregion
+
+        public bool Test()
+        {
+            System.Net.WebClient client = new System.Net.WebClient();
+            client.DownloadData(subscriptionsHandler.Endpoint.Address.Uri.ToString());
+            return true;
+        }
 
         #region Private Fields
         private readonly SubscriptionsService.SubscriptionsSoap12Client subscriptionsHandler;

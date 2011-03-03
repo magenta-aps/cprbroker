@@ -56,7 +56,7 @@ namespace CPR_Business_Application_Demo
             return Guid.Empty;
         }
 
-        public PartService.RegistreringType1 Read(string applicationToken, Guid uuid)
+        public PartService.LaesOutputType Read(string applicationToken, Guid uuid)
         {
             try
             {
@@ -71,11 +71,7 @@ namespace CPR_Business_Application_Demo
 
                 LaesOutputType output;
                 PartHandler.Read(CreateApplicationHeader(applicationToken), input, out output);
-
-                if (output != null && output.LaesResultat != null && output.LaesResultat.Item is PartService.RegistreringType1)
-                {
-                    return output.LaesResultat.Item as PartService.RegistreringType1;
-                }
+                return output;                
             }
             catch (Exception)
             {

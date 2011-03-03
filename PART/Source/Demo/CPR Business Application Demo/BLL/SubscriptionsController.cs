@@ -20,7 +20,20 @@ namespace CPR_Business_Application_Demo.Business
         }
         #endregion
 
-        #region Methods       
+        #region Methods
+
+        public bool TestWSConnection(string url)
+        {
+            try
+            {
+                var cprSubscriptionAdapter = new SubscriptionAdapter(url);
+                return cprSubscriptionAdapter.Test();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         public SubscriptionType[] GetActiveSubscriptions()
         {
@@ -31,8 +44,8 @@ namespace CPR_Business_Application_Demo.Business
 
             }
             catch (Exception ex)
-            {                
-                return new SubscriptionType[]{};
+            {
+                return new SubscriptionType[] { };
             }
         }
 

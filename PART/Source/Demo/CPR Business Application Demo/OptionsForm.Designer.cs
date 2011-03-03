@@ -33,6 +33,8 @@
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.connectionTabPage = new System.Windows.Forms.TabPage();
             this.appRegistrationGroupBox = new System.Windows.Forms.GroupBox();
+            this.CPRBrokerLogPage = new System.Windows.Forms.LinkLabel();
+            this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.adminAppTokenTextBox = new System.Windows.Forms.TextBox();
             this.appRegistrationLabel = new System.Windows.Forms.Label();
@@ -56,8 +58,8 @@
             this.userTokenTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.applyButton = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.CPRBrokerLogPage = new System.Windows.Forms.LinkLabel();
+            this.eventBrokerWebServiceUrlTextBox = new System.Windows.Forms.TextBox();
+            this.testEventBrokerConnectionButton = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.connectionTabPage.SuspendLayout();
             this.appRegistrationGroupBox.SuspendLayout();
@@ -100,6 +102,8 @@
             // 
             // connectionTabPage
             // 
+            this.connectionTabPage.Controls.Add(this.testEventBrokerConnectionButton);
+            this.connectionTabPage.Controls.Add(this.eventBrokerWebServiceUrlTextBox);
             this.connectionTabPage.Controls.Add(this.appRegistrationGroupBox);
             this.connectionTabPage.Controls.Add(this.testConnectionButton);
             this.connectionTabPage.Controls.Add(this.label2);
@@ -122,19 +126,40 @@
             this.appRegistrationGroupBox.Controls.Add(this.appRegistrationLabel);
             this.appRegistrationGroupBox.Controls.Add(this.registerApplicationButton);
             this.appRegistrationGroupBox.Enabled = false;
-            this.appRegistrationGroupBox.Location = new System.Drawing.Point(9, 90);
+            this.appRegistrationGroupBox.Location = new System.Drawing.Point(9, 148);
             this.appRegistrationGroupBox.Name = "appRegistrationGroupBox";
-            this.appRegistrationGroupBox.Size = new System.Drawing.Size(436, 294);
+            this.appRegistrationGroupBox.Size = new System.Drawing.Size(436, 236);
             this.appRegistrationGroupBox.TabIndex = 4;
             this.appRegistrationGroupBox.TabStop = false;
             this.appRegistrationGroupBox.Text = "Application Registration";
+            // 
+            // CPRBrokerLogPage
+            // 
+            this.CPRBrokerLogPage.AutoSize = true;
+            this.CPRBrokerLogPage.Location = new System.Drawing.Point(89, 236);
+            this.CPRBrokerLogPage.Name = "CPRBrokerLogPage";
+            this.CPRBrokerLogPage.Size = new System.Drawing.Size(81, 13);
+            this.CPRBrokerLogPage.TabIndex = 5;
+            this.CPRBrokerLogPage.TabStop = true;
+            this.CPRBrokerLogPage.Text = "CPR Broker Log";
+            this.CPRBrokerLogPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CPRBrokerLogPage_LinkClicked);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(77, 138);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(117, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Registration status:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(24, 25);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(120, 13);
+            this.label6.Size = new System.Drawing.Size(122, 13);
             this.label6.TabIndex = 3;
             this.label6.Text = "Admin-application-token";
             // 
@@ -189,7 +214,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Web Service URL:";
             // 
@@ -223,7 +248,7 @@
             this.notificationModeDisabledRadioButton.Checked = true;
             this.notificationModeDisabledRadioButton.Location = new System.Drawing.Point(6, 27);
             this.notificationModeDisabledRadioButton.Name = "notificationModeDisabledRadioButton";
-            this.notificationModeDisabledRadioButton.Size = new System.Drawing.Size(66, 17);
+            this.notificationModeDisabledRadioButton.Size = new System.Drawing.Size(65, 17);
             this.notificationModeDisabledRadioButton.TabIndex = 4;
             this.notificationModeDisabledRadioButton.TabStop = true;
             this.notificationModeDisabledRadioButton.Text = "Disabled";
@@ -266,7 +291,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 33);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.Size = new System.Drawing.Size(58, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "File Share:";
             // 
@@ -315,7 +340,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 33);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 13);
+            this.label4.Size = new System.Drawing.Size(93, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Web Service URL:";
             // 
@@ -344,7 +369,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 18);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 13);
+            this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "User Token:";
             // 
@@ -358,26 +383,24 @@
             this.applyButton.UseVisualStyleBackColor = true;
             this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
-            // label8
+            // eventBrokerWebServiceUrlTextBox
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(77, 138);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(117, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Registration status:";
+            this.eventBrokerWebServiceUrlTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::CPR_Business_Application_Demo.Properties.Settings.Default, "EventBrokerWebServiceUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.eventBrokerWebServiceUrlTextBox.Location = new System.Drawing.Point(9, 90);
+            this.eventBrokerWebServiceUrlTextBox.Name = "eventBrokerWebServiceUrlTextBox";
+            this.eventBrokerWebServiceUrlTextBox.Size = new System.Drawing.Size(311, 20);
+            this.eventBrokerWebServiceUrlTextBox.TabIndex = 5;
+            this.eventBrokerWebServiceUrlTextBox.Text = global::CPR_Business_Application_Demo.Properties.Settings.Default.EventBrokerWebServiceUrl;
             // 
-            // CPRBrokerLogPage
+            // testEventBrokerConnectionButton
             // 
-            this.CPRBrokerLogPage.AutoSize = true;
-            this.CPRBrokerLogPage.Location = new System.Drawing.Point(89, 236);
-            this.CPRBrokerLogPage.Name = "CPRBrokerLogPage";
-            this.CPRBrokerLogPage.Size = new System.Drawing.Size(84, 13);
-            this.CPRBrokerLogPage.TabIndex = 5;
-            this.CPRBrokerLogPage.TabStop = true;
-            this.CPRBrokerLogPage.Text = "CPR Broker Log";
-            this.CPRBrokerLogPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CPRBrokerLogPage_LinkClicked);
+            this.testEventBrokerConnectionButton.Location = new System.Drawing.Point(338, 87);
+            this.testEventBrokerConnectionButton.Name = "testEventBrokerConnectionButton";
+            this.testEventBrokerConnectionButton.Size = new System.Drawing.Size(107, 23);
+            this.testEventBrokerConnectionButton.TabIndex = 6;
+            this.testEventBrokerConnectionButton.Text = "Test connection";
+            this.testEventBrokerConnectionButton.UseVisualStyleBackColor = true;
+            this.testEventBrokerConnectionButton.Click += new System.EventHandler(this.testEventBrokerConnectionButton_Click);
             // 
             // OptionsForm
             // 
@@ -441,5 +464,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.LinkLabel CPRBrokerLogPage;
+        private System.Windows.Forms.Button testEventBrokerConnectionButton;
+        private System.Windows.Forms.TextBox eventBrokerWebServiceUrlTextBox;
     }
 }
