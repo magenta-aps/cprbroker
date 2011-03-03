@@ -267,11 +267,27 @@ namespace CprBroker.Installers
 
         void CopyTypeAssemblyFileToNetFramework(Type t)
         {
-            File.Copy(t.Assembly.Location, Installation.GetNetFrameworkDirectory() + Path.GetFileName(t.Assembly.Location), true);
+            string path = Installation.GetNetFrameworkDirectory();
+            string fileName = Path.GetFileName(t.Assembly.Location);
+            if (Directory.Exists(path))
+            {
+                File.Copy(t.Assembly.Location, path + fileName, true);
+            }
+            path = path.Replace("Framework", "Framework64");
+            if (Directory.Exists(path))
+            {
+                File.Copy(t.Assembly.Location, path + fileName, true);
+            }
+
         }
         void DeleteTypeAssemblyFileFroNetFramework(Type t)
         {
             string path = Installation.GetNetFrameworkDirectory() + Path.GetFileName(t.Assembly.Location);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            path = path.Replace("Framework", "Framework64");
             if (File.Exists(path))
             {
                 File.Delete(path);
