@@ -7,6 +7,7 @@ using System.DirectoryServices;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
+using CprBroker.Engine;
 using CprBroker.Utilities;
 
 namespace CprBroker.Installers
@@ -59,7 +60,6 @@ namespace CprBroker.Installers
                 {
                     using (DirectoryEntry machineRoot = new DirectoryEntry(WebInstallationInfo.ServerRoot))
                     {
-
                         using (DirectoryEntry site = exists ? new DirectoryEntry(machineRoot.Path + "/" + siteID) : machineRoot.Invoke("Create", "IIsWebServer", siteID) as System.DirectoryServices.DirectoryEntry)
                         {
                             site.Invoke("Put", "ServerComment", webInstallationInfo.WebsiteName);
@@ -120,12 +120,17 @@ namespace CprBroker.Installers
                 webInstallationInfo.ApplicationInstalled = true;
                 savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
 
-                // Remove encryption key node
-                Installation.RemoveSectionNode(this.GetWebConfigFilePathFromInstaller(), Utilities.DataProviderKeysSection.SectionName);
-                
-                // Set connection strings and enqueue their encryption
+                GrantConfigEncryptionAccess();
+
+                var configFilePath = this.GetWebConfigFilePathFromInstaller();
                 var appRelativePath = webInstallationInfo.GetAppRelativePath();
-                ConnectionStringsInstaller.RegisterCommitAction(this.GetWebConfigFilePathFromInstaller(), () => EncryptConnectionStrings(siteID.ToString(), appRelativePath));
+
+                // Data provider keys
+                EncryptDataProviderKeys(configFilePath, siteID.ToString(), appRelativePath);
+
+                // Set connection strings and enqueue their encryption
+
+                ConnectionStringsInstaller.RegisterCommitAction(configFilePath, () => EncryptConnectionStrings(siteID.ToString(), appRelativePath));
             }
             catch (InstallException ex)
             {
@@ -248,7 +253,7 @@ namespace CprBroker.Installers
             }
         }
 
-        private void EncryptConnectionStrings(string site, string app)
+        private void GrantConfigEncryptionAccess()
         {
             string[] users = new string[]
             {                
@@ -258,7 +263,58 @@ namespace CprBroker.Installers
             {
                 RunRegIIS(string.Format("-pa \"NetFrameworkConfigurationKey\" \"{0}\"", user));
             }
+        }
 
+        void CopyTypeAssemblyFileToNetFramework(Type t)
+        {
+            File.Copy(t.Assembly.Location, Installation.GetNetFrameworkDirectory() + Path.GetFileName(t.Assembly.Location), true);
+        }
+        void DeleteTypeAssemblyFileFroNetFramework(Type t)
+        {
+            string path = Installation.GetNetFrameworkDirectory() + Path.GetFileName(t.Assembly.Location);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+
+        public void EncryptDataProviderKeys(string configFilePath, string site, string app)
+        {
+            try
+            {
+                //var defNode = DataProviderKeysSection.CreateXmlSectionDefinitionNode();
+                //var sectionNode = DataProviderKeysSection.CreateNewXmlSectionNode();
+                System.Diagnostics.Debugger.Break();
+                CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection));
+                CopyTypeAssemblyFileToNetFramework(typeof(DataProvidersConfigurationSection));
+
+                Installation.RemoveSectionNode(configFilePath, DataProviderKeysSection.SectionName);
+                var dataProvidersNode = Installation.RemoveSectionNode(configFilePath, DataProvidersConfigurationSection.SectionName);
+
+                var config = Installation.OpenConfigFile(configFilePath);
+                DataProviderKeysSection.RegisterInConfig(config);
+
+                RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, site, app));
+
+                Installation.AddSectionNode(dataProvidersNode, configFilePath, Constants.DataProvidersSectionGroupName);
+
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                dic["name"] = DataProvidersConfigurationSection.SectionName;
+                dic["type"] = typeof(DataProvidersConfigurationSection).AssemblyQualifiedName;
+
+                Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", Constants.DataProvidersSectionGroupName));
+
+                DeleteTypeAssemblyFileFroNetFramework(typeof(DataProviderKeysSection));
+                DeleteTypeAssemblyFileFroNetFramework(typeof(DataProvidersConfigurationSection));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void EncryptConnectionStrings(string site, string app)
+        {
             RunRegIIS(string.Format("-pe \"connectionStrings\" -site \"{0}\" -app \"{1}\"", site, app));
         }
 

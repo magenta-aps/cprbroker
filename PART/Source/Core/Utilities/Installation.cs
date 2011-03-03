@@ -64,6 +64,14 @@ namespace CprBroker.Utilities
             return configFileName;
         }
 
+        public static Configuration OpenConfigFile(string configFilePath)
+        {
+            var map = new ExeConfigurationFileMap();
+            map.ExeConfigFilename = configFilePath;
+            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+            return configuration;
+        }
+
         /// <summary>
         /// Sets the connection string value in the given config file
         /// </summary>
@@ -72,10 +80,7 @@ namespace CprBroker.Utilities
         /// <param name="connectionString"></param>
         public static void SetConnectionStringInConfigFile(string configFilePath, string name, string connectionString)
         {
-            var map = new ExeConfigurationFileMap();
-            map.ExeConfigFilename = configFilePath;
-            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
-
+            var configuration = OpenConfigFile(configFilePath);
             System.Configuration.ConnectionStringsSection sec = configuration.GetSection("connectionStrings") as ConnectionStringsSection;
             if (sec.ConnectionStrings[name] == null)
             {
@@ -88,7 +93,7 @@ namespace CprBroker.Utilities
             configuration.Save();
         }
 
-        public static void RemoveSectionNode(string configFileName, string nodeName)
+        public static XmlNode RemoveSectionNode(string configFileName, string nodeName)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(configFileName);
@@ -99,12 +104,48 @@ namespace CprBroker.Utilities
                 parentNode.RemoveChild(node);
                 doc.Save(configFileName);
             }
+            return node;
+        }
+
+        public static bool AddSectionNode(string nodeName,Dictionary<string,string> attributes, string configFileName, string parentNodeName)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(configFileName);
+            XmlNode parentNode = doc.SelectSingleNode("//" + parentNodeName);
+            if (parentNode != null)
+            {
+                var newNode = doc.CreateElement(nodeName);
+                foreach (var attr in attributes)
+                {
+                    var at = doc.CreateAttribute(attr.Key);
+                    at.Value = attr.Value;
+                    newNode.Attributes.Append(at);
+                }                
+                parentNode.AppendChild(newNode);
+                doc.Save(configFileName);
+                return true;
+            }
+            return false;
+        }
+        public static bool AddSectionNode(XmlNode node,string configFileName, string parentNodeName)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(configFileName);
+            XmlNode parentNode = doc.SelectSingleNode("//" + parentNodeName);
+            if (parentNode != null)
+            {
+                var newNode=doc.CreateElement(node.Name);
+                newNode.InnerXml = node.InnerXml;
+                parentNode.AppendChild(newNode);
+                doc.Save(configFileName);
+                return true;
+            }
+            return false;
         }
 
         public static void SetApplicationSettingInConfigFile(string configFileName, Type settingsType, string settingName, string value)
         {
-            var map = new ExeConfigurationFileMap() { ExeConfigFilename = configFileName };
-            Configuration conf = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+            var conf = OpenConfigFile(configFileName);
             var applicationSettings = conf.SectionGroups["applicationSettings"] as ApplicationSettingsGroup;
             if (applicationSettings == null)
             {
@@ -127,6 +168,8 @@ namespace CprBroker.Utilities
             configSettings.Settings.Add(settingElement);
             conf.Save(ConfigurationSaveMode.Full);
         }
+
+        
 
         const int MAX_PATH = 256;
         public static string GetNetFrameworkDirectory()
