@@ -30,13 +30,13 @@ namespace CprBroker.NUnitTester.Part {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegSagDokObjektType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegInputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ListOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FlerRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegisterOplysningBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AdresseBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(KontaktKanalBaseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputType))]
     public partial class Part : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
@@ -161,7 +161,7 @@ namespace CprBroker.NUnitTester.Part {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("QualityHeaderValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.Out)]
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/RefreshRead ", RequestElementName="RefreshRead ", RequestNamespace="http://dk.itst", ResponseElementName="RefreshRead Response", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/RefreshRead", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("LaesOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
         public LaesOutputType RefreshRead([System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:2.0.0")] LaesInputType LaesInput) {
             object[] results = this.Invoke("RefreshRead", new object[] {
@@ -2111,8 +2111,8 @@ namespace CprBroker.NUnitTester.Part {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
@@ -4085,9 +4085,9 @@ namespace CprBroker.NUnitTester.Part {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
@@ -4105,6 +4105,27 @@ namespace CprBroker.NUnitTester.Part {
             }
             set {
                 this.standardReturField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class OpretOutputType : BasicOutputType {
+        
+        private PersonType personField;
+        
+        /// <remarks/>
+        public PersonType Person {
+            get {
+                return this.personField;
+            }
+            set {
+                this.personField = value;
             }
         }
     }
@@ -4148,27 +4169,6 @@ namespace CprBroker.NUnitTester.Part {
             }
             set {
                 this.registreringField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class OpretOutputType : BasicOutputType {
-        
-        private PersonType personField;
-        
-        /// <remarks/>
-        public PersonType Person {
-            get {
-                return this.personField;
-            }
-            set {
-                this.personField = value;
             }
         }
     }
