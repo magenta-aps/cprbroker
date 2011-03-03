@@ -284,7 +284,6 @@ namespace CprBroker.Installers
             {
                 //var defNode = DataProviderKeysSection.CreateXmlSectionDefinitionNode();
                 //var sectionNode = DataProviderKeysSection.CreateNewXmlSectionNode();
-                System.Diagnostics.Debugger.Break();
                 CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection));
                 CopyTypeAssemblyFileToNetFramework(typeof(DataProvidersConfigurationSection));
 
