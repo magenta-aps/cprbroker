@@ -17,24 +17,7 @@ namespace CprBroker.NUnitTester
         public static string AppToken = "";
         public static string AppNamePrefix = "Unit test app";
         public static readonly string[] cprNumbers = new string[] { 
-            "2608450478", // 01   KMD 01    DPR 01
-            "2904432108", // 01   KMD 01    DPR 01
-            "2301813506", // 03   KMD 01    DPR 03
-            "1805812172", // 05   KMD 01    DPR 01     Greenland
-            "2811781323", // 05   KMD 01    DPR 05
-            "2901763006", // 05                                    number invalid, former double number 
-            "2112562489", // 20
-            "1209971948", // 30  KMD 01     DPR 01
-            "2802813581", // 60
-            "1204463081", // 70 disappeared
-            "1410733141", // 80 
-            "2304230889", // 90
-            //"1234123412", //not found in DPR
-            "2101773607",
-            //"1101812134",// laesResultat with multiple marriages
-            //"2711640463", // has multiple names
-            //"1403412399" // has no DTNAVNE in DPR
-            //"502261703" //// has no DTNAVNE in DPR
+           
         };
         public const string CprNumbersFieldName = "cprNumbers";
 
@@ -48,7 +31,6 @@ namespace CprBroker.NUnitTester
             "ddddd",
             "  12345678",
             "    56    ",
-            "2610800588"
         };
         public const string InvalidCprNumbersFieldName = "invalidCprNumbers";
 
