@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using CprBroker.Engine;
 using CprBroker.Utilities;
+using CprBroker.Providers.PersonMaster.PersonMasterService;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.IdentityModel;
 
 namespace CprBroker.Providers.PersonMaster
 {
@@ -12,13 +16,25 @@ namespace CprBroker.Providers.PersonMaster
     /// </summary>
     public class PersonMasterDataProvider : IPartPersonMappingDataProvider, IExternalDataProvider
     {
+        #region Utility Methods
+        private BasicOpClient CreateClient()
+        {
+            WSHttpBinding binding = new WSHttpBinding();
+
+            var identity = new SpnEndpointIdentity(SpnName);
+            EndpointAddress endPointAddress = new EndpointAddress(new Uri(Address + "/PersonMasterService12"), identity);
+            BasicOpClient client=new BasicOpClient(binding, endPointAddress);
+            return client;
+
+        }
+        #endregion
         #region IPartPersonMappingDataProvider Members
 
         public Guid? GetPersonUuid(string cprNumber)
         {
-            PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient();
+            BasicOpClient client = CreateClient();
             string aux = null;
-            var ret = service.GetObjectIDFromCpr(Context, cprNumber, ref aux);
+            var ret = client.GetObjectIDFromCpr(Context, cprNumber, ref aux);
             return ret;
         }
 
@@ -30,9 +46,9 @@ namespace CprBroker.Providers.PersonMaster
         {
             try
             {
-                PersonMasterService.BasicOpClient service = new CprBroker.Providers.PersonMaster.PersonMasterService.BasicOpClient();
+                BasicOpClient client = CreateClient();
                 string aux = null;
-                var res = service.Probe(Context, ref aux);
+                var res = client.Probe(Context, ref aux);
                 return true; ;
             }
             catch
@@ -59,7 +75,8 @@ namespace CprBroker.Providers.PersonMaster
                 return new DataProviderConfigPropertyInfo[] 
                 {
                     new DataProviderConfigPropertyInfo(){Name="Address",Required=true,Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Context",Required=true,Confidential=false}
+                    new DataProviderConfigPropertyInfo(){Name="Context",Required=true,Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Spn name",Required=true,Confidential=false}
                 };
             }
         }
@@ -81,6 +98,14 @@ namespace CprBroker.Providers.PersonMaster
             get
             {
                 return ConfigurationProperties["Context"];
+            }
+        }
+
+        public string SpnName
+        {
+            get
+            {
+                return ConfigurationProperties["Spn name"];
             }
         }
 
