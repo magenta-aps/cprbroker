@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4cba0f7d-7be2-493a-813c-5a087e3a2655" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5eb3c8d0-daf3-4b38-9d61-70f15c7ae812" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -17,14 +17,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="PersonmasterServiceLibrary.wsdl" MetadataType="Wsdl" ID="480ba61e-8d6a-4e15-a87c-b58f38cec50c" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?wsdl=wsdl0" />
-    <MetadataFile FileName="PersonmasterServiceLibrary.xsd" MetadataType="Schema" ID="5e0914ca-c5e0-4d41-8e6a-4a533d544f6f" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd2" />
-    <MetadataFile FileName="BasicOp.wsdl" MetadataType="Wsdl" ID="9f467265-c7ac-477b-9296-c52ba17bc227" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?wsdl" />
-    <MetadataFile FileName="PersonmasterServiceLibrary1.xsd" MetadataType="Schema" ID="6fff104b-f665-416d-a659-11a4df77817c" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd0" />
-    <MetadataFile FileName="PersonmasterServiceLibrary2.xsd" MetadataType="Schema" ID="ae2bddbd-7cec-4497-86ef-ab31dae5e8be" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd1" />
+    <MetadataFile FileName="PersonmasterServiceLibrary.wsdl" MetadataType="Wsdl" ID="e0a630ca-b7ff-4e7c-93c0-c1cbc12c8354" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="PersonmasterServiceLibrary.xsd" MetadataType="Schema" ID="e0aac0fc-c977-419f-86d4-f7a4a86edcd1" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd2" />
+    <MetadataFile FileName="PersonmasterServiceLibrary.disco" MetadataType="Disco" ID="1177f93a-0160-4955-970b-886102db6efa" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?disco" />
+    <MetadataFile FileName="PersonmasterServiceLibrary1.xsd" MetadataType="Schema" ID="d317b29e-ec9e-45f4-a685-13c02061467f" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd0" />
+    <MetadataFile FileName="BasicOp.wsdl" MetadataType="Wsdl" ID="fc21d329-3133-42db-bb6b-2c5ac8bf9f8f" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?wsdl" />
+    <MetadataFile FileName="PersonmasterServiceLibrary2.xsd" MetadataType="Schema" ID="c13d4fe1-7c50-459e-8484-ec4f02691311" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
