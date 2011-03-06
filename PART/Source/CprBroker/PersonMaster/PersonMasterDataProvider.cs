@@ -51,8 +51,9 @@ namespace CprBroker.Providers.PersonMaster
                 var res = client.Probe(Context, ref aux);
                 return true; ;
             }
-            catch
+            catch(Exception ex)
             {
+                Engine.Local.Admin.LogException(ex);
                 return false;
             }
         }
