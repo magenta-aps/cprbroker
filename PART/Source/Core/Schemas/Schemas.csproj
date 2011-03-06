@@ -72,22 +72,20 @@
     <Compile Include="Part\Events\EventInfoStructureType.cs" />
     <Compile Include="Part\Events\EventObjectStructureType.cs" />
     <Compile Include="Part\Events\ExtensionStructureType.cs" />
-    <Compile Include="Part\ServiceDescription.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Part\ServiceNames.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PersonFlerRelationType.cs" />
     <Compile Include="PersonRelationType.cs" />
     <Compile Include="RegistreringType1.cs" />
+    <Compile Include="ServiceDescription\Admin.cs" />
+    <Compile Include="ServiceDescription\Events.cs" />
+    <Compile Include="ServiceDescription\Notification.cs" />
+    <Compile Include="ServiceDescription\Part.cs" />
+    <Compile Include="ServiceDescription\Subscriptions.cs" />
     <Compile Include="ServiceNames.cs" />
     <Compile Include="OIOXSD\Application.Designer.cs" />
     <Compile Include="OIOXSD\DataProviders.Designer.cs" />
     <Compile Include="OIOXSD\DataProviderTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QualityHeader.cs" />
-    <Compile Include="ServiceDescription.cs" />
     <Compile Include="PersonIdentifier.cs" />
     <Compile Include="StandardReturType.cs" />
     <Compile Include="TidspunktType.cs" />

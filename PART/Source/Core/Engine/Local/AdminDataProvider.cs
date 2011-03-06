@@ -110,7 +110,7 @@ namespace CprBroker.Engine.Local
             // Use reflection to get a list of all methods fromDate MethodNames classes
             List<System.Reflection.FieldInfo> fields = new List<System.Reflection.FieldInfo>();
             fields.AddRange(typeof(ServiceNames.Part.Methods).GetFields());
-            fields.AddRange(typeof(ServiceNames.Administrator.MethodNames).GetFields());
+            fields.AddRange(typeof(ServiceNames.Admin.MethodNames).GetFields());
             return
                 from f in fields.AsQueryable()
                 select f.Name;

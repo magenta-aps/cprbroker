@@ -27,13 +27,13 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="SubscriptionsSoap12", Namespace="http://dk.itst")]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FlerRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegisterOplysningBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AdresseBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(KontaktKanalBaseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputType))]
     public partial class Subscriptions : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
@@ -182,22 +182,22 @@ namespace CprBroker.NUnitTester.Subscriptions {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/SubscribeOnBirthdate", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public BasicOutputTypeOfBirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] System.Nullable<int> Years, int PriorDays, System.Guid[] PersonCivilRegistrationIdentifiers) {
+        public BasicOutputTypeOfBirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] System.Nullable<int> Years, int PriorDays, System.Guid[] personUuids) {
             object[] results = this.Invoke("SubscribeOnBirthdate", new object[] {
                         NotificationChannel,
                         Years,
                         PriorDays,
-                        PersonCivilRegistrationIdentifiers});
+                        personUuids});
             return ((BasicOutputTypeOfBirthdateSubscriptionType)(results[0]));
         }
         
         /// <remarks/>
-        public void SubscribeOnBirthdateAsync(ChannelBaseType NotificationChannel, System.Nullable<int> Years, int PriorDays, System.Guid[] PersonCivilRegistrationIdentifiers) {
-            this.SubscribeOnBirthdateAsync(NotificationChannel, Years, PriorDays, PersonCivilRegistrationIdentifiers, null);
+        public void SubscribeOnBirthdateAsync(ChannelBaseType NotificationChannel, System.Nullable<int> Years, int PriorDays, System.Guid[] personUuids) {
+            this.SubscribeOnBirthdateAsync(NotificationChannel, Years, PriorDays, personUuids, null);
         }
         
         /// <remarks/>
-        public void SubscribeOnBirthdateAsync(ChannelBaseType NotificationChannel, System.Nullable<int> Years, int PriorDays, System.Guid[] PersonCivilRegistrationIdentifiers, object userState) {
+        public void SubscribeOnBirthdateAsync(ChannelBaseType NotificationChannel, System.Nullable<int> Years, int PriorDays, System.Guid[] personUuids, object userState) {
             if ((this.SubscribeOnBirthdateOperationCompleted == null)) {
                 this.SubscribeOnBirthdateOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSubscribeOnBirthdateOperationCompleted);
             }
@@ -205,7 +205,7 @@ namespace CprBroker.NUnitTester.Subscriptions {
                         NotificationChannel,
                         Years,
                         PriorDays,
-                        PersonCivilRegistrationIdentifiers}, this.SubscribeOnBirthdateOperationCompleted, userState);
+                        personUuids}, this.SubscribeOnBirthdateOperationCompleted, userState);
         }
         
         private void OnSubscribeOnBirthdateOperationCompleted(object arg) {
@@ -368,24 +368,72 @@ namespace CprBroker.NUnitTester.Subscriptions {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
+    public partial class SagDokObjektType {
+        
+        private string uUIDField;
+        
+        private string brugervendtNoegleTekstField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0")]
+        public string UUID {
+            get {
+                return this.uUIDField;
+            }
+            set {
+                this.uUIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:1.0.0")]
+        public string BrugervendtNoegleTekst {
+            get {
+                return this.brugervendtNoegleTekstField;
+            }
+            set {
+                this.brugervendtNoegleTekstField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:part:1.0.0")]
+    public partial class PartType : SagDokObjektType {
+    }
+    
+    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class LaesResultatType {
+    public partial class PersonType : PartType {
         
-        private object itemField;
+        private RegistreringType1[] registreringField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("FiltreretOejebliksbillede", typeof(FiltreretOejebliksbilledeType))]
-        [System.Xml.Serialization.XmlElementAttribute("Registrering", typeof(RegistreringType1))]
-        public object Item {
+        [System.Xml.Serialization.XmlElementAttribute("Registrering")]
+        public RegistreringType1[] Registrering {
             get {
-                return this.itemField;
+                return this.registreringField;
             }
             set {
-                this.itemField = value;
+                this.registreringField = value;
             }
         }
     }
@@ -395,8 +443,8 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class FiltreretOejebliksbilledeType : LaesFiltreretOutputType {
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="RegistreringType", Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class RegistreringType1 : RegistreringType {
         
         private AttributListeType attributListeField;
         
@@ -1566,9 +1614,9 @@ namespace CprBroker.NUnitTester.Subscriptions {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1598,128 +1646,6 @@ namespace CprBroker.NUnitTester.Subscriptions {
             }
             set {
                 this.ukendtAdresseIndikatorField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class VerdenAdresseType : AdresseBaseType {
-        
-        private ForeignAddressStructureType foreignAddressStructureField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-        public ForeignAddressStructureType ForeignAddressStructure {
-            get {
-                return this.foreignAddressStructureField;
-            }
-            set {
-                this.foreignAddressStructureField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class ForeignAddressStructureType {
-        
-        private string postalAddressFirstLineTextField;
-        
-        private string postalAddressSecondLineTextField;
-        
-        private string postalAddressThirdLineTextField;
-        
-        private string postalAddressFourthLineTextField;
-        
-        private string postalAddressFifthLineTextField;
-        
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        private string locationDescriptionTextField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFirstLineText {
-            get {
-                return this.postalAddressFirstLineTextField;
-            }
-            set {
-                this.postalAddressFirstLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressSecondLineText {
-            get {
-                return this.postalAddressSecondLineTextField;
-            }
-            set {
-                this.postalAddressSecondLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressThirdLineText {
-            get {
-                return this.postalAddressThirdLineTextField;
-            }
-            set {
-                this.postalAddressThirdLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFourthLineText {
-            get {
-                return this.postalAddressFourthLineTextField;
-            }
-            set {
-                this.postalAddressFourthLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFifthLineText {
-            get {
-                return this.postalAddressFifthLineTextField;
-            }
-            set {
-                this.postalAddressFifthLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public CountryIdentificationCodeType CountryIdentificationCode {
-            get {
-                return this.countryIdentificationCodeField;
-            }
-            set {
-                this.countryIdentificationCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/")]
-        public string LocationDescriptionText {
-            get {
-                return this.locationDescriptionTextField;
-            }
-            set {
-                this.locationDescriptionTextField = value;
             }
         }
     }
@@ -1944,6 +1870,128 @@ namespace CprBroker.NUnitTester.Subscriptions {
             }
             set {
                 this.countryIdentificationCodeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class VerdenAdresseType : AdresseBaseType {
+        
+        private ForeignAddressStructureType foreignAddressStructureField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+        public ForeignAddressStructureType ForeignAddressStructure {
+            get {
+                return this.foreignAddressStructureField;
+            }
+            set {
+                this.foreignAddressStructureField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class ForeignAddressStructureType {
+        
+        private string postalAddressFirstLineTextField;
+        
+        private string postalAddressSecondLineTextField;
+        
+        private string postalAddressThirdLineTextField;
+        
+        private string postalAddressFourthLineTextField;
+        
+        private string postalAddressFifthLineTextField;
+        
+        private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        private string locationDescriptionTextField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFirstLineText {
+            get {
+                return this.postalAddressFirstLineTextField;
+            }
+            set {
+                this.postalAddressFirstLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressSecondLineText {
+            get {
+                return this.postalAddressSecondLineTextField;
+            }
+            set {
+                this.postalAddressSecondLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressThirdLineText {
+            get {
+                return this.postalAddressThirdLineTextField;
+            }
+            set {
+                this.postalAddressThirdLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFourthLineText {
+            get {
+                return this.postalAddressFourthLineTextField;
+            }
+            set {
+                this.postalAddressFourthLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFifthLineText {
+            get {
+                return this.postalAddressFifthLineTextField;
+            }
+            set {
+                this.postalAddressFifthLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/")]
+        public string LocationDescriptionText {
+            get {
+                return this.locationDescriptionTextField;
+            }
+            set {
+                this.locationDescriptionTextField = value;
             }
         }
     }
@@ -2923,132 +2971,6 @@ namespace CprBroker.NUnitTester.Subscriptions {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
-    public partial class LaesFiltreretOutputType : SagDokObjektType {
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
-    public partial class SagDokObjektType {
-        
-        private string uUIDField;
-        
-        private string brugervendtNoegleTekstField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:dkal:1.0.0")]
-        public string UUID {
-            get {
-                return this.uUIDField;
-            }
-            set {
-                this.uUIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="urn:oio:sagdok:1.0.0")]
-        public string BrugervendtNoegleTekst {
-            get {
-                return this.brugervendtNoegleTekstField;
-            }
-            set {
-                this.brugervendtNoegleTekstField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:part:1.0.0")]
-    public partial class PartType : SagDokObjektType {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class PersonType : PartType {
-        
-        private RegistreringType1[] registreringField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Registrering")]
-        public RegistreringType1[] Registrering {
-            get {
-                return this.registreringField;
-            }
-            set {
-                this.registreringField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="RegistreringType", Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class RegistreringType1 : RegistreringType {
-        
-        private AttributListeType attributListeField;
-        
-        private TilstandListeType tilstandListeField;
-        
-        private RelationListeType relationListeField;
-        
-        /// <remarks/>
-        public AttributListeType AttributListe {
-            get {
-                return this.attributListeField;
-            }
-            set {
-                this.attributListeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public TilstandListeType TilstandListe {
-            get {
-                return this.tilstandListeField;
-            }
-            set {
-                this.tilstandListeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public RelationListeType RelationListe {
-            get {
-                return this.relationListeField;
-            }
-            set {
-                this.relationListeField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringType1))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
@@ -3140,6 +3062,84 @@ namespace CprBroker.NUnitTester.Subscriptions {
         
         /// <remarks/>
         Rettet,
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:2.0.0")]
+    public partial class LaesFiltreretOutputType : SagDokObjektType {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class FiltreretOejebliksbilledeType : LaesFiltreretOutputType {
+        
+        private AttributListeType attributListeField;
+        
+        private TilstandListeType tilstandListeField;
+        
+        private RelationListeType relationListeField;
+        
+        /// <remarks/>
+        public AttributListeType AttributListe {
+            get {
+                return this.attributListeField;
+            }
+            set {
+                this.attributListeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public TilstandListeType TilstandListe {
+            get {
+                return this.tilstandListeField;
+            }
+            set {
+                this.tilstandListeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public RelationListeType RelationListe {
+            get {
+                return this.relationListeField;
+            }
+            set {
+                this.relationListeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class LaesResultatType {
+        
+        private object itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("FiltreretOejebliksbillede", typeof(FiltreretOejebliksbilledeType))]
+        [System.Xml.Serialization.XmlElementAttribute("Registrering", typeof(RegistreringType1))]
+        public object Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -3344,10 +3344,10 @@ namespace CprBroker.NUnitTester.Subscriptions {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfSubscriptionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfBirthdateSubscriptionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfBoolean))]
@@ -3368,6 +3368,27 @@ namespace CprBroker.NUnitTester.Subscriptions {
             }
             set {
                 this.standardReturField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class OpretOutputType : BasicOutputType {
+        
+        private PersonType personField;
+        
+        /// <remarks/>
+        public PersonType Person {
+            get {
+                return this.personField;
+            }
+            set {
+                this.personField = value;
             }
         }
     }
@@ -3400,27 +3421,6 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class RegistreringOutputType : BasicOutputType {
-        
-        private RegistreringType1 registreringField;
-        
-        /// <remarks/>
-        public RegistreringType1 Registrering {
-            get {
-                return this.registreringField;
-            }
-            set {
-                this.registreringField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
     public partial class LaesOutputType : BasicOutputType {
         
         private LaesResultatType laesResultatField;
@@ -3442,17 +3442,17 @@ namespace CprBroker.NUnitTester.Subscriptions {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class OpretOutputType : BasicOutputType {
+    public partial class RegistreringOutputType : BasicOutputType {
         
-        private PersonType personField;
+        private RegistreringType1 registreringField;
         
         /// <remarks/>
-        public PersonType Person {
+        public RegistreringType1 Registrering {
             get {
-                return this.personField;
+                return this.registreringField;
             }
             set {
-                this.personField = value;
+                this.registreringField = value;
             }
         }
     }

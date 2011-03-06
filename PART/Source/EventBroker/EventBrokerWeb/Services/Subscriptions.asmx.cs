@@ -30,35 +30,35 @@ namespace CprBroker.EventBroker.Web.Services
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Subscribe, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.Subscribe)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Subscribe, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.Subscribe)]
         public BasicOutputType<ChangeSubscriptionType> Subscribe(ChannelBaseType NotificationChannel, Guid[] personUuids)
         {
             return SubscriptionManager.Subscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, personUuids);
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Unsubscribe, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.Unsubscribe)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Unsubscribe, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.Unsubscribe)]
         public BasicOutputType<bool> Unsubscribe(Guid SubscriptionId)
         {
             return SubscriptionManager.Unsubscribe(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.SubscribeOnBirthdate, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.SubscribeOnBirthdate)]
-        public BasicOutputType<BirthdateSubscriptionType> SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, Guid[] PersonCivilRegistrationIdentifiers)
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.SubscribeOnBirthdate, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.SubscribeOnBirthdate)]
+        public BasicOutputType<BirthdateSubscriptionType> SubscribeOnBirthdate(ChannelBaseType NotificationChannel, Nullable<int> Years, int PriorDays, Guid[] personUuids)
         {
-            return SubscriptionManager.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, PersonCivilRegistrationIdentifiers);
+            return SubscriptionManager.SubscribeOnBirthdate(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Years, PriorDays, personUuids);
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.RemoveBirthDateSubscription, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.RemoveBirthDateSubscriptions)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.RemoveBirthDateSubscription, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.RemoveBirthDateSubscriptions)]
         public BasicOutputType<bool> RemoveBirthDateSubscription(Guid SubscriptionId)
         {
             return SubscriptionManager.RemoveBirthDateSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.GetActiveSubscriptionsList, Description = CprBroker.Schemas.Part.ServiceDescription.Subscriptions.GetActiveSubscriptionsList)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.GetActiveSubscriptionsList, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.GetActiveSubscriptionsList)]
         public BasicOutputType<SubscriptionType[]> GetActiveSubscriptionsList()
         {
             return SubscriptionManager.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);

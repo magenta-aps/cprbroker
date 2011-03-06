@@ -13,7 +13,7 @@ namespace CprBroker.Web.Services
     /// <summary>
     /// Summary description for Part
     /// </summary>
-    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Part.Service, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Service)]
+    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Part.Service, Description = CprBroker.Schemas.ServiceDescription.Part.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     public class Part : System.Web.Services.WebService
@@ -26,7 +26,7 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Read, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.Read)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Read, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.Read)]
         public LaesOutputType Read(LaesInputType input)
         {
             return Manager.Part.Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
@@ -34,7 +34,7 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.RefreshRead, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.RefreshRead)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.RefreshRead, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.RefreshRead)]
         public LaesOutputType RefreshRead(LaesInputType input)
         {
             return Manager.Part.RefreshRead(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
@@ -42,7 +42,7 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.List, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.List)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.List, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.List)]
         public ListOutputType1 List(ListInputType input)
         {
             return Manager.Part.List(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
@@ -50,14 +50,14 @@ namespace CprBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Search, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.Search)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Search, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.Search)]
         public SoegOutputType Search(SoegInputType1 searchCriteria)
         {
             return Manager.Part.Search(applicationHeader.UserToken, applicationHeader.ApplicationToken, searchCriteria, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuid, Description = CprBroker.Schemas.Part.ServiceDescription.Part.Methods.GetUuid)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuid, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.GetUuid)]
         public GetUuidOutputType GetUuid(string cprNumber)
         {
             return Manager.Part.GetUuid(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumber);

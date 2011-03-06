@@ -14,7 +14,7 @@ namespace CprService.Services
     /// <summary>
     /// Summary description for Events
     /// </summary>
-    [WebService( Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace)]
+    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Description = CprBroker.Schemas.ServiceDescription.Events.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called fromDate script, using ASP.NET AJAX, uncomment the following line. 
