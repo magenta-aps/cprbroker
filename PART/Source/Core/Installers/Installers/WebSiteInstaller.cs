@@ -60,30 +60,42 @@ namespace CprBroker.Installers
                 {
                     using (DirectoryEntry machineRoot = new DirectoryEntry(WebInstallationInfo.ServerRoot))
                     {
-                        using (DirectoryEntry site = exists ? new DirectoryEntry(machineRoot.Path + "/" + siteID) : machineRoot.Invoke("Create", "IIsWebServer", siteID) as System.DirectoryServices.DirectoryEntry)
+                        using (DirectoryEntry appPools = new DirectoryEntry(machineRoot.Path + "/APPPOOLS"))
                         {
-                            site.Invoke("Put", "ServerComment", webInstallationInfo.WebsiteName);
-                            site.Invoke("Put", "KeyType", "IIsWebServer");
-                            site.Invoke("Put", "ServerBindings", "*:80:" + webInstallationInfo.WebsiteName);
-                            site.Invoke("Put", "ServerState", 2);
-                            site.Invoke("Put", "FrontPageWeb", 1);
-                            site.Invoke("Put", "DefaultDoc", "Default.aspx");
-                            site.Invoke("Put", "SecureBindings", "*:443:" + webInstallationInfo.WebsiteName);
-                            site.Invoke("Put", "ServerAutoStart", 1);
-                            site.Invoke("Put", "ServerSize", 1);
-                            site.Invoke("SetInfo");
-                            site.CommitChanges();
-
-                            webInstallationInfo.ApplicationPath = site.Path;
-                            savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
-
-                            using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
+                            bool appPoolExixts = webInstallationInfo.AppPoolExists(webInstallationInfo.WebsiteName);
+                            using (DirectoryEntry appPool = appPoolExixts ? new DirectoryEntry(appPools.Path + "/" + webInstallationInfo.WebsiteName) : appPools.Invoke("Create", "IIsApplicationPool", webInstallationInfo.WebsiteName) as DirectoryEntry)
                             {
-                                siteRoot.InvokeSet("Path", websitePath);
-                                siteRoot.InvokeSet("DefaultDoc", "Default.aspx");
-                                siteRoot.Invoke("AppCreate", true);
-                                siteRoot.CommitChanges();
-                                scriptMapVersion = GetScriptMapsVersion(siteRoot);
+                                appPool.InvokeSet("AppPoolIdentityType", 2);//LocalSystem 0; LocalService 1; NetworkService 2;  Custom (user & pwd) 3;  ApplicationPoolIdentity 4
+                                appPool.InvokeSet("AppPoolAutoStart", true);
+                                appPool.CommitChanges();
+
+                                using (DirectoryEntry site = exists ? new DirectoryEntry(machineRoot.Path + "/" + siteID) : machineRoot.Invoke("Create", "IIsWebServer", siteID) as System.DirectoryServices.DirectoryEntry)
+                                {
+                                    site.Invoke("Put", "ServerComment", webInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "KeyType", "IIsWebServer");
+                                    site.Invoke("Put", "ServerBindings", "*:80:" + webInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "ServerState", 2);
+                                    site.Invoke("Put", "FrontPageWeb", 1);
+                                    site.Invoke("Put", "DefaultDoc", "Default.aspx");
+                                    site.Invoke("Put", "SecureBindings", "*:443:" + webInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "ServerAutoStart", 1);
+                                    site.Invoke("Put", "ServerSize", 1);
+                                    site.Invoke("SetInfo");
+                                    site.CommitChanges();
+
+                                    webInstallationInfo.ApplicationPath = site.Path;
+                                    savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
+
+                                    using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
+                                    {
+                                        siteRoot.InvokeSet("Path", websitePath);
+                                        siteRoot.InvokeSet("DefaultDoc", "Default.aspx");
+                                        siteRoot.InvokeSet("AppPoolId", appPool.Name);
+                                        siteRoot.Invoke("AppCreate", true);
+                                        siteRoot.CommitChanges();
+                                        scriptMapVersion = GetScriptMapsVersion(siteRoot);
+                                    }
+                                }
                             }
                         }
                     }
@@ -201,6 +213,8 @@ namespace CprBroker.Installers
                 throw new InstallException("", ex);
             }
         }
+
+
 
         int GetScriptMapsVersion(DirectoryEntry site)
         {

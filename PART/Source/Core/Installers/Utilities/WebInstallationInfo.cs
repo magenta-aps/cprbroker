@@ -44,6 +44,20 @@ namespace CprBroker.Installers
             }
         }
 
+        public bool AppPoolExists(string name)
+        {
+            
+                DirectoryEntry appPools = new DirectoryEntry("IIS://localhost/W3SVC/APPPOOLS");
+                foreach (DirectoryEntry child in appPools.Children)
+                {
+                    if (child.Name.ToLower() == name.ToLower())
+                    {
+                        return true;
+                    }
+                }
+                return false;            
+        }
+
         public string TargetVirtualDirectoryPath
         {
             get
