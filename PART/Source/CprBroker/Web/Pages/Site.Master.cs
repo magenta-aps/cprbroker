@@ -11,14 +11,34 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using CprBroker.Engine;
+using CprBroker.Utilities;
 
 namespace CprBroker.Web.Pages
 {
     public partial class Site : System.Web.UI.MasterPage
     {
+        public Site()
+        {
+            BrokerContext.Initialize(Constants.BaseApplicationToken.ToString(), Constants.UserToken);
+            if (HttpContext.Current != null && HttpContext.Current.Handler is Page)
+            {
+                (HttpContext.Current.Handler as Page).Error += new EventHandler(Page_Error);
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        void Page_Error(object sender, EventArgs e)
+        {            
+            Exception ex = Server.GetLastError();
+            AppendError(ex.Message);
+            Response.Write(ex.Message);
+            CprBroker.Engine.Local.Admin.LogException(ex);
+            Server.ClearError();
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
@@ -32,7 +52,7 @@ namespace CprBroker.Web.Pages
                 ).ToArray()
                 );
             val += "</script>";
-            Page.ClientScript.RegisterStartupScript(this.GetType(),"alerts", val);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "alerts", val);
         }
 
         public void AppendError(string text)

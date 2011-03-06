@@ -223,24 +223,6 @@ namespace CprBroker.Web.Pages
             {
                 try
                 {
-                    /*Schemas.DataProviderType oioProv = new CprBroker.Schemas.DataProviderType()
-                    {
-                        TypeName = newDataProviderDropDownList.SelectedValue,
-                        Enabled=true,
-                    };
-                    var attr = new List<AttributeType>();
-                    foreach (GridViewRow item in newDataProviderGridView.Rows)
-                    {
-                        SmartTextBox smartTextBox = item.FindControl("SmartTextBox") as SmartTextBox;
-                        string propName = newDataProviderGridView.DataKeys[item.RowIndex].Value.ToString();
-                        attr.Add(new AttributeType()
-                            {
-                                Name= propName,
-                                Value= smartTextBox.Text
-                            });
-                    }
-                    oioProv.Attributes = attr.ToArray();*/
-
                     using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
                     {
                         DataProvider dbProv = new DataProvider()
