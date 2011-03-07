@@ -189,7 +189,7 @@ We first check that the Demo application is able to register using the Admin Web
 <tr><td>RequestAppRegistration name=testApp11</td><td>admin.asmx</td><td>soapIO</td><td>checked</td><td>ApplicationId=a30ba5fc-f06a-4771-9070-921c7002c234,token=5fad3c95-1f85-439d-b2cc-3ae84e074787, IsApproved=false</td></tr>
 <tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td></td></tr>
 <tr><td>Approve registration name=testApp1</td><td>admin.asmx</td><td>soapIO</td><td></td><td></td></tr>
-<tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td>used testapp10 token to authenticate this requst. Result gave Same data as web admin gui, except sorting</td></tr>
+<tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td>used testapp10 token to authenticate this requst. Result gave same data as web admin gui, except sorting</td></tr>
 <tr><td>RequestAppRegistration name=testAppT</td><td>admin.asmx</td><td>soapIO</td><td></td><td></td></tr>
 <tr><td>Approve registration name=testAppT</td><td>admin.asmx</td><td>soapIO</td><td></td><td>Just to approve an application, we can unregister</td></tr>
 <tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td>testappT is approved</td></tr>
@@ -211,7 +211,7 @@ Now we have tested the admin services. We still have one registered application,
 
 In the following we implicitly use testApp2 registrations.
 
-<h3> UUID og CPR number </h3>
+<h3> UUID and CPR number </h3>
 
 
 <h4>  CPR number to UUID</h4>
@@ -224,7 +224,8 @@ First we test getPersonUUID which takes a CPR number and returns a UUID. If the 
 <tr><td>CPR number lookup, exist in GTK</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td>UUID returned (last four digits removed after test)</td></tr>
 <tr><td>CPR number lookup, exist but not in GTK</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td>Niels looklup, uuid returned (last four digits removed after test).</td></tr>
 <tr><td>CPR number lookup, does not exist</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td>a4baafe3-d3c7-4d0a-91a7-0efe5f2f9742, obtained from PersonMaster</td></tr>
-<tr><td>invalid CPR number</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td>00000000-0000-0000-0000-000000000000, should return INVALID INPUT, we will investigate whether the CPR Broker or PersonMaster should validate CPR numbers</td></tr>
+<tr><td>invalid CPR number, 9999999999</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td>HTTP code 400, message: "Invalid CPR number: 9999999999"</td></tr>
+<tr><td>invalid XML</td> <td>Part?op=GetPersonUuid</td><td>SoapUI</td><td></td><td>HTTP code 400, message: "Malformed XML"</td></tr>
 </table>
 
 <h4> READ </h4>
@@ -234,22 +235,16 @@ Now we test Read, which take a UUID and return data on the person identified by 
 
 <table border="1" style="border-collapse: collapse">
 <tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
+
+<tr><td>UUID of person in GTK, in broker</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td>reply with info on person, QualityLevel=LocalCache</td></tr>
+
 <tr><td>UUID of person in GTK, not in broker</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td>reply with info on person, QualityLevel=DataProvider</td></tr>
-<tr><td>UUID of person not in GTK, in broker</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td>replyt with info on person, QualityLevelLocalCache</td></tr>
-<tr><td>UUID does not exist in PART</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td> 
 
- &lt;StandardRetur xmlns="urn:oio:sagdok:2.0.0"&gt;
-               &lt;StatusKode&gt;NOT_FOUND&lt;/StatusKode&gt;
-               &lt;FejlbeskedTekst&gt;UUID valid but not found : Invalid input&lt;/FejlbeskedTekst&gt;
-            &lt;/StandardRetur&gt;
-
+<tr><td>UUID of person not in GTK, in broker</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td>reply with info on person, QualityLevelLocalCache</td></tr>
+<tr><td>UUID does not exist in PART</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td> Statuscode 404, error message: "UUID valid but not found : FCC1728E-3835-11E0-866A-1D75DFD72085"
 </td></tr>
 <tr><td>Invalid UUID</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td>
-
-  &lt;StandardRetur xmlns="urn:oio:sagdok:2.0.0"&gt;
-               &lt;StatusKode&gt;BAD_CLIENT_REQUEST&lt;/StatusKode&gt;
-               &lt;FejlbeskedTekst&gt;Invalid UUID: 42&lt;/FejlbeskedTekst&gt;
-            &lt;/StandardRetur&gt;
+Statuscode 404, error message: "Invalid UUID: 42"
 
 </td></tr>
 </table>
@@ -324,7 +319,7 @@ They just accept anything and writes it to a logfile.
     <address><a href="mailto:elgaard@niels.magenta-aps.dk">Niels Elgaard Larsen</a></address>
 <!-- Created: Mon Feb  7 15:53:17 CET 2011 -->
 <!-- hhmts start -->
-Last modified: Mon Feb 14 19:30:00 Romance Standard Time 2011
+Last modified: Mon Mar 07 17:22:50 Romance Standard Time 2011
 <!-- hhmts end -->
   </body>
 </html>
