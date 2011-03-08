@@ -39,11 +39,24 @@ namespace CprBroker.Engine
 
         }
 
+        int ChainCount = 0;
         public override System.IO.Stream ChainStream(System.IO.Stream stream)
         {
-            oldStream = stream;
-            newStream = new MemoryStream();
-            return newStream;
+            ChainCount++;
+            if (ChainCount == 1 && stream.GetType().Name == "SoapExtensionStream")
+            {
+                return base.ChainStream(stream);
+            }
+            else if (ChainCount == 2 && oldStream == null)
+            {
+                return base.ChainStream(stream);
+            }
+            else
+            {
+                oldStream = stream;
+                newStream = new MemoryStream();
+                return newStream;
+            }
         }
 
         #endregion
@@ -59,7 +72,10 @@ namespace CprBroker.Engine
 
         private void Copy(Stream from, Stream to)
         {
-            from.Position = 0;
+            if (from.CanSeek)
+            {
+                from.Position = 0;
+            }
             TextReader reader = new StreamReader(from);
             TextWriter writer = new StreamWriter(to);
             writer.WriteLine(reader.ReadToEnd());
@@ -124,7 +140,11 @@ namespace CprBroker.Engine
         private XmlNode GetBodyNode(Stream sourceStream)
         {
             // Now modify the response
-            sourceStream.Position = 0;
+            // Beemen
+            if (sourceStream.CanSeek)
+            {
+                sourceStream.Position = 0;
+            }
             TextReader reader = new StreamReader(sourceStream);
             string xml = reader.ReadToEnd();
 
@@ -159,23 +179,38 @@ namespace CprBroker.Engine
 
         #endregion
 
+        int Step = 0;
         public override void ProcessMessage(SoapMessage message)
         {
+            Step++;
             switch (message.Stage)
             {
                 case SoapMessageStage.BeforeDeserialize:
-                    OnBeforeDeserialize(message);
+                    if (Step == 1)
+                    {
+                        OnBeforeDeserialize(message);
+                    }
                     break;
+
                 case SoapMessageStage.AfterDeserialize:
-                    OnAfterDeserialize(message);
+                    if (Step == 2)
+                    {
+                        OnAfterDeserialize(message);
+                    }
                     break;
+
                 case SoapMessageStage.BeforeSerialize:
                     break;
+
                 case SoapMessageStage.AfterSerialize:
-                    OnAfterSerialize(message);
+                    if (Step == 4)
+                    {
+                        OnAfterSerialize(message);
+                    }
                     break;
             }
         }
+
 
         void OnBeforeDeserialize(SoapMessage message)
         {
@@ -194,14 +229,26 @@ namespace CprBroker.Engine
 
         void OnAfterDeserialize(SoapMessage message)
         {
-            foreach (var header in message.Headers)
+            var soapHeaderAttributes = message.MethodInfo.MethodInfo.GetCustomAttributes(typeof(SoapHeaderAttribute), true);
+            foreach (SoapHeaderAttribute attr in soapHeaderAttributes)
             {
-                if (header is Schemas.ApplicationHeader)
+                string headerName = attr.MemberName;
+                var headerMember = message.MethodInfo.MethodInfo.DeclaringType.GetMember
+                    (headerName,
+                    System.Reflection.MemberTypes.Field,
+                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic).FirstOrDefault();
+                if (typeof(Schemas.ApplicationHeader).IsAssignableFrom((headerMember as System.Reflection.FieldInfo).FieldType))
                 {
-                    return;
+                    foreach (var header in message.Headers)
+                    {
+                        if (header is Schemas.ApplicationHeader)
+                        {
+                            return;
+                        }
+                    }
+                    throw new HeaderException();
                 }
             }
-            throw new HeaderException();
         }
 
         void OnAfterSerialize(SoapMessage message)
@@ -226,7 +273,6 @@ namespace CprBroker.Engine
                 return;
             }
 
-            newStream.Position = 0;
             Copy(newStream, oldStream);
         }
 
