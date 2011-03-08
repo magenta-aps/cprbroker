@@ -118,10 +118,14 @@ namespace CprBroker.Engine
                     {
                         try
                         {
-                            IExternalDataProvider dataProvider = CreateDataProvider(dbProv) as IExternalDataProvider;
-                            if (dataProvider != null && interfaceType.IsAssignableFrom(dataProvider.GetType()))
+                            Type providerType = Type.GetType(dbProv.TypeName);
+                            if (providerType != null && interfaceType.IsAssignableFrom(providerType))
                             {
-                                providers.Add(dataProvider);
+                                IExternalDataProvider dataProvider = CreateDataProvider(dbProv) as IExternalDataProvider;
+                                if (dataProvider != null)
+                                {
+                                    providers.Add(dataProvider);
+                                }
                             }
                         }
                         catch (Exception ex)
