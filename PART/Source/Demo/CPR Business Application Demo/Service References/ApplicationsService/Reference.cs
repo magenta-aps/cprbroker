@@ -18,13 +18,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message RequestAppRegistrationRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/RequestAppRegistration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationResponse RequestAppRegistration(CPR_Business_Application_Demo.ApplicationsService.RequestAppRegistrationRequest request);
@@ -32,13 +32,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message ApproveAppRegistrationRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ApproveAppRegistration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationResponse ApproveAppRegistration(CPR_Business_Application_Demo.ApplicationsService.ApproveAppRegistrationRequest request);
@@ -46,13 +46,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message ListAppRegistrationsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/ListAppRegistrations", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsResponse ListAppRegistrations(CPR_Business_Application_Demo.ApplicationsService.ListAppRegistrationsRequest request);
@@ -60,13 +60,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message UnregisterAppRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/UnregisterApp", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.UnregisterAppResponse UnregisterApp(CPR_Business_Application_Demo.ApplicationsService.UnregisterAppRequest request);
@@ -74,13 +74,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message GetCapabilitiesRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetCapabilities", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesResponse GetCapabilities(CPR_Business_Application_Demo.ApplicationsService.GetCapabilitiesRequest request);
@@ -88,13 +88,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message IsImplementingRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/IsImplementing", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.IsImplementingResponse IsImplementing(CPR_Business_Application_Demo.ApplicationsService.IsImplementingRequest request);
@@ -102,13 +102,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message GetDataProviderListRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/GetDataProviderList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListResponse GetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.GetDataProviderListRequest request);
@@ -116,13 +116,13 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message SetDataProviderListRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/SetDataProviderList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListResponse SetDataProviderList(CPR_Business_Application_Demo.ApplicationsService.SetDataProviderListRequest request);
@@ -130,29 +130,30 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         // CODEGEN: Generating message contract since message LogRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Log", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
         CPR_Business_Application_Demo.ApplicationsService.LogResponse Log(CPR_Business_Application_Demo.ApplicationsService.LogRequest request);
         
+        // CODEGEN: Generating message contract since message PingRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="http://dk.itst/Ping", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlerRelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RelationType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegisterOplysningBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(AdresseBaseType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(KontaktKanalBaseType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SagDokObjektType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RegistreringType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BasicOutputType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ServiceVersionType[]))]
-        string Ping();
+        CPR_Business_Application_Demo.ApplicationsService.PingResponse Ping(CPR_Business_Application_Demo.ApplicationsService.PingRequest request);
     }
     
     /// <remarks/>
@@ -1673,9 +1674,9 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3882,10 +3883,10 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfDataProviderType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfServiceVersionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputTypeOfArrayOfApplicationType))]
@@ -3918,6 +3919,29 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class OpretOutputType : BasicOutputType {
+        
+        private PersonType personField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public PersonType Person {
+            get {
+                return this.personField;
+            }
+            set {
+                this.personField = value;
+                this.RaisePropertyChanged("Person");
             }
         }
     }
@@ -3987,29 +4011,6 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             set {
                 this.laesResultatField = value;
                 this.RaisePropertyChanged("LaesResultat");
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class OpretOutputType : BasicOutputType {
-        
-        private PersonType personField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public PersonType Person {
-            get {
-                return this.personField;
-            }
-            set {
-                this.personField = value;
-                this.RaisePropertyChanged("Person");
             }
         }
     }
@@ -4445,6 +4446,38 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Ping", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class PingRequest {
+        
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://dk.itst")]
+        public CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader;
+        
+        public PingRequest() {
+        }
+        
+        public PingRequest(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+            this.ApplicationHeader = ApplicationHeader;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="PingResponse", WrapperNamespace="http://dk.itst", IsWrapped=true)]
+    public partial class PingResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://dk.itst", Order=0)]
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean PingResult;
+        
+        public PingResponse() {
+        }
+        
+        public PingResponse(CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean PingResult) {
+            this.PingResult = PingResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     public interface AdminSoap12Channel : CPR_Business_Application_Demo.ApplicationsService.AdminSoap12, System.ServiceModel.IClientChannel {
     }
@@ -4587,8 +4620,16 @@ namespace CPR_Business_Application_Demo.ApplicationsService {
             return retVal.LogResult;
         }
         
-        public string Ping() {
-            return base.Channel.Ping();
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        CPR_Business_Application_Demo.ApplicationsService.PingResponse CPR_Business_Application_Demo.ApplicationsService.AdminSoap12.Ping(CPR_Business_Application_Demo.ApplicationsService.PingRequest request) {
+            return base.Channel.Ping(request);
+        }
+        
+        public CPR_Business_Application_Demo.ApplicationsService.BasicOutputTypeOfBoolean Ping(CPR_Business_Application_Demo.ApplicationsService.ApplicationHeader ApplicationHeader) {
+            CPR_Business_Application_Demo.ApplicationsService.PingRequest inValue = new CPR_Business_Application_Demo.ApplicationsService.PingRequest();
+            inValue.ApplicationHeader = ApplicationHeader;
+            CPR_Business_Application_Demo.ApplicationsService.PingResponse retVal = ((CPR_Business_Application_Demo.ApplicationsService.AdminSoap12)(this)).Ping(inValue);
+            return retVal.PingResult;
         }
     }
 }

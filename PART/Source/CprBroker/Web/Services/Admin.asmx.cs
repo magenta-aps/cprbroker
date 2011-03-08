@@ -19,16 +19,11 @@ namespace CprBroker.Web.Services
     [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = ServiceNames.Admin.Service, Description = CprBroker.Schemas.ServiceDescription.Admin.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
-    public class Admin : GKApp.WS.wsBaseV2
+    public class Admin : WebService
     {
         public ApplicationHeader applicationHeader;
         private const string ApplicationHeaderName = "applicationHeader";
-
-        public Admin()
-        {
-            BaseInit();
-        }
-
+             
         #region Application manager
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(
@@ -101,5 +96,11 @@ namespace CprBroker.Web.Services
             return Manager.Admin.Log(applicationHeader.UserToken, applicationHeader.ApplicationToken, Text);
         }
 
+        [SoapHeader(ApplicationHeaderName)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Ping)]
+        public BasicOutputType<bool> Ping()
+        {
+            return Engine.Ping.PingManager.Ping(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+        }
     }
 }

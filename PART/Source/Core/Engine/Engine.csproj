@@ -128,6 +128,8 @@
     <Compile Include="Events\GetPersonBirthdatesFacadeMethodInfo.cs" />
     <Compile Include="Events\GetPersonBirthdatesSubmethodInfo.cs" />
     <Compile Include="Events\IDataChangeEventManager.cs" />
+    <Compile Include="Ping\PingDataProvider.cs" />
+    <Compile Include="Ping\PingFacadeMethod.cs" />
     <Compile Include="Manager.Events.cs" />
     <Compile Include="Part\GerUuidFacadeMethodInfo.cs" />
     <Compile Include="SchemaSoapExtension.cs" />
@@ -138,6 +140,9 @@
     <Content Include="DataProviders\Readme.txt" />
     <Content Include="Events\Readme.txt" />
     <Content Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ping\Manager.Ping.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

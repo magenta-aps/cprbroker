@@ -19,7 +19,7 @@ namespace CprService.Services
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called fromDate script, using ASP.NET AJAX, uncomment the following line. 
     // [System.Web.Script.Services.ScriptService]
-    public class Events : System.Web.Services.WebService
+    public class Events : WebService
     {
         public ApplicationHeader applicationHeader;
         private const string ApplicationHeaderName = "applicationHeader";

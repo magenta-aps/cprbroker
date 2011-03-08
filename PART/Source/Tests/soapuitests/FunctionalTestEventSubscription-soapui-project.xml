@@ -447,7 +447,13 @@
       <dk:GetActiveSubsciptionsList/>
    </soap:Body>
 </soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/GetActiveSubsciptionsList"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/Ping" name="Ping" bindingOperationName="Ping" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="ping1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
-   <soap:Header/>
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header
    <soap:Body>
       <dk:Ping/>
    </soap:Body>
@@ -491,7 +497,8 @@
 </soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="subScribeFileShare"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
-         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+
          <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
       </dk:ApplicationHeader>
    </soap:Header>
@@ -661,12 +668,19 @@
    <soap:Body>
       <dk:GetActiveSubsciptionsList/>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/GetActiveSubsciptionsList"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Ping TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Ping"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Ping</con:operation><con:request name="Ping"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
-   <soap:Header/>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/GetActiveSubsciptionsList" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Ping TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Ping"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Ping</con:operation><con:request name="Ping"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
    <soap:Body>
       <dk:Ping/>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/PingRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RemoveBirthDateSubscription TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="RemoveBirthDateSubscription"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>RemoveBirthDateSubscription</con:operation><con:request name="RemoveBirthDateSubscription"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/PingRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RemoveBirthDateSubscription TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="RemoveBirthDateSubscription"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>RemoveBirthDateSubscription</con:operation><con:request name="RemoveBirthDateSubscription"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -680,7 +694,7 @@
          <dk:SubscriptionId>?</dk:SubscriptionId>
       </dk:RemoveBirthDateSubscription>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/RemoveBirthDateSubscriptionRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Subscribe"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Subscribe</con:operation><con:request name="Subscribe"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/RemoveBirthDateSubscriptionRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Subscribe"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Subscribe</con:operation><con:request name="Subscribe"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -700,7 +714,7 @@
          </dk:PersonCivilRegistrationIdentifiers>
       </dk:Subscribe>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SubscribeOnBirthdate TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="SubscribeOnBirthdate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>SubscribeOnBirthdate</con:operation><con:request name="SubscribeOnBirthdate"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/SubscribeRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SubscribeOnBirthdate TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="SubscribeOnBirthdate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>SubscribeOnBirthdate</con:operation><con:request name="SubscribeOnBirthdate"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -722,7 +736,7 @@
          </dk:PersonCivilRegistrationIdentifiers>
       </dk:SubscribeOnBirthdate>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/SubscribeOnBirthdateRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Unsubscribe"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Unsubscribe</con:operation><con:request name="Unsubscribe"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/SubscribeOnBirthdateRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Unsubscribe"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SubscriptionsSoap12</con:interface><con:operation>Unsubscribe</con:operation><con:request name="Unsubscribe"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Subscriptions.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
    <soap:Header>
       <dk:ApplicationHeader>
          <!--Optional:-->
@@ -736,4 +750,4 @@
          <dk:SubscriptionId>?</dk:SubscriptionId>
       </dk:Unsubscribe>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/UnsubscribeRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties><con:property><con:name>NotificationChannel</con:name></con:property></con:properties><con:wssContainer/></con:soapui-project>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/SubscriptionsSoap12/UnsubscribeRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:properties><con:property><con:name>NotificationChannel</con:name></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>

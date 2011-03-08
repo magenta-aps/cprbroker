@@ -144,9 +144,19 @@ namespace CprBroker.Engine
         Guid[] Search(SoegInputType1 searchCriteria);
     }
 
-    // Allows retrieval of person UUID fromDate his CPR number
+    /// <summary>
+    /// Allows retrieval of person UUID from his CPR number
+    /// </summary>
     public interface IPartPersonMappingDataProvider : IDataProvider
     {
         Guid? GetPersonUuid(string cprNumber);
+    }
+
+    /// <summary>
+    /// Allows external systems to ping this system
+    /// </summary>
+    public interface IPingDataProvider : IDataProvider
+    {
+        bool Ping();
     }
 }

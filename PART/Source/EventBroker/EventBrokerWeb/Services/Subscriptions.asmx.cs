@@ -19,15 +19,10 @@ namespace CprBroker.EventBroker.Web.Services
     [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Service, Description = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
-    public class Subscriptions : GKApp.WS.wsBaseV2
+    public class Subscriptions : WebService
     {
         public ApplicationHeader applicationHeader;
         private const string ApplicationHeaderName = "applicationHeader";
-
-        public Subscriptions()
-        {
-            BaseInit();
-        }
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Subscribe, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.Subscribe)]
@@ -64,9 +59,11 @@ namespace CprBroker.EventBroker.Web.Services
             return SubscriptionManager.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
+        [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Ping)]
-        public void Ping()
-        { 
+        public BasicOutputType<bool> Ping()
+        {
+            return Engine.Ping.PingManager.Ping(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
     }
 }
