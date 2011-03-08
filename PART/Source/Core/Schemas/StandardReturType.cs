@@ -114,6 +114,11 @@ namespace CprBroker.Schemas.Part
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Malformed XML");
         }
 
+        public static StandardReturType RequestUnreadable(string message)
+        {
+            return Create(HttpErrorCode.BAD_CLIENT_REQUEST, message);
+        }
+
         public static StandardReturType UnknownUuid(string uuid)
         {
             return Create(HttpErrorCode.NOT_FOUND, string.Format("UUID valid but not found : {0}", uuid));

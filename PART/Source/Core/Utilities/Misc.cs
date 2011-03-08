@@ -47,5 +47,21 @@ namespace CprBroker.Utilities
             }
             return ex;
         }
+
+        public static bool ExceptionTreeContainsText(Exception ex,string text)
+        {
+            if (ex.Message.Contains(text))
+            {
+                return true;
+            }
+            else if (ex.InnerException == null)
+            {
+                return false;
+            }
+            else
+            {
+                return ExceptionTreeContainsText(ex.InnerException, text);
+            }
+        }
     }
 }

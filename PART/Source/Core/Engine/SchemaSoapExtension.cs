@@ -87,6 +87,10 @@ namespace CprBroker.Engine
             {
                 output.StandardRetur = StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("Missing request element: {0}", message.MethodInfo.Name));
             }
+            else if (ex is InvalidOperationException && Misc.ExceptionTreeContainsText(message.Exception, "XML"))
+            {
+                output.StandardRetur = StandardReturType.RequestUnreadable(ex.Message);
+            }
             else
             {
                 output.StandardRetur = StandardReturType.UnspecifiedError();
