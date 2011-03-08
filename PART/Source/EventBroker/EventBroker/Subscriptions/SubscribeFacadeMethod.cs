@@ -41,25 +41,62 @@ namespace CprBroker.EventBroker
             };
         }
 
-        public override StandardReturType ValidateInput()
+        public static StandardReturType ValidateChannel(ChannelBaseType notificationChannel)
         {
-            if (NotificationChannel == null)
+            if (notificationChannel == null)
             {
                 return StandardReturType.NullInput("NotificationChannel");
             }
 
-            var dbChannel = Data.Channel.FromXmlType(NotificationChannel);
+            if (notificationChannel is WebServiceChannelType)
+            {
+                if (string.IsNullOrEmpty((notificationChannel as WebServiceChannelType).WebServiceUrl))
+                {
+                    return StandardReturType.NullInput("WebServiceUrl");
+                }
+            }
+            else if (notificationChannel is FileShareChannelType)
+            {
+                if (string.IsNullOrEmpty((notificationChannel as FileShareChannelType).Path))
+                {
+                    return StandardReturType.NullInput("Path");
+                }
+            }
+            else
+            {
+                return StandardReturType.UnknownObject("Unknown channel type");
+            }
+
+            var dbChannel = Data.Channel.FromXmlType(notificationChannel);
             if (dbChannel == null)
             {
                 return StandardReturType.UnknownObject("NotificationChannel");
             }
-            
+
             var channel = Notifications.Channel.Create(dbChannel);
-            if (channel == null || !channel.IsAlive())
+            try
             {
+                if (channel == null || !channel.IsAlive())
+                {
+                    return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Unreachable channel");
+                }
+            }
+            catch (Exception ex)
+            {
+                Engine.Local.Admin.LogException(ex);
+
                 return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Unreachable channel");
             }
-            
+            return StandardReturType.OK();
+        }
+
+        public override StandardReturType ValidateInput()
+        {
+            var channelValidationResult = ValidateChannel(NotificationChannel);
+            if (!StandardReturType.IsSucceeded(channelValidationResult))
+            {
+                return channelValidationResult;
+            }            
             return StandardReturType.OK();
         }
 

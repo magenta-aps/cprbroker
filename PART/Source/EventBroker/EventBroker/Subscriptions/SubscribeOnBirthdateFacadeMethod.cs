@@ -47,21 +47,10 @@ namespace CprBroker.EventBroker
 
         public override StandardReturType ValidateInput()
         {
-            if (NotificationChannel == null)
+            var channelValidationResult = SubscribeFacadeMethod.ValidateChannel(NotificationChannel);
+            if (!StandardReturType.IsSucceeded(channelValidationResult))
             {
-                return StandardReturType.NullInput("NotificationChannel");
-            }
-
-            var dbChannel = Data.Channel.FromXmlType(NotificationChannel);
-            if (dbChannel == null)
-            {
-                return StandardReturType.UnknownObject("NotificationChannel");
-            }
-
-            var channel = Notifications.Channel.Create(dbChannel);
-            if (channel == null || !channel.IsAlive())
-            {
-                return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Unreachable channel");
+                return channelValidationResult;
             }
 
             if (Years.HasValue)
