@@ -64,5 +64,9 @@ namespace CprBroker.EventBroker.Web.Services
             return SubscriptionManager.GetActiveSubscriptionsList(applicationHeader.UserToken, applicationHeader.ApplicationToken);
         }
 
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Ping)]
+        public void Ping()
+        { 
+        }
     }
 }

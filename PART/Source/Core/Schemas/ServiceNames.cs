@@ -71,6 +71,8 @@ namespace CprBroker.Schemas.Part
 
                 public const string RemoveBirthDateSubscription = "RemoveBirthDateSubscription";
 
+                public const string Ping = "Ping";
+
             }
         }
 
