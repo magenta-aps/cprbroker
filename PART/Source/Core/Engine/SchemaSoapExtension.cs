@@ -39,24 +39,34 @@ namespace CprBroker.Engine
 
         }
 
-        int ChainCount = 0;
+        bool IsServerSide()
+        {
+            return oldStream!=null;
+        }
+
+        bool FirstPhase = true;
+
         public override System.IO.Stream ChainStream(System.IO.Stream stream)
         {
-            ChainCount++;
-            if (ChainCount == 1 && stream.GetType().Name == "SoapExtensionStream")
+            Stream ret;
+
+            if (FirstPhase && stream.GetType().Name == "SoapExtensionStream")
             {
-                return base.ChainStream(stream);
+                ret = base.ChainStream(stream);
             }
-            else if (ChainCount == 2 && oldStream == null)
+            else if (!FirstPhase && oldStream == null)
             {
-                return base.ChainStream(stream);
+                ret = base.ChainStream(stream);
             }
             else
             {
                 oldStream = stream;
                 newStream = new MemoryStream();
-                return newStream;
+                ret = newStream;
             }
+
+            FirstPhase = false;
+            return ret;
         }
 
         #endregion
@@ -179,35 +189,27 @@ namespace CprBroker.Engine
 
         #endregion
 
-        int Step = 0;
         public override void ProcessMessage(SoapMessage message)
         {
-            Step++;
-            switch (message.Stage)
+            if (IsServerSide())
             {
-                case SoapMessageStage.BeforeDeserialize:
-                    if (Step == 1)
-                    {
+                switch (message.Stage)
+                {
+                    case SoapMessageStage.BeforeDeserialize:
                         OnBeforeDeserialize(message);
-                    }
-                    break;
+                        break;
 
-                case SoapMessageStage.AfterDeserialize:
-                    if (Step == 2)
-                    {
+                    case SoapMessageStage.AfterDeserialize:
                         OnAfterDeserialize(message);
-                    }
-                    break;
+                        break;
 
-                case SoapMessageStage.BeforeSerialize:
-                    break;
+                    case SoapMessageStage.BeforeSerialize:
+                        break;
 
-                case SoapMessageStage.AfterSerialize:
-                    if (Step == 4)
-                    {
+                    case SoapMessageStage.AfterSerialize:
                         OnAfterSerialize(message);
-                    }
-                    break;
+                        break;
+                }
             }
         }
 
