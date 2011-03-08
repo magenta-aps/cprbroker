@@ -45,7 +45,6 @@ namespace CprBroker.Web.Pages
         {
             using (var dataContext = new DataProvidersDataContext())
             {
-                DataProvider.SetChildLoadOptions(dataContext);
                 dataProvidersGridView.DataSource = LoadDataProviders(dataContext);
             }
         }
@@ -120,7 +119,6 @@ namespace CprBroker.Web.Pages
                 dataContext.SubmitChanges();
                 dataProvidersGridView.EditIndex = -1;
                 dataProvidersGridView.DataBind();
-                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
@@ -137,7 +135,6 @@ namespace CprBroker.Web.Pages
                 dataContext.DataProviders.DeleteOnSubmit(dbProv);
                 dataContext.SubmitChanges();
                 dataProvidersGridView.DataBind();
-                CprBroker.Engine.DataProviderManager.InitializeDataProviders();
             }
         }
 
@@ -174,7 +171,6 @@ namespace CprBroker.Web.Pages
                     dbProv.IsEnabled = !(dbProv.IsEnabled);
                     dataContext.SubmitChanges();
                     dataProvidersGridView.DataBind();
-                    DataProviderManager.InitializeDataProviders();
                 }
             }
             else if (e.CommandName == "Up" || e.CommandName == "Down")
@@ -206,7 +202,6 @@ namespace CprBroker.Web.Pages
                         }
                         dataContext.SubmitChanges();
                         dataProvidersGridView.DataBind();
-                        DataProviderManager.InitializeDataProviders();
                     }
                 }
             }
@@ -246,7 +241,6 @@ namespace CprBroker.Web.Pages
                         dataContext.SubmitChanges();
                         dataProvidersGridView.DataBind();
                         newDataProviderGridView.DataBind();
-                        CprBroker.Engine.DataProviderManager.InitializeDataProviders();
                     }
                 }
                 catch (Exception ex)

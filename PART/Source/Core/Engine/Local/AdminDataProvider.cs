@@ -38,7 +38,6 @@ namespace CprBroker.Engine.Local
             // GetPropertyValuesOfType data providers fromDate database and convert to the appropriate XML type
             using (var context = new DataProvidersDataContext())
             {
-                DataProvider.SetChildLoadOptions(context);
                 List<Schemas.DataProviderType> dataProviders = new List<CprBroker.Schemas.DataProviderType>();
                 var ret = context.DataProviders
                     .Where(prov => prov.IsExternal)
@@ -48,7 +47,7 @@ namespace CprBroker.Engine.Local
                 // Now clear any confidential data
                 foreach (var oioProv in ret)
                 {
-                    var prov = DataProviderManager.CreateDataProvider(oioProv.TypeName) as IExternalDataProvider;
+                    var prov = Reflection.CreateInstance<IExternalDataProvider>(oioProv.TypeName);
                     if (prov != null)
                     {
                         foreach (var configKey in prov.ConfigurationKeys)
@@ -96,8 +95,6 @@ namespace CprBroker.Engine.Local
                     context.DataProviders.InsertOnSubmit(dbProv);
                 }
                 context.SubmitChanges();
-                // Refresh current data provider list
-                DataProviderManager.InitializeDataProviders();
                 return true;
             }
         }

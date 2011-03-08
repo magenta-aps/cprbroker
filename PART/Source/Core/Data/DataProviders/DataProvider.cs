@@ -12,12 +12,8 @@ namespace CprBroker.Data.DataProviders
     /// </summary>
     public partial class DataProvider
     {
-        public static void SetChildLoadOptions(DataProvidersDataContext dataContext)
-        {
-            System.Data.Linq.DataLoadOptions loadOptions = new System.Data.Linq.DataLoadOptions();
-            dataContext.LoadOptions = loadOptions;
-        }
-
+        private readonly List<AttributeType> Properties = new List<AttributeType>();
+        
         partial void OnLoaded()
         {
             if (Data != null)
@@ -31,7 +27,6 @@ namespace CprBroker.Data.DataProviders
             return (from p in this.Properties where p.Name == key select p).FirstOrDefault();
         }
 
-        private readonly List<AttributeType> Properties = new List<AttributeType>();
         public AttributeType[] GetProperties()
         {
             return Properties.Select(p => new AttributeType() { Name = p.Name, Value = p.Value }).ToArray();
