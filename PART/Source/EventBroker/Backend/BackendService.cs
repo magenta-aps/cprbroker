@@ -40,21 +40,11 @@ namespace CprBroker.EventBroker.Backend
         }
 
         protected override void OnStart(string[] args)
-        {
+        {            
             BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
-
-            try
-            {
-                Security.EncryptConnectionStrings();
-            }
-            catch (Exception ex)
-            {
-                CprBroker.Engine.Local.Admin.LogException(ex);
-            }
-
-            CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarted);
-
+            CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarting);
             StartQueues();
+            CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarted);
         }
 
         protected override void OnStop()

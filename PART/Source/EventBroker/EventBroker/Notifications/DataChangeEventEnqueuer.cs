@@ -16,13 +16,14 @@ namespace CprBroker.EventBroker.Notifications
 
         public DataChangeEventEnqueuer()
         {
-            InitializeComponent();
+            
         }
 
         public DataChangeEventEnqueuer(IContainer container)
+            : base(container)
         {
+            System.Diagnostics.Debugger.Break();
             container.Add(this);
-            InitializeComponent();
         }
 
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)

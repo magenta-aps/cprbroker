@@ -64,14 +64,8 @@ namespace CprBroker.EventBroker.Notifications
             {
                 try
                 {
-
-                    if (EventLog != null)
-                    {
-                        this.EventLog.WriteEntry(string.Format("{0} : {1}", TextMessages.TimerEventStarted, this.GetType()));
-                    }
-
                     BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
-
+                    CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : {1}", TextMessages.TimerEventStarted, this.GetType()));
                     ActionTimer.Interval = this.CalculateActionTimerInterval(TimeSpan.FromMilliseconds(ActionTimer.Interval)).TotalMilliseconds;
 
                     try
@@ -83,10 +77,7 @@ namespace CprBroker.EventBroker.Notifications
                         CprBroker.Engine.Local.Admin.LogException(ex);
                     }
 
-                    if (EventLog != null)
-                    {
-                        this.EventLog.WriteEntry(string.Format("{0} : {1}", TextMessages.TimerEventFinished, this.GetType()));
-                    }
+                    CprBroker.Engine.Local.Admin.LogSuccess(string.Format("{0} : {1}", TextMessages.TimerEventFinished, this.GetType()));
                 }
                 finally
                 {

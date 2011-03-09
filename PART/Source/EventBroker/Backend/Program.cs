@@ -16,14 +16,15 @@ namespace CprBroker.EventBroker.Backend
         static void Main()
         {
             BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
+
             try
             {
                 string s = CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString;
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[] 
-			{ 
-				new BackendService() 
-			};
+			    { 
+				    new BackendService() 
+			    };
                 ServiceBase.Run(ServicesToRun);
             }
             catch (Exception ex)

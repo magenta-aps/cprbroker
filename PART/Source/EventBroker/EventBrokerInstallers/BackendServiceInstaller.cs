@@ -37,7 +37,6 @@ namespace CprBroker.Installers.EventBrokerInstallers
             base.Install(stateSaver);
 
             UpdateConfiguration(serviceName, eventsServiceUrl, frm.CprBrokerDatabaseInfo.CreateConnectionString(false, true));
-            StartService();
         }
 
         public override void Rollback(IDictionary savedState)
@@ -94,34 +93,6 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         }
 
-        private void StartService()
-        {
-            RegistryKey hklm = Registry.LocalMachine;
-            hklm = hklm.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\" + backendServiceInstaller.ServiceName, true);
-            var path = typeof(CprBroker.EventBroker.Backend.BackendService).Assembly.Location;
-            if (path.IndexOf(" ") != -1)
-            {
-                path = "\"" + path + "\"";
-            }
-            hklm.SetValue("ImagePath", path);
-            hklm.Flush();
-
-            if (backendServiceInstaller.StartType == ServiceStartMode.Automatic)
-            {
-                try
-                {
-                    ServiceController serviceController = new ServiceController(this.backendServiceInstaller.ServiceName);
-                    //serviceController.Start();
-                }
-                catch (Exception ex)
-                {
-                    string message = string.Format(
-                        "Could not start service \"{0}\", the installation will continue but you need to start the service manually.\r\nThe error was\r\n\t\"{1}\"",
-                        this.backendServiceInstaller.ServiceName,
-                        ex.Message);
-                    System.Windows.Forms.MessageBox.Show(message);
-                }
-            }
-        }
+        
     }
 }
