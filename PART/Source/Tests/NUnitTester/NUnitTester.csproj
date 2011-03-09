@@ -66,6 +66,7 @@
     <Compile Include="ApplicationManagementTest.cs" />
     <Compile Include="BaseTest.cs" />
     <Compile Include="EventTest.cs" />
+    <Compile Include="NotificationTest.cs" />
     <Compile Include="PartTest.cs" />
     <Compile Include="PartTestData.cs" />
     <Compile Include="Program.cs" />
@@ -85,6 +86,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\Events\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Notification\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -156,6 +162,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>CprBroker_NUnitTester_Part_Part</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://localhost:1552/Services/Notification.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Notification\</RelPath>
+      <UpdateFromURL>http://localhost:1552/Services/Notification.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CprBroker_NUnitTester_Notification_Notification</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1552/Services/Subscriptions.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -245,6 +262,14 @@
     </None>
     <None Include="Web References\Subscriptions\Subscriptions.disco" />
     <None Include="Web References\Subscriptions\Subscriptions.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Notification\Notification.disco" />
+    <None Include="Web References\Notification\Notification.wsdl" />
+    <None Include="Web References\Notification\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,10 +17,13 @@ namespace CprBroker.NUnitTester
         public static Part.Part PartService;
         public static Subscriptions.Subscriptions SubscriptionsService;
         public static Events.Events EventsService;
+        public static Notification.Notification NotificationService;
+
         public static Part.ApplicationHeader PartApplicationHeader;
         public static Admin.ApplicationHeader AdminApplicationHeader;
         public static Events.ApplicationHeader EventsApplicationHeader;
         public static Subscriptions.ApplicationHeader SubscriptionsApplicationHeader;
+        
 
         public static void Initialize()
         {
@@ -49,12 +52,18 @@ namespace CprBroker.NUnitTester
             SubscriptionsApplicationHeader = new CprBroker.NUnitTester.Subscriptions.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             SubscriptionsService.ApplicationHeaderValue = SubscriptionsApplicationHeader;
 
+            // Events
             EventsService = new CprBroker.NUnitTester.Events.Events();
             ReplaceServiceUrl(EventsService, SystemType.CprBroker);
             Console.WriteLine(EventsService.Url);
 
             EventsApplicationHeader = new CprBroker.NUnitTester.Events.ApplicationHeader() { ApplicationToken = TestData.BaseAppToken, UserToken = TestData.userToken };
             EventsService.ApplicationHeaderValue = EventsApplicationHeader;
+
+            // Notification
+            NotificationService = new CprBroker.NUnitTester.Notification.Notification();
+            ReplaceServiceUrl(NotificationService, SystemType.EventBroker);
+            Console.WriteLine(NotificationService.Url);
 
         }
 
