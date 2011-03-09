@@ -22,7 +22,6 @@ namespace CprBroker.EventBroker.Notifications
         public DataChangeEventEnqueuer(IContainer container)
             : base(container)
         {
-            System.Diagnostics.Debugger.Break();
             container.Add(this);
         }
 
