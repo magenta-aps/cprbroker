@@ -17,5 +17,13 @@ namespace CprBroker.Installers.CprBrokerInstallers
                 return "CprBroker";
             }
         }
+
+        protected override string EventLogSourceName
+        {
+            get
+            {
+                return "Cpr Broker";
+            }
+        }
     }
 }
