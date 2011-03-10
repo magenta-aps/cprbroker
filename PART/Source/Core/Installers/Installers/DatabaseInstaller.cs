@@ -236,9 +236,45 @@ namespace CprBroker.Installers
             }
         }
 
-        protected virtual LookupInsertionParameters[] GetLookupInsertionParameters()
+        protected virtual KeyValuePair<string,string>[] GetLookupData()
         {
-            return new LookupInsertionParameters[0];
+            return new KeyValuePair<string, string>[0];
+        }
+
+        private void InsertLookups(string connectionString)
+        {
+            foreach (var lookupData in GetLookupData())
+            {
+                string tableName = lookupData.Key;
+                string csv = lookupData.Value;
+
+                string[] lines = csv.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] columnNames = lines[0].Split(';');
+                columnNames = columnNames.Select(c => string.Format("[{0}]", c)).ToArray();
+
+                string sql = "";
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    sql += string.Format("INSERT INTO [{0}] (",tableName);
+                    sql += string.Join(",", columnNames);
+                    sql +=") VALUES (";
+
+                    string[] values = lines[i].Split(';');
+                    values = values.Select(v => string.Format("'{0}'", v)).ToArray();
+                    sql += string.Join(",", values);
+                    sql += ")"+Environment.NewLine;
+                }
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(sql, conn))
+                    {
+                        conn.Open();
+                        int result=command.ExecuteNonQuery();
+                        object o = "";
+                    }
+                }
+            }
         }
 
         public bool CreateDatabase(DatabaseSetupInfo setupInfo)
@@ -253,7 +289,7 @@ namespace CprBroker.Installers
                 db.Create();
                 string sql = CreateDatabaseObjectsSql;
                 db.ExecuteNonQuery(sql);
-                LookupInsertionParameters.InsertLookups(GetLookupInsertionParameters(), setupInfo.CreateConnectionString(true, true));
+                InsertLookups(setupInfo.CreateConnectionString(true,true));
                 return true;
             }
             else
