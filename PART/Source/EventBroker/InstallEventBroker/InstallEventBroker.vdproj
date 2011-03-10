@@ -141,12 +141,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_666E5C7067004E77BEA923141DAB3150"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6B4DF991B20F9329E8B51CBE3CE109BB"
         "OwnerKey" = "8:_E2ADFB54A27D4FFBAD11D15403C13CB1"
         "MsmSig" = "8:_UNDEFINED"
@@ -207,12 +201,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_77F5553F7CEFCA91C98852A5940014C8"
-        "OwnerKey" = "8:_C4F23A7B8497484A8EBD72D006983A86"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7DED54BCED23F6C117D7F99C23DDCAC1"
         "OwnerKey" = "8:_DC7AFE0804184FF2A99413285E60E905"
         "MsmSig" = "8:_UNDEFINED"
@@ -221,12 +209,6 @@
         {
         "MsmKey" = "8:_80133813CB83F1C483F20B13EBCF2787"
         "OwnerKey" = "8:_6B4DF991B20F9329E8B51CBE3CE109BB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_80133813CB83F1C483F20B13EBCF2787"
-        "OwnerKey" = "8:_C4F23A7B8497484A8EBD72D006983A86"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -453,12 +435,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C4F23A7B8497484A8EBD72D006983A86"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C56E8053C65AAAF09CFE67863993C476"
         "OwnerKey" = "8:_E2ADFB54A27D4FFBAD11D15403C13CB1"
         "MsmSig" = "8:_UNDEFINED"
@@ -647,24 +623,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_DC7AFE0804184FF2A99413285E60E905"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C4F23A7B8497484A8EBD72D006983A86"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_77F5553F7CEFCA91C98852A5940014C8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_666E5C7067004E77BEA923141DAB3150"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1174,37 +1132,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_666E5C7067004E77BEA923141DAB3150"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.SqlServer.BatchParser, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_666E5C7067004E77BEA923141DAB3150"
-                    {
-                    "Name" = "8:Microsoft.SqlServer.BatchParser.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\..\\Dll\\Microsoft.SqlServer.BatchParser.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_22620717DF9C4AD6AD6528F2C97D2D66"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6B4DF991B20F9329E8B51CBE3CE109BB"
             {
             "AssemblyRegister" = "3:1"
@@ -1281,37 +1208,6 @@
                     }
                 }
             "SourcePath" = "8:Microsoft.SqlServer.Smo.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_22620717DF9C4AD6AD6528F2C97D2D66"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_77F5553F7CEFCA91C98852A5940014C8"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:TRUE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.SqlServer.BatchParser, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_77F5553F7CEFCA91C98852A5940014C8"
-                    {
-                    "Name" = "8:Microsoft.SqlServer.BatchParser.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.SqlServer.BatchParser.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_22620717DF9C4AD6AD6528F2C97D2D66"
@@ -1637,37 +1533,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C4F23A7B8497484A8EBD72D006983A86"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.SqlServer.BatchParserClient, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C4F23A7B8497484A8EBD72D006983A86"
-                    {
-                    "Name" = "8:Microsoft.SqlServer.BatchParserClient.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\..\\Dll\\Microsoft.SqlServer.BatchParserClient.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_22620717DF9C4AD6AD6528F2C97D2D66"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C56E8053C65AAAF09CFE67863993C476"
@@ -2012,7 +1877,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Event Broker"
         "ProductCode" = "8:{9D925113-8214-4326-8A9A-02A9241BEF96}"
-        "PackageCode" = "8:{3E03FEF5-7CC9-4368-9805-A631D9053944}"
+        "PackageCode" = "8:{1CFE571A-0BE3-4CDF-AD6D-1A6B064332A2}"
         "UpgradeCode" = "8:{16B10170-7979-47FF-85F9-662C087B7334}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
