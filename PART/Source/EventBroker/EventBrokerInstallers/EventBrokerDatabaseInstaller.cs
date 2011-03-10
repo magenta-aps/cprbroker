@@ -28,11 +28,12 @@ namespace CprBroker.Installers.EventBrokerInstallers
             }
         }
 
-        protected override LookupInsertionParameters[] GetLookupInsertionParameters()
+        protected override KeyValuePair<string, string>[] GetLookupData()
         {
-            List<LookupInsertionParameters> ret = new List<LookupInsertionParameters>();
-            ret.Add(new LookupInsertionParameters(this, typeof(ChannelType), Properties.Resources.ChannelType));
-            ret.Add(new LookupInsertionParameters(this, typeof(SubscriptionType), Properties.Resources.SubscriptionType));
+            List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
+
+            ret.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, Properties.Resources.ChannelType));
+            ret.Add(new KeyValuePair<string, string>(typeof(SubscriptionType).Name, Properties.Resources.SubscriptionType));
 
             return ret.ToArray();
         }

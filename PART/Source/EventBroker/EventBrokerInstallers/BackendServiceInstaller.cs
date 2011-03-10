@@ -34,9 +34,15 @@ namespace CprBroker.Installers.EventBrokerInstallers
             savedStateWrapper.ServiceName = serviceName;
             this.backendServiceInstaller.ServiceName = serviceName;
 
+            string assemblyPath = Context.Parameters["assemblypath"];
+            this.Context.Parameters["assemblypath"] = typeof(EventBroker.Backend.BackendService).Assembly.Location;
+
             base.Install(stateSaver);
+            
+            this.Context.Parameters["assemblypath"] = assemblyPath;
 
             UpdateConfiguration(serviceName, eventsServiceUrl, frm.CprBrokerDatabaseInfo.CreateConnectionString(false, true));
+
         }
 
         public override void Rollback(IDictionary savedState)
@@ -85,15 +91,15 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 configFileName,
                 () =>
                 {
+                    Installation.CopyConfigNode("//connectionStrings", this.GetWebConfigFilePathFromInstaller(), configFileName);
                     ServiceController serviceController = new ServiceController(serviceName);
                     serviceController.Start();
                 }
                 );
             Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EventsServiceUrl", cprEventsServiceUrl);
-
             Installation.SetFlatFileLogListenerAccessRights(configFileName);
         }
 
-        
+
     }
 }

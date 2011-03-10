@@ -42,7 +42,7 @@
             this.backendServiceInstaller.ServiceName = "CPR broker backend service";
             this.backendServiceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
-            // ProjectInstaller
+            // EventBrokerBackendServiceInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
             this.backendServiceProcessInstaller,

@@ -171,21 +171,27 @@ namespace CprBroker.Utilities
             conf.Save(ConfigurationSaveMode.Full);
         }
 
-        public static void SetFlatFileLogListenerAccessRights(string configFileName)
+        private static XmlNode GetConfigNode(string nodePath, ref string configFilePath)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(configFileName);
-            XmlNode loggingConfigurationNode = doc.SelectSingleNode("//loggingConfiguration");
+            doc.Load(configFilePath);
+            XmlNode node = doc.SelectSingleNode(nodePath);
 
-            if (loggingConfigurationNode.Attributes["configSource"] != null)
+            if (node.Attributes["configSource"] != null)
             {
-                string filePath = loggingConfigurationNode.Attributes["configSource"].Value;
-                var configDir = Path.GetDirectoryName(configFileName);
-                configFileName = configDir + "\\" + filePath;
+                string filePath = node.Attributes["configSource"].Value;
+                var configDir = Path.GetDirectoryName(configFilePath);
+                configFilePath = configDir + "\\" + filePath;
 
-                doc.Load(configFileName);
-                loggingConfigurationNode = doc.SelectSingleNode("//loggingConfiguration");
+                doc.Load(configFilePath);
+                node = doc.SelectSingleNode(nodePath);
             }
+            return node;
+        }
+
+        public static void SetFlatFileLogListenerAccessRights(string configFileName)
+        {
+            XmlNode loggingConfigurationNode = GetConfigNode("//loggingConfiguration", ref configFileName);
 
             var listenersNode = loggingConfigurationNode.SelectSingleNode("listeners");
             var flatFileNode = listenersNode.SelectSingleNode("add[@name='FlatFile']");
@@ -204,6 +210,23 @@ namespace CprBroker.Utilities
             FileSystemAccessRule rule = new FileSystemAccessRule("NETWORK SERVICE", FileSystemRights.FullControl, AccessControlType.Allow);
             access.ResetAccessRule(rule);
             File.SetAccessControl(fileName, access);
+        }
+
+        public static void CopyConfigNode(string nodePath, string fromConfigFile, string toConfigFile)
+        {
+            XmlNode sourceNode = GetConfigNode(nodePath, ref fromConfigFile);
+            XmlNode targetNode = GetConfigNode(nodePath, ref toConfigFile);
+
+            targetNode.Attributes.RemoveAll();
+            foreach (XmlAttribute sourceAttribute in sourceNode.Attributes)
+            {
+                var targetAttribute=targetNode.OwnerDocument.CreateAttribute(sourceAttribute.Name);
+                targetAttribute.Value=sourceAttribute.Value;
+                targetNode.Attributes.Append(targetAttribute);
+            }
+            targetNode.InnerXml = sourceNode.InnerXml;
+
+            targetNode.OwnerDocument.Save(toConfigFile);
         }
 
         const int MAX_PATH = 256;
