@@ -17,9 +17,22 @@ namespace CprBroker.Installers
     /// </summary>
     public class WebSiteInstaller : Installer
     {
+        private EventLogInstaller EventLogInstaller = new EventLogInstaller();
+
         protected virtual string DefaultWebsiteName
         {
             get { return ""; }
+        }
+
+        protected virtual string EventLogSourceName
+        {
+            get { return "Unknown"; }
+        }
+
+        public WebSiteInstaller()
+        {
+            this.EventLogInstaller = new EventLogInstaller() { Log = "Application", Source = EventLogSourceName };
+            Installers.Add(EventLogInstaller);
         }
 
         #region Install
@@ -27,7 +40,8 @@ namespace CprBroker.Installers
         {
             GetInstallInfoFromUser(savedState);
         }
-        public void GetInstallInfoFromUser(System.Collections.IDictionary stateSaver)
+
+        private void GetInstallInfoFromUser(System.Collections.IDictionary stateSaver)
         {
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(stateSaver);
             var webInstallationInfo = new WebInstallationInfo()
@@ -140,8 +154,10 @@ namespace CprBroker.Installers
                 // Data provider keys
                 EncryptDataProviderKeys(configFilePath, siteID.ToString(), appRelativePath);
 
-                // Set connection strings and enqueue their encryption
+                // Logging flat file access
+                InitializeFlatFileLogging(configFilePath);
 
+                // Set connection strings and enqueue their encryption
                 ConnectionStringsInstaller.RegisterCommitAction(configFilePath, () => EncryptConnectionStrings(siteID.ToString(), appRelativePath));
             }
             catch (InstallException ex)
@@ -155,6 +171,7 @@ namespace CprBroker.Installers
         }
 
         #endregion
+
 
         #region Rollback
         public override void Rollback(System.Collections.IDictionary savedState)
@@ -213,8 +230,6 @@ namespace CprBroker.Installers
                 throw new InstallException("", ex);
             }
         }
-
-
 
         int GetScriptMapsVersion(DirectoryEntry site)
         {
@@ -292,8 +307,8 @@ namespace CprBroker.Installers
             {
                 File.Copy(t.Assembly.Location, path + fileName, true);
             }
-
         }
+
         void DeleteTypeAssemblyFileFroNetFramework(Type t)
         {
             string path = Installation.GetNetFrameworkDirectory() + Path.GetFileName(t.Assembly.Location);
@@ -345,6 +360,11 @@ namespace CprBroker.Installers
         private void EncryptConnectionStrings(string site, string app)
         {
             RunRegIIS(string.Format("-pe \"connectionStrings\" -site \"{0}\" -app \"{1}\"", site, app));
+        }
+
+        void InitializeFlatFileLogging(string configFilePath)
+        {
+            Utilities.Installation.SetFlatFileLogListenerAccessRights(configFilePath);
         }
 
         private void DeleteApplication(System.Collections.IDictionary savedState)

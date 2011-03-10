@@ -7,6 +7,8 @@ using System.Configuration.Install;
 using System.Xml;
 using System.Runtime.InteropServices;
 using System.Configuration;
+using System.Security;
+using System.Security.AccessControl;
 
 namespace CprBroker.Utilities
 {
@@ -107,7 +109,7 @@ namespace CprBroker.Utilities
             return node;
         }
 
-        public static bool AddSectionNode(string nodeName,Dictionary<string,string> attributes, string configFileName, string parentNodeName)
+        public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string configFileName, string parentNodeName)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(configFileName);
@@ -120,21 +122,21 @@ namespace CprBroker.Utilities
                     var at = doc.CreateAttribute(attr.Key);
                     at.Value = attr.Value;
                     newNode.Attributes.Append(at);
-                }                
+                }
                 parentNode.AppendChild(newNode);
                 doc.Save(configFileName);
                 return true;
             }
             return false;
         }
-        public static bool AddSectionNode(XmlNode node,string configFileName, string parentNodeName)
+        public static bool AddSectionNode(XmlNode node, string configFileName, string parentNodeName)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(configFileName);
             XmlNode parentNode = doc.SelectSingleNode("//" + parentNodeName);
             if (parentNode != null)
             {
-                var newNode=doc.CreateElement(node.Name);
+                var newNode = doc.CreateElement(node.Name);
                 newNode.InnerXml = node.InnerXml;
                 parentNode.AppendChild(newNode);
                 doc.Save(configFileName);
@@ -169,7 +171,40 @@ namespace CprBroker.Utilities
             conf.Save(ConfigurationSaveMode.Full);
         }
 
-        
+        public static void SetFlatFileLogListenerAccessRights(string configFileName)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(configFileName);
+            XmlNode loggingConfigurationNode = doc.SelectSingleNode("//loggingConfiguration");
+
+            if (loggingConfigurationNode.Attributes["configSource"] != null)
+            {
+                string filePath = loggingConfigurationNode.Attributes["configSource"].Value;
+                var configDir = Path.GetDirectoryName(configFileName);
+                configFileName = configDir + "\\" + filePath;
+
+                doc.Load(configFileName);
+                loggingConfigurationNode = doc.SelectSingleNode("//loggingConfiguration");
+            }
+
+            var listenersNode = loggingConfigurationNode.SelectSingleNode("listeners");
+            var flatFileNode = listenersNode.SelectSingleNode("add[@name='FlatFile']");
+            string fileName = flatFileNode.Attributes["fileName"].Value;
+
+            if (!File.Exists(fileName))
+            {
+                string directoryName = Path.GetDirectoryName(fileName);
+                if (!Directory.Exists(directoryName))
+                {
+                    Directory.CreateDirectory(directoryName);
+                }
+                File.Create(fileName);
+            }
+            FileSecurity access = System.IO.File.GetAccessControl(fileName);
+            FileSystemAccessRule rule = new FileSystemAccessRule("NETWORK SERVICE", FileSystemRights.FullControl, AccessControlType.Allow);
+            access.ResetAccessRule(rule);
+            File.SetAccessControl(fileName, access);
+        }
 
         const int MAX_PATH = 256;
         public static string GetNetFrameworkDirectory()
