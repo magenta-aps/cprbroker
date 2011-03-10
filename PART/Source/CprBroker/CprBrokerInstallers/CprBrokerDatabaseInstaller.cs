@@ -36,22 +36,19 @@ namespace CprBroker.Installers.CprBrokerInstallers
             }
         }
 
-        protected override LookupInsertionParameters[] GetLookupInsertionParameters()
+        protected override KeyValuePair<string, string>[] GetLookupData()
         {
-            List<LookupInsertionParameters> ret = new List<LookupInsertionParameters>();
-
-            ret.Add(new LookupInsertionParameters(this, typeof(CprBroker.Data.Part.AddressCoordinateQualityType), Properties.Resources.AddressCoordinateQualityType));
-            ret.Add(new LookupInsertionParameters(this, typeof(CprBroker.Data.Applications.Application), Properties.Resources.Application,
-                new LookupInsertionParameters.ColumnType() { Name = "ApplicationId", Type = typeof(Guid) }
-                ));
-            ret.Add(new LookupInsertionParameters(this, typeof(CivilStatusCodeType), Properties.Resources.CivilStatusCodeType));
-            ret.Add(new LookupInsertionParameters(this, typeof(ContactChannelType), Properties.Resources.ContactChannelType));
-            ret.Add(new LookupInsertionParameters(this, typeof(CountrySchemeType), Properties.Resources.CountrySchemeType));
-            ret.Add(new LookupInsertionParameters(this, typeof(Gender), Properties.Resources.Gender));
-            ret.Add(new LookupInsertionParameters(this, typeof(LifecycleStatus), Properties.Resources.LifecycleStatus));
-            ret.Add(new LookupInsertionParameters(this, typeof(LifeStatusCodeType), Properties.Resources.LifeStatusCodeType));
-            ret.Add(new LookupInsertionParameters(this, typeof(LogType), Properties.Resources.LogType));
-            ret.Add(new LookupInsertionParameters(this, typeof(RelationshipType), Properties.Resources.RelationshipType));
+            List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
+            ret.Add(new KeyValuePair<string,string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, Properties.Resources.AddressCoordinateQualityType));
+            ret.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Applications.Application).Name, Properties.Resources.Application));
+            ret.Add(new KeyValuePair<string, string>(typeof(CivilStatusCodeType).Name, Properties.Resources.CivilStatusCodeType));
+            ret.Add(new KeyValuePair<string, string>(typeof(ContactChannelType).Name, Properties.Resources.ContactChannelType));
+            ret.Add(new KeyValuePair<string, string>(typeof(CountrySchemeType).Name, Properties.Resources.CountrySchemeType));
+            ret.Add(new KeyValuePair<string, string>(typeof(Gender).Name, Properties.Resources.Gender));
+            ret.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
+            ret.Add(new KeyValuePair<string, string>(typeof(LifeStatusCodeType).Name, Properties.Resources.LifeStatusCodeType));
+            ret.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
+            ret.Add(new KeyValuePair<string, string>(typeof(RelationshipType).Name, Properties.Resources.RelationshipType));
 
             return ret.ToArray();
         }
