@@ -91,6 +91,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 );
             Installation.SetApplicationSettingInConfigFile(configFileName, typeof(CprBroker.Config.Properties.Settings), "EventsServiceUrl", cprEventsServiceUrl);
 
+            Installation.SetFlatFileLogListenerAccessRights(configFileName);
         }
 
         
