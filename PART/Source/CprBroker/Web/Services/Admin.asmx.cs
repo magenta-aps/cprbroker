@@ -25,12 +25,10 @@ namespace CprBroker.Web.Services
         private const string ApplicationHeaderName = "applicationHeader";
              
         #region Application manager
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(
-            MessageName = ServiceNames.Admin.MethodNames.RequestAppRegistration, Description = CprBroker.Schemas.ServiceDescription.Admin.RequestAppRegistration)]
+        [WebMethod(MessageName = ServiceNames.Admin.MethodNames.RequestAppRegistration, Description = CprBroker.Schemas.ServiceDescription.Admin.RequestAppRegistration)]
         public BasicOutputType<ApplicationType> RequestAppRegistration(string ApplicationName)
         {
-            return Manager.Admin.RequestAppRegistration(applicationHeader.UserToken, applicationHeader.ApplicationToken, ApplicationName);
+            return Manager.Admin.RequestAppRegistration(Utilities.Constants.UserToken, Utilities.Constants.BaseApplicationToken.ToString(), ApplicationName);
         }
 
         [SoapHeader(ApplicationHeaderName)]

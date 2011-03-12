@@ -27,20 +27,20 @@ namespace CprBroker.NUnitTester.Admin {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="AdminSoap12", Namespace="http://dk.itst")]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FlerRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegisterOplysningBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AdresseBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(KontaktKanalBaseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ServiceVersionType[]))]
     public partial class Admin : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private ApplicationHeader applicationHeaderValueField;
-        
         private System.Threading.SendOrPostCallback RequestAppRegistrationOperationCompleted;
+        
+        private ApplicationHeader applicationHeaderValueField;
         
         private System.Threading.SendOrPostCallback ApproveAppRegistrationOperationCompleted;
         
@@ -139,7 +139,6 @@ namespace CprBroker.NUnitTester.Admin {
         public event PingCompletedEventHandler PingCompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/RequestAppRegistration", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public BasicOutputTypeOfApplicationType RequestAppRegistration(string ApplicationName) {
             object[] results = this.Invoke("RequestAppRegistration", new object[] {
@@ -1698,8 +1697,8 @@ namespace CprBroker.NUnitTester.Admin {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1729,128 +1728,6 @@ namespace CprBroker.NUnitTester.Admin {
             }
             set {
                 this.ukendtAdresseIndikatorField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class VerdenAdresseType : AdresseBaseType {
-        
-        private ForeignAddressStructureType foreignAddressStructureField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-        public ForeignAddressStructureType ForeignAddressStructure {
-            get {
-                return this.foreignAddressStructureField;
-            }
-            set {
-                this.foreignAddressStructureField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class ForeignAddressStructureType {
-        
-        private string postalAddressFirstLineTextField;
-        
-        private string postalAddressSecondLineTextField;
-        
-        private string postalAddressThirdLineTextField;
-        
-        private string postalAddressFourthLineTextField;
-        
-        private string postalAddressFifthLineTextField;
-        
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        private string locationDescriptionTextField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFirstLineText {
-            get {
-                return this.postalAddressFirstLineTextField;
-            }
-            set {
-                this.postalAddressFirstLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressSecondLineText {
-            get {
-                return this.postalAddressSecondLineTextField;
-            }
-            set {
-                this.postalAddressSecondLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressThirdLineText {
-            get {
-                return this.postalAddressThirdLineTextField;
-            }
-            set {
-                this.postalAddressThirdLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFourthLineText {
-            get {
-                return this.postalAddressFourthLineTextField;
-            }
-            set {
-                this.postalAddressFourthLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFifthLineText {
-            get {
-                return this.postalAddressFifthLineTextField;
-            }
-            set {
-                this.postalAddressFifthLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public CountryIdentificationCodeType CountryIdentificationCode {
-            get {
-                return this.countryIdentificationCodeField;
-            }
-            set {
-                this.countryIdentificationCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/")]
-        public string LocationDescriptionText {
-            get {
-                return this.locationDescriptionTextField;
-            }
-            set {
-                this.locationDescriptionTextField = value;
             }
         }
     }
@@ -2075,6 +1952,128 @@ namespace CprBroker.NUnitTester.Admin {
             }
             set {
                 this.countryIdentificationCodeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class VerdenAdresseType : AdresseBaseType {
+        
+        private ForeignAddressStructureType foreignAddressStructureField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+        public ForeignAddressStructureType ForeignAddressStructure {
+            get {
+                return this.foreignAddressStructureField;
+            }
+            set {
+                this.foreignAddressStructureField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class ForeignAddressStructureType {
+        
+        private string postalAddressFirstLineTextField;
+        
+        private string postalAddressSecondLineTextField;
+        
+        private string postalAddressThirdLineTextField;
+        
+        private string postalAddressFourthLineTextField;
+        
+        private string postalAddressFifthLineTextField;
+        
+        private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        private string locationDescriptionTextField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFirstLineText {
+            get {
+                return this.postalAddressFirstLineTextField;
+            }
+            set {
+                this.postalAddressFirstLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressSecondLineText {
+            get {
+                return this.postalAddressSecondLineTextField;
+            }
+            set {
+                this.postalAddressSecondLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressThirdLineText {
+            get {
+                return this.postalAddressThirdLineTextField;
+            }
+            set {
+                this.postalAddressThirdLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFourthLineText {
+            get {
+                return this.postalAddressFourthLineTextField;
+            }
+            set {
+                this.postalAddressFourthLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFifthLineText {
+            get {
+                return this.postalAddressFifthLineTextField;
+            }
+            set {
+                this.postalAddressFifthLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/")]
+        public string LocationDescriptionText {
+            get {
+                return this.locationDescriptionTextField;
+            }
+            set {
+                this.locationDescriptionTextField = value;
             }
         }
     }

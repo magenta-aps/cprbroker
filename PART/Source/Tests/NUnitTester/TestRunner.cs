@@ -85,7 +85,7 @@ namespace CprBroker.NUnitTester
             string url = uri.ToString();
             if (systemType == SystemType.CprBroker)
             {
-                url = url.Replace(hostAndPort, "localhost:1551");
+                url = url.Replace(hostAndPort, "localhost/666");
             }
             else
             {

@@ -35,7 +35,7 @@ namespace CPR_Business_Application_Demo.Adapters
         #region Application Registration
         public BasicOutputTypeOfApplicationType RequestAppRegistration(ApplicationHeader applicationHeader, string applicationName)
         {
-            return applicationsHandler.RequestAppRegistration(applicationHeader, applicationName);
+            return applicationsHandler.RequestAppRegistration(applicationName);
         }
 
         public BasicOutputTypeOfBoolean ApproveAppRegistration(ApplicationHeader applicationHeader, string applicationToken)
