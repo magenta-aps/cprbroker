@@ -18,7 +18,7 @@
    class="st8"
    id="svg3364"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.1 "
    sodipodi:docname="useCase.svg"><metadata
    id="metadata3535"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
@@ -711,8 +711,8 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="1584"
-   inkscape:window-height="1014"
+   inkscape:window-width="1440"
+   inkscape:window-height="878"
    id="namedview3531"
    showgrid="false"
    inkscape:zoom="1.08"
@@ -756,13 +756,15 @@
    class="st1"
    id="path3377"
    style="fill:#ffffff;stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round" /><text
-   x="135.85457"
+   x="121.03973"
    y="180.05562"
    class="st2"
    v:langID="1033"
    id="text3379"
-   style="fill:#000000;font-family:Arial"><v:paragraph
+   style="font-size:12px;fill:#000000;font-family:Arial"><v:paragraph
    v:horizAlign="1" /><v:tabList />Get person data</text>
+
+
 <text
    x="144.46655"
    y="-25.175381"
@@ -771,6 +773,8 @@
    id="text3386"
    style="font-weight:bold;fill:#cdcdcd;font-family:Arial"><v:paragraph
    v:horizAlign="1" /><v:tabList />Use Case</text>
+
+
 <path
    d="m 286.57156,141.67463 a 50.0824,25.0412 0 1 1 100.16,0 50.0824,25.0412 0 1 1 -100.16,0 z"
    class="st1"
@@ -783,6 +787,8 @@
    id="text3395"
    style="fill:#000000;font-family:Arial"><v:paragraph
    v:horizAlign="1" /><v:tabList />By unique key</text>
+
+
 <path
    d="m 296.02756,227.12563 a 51.025,25.5125 0 1 1 102.05,0 51.025,25.5125 0 0 1 -102.05,0 z"
    class="st1"
@@ -795,22 +801,26 @@
    id="text3404"
    style="fill:#000000;font-family:Arial"><v:paragraph
    v:horizAlign="1" /><v:tabList />By search</text>
+
+
 <path
-   style="stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round"
+   style="stroke:#000000;stroke-width:0.38305354;stroke-linecap:round;stroke-linejoin:round"
    id="path3413"
    class="st4"
-   d="m 222.32756,177.65263 64.24,-35.97" /><path
-   style="stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round"
+   d="m 214.87167,162.14553 71.74436,-20.51137"
+   inkscape:connector-curvature="0" /><path
+   style="stroke:#000000;stroke-width:0.48050967;stroke-linecap:round;stroke-linejoin:round"
    id="path3422"
    class="st4"
-   d="m 200.65756,199.32263 95.37,27.81" /><rect
+   d="m 215.47265,194.13769 80.55466,32.99469"
+   inkscape:connector-curvature="0" /><rect
    x="89.312347"
    y="75.76162"
    width="365.45599"
-   height="406.07401"
+   height="194.53856"
    class="st5"
    id="rect3429"
-   style="fill:none;stroke:#000000;stroke-width:0.72000003;stroke-linecap:round;stroke-linejoin:round" /><text
+   style="fill:none;stroke:#000000;stroke-width:0.49834806;stroke-linecap:round;stroke-linejoin:round" /><text
    x="232.75235"
    y="92.360619"
    class="st6"
@@ -818,6 +828,8 @@
    id="text3431"
    style="font-weight:bold;fill:#000000;font-family:Arial"><v:paragraph
    v:horizAlign="1" /><v:tabList />CPR Broker</text>
+
+
 <path
    d="m 27.194449,220.34463 a 8.88556,8.81575 0 0 1 17.77,0 8.88556,8.81575 0 0 1 -17.77,0 z"
    class="st7"
@@ -846,73 +858,102 @@
    id="text3448"
    style="fill:#000000;font-family:Arial"><v:paragraph
    v:horizAlign="1" /><v:tabList />Client application</text>
+
+
 <path
    style="stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round"
    id="path3466"
    class="st4"
    d="m 40.625449,212.77363 98.210001,-9.24" /><path
-   d="m 123.38756,347.05163 a 53.5856,26.7928 0 0 1 107.17,0 53.5856,26.7928 0 1 1 -107.17,0 z"
+   d="m 112.27643,370.75537 a 79.615279,26.7928 0 0 1 159.22878,0 79.615279,26.7928 0 1 1 -159.22878,0 z"
    class="st1"
    id="path3473"
-   style="fill:#ffffff;stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round" /><text
-   x="128.49756"
-   y="349.45166"
+   style="fill:#ffffff;stroke:#000000;stroke-width:0.58508021;stroke-linecap:round;stroke-linejoin:round"
+   inkscape:connector-curvature="0" /><text
+   x="117.38643"
+   y="373.1554"
    class="st2"
    v:langID="1033"
    id="text3475"
-   style="fill:#000000;font-family:Arial"><v:paragraph
+   style="font-size:12px;fill:#000000;font-family:Arial"><v:paragraph
    v:horizAlign="1" /><v:tabList />Subscribe to person events</text>
+
+
 <path
-   style="stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round"
+   style="stroke:#000000;stroke-width:0.71318245;stroke-linecap:round;stroke-linejoin:round"
    id="path3493"
    class="st4"
-   d="m 53.846649,308.49463 94.340001,15.96" /><path
-   d="m 295.36256,362.70263 a 51.3561,25.6781 0 0 1 102.71,0 51.3561,25.6781 0 1 1 -102.71,0 z"
+   d="m 53.96324,308.61122 62.99567,52.76391"
+   inkscape:connector-curvature="0" /><path
+   d="m 323.51074,362.70263 a 51.3561,25.6781 0 0 1 102.71,0 51.3561,25.6781 0 1 1 -102.71,0 z"
    class="st1"
    id="path3500"
-   style="fill:#ffffff;stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round" /><text
-   x="309.28403"
-   y="362.8804"
+   style="fill:#ffffff;stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round"
+   inkscape:connector-curvature="0" /><text
+   x="344.83963"
+   y="358.43594"
    class="st2"
    v:langID="1033"
    id="text3502"
-   style="text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;font-family:Arial"
+   style="font-size:12px;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;font-family:Arial"
    sodipodi:linespacing="125%"><tspan
      sodipodi:role="line"
      id="tspan3698"
-     x="309.28403"
-     y="362.8804">Subscribe to </tspan><tspan
+     x="344.83963"
+     y="358.43594">Subscribe to </tspan><tspan
      sodipodi:role="line"
      id="tspan3700"
-     x="309.28403"
-     y="377.8804">birthdate</tspan></text>
+     x="344.83963"
+     y="373.43594">birthdate</tspan></text>
+
+
 <path
-   d="m 296.02756,431.53162 a 51.59,25.795 0 1 1 103.18,0 51.59,25.795 0 0 1 -103.18,0 z"
+   d="m 324.91649,441.902 a 51.59,25.795 0 1 1 103.18,0 51.59,25.795 0 0 1 -103.18,0 z"
    class="st1"
    id="path3509"
-   style="fill:#ffffff;stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round" /><text
-   x="303.35977"
-   y="429.48718"
+   style="fill:#ffffff;stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round"
+   inkscape:connector-curvature="0" /><text
+   x="332.24869"
+   y="439.85757"
    class="st2"
    v:langID="1033"
    id="text3511"
-   style="text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;font-family:Arial"
+   style="font-size:12px;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;font-family:Arial"
    sodipodi:linespacing="125%"><tspan
      sodipodi:role="line"
      id="tspan3702"
-     x="303.35977"
-     y="429.48718">Subscribe to data </tspan><tspan
+     x="332.24869"
+     y="439.85757">Subscribe to data </tspan><tspan
      sodipodi:role="line"
      id="tspan3704"
-     x="303.35977"
-     y="444.48718">updates</tspan></text>
+     x="332.24869"
+     y="454.85757">updates</tspan></text>
+
+
 <path
-   style="stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round"
+   style="stroke:#000000;stroke-width:0.41012889;stroke-linecap:round;stroke-linejoin:round"
    id="path3520"
    class="st4"
-   d="m 230.55856,347.04863 64.8,15.65" /><path
-   style="stroke:#000000;stroke-width:0.47999999;stroke-linecap:round;stroke-linejoin:round"
+   d="M 269.04323,375.46368 322.7999,361.69103"
+   inkscape:connector-curvature="0" /><path
+   style="stroke:#000000;stroke-width:0.43246469;stroke-linecap:round;stroke-linejoin:round"
    id="path3529"
    class="st4"
-   d="m 214.65856,366.09663 96.68,47.1" />
+   d="m 246.48668,389.7766 73.76455,50.1105"
+   inkscape:connector-curvature="0" />
+<rect
+   x="86.131607"
+   y="307.59085"
+   width="365.45599"
+   height="194.53856"
+   class="st5"
+   id="rect3429-1"
+   style="fill:none;stroke:#000000;stroke-width:0.49834806;stroke-linecap:round;stroke-linejoin:round" /><text
+   x="270.49176"
+   y="325.45126"
+   class="st6"
+   v:langID="1033"
+   id="text3431-7"
+   style="font-size:12px;font-weight:bold;fill:#000000;font-family:Arial"><v:paragraph
+   v:horizAlign="1" /><v:tabList /> CPR Broker</text>
 </svg>
