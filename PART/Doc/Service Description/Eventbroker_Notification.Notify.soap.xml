@@ -1,5 +1,5 @@
 POST /Services/Notification.asmx HTTP/1.1
-Host: eventbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
@@ -37,7 +37,6 @@ Content-Length: length
     </Notify>
   </soap12:Body>
 </soap12:Envelope>
-
 
 
 
