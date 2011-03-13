@@ -76,7 +76,7 @@
         <classShapeMoniker Id="4f30a9c6-896a-450c-a6cb-2fdf318279b1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 6.25); (4.5 : 4.75525024414063); (6.25 : 4.75525024414063)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.5 : 6.25); (4.5 : 4.75525024414063); (4.94791916666667 : 4.75525024414063 : JumpStart); (5.11458583333333 : 4.75525024414063 : JumpEnd); (6.25 : 4.75525024414063)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/EventBrokerDataContext/Subscription/Subscription_BirthdateSubscription" />
       <nodes>
         <classShapeMoniker Id="249c7b6c-a350-416e-a023-3ca01a3ea3fb" />
@@ -157,10 +157,10 @@
         <elementListCompartment Id="4125baa5-5f9e-4198-9c1b-16183560bdad" absoluteBounds="1.0149999999999997, 0.96, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8e0d81ff-f289-42e9-9110-af30b6b7e3ed" absoluteBounds="4.375, 0.625, 2, 1.0961531575520833">
+    <classShape Id="8e0d81ff-f289-42e9-9110-af30b6b7e3ed" absoluteBounds="4.375, 0.875, 2, 1.0961531575520833">
       <DataClassMoniker Name="/EventBrokerDataContext/PersonBirthdate" />
       <nestedChildShapes>
-        <elementListCompartment Id="9f459d22-1a96-46c6-b840-83b24b7ba265" absoluteBounds="4.39, 1.085, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9f459d22-1a96-46c6-b840-83b24b7ba265" absoluteBounds="4.39, 1.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
