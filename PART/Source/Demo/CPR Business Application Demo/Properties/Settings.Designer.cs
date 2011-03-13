@@ -37,7 +37,7 @@ namespace CPR_Business_Application_Demo.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1551/Services/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://CprBroker/Services/")]
         public string CPRBrokerWebServiceUrl {
             get {
                 return ((string)(this["CPRBrokerWebServiceUrl"]));
@@ -118,7 +118,7 @@ namespace CPR_Business_Application_Demo.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1552/Services/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://EventBroker/Services/")]
         public string EventBrokerWebServiceUrl {
             get {
                 return ((string)(this["EventBrokerWebServiceUrl"]));
