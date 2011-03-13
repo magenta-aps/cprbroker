@@ -1,5 +1,5 @@
 POST /Services/Admin.asmx HTTP/1.1
-Host: cprbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
@@ -27,22 +27,24 @@ Content-Length: length
   <soap12:Body>
     <ListAppRegistrationsResponse xmlns="http://dk.itst">
       <ListAppRegistrationsResult>
-        <ApplicationType>
-          <ApplicationId xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</ApplicationId>
-          <Token xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Token>
-          <Name xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Name>
-          <RegistrationDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</RegistrationDate>
-          <IsApproved xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">boolean</IsApproved>
-          <ApprovedDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</ApprovedDate>
-        </ApplicationType>
-        <ApplicationType>
-          <ApplicationId xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</ApplicationId>
-          <Token xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Token>
-          <Name xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Name>
-          <RegistrationDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</RegistrationDate>
-          <IsApproved xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">boolean</IsApproved>
-          <ApprovedDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</ApprovedDate>
-        </ApplicationType>
+        <Item>
+          <ApplicationType>
+            <ApplicationId xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</ApplicationId>
+            <Token xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Token>
+            <Name xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Name>
+            <RegistrationDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</RegistrationDate>
+            <IsApproved xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">boolean</IsApproved>
+            <ApprovedDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</ApprovedDate>
+          </ApplicationType>
+          <ApplicationType>
+            <ApplicationId xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</ApplicationId>
+            <Token xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Token>
+            <Name xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Name>
+            <RegistrationDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</RegistrationDate>
+            <IsApproved xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">boolean</IsApproved>
+            <ApprovedDate xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">dateTime</ApprovedDate>
+          </ApplicationType>
+        </Item>
       </ListAppRegistrationsResult>
     </ListAppRegistrationsResponse>
   </soap12:Body>

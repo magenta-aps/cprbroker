@@ -1,4 +1,4 @@
-POST /Services/Admin.asmx HTTP/1.1
+POST /Services/Part.asmx HTTP/1.1
 Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
@@ -12,12 +12,18 @@ Content-Length: length
     </ApplicationHeader>
   </soap12:Header>
   <soap12:Body>
-    <Log xmlns="http://dk.itst">
-      <Text>string</Text>
-    </Log>
+    <List xmlns="http://dk.itst">
+      <ListInput xmlns="urn:oio:sagdok:2.0.0">
+        <UUID xmlns="urn:oio:dkal:1.0.0">string</UUID>
+        <UUID xmlns="urn:oio:dkal:1.0.0">string</UUID>
+        <VirkningFraFilter />
+        <VirkningTilFilter />
+        <RegistreringFraFilter />
+        <RegistreringTilFilter />
+      </ListInput>
+    </List>
   </soap12:Body>
 </soap12:Envelope>
-
 
 
 
@@ -27,11 +33,17 @@ Content-Length: length
 
 <?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <QualityHeader xmlns="http://dk.itst">
+      <QualityLevel>Cpr or DataProvider or LocalCache</QualityLevel>
+    </QualityHeader>
+  </soap12:Header>
   <soap12:Body>
-    <LogResponse xmlns="http://dk.itst">
-      <LogResult>
-        <Item>boolean</Item>
-      </LogResult>
-    </LogResponse>
+    <ListResponse xmlns="http://dk.itst">
+      <ListOutput xmlns="urn:oio:sagdok:person:1.0.0">
+        <LaesResultat />
+        <LaesResultat />
+      </ListOutput>
+    </ListResponse>
   </soap12:Body>
 </soap12:Envelope>

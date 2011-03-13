@@ -1,15 +1,20 @@
 POST /Services/Subscriptions.asmx HTTP/1.1
-Host: eventbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
 <?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <ApplicationHeader xmlns="http://dk.itst">
+      <ApplicationToken>string</ApplicationToken>
+      <UserToken>string</UserToken>
+    </ApplicationHeader>
+  </soap12:Header>
   <soap12:Body>
     <Ping xmlns="http://dk.itst" />
   </soap12:Body>
 </soap12:Envelope>
-
 
 
 
@@ -21,7 +26,9 @@ Content-Length: length
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Body>
     <PingResponse xmlns="http://dk.itst">
-      <PingResult>string</PingResult>
+      <PingResult>
+        <Item>boolean</Item>
+      </PingResult>
     </PingResponse>
   </soap12:Body>
 </soap12:Envelope>

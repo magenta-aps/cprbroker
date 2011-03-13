@@ -1,5 +1,5 @@
 POST /Services/Subscriptions.asmx HTTP/1.1
-Host: eventbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
@@ -20,7 +20,6 @@ Content-Length: length
 
 
 
-
 HTTP/1.1 200 OK
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
@@ -29,7 +28,9 @@ Content-Length: length
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Body>
     <UnsubscribeResponse xmlns="http://dk.itst">
-      <UnsubscribeResult>boolean</UnsubscribeResult>
+      <UnsubscribeResult>
+        <Item>boolean</Item>
+      </UnsubscribeResult>
     </UnsubscribeResponse>
   </soap12:Body>
 </soap12:Envelope>

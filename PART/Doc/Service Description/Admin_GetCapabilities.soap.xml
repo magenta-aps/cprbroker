@@ -1,5 +1,5 @@
 POST /Services/Admin.asmx HTTP/1.1
-Host: cprbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
@@ -15,6 +15,9 @@ Content-Length: length
     <GetCapabilities xmlns="http://dk.itst" />
   </soap12:Body>
 </soap12:Envelope>
+
+
+
 HTTP/1.1 200 OK
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
@@ -24,22 +27,18 @@ Content-Length: length
   <soap12:Body>
     <GetCapabilitiesResponse xmlns="http://dk.itst">
       <GetCapabilitiesResult>
-        <ServiceVersionType>
-          <Version xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Version>
-          <Functions xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
-            <Functions>string</Functions>
-            <Functions>string</Functions>
-          </Functions>
-          <Details xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
-        </ServiceVersionType>
-        <ServiceVersionType>
-          <Version xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Version>
-          <Functions xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
-            <Functions>string</Functions>
-            <Functions>string</Functions>
-          </Functions>
-          <Details xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
-        </ServiceVersionType>
+        <Item>
+          <ServiceVersionType>
+            <Version xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Version>
+            <Functions xsi:nil="true" xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+            <Details xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+          </ServiceVersionType>
+          <ServiceVersionType>
+            <Version xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Version>
+            <Functions xsi:nil="true" xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+            <Details xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+          </ServiceVersionType>
+        </Item>
       </GetCapabilitiesResult>
     </GetCapabilitiesResponse>
   </soap12:Body>

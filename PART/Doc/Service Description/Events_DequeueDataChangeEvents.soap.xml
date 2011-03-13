@@ -1,5 +1,5 @@
 POST /Services/Events.asmx HTTP/1.1
-Host: cprbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
@@ -30,16 +30,18 @@ Content-Length: length
   <soap12:Body>
     <DequeueDataChangeEventsResponse xmlns="http://dk.itst">
       <DequeueDataChangeEventsResult>
-        <DataChangeEventInfo>
-          <EventId>guid</EventId>
-          <PersonUuid>guid</PersonUuid>
-          <ReceivedDate>dateTime</ReceivedDate>
-        </DataChangeEventInfo>
-        <DataChangeEventInfo>
-          <EventId>guid</EventId>
-          <PersonUuid>guid</PersonUuid>
-          <ReceivedDate>dateTime</ReceivedDate>
-        </DataChangeEventInfo>
+        <Item>
+          <DataChangeEventInfo>
+            <EventId>guid</EventId>
+            <PersonUuid>guid</PersonUuid>
+            <ReceivedDate>dateTime</ReceivedDate>
+          </DataChangeEventInfo>
+          <DataChangeEventInfo>
+            <EventId>guid</EventId>
+            <PersonUuid>guid</PersonUuid>
+            <ReceivedDate>dateTime</ReceivedDate>
+          </DataChangeEventInfo>
+        </Item>
       </DequeueDataChangeEventsResult>
     </DequeueDataChangeEventsResponse>
   </soap12:Body>

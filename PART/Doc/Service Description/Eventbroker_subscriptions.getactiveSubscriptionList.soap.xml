@@ -1,5 +1,5 @@
 POST /Services/Subscriptions.asmx HTTP/1.1
-Host: eventbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
@@ -28,26 +28,22 @@ Content-Length: length
   <soap12:Body>
     <GetActiveSubsciptionsListResponse xmlns="http://dk.itst">
       <GetActiveSubsciptionsListResult>
-        <SubscriptionType>
-          <SubscriptionId>string</SubscriptionId>
-          <ApplicationToken>string</ApplicationToken>
-          <NotificationChannel />
-          <ForAllPersons>boolean</ForAllPersons>
-          <PersonUuids>
-            <string>string</string>
-            <string>string</string>
-          </PersonUuids>
-        </SubscriptionType>
-        <SubscriptionType>
-          <SubscriptionId>string</SubscriptionId>
-          <ApplicationToken>string</ApplicationToken>
-          <NotificationChannel />
-          <ForAllPersons>boolean</ForAllPersons>
-          <PersonUuids>
-            <string>string</string>
-            <string>string</string>
-          </PersonUuids>
-        </SubscriptionType>
+        <Item>
+          <SubscriptionType>
+            <SubscriptionId>string</SubscriptionId>
+            <ApplicationToken>string</ApplicationToken>
+            <NotificationChannel xsi:nil="true" />
+            <ForAllPersons>boolean</ForAllPersons>
+            <PersonUuids xsi:nil="true" />
+          </SubscriptionType>
+          <SubscriptionType>
+            <SubscriptionId>string</SubscriptionId>
+            <ApplicationToken>string</ApplicationToken>
+            <NotificationChannel xsi:nil="true" />
+            <ForAllPersons>boolean</ForAllPersons>
+            <PersonUuids xsi:nil="true" />
+          </SubscriptionType>
+        </Item>
       </GetActiveSubsciptionsListResult>
     </GetActiveSubsciptionsListResponse>
   </soap12:Body>

@@ -1,5 +1,5 @@
 POST /Services/Events.asmx HTTP/1.1
-Host: cprbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
@@ -31,14 +31,16 @@ Content-Length: length
   <soap12:Body>
     <GetPersonBirthdatesResponse xmlns="http://dk.itst">
       <GetPersonBirthdatesResult>
-        <PersonBirthdate>
-          <PersonUuid>guid</PersonUuid>
-          <Birthdate>dateTime</Birthdate>
-        </PersonBirthdate>
-        <PersonBirthdate>
-          <PersonUuid>guid</PersonUuid>
-          <Birthdate>dateTime</Birthdate>
-        </PersonBirthdate>
+        <Item>
+          <PersonBirthdate>
+            <PersonUuid>guid</PersonUuid>
+            <Birthdate>dateTime</Birthdate>
+          </PersonBirthdate>
+          <PersonBirthdate>
+            <PersonUuid>guid</PersonUuid>
+            <Birthdate>dateTime</Birthdate>
+          </PersonBirthdate>
+        </Item>
       </GetPersonBirthdatesResult>
     </GetPersonBirthdatesResponse>
   </soap12:Body>

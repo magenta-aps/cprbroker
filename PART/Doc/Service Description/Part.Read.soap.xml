@@ -1,5 +1,5 @@
 POST /Services/Part.asmx HTTP/1.1
-Host: cprbroker20110208
+Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
 
@@ -23,9 +23,6 @@ Content-Length: length
     </Read>
   </soap12:Body>
 </soap12:Envelope>
-
-
-
 
 
 

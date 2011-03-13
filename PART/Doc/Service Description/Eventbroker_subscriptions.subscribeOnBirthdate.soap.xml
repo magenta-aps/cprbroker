@@ -1,4 +1,4 @@
-POST /Services/Admin.asmx HTTP/1.1
+POST /Services/Subscriptions.asmx HTTP/1.1
 Host: localhost
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: length
@@ -12,12 +12,17 @@ Content-Length: length
     </ApplicationHeader>
   </soap12:Header>
   <soap12:Body>
-    <Log xmlns="http://dk.itst">
-      <Text>string</Text>
-    </Log>
+    <SubscribeOnBirthdate xmlns="http://dk.itst">
+      <NotificationChannel />
+      <Years>int</Years>
+      <PriorDays>int</PriorDays>
+      <personUuids>
+        <guid>guid</guid>
+        <guid>guid</guid>
+      </personUuids>
+    </SubscribeOnBirthdate>
   </soap12:Body>
 </soap12:Envelope>
-
 
 
 
@@ -28,10 +33,13 @@ Content-Length: length
 <?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Body>
-    <LogResponse xmlns="http://dk.itst">
-      <LogResult>
-        <Item>boolean</Item>
-      </LogResult>
-    </LogResponse>
+    <SubscribeOnBirthdateResponse xmlns="http://dk.itst">
+      <SubscribeOnBirthdateResult>
+        <Item>
+          <AgeYears>int</AgeYears>
+          <PriorDays>int</PriorDays>
+        </Item>
+      </SubscribeOnBirthdateResult>
+    </SubscribeOnBirthdateResponse>
   </soap12:Body>
 </soap12:Envelope>
