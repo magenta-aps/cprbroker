@@ -23,7 +23,7 @@ namespace CprBroker.Web.Services
     {
         public ApplicationHeader applicationHeader;
         private const string ApplicationHeaderName = "applicationHeader";
-             
+
         #region Application manager
         [WebMethod(MessageName = ServiceNames.Admin.MethodNames.RequestAppRegistration, Description = CprBroker.Schemas.ServiceDescription.Admin.RequestAppRegistration)]
         public BasicOutputType<ApplicationType> RequestAppRegistration(string ApplicationName)
@@ -94,11 +94,10 @@ namespace CprBroker.Web.Services
             return Manager.Admin.Log(applicationHeader.UserToken, applicationHeader.ApplicationToken, Text);
         }
 
-        [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.Ping)]
         public BasicOutputType<bool> Ping()
         {
-            return Engine.Ping.PingManager.Ping(applicationHeader.UserToken, applicationHeader.ApplicationToken);
+            return Engine.Ping.PingManager.Ping(Utilities.Constants.UserToken, Utilities.Constants.BaseApplicationToken.ToString());
         }
     }
 }
