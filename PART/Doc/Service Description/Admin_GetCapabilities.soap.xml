@@ -1,0 +1,46 @@
+POST /Services/Admin.asmx HTTP/1.1
+Host: cprbroker20110208
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <ApplicationHeader xmlns="http://dk.itst">
+      <ApplicationToken>string</ApplicationToken>
+      <UserToken>string</UserToken>
+    </ApplicationHeader>
+  </soap12:Header>
+  <soap12:Body>
+    <GetCapabilities xmlns="http://dk.itst" />
+  </soap12:Body>
+</soap12:Envelope>
+HTTP/1.1 200 OK
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <GetCapabilitiesResponse xmlns="http://dk.itst">
+      <GetCapabilitiesResult>
+        <ServiceVersionType>
+          <Version xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Version>
+          <Functions xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+            <Functions>string</Functions>
+            <Functions>string</Functions>
+          </Functions>
+          <Details xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+        </ServiceVersionType>
+        <ServiceVersionType>
+          <Version xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</Version>
+          <Functions xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+            <Functions>string</Functions>
+            <Functions>string</Functions>
+          </Functions>
+          <Details xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+        </ServiceVersionType>
+      </GetCapabilitiesResult>
+    </GetCapabilitiesResponse>
+  </soap12:Body>
+</soap12:Envelope>
