@@ -30,7 +30,7 @@ Applicatíon1 token : 12BDB789-A8C0-452A-89E4-297F3583C3FB
 <h2> How to perform the tests</H2>
 
 
-This test is performed with the installation of the broker on the Gentofte network, <url>http://cprbroker201100306</url>
+This test is performed with the installation of the broker on the Gentofte network, <url>http://cprbroker201100306</url> (application registration requests were performed on an earlier version of the broker).
 
 <h3>Install SoapUI.</h3>
 
@@ -52,7 +52,7 @@ Fill in input for east test and check the output.
 
 The test are basicly black-box test that study mostly XML request and XML replies, a few of files (e.g. notification file channels to verify delivery of notifications), the web pages for administration, and a few queries on the database.
 
-We start with application registration because it is necessary to register "the test" as an application to perform the rest of the test. To skip this and just test some of the other case the registration can be simulated by executing the following query on the database:
+We start with application registration because it is necessary to register "the test" as an application to perform the rest of the test. To skip this and just test some of the other case, the registration can be simulated by executing the following query on the database:
 
 <pre><p style="background-color:bisque;width:90%">
 INSERT INTO Application VALUES 
@@ -105,7 +105,7 @@ And the result is
 </pre>
 </quote>
 
-We do the same for testapp11 but this time leave in the optional header to ensure that it does not make a differens. The application headers contain the credentials necessary for accessing the CPR Broker. They are necessary for all applications and all operation - except the request for approval.
+We do the same for testapp11 but this time leave in the optional header to ensure that it does not make a differens. The application headers contain the credentials necessary for accessing the CPR Broker.
 <p>
 
 Then we use the ApproveAppRegistration test case to approve the request for testapp10. To bootstrap this test we have to use the master admin token:
@@ -269,7 +269,7 @@ We will first test the subscribtion, then the delivery of events.
 
 <h3>subscription</h3>
 
-We set up two webservice channels webservice1 and webservice2.
+We set up two webservice channels webservice1 and webservice2e.
 They just accept anything and writes it to a logfile.
 
 
@@ -281,18 +281,17 @@ They just accept anything and writes it to a logfile.
 <tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td>Empty</td></tr>
 <tr><td>Subscribe(fileshare1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>got SubscribeResponse with SubscriptionId>982ebe30-0d42-42c2-a9bb-91a9ad468c96, ApplicationToken = 07059250-E448-4040-B695-9C03F9E59E38 (sub1) </td></tr>
 <tr><td>Subscribe(fileshare2, [not existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>   
-&lt;soap:Body&gt;      &lt;SubscribeResponse xmlns="http://dk.itst"/&gt; &lt;/soap:Body&gt;, should return error
+fejl
 </td></tr>
-<tr><td>Subscribe(fileshare3, empty list)</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>&lt;soap:Body&gt;&lt;SubscribeResponse xmlns="http://dk.itst"/&gt; &lt;/soap:Body&gt;, should return error
+<tr><td>Subscribe(fileshare3, empty list)</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>SubscribeResponse med  ForAllPersons=true
+
 </td></tr>
-<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
+<tr><td>GetActiveSubscriptionsList</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td>GetActiveSubsciptionsListResponse med liste af ovenstående subscriptions</td></tr>
 
 <tr><td>Subscribe(webservice1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td>delete person from broker DB</td><td>
 
-</td></tr>
+SubscribeResult SubscriptionId=c68b1179-45cf-466e-8ccf-d17a39ae1dda, 1f267ed0-1704-4df1-86b9-b3428945412e</td></tr>
 
-<tr><td>Subscribe(webservice2, [existing uuid,existing uuid,existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td></td></tr>
-<tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
 <tr><td>UnSubscribe(sub1)</td><td>Subscriptions.asmx?op=Unsubscribe</td><td>SoapUI</td><td></td><td></td></tr>
 <tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
 <tr><td>UnSubscribe(not existing subscription)</td><td>Subscriptions.asmx?op=Unsubscribe</td><td>SoapUI</td><td></td><td></td></tr>
@@ -428,29 +427,43 @@ The notifications are delivered in files name with the uuid. Eg. c:\Notif\f21145
 
 
 
-<--First update in GTK test DPR, then do RefreshRead, then check the broker DB-->
+<!--First update in GTK test DPR, then do RefreshRead, then check the broker DB-->
 
 <h3>Refresh Read</h3>
 <table border="1" style="border-collapse: collapse">
 <tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
-<tr><td>Invalid UUID</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>error 400, "Invalid UUID: 42"</td></tr>
-<tr><td>UUID does not exist</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>error 404, "UUID valid but not found : bc7c0e5e-affe-4020-8cc5-8c51deadbeef"</td></tr>
-<tr><td>UUID=uuid1 does not exist in PART</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td>error 404, "UUID valid but not found : bc7c0e5e-affe-4020-8cc5-8c51deadbeef"</td><td></td></tr>
-<tr><td>read uuid in broker</td> <td>Part?op=Read</td><td>SoapUI</td><td>RefreshReadResponse that wraps a LaesOutput element that is identical to LaesOutput obtain with Read for the same uuid (verified with diffutils)</td><td></td></tr>
 
-<tr><td>read uuid1</td> <td>Part?op=Read</td><td>SoapUI</td><td>should be the version from DPR</td><td></td></tr>
-<tr><td>UUID=uuid2 of person in PART</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td></td></tr>
-<tr><td>read uuid2</td> <td>Part?op=Read</td><td>SoapUI</td><td>should be the version from DPR</td><td></td></tr>
-<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td>Invalid UUID</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>error 400, "Invalid UUID: 42"</td></tr>
+
+<tr><td>UUID does not exist</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>error 404, "UUID valid but not found : bc7c0e5e-affe-4020-8cc5-8c51deadbeef"</td></tr>
+
+<tr><td>UUID=uuid1 does not exist in PART</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>error 404, "UUID valid but not found : bc7c0e5e-affe-4020-8cc5-8c51deadbeef"</td></tr>
+
+<tr><td>read uuid in broker</td> <td>Part?op=Read</td><td>SoapUI</td><td></td><td>RefreshReadResponse that wraps a LaesOutput element that is identical to LaesOutput obtain with Read for the same uuid (verified with diffutils)</td></tr>
+
+<tr><td>read uuid1, in PersonMaster but not CPR broker</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td>SELECT * FROM person where uuid='D836E4D9-1853-406E-A3FE-13EEA568beaf'; before and after SOAP request to show that the the person data is fetched from data provider</td><td>RefreshReadResponse with person data for the person</td></tr>
+
+
+<tr><td>read uuid1, disable KMD as dataprovider in admin gui</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>RefreshReadResponse with person data for the person,  QualityLevel=DataProvider</td></tr>
+
+
+<tr><td>read uuid1, disable DPR as dataprovider in admin gui</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>RefreshReadResponse with person data for the person,  QualityLevel=CPR</td></tr>
 </table>
 
 
+<h3>Notes</h3>
 
-    <hr>
-    <address><a href="mailto:elgaard@niels.magenta-aps.dk">Niels Elgaard Larsen</a></address>
-<!-- Created: Mon Feb  7 15:53:17 CET 2011 -->
-<!-- hhmts start -->
-Last modified: Mon Mar 14 10:00:09 Romance Standard Time 2011
-<!-- hhmts end -->
+The RefreshRead replies using DPR and KMD differs slightly.
+<p>
+To show that ReadRefresh actually access global data, we would have to either update real CPR-data or update Gentoftes local DPR database and then do a new ReadRefresh query on the same UUID. Because this i live production data, we did not do this. This test gives a good indication that RefreshRead behaves as specified.
+
+
+<h1>Test notes</h1>
+
+The tests of application registration requests were performed on an
+earlier version of the broker. They will not give the same results on
+the latest version because the broker has been changed to require that
+even registraions request supply a valid application token.
+
   </body>
 </html>
