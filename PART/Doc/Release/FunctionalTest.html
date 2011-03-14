@@ -4,12 +4,12 @@
     <title>Functional Test of PART broker</title>
 <style type="text/css">
   h2 { margin-left:-2%; color: blue; background: white; }
-  h1 { margin-left:-4%; color: red; background: white; }
+  h1 { margin-left:-4%; color: DarkBlue; background: white; }
   h2 { margin-left:-2%; color: blue; background: white; }
   h3 { margin-left:-2%; color: blue; background: white; }
   h4 { margin-left:-2%; color: blue; background: white; }
   body { margin-left:5%; color: black; background: white; }
-  code { color: black; background-color:yellow;}
+  code { color: black; background-color:bisque;}
   li { width: 1000; list-style: none;}
 </style>
 
@@ -30,20 +30,21 @@ Applicatíon1 token : 12BDB789-A8C0-452A-89E4-297F3583C3FB
 <h2> How to perform the tests</H2>
 
 
-This test is performed with the installation of the broker on the Gentofte network, <url>http://cprbroker20110208</url>
+This test is performed with the installation of the broker on the Gentofte network, <url>http://cprbroker201100306</url>
 
-Install SoapUI.
-Create projects for the three webservices: 
+<h3>Install SoapUI.</h3>
+
+<h3>Create projects for the four webservices: </h3>
 
 <ul>
-<li>http://cprbroker20110208/Services/Admin.asmx?WSDL</li>
-<li>http://cprbroker20110208/Services/Part.asmx?WSDL</li>
-<li>http://eventbroker20110208/Services/Notification.asmx?WSDL</li>
-<li>http://eventbroker20110208/Services/Subscriptions.asmx?WSDL</li>
+<li>http://cprbroker2011306/Services/Admin.asmx?WSDL</li>
+<li>http://cprbroker2011306/Services/Part.asmx?WSDL</li>
+<li>http://eventbroker2011306/Services/Notification.asmx?WSDL</li>
+<li>http://eventbroker2011306/Services/Subscriptions.asmx?WSDL</li>
 </ul>
 
 
-We also check the application page: http://cprbroker20110208/Pages/Applications.aspx
+We also check the application page: http://cprbroker2011306/Pages/Applications.aspx
 
 <p>
 
@@ -51,9 +52,20 @@ Fill in input for east test and check the output.
 
 The test are basicly black-box test that study mostly XML request and XML replies, a few of files (e.g. notification file channels to verify delivery of notifications), the web pages for administration, and a few queries on the database.
 
+We start with application registration because it is necessary to register "the test" as an application to perform the rest of the test. To skip this and just test some of the other case the registration can be simulated by executing the following query on the database:
+
+<pre><p style="background-color:bisque;width:90%">
+INSERT INTO Application VALUES 
+('EB29494A-187D-481E-87C3-7E4A2472FC58','testapp10','1f267ed0-1704-4df1-86b9-b3428945412e',
+'2011-02-14 10:11:23.547',1,	'2011-02-14 10:21:38.790')
+</p>
+</pre>
+
+
+
 For example for request registration. We supply
 <pre>
-<p style="background-color:yellow;width:90%">
+<p style="background-color:bisque;width:90%">
 &lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst"&gt;
    &lt;soap:Header&gt;
       &lt;dk:ApplicationHeader&gt;
@@ -66,7 +78,6 @@ For example for request registration. We supply
       &lt;/dk:RequestAppRegistration&gt;
    &lt;/soap:Body&gt;
 &lt;/soap:Envelope&gt;
-
 </p>
 </pre>
 
@@ -74,7 +85,7 @@ And the result is
 
 <quote>
 <pre>
-<p style="background-color:yellow;width:90%">
+<p style="background-color:bisque;width:90%">
 &lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	  xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
    &lt;soap:Body&gt;
@@ -102,7 +113,7 @@ Then we use the ApproveAppRegistration test case to approve the request for test
 
 <quote>
 <pre>
-<p style="background-color:yellow;width:90%">
+<p style="background-color:bisque;width:90%">
 &lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst"&gt;
    &lt;soap:Header&gt;
       &lt;dk:ApplicationHeader&gt;
@@ -127,7 +138,7 @@ And get the reciepts.
 
 <quote>
 <pre>
-<p style="background-color:yellow;width:90%">
+<p style="background-color:bisque;width:90%">
 
 &lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
@@ -145,7 +156,7 @@ And get the reciepts.
 We can then also check that the admin web user interface agrees with this state of affairs:
 
 
-At <url>http://cprbroker20110208/Pages/Applications.aspx</url> we see:
+At <url>http://cprbroker2011306/Pages/Applications.aspx</url> we see:
 
 <pre>
 	<table cellspacing="0" cellpadding="2" rules="all" border="1" id="ctl00_Contents_applicationsGridView" style="border-collapse:collapse;">
@@ -183,14 +194,14 @@ This show that the user web interface work, that it confirms that testapp4 was a
 We first check that the Demo application is able to register using the Admin Webservice
 
 <table border="1" style="border-collapse: collapse">
-<tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>web admin GUI</th> <th>Result and notes</th></tr>
+<tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>web admin GUI/ Database</th> <th>Result and notes</th></tr>
 <tr><td>RequestAppRegistration name=testapp10</td><td>admin.asmx</td><td>soapIO</td>checked<td></td><td>with the optional soap headers removed, result:  ApplicationId=eb29494a-187d-481e-87c3-7e4a2472fc58, token=1f267ed0-1704-4df1-86b9-b3428945412e, IsApproved=false</td></tr>
 
 <tr><td>RequestAppRegistration name=testApp11</td><td>admin.asmx</td><td>soapIO</td><td>checked</td><td>ApplicationId=a30ba5fc-f06a-4771-9070-921c7002c234,token=5fad3c95-1f85-439d-b2cc-3ae84e074787, IsApproved=false</td></tr>
-<tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td></td></tr>
-<tr><td>Approve registration name=testApp1</td><td>admin.asmx</td><td>soapIO</td><td></td><td></td></tr>
-<tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td>used testapp10 token to authenticate this requst. Result gave same data as web admin gui, except sorting</td></tr>
-<tr><td>RequestAppRegistration name=testAppT</td><td>admin.asmx</td><td>soapIO</td><td></td><td></td></tr>
+<tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td>List of applications: BaseApplication</td></tr>
+<tr><td>Approve registration name=testapp10</td><td>admin.asmx</td><td>soapIO</td><td>SELECT IsApproved FROM application WHERE name='testapp10';</td><td>1</td></tr>
+<tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td>used testapp10 token to authenticate this requst. Result gave same data as web admin gui, except sorting: testap10, testap11, BaseApplication</td></tr>
+<tr><td>RequestAppRegistration name=testAppT</td><td>admin.asmx</td><td>soapIO</td><td>SELECT IsApproved FROM application WHERE name='testappT';</td><td>0</td></tr>
 <tr><td>Approve registration name=testAppT</td><td>admin.asmx</td><td>soapIO</td><td></td><td>Just to approve an application, we can unregister</td></tr>
 <tr><td>List app registration</td><td>admin.asmx</td><td>soapUI</td><td></td><td>testappT is approved</td></tr>
 
@@ -275,7 +286,11 @@ They just accept anything and writes it to a logfile.
 <tr><td>Subscribe(fileshare3, empty list)</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td>&lt;soap:Body&gt;&lt;SubscribeResponse xmlns="http://dk.itst"/&gt; &lt;/soap:Body&gt;, should return error
 </td></tr>
 <tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
-<tr><td>Subscribe(webservice1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td></td></tr>
+
+<tr><td>Subscribe(webservice1, [existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td>delete person from broker DB</td><td>
+
+</td></tr>
+
 <tr><td>Subscribe(webservice2, [existing uuid,existing uuid,existing uuid])</td><td>Subscriptions.asmx?op=Subscribe</td><td>SoapUI</td><td></td><td></td></tr>
 <tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
 <tr><td>UnSubscribe(sub1)</td><td>Subscriptions.asmx?op=Unsubscribe</td><td>SoapUI</td><td></td><td></td></tr>
@@ -293,20 +308,136 @@ They just accept anything and writes it to a logfile.
 <tr><td>GetActiveSubscriptionsList, for all persons</td><td>Subscriptions.asmx?op=GetActiveSubscriptionsList</td><td>SoapUI</td><td></td><td></td></tr>
 </table>
 
-<h4>notification</h4>
+<h3>Notes</h3>
 
-<ol>
-<li>check fileshare 1-6</li>
-<li>check log from dummy webservice 1-2</li>
-</ol>
+We subscribe a webservice channel as:
 
+
+<pre>
+<p style="background-color:bisque;width:90%">
+&lt;soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		  xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  &lt;soap12:Header>
+    &lt;ApplicationHeader xmlns="http://dk.itst">
+      &lt;ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e&lt;/ApplicationToken>
+      &lt;UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58&lt;/UserToken>
+    &lt;/ApplicationHeader>
+  &lt;/soap12:Header>
+  &lt;soap12:Body>
+    &lt;Subscribe xmlns="http://dk.itst">
+&lt;NotificationChannel xsi:type="WebServiceChannelType" xmlns="http://dk.itst">
+   &lt;WebServiceUrl>http://10.10.4.111:9999/mockNotificationSoap12&lt;/WebServiceUrl>
+ &lt;/NotificationChannel>
+      &lt;PersonCivilRegistrationIdentifiers>
+        &lt;guid>46b647a7-9312-4b03-a159-6190deadbeef&lt;/guid>
+      &lt;/PersonCivilRegistrationIdentifiers>
+    &lt;/Subscribe>
+  &lt;/soap12:Body>
+&lt;/soap12:Envelope&gt;
+</p>
+</pre>
+
+
+
+The reply from the broker is:
+
+<pre>
+<p style="background-color:bisque;width:90%">
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		  xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+   &lt;soap:Body&gt;
+      &lt;SubscribeResponse xmlns="http://dk.itst"&gt;
+         &lt;SubscribeResult&gt;
+            &lt;StandardRetur xmlns="urn:oio:sagdok:2.0.0"&gt;
+               &lt;StatusKode&gt;200&lt;/StatusKode&gt;
+               &lt;FejlbeskedTekst&gt;OK&lt;/FejlbeskedTekst&gt;
+            &lt;/StandardRetur&gt;
+            &lt;Item&gt;
+               &lt;SubscriptionId&gt;c68b1179-45cf-466e-8ccf-d17a39ae1dda&lt;/SubscriptionId&gt;
+               &lt;ApplicationToken&gt;1f267ed0-1704-4df1-86b9-b3428945412e&lt;/ApplicationToken&gt;
+               &lt;NotificationChannel xsi:type="WebServiceChannelType"&gt;
+                  &lt;WebServiceUrl&gt;http://10.10.4.111:9999/mockNotificationSoap12&lt;/WebServiceUrl&gt;
+               &lt;/NotificationChannel&gt;
+               &lt;ForAllPersons&gt;true&lt;/ForAllPersons&gt;
+               &lt;PersonUuids/&gt;
+            &lt;/Item&gt;
+         &lt;/SubscribeResult&gt;
+      &lt;/SubscribeResponse&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+</p>
+</pre>
+
+
+To test delivery of event notification we created a SoapIO mock Notification service.
+
+
+We catch the request from the broker by adding the following javascript to the mock service responce.
+
+<pre>
+<p style="background-color:bisque;width:90%">
+log.warn(mockRequest.getRequestContent());
+</p>
+</pre>
+
+
+The notification delivered to the webservice receivng notifications is:
+
+
+
+<p style="background-color:bisque;width:90%">
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;&lt;soap:Body&gt;&lt;Notify xmlns="http://dk.itst"&gt;&lt;notification&gt;
+&lt;EventInfoStructure&gt;&lt;EventIdentifier&gt;urn:uuid:e2e6747b-119a-4dca-a35d-71016cd3f8bb&lt;/EventIdentifier&gt;
+&lt;EventRegistrationDateTime&gt;2011-03-10T13:14:43.42&lt;/EventRegistrationDateTime&gt;&lt;EventObjectStructure&gt;
+&lt;EventObjectReference&gt;urn:uuid:f4b1caa3-4079-4b38-b68f-02c2f13b9e17&lt;/EventObjectReference&gt;&lt;EventObjectActionCode /&gt;
+&lt;/EventObjectStructure&gt;&lt;/EventInfoStructure&gt;&lt;EventSubscriptionReference&gt;urn:uuid:c68b1179-45cf-466e-8ccf-d17a39ae1dda
+&lt;/EventSubscriptionReference&gt;&lt;/notification&gt;&lt;/Notify&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;
+</p>
+
+For a fileshare channel the request and reply is similar, except that the channel is specified as:
+
+<pre>
+<p style="background-color:bisque;width:90%">
+    &lt;dk:NotificationChannel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dk:FileShareChannelType"&gt;
+      &lt;Path&gt;C:\\Users\\mag-nel\\fileshare&lt;/Path&gt;
+    &lt;/dk:NotificationChannel&gt;
+</p>
+</pre>
+
+The notifications are delivered in files name with the uuid. Eg. c:\Notif\f2114550-9d55-4010-8782-eff8cb40ea9a.xml contains
+
+
+<pre>
+<p style="background-color:bisque;width:90%">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;CommonEventStructureType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;EventInfoStructure&gt;
+    &lt;EventIdentifier&gt;urn:uuid:1d618e4d-4d50-4c16-b446-fdfed65ac51e&lt;/EventIdentifier&gt;
+    &lt;EventRegistrationDateTime&gt;2011-02-27T21:55:30.093&lt;/EventRegistrationDateTime&gt;
+    &lt;EventObjectStructure&gt;
+      &lt;EventObjectReference&gt;urn:uuid:f4b1caa3-4079-4b38-b68f-02c2f13b9e17&lt;/EventObjectReference&gt;
+      &lt;EventObjectActionCode /&gt;
+    &lt;/EventObjectStructure&gt;
+  &lt;/EventInfoStructure&gt;
+  &lt;EventSubscriptionReference&gt;urn:uuid:b98f1ec6-2866-4af2-bfe9-f99bbf2029c7&lt;/EventSubscriptionReference&gt;
+&lt;/CommonEventStructureType&gt;
+</p>
+</pre>
+
+
+
+
+<--First update in GTK test DPR, then do RefreshRead, then check the broker DB-->
 
 <h3>Refresh Read</h3>
 <table border="1" style="border-collapse: collapse">
 <tr> <th>Testcase</th> <th>Service</th> <th>Interface</th> <th>DB</th> <th>Result and notes</th></tr>
-<tr><td>Invalid UUID</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td></td></tr>
-<tr><td>UUID does not exist</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td></td></tr>
-<tr><td>UUID=uuid1 does not exist in PART</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td>First update in GTK test DPR, then do RefreshRead, then check the broker DB</td><td></td></tr>
+<tr><td>Invalid UUID</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>error 400, "Invalid UUID: 42"</td></tr>
+<tr><td>UUID does not exist</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td>error 404, "UUID valid but not found : bc7c0e5e-affe-4020-8cc5-8c51deadbeef"</td></tr>
+<tr><td>UUID=uuid1 does not exist in PART</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td>error 404, "UUID valid but not found : bc7c0e5e-affe-4020-8cc5-8c51deadbeef"</td><td></td></tr>
+<tr><td>read uuid in broker</td> <td>Part?op=Read</td><td>SoapUI</td><td>RefreshReadResponse that wraps a LaesOutput element that is identical to LaesOutput obtain with Read for the same uuid (verified with diffutils)</td><td></td></tr>
+
 <tr><td>read uuid1</td> <td>Part?op=Read</td><td>SoapUI</td><td>should be the version from DPR</td><td></td></tr>
 <tr><td>UUID=uuid2 of person in PART</td> <td>Part?op=RefreshRead</td><td>SoapUI</td><td></td><td></td></tr>
 <tr><td>read uuid2</td> <td>Part?op=Read</td><td>SoapUI</td><td>should be the version from DPR</td><td></td></tr>
@@ -319,7 +450,7 @@ They just accept anything and writes it to a logfile.
     <address><a href="mailto:elgaard@niels.magenta-aps.dk">Niels Elgaard Larsen</a></address>
 <!-- Created: Mon Feb  7 15:53:17 CET 2011 -->
 <!-- hhmts start -->
-Last modified: Mon Mar 07 17:22:50 Romance Standard Time 2011
+Last modified: Thu Mar 10 15:05:08 Romance Standard Time 2011
 <!-- hhmts end -->
   </body>
 </html>
