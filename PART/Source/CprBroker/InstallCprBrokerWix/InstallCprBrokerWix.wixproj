@@ -33,7 +33,10 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Directories.wxi" />
+    <Content Include="Files.wxi" />
     <Content Include="CprBroker.log" />
+    <Content Include="Logging.wxi" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
