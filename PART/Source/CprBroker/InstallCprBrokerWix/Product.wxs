@@ -21,51 +21,74 @@
     </Directory>
 
     <DirectoryRef Id="bin">
-      <Component Id="CMP_Engine_Dll" >
-        <File Id="FILE_Engine_DLL" Source="..\..\Core\Output\CprBroker.Engine.dll"/>
-      </Component>
-      <Component Id="CMP_Utilities_Dll">
-        <File Id="FILE_Utilities_DLL" Source="..\..\Core\Output\CprBroker.Utilities.dll"/>
-      </Component>
-      <Component Id="CMP_Schemas_Dll">
-        <File Id="FILE_Schemas_DLL" Source="..\..\Core\Output\CprBroker.Schemas.dll"/>
+      <Component Id="CMP_Config_Dll" >
+        <File Id="FILE_Config_DLL" Source="$(var.SitePath)bin\CprBroker.Config.dll"/>
       </Component>
       <Component Id="CMP_Data_Dll">
-        <File Id="FILE_Data_DLL" Source="..\..\Core\Output\CprBroker.Data.dll"/>
+        <File Id="FILE_Data_DLL" Source="$(var.SitePath)bin\CprBroker.Data.dll"/>
       </Component>
-    </DirectoryRef>
-
+      <Component Id="CMP_Engine_Dll" >
+        <File Id="FILE_Engine_DLL" Source="$(var.SitePath)bin\CprBroker.Engine.dll"/>
+      </Component>
+      <Component Id="CMP_Schemas_Dll">
+        <File Id="FILE_Schemas_DLL" Source="$(var.SitePath)bin\CprBroker.Schemas.dll"/>
+      </Component>
+      <Component Id="CMP_Utilities_Dll">
+        <File Id="FILE_Utilities_DLL" Source="$(var.SitePath)bin\CprBroker.Utilities.dll"/>
+      </Component>
+      <Component Id="CMP_Web_Dll">
+        <File Id="FILE_Web_DLL" Source="$(var.SitePath)bin\CprBroker.Web.dll"/>
+      </Component>
+      <Component Id="CMP_DPR_Dll">
+        <File Id="FILE_DPR_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.DPR.dll"/>
+      </Component>
+      <Component Id="CMP_KMD_Dll">
+        <File Id="FILE_KMD_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.KMD.dll"/>
+      </Component>
+      <Component Id="CMP_Local_Dll">
+        <File Id="FILE_Local_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.dll"/>
+      </Component>
+      <Component Id="CMP_PersonMaster_Dll">
+        <File Id="FILE_PersonMaster_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.PersonMaster.dll"/>
+      </Component>
+      </DirectoryRef>
 
     <DirectoryRef Id="Pages">
       <Component Id="CMP_DataProviders_ASPX">
-        <File Id="FILE_DataProviders_ASPX" Source="..\Web\Pages\DataProviders.aspx"/>
+        <File Id="FILE_DataProviders_ASPX" Source="$(var.SitePath)Pages\DataProviders.aspx"/>
       </Component>
       <Component Id="CMP_LogEntries_ASPX">
-        <File Id="FILE_LogEntries_ASPX" Source="..\Web\Pages\LogEntries.aspx"/>
+        <File Id="FILE_LogEntries_ASPX" Source="$(var.SitePath)Pages\LogEntries.aspx"/>
       </Component>
       <Component Id="CMP_Applications_ASPX">
-        <File Id="FILE_Applications_ASPX" Source="..\Web\Pages\Applications.aspx"/>
+        <File Id="FILE_Applications_ASPX" Source="$(var.SitePath)Pages\Applications.aspx"/>
       </Component>
     </DirectoryRef>
 
     <DirectoryRef Id="Services">
       <Component Id="CMP_Admin_ASMX">
-        <File Id="FILE_Admin_ASPX" Source="..\Web\Services\Admin.asmx"/>
+        <File Id="FILE_Admin_ASPX" Source="$(var.SitePath)Services\Admin.asmx"/>
       </Component>
       <Component Id="CMP_Events_ASMX">
-        <File Id="FILE_Events_ASPX" Source="..\Web\Services\Events.asmx"/>
+        <File Id="FILE_Events_ASPX" Source="$(var.SitePath)Services\Events.asmx"/>
       </Component>
       <Component Id="CMP_Part_ASMX">
-        <File Id="FILE_Part_ASPX" Source="..\Web\Services\Part.asmx"/>
+        <File Id="FILE_Part_ASPX" Source="$(var.SitePath)Services\Part.asmx"/>
       </Component>
     </DirectoryRef>
 
-    <Feature Id="ProductFeature" Title="InstallCprBrokerWix" Level="1">
+    <Feature Id="ProductFeature" Title="InstallCprBrokerWix" Level="1">      
       <!-- DLLs-->
-      <ComponentRef Id="CMP_Engine_Dll"/>
-      <ComponentRef Id="CMP_Utilities_Dll"/>
-      <ComponentRef Id="CMP_Schemas_Dll"/>
+      <ComponentRef Id="CMP_Config_Dll"/>
       <ComponentRef Id="CMP_Data_Dll"/>
+      <ComponentRef Id="CMP_Engine_Dll"/>
+      <ComponentRef Id="CMP_Schemas_Dll"/>
+      <ComponentRef Id="CMP_Utilities_Dll"/>
+      <ComponentRef Id="CMP_Web_Dll"/>
+      <ComponentRef Id="CMP_DPR_Dll"/>
+      <ComponentRef Id="CMP_KMD_Dll"/>
+      <ComponentRef Id="CMP_Local_Dll"/>
+      <ComponentRef Id="CMP_PersonMaster_Dll"/>
       <!-- Pages-->
       <ComponentRef Id="CMP_DataProviders_ASPX"/>
       <ComponentRef Id="CMP_LogEntries_ASPX"/>
@@ -74,11 +97,12 @@
       <ComponentRef Id="CMP_Admin_ASMX"/>
       <ComponentRef Id="CMP_Events_ASMX"/>
       <ComponentRef Id="CMP_Part_ASMX"/>
+
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
 
     </Feature>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
-    <UIRef Id="WixUI_InstallDir"/>
+    <!--<UIRef Id="WixUI_InstallDir"/>-->
   </Product>
 </Wix>
