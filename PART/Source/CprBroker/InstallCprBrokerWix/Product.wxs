@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Product Id="b7a9d776-ef52-459a-9a85-4752323b6052" Name="Cpr Broker" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="da51c2d6-e679-4dd4-a906-48da8e2dc7cf">
     <Package InstallerVersion="200" Compressed="yes" />
 
@@ -34,7 +34,7 @@
         <File Id="FILE_Global" Source="$(var.SitePath)Global.asax"/>
       </Component>
     </ComponentGroup>
-    
+
     <ComponentGroup Id="CMPGRP_Config">
       <Component Id="CMP_Web_CONFIG" Directory="Web">
         <File Id="FILE_WEB_CONFIG" Source="$(var.SitePath)web.config"/>
@@ -52,7 +52,7 @@
         <File Id="FILE_ServicesWEB_CONFIG" Source="$(var.SitePath)Services\web.config"/>
       </Component>
     </ComponentGroup>
-    
+
     <ComponentGroup Id="CMPGRP_bin">
       <Component Id="CMP_Config_Dll" Directory="bin">
         <File Id="FILE_Config_DLL" Source="$(var.SitePath)bin\CprBroker.Config.dll"/>
@@ -122,7 +122,7 @@
         <File Id="FILE_IMAGES_Up" src="$(var.SitePath)Pages\Images\Up.jpg"/>
       </Component>
     </ComponentGroup>
-    
+
     <ComponentGroup Id="CMPGRP_Services">
       <Component Id="CMP_Admin_ASMX" Directory="Services">
         <File Id="FILE_Admin_ASPX" Source="$(var.SitePath)Services\Admin.asmx"/>
@@ -135,16 +135,25 @@
       </Component>
     </ComponentGroup>
 
+    <ComponentGroup Id="CMPGRP_Logging">
+      <Component Id="CMP_Logging" Directory="Web">
+        <File Id="FILE_CprBroker.log" Source="CprBroker.log" >
+          <util:PermissionEx User="NT AUTHORITY\NETWORK SERVICE" GenericWrite="yes" />
+        </File>
+        <util:EventSource Log="Application" EventMessageFile="[NETFRAMEWORK20INSTALLROOTDIR]EventLogMessages.dll" Name="Cpr Broker"/>
+      </Component>
+    </ComponentGroup>
+
     <Feature Id="ProductFeature" Title="InstallCprBrokerWix" Level="1">
       <ComponentGroupRef Id="CMPGRP_Root"/>
       <ComponentGroupRef Id="CMPGRP_bin"/>
       <ComponentGroupRef Id="CMPGRP_Config"/>
       <ComponentGroupRef Id="CMPGRP_Pages"/>
       <ComponentGroupRef Id="CMPGRP_Services"/>
+      <ComponentGroupRef Id="CMPGRP_Logging"/>
 
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
-
     </Feature>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <!--<UIRef Id="WixUI_InstallDir"/>-->
