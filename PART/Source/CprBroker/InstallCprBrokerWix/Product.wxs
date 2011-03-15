@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="b7a9d776-ef52-459a-9a85-4752323b6052" Name="Cpr Broker" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="da51c2d6-e679-4dd4-a906-48da8e2dc7cf">
+    <Package InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="MANUFACTURERDIR" Name="ITST">
+          <Directory Id="INSTALLDIR" Name="Cpr Broker">
+            <Directory Id="Web" Name="Web">
+              <Directory Id="bin" Name="bin" />
+              <Directory Id="Config" Name="Config" />
+              <Directory Id="Pages" Name="Pages" />
+              <Directory Id="Services" Name="Services" />
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="bin">
+      <Component Id="CMP_Engine_Dll" >
+        <File Id="FILE_Engine_DLL" Source="..\..\Core\Output\CprBroker.Engine.dll"/>
+      </Component>
+      <Component Id="CMP_Utilities_Dll">
+        <File Id="FILE_Utilities_DLL" Source="..\..\Core\Output\CprBroker.Utilities.dll"/>
+      </Component>
+      <Component Id="CMP_Schemas_Dll">
+        <File Id="FILE_Schemas_DLL" Source="..\..\Core\Output\CprBroker.Schemas.dll"/>
+      </Component>
+      <Component Id="CMP_Data_Dll">
+        <File Id="FILE_Data_DLL" Source="..\..\Core\Output\CprBroker.Data.dll"/>
+      </Component>
+    </DirectoryRef>
+
+
+    <DirectoryRef Id="Pages">
+      <Component Id="CMP_DataProviders_ASPX">
+        <File Id="FILE_DataProviders_ASPX" Source="..\Web\Pages\DataProviders.aspx"/>
+      </Component>
+      <Component Id="CMP_LogEntries_ASPX">
+        <File Id="FILE_LogEntries_ASPX" Source="..\Web\Pages\LogEntries.aspx"/>
+      </Component>
+      <Component Id="CMP_Applications_ASPX">
+        <File Id="FILE_Applications_ASPX" Source="..\Web\Pages\Applications.aspx"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="Services">
+      <Component Id="CMP_Admin_ASMX">
+        <File Id="FILE_Admin_ASPX" Source="..\Web\Services\Admin.asmx"/>
+      </Component>
+      <Component Id="CMP_Events_ASMX">
+        <File Id="FILE_Events_ASPX" Source="..\Web\Services\Events.asmx"/>
+      </Component>
+      <Component Id="CMP_Part_ASMX">
+        <File Id="FILE_Part_ASPX" Source="..\Web\Services\Part.asmx"/>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="ProductFeature" Title="InstallCprBrokerWix" Level="1">
+      <!-- DLLs-->
+      <ComponentRef Id="CMP_Engine_Dll"/>
+      <ComponentRef Id="CMP_Utilities_Dll"/>
+      <ComponentRef Id="CMP_Schemas_Dll"/>
+      <ComponentRef Id="CMP_Data_Dll"/>
+      <!-- Pages-->
+      <ComponentRef Id="CMP_DataProviders_ASPX"/>
+      <ComponentRef Id="CMP_LogEntries_ASPX"/>
+      <ComponentRef Id="CMP_Applications_ASPX"/>
+      <!-- Services-->
+      <ComponentRef Id="CMP_Admin_ASMX"/>
+      <ComponentRef Id="CMP_Events_ASMX"/>
+      <ComponentRef Id="CMP_Part_ASMX"/>
+      <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+      <ComponentGroupRef Id="Product.Generated" />
+
+    </Feature>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <UIRef Id="WixUI_InstallDir"/>
+  </Product>
+</Wix>
