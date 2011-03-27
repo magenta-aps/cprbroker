@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <Property Id="WEB_SITENAME"></Property>
+  <Property Id="WEB_VIRTUALDIRECTORYNAME"></Property>
+  <Property Id="DB_SERVERNAME"></Property>
+  <Property Id="DB_DATABASENAME"></Property>
+  <Property Id="DB_ADMINUSERNAME"></Property>
+  <Property Id="DB_ADMINPASSWORD"></Property>
+  <Property Id="DB_APPUSERNAME"></Property>
+  <Property Id="DB_APPPASSWORD"></Property>
+  
+</Include>

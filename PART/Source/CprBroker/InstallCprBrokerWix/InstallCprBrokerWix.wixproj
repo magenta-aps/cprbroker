@@ -37,6 +37,7 @@
     <Content Include="Files.wxi" />
     <Content Include="CprBroker.log" />
     <Content Include="Logging.wxi" />
+    <Content Include="Properties.wxi" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
