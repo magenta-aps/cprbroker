@@ -14,6 +14,7 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug;SitePath=..\Web\;OutputPath=..\Output\;</DefineConstants>
+    <SuppressIces>ICE20</SuppressIces>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -34,11 +35,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CustomActions.wxi" />
+    <Content Include="Dialogs.wxi" />
     <Content Include="Directories.wxi" />
     <Content Include="Files.wxi" />
     <Content Include="CprBroker.log" />
     <Content Include="Logging.wxi" />
     <Content Include="Properties.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CprBrokerWixInstallers\CprBrokerWixInstallers.csproj">
+      <Name>CprBrokerWixInstallers</Name>
+      <Project>{ebe4da5e-1e87-4071-b8a3-ec6096b35b31}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

@@ -6,8 +6,8 @@
     
     <DirectoryRef Id="TARGETDIR"/>
     
-    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 
+    <?include Dialogs.wxi?>
     <?include Files.wxi?>
     <?include Logging.wxi?>
     <?include CustomActions.wxi?>

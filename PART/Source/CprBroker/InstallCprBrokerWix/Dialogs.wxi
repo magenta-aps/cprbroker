@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Property Id="ApplicationFolderName" Value="Cpr Broker" />
+  <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
+  <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+  <UIRef Id="WixUI_InstallDir"/>
+</Include>

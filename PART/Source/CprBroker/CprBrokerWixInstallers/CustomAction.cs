@@ -12,6 +12,9 @@ namespace CprBrokerWixInstallers
         public static ActionResult CreateDatabase(Session session)
         {
             session.Log("Begin Create database");
+            session.Log("DDDDDDDDDDDD" + session.CustomActionData.Keys.Count.ToString());
+            session.Log(string.Join(",",session.CustomActionData.Keys.ToArray()));
+            session.Message(InstallMessage.Warning, new Record(session.CustomActionData.Count.ToString()));
             System.Diagnostics.Debugger.Break();            
             return ActionResult.Success;
         }
