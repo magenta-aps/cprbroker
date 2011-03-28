@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Binary Id="CreateDatabaseDll" SourceFile="$(var.OutputPath)CprBrokerWixInstallers.CA.dll"/>
+    
+  <CustomAction Id="CreateDatabase" BinaryKey="CreateDatabaseDll" DllEntry="CreateDatabase" Execute="deferred" Return="check" Impersonate="yes" />
+  <CustomAction Id="DeleteDatabase" BinaryKey="CreateDatabaseDll" DllEntry="DeleteDatabase" Execute="rollback" Return="check" Impersonate="yes" />
+  
+  <InstallExecuteSequence>
+    <Custom Action="CreateDatabase" After="InstallFiles" />
+    <Custom Action="DeleteDatabase" After="InstallFiles" />
+    
+  </InstallExecuteSequence>
+</Include>

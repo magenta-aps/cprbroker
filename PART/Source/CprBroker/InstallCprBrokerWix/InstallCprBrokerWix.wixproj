@@ -13,7 +13,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;SitePath=..\Web\;</DefineConstants>
+    <DefineConstants>Debug;SitePath=..\Web\;OutputPath=..\Output\;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -33,6 +33,7 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CustomActions.wxi" />
     <Content Include="Directories.wxi" />
     <Content Include="Files.wxi" />
     <Content Include="CprBroker.log" />
