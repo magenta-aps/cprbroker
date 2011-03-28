@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI>
+      <Dialog Id="ProgressDlg" Width="370" Height="270" Modeless="yes">
+        <Control Id="Progess" Type="ProgressBar" X="70" Y="150" Width="200" Height="20" ProgressBlocks="yes" TabSkip="no">
+          <Subscribe Event="SetProgress" Attribute="Progress"/>
+        </Control>
+        <Control Id="CancelButton" Type="PushButton" TabSkip="no" Text="Cancel" Height="17" Width="56" X="180" Y="243" Cancel="yes">
+          <Publish Event="EndDialog" Value="Exit" />
+        </Control>
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

@@ -14,23 +14,27 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug;SitePath=..\Web\;OutputPath=..\Output\;</DefineConstants>
-    <SuppressIces>ICE20</SuppressIces>
+    <SuppressIces>
+    </SuppressIces>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ErrorDlg.wxs" />
+    <Compile Include="Exit.wxs" />
+    <Compile Include="FatalErrorDlg.wxs" />
+    <Compile Include="FilesInUseDlg.wxs" />
+    <Compile Include="InstallDlg.wxs" />
     <Compile Include="Product.wxs" />
+    <Compile Include="ProgressDlg.wxs" />
+    <Compile Include="UserExitDlg.wxs" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUtilExtension">
       <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
       <Name>WixUtilExtension</Name>
-    </WixExtension>
-    <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
-      <Name>WixUIExtension</Name>
     </WixExtension>
   </ItemGroup>
   <ItemGroup>

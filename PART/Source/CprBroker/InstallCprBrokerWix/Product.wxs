@@ -5,12 +5,13 @@
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
     
     <DirectoryRef Id="TARGETDIR"/>
-    
 
+
+    <?include CustomActions.wxi?>
     <?include Dialogs.wxi?>
     <?include Files.wxi?>
     <?include Logging.wxi?>
-    <?include CustomActions.wxi?>
+    <?include Properties.wxi?>
     
     <Feature Id="ProductFeature" Title="InstallCprBrokerWix" Level="1">
       <ComponentGroupRef Id="CMPGRP_Root"/>
