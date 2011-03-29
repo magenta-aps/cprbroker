@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
+    <Property Id="buttonGroup" Value="1" />
     <UI>
-      <Dialog Id="DatabaseDialog" Width="500" Height="400" Modeless="no">
-        <Control Id="label1" Type="Text" Text="The setup will now create the system's database" X="9" Y="61" Width="240" Height="17"/>
-        <Control Id="label2" Type="Text" Text="Please enter the database information here" X="9" Y="85" Width="240" Height="17"/>
+      <Dialog Id="DatabaseDialog" Width="370" Height="270" Modeless="no">
+        <Control Id="label1" Type="Text" Text="The setup will now create the system's database" X="10" Y="10" Width="240" Height="17"/>
+        <Control Id="label2" Type="Text" Text="Please enter the database information here" X="10" Y="30" Width="240" Height="17"/>
 
         <!--Server name-->
-        <Control Id="serverLabel" Type="Text" Text="Server name" X="10" Y="110" Width="70" Height="17"/>
-        <Control Id="serverEdit" Type="Edit" Property="DB_SERVERNAME" X="100" Y="110" Width="70" Height="17"/>
+        <Control Id="serverLabel" Type="Text" Text="Server name" X="10" Y="60" Width="70" Height="17"/>
+        <Control Id="serverEdit" Type="Edit" Property="DB_SERVERNAME" X="100" Y="60" Width="70" Height="17"/>
 
         <!--Database name-->
-        <Control Id="databaseText" Type="Text" Text="Database name" X="10" Y="140" Width="70" Height="17"/>
-        <Control Id="databaseEdit" Type="Edit" Property="DB_DATABASENAME" X="100" Y="140" Width="70" Height="17"/>
+        <Control Id="databaseText" Type="Text" Text="Database name" X="10" Y="80" Width="70" Height="17"/>
+        <Control Id="databaseEdit" Type="Edit" Property="DB_DATABASENAME" X="100" Y="80" Width="70" Height="17"/>
 
-        <!--<Control Id="adminLoginType" Type="RadioButtonGroup" Property="DB_ADMININTEGRATEDSECURITY" X="10" Y="170" Width="120" Height="50">
-          <RadioButtonGroup Property="DB_ADMININTEGRATEDSECURITY" >
-            <RadioButton Text="Integrated windows authentication" X="10" Y="175"  Width="100" Height="17" Value="SSPI"/>
-            <RadioButton Text="SQL Server authentication" X="10" Y="205" Width="100" Height="17" Value="dd"/>
+        <!--Admin login type-->
+        <Control Id="adminLoginType" Type="RadioButtonGroup" Property="DB_ADMININTEGRATEDSECURITY" X="10" Y="110" Width="150" Height="40">
+          <RadioButtonGroup Property="DB_ADMININTEGRATEDSECURITY">
+            <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="150" Height="17" Value="SSPI"/>
+            <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="150" Height="17" Value="dd"/>
           </RadioButtonGroup>
-        </Control>-->
+        </Control>
 
-        <Control Id="adminUserNameText" Type="Text" Text="User Id" X="25" Y="235" Width="70" Height="17"/>
-        <Control Id="adminUserNameEdit" Type="Edit" Property="DB_ADMINUSERNAME" X="100" Y="235" Width="100" Height="17"/>
+        <Control Id="adminUserNameText" Type="Text" Text="User Id" X="25" Y="160" Width="70" Height="17"/>
+        <Control Id="adminUserNameEdit" Type="Edit" Property="DB_ADMINUSERNAME" X="100" Y="160" Width="100" Height="17"/>
 
-        <Control Id="adminPasswordText" Type="Text" Text="User Id" X="25" Y="265" Width="70" Height="17"/>
-        <Control Id="adminPasswordEdit" Type="Edit" Property="DB_ADMINPASSWORD" Password="yes" X="100" Y="265" Width="100" Height="17"/>
+        <Control Id="adminPasswordText" Type="Text" Text="User Id" X="25" Y="180" Width="70" Height="17"/>
+        <Control Id="adminPasswordEdit" Type="Edit" Property="DB_ADMINPASSWORD" Password="yes" X="100" Y="180" Width="100" Height="17"/>
 
-        <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="243" Width="100" Height="17">
+        <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="245" Width="100" Height="17" Default="yes" >
           <Publish Event="EndDialog" Value="Return"></Publish>
         </Control>
 
-        <Control Id="Cancel" Type="PushButton" Text="Cancel" X="310" Y="243" Width="50" Height="17" Cancel="yes">
+        <Control Id="Cancel" Type="PushButton" Text="Cancel" X="310" Y="245" Width="50" Height="17" Cancel="yes">
           <Publish Event="EndDialog" Value="Exit"></Publish>
         </Control>
 

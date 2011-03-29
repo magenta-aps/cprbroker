@@ -8,7 +8,7 @@
 
   <Property Id="DB_SERVERNAME" Value="CprBroker" />
   <Property Id="DB_DATABASENAME" Value="CprBroker" />
-  <Property Id="DB_ADMININTEGRATEDSECURITY" Value="CprBroker" />
+  <Property Id="DB_ADMININTEGRATEDSECURITY" Value="SSPI" />
   <Property Id="DB_ADMINUSERNAME"  Value="CprBroker" />
   <Property Id="DB_ADMINPASSWORD" Value="CprBroker" />
   <Property Id="DB_APPUSERNAME" Value="CprBroker" />
