@@ -21,10 +21,9 @@
         <!--Admin login type-->
         <Control Id="adminLoginType" Type="RadioButtonGroup" Property="DB_ADMININTEGRATEDSECURITY" X="15" Y="125" Width="150" Height="40">
           <RadioButtonGroup Property="DB_ADMININTEGRATEDSECURITY">
-            <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="150" Height="17" Value="SSPI"/>
-            <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="150" Height="17" Value="dd"/>
+            <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="140" Height="17" Value="SSPI"/>
+            <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="140" Height="17" Value="dd"/>
           </RadioButtonGroup>
-          <Publish Event="ddd" Value="0"></Publish>
         </Control>
 
         <!--Admin username-->
@@ -45,6 +44,37 @@
         <Control Id="adminPasswordEdit" Type="Edit" Property="DB_ADMINPASSWORD" Password="yes" X="60" Y="185" Width="95" Height="17">
           <Condition Action="disable"><![CDATA[DB_ADMININTEGRATEDSECURITY="SSPI"]]></Condition>
           <Condition Action="enable"><![CDATA[DB_ADMININTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        </Control>
+
+        <!--Application group box-->
+        <Control Id="appGroupBox" Type="GroupBox" Text="Application connection" X="170" Y="110" Width="150" Height="100"/>
+        
+        <!--Application login type-->
+        <Control Id="appLoginType" Type="RadioButtonGroup" Property="DB_APPINTEGRATEDSECURITY" X="175" Y="125" Width="150" Height="40">
+          <RadioButtonGroup Property="DB_APPINTEGRATEDSECURITY">
+            <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="140" Height="17" Value="SSPI"/>
+            <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="140" Height="17" Value="dd"/>
+          </RadioButtonGroup>          
+        </Control>
+
+        <!--Application username-->
+        <Control Id="appUserNameText" Type="Text" Text="User Id" X="180" Y="165" Width="40" Height="17">
+          <Condition Action="disable"><![CDATA[DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
+          <Condition Action="enable"><![CDATA[DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        </Control>
+        <Control Id="appUserNameEdit" Type="Edit" Property="DB_APPUSERNAME" X="220" Y="165" Width="95" Height="17">
+          <Condition Action="disable"><![CDATA[DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
+          <Condition Action="enable"><![CDATA[DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        </Control>
+
+        <!--Application password-->
+        <Control Id="appPasswordText" Type="Text" Text="Password" X="180" Y="185" Width="40" Height="17">
+          <Condition Action="disable"><![CDATA[DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
+          <Condition Action="enable"><![CDATA[DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        </Control>
+        <Control Id="appPasswordEdit" Type="Edit" Property="DB_APPPASSWORD" Password="yes" X="220" Y="185" Width="95" Height="17">
+          <Condition Action="disable"><![CDATA[DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
+          <Condition Action="enable"><![CDATA[DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
         </Control>
 
         <!--Navigation buttons-->
