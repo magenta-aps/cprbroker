@@ -98,7 +98,7 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                return Convert.ToBoolean(ConfigurationProperties["KeepSubscription"]);
+                return Convert.ToBoolean(ConfigurationProperties["Keep Subscription"]);
             }
         }
 
