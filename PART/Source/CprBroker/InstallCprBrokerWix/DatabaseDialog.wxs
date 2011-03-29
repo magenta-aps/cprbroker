@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Fragment>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">  
+  <Fragment>    
     <UI>
       <Dialog Id="DatabaseDialog" Width="370" Height="270" Modeless="no">
     
@@ -24,16 +24,28 @@
             <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="150" Height="17" Value="SSPI"/>
             <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="150" Height="17" Value="dd"/>
           </RadioButtonGroup>
-          <Publish Event=""></Publish>
+          <Publish Event="ddd" Value="0"></Publish>
         </Control>
 
         <!--Admin username-->
-        <Control Id="adminUserNameText" Type="Text" Text="User Id" X="20" Y="165" Width="40" Height="17"/>
-        <Control Id="adminUserNameEdit" Type="Edit" Property="DB_ADMINUSERNAME" X="60" Y="165" Width="95" Height="17"/>
+        <Control Id="adminUserNameText" Type="Text" Text="User Id" X="20" Y="165" Width="40" Height="17">
+          <Condition Action="disable"><![CDATA[DB_ADMININTEGRATEDSECURITY="SSPI"]]></Condition>
+          <Condition Action="enable"><![CDATA[DB_ADMININTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        </Control>
+        <Control Id="adminUserNameEdit" Type="Edit" Property="DB_ADMINUSERNAME" X="60" Y="165" Width="95" Height="17">
+          <Condition Action="disable"><![CDATA[DB_ADMININTEGRATEDSECURITY="SSPI"]]></Condition>
+          <Condition Action="enable"><![CDATA[DB_ADMININTEGRATEDSECURITY<>"SSPI"]]></Condition>          
+        </Control>
 
         <!--Admin password-->
-        <Control Id="adminPasswordText" Type="Text" Text="Password" X="20" Y="185" Width="40" Height="17"/>
-        <Control Id="adminPasswordEdit" Type="Edit" Property="DB_ADMINPASSWORD" Password="yes" X="60" Y="185" Width="95" Height="17"/>
+        <Control Id="adminPasswordText" Type="Text" Text="Password" X="20" Y="185" Width="40" Height="17">
+          <Condition Action="disable"><![CDATA[DB_ADMININTEGRATEDSECURITY="SSPI"]]></Condition>
+          <Condition Action="enable"><![CDATA[DB_ADMININTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        </Control>
+        <Control Id="adminPasswordEdit" Type="Edit" Property="DB_ADMINPASSWORD" Password="yes" X="60" Y="185" Width="95" Height="17">
+          <Condition Action="disable"><![CDATA[DB_ADMININTEGRATEDSECURITY="SSPI"]]></Condition>
+          <Condition Action="enable"><![CDATA[DB_ADMININTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        </Control>
 
         <!--Navigation buttons-->
         <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="245" Width="100" Height="17" Default="yes" >
