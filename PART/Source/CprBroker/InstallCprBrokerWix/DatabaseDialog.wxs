@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
-    <Property Id="buttonGroup" Value="1" />
     <UI>
       <Dialog Id="DatabaseDialog" Width="370" Height="270" Modeless="no">
+    
         <Control Id="label1" Type="Text" Text="The setup will now create the system's database" X="10" Y="10" Width="240" Height="17"/>
         <Control Id="label2" Type="Text" Text="Please enter the database information here" X="10" Y="30" Width="240" Height="17"/>
 
@@ -24,6 +24,7 @@
             <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="150" Height="17" Value="SSPI"/>
             <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="150" Height="17" Value="dd"/>
           </RadioButtonGroup>
+          <Publish Event=""></Publish>
         </Control>
 
         <!--Admin username-->
@@ -38,7 +39,6 @@
         <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="245" Width="100" Height="17" Default="yes" >
           <Publish Event="EndDialog" Value="Return"></Publish>
         </Control>
-
         <Control Id="Cancel" Type="PushButton" Text="Cancel" X="310" Y="245" Width="50" Height="17" Cancel="yes">
           <Publish Event="EndDialog" Value="Exit"></Publish>
         </Control>
