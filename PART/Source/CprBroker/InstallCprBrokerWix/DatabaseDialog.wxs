@@ -15,6 +15,7 @@
         <Control Id="databaseText" Type="Text" Text="Database name" X="10" Y="80" Width="60" Height="17"/>
         <Control Id="databaseEdit" Type="Edit" Property="DB_DATABASENAME" X="70" Y="80" Width="70" Height="17"/>
 
+        <!--Admin group box-->
         <Control Id="adminGroupBox" Type="GroupBox" Text="Admin connection" X="10" Y="110" Width="150" Height="100"/>
 
         <!--Admin login type-->
@@ -25,13 +26,15 @@
           </RadioButtonGroup>
         </Control>
 
+        <!--Admin username-->
         <Control Id="adminUserNameText" Type="Text" Text="User Id" X="20" Y="165" Width="40" Height="17"/>
         <Control Id="adminUserNameEdit" Type="Edit" Property="DB_ADMINUSERNAME" X="60" Y="165" Width="95" Height="17"/>
 
+        <!--Admin password-->
         <Control Id="adminPasswordText" Type="Text" Text="Password" X="20" Y="185" Width="40" Height="17"/>
         <Control Id="adminPasswordEdit" Type="Edit" Property="DB_ADMINPASSWORD" Password="yes" X="60" Y="185" Width="95" Height="17"/>
 
-        
+        <!--Navigation buttons-->
         <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="245" Width="100" Height="17" Default="yes" >
           <Publish Event="EndDialog" Value="Return"></Publish>
         </Control>
