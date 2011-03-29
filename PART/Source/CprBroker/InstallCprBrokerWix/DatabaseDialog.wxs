@@ -8,27 +8,30 @@
         <Control Id="label2" Type="Text" Text="Please enter the database information here" X="10" Y="30" Width="240" Height="17"/>
 
         <!--Server name-->
-        <Control Id="serverLabel" Type="Text" Text="Server name" X="10" Y="60" Width="70" Height="17"/>
-        <Control Id="serverEdit" Type="Edit" Property="DB_SERVERNAME" X="100" Y="60" Width="70" Height="17"/>
+        <Control Id="serverLabel" Type="Text" Text="Server name" X="10" Y="60" Width="60" Height="17"/>
+        <Control Id="serverEdit" Type="Edit" Property="DB_SERVERNAME" X="70" Y="60" Width="70" Height="17"/>
 
         <!--Database name-->
-        <Control Id="databaseText" Type="Text" Text="Database name" X="10" Y="80" Width="70" Height="17"/>
-        <Control Id="databaseEdit" Type="Edit" Property="DB_DATABASENAME" X="100" Y="80" Width="70" Height="17"/>
+        <Control Id="databaseText" Type="Text" Text="Database name" X="10" Y="80" Width="60" Height="17"/>
+        <Control Id="databaseEdit" Type="Edit" Property="DB_DATABASENAME" X="70" Y="80" Width="70" Height="17"/>
+
+        <Control Id="adminGroupBox" Type="GroupBox" Text="Admin connection" X="10" Y="110" Width="150" Height="100"/>
 
         <!--Admin login type-->
-        <Control Id="adminLoginType" Type="RadioButtonGroup" Property="DB_ADMININTEGRATEDSECURITY" X="10" Y="110" Width="150" Height="40">
+        <Control Id="adminLoginType" Type="RadioButtonGroup" Property="DB_ADMININTEGRATEDSECURITY" X="15" Y="125" Width="150" Height="40">
           <RadioButtonGroup Property="DB_ADMININTEGRATEDSECURITY">
             <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="150" Height="17" Value="SSPI"/>
             <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="150" Height="17" Value="dd"/>
           </RadioButtonGroup>
         </Control>
 
-        <Control Id="adminUserNameText" Type="Text" Text="User Id" X="25" Y="160" Width="70" Height="17"/>
-        <Control Id="adminUserNameEdit" Type="Edit" Property="DB_ADMINUSERNAME" X="100" Y="160" Width="100" Height="17"/>
+        <Control Id="adminUserNameText" Type="Text" Text="User Id" X="20" Y="165" Width="40" Height="17"/>
+        <Control Id="adminUserNameEdit" Type="Edit" Property="DB_ADMINUSERNAME" X="60" Y="165" Width="95" Height="17"/>
 
-        <Control Id="adminPasswordText" Type="Text" Text="User Id" X="25" Y="180" Width="70" Height="17"/>
-        <Control Id="adminPasswordEdit" Type="Edit" Property="DB_ADMINPASSWORD" Password="yes" X="100" Y="180" Width="100" Height="17"/>
+        <Control Id="adminPasswordText" Type="Text" Text="Password" X="20" Y="185" Width="40" Height="17"/>
+        <Control Id="adminPasswordEdit" Type="Edit" Property="DB_ADMINPASSWORD" Password="yes" X="60" Y="185" Width="95" Height="17"/>
 
+        
         <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="245" Width="100" Height="17" Default="yes" >
           <Publish Event="EndDialog" Value="Return"></Publish>
         </Control>
