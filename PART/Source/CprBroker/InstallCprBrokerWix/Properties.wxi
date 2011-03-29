@@ -3,13 +3,15 @@
   
   <Property Id="ErrorDialog" Value="ErrorDlg" />
 
-  <Property Id="WEB_SITENAME"></Property>
-  <Property Id="WEB_VIRTUALDIRECTORYNAME"></Property>
-  <Property Id="DB_SERVERNAME"></Property>
-  <Property Id="DB_DATABASENAME"></Property>
-  <Property Id="DB_ADMINUSERNAME"></Property>
-  <Property Id="DB_ADMINPASSWORD"></Property>
-  <Property Id="DB_APPUSERNAME"></Property>
-  <Property Id="DB_APPPASSWORD"></Property>
+  <Property Id="WEB_SITENAME" Value="CprBroker" />
+  <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
+
+  <Property Id="DB_SERVERNAME" Value="CprBroker" />
+  <Property Id="DB_DATABASENAME" Value="CprBroker" />
+  <Property Id="DB_ADMININTEGRATEDSECURITY" Value="CprBroker" />
+  <Property Id="DB_ADMINUSERNAME"  Value="CprBroker" />
+  <Property Id="DB_ADMINPASSWORD" Value="CprBroker" />
+  <Property Id="DB_APPUSERNAME" Value="CprBroker" />
+  <Property Id="DB_APPPASSWORD" Value="CprBroker" />
   
 </Include>

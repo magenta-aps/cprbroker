@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Include>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include Directories.wxi?>
   <ComponentGroup Id="CMPGRP_Root">
     <Component Id="CMP_Default_ASPX" Directory="Web">
@@ -76,28 +76,28 @@
     </Component>
 
     <Component Id="CMP_CSS" Directory="CSS">
-      <File Id="FILE_CSS" src="$(var.SitePath)Pages\CSS\style.css"/>
+      <File Id="FILE_CSS" Source="$(var.SitePath)Pages\CSS\style.css"/>
     </Component>
     <Component Id="CMP_IMAGES_Down" Directory="Images">
-      <File Id="FILE_IMAGES_Down" src="$(var.SitePath)Pages\Images\Down.jpg"/>
+      <File Id="FILE_IMAGES_Down" Source="$(var.SitePath)Pages\Images\Down.jpg"/>
     </Component>
     <Component Id="CMP_IMAGES_left_menu_bg" Directory="Images">
-      <File Id="FILE_IMAGES_left_menu_bg" src="$(var.SitePath)Pages\Images\left_menu_bg.gif"/>
+      <File Id="FILE_IMAGES_left_menu_bg" Source="$(var.SitePath)Pages\Images\left_menu_bg.gif"/>
     </Component>
     <Component Id="CMP_IMAGES_left_menu_top" Directory="Images">
-      <File Id="FILE_IMAGES_left_menu_top" src="$(var.SitePath)Pages\Images\left_menu_top.gif"/>
+      <File Id="FILE_IMAGES_left_menu_top" Source="$(var.SitePath)Pages\Images\left_menu_top.gif"/>
     </Component>
     <Component Id="CMP_IMAGES_mid_top" Directory="Images">
-      <File Id="FILE_IMAGES_mid_top" src="$(var.SitePath)Pages\Images\mid_top.gif"/>
+      <File Id="FILE_IMAGES_mid_top" Source="$(var.SitePath)Pages\Images\mid_top.gif"/>
     </Component>
     <Component Id="CMP_IMAGES_transparency" Directory="Images">
-      <File Id="FILE_IMAGES_transparency" src="$(var.SitePath)Pages\Images\transparency.gif"/>
+      <File Id="FILE_IMAGES_transparency" Source="$(var.SitePath)Pages\Images\transparency.gif"/>
     </Component>
     <Component Id="CMP_IMAGES_unn_bottom" Directory="Images">
-      <File Id="FILE_IMAGES_unn_bottom" src="$(var.SitePath)Pages\Images\unn_bottom.gif"/>
+      <File Id="FILE_IMAGES_unn_bottom" Source="$(var.SitePath)Pages\Images\unn_bottom.gif"/>
     </Component>
     <Component Id="CMP_IMAGES_Up" Directory="Images">
-      <File Id="FILE_IMAGES_Up" src="$(var.SitePath)Pages\Images\Up.jpg"/>
+      <File Id="FILE_IMAGES_Up" Source="$(var.SitePath)Pages\Images\Up.jpg"/>
     </Component>
   </ComponentGroup>
 

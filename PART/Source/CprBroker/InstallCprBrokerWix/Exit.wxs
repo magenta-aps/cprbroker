@@ -3,7 +3,7 @@
   <Fragment>
 
     <UI>
-      <Dialog Id="ExitDlg" Width="370" Height="270" Title="Amazing Software">
+      <Dialog Id="ExitDlg" Width="370" Height="270" Title="[ProductName]">
         <Control Id="Description" Type="Text" X="50" Y="70" Width="220" Height="80" Text="[ProductName] setup has completed successfully. Click 'Finish' to exit the Setup Wizard." />
         <Control Id="Finish" Type="PushButton" X="180" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="Finish">
           <Publish Event="EndDialog" Value="Exit" />
