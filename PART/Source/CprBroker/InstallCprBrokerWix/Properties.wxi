@@ -12,6 +12,7 @@
   <Property Id="DB_ADMINUSERNAME"  Value="CprBroker" />
   <Property Id="DB_ADMINPASSWORD" Value="CprBroker" />
 
+  <Property Id="DB_APPSAMEASADMIN" Value="True" />
   <Property Id="DB_APPINTEGRATEDSECURITY" Value="SSPI" />
   <Property Id="DB_APPUSERNAME" Value="CprBroker" />
   <Property Id="DB_APPPASSWORD" Value="CprBroker" />

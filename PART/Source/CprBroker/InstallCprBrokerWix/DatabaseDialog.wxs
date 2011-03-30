@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">  
-  <Fragment>    
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
     <UI>
       <Dialog Id="DatabaseDialog" Width="370" Height="270" Modeless="no">
-    
+
         <Control Id="label1" Type="Text" Text="The setup will now create the system's database" X="10" Y="10" Width="240" Height="17"/>
         <Control Id="label2" Type="Text" Text="Please enter the database information here" X="10" Y="30" Width="240" Height="17"/>
 
@@ -16,7 +16,7 @@
         <Control Id="databaseEdit" Type="Edit" Property="DB_DATABASENAME" X="70" Y="80" Width="70" Height="17"/>
 
         <!--Admin group box-->
-        <Control Id="adminGroupBox" Type="GroupBox" Text="Admin connection" X="10" Y="110" Width="150" Height="100"/>
+        <Control Id="adminGroupBox" Type="GroupBox" Text="Admin connection" X="10" Y="110" Width="150" Height="120"/>
 
         <!--Admin login type-->
         <Control Id="adminLoginType" Type="RadioButtonGroup" Property="DB_ADMININTEGRATEDSECURITY" X="15" Y="125" Width="150" Height="40">
@@ -33,7 +33,7 @@
         </Control>
         <Control Id="adminUserNameEdit" Type="Edit" Property="DB_ADMINUSERNAME" X="60" Y="165" Width="95" Height="17">
           <Condition Action="disable"><![CDATA[DB_ADMININTEGRATEDSECURITY="SSPI"]]></Condition>
-          <Condition Action="enable"><![CDATA[DB_ADMININTEGRATEDSECURITY<>"SSPI"]]></Condition>          
+          <Condition Action="enable"><![CDATA[DB_ADMININTEGRATEDSECURITY<>"SSPI"]]></Condition>
         </Control>
 
         <!--Admin password-->
@@ -47,36 +47,43 @@
         </Control>
 
         <!--Application group box-->
-        <Control Id="appGroupBox" Type="GroupBox" Text="Application connection" X="170" Y="110" Width="150" Height="100"/>
-        
+        <Control Id="appGroupBox" Type="GroupBox" Text="Application connection" X="170" Y="110" Width="150" Height="120"/>
+
+        <Control Id="appSameAsAdminCheck" Type="CheckBox" Text="Same as admin" Property="DB_APPSAMEASADMIN" CheckBoxValue="True" X="175" Y="125" Width="75" Height="17"></Control>
+
         <!--Application login type-->
-        <Control Id="appLoginType" Type="RadioButtonGroup" Property="DB_APPINTEGRATEDSECURITY" X="175" Y="125" Width="150" Height="40">
+        <Control Id="appLoginType" Type="RadioButtonGroup" Property="DB_APPINTEGRATEDSECURITY" X="175" Y="145" Width="150" Height="40">
           <RadioButtonGroup Property="DB_APPINTEGRATEDSECURITY">
             <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="140" Height="17" Value="SSPI"/>
             <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="140" Height="17" Value="dd"/>
-          </RadioButtonGroup>          
+          </RadioButtonGroup>
+          <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN]]></Condition>          
+          <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN]]></Condition>
         </Control>
 
         <!--Application username-->
-        <Control Id="appUserNameText" Type="Text" Text="User Id" X="180" Y="165" Width="40" Height="17">
-          <Condition Action="disable"><![CDATA[DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
-          <Condition Action="enable"><![CDATA[DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        <Control Id="appUserNameText" Type="Text" Text="User Id" X="180" Y="185" Width="40" Height="17">
+          <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN And DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+          <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN Or DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
         </Control>
-        <Control Id="appUserNameEdit" Type="Edit" Property="DB_APPUSERNAME" X="220" Y="165" Width="95" Height="17">
-          <Condition Action="disable"><![CDATA[DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
-          <Condition Action="enable"><![CDATA[DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        <Control Id="appUserNameEdit" Type="Edit" Property="DB_APPUSERNAME" X="220" Y="185" Width="95" Height="17">
+          <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN And DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+          <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN Or DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
         </Control>
 
         <!--Application password-->
-        <Control Id="appPasswordText" Type="Text" Text="Password" X="180" Y="185" Width="40" Height="17">
-          <Condition Action="disable"><![CDATA[DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
-          <Condition Action="enable"><![CDATA[DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        <Control Id="appPasswordText" Type="Text" Text="Password" X="180" Y="205" Width="40" Height="17">          
+          <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN And DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+          <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN Or DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
         </Control>
-        <Control Id="appPasswordEdit" Type="Edit" Property="DB_APPPASSWORD" Password="yes" X="220" Y="185" Width="95" Height="17">
-          <Condition Action="disable"><![CDATA[DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
-          <Condition Action="enable"><![CDATA[DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+        <Control Id="appPasswordEdit" Type="Edit" Property="DB_APPPASSWORD" Password="yes" X="220" Y="205" Width="95" Height="17">          
+          <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN And DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
+          <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN Or DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
         </Control>
 
+        <Control Id="testConnectionButton" Type="PushButton" Text="Test Connection" X="10" Y="245" Width="100" Height="17" Default="yes">
+          <Publish Event="DoAction" Value="TestConnection"></Publish>
+        </Control>
         <!--Navigation buttons-->
         <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="245" Width="100" Height="17" Default="yes" >
           <Publish Event="EndDialog" Value="Return"></Publish>

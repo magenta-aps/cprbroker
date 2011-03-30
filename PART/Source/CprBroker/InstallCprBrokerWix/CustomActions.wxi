@@ -2,15 +2,10 @@
 <Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
   
   <Binary Id="CreateDatabaseDll" SourceFile="$(var.OutputPath)CprBrokerWixInstallers.CA.dll"/>
-  
-  <Property Id="ADMIN_CONNECTION_STRING"  Value="Data Source=10.20.1.20; Initial Catalog=WixCprBroker; Integrated Security=true;"/>
-  
-  <CustomAction Id="SetAdminConnectionString" Property="CreateDatabase" Value="[ADMIN_CONNECTION_STRING]"/>  
-  <CustomAction Id="CreateDatabase" BinaryKey="CreateDatabaseDll" DllEntry="CreateDatabase" Execute="deferred" Return="check" Impersonate="yes" />
+  <CustomAction Id="TestConnection" BinaryKey="CreateDatabaseDll" DllEntry="TestConnection" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
   
   <InstallExecuteSequence>
-    <Custom Action="SetAdminConnectionString" Before="CreateDatabase"/>
-    <Custom Action="CreateDatabase" After="InstallFiles" />
-    
+
   </InstallExecuteSequence>
-</Include>
+  
+  </Include>
