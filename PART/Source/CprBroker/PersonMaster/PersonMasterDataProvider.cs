@@ -32,7 +32,6 @@ namespace CprBroker.Providers.PersonMaster
 
         public Guid? GetPersonUuid(string cprNumber)
         {
-            return Guid.NewGuid();
             BasicOpClient client = CreateClient();
             string aux = null;
             var ret = client.GetObjectIDFromCpr(Context, cprNumber, ref aux);
