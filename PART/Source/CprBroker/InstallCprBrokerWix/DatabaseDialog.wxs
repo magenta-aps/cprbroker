@@ -57,7 +57,7 @@
             <RadioButton Text="Integrated windows authentication" X="0" Y="0"  Width="140" Height="17" Value="SSPI"/>
             <RadioButton Text="SQL Server authentication" X="0" Y="20" Width="140" Height="17" Value="dd"/>
           </RadioButtonGroup>
-          <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN]]></Condition>          
+          <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN]]></Condition>
           <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN]]></Condition>
         </Control>
 
@@ -72,21 +72,26 @@
         </Control>
 
         <!--Application password-->
-        <Control Id="appPasswordText" Type="Text" Text="Password" X="180" Y="205" Width="40" Height="17">          
+        <Control Id="appPasswordText" Type="Text" Text="Password" X="180" Y="205" Width="40" Height="17">
           <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN And DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
           <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN Or DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
         </Control>
-        <Control Id="appPasswordEdit" Type="Edit" Property="DB_APPPASSWORD" Password="yes" X="220" Y="205" Width="95" Height="17">          
+        <Control Id="appPasswordEdit" Type="Edit" Property="DB_APPPASSWORD" Password="yes" X="220" Y="205" Width="95" Height="17">
           <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN And DB_APPINTEGRATEDSECURITY<>"SSPI"]]></Condition>
           <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN Or DB_APPINTEGRATEDSECURITY="SSPI"]]></Condition>
         </Control>
 
+        <!--Test connection-->
         <Control Id="testConnectionButton" Type="PushButton" Text="Test Connection" X="10" Y="245" Width="100" Height="17" Default="yes">
-          <Publish Event="DoAction" Value="TestConnection"></Publish>
+          <Publish Order="1" Event="DoAction" Value="TestConnection">1</Publish>
+          <Publish Order="2" Property="DB_VALID" Value="[DB_VALID]">1</Publish>
         </Control>
+
         <!--Navigation buttons-->
         <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="245" Width="100" Height="17" Default="yes" >
           <Publish Event="EndDialog" Value="Return"></Publish>
+          <Condition Action="enable"><![CDATA[DB_VALID = "True"]]></Condition>
+          <Condition Action="disable"><![CDATA[DB_VALID <> "True"]]></Condition>
         </Control>
         <Control Id="Cancel" Type="PushButton" Text="Cancel" X="310" Y="245" Width="50" Height="17" Cancel="yes">
           <Publish Event="EndDialog" Value="Exit"></Publish>

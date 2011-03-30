@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  
+
   <Property Id="ErrorDialog" Value="ErrorDlg" />
 
   <Property Id="WEB_SITENAME" Value="CprBroker" />
@@ -16,5 +16,6 @@
   <Property Id="DB_APPINTEGRATEDSECURITY" Value="SSPI" />
   <Property Id="DB_APPUSERNAME" Value="CprBroker" />
   <Property Id="DB_APPPASSWORD" Value="CprBroker" />
-  
+
+  <Property Id="DB_VALID" Value="False"/>
 </Include>
