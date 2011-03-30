@@ -13,17 +13,16 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult TestConnection(Session session)
         {
+            
             DatabaseSetupInfo dbInfo = GetDatabaseSetupInfo(session);
             string message = "";
             if (dbInfo.Validate(ref message))
             {
-                MessageBox.Show(Messages.Succeeded, Messages.Succeeded, MessageBoxButtons.OK, MessageBoxIcon.Information); 
                 session["DB_VALID"] = "True";                
             }
             else
             {                
-                MessageBox.Show(message, Messages.Unsuccessful, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                session["DB_VALID"] = "False";
+                session["DB_VALID"] = message;
             }
             return ActionResult.Success;
         }

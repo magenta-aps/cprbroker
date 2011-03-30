@@ -4,6 +4,16 @@
   <Binary Id="CreateDatabaseDll" SourceFile="$(var.OutputPath)CprBrokerWixInstallers.CA.dll"/>
   <CustomAction Id="TestConnection" BinaryKey="CreateDatabaseDll" DllEntry="TestConnection" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
 
+  <CustomAction Id="ShowSuccess" Execute="immediate" Script="vbscript">
+    <![CDATA[msgbox "Succeeded"]]>
+  </CustomAction>
+
+  <CustomAction Id="ShowFailure" Execute="immediate" Script="vbscript" >
+    <![CDATA[
+      msgbox Session.Property("DB_VALID")
+    ]]>
+  </CustomAction>
+
   <InstallExecuteSequence>
 
   </InstallExecuteSequence>
