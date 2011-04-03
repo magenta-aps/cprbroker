@@ -89,18 +89,11 @@
     <h3>
         New application</h3>
     <asp:DetailsView ID="newApplicationDetailsView" runat="server" AutoGenerateRows="False"
-        DataKeyNames="ApplicationId" DataSourceID="applicationsLinqDataSource" DefaultMode="Insert"
-        OnItemInserted="newApplicationDetailsView_ItemInserted">
+        DataKeyNames="ApplicationId" DataSourceID="applicationsLinqDataSource" DefaultMode="Insert"        >
         <Fields>
             <asp:TemplateField HeaderText="Name" SortExpression="Name">
                 <InsertItemTemplate>
                     <cpr:SmartTextBox ID="TextBox1" runat="server" Text='<%# Bind("Name") %>' Required="True"
-                        ValidationGroup="Insert"></cpr:SmartTextBox>
-                </InsertItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Token" SortExpression="Token">
-                <InsertItemTemplate>
-                    <cpr:SmartTextBox ID="TextBox2" runat="server" Text='<%# Bind("Token") %>' Required="True"
                         ValidationGroup="Insert"></cpr:SmartTextBox>
                 </InsertItemTemplate>
             </asp:TemplateField>

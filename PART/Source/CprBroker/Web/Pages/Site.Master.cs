@@ -60,6 +60,14 @@ namespace CprBroker.Web.Pages
             errorLabel.Text += text;
         }
 
+        public void AppendErrorIfPossible(Schemas.Part.BasicOutputType result)
+        {
+            if (result != null && !Schemas.Part.StandardReturType.IsSucceeded(result.StandardRetur))
+            {
+                AppendError(result.StandardRetur.FejlbeskedTekst);
+            }
+        }
+
         public readonly List<string> AlertMessages = new List<string>();
     }
 }

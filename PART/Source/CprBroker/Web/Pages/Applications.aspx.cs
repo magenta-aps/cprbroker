@@ -13,6 +13,9 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using CprBroker.Data;
 using CprBroker.Utilities;
+using CprBroker.Engine;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Web.Pages
 {
@@ -73,29 +76,21 @@ namespace CprBroker.Web.Pages
 
         protected void applicationsLinqDataSource_Inserting(object sender, LinqDataSourceInsertEventArgs e)
         {
+            e.Cancel=true;
+            
             CprBroker.Data.Applications.Application newApp = e.NewObject as CprBroker.Data.Applications.Application;
-            newApp.ApplicationId = Guid.NewGuid();
-            newApp.RegistrationDate = DateTime.Now;
-            if (newApp.IsApproved)
+            var result = Manager.Admin.RequestAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), newApp.Name);
+            Master.AppendErrorIfPossible(result);
+            if (StandardReturType.IsSucceeded(result.StandardRetur))
             {
-                newApp.ApprovedDate = DateTime.Now;
+                if (newApp.IsApproved)
+                {
+                    var approveResult = Manager.Admin.ApproveAppRegistration(Constants.UserToken, Constants.BaseApplicationToken.ToString(), result.Item.Token);
+                    Master.AppendErrorIfPossible(approveResult);
+                }
             }
-        }
-
-        protected void newApplicationDetailsView_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
-        {
-            e.KeepInInsertMode = true;
-
-            if (e.Exception != null)
-            {
-                Master.AppendError(e.Exception.Message);
-                e.ExceptionHandled = true;
-            }
-            else
-            {
-                applicationsGridView.DataBind();
-                newApplicationDetailsView.DataBind();
-            }
+            applicationsGridView.DataBind();
+            newApplicationDetailsView.DataBind();            
         }
 
         protected void applicationsGridView_RowDeleted(object sender, GridViewDeletedEventArgs e)
