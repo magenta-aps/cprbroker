@@ -119,6 +119,11 @@ namespace CprBroker.Schemas.Part
             return Create(HttpErrorCode.BAD_CLIENT_REQUEST, message);
         }
 
+        public static StandardReturType ApplicationNameExists(string applicationName)
+        {
+            return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST,string.Format("ApplicationName '{0}' already exists", applicationName));
+        }
+
         public static StandardReturType UnknownUuid(string uuid)
         {
             return Create(HttpErrorCode.NOT_FOUND, string.Format("UUID valid but not found : {0}", uuid));
