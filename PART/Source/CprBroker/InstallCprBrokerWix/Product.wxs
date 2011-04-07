@@ -3,16 +3,17 @@
   <Product Id="b7a9d776-ef52-459a-9a85-4752323b6052" Name="Cpr Broker" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="da51c2d6-e679-4dd4-a906-48da8e2dc7cf">
     <Package InstallerVersion="200" Compressed="yes" />
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
-    
+
     <DirectoryRef Id="TARGETDIR"/>
 
 
+    <?include Conditions.wxi?>
     <?include CustomActions.wxi?>
     <?include Dialogs.wxi?>
     <?include Files.wxi?>
     <?include Logging.wxi?>
     <?include Properties.wxi?>
-    
+
     <Feature Id="ProductFeature" Title="InstallCprBrokerWix" Level="1">
       <ComponentGroupRef Id="CMPGRP_Root"/>
       <ComponentGroupRef Id="CMPGRP_bin"/>
@@ -21,9 +22,11 @@
       <ComponentGroupRef Id="CMPGRP_Services"/>
       <ComponentGroupRef Id="CMPGRP_Logging"/>
 
+      <ComponentRef Id="CMP_CREATEDATABASE"/>
+
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />
     </Feature>
-    
+
   </Product>
 </Wix>

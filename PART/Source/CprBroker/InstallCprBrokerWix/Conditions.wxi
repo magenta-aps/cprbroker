@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <!--.NET Framework-->
+  <PropertyRef Id="NETFRAMEWORK35"/>
+  <Condition Message="This application requires .NET Framework 3.5. Please install the .NET Framework then run this installer again.">
+    <![CDATA[Installed OR NETFRAMEWORK35]]>
+  </Condition>
+
+  <!--IIS-->
+  <Property Id="IIS56" Value="#0">
+    <RegistrySearch Id="IIS56InstalledComponents" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OC Manager\Subcomponents" Type="raw" Name="iis_common" />
+  </Property>
+  <Property Id="IIS7" Value="#0">
+    <RegistrySearch Id="IIS7W3SVC" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Type="raw" Name="W3SVC" />
+  </Property>
+  <Condition Message="This application requires IIS. Please install IIS and then run the installer again.">
+    <![CDATA[IIS56 OR IIS7]]>
+  </Condition>
+</Include>
