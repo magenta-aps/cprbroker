@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
   <Fragment>
-    
+
     
     <CustomTable Id="AvailableWebSites" >
       <Column Id="WebSiteNo" Category="Identifier" PrimaryKey="yes" Type="int" Width="4" />
@@ -46,12 +46,17 @@
         </Control>
         <Control Id="siteNameCombo" Type="ComboBox" Property="WEB_VIRTUALDIRECTORYSITENAME" Sorted="yes" ComboList="yes" X="80" Y="170" Width="100" Height="17">
           <ComboBox Property="WEB_VIRTUALDIRECTORYSITENAME">
-            <ListItem Text="SS" Value="SS"/>
-            <ListItem Text="WW" Value="WW"/>
           </ComboBox>
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
         </Control>
+
+        <Control Id="dummyCombo" Type="ComboBox" Property="DUMMYPROPERTY" Sorted="yes" ComboList="yes" Hidden="yes" X="80" Y="170" Width="100" Height="17">
+          <ComboBox Property="DUMMYPROPERTY">
+            <ListItem Text="DUMMYPROPERTY" Value="DUMMYPROPERTY"/>
+          </ComboBox>
+        </Control>
+        
         <Control Id="vDirNameText" Type="Text" Text="Virtual directory name" X="20" Y="190" Width="80" Height="17">
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>

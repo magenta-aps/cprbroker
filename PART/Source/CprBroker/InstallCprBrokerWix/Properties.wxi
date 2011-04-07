@@ -20,4 +20,6 @@
   <Property Id="DB_APPPASSWORD" Value="CprBroker" />
 
   <Property Id="DB_VALID" Value="False"/>
+
+  <Property Id="DUMMYPROPERTY" Value="DUMMYPROPERTY"/>
 </Include>
