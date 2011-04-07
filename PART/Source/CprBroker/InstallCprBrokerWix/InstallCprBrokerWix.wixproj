@@ -36,10 +36,6 @@
     <Compile Include="WebsiteDialog.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
-      <Name>WixUIExtension</Name>
-    </WixExtension>
     <WixExtension Include="WixSqlExtension">
       <HintPath>$(WixExtDir)\WixSqlExtension.dll</HintPath>
       <Name>WixSqlExtension</Name>
