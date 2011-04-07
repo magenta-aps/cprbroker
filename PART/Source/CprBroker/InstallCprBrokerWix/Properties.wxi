@@ -3,7 +3,9 @@
 
   <Property Id="ErrorDialog" Value="ErrorDlg" />
 
+  <Property Id="WEB_CREATEASWEBSITE" Value="True"/>
   <Property Id="WEB_SITENAME" Value="CprBroker" />
+  <Property Id="WEB_VIRTUALDIRECTORYSITENAME" Value="CprBroker" />
   <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
 
   <Property Id="DB_SERVERNAME" Value="CprBroker" />

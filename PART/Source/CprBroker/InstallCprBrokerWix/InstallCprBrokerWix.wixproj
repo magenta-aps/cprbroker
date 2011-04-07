@@ -31,8 +31,13 @@
     <Compile Include="Product.wxs" />
     <Compile Include="ProgressDlg.wxs" />
     <Compile Include="UserExitDlg.wxs" />
+    <Compile Include="WebsiteDialog.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixIIsExtension">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Windows Installer XML v3.5\bin\WixIIsExtension.dll</HintPath>
+      <Name>WixIIsExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixUtilExtension">
       <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
       <Name>WixUtilExtension</Name>
