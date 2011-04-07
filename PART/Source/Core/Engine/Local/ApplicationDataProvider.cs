@@ -29,7 +29,6 @@ namespace CprBroker.Engine.Local
                 application.Name = name;
                 application.RegistrationDate = DateTime.Now;
                 application.IsApproved = false;
-                Console.WriteLine("Request App reg apT=" + application.Token + ", AppID=" + application.ApplicationId + " nm=" + application.Name);
 
                 context.SubmitChanges();
                 return application.ToXmlType();

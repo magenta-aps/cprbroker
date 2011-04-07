@@ -29,6 +29,17 @@ namespace CprBroker.Data.Applications
             return newApp;
         }
 
+        public static bool NameExists(string newName)
+        {
+            using (ApplicationDataContext context = new ApplicationDataContext())
+            {
+                var currentApp = context.Applications
+                        .Where(app => app.Name.ToLower() == newName.ToLower())
+                        .FirstOrDefault();
+                return currentApp != null;
+            }
+        }
+
         partial void OnValidate(System.Data.Linq.ChangeAction action)
         {
             if (action == System.Data.Linq.ChangeAction.None)

@@ -40,6 +40,10 @@ namespace CprBroker.Engine
             {
                 return StandardReturType.NullInput();
             }
+            if (Data.Applications.Application.NameExists(ApplicationName))
+            {
+                return StandardReturType.ApplicationNameExists(ApplicationName);
+            }
             return StandardReturType.OK();
         }
 
