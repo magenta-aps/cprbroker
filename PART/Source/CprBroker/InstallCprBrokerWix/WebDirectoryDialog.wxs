@@ -2,43 +2,27 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
   <Fragment>
     <UI>
-      <Dialog Id="WebsiteDialog" Width="370" Height="270" Modeless="no">
+      <Dialog Id="WebDirectoryDialog" Width="370" Height="270" Modeless="no" >
 
         <Control Id="label1" Type="Text" Text="The setup will now create the system's website" X="10" Y="10" Width="240" Height="17"/>
         <Control Id="label2" Type="Text" Text="Please enter how you want your site to be created" X="10" Y="30" Width="240" Height="17"/>
-        
-        <Control Id="webTypeRadio" Type="RadioButtonGroup" Property="WEB_CREATEASWEBSITE" X="10" Y="50" Width="150" Height="200">
-          <RadioButtonGroup Property="WEB_CREATEASWEBSITE">
-            <RadioButton Text="Create as website" Value="True" X="0" Y="0" Width="150" Height="17"/>
-            <RadioButton Text="Create as virtual directory" Value="False" X="0" Y="100" Width="150" Height="17"/>
-          </RadioButtonGroup>
-        </Control>
 
-        <Control Id="siteNameText" Type="Text" Text="Website name" X="20" Y="70" Width="60" Height="17">
-          <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
-          <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
-        </Control>
-        <Control Id="siteNameEdit" Type="Edit" Text="[ProductName]" Property="WEB_SITENAME" X="80" Y="70" Width="100" Height="17">
-          <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
-          <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
-        </Control>
-
-        <Control Id="siteNameText2" Type="Text" Text="Site name" X="20" Y="170" Width="60" Height="17">
+        <Control Id="siteNameText2" Type="Text" Text="Site name" X="20" Y="100" Width="60" Height="17">
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
         </Control>
-        <Control Id="siteNameCombo" Type="ComboBox" Property="WEB_VIRTUALDIRECTORYSITENAME" Sorted="yes" ComboList="yes" X="80" Y="170" Width="100" Height="17">
+        <Control Id="siteNameCombo" Type="ComboBox" Property="WEB_VIRTUALDIRECTORYSITENAME" Sorted="yes" ComboList="yes" X="80" Y="100" Width="100" Height="17">
           <ComboBox Property="WEB_VIRTUALDIRECTORYSITENAME">
           </ComboBox>
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
         </Control>
-        
-        <Control Id="vDirNameText" Type="Text" Text="Virtual directory name" X="20" Y="190" Width="80" Height="17">
+
+        <Control Id="vDirNameText" Type="Text" Text="Virtual directory name" X="20" Y="120" Width="80" Height="17">
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
         </Control>
-        <Control Id="vDirNameEdit" Type="Edit" Text="[ProductName]" Property="WEB_VIRTUALDIRECTORYNAME" X="100" Y="190" Width="70" Height="17">
+        <Control Id="vDirNameEdit" Type="Edit" Text="[ProductName]" Property="WEB_VIRTUALDIRECTORYNAME" X="100" Y="120" Width="70" Height="17">
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
         </Control>

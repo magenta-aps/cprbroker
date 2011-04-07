@@ -14,12 +14,18 @@
     ]]>
   </CustomAction>
 
+  <UI>
+    <ComboBox Property="DUMMYPROPERTY">
+      <ListItem Text="DUMMYPROPERTY" Value="DUMMYPROPERTY"/>
+    </ComboBox>
+  </UI>
+
   <InstallExecuteSequence>
-    
+
   </InstallExecuteSequence>
 
   <InstallUISequence>
     <Custom Action="PopulateWebSites" After="CostFinalize"/>
   </InstallUISequence>
-  
+
 </Include>

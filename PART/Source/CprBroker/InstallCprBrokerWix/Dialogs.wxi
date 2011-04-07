@@ -9,6 +9,5 @@
   <InstallUISequence>
     <Show Dialog="InstallDlg" Before="ExecuteAction"></Show>
     <Show Dialog="ProgressDlg" After="InstallDlg"></Show>
-    <Show Dialog="WebsiteDialog" After="InstallDlg"></Show>
   </InstallUISequence>
 </Include>

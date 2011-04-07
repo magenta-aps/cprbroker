@@ -19,7 +19,8 @@
       <Dialog Id="InstallDlg" Width="370" Height="270" Title="[ProductName]" NoMinimize="no">
 
         <Control Id="Install" Type="PushButton" Text="Install" X="200" Y="243" Width="100" Height="17">
-          <Publish Event="EndDialog" Value="Return"></Publish>
+          <Publish Event="SpawnDialog" Value="WebsiteDialog"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
+          <Publish Event="SpawnDialog" Value="WebDirectoryDialog"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
         </Control>
 
         <Control Id="Cancel" Type="PushButton" Text="Cancel" X="310" Y="243" Width="50" Height="17" Cancel="yes">

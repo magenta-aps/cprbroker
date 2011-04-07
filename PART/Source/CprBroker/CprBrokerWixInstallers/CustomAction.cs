@@ -60,6 +60,14 @@ namespace CprBrokerWixInstallers
         public static ActionResult PopulateWebSites(Session session)
         {
             DirectoryEntry w3svc = new DirectoryEntry(WebInstallationInfo.ServerRoot);
+
+            bool multiWebSiteAllowed = Convert.ToInt32(w3svc.Properties["MaxConnections"].Value) == 0;
+            session["WEB_MULTIPLESITESALLOWED"] = (multiWebSiteAllowed).ToString();
+            if (!multiWebSiteAllowed)
+            {
+                session["WEB_CREATEASWEBSITE"] = "False";
+            }
+
             List<DirectoryEntry> websites = new List<DirectoryEntry>();
             foreach (DirectoryEntry de in w3svc.Children)
             {
@@ -95,6 +103,7 @@ namespace CprBrokerWixInstallers
             {
                 session["WEB_VIRTUALDIRECTORYSITENAME"] = sitesData[0].Path;
             }
+
             return ActionResult.Success;
         }
     }

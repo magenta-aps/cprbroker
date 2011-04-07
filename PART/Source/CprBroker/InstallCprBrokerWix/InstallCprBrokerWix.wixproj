@@ -22,6 +22,7 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="WebDirectoryDialog.wxs" />
     <Compile Include="DatabaseDialog.wxs" />
     <Compile Include="ErrorDlg.wxs" />
     <Compile Include="Exit.wxs" />
