@@ -23,6 +23,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CreateDatabase.wxs" />
+    <Compile Include="ErrorDlg.wxs" />
+    <Compile Include="Exit.wxs" />
+    <Compile Include="FatalErrorDlg.wxs" />
+    <Compile Include="FilesInUseDlg.wxs" />
+    <Compile Include="ProgressDlg.wxs" />
+    <Compile Include="UserExitDlg.wxs" />
     <Compile Include="WebDirectoryDialog.wxs" />
     <Compile Include="DatabaseDialog.wxs" />
     <Compile Include="InstallDlg.wxs" />
@@ -58,6 +64,7 @@
     <Content Include="Directories.wxi" />
     <Content Include="Files.wxi" />
     <Content Include="CprBroker.log" />
+    <Content Include="InstallCprBrokerWix.wixproj.user" />
     <Content Include="Logging.wxi" />
     <Content Include="Properties.wxi" />
   </ItemGroup>
