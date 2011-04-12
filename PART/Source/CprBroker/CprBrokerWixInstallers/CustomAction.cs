@@ -11,20 +11,27 @@ namespace CprBrokerWixInstallers
     public class CustomActions
     {
         [CustomAction]
-        public static ActionResult TestConnection(Session session)
+        public static ActionResult TestConnectionString(Session session)
         {
-
-            DatabaseSetupInfo dbInfo = GetDatabaseSetupInfo(session);
-            string message = "";
-            if (dbInfo.Validate(ref message))
+            try
             {
-                session["DB_VALID"] = "True";
+                DatabaseSetupInfo dbInfo = GetDatabaseSetupInfo(session);
+                string message = "";
+                if (dbInfo.Validate(ref message))
+                {
+                    session["DB_VALID"] = "True";
+                }
+                else
+                {
+                    session["DB_VALID"] = message;
+                }
+                return ActionResult.Success;
             }
-            else
+            catch (Exception ex)
             {
-                session["DB_VALID"] = message;
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return ActionResult.Failure;
             }
-            return ActionResult.Success;
         }
 
         private static DatabaseSetupInfo GetDatabaseSetupInfo(Session session)

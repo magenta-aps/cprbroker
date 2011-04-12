@@ -31,7 +31,7 @@
           <Publish Event="NewDialog" Value="DatabaseDialog" Order="2">1</Publish>
         </Control>
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="Back">
-          <Publish Event="NewDialog" Value="InstallDlg" Order="1">1</Publish>
+          <Publish Event="NewDialog" Value="WelcomeDlg" Order="1">1</Publish>
         </Control>
         <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">
           <Publish Event="EndDialog" Value="Exit"></Publish>
