@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" >
-  <Product Id="b7a9d776-ef52-459a-9a85-4752323b6052" Name="Cpr Broker" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
+  <Product Id="30875D64-A423-4ccd-A929-5DD556A90EDD" Name="Cpr Broker" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
     <Package InstallerVersion="200" Compressed="yes" />
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
