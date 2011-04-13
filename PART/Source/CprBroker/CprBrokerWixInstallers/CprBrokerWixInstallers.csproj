@@ -56,9 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CprBrokerDatabaseCustomAction.cs" />
-    <Compile Include="CustomAction.cs" />
+    <Compile Include="CprBrokerWebsiteCustomAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="CustomAction.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CprBrokerInstallers\CprBrokerInstallers.csproj">

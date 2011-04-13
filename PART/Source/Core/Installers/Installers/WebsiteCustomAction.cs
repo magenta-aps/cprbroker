@@ -50,7 +50,7 @@ namespace CprBroker.Installers.Installers
             {
                 var siteData = sitesData[i];
                 Record record = session.Database.CreateRecord(4);
-                record.SetString(1, "WEB_VIRTUALDIRECTORYSITENAME");
+                record.SetString(1, "WEB_VIRTUALDIRECTORYSITEPATH");
                 record.SetInteger(2, i + 1);
                 record.SetString(3, siteData.Path);
                 record.SetString(4, siteData.Name);
@@ -59,7 +59,7 @@ namespace CprBroker.Installers.Installers
             }
             if (sitesData.Length > 0)
             {
-                session["WEB_VIRTUALDIRECTORYSITENAME"] = sitesData[0].Path;
+                session["WEB_VIRTUALDIRECTORYSITEPATH"] = sitesData[0].Path;
             }
 
             return ActionResult.Success;
@@ -76,7 +76,7 @@ namespace CprBroker.Installers.Installers
                 var webInstallationInfo = GetWebInstallationInfo(session);
                 bool exists = webInstallationInfo.TargetEntryExists;
 
-                int siteID = webInstallationInfo.GetSiteId();
+                int siteID = webInstallationInfo.GetSiteId(session);
                 int scriptMapVersion;
 
                 if (webInstallationInfo.CreateAsWebsite)
@@ -202,7 +202,7 @@ namespace CprBroker.Installers.Installers
 
         public static string GetWebFolderPath(Session session)
         {
-            return session["WIXUI_INSTALLDIR"] + "Web\\";
+            return session["INSTALLDIR"] + "Web\\";
         }
 
         public static string GetWebConfigFilePath(Session session)
@@ -218,7 +218,7 @@ namespace CprBroker.Installers.Installers
             ret.ApplicationInstalled = false;
             ret.VirtualDirectoryName = session["WEB_VIRTUALDIRECTORYNAME"];
             ret.WebsiteName = session["WEB_SITENAME"];
-            ret.WebsitePath = "";
+            ret.WebsitePath = session["WEB_VIRTUALDIRECTORYSITEPATH"];
 
             return ret;
         }
@@ -317,7 +317,7 @@ namespace CprBroker.Installers.Installers
 
         public static void EncryptDataProviderKeys(string configFilePath, string site, string app)
         {
-            try
+            //try
             {
                 CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection));
                 CopyTypeAssemblyFileToNetFramework(typeof(DataProvidersConfigurationSection));
@@ -341,10 +341,10 @@ namespace CprBroker.Installers.Installers
                 DeleteTypeAssemblyFileFroNetFramework(typeof(DataProviderKeysSection));
                 DeleteTypeAssemblyFileFroNetFramework(typeof(DataProvidersConfigurationSection));
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         private static void EncryptConnectionStrings(string site, string app)

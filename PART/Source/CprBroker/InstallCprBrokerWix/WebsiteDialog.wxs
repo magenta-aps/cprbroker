@@ -27,8 +27,8 @@
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
         </Control>
-        <Control Id="siteNameCombo" Type="ComboBox" Property="WEB_VIRTUALDIRECTORYSITENAME" Sorted="yes" ComboList="yes" X="80" Y="170" Width="100" Height="17">
-          <ComboBox Property="WEB_VIRTUALDIRECTORYSITENAME">
+        <Control Id="siteNameCombo" Type="ComboBox" Property="WEB_VIRTUALDIRECTORYSITEPATH" Sorted="yes" ComboList="yes" X="80" Y="170" Width="100" Height="17">
+          <ComboBox Property="WEB_VIRTUALDIRECTORYSITEPATH">
           </ComboBox>
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>

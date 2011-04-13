@@ -4,7 +4,7 @@
   <Property Id="WEB_MULTIPLESITESALLOWED" Value="True"/>
   <Property Id="WEB_CREATEASWEBSITE" Value="True"/>
   <Property Id="WEB_SITENAME" Value="CprBroker" />
-  <Property Id="WEB_VIRTUALDIRECTORYSITENAME" Value="CprBroker" />
+  <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="CprBroker" />
   <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
 
   <Property Id="DB_SERVERNAME" Value="CprBroker" />
