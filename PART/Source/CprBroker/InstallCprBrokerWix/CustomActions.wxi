@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-  <Binary Id="CreateDatabaseDll" SourceFile="$(var.OutputPath)CprBrokerWixInstallers.CA.dll"/>
+  <Binary Id="InstallaresDll" SourceFile="$(var.OutputPath)CprBrokerWixInstallers.CA.dll"/>
   
-  <CustomAction Id="TestConnection" BinaryKey="CreateDatabaseDll" DllEntry="TestConnectionString" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
+  <CustomAction Id="TestConnection" BinaryKey="InstallaresDll" DllEntry="TestConnectionString" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
+  <CustomAction Id="CreateCprBrokerDatabase" BinaryKey="InstallaresDll" DllEntry="CreateCprBrokerDatabase" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
   
-  <CustomAction Id="PopulateWebSites" BinaryKey="CreateDatabaseDll" DllEntry="PopulateWebSites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
+  <CustomAction Id="PopulateWebSites" BinaryKey="InstallaresDll" DllEntry="PopulateWebSites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
   
   <CustomAction Id="ShowSuccess" Execute="immediate" Script="vbscript">
     <![CDATA[msgbox "Succeeded"]]>
@@ -29,6 +30,7 @@
 
   <InstallUISequence>
     <Custom Action="PopulateWebSites" After="CostFinalize"/>
+    <Custom Action="CreateCprBrokerDatabase" After="ExecuteAction"/>
   </InstallUISequence>
 
 </Include>

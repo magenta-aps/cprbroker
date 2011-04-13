@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
@@ -74,6 +75,7 @@
     <Compile Include="Installers\ConnectionStringsInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Installers\DatabaseCustomAction.cs" />
     <Compile Include="UI\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>

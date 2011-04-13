@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Installers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Installers.dll</HintPath>
@@ -40,7 +44,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -49,9 +55,16 @@
     <Reference Include="Microsoft.Deployment.WindowsInstaller" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CprBrokerDatabaseCustomAction.cs" />
     <Compile Include="CustomAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="CustomAction.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CprBrokerInstallers\CprBrokerInstallers.csproj">
+      <Project>{F8B47B28-686A-4005-A242-68F570705257}</Project>
+      <Name>CprBrokerInstallers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />
