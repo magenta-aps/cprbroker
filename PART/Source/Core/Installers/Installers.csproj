@@ -76,6 +76,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Installers\DatabaseCustomAction.cs" />
+    <Compile Include="Installers\WebsiteCustomAction.cs" />
     <Compile Include="UI\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
