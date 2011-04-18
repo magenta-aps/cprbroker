@@ -22,11 +22,17 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Common\Common.wxs" />
+    <Compile Include="Common\DatabaseDialog.wxs" />
+    <Compile Include="CprBroker\CprBroker.wxs" />
+    <Compile Include="DprUpdate\DprUpdate.wxs" />
+    <Compile Include="DprUpdate\Directories.wxs" />
+    <Compile Include="DprUpdate\Files.wxs" />
     <Compile Include="Exit.wxs" />
     <Compile Include="FatalErrorDlg.wxs" />
+    <Compile Include="PersonMaster\PersonMaster.wxs" />
     <Compile Include="UserExitDlg.wxs" />
     <Compile Include="WebDirectoryDialog.wxs" />
-    <Compile Include="DatabaseDialog.wxs" />
     <Compile Include="Product.wxs" />
     <Compile Include="WebsiteDialog.wxs" />
   </ItemGroup>
@@ -53,14 +59,14 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\CprBroker.log" />
+    <Content Include="Common\CustomActions.wxi" />
+    <Content Include="Common\Logging.wxi" />
+    <Content Include="Common\Properties.wxi" />
     <Content Include="Conditions.wxi" />
-    <Content Include="CustomActions.wxi" />
+    <Content Include="CprBroker\Directories.wxi" />
+    <Content Include="CprBroker\Files.wxi" />
     <Content Include="Dialogs.wxi" />
-    <Content Include="Directories.wxi" />
-    <Content Include="Files.wxi" />
-    <Content Include="CprBroker.log" />
-    <Content Include="Logging.wxi" />
-    <Content Include="Properties.wxi" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CprBrokerWixInstallers\CprBrokerWixInstallers.csproj">
@@ -71,6 +77,12 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLLOCATION</RefTargetDir>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CprBroker" />
+    <Folder Include="DprUpdate" />
+    <Folder Include="Common" />
+    <Folder Include="PersonMaster" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
