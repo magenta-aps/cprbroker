@@ -19,7 +19,7 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
-        public static ActionResult CreateCprBrokerDatabase(Session session)
+        public static ActionResult FinalizeCprBrokerDatabase(Session session)
         {
              List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
             ret.Add(new KeyValuePair<string,string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.AddressCoordinateQualityType));
@@ -33,7 +33,7 @@ namespace CprBrokerWixInstallers
             ret.Add(new KeyValuePair<string, string>(typeof(LogType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.LogType));
             ret.Add(new KeyValuePair<string, string>(typeof(RelationshipType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.RelationshipType));
 
-            return DatabaseCustomAction.CreateDatabase(session, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.CreatePartDatabaseObjects, ret.ToArray());
+            return DatabaseCustomAction.FinalizeDatabase(session, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.CreatePartDatabaseObjects, ret.ToArray());
         }
     }
 }
