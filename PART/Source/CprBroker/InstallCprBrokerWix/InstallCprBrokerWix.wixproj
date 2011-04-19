@@ -25,6 +25,7 @@
     <Compile Include="Common\Common.wxs" />
     <Compile Include="Common\DatabaseDialog.wxs" />
     <Compile Include="CprBroker\CprBroker.wxs" />
+    <Compile Include="CprBroker\Database.wxs" />
     <Compile Include="DprUpdate\DprUpdate.wxs" />
     <Compile Include="DprUpdate\Directories.wxs" />
     <Compile Include="DprUpdate\Files.wxs" />

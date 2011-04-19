@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 	<Fragment Id="CprBrokerFragment">
     <?include Files.wxi?>
     
@@ -10,6 +10,7 @@
       <ComponentGroupRef Id="CMPGRP_Pages"/>
       <ComponentGroupRef Id="CMPGRP_Services"/>
       <ComponentGroupRef Id="CMPGRP_Logging"/>
+      <ComponentGroupRef Id="CMPGRP_Database"/>
 
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />

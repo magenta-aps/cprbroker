@@ -7,18 +7,5 @@
   <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="CprBroker" />
   <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
 
-  <Property Id="DB_SERVERNAME" Value="CprBroker" />
-  <Property Id="DB_DATABASENAME" Value="CprBroker" />
-  <Property Id="DB_ADMININTEGRATEDSECURITY" Value="SSPI" />
-  <Property Id="DB_ADMINUSERNAME"  Value="CprBroker" />
-  <Property Id="DB_ADMINPASSWORD" Value="CprBroker" />
-
-  <Property Id="DB_APPSAMEASADMIN" Value="True" />
-  <Property Id="DB_APPINTEGRATEDSECURITY" Value="SSPI" />
-  <Property Id="DB_APPUSERNAME" Value="CprBroker" />
-  <Property Id="DB_APPPASSWORD" Value="CprBroker" />
-
-  <Property Id="DB_VALID" Value="False"/>
-
   <Property Id="DUMMYPROPERTY" Value="DUMMYPROPERTY"/>
 </Include>

@@ -33,8 +33,8 @@
 
   <InstallUISequence>
     <Custom Action="PopulateWebSites" After="CostFinalize"/>
-    <Custom Action="CreateCprBrokerDatabase" After="ExecuteAction"/>
-    <Custom Action="CreateCprBrokerWebsite" After="CreateCprBrokerDatabase"/>
+    <!--<Custom Action="CreateCprBrokerDatabase" After="ExecuteAction"/>-->
+    <Custom Action="CreateCprBrokerWebsite" After="ExecuteAction"/>
   </InstallUISequence>
 
 </Include>

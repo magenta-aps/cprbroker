@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment>
+
+    <Property Id="DB_SERVERNAME" Value="CprBroker" >
+      <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="ServerName"/>
+    </Property>
+    <Property Id="DB_DATABASENAME" Value="CprBroker" >
+      <RegistrySearch Id="RS_DbDatabaseName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="DatabaseName"/>
+    </Property>
+    <Property Id="DB_ADMININTEGRATEDSECURITY" Value="SSPI" >
+      <RegistrySearch Id="RS_DbAdminIntegratedSecurity" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminIntegratedSecurity"/>
+    </Property>
+    <Property Id="DB_ADMINUSERNAME"  Value="CprBroker" >
+      <RegistrySearch Id="RS_DbAdminUserName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminUserName"/>
+    </Property>
+    <Property Id="DB_ADMINPASSWORD" Value="CprBroker" >
+      <RegistrySearch Id="RS_DbAdminPassword" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminPassword"/>
+    </Property>
+
+    <Property Id="DB_APPSAMEASADMIN" Value="True" />
+    <Property Id="DB_APPINTEGRATEDSECURITY" Value="SSPI" />
+    <Property Id="DB_APPUSERNAME" Value="CprBroker" />
+    <Property Id="DB_APPPASSWORD" Value="CprBroker" />
+
+    <Property Id="DB_VALID" Value="False"/>
+    
+    <util:User Id="SQL_AdminUser" Name="[DB_ADMINUSERNAME]" Password="[DB_ADMINPASSWORD]" />
+    <Binary Id="BIN_CreateDatabaseObjectsScript" SourceFile="$(var.InstallersPath)Resources\CreatePartDatabaseObjects.sql"/>
+
+    <ComponentGroup Id="CMPGRP_Database">
+
+      <Component Id="CMP_DatabaseWindowsAuthentication" Directory="INSTALLDIR" Guid="1E99531F-76B2-471e-8AE2-7A12B320F258" KeyPath="yes">
+        <Condition><![CDATA[DB_ADMININTEGRATEDSECURITY <> "SSPI"]]></Condition>
+        <sql:SqlDatabase Id="SQL_DatabaseWindowsAuthentication" Database="[DB_DATABASENAME]" Server="[DB_SERVERNAME]"
+                         ContinueOnError="no" ConfirmOverwrite="yes" CreateOnInstall="yes" DropOnUninstall="yes" >
+          <sql:SqlScript Id="SQL_CreateDatabaseObjectsScriptWindowsAuthentication" BinaryKey="BIN_CreateDatabaseObjectsScript" ExecuteOnInstall="yes"/>
+        </sql:SqlDatabase>
+
+      </Component>
+
+      <Component Id="CMP_DatabaseSqlAuthentication" Directory="INSTALLDIR" Guid="5A7D38A1-0506-42c2-8615-A486A7146CE8" KeyPath="yes">
+        <Condition><![CDATA[DB_ADMININTEGRATEDSECURITY = "SSPI"]]></Condition>
+        <sql:SqlDatabase Id="SQL_DatabaseSqlAuthentication" Database="[DB_DATABASENAME]" Server="[DB_SERVERNAME]" User="SQL_AdminUser"
+                         ContinueOnError="no" ConfirmOverwrite="yes" CreateOnInstall="yes" DropOnUninstall="yes" >
+          <sql:SqlScript Id="SQL_CreateDatabaseObjectsScriptSqlAuthentication" BinaryKey="BIN_CreateDatabaseObjectsScript" ExecuteOnInstall="yes" />
+        </sql:SqlDatabase>
+
+      </Component>
+      <Component Id="CMP_DatabaseRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="0A328B61-2AD2-473b-B4E5-43F9FC4CF997">
+        <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Database">
+          <RegistryValue Id="REG_DbServerName" Action="write" Type="string" Name="ServerName" Value="[DB_SERVERNAME]"/>
+          <RegistryValue Id="REG_DbDatabaseName" Action="write" Type="string" Name="DatabaseName" Value="[DB_DATABASENAME]"/>
+          <RegistryValue Id="REG_DbAdminIntegratedSecurity" Action="write" Type="string" Name="AdminIntegratedSecurity" Value="[DB_ADMININTEGRATEDSECURITY]"/>
+          <RegistryValue Id="REG_DbAdminUserName" Action="write" Type="string" Name="AdminUserName" Value="[DB_ADMINUSERNAME]"/>
+          <RegistryValue Id="REG_DbAdminPassword" Action="write" Type="string" Name="AdminPassword" Value="[DB_ADMINPASSWORD]"/>
+        </RegistryKey>
+
+      </Component>
+
+    </ComponentGroup>
+
+    
+
+  </Fragment>
+</Wix>
