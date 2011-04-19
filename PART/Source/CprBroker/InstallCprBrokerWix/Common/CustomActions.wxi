@@ -5,7 +5,6 @@
 
   <CustomAction Id="TestConnection" BinaryKey="InstallersDll" DllEntry="TestConnectionString" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
   
-  <CustomAction Id="CreateCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="CreateCprBrokerDatabase" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
   <CustomAction Id="CreateCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="CreateCprBrokerWebsite" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
   
   <CustomAction Id="PopulateWebSites" BinaryKey="InstallersDll" DllEntry="PopulateWebSites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
@@ -33,7 +32,6 @@
 
   <InstallUISequence>
     <Custom Action="PopulateWebSites" After="CostFinalize"/>
-    <!--<Custom Action="CreateCprBrokerDatabase" After="ExecuteAction"/>-->
     <Custom Action="CreateCprBrokerWebsite" After="ExecuteAction"/>
   </InstallUISequence>
 

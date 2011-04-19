@@ -57,10 +57,13 @@
         </RegistryKey>
 
       </Component>
-
     </ComponentGroup>
 
-    
+    <CustomAction Id="FinalizeCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="FinalizeCprBrokerDatabase" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
+
+    <InstallUISequence>
+      <Custom Action="FinalizeCprBrokerDatabase" After="ExecuteAction"/>
+    </InstallUISequence>
 
   </Fragment>
 </Wix>
