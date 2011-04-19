@@ -62,10 +62,11 @@ namespace CprBroker.Installers.Installers
             return ret;
         }
 
-        public static ActionResult CreateDatabase(Session session, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
+        public static ActionResult FinalizeDatabase(Session session, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
         {
             DatabaseSetupInfo setupInfo = GetDatabaseSetupInfo(session);
-            setupInfo.DatabaseCreated = CreateDatabase(setupInfo, createDatabaseObjectsSql, lookupDataArray);
+            //setupInfo.DatabaseCreated = CreateDatabase(setupInfo, createDatabaseObjectsSql, lookupDataArray);
+            InsertLookups(setupInfo.CreateConnectionString(true, true), lookupDataArray); 
             CreateDatabaseUser(setupInfo);
             //SetConnectionStrings(stateSaver);
             //savedStateWrapper.ClearDatabaseSensitiveDate();
@@ -74,7 +75,7 @@ namespace CprBroker.Installers.Installers
         }
 
 
-        private static bool CreateDatabase(DatabaseSetupInfo setupInfo, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
+        /*private static bool CreateDatabase(DatabaseSetupInfo setupInfo, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
         {
             string adminConnectionString = setupInfo.CreateConnectionString(true, false);
             ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
@@ -93,59 +94,61 @@ namespace CprBroker.Installers.Installers
             {
                 return false;
             }
-        }
+        }*/
 
         /// <summary>
         /// Creates a new user in the database if needed
         /// </summary>
         private static void CreateDatabaseUser(DatabaseSetupInfo setupInfo)
         {
-            string adminConnectionString = setupInfo.CreateConnectionString(true, false);
-            ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
-            Server dbServer = new Server(dbServerConnection);
-
-
-            var db = dbServer.Databases[setupInfo.DatabaseName];
-
-            string userName;
-            LoginType loginType;
-            Action<Login> createLoginMethod;
-
-            if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+            if (!setupInfo.ApplicationAuthenticationSameAsAdmin)
             {
-                userName = @"NT AUTHORITY\NETWORK SERVICE";
-                loginType = LoginType.WindowsUser;
-                createLoginMethod = (login) => login.Create();
-            }
-            else
-            {
-                userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
-                loginType = LoginType.SqlLogin;
-                createLoginMethod = (login) => login.Create(setupInfo.EffectiveApplicationAuthenticationInfo.Password);
-            }
-            User[] usersArray = new User[db.Users.Count];
-            db.Users.CopyTo(usersArray, 0);
-            var existingUser = (
-                from User user in usersArray
-                where user.Name.ToLower() == userName.ToLower() || user.Login.ToLower() == userName.ToLower()
-                select user
-                ).FirstOrDefault();
+                string adminConnectionString = setupInfo.CreateConnectionString(true, false);
+                ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
+                Server dbServer = new Server(dbServerConnection);
 
-            if (existingUser == null)
-            {
-                if (!dbServer.Logins.Contains(userName))
+
+                var db = dbServer.Databases[setupInfo.DatabaseName];
+
+                string userName;
+                LoginType loginType;
+                Action<Login> createLoginMethod;
+
+                if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
                 {
-                    Login newLogin = new Login(dbServer, userName);
-                    newLogin.PasswordPolicyEnforced = false;
-                    newLogin.LoginType = loginType;
-                    createLoginMethod(newLogin);
+                    userName = @"NT AUTHORITY\NETWORK SERVICE";
+                    loginType = LoginType.WindowsUser;
+                    createLoginMethod = (login) => login.Create();
                 }
-                User newUser = new User(db, userName);
-                newUser.Login = newUser.Name;
-                newUser.Create();
-                newUser.AddToRole("db_owner");
-            }
+                else
+                {
+                    userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                    loginType = LoginType.SqlLogin;
+                    createLoginMethod = (login) => login.Create(setupInfo.EffectiveApplicationAuthenticationInfo.Password);
+                }
+                User[] usersArray = new User[db.Users.Count];
+                db.Users.CopyTo(usersArray, 0);
+                var existingUser = (
+                    from User user in usersArray
+                    where user.Name.ToLower() == userName.ToLower() || user.Login.ToLower() == userName.ToLower()
+                    select user
+                    ).FirstOrDefault();
 
+                if (existingUser == null)
+                {
+                    if (!dbServer.Logins.Contains(userName))
+                    {
+                        Login newLogin = new Login(dbServer, userName);
+                        newLogin.PasswordPolicyEnforced = false;
+                        newLogin.LoginType = loginType;
+                        createLoginMethod(newLogin);
+                    }
+                    User newUser = new User(db, userName);
+                    newUser.Login = newUser.Name;
+                    newUser.Create();
+                    newUser.AddToRole("db_owner");
+                }
+            }
         }
 
         private static void InsertLookups(string connectionString, KeyValuePair<string, string>[] lookupDataArray)
