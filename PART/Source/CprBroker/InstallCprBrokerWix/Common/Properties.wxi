@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-  <Property Id="WEB_MULTIPLESITESALLOWED" Value="True"/>
-  <Property Id="WEB_CREATEASWEBSITE" Value="True"/>
-  <Property Id="WEB_SITENAME" Value="CprBroker" />
-  <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="CprBroker" />
-  <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
-
+  
   <Property Id="DUMMYPROPERTY" Value="DUMMYPROPERTY"/>
 </Include>
