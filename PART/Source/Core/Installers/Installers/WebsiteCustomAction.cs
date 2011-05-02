@@ -179,6 +179,23 @@ namespace CprBroker.Installers.Installers
             return ActionResult.Success;
         }
 
+        public static ActionResult RemoveWebSite(Session session)
+        {
+            var webInstallationInfo = GetWebInstallationInfo(session);
+            if (webInstallationInfo.ApplicationInstalled)
+            {
+                string applicationDirectoryPath = webInstallationInfo.ApplicationPath;
+                if (DirectoryEntry.Exists(applicationDirectoryPath))
+                {
+                    using (DirectoryEntry applicationEntry = new DirectoryEntry(applicationDirectoryPath))
+                    {
+                        applicationEntry.DeleteTree();
+                    }
+                }
+            }
+            return ActionResult.Success;
+        }
+
         /// <summary>
         /// Tries to access IIS via directory services to make sure that all IIS components are installed
         /// Throws exception if failed
@@ -217,7 +234,6 @@ namespace CprBroker.Installers.Installers
             ret.ApplicationInstalled = false;
             ret.VirtualDirectoryName = session["WEB_VIRTUALDIRECTORYNAME"];
             ret.WebsiteName = session["WEB_SITENAME"];
-            ret.HostHeader = session["WEB_HostHeader"];
             ret.WebsitePath = session["WEB_VIRTUALDIRECTORYSITEPATH"];
 
             return ret;
@@ -230,7 +246,6 @@ namespace CprBroker.Installers.Installers
             //webInstallationInfo.ApplicationInstalled = false;
             session["WEB_VIRTUALDIRECTORYNAME"] = webInstallationInfo.VirtualDirectoryName;
             session["WEB_SITENAME"] = webInstallationInfo.WebsiteName;
-            session["WEB_HostHeader"] = webInstallationInfo.HostHeader;
             session["WEB_VIRTUALDIRECTORYSITEPATH"] = webInstallationInfo.WebsitePath;
         }
 

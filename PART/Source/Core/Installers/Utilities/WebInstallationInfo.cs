@@ -14,8 +14,6 @@ namespace CprBroker.Installers
         public string WebsiteName;
         public string VirtualDirectoryName;
 
-        public string HostHeader;
-
         public static readonly string ServerRoot = "IIS://localhost/w3svc";
 
         public bool ApplicationInstalled;
