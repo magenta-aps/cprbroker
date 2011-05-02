@@ -39,7 +39,7 @@ namespace CprBroker.Installers.Installers
                              .Select(site => new
                              {
                                  Name = site.Properties["ServerComment"].Value as string,
-                                 Path = site.Path
+                                 Path = site.Path + "/Root"
                              })
                              .OrderBy(s => s.Name)
                              .ToArray();
@@ -106,7 +106,7 @@ namespace CprBroker.Installers.Installers
                                     site.CommitChanges();
 
                                     webInstallationInfo.ApplicationPath = site.Path;
-                                    //savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
+                                    SetWebInstallationInfo(webInstallationInfo, session);
 
                                     using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
                                     {
@@ -124,7 +124,7 @@ namespace CprBroker.Installers.Installers
                 }
                 else
                 {
-                    using (DirectoryEntry websiteEntry = new DirectoryEntry(webInstallationInfo.WebsitePath + "/Root"))
+                    using (DirectoryEntry websiteEntry = new DirectoryEntry(webInstallationInfo.WebsitePath))
                     {
                         using (DirectoryEntry applicationEntry = exists ? new DirectoryEntry(webInstallationInfo.TargetVirtualDirectoryPath) : websiteEntry.Invoke("Create", "IIsWebVirtualDir", webInstallationInfo.VirtualDirectoryName) as DirectoryEntry)
                         {
@@ -134,7 +134,7 @@ namespace CprBroker.Installers.Installers
                             applicationEntry.InvokeSet("DefaultDoc", "Default.aspx");
                             applicationEntry.CommitChanges();
                             webInstallationInfo.ApplicationPath = applicationEntry.Path;
-                            //savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
+                            SetWebInstallationInfo(webInstallationInfo, session);
                         }
                         scriptMapVersion = GetScriptMapsVersion(websiteEntry);
                     }
@@ -152,7 +152,7 @@ namespace CprBroker.Installers.Installers
 
                 // Mark as done
                 webInstallationInfo.ApplicationInstalled = true;
-                //savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
+                SetWebInstallationInfo(webInstallationInfo, session);
 
                 GrantConfigEncryptionAccess();
 
@@ -230,8 +230,8 @@ namespace CprBroker.Installers.Installers
         {
             WebInstallationInfo ret = new WebInstallationInfo();
             ret.CreateAsWebsite = session["WEB_CREATEASWEBSITE"] == "True";
-            ret.ApplicationPath = null;
-            ret.ApplicationInstalled = false;
+            ret.ApplicationPath = session["WEB_APPLICATIONPATH"];
+            ret.ApplicationInstalled = session["WEB_APPLICATIONINSTALLED"] == "True";
             ret.VirtualDirectoryName = session["WEB_VIRTUALDIRECTORYNAME"];
             ret.WebsiteName = session["WEB_SITENAME"];
             ret.WebsitePath = session["WEB_VIRTUALDIRECTORYSITEPATH"];
@@ -242,8 +242,8 @@ namespace CprBroker.Installers.Installers
         private static void SetWebInstallationInfo(WebInstallationInfo webInstallationInfo, Session session)
         {
             session["WEB_CREATEASWEBSITE"] = webInstallationInfo.CreateAsWebsite.ToString();
-            //webInstallationInfo.ApplicationPath = null;
-            //webInstallationInfo.ApplicationInstalled = false;
+            session["WEB_APPLICATIONPATH"] = webInstallationInfo.ApplicationPath;
+            session["WEB_APPLICATIONINSTALLED"] = webInstallationInfo.ApplicationInstalled.ToString();
             session["WEB_VIRTUALDIRECTORYNAME"] = webInstallationInfo.VirtualDirectoryName;
             session["WEB_SITENAME"] = webInstallationInfo.WebsiteName;
             session["WEB_VIRTUALDIRECTORYSITEPATH"] = webInstallationInfo.WebsitePath;
