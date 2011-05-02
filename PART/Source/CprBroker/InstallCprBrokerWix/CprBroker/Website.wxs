@@ -9,33 +9,16 @@
     <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="CprBroker" />
     <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
 
-    <!--<iis:WebDirProperties Id="IIS_WebDirProperties" AnonymousAccess="yes" Execute="yes" DefaultDocuments="Default.aspx" Read="yes" Script="yes" />-->
-    <iis:WebApplication Id="IIS_WebApplication" Name="WEB_SITENAME" DefaultScript="JScript"></iis:WebApplication>
+    <CustomAction Id="PopulateWebSites" BinaryKey="InstallersDll" DllEntry="PopulateWebSites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
+    <CustomAction Id="CreateCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="CreateCprBrokerWebsite" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
     
-    <iis:WebSite Id="IIS_VirtualDirSite" Description="Useless">
-      <iis:WebAddress Id="AllUnassigned" Port="80"/>
-    </iis:WebSite>
-    
-    <ComponentGroup Id="CMPGRP_WEB">
+    <InstallUISequence >
+      <Custom Action="PopulateWebSites" After="CostFinalize"/>
+    </InstallUISequence>
 
-      <!--<Component Id="CMP_BrokerAsSite" Directory="INSTALLDIR" Guid="7BB39120-6CB0-4528-91C0-328F5C9CFDBA" KeyPath="yes">
-        <Condition >
-          <![CDATA[WEB_CREATEASWEBSITE = "True"]]>
-        </Condition>
-        <iis:WebAppPool Id="IIS_WebAppPool" Name="[WEB_SITENAME]" Identity="networkService"></iis:WebAppPool>
-        <iis:WebSite Id="IIS_BrokerSite" Directory="Web" Description="[WEB_SITENAME]" ConfigureIfExists="yes" AutoStart="yes" StartOnInstall="yes" >
-          <iis:WebAddress Id="IIS_SiteWebSddress"  Header="[WEB_SITENAME]" Port="80"/>          
-        </iis:WebSite>
-      </Component>-->
-
-      <Component Id="CMP_BrokerAsVirtualDir" Directory="INSTALLDIR" Guid="334FDABF-38CA-49a2-8A18-CA0C38FC6564" KeyPath="yes">
-        <!--<Condition >
-          <![CDATA[WEB_CREATEASWEBSITE = "False"]]>
-        </Condition>-->
-        <iis:WebVirtualDir Id="IIS_VirtualDir" Alias="[WEB_VIRTUALDIRECTORYNAME]" Directory="Web" WebSite="IIS_VirtualDirSite" WebApplication="IIS_WebApplication"/>          
-      </Component>
-      
-    </ComponentGroup>
+    <InstallUISequence>
+      <Custom Action="CreateCprBrokerWebsite" After="ExecuteAction"/>
+    </InstallUISequence>
 
   </Fragment>
 </Wix>

@@ -19,13 +19,10 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult CreateCprBrokerWebsite(Session session)
         {
+            session["CCCC"] = "CCCC";
+            //return ActionResult.Success;
             return WebsiteCustomAction.DeployWebsite(session);
         }
 
-        [CustomAction]
-        public static ActionResult PopulateWebSiteProperties(Session session)
-        {
-            return WebsiteCustomAction.PopulateWebSiteProperties(session);
-        }
     }
 }

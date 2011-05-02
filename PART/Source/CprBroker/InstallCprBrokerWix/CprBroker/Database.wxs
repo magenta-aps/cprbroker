@@ -2,19 +2,19 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Fragment>
 
-    <Property Id="DB_SERVERNAME" Value="CprBroker" >
+    <Property Id="DB_SERVERNAME" Value="10.20.1.20" >
       <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="ServerName"/>
     </Property>
     <Property Id="DB_DATABASENAME" Value="CprBroker" >
       <RegistrySearch Id="RS_DbDatabaseName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="DatabaseName"/>
     </Property>
-    <Property Id="DB_ADMININTEGRATEDSECURITY" Value="SSPI" >
+    <Property Id="DB_ADMININTEGRATEDSECURITY" Value="dd" >
       <RegistrySearch Id="RS_DbAdminIntegratedSecurity" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminIntegratedSecurity"/>
     </Property>
-    <Property Id="DB_ADMINUSERNAME"  Value="CprBroker" >
+    <Property Id="DB_ADMINUSERNAME"  Value="sa" >
       <RegistrySearch Id="RS_DbAdminUserName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminUserName"/>
     </Property>
-    <Property Id="DB_ADMINPASSWORD" Value="CprBroker" >
+    <Property Id="DB_ADMINPASSWORD" Value="Dlph10t" >
       <RegistrySearch Id="RS_DbAdminPassword" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminPassword"/>
     </Property>
 

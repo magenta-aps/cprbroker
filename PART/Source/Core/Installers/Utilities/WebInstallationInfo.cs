@@ -14,6 +14,8 @@ namespace CprBroker.Installers
         public string WebsiteName;
         public string VirtualDirectoryName;
 
+        public string HostHeader;
+
         public static readonly string ServerRoot = "IIS://localhost/w3svc";
 
         public bool ApplicationInstalled;
@@ -99,7 +101,7 @@ namespace CprBroker.Installers
                 {
                     int ID = Convert.ToInt32(e.Name);
                     if (CreateAsWebsite)
-                    {                        
+                    {
                         if (e.Properties["ServerComment"].Value.ToString().ToLower() == WebsiteName.ToLower())
                         {
                             return ID;
@@ -112,7 +114,10 @@ namespace CprBroker.Installers
                     }
                     else
                     {
-                        if ((e.Path + "/Root").ToLower() == WebsitePath.ToLower())
+                        if (
+                            (e.Path + "/Root").ToLower() == WebsitePath.ToLower()
+                            || e.Path.ToLower() == WebsitePath.ToLower()
+                            )
                         {
                             return ID;
                         }

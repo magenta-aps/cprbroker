@@ -39,7 +39,7 @@ namespace CprBroker.Installers.Installers
                              .Select(site => new
                              {
                                  Name = site.Properties["ServerComment"].Value as string,
-                                 Path = site.Path + "/Root"
+                                 Path = site.Path
                              })
                              .OrderBy(s => s.Name)
                              .ToArray();
@@ -61,7 +61,6 @@ namespace CprBroker.Installers.Installers
             {
                 session["WEB_VIRTUALDIRECTORYSITEPATH"] = sitesData[0].Path;
             }
-
             return ActionResult.Success;
         }
 
@@ -125,7 +124,7 @@ namespace CprBroker.Installers.Installers
                 }
                 else
                 {
-                    using (DirectoryEntry websiteEntry = new DirectoryEntry(webInstallationInfo.WebsitePath))
+                    using (DirectoryEntry websiteEntry = new DirectoryEntry(webInstallationInfo.WebsitePath + "/Root"))
                     {
                         using (DirectoryEntry applicationEntry = exists ? new DirectoryEntry(webInstallationInfo.TargetVirtualDirectoryPath) : websiteEntry.Invoke("Create", "IIsWebVirtualDir", webInstallationInfo.VirtualDirectoryName) as DirectoryEntry)
                         {
@@ -218,9 +217,21 @@ namespace CprBroker.Installers.Installers
             ret.ApplicationInstalled = false;
             ret.VirtualDirectoryName = session["WEB_VIRTUALDIRECTORYNAME"];
             ret.WebsiteName = session["WEB_SITENAME"];
+            ret.HostHeader = session["WEB_HostHeader"];
             ret.WebsitePath = session["WEB_VIRTUALDIRECTORYSITEPATH"];
 
             return ret;
+        }
+
+        private static void SetWebInstallationInfo(WebInstallationInfo webInstallationInfo, Session session)
+        {
+            session["WEB_CREATEASWEBSITE"] = webInstallationInfo.CreateAsWebsite.ToString();
+            //webInstallationInfo.ApplicationPath = null;
+            //webInstallationInfo.ApplicationInstalled = false;
+            session["WEB_VIRTUALDIRECTORYNAME"] = webInstallationInfo.VirtualDirectoryName;
+            session["WEB_SITENAME"] = webInstallationInfo.WebsiteName;
+            session["WEB_HostHeader"] = webInstallationInfo.HostHeader;
+            session["WEB_VIRTUALDIRECTORYSITEPATH"] = webInstallationInfo.WebsitePath;
         }
 
         private static int GetScriptMapsVersion(DirectoryEntry site)
@@ -317,6 +328,7 @@ namespace CprBroker.Installers.Installers
 
         public static void EncryptDataProviderKeys(string configFilePath, string site, string app)
         {
+            System.Windows.Forms.MessageBox.Show("Will Encrypt data providers");
             //try
             {
                 CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection));
@@ -330,7 +342,10 @@ namespace CprBroker.Installers.Installers
 
                 RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, site, app));
 
-                Utilities.Installation.AddSectionNode(dataProvidersNode, configFilePath, Constants.DataProvidersSectionGroupName);
+                if (dataProvidersNode != null)
+                {
+                    Utilities.Installation.AddSectionNode(dataProvidersNode, configFilePath, Constants.DataProvidersSectionGroupName);
+                }
 
                 Dictionary<string, string> dic = new Dictionary<string, string>();
                 dic["name"] = DataProvidersConfigurationSection.SectionName;
