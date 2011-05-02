@@ -14,23 +14,26 @@
     <Property Id="WEB_APPLICATIONPATH" Value="-">
       <RegistrySearch Id="RS_WEB_ApplicationPath" Root="HKLM" Key="Software\ITST\CprBroker\Web" Type="raw" Name="ApplicationPath"/>
     </Property>
-    
+
     <Component Id="CMP_WebRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="F28ACE50-EDFB-4939-9DF2-1022D97F9C8F">
       <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Web">
-        <RegistryValue Id="REG_WebApplicationInstalled" Action="write" Type="string" Name="ServerName" Value="[WEB_APPLICATIONINSTALLED]"/>
-        <RegistryValue Id="REG_WebApplicationPath" Action="write" Type="string" Name="ServerName" Value="[WEB_APPLICATIONPATH]"/>
+        <RegistryValue Id="REG_WebApplicationInstalled" Action="write" Type="string" Name="ApplicationInstalled" Value="[WEB_APPLICATIONINSTALLED]"/>
+        <RegistryValue Id="REG_WebApplicationPath" Action="write" Type="string" Name="ApplicationPath" Value="[WEB_APPLICATIONPATH]"/>
       </RegistryKey>
     </Component>
-    
+
     <CustomAction Id="PopulateWebSites" BinaryKey="InstallersDll" DllEntry="PopulateWebSites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
     <CustomAction Id="CreateCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="CreateCprBrokerWebsite" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
-    
+    <CustomAction Id="RemoveCprBrokerWebSite" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerWebSite" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
     <InstallUISequence >
       <Custom Action="PopulateWebSites" After="CostFinalize"/>
     </InstallUISequence>
 
     <InstallUISequence>
       <Custom Action="CreateCprBrokerWebsite" After="ExecuteAction"/>
+      <Custom Action="RemoveCprBrokerWebSite" After="ExecuteAction">
+        (NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")
+      </Custom>
     </InstallUISequence>
 
   </Fragment>
