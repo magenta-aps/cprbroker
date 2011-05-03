@@ -7,7 +7,7 @@
     <DirectoryRef Id="TARGETDIR"/>
 
     <?include Conditions.wxi?>
-    <?include Dialogs.wxi?>
+    <?include Dialogs/Dialogs.wxi?>
     
     <FeatureRef Id="CprBrokerFeature"/>
     <FeatureRef Id="DprUpdateFeature"/>
