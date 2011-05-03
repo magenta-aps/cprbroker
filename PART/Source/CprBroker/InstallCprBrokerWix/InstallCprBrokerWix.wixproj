@@ -13,9 +13,19 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\CprBrokerInstallers\</DefineConstants>
+    <DefineConstants>Debug;bannerBmp=Bitmaps\bannrbmp.bmp;
+      dialogBmp=$(MSBuildProjectDirectory)\Bitmaps\dlgbmp.bmp;
+      exclamationIco=$(MSBuildProjectDirectory)\Bitmaps\exclamic.ico;
+      infoIco=$(MSBuildProjectDirectory)\Bitmaps\info.ico;
+      licenseRtf=$(MSBuildProjectDirectory)\license.rtf;
+      newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;
+      upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;
+      printeulaDll=$(OutputPath)\PrintEula.dll;
+      SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\CprBrokerInstallers\;</DefineConstants>
     <SuppressIces>
     </SuppressIces>
+    <LinkerAdditionalOptions>
+    </LinkerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -32,10 +42,7 @@
     <Compile Include="DprUpdate\DprUpdate.wxs" />
     <Compile Include="DprUpdate\Directories.wxs" />
     <Compile Include="DprUpdate\Files.wxs" />
-    <Compile Include="Exit.wxs" />
-    <Compile Include="FatalErrorDlg.wxs" />
     <Compile Include="PersonMaster\PersonMaster.wxs" />
-    <Compile Include="UserExitDlg.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +75,14 @@
     <Content Include="Conditions.wxi" />
     <Content Include="CprBroker\Directories.wxi" />
     <Content Include="CprBroker\Files.wxi" />
-    <Content Include="Dialogs\Dialogs.wxi" />
+    <Content Include="Dialogs\Bitmaps\bannrbmp.bmp" />
+    <Content Include="Dialogs\Bitmaps\dlgbmp.bmp" />
+    <Content Include="Dialogs\Bitmaps\exclamic.ico" />
+    <Content Include="Dialogs\Bitmaps\info.ico" />
+    <Content Include="Dialogs\Bitmaps\New.ico" />
+    <Content Include="Dialogs\Bitmaps\Up.ico" />
+    <Compile Include="Dialogs\Dialogs.wxs" />
+    <Content Include="Dialogs\License.rtf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CprBrokerWixInstallers\CprBrokerWixInstallers.csproj">
@@ -82,10 +96,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CprBroker" />
+    <Folder Include="Dialogs\Bitmaps\" />
     <Folder Include="DprUpdate" />
     <Folder Include="Common" />
     <Folder Include="Dialogs" />
     <Folder Include="PersonMaster" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dialogs\en-us.wxl" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
