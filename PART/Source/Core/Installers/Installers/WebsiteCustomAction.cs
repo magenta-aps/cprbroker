@@ -343,38 +343,30 @@ namespace CprBroker.Installers.Installers
 
         public static void EncryptDataProviderKeys(string configFilePath, string site, string app)
         {
-            System.Windows.Forms.MessageBox.Show("Will Encrypt data providers");
-            //try
+            CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection));
+            CopyTypeAssemblyFileToNetFramework(typeof(DataProvidersConfigurationSection));
+
+            Utilities.Installation.RemoveSectionNode(configFilePath, DataProviderKeysSection.SectionName);
+            var dataProvidersNode = Utilities.Installation.RemoveSectionNode(configFilePath, DataProvidersConfigurationSection.SectionName);
+
+            var config = Utilities.Installation.OpenConfigFile(configFilePath);
+            DataProviderKeysSection.RegisterInConfig(config);
+
+            RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, site, app));
+
+            if (dataProvidersNode != null)
             {
-                CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection));
-                CopyTypeAssemblyFileToNetFramework(typeof(DataProvidersConfigurationSection));
-
-                Utilities.Installation.RemoveSectionNode(configFilePath, DataProviderKeysSection.SectionName);
-                var dataProvidersNode = Utilities.Installation.RemoveSectionNode(configFilePath, DataProvidersConfigurationSection.SectionName);
-
-                var config = Utilities.Installation.OpenConfigFile(configFilePath);
-                DataProviderKeysSection.RegisterInConfig(config);
-
-                RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, site, app));
-
-                if (dataProvidersNode != null)
-                {
-                    Utilities.Installation.AddSectionNode(dataProvidersNode, configFilePath, Constants.DataProvidersSectionGroupName);
-                }
-
-                Dictionary<string, string> dic = new Dictionary<string, string>();
-                dic["name"] = DataProvidersConfigurationSection.SectionName;
-                dic["type"] = typeof(DataProvidersConfigurationSection).AssemblyQualifiedName;
-
-                Utilities.Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", Constants.DataProvidersSectionGroupName));
-
-                DeleteTypeAssemblyFileFroNetFramework(typeof(DataProviderKeysSection));
-                DeleteTypeAssemblyFileFroNetFramework(typeof(DataProvidersConfigurationSection));
+                Utilities.Installation.AddSectionNode(dataProvidersNode, configFilePath, Constants.DataProvidersSectionGroupName);
             }
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic["name"] = DataProvidersConfigurationSection.SectionName;
+            dic["type"] = typeof(DataProvidersConfigurationSection).AssemblyQualifiedName;
+
+            Utilities.Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", Constants.DataProvidersSectionGroupName));
+
+            DeleteTypeAssemblyFileFroNetFramework(typeof(DataProviderKeysSection));
+            DeleteTypeAssemblyFileFroNetFramework(typeof(DataProvidersConfigurationSection));
         }
 
         private static void EncryptConnectionStrings(string site, string app)

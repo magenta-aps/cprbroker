@@ -29,12 +29,16 @@
       <Custom Action="PopulateWebSites" After="CostFinalize"/>
     </InstallUISequence>
 
-    <InstallUISequence>
-      <Custom Action="CreateCprBrokerWebsite" After="ExecuteAction"/>
-      <Custom Action="RemoveCprBrokerWebSite" After="ExecuteAction">
-        (NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")
+    <InstallExecuteSequence>
+      <Custom Action="CreateCprBrokerWebsite" Before="WriteRegistryValues">
+        NOT REMOVE
       </Custom>
-    </InstallUISequence>
+      <Custom Action="RemoveCprBrokerWebSite" Before="RemoveRegistryValues">
+        <![CDATA[
+        REMOVE = "ALL"
+        ]]>
+      </Custom>
+    </InstallExecuteSequence>
 
   </Fragment>
 </Wix>
