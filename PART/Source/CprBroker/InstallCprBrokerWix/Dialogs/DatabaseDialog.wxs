@@ -94,7 +94,7 @@
         <!--Navigation buttons-->
         <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
           <Publish Order="1" Event="DoAction" Value="TestConnection">1</Publish>
-          <Publish Order="2" Event="DoAction" Value="ShowFailure"><![CDATA[DB_VALID <> "True"]]></Publish>          
+          <Publish Order="2" Event="DoAction" Value="ShowFailure"><![CDATA[DB_VALID <> "True"]]></Publish>
         </Control>
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
 
