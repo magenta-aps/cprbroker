@@ -54,8 +54,8 @@
           <RegistryValue Id="REG_DbAdminUserName" Action="write" Type="string" Name="AdminUserName" Value="[DB_ADMINUSERNAME]"/>
           <RegistryValue Id="REG_DbAdminPassword" Action="write" Type="string" Name="AdminPassword" Value="[DB_ADMINPASSWORD]"/>
         </RegistryKey>
-
       </Component>
+
     </ComponentGroup>
 
     <CustomAction Id="FinalizeCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="FinalizeCprBrokerDatabase" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
