@@ -85,7 +85,8 @@
     </UI>
 
     <InstallUISequence>
-      <Show Dialog="WelcomeDlg" Before="ExecuteAction" ></Show>
+      <Show Dialog="WelcomeDlg"  Before="ProgressDlg"></Show>
+      <Show Dialog="ProgressDlg" Before="ExecuteAction" ></Show>      
     </InstallUISequence>
 
   </Fragment>
