@@ -81,6 +81,7 @@
     <Content Include="Dialogs\Bitmaps\info.ico" />
     <Content Include="Dialogs\Bitmaps\New.ico" />
     <Content Include="Dialogs\Bitmaps\Up.ico" />
+    <Compile Include="Dialogs\RemoveDatabaseDialog.wxs" />
     <Compile Include="Dialogs\Dialogs.wxs" />
     <Content Include="Dialogs\License.rtf" />
   </ItemGroup>

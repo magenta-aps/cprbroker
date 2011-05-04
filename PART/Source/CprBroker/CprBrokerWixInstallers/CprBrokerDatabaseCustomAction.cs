@@ -35,5 +35,11 @@ namespace CprBrokerWixInstallers
 
             return DatabaseCustomAction.FinalizeDatabase(session, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.CreatePartDatabaseObjects, ret.ToArray());
         }
+
+        [CustomAction]
+        public static ActionResult RemoveCprBrokerDatabase(Session session)
+        {
+            return DatabaseCustomAction.RemoveCprBrokerDatabase(session);
+        }
     }
 }

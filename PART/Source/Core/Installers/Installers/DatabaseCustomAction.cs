@@ -62,11 +62,23 @@ namespace CprBroker.Installers.Installers
             return ret;
         }
 
+        public static ActionResult RemoveCprBrokerDatabase(Session session)
+        {
+            DatabaseSetupInfo setupInfo = GetDatabaseSetupInfo(session);
+            Server dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
+            if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && dbServer.Databases.Contains(setupInfo.DatabaseName))
+            {
+                dbServer.KillAllProcesses(setupInfo.DatabaseName);
+                dbServer.KillDatabase(setupInfo.DatabaseName);
+            }
+            return ActionResult.Success;
+        }
+
         public static ActionResult FinalizeDatabase(Session session, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
         {
             DatabaseSetupInfo setupInfo = GetDatabaseSetupInfo(session);
             //setupInfo.DatabaseCreated = CreateDatabase(setupInfo, createDatabaseObjectsSql, lookupDataArray);
-            InsertLookups(setupInfo.CreateConnectionString(true, true), lookupDataArray); 
+            InsertLookups(setupInfo.CreateConnectionString(true, true), lookupDataArray);
             CreateDatabaseUser(setupInfo);
             //SetConnectionStrings(stateSaver);
             //savedStateWrapper.ClearDatabaseSensitiveDate();
