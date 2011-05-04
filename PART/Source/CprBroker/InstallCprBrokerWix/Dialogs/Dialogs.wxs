@@ -85,11 +85,6 @@
     </UI>
 
     <InstallUISequence>
-      <Show Dialog="RemoveDatabaseDialog" After="CostFinalize">
-        <![CDATA[
-          REMOVE="ALL"
-        ]]>
-      </Show>
       <Show Dialog="WelcomeDlg"  Before="ProgressDlg"></Show>
       <Show Dialog="ProgressDlg" Before="ExecuteAction" ></Show>
     </InstallUISequence>

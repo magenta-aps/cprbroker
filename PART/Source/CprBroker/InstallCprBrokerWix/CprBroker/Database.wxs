@@ -24,8 +24,7 @@
     <Property Id="DB_APPPASSWORD" Value="CprBroker" />
 
     <Property Id="DB_VALID" Value="False"/>
-    <Property Id="DB_REMOVEDATABASE" Value="False" />
-
+    
     <util:User Id="SQL_AdminUser" Name="[DB_ADMINUSERNAME]" Password="[DB_ADMINPASSWORD]" />
     <Binary Id="BIN_CreateDatabaseObjectsScript" SourceFile="$(var.InstallersPath)Resources\CreatePartDatabaseObjects.sql"/>
 
@@ -60,18 +59,21 @@
     </ComponentGroup>
 
     <CustomAction Id="FinalizeCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="FinalizeCprBrokerDatabase" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
-    <CustomAction Id="RemoveCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerDatabase" Execute="immediate" Return="ignore" Impersonate="yes"></CustomAction>
+    <CustomAction Id="RemoveCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerDatabase" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
 
     <InstallUISequence>
       <Custom Action="FinalizeCprBrokerDatabase" After="ExecuteAction">
         NOT REMOVE
-      </Custom>
-      <Custom Action="RemoveCprBrokerDatabase" After="ExecuteAction">
+      </Custom>      
+    </InstallUISequence>
+
+    <InstallExecuteSequence>
+      <Custom Action="RemoveCprBrokerDatabase" After="CostFinalize">
         <![CDATA[
-          REMOVE = "ALL" AND DB_REMOVEDATABASE = "True"
+          REMOVE = "ALL"
         ]]>
       </Custom>
-    </InstallUISequence>
+    </InstallExecuteSequence>
 
   </Fragment>
 </Wix>
