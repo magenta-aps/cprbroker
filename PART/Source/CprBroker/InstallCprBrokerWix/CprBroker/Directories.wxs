@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="MANUFACTURERDIR" Name="ITST">
+          <Directory Id="INSTALLDIR" Name="Cpr Broker">
+            <Directory Id="Web" Name="Web">
+              <Directory Id="bin" Name="bin" />
+              <Directory Id="Config" Name="Config" />
+              <Directory Id="Pages" Name="Pages">
+                <Directory Id="CSS" Name="CSS"/>
+                <Directory Id="Images" Name="Images"/>
+              </Directory>
+              <Directory Id="Services" Name="Services" />
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+  </Fragment>
+</Wix>

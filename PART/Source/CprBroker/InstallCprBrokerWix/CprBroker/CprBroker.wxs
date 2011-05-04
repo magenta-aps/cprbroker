@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 	<Fragment Id="CprBrokerFragment">
-    <?include Files.wxi?>
-    
     <Feature Id="CprBrokerFeature" Title="Cpr Broker" Level="1">
       <ComponentGroupRef Id="CMPGRP_Root"/>
       <ComponentGroupRef Id="CMPGRP_bin"/>

@@ -7,10 +7,8 @@
     <DirectoryRef Id="TARGETDIR"/>
 
     <?include Conditions.wxi?>
-    <!--<?include Dialogs/Dialogs.wxi?>-->
+    
     <UIRef Id="CprBrokerUI"/>
-    <!--<UIRef Id="WixUI_InstallDir"/>-->
-
 
     <FeatureRef Id="CprBrokerFeature"/>
     <FeatureRef Id="DprUpdateFeature"/>

@@ -30,7 +30,7 @@
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="CreateCprBrokerWebsite" Before="WriteRegistryValues">
+      <Custom Action="CreateCprBrokerWebsite" After="InstallFiles">
         NOT REMOVE
       </Custom>
       <Custom Action="RemoveCprBrokerWebSite" Before="RemoveRegistryValues">

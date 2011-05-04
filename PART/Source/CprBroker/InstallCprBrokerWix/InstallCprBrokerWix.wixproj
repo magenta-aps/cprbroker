@@ -73,8 +73,8 @@
     <Content Include="Common\Logging.wxi" />
     <Content Include="Common\Properties.wxi" />
     <Content Include="Conditions.wxi" />
-    <Content Include="CprBroker\Directories.wxi" />
-    <Content Include="CprBroker\Files.wxi" />
+    <Compile Include="CprBroker\Directories.wxs" />
+    <Compile Include="CprBroker\Files.wxs" />
     <Content Include="Dialogs\Bitmaps\bannrbmp.bmp" />
     <Content Include="Dialogs\Bitmaps\dlgbmp.bmp" />
     <Content Include="Dialogs\Bitmaps\exclamic.ico" />
