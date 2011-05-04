@@ -4,113 +4,113 @@
 
     <ComponentGroup Id="CMPGRP_Root">
       <Component Id="CMP_Default_ASPX" Directory="Web">
-        <File Id="FILE_Root_Default_ASPX" Source="$(var.SitePath)Default.aspx"/>
+        <File Id="FILE_Root_Default_ASPX" Source="$(var.SitePath)Default.aspx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_SiteMap" Directory="Web">
-        <File Id="FILE_Root_SiteMap" Source="$(var.SitePath)Web.sitemap"/>
+        <File Id="FILE_Root_SiteMap" Source="$(var.SitePath)Web.sitemap" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Global" Directory="Web">
-        <File Id="FILE_Root_Global" Source="$(var.SitePath)Global.asax"/>
+        <File Id="FILE_Root_Global" Source="$(var.SitePath)Global.asax" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="CMPGRP_Config">
       <Component Id="CMP_Web_CONFIG" Directory="Web">
-        <File Id="FILE_Root_WEB_CONFIG" Source="$(var.SitePath)web.config"/>
+        <File Id="FILE_Root_WEB_CONFIG" Source="$(var.SitePath)web.config" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_ApplicationSettings_CONFIG" Directory="Config">
-        <File Id="FILE_Config_ApplicationSettings_CONFIG" Source="$(var.SitePath)Config\applicationSettings.config"/>
+        <File Id="FILE_Config_ApplicationSettings_CONFIG" Source="$(var.SitePath)Config\applicationSettings.config" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_ConnectionStrings_CONFIG" Directory="Config">
-        <File Id="FILE_Config_ConnectionStrings_CONFIG" Source="$(var.SitePath)Config\connectionStrings.config"/>
+        <File Id="FILE_Config_ConnectionStrings_CONFIG" Source="$(var.SitePath)Config\connectionStrings.config" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_LoggingConfiguration_CONFIG" Directory="Config">
-        <File Id="FILE_Config_LoggingConfiguration_CONFIG" Source="$(var.SitePath)Config\loggingConfiguration.config"/>
+        <File Id="FILE_Config_LoggingConfiguration_CONFIG" Source="$(var.SitePath)Config\loggingConfiguration.config" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_ServicesWeb_CONFIG" Directory="Services">
-        <File Id="FILE_Services_WEB_CONFIG" Source="$(var.SitePath)Services\web.config"/>
+        <File Id="FILE_Services_WEB_CONFIG" Source="$(var.SitePath)Services\web.config" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="CMPGRP_bin">
       <Component Id="CMP_Config_Dll" Directory="bin">
-        <File Id="FILE_bin_Config_DLL" Source="$(var.SitePath)bin\CprBroker.Config.dll"/>
+        <File Id="FILE_bin_Config_DLL" Source="$(var.SitePath)bin\CprBroker.Config.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Data_Dll" Directory="bin">
-        <File Id="FILE_bin_Data_DLL" Source="$(var.SitePath)bin\CprBroker.Data.dll"/>
+        <File Id="FILE_bin_Data_DLL" Source="$(var.SitePath)bin\CprBroker.Data.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Engine_Dll" Directory="bin">
-        <File Id="FILE_bin_Engine_DLL" Source="$(var.SitePath)bin\CprBroker.Engine.dll"/>
+        <File Id="FILE_bin_Engine_DLL" Source="$(var.SitePath)bin\CprBroker.Engine.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Schemas_Dll" Directory="bin">
-        <File Id="FILE_bin_Schemas_DLL" Source="$(var.SitePath)bin\CprBroker.Schemas.dll"/>
+        <File Id="FILE_bin_Schemas_DLL" Source="$(var.SitePath)bin\CprBroker.Schemas.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Utilities_Dll" Directory="bin">
-        <File Id="FILE_bin_Utilities_DLL" Source="$(var.SitePath)bin\CprBroker.Utilities.dll"/>
+        <File Id="FILE_bin_Utilities_DLL" Source="$(var.SitePath)bin\CprBroker.Utilities.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Web_Dll" Directory="bin">
-        <File Id="FILE_bin_Web_DLL" Source="$(var.SitePath)bin\CprBroker.Web.dll"/>
+        <File Id="FILE_bin_Web_DLL" Source="$(var.SitePath)bin\CprBroker.Web.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_DPR_Dll" Directory="bin">
-        <File Id="FILE_bin_DPR_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.DPR.dll"/>
+        <File Id="FILE_bin_DPR_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.DPR.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_KMD_Dll" Directory="bin">
-        <File Id="FILE_bin_KMD_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.KMD.dll"/>
+        <File Id="FILE_bin_KMD_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.KMD.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Local_Dll" Directory="bin">
-        <File Id="FILE_bin_Local_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.dll"/>
+        <File Id="FILE_bin_Local_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.Local.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_PersonMaster_Dll" Directory="bin">
-        <File Id="FILE_bin_PersonMaster_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.PersonMaster.dll"/>
+        <File Id="FILE_bin_PersonMaster_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.PersonMaster.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="CMPGRP_Pages">
       <Component Id="CMP_DataProviders_ASPX" Directory="Pages">
-        <File Id="FILE_Pages_DataProviders_ASPX" Source="$(var.SitePath)Pages\DataProviders.aspx"/>
+        <File Id="FILE_Pages_DataProviders_ASPX" Source="$(var.SitePath)Pages\DataProviders.aspx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_LogEntries_ASPX" Directory="Pages">
-        <File Id="FILE_Pages_LogEntries_ASPX" Source="$(var.SitePath)Pages\LogEntries.aspx"/>
+        <File Id="FILE_Pages_LogEntries_ASPX" Source="$(var.SitePath)Pages\LogEntries.aspx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Applications_ASPX" Directory="Pages">
-        <File Id="FILE_Pages_Applications_ASPX" Source="$(var.SitePath)Pages\Applications.aspx"/>
+        <File Id="FILE_Pages_Applications_ASPX" Source="$(var.SitePath)Pages\Applications.aspx" KeyPath="yes"/>
       </Component>
 
       <Component Id="CMP_CSS" Directory="CSS">
-        <File Id="FILE_CSS" Source="$(var.SitePath)Pages\CSS\style.css"/>
+        <File Id="FILE_CSS" Source="$(var.SitePath)Pages\CSS\style.css" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_IMAGES_Down" Directory="Images">
-        <File Id="FILE_IMAGES_Down" Source="$(var.SitePath)Pages\Images\Down.jpg"/>
+        <File Id="FILE_IMAGES_Down" Source="$(var.SitePath)Pages\Images\Down.jpg" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_IMAGES_left_menu_bg" Directory="Images">
-        <File Id="FILE_IMAGES_left_menu_bg" Source="$(var.SitePath)Pages\Images\left_menu_bg.gif"/>
+        <File Id="FILE_IMAGES_left_menu_bg" Source="$(var.SitePath)Pages\Images\left_menu_bg.gif" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_IMAGES_left_menu_top" Directory="Images">
-        <File Id="FILE_IMAGES_left_menu_top" Source="$(var.SitePath)Pages\Images\left_menu_top.gif"/>
+        <File Id="FILE_IMAGES_left_menu_top" Source="$(var.SitePath)Pages\Images\left_menu_top.gif" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_IMAGES_mid_top" Directory="Images">
-        <File Id="FILE_IMAGES_mid_top" Source="$(var.SitePath)Pages\Images\mid_top.gif"/>
+        <File Id="FILE_IMAGES_mid_top" Source="$(var.SitePath)Pages\Images\mid_top.gif" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_IMAGES_transparency" Directory="Images">
-        <File Id="FILE_IMAGES_transparency" Source="$(var.SitePath)Pages\Images\transparency.gif"/>
+        <File Id="FILE_IMAGES_transparency" Source="$(var.SitePath)Pages\Images\transparency.gif" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_IMAGES_unn_bottom" Directory="Images">
-        <File Id="FILE_IMAGES_unn_bottom" Source="$(var.SitePath)Pages\Images\unn_bottom.gif"/>
+        <File Id="FILE_IMAGES_unn_bottom" Source="$(var.SitePath)Pages\Images\unn_bottom.gif" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_IMAGES_Up" Directory="Images">
-        <File Id="FILE_IMAGES_Up" Source="$(var.SitePath)Pages\Images\Up.jpg"/>
+        <File Id="FILE_IMAGES_Up" Source="$(var.SitePath)Pages\Images\Up.jpg" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="CMPGRP_Services">
       <Component Id="CMP_Admin_ASMX" Directory="Services">
-        <File Id="FILE_Services_Admin_ASPX" Source="$(var.SitePath)Services\Admin.asmx"/>
+        <File Id="FILE_Services_Admin_ASPX" Source="$(var.SitePath)Services\Admin.asmx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Events_ASMX" Directory="Services">
-        <File Id="FILE_Services_Events_ASPX" Source="$(var.SitePath)Services\Events.asmx"/>
+        <File Id="FILE_Services_Events_ASPX" Source="$(var.SitePath)Services\Events.asmx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Part_ASMX" Directory="Services">
-        <File Id="FILE_Services_Part_ASPX" Source="$(var.SitePath)Services\Part.asmx"/>
+        <File Id="FILE_Services_Part_ASPX" Source="$(var.SitePath)Services\Part.asmx" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
