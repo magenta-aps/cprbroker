@@ -35,16 +35,6 @@ namespace CprBroker.Installers.Installers
             //}
         }
 
-        public static string GetWebFolderPath(Session session)
-        {
-            return session["INSTALLDIR"] + "Web\\";
-        }
-
-        public static string GetWebConfigFilePath(Session session)
-        {
-            return GetWebFolderPath(session) + "Web.config";
-        }
-
         private static int GetScriptMapsVersion(DirectoryEntry site)
         {
             PropertyValueCollection vals = site.Properties["ScriptMaps"];

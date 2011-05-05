@@ -71,7 +71,6 @@ namespace CprBroker.Installers.Installers
             {
                 EnsureIISComponents();
 
-                string websitePath = GetWebFolderPath(session);
                 var webInstallationInfo = WebInstallationInfo.FromSession(session);
                 bool exists = webInstallationInfo.TargetEntryExists;
 
@@ -110,7 +109,7 @@ namespace CprBroker.Installers.Installers
 
                                     using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
                                     {
-                                        siteRoot.InvokeSet("Path", websitePath);
+                                        siteRoot.InvokeSet("Path", webInstallationInfo.GetWebFolderPath());
                                         siteRoot.InvokeSet("DefaultDoc", "Default.aspx");
                                         siteRoot.InvokeSet("AppPoolId", appPool.Name);
                                         siteRoot.Invoke("AppCreate", true);
@@ -128,7 +127,7 @@ namespace CprBroker.Installers.Installers
                     {
                         using (DirectoryEntry applicationEntry = exists ? new DirectoryEntry(webInstallationInfo.TargetVirtualDirectoryPath) : websiteEntry.Invoke("Create", "IIsWebVirtualDir", webInstallationInfo.VirtualDirectoryName) as DirectoryEntry)
                         {
-                            applicationEntry.InvokeSet("Path", websitePath);
+                            applicationEntry.InvokeSet("Path", webInstallationInfo.GetWebFolderPath());
                             applicationEntry.Invoke("AppCreate", true);
                             applicationEntry.InvokeSet("AppFriendlyName", webInstallationInfo.VirtualDirectoryName);
                             applicationEntry.InvokeSet("DefaultDoc", "Default.aspx");
@@ -156,7 +155,7 @@ namespace CprBroker.Installers.Installers
 
                 GrantConfigEncryptionAccess();
 
-                var configFilePath = GetWebConfigFilePath(session);
+                var configFilePath = webInstallationInfo.GetWebConfigFilePath();
                 var appRelativePath = webInstallationInfo.GetAppRelativePath();
 
                 // Data provider keys

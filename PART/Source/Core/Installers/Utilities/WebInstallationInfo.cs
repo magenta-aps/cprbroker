@@ -19,6 +19,7 @@ namespace CprBroker.Installers
         public bool ApplicationInstalled;
         public string ApplicationPath;
 
+        public string InstallDir { get; private set; }
 
         public bool TargetEntryExists
         {
@@ -135,6 +136,16 @@ namespace CprBroker.Installers
             {
                 return "/" + VirtualDirectoryName;
             }
+        }
+
+        public string GetWebFolderPath()
+        {
+            return InstallDir + "Web\\";
+        }
+
+        public string GetWebConfigFilePath()
+        {
+            return GetWebFolderPath() + "Web.config";
         }
 
     }
