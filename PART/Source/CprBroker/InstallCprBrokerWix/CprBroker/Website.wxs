@@ -9,11 +9,11 @@
     <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
 
     <Property Id="WEB_APPLICATIONPATH" Value="-">
-      <RegistrySearch Id="RS_WEB_ApplicationPath" Root="HKLM" Key="Software\ITST\CprBroker\Web" Type="raw" Name="ApplicationPath"/>
+      <RegistrySearch Id="RS_WEB_ApplicationPath" Root="HKLM" Key="Software\ITST\CprBroker\Website" Type="raw" Name="ApplicationPath"/>
     </Property>
 
     <Component Id="CMP_WebRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="F28ACE50-EDFB-4939-9DF2-1022D97F9C8F">
-      <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Web">
+      <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Website">
         <RegistryValue Id="REG_WebApplicationPath" Action="write" Type="string" Name="ApplicationPath" Value="[WEB_APPLICATIONPATH]"/>
       </RegistryKey>
     </Component>

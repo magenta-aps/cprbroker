@@ -140,7 +140,7 @@ namespace CprBroker.Installers
 
         public string GetWebFolderPath()
         {
-            return InstallDir + "Web\\";
+            return InstallDir + "Website\\";
         }
 
         public string GetWebConfigFilePath()

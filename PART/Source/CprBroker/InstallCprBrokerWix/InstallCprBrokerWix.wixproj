@@ -82,6 +82,7 @@
     <Content Include="Dialogs\Bitmaps\New.ico" />
     <Content Include="Dialogs\Bitmaps\Up.ico" />
     <Compile Include="Dialogs\Dialogs.wxs" />
+    <Compile Include="Directories.wxs" />
     <Content Include="Dialogs\License.rtf" />
   </ItemGroup>
   <ItemGroup>

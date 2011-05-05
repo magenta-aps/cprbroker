@@ -3,19 +3,19 @@
   <Fragment xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
     <ComponentGroup Id="CMPGRP_Root">
-      <Component Id="CMP_Default_ASPX" Directory="Web">
+      <Component Id="CMP_Default_ASPX" Directory="Website" >
         <File Id="FILE_Root_Default_ASPX" Source="$(var.SitePath)Default.aspx" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_SiteMap" Directory="Web">
+      <Component Id="CMP_SiteMap" Directory="Website">
         <File Id="FILE_Root_SiteMap" Source="$(var.SitePath)Web.sitemap" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_Global" Directory="Web">
+      <Component Id="CMP_Global" Directory="Website">
         <File Id="FILE_Root_Global" Source="$(var.SitePath)Global.asax" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="CMPGRP_Config">
-      <Component Id="CMP_Web_CONFIG" Directory="Web">
+      <Component Id="CMP_Web_CONFIG" Directory="Website">
         <File Id="FILE_Root_WEB_CONFIG" Source="$(var.SitePath)web.config" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_ApplicationSettings_CONFIG" Directory="Config">

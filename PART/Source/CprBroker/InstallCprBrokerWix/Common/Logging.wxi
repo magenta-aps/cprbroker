@@ -2,7 +2,7 @@
 <Include xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
   <ComponentGroup Id="CMPGRP_Logging">
-    <Component Id="CMP_Logging" Directory="Web">
+    <Component Id="CMP_Logging" Directory="Website">
       <File Id="FILE_CprBroker.log" Source="Common/CprBroker.log" >
         <util:PermissionEx User="NT AUTHORITY\NETWORK SERVICE" GenericWrite="yes" />
       </File>
