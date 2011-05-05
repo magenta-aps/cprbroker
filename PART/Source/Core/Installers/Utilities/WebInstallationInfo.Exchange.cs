@@ -20,7 +20,6 @@ namespace CprBroker.Installers
                 WebInstallationInfo ret = new WebInstallationInfo();
                 ret.CreateAsWebsite = session["WEB_CREATEASWEBSITE"] == "True";
                 ret.ApplicationPath = session["WEB_APPLICATIONPATH"];
-                ret.ApplicationInstalled = session["WEB_APPLICATIONINSTALLED"] == "True";
                 ret.VirtualDirectoryName = session["WEB_VIRTUALDIRECTORYNAME"];
                 ret.WebsiteName = session["WEB_SITENAME"];
                 ret.WebsitePath = session["WEB_VIRTUALDIRECTORYSITEPATH"];
@@ -39,7 +38,6 @@ namespace CprBroker.Installers
             {
                 session["WEB_CREATEASWEBSITE"] = this.CreateAsWebsite.ToString();
                 session["WEB_APPLICATIONPATH"] = this.ApplicationPath;
-                session["WEB_APPLICATIONINSTALLED"] = this.ApplicationInstalled.ToString();
                 session["WEB_VIRTUALDIRECTORYNAME"] = this.VirtualDirectoryName;
                 session["WEB_SITENAME"] = this.WebsiteName;
                 session["WEB_VIRTUALDIRECTORYSITEPATH"] = this.WebsitePath;
@@ -52,7 +50,6 @@ namespace CprBroker.Installers
             WebInstallationInfo ret = new WebInstallationInfo();
             ret.CreateAsWebsite = customActionData["WEB_CREATEASWEBSITE"] == "True";
             ret.ApplicationPath = customActionData["WEB_APPLICATIONPATH"];
-            ret.ApplicationInstalled = customActionData["WEB_APPLICATIONINSTALLED"] == "True";
             ret.VirtualDirectoryName = customActionData["WEB_VIRTUALDIRECTORYNAME"];
             ret.WebsiteName = customActionData["WEB_SITENAME"];
             ret.WebsitePath = customActionData["WEB_VIRTUALDIRECTORYSITEPATH"];
@@ -64,7 +61,6 @@ namespace CprBroker.Installers
         {
             customActionData["WEB_CREATEASWEBSITE"] = this.CreateAsWebsite.ToString();
             customActionData["WEB_APPLICATIONPATH"] = this.ApplicationPath;
-            customActionData["WEB_APPLICATIONINSTALLED"] = this.ApplicationInstalled.ToString();
             customActionData["WEB_VIRTUALDIRECTORYNAME"] = this.VirtualDirectoryName;
             customActionData["WEB_SITENAME"] = this.WebsiteName;
             customActionData["WEB_VIRTUALDIRECTORYSITEPATH"] = this.WebsitePath;

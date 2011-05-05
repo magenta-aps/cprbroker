@@ -8,16 +8,12 @@
     <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="CprBroker" />
     <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
 
-    <Property Id="WEB_APPLICATIONINSTALLED" Value="False">
-      <RegistrySearch Id="RS_WEB_ApplicationInstalled" Root="HKLM" Key="Software\ITST\CprBroker\Web" Type="raw" Name="ApplicationInstalled"/>
-    </Property>
     <Property Id="WEB_APPLICATIONPATH" Value="-">
       <RegistrySearch Id="RS_WEB_ApplicationPath" Root="HKLM" Key="Software\ITST\CprBroker\Web" Type="raw" Name="ApplicationPath"/>
     </Property>
 
     <Component Id="CMP_WebRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="F28ACE50-EDFB-4939-9DF2-1022D97F9C8F">
       <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Web">
-        <RegistryValue Id="REG_WebApplicationInstalled" Action="write" Type="string" Name="ApplicationInstalled" Value="[WEB_APPLICATIONINSTALLED]"/>
         <RegistryValue Id="REG_WebApplicationPath" Action="write" Type="string" Name="ApplicationPath" Value="[WEB_APPLICATIONPATH]"/>
       </RegistryKey>
     </Component>
@@ -26,11 +22,11 @@
 
     <Property Id="CreateCprBrokerWebsite" />
     <CustomAction Id="CalculateWebsApplicationPath" BinaryKey="InstallersDll" DllEntry="CalculateWebsApplicationPath" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
-    <CustomAction Id="CreateCprBrokerWebsite_" Property="CreateCprBrokerWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONINSTALLED=[WEB_APPLICATIONINSTALLED];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
+    <CustomAction Id="CreateCprBrokerWebsite_" Property="CreateCprBrokerWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
     <CustomAction Id="CreateCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="CreateCprBrokerWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
     <Property Id="RemoveCprBrokerWebSite" />
-    <CustomAction Id="RemoveCprBrokerWebSite_" Property="RemoveCprBrokerWebSite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONINSTALLED=[WEB_APPLICATIONINSTALLED];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
+    <CustomAction Id="RemoveCprBrokerWebSite_" Property="RemoveCprBrokerWebSite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
     <CustomAction Id="RemoveCprBrokerWebSite" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerWebSite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
     <InstallUISequence >

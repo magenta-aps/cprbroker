@@ -166,7 +166,6 @@ namespace CprBroker.Installers.Installers
                 }
 
                 // Mark as done
-                webInstallationInfo.ApplicationInstalled = true;
                 webInstallationInfo.CopyToSession(session);
 
                 GrantConfigEncryptionAccess();
