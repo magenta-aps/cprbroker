@@ -2,6 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
     <Property Id="DB_ADMININTEGRATEDSECURITY_2222222222222" Value="SSPI"></Property>
+    <Property Id="DB_REMOVEDATABASE" Value="False" />
 
     <UI>
       <Dialog Id="RemoveDatabaseDialog" Width="370" Height="270" Modeless="no" Title="!(loc.RemoveDatabaseDialog_Title)">
@@ -76,5 +77,13 @@
 
       </Dialog>
     </UI>
+
+    <InstallUISequence>
+      <Show Dialog="RemoveDatabaseDialog" After="CostFinalize">
+        <![CDATA[
+          REMOVE="ALL"
+        ]]>
+      </Show>
+    </InstallUISequence>
   </Fragment>
 </Wix>
