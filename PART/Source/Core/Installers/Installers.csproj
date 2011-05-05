@@ -75,6 +75,7 @@
     <Compile Include="Installers\ConnectionStringsInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Installers\WebsiteCustomAction.Helpers.cs" />
     <Compile Include="Installers\DatabaseCustomAction.cs" />
     <Compile Include="Installers\WebsiteCustomAction.cs" />
     <Compile Include="UI\BaseForm.cs">
