@@ -157,6 +157,7 @@
     <Compile Include="Installers\WebSiteInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utilities\WebInstallationInfo.Exchange.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Config\Config.csproj">

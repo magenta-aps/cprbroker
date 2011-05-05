@@ -7,7 +7,7 @@ using System.DirectoryServices;
 namespace CprBroker.Installers
 {
     [Serializable]
-    public class WebInstallationInfo
+    public partial class WebInstallationInfo
     {
         public bool CreateAsWebsite = false;
         public string WebsitePath;

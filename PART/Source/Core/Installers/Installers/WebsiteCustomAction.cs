@@ -72,7 +72,7 @@ namespace CprBroker.Installers.Installers
                 EnsureIISComponents();
 
                 string websitePath = GetWebFolderPath(session);
-                var webInstallationInfo = GetWebInstallationInfo(session);
+                var webInstallationInfo = WebInstallationInfo.FromSession(session);
                 bool exists = webInstallationInfo.TargetEntryExists;
 
                 int siteID = webInstallationInfo.GetSiteId(session);
@@ -106,7 +106,7 @@ namespace CprBroker.Installers.Installers
                                     site.CommitChanges();
 
                                     webInstallationInfo.ApplicationPath = site.Path;
-                                    SetWebInstallationInfo(webInstallationInfo, session);
+                                    webInstallationInfo.CopyToSession(session);
 
                                     using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
                                     {
@@ -134,7 +134,7 @@ namespace CprBroker.Installers.Installers
                             applicationEntry.InvokeSet("DefaultDoc", "Default.aspx");
                             applicationEntry.CommitChanges();
                             webInstallationInfo.ApplicationPath = applicationEntry.Path;
-                            SetWebInstallationInfo(webInstallationInfo, session);
+                            webInstallationInfo.CopyToSession(session);
                         }
                         scriptMapVersion = GetScriptMapsVersion(websiteEntry);
                     }
@@ -152,7 +152,7 @@ namespace CprBroker.Installers.Installers
 
                 // Mark as done
                 webInstallationInfo.ApplicationInstalled = true;
-                SetWebInstallationInfo(webInstallationInfo, session);
+                webInstallationInfo.CopyToSession(session);
 
                 GrantConfigEncryptionAccess();
 
@@ -181,7 +181,7 @@ namespace CprBroker.Installers.Installers
 
         public static ActionResult RemoveWebSite(Session session)
         {
-            var webInstallationInfo = GetWebInstallationInfo(session);
+            var webInstallationInfo = WebInstallationInfo.FromSession(session);
             if (webInstallationInfo.ApplicationInstalled)
             {
                 string applicationDirectoryPath = webInstallationInfo.ApplicationPath;
@@ -224,29 +224,6 @@ namespace CprBroker.Installers.Installers
         public static string GetWebConfigFilePath(Session session)
         {
             return GetWebFolderPath(session) + "Web.config";
-        }
-
-        private static WebInstallationInfo GetWebInstallationInfo(Session session)
-        {
-            WebInstallationInfo ret = new WebInstallationInfo();
-            ret.CreateAsWebsite = session["WEB_CREATEASWEBSITE"] == "True";
-            ret.ApplicationPath = session["WEB_APPLICATIONPATH"];
-            ret.ApplicationInstalled = session["WEB_APPLICATIONINSTALLED"] == "True";
-            ret.VirtualDirectoryName = session["WEB_VIRTUALDIRECTORYNAME"];
-            ret.WebsiteName = session["WEB_SITENAME"];
-            ret.WebsitePath = session["WEB_VIRTUALDIRECTORYSITEPATH"];
-
-            return ret;
-        }
-
-        private static void SetWebInstallationInfo(WebInstallationInfo webInstallationInfo, Session session)
-        {
-            session["WEB_CREATEASWEBSITE"] = webInstallationInfo.CreateAsWebsite.ToString();
-            session["WEB_APPLICATIONPATH"] = webInstallationInfo.ApplicationPath;
-            session["WEB_APPLICATIONINSTALLED"] = webInstallationInfo.ApplicationInstalled.ToString();
-            session["WEB_VIRTUALDIRECTORYNAME"] = webInstallationInfo.VirtualDirectoryName;
-            session["WEB_SITENAME"] = webInstallationInfo.WebsiteName;
-            session["WEB_VIRTUALDIRECTORYSITEPATH"] = webInstallationInfo.WebsitePath;
         }
 
         private static int GetScriptMapsVersion(DirectoryEntry site)
