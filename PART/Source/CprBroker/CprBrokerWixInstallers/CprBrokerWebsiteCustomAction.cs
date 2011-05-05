@@ -17,6 +17,12 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
+        public static ActionResult CalculateWebsApplicationPath(Session session)
+        {
+            return WebsiteCustomAction.CalculateWebsApplicationPath(session);
+        }
+
+        [CustomAction]
         public static ActionResult CreateCprBrokerWebsite(Session session)
         {
             return WebsiteCustomAction.DeployWebsite(session);

@@ -65,6 +65,23 @@ namespace CprBroker.Installers.Installers
         }
 
         [CustomAction]
+        public static ActionResult CalculateWebsApplicationPath(Session session)
+        {
+            var webInstallationInfo = WebInstallationInfo.FromSession(session);
+            if (webInstallationInfo.CreateAsWebsite)
+            {
+                int siteID = webInstallationInfo.GetSiteId(session);
+                webInstallationInfo.ApplicationPath = WebInstallationInfo.ServerRoot + "/" + siteID;
+            }
+            else
+            {
+                webInstallationInfo.ApplicationPath = webInstallationInfo.TargetVirtualDirectoryPath;
+            }
+            webInstallationInfo.CopyToSession(session);
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
         public static ActionResult DeployWebsite(Session session)
         {
             try
@@ -104,7 +121,7 @@ namespace CprBroker.Installers.Installers
                                     site.Invoke("SetInfo");
                                     site.CommitChanges();
 
-                                    webInstallationInfo.ApplicationPath = site.Path;
+
                                     webInstallationInfo.CopyToSession(session);
 
                                     using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
@@ -132,7 +149,6 @@ namespace CprBroker.Installers.Installers
                             applicationEntry.InvokeSet("AppFriendlyName", webInstallationInfo.VirtualDirectoryName);
                             applicationEntry.InvokeSet("DefaultDoc", "Default.aspx");
                             applicationEntry.CommitChanges();
-                            webInstallationInfo.ApplicationPath = applicationEntry.Path;
                             webInstallationInfo.CopyToSession(session);
                         }
                         scriptMapVersion = GetScriptMapsVersion(websiteEntry);
@@ -182,15 +198,12 @@ namespace CprBroker.Installers.Installers
         public static ActionResult RemoveWebSite(Session session)
         {
             var webInstallationInfo = WebInstallationInfo.FromSession(session);
-            if (webInstallationInfo.ApplicationInstalled)
+            string applicationDirectoryPath = webInstallationInfo.ApplicationPath;
+            if (DirectoryEntry.Exists(applicationDirectoryPath))
             {
-                string applicationDirectoryPath = webInstallationInfo.ApplicationPath;
-                if (DirectoryEntry.Exists(applicationDirectoryPath))
+                using (DirectoryEntry applicationEntry = new DirectoryEntry(applicationDirectoryPath))
                 {
-                    using (DirectoryEntry applicationEntry = new DirectoryEntry(applicationDirectoryPath))
-                    {
-                        applicationEntry.DeleteTree();
-                    }
+                    applicationEntry.DeleteTree();
                 }
             }
             return ActionResult.Success;
