@@ -253,5 +253,10 @@ namespace CprBroker.Utilities
         {
             return new WindowHandleWrapper(installer.Context.Parameters["productName"]);
         }
+
+        public static WindowHandleWrapper InstallerWindowWrapper(this Microsoft.Deployment.WindowsInstaller.Session session)
+        {
+            return new WindowHandleWrapper(session["ProductName"]);
+        }
     }
 }

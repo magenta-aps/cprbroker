@@ -6,6 +6,8 @@ using Microsoft.Deployment.WindowsInstaller;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System.Data.SqlClient;
+using System.Windows.Forms;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers.Installers
 {
@@ -65,12 +67,20 @@ namespace CprBroker.Installers.Installers
         public static ActionResult RemoveCprBrokerDatabase(Session session)
         {
             DatabaseSetupInfo setupInfo = GetDatabaseSetupInfo(session);
-            Server dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
-            if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && dbServer.Databases.Contains(setupInfo.DatabaseName))
-            {
-                dbServer.KillAllProcesses(setupInfo.DatabaseName);
-                dbServer.KillDatabase(setupInfo.DatabaseName);
-            }
+             DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
+                {
+                    SetupInfo = setupInfo
+                };
+
+             if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
+             {
+                 Server dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
+                 if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && dbServer.Databases.Contains(setupInfo.DatabaseName))
+                 {
+                     dbServer.KillAllProcesses(setupInfo.DatabaseName);
+                     dbServer.KillDatabase(setupInfo.DatabaseName);
+                 }
+             }
             return ActionResult.Success;
         }
 
