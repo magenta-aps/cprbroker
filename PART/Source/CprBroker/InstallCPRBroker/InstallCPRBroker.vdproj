@@ -129,6 +129,30 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_35E1E414BFA2D8DD86E376E1CE37BD50"
+        "OwnerKey" = "8:_B1A07DEAC27D813A138C40C940182FA9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_35E1E414BFA2D8DD86E376E1CE37BD50"
+        "OwnerKey" = "8:_BD61039FD4E24F1895E1E3F275AE8F3E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_35E1E414BFA2D8DD86E376E1CE37BD50"
+        "OwnerKey" = "8:_635480E675D84B2786973F92EDDAB0AE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_35E1E414BFA2D8DD86E376E1CE37BD50"
+        "OwnerKey" = "8:_6B4DF991B20F9329E8B51CBE3CE109BB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5C911B31852E0EFBCB777C7DEE8AEC67"
         "OwnerKey" = "8:_1322BA6769AF1B3876CDEA2F15806CC5"
         "MsmSig" = "8:_UNDEFINED"
@@ -688,6 +712,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_35E1E414BFA2D8DD86E376E1CE37BD50"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_83B8802900AED58BE2DFF123255E3E43"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1027,6 +1057,37 @@
                     }
                 }
             "SourcePath" = "8:CprBroker.Providers.DPR.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_22620717DF9C4AD6AD6528F2C97D2D66"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_35E1E414BFA2D8DD86E376E1CE37BD50"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_35E1E414BFA2D8DD86E376E1CE37BD50"
+                    {
+                    "Name" = "8:Microsoft.Deployment.WindowsInstaller.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.Deployment.WindowsInstaller.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_22620717DF9C4AD6AD6528F2C97D2D66"
@@ -1695,14 +1756,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CPR Broker"
-        "ProductCode" = "8:{0C26A57B-D528-48E6-BE80-C173969F374A}"
-        "PackageCode" = "8:{1757A82B-2412-4983-BFC0-891DC22C87B0}"
+        "ProductCode" = "8:{CA82502B-17C3-4201-82AE-9B0518BED784}"
+        "PackageCode" = "8:{7A3A7084-C5F8-4461-B2C3-E62942A49E46}"
         "UpgradeCode" = "8:{FF0F6556-3323-43A8-9AB3-E567BEF13F6A}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:ITST"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
