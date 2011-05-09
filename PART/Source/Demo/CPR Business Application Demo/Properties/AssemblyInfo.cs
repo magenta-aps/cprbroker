@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CPR Business Application Demo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Gentofte Kommune")]
+[assembly: AssemblyCompany("ITST")]
 [assembly: AssemblyProduct("CPR Business Application Demo")]
-[assembly: AssemblyCopyright("Copyright © Gentofte Kommune 2009")]
+[assembly: AssemblyCopyright("Copyright (c) 2011 Danish National IT and Tele agency / IT- og Telestyrelsen")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
