@@ -73,6 +73,22 @@ namespace CprBroker.Installers.Installers
             }
         }
 
+        public static ActionResult ValidateConnectionString(Session session)
+        {
+            DatabaseSetupInfo dbInfo = GetDatabaseSetupInfo(session);
+            string message = "";
+            if (dbInfo.Validate(ref message))
+            {
+                session["DB_VALID"] = "True";
+                return ActionResult.Success;
+            }
+            else
+            {
+                session["DB_VALID"] = message;
+                return ActionResult.Failure;
+            }
+        }
+
         private static DatabaseSetupInfo GetDatabaseSetupInfo(Session session)
         {
             DatabaseSetupInfo ret = new DatabaseSetupInfo();
@@ -104,20 +120,20 @@ namespace CprBroker.Installers.Installers
         public static ActionResult RemoveCprBrokerDatabase(Session session)
         {
             DatabaseSetupInfo setupInfo = GetDatabaseSetupInfo(session);
-             DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
-                {
-                    SetupInfo = setupInfo
-                };
+            DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
+               {
+                   SetupInfo = setupInfo
+               };
 
-             if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
-             {
-                 Server dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
-                 if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && dbServer.Databases.Contains(setupInfo.DatabaseName))
-                 {
-                     dbServer.KillAllProcesses(setupInfo.DatabaseName);
-                     dbServer.KillDatabase(setupInfo.DatabaseName);
-                 }
-             }
+            if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
+            {
+                Server dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
+                if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && dbServer.Databases.Contains(setupInfo.DatabaseName))
+                {
+                    dbServer.KillAllProcesses(setupInfo.DatabaseName);
+                    dbServer.KillDatabase(setupInfo.DatabaseName);
+                }
+            }
             return ActionResult.Success;
         }
 

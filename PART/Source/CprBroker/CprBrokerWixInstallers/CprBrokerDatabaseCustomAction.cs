@@ -56,10 +56,16 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
+        public static ActionResult ValidateConnectionString(Session session)
+        {
+            return DatabaseCustomAction.ValidateConnectionString(session);
+        }
+
+        [CustomAction]
         public static ActionResult FinalizeCprBrokerDatabase(Session session)
         {
-             List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
-            ret.Add(new KeyValuePair<string,string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.AddressCoordinateQualityType));
+            List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
+            ret.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.AddressCoordinateQualityType));
             ret.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Applications.Application).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.Application));
             ret.Add(new KeyValuePair<string, string>(typeof(CivilStatusCodeType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.CivilStatusCodeType));
             ret.Add(new KeyValuePair<string, string>(typeof(ContactChannelType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.ContactChannelType));

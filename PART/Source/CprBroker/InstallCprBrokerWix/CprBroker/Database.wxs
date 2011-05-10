@@ -58,21 +58,18 @@
 
     </ComponentGroup>
 
+    <CustomAction Id="ValidateConnectionString" BinaryKey="InstallersDll" DllEntry="ValidateConnectionString" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
     <CustomAction Id="FinalizeCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="FinalizeCprBrokerDatabase" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
     <CustomAction Id="RemoveCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerDatabase" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
-
-    <InstallUISequence>
-      <Custom Action="FinalizeCprBrokerDatabase" After="ExecuteAction">
-        NOT REMOVE
-      </Custom>      
+    
+    
+    <InstallUISequence>      
+      <Custom Action="FinalizeCprBrokerDatabase" After="ExecuteAction">NOT REMOVE</Custom>      
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="RemoveCprBrokerDatabase" After="CostFinalize">
-        <![CDATA[
-          REMOVE = "ALL"
-        ]]>
-      </Custom>
+      <Custom Action="ValidateConnectionString" After="InstallValidate">NOT REMOVE</Custom>
+      <Custom Action="RemoveCprBrokerDatabase" After="CostFinalize"><![CDATA[REMOVE = "ALL"]]></Custom>
     </InstallExecuteSequence>
 
   </Fragment>
