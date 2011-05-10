@@ -231,6 +231,12 @@ namespace CprBroker.Installers.Installers
         }
 
         [CustomAction]
+        public static ActionResult RollbackWebsite(Session session)
+        {
+            return RemoveWebSite(session);
+        }
+
+        [CustomAction]
         public static ActionResult RemoveWebSite(Session session)
         {
             var webInstallationInfo = WebInstallationInfo.FromSession(session);

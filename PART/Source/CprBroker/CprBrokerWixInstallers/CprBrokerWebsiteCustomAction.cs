@@ -66,6 +66,12 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
+        public static ActionResult RollbackCprBrokerWebsite(Session session)
+        {
+            return WebsiteCustomAction.RollbackWebsite(session);
+        }
+
+        [CustomAction]
         public static ActionResult RemoveCprBrokerWebSite(Session session)
         {
             return WebsiteCustomAction.RemoveWebSite(session);

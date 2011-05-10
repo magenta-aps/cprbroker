@@ -48,7 +48,7 @@ namespace CprBroker.Installers
 
         public static WebInstallationInfo FromSession(Session session)
         {
-            if (session.GetMode(InstallRunMode.Scheduled))
+            if (session.GetMode(InstallRunMode.Scheduled) || session.GetMode(InstallRunMode.Rollback))
             {
                 return FromCustomAction(session.CustomActionData);
             }
@@ -67,7 +67,7 @@ namespace CprBroker.Installers
 
         public void CopyToSession(Session session)
         {
-            if (session.GetMode(InstallRunMode.Scheduled))
+            if (session.GetMode(InstallRunMode.Scheduled) || session.GetMode(InstallRunMode.Rollback))
             {
                 this.CopyToCustomActionData(session.CustomActionData);
             }

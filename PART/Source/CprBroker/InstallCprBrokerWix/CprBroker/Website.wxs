@@ -22,6 +22,10 @@
 
     <Property Id="CreateCprBrokerWebsite" />
     <CustomAction Id="CalculateWebsApplicationPath" BinaryKey="InstallersDll" DllEntry="CalculateWebsApplicationPath" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
+
+    <CustomAction Id="RollbackCprBrokerWebsite_" Property="RollbackCprBrokerWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
+    <CustomAction Id="RollbackCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="RollbackCprBrokerWebsite" Execute="rollback" Return="check" Impersonate="no"></CustomAction>
+
     <CustomAction Id="CreateCprBrokerWebsite_" Property="CreateCprBrokerWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
     <CustomAction Id="CreateCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="CreateCprBrokerWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
@@ -35,8 +39,12 @@
 
     <InstallExecuteSequence>
       <Custom Action="CalculateWebsApplicationPath" After="InstallInitialize">NOT REMOVE</Custom>
+
+      <Custom Action="RollbackCprBrokerWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="RollbackCprBrokerWebsite" After="InstallFiles">NOT REMOVE</Custom>
+
       <Custom Action="CreateCprBrokerWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="CreateCprBrokerWebsite" After="InstallFiles">NOT REMOVE</Custom>
+      <Custom Action="CreateCprBrokerWebsite" After="RollbackCprBrokerWebsite">NOT REMOVE</Custom>
 
       <Custom Action="RemoveCprBrokerWebSite_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
       <Custom Action="RemoveCprBrokerWebSite" Before="RemoveRegistryValues"><![CDATA[REMOVE = "ALL"]]></Custom>
