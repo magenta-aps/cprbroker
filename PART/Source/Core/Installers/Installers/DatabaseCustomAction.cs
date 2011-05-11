@@ -46,7 +46,7 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using CprBroker.Utilities;
 
-namespace CprBroker.Installers.Installers
+namespace CprBroker.Installers
 {
     public class DatabaseCustomAction
     {
@@ -54,7 +54,7 @@ namespace CprBroker.Installers.Installers
         {
             try
             {
-                DatabaseSetupInfo dbInfo = GetDatabaseSetupInfo(session);
+                DatabaseSetupInfo dbInfo = DatabaseSetupInfo.FromSession(session);
                 string message = "";
                 if (dbInfo.Validate(ref message))
                 {
@@ -75,7 +75,7 @@ namespace CprBroker.Installers.Installers
 
         public static ActionResult ValidateConnectionString(Session session)
         {
-            DatabaseSetupInfo dbInfo = GetDatabaseSetupInfo(session);
+            DatabaseSetupInfo dbInfo = DatabaseSetupInfo.FromSession(session);
             string message = "";
             if (dbInfo.Validate(ref message))
             {
@@ -89,37 +89,11 @@ namespace CprBroker.Installers.Installers
             }
         }
 
-        private static DatabaseSetupInfo GetDatabaseSetupInfo(Session session)
-        {
-            DatabaseSetupInfo ret = new DatabaseSetupInfo();
-            ret.ServerName = session["DB_SERVERNAME"];
-            ret.DatabaseName = session["DB_DATABASENAME"];
-
-            ret.AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-            ret.AdminAuthenticationInfo.IntegratedSecurity = session["DB_ADMININTEGRATEDSECURITY"] == "SSPI";
-            if (!ret.AdminAuthenticationInfo.IntegratedSecurity)
-            {
-                ret.AdminAuthenticationInfo.UserName = session["DB_ADMINUSERNAME"];
-                ret.AdminAuthenticationInfo.Password = session["DB_ADMINPASSWORD"];
-            }
-
-            ret.ApplicationAuthenticationSameAsAdmin = !string.IsNullOrEmpty(session["DB_APPSAMEASADMIN"]);
-            if (!ret.ApplicationAuthenticationSameAsAdmin)
-            {
-                ret.ApplicationAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-                ret.ApplicationAuthenticationInfo.IntegratedSecurity = session["DB_APPINTEGRATEDSECURITY"] == "SSPI";
-                if (!ret.ApplicationAuthenticationInfo.IntegratedSecurity)
-                {
-                    ret.ApplicationAuthenticationInfo.UserName = session["DB_APPUSERNAME"];
-                    ret.ApplicationAuthenticationInfo.Password = session["DB_APPPASSWORD"];
-                }
-            }
-            return ret;
-        }
+       
 
         public static ActionResult RemoveCprBrokerDatabase(Session session)
         {
-            DatabaseSetupInfo setupInfo = GetDatabaseSetupInfo(session);
+            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
             DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
                {
                    SetupInfo = setupInfo
@@ -139,7 +113,7 @@ namespace CprBroker.Installers.Installers
 
         public static ActionResult FinalizeDatabase(Session session, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
         {
-            DatabaseSetupInfo setupInfo = GetDatabaseSetupInfo(session);
+            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
             //setupInfo.DatabaseCreated = CreateDatabase(setupInfo, createDatabaseObjectsSql, lookupDataArray);
             InsertLookups(setupInfo.CreateConnectionString(true, true), lookupDataArray);
             CreateDatabaseUser(setupInfo);

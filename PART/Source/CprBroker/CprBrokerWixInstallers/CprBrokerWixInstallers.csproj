@@ -55,8 +55,7 @@
     <Reference Include="Microsoft.Deployment.WindowsInstaller" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CprBrokerDatabaseCustomAction.cs" />
-    <Compile Include="CprBrokerWebsiteCustomAction.cs" />
+    <Compile Include="CprBrokerCustomActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -47,11 +47,11 @@ using System.IO;
 using CprBroker.Engine;
 using CprBroker.Utilities;
 
-namespace CprBroker.Installers.Installers
+namespace CprBroker.Installers
 {
     public partial class WebsiteCustomAction
     {
-       
+
         /// <summary>
         /// Tries to access IIS via directory services to make sure that all IIS components are installed
         /// Throws exception if failed
@@ -190,6 +190,14 @@ namespace CprBroker.Installers.Installers
 
             DeleteTypeAssemblyFileFroNetFramework(typeof(DataProviderKeysSection));
             DeleteTypeAssemblyFileFroNetFramework(typeof(DataProvidersConfigurationSection));
+        }
+
+        private static void SetConnectionStrings(string configFilePath, Dictionary<string, string> connectionStrings)
+        {
+            foreach (KeyValuePair<string, string> connectionString in connectionStrings)
+            {
+                Utilities.Installation.SetConnectionStringInConfigFile(configFilePath, connectionString.Key, connectionString.Value);
+            }
         }
 
         private static void EncryptConnectionStrings(string site, string app)

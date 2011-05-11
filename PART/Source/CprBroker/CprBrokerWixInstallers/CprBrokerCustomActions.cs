@@ -40,7 +40,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
-using CprBroker.Installers.Installers;
+using CprBroker.Installers;
 using CprBroker.Installers.CprBrokerInstallers;
 using CprBroker.Data.Part;
 using CprBroker.Data.Applications;
@@ -84,5 +84,34 @@ namespace CprBrokerWixInstallers
         {
             return DatabaseCustomAction.RemoveCprBrokerDatabase(session);
         }
+
+        [CustomAction]
+        public static ActionResult PopulateWebSites(Session session)
+        {
+            return WebsiteCustomAction.PopulateWebSites(session);
+        }
+
+        [CustomAction]
+        public static ActionResult CreateCprBrokerWebsite(Session session)
+        {
+            Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+
+            connectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"] = databaseSetupInfo.CreateConnectionString(false, true);
+            return WebsiteCustomAction.DeployWebsite(session, connectionStrings);
+        }
+
+        [CustomAction]
+        public static ActionResult RollbackCprBrokerWebsite(Session session)
+        {
+            return WebsiteCustomAction.RollbackWebsite(session);
+        }
+
+        [CustomAction]
+        public static ActionResult RemoveCprBrokerWebSite(Session session)
+        {
+            return WebsiteCustomAction.RemoveWebSite(session);
+        }
+
     }
 }

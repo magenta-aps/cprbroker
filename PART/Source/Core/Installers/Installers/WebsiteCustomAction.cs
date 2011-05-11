@@ -47,7 +47,7 @@ using System.IO;
 using CprBroker.Engine;
 using CprBroker.Utilities;
 
-namespace CprBroker.Installers.Installers
+namespace CprBroker.Installers
 {
     public partial class WebsiteCustomAction
     {
@@ -101,7 +101,7 @@ namespace CprBroker.Installers.Installers
         }
 
         [CustomAction]
-        public static ActionResult DeployWebsite(Session session)
+        public static ActionResult DeployWebsite(Session session, Dictionary<string, string> connectionStrings)
         {
             try
             {
@@ -200,8 +200,9 @@ namespace CprBroker.Installers.Installers
                 // Logging flat file access
                 InitializeFlatFileLogging(configFilePath);
 
-                // Set connection strings and enqueue their encryption
-                ConnectionStringsInstaller.RegisterCommitAction(configFilePath, () => EncryptConnectionStrings(siteID.ToString(), appRelativePath));
+                // Set and encrypt connection strings and enqueue their encryption
+                SetConnectionStrings(configFilePath, connectionStrings);
+                EncryptConnectionStrings(siteID.ToString(), appRelativePath);
             }
             catch (InstallException ex)
             {

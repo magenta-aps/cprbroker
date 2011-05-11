@@ -42,6 +42,7 @@ using System.Text;
 using System.Data.SqlClient;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
+using Microsoft.Deployment.WindowsInstaller;
 
 namespace CprBroker.Installers
 {
@@ -304,6 +305,45 @@ namespace CprBroker.Installers
         public void ClearSensitiveDate()
         {
             ApplicationAuthenticationInfo = new AuthenticationInfo();
+        }
+
+        public static DatabaseSetupInfo FromSession(Session session)
+        {
+            DatabaseSetupInfo ret = new DatabaseSetupInfo();
+            Func<string, string> propGetter = null;
+
+            if (session.GetMode(InstallRunMode.Scheduled) || session.GetMode(InstallRunMode.Rollback))
+            {
+                 propGetter= (key) => session.CustomActionData[key];
+            }
+            else
+            {
+                propGetter= (key) => session[key];
+            }
+
+            ret.ServerName = propGetter("DB_SERVERNAME");
+            ret.DatabaseName = propGetter("DB_DATABASENAME");
+
+            ret.AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
+            ret.AdminAuthenticationInfo.IntegratedSecurity = propGetter("DB_ADMININTEGRATEDSECURITY") == "SSPI";
+            if (!ret.AdminAuthenticationInfo.IntegratedSecurity)
+            {
+                ret.AdminAuthenticationInfo.UserName = propGetter("DB_ADMINUSERNAME");
+                ret.AdminAuthenticationInfo.Password = propGetter("DB_ADMINPASSWORD");
+            }
+
+            ret.ApplicationAuthenticationSameAsAdmin = !string.IsNullOrEmpty(propGetter("DB_APPSAMEASADMIN"));
+            if (!ret.ApplicationAuthenticationSameAsAdmin)
+            {
+                ret.ApplicationAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
+                ret.ApplicationAuthenticationInfo.IntegratedSecurity = propGetter("DB_APPINTEGRATEDSECURITY") == "SSPI";
+                if (!ret.ApplicationAuthenticationInfo.IntegratedSecurity)
+                {
+                    ret.ApplicationAuthenticationInfo.UserName = propGetter("DB_APPUSERNAME");
+                    ret.ApplicationAuthenticationInfo.Password = propGetter("DB_APPPASSWORD");
+                }
+            }
+            return ret;
         }
 
     }
