@@ -75,6 +75,7 @@
     <Compile Include="Installers\ConnectionStringsInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Installers\DatabaseCustomAction.Helpers.cs" />
     <Compile Include="Installers\WebsiteCustomAction.Helpers.cs" />
     <Compile Include="Installers\DatabaseCustomAction.cs" />
     <Compile Include="Installers\WebsiteCustomAction.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="UI\DropDatabaseForm.Designer.cs">
       <DependentUpon>DropDatabaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\DatabaseSetupInfo.Exchange.cs" />
     <Compile Include="Utilities\Impersonation.cs" />
     <Compile Include="UI\LoginInfo.cs">
       <SubType>UserControl</SubType>

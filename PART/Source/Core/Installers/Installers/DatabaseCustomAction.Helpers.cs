@@ -1,0 +1,166 @@
+﻿/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS"basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ *
+ * The Initial Developer of the Original Code is
+ * IT- og Telestyrelsen / Danish National IT and Telecom Agency.
+ *
+ * Contributor(s):
+ * Beemen Beshara
+ * Niels Elgaard Larsen
+ * Leif Lodahl
+ * Steen Deth
+ *
+ * Alternatively, the contents of this file may be used under the terms of
+ * either the GNU General Public License Version 2 or later (the "GPL"), or
+ * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ * in which case the provisions of the GPL or the LGPL are applicable instead
+ * of those above. If you wish to allow use of your version of this file only
+ * under the terms of either the GPL or the LGPL, and not to allow others to
+ * use your version of this file under the terms of the MPL, indicate your
+ * decision by deleting the provisions above and replace them with the notice
+ * and other provisions required by the GPL or the LGPL. If you do not delete
+ * the provisions above, a recipient may use your version of this file under
+ * the terms of any one of the MPL, the GPL or the LGPL.
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Deployment.WindowsInstaller;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+using CprBroker.Utilities;
+
+namespace CprBroker.Installers
+{
+    public static partial class DatabaseCustomAction
+    {
+
+        private static bool CreateDatabase(DatabaseSetupInfo setupInfo, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
+        {
+            string adminConnectionString = setupInfo.CreateConnectionString(true, false);
+            ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
+            Server dbServer = new Server(dbServerConnection);
+
+            if (!dbServer.Databases.Contains(setupInfo.DatabaseName))
+            {
+                var db = new Microsoft.SqlServer.Management.Smo.Database(dbServer, setupInfo.DatabaseName);
+                db.Create();
+                string sql = createDatabaseObjectsSql;
+                db.ExecuteNonQuery(sql);
+                InsertLookups(setupInfo.CreateConnectionString(true, true), lookupDataArray);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Creates a new user in the database if needed
+        /// </summary>
+        private static void CreateDatabaseUser(DatabaseSetupInfo setupInfo)
+        {
+            if (!setupInfo.ApplicationAuthenticationSameAsAdmin)
+            {
+                string adminConnectionString = setupInfo.CreateConnectionString(true, false);
+                ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
+                Server dbServer = new Server(dbServerConnection);
+
+
+                var db = dbServer.Databases[setupInfo.DatabaseName];
+
+                string userName;
+                LoginType loginType;
+                Action<Login> createLoginMethod;
+
+                if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+                {
+                    userName = @"NT AUTHORITY\NETWORK SERVICE";
+                    loginType = LoginType.WindowsUser;
+                    createLoginMethod = (login) => login.Create();
+                }
+                else
+                {
+                    userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                    loginType = LoginType.SqlLogin;
+                    createLoginMethod = (login) => login.Create(setupInfo.EffectiveApplicationAuthenticationInfo.Password);
+                }
+                User[] usersArray = new User[db.Users.Count];
+                db.Users.CopyTo(usersArray, 0);
+                var existingUser = (
+                    from User user in usersArray
+                    where user.Name.ToLower() == userName.ToLower() || user.Login.ToLower() == userName.ToLower()
+                    select user
+                    ).FirstOrDefault();
+
+                if (existingUser == null)
+                {
+                    if (!dbServer.Logins.Contains(userName))
+                    {
+                        Login newLogin = new Login(dbServer, userName);
+                        newLogin.PasswordPolicyEnforced = false;
+                        newLogin.LoginType = loginType;
+                        createLoginMethod(newLogin);
+                    }
+                    User newUser = new User(db, userName);
+                    newUser.Login = newUser.Name;
+                    newUser.Create();
+                    newUser.AddToRole("db_owner");
+                }
+            }
+        }
+
+        private static void InsertLookups(string connectionString, KeyValuePair<string, string>[] lookupDataArray)
+        {
+            foreach (var lookupData in lookupDataArray)
+            {
+                string tableName = lookupData.Key;
+                string csv = lookupData.Value;
+
+                string[] lines = csv.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] columnNames = lines[0].Split(';');
+                columnNames = columnNames.Select(c => string.Format("[{0}]", c)).ToArray();
+
+                string sql = "";
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    sql += string.Format("INSERT INTO [{0}] (", tableName);
+                    sql += string.Join(",", columnNames);
+                    sql += ") VALUES (";
+
+                    string[] values = lines[i].Split(';');
+                    values = values.Select(v => string.Format("'{0}'", v)).ToArray();
+                    sql += string.Join(",", values);
+                    sql += ")" + Environment.NewLine;
+                }
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(sql, conn))
+                    {
+                        conn.Open();
+                        int result = command.ExecuteNonQuery();
+                        object o = "";
+                    }
+                }
+            }
+        }
+    }
+}

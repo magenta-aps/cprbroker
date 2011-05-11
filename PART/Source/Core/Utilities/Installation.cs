@@ -257,8 +257,8 @@ namespace CprBroker.Utilities
             targetNode.Attributes.RemoveAll();
             foreach (XmlAttribute sourceAttribute in sourceNode.Attributes)
             {
-                var targetAttribute=targetNode.OwnerDocument.CreateAttribute(sourceAttribute.Name);
-                targetAttribute.Value=sourceAttribute.Value;
+                var targetAttribute = targetNode.OwnerDocument.CreateAttribute(sourceAttribute.Name);
+                targetAttribute.Value = sourceAttribute.Value;
                 targetNode.Attributes.Append(targetAttribute);
             }
             targetNode.InnerXml = sourceNode.InnerXml;
@@ -293,7 +293,36 @@ namespace CprBroker.Utilities
 
         public static WindowHandleWrapper InstallerWindowWrapper(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            return new WindowHandleWrapper(session["ProductName"]);
+            return new WindowHandleWrapper(session.GetPropertyValue("ProductName"));
+        }
+
+        public static bool IsInDeferredMode(this Microsoft.Deployment.WindowsInstaller.Session session)
+        {
+            return session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Scheduled) || session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Rollback);
+        }
+
+        public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
+        {
+            if (session.IsInDeferredMode())
+            {
+                return session.CustomActionData[propName];
+            }
+            else
+            {
+                return session[propName];
+            }
+        }
+
+        public static void SetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string propValue)
+        {
+            if (session.IsInDeferredMode())
+            {
+                session.CustomActionData[propName] = propValue;
+            }
+            else
+            {
+                session[propName] = propValue;
+            }
         }
     }
 }

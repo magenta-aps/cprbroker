@@ -8,7 +8,10 @@
     <Property Id="DB_DATABASENAME" Value="CprBroker" >
       <RegistrySearch Id="RS_DbDatabaseName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="DatabaseName"/>
     </Property>
-    <Property Id="DB_ADMININTEGRATEDSECURITY" Value="SSPI" >
+    <Property Id="DB_USEEXISTINGDATABASE" Value="False">
+      <RegistrySearch Id="RS_DbUseExistingDatabase" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="UseExistingDatabase"/>
+    </Property>
+    <Property Id="DB_ADMININTEGRATEDSECURITY" Value="True" >
       <RegistrySearch Id="RS_DbAdminIntegratedSecurity" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminIntegratedSecurity"/>
     </Property>
     <Property Id="DB_ADMINUSERNAME"  Value="sa" >
@@ -17,37 +20,21 @@
     <Property Id="DB_ADMINPASSWORD" Value="-" Hidden="yes" />
 
     <Property Id="DB_APPSAMEASADMIN" Value="True" />
-    <Property Id="DB_APPINTEGRATEDSECURITY" Value="SSPI" />
+    <Property Id="DB_APPINTEGRATEDSECURITY" Value="True" />
     <Property Id="DB_APPUSERNAME" Value="CprBroker" />
     <Property Id="DB_APPPASSWORD" Value="-" Hidden="yes" />
 
     <Property Id="DB_VALID" Value="False"/>
 
     <util:User Id="SQL_AdminUser" Name="[DB_ADMINUSERNAME]" Password="[DB_ADMINPASSWORD]" />
-    <Binary Id="BIN_CreateDatabaseObjectsScript" SourceFile="$(var.InstallersPath)Resources\CreatePartDatabaseObjects.sql"/>
 
     <ComponentGroup Id="CMPGRP_Database">
-
-      <Component Id="CMP_DatabaseWindowsAuthentication" Directory="INSTALLDIR" Guid="1E99531F-76B2-471e-8AE2-7A12B320F258" KeyPath="yes">
-        <Condition><![CDATA[DB_ADMININTEGRATEDSECURITY = "SSPI"]]></Condition>
-        <sql:SqlDatabase Id="SQL_DatabaseWindowsAuthentication" Database="[DB_DATABASENAME]" Server="[DB_SERVERNAME]"
-                         ContinueOnError="no" ConfirmOverwrite="yes" CreateOnInstall="yes" DropOnUninstall="no" >
-          <sql:SqlScript Id="SQL_CreateDatabaseObjectsScriptWindowsAuthentication" BinaryKey="BIN_CreateDatabaseObjectsScript" ExecuteOnInstall="yes"/>
-        </sql:SqlDatabase>
-      </Component>
-
-      <Component Id="CMP_DatabaseSqlAuthentication" Directory="INSTALLDIR" Guid="5A7D38A1-0506-42c2-8615-A486A7146CE8" KeyPath="yes">
-        <Condition><![CDATA[DB_ADMININTEGRATEDSECURITY <> "SSPI"]]></Condition>
-        <sql:SqlDatabase Id="SQL_DatabaseSqlAuthentication" Database="[DB_DATABASENAME]" Server="[DB_SERVERNAME]" User="SQL_AdminUser"
-                         ContinueOnError="no" ConfirmOverwrite="yes" CreateOnInstall="yes" DropOnUninstall="no" >
-          <sql:SqlScript Id="SQL_CreateDatabaseObjectsScriptSqlAuthentication" BinaryKey="BIN_CreateDatabaseObjectsScript" ExecuteOnInstall="yes" />
-        </sql:SqlDatabase>
-      </Component>
 
       <Component Id="CMP_DatabaseRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="0A328B61-2AD2-473b-B4E5-43F9FC4CF997">
         <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Database">
           <RegistryValue Id="REG_DbServerName" Action="write" Type="string" Name="ServerName" Value="[DB_SERVERNAME]"/>
           <RegistryValue Id="REG_DbDatabaseName" Action="write" Type="string" Name="DatabaseName" Value="[DB_DATABASENAME]"/>
+          <RegistryValue Id="REG_DbUseExistingDatabase" Action="write" Type="string" Name="UseExistingDatabase" Value="[DB_USEEXISTINGDATABASE]"/>
           <RegistryValue Id="REG_DbAdminIntegratedSecurity" Action="write" Type="string" Name="AdminIntegratedSecurity" Value="[DB_ADMININTEGRATEDSECURITY]"/>
           <RegistryValue Id="REG_DbAdminUserName" Action="write" Type="string" Name="AdminUserName" Value="[DB_ADMINUSERNAME]"/>
         </RegistryKey>
@@ -55,21 +42,24 @@
 
     </ComponentGroup>
 
-    <CustomAction Id="ValidateConnectionString" BinaryKey="InstallersDll" DllEntry="ValidateConnectionString" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
+    <Property Id="RollbackCprBrokerDatabase" Value="-" Hidden="yes"/>
+    <CustomAction Id="RollbackCprBrokerDatabase_" Property="RollbackCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="RollbackCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RollbackCprBrokerDatabase" Execute="rollback" Return="check" Impersonate="yes"/>
 
-    <Property Id="FinalizeCprBrokerDatabase" Value="-" Hidden="yes"/>
-    <CustomAction Id="FinalizeCprBrokerDatabase_" Property="FinalizeCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
-    <CustomAction Id="FinalizeCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="FinalizeCprBrokerDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
+    <Property Id="DeployCprBrokerDatabase" Value="-" Hidden="yes"/>
+    <CustomAction Id="DeployCprBrokerDatabase_" Property="DeployCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="DeployCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="DeployCprBrokerDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
     <Property Id="RemoveCprBrokerDatabase" Value="-" Hidden="yes"/>
-    <CustomAction Id="RemoveCprBrokerDatabase_" Property="RemoveCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="RemoveCprBrokerDatabase_" Property="RemoveCprBrokerDatabase" Value="ProductName=[ProductName];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
     <CustomAction Id="RemoveCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
-    
-    <InstallExecuteSequence>
-      <Custom Action="ValidateConnectionString" After="InstallValidate">NOT REMOVE</Custom>
 
-      <Custom Action="FinalizeCprBrokerDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="FinalizeCprBrokerDatabase" After="InstallSqlData">NOT REMOVE</Custom>
+    <InstallExecuteSequence>
+      <Custom Action="RollbackCprBrokerDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="RollbackCprBrokerDatabase" After="InstallFiles">NOT REMOVE</Custom>
+
+      <Custom Action="DeployCprBrokerDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="DeployCprBrokerDatabase" After="InstallSqlData">NOT REMOVE</Custom>
 
       <Custom Action="RemoveCprBrokerDatabase_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
       <Custom Action="RemoveCprBrokerDatabase" After="UninstallSqlData"><![CDATA[REMOVE = "ALL"]]></Custom>

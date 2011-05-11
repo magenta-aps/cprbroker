@@ -50,7 +50,7 @@ namespace CprBroker.Installers
     /// Contains the database information that are gathered from the user and used throughout the application
     /// </summary>
     [Serializable]
-    public class DatabaseSetupInfo
+    public partial class DatabaseSetupInfo
     {
         /// <summary>
         /// Contains database login information
@@ -65,6 +65,7 @@ namespace CprBroker.Installers
 
         public string ServerName = "";
         public string DatabaseName = "";
+        public bool UseExistingDatabase = false;
         public bool ApplicationAuthenticationSameAsAdmin = true;
 
         public AuthenticationInfo AdminAuthenticationInfo { get; set; }
@@ -75,9 +76,9 @@ namespace CprBroker.Installers
         public DatabaseSetupInfo()
         {
             AdminAuthenticationInfo = new AuthenticationInfo();
-            ApplicationAuthenticationInfo = new AuthenticationInfo() 
-            { 
-                IntegratedSecurity = false 
+            ApplicationAuthenticationInfo = new AuthenticationInfo()
+            {
+                IntegratedSecurity = false
             };
         }
 
@@ -98,49 +99,6 @@ namespace CprBroker.Installers
                 }
 
             }
-        }
-
-        /// <summary>
-        /// Creates a connection string from local members
-        /// </summary>
-        /// <param name="isAdmin">Whether to create an admin connection string or otherwise an application connection string</param>
-        /// <param name="includeDatabase">Whether include database name as InitialCatalog</param>
-        /// <returns></returns>
-        public string CreateConnectionString(bool isAdmin, bool includeDatabase)
-        {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = ServerName;
-            builder.InitialCatalog = includeDatabase ? DatabaseName : "";
-
-            AuthenticationInfo authenticationInfo = isAdmin ? AdminAuthenticationInfo : EffectiveApplicationAuthenticationInfo;
-
-            builder.IntegratedSecurity = authenticationInfo.IntegratedSecurity;
-            if (!authenticationInfo.IntegratedSecurity)
-            {
-                builder.UserID = authenticationInfo.UserName;
-                builder.Password = authenticationInfo.Password;
-            }
-            return builder.ToString();
-        }
-
-        /// <summary>
-        /// Creates a new object from a connection string, copying the info to AdminAuthenticationInfo
-        /// </summary>
-        /// <param name="connectionString">The connection string to use</param>
-        /// <returns>The new DatabaseSetupInfo object</returns>
-        public static DatabaseSetupInfo FromConnectionString(string connectionString)
-        {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString);
-            DatabaseSetupInfo ret = new DatabaseSetupInfo();
-            ret.ServerName = builder.DataSource;
-            ret.DatabaseName = builder.InitialCatalog;
-            ret.AdminAuthenticationInfo.IntegratedSecurity = builder.IntegratedSecurity;
-            if (!ret.AdminAuthenticationInfo.IntegratedSecurity)
-            {
-                ret.AdminAuthenticationInfo.UserName = builder.UserID;
-                ret.AdminAuthenticationInfo.Password = builder.Password;
-            }
-            return ret;
         }
 
         /// <summary>
@@ -198,7 +156,7 @@ namespace CprBroker.Installers
         /// Checks whether the database specified already exists
         /// </summary>
         /// <returns>True is database exists, false otherwise</returns>
-        private bool DatabaseExists()
+        public bool DatabaseExists()
         {
             string adminConnectionString = CreateConnectionString(true, false);
             ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
@@ -305,45 +263,6 @@ namespace CprBroker.Installers
         public void ClearSensitiveDate()
         {
             ApplicationAuthenticationInfo = new AuthenticationInfo();
-        }
-
-        public static DatabaseSetupInfo FromSession(Session session)
-        {
-            DatabaseSetupInfo ret = new DatabaseSetupInfo();
-            Func<string, string> propGetter = null;
-
-            if (session.GetMode(InstallRunMode.Scheduled) || session.GetMode(InstallRunMode.Rollback))
-            {
-                 propGetter= (key) => session.CustomActionData[key];
-            }
-            else
-            {
-                propGetter= (key) => session[key];
-            }
-
-            ret.ServerName = propGetter("DB_SERVERNAME");
-            ret.DatabaseName = propGetter("DB_DATABASENAME");
-
-            ret.AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-            ret.AdminAuthenticationInfo.IntegratedSecurity = propGetter("DB_ADMININTEGRATEDSECURITY") == "SSPI";
-            if (!ret.AdminAuthenticationInfo.IntegratedSecurity)
-            {
-                ret.AdminAuthenticationInfo.UserName = propGetter("DB_ADMINUSERNAME");
-                ret.AdminAuthenticationInfo.Password = propGetter("DB_ADMINPASSWORD");
-            }
-
-            ret.ApplicationAuthenticationSameAsAdmin = !string.IsNullOrEmpty(propGetter("DB_APPSAMEASADMIN"));
-            if (!ret.ApplicationAuthenticationSameAsAdmin)
-            {
-                ret.ApplicationAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-                ret.ApplicationAuthenticationInfo.IntegratedSecurity = propGetter("DB_APPINTEGRATEDSECURITY") == "SSPI";
-                if (!ret.ApplicationAuthenticationInfo.IntegratedSecurity)
-                {
-                    ret.ApplicationAuthenticationInfo.UserName = propGetter("DB_APPUSERNAME");
-                    ret.ApplicationAuthenticationInfo.Password = propGetter("DB_APPPASSWORD");
-                }
-            }
-            return ret;
         }
 
     }

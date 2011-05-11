@@ -40,6 +40,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
@@ -48,78 +49,54 @@ namespace CprBroker.Installers
 
         public static WebInstallationInfo FromSession(Session session)
         {
-            if (session.GetMode(InstallRunMode.Scheduled) || session.GetMode(InstallRunMode.Rollback))
-            {
-                return FromObject((key) => session.CustomActionData[key]);
-            }
-            else
-            {
-                return FromObject((key) => session[key]);
-            }
-        }
-
-        private static WebInstallationInfo FromObject(Func<string, string> propGetter)
-        {
-            bool createAsWebsite = propGetter("WEB_CREATEASWEBSITE") == "True";
+            bool createAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True";
             if (createAsWebsite)
             {
                 return new WebsiteInstallationInfo()
                 {
-                    //CreateAsWebsite = propGetter("WEB_CREATEASWEBSITE") == "True",
-                    //ApplicationPath = propGetter("WEB_APPLICATIONPATH"),
-                    //VirtualDirectoryName = propGetter("WEB_VIRTUALDIRECTORYNAME"),
-                    WebsiteName = propGetter("WEB_SITENAME"),
-                    //WebsitePath = propGetter("WEB_VIRTUALDIRECTORYSITEPATH"),
-                    InstallDir = propGetter("INSTALLDIR"),
+                    //CreateAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True",
+                    //ApplicationPath = session.GetPropertyValue("WEB_APPLICATIONPATH"),
+                    //VirtualDirectoryName = session.GetPropertyValue("WEB_VIRTUALDIRECTORYNAME"),
+                    WebsiteName = session.GetPropertyValue("WEB_SITENAME"),
+                    //WebsitePath = session.GetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH"),
+                    InstallDir = session.GetPropertyValue("INSTALLDIR"),
                 };
             }
             else
             {
                 return new VirtualDirectoryInstallationInfo()
                 {
-                    //CreateAsWebsite = propGetter("WEB_CREATEASWEBSITE") == "True",
-                    //ApplicationPath = propGetter("WEB_APPLICATIONPATH"),
-                    VirtualDirectoryName = propGetter("WEB_VIRTUALDIRECTORYNAME"),
-                    WebsiteName = propGetter("WEB_SITENAME"),
-                    //WebsitePath = propGetter("WEB_VIRTUALDIRECTORYSITEPATH"),
-                    InstallDir = propGetter("INSTALLDIR"),
+                    //CreateAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True",
+                    //ApplicationPath = session.GetPropertyValue("WEB_APPLICATIONPATH"),
+                    VirtualDirectoryName = session.GetPropertyValue("WEB_VIRTUALDIRECTORYNAME"),
+                    WebsiteName = session.GetPropertyValue("WEB_SITENAME"),
+                    //WebsitePath = session.GetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH"),
+                    InstallDir = session.GetPropertyValue("INSTALLDIR"),
                 };
             }
         }
 
         public void CopyToSession(Session session)
         {
-            if (session.GetMode(InstallRunMode.Scheduled) || session.GetMode(InstallRunMode.Rollback))
-            {
-                this.CopyToObject((key, value) => session.CustomActionData[key] = value);
-            }
-            else
-            {
-                this.CopyToObject((key, value) => session[key] = value);
-            }
-        }
-
-        public void CopyToObject(Action<string, string> propSetter)
-        {
             if (this is WebsiteInstallationInfo)
             {
                 WebsiteInstallationInfo websiteInstallationInfo = this as WebsiteInstallationInfo;
-                propSetter("WEB_CREATEASWEBSITE", websiteInstallationInfo.CreateAsWebsite.ToString());
-                propSetter("WEB_APPLICATIONPATH", websiteInstallationInfo.TargetWmiPath);
-                //propSetter("WEB_VIRTUALDIRECTORYNAME", websiteInstallationInfo.VirtualDirectoryName);
-                propSetter("WEB_SITENAME", websiteInstallationInfo.WebsiteName);
-                //propSetter("WEB_VIRTUALDIRECTORYSITEPATH", websiteInstallationInfo.WebsitePath);
-                propSetter("INSTALLDIR", websiteInstallationInfo.InstallDir);
+                session.SetPropertyValue("WEB_CREATEASWEBSITE", websiteInstallationInfo.CreateAsWebsite.ToString());
+                session.SetPropertyValue("WEB_APPLICATIONPATH", websiteInstallationInfo.TargetWmiPath);
+                //session.SetPropertyValue("WEB_VIRTUALDIRECTORYNAME", websiteInstallationInfo.VirtualDirectoryName);
+                session.SetPropertyValue("WEB_SITENAME", websiteInstallationInfo.WebsiteName);
+                //session.SetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH", websiteInstallationInfo.WebsitePath);
+                session.SetPropertyValue("INSTALLDIR", websiteInstallationInfo.InstallDir);
             }
             else
             {
                 VirtualDirectoryInstallationInfo virtualDirectoryInstallationInfo = this as VirtualDirectoryInstallationInfo;
-                propSetter("WEB_CREATEASWEBSITE", virtualDirectoryInstallationInfo.CreateAsWebsite.ToString());
-                propSetter("WEB_APPLICATIONPATH", virtualDirectoryInstallationInfo.TargetWmiPath);
-                propSetter("WEB_VIRTUALDIRECTORYNAME", virtualDirectoryInstallationInfo.VirtualDirectoryName);
-                propSetter("WEB_SITENAME", virtualDirectoryInstallationInfo.WebsiteName);
-                propSetter("WEB_VIRTUALDIRECTORYSITEPATH", virtualDirectoryInstallationInfo.WebsitePath);
-                propSetter("INSTALLDIR", virtualDirectoryInstallationInfo.InstallDir);
+                session.SetPropertyValue("WEB_CREATEASWEBSITE", virtualDirectoryInstallationInfo.CreateAsWebsite.ToString());
+                session.SetPropertyValue("WEB_APPLICATIONPATH", virtualDirectoryInstallationInfo.TargetWmiPath);
+                session.SetPropertyValue("WEB_VIRTUALDIRECTORYNAME", virtualDirectoryInstallationInfo.VirtualDirectoryName);
+                session.SetPropertyValue("WEB_SITENAME", virtualDirectoryInstallationInfo.WebsiteName);
+                session.SetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH", virtualDirectoryInstallationInfo.WebsitePath);
+                session.SetPropertyValue("INSTALLDIR", virtualDirectoryInstallationInfo.InstallDir);
             }
         }
 

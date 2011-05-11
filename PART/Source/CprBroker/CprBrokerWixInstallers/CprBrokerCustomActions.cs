@@ -56,13 +56,7 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
-        public static ActionResult ValidateConnectionString(Session session)
-        {
-            return DatabaseCustomAction.ValidateConnectionString(session);
-        }
-
-        [CustomAction]
-        public static ActionResult FinalizeCprBrokerDatabase(Session session)
+        public static ActionResult DeployCprBrokerDatabase(Session session)
         {
             List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
             ret.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.AddressCoordinateQualityType));
@@ -76,13 +70,19 @@ namespace CprBrokerWixInstallers
             ret.Add(new KeyValuePair<string, string>(typeof(LogType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.LogType));
             ret.Add(new KeyValuePair<string, string>(typeof(RelationshipType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.RelationshipType));
 
-            return DatabaseCustomAction.FinalizeDatabase(session, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.CreatePartDatabaseObjects, ret.ToArray());
+            return DatabaseCustomAction.DeployDatabase(session, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.CreatePartDatabaseObjects, ret.ToArray());
         }
 
         [CustomAction]
         public static ActionResult RemoveCprBrokerDatabase(Session session)
         {
-            return DatabaseCustomAction.RemoveCprBrokerDatabase(session);
+            return DatabaseCustomAction.RemoveDatabase(session, true);
+        }
+
+        [CustomAction]
+        public static ActionResult RollbackCprBrokerDatabase(Session session)
+        {
+            return DatabaseCustomAction.RemoveDatabase(session, false);
         }
 
         [CustomAction]

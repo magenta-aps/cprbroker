@@ -48,22 +48,39 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
-    public class DatabaseCustomAction
+    public static partial class DatabaseCustomAction
     {
+
         public static ActionResult TestConnectionString(Session session)
         {
             try
             {
                 DatabaseSetupInfo dbInfo = DatabaseSetupInfo.FromSession(session);
                 string message = "";
+                dbInfo.UseExistingDatabase = false;
+
                 if (dbInfo.Validate(ref message))
                 {
-                    session["DB_VALID"] = "True";
+                    if (!dbInfo.DatabaseExists()) // Normal case
+                    {
+                        session["DB_VALID"] = "True";
+                    }
+                    else if (MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes) // Database exists and won't be created
+                    {
+                        dbInfo.UseExistingDatabase = true;
+                        session["DB_VALID"] = "True";
+                    }
+                    else  // Database exists and user should change its name
+                    {
+                        session["DB_VALID"] = "False";
+                    }
                 }
                 else
                 {
                     session["DB_VALID"] = message;
                 }
+
+                dbInfo.CopyToSession(session);
                 return ActionResult.Success;
             }
             catch (Exception ex)
@@ -73,167 +90,40 @@ namespace CprBroker.Installers
             }
         }
 
-        public static ActionResult ValidateConnectionString(Session session)
-        {
-            DatabaseSetupInfo dbInfo = DatabaseSetupInfo.FromSession(session);
-            string message = "";
-            if (dbInfo.Validate(ref message))
-            {
-                session["DB_VALID"] = "True";
-                return ActionResult.Success;
-            }
-            else
-            {
-                session["DB_VALID"] = message;
-                return ActionResult.Failure;
-            }
-        }
-
-       
-
-        public static ActionResult RemoveCprBrokerDatabase(Session session)
+        public static ActionResult DeployDatabase(Session session, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
         {
             DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
-            DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
-               {
-                   SetupInfo = setupInfo
-               };
-
-            if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
-            {
-                Server dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
-                if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && dbServer.Databases.Contains(setupInfo.DatabaseName))
-                {
-                    dbServer.KillAllProcesses(setupInfo.DatabaseName);
-                    dbServer.KillDatabase(setupInfo.DatabaseName);
-                }
-            }
-            return ActionResult.Success;
-        }
-
-        public static ActionResult FinalizeDatabase(Session session, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
-        {
-            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
-            //setupInfo.DatabaseCreated = CreateDatabase(setupInfo, createDatabaseObjectsSql, lookupDataArray);
-            InsertLookups(setupInfo.CreateConnectionString(true, true), lookupDataArray);
+            CreateDatabase(setupInfo, createDatabaseObjectsSql, lookupDataArray);
             CreateDatabaseUser(setupInfo);
-            //SetConnectionStrings(stateSaver);
-            //savedStateWrapper.ClearDatabaseSensitiveDate();
 
             return ActionResult.Success;
         }
 
-
-        /*private static bool CreateDatabase(DatabaseSetupInfo setupInfo, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
+        public static ActionResult RemoveDatabase(Session session, bool askUser)
         {
-            string adminConnectionString = setupInfo.CreateConnectionString(true, false);
-            ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
-            Server dbServer = new Server(dbServerConnection);
-
-            if (!dbServer.Databases.Contains(setupInfo.DatabaseName))
+            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
+            if (!setupInfo.UseExistingDatabase)
             {
-                var db = new Microsoft.SqlServer.Management.Smo.Database(dbServer, setupInfo.DatabaseName);
-                db.Create();
-                string sql = createDatabaseObjectsSql;
-                db.ExecuteNonQuery(sql);
-                InsertLookups(setupInfo.CreateConnectionString(true, true), lookupDataArray);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }*/
-
-        /// <summary>
-        /// Creates a new user in the database if needed
-        /// </summary>
-        private static void CreateDatabaseUser(DatabaseSetupInfo setupInfo)
-        {
-            if (!setupInfo.ApplicationAuthenticationSameAsAdmin)
-            {
-                string adminConnectionString = setupInfo.CreateConnectionString(true, false);
-                ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
-                Server dbServer = new Server(dbServerConnection);
-
-
-                var db = dbServer.Databases[setupInfo.DatabaseName];
-
-                string userName;
-                LoginType loginType;
-                Action<Login> createLoginMethod;
-
-                if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+                DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
                 {
-                    userName = @"NT AUTHORITY\NETWORK SERVICE";
-                    loginType = LoginType.WindowsUser;
-                    createLoginMethod = (login) => login.Create();
-                }
-                else
-                {
-                    userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
-                    loginType = LoginType.SqlLogin;
-                    createLoginMethod = (login) => login.Create(setupInfo.EffectiveApplicationAuthenticationInfo.Password);
-                }
-                User[] usersArray = new User[db.Users.Count];
-                db.Users.CopyTo(usersArray, 0);
-                var existingUser = (
-                    from User user in usersArray
-                    where user.Name.ToLower() == userName.ToLower() || user.Login.ToLower() == userName.ToLower()
-                    select user
-                    ).FirstOrDefault();
+                    SetupInfo = setupInfo
+                };
 
-                if (existingUser == null)
+                if (!askUser || BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
                 {
-                    if (!dbServer.Logins.Contains(userName))
+                    Server dbServer = new Server(new ServerConnection(new SqlConnection(setupInfo.CreateConnectionString(true, false))));
+                    if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && dbServer.Databases.Contains(setupInfo.DatabaseName))
                     {
-                        Login newLogin = new Login(dbServer, userName);
-                        newLogin.PasswordPolicyEnforced = false;
-                        newLogin.LoginType = loginType;
-                        createLoginMethod(newLogin);
-                    }
-                    User newUser = new User(db, userName);
-                    newUser.Login = newUser.Name;
-                    newUser.Create();
-                    newUser.AddToRole("db_owner");
-                }
-            }
-        }
-
-        private static void InsertLookups(string connectionString, KeyValuePair<string, string>[] lookupDataArray)
-        {
-            foreach (var lookupData in lookupDataArray)
-            {
-                string tableName = lookupData.Key;
-                string csv = lookupData.Value;
-
-                string[] lines = csv.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                string[] columnNames = lines[0].Split(';');
-                columnNames = columnNames.Select(c => string.Format("[{0}]", c)).ToArray();
-
-                string sql = "";
-                for (int i = 1; i < lines.Length; i++)
-                {
-                    sql += string.Format("INSERT INTO [{0}] (", tableName);
-                    sql += string.Join(",", columnNames);
-                    sql += ") VALUES (";
-
-                    string[] values = lines[i].Split(';');
-                    values = values.Select(v => string.Format("'{0}'", v)).ToArray();
-                    sql += string.Join(",", values);
-                    sql += ")" + Environment.NewLine;
-                }
-
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand command = new SqlCommand(sql, conn))
-                    {
-                        conn.Open();
-                        int result = command.ExecuteNonQuery();
-                        object o = "";
+                        dbServer.KillAllProcesses(setupInfo.DatabaseName);
+                        dbServer.KillDatabase(setupInfo.DatabaseName);
                     }
                 }
             }
+            return ActionResult.Success;
         }
+
+
+
+
     }
 }
