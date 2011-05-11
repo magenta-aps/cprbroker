@@ -14,6 +14,12 @@
       </Component>
     </ComponentGroup>
 
+    <ComponentGroup Id="CMPGRP_AppThemes">
+      <Component Id="CML_AppThemes_Default_skin" Directory="DefaultTheme" >
+        <File Id="FILE_AppThemes_DEFAULT_SKIN" Source="$(var.SitePath)App_Themes\DefaultTheme\Default.skin" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+
     <ComponentGroup Id="CMPGRP_Config">
       <Component Id="CMP_Web_CONFIG" Directory="Website">
         <File Id="FILE_Root_WEB_CONFIG" Source="$(var.SitePath)web.config" KeyPath="yes"/>
@@ -63,9 +69,25 @@
       <Component Id="CMP_PersonMaster_Dll" Directory="bin">
         <File Id="FILE_bin_PersonMaster_DLL" Source="$(var.SitePath)bin\CprBroker.Providers.PersonMaster.dll" KeyPath="yes"/>
       </Component>
+
+      <Component Id="CMP_EntLib_Common_Dll" Directory="bin">
+        <File Id="FILE_bin_EntLib_Common_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_EntLib_Logging_Dll" Directory="bin">
+        <File Id="FILE_bin_EntLib_Logging_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_EntLib_ObjectBuilder2_Dll" Directory="bin">
+        <File Id="FILE_bin_EntLib_ObjectBuilder2_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.ObjectBuilder2.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_EntLib_Unity_Dll" Directory="bin">
+        <File Id="FILE_bin_EntLib_Unity_Dll" Source="$(var.SitePath)bin\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="CMPGRP_Pages">
+      <Component Id="CMP_Site_MASTER" Directory="Pages">
+        <File Id="FILE_Pages_Site_MASTER" Source="$(var.SitePath)Pages\Site.master" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_DataProviders_ASPX" Directory="Pages">
         <File Id="FILE_Pages_DataProviders_ASPX" Source="$(var.SitePath)Pages\DataProviders.aspx" KeyPath="yes"/>
       </Component>

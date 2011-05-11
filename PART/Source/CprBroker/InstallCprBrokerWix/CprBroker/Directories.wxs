@@ -3,6 +3,9 @@
   <Fragment xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <DirectoryRef Id="INSTALLDIR">
       <Directory Id="Website" Name="Website" >
+        <Directory Id="App_Themes" Name="App_Themes">
+          <Directory Id="DefaultTheme" Name="DefaultTheme"/>
+        </Directory>
         <Directory Id="bin" Name="bin" />
         <Directory Id="Config" Name="Config" />
         <Directory Id="Pages" Name="Pages">

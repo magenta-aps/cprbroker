@@ -3,6 +3,7 @@
 	<Fragment Id="CprBrokerFragment">
     <Feature Id="CprBrokerFeature" Title="Cpr Broker" Level="1">
       <ComponentGroupRef Id="CMPGRP_Root"/>
+      <ComponentGroupRef Id="CMPGRP_AppThemes"/>
       <ComponentGroupRef Id="CMPGRP_bin"/>
       <ComponentGroupRef Id="CMPGRP_Config"/>
       <ComponentGroupRef Id="CMPGRP_Pages"/>
