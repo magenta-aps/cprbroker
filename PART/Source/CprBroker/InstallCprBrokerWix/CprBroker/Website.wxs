@@ -2,26 +2,29 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
   <Fragment>
 
-    <Property Id="WEB_MULTIPLESITESALLOWED" Value="True"/>
-    <Property Id="WEB_CREATEASWEBSITE" Value="True"/>
-    <Property Id="WEB_SITENAME" Value="CprBroker" />
-    <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="CprBroker" />
-    <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker" />
-
-    <Property Id="WEB_APPLICATIONPATH" Value="-">
-      <RegistrySearch Id="RS_WEB_ApplicationPath" Root="HKLM" Key="Software\ITST\CprBroker\Website" Type="raw" Name="ApplicationPath"/>
+    <Property Id="WEB_CREATEASWEBSITE" Value="True">
+      <RegistrySearch Id="RS_WEB_CREATEASWEBSITE" Root="HKLM" Key="Software\ITST\CprBroker\Website" Type="raw" Name="CreateAsWebsite"/>
     </Property>
+    <Property Id="WEB_SITENAME" Value="CprBroker" >
+      <RegistrySearch Id="RS_WEB_SITENAME" Root="HKLM" Key="Software\ITST\CprBroker\Website" Type="raw" Name="SiteName"/>
+    </Property>
+    <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="CprBroker">
+      <RegistrySearch Id="RS_WEB_VIRTUALDIRECTORYNAME" Root="HKLM" Key="Software\ITST\CprBroker\Website" Type="raw" Name="VirtualDirectoryName"/>
+    </Property>
+
+    <Property Id="WEB_MULTIPLESITESALLOWED" Value="True"/>
+    <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="CprBroker" />
+    <Property Id="WEB_APPLICATIONPATH" Value="-"/>
 
     <Component Id="CMP_WebRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="F28ACE50-EDFB-4939-9DF2-1022D97F9C8F">
       <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Website">
-        <RegistryValue Id="REG_WebApplicationPath" Action="write" Type="string" Name="ApplicationPath" Value="[WEB_APPLICATIONPATH]"/>
+        <RegistryValue Id="REG_WebCreateAsWebsite" Action="write" Type="string" Name="CreateAsWebsite" Value="[WEB_CREATEASWEBSITE]"/>
+        <RegistryValue Id="REG_WebSiteName" Action="write" Type="string" Name="SiteName" Value="[WEB_SITENAME]"/>
+        <RegistryValue Id="REG_WebVirtualDirectoryName" Action="write" Type="string" Name="VirtualDirectoryName" Value="[WEB_VIRTUALDIRECTORYNAME]"/>
       </RegistryKey>
     </Component>
 
     <CustomAction Id="PopulateWebSites" BinaryKey="InstallersDll" DllEntry="PopulateWebSites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
-
-    <Property Id="CreateCprBrokerWebsite" />
-    <CustomAction Id="CalculateWebsApplicationPath" BinaryKey="InstallersDll" DllEntry="CalculateWebsApplicationPath" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
 
     <CustomAction Id="RollbackCprBrokerWebsite_" Property="RollbackCprBrokerWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
     <CustomAction Id="RollbackCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="RollbackCprBrokerWebsite" Execute="rollback" Return="check" Impersonate="no"></CustomAction>
@@ -38,7 +41,6 @@
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="CalculateWebsApplicationPath" After="InstallInitialize">NOT REMOVE</Custom>
 
       <Custom Action="RollbackCprBrokerWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
       <Custom Action="RollbackCprBrokerWebsite" After="InstallFiles">NOT REMOVE</Custom>
@@ -48,6 +50,7 @@
 
       <Custom Action="RemoveCprBrokerWebSite_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
       <Custom Action="RemoveCprBrokerWebSite" Before="RemoveRegistryValues"><![CDATA[REMOVE = "ALL"]]></Custom>
+
     </InstallExecuteSequence>
 
   </Fragment>

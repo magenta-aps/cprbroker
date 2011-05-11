@@ -44,65 +44,23 @@ using System.DirectoryServices;
 namespace CprBroker.Installers
 {
     [Serializable]
-    public partial class WebInstallationInfo
+    public abstract partial class WebInstallationInfo
     {
-        public bool CreateAsWebsite = false;
-        public string WebsitePath;
-        public string WebsiteName;
-        public string VirtualDirectoryName;
-
+        // OK
         public static readonly string ServerRoot = "IIS://localhost/w3svc";
+        public bool CreateAsWebsite
+        {
+            get 
+            {
+                return this is WebsiteInstallationInfo;
+            }
+        }
 
-        public bool ApplicationInstalled;
-        public string ApplicationPath;
+        public string WebsiteName;
 
         public string InstallDir { get; private set; }
 
-        public bool TargetEntryExists
-        {
-            get
-            {
-                if (CreateAsWebsite)
-                {
-                    DirectoryEntry machineRoot = new DirectoryEntry("IIS://localhost/W3SVC");
-                    foreach (DirectoryEntry e in machineRoot.Children)
-                    {
-                        if (
-                                e.SchemaClassName == "IIsWebServer"
-                                && e.Properties["ServerComment"].Value.ToString().ToLower() == WebsiteName.ToLower()
-                           )
-                            return true;
-                    }
-                    return false;
-                }
-                else
-                {
-                    return DirectoryEntry.Exists(TargetVirtualDirectoryPath);
-                }
-            }
-        }
-
-        public bool AppPoolExists(string name)
-        {
-
-            DirectoryEntry appPools = new DirectoryEntry("IIS://localhost/W3SVC/APPPOOLS");
-            foreach (DirectoryEntry child in appPools.Children)
-            {
-                if (child.Name.ToLower() == name.ToLower())
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public string TargetVirtualDirectoryPath
-        {
-            get
-            {
-                return WebsitePath + "/" + VirtualDirectoryName;
-            }
-        }
+        public virtual bool TargetEntryExists { get { throw new Exception(""); } }
 
         public int GetSiteId()
         {
@@ -127,53 +85,7 @@ namespace CprBroker.Installers
             return siteID;
         }
 
-        public int GetSiteId(Microsoft.Deployment.WindowsInstaller.Session session)
-        {
-            int maxIdPlusOne = -1;
-            DirectoryEntry machineRoot = new DirectoryEntry("IIS://localhost/W3SVC");
-            foreach (DirectoryEntry e in machineRoot.Children)
-            {
-                if (e.SchemaClassName == "IIsWebServer")
-                {
-                    int ID = Convert.ToInt32(e.Name);
-                    if (CreateAsWebsite)
-                    {
-                        if (e.Properties["ServerComment"].Value.ToString().ToLower() == WebsiteName.ToLower())
-                        {
-                            return ID;
-                        }
-
-                        if (ID >= maxIdPlusOne)
-                        {
-                            maxIdPlusOne = ID + 1;
-                        }
-                    }
-                    else
-                    {
-                        if (
-                            (e.Path + "/Root").ToLower() == WebsitePath.ToLower()
-                            || e.Path.ToLower() == WebsitePath.ToLower()
-                            )
-                        {
-                            return ID;
-                        }
-                    }
-                }
-            }
-            return maxIdPlusOne;
-        }
-
-        public string GetAppRelativePath()
-        {
-            if (this.CreateAsWebsite)
-            {
-                return "/";
-            }
-            else
-            {
-                return "/" + VirtualDirectoryName;
-            }
-        }
+        public abstract string GetAppRelativePath();
 
         public string GetWebFolderPath()
         {
@@ -184,6 +96,16 @@ namespace CprBroker.Installers
         {
             return GetWebFolderPath() + "Web.config";
         }
+
+        public abstract string TargetWmiPath{get;}
+
+        // Not yet        
+
+        [Obsolete]
+        public bool ApplicationInstalled;
+
+
+        protected abstract bool IsMatchingDirectoryEntry(DirectoryEntry e);
 
     }
 }

@@ -39,36 +39,58 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Deployment.WindowsInstaller;
-using CprBroker.Installers.Installers;
 using System.DirectoryServices;
 
-namespace CprBrokerWixInstallers
+namespace CprBroker.Installers
 {
-    public class CprBrokerWebsiteCustomAction
+    public class WebsiteInstallationInfo : WebInstallationInfo
     {
-        [CustomAction]
-        public static ActionResult PopulateWebSites(Session session)
+        public override bool TargetEntryExists
         {
-            return WebsiteCustomAction.PopulateWebSites(session);
+            get
+            {
+                DirectoryEntry machineRoot = new DirectoryEntry("IIS://localhost/W3SVC");
+                foreach (DirectoryEntry e in machineRoot.Children)
+                {
+                    if (
+                            e.SchemaClassName == "IIsWebServer"
+                            && e.Properties["ServerComment"].Value.ToString().ToLower() == WebsiteName.ToLower()
+                       )
+                        return true;
+                }
+                return false;
+            }
         }
 
-        [CustomAction]
-        public static ActionResult CreateCprBrokerWebsite(Session session)
+        public override string TargetWmiPath
         {
-            return WebsiteCustomAction.DeployWebsite(session);
+            get
+            {
+                return ServerRoot + "/" + GetSiteId();
+            }
         }
 
-        [CustomAction]
-        public static ActionResult RollbackCprBrokerWebsite(Session session)
+        public bool AppPoolExists(string name)
         {
-            return WebsiteCustomAction.RollbackWebsite(session);
+            DirectoryEntry appPools = new DirectoryEntry("IIS://localhost/W3SVC/APPPOOLS");
+            foreach (DirectoryEntry child in appPools.Children)
+            {
+                if (child.Name.ToLower() == name.ToLower())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        [CustomAction]
-        public static ActionResult RemoveCprBrokerWebSite(Session session)
+        public override string GetAppRelativePath()
         {
-            return WebsiteCustomAction.RemoveWebSite(session);
+            return "/";            
+        }
+
+        protected override bool IsMatchingDirectoryEntry(DirectoryEntry e)
+        {
+            return e.Properties["ServerComment"].Value.ToString().ToLower() == WebsiteName.ToLower();
         }
 
     }

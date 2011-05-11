@@ -74,7 +74,10 @@ namespace CprBroker.Installers
         private void TargetWebSiteForm_Load(object sender, EventArgs e)
         {
             // Default site name
-            virtualDirectoryNameTextBox.Text = InstallationInfo.VirtualDirectoryName;
+            if (InstallationInfo is VirtualDirectoryInstallationInfo)
+            {
+                virtualDirectoryNameTextBox.Text = (InstallationInfo as VirtualDirectoryInstallationInfo).VirtualDirectoryName;
+            }
             newWebSiteNameTextBox.Text = InstallationInfo.WebsiteName;
 
             // enumerate web sites
@@ -113,20 +116,22 @@ namespace CprBroker.Installers
 
         void PopulateInstallationInfo()
         {
-            InstallationInfo.CreateAsWebsite = newWebSiteRadio.Checked;
-            
-            if (InstallationInfo.CreateAsWebsite)
+            if (newWebSiteRadio.Checked)
             {
-                InstallationInfo.WebsitePath = "";
-                InstallationInfo.WebsiteName = newWebSiteNameTextBox.Text;
-                InstallationInfo.VirtualDirectoryName = "";
+                InstallationInfo = new WebsiteInstallationInfo()
+                {
+                    WebsiteName = newWebSiteNameTextBox.Text,
+                };
             }
             else
             {
-                InstallationInfo.WebsitePath = sitesComboBox.SelectedValue.ToString();
-                InstallationInfo.WebsiteName = sitesComboBox.Text;
-                InstallationInfo.VirtualDirectoryName = virtualDirectoryNameTextBox.Text;
+                InstallationInfo = new VirtualDirectoryInstallationInfo()
+                {
+                    WebsiteName = sitesComboBox.Text,
+                    VirtualDirectoryName = virtualDirectoryNameTextBox.Text,
+                };
             }
+
         }
 
         protected override bool ValidateContents()

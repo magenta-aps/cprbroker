@@ -81,7 +81,7 @@ namespace CprBroker.Installers
         private void GetInstallInfoFromUser(System.Collections.IDictionary stateSaver)
         {
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(stateSaver);
-            var webInstallationInfo = new WebInstallationInfo()
+            var webInstallationInfo = new VirtualDirectoryInstallationInfo()
             {
                 VirtualDirectoryName = DefaultWebsiteName,
                 WebsiteName = DefaultWebsiteName
@@ -109,12 +109,13 @@ namespace CprBroker.Installers
 
                 if (webInstallationInfo.CreateAsWebsite)
                 {
+                    WebsiteInstallationInfo websiteInstallationInfo = webInstallationInfo as WebsiteInstallationInfo;
                     using (DirectoryEntry machineRoot = new DirectoryEntry(WebInstallationInfo.ServerRoot))
                     {
                         using (DirectoryEntry appPools = new DirectoryEntry(machineRoot.Path + "/APPPOOLS"))
                         {
-                            bool appPoolExixts = webInstallationInfo.AppPoolExists(webInstallationInfo.WebsiteName);
-                            using (DirectoryEntry appPool = appPoolExixts ? new DirectoryEntry(appPools.Path + "/" + webInstallationInfo.WebsiteName) : appPools.Invoke("Create", "IIsApplicationPool", webInstallationInfo.WebsiteName) as DirectoryEntry)
+                            bool appPoolExixts = websiteInstallationInfo.AppPoolExists(webInstallationInfo.WebsiteName);
+                            using (DirectoryEntry appPool = appPoolExixts ? new DirectoryEntry(appPools.Path + "/" + websiteInstallationInfo.WebsiteName) : appPools.Invoke("Create", "IIsApplicationPool", websiteInstallationInfo.WebsiteName) as DirectoryEntry)
                             {
                                 appPool.InvokeSet("AppPoolIdentityType", 2);//LocalSystem 0; LocalService 1; NetworkService 2;  Custom (user & pwd) 3;  ApplicationPoolIdentity 4
                                 appPool.InvokeSet("AppPoolAutoStart", true);
@@ -122,20 +123,19 @@ namespace CprBroker.Installers
 
                                 using (DirectoryEntry site = exists ? new DirectoryEntry(machineRoot.Path + "/" + siteID) : machineRoot.Invoke("Create", "IIsWebServer", siteID) as System.DirectoryServices.DirectoryEntry)
                                 {
-                                    site.Invoke("Put", "ServerComment", webInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "ServerComment", websiteInstallationInfo.WebsiteName);
                                     site.Invoke("Put", "KeyType", "IIsWebServer");
-                                    site.Invoke("Put", "ServerBindings", "*:80:" + webInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "ServerBindings", "*:80:" + websiteInstallationInfo.WebsiteName);
                                     site.Invoke("Put", "ServerState", 2);
                                     site.Invoke("Put", "FrontPageWeb", 1);
                                     site.Invoke("Put", "DefaultDoc", "Default.aspx");
-                                    site.Invoke("Put", "SecureBindings", "*:443:" + webInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "SecureBindings", "*:443:" + websiteInstallationInfo.WebsiteName);
                                     site.Invoke("Put", "ServerAutoStart", 1);
                                     site.Invoke("Put", "ServerSize", 1);
                                     site.Invoke("SetInfo");
                                     site.CommitChanges();
 
-                                    webInstallationInfo.ApplicationPath = site.Path;
-                                    savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
+                                    savedStateWrapper.SetWebInstallationInfo(websiteInstallationInfo);
 
                                     using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
                                     {
@@ -153,17 +153,17 @@ namespace CprBroker.Installers
                 }
                 else
                 {
-                    using (DirectoryEntry websiteEntry = new DirectoryEntry(webInstallationInfo.WebsitePath))
+                    VirtualDirectoryInstallationInfo virtualDirectoryInstallationInfo = webInstallationInfo as VirtualDirectoryInstallationInfo;
+                    using (DirectoryEntry websiteEntry = new DirectoryEntry(virtualDirectoryInstallationInfo.WebsitePath))
                     {
-                        using (DirectoryEntry applicationEntry = exists ? new DirectoryEntry(webInstallationInfo.TargetVirtualDirectoryPath) : websiteEntry.Invoke("Create", "IIsWebVirtualDir", webInstallationInfo.VirtualDirectoryName) as DirectoryEntry)
+                        using (DirectoryEntry applicationEntry = exists ? new DirectoryEntry(virtualDirectoryInstallationInfo.TargetWmiPath) : websiteEntry.Invoke("Create", "IIsWebVirtualDir", virtualDirectoryInstallationInfo.VirtualDirectoryName) as DirectoryEntry)
                         {
                             applicationEntry.InvokeSet("Path", websitePath);
                             applicationEntry.Invoke("AppCreate", true);
-                            applicationEntry.InvokeSet("AppFriendlyName", webInstallationInfo.VirtualDirectoryName);
+                            applicationEntry.InvokeSet("AppFriendlyName", virtualDirectoryInstallationInfo.VirtualDirectoryName);
                             applicationEntry.InvokeSet("DefaultDoc", "Default.aspx");
                             applicationEntry.CommitChanges();
-                            webInstallationInfo.ApplicationPath = applicationEntry.Path;
-                            savedStateWrapper.SetWebInstallationInfo(webInstallationInfo);
+                            savedStateWrapper.SetWebInstallationInfo(virtualDirectoryInstallationInfo);
                         }
                         scriptMapVersion = GetScriptMapsVersion(websiteEntry);
                     }
@@ -174,7 +174,7 @@ namespace CprBroker.Installers
                 {
                     RunRegIIS("-i");
 
-                    string localSitePath = webInstallationInfo.ApplicationPath;
+                    string localSitePath = webInstallationInfo.TargetWmiPath;
                     localSitePath = localSitePath.Remove(0, "IIS://localhost".Length);
                     RunRegIIS(string.Format("-s {0}", localSitePath));
                 }
@@ -408,15 +408,13 @@ namespace CprBroker.Installers
         {
             SavedStateWrapper savedStateWrapper = new SavedStateWrapper(savedState);
             var webInstallationInfo = savedStateWrapper.GetWebInstallationInfo();
-            if (webInstallationInfo.ApplicationInstalled)
+
+            string applicationDirectoryPath = webInstallationInfo.TargetWmiPath;
+            if (DirectoryEntry.Exists(applicationDirectoryPath))
             {
-                string applicationDirectoryPath = webInstallationInfo.ApplicationPath;
-                if (DirectoryEntry.Exists(applicationDirectoryPath))
+                using (DirectoryEntry applicationEntry = new DirectoryEntry(applicationDirectoryPath))
                 {
-                    using (DirectoryEntry applicationEntry = new DirectoryEntry(applicationDirectoryPath))
-                    {
-                        applicationEntry.DeleteTree();
-                    }
+                    applicationEntry.DeleteTree();
                 }
             }
         }

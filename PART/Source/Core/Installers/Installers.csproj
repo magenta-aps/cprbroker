@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="Utilities\SavedStateWrapper.cs" />
     <Compile Include="Utilities\DatabaseSetupInfo.cs" />
+    <Compile Include="Utilities\VirtualDirectoryInstallationInfo.cs" />
     <Compile Include="Utilities\WebInstallationInfo.cs" />
     <Compile Include="UI\WebSiteForm.cs">
       <SubType>Form</SubType>
@@ -159,6 +160,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utilities\WebInstallationInfo.Exchange.cs" />
+    <Compile Include="Utilities\WebsiteInstallationInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Config\Config.csproj">

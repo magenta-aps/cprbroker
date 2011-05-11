@@ -43,25 +43,47 @@ using Microsoft.Deployment.WindowsInstaller;
 
 namespace CprBroker.Installers
 {
-    public partial class WebInstallationInfo
+    public abstract partial class WebInstallationInfo
     {
 
         public static WebInstallationInfo FromSession(Session session)
         {
             if (session.GetMode(InstallRunMode.Scheduled) || session.GetMode(InstallRunMode.Rollback))
             {
-                return FromCustomAction(session.CustomActionData);
+                return FromObject((key) => session.CustomActionData[key]);
             }
             else
             {
-                WebInstallationInfo ret = new WebInstallationInfo();
-                ret.CreateAsWebsite = session["WEB_CREATEASWEBSITE"] == "True";
-                ret.ApplicationPath = session["WEB_APPLICATIONPATH"];
-                ret.VirtualDirectoryName = session["WEB_VIRTUALDIRECTORYNAME"];
-                ret.WebsiteName = session["WEB_SITENAME"];
-                ret.WebsitePath = session["WEB_VIRTUALDIRECTORYSITEPATH"];
-                ret.InstallDir = session["INSTALLDIR"];
-                return ret;
+                return FromObject((key) => session[key]);
+            }
+        }
+
+        private static WebInstallationInfo FromObject(Func<string, string> propGetter)
+        {
+            bool createAsWebsite = propGetter("WEB_CREATEASWEBSITE") == "True";
+            if (createAsWebsite)
+            {
+                return new WebsiteInstallationInfo()
+                {
+                    //CreateAsWebsite = propGetter("WEB_CREATEASWEBSITE") == "True",
+                    //ApplicationPath = propGetter("WEB_APPLICATIONPATH"),
+                    //VirtualDirectoryName = propGetter("WEB_VIRTUALDIRECTORYNAME"),
+                    WebsiteName = propGetter("WEB_SITENAME"),
+                    //WebsitePath = propGetter("WEB_VIRTUALDIRECTORYSITEPATH"),
+                    InstallDir = propGetter("INSTALLDIR"),
+                };
+            }
+            else
+            {
+                return new VirtualDirectoryInstallationInfo()
+                {
+                    //CreateAsWebsite = propGetter("WEB_CREATEASWEBSITE") == "True",
+                    //ApplicationPath = propGetter("WEB_APPLICATIONPATH"),
+                    VirtualDirectoryName = propGetter("WEB_VIRTUALDIRECTORYNAME"),
+                    WebsiteName = propGetter("WEB_SITENAME"),
+                    //WebsitePath = propGetter("WEB_VIRTUALDIRECTORYSITEPATH"),
+                    InstallDir = propGetter("INSTALLDIR"),
+                };
             }
         }
 
@@ -69,41 +91,37 @@ namespace CprBroker.Installers
         {
             if (session.GetMode(InstallRunMode.Scheduled) || session.GetMode(InstallRunMode.Rollback))
             {
-                this.CopyToCustomActionData(session.CustomActionData);
+                this.CopyToObject((key, value) => session.CustomActionData[key] = value);
             }
             else
             {
-                session["WEB_CREATEASWEBSITE"] = this.CreateAsWebsite.ToString();
-                session["WEB_APPLICATIONPATH"] = this.ApplicationPath;
-                session["WEB_VIRTUALDIRECTORYNAME"] = this.VirtualDirectoryName;
-                session["WEB_SITENAME"] = this.WebsiteName;
-                session["WEB_VIRTUALDIRECTORYSITEPATH"] = this.WebsitePath;
-                session["INSTALLDIR"] = this.InstallDir;
+                this.CopyToObject((key, value) => session[key] = value);
             }
         }
 
-        public static WebInstallationInfo FromCustomAction(CustomActionData customActionData)
+        public void CopyToObject(Action<string, string> propSetter)
         {
-            WebInstallationInfo ret = new WebInstallationInfo();
-            ret.CreateAsWebsite = customActionData["WEB_CREATEASWEBSITE"] == "True";
-            ret.ApplicationPath = customActionData["WEB_APPLICATIONPATH"];
-            ret.VirtualDirectoryName = customActionData["WEB_VIRTUALDIRECTORYNAME"];
-            ret.WebsiteName = customActionData["WEB_SITENAME"];
-            ret.WebsitePath = customActionData["WEB_VIRTUALDIRECTORYSITEPATH"];
-            ret.InstallDir = customActionData["INSTALLDIR"];
-            return ret;
+            if (this is WebsiteInstallationInfo)
+            {
+                WebsiteInstallationInfo websiteInstallationInfo = this as WebsiteInstallationInfo;
+                propSetter("WEB_CREATEASWEBSITE", websiteInstallationInfo.CreateAsWebsite.ToString());
+                propSetter("WEB_APPLICATIONPATH", websiteInstallationInfo.TargetWmiPath);
+                //propSetter("WEB_VIRTUALDIRECTORYNAME", websiteInstallationInfo.VirtualDirectoryName);
+                propSetter("WEB_SITENAME", websiteInstallationInfo.WebsiteName);
+                //propSetter("WEB_VIRTUALDIRECTORYSITEPATH", websiteInstallationInfo.WebsitePath);
+                propSetter("INSTALLDIR", websiteInstallationInfo.InstallDir);
+            }
+            else
+            {
+                VirtualDirectoryInstallationInfo virtualDirectoryInstallationInfo = this as VirtualDirectoryInstallationInfo;
+                propSetter("WEB_CREATEASWEBSITE", virtualDirectoryInstallationInfo.CreateAsWebsite.ToString());
+                propSetter("WEB_APPLICATIONPATH", virtualDirectoryInstallationInfo.TargetWmiPath);
+                propSetter("WEB_VIRTUALDIRECTORYNAME", virtualDirectoryInstallationInfo.VirtualDirectoryName);
+                propSetter("WEB_SITENAME", virtualDirectoryInstallationInfo.WebsiteName);
+                propSetter("WEB_VIRTUALDIRECTORYSITEPATH", virtualDirectoryInstallationInfo.WebsitePath);
+                propSetter("INSTALLDIR", virtualDirectoryInstallationInfo.InstallDir);
+            }
         }
-
-        public void CopyToCustomActionData(CustomActionData customActionData)
-        {
-            customActionData["WEB_CREATEASWEBSITE"] = this.CreateAsWebsite.ToString();
-            customActionData["WEB_APPLICATIONPATH"] = this.ApplicationPath;
-            customActionData["WEB_VIRTUALDIRECTORYNAME"] = this.VirtualDirectoryName;
-            customActionData["WEB_SITENAME"] = this.WebsiteName;
-            customActionData["WEB_VIRTUALDIRECTORYSITEPATH"] = this.WebsitePath;
-            customActionData["INSTALLDIR"] = this.InstallDir;
-        }
-
 
     }
 }

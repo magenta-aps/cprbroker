@@ -39,37 +39,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Deployment.WindowsInstaller;
-using CprBroker.Installers.Installers;
 using System.DirectoryServices;
 
-namespace CprBrokerWixInstallers
+namespace CprBroker.Installers
 {
-    public class CprBrokerWebsiteCustomAction
+    public class VirtualDirectoryInstallationInfo : WebInstallationInfo
     {
-        [CustomAction]
-        public static ActionResult PopulateWebSites(Session session)
+        public string VirtualDirectoryName;
+
+        public string WebsitePath
         {
-            return WebsiteCustomAction.PopulateWebSites(session);
+            get
+            {
+                return ServerRoot + "/" + GetSiteId() + "/Root";
+            }
         }
 
-        [CustomAction]
-        public static ActionResult CreateCprBrokerWebsite(Session session)
+        public override string TargetWmiPath
         {
-            return WebsiteCustomAction.DeployWebsite(session);
+            get
+            {
+                return WebsitePath + "/" + VirtualDirectoryName;
+            }
         }
 
-        [CustomAction]
-        public static ActionResult RollbackCprBrokerWebsite(Session session)
+        public override bool TargetEntryExists
         {
-            return WebsiteCustomAction.RollbackWebsite(session);
+            get
+            {
+                return DirectoryEntry.Exists(TargetWmiPath);
+            }
         }
 
-        [CustomAction]
-        public static ActionResult RemoveCprBrokerWebSite(Session session)
+        public override string GetAppRelativePath()
         {
-            return WebsiteCustomAction.RemoveWebSite(session);
+            return "/" + VirtualDirectoryName;
         }
 
+        protected override bool IsMatchingDirectoryEntry(DirectoryEntry e)
+        {
+            return (e.Path + "/Root").ToLower() == WebsitePath.ToLower()
+                            || e.Path.ToLower() == WebsitePath.ToLower();
+        }
     }
 }
