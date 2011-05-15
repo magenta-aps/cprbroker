@@ -40,8 +40,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
 using Microsoft.Deployment.WindowsInstaller;
 
 namespace CprBroker.Installers
@@ -137,12 +135,14 @@ namespace CprBroker.Installers
             try
             {
                 string adminConnectionString = CreateConnectionString(true, false);
-                ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
-
-                if ((((int)dbServerConnection.FixedServerRoles & (int)FixedServerRoles.DBCreator) > 0)
-                    || (((int)dbServerConnection.FixedServerRoles & (int)FixedServerRoles.SysAdmin) > 0))
+                using (SqlConnection adminConnection = new SqlConnection(adminConnectionString))
                 {
-                    ret = true;
+                    adminConnection.Open();
+                    using (SqlCommand selectCommand = new SqlCommand("SELECT ISNULL(IS_SRVROLEMEMBER ('sysadmin'),0) + ISNULL(IS_SRVROLEMEMBER ('dbcreator'),0)", adminConnection))
+                    {
+                        int count = (int)selectCommand.ExecuteScalar();
+                        return count > 0;
+                    }
                 }
             }
             catch (Exception)
@@ -159,9 +159,16 @@ namespace CprBroker.Installers
         public bool DatabaseExists()
         {
             string adminConnectionString = CreateConnectionString(true, false);
-            ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
-            Server dbServer = new Server(dbServerConnection);
-            return dbServer.Databases.Contains(this.DatabaseName);
+            using (SqlConnection adminConnection = new SqlConnection(adminConnectionString))
+            {
+                adminConnection.Open();
+                using (SqlCommand selectCommand = new SqlCommand("SELECT COUNT (*) FROM sys.databases WHERE name=@Name", adminConnection))
+                {
+                    selectCommand.Parameters.Add("@Name", System.Data.SqlDbType.VarChar).Value = this.DatabaseName; ;
+                    int count = (int)selectCommand.ExecuteScalar();
+                    return count > 0;
+                }
+            }
         }
 
         /// <summary>
@@ -170,12 +177,19 @@ namespace CprBroker.Installers
         /// <returns>True if login exists or windows authentication, false otherwise</returns>
         private bool AppLoginExists()
         {
-            string adminConnectionString = CreateConnectionString(true, false);
-            ServerConnection dbServerConnection = new ServerConnection(new SqlConnection(adminConnectionString));
-            Server dbServer = new Server(dbServerConnection);
             if (!ApplicationAuthenticationInfo.IntegratedSecurity)
             {
-                return dbServer.Logins.Contains(ApplicationAuthenticationInfo.UserName);
+                string adminConnectionString = CreateConnectionString(true, false);
+                using (SqlConnection adminConnection = new SqlConnection(adminConnectionString))
+                {
+                    adminConnection.Open();
+                    using (SqlCommand selectCommand = new SqlCommand("SELECT COUNT (*) FROM sys.sql_logins WHERE name=@Name", adminConnection))
+                    {
+                        selectCommand.Parameters.Add("@Name", System.Data.SqlDbType.VarChar).Value = ApplicationAuthenticationInfo.UserName;
+                        int count = (int)selectCommand.ExecuteScalar();
+                        return count > 0;
+                    }
+                }
             }
             else
             {
