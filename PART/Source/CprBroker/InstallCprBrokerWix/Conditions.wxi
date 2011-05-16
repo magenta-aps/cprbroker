@@ -17,4 +17,12 @@
   <Condition Message="This application requires IIS. Please install IIS and then run the installer again.">
     <![CDATA[IIS56 OR IIS7]]>
   </Condition>
+
+  <!--IIS 6 metabase compatibility-->
+  <Property Id="IIS_METABASE_COMPAT">
+    <RegistrySearch Id="CheckIISMetabase" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" />
+  </Property>
+  <Condition Message="IIS 6 Metabase Compatibility feature must be installed">
+    <![CDATA[(VersionNT < 600) OR IIS_METABASE_COMPAT]]>
+  </Condition>
 </Include>
