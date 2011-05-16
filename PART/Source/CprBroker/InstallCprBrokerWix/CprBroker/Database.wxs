@@ -3,19 +3,19 @@
   <Fragment>
 
     <Property Id="DB_SERVERNAME" Value="SqlServer" >
-      <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="ServerName"/>
+      <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="ServerName"/>
     </Property>
     <Property Id="DB_DATABASENAME" Value="CprBroker" >
-      <RegistrySearch Id="RS_DbDatabaseName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="DatabaseName"/>
+      <RegistrySearch Id="RS_DbDatabaseName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="DatabaseName"/>
     </Property>
     <Property Id="DB_USEEXISTINGDATABASE" Value="False">
-      <RegistrySearch Id="RS_DbUseExistingDatabase" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="UseExistingDatabase"/>
+      <RegistrySearch Id="RS_DbUseExistingDatabase" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="UseExistingDatabase"/>
     </Property>
     <Property Id="DB_ADMININTEGRATEDSECURITY" Value="True" >
-      <RegistrySearch Id="RS_DbAdminIntegratedSecurity" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminIntegratedSecurity"/>
+      <RegistrySearch Id="RS_DbAdminIntegratedSecurity" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AdminIntegratedSecurity"/>
     </Property>
     <Property Id="DB_ADMINUSERNAME"  Value="sa" >
-      <RegistrySearch Id="RS_DbAdminUserName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminUserName"/>
+      <RegistrySearch Id="RS_DbAdminUserName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AdminUserName"/>
     </Property>
     <Property Id="DB_ADMINPASSWORD" Value="-" Hidden="yes" />
 
@@ -31,7 +31,7 @@
     <ComponentGroup Id="CMPGRP_Database">
 
       <Component Id="CMP_DatabaseRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="0A328B61-2AD2-473b-B4E5-43F9FC4CF997">
-        <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Database">
+        <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database">
           <RegistryValue Id="REG_DbServerName" Action="write" Type="string" Name="ServerName" Value="[DB_SERVERNAME]"/>
           <RegistryValue Id="REG_DbDatabaseName" Action="write" Type="string" Name="DatabaseName" Value="[DB_DATABASENAME]"/>
           <RegistryValue Id="REG_DbUseExistingDatabase" Action="write" Type="string" Name="UseExistingDatabase" Value="[DB_USEEXISTINGDATABASE]"/>
