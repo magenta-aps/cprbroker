@@ -32,7 +32,6 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Common\Common.wxs" />
     <Compile Include="CprBroker\CprBroker.wxs" />
     <Compile Include="CprBroker\Database.wxs" />
     <Compile Include="CprBroker\Website.wxs" />
@@ -69,10 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\CprBroker.log" />
-    <Content Include="Common\CustomActions.wxi" />
-    <Content Include="Common\Logging.wxi" />
-    <Content Include="Common\Properties.wxi" />
-    <Content Include="Conditions.wxi" />
+    <Compile Include="Common\CustomActions.wxs" />
+    <Compile Include="Common\Logging.wxs" />
+    <Compile Include="Common\Properties.wxs" />
+    <Compile Include="Conditions.wxs" />
     <Compile Include="CprBroker\Directories.wxs" />
     <Compile Include="CprBroker\Files.wxs" />
     <Content Include="Dialogs\Bitmaps\bannrbmp.bmp" />

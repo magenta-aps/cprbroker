@@ -6,8 +6,6 @@
 
     <DirectoryRef Id="TARGETDIR"/>
 
-    <?include Conditions.wxi?>
-    
     <UIRef Id="CprBrokerUI"/>
 
     <FeatureRef Id="CprBrokerFeature"/>
