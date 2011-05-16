@@ -111,14 +111,14 @@ namespace CprBroker.Installers
                 if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
                 {
                     userName = @"NT AUTHORITY\NETWORK SERVICE";
-                    createLoginMethod = (connection) => new SqlCommand(string.Format("CREATE LOGIN [{0}]", userName), connection);// login.Create();
+                    createLoginMethod = (connection) => new SqlCommand(string.Format("CREATE LOGIN [{0}] FROM WINDOWS", userName), connection);// login.Create();
                 }
                 else
                 {
                     userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
                     createLoginMethod = (connection) =>
                     {
-                        var ret = new SqlCommand(string.Format("CREATE LOGIN [{0}] WITH PASSWORD @Password", userName), connection);
+                        var ret = new SqlCommand(string.Format("CREATE LOGIN [{0}] WITH PASSWORD = @Password", userName), connection);
                         ret.Parameters.Add("@Password", System.Data.SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.Password;
                         return ret;
                     };
