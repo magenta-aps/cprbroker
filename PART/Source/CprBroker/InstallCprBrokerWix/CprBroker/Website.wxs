@@ -28,9 +28,9 @@
 
     <CustomAction Id="CA_InitializeWebPropertiesFromProductName" Execute="immediate" Script="vbscript">
       <![CDATA[
-      Session.Property("WEB_SITENAME") = Session.Property("ProductName")
-      Session.Property("WEB_VIRTUALDIRECTORYNAME") = Session.Property("ProductName")
-      Session.Property("WEB_VIRTUALDIRECTORYSITEPATH") = Session.Property("ProductName")      
+      Session.Property("WEB_SITENAME") = Replace(Session.Property("ProductName"), " ", "")
+      Session.Property("WEB_VIRTUALDIRECTORYNAME") = Replace(Session.Property("ProductName"), " ", "")
+      Session.Property("WEB_VIRTUALDIRECTORYSITEPATH") = Replace(Session.Property("ProductName"), " ", "")
       ]]>
     </CustomAction>
     

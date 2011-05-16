@@ -45,8 +45,8 @@
     <!--Initialize some DB names from product name-->
     <CustomAction Id="CA_InitializeDatabasePropertiesFromProductName" Execute="immediate" Script="vbscript">
       <![CDATA[
-      Session.Property("DB_DATABASENAME") = Session.Property("ProductName")
-      Session.Property("DB_APPUSERNAME") = Session.Property("ProductName")
+      Session.Property("DB_DATABASENAME") = Replace(Session.Property("ProductName"), " ", "")
+      Session.Property("DB_APPUSERNAME") = Replace(Session.Property("ProductName"), " ", "")
       ]]>
     </CustomAction>
 
