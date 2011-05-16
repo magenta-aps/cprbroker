@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment>
+
+    <Property Id="DB_SERVERNAME" Value="SqlServer" >
+      <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="ServerName"/>
+    </Property>
+    <Property Id="DB_DATABASENAME" Value="CprBroker" >
+      <RegistrySearch Id="RS_DbDatabaseName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="DatabaseName"/>
+    </Property>
+    <Property Id="DB_USEEXISTINGDATABASE" Value="False">
+      <RegistrySearch Id="RS_DbUseExistingDatabase" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="UseExistingDatabase"/>
+    </Property>
+    <Property Id="DB_ADMININTEGRATEDSECURITY" Value="True" >
+      <RegistrySearch Id="RS_DbAdminIntegratedSecurity" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminIntegratedSecurity"/>
+    </Property>
+    <Property Id="DB_ADMINUSERNAME"  Value="sa" >
+      <RegistrySearch Id="RS_DbAdminUserName" Root="HKLM" Key="Software\ITST\CprBroker\Database" Type="raw" Name="AdminUserName"/>
+    </Property>
+    <Property Id="DB_ADMINPASSWORD" Value="-" Hidden="yes" />
+
+    <Property Id="DB_APPSAMEASADMIN" Value="True" />
+    <Property Id="DB_APPINTEGRATEDSECURITY" Value="True" />
+    <Property Id="DB_APPUSERNAME" Value="CprBroker" />
+    <Property Id="DB_APPPASSWORD" Value="-" Hidden="yes" />
+
+    <Property Id="DB_VALID" Value="False"/>
+
+    <util:User Id="SQL_AdminUser" Name="[DB_ADMINUSERNAME]" Password="[DB_ADMINPASSWORD]" />
+
+    <ComponentGroup Id="CMPGRP_Database">
+
+      <Component Id="CMP_DatabaseRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="0A328B61-2AD2-473b-B4E5-43F9FC4CF997">
+        <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\ITST\CprBroker\Database">
+          <RegistryValue Id="REG_DbServerName" Action="write" Type="string" Name="ServerName" Value="[DB_SERVERNAME]"/>
+          <RegistryValue Id="REG_DbDatabaseName" Action="write" Type="string" Name="DatabaseName" Value="[DB_DATABASENAME]"/>
+          <RegistryValue Id="REG_DbUseExistingDatabase" Action="write" Type="string" Name="UseExistingDatabase" Value="[DB_USEEXISTINGDATABASE]"/>
+          <RegistryValue Id="REG_DbAdminIntegratedSecurity" Action="write" Type="string" Name="AdminIntegratedSecurity" Value="[DB_ADMININTEGRATEDSECURITY]"/>
+          <RegistryValue Id="REG_DbAdminUserName" Action="write" Type="string" Name="AdminUserName" Value="[DB_ADMINUSERNAME]"/>
+        </RegistryKey>
+      </Component>
+
+    </ComponentGroup>
+
+    <Property Id="RollbackCprBrokerDatabase" Value="-" Hidden="yes"/>
+    <CustomAction Id="RollbackCprBrokerDatabase_" Property="RollbackCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="RollbackCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RollbackCprBrokerDatabase" Execute="rollback" Return="check" Impersonate="yes"/>
+
+    <Property Id="DeployCprBrokerDatabase" Value="-" Hidden="yes"/>
+    <CustomAction Id="DeployCprBrokerDatabase_" Property="DeployCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="DeployCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="DeployCprBrokerDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
+
+    <Property Id="RemoveCprBrokerDatabase" Value="-" Hidden="yes"/>
+    <CustomAction Id="RemoveCprBrokerDatabase_" Property="RemoveCprBrokerDatabase" Value="ProductName=[ProductName];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="RemoveCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
+
+    <InstallExecuteSequence>
+      <Custom Action="RollbackCprBrokerDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="RollbackCprBrokerDatabase" After="InstallFiles">NOT REMOVE</Custom>
+
+      <Custom Action="DeployCprBrokerDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="DeployCprBrokerDatabase" After="InstallSqlData">NOT REMOVE</Custom>
+
+      <Custom Action="RemoveCprBrokerDatabase_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveCprBrokerDatabase" After="UninstallSqlData"><![CDATA[REMOVE = "ALL"]]></Custom>
+    </InstallExecuteSequence>
+
+  </Fragment>
+</Wix>

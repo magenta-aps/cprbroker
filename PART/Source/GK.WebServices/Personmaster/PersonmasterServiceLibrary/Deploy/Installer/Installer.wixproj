@@ -21,6 +21,7 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Database.wxs" />
     <Compile Include="DatabaseDialog.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
@@ -35,7 +36,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Conditions.wxi" />
+    <Compile Include="Conditions.wxs" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
