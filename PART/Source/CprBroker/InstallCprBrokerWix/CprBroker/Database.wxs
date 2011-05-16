@@ -54,28 +54,31 @@
       <Custom Action="CA_InitializeDatabasePropertiesFromProductName" After="CostFinalize">NOT REMOVE</Custom>
     </InstallUISequence>
 
+    
+    <CustomAction Id="TestDatabaseConnection" BinaryKey="InstallersDll" DllEntry="TestDatabaseConnection" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
+
     <!--Installation custom actions-->
-    <Property Id="RollbackCprBrokerDatabase" Value="-" Hidden="yes"/>
-    <CustomAction Id="RollbackCprBrokerDatabase_" Property="RollbackCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
-    <CustomAction Id="RollbackCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RollbackCprBrokerDatabase" Execute="rollback" Return="check" Impersonate="yes"/>
+    <Property Id="RollbackDatabase" Value="-" Hidden="yes"/>
+    <CustomAction Id="RollbackDatabase_" Property="RollbackDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="RollbackDatabase" BinaryKey="InstallersDll" DllEntry="RollbackDatabase" Execute="rollback" Return="check" Impersonate="yes"/>
 
-    <Property Id="DeployCprBrokerDatabase" Value="-" Hidden="yes"/>
-    <CustomAction Id="DeployCprBrokerDatabase_" Property="DeployCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
-    <CustomAction Id="DeployCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="DeployCprBrokerDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
+    <Property Id="DeployDatabase" Value="-" Hidden="yes"/>
+    <CustomAction Id="DeployDatabase_" Property="DeployDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="DeployDatabase" BinaryKey="InstallersDll" DllEntry="DeployDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
-    <Property Id="RemoveCprBrokerDatabase" Value="-" Hidden="yes"/>
-    <CustomAction Id="RemoveCprBrokerDatabase_" Property="RemoveCprBrokerDatabase" Value="ProductName=[ProductName];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
-    <CustomAction Id="RemoveCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
+    <Property Id="RemoveDatabase" Value="-" Hidden="yes"/>
+    <CustomAction Id="RemoveDatabase_" Property="RemoveDatabase" Value="ProductName=[ProductName];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
+    <CustomAction Id="RemoveDatabase" BinaryKey="InstallersDll" DllEntry="RemoveDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
     <InstallExecuteSequence>
-      <Custom Action="RollbackCprBrokerDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="RollbackCprBrokerDatabase" After="InstallFiles">NOT REMOVE</Custom>
+      <Custom Action="RollbackDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="RollbackDatabase" After="InstallFiles">NOT REMOVE</Custom>
 
-      <Custom Action="DeployCprBrokerDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="DeployCprBrokerDatabase" After="InstallSqlData">NOT REMOVE</Custom>
+      <Custom Action="DeployDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="DeployDatabase" After="InstallSqlData">NOT REMOVE</Custom>
 
-      <Custom Action="RemoveCprBrokerDatabase_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveCprBrokerDatabase" After="UninstallSqlData"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveDatabase_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveDatabase" After="UninstallSqlData"><![CDATA[REMOVE = "ALL"]]></Custom>
     </InstallExecuteSequence>
 
   </Fragment>

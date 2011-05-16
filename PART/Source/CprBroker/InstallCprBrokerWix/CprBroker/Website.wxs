@@ -35,16 +35,16 @@
     </CustomAction>
     
 
-    <CustomAction Id="RollbackCprBrokerWebsite_" Property="RollbackCprBrokerWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
-    <CustomAction Id="RollbackCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="RollbackCprBrokerWebsite" Execute="rollback" Return="check" Impersonate="no"></CustomAction>
+    <CustomAction Id="RollbackWebsite_" Property="RollbackWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
+    <CustomAction Id="RollbackWebsite" BinaryKey="InstallersDll" DllEntry="RollbackWebsite" Execute="rollback" Return="check" Impersonate="no"></CustomAction>
 
-    <Property Id="CreateCprBrokerWebsite" Value="-" Hidden="yes"/>
-    <CustomAction Id="CreateCprBrokerWebsite_" Property="CreateCprBrokerWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]"/>
-    <CustomAction Id="CreateCprBrokerWebsite" BinaryKey="InstallersDll" DllEntry="CreateCprBrokerWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
+    <Property Id="CreateWebsite" Value="-" Hidden="yes"/>
+    <CustomAction Id="CreateWebsite_" Property="CreateWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]"/>
+    <CustomAction Id="CreateWebsite" BinaryKey="InstallersDll" DllEntry="CreateWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
-    <Property Id="RemoveCprBrokerWebSite" Value="-" />
-    <CustomAction Id="RemoveCprBrokerWebSite_" Property="RemoveCprBrokerWebSite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
-    <CustomAction Id="RemoveCprBrokerWebSite" BinaryKey="InstallersDll" DllEntry="RemoveCprBrokerWebSite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
+    <Property Id="RemoveWebSite" Value="-" />
+    <CustomAction Id="RemoveWebSite_" Property="RemoveWebSite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
+    <CustomAction Id="RemoveWebSite" BinaryKey="InstallersDll" DllEntry="RemoveWebSite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
     <InstallUISequence >
       <Custom Action="PopulateWebSites" After="CostFinalize">NOT REMOVE</Custom>
@@ -53,14 +53,14 @@
 
     <InstallExecuteSequence>
 
-      <Custom Action="RollbackCprBrokerWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="RollbackCprBrokerWebsite" After="InstallFiles">NOT REMOVE</Custom>
+      <Custom Action="RollbackWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="RollbackWebsite" After="InstallFiles">NOT REMOVE</Custom>
 
-      <Custom Action="CreateCprBrokerWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="CreateCprBrokerWebsite" After="RollbackCprBrokerWebsite">NOT REMOVE</Custom>
+      <Custom Action="CreateWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
+      <Custom Action="CreateWebsite" After="RollbackWebsite">NOT REMOVE</Custom>
 
-      <Custom Action="RemoveCprBrokerWebSite_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveCprBrokerWebSite" Before="RemoveRegistryValues"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveWebSite_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveWebSite" Before="RemoveRegistryValues"><![CDATA[REMOVE = "ALL"]]></Custom>
 
     </InstallExecuteSequence>
 

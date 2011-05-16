@@ -50,13 +50,13 @@ namespace CprBrokerWixInstallers
     public class CprBrokerDatabaseCustomAction
     {
         [CustomAction]
-        public static ActionResult TestConnectionString(Session session)
+        public static ActionResult TestDatabaseConnection(Session session)
         {
             return DatabaseCustomAction.TestConnectionString(session);
         }
 
         [CustomAction]
-        public static ActionResult DeployCprBrokerDatabase(Session session)
+        public static ActionResult DeployDatabase(Session session)
         {
             List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
             ret.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, CprBroker.Installers.CprBrokerInstallers.Properties.Resources.AddressCoordinateQualityType));
@@ -74,13 +74,13 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
-        public static ActionResult RemoveCprBrokerDatabase(Session session)
+        public static ActionResult RemoveDatabase(Session session)
         {
             return DatabaseCustomAction.RemoveDatabase(session, true);
         }
 
         [CustomAction]
-        public static ActionResult RollbackCprBrokerDatabase(Session session)
+        public static ActionResult RollbackDatabase(Session session)
         {
             return DatabaseCustomAction.RemoveDatabase(session, false);
         }
@@ -92,7 +92,7 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
-        public static ActionResult CreateCprBrokerWebsite(Session session)
+        public static ActionResult CreateWebsite(Session session)
         {
             Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
@@ -102,13 +102,13 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
-        public static ActionResult RollbackCprBrokerWebsite(Session session)
+        public static ActionResult RollbackWebsite(Session session)
         {
             return WebsiteCustomAction.RollbackWebsite(session);
         }
 
         [CustomAction]
-        public static ActionResult RemoveCprBrokerWebSite(Session session)
+        public static ActionResult RemoveWebSite(Session session)
         {
             return WebsiteCustomAction.RemoveWebSite(session);
         }
