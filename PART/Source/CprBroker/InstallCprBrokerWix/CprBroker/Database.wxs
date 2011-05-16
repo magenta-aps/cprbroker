@@ -5,7 +5,7 @@
     <Property Id="DB_SERVERNAME" Value="SqlServer" >
       <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="ServerName"/>
     </Property>
-    <Property Id="DB_DATABASENAME" Value="CprBroker" >
+    <Property Id="DB_DATABASENAME" Value="-" >
       <RegistrySearch Id="RS_DbDatabaseName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="DatabaseName"/>
     </Property>
     <Property Id="DB_USEEXISTINGDATABASE" Value="False">
@@ -21,7 +21,7 @@
 
     <Property Id="DB_APPSAMEASADMIN" Value="True" />
     <Property Id="DB_APPINTEGRATEDSECURITY" Value="True" />
-    <Property Id="DB_APPUSERNAME" Value="CprBroker" />
+    <Property Id="DB_APPUSERNAME" Value="-" />
     <Property Id="DB_APPPASSWORD" Value="-" Hidden="yes" />
 
     <Property Id="DB_VALID" Value="False"/>
@@ -42,6 +42,19 @@
 
     </ComponentGroup>
 
+    <!--Initialize some DB names from product name-->
+    <CustomAction Id="CA_InitializeDatabasePropertiesFromProductName" Execute="immediate" Script="vbscript">
+      <![CDATA[
+      Session.Property("DB_DATABASENAME") = Session.Property("ProductName")
+      Session.Property("DB_APPUSERNAME") = Session.Property("ProductName")
+      ]]>
+    </CustomAction>
+
+    <InstallUISequence>
+      <Custom Action="CA_InitializeDatabasePropertiesFromProductName" After="CostFinalize">NOT REMOVE</Custom>
+    </InstallUISequence>
+
+    <!--Installation custom actions-->
     <Property Id="RollbackCprBrokerDatabase" Value="-" Hidden="yes"/>
     <CustomAction Id="RollbackCprBrokerDatabase_" Property="RollbackCprBrokerDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD]" />
     <CustomAction Id="RollbackCprBrokerDatabase" BinaryKey="InstallersDll" DllEntry="RollbackCprBrokerDatabase" Execute="rollback" Return="check" Impersonate="yes"/>
