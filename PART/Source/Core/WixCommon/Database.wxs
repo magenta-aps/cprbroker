@@ -26,8 +26,6 @@
 
     <Property Id="DB_VALID" Value="False"/>
 
-    <util:User Id="SQL_AdminUser" Name="[DB_ADMINUSERNAME]" Password="[DB_ADMINPASSWORD]" />
-
     <ComponentGroup Id="CMPGRP_Database">
 
       <Component Id="CMP_DatabaseRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="0A328B61-2AD2-473b-B4E5-43F9FC4CF997">

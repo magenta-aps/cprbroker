@@ -33,11 +33,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CprBroker\CprBroker.wxs" />
-    <Compile Include="CprBroker\Database.wxs" />
-    <Compile Include="CprBroker\Website.wxs" />
-    <Compile Include="Dialogs\DatabaseDialog.wxs" />
-    <Compile Include="Dialogs\WebDirectoryDialog.wxs" />
-    <Compile Include="Dialogs\WebsiteDialog.wxs" />
     <Compile Include="DprUpdate\DprUpdate.wxs" />
     <Compile Include="DprUpdate\Directories.wxs" />
     <Compile Include="DprUpdate\Files.wxs" />
@@ -104,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dialogs\en-us.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixLibrary Include="WixCommon">
+      <HintPath>..\..\Core\Output\WixCommon.wixlib</HintPath>
+      <Name>WixCommon</Name>
+    </WixLibrary>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
