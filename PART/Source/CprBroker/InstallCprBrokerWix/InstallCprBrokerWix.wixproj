@@ -33,10 +33,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CprBroker\CprBroker.wxs" />
-    <Compile Include="DprUpdate\DprUpdate.wxs" />
-    <Compile Include="DprUpdate\Directories.wxs" />
-    <Compile Include="DprUpdate\Files.wxs" />
-    <Compile Include="PersonMaster\PersonMaster.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,10 +89,8 @@
   <ItemGroup>
     <Folder Include="CprBroker" />
     <Folder Include="Dialogs\Bitmaps\" />
-    <Folder Include="DprUpdate" />
     <Folder Include="Common" />
     <Folder Include="Dialogs" />
-    <Folder Include="PersonMaster" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dialogs\en-us.wxl" />
