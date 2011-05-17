@@ -62,6 +62,7 @@
       <![CDATA[
       If Session.Property("DB_APPINTEGRATEDSECURITYALLOWED") <> "True" Then
         Session.Property("DB_APPINTEGRATEDSECURITY") = "False"
+        Session.Property("DB_APPSAMEASADMIN") = ""
       End If
       ]]>
     </CustomAction>

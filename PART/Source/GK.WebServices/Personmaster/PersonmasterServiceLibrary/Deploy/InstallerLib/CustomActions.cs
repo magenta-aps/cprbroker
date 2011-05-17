@@ -12,7 +12,6 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult TestDatabaseConnection(Session session)
         {
-            return ActionResult.Success;
             return DatabaseCustomAction.TestConnectionString(session);
         }
 

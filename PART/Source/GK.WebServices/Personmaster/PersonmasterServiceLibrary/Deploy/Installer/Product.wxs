@@ -8,7 +8,7 @@
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLDIR" Name="PersonMasterInstaller">
+        <Directory Id="INSTALLDIR" Name="Person Master">
 
         </Directory>
       </Directory>
