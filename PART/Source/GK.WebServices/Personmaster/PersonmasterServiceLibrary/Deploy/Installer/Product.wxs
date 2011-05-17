@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="ddb79617-a985-4841-9626-22779ded8d13" Name="Person Master" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="016e932b-5404-4626-ba78-7347a4cb9cc1">
-		<Package InstallerVersion="200" Compressed="yes" />
+  <Product Id="ddb79617-a985-4841-9626-22779ded8d13" Name="Person Master" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="016e932b-5404-4626-ba78-7347a4cb9cc1">
+    <Package InstallerVersion="200" Compressed="yes" />
 
-		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+    <PropertyRef Id="Dummy_DialogsFragmentRefProp"/>
 
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLLOCATION" Name="PersonMasterInstaller">
-					<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-					<!-- <Component Id="ProductComponent" Guid="a3b11853-88c2-4a36-9978-6dc2e6a2d9fa"> -->
-						<!-- TODO: Insert files, registry keys, and other resources here. -->
-					<!-- </Component> -->
-				</Directory>
-			</Directory>
-		</Directory>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLDIR" Name="PersonMasterInstaller">
 
-		<Feature Id="ProductFeature" Title="PersonMasterInstaller" Level="1">
-			<!-- TODO: Remove the comments around this ComponentRef element and the Component above in order to add resources to this installer. -->
-			<!-- <ComponentRef Id="ProductComponent" /> -->
-			
-			<!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
-			<ComponentGroupRef Id="Product.Generated" />
-		</Feature>
-	</Product>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <PropertyRef Id="Dummy_CustomizationsFragmentRefProp"/>
+
+    <Feature Id="ProductFeature" Title="PersonMasterInstaller" Level="1">
+      <ComponentRef Id="CMP_WebRegistry"/>
+      <ComponentRef Id="CMP_DatabaseRegistry"/>
+
+      <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+      <ComponentGroupRef Id="Product.Generated" />
+    </Feature>
+  </Product>
 </Wix>

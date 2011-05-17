@@ -10,14 +10,16 @@ namespace PersonMasterInstallers
     public class CustomActions
     {
         [CustomAction]
-        public static ActionResult TestConnection(Session session)
+        public static ActionResult TestDatabaseConnection(Session session)
         {
+            return ActionResult.Success;
             return DatabaseCustomAction.TestConnectionString(session);
         }
 
         [CustomAction]
-        public static ActionResult DeployPersonMasterDatabase(Session session)
+        public static ActionResult DeployDatabase(Session session)
         {
+            return ActionResult.Success;
             string encryptionPassword = "";
             string domainNamespace = "";
 
@@ -29,15 +31,44 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
-        public static ActionResult RollbackPersonMasterDatabase(Session session)
+        public static ActionResult RollbackDatabase(Session session)
         {
+            return ActionResult.Success;
             return DatabaseCustomAction.RemoveDatabase(session, false);
         }
 
         [CustomAction]
-        public static ActionResult RemovePersonMasterDatabase(Session session)
+        public static ActionResult RemoveDatabase(Session session)
         {
+            return ActionResult.Success;
             return DatabaseCustomAction.RemoveDatabase(session, true);
+        }
+
+        [CustomAction]
+        public static ActionResult PopulateWebSites(Session session)
+        {
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
+        public static ActionResult CreateWebsite(Session session)
+        {
+            return ActionResult.Success;
+            return WebsiteCustomAction.DeployWebsite(session,new Dictionary<string,string>());
+        }
+
+        [CustomAction]
+        public static ActionResult RollbackWebsite(Session session)
+        {
+            return ActionResult.Success;
+            return WebsiteCustomAction.RollbackWebsite(session);
+        }
+
+        [CustomAction]
+        public static ActionResult RemoveWebSite(Session session)
+        {
+            return ActionResult.Success;
+            return WebsiteCustomAction.RemoveWebSite(session);
         }
 
     }

@@ -14,15 +14,15 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
+    <DefineConstants>Debug;bannerBmp=Bitmaps\bannrbmp.bmp;dialogBmp=$(MSBuildProjectDirectory)\Bitmaps\dlgbmp.bmp;exclamationIco=$(MSBuildProjectDirectory)\Bitmaps\exclamic.ico;infoIco=$(MSBuildProjectDirectory)\Bitmaps\info.ico;licenseRtf=$(MSBuildProjectDirectory)\license.rtf;newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;printeulaDll=$(OutputPath)\PrintEula.dll;SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\Installers\;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Database.wxs" />
-    <Compile Include="DatabaseDialog.wxs" />
+    <Compile Include="Customizations.wxs" />
+    <Compile Include="Dialogs.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -38,7 +38,36 @@
   <ItemGroup>
     <Compile Include="Conditions.wxs" />
   </ItemGroup>
+  <ItemGroup>
+    <WixLibrary Include="WixCommon">
+      <HintPath>..\..\..\..\..\Core\Output\WixCommon.wixlib</HintPath>
+      <Name>WixCommon</Name>
+    </WixLibrary>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Bitmaps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bitmaps\bannrbmp.bmp" />
+    <Content Include="Bitmaps\dlgbmp.bmp" />
+    <Content Include="Bitmaps\exclamic.ico" />
+    <Content Include="Bitmaps\info.ico" />
+    <Content Include="Bitmaps\New.ico" />
+    <Content Include="Bitmaps\Up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="en-us.wxl" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PostBuildEvent />
+  </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
