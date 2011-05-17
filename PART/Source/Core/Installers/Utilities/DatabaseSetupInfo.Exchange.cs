@@ -118,6 +118,8 @@ namespace CprBroker.Installers
                 ret.AdminAuthenticationInfo.Password = session.GetPropertyValue("DB_ADMINPASSWORD");
             }
 
+            ret.ApplicationIntegratedSecurityAllowed = bool.Parse(session.GetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED"));
+            
             ret.ApplicationAuthenticationSameAsAdmin = !string.IsNullOrEmpty(session.GetPropertyValue("DB_APPSAMEASADMIN"));
             if (!ret.ApplicationAuthenticationSameAsAdmin)
             {
@@ -151,6 +153,7 @@ namespace CprBroker.Installers
                 session.SetPropertyValue("DB_ADMINPASSWORD", this.AdminAuthenticationInfo.Password);
             }
 
+            session.SetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED", this.ApplicationIntegratedSecurityAllowed.ToString());
             session.SetPropertyValue("DB_APPSAMEASADMIN", this.ApplicationAuthenticationSameAsAdmin ? "True" : "");
 
             if (this.ApplicationAuthenticationInfo != null)

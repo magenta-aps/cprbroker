@@ -65,6 +65,7 @@ namespace CprBroker.Installers
         public string DatabaseName = "";
         public bool UseExistingDatabase = false;
         public bool ApplicationAuthenticationSameAsAdmin = true;
+        public bool ApplicationIntegratedSecurityAllowed = true;
 
         public AuthenticationInfo AdminAuthenticationInfo { get; set; }
         public AuthenticationInfo ApplicationAuthenticationInfo { get; set; }
@@ -211,6 +212,11 @@ namespace CprBroker.Installers
             {
                 // Admin connection failed
                 message = Messages.AdminConnectionFailed;
+                return false;
+            }
+            if (!ApplicationIntegratedSecurityAllowed && EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+            {
+                message = Messages.WindowsAuthenticationNotAllowed;
                 return false;
             }
             // From now on, we have a valid connection string (without DB)

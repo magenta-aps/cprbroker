@@ -82,6 +82,8 @@
           </RadioButtonGroup>
           <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN]]></Condition>
           <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN]]></Condition>
+          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = "True"]]></Condition>
+          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> "True"]]></Condition>
         </Control>
 
         <!--Application username-->
