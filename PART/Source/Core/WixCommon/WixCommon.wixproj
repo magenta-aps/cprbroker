@@ -25,6 +25,7 @@
     <Compile Include="WebDirectoryDialog.wxs" />
     <Compile Include="Website.wxs" />
     <Compile Include="WebsiteDialog.wxs" />
+    <Compile Include="WebSiteOrDirectoryDialog.wxs" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

@@ -56,18 +56,18 @@
       <Publish Dialog="InstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="DoAction" Value="WixUIValidatePath" Order="2">NOT WIXUI_DONTVALIDATEPATH</Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="SpawnDialog" Value="InvalidDirDlg" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebsiteDialog" Order="4"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MULTIPLESITESALLOWED = "True")]]></Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="4"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MULTIPLESITESALLOWED = "True")]]></Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="4"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MULTIPLESITESALLOWED = "False")]]></Publish>
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
 
-      <Publish Dialog="WebsiteDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
-      <Publish Dialog="WebsiteDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="1">1</Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="1">1</Publish>
 
       <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
       <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="1">1</Publish>
 
-      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebsiteDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
       <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="3"><![CDATA[DB_VALID = "True"]]></Publish>
 
