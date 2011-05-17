@@ -9,8 +9,6 @@
     <UIRef Id="CprBrokerUI"/>
 
     <FeatureRef Id="CprBrokerFeature"/>
-    <FeatureRef Id="DprUpdateFeature"/>
-    <FeatureRef Id="PersonMasterFeature"/>
 
   </Product>
 </Wix>
