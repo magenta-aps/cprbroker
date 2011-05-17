@@ -14,9 +14,29 @@
         <Control Id="serverLabel" Type="Text" Text="Server name" X="10" Y="60" Width="60" Height="17"/>
         <Control Id="serverEdit" Type="Edit" Property="DB_SERVERNAME" X="70" Y="60" Width="70" Height="17"/>
 
+        <!--Ecryption key-->
+        <Control Id="encryptionKeyLabel" Type="Text" Text="Encryption Key" X="150" Y="60" Width="60" Height="17">
+          <Condition Action="show" ><![CDATA[DB_ENCRYPTIONKEYENABLED="True"]]></Condition>
+          <Condition Action="hide" ><![CDATA[DB_ENCRYPTIONKEYENABLED<>"True"]]></Condition>
+        </Control>
+        <Control Id="encryptionKeyEdit" Type="Edit" Property="DB_ENCRYPTIONKEY" X="210" Y="60" Width="70" Height="17">
+          <Condition Action="show" ><![CDATA[DB_ENCRYPTIONKEYENABLED="True"]]></Condition>
+          <Condition Action="hide" ><![CDATA[DB_ENCRYPTIONKEYENABLED<>"True"]]></Condition>
+        </Control>
+
         <!--Database name-->
         <Control Id="databaseText" Type="Text" Text="Database name" X="10" Y="80" Width="60" Height="17"/>
         <Control Id="databaseEdit" Type="Edit" Property="DB_DATABASENAME" X="70" Y="80" Width="70" Height="17"/>
+
+        <!--Domain-->
+        <Control Id="DomainLabel" Type="Text" Text="Domain" X="150" Y="80" Width="60" Height="17">
+          <Condition Action="show" ><![CDATA[DB_DOMAINENABLED="True"]]></Condition>
+          <Condition Action="hide" ><![CDATA[DB_DOMAINENABLED<>"True"]]></Condition>
+        </Control>
+        <Control Id="domainEdit" Type="Edit" Property="DB_DOMAIN" X="210" Y="80" Width="70" Height="17">
+          <Condition Action="show" ><![CDATA[DB_DOMAINENABLED="True"]]></Condition>
+          <Condition Action="hide" ><![CDATA[DB_DOMAINENABLED<>"True"]]></Condition>
+        </Control>
 
         <!--Admin group box-->
         <Control Id="adminGroupBox" Type="GroupBox" Text="Admin connection" X="10" Y="110" Width="150" Height="120"/>

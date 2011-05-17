@@ -69,7 +69,15 @@ namespace CprBroker.Installers
         public AuthenticationInfo AdminAuthenticationInfo { get; set; }
         public AuthenticationInfo ApplicationAuthenticationInfo { get; set; }
 
+        [Obsolete]
         public bool DatabaseCreated;
+
+        public bool EncryptionKeyEnabled = false;
+        public string EncryptionKey;
+
+        public bool DomainEnabled = false;
+        public string Domain;
+
 
         public DatabaseSetupInfo()
         {

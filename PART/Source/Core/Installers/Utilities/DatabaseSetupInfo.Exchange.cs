@@ -104,6 +104,12 @@ namespace CprBroker.Installers
             ret.DatabaseName = session.GetPropertyValue("DB_DATABASENAME");
             ret.UseExistingDatabase = bool.Parse(session.GetPropertyValue("DB_USEEXISTINGDATABASE"));
 
+            ret.EncryptionKey = session.GetPropertyValue("DB_ENCRYPTIONKEY");
+            ret.EncryptionKeyEnabled = bool.Parse(session.GetPropertyValue("DB_ENCRYPTIONKEYENABLED"));
+
+            ret.Domain = session.GetPropertyValue("DB_DOMAIN");
+            ret.DomainEnabled = bool.Parse(session.GetPropertyValue("DB_DOMAINENABLED"));
+
             ret.AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
             ret.AdminAuthenticationInfo.IntegratedSecurity = session.GetPropertyValue("DB_ADMININTEGRATEDSECURITY") == "True";
             if (!ret.AdminAuthenticationInfo.IntegratedSecurity)
@@ -131,6 +137,12 @@ namespace CprBroker.Installers
             session.SetPropertyValue("DB_SERVERNAME", this.ServerName);
             session.SetPropertyValue("DB_DATABASENAME", this.DatabaseName);
             session.SetPropertyValue("DB_USEEXISTINGDATABASE", this.UseExistingDatabase.ToString());
+
+            session.SetPropertyValue("DB_ENCRYPTIONKEY", this.EncryptionKey);
+            session.SetPropertyValue("DB_ENCRYPTIONKEYENABLED", this.EncryptionKeyEnabled.ToString());
+
+            session.SetPropertyValue("DB_DOMAIN", this.Domain);
+            session.SetPropertyValue("DB_DOMAINENABLED", this.DomainEnabled.ToString());
 
             if (this.AdminAuthenticationInfo != null)
             {

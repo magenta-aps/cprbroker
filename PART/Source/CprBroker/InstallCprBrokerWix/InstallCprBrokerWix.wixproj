@@ -67,6 +67,7 @@
     <Compile Include="Common\Logging.wxs" />
     <Compile Include="Common\Properties.wxs" />
     <Compile Include="Conditions.wxs" />
+    <Compile Include="CprBroker\Customizations.wxs" />
     <Compile Include="CprBroker\Directories.wxs" />
     <Compile Include="CprBroker\Files.wxs" />
     <Content Include="Dialogs\Bitmaps\bannrbmp.bmp" />
