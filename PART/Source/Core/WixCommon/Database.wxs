@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-  <Fragment>
+  <Fragment Id="DatabaseFragment">
+    <Property Id="Dummy_DatabaseFragmentRefProperty" Value="-"/>
 
     <Property Id="DB_SERVERNAME" Value="SqlServer" >
       <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="ServerName"/>
@@ -20,10 +21,10 @@
     <Property Id="DB_ADMINPASSWORD" Value="-" Hidden="yes" />
 
     <Property Id="DB_APPSAMEASADMIN" Value="True" />
-    
+
     <Property Id="DB_APPINTEGRATEDSECURITY" Value="False" />
     <Property Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True" />
-    
+
     <Property Id="DB_APPUSERNAME" Value="-" />
     <Property Id="DB_APPPASSWORD" Value="-" Hidden="yes" />
 
@@ -56,6 +57,7 @@
       Session.Property("DB_APPUSERNAME") = Replace(Session.Property("ProductName"), " ", "")
       ]]>
     </CustomAction>
+
     <CustomAction Id="CA_InitializeDatabasePropertiesByRemovingConflicts" Execute="immediate" Script="vbscript">
       <![CDATA[
       If Session.Property("DB_APPINTEGRATEDSECURITYALLOWED") <> "True" Then
@@ -69,8 +71,14 @@
       <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize">NOT REMOVE</Custom>
     </InstallUISequence>
 
-    
+
     <CustomAction Id="TestDatabaseConnection" BinaryKey="InstallersDll" DllEntry="TestDatabaseConnection" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>
+    <CustomAction Id="ShowTestDatabaseConnectionFailure" Execute="immediate" Script="vbscript" >
+      <![CDATA[
+      msgbox Session.Property("DB_VALID")
+    ]]>
+    </CustomAction>
+
 
     <!--Installation custom actions-->
     <Property Id="RollbackDatabase" Value="-" Hidden="yes"/>
@@ -90,10 +98,10 @@
       <Custom Action="RollbackDatabase" After="InstallFiles">NOT REMOVE</Custom>
 
       <Custom Action="DeployDatabase_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="DeployDatabase" After="InstallSqlData">NOT REMOVE</Custom>
+      <Custom Action="DeployDatabase" After="RemoveRegistryValues">NOT REMOVE</Custom>
 
       <Custom Action="RemoveDatabase_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveDatabase" After="UninstallSqlData"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveDatabase" After="RemoveRegistryValues"><![CDATA[REMOVE = "ALL"]]></Custom>
     </InstallExecuteSequence>
 
   </Fragment>

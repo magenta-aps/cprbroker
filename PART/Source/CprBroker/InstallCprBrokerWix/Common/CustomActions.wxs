@@ -4,12 +4,6 @@
 
     <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)CprBrokerWixInstallers.CA.dll"/>
     
-    <CustomAction Id="ShowFailure" Execute="immediate" Script="vbscript" >
-      <![CDATA[
-      msgbox Session.Property("DB_VALID")
-    ]]>
-    </CustomAction>
-
     <UI>
       <ComboBox Property="DUMMYPROPERTY">
         <ListItem Text="DUMMYPROPERTY" Value="DUMMYPROPERTY"/>
