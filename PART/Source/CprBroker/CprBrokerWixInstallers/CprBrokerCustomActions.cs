@@ -44,6 +44,8 @@ using CprBroker.Installers;
 using CprBroker.Installers.CprBrokerInstallers;
 using CprBroker.Data.Part;
 using CprBroker.Data.Applications;
+using CprBroker.Utilities;
+using CprBroker.Engine;
 
 namespace CprBrokerWixInstallers
 {
@@ -98,7 +100,27 @@ namespace CprBrokerWixInstallers
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
 
             connectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"] = databaseSetupInfo.CreateConnectionString(false, true);
-            return WebsiteCustomAction.DeployWebsite(session, connectionStrings);
+
+            WebInstallationOptions options = new WebInstallationOptions()
+            {
+                EncryptConnectionStrings = true,
+                ConnectionStrings = connectionStrings,
+                InitializeFlatFileLogging = true,                
+                ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
+                {
+                    new ConfigSectionGroupEncryptionOptions()
+                    {
+                        ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
+                        ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
+                        {
+                            new ConfigSectionEncryptionOptions(){ SectionName = DataProviderKeysSection.SectionName, SectionType=typeof(DataProviderKeysSection), CustomMethod = config=>DataProviderKeysSection.RegisterInConfig(config)},
+                            new ConfigSectionEncryptionOptions(){ SectionName = DataProvidersConfigurationSection.SectionName, SectionType=typeof(DataProvidersConfigurationSection),CustomMethod =null}
+                        }
+                    }
+                }
+            };
+
+            return WebsiteCustomAction.DeployWebsite(session, options);
         }
 
         [CustomAction]

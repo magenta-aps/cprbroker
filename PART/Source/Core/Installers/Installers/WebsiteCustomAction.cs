@@ -101,7 +101,7 @@ namespace CprBroker.Installers
         }
 
         [CustomAction]
-        public static ActionResult DeployWebsite(Session session, Dictionary<string, string> connectionStrings)
+        public static ActionResult DeployWebsite(Session session, WebInstallationOptions options)
         {
             try
             {
@@ -195,14 +195,20 @@ namespace CprBroker.Installers
                 var appRelativePath = webInstallationInfo.GetAppRelativePath();
 
                 // Data provider keys
-                EncryptDataProviderKeys(configFilePath, siteID.ToString(), appRelativePath);
+                EncryptDataProviderKeys(configFilePath, siteID.ToString(), appRelativePath,options.ConfigSectionGroupEncryptionOptions);
 
                 // Logging flat file access
-                InitializeFlatFileLogging(configFilePath);
+                if (options.InitializeFlatFileLogging)
+                {
+                    InitializeFlatFileLogging(configFilePath);
+                }
 
                 // Set and encrypt connection strings and enqueue their encryption
-                SetConnectionStrings(configFilePath, connectionStrings);
-                EncryptConnectionStrings(siteID.ToString(), appRelativePath);
+                SetConnectionStrings(configFilePath, options.ConnectionStrings);
+                if (options.EncryptConnectionStrings)
+                {
+                    EncryptConnectionStrings(siteID.ToString(), appRelativePath);
+                }
             }
             catch (InstallException ex)
             {

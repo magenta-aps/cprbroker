@@ -150,7 +150,7 @@ namespace CprBroker.Installers
             }
         }
 
-        private static void DeleteTypeAssemblyFileFroNetFramework(Type t)
+        private static void DeleteTypeAssemblyFileFromNetFramework(Type t)
         {
             string path = Utilities.Installation.GetNetFrameworkDirectory() + Path.GetFileName(t.Assembly.Location);
             if (File.Exists(path))
@@ -164,32 +164,57 @@ namespace CprBroker.Installers
             }
         }
 
-        public static void EncryptDataProviderKeys(string configFilePath, string site, string app)
+        public static void EncryptDataProviderKeys(string configFilePath, string site, string app, ConfigSectionGroupEncryptionOptions[] configSectionGroupOptions)
         {
-            CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection));
-            CopyTypeAssemblyFileToNetFramework(typeof(DataProvidersConfigurationSection));
-
-            Utilities.Installation.RemoveSectionNode(configFilePath, DataProviderKeysSection.SectionName);
-            var dataProvidersNode = Utilities.Installation.RemoveSectionNode(configFilePath, DataProvidersConfigurationSection.SectionName);
-
-            var config = Utilities.Installation.OpenConfigFile(configFilePath);
-            DataProviderKeysSection.RegisterInConfig(config);
-
-            RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", Constants.DataProvidersSectionGroupName, DataProviderKeysSection.SectionName, site, app));
-
-            if (dataProvidersNode != null)
+            System.Diagnostics.Debugger.Break();
+            foreach (var sectionGroup in configSectionGroupOptions)
             {
-                Utilities.Installation.AddSectionNode(dataProvidersNode, configFilePath, Constants.DataProvidersSectionGroupName);
+                // Copy needed assemblies
+                foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
+                {
+                    CopyTypeAssemblyFileToNetFramework(section.SectionType);
+                }
+
+                // Remove nodes
+                foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
+                {
+                    section.SectionNode = Utilities.Installation.RemoveSectionNode(configFilePath, section.SectionName);
+                }
+
+                // Create section with custom method
+                foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
+                {
+                    if (section.CustomMethod != null)
+                    {
+                        var config = Utilities.Installation.OpenConfigFile(configFilePath);
+                        section.CustomMethod(config);
+                    }
+                }
+
+                // Encrypt sections
+                foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
+                {
+                    if (section.CustomMethod != null)
+                    {
+                        RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", sectionGroup.ConfigSectionGroupName, section.SectionName, site, app));
+                    }
+                }
+
+                // Restore sections and delete files
+                foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
+                {
+                    if (section.CustomMethod == null && section.SectionNode != null)
+                    {
+                        Utilities.Installation.AddSectionNode(section.SectionNode, configFilePath, sectionGroup.ConfigSectionGroupName);
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        dic["name"] = DataProvidersConfigurationSection.SectionName;
+                        dic["type"] = typeof(DataProvidersConfigurationSection).AssemblyQualifiedName;
+
+                        Utilities.Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", sectionGroup.ConfigSectionGroupName));
+                    }
+                    DeleteTypeAssemblyFileFromNetFramework(section.SectionType);
+                }
             }
-
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic["name"] = DataProvidersConfigurationSection.SectionName;
-            dic["type"] = typeof(DataProvidersConfigurationSection).AssemblyQualifiedName;
-
-            Utilities.Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", Constants.DataProvidersSectionGroupName));
-
-            DeleteTypeAssemblyFileFroNetFramework(typeof(DataProviderKeysSection));
-            DeleteTypeAssemblyFileFroNetFramework(typeof(DataProvidersConfigurationSection));
         }
 
         private static void SetConnectionStrings(string configFilePath, Dictionary<string, string> connectionStrings)

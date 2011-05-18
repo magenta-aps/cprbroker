@@ -162,6 +162,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utilities\WebInstallationInfo.Exchange.cs" />
+    <Compile Include="Utilities\WebInstallationOptions.cs" />
     <Compile Include="Utilities\WebsiteInstallationInfo.cs" />
   </ItemGroup>
   <ItemGroup>
