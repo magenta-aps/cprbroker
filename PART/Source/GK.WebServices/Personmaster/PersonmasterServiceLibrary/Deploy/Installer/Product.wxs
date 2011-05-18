@@ -5,6 +5,8 @@
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
     <PropertyRef Id="Dummy_DialogsFragmentRefProp"/>
+    <PropertyRef Id="Dummy_ConditionsFragmentRefProp"/>
+    
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
@@ -19,6 +21,10 @@
     <Feature Id="ProductFeature" Title="PersonMasterInstaller" Level="1">
       <ComponentRef Id="CMP_WebRegistry"/>
       <ComponentRef Id="CMP_DatabaseRegistry"/>
+
+      <ComponentGroupRef Id="CMPGRP_Root"/>
+      <ComponentGroupRef Id="CMPGRP_bin"/>
+      <ComponentGroupRef Id="CMPGRP_css"/>
 
       <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
       <ComponentGroupRef Id="Product.Generated" />

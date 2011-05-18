@@ -118,8 +118,10 @@ namespace CprBroker.Installers
                     userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
                     createLoginMethod = (connection) =>
                     {
-                        var ret = new SqlCommand(string.Format("CREATE LOGIN [{0}] WITH PASSWORD = @Password", userName), connection);
-                        ret.Parameters.Add("@Password", System.Data.SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.Password;
+                        var ret = new SqlCommand("sp_addlogin", connection);
+                        ret.CommandType = System.Data.CommandType.StoredProcedure;
+                        ret.Parameters.Add("@loginame", System.Data.SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                        ret.Parameters.Add("@passwd", System.Data.SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.Password;
                         return ret;
                     };
                 }

@@ -18,13 +18,10 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
-            return ActionResult.Success;
-            string encryptionPassword = "";
-            string domainNamespace = "";
-
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
             string sql = Properties.Resources.crebas;
-            sql = sql.Replace("<pm-cryptpassword>", encryptionPassword);
-            sql = sql.Replace("<pm-namespace>", domainNamespace);
+            sql = sql.Replace("<pm-cryptpassword>", databaseSetupInfo.EncryptionKey);
+            sql = sql.Replace("<pm-namespace>", databaseSetupInfo.Domain);
 
             return DatabaseCustomAction.DeployDatabase(session, sql, new KeyValuePair<string, string>[0]);
         }
@@ -32,14 +29,12 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult RollbackDatabase(Session session)
         {
-            return ActionResult.Success;
             return DatabaseCustomAction.RemoveDatabase(session, false);
         }
 
         [CustomAction]
         public static ActionResult RemoveDatabase(Session session)
         {
-            return ActionResult.Success;
             return DatabaseCustomAction.RemoveDatabase(session, true);
         }
 
@@ -52,21 +47,28 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult CreateWebsite(Session session)
         {
-            return ActionResult.Success;
-            return WebsiteCustomAction.DeployWebsite(session,new Dictionary<string,string>());
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
+            connectionStrings["CPRMapperDB"] = databaseSetupInfo.CreateConnectionString(false, true);
+            WebInstallationOptions options = new WebInstallationOptions()
+            {
+                ConnectionStrings = connectionStrings,
+                ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[0],
+                EncryptConnectionStrings = false,
+                InitializeFlatFileLogging = false
+            };
+            return WebsiteCustomAction.DeployWebsite(session, options);
         }
 
         [CustomAction]
         public static ActionResult RollbackWebsite(Session session)
         {
-            return ActionResult.Success;
             return WebsiteCustomAction.RollbackWebsite(session);
         }
 
         [CustomAction]
         public static ActionResult RemoveWebSite(Session session)
         {
-            return ActionResult.Success;
             return WebsiteCustomAction.RemoveWebSite(session);
         }
 

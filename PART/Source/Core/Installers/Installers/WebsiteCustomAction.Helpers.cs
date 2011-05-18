@@ -166,7 +166,6 @@ namespace CprBroker.Installers
 
         public static void EncryptDataProviderKeys(string configFilePath, string site, string app, ConfigSectionGroupEncryptionOptions[] configSectionGroupOptions)
         {
-            System.Diagnostics.Debugger.Break();
             foreach (var sectionGroup in configSectionGroupOptions)
             {
                 // Copy needed assemblies

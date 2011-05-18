@@ -14,7 +14,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;bannerBmp=Bitmaps\bannrbmp.bmp;dialogBmp=$(MSBuildProjectDirectory)\Bitmaps\dlgbmp.bmp;exclamationIco=$(MSBuildProjectDirectory)\Bitmaps\exclamic.ico;infoIco=$(MSBuildProjectDirectory)\Bitmaps\info.ico;licenseRtf=$(MSBuildProjectDirectory)\license.rtf;newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;printeulaDll=$(OutputPath)\PrintEula.dll;SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\Installers\;</DefineConstants>
+    <DefineConstants>Debug;bannerBmp=Bitmaps\bannrbmp.bmp;dialogBmp=$(MSBuildProjectDirectory)\Bitmaps\dlgbmp.bmp;exclamationIco=$(MSBuildProjectDirectory)\Bitmaps\exclamic.ico;infoIco=$(MSBuildProjectDirectory)\Bitmaps\info.ico;licenseRtf=$(MSBuildProjectDirectory)\license.rtf;newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;printeulaDll=$(OutputPath)\PrintEula.dll;SitePath=..\..\PersonmasterServiceLibrary\;OutputPath=..\Output\;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -23,6 +23,8 @@
   <ItemGroup>
     <Compile Include="Customizations.wxs" />
     <Compile Include="Dialogs.wxs" />
+    <Compile Include="Directories.wxs" />
+    <Compile Include="Files.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bitmaps" />
+    <Folder Include="Resources" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Bitmaps\bannrbmp.bmp" />
@@ -54,8 +57,13 @@
     <Content Include="Bitmaps\info.ico" />
     <Content Include="Bitmaps\New.ico" />
     <Content Include="Bitmaps\Up.ico" />
+    <Content Include="Resources\PersonmasterServiceLibrary.BasicOp.svc" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
