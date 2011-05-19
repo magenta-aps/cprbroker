@@ -147,11 +147,7 @@ namespace CprBroker.Installers
                 using (SqlConnection adminConnection = new SqlConnection(adminConnectionString))
                 {
                     adminConnection.Open();
-                    using (SqlCommand selectCommand = new SqlCommand("SELECT ISNULL(IS_SRVROLEMEMBER ('sysadmin'),0) + ISNULL(IS_SRVROLEMEMBER ('dbcreator'),0)", adminConnection))
-                    {
-                        int count = (int)selectCommand.ExecuteScalar();
-                        return count > 0;
-                    }
+                    return IsServerRoleMember("sysadmin", null, adminConnection) || IsServerRoleMember("dbcreator", null, adminConnection);
                 }
             }
             catch (Exception)
@@ -159,6 +155,28 @@ namespace CprBroker.Installers
 
             }
             return ret;
+        }
+
+        internal bool IsServerRoleMember(string role, string user, SqlConnection connection)
+        {
+            string sql = string.Format("SELECT ISNULL(IS_SRVROLEMEMBER ('{0}' ", role);
+            if (!string.IsNullOrEmpty(user))
+            {
+                sql += string.Format(", '{0}'", user);
+            }
+            sql += "),0)";
+
+            bool connectionOpen = connection.State == System.Data.ConnectionState.Open;
+            int count;
+            using (SqlCommand selectCommand = new SqlCommand(sql, connection))
+            {
+                if (!connectionOpen)
+                    connection.Open();
+                count = (int)selectCommand.ExecuteScalar();
+                if (!connectionOpen)
+                    connection.Close();
+            }
+            return count > 0;
         }
 
         /// <summary>

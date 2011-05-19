@@ -117,7 +117,7 @@ namespace CprBroker.Installers
                     {
                         using (DirectoryEntry appPools = new DirectoryEntry(machineRoot.Path + "/APPPOOLS"))
                         {
-                            bool appPoolExixts = websiteInstallationInfo.AppPoolExists(webInstallationInfo.WebsiteName);
+                            bool appPoolExixts = DirectoryEntry.Exists(websiteInstallationInfo.AppPoolWmiPath);
                             using (DirectoryEntry appPool = appPoolExixts ? new DirectoryEntry(appPools.Path + "/" + websiteInstallationInfo.WebsiteName) : appPools.Invoke("Create", "IIsApplicationPool", websiteInstallationInfo.WebsiteName) as DirectoryEntry)
                             {
                                 appPool.InvokeSet("AppPoolIdentityType", 2);//LocalSystem 0; LocalService 1; NetworkService 2;  Custom (user & pwd) 3;  ApplicationPoolIdentity 4

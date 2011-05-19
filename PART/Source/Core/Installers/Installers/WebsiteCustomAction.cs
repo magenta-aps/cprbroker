@@ -124,7 +124,7 @@ namespace CprBroker.Installers
                             if (DirectoryEntry.Exists(appPools.Path))
                             {
                                 appPoolName = webInstallationInfo.WebsiteName;
-                                bool appPoolExixts = websiteInstallationInfo.AppPoolExists(webInstallationInfo.WebsiteName);
+                                bool appPoolExixts = DirectoryEntry.Exists(websiteInstallationInfo.AppPoolWmiPath);
                                 using (DirectoryEntry appPool = appPoolExixts ? new DirectoryEntry(appPools.Path + "/" + websiteInstallationInfo.WebsiteName) : appPools.Invoke("Create", "IIsApplicationPool", websiteInstallationInfo.WebsiteName) as DirectoryEntry)
                                 {
                                     appPool.InvokeSet("AppPoolIdentityType", 2);//LocalSystem 0; LocalService 1; NetworkService 2;  Custom (user & pwd) 3;  ApplicationPoolIdentity 4
@@ -241,6 +241,17 @@ namespace CprBroker.Installers
                 using (DirectoryEntry applicationEntry = new DirectoryEntry(applicationDirectoryPath))
                 {
                     applicationEntry.DeleteTree();
+                }
+            }
+            if (webInstallationInfo is WebsiteInstallationInfo)
+            {
+                WebsiteInstallationInfo websiteInstallationInfo = webInstallationInfo as WebsiteInstallationInfo;
+                if (DirectoryEntry.Exists(websiteInstallationInfo.AppPoolWmiPath))
+                {
+                    using (DirectoryEntry appPoolEntry = new DirectoryEntry(websiteInstallationInfo.AppPoolWmiPath))
+                    {
+                        appPoolEntry.DeleteTree();
+                    }
                 }
             }
             return ActionResult.Success;

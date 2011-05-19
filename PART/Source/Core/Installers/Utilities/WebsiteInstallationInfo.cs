@@ -45,11 +45,12 @@ namespace CprBroker.Installers
 {
     public class WebsiteInstallationInfo : WebInstallationInfo
     {
+        public static readonly string AppPoolsRoot = ServerRoot + "/APPPOOLS";
         public override bool TargetEntryExists
         {
             get
             {
-                DirectoryEntry machineRoot = new DirectoryEntry("IIS://localhost/W3SVC");
+                DirectoryEntry machineRoot = new DirectoryEntry(ServerRoot);
                 foreach (DirectoryEntry e in machineRoot.Children)
                 {
                     if (
@@ -70,17 +71,12 @@ namespace CprBroker.Installers
             }
         }
 
-        public bool AppPoolExists(string name)
+        public string AppPoolWmiPath
         {
-            DirectoryEntry appPools = new DirectoryEntry("IIS://localhost/W3SVC/APPPOOLS");
-            foreach (DirectoryEntry child in appPools.Children)
+            get
             {
-                if (child.Name.ToLower() == name.ToLower())
-                {
-                    return true;
-                }
+                return string.Format("/{0}", WebsiteName);
             }
-            return false;
         }
 
         public override string GetAppRelativePath()

@@ -112,30 +112,7 @@ namespace CprBroker.Installers
 
                 if (!askUser || BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
                 {
-                    if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && setupInfo.DatabaseExists())
-                    {
-                        using (SqlConnection adminConnection = new SqlConnection(setupInfo.CreateConnectionString(true, false)))
-                        {
-                            adminConnection.Open();
-                            using (SqlCommand selectCommand = new SqlCommand("SELECT spid from sys.sysprocesses WHERE dbid in (SELECT database_id FROM sys.databases WHERE name=@Name)", adminConnection))
-                            {
-                                selectCommand.Parameters.Add("@Name", System.Data.SqlDbType.VarChar).Value = setupInfo.DatabaseName;
-                                DataTable processIdsTable = new DataTable();
-                                SqlDataAdapter processIdsAdapter = new SqlDataAdapter(selectCommand);
-                                processIdsAdapter.Fill(processIdsTable);
-
-                                using (SqlCommand killCommand = new SqlCommand("", adminConnection))
-                                {
-                                    foreach (DataRow dRow in processIdsTable.Rows)
-                                    {
-                                        killCommand.CommandText += string.Format("KILL {0};\r\n", dRow[0]);
-                                    }
-                                    killCommand.CommandText += string.Format("DROP DATABASE [{0}]", setupInfo.DatabaseName);
-                                    killCommand.ExecuteNonQuery();
-                                }
-                            }
-                        }
-                    }
+                    DropDatabase(setupInfo);
                 }
             }
             return ActionResult.Success;

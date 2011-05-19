@@ -40,6 +40,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using CprBroker.Utilities;
@@ -192,6 +193,56 @@ namespace CprBroker.Installers
                         conn.Open();
                         int result = command.ExecuteNonQuery();
                         object o = "";
+                    }
+                }
+            }
+        }
+
+        private static void DropDatabase(DatabaseSetupInfo setupInfo)
+        {
+            if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && setupInfo.DatabaseExists())
+            {
+                using (SqlConnection adminConnection = new SqlConnection(setupInfo.CreateConnectionString(true, false)))
+                {
+                    adminConnection.Open();
+                    using (SqlCommand selectCommand = new SqlCommand("SELECT spid from sys.sysprocesses WHERE dbid in (SELECT database_id FROM sys.databases WHERE name=@Name)", adminConnection))
+                    {
+                        selectCommand.Parameters.Add("@Name", System.Data.SqlDbType.VarChar).Value = setupInfo.DatabaseName;
+                        DataTable processIdsTable = new DataTable();
+                        SqlDataAdapter processIdsAdapter = new SqlDataAdapter(selectCommand);
+                        processIdsAdapter.Fill(processIdsTable);
+
+                        using (SqlCommand killCommand = new SqlCommand("", adminConnection))
+                        {
+                            foreach (DataRow dRow in processIdsTable.Rows)
+                            {
+                                killCommand.CommandText += string.Format("KILL {0};\r\n", dRow[0]);
+                            }
+                            killCommand.CommandText += string.Format("DROP DATABASE [{0}]", setupInfo.DatabaseName);
+                            killCommand.ExecuteNonQuery();
+                        }
+                    }
+                    if (!setupInfo.ApplicationAuthenticationSameAsAdmin && !setupInfo.ApplicationAuthenticationInfo.IntegratedSecurity)
+                    {
+                        if (!setupInfo.IsServerRoleMember("sysadmin", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnection))
+                        {
+                            using (SqlCommand selectUsersCommand = new SqlCommand("exec sp_MSloginmappings @User", adminConnection))
+                            {
+                                selectUsersCommand.Parameters.Add("@User", SqlDbType.VarChar).Value = setupInfo.ApplicationAuthenticationInfo.UserName;
+                                SqlDataAdapter adpt = new SqlDataAdapter(selectUsersCommand);
+                                DataTable usersTable = new DataTable();
+                                adpt.Fill(usersTable);
+                                if (usersTable.Rows.Count == 0)
+                                {
+                                    using (SqlCommand dropLoginCommand = new SqlCommand("sp_droplogin", adminConnection))
+                                    {
+                                        dropLoginCommand.CommandType = CommandType.StoredProcedure;
+                                        dropLoginCommand.Parameters.Add("@loginame", SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                                        dropLoginCommand.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
