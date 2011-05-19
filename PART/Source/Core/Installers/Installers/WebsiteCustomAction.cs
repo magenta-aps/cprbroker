@@ -106,10 +106,8 @@ namespace CprBroker.Installers
             try
             {
                 EnsureIISComponents();
-
                 var webInstallationInfo = WebInstallationInfo.FromSession(session);
                 bool exists = webInstallationInfo.TargetEntryExists;
-
                 int siteID = webInstallationInfo.GetSiteId();
                 int scriptMapVersion;
 
@@ -119,7 +117,7 @@ namespace CprBroker.Installers
                     using (DirectoryEntry machineRoot = new DirectoryEntry(WebInstallationInfo.ServerRoot))
                     {
                         string appPoolName = "";
-                        using (DirectoryEntry appPools = new DirectoryEntry(machineRoot.Path + "/APPPOOLS"))
+                        using (DirectoryEntry appPools = new DirectoryEntry(WebsiteInstallationInfo.AppPoolsRoot))
                         {
                             if (DirectoryEntry.Exists(appPools.Path))
                             {
@@ -180,13 +178,15 @@ namespace CprBroker.Installers
                     }
                 }
 
-                // Set ASP.NET to version 2.0
-                if (scriptMapVersion < 2)
+                // Set ASP.NET to target framework version
+                System.Windows.Forms.MessageBox.Show(string.Format("script version={0}, target major={1}", scriptMapVersion, options.FrameworkVersion.Major));
+                if (scriptMapVersion < options.FrameworkVersion.Major)
                 {
                     RunRegIIS("-i", options.FrameworkVersion);
 
                     string localSitePath = webInstallationInfo.TargetWmiPath;
                     localSitePath = localSitePath.Remove(0, "IIS://localhost".Length);
+                    System.Windows.Forms.MessageBox.Show(string.Format("local path={0}", localSitePath));
                     RunRegIIS(string.Format("-s {0}", localSitePath), options.FrameworkVersion);
                 }
 

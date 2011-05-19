@@ -75,13 +75,13 @@ namespace CprBroker.Installers
         {
             get
             {
-                return string.Format("/{0}", WebsiteName);
+                return string.Format("{0}/{1}", AppPoolsRoot, WebsiteName);
             }
         }
 
         public override string GetAppRelativePath()
         {
-            return "/";            
+            return "/";
         }
 
         protected override bool IsMatchingDirectoryEntry(DirectoryEntry e)

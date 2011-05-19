@@ -268,10 +268,8 @@ namespace CprBroker.Utilities
 
         public static string GetNetFrameworkDirectory(Version frameworkVersion)
         {
-            string currentVersionDirectory = GetNetFrameworkDirectory();
-            string pattern = @"v\d+\.\d+\.\d+(\.\d+)?";
-            string newPath = System.Text.RegularExpressions.Regex.Replace(currentVersionDirectory, pattern, string.Format("v{0}", frameworkVersion));
-            return Strings.EnsureDirectoryEndSlash(newPath);
+            var targetFrameworkDir = new DirectoryInfo(GetNetFrameworkDirectory()).Parent.GetDirectories(string.Format("v{0}*", frameworkVersion.ToString(2))).FirstOrDefault();
+            return Strings.EnsureDirectoryEndSlash(Strings.EnsureDirectoryEndSlash(targetFrameworkDir.FullName));
         }
 
         const int MAX_PATH = 256;
