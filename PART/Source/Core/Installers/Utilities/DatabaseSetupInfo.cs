@@ -273,7 +273,7 @@ namespace CprBroker.Installers
                         {
                             if (!TryOpenConnection(CreateConnectionString(false, false)))
                             {
-                                message = Messages.ApplicationConnectionFailed;
+                                message = Messages.ApplicationConnectionFailedCheckUserNameAndPassword;
                                 return false; // Incorrect password
                             }
                         }
