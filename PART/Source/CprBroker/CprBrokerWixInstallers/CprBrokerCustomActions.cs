@@ -105,7 +105,7 @@ namespace CprBrokerWixInstallers
             {
                 EncryptConnectionStrings = true,
                 ConnectionStrings = connectionStrings,
-                InitializeFlatFileLogging = true,                
+                InitializeFlatFileLogging = true,
                 ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()
@@ -119,7 +119,6 @@ namespace CprBrokerWixInstallers
                     }
                 }
             };
-
             return WebsiteCustomAction.DeployWebsite(session, options);
         }
 

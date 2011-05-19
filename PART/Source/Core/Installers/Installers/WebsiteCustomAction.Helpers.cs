@@ -100,10 +100,10 @@ namespace CprBroker.Installers
             return -1;
         }
 
-        private static void RunRegIIS(string args)
+        private static void RunRegIIS(string args, Version frameworkVersion)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = Utilities.Installation.GetNetFrameworkDirectory() + "aspnet_regiis.exe";
+            startInfo.FileName = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
             // use aspnet_regiis for 64 bit machines whenever possible
             string fileName64 = startInfo.FileName.Replace("Framework", "Framework64");
             if (File.Exists(fileName64))
@@ -123,7 +123,7 @@ namespace CprBroker.Installers
             }
         }
 
-        private static void GrantConfigEncryptionAccess()
+        private static void GrantConfigEncryptionAccess(Version frameworkVersion)
         {
             string[] users = new string[]
             {                
@@ -131,13 +131,13 @@ namespace CprBroker.Installers
             };
             foreach (string user in users)
             {
-                RunRegIIS(string.Format("-pa \"NetFrameworkConfigurationKey\" \"{0}\"", user));
+                RunRegIIS(string.Format("-pa \"NetFrameworkConfigurationKey\" \"{0}\"", user), frameworkVersion);
             }
         }
 
-        private static void CopyTypeAssemblyFileToNetFramework(Type t)
+        private static void CopyTypeAssemblyFileToNetFramework(Type t, Version frameworkVersion)
         {
-            string path = Utilities.Installation.GetNetFrameworkDirectory();
+            string path = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion);
             string fileName = Path.GetFileName(t.Assembly.Location);
             if (Directory.Exists(path))
             {
@@ -150,9 +150,9 @@ namespace CprBroker.Installers
             }
         }
 
-        private static void DeleteTypeAssemblyFileFromNetFramework(Type t)
+        private static void DeleteTypeAssemblyFileFromNetFramework(Type t,Version frameworkVersion)
         {
-            string path = Utilities.Installation.GetNetFrameworkDirectory() + Path.GetFileName(t.Assembly.Location);
+            string path = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion) + Path.GetFileName(t.Assembly.Location);
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -164,14 +164,14 @@ namespace CprBroker.Installers
             }
         }
 
-        public static void EncryptDataProviderKeys(string configFilePath, string site, string app, ConfigSectionGroupEncryptionOptions[] configSectionGroupOptions)
+        public static void EncryptDataProviderKeys(string configFilePath, string site, string app, ConfigSectionGroupEncryptionOptions[] configSectionGroupOptions, Version frameworkVersion)
         {
             foreach (var sectionGroup in configSectionGroupOptions)
             {
                 // Copy needed assemblies
                 foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
                 {
-                    CopyTypeAssemblyFileToNetFramework(section.SectionType);
+                    CopyTypeAssemblyFileToNetFramework(section.SectionType, frameworkVersion);
                 }
 
                 // Remove nodes
@@ -195,7 +195,7 @@ namespace CprBroker.Installers
                 {
                     if (section.CustomMethod != null)
                     {
-                        RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", sectionGroup.ConfigSectionGroupName, section.SectionName, site, app));
+                        RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", sectionGroup.ConfigSectionGroupName, section.SectionName, site, app),frameworkVersion);
                     }
                 }
 
@@ -211,7 +211,7 @@ namespace CprBroker.Installers
 
                         Utilities.Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", sectionGroup.ConfigSectionGroupName));
                     }
-                    DeleteTypeAssemblyFileFromNetFramework(section.SectionType);
+                    DeleteTypeAssemblyFileFromNetFramework(section.SectionType,frameworkVersion);
                 }
             }
         }
@@ -224,9 +224,9 @@ namespace CprBroker.Installers
             }
         }
 
-        private static void EncryptConnectionStrings(string site, string app)
+        private static void EncryptConnectionStrings(string site, string app, Version frameworkVersion)
         {
-            RunRegIIS(string.Format("-pe \"connectionStrings\" -site \"{0}\" -app \"{1}\"", site, app));
+            RunRegIIS(string.Format("-pe \"connectionStrings\" -site \"{0}\" -app \"{1}\"", site, app),frameworkVersion);
         }
 
         private static void InitializeFlatFileLogging(string configFilePath)

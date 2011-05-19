@@ -71,7 +71,10 @@ namespace CprBroker.Installers
             this.EventLogInstaller = new EventLogInstaller() { Log = "Application", Source = EventLogSourceName };
             Installers.Add(EventLogInstaller);
         }
-
+        private Version GetFrameworkVersion()
+        {
+            return new Version(System.Runtime.InteropServices.RuntimeEnvironment.GetSystemVersion());
+        }
         #region Install
         protected override void OnBeforeInstall(System.Collections.IDictionary savedState)
         {
@@ -189,7 +192,7 @@ namespace CprBroker.Installers
                 var appRelativePath = webInstallationInfo.GetAppRelativePath();
 
                 // Data provider keys
-                EncryptDataProviderKeys(configFilePath, siteID.ToString(), appRelativePath);
+                EncryptDataProviderKeys(configFilePath, siteID.ToString(), appRelativePath, GetFrameworkVersion());
 
                 // Logging flat file access
                 InitializeFlatFileLogging(configFilePath);
@@ -299,7 +302,7 @@ namespace CprBroker.Installers
         private void RunRegIIS(string args)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = Installation.GetNetFrameworkDirectory() + "aspnet_regiis.exe";
+            startInfo.FileName = GetFrameworkVersion() + "aspnet_regiis.exe";
             // use aspnet_regiis for 64 bit machines whenever possible
             string fileName64 = startInfo.FileName.Replace("Framework", "Framework64");
             if (File.Exists(fileName64))
@@ -331,9 +334,9 @@ namespace CprBroker.Installers
             }
         }
 
-        void CopyTypeAssemblyFileToNetFramework(Type t)
+        void CopyTypeAssemblyFileToNetFramework(Type t, Version frameworkVersion)
         {
-            string path = Installation.GetNetFrameworkDirectory();
+            string path = Installation.GetNetFrameworkDirectory(frameworkVersion);
             string fileName = Path.GetFileName(t.Assembly.Location);
             if (Directory.Exists(path))
             {
@@ -346,9 +349,9 @@ namespace CprBroker.Installers
             }
         }
 
-        void DeleteTypeAssemblyFileFroNetFramework(Type t)
+        void DeleteTypeAssemblyFileFroNetFramework(Type t, Version frameworkVersion)
         {
-            string path = Installation.GetNetFrameworkDirectory() + Path.GetFileName(t.Assembly.Location);
+            string path = Installation.GetNetFrameworkDirectory(frameworkVersion) + Path.GetFileName(t.Assembly.Location);
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -360,14 +363,14 @@ namespace CprBroker.Installers
             }
         }
 
-        public void EncryptDataProviderKeys(string configFilePath, string site, string app)
+        public void EncryptDataProviderKeys(string configFilePath, string site, string app, Version frameworkVersion)
         {
             try
             {
                 //var defNode = DataProviderKeysSection.CreateXmlSectionDefinitionNode();
                 //var sectionNode = DataProviderKeysSection.CreateNewXmlSectionNode();
-                CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection));
-                CopyTypeAssemblyFileToNetFramework(typeof(DataProvidersConfigurationSection));
+                CopyTypeAssemblyFileToNetFramework(typeof(DataProviderKeysSection), frameworkVersion);
+                CopyTypeAssemblyFileToNetFramework(typeof(DataProvidersConfigurationSection), frameworkVersion);
 
                 Installation.RemoveSectionNode(configFilePath, DataProviderKeysSection.SectionName);
                 var dataProvidersNode = Installation.RemoveSectionNode(configFilePath, DataProvidersConfigurationSection.SectionName);
@@ -385,8 +388,8 @@ namespace CprBroker.Installers
 
                 Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", Constants.DataProvidersSectionGroupName));
 
-                DeleteTypeAssemblyFileFroNetFramework(typeof(DataProviderKeysSection));
-                DeleteTypeAssemblyFileFroNetFramework(typeof(DataProvidersConfigurationSection));
+                DeleteTypeAssemblyFileFroNetFramework(typeof(DataProviderKeysSection), GetFrameworkVersion());
+                DeleteTypeAssemblyFileFroNetFramework(typeof(DataProvidersConfigurationSection), GetFrameworkVersion());
             }
             catch (Exception ex)
             {

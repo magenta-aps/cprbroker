@@ -55,7 +55,8 @@ namespace PersonMasterInstallers
                 ConnectionStrings = connectionStrings,
                 ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[0],
                 EncryptConnectionStrings = false,
-                InitializeFlatFileLogging = false
+                InitializeFlatFileLogging = false,
+                FrameworkVersion = new Version("4.0.30319")
             };
             return WebsiteCustomAction.DeployWebsite(session, options);
         }

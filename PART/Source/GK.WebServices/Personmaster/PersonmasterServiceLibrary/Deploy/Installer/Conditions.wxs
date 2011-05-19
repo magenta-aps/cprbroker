@@ -22,7 +22,7 @@
       <RegistrySearch Id="CheckIISMetabase" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" />
     </Property>
     <Condition Message="IIS 6 Metabase Compatibility feature must be installed">
-      <![CDATA[IIS_METABASE_COMPAT]]>
+      <![CDATA[Installed OR NOT IIS7 OR IIS_METABASE_COMPAT]]>
     </Condition>
   </Fragment>
 </Wix>

@@ -266,8 +266,16 @@ namespace CprBroker.Utilities
             targetNode.OwnerDocument.Save(toConfigFile);
         }
 
+        public static string GetNetFrameworkDirectory(Version frameworkVersion)
+        {
+            string currentVersionDirectory = GetNetFrameworkDirectory();
+            string pattern = @"v\d+\.\d+\.\d+(\.\d+)?";
+            string newPath = System.Text.RegularExpressions.Regex.Replace(currentVersionDirectory, pattern, string.Format("v{0}", frameworkVersion));
+            return Strings.EnsureDirectoryEndSlash(newPath);
+        }
+
         const int MAX_PATH = 256;
-        public static string GetNetFrameworkDirectory()
+        private static string GetNetFrameworkDirectory()
         {
             StringBuilder buf = new StringBuilder(
                 MAX_PATH, MAX_PATH);
@@ -281,7 +289,7 @@ namespace CprBroker.Utilities
         [DllImport("mscoree.dll",
          CharSet = CharSet.Unicode,
          ExactSpelling = true)]
-        public static extern int GetCORSystemDirectory(
+        private static extern int GetCORSystemDirectory(
                 StringBuilder buf,
                 int cchBuf,
                 ref int cchRequired);
