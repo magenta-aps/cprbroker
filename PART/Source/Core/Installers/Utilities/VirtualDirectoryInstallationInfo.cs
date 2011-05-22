@@ -63,6 +63,14 @@ namespace CprBroker.Installers
             }
         }
 
+        public override string TargetWmiSubPath
+        {
+            get
+            {
+                return string.Format("w3svc/{0}/Root/{1}", GetSiteId(), VirtualDirectoryName);
+            }
+        }
+
         public override bool TargetEntryExists
         {
             get

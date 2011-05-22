@@ -150,7 +150,7 @@ namespace CprBroker.Installers
             }
         }
 
-        private static void DeleteTypeAssemblyFileFromNetFramework(Type t,Version frameworkVersion)
+        private static void DeleteTypeAssemblyFileFromNetFramework(Type t, Version frameworkVersion)
         {
             string path = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion) + Path.GetFileName(t.Assembly.Location);
             if (File.Exists(path))
@@ -195,7 +195,7 @@ namespace CprBroker.Installers
                 {
                     if (section.CustomMethod != null)
                     {
-                        RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", sectionGroup.ConfigSectionGroupName, section.SectionName, site, app),frameworkVersion);
+                        RunRegIIS(string.Format("-pe \"{0}/{1}\" -site \"{2}\" -app \"{3}\"", sectionGroup.ConfigSectionGroupName, section.SectionName, site, app), frameworkVersion);
                     }
                 }
 
@@ -211,7 +211,7 @@ namespace CprBroker.Installers
 
                         Utilities.Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", sectionGroup.ConfigSectionGroupName));
                     }
-                    DeleteTypeAssemblyFileFromNetFramework(section.SectionType,frameworkVersion);
+                    DeleteTypeAssemblyFileFromNetFramework(section.SectionType, frameworkVersion);
                 }
             }
         }
@@ -226,7 +226,7 @@ namespace CprBroker.Installers
 
         private static void EncryptConnectionStrings(string site, string app, Version frameworkVersion)
         {
-            RunRegIIS(string.Format("-pe \"connectionStrings\" -site \"{0}\" -app \"{1}\"", site, app),frameworkVersion);
+            RunRegIIS(string.Format("-pe \"connectionStrings\" -site \"{0}\" -app \"{1}\"", site, app), frameworkVersion);
         }
 
         private static void InitializeFlatFileLogging(string configFilePath)

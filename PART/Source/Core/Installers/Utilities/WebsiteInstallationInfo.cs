@@ -71,6 +71,14 @@ namespace CprBroker.Installers
             }
         }
 
+        public override string TargetWmiSubPath
+        {
+            get
+            {
+                return "w3svc/" + GetSiteId();
+            }
+        }
+
         public string AppPoolWmiPath
         {
             get

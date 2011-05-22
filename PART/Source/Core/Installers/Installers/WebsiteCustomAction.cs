@@ -127,6 +127,8 @@ namespace CprBroker.Installers
                                 {
                                     appPool.InvokeSet("AppPoolIdentityType", 2);//LocalSystem 0; LocalService 1; NetworkService 2;  Custom (user & pwd) 3;  ApplicationPoolIdentity 4
                                     appPool.InvokeSet("AppPoolAutoStart", true);
+                                    appPool.InvokeSet("ManagedRuntimeVersion", string.Format("v{0}", options.FrameworkVersion.ToString(2)));
+                                    appPool.InvokeSet("ManagedPipelineMode", 0); // Integrated 0; Classic 1
                                     appPool.CommitChanges();
                                 }
                             }
@@ -178,14 +180,12 @@ namespace CprBroker.Installers
                     }
                 }
 
-                // Set ASP.NET to target framework version
+                // Set ASP.NET to target framework version                
                 if (scriptMapVersion != options.FrameworkVersion.Major)
-                {
-                    RunRegIIS("-i", options.FrameworkVersion);
-                    string localSitePath = webInstallationInfo.TargetWmiPath;
-                    localSitePath = localSitePath.Remove(0, "IIS://localhost".Length);
-                    RunRegIIS(string.Format("-s {0}", localSitePath), options.FrameworkVersion);
-                }
+				{
+					RunRegIIS("-ir", options.FrameworkVersion);
+                	RunRegIIS(string.Format("-s {0}", webInstallationInfo.TargetWmiSubPath), options.FrameworkVersion);
+				}
 
                 // Mark as done
                 webInstallationInfo.CopyToSession(session);

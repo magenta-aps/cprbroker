@@ -50,7 +50,7 @@ namespace CprBroker.Installers
         public static readonly string ServerRoot = "IIS://localhost/w3svc";
         public bool CreateAsWebsite
         {
-            get 
+            get
             {
                 return this is WebsiteInstallationInfo;
             }
@@ -97,7 +97,8 @@ namespace CprBroker.Installers
             return GetWebFolderPath() + "Web.config";
         }
 
-        public abstract string TargetWmiPath{get;}
+        public abstract string TargetWmiPath { get; }
+        public abstract string TargetWmiSubPath { get; }
 
         // Not yet        
 
