@@ -138,7 +138,7 @@ namespace CprBroker.Installers
         /// Checks whether the connection specified as admin connection has SysAdmin & DbCreator rights
         /// </summary>
         /// <returns></returns>
-        private bool AdminConnectionHasAdminRights()
+        internal bool AdminConnectionHasAdminRights()
         {
             bool ret = false;
             try

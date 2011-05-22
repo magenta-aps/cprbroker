@@ -44,8 +44,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
 
 namespace CprBroker.Installers
 {
@@ -78,12 +76,7 @@ namespace CprBroker.Installers
             string connectionString = SetupInfo.CreateConnectionString(true, false);
             try
             {
-                SqlConnection conn = new SqlConnection(connectionString);
-                ServerConnection serverConnection = new ServerConnection(conn);
-                if (((int)serverConnection.FixedServerRoles & (int)FixedServerRoles.SysAdmin) > 0)
-                {
-                    return true;
-                }
+                return SetupInfo.AdminConnectionHasAdminRights();
             }
             catch (Exception ex)
             {
