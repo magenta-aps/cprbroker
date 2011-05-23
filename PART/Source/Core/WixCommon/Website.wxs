@@ -2,6 +2,8 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
   <Fragment>
 
+    <Property Id="WEB_CREATEWEB" Value="False"/>
+    
     <Property Id="WEB_CREATEASWEBSITE" Value="True">
       <RegistrySearch Id="RS_WEB_CREATEASWEBSITE" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" Type="raw" Name="CreateAsWebsite"/>
     </Property>
@@ -47,20 +49,20 @@
     <CustomAction Id="RemoveWebSite" BinaryKey="InstallersDll" DllEntry="RemoveWebSite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
     <InstallUISequence >
-      <Custom Action="PopulateWebSites" After="CostFinalize">NOT REMOVE</Custom>
-      <Custom Action="CA_InitializeWebPropertiesFromProductName" After="CostFinalize">NOT REMOVE</Custom>
+      <Custom Action="PopulateWebSites" After="CostFinalize"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
+      <Custom Action="CA_InitializeWebPropertiesFromProductName" After="CostFinalize"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
     </InstallUISequence>
 
     <InstallExecuteSequence>
 
-      <Custom Action="RollbackWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="RollbackWebsite" After="InstallFiles">NOT REMOVE</Custom>
+      <Custom Action="RollbackWebsite_" After="InstallInitialize"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
+      <Custom Action="RollbackWebsite" After="InstallFiles"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
 
-      <Custom Action="CreateWebsite_" After="InstallInitialize">NOT REMOVE</Custom>
-      <Custom Action="CreateWebsite" After="RollbackWebsite">NOT REMOVE</Custom>
+      <Custom Action="CreateWebsite_" After="InstallInitialize"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
+      <Custom Action="CreateWebsite" After="RollbackWebsite"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
 
-      <Custom Action="RemoveWebSite_" After="InstallInitialize"><![CDATA[REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveWebSite" Before="RemoveRegistryValues"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveWebSite_" After="InstallInitialize"><![CDATA[WEB_CREATEWEB = "True" AND REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveWebSite" Before="RemoveRegistryValues"><![CDATA[WEB_CREATEWEB = "True" AND REMOVE = "ALL"]]></Custom>
 
     </InstallExecuteSequence>
 

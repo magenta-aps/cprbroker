@@ -7,8 +7,11 @@
     
     <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)PersonMasterInstallers.CA.dll"/>
     
-    <CustomAction Id="CA_CustomizePersonMasterDatabaseProperties" Execute="immediate" Script="vbscript">
+    <CustomAction Id="CA_CustomizePersonMasterProperties" Execute="immediate" Script="vbscript">
       <![CDATA[
+      Session.Property("WEB_CREATEWEB") = "True"
+      
+      Session.Property("DB_CREATEDATABASE") = "True"
       Session.Property("DB_ENCRYPTIONKEYENABLED") = "True"
       Session.Property("DB_DOMAINENABLED") = "True"
       Session.Property("DB_APPINTEGRATEDSECURITYALLOWED") = "False"
@@ -17,7 +20,7 @@
     </CustomAction>
 
     <InstallUISequence>
-      <Custom Action="CA_CustomizePersonMasterDatabaseProperties" Before="CostFinalize">1</Custom>
+      <Custom Action="CA_CustomizePersonMasterProperties" Before="CostFinalize">1</Custom>
     </InstallUISequence>
 
   </Fragment>
