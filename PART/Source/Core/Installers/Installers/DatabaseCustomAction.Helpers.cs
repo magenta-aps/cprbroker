@@ -78,7 +78,6 @@ namespace CprBroker.Installers
                 adminConnectionWDb.Open();
                 using (SqlCommand createObjectsCommand = new SqlCommand("", adminConnectionWDb))
                 {
-                    adminConnectionWDb.Open();
                     createDatabaseObjectsSql += "\nGO";   // make sure last batch is executed.
                     string sqlBatch = "";
 
@@ -105,7 +104,7 @@ namespace CprBroker.Installers
         /// <summary>
         /// Creates a new user in the database if needed
         /// </summary>
-        public static void CreateDatabaseUser(DatabaseSetupInfo databaseSetupInfo)
+        public static void CreateDatabaseUser(DatabaseSetupInfo databaseSetupInfo, string[] neededTables)
         {
             if (!databaseSetupInfo.ApplicationAuthenticationSameAsAdmin)
             {
@@ -153,11 +152,26 @@ namespace CprBroker.Installers
                                 SqlCommand createUserCommand = new SqlCommand(string.Format("CREATE USER [{0}] FOR LOGIN  [{0}]", userName), adminConnectionWithDb);
                                 createUserCommand.ExecuteNonQuery();
 
-                                SqlCommand addRoleCommand = new SqlCommand("sp_addrolemember", adminConnectionWithDb);
-                                addRoleCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                                addRoleCommand.Parameters.Add("@rolename", System.Data.SqlDbType.VarChar).Value = "db_owner";
-                                addRoleCommand.Parameters.Add("@membername", System.Data.SqlDbType.VarChar).Value = userName;
-                                addRoleCommand.ExecuteNonQuery();
+                                using (SqlCommand permissionsCommand = new SqlCommand("", adminConnectionWithDb))
+                                {
+                                    if (neededTables == null || neededTables.Length == 0)
+                                    {
+                                        permissionsCommand.CommandText = "sp_addrolemember";
+                                        permissionsCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                                        permissionsCommand.Parameters.Add("@rolename", System.Data.SqlDbType.VarChar).Value = "db_owner";
+                                        permissionsCommand.Parameters.Add("@membername", System.Data.SqlDbType.VarChar).Value = userName;
+                                        permissionsCommand.ExecuteNonQuery();
+                                    }
+                                    else
+                                    {
+                                        permissionsCommand.CommandType = System.Data.CommandType.Text;
+                                        foreach (string tableName in neededTables)
+                                        {
+                                            permissionsCommand.CommandText = string.Format("GRANT DELETE,INSERT,REFERENCES,SELECT,UPDATE,VIEW DEFINITION ON [dbo].[{0}] TO [{1}]", tableName, userName);
+                                            permissionsCommand.ExecuteNonQuery();
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -226,23 +240,51 @@ namespace CprBroker.Installers
                             killCommand.ExecuteNonQuery();
                         }
                     }
-                    if (!setupInfo.ApplicationAuthenticationSameAsAdmin && !setupInfo.ApplicationAuthenticationInfo.IntegratedSecurity)
+                }
+            }
+        }
+
+        public static void DropDatabaseUser(DatabaseSetupInfo setupInfo)
+        {
+            Action<SqlConnection> dropLoginMethod = (connection) =>
+            {
+                using (SqlCommand dropLoginCommand = new SqlCommand("sp_droplogin", connection))
+                {
+                    dropLoginCommand.CommandType = CommandType.StoredProcedure;
+                    dropLoginCommand.Parameters.Add("@loginame", SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                    dropLoginCommand.ExecuteNonQuery();
+                }
+            };
+
+            using (SqlConnection adminConnection = new SqlConnection(setupInfo.CreateConnectionString(true, false)))
+            {
+                adminConnection.Open();                
+                if (!setupInfo.ApplicationAuthenticationSameAsAdmin && !setupInfo.ApplicationAuthenticationInfo.IntegratedSecurity)
+                {
+                    if (!setupInfo.IsServerRoleMember("sysadmin", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnection))
                     {
-                        if (!setupInfo.IsServerRoleMember("sysadmin", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnection))
+                        using (SqlCommand selectUsersCommand = new SqlCommand("exec sp_MSloginmappings @User", adminConnection))
                         {
-                            using (SqlCommand selectUsersCommand = new SqlCommand("exec sp_MSloginmappings @User", adminConnection))
+                            selectUsersCommand.Parameters.Add("@User", SqlDbType.VarChar).Value = setupInfo.ApplicationAuthenticationInfo.UserName;
+                            SqlDataAdapter adpt = new SqlDataAdapter(selectUsersCommand);
+                            DataTable usersTable = new DataTable();
+                            adpt.Fill(usersTable);
+                            if (usersTable.Rows.Count == 0)
                             {
-                                selectUsersCommand.Parameters.Add("@User", SqlDbType.VarChar).Value = setupInfo.ApplicationAuthenticationInfo.UserName;
-                                SqlDataAdapter adpt = new SqlDataAdapter(selectUsersCommand);
-                                DataTable usersTable = new DataTable();
-                                adpt.Fill(usersTable);
-                                if (usersTable.Rows.Count == 0)
+                                dropLoginMethod(adminConnection);
+                            }
+                            else if (usersTable.Rows.Count == 1 && usersTable.Rows[0]["DBName"].ToString().Equals(setupInfo.DatabaseName, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                using (var adminConnectionWithDB = new SqlConnection(setupInfo.CreateConnectionString(true, true)))
                                 {
-                                    using (SqlCommand dropLoginCommand = new SqlCommand("sp_droplogin", adminConnection))
+                                    adminConnectionWithDB.Open();
+                                    if (!setupInfo.IsDatabaseRoleMember("db_owner", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnectionWithDB))
                                     {
-                                        dropLoginCommand.CommandType = CommandType.StoredProcedure;
-                                        dropLoginCommand.Parameters.Add("@loginame", SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
-                                        dropLoginCommand.ExecuteNonQuery();
+                                        using (var dropUserCommand = new SqlCommand(string.Format("DROP USER [{0}]", setupInfo.ApplicationAuthenticationInfo.UserName), adminConnectionWithDB))
+                                        {
+                                            dropUserCommand.ExecuteNonQuery();                                            
+                                        }
+                                        dropLoginMethod(adminConnection);
                                     }
                                 }
                             }
@@ -251,5 +293,6 @@ namespace CprBroker.Installers
                 }
             }
         }
+
     }
 }

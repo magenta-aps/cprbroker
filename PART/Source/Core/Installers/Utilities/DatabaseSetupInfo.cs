@@ -179,6 +179,38 @@ namespace CprBroker.Installers
             return count > 0;
         }
 
+        internal bool IsDatabaseRoleMember(string role, string user, SqlConnection connection)
+        {
+            string sql = ""
+                + " select count(*) from"
+                + " sys.database_role_members as drm "
+                + " inner join "
+                + " ("
+                + " select principal_id from sys.database_principals where type='R' and name=@Role"
+                + " ) as databaseRoles "
+                + " on drm.role_principal_id = databaseRoles.principal_id"
+                + " inner join"
+                + " ("
+                + "  select dp0.principal_id from sys.database_principals  dp0 inner join sys.server_principals sp0 on dp0.sid = sp0.sid"
+                + "  where dp0.type='S' and sp0.name = @Login"
+                + " ) as databaseUsers "
+                + " on drm.member_principal_id = databaseUsers.principal_id";
+
+            bool connectionOpen = connection.State == System.Data.ConnectionState.Open;
+            int count;
+            using (SqlCommand selectCommand = new SqlCommand(sql, connection))
+            {
+                if (!connectionOpen)
+                    connection.Open();
+                selectCommand.Parameters.Add("@Role", System.Data.SqlDbType.VarChar).Value = role;
+                selectCommand.Parameters.Add("@Login", System.Data.SqlDbType.VarChar).Value = user;
+                count = (int)selectCommand.ExecuteScalar();
+                if (!connectionOpen)
+                    connection.Close();
+            }
+            return count > 0;
+        }
+
         /// <summary>
         /// Checks whether the database specified already exists
         /// </summary>

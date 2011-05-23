@@ -14,7 +14,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
+    <DefineConstants>Debug;bannerBmp=Bitmaps\bannrbmp.bmp;dialogBmp=$(MSBuildProjectDirectory)\Bitmaps\dlgbmp.bmp;exclamationIco=$(MSBuildProjectDirectory)\Bitmaps\exclamic.ico;infoIco=$(MSBuildProjectDirectory)\Bitmaps\info.ico;licenseRtf=$(MSBuildProjectDirectory)\license.rtf;newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;printeulaDll=$(OutputPath)\PrintEula.dll;ServicePath=..\..\DPRUpdatesNotificationService\;OutputPath=..\Output\</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>

@@ -21,7 +21,7 @@ namespace InstallerLib
         {
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.crebas, databaseSetupInfo);
-            DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo);
+            DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { "T_DPRUpdateStaging" });
             return ActionResult.Success;
         }
 
@@ -30,6 +30,7 @@ namespace InstallerLib
         {
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
+            DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             return ActionResult.Success;
         }
 
@@ -38,12 +39,13 @@ namespace InstallerLib
         {
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
+            DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             return ActionResult.Success;
         }
 
         public static ActionResult InstallService(Session session)
         {
-            
+
             return ActionResult.Success;
         }
     }

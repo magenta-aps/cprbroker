@@ -22,12 +22,19 @@
     </Property>
     <Property Id="DB_ADMINPASSWORD" Value="-" Hidden="yes" />
 
-    <Property Id="DB_APPSAMEASADMIN" Value="True" />
+    <Property Id="DB_APPSAMEASADMIN" Value="True">
+      <RegistrySearch Id="RS_DbAppSameAsAdmin" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppSameAsAdmin"/>
+    </Property>
 
-    <Property Id="DB_APPINTEGRATEDSECURITY" Value="False" />
+    <Property Id="DB_APPINTEGRATEDSECURITY" Value="False">
+      <RegistrySearch Id="RS_AppIntegratedSecurity" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppIntegratedSecurity"/>
+    </Property>
     <Property Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True" />
 
-    <Property Id="DB_APPUSERNAME" Value="-" />
+    <Property Id="DB_APPUSERNAME" Value="-">
+      <RegistrySearch Id="RS_AppUserName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppUserName"/>
+    </Property>
+    
     <Property Id="DB_APPPASSWORD" Value="-" Hidden="yes" />
 
     <Property Id="DB_ENCRYPTIONKEY" Value="-" Hidden="yes"/>
@@ -47,6 +54,10 @@
           <RegistryValue Id="REG_DbUseExistingDatabase" Action="write" Type="string" Name="UseExistingDatabase" Value="[DB_USEEXISTINGDATABASE]"/>
           <RegistryValue Id="REG_DbAdminIntegratedSecurity" Action="write" Type="string" Name="AdminIntegratedSecurity" Value="[DB_ADMININTEGRATEDSECURITY]"/>
           <RegistryValue Id="REG_DbAdminUserName" Action="write" Type="string" Name="AdminUserName" Value="[DB_ADMINUSERNAME]"/>
+
+          <RegistryValue Id="REG_DbAppSameAsAdmin" Action="write" Type="string" Name="AppSameAsAdmin" Value="[DB_APPSAMEASADMIN]"/>
+          <RegistryValue Id="REG_DbAppIntegratedSecurity" Action="write" Type="string" Name="AppIntegratedSecurity" Value="[DB_APPINTEGRATEDSECURITY]"/>
+          <RegistryValue Id="REG_DbAppUserName" Action="write" Type="string" Name="AppUserName" Value="[DB_APPUSERNAME]"/>
         </RegistryKey>
       </Component>
 
@@ -73,6 +84,10 @@
       <Custom Action="CA_InitializeDatabasePropertiesFromProductName" After="CostFinalize">NOT REMOVE</Custom>
       <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize">NOT REMOVE</Custom>
     </InstallUISequence>
+
+    <InstallExecuteSequence>
+      <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize">REMOVE</Custom>
+    </InstallExecuteSequence>
 
 
     <CustomAction Id="TestDatabaseConnection" BinaryKey="InstallersDll" DllEntry="TestDatabaseConnection" Execute="immediate" Return="check" Impersonate="yes"></CustomAction>

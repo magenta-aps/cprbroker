@@ -4,24 +4,29 @@
     <Property Id="Dummy_CustomizationsFragmentRefProp" Value="-"/>
 
     <PropertyRef Id="Dummy_DatabaseFragmentRefProperty"/>
-    
+
     <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)InstallerLib.CA.dll"/>
-    
-    <CustomAction Id="CA_CustomizeDprUpdatesDatabaseProperties" Execute="immediate" Script="vbscript">
+
+    <CustomAction Id="CA_CustomizeDprUpdatesControlProperties" Execute="immediate" Script="vbscript">
       <![CDATA[
       Session.Property("WEB_CREATEWEB") = "False"
-      
       Session.Property("DB_CREATEDATABASE") = "True"
       Session.Property("DB_ENCRYPTIONKEYENABLED") = "False"
       Session.Property("DB_DOMAINENABLED") = "False"
       Session.Property("DB_APPINTEGRATEDSECURITYALLOWED") = "False"
-      
       ]]>
     </CustomAction>
 
+    <CustomAction Id="CA_CustomizeDprDatabaseName" Execute="immediate" Property="DB_DATABASENAME" Value="DPR"/>
+
     <InstallUISequence>
-      <Custom Action="CA_CustomizeDprUpdatesDatabaseProperties" Before="CostFinalize">1</Custom>
+      <Custom Action="CA_CustomizeDprUpdatesControlProperties" Before="CostFinalize">NOT REMOVE</Custom>
+      <Custom Action="CA_CustomizeDprDatabaseName" After="CA_InitializeDatabasePropertiesFromProductName">1</Custom>
     </InstallUISequence>
+
+    <InstallExecuteSequence>
+      <Custom Action ="CA_CustomizeDprUpdatesControlProperties" After="CostFinalize">REMOVE</Custom>
+    </InstallExecuteSequence>
 
   </Fragment>
 </Wix>

@@ -16,9 +16,9 @@
         <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 
         <Control Id="cprBrokerServicesUrlText" Type="Text" Text="CprBroker Part service Url" X="20" Y="70" Width="80" Height="17"/>
-        <Control Id="cprBrokerServicesUrlEdit" Type="Edit" Text="[CPRBROKERSERVICESURL]" Property="CPRBROKERSERVICESURL" X="100" Y="70" Width="250" Height="17"/>
-        <Control Id="cprBrokerServicesUrlText2" Type="Text" Text="/Part.asmx" X="110" Y="70" Width="80" Height="17"/>
-        <Control Id="cprBrokerServicesUrlText3" Type="Text" Text="/Admin.asmx" X="130" Y="70" Width="80" Height="17"/>
+        <Control Id="cprBrokerServicesUrlEdit" Type="Edit" Text="[CPRBROKERSERVICESURL]" Property="CPRBROKERSERVICESURL" X="100" Y="70" Width="180" Height="17"/>
+        <Control Id="cprBrokerServicesUrlText2" Type="Text" Text="/Part.asmx" X="290" Y="70" Width="80" Height="17"/>
+        <Control Id="cprBrokerServicesUrlText3" Type="Text" Text="/Admin.asmx" X="290" Y="90" Width="80" Height="17"/>
 
         <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />

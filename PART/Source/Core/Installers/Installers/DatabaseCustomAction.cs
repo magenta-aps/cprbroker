@@ -118,7 +118,7 @@ namespace CprBroker.Installers
                 ExecuteDDL(createDatabaseObjectsSql, databaseSetupInfo);
                 InsertLookups(lookupDataArray, databaseSetupInfo);
             }
-            CreateDatabaseUser(databaseSetupInfo);
+            CreateDatabaseUser(databaseSetupInfo, null);
 
             return ActionResult.Success;
         }
@@ -136,6 +136,7 @@ namespace CprBroker.Installers
                 if (!askUser || BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
                 {
                     DropDatabase(setupInfo);
+                    DropDatabaseUser(setupInfo);
                 }
             }
             return ActionResult.Success;
