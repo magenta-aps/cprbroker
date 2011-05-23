@@ -54,6 +54,11 @@ namespace CprBroker.Installers
 
         public static ActionResult TestConnectionString(Session session)
         {
+            return TestConnectionString(session, true);
+        }
+
+        public static ActionResult TestConnectionString(Session session, bool databaseShouldBeNew)
+        {
             try
             {
                 DatabaseSetupInfo dbInfo = DatabaseSetupInfo.FromSession(session);
@@ -62,18 +67,32 @@ namespace CprBroker.Installers
 
                 if (dbInfo.Validate(ref message))
                 {
-                    if (!dbInfo.DatabaseExists()) // Normal case
+                    if (databaseShouldBeNew)
                     {
-                        session["DB_VALID"] = "True";
+                        if (!dbInfo.DatabaseExists()) // Normal case
+                        {
+                            session["DB_VALID"] = "True";
+                        }
+                        else if (MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes) // Database exists and won't be created
+                        {
+                            dbInfo.UseExistingDatabase = true;
+                            session["DB_VALID"] = "True";
+                        }
+                        else  // Database exists and user should change its name
+                        {
+                            session["DB_VALID"] = "False";
+                        }
                     }
-                    else if (MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes) // Database exists and won't be created
+                    else
                     {
-                        dbInfo.UseExistingDatabase = true;
-                        session["DB_VALID"] = "True";
-                    }
-                    else  // Database exists and user should change its name
-                    {
-                        session["DB_VALID"] = "False";
+                        if (dbInfo.DatabaseExists())
+                        {
+                            session["DB_VALID"] = "True";
+                        }
+                        else
+                        {
+                            session["DB_VALID"] = Messages.DatabaseDoesNotExist;
+                        }
                     }
                 }
                 else
@@ -93,9 +112,13 @@ namespace CprBroker.Installers
 
         public static ActionResult DeployDatabase(Session session, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
         {
-            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
-            CreateDatabase(setupInfo, createDatabaseObjectsSql, lookupDataArray);
-            CreateDatabaseUser(setupInfo);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            if (CreateDatabase(databaseSetupInfo, createDatabaseObjectsSql, lookupDataArray))
+            {
+                ExecuteDDL(createDatabaseObjectsSql, databaseSetupInfo);
+                InsertLookups(lookupDataArray, databaseSetupInfo);
+            }
+            CreateDatabaseUser(databaseSetupInfo);
 
             return ActionResult.Success;
         }

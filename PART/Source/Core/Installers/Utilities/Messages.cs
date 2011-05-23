@@ -67,6 +67,7 @@ namespace CprBroker.Installers
 
         public static readonly string DatabaseAlreadyExists = "The database already exists, would you like to use the exisitng database?";
         public static readonly string DoYouWantToDropDatabase = "Do you want to drop the system's database?";
+        public static readonly string DatabaseDoesNotExist = "The database does not exist. Please check the database name";
 
         public static readonly string AdminConnectionHasInsufficientRights = "Admin connection does not have sufficient rights to create a database";
 

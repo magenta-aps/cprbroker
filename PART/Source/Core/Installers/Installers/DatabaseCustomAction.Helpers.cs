@@ -62,35 +62,6 @@ namespace CprBroker.Installers
                         createCommand.ExecuteNonQuery();
                     }
                 }
-
-                string adminConnectionStringWithDb = setupInfo.CreateConnectionString(true, true);
-                using (SqlConnection adminConnectionWDb = new SqlConnection(adminConnectionStringWithDb))
-                {
-                    adminConnectionWDb.Open();
-                    using (SqlCommand createObjectsCommand = new SqlCommand("", adminConnectionWDb))
-                    {
-                        createDatabaseObjectsSql += "\nGO";   // make sure last batch is executed.
-                        string sqlBatch = "";
-
-                        foreach (string line in createDatabaseObjectsSql.Split(new string[2] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            if (line.ToUpperInvariant().Trim() == "GO")
-                            {
-                                if (!string.IsNullOrEmpty(sqlBatch))
-                                {
-                                    createObjectsCommand.CommandText = sqlBatch;
-                                    createObjectsCommand.ExecuteNonQuery();
-                                }
-                                sqlBatch = string.Empty;
-                            }
-                            else
-                            {
-                                sqlBatch += line + "\n";
-                            }
-                        }
-                    }
-                }
-                InsertLookups(adminConnectionStringWithDb, lookupDataArray);
                 return true;
             }
             else
@@ -99,38 +70,70 @@ namespace CprBroker.Installers
             }
         }
 
+        public static void ExecuteDDL(string createDatabaseObjectsSql, DatabaseSetupInfo databaseSetupInfo)
+        {
+            string adminConnectionStringWithDb = databaseSetupInfo.CreateConnectionString(true, true);
+            using (SqlConnection adminConnectionWDb = new SqlConnection(adminConnectionStringWithDb))
+            {
+                adminConnectionWDb.Open();
+                using (SqlCommand createObjectsCommand = new SqlCommand("", adminConnectionWDb))
+                {
+                    adminConnectionWDb.Open();
+                    createDatabaseObjectsSql += "\nGO";   // make sure last batch is executed.
+                    string sqlBatch = "";
+
+                    foreach (string line in createDatabaseObjectsSql.Split(new string[2] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        if (line.ToUpperInvariant().Trim() == "GO")
+                        {
+                            if (!string.IsNullOrEmpty(sqlBatch))
+                            {
+                                createObjectsCommand.CommandText = sqlBatch;
+                                createObjectsCommand.ExecuteNonQuery();
+                            }
+                            sqlBatch = string.Empty;
+                        }
+                        else
+                        {
+                            sqlBatch += line + "\n";
+                        }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Creates a new user in the database if needed
         /// </summary>
-        private static void CreateDatabaseUser(DatabaseSetupInfo setupInfo)
+        public static void CreateDatabaseUser(DatabaseSetupInfo databaseSetupInfo)
         {
-            if (!setupInfo.ApplicationAuthenticationSameAsAdmin)
+            if (!databaseSetupInfo.ApplicationAuthenticationSameAsAdmin)
             {
                 string userName;
                 Func<SqlConnection, SqlCommand> createLoginMethod;
 
-                if (setupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
+                if (databaseSetupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
                 {
                     userName = @"NT AUTHORITY\NETWORK SERVICE";
                     createLoginMethod = (connection) => new SqlCommand(string.Format("CREATE LOGIN [{0}] FROM WINDOWS", userName), connection);// login.Create();
                 }
                 else
                 {
-                    userName = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                    userName = databaseSetupInfo.EffectiveApplicationAuthenticationInfo.UserName;
                     createLoginMethod = (connection) =>
                     {
                         var ret = new SqlCommand("sp_addlogin", connection);
                         ret.CommandType = System.Data.CommandType.StoredProcedure;
-                        ret.Parameters.Add("@loginame", System.Data.SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.UserName;
-                        ret.Parameters.Add("@passwd", System.Data.SqlDbType.VarChar).Value = setupInfo.EffectiveApplicationAuthenticationInfo.Password;
+                        ret.Parameters.Add("@loginame", System.Data.SqlDbType.VarChar).Value = databaseSetupInfo.EffectiveApplicationAuthenticationInfo.UserName;
+                        ret.Parameters.Add("@passwd", System.Data.SqlDbType.VarChar).Value = databaseSetupInfo.EffectiveApplicationAuthenticationInfo.Password;
                         return ret;
                     };
                 }
 
-                using (SqlConnection adminConnection = new SqlConnection(setupInfo.CreateConnectionString(true, false)))
+                using (SqlConnection adminConnection = new SqlConnection(databaseSetupInfo.CreateConnectionString(true, false)))
                 {
                     adminConnection.Open();
-                    using (SqlConnection adminConnectionWithDb = new SqlConnection(setupInfo.CreateConnectionString(true, true)))
+                    using (SqlConnection adminConnectionWithDb = new SqlConnection(databaseSetupInfo.CreateConnectionString(true, true)))
                     {
                         adminConnectionWithDb.Open();
                         SqlCommand selectUserCommand = new SqlCommand("SELECT COUNT(*) FROM sys.database_principals AS db INNER JOIN sys.server_principals AS S ON db.sid = s.sid WHERE db.name=@UserName OR S.name=@UserName", adminConnectionWithDb);
@@ -162,7 +165,7 @@ namespace CprBroker.Installers
             }
         }
 
-        private static void InsertLookups(string connectionString, KeyValuePair<string, string>[] lookupDataArray)
+        private static void InsertLookups(KeyValuePair<string, string>[] lookupDataArray, DatabaseSetupInfo databaseSetupInfo)
         {
             foreach (var lookupData in lookupDataArray)
             {
@@ -186,8 +189,9 @@ namespace CprBroker.Installers
                     sql += ")" + Environment.NewLine;
                 }
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(databaseSetupInfo.CreateConnectionString(true, true)))
                 {
+                    conn.Open();
                     using (SqlCommand command = new SqlCommand(sql, conn))
                     {
                         conn.Open();
