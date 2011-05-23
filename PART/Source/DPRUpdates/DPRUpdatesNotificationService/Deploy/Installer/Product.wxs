@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="c6af26f9-af9f-4592-a2be-a50f4dcbbb44" Name="DPR Updates" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="54efdd4f-03fc-44a8-9c87-6500e51da70f">
+		<Package InstallerVersion="200" Compressed="yes" />    
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <PropertyRef Id="Dummy_ConditionsFragmentRefProp"/>
+    <PropertyRef Id="Dummy_CustomizationsFragmentRefProp"/>
+    <PropertyRef Id="Dummy_DialogsFragmentRefProp"/>
+    <PropertyRef Id="Dummy_CprBrokerDialogFragmentRefProp"/>
+    <PropertyRef Id="Dummy_FilesFragmentRefProperty"/>
+    
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLDIR" Name="Installer">
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id="ProductFeature" Title="Installer" Level="1">
+      <ComponentGroupRef Id="CMPGRP_bin"/>
+      <ComponentGroupRef Id="CMPGRP_Database"/>
+			<!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+			<ComponentGroupRef Id="Product.Generated" />
+		</Feature>
+	</Product>
+</Wix>
