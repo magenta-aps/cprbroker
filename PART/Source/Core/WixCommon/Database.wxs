@@ -3,8 +3,8 @@
   <Fragment Id="DatabaseFragment">
     <Property Id="Dummy_DatabaseFragmentRefProperty" Value="-"/>
 
-    <Property Id="DB_CREATEDATABASE" Value="False"  />
-    
+    <WixVariable Id="DB_CREATEDATABASE" Value="False" Overridable="yes"/>
+
     <Property Id="DB_SERVERNAME" Value="SqlServer" >
       <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="ServerName"/>
     </Property>
@@ -26,22 +26,25 @@
       <RegistrySearch Id="RS_DbAppSameAsAdmin" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppSameAsAdmin"/>
     </Property>
 
-    <Property Id="DB_APPINTEGRATEDSECURITY" Value="False">
+    <Property Id="DB_APPINTEGRATEDSECURITY" Value="!(wix.DB_APPINTEGRATEDSECURITYALLOWED)">
       <RegistrySearch Id="RS_AppIntegratedSecurity" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppIntegratedSecurity"/>
     </Property>
-    <Property Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True" />
+    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True" Overridable="yes"/>
+    <Property Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="!(wix.DB_APPINTEGRATEDSECURITYALLOWED)"/>
 
     <Property Id="DB_APPUSERNAME" Value="-">
       <RegistrySearch Id="RS_AppUserName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppUserName"/>
     </Property>
-    
+
     <Property Id="DB_APPPASSWORD" Value="-" Hidden="yes" />
 
     <Property Id="DB_ENCRYPTIONKEY" Value="-" Hidden="yes"/>
-    <Property Id="DB_ENCRYPTIONKEYENABLED" Value="True" />
+    <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="True" Overridable="yes"/>
+    <Property Id="DB_ENCRYPTIONKEYENABLED" Value="!(wix.DB_ENCRYPTIONKEYENABLED)"/>
 
     <Property Id="DB_DOMAIN" Value="-"/>
-    <Property Id="DB_DOMAINENABLED" Value="True" />
+    <WixVariable Id="DB_DOMAINENABLED" Value="True" Overridable="yes"/>
+    <Property Id="DB_DOMAINENABLED" Value="!(wix.DB_DOMAINENABLED)"/>
 
     <Property Id="DB_VALID" Value="False"/>
 
@@ -73,7 +76,7 @@
 
     <CustomAction Id="CA_InitializeDatabasePropertiesByRemovingConflicts" Execute="immediate" Script="vbscript">
       <![CDATA[
-      If Session.Property("DB_APPINTEGRATEDSECURITYALLOWED") <> "True" Then
+      If !(wix.DB_APPINTEGRATEDSECURITYALLOWED) <> True Then
         Session.Property("DB_APPINTEGRATEDSECURITY") = "False"
         Session.Property("DB_APPSAMEASADMIN") = ""
       End If
@@ -81,12 +84,12 @@
     </CustomAction>
 
     <InstallUISequence>
-      <Custom Action="CA_InitializeDatabasePropertiesFromProductName" After="CostFinalize">NOT REMOVE</Custom>
-      <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize">NOT REMOVE</Custom>
+      <Custom Action="CA_InitializeDatabasePropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize">REMOVE</Custom>
+      <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND REMOVE]]></Custom>
     </InstallExecuteSequence>
 
 
@@ -100,26 +103,26 @@
 
     <!--Installation custom actions-->
     <Property Id="RollbackDatabase" Value="-" Hidden="yes"/>
-    <CustomAction Id="RollbackDatabase_" Property="RollbackDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=[DB_APPINTEGRATEDSECURITYALLOWED];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=[DB_ENCRYPTIONKEYENABLED];DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=[DB_DOMAINENABLED]" />
+    <CustomAction Id="RollbackDatabase_" Property="RollbackDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=!(wix.DB_APPINTEGRATEDSECURITYALLOWED);DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=!(wix.DB_ENCRYPTIONKEYENABLED);DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=!(wix.DB_DOMAINENABLED)" />
     <CustomAction Id="RollbackDatabase" BinaryKey="InstallersDll" DllEntry="RollbackDatabase" Execute="rollback" Return="check" Impersonate="yes"/>
 
     <Property Id="DeployDatabase" Value="-" Hidden="yes"/>
-    <CustomAction Id="DeployDatabase_" Property="DeployDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=[DB_APPINTEGRATEDSECURITYALLOWED];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=[DB_ENCRYPTIONKEYENABLED];DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=[DB_DOMAINENABLED]" />
+    <CustomAction Id="DeployDatabase_" Property="DeployDatabase" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=!(wix.DB_APPINTEGRATEDSECURITYALLOWED);DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=!(wix.DB_ENCRYPTIONKEYENABLED);DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=!(wix.DB_DOMAINENABLED)" />
     <CustomAction Id="DeployDatabase" BinaryKey="InstallersDll" DllEntry="DeployDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
     <Property Id="RemoveDatabase" Value="-" Hidden="yes"/>
-    <CustomAction Id="RemoveDatabase_" Property="RemoveDatabase" Value="ProductName=[ProductName];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=[DB_APPINTEGRATEDSECURITYALLOWED];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=[DB_ENCRYPTIONKEYENABLED];DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=[DB_DOMAINENABLED]" />
+    <CustomAction Id="RemoveDatabase_" Property="RemoveDatabase" Value="ProductName=[ProductName];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=!(wix.DB_APPINTEGRATEDSECURITYALLOWED);DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=!(wix.DB_ENCRYPTIONKEYENABLED);DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=!(wix.DB_DOMAINENABLED)" />
     <CustomAction Id="RemoveDatabase" BinaryKey="InstallersDll" DllEntry="RemoveDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
     <InstallExecuteSequence>
-      <Custom Action="RollbackDatabase_" After="InstallInitialize"><![CDATA[DB_CREATEDATABASE = "True" AND NOT REMOVE]]></Custom>
-      <Custom Action="RollbackDatabase" After="InstallFiles"><![CDATA[DB_CREATEDATABASE = "True" AND NOT REMOVE]]></Custom>
+      <Custom Action="RollbackDatabase_" After="InstallInitialize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="RollbackDatabase" After="InstallFiles"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
 
-      <Custom Action="DeployDatabase_" After="InstallInitialize"><![CDATA[DB_CREATEDATABASE = "True" AND NOT REMOVE]]></Custom>
-      <Custom Action="DeployDatabase" After="RemoveRegistryValues"><![CDATA[DB_CREATEDATABASE = "True" AND NOT REMOVE]]></Custom>
+      <Custom Action="DeployDatabase_" After="InstallInitialize"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE]]></Custom>
+      <Custom Action="DeployDatabase" After="RemoveRegistryValues"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE]]></Custom>
 
-      <Custom Action="RemoveDatabase_" After="InstallInitialize"><![CDATA[DB_CREATEDATABASE = "True" AND REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveDatabase" After="RemoveRegistryValues"><![CDATA[DB_CREATEDATABASE = "True" AND REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveDatabase_" After="InstallInitialize"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveDatabase" After="RemoveRegistryValues"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND REMOVE = "ALL"]]></Custom>
     </InstallExecuteSequence>
 
   </Fragment>

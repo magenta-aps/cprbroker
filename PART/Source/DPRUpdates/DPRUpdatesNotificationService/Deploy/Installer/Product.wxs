@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="c6af26f9-af9f-4592-a2be-a50f4dcbbb44" Name="DPR Updates" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="54efdd4f-03fc-44a8-9c87-6500e51da70f">
+  <Product Id="C6AF26F9-AF9F-4592-A2BE-A50F4DCBBB44" Name="DPR Updates" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="54EFDD4F-03FC-44A8-9C87-6500E51DA70F">
     <Package InstallerVersion="200" Compressed="yes" />
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />

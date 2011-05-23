@@ -16,12 +16,12 @@
 
         <!--Ecryption key-->
         <Control Id="encryptionKeyLabel" Type="Text" Text="Encryption Key" X="150" Y="60" Width="60" Height="17">
-          <Condition Action="show" ><![CDATA[DB_ENCRYPTIONKEYENABLED="True"]]></Condition>
-          <Condition Action="hide" ><![CDATA[DB_ENCRYPTIONKEYENABLED<>"True"]]></Condition>
+          <Condition Action="show" ><![CDATA[!(wix.DB_ENCRYPTIONKEYENABLED)= True ]]></Condition>
+          <Condition Action="hide" ><![CDATA[!(wix.DB_ENCRYPTIONKEYENABLED)<> True ]]></Condition>
         </Control>
         <Control Id="encryptionKeyEdit" Type="Edit" Property="DB_ENCRYPTIONKEY" X="210" Y="60" Width="70" Height="17">
-          <Condition Action="show" ><![CDATA[DB_ENCRYPTIONKEYENABLED="True"]]></Condition>
-          <Condition Action="hide" ><![CDATA[DB_ENCRYPTIONKEYENABLED<>"True"]]></Condition>
+          <Condition Action="show" ><![CDATA[!(wix.DB_ENCRYPTIONKEYENABLED)= True ]]></Condition>
+          <Condition Action="hide" ><![CDATA[!(wix.DB_ENCRYPTIONKEYENABLED)<>True ]]></Condition>
         </Control>
 
         <!--Database name-->
@@ -30,12 +30,12 @@
 
         <!--Domain-->
         <Control Id="DomainLabel" Type="Text" Text="Domain" X="150" Y="80" Width="60" Height="17">
-          <Condition Action="show" ><![CDATA[DB_DOMAINENABLED="True"]]></Condition>
-          <Condition Action="hide" ><![CDATA[DB_DOMAINENABLED<>"True"]]></Condition>
+          <Condition Action="show" ><![CDATA[!(wix.DB_DOMAINENABLED)= True ]]></Condition>
+          <Condition Action="hide" ><![CDATA[!(wix.DB_DOMAINENABLED)<> True ]]></Condition>
         </Control>
         <Control Id="domainEdit" Type="Edit" Property="DB_DOMAIN" X="210" Y="80" Width="70" Height="17">
-          <Condition Action="show" ><![CDATA[DB_DOMAINENABLED="True"]]></Condition>
-          <Condition Action="hide" ><![CDATA[DB_DOMAINENABLED<>"True"]]></Condition>
+          <Condition Action="show" ><![CDATA[!(wix.DB_DOMAINENABLED)= True ]]></Condition>
+          <Condition Action="hide" ><![CDATA[!(wix.DB_DOMAINENABLED)<> True ]]></Condition>
         </Control>
 
         <!--Admin group box-->
@@ -73,8 +73,8 @@
         <Control Id="appGroupBox" Type="GroupBox" Text="Application connection" X="170" Y="110" Width="150" Height="120"/>
 
         <Control Id="appSameAsAdminCheck" Type="CheckBox" Text="Same as admin" Property="DB_APPSAMEASADMIN" CheckBoxValue="True" X="175" Y="125" Width="75" Height="17">
-          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = "True"]]></Condition>
-          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> "True"]]></Condition>
+          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = True]]></Condition>
+          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> True]]></Condition>
         </Control>
 
         <!--Application login type-->
@@ -85,8 +85,8 @@
           </RadioButtonGroup>
           <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN]]></Condition>
           <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN]]></Condition>
-          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = "True"]]></Condition>
-          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> "True"]]></Condition>
+          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = True]]></Condition>
+          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> True]]></Condition>
         </Control>
 
         <!--Application username-->

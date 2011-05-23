@@ -31,7 +31,7 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deploy\InstallerLib\InstallerLib.csproj">
+    <ProjectReference Include="..\InstallerLib\InstallerLib.csproj">
       <Name>InstallerLib</Name>
       <Project>{3ab8e5f7-45af-4289-bd43-243fb00624f9}</Project>
       <Private>True</Private>

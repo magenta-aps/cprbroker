@@ -2,8 +2,8 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
   <Fragment>
 
-    <Property Id="WEB_CREATEWEB" Value="False"/>
-    
+    <WixVariable Id="WEB_CREATEWEB" Value="False" Overridable="yes"/>
+
     <Property Id="WEB_CREATEASWEBSITE" Value="True">
       <RegistrySearch Id="RS_WEB_CREATEASWEBSITE" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" Type="raw" Name="CreateAsWebsite"/>
     </Property>
@@ -41,7 +41,7 @@
     <CustomAction Id="RollbackWebsite" BinaryKey="InstallersDll" DllEntry="RollbackWebsite" Execute="rollback" Return="check" Impersonate="no"></CustomAction>
 
     <Property Id="CreateWebsite" Value="-" Hidden="yes"/>
-    <CustomAction Id="CreateWebsite_" Property="CreateWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=[DB_APPINTEGRATEDSECURITYALLOWED];DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=[DB_ENCRYPTIONKEYENABLED];DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=[DB_DOMAINENABLED]"/>
+    <CustomAction Id="CreateWebsite_" Property="CreateWebsite" Value="INSTALLDIR=[INSTALLDIR];WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH];DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=!(wix.DB_APPINTEGRATEDSECURITYALLOWED);DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=!(wix.DB_ENCRYPTIONKEYENABLED);DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=!(wix.DB_DOMAINENABLED)"/>
     <CustomAction Id="CreateWebsite" BinaryKey="InstallersDll" DllEntry="CreateWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
     <Property Id="RemoveWebSite" Value="-" />
@@ -49,20 +49,20 @@
     <CustomAction Id="RemoveWebSite" BinaryKey="InstallersDll" DllEntry="RemoveWebSite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
     <InstallUISequence >
-      <Custom Action="PopulateWebSites" After="CostFinalize"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
-      <Custom Action="CA_InitializeWebPropertiesFromProductName" After="CostFinalize"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
+      <Custom Action="PopulateWebSites" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="CA_InitializeWebPropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
     </InstallUISequence>
 
     <InstallExecuteSequence>
 
-      <Custom Action="RollbackWebsite_" After="InstallInitialize"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
-      <Custom Action="RollbackWebsite" After="InstallFiles"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
+      <Custom Action="RollbackWebsite_" After="InstallInitialize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="RollbackWebsite" After="InstallFiles"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
 
-      <Custom Action="CreateWebsite_" After="InstallInitialize"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
-      <Custom Action="CreateWebsite" After="RollbackWebsite"><![CDATA[WEB_CREATEWEB = "True" AND NOT REMOVE]]></Custom>
+      <Custom Action="CreateWebsite_" After="InstallInitialize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="CreateWebsite" After="RollbackWebsite"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
 
-      <Custom Action="RemoveWebSite_" After="InstallInitialize"><![CDATA[WEB_CREATEWEB = "True" AND REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveWebSite" Before="RemoveRegistryValues"><![CDATA[WEB_CREATEWEB = "True" AND REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveWebSite_" After="InstallInitialize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveWebSite" Before="RemoveRegistryValues"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
 
     </InstallExecuteSequence>
 

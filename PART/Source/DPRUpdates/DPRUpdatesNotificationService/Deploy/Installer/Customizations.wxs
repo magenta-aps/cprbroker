@@ -7,26 +7,18 @@
 
     <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)InstallerLib.CA.dll"/>
 
-    <CustomAction Id="CA_CustomizeDprUpdatesControlProperties" Execute="immediate" Script="vbscript">
-      <![CDATA[
-      Session.Property("WEB_CREATEWEB") = "False"
-      Session.Property("DB_CREATEDATABASE") = "True"
-      Session.Property("DB_ENCRYPTIONKEYENABLED") = "False"
-      Session.Property("DB_DOMAINENABLED") = "False"
-      Session.Property("DB_APPINTEGRATEDSECURITYALLOWED") = "False"
-      ]]>
-    </CustomAction>
-
+    <WixVariable Id="DB_CREATEDATABASE" Value="True"/>
+    <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="False"/>
+    <WixVariable Id="DB_DOMAINENABLED" Value="False"/>
+    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="False"/>
+    
+    <WixVariable Id="WEB_CREATEWEB" Value="False"/>
+    
     <CustomAction Id="CA_CustomizeDprDatabaseName" Execute="immediate" Property="DB_DATABASENAME" Value="DPR"/>
 
     <InstallUISequence>
-      <Custom Action="CA_CustomizeDprUpdatesControlProperties" Before="CostFinalize">NOT REMOVE</Custom>
       <Custom Action="CA_CustomizeDprDatabaseName" After="CA_InitializeDatabasePropertiesFromProductName">1</Custom>
     </InstallUISequence>
-
-    <InstallExecuteSequence>
-      <Custom Action ="CA_CustomizeDprUpdatesControlProperties" After="CostFinalize">REMOVE</Custom>
-    </InstallExecuteSequence>
 
   </Fragment>
 </Wix>
