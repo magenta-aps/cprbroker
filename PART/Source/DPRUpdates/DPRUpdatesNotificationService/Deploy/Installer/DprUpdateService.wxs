@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="DprUpdateServiceFragment">
+    <Property Id="Dummy_DprUpdateServiceFragmentRefProp" Value="-"/>
+
+    <Property Id="CPRBROKERSERVICESURL" Value="http://cprbroker/Services/Part.asmx"/>
+    <Property Id="CPRBROKERSERVICESURL_VALID" Value="-"/>
+    <Property Id="APPLICATIONTOKEN" Value="07059250-E448-4040-B695-9C03F9E59E38" />
+
+    <Property Id="CPR_URL" Value="AAA"/>
+
+    <Property Id="InstallDprUpdatesService" Hidden="yes" />
+    <CustomAction Id="InstallDprUpdatesService_" Property="InstallDprUpdatesService" Value="ProductName=[ProductName];INSTALLDIR=[INSTALLDIR];CPRBROKERSERVICESURL=[CPRBROKERSERVICESURL];APPLICATIONTOKEN=[APPLICATIONTOKEN];[DB_AllProperties]" />
+    <CustomAction Id="InstallDprUpdatesService" BinaryKey="InstallersDll" DllEntry="InstallDprUpdatesService" Execute="deferred" Impersonate="no" />
+
+    <CustomAction Id="ValidateCprBrokerServicesUrl" BinaryKey="InstallersDll" DllEntry="ValidateCprBrokerServicesUrl" Return="check" Impersonate="yes" />
+    <CustomAction Id="ValidateCprBrokerServicesUrl_ShowError" Script="vbscript">
+      <![CDATA[msgbox "Invalid service url"]]>
+    </CustomAction>
+
+    <InstallExecuteSequence>
+      <Custom Action="InstallDprUpdatesService_" After="CA_Set_DB_AllProperties">NOT REMOVE</Custom>
+      <Custom Action="InstallDprUpdatesService" After="InstallFiles">NOT REMOVE</Custom>
+    </InstallExecuteSequence>
+  </Fragment>
+</Wix>

@@ -10,6 +10,7 @@
     <PropertyRef Id="Dummy_DialogsFragmentRefProp"/>
     <PropertyRef Id="Dummy_CprBrokerDialogFragmentRefProp"/>
     <PropertyRef Id="Dummy_FilesFragmentRefProperty"/>
+    <PropertyRef Id="Dummy_DprUpdateServiceFragmentRefProp"/>
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">

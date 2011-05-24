@@ -102,25 +102,15 @@ namespace CprBroker.Installers
 
         private static void RunRegIIS(string args, Version frameworkVersion)
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
+            string fileName = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
             // use aspnet_regiis for 64 bit machines whenever possible
-            string fileName64 = startInfo.FileName.Replace("Framework", "Framework64");
+            string fileName64 = fileName.Replace("Framework", "Framework64");
             if (File.Exists(fileName64))
             {
-                startInfo.FileName = fileName64;
-            }
-            startInfo.Arguments = args;
-            startInfo.UseShellExecute = false;
-            startInfo.CreateNoWindow = true;
-            Process regIisProcess = new Process();
-            regIisProcess.StartInfo = startInfo;
-            regIisProcess.Start();
-            regIisProcess.WaitForExit();
-            if (regIisProcess.ExitCode != 0)
-            {
-                throw new InstallException(string.Format("Process '{0} {1}' failed", startInfo.FileName, startInfo.Arguments));
-            }
+                fileName = fileName64;
+            };
+
+            CprBroker.Utilities.Installation.RunCommand(fileName, args);
         }
 
         private static void GrantConfigEncryptionAccess(Version frameworkVersion)

@@ -5,49 +5,49 @@
 
     <ComponentGroup Id="CMPGRP_bin">      
       <Component Id="CMP_DPRUpdateLib.dll" Directory="bin">
-        <File Id="FILE_DPRUpdateLib.dll" Source="$(var.ServicePath)bin\Release\DPRUpdateLib.dll" KeyPath="yes"/>
+        <File Id="FILE_DPRUpdateLib.dll" Source="$(var.ServicePath)bin\Debug\DPRUpdateLib.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_DPRUpdateLib.XmlSerializers.dll" Directory="bin">
         <File Id="FILE_DPRUpdateLib.XmlSerializers.dll" Source="$(var.ServicePath)bin\Release\DPRUpdateLib.XmlSerializers.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_DPRUpdatesNotificationService.application" Directory="bin">
-        <File Id="FILE_DPRUpdatesNotificationService.application" Source="$(var.ServicePath)bin\Release\DPRUpdatesNotificationService.application" KeyPath="yes"/>
+        <File Id="FILE_DPRUpdatesNotificationService.application" Source="$(var.ServicePath)bin\Debug\DPRUpdatesNotificationService.application" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_DPRUpdatesNotificationService.exe" Directory="bin">
-        <File Id="FILE_DPRUpdatesNotificationService.exe" Source="$(var.ServicePath)bin\Release\DPRUpdatesNotificationService.exe" KeyPath="yes"/>
+        <File Id="FILE_DPRUpdatesNotificationService.exe" Source="$(var.ServicePath)bin\Debug\DPRUpdatesNotificationService.exe" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_DPRUpdatesNotificationService.exe.config" Directory="bin">
-        <File Id="FILE_DPRUpdatesNotificationService.exe.config" Source="$(var.ServicePath)bin\Release\DPRUpdatesNotificationService.exe.config" KeyPath="yes"/>
+        <File Id="FILE_DPRUpdatesNotificationService.exe.config" Source="$(var.ServicePath)bin\Debug\DPRUpdatesNotificationService.exe.config" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_DPRUpdatesNotificationService.XmlSerializers.dll" Directory="bin">
         <File Id="FILE_DPRUpdatesNotificationService.XmlSerializers.dll" Source="$(var.ServicePath)bin\Release\DPRUpdatesNotificationService.XmlSerializers.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_GKApp2010.dll" Directory="bin">
-        <File Id="FILE_GKApp2010.dll" Source="$(var.ServicePath)bin\Release\GKApp2010.dll" KeyPath="yes"/>
+        <File Id="FILE_GKApp2010.dll" Source="$(var.ServicePath)bin\Debug\GKApp2010.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Install.bat" Directory="bin">
-        <File Id="FILE_Install.bat" Source="$(var.ServicePath)bin\Release\Install.bat" KeyPath="yes"/>
+        <File Id="FILE_Install.bat" Source="$(var.ServicePath)bin\Debug\Install.bat" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Common.dll" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.ServicePath)bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.ServicePath)bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Data.dll" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Data.dll" Source="$(var.ServicePath)bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll" KeyPath="yes"/>
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Data.dll" Source="$(var.ServicePath)bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.ServicePath)bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
+        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.ServicePath)bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.ServiceLocation.dll" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.ServiceLocation.dll" Source="$(var.ServicePath)bin\Release\Microsoft.Practices.ServiceLocation.dll" KeyPath="yes"/>
+        <File Id="FILE_Microsoft.Practices.ServiceLocation.dll" Source="$(var.ServicePath)bin\Debug\Microsoft.Practices.ServiceLocation.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.Unity.dll" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.Unity.dll" Source="$(var.ServicePath)bin\Release\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
+        <File Id="FILE_Microsoft.Practices.Unity.dll" Source="$(var.ServicePath)bin\Debug\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.Unity.Interception.dll" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.Unity.Interception.dll" Source="$(var.ServicePath)bin\Release\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
+        <File Id="FILE_Microsoft.Practices.Unity.Interception.dll" Source="$(var.ServicePath)bin\Debug\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Uninstall.bat" Directory="bin">
-        <File Id="FILE_Uninstall.bat" Source="$(var.ServicePath)bin\Release\Uninstall.bat" KeyPath="yes"/>
+        <File Id="FILE_Uninstall.bat" Source="$(var.ServicePath)bin\Debug\Uninstall.bat" KeyPath="yes"/>
       </Component>
 
     </ComponentGroup>

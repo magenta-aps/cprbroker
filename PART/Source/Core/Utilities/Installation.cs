@@ -46,6 +46,7 @@ using System.Runtime.InteropServices;
 using System.Configuration;
 using System.Security;
 using System.Security.AccessControl;
+using System.Diagnostics;
 
 namespace CprBroker.Utilities
 {
@@ -184,6 +185,11 @@ namespace CprBroker.Utilities
 
         public static void SetApplicationSettingInConfigFile(string configFileName, Type settingsType, string settingName, string value)
         {
+            SetApplicationSettingInConfigFile(configFileName, settingsType.FullName, settingName, value);
+        }
+
+        public static void SetApplicationSettingInConfigFile(string configFileName, string settingsTypeName, string settingName, string value)
+        {
             var conf = OpenConfigFile(configFileName);
             var applicationSettings = conf.SectionGroups["applicationSettings"] as ApplicationSettingsGroup;
             if (applicationSettings == null)
@@ -191,11 +197,11 @@ namespace CprBroker.Utilities
                 applicationSettings = new ApplicationSettingsGroup();
                 conf.SectionGroups.Add("applicationSettings", applicationSettings);
             }
-            var configSettings = applicationSettings.Sections[settingsType.FullName] as ClientSettingsSection;
+            var configSettings = applicationSettings.Sections[settingsTypeName] as ClientSettingsSection;
             if (configSettings == null)
             {
                 configSettings = new ClientSettingsSection();
-                applicationSettings.Sections.Add(settingsType.FullName, configSettings);
+                applicationSettings.Sections.Add(settingsTypeName, configSettings);
             }
             var settingElement = configSettings.Settings.Get(settingName);
             if (settingElement == null)
@@ -328,6 +334,29 @@ namespace CprBroker.Utilities
             else
             {
                 session[propName] = propValue;
+            }
+        }
+
+        public static string GetInstallDirProperty(this Microsoft.Deployment.WindowsInstaller.Session session)
+        {
+            return Strings.EnsureDirectoryEndSlash(session.GetPropertyValue("INSTALLDIR"));
+        }
+
+        public static void RunCommand(string fileName, string args)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = fileName;
+
+            startInfo.Arguments = args;
+            startInfo.UseShellExecute = false;
+            startInfo.CreateNoWindow = true;
+            Process process = new Process();
+            process.StartInfo = startInfo;
+            process.Start();
+            process.WaitForExit();
+            if (process.ExitCode != 0)
+            {
+                throw new InstallException(string.Format("Process '{0} {1}' failed", startInfo.FileName, startInfo.Arguments));
             }
         }
     }

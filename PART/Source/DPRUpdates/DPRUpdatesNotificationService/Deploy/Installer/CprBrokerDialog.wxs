@@ -3,9 +3,6 @@
   <Fragment Id="CprBrokerDialogFragment">
     <Property Id="Dummy_CprBrokerDialogFragmentRefProp" Value="-"/>
 
-    <Property Id="CPRBROKERSERVICESURL" Value="http://cprbroker/Services"/>
-    <Property Id="APPLICATIONTOKEN" Value="07059250-E448-4040-B695-9C03F9E59E38" />
-
     <UI>
       <Dialog Id="CprBrokerDialog" Width="370" Height="270" Modeless="no" Title="!(loc.CprBrokerDialog_Title)">
 
@@ -17,10 +14,13 @@
 
         <Control Id="cprBrokerServicesUrlText" Type="Text" Text="CprBroker Part service Url" X="20" Y="70" Width="80" Height="17"/>
         <Control Id="cprBrokerServicesUrlEdit" Type="Edit" Text="[CPRBROKERSERVICESURL]" Property="CPRBROKERSERVICESURL" X="100" Y="70" Width="180" Height="17"/>
-        <Control Id="cprBrokerServicesUrlText2" Type="Text" Text="/Part.asmx" X="290" Y="70" Width="80" Height="17"/>
-        <Control Id="cprBrokerServicesUrlText3" Type="Text" Text="/Admin.asmx" X="290" Y="90" Width="80" Height="17"/>
+        <!--<Control Id="cprBrokerServicesUrlText2" Type="Text" Text="/Part.asmx" X="290" Y="70" Width="80" Height="17"/>
+        <Control Id="cprBrokerServicesUrlText3" Type="Text" Text="/Admin.asmx" X="290" Y="90" Width="80" Height="17"/>-->
 
-        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+          <Publish Order="1" Event="DoAction" Value="ValidateCprBrokerServicesUrl">1</Publish>
+          <Publish Order="2" Event="DoAction" Value="ValidateCprBrokerServicesUrl_ShowError"><![CDATA[CPRBROKERSERVICESURL_VALID <> "True" AND DB_VALID <> "-"]]></Publish>
+        </Control>
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
 
         <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">

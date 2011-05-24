@@ -5,11 +5,15 @@ using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
 using System.Data.SqlClient;
 using CprBroker.Installers;
+using CprBroker.Utilities;
 
 namespace InstallerLib
 {
-    public class CustomActions
+    public partial class CustomActions
     {
+        private static readonly string ServiceExeFileName = "DPRUpdatesNotificationService.exe";
+        private static readonly string ServiceName = "DPR Updates Notification Service";
+
         [CustomAction]
         public static ActionResult TestDatabaseConnection(Session session)
         {
@@ -43,10 +47,31 @@ namespace InstallerLib
             return ActionResult.Success;
         }
 
-        public static ActionResult InstallService(Session session)
+        [CustomAction]
+        public static ActionResult ValidateCprBrokerServicesUrl(Session session)
         {
-
+            var service = CreateAdminServiceProxy(session);
+            try
+            {
+                var response = service.ListAppRegistrations();
+                session["CPRBROKERSERVICESURL_VALID"] = "True";
+            }
+            catch (Exception ex)
+            {
+                session["CPRBROKERSERVICESURL_VALID"] = "False";
+            }
             return ActionResult.Success;
         }
+
+        [CustomAction]
+        public static ActionResult InstallDprUpdatesService(Session session)
+        {
+            System.Diagnostics.Debugger.Break();
+            string appToken = RegisterApplicationInCprBroker(session);
+            UpdateConfigFile(session, appToken);
+            InstallAndStartService(session);
+            return ActionResult.Success;
+        }
+
     }
 }
