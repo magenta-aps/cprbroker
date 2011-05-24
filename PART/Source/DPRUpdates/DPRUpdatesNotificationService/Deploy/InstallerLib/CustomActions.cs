@@ -69,7 +69,23 @@ namespace InstallerLib
             System.Diagnostics.Debugger.Break();
             string appToken = RegisterApplicationInCprBroker(session);
             UpdateConfigFile(session, appToken);
+            UpdateRegistry(session, appToken);
             InstallAndStartService(session);
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
+        public static ActionResult RollbackDprUpdatesService(Session session)
+        {
+            return RemoveDprUpdatesService(session);
+        }
+
+        [CustomAction]
+        public static ActionResult RemoveDprUpdatesService(Session session)
+        {
+            System.Diagnostics.Debugger.Break();
+            UnregisterApplicationInCprBroker(session);
+            StopAndUnInstallService(session);
             return ActionResult.Success;
         }
 
