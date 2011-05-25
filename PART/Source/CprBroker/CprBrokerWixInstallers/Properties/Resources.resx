@@ -134,7 +134,7 @@
     <value>..\Resources\CountrySchemeType.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
   <data name="CreatePartDatabaseObjects" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CreatePartDatabaseObjects.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+    <value>..\Resources\CreatePartDatabaseObjects.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
   <data name="Gender" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Gender.csv;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
