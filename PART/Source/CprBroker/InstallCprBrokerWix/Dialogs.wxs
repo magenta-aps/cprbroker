@@ -61,15 +61,35 @@
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
 
+      <!-- - - - - - - - - - - - - - - - - - - -->
+      <!--Database and web dialogs-->
+      <!-- - - - - - - - - - - - - - - - - - - -->
+
+
+      <!-- Back-->
       <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="3"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <!-- Next-->
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="DoAction" Value="CA_Set_WEB_AllProperties" Order="11"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="DoAction" Value="CA_Set_WEB_AllProperties_Cpr" Order="12"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="13"><![CDATA[WEB_VALID = "True"]]></Publish>
 
+      <!-- Back-->
       <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="3"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <!-- Next-->
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="DoAction" Value="CA_Set_WEB_AllProperties" Order="11"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="DoAction" Value="CA_Set_WEB_AllProperties_Cpr" Order="12"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="13"><![CDATA[WEB_VALID = "True"]]></Publish>
 
+      <!--Database-->
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="3"><![CDATA[DB_VALID = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Next" Event="DoAction" Value="CA_Set_DB_AllProperties" Order="3"><![CDATA[DB_VALID = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Next" Event="DoAction" Value="CA_Set_DB_AllProperties_Cpr" Order="4"><![CDATA[DB_VALID = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="4"><![CDATA[DB_VALID = "True"]]></Publish>
+
+      <!-- - - - - - - - - - - - - -  -->
+      <!--Final dialogs-->
+      <!-- - - - - - - - - - - - - -  -->
 
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="1">NOT Installed</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="2">Installed AND NOT PATCH</Publish>
