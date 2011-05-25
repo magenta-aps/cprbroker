@@ -69,11 +69,9 @@
     <Compile Include="CprBroker\Customizations.wxs" />
     <Compile Include="CprBroker\Directories.wxs" />
     <Compile Include="CprBroker\Files.wxs" />
-    <Compile Include="CustomActions.wxs" />
     <Compile Include="Dialogs.wxs" />
     <Compile Include="Directories.wxs" />
     <Compile Include="Logging.wxs" />
-    <Compile Include="Properties.wxs" />
     <Content Include="License.rtf" />
   </ItemGroup>
   <ItemGroup>

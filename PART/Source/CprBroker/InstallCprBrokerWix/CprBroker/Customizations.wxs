@@ -3,19 +3,13 @@
   <Fragment Id="CustomizationsFragment">
     <Property Id="Dummy_CustomizationsFragmentRefProp" Value="-"/>
 
-    <CustomAction Id="CA_CustomizeCprBrokerDatabaseProperties" Execute="immediate" Script="vbscript">
-      <![CDATA[
-       Session.Property("WEB_CREATEWEB") = "True"
-      
-      Session.Property("DB_CREATEDATABASE") = "True"
-      Session.Property("DB_ENCRYPTIONKEYENABLED") = "False"
-      Session.Property("DB_DOMAINENABLED") = "False"
-      ]]>
-    </CustomAction>
+    <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)CprBrokerWixInstallers.CA.dll"/>
 
-    <InstallUISequence>
-      <Custom Action="CA_CustomizeCprBrokerDatabaseProperties" Before="PopulateWebSites">1</Custom>
-    </InstallUISequence>
+    <WixVariable Id="DB_CREATEDATABASE" Value="True"/>
+    <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="False"/>
+    <WixVariable Id="DB_DOMAINENABLED" Value="False"/>
+    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True"/>
+    <WixVariable Id="WEB_CREATEWEB" Value="True"/>
 
   </Fragment>
 </Wix>

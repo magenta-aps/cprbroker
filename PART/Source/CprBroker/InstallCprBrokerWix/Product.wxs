@@ -4,6 +4,8 @@
     <Package InstallerVersion="200" Compressed="yes" />
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
+    <PropertyRef Id="Dummy_CprBrokerFragmentRefProp"/>
+
     <DirectoryRef Id="TARGETDIR"/>
 
     <UIRef Id="CprBrokerUI"/>
