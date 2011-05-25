@@ -72,7 +72,8 @@
       <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_VALID = "True"]]></Publish>
 
       <!-- Back -->
-      <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1"><![CDATA[UI_Phase = 1]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="EventBrokerDialog" Order="1"><![CDATA[UI_Phase = 2]]></Publish>
       <!-- Next -->
       <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_AllProperties_Cpr" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND WEB_VALID = "True"]]></Publish>
       <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_AllProperties_Cpr" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND WEB_VALID = "True"]]></Publish>
@@ -90,7 +91,7 @@
 
       <!-- Event broker -->
       <!-- Back -->
-      <Publish Dialog="EventBrokerDialog" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="101"></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="101">1</Publish>
       <!-- Next -->
       <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="101"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="101"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
