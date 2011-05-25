@@ -57,6 +57,17 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
+        public static ActionResult CopyCustomActionDataToSession(Session session)
+        {
+            var cad = new CustomActionData(session["CopyCustomActionDataToSession"]);
+            foreach (var propName in cad.Keys)
+            {
+                session[propName] = cad[propName];
+            }
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
             List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();

@@ -23,5 +23,7 @@
         </Control>
       </Dialog>
     </UI>
-	</Fragment>
+
+    <CustomAction Id="CopyCustomActionDataToSession" BinaryKey="InstallersDll" DllEntry="CopyCustomActionDataToSession"/>
+  </Fragment>
 </Wix>
