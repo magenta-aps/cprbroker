@@ -6,12 +6,12 @@
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 
-    <WixVariable Id="WixUIBannerBmp" Value="Dialogs\Bitmaps\bannrbmp.bmp"/>
-    <WixVariable Id="WixUIDialogBmp" Value="Dialogs\Bitmaps\dlgbmp.bmp"/>
-    <WixVariable Id="WixUIExclamationIco" Value="Dialogs\Bitmaps\exclamic.ico"/>
-    <WixVariable Id="WixUIInfoIco" Value="Dialogs\Bitmaps\info.ico"/>
-    <WixVariable Id="WixUINewIco" Value="Dialogs\Bitmaps\New.ico"/>
-    <WixVariable Id="WixUIUpIco" Value="Dialogs\Bitmaps\Up.ico"/>
+    <WixVariable Id="WixUIBannerBmp" Value="Bitmaps\bannrbmp.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="Bitmaps\dlgbmp.bmp"/>
+    <WixVariable Id="WixUIExclamationIco" Value="Bitmaps\exclamic.ico"/>
+    <WixVariable Id="WixUIInfoIco" Value="Bitmaps\info.ico"/>
+    <WixVariable Id="WixUINewIco" Value="Bitmaps\New.ico"/>
+    <WixVariable Id="WixUIUpIco" Value="Bitmaps\Up.ico"/>
 
     <Binary Id="WixUI_Bmp_Banner" SourceFile="!(wix.WixUIBannerBmp=$(var.bannerBmp))" />
     <Binary Id="WixUI_Bmp_Dialog" SourceFile="!(wix.WixUIDialogBmp=$(var.dialogBmp))" />

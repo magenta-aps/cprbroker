@@ -58,23 +58,23 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bitmaps\bannrbmp.bmp" />
+    <Content Include="Bitmaps\dlgbmp.bmp" />
+    <Content Include="Bitmaps\exclamic.ico" />
+    <Content Include="Bitmaps\info.ico" />
+    <Content Include="Bitmaps\New.ico" />
+    <Content Include="Bitmaps\Up.ico" />
     <Content Include="Common\CprBroker.log" />
-    <Compile Include="Common\CustomActions.wxs" />
-    <Compile Include="Common\Logging.wxs" />
-    <Compile Include="Common\Properties.wxs" />
     <Compile Include="Conditions.wxs" />
     <Compile Include="CprBroker\Customizations.wxs" />
     <Compile Include="CprBroker\Directories.wxs" />
     <Compile Include="CprBroker\Files.wxs" />
-    <Content Include="Dialogs\Bitmaps\bannrbmp.bmp" />
-    <Content Include="Dialogs\Bitmaps\dlgbmp.bmp" />
-    <Content Include="Dialogs\Bitmaps\exclamic.ico" />
-    <Content Include="Dialogs\Bitmaps\info.ico" />
-    <Content Include="Dialogs\Bitmaps\New.ico" />
-    <Content Include="Dialogs\Bitmaps\Up.ico" />
-    <Compile Include="Dialogs\Dialogs.wxs" />
+    <Compile Include="CustomActions.wxs" />
+    <Compile Include="Dialogs.wxs" />
     <Compile Include="Directories.wxs" />
-    <Content Include="Dialogs\License.rtf" />
+    <Compile Include="Logging.wxs" />
+    <Compile Include="Properties.wxs" />
+    <Content Include="License.rtf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CprBrokerWixInstallers\CprBrokerWixInstallers.csproj">
@@ -87,13 +87,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Bitmaps\" />
     <Folder Include="CprBroker" />
-    <Folder Include="Dialogs\Bitmaps\" />
     <Folder Include="Common" />
     <Folder Include="Dialogs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Dialogs\en-us.wxl" />
+    <EmbeddedResource Include="en-us.wxl" />
   </ItemGroup>
   <ItemGroup>
     <WixLibrary Include="WixCommon">
