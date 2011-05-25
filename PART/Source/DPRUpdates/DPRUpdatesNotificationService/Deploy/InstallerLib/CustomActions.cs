@@ -66,7 +66,6 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult InstallDprUpdatesService(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             string appToken = RegisterApplicationInCprBroker(session);
             UpdateConfigFile(session, appToken);
             UpdateRegistry(session, appToken);
@@ -83,7 +82,6 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult RemoveDprUpdatesService(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             UnregisterApplicationInCprBroker(session);
             StopAndUnInstallService(session);
             return ActionResult.Success;
