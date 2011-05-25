@@ -43,7 +43,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace CprBroker.Utilities
+namespace CprBroker.Installers
 {
     /// <summary>
     /// Wraps a window

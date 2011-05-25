@@ -404,7 +404,7 @@ namespace CprBroker.Installers
 
         void InitializeFlatFileLogging(string configFilePath)
         {
-            Utilities.Installation.SetFlatFileLogListenerAccessRights(configFilePath);
+            Installation.SetFlatFileLogListenerAccessRights(configFilePath);
         }
 
         private void DeleteApplication(System.Collections.IDictionary savedState)

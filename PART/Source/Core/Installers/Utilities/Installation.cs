@@ -48,7 +48,7 @@ using System.Security;
 using System.Security.AccessControl;
 using System.Diagnostics;
 
-namespace CprBroker.Utilities
+namespace CprBroker.Installers
 {
     /// <summary>
     /// Utility class with methods that assist the installation process by extending the Installer class
@@ -275,7 +275,7 @@ namespace CprBroker.Utilities
         public static string GetNetFrameworkDirectory(Version frameworkVersion)
         {
             var targetFrameworkDir = new DirectoryInfo(GetNetFrameworkDirectory()).Parent.GetDirectories(string.Format("v{0}*", frameworkVersion.ToString(2))).FirstOrDefault();
-            return Strings.EnsureDirectoryEndSlash(Strings.EnsureDirectoryEndSlash(targetFrameworkDir.FullName));
+            return CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(targetFrameworkDir.FullName));
         }
 
         const int MAX_PATH = 256;
@@ -339,7 +339,7 @@ namespace CprBroker.Utilities
 
         public static string GetInstallDirProperty(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            return Strings.EnsureDirectoryEndSlash(session.GetPropertyValue("INSTALLDIR"));
+            return CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(session.GetPropertyValue("INSTALLDIR"));
         }
 
         public static void RunCommand(string fileName, string args)

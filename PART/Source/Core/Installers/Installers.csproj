@@ -72,7 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Installation.cs" />
+    <Compile Include="Utilities\Installation.cs" />
     <Compile Include="Installers\ConnectionStringsInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,7 +165,7 @@
     <Compile Include="Utilities\WebInstallationInfo.Exchange.cs" />
     <Compile Include="Utilities\WebInstallationOptions.cs" />
     <Compile Include="Utilities\WebsiteInstallationInfo.cs" />
-    <Compile Include="WindowHandleWrapper.cs" />
+    <Compile Include="Utilities\WindowHandleWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Config\Config.csproj">

@@ -101,7 +101,7 @@ namespace CprBroker.Installers
 
         private static void RunRegIIS(string args, Version frameworkVersion)
         {
-            string fileName = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
+            string fileName = Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
             // use aspnet_regiis for 64 bit machines whenever possible
             string fileName64 = fileName.Replace("Framework", "Framework64");
             if (File.Exists(fileName64))
@@ -109,7 +109,7 @@ namespace CprBroker.Installers
                 fileName = fileName64;
             };
 
-            CprBroker.Utilities.Installation.RunCommand(fileName, args);
+            Installation.RunCommand(fileName, args);
         }
 
         private static void GrantConfigEncryptionAccess(Version frameworkVersion)
@@ -126,7 +126,7 @@ namespace CprBroker.Installers
 
         private static void CopyTypeAssemblyFileToNetFramework(Type t, Version frameworkVersion)
         {
-            string path = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion);
+            string path = Installation.GetNetFrameworkDirectory(frameworkVersion);
             string fileName = Path.GetFileName(t.Assembly.Location);
             if (Directory.Exists(path))
             {
@@ -141,7 +141,7 @@ namespace CprBroker.Installers
 
         private static void DeleteTypeAssemblyFileFromNetFramework(Type t, Version frameworkVersion)
         {
-            string path = Utilities.Installation.GetNetFrameworkDirectory(frameworkVersion) + Path.GetFileName(t.Assembly.Location);
+            string path = Installation.GetNetFrameworkDirectory(frameworkVersion) + Path.GetFileName(t.Assembly.Location);
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -166,7 +166,7 @@ namespace CprBroker.Installers
                 // Remove nodes
                 foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
                 {
-                    section.SectionNode = Utilities.Installation.RemoveSectionNode(configFilePath, section.SectionName);
+                    section.SectionNode = Installation.RemoveSectionNode(configFilePath, section.SectionName);
                 }
 
                 // Create section with custom method
@@ -174,7 +174,7 @@ namespace CprBroker.Installers
                 {
                     if (section.CustomMethod != null)
                     {
-                        var config = Utilities.Installation.OpenConfigFile(configFilePath);
+                        var config = Installation.OpenConfigFile(configFilePath);
                         section.CustomMethod(config);
                     }
                 }
@@ -193,12 +193,12 @@ namespace CprBroker.Installers
                 {
                     if (section.CustomMethod == null && section.SectionNode != null)
                     {
-                        Utilities.Installation.AddSectionNode(section.SectionNode, configFilePath, sectionGroup.ConfigSectionGroupName);
+                        Installation.AddSectionNode(section.SectionNode, configFilePath, sectionGroup.ConfigSectionGroupName);
                         Dictionary<string, string> dic = new Dictionary<string, string>();
                         dic["name"] = section.SectionName;
                         dic["type"] = section.SectionType.AssemblyQualifiedName;
 
-                        Utilities.Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", sectionGroup.ConfigSectionGroupName));
+                        Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", sectionGroup.ConfigSectionGroupName));
                     }
                     DeleteTypeAssemblyFileFromNetFramework(section.SectionType, frameworkVersion);
                 }
@@ -209,7 +209,7 @@ namespace CprBroker.Installers
         {
             foreach (KeyValuePair<string, string> connectionString in connectionStrings)
             {
-                Utilities.Installation.SetConnectionStringInConfigFile(configFilePath, connectionString.Key, connectionString.Value);
+                Installation.SetConnectionStringInConfigFile(configFilePath, connectionString.Key, connectionString.Value);
             }
         }
 
@@ -220,7 +220,7 @@ namespace CprBroker.Installers
 
         private static void InitializeFlatFileLogging(string configFilePath)
         {
-            Utilities.Installation.SetFlatFileLogListenerAccessRights(configFilePath);
+            Installation.SetFlatFileLogListenerAccessRights(configFilePath);
         }
     }
 }
