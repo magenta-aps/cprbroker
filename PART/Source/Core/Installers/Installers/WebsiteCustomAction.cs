@@ -100,6 +100,23 @@ namespace CprBroker.Installers
         }
 
         [CustomAction]
+        public static ActionResult ValidateWebProperties(Session session)
+        {
+            System.Diagnostics.Debugger.Break();
+            WebInstallationInfo webInstallationInfo = WebInstallationInfo.FromSession(session);
+            string message;
+            if (webInstallationInfo.Validate(out message))
+            {
+                session["WEB_VALID"] = "True";
+            }
+            else
+            {
+                session["WEB_VALID"] = message;
+            }
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
         public static ActionResult DeployWebsite(Session session, WebInstallationOptions options)
         {
             try

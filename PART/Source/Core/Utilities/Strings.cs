@@ -238,8 +238,6 @@ namespace CprBroker.Utilities
                 }
             }
             return ret;
-
-
         }
 
         public static T Deserialize<T>(string xml)
@@ -252,6 +250,16 @@ namespace CprBroker.Utilities
                 return (T)o;
             }
             return default(T);
+        }
+
+        public static bool IsValidName(string name)
+        {            
+            string pat = @"\A\w[\w\d_]*\Z";
+            if (!System.Text.RegularExpressions.Regex.Match(name, pat).Success)
+            {
+                return false;
+            }
+            return true;
         }
 
     }

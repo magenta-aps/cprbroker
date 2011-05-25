@@ -19,7 +19,10 @@
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
         </Control>
 
-        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+          <Publish Event="DoAction" Value="ValidateWebProperties" Order="1">1</Publish>
+          <Publish Event="DoAction" Value="ShowValidateWebPropertiesFailure" Order="2"><![CDATA[WEB_VALID <> "True" AND WEB_VALID <> "False"]]></Publish>
+        </Control>
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
         
         <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">

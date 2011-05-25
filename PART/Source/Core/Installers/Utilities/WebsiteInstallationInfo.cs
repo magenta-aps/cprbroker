@@ -40,6 +40,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.DirectoryServices;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
@@ -95,6 +96,17 @@ namespace CprBroker.Installers
         protected override bool IsMatchingDirectoryEntry(DirectoryEntry e)
         {
             return e.Properties["ServerComment"].Value.ToString().ToLower() == WebsiteName.ToLower();
+        }
+        
+        public override bool Validate(out string message)
+        {
+            message = null;
+            if(!Strings.IsValidName( this.WebsiteName))
+            {
+                message = string.Format("Invalid name: '{0}'", WebsiteName);
+                return false;
+            }
+            return true;
         }
 
     }

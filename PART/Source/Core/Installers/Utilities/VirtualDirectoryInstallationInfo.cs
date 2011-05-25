@@ -40,6 +40,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.DirectoryServices;
+using CprBroker.Utilities;
 
 namespace CprBroker.Installers
 {
@@ -88,6 +89,17 @@ namespace CprBroker.Installers
         {
             return (e.Path + "/Root").ToLower() == WebsitePath.ToLower()
                             || e.Path.ToLower() == WebsitePath.ToLower();
+        }
+
+        public override bool Validate(out string message)
+        {
+            message = null;
+            if (!Strings.IsValidName(this.VirtualDirectoryName))
+            {
+                message = string.Format("Invalid name: '{0}'", VirtualDirectoryName);
+                return false;
+            }
+            return true;
         }
     }
 }

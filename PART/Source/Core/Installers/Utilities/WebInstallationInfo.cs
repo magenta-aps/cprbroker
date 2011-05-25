@@ -108,5 +108,7 @@ namespace CprBroker.Installers
 
         protected abstract bool IsMatchingDirectoryEntry(DirectoryEntry e);
 
+        public abstract bool Validate(out string message);
+
     }
 }
