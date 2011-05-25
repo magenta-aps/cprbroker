@@ -68,9 +68,9 @@
     <Compile Include="CprBroker\Customizations.wxs" />
     <Compile Include="CprBroker\Directories.wxs" />
     <Compile Include="CprBroker\Files.wxs" />
+    <Compile Include="CprBroker\Logging.wxs" />
     <Compile Include="Dialogs.wxs" />
     <Compile Include="Directories.wxs" />
-    <Compile Include="Logging.wxs" />
     <Content Include="CprBroker\Resources\CprBroker.log" />
     <Content Include="License.rtf" />
   </ItemGroup>
@@ -87,7 +87,6 @@
   <ItemGroup>
     <Folder Include="Bitmaps\" />
     <Folder Include="CprBroker" />
-    <Folder Include="Common" />
     <Folder Include="CprBroker\Resources" />
     <Folder Include="Dialogs" />
   </ItemGroup>
