@@ -102,7 +102,6 @@ namespace CprBroker.Installers
         [CustomAction]
         public static ActionResult ValidateWebProperties(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             WebInstallationInfo webInstallationInfo = WebInstallationInfo.FromSession(session);
             string message;
             if (webInstallationInfo.Validate(out message))
