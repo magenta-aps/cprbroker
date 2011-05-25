@@ -65,27 +65,25 @@
       <!--Database and web dialogs-->
       <!-- - - - - - - - - - - - - - - - - - - -->
 
-
       <!-- Back-->
       <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
       <!-- Next-->
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="DoAction" Value="CA_Set_WEB_AllProperties" Order="11"><![CDATA[WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="DoAction" Value="CA_Set_WEB_AllProperties_Cpr" Order="12"><![CDATA[WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="13"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Property="WEB_AllProperties_Cpr" Value="[WEB_AllProperties]" Order="101"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_VALID = "True"]]></Publish>
 
-      <!-- Back-->
+      <!-- Back -->
       <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
-      <!-- Next-->
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="DoAction" Value="CA_Set_WEB_AllProperties" Order="11"><![CDATA[WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="DoAction" Value="CA_Set_WEB_AllProperties_Cpr" Order="12"><![CDATA[WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="13"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <!-- Next -->
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_AllProperties_Cpr" Value="[WEB_AllProperties]" Order="101"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_VALID = "True"]]></Publish>
 
       <!--Database-->
+      <!-- Back -->
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Next" Event="DoAction" Value="CA_Set_DB_AllProperties" Order="3"><![CDATA[DB_VALID = "True"]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Next" Event="DoAction" Value="CA_Set_DB_AllProperties_Cpr" Order="4"><![CDATA[DB_VALID = "True"]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="4"><![CDATA[DB_VALID = "True"]]></Publish>
+      <!-- Next -->
+      <Publish Dialog="DatabaseDialog" Control="Next" Property="DB_AllProperties_Cpr" Value="[DB_AllProperties]" Order="101"><![CDATA[DB_VALID = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="102"><![CDATA[DB_VALID = "True"]]></Publish>
 
       <!-- - - - - - - - - - - - - -  -->
       <!--Final dialogs-->

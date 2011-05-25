@@ -21,4 +21,9 @@
   <String Id="WebSiteOrDirectoryDialogDescription" Overridable="yes">Please enter how you want your virtual directory to be created</String>
   <String Id="WebSiteOrDirectoryDialogBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
 
+  <String Id="EventBrokerDialog_Title" Overridable="yes">[ProductName] Setup</String>
+  <String Id="EventBrokerDialogTitle" Overridable="yes">{\WixUI_Font_Title} Database connection</String>
+  <String Id="EventBrokerDialogDescription" Overridable="yes">Please enter the database information here</String>
+  <String Id="EventBrokerDialogBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+
 </WixLocalization>
