@@ -45,6 +45,12 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
+        public static ActionResult ValidateWebProperties(Session session)
+        {
+            return WebsiteCustomAction.ValidateWebProperties(session);
+        }
+
+        [CustomAction]
         public static ActionResult CreateWebsite(Session session)
         {
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
