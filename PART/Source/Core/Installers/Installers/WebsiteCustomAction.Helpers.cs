@@ -44,7 +44,6 @@ using System.DirectoryServices;
 using Microsoft.Deployment.WindowsInstaller;
 using System.Diagnostics;
 using System.IO;
-using CprBroker.Engine;
 using CprBroker.Utilities;
 
 namespace CprBroker.Installers
@@ -154,7 +153,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public static void EncryptDataProviderKeys(string configFilePath, string site, string app, ConfigSectionGroupEncryptionOptions[] configSectionGroupOptions, Version frameworkVersion)
+        public static void EncryptConfigSections(string configFilePath, string site, string app, ConfigSectionGroupEncryptionOptions[] configSectionGroupOptions, Version frameworkVersion)
         {
             foreach (var sectionGroup in configSectionGroupOptions)
             {
@@ -196,8 +195,8 @@ namespace CprBroker.Installers
                     {
                         Utilities.Installation.AddSectionNode(section.SectionNode, configFilePath, sectionGroup.ConfigSectionGroupName);
                         Dictionary<string, string> dic = new Dictionary<string, string>();
-                        dic["name"] = DataProvidersConfigurationSection.SectionName;
-                        dic["type"] = typeof(DataProvidersConfigurationSection).AssemblyQualifiedName;
+                        dic["name"] = section.SectionName;
+                        dic["type"] = section.SectionType.AssemblyQualifiedName;
 
                         Utilities.Installation.AddSectionNode("section", dic, configFilePath, string.Format("sectionGroup[@name='{0}']", sectionGroup.ConfigSectionGroupName));
                     }

@@ -40,8 +40,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;

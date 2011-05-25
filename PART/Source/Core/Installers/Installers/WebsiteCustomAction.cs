@@ -44,7 +44,6 @@ using System.DirectoryServices;
 using Microsoft.Deployment.WindowsInstaller;
 using System.Diagnostics;
 using System.IO;
-using CprBroker.Engine;
 using CprBroker.Utilities;
 
 namespace CprBroker.Installers
@@ -196,7 +195,7 @@ namespace CprBroker.Installers
                 var appRelativePath = webInstallationInfo.GetAppRelativePath();
 
                 // Data provider keys
-                EncryptDataProviderKeys(configFilePath, siteID.ToString(), appRelativePath, options.ConfigSectionGroupEncryptionOptions, options.FrameworkVersion);
+                EncryptConfigSections(configFilePath, siteID.ToString(), appRelativePath, options.ConfigSectionGroupEncryptionOptions, options.FrameworkVersion);
 
                 // Logging flat file access
                 if (options.InitializeFlatFileLogging)

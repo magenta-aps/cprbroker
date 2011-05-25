@@ -53,7 +53,6 @@
     <Compile Include="Config.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataProviderKeysSection.cs" />
-    <Compile Include="Installation.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,7 +63,6 @@
     <Compile Include="Encryption.cs" />
     <Compile Include="TextMessages.cs" />
     <Compile Include="Web.cs" />
-    <Compile Include="WindowHandleWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
