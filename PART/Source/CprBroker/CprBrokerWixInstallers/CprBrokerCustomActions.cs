@@ -93,6 +93,12 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
+        public static ActionResult ValidateWebProperties(Session session)
+        {
+            return WebsiteCustomAction.ValidateWebProperties(session);
+        }
+
+        [CustomAction]
         public static ActionResult CreateWebsite(Session session)
         {
             Dictionary<string, string> connectionStrings = new Dictionary<string, string>();

@@ -62,10 +62,10 @@
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
 
       <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="1">1</Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="3"><![CDATA[WEB_VALID = "True"]]></Publish>
 
       <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="1">1</Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="3"><![CDATA[WEB_VALID = "True"]]></Publish>
 
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
