@@ -73,8 +73,8 @@
         <Control Id="appGroupBox" Type="GroupBox" Text="Application connection" X="170" Y="110" Width="150" Height="120"/>
 
         <Control Id="appSameAsAdminCheck" Type="CheckBox" Text="Same as admin" Property="DB_APPSAMEASADMIN" CheckBoxValue="True" X="175" Y="125" Width="75" Height="17">
-          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = True]]></Condition>
-          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> True]]></Condition>
+          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = "True"]]></Condition>
+          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> "True"]]></Condition>
         </Control>
 
         <!--Application login type-->
@@ -85,8 +85,8 @@
           </RadioButtonGroup>
           <Condition Action="enable"><![CDATA[Not DB_APPSAMEASADMIN]]></Condition>
           <Condition Action="disable"><![CDATA[DB_APPSAMEASADMIN]]></Condition>
-          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = True]]></Condition>
-          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> True]]></Condition>
+          <Condition Action="show"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED = "True"]]></Condition>
+          <Condition Action="hide"><![CDATA[DB_APPINTEGRATEDSECURITYALLOWED <> "True"]]></Condition>
         </Control>
 
         <!--Application username-->

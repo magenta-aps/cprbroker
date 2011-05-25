@@ -26,7 +26,14 @@
       </RegistryKey>
     </Component>
 
+    
     <CustomAction Id="PopulateWebSites" BinaryKey="InstallersDll" DllEntry="PopulateWebSites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
+    <Property Id="PopulateWebSites_DUMMYPROPERTY" Value="PopulateWebSites_DUMMYPROPERTY"/>
+    <UI>
+      <ComboBox Property="PopulateWebSites_DUMMYPROPERTY">
+        <ListItem Text="PopulateWebSites_DUMMYPROPERTY" Value="PopulateWebSites_DUMMYPROPERTY"/>
+      </ComboBox>
+    </UI>
 
     <CustomAction Id="CA_InitializeWebPropertiesFromProductName" Execute="immediate" Script="vbscript">
       <![CDATA[
