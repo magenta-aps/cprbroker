@@ -3,17 +3,17 @@
   <Fragment xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <DirectoryRef Id="INSTALLDIR">
       <Directory Id="CprBroker" Name="CprBroker">
-        <Directory Id="CprBroker_Website" Name="Website" >
-          <Directory Id="CprBroker_App_Themes" Name="App_Themes">
-            <Directory Id="CprBroker_DefaultTheme" Name="DefaultTheme"/>
+        <Directory Id="CPR_Website" Name="Website" >
+          <Directory Id="CPR_App_Themes" Name="App_Themes">
+            <Directory Id="CPR_DefaultTheme" Name="DefaultTheme"/>
           </Directory>
-          <Directory Id="CprBroker_bin" Name="bin" />
-          <Directory Id="CprBroker_Config" Name="Config" />
-          <Directory Id="CprBroker_Pages" Name="Pages">
-            <Directory Id="CprBroker_CSS" Name="CSS"/>
-            <Directory Id="CprBroker_Images" Name="Images"/>
+          <Directory Id="CPR_bin" Name="bin" />
+          <Directory Id="CPR_Config" Name="Config" />
+          <Directory Id="CPR_Pages" Name="Pages">
+            <Directory Id="CPR_CSS" Name="CSS"/>
+            <Directory Id="CPR_Images" Name="Images"/>
           </Directory>
-          <Directory Id="CprBroker_Services" Name="Services" />
+          <Directory Id="CPR_Services" Name="Services" />
         </Directory>
       </Directory>
     </DirectoryRef>
