@@ -98,7 +98,7 @@
       <!-- Next -->
       <Publish Dialog="EventBrokerDialog" Control="Next" Property="CopyCustomActionDataToSession" Value="[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" Order="101"><![CDATA[WEB_ALLPROPERTIES_EVENT]]></Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Property="DB_DATABASENAME" Value="EventBroker" Order="102"><![CDATA[NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_SITENAME" Value="EventBroker" Order="103"><![CDATA[NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_SITENAME" Value="EventBroker" Order="103"><![CDATA[WEB_MULTIPLESITESALLOWED = "True" AND NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_VIRTUALDIRECTORYNAME" Value="EventBroker" Order="104"><![CDATA[NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Event="DoAction" Value="CopyCustomActionDataToSession" Order="105"><![CDATA[WEB_ALLPROPERTIES_EVENT]]></Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="106"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>

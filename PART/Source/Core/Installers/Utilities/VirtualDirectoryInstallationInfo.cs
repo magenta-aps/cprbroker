@@ -85,6 +85,15 @@ namespace CprBroker.Installers
             return "/" + VirtualDirectoryName;
         }
 
+        public override string[] CalculateWebUrls()
+        {
+            using (DirectoryEntry ent = new DirectoryEntry(WebsitePath))
+            {
+                string[] hostHeaders = GetSiteHostHeaders(ent.Parent);
+                return hostHeaders.Select(hh => string.Format("http://{0}/{1}/", hh, VirtualDirectoryName)).ToArray();
+            }
+        }
+
         protected override bool IsMatchingDirectoryEntry(DirectoryEntry e)
         {
             return (e.Path + "/Root").ToLower() == WebsitePath.ToLower()

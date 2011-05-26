@@ -93,15 +93,25 @@ namespace CprBroker.Installers
             return "/";
         }
 
+
+        public override string[] CalculateWebUrls()
+        {
+            using (DirectoryEntry ent = new DirectoryEntry(this.TargetWmiPath))
+            {
+                string[] hostHeaders = GetSiteHostHeaders(ent.Parent);
+                return hostHeaders.Select(hh => string.Format("http://{0}/", hh)).ToArray();
+            }
+        }
+
         protected override bool IsMatchingDirectoryEntry(DirectoryEntry e)
         {
             return e.Properties["ServerComment"].Value.ToString().ToLower() == WebsiteName.ToLower();
         }
-        
+
         public override bool Validate(out string message)
         {
             message = null;
-            if(!Strings.IsValidName( this.WebsiteName))
+            if (!Strings.IsValidName(this.WebsiteName))
             {
                 message = string.Format("Invalid name: '{0}'", WebsiteName);
                 return false;

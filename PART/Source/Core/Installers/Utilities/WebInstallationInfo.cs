@@ -121,5 +121,43 @@ namespace CprBroker.Installers
 
         public abstract bool Validate(out string message);
 
+        protected string[] GetSiteHostHeaders(DirectoryEntry siteEntry)
+        {
+            List<string> ret = new List<string>();
+            var serverBindings = siteEntry.Properties["ServerBindings"].Value as object[];
+            foreach (string serverBinding in serverBindings)
+            {
+                string[] arr = serverBinding.Split(':');
+                if (arr.Length == 3)
+                {
+                    string address = arr[0];
+                    string port = arr[1];
+                    string hostHeader = arr[2];
+
+                    int dummy;
+                    if (!int.TryParse(port, out dummy))
+                    {
+                        port = "80";
+                    }
+                    if (string.IsNullOrEmpty(hostHeader))
+                    {
+                        hostHeader = "localhost";
+                    }
+
+                    if (string.IsNullOrEmpty(address) || address == "*")
+                    {
+                        ret.Add(string.Format("{0}:{1}", hostHeader, port));
+                    }
+                    else
+                    {
+                        ret.Add(string.Format("{0}:{1}", address, port));
+                    }
+                }
+            }
+            return ret.ToArray();
+        }
+
+        public abstract string[] CalculateWebUrls();
+
     }
 }

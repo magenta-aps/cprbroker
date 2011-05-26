@@ -22,8 +22,11 @@
   <String Id="WebSiteOrDirectoryDialogBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
 
   <String Id="EventBrokerDialog_Title" Overridable="yes">[ProductName] Setup</String>
-  <String Id="EventBrokerDialogTitle" Overridable="yes">{\WixUI_Font_Title} Database connection</String>
-  <String Id="EventBrokerDialogDescription" Overridable="yes">Please enter the database information here</String>
+  <String Id="EventBrokerDialogTitle" Overridable="yes">{\WixUI_Font_Title} Event broker</String>
+  <String Id="EventBrokerDialogDescription" Overridable="yes">Event broker settings start from here</String>
+  <String Id="EventBrokerDialogText1" Overridable="yes">The following screens apply to Event Broker.</String>
+  <String Id="EventBrokerDialogText2" Overridable="yes">It is an integrated part of [ProductName] that keeps </String>
+  <String Id="EventBrokerDialogText3" Overridable="yes">track of data updates and people birthdates </String>
   <String Id="EventBrokerDialogBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
 
 </WixLocalization>

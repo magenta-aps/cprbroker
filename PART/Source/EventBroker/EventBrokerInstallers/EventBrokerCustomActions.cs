@@ -142,5 +142,39 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 );
             return ActionResult.Success;
         }
+
+        [CustomAction]
+        public static ActionResult SetCprBrokerUrl(Session session)
+        {
+            WebInstallationInfo cprBrokerWebInstallationInfo = WebInstallationInfo.FromSession(session);
+
+            var urls = cprBrokerWebInstallationInfo.CalculateWebUrls();
+            Func<string, string> urlFunc = u => string.Format("{0}Services/Events.asmx", u);
+            var bestUrl = urlFunc(urls[0]);
+
+            for (int i = 0; i < urls.Length; i++)
+            {
+                string url = urlFunc(urls[i]);
+                var client = new System.Net.WebClient();
+                try
+                {
+                    client.DownloadData(url);
+                    bestUrl = url;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    object o = ex;
+                }
+            }
+
+            Installation.SetApplicationSettingInConfigFile(
+                GetServiceExeFullFileName(session) + ".config",
+                typeof(CprBroker.Config.Properties.Settings),
+                "EventsServiceUrl",
+                bestUrl
+                );
+            return ActionResult.Success;
+        }
     }
 }

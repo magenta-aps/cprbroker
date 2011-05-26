@@ -8,7 +8,7 @@
     <WixVariable Id="DB_CREATEDATABASE" Value="True"/>
     <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="False"/>
     <WixVariable Id="DB_DOMAINENABLED" Value="False"/>
-    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True"/>
+    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="False"/>
     <WixVariable Id="WEB_CREATEWEB" Value="True"/>
 
 
