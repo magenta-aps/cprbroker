@@ -3,8 +3,8 @@
   <Fragment>
 
     <ComponentGroup Id="CMPGRP_Logging">
-      <Component Id="CMP_Logging" Directory="CPR_Website">
-        <File Id="FILE_CprBroker.log" Source="CprBroker/Resources/CprBroker.log" >
+      <Component Id="CMP_CPR_Logging" Directory="CPR_Website">
+        <File Id="FILE_CPR_CprBroker.log" Source="CprBroker/Resources/CprBroker.log" >
           <util:PermissionEx User="NT AUTHORITY\NETWORK SERVICE" GenericWrite="yes" />
         </File>
         <util:EventSource Log="Application" EventMessageFile="[NETFRAMEWORK20INSTALLROOTDIR]EventLogMessages.dll" Name="Cpr Broker"/>
