@@ -21,7 +21,7 @@
       newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;
       upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;
       printeulaDll=$(OutputPath)\PrintEula.dll;
-      SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\CprBrokerInstallers\;</DefineConstants>
+      SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\CprBrokerInstallers\;EventSitePath=..\..\EventBroker\EventBrokerWeb\;</DefineConstants>
     <SuppressIces>
     </SuppressIces>
     <LinkerAdditionalOptions>
@@ -72,7 +72,9 @@
     <Compile Include="Dialogs.wxs" />
     <Compile Include="Directories.wxs" />
     <Compile Include="EventBroker\DatabaseCustomActions.wxs" />
+    <Compile Include="EventBroker\Directories.wxs" />
     <Compile Include="EventBroker\EventBroker.wxs" />
+    <Compile Include="EventBroker\Files.wxs" />
     <Compile Include="EventBroker\RegistryCustomActions.wxs" />
     <Compile Include="EventBroker\WebCustomActions.wxs" />
     <Compile Include="EventBroker\EventBrokerDialog.wxs" />
