@@ -22,6 +22,7 @@
   <ItemGroup>
     <Compile Include="Database.wxs" />
     <Compile Include="DatabaseDialog.wxs" />
+    <Compile Include="CommonProductProperties.wxs" />
     <Compile Include="WebDirectoryDialog.wxs" />
     <Compile Include="Website.wxs" />
     <Compile Include="WebsiteDialog.wxs" />

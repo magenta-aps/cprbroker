@@ -26,12 +26,12 @@
       </RegistryKey>
     </Component>
 
-    
-    <CustomAction Id="PopulateWebSites" BinaryKey="InstallersDll" DllEntry="PopulateWebSites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
+
+    <CustomAction Id="PopulateWebsites" BinaryKey="InstallersDll" DllEntry="PopulateWebsites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
     <Property Id="PopulateWebSites_DUMMYPROPERTY" Value="PopulateWebSites_DUMMYPROPERTY"/>
     <UI>
-      <ComboBox Property="PopulateWebSites_DUMMYPROPERTY">
-        <ListItem Text="PopulateWebSites_DUMMYPROPERTY" Value="PopulateWebSites_DUMMYPROPERTY"/>
+      <ComboBox Property="PopulateWebsites_DUMMYPROPERTY">
+        <ListItem Text="PopulateWebsites_DUMMYPROPERTY" Value="PopulateWebsites_DUMMYPROPERTY"/>
       </ComboBox>
     </UI>
 
@@ -50,7 +50,7 @@
       msgbox Session.Property("WEB_VALID")
     ]]>
     </CustomAction>
-                  
+
     <Property Id="WEB_AllProperties"/>
     <CustomAction Id="CA_Set_WEB_AllProperties" Property="WEB_AllProperties" Value="WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
 
@@ -61,12 +61,12 @@
     <CustomAction Id="CreateWebsite_" Property="CreateWebsite" Value="INSTALLDIR=[INSTALLDIR];[WEB_AllProperties];[DB_AllProperties]"/>
     <CustomAction Id="CreateWebsite" BinaryKey="InstallersDll" DllEntry="CreateWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
-    <Property Id="RemoveWebSite" Value="-" />
-    <CustomAction Id="RemoveWebSite_" Property="RemoveWebSite" Value="INSTALLDIR=[INSTALLDIR];[WEB_AllProperties]"/>
-    <CustomAction Id="RemoveWebSite" BinaryKey="InstallersDll" DllEntry="RemoveWebSite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
+    <Property Id="RemoveWebsite" Value="-" />
+    <CustomAction Id="RemoveWebsite_" Property="RemoveWebsite" Value="INSTALLDIR=[INSTALLDIR];[WEB_AllProperties]"/>
+    <CustomAction Id="RemoveWebsite" BinaryKey="InstallersDll" DllEntry="RemoveWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
 
     <InstallUISequence >
-      <Custom Action="PopulateWebSites" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="PopulateWebsites" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
       <Custom Action="CA_InitializeWebPropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
     </InstallUISequence>
 
@@ -79,8 +79,8 @@
       <Custom Action="CreateWebsite_" After="CA_Set_WEB_AllProperties"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
       <Custom Action="CreateWebsite" After="RollbackWebsite"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
 
-      <Custom Action="RemoveWebSite_" After="CA_Set_WEB_AllProperties"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveWebSite" Before="RemoveRegistryValues"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveWebsite_" After="CA_Set_WEB_AllProperties"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveWebsite" Before="RemoveRegistryValues"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
 
     </InstallExecuteSequence>
 

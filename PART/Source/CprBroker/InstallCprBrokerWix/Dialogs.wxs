@@ -68,16 +68,16 @@
       <!-- Back-->
       <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
       <!-- Next-->
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Property="WEB_AllProperties_Cpr" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Property="WEB_AllProperties_Event" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Property="WEB_ALLPROPERTIES_CPR" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Property="WEB_ALLPROPERTIES_EVENT" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND WEB_VALID = "True"]]></Publish>
       <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_VALID = "True"]]></Publish>
 
       <!-- Back -->
       <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1"><![CDATA[UI_Phase = 1]]></Publish>
       <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="EventBrokerDialog" Order="1"><![CDATA[UI_Phase = 2]]></Publish>
       <!-- Next -->
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_AllProperties_Cpr" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_AllProperties_Event" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_ALLPROPERTIES_CPR" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_ALLPROPERTIES_EVENT" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND WEB_VALID = "True"]]></Publish>
       <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_VALID = "True"]]></Publish>
 
       <!--Database-->
@@ -85,22 +85,22 @@
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
       <!-- Next -->
-      <Publish Dialog="DatabaseDialog" Control="Next" Property="DB_AllProperties_Cpr" Value="[DB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND DB_VALID = "True"]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Next" Property="DB_AllProperties_Event" Value="[DB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND DB_VALID = "True"]]></Publish>      
+      <Publish Dialog="DatabaseDialog" Control="Next" Property="DB_ALLPROPERTIES_CPR" Value="[DB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND DB_VALID = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Next" Property="DB_ALLPROPERTIES_EVENT" Value="[DB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND DB_VALID = "True"]]></Publish>      
       <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="EventBrokerDialog" Order="102"><![CDATA[UI_Phase = 1 AND DB_VALID = "True"]]></Publish>
       <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="102"><![CDATA[UI_Phase = 2 AND DB_VALID = "True"]]></Publish>
 
       <!-- Event broker -->
       <!-- Back -->
-      <Publish Dialog="EventBrokerDialog" Control="Back" Property="CopyCustomActionDataToSession" Value="[WEB_AllProperties_Cpr];[DB_AllProperties_Cpr]" Order="101">1</Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Back" Property="CopyCustomActionDataToSession" Value="[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]" Order="101">1</Publish>
       <Publish Dialog="EventBrokerDialog" Control="Back" Event="DoAction" Value="CopyCustomActionDataToSession" Order="102">1</Publish>
       <Publish Dialog="EventBrokerDialog" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="103">1</Publish>
       <!-- Next -->
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="CopyCustomActionDataToSession" Value="[WEB_AllProperties_Event];[DB_AllProperties_Event]" Order="101"><![CDATA[WEB_AllProperties_Event]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="DB_DATABASENAME" Value="EventBroker" Order="102"><![CDATA[NOT WEB_AllProperties_Event]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_SITENAME" Value="EventBroker" Order="103"><![CDATA[NOT WEB_AllProperties_Event]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_VIRTUALDIRECTORYNAME" Value="EventBroker" Order="104"><![CDATA[NOT WEB_AllProperties_Event]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Event="DoAction" Value="CopyCustomActionDataToSession" Order="105"><![CDATA[WEB_AllProperties_Event]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Property="CopyCustomActionDataToSession" Value="[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" Order="101"><![CDATA[WEB_ALLPROPERTIES_EVENT]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Property="DB_DATABASENAME" Value="EventBroker" Order="102"><![CDATA[NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_SITENAME" Value="EventBroker" Order="103"><![CDATA[NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_VIRTUALDIRECTORYNAME" Value="EventBroker" Order="104"><![CDATA[NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Event="DoAction" Value="CopyCustomActionDataToSession" Order="105"><![CDATA[WEB_ALLPROPERTIES_EVENT]]></Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="106"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="107"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
       

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="WebsiteCustomActionsFragment">
+    <Property Id="Dummy_WebsiteCustomActionsFragmentRefProp" Value="-"/>
+
+    <Property Id="WEB_ALLPROPERTIES_CPR" Secure="yes" />
+    <Property Id="WEB_ALLPROPERTIES_EVENT" Secure="yes" />
+
+    <CustomAction Id="RollbackWebsite_Overwrite" Property="RollbackWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]"/>
+    <Property Id="RollbackEventBrokerWebsite" Value="-"/>
+    <CustomAction Id="RollbackEventBrokerWebsite_" Property="RollbackEventBrokerWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" />
+    <CustomAction Id="RollbackEventBrokerWebsite" BinaryKey="InstallersDll" DllEntry="RollbackEventBrokerWebsite" Execute="rollback" />
+    
+    <CustomAction Id="CreateWebsite_Overwrite" Property="CreateWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]"/>
+    <Property Id="CreateEventBrokerWebsite" Value="-"/>
+    <CustomAction Id="CreateEventBrokerWebsite_" Property="CreateEventBrokerWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" />
+    <CustomAction Id="CreateEventBrokerWebsite" BinaryKey="InstallersDll" DllEntry="CreateEventBrokerWebsite" Execute="deferred" />
+
+    <CustomAction Id="RemoveWebsite_Overwrite" Property="RemoveWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]"/>
+    <Property Id="RemoveEventBrokerWebsite" Value="-"/>
+    <CustomAction Id="RemoveEventBrokerWebsite_" Property="RemoveEventBrokerWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" />
+    <CustomAction Id="RemoveEventBrokerWebsite" BinaryKey="InstallersDll" DllEntry="RemoveEventBrokerWebsite" Execute="deferred" />
+
+
+    <InstallExecuteSequence>
+      <Custom Action="RollbackWebsite_Overwrite" After="RollbackWebsite_">NOT REMOVE</Custom>
+      <Custom Action="RollbackEventBrokerWebsite_" After="RollbackWebsite_">NOT REMOVE</Custom>
+      <Custom Action="RollbackEventBrokerWebsite" After="RollbackWebsite">NOT REMOVE</Custom>
+
+      <Custom Action="CreateWebsite_Overwrite" After="CreateWebsite_">NOT REMOVE</Custom>
+      <Custom Action="CreateEventBrokerWebsite_" After="CreateWebsite_">NOT REMOVE</Custom>
+      <Custom Action="CreateEventBrokerWebsite" After="CreateWebsite">NOT REMOVE</Custom>
+
+      <Custom Action="RemoveWebsite_Overwrite" After="RemoveWebsite_"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveEventBrokerWebsite_" After="RemoveWebsite_"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveEventBrokerWebsite" After="RemoveWebsite"><![CDATA[REMOVE = "ALL"]]></Custom>
+    </InstallExecuteSequence>
+
+  </Fragment>
+</Wix>

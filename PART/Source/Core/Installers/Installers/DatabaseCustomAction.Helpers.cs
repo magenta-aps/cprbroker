@@ -208,7 +208,6 @@ namespace CprBroker.Installers
                     conn.Open();
                     using (SqlCommand command = new SqlCommand(sql, conn))
                     {
-                        conn.Open();
                         int result = command.ExecuteNonQuery();
                         object o = "";
                     }

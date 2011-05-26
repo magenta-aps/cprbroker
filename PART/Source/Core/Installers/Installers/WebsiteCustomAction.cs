@@ -51,7 +51,7 @@ namespace CprBroker.Installers
     public partial class WebsiteCustomAction
     {
         [CustomAction]
-        public static ActionResult PopulateWebSites(Session session)
+        public static ActionResult PopulateWebsites(Session session)
         {
             DirectoryEntry w3svc = new DirectoryEntry(WebInstallationInfo.ServerRoot);
 
@@ -240,11 +240,11 @@ namespace CprBroker.Installers
         [CustomAction]
         public static ActionResult RollbackWebsite(Session session)
         {
-            return RemoveWebSite(session);
+            return RemoveWebsite(session);
         }
 
         [CustomAction]
-        public static ActionResult RemoveWebSite(Session session)
+        public static ActionResult RemoveWebsite(Session session)
         {
             var webInstallationInfo = WebInstallationInfo.FromSession(session);
             string applicationDirectoryPath = webInstallationInfo.TargetWmiPath;

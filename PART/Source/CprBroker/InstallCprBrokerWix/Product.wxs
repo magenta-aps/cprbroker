@@ -5,6 +5,8 @@
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
     <PropertyRef Id="Dummy_CprBrokerFragmentRefProp"/>
+    <PropertyRef Id="Dummy_WebsiteCustomActionsFragmentRefProp"/>
+    <PropertyRef Id="Dummy_DatabaseCustomActionsFragmentRefProp"/>
 
     <DirectoryRef Id="TARGETDIR"/>
 

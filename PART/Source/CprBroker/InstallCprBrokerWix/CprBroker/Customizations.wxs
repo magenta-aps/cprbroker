@@ -11,8 +11,6 @@
     <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True"/>
     <WixVariable Id="WEB_CREATEWEB" Value="True"/>
 
-    <Property Id="WEB_AllProperties_Cpr" Value="-"/>
-    <Property Id="DB_AllProperties_Cpr" Value="-"/>
 
   </Fragment>
 </Wix>
