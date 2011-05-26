@@ -166,7 +166,7 @@ namespace CprBroker.Installers
 
                             using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
                             {
-                                siteRoot.InvokeSet("Path", websiteInstallationInfo.GetWebFolderPath());
+                                siteRoot.InvokeSet("Path", websiteInstallationInfo.GetWebFolderPath(options));
                                 siteRoot.InvokeSet("DefaultDoc", "Default.aspx");
                                 if (!string.IsNullOrEmpty(appPoolName))
                                     siteRoot.InvokeSet("AppPoolId", appPoolName);
@@ -184,7 +184,7 @@ namespace CprBroker.Installers
                     {
                         using (DirectoryEntry applicationEntry = exists ? new DirectoryEntry(virtualDirectoryInstallationInfo.TargetWmiPath) : websiteEntry.Invoke("Create", "IIsWebVirtualDir", virtualDirectoryInstallationInfo.VirtualDirectoryName) as DirectoryEntry)
                         {
-                            applicationEntry.InvokeSet("Path", virtualDirectoryInstallationInfo.GetWebFolderPath());
+                            applicationEntry.InvokeSet("Path", virtualDirectoryInstallationInfo.GetWebFolderPath(options));
                             applicationEntry.Invoke("AppCreate", true);
                             applicationEntry.InvokeSet("AppFriendlyName", virtualDirectoryInstallationInfo.VirtualDirectoryName);
                             applicationEntry.InvokeSet("DefaultDoc", "Default.aspx");
@@ -207,7 +207,7 @@ namespace CprBroker.Installers
 
                 GrantConfigEncryptionAccess(options.FrameworkVersion);
 
-                var configFilePath = webInstallationInfo.GetWebConfigFilePath();
+                var configFilePath = webInstallationInfo.GetWebConfigFilePath(options);
                 var appRelativePath = webInstallationInfo.GetAppRelativePath();
 
                 // Data provider keys

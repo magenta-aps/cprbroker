@@ -27,6 +27,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 EncryptConnectionStrings = true,
                 ConnectionStrings = connectionStrings,
                 InitializeFlatFileLogging = true,
+                WebsiteDirectoryRelativePath = "EventBroker\\Website\\",
                 ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()
@@ -63,7 +64,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             ret.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, Properties.Resources.ChannelType));
             ret.Add(new KeyValuePair<string, string>(typeof(SubscriptionType).Name, Properties.Resources.SubscriptionType));
 
-            return DatabaseCustomAction.DeployDatabase(session, Properties.Resources.CreateEventBrokerDatabaseObjects, ret.ToArray());            
+            return DatabaseCustomAction.DeployDatabase(session, Properties.Resources.CreateEventBrokerDatabaseObjects, ret.ToArray());
         }
 
         [CustomAction]
@@ -75,7 +76,8 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult RemoveEventBrokerDatabase(Session session)
         {
-            return DatabaseCustomAction.RemoveDatabase(session,true);
+            return DatabaseCustomAction.RemoveDatabase(session, true);
         }
+
     }
 }

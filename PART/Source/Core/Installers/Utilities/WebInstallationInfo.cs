@@ -87,14 +87,14 @@ namespace CprBroker.Installers
 
         public abstract string GetAppRelativePath();
 
-        public string GetWebFolderPath()
+        public string GetWebFolderPath(WebInstallationOptions options)
         {
-            return InstallDir + "Website\\";
+            return Utilities.Strings.EnsureDirectoryEndSlash(InstallDir + options.WebsiteDirectoryRelativePath);
         }
 
-        public string GetWebConfigFilePath()
+        public string GetWebConfigFilePath(WebInstallationOptions options)
         {
-            return GetWebFolderPath() + "Web.config";
+            return GetWebFolderPath(options) + "Web.config";
         }
 
         public abstract string TargetWmiPath { get; }

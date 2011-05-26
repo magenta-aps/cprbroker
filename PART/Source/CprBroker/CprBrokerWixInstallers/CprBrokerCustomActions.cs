@@ -122,6 +122,7 @@ namespace CprBrokerWixInstallers
                 EncryptConnectionStrings = true,
                 ConnectionStrings = connectionStrings,
                 InitializeFlatFileLogging = true,
+                WebsiteDirectoryRelativePath = "CprBroker\\Website\\",
                 ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()

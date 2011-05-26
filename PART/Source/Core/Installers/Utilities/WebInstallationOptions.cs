@@ -12,6 +12,7 @@ namespace CprBroker.Installers
         public bool InitializeFlatFileLogging;
         public ConfigSectionGroupEncryptionOptions[] ConfigSectionGroupEncryptionOptions;
         public Version FrameworkVersion = new Version(System.Runtime.InteropServices.RuntimeEnvironment.GetSystemVersion().Replace("v", ""));
+        public string WebsiteDirectoryRelativePath = "Website\\";
     }
 
     public class ConfigSectionGroupEncryptionOptions
