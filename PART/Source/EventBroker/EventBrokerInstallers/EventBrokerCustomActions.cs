@@ -15,7 +15,6 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult CreateEventBrokerWebsite(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
 
@@ -47,21 +46,18 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult RollbackEventBrokerWebsite(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             return WebsiteCustomAction.RollbackWebsite(session);
         }
 
         [CustomAction]
         public static ActionResult RemoveEventBrokerWebsite(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             return WebsiteCustomAction.RemoveWebsite(session);
         }
 
         [CustomAction]
         public static ActionResult DeployEventBrokerDatabase(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
 
             ret.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, Properties.Resources.ChannelType));
@@ -73,14 +69,12 @@ namespace CprBroker.Installers.EventBrokerInstallers
         [CustomAction]
         public static ActionResult RollbackEventBrokerDatabase(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             return DatabaseCustomAction.RemoveDatabase(session, false);
         }
 
         [CustomAction]
         public static ActionResult RemoveEventBrokerDatabase(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             return DatabaseCustomAction.RemoveDatabase(session,true);
         }
     }
