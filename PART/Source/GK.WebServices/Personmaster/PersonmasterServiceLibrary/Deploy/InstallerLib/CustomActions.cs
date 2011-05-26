@@ -39,7 +39,7 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
-        public static ActionResult PopulateWebSites(Session session)
+        public static ActionResult PopulateWebsites(Session session)
         {
             return ActionResult.Success;
         }
@@ -74,9 +74,9 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
-        public static ActionResult RemoveWebSite(Session session)
+        public static ActionResult RemoveWebsite(Session session)
         {
-            return WebsiteCustomAction.RemoveWebSite(session);
+            return WebsiteCustomAction.RemoveWebsite(session);
         }
 
     }
