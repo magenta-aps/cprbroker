@@ -67,7 +67,6 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult RunRegistrySearch(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             View regLocatorView = session.Database.OpenView("SELECT * FROM RegLocator");
             regLocatorView.Execute();
 
@@ -106,7 +105,6 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult PopulateRegistryEntries(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             string pat = @"\A\[(?<propName>\w+)\]\Z";
             var registryEntries =
                 from registryEntry in Microsoft.Deployment.WindowsInstaller.Linq.Queryable.AsQueryable(session.Database).Registries.ToArray()
@@ -132,8 +130,6 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult RunWriteRegistryValues(Session session)
         {
-            System.Diagnostics.Debugger.Break();
-
             string[] keys = session.CustomActionData["REGISTRY_KEYS"].Split(',');
             string[] names = session.CustomActionData["REGISTRY_NAMES"].Split(',');
             string[] propNames = session.CustomActionData["REGISTRY_PROPERTY_NAMES"].Split(',');

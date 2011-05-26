@@ -12,22 +12,28 @@ namespace CprBroker.Installers.EventBrokerInstallers
 {
     public static class EventBrokerCustomActions
     {
+        static readonly string WebsiteDirectoryRelativePath = "EventBroker\\Website\\";
+        public static readonly string ServiceName = "CPR broker backend service";
+
+
         [CustomAction]
         public static ActionResult CreateEventBrokerWebsite(Session session)
         {
             Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
 
-            connectionStrings["CprBroker.Config.Properties.Settings.EventBrokerConnectionString"] = databaseSetupInfo.CreateConnectionString(false, true);
-            // TODO: Get the correct value of CprBroker connection string
-            connectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"] = databaseSetupInfo.CreateConnectionString(false, true);
+            string connectionString = databaseSetupInfo.CreateConnectionString(false, true);
+            string connectionStringName = "CprBroker.Config.Properties.Settings.EventBrokerConnectionString";
+            connectionStrings[connectionStringName] = connectionString;
+
+            Installation.SetConnectionStringInConfigFile(GetServiceExeFullFileName(session) + ".config", connectionStringName, connectionString);
 
             WebInstallationOptions options = new WebInstallationOptions()
             {
-                EncryptConnectionStrings = true,
+                EncryptConnectionStrings = false,
                 ConnectionStrings = connectionStrings,
                 InitializeFlatFileLogging = true,
-                WebsiteDirectoryRelativePath = "EventBroker\\Website\\",
+                WebsiteDirectoryRelativePath = WebsiteDirectoryRelativePath,
                 ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()
@@ -79,5 +85,62 @@ namespace CprBroker.Installers.EventBrokerInstallers
             return DatabaseCustomAction.RemoveDatabase(session, true);
         }
 
+        private static string GetServiceExeFullFileName(Session session)
+        {
+            return string.Format("{0}{1}bin\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), WebsiteDirectoryRelativePath);
+        }
+
+        [CustomAction]
+        public static ActionResult InstallBackendService(Session session)
+        {
+            CprBroker.Installers.Installation.RunCommand(
+                string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(2, 0))),
+                string.Format("/i \"{0}\"", GetServiceExeFullFileName(session))
+            );
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
+        public static ActionResult RollbackBackendService(Session session)
+        {
+            return UnInstallBackendService(session);
+        }
+
+        [CustomAction]
+        public static ActionResult UnInstallBackendService(Session session)
+        {
+            var controller = new System.ServiceProcess.ServiceController(ServiceName);
+            if (controller.CanStop)
+                controller.Stop();
+
+            CprBroker.Installers.Installation.RunCommand(
+                string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(2, 0))),
+                string.Format("/u \"{0}\"", GetServiceExeFullFileName(session))
+            );
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
+        public static ActionResult SetCprBrokerConnectionStrings(Session session)
+        {
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            WebInstallationInfo webInstallationInfo = WebInstallationInfo.FromSession(session);
+
+
+            string connectionString = databaseSetupInfo.CreateConnectionString(false, true);
+            string connectionStringName = "CprBroker.Config.Properties.Settings.CprBrokerConnectionString";
+
+            Installation.SetConnectionStringInConfigFile(
+                GetServiceExeFullFileName(session) + ".config",
+                connectionStringName,
+                connectionString
+                );
+            Installation.SetConnectionStringInConfigFile(
+                webInstallationInfo.GetWebConfigFilePath(WebsiteDirectoryRelativePath),
+                connectionStringName,
+                connectionString
+                );
+            return ActionResult.Success;
+        }
     }
 }

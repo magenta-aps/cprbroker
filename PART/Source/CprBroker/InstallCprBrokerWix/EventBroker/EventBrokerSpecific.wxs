@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment Id="EventBrokerSpecific">
+    <Property Id="Dummy_EventBrokerSpecificRefProp" Value="-"/>
+
+    <CustomAction Id="SetCprBrokerConnectionStrings_" Property="SetCprBrokerConnectionStrings" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]"/>
+    <CustomAction Id="SetCprBrokerConnectionStrings"  BinaryKey="EventBrokerInstallersDll" DllEntry="SetCprBrokerConnectionStrings" Execute="deferred"/>
+
+    <CustomAction Id="InstallBackendService_" Property="InstallBackendService" Value="[CommonProductProperties]"/>
+    <CustomAction Id="InstallBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="InstallBackendService" Execute="deferred"/>
+
+    <CustomAction Id="UnInstallBackendService_" Property="UnInstallBackendService" Value="[CommonProductProperties]"/>
+    <CustomAction Id="UnInstallBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="UnInstallBackendService" Execute="deferred"/>
+
+    <CustomAction Id="RollbackBackendService_" Property="RollbackBackendService" Value="[CommonProductProperties]"/>
+    <CustomAction Id="RollbackBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="RollbackBackendService" Execute="rollback" Return="ignore"/>
+
+    
+    <InstallExecuteSequence>
+      <Custom Action="SetCprBrokerConnectionStrings_" After="CreateEventBrokerWebsite_">NOT REMOVE</Custom>
+      <Custom Action="SetCprBrokerConnectionStrings" After="CreateEventBrokerWebsite">NOT REMOVE</Custom>
+
+      <Custom Action="InstallBackendService_" After="SetCprBrokerConnectionStrings_">NOT REMOVE</Custom>
+      <Custom Action="InstallBackendService" After="SetCprBrokerConnectionStrings">NOT REMOVE</Custom>
+
+      <Custom Action="UnInstallBackendService_" After="SetCprBrokerConnectionStrings_"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="UnInstallBackendService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL"]]></Custom>
+
+      <Custom Action="RollbackBackendService_" After="SetCprBrokerConnectionStrings_">NOT REMOVE</Custom>
+      <Custom Action="RollbackBackendService" After="RollbackEventBrokerWebsite">NOT REMOVE</Custom>
+    </InstallExecuteSequence>
+	</Fragment>
+</Wix>
