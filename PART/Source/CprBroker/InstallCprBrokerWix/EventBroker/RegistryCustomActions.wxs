@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="RegistryCustomActionsFragment">
+    <Property Id="Dummy_RegistryCustomActionsFragmentRefProp" Value="-"/>
+
+    <CustomAction Id="RunRegistrySearch" BinaryKey="InstallersDll" DllEntry="RunRegistrySearch" Impersonate="no"/>
+    <CustomAction Id="PopulateRegistryEntries" BinaryKey="InstallersDll" DllEntry="PopulateRegistryEntries" Impersonate="no"/>
+
+    <CustomAction Id="RunWriteRegistryValues_Cpr" Property="RunWriteRegistryValuesCpr" Value="REGISTRY_SUFFIX=CPR;REGISTRY_KEYS=[REGISTRY_KEYS];REGISTRY_NAMES=[REGISTRY_NAMES];REGISTRY_PROPERTY_NAMES=[REGISTRY_PROPERTY_NAMES];[CommonProductProperties];[DB_ALLPROPERTIES_CPR];[WEB_ALLPROPERTIES_CPR]"/>
+    <CustomAction Id="RunWriteRegistryValuesCpr" BinaryKey="InstallersDll" DllEntry="RunWriteRegistryValues" Execute="deferred" Impersonate="no"/>
+
+    <CustomAction Id="RunWriteRegistryValues_Event" Property="RunWriteRegistryValuesEvent" Value="REGISTRY_SUFFIX=EVENT;REGISTRY_KEYS=[REGISTRY_KEYS];REGISTRY_NAMES=[REGISTRY_NAMES];REGISTRY_PROPERTY_NAMES=[REGISTRY_PROPERTY_NAMES];[CommonProductProperties];[DB_ALLPROPERTIES_EVENT];[WEB_ALLPROPERTIES_EVENT]"/>
+    <CustomAction Id="RunWriteRegistryValuesEvent" BinaryKey="InstallersDll" DllEntry="RunWriteRegistryValues" Execute="deferred" Impersonate="no"/>
+
+    <InstallUISequence>
+      <Custom Action="PopulateRegistryEntries" After="CostFinalize">1</Custom>      
+    </InstallUISequence>
+    
+    <InstallExecuteSequence>
+      <Custom Action="RunRegistrySearch" After="AppSearch"><![CDATA[REMOVE = "ALL"]]></Custom>      
+
+      <Custom Action="RunWriteRegistryValues_Cpr" After="DeployDatabase_Overwrite">NOT REMOVE</Custom>
+      <Custom Action="RunWriteRegistryValuesCpr" After="WriteRegistryValues">NOT REMOVE</Custom>
+
+      <Custom Action="RunWriteRegistryValues_Event" After="DeployDatabase_Overwrite">NOT REMOVE</Custom>
+      <Custom Action="RunWriteRegistryValuesEvent" After="WriteRegistryValues">NOT REMOVE</Custom>
+    </InstallExecuteSequence>
+  </Fragment>
+</Wix>

@@ -5,6 +5,7 @@
 
     <PropertyRef Id="Dummy_DatabaseCustomActionsFragmentRefProp"/>
     <PropertyRef Id="Dummy_WebsiteCustomActionsFragmentRefProp"/>
+    <PropertyRef Id="Dummy_RegistryCustomActionsFragmentRefProp"/>
 
     <Binary Id="EventBrokerInstallersDll" SourceFile="..\..\EventBroker\Output\CprBroker.Installers.EventBrokerInstallers.CA.dll"/>
     
