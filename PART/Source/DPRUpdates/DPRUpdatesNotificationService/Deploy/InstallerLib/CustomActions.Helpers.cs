@@ -63,20 +63,20 @@ namespace InstallerLib
             string configFileName = GetConfigFileName(session);
             // Connection string
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
-            CprBroker.Utilities.Installation.SetConnectionStringInConfigFile(
+            CprBroker.Installers.Installation.SetConnectionStringInConfigFile(
                 configFileName,
                 "DPRUpdates",
                 databaseSetupInfo.CreateConnectionString(false, true)
             );
             // Service url
-            CprBroker.Utilities.Installation.SetApplicationSettingInConfigFile(
+            CprBroker.Installers.Installation.SetApplicationSettingInConfigFile(
                 configFileName,
                 "DPRUpdatesNotification.Properties.Settings",
                 "CPRBrokerPartServiceUrl",
                 string.Format("{0}/Services/Part.asmx", session.GetPropertyValue("PARTSERVICEURL"))
             );
             // App token
-            CprBroker.Utilities.Installation.SetApplicationSettingInConfigFile(
+            CprBroker.Installers.Installation.SetApplicationSettingInConfigFile(
                 configFileName,
                 "DPRUpdatesNotification.Properties.Settings",
                 "ApplicationToken",
@@ -86,8 +86,8 @@ namespace InstallerLib
 
         private static void InstallAndStartService(Session session)
         {
-            CprBroker.Utilities.Installation.RunCommand(
-                string.Format("{0}installutil.exe", CprBroker.Utilities.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
+            CprBroker.Installers.Installation.RunCommand(
+                string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
                 string.Format("/i \"{0}bin\\{1}\"", session.GetInstallDirProperty(), ServiceExeFileName)
             );
             new System.ServiceProcess.ServiceController(ServiceName).Start();
@@ -99,8 +99,8 @@ namespace InstallerLib
             if (controller.CanStop)
                 controller.Stop();
 
-            CprBroker.Utilities.Installation.RunCommand(
-                string.Format("{0}installutil.exe", CprBroker.Utilities.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
+            CprBroker.Installers.Installation.RunCommand(
+                string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
                 string.Format("/u \"{0}bin\\{1}\"", session.GetInstallDirProperty(), ServiceExeFileName)
             );
         }
