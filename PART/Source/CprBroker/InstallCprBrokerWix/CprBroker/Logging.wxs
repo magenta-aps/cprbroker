@@ -3,7 +3,7 @@
   <Fragment>
 
     <ComponentGroup Id="CMPGRP_Logging">
-      <Component Id="CMP_Logging" Directory="Website">
+      <Component Id="CMP_Logging" Directory="CprBroker_Website">
         <File Id="FILE_CprBroker.log" Source="CprBroker/Resources/CprBroker.log" >
           <util:PermissionEx User="NT AUTHORITY\NETWORK SERVICE" GenericWrite="yes" />
         </File>
