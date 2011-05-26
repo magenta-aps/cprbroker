@@ -12,6 +12,7 @@
     <AssemblyName>CprBroker.Installers.EventBrokerInstallers</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <WixCATargetsPath Condition=" '$(WixCATargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.CA.targets</WixCATargetsPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventBrokerCustomActions.cs" />
     <Compile Include="EventBrokerDatabaseInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -130,14 +132,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="$(WixCATargetsPath)" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y
+copy $(TargetName).CA.dll ..\..\..\Output\ /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -9,17 +9,17 @@
     <CustomAction Id="RollbackWebsite_Overwrite" Property="RollbackWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]"/>
     <Property Id="RollbackEventBrokerWebsite" Value="-"/>
     <CustomAction Id="RollbackEventBrokerWebsite_" Property="RollbackEventBrokerWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" />
-    <CustomAction Id="RollbackEventBrokerWebsite" BinaryKey="InstallersDll" DllEntry="RollbackEventBrokerWebsite" Execute="rollback" />
+    <CustomAction Id="RollbackEventBrokerWebsite" BinaryKey="EventBrokerInstallersDll" DllEntry="RollbackEventBrokerWebsite" Execute="rollback" />
     
     <CustomAction Id="CreateWebsite_Overwrite" Property="CreateWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]"/>
     <Property Id="CreateEventBrokerWebsite" Value="-"/>
     <CustomAction Id="CreateEventBrokerWebsite_" Property="CreateEventBrokerWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" />
-    <CustomAction Id="CreateEventBrokerWebsite" BinaryKey="InstallersDll" DllEntry="CreateEventBrokerWebsite" Execute="deferred" />
+    <CustomAction Id="CreateEventBrokerWebsite" BinaryKey="EventBrokerInstallersDll" DllEntry="CreateEventBrokerWebsite" Execute="deferred" />
 
     <CustomAction Id="RemoveWebsite_Overwrite" Property="RemoveWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]"/>
     <Property Id="RemoveEventBrokerWebsite" Value="-"/>
     <CustomAction Id="RemoveEventBrokerWebsite_" Property="RemoveEventBrokerWebsite" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" />
-    <CustomAction Id="RemoveEventBrokerWebsite" BinaryKey="InstallersDll" DllEntry="RemoveEventBrokerWebsite" Execute="deferred" />
+    <CustomAction Id="RemoveEventBrokerWebsite" BinaryKey="EventBrokerInstallersDll" DllEntry="RemoveEventBrokerWebsite" Execute="deferred" />
 
 
     <InstallExecuteSequence>

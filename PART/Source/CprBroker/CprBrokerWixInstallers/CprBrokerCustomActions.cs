@@ -48,7 +48,7 @@ using CprBroker.Engine;
 
 namespace CprBrokerWixInstallers
 {
-    public class CprBrokerDatabaseCustomAction
+    public class CprBrokerCustomActions
     {
         [CustomAction]
         public static ActionResult TestDatabaseConnection(Session session)
