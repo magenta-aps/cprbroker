@@ -1,9 +1,9 @@
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1/GPL 2.0/LGPL 2.1
  *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
  * http://www.mozilla.org/MPL/
  *
  * Software distributed under the License is distributed on an "AS IS"basis,
@@ -11,15 +11,24 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
+ * The CPR Broker concept was initally developed by
+ * Gentofte Kommune / Municipality of Gentofte, Denmark.
+ * Contributor(s):
+ * Steen Deth
  *
- * The Initial Developer of the Original Code is
- * IT- og Telestyrelsen / Danish National IT and Telecom Agency.
+ *
+ * The Initial Code for CPR Broker and related components is made in
+ * cooperation between Magenta, Gentofte Kommune and IT- og Telestyrelsen /
+ * Danish National IT and Telecom Agency
  *
  * Contributor(s):
  * Beemen Beshara
  * Niels Elgaard Larsen
  * Leif Lodahl
  * Steen Deth
+ *
+ * The code is currently governed by IT- og Telestyrelsen / Danish National
+ * IT and Telecom Agency
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
