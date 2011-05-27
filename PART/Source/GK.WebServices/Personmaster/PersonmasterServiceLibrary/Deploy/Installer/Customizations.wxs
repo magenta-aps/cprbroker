@@ -4,24 +4,15 @@
     <Property Id="Dummy_CustomizationsFragmentRefProp" Value="-"/>
 
     <PropertyRef Id="Dummy_DatabaseFragmentRefProperty"/>
-    
-    <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)PersonMasterInstallers.CA.dll"/>
-    
-    <CustomAction Id="CA_CustomizePersonMasterProperties" Execute="immediate" Script="vbscript">
-      <![CDATA[
-      Session.Property("WEB_CREATEWEB") = "True"
-      
-      Session.Property("DB_CREATEDATABASE") = "True"
-      Session.Property("DB_ENCRYPTIONKEYENABLED") = "True"
-      Session.Property("DB_DOMAINENABLED") = "True"
-      Session.Property("DB_APPINTEGRATEDSECURITYALLOWED") = "False"
-      
-      ]]>
-    </CustomAction>
 
-    <InstallUISequence>
-      <Custom Action="CA_CustomizePersonMasterProperties" Before="CostFinalize">1</Custom>
-    </InstallUISequence>
+    <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)PersonMasterInstallers.CA.dll"/>
+
+    <WixVariable Id="WEB_CREATEWEB" Value="True"/>
+
+    <WixVariable Id="DB_CREATEDATABASE" Value="True"/>
+    <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="True"/>
+    <WixVariable Id="DB_DOMAINENABLED" Value="True"/>
+    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="False"/>
 
   </Fragment>
 </Wix>
