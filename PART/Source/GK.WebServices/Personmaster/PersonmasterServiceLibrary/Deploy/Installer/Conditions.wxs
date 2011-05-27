@@ -4,9 +4,10 @@
     <Property Id="Dummy_ConditionsFragmentRefProp" Value="-"/>
 
     <!--.NET Framework-->
+    <PropertyRef Id="NETFRAMEWORK35"/>
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
-    <Condition Message="This application requires the full version of .NET Framework 4.0. Please install the .NET Framework then run this installer again.">
-      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    <Condition Message="This application requires the full version of .NET Framework 3.5 and 4.0. Please install the .NET Framework(s) then run this installer again.">
+      <![CDATA[Installed OR (NETFRAMEWORK35 AND NETFRAMEWORK40FULL) ]]>
     </Condition>
 
     <!--IIS-->
