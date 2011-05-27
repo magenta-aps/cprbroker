@@ -59,6 +59,13 @@ namespace CprBroker.Installers
     /// </summary>
     public partial class DatabaseSetupInfo
     {
+        public string CreateConnectionStringToMasterDatabase(bool isAdmin)
+        {
+            string ret = CreateConnectionString(isAdmin, true);
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(ret);
+            builder.InitialCatalog = "master";
+            return builder.ToString();
+        }
 
         /// <summary>
         /// Creates a connection string from local members

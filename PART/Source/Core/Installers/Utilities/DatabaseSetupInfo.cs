@@ -330,7 +330,10 @@ namespace CprBroker.Installers
                         // ensure that either app login either does not exist or has correct info
                         if (AppLoginExists())
                         {
-                            if (!TryOpenConnection(CreateConnectionString(false, false)))
+                            if (
+                                !TryOpenConnection(CreateConnectionString(false, false))
+                                && !TryOpenConnection(CreateConnectionStringToMasterDatabase(false))
+                                )
                             {
                                 message = Messages.ApplicationConnectionFailedCheckUserNameAndPassword;
                                 return false; // Incorrect password
