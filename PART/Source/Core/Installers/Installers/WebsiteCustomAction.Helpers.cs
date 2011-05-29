@@ -80,12 +80,23 @@ namespace CprBroker.Installers
             //}
         }
 
+        private static int GetIisMajorVersion()
+        {
+            var iisMajorVersion = Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\INetStp", "MajorVersion", 0);
+            return Convert.ToInt32(iisMajorVersion);
+        }
+
         private static int GetScriptMapsVersion(DirectoryEntry site)
+        {
+            return GetScriptMapsVersion(site, ".aspx");
+        }
+
+        private static int GetScriptMapsVersion(DirectoryEntry site, string extension)
         {
             PropertyValueCollection vals = site.Properties["ScriptMaps"];
             foreach (string val in vals)
             {
-                if (val.StartsWith(".aspx"))
+                if (val.StartsWith(extension))
                 {
                     string framework = "Framework\\v";
                     int startIndex = val.IndexOf(framework);
@@ -108,6 +119,19 @@ namespace CprBroker.Installers
             return -1;
         }
 
+        private static void RunServiceModelReg(string args, Version frameworkVersion)
+        {
+            string fileName = Installation.GetNetFrameworkDirectory(frameworkVersion) + "Windows Communication Foundation\\ServiceModelReg.exe";
+            // use aspnet_regiis for 64 bit machines whenever possible
+            string fileName64 = fileName.Replace("Framework", "Framework64");
+            if (File.Exists(fileName64))
+            {
+                fileName = fileName64;
+            };
+
+            Installation.RunCommand(fileName, args);
+        }
+
         private static void RunRegIIS(string args, Version frameworkVersion)
         {
             string fileName = Installation.GetNetFrameworkDirectory(frameworkVersion) + "aspnet_regiis.exe";
@@ -120,6 +144,7 @@ namespace CprBroker.Installers
 
             Installation.RunCommand(fileName, args);
         }
+
 
         private static void GrantConfigEncryptionAccess(Version frameworkVersion)
         {

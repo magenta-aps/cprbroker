@@ -62,8 +62,7 @@ namespace CprBroker.Installers
         [CustomAction]
         public static ActionResult PopulateWebsites(Session session)
         {
-            var iisMajorVersion = Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\INetStp", "MajorVersion", 0);
-            bool multiWebSiteAllowed = Convert.ToInt32(iisMajorVersion) > 5;
+            bool multiWebSiteAllowed = GetIisMajorVersion() > 5;
 
             session["WEB_MULTIPLESITESALLOWED"] = (multiWebSiteAllowed).ToString();
             if (!multiWebSiteAllowed)
@@ -143,9 +142,9 @@ namespace CprBroker.Installers
                     using (DirectoryEntry machineRoot = new DirectoryEntry(WebInstallationInfo.ServerRoot))
                     {
                         string appPoolName = "";
-                        using (DirectoryEntry appPools = new DirectoryEntry(WebsiteInstallationInfo.AppPoolsRoot))
+                        if (DirectoryEntry.Exists(WebsiteInstallationInfo.AppPoolsRoot))
                         {
-                            if (DirectoryEntry.Exists(appPools.Path))
+                            using (DirectoryEntry appPools = new DirectoryEntry(WebsiteInstallationInfo.AppPoolsRoot))
                             {
                                 appPoolName = webInstallationInfo.WebsiteName;
                                 bool appPoolExixts = DirectoryEntry.Exists(websiteInstallationInfo.AppPoolWmiPath);
@@ -153,8 +152,11 @@ namespace CprBroker.Installers
                                 {
                                     appPool.InvokeSet("AppPoolIdentityType", 2);//LocalSystem 0; LocalService 1; NetworkService 2;  Custom (user & pwd) 3;  ApplicationPoolIdentity 4
                                     appPool.InvokeSet("AppPoolAutoStart", true);
-                                    appPool.InvokeSet("ManagedRuntimeVersion", string.Format("v{0}", options.FrameworkVersion.ToString(2)));
-                                    appPool.InvokeSet("ManagedPipelineMode", 0); // Integrated 0; Classic 1
+                                    if (GetIisMajorVersion() > 6)
+                                    {
+                                        appPool.InvokeSet("ManagedRuntimeVersion", string.Format("v{0}", options.FrameworkVersion.ToString(2)));
+                                        appPool.InvokeSet("ManagedPipelineMode", 0); // Integrated 0; Classic 1
+                                    }
                                     appPool.CommitChanges();
                                 }
                             }
@@ -174,8 +176,8 @@ namespace CprBroker.Installers
                             site.CommitChanges();
 
                             webInstallationInfo.CopyToSession(session);
-
-                            using (DirectoryEntry siteRoot = new DirectoryEntry(site.Path + "/Root"))
+                            string siteRootPath = site.Path + "/Root";
+                            using (DirectoryEntry siteRoot = DirectoryEntry.Exists(siteRootPath) ? new DirectoryEntry(siteRootPath) : site.Children.Add("Root", "IIsWebVirtualDir"))
                             {
                                 siteRoot.InvokeSet("Path", websiteInstallationInfo.GetWebFolderPath(options));
                                 siteRoot.InvokeSet("DefaultDoc", "Default.aspx");
