@@ -74,13 +74,12 @@
       <Custom Action="CA_Set_WEB_AllProperties" After="CA_Set_DB_AllProperties">!(wix.WEB_CREATEWEB) = True</Custom>
 
       <Custom Action="RollbackWebsite_" After="CA_Set_WEB_AllProperties"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
-      <Custom Action="RollbackWebsite" After="InstallFiles"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
-
       <Custom Action="CreateWebsite_" After="CA_Set_WEB_AllProperties"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
-      <Custom Action="CreateWebsite" After="RollbackWebsite"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
-
       <Custom Action="RemoveWebsite_" After="CA_Set_WEB_AllProperties"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveWebsite" Before="RemoveRegistryValues"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
+
+      <Custom Action="RollbackWebsite" After="InstallFiles"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="CreateWebsite" After="RollbackWebsite"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="RemoveWebsite" After="CreateWebsite"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL"]]></Custom>
 
     </InstallExecuteSequence>
 

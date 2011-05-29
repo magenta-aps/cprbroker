@@ -121,13 +121,12 @@
       <Custom Action="CA_Set_DB_AllProperties" After="CA_Set_CommonProductProperties">!(wix.DB_CREATEDATABASE) = True</Custom>
 
       <Custom Action="RollbackDatabase_" After="CA_Set_DB_AllProperties"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="DeployDatabase_" After="RollbackDatabase_"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE]]></Custom>
+      <Custom Action="RemoveDatabase_" After="DeployDatabase_"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND REMOVE = "ALL"]]></Custom>
+
       <Custom Action="RollbackDatabase" After="InstallFiles"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
-
-      <Custom Action="DeployDatabase_" After="CA_Set_DB_AllProperties"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE]]></Custom>
-      <Custom Action="DeployDatabase" After="RemoveRegistryValues"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE]]></Custom>
-
-      <Custom Action="RemoveDatabase_" After="CA_Set_DB_AllProperties"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveDatabase" After="RemoveRegistryValues"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND REMOVE = "ALL"]]></Custom>
+      <Custom Action="DeployDatabase" After="RollbackDatabase"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE]]></Custom>
+      <Custom Action="RemoveDatabase" After="DeployDatabase"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND REMOVE = "ALL"]]></Custom>
     </InstallExecuteSequence>
 
   </Fragment>
