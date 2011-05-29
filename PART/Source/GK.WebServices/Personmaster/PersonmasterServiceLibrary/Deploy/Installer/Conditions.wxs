@@ -11,11 +11,12 @@
     </Condition>
 
     <!--IIS-->
-    <Property Id="IIS7">
-      <RegistrySearch Id="IIS7W3SVC" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Type="raw" Name="W3SVC" />
+    <Property Id="IIS_VERSION">
+      <RegistrySearch Id="IRS_IS_Version" Root="HKLM" Key="SOFTWARE\Microsoft\INetStp" Name="MajorVersion" Type="raw"/>
     </Property>
-    <Condition Message="This application requires IIS version 7. Please install IIS 7 and then run the installer again.">
-      <![CDATA[Installed OR IIS7]]>
+
+    <Condition Message="This application requires IIS version 6 or higher. Please install IIS 6 or higher and then run the installer again.">
+      <![CDATA[ INSTALLED OR IIS_VERSION > "#5"]]>
     </Condition>
 
     <!--IIS 6 metabase compatibility-->
