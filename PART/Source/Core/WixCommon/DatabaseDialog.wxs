@@ -16,12 +16,12 @@
 
         <!--Ecryption key-->
         <Control Id="encryptionKeyLabel" Type="Text" Text="Encryption Key" X="150" Y="60" Width="60" Height="17">
-          <Condition Action="show" ><![CDATA[DB_ENCRYPTIONKEYENABLED = True ]]></Condition>
-          <Condition Action="hide" ><![CDATA[DB_ENCRYPTIONKEYENABLED <> True ]]></Condition>
+          <Condition Action="show" ><![CDATA[DB_ENCRYPTIONKEYENABLED = "True" ]]></Condition>
+          <Condition Action="hide" ><![CDATA[DB_ENCRYPTIONKEYENABLED <> "True" ]]></Condition>
         </Control>
         <Control Id="encryptionKeyEdit" Type="Edit" Property="DB_ENCRYPTIONKEY" X="210" Y="60" Width="70" Height="17">
-          <Condition Action="show" ><![CDATA[DB_ENCRYPTIONKEYENABLED = True ]]></Condition>
-          <Condition Action="hide" ><![CDATA[DB_ENCRYPTIONKEYENABLED <>True ]]></Condition>
+          <Condition Action="show" ><![CDATA[DB_ENCRYPTIONKEYENABLED = "True" ]]></Condition>
+          <Condition Action="hide" ><![CDATA[DB_ENCRYPTIONKEYENABLED <>"True" ]]></Condition>
         </Control>
 
         <!--Database name-->
@@ -30,12 +30,12 @@
 
         <!--Domain-->
         <Control Id="DomainLabel" Type="Text" Text="Domain" X="150" Y="80" Width="60" Height="17">
-          <Condition Action="show" ><![CDATA[DB_DOMAINENABLED = True ]]></Condition>
-          <Condition Action="hide" ><![CDATA[DB_DOMAINENABLED <> True ]]></Condition>
+          <Condition Action="show" ><![CDATA[DB_DOMAINENABLED = "True" ]]></Condition>
+          <Condition Action="hide" ><![CDATA[DB_DOMAINENABLED <> "True" ]]></Condition>
         </Control>
         <Control Id="domainEdit" Type="Edit" Property="DB_DOMAIN" X="210" Y="80" Width="70" Height="17">
-          <Condition Action="show" ><![CDATA[DB_DOMAINENABLED = True ]]></Condition>
-          <Condition Action="hide" ><![CDATA[DB_DOMAINENABLED <> True ]]></Condition>
+          <Condition Action="show" ><![CDATA[DB_DOMAINENABLED = "True" ]]></Condition>
+          <Condition Action="hide" ><![CDATA[DB_DOMAINENABLED <> "True" ]]></Condition>
         </Control>
 
         <!--Admin group box-->
