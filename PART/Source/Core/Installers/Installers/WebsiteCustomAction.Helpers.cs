@@ -123,6 +123,14 @@ namespace CprBroker.Installers
 
         private static void GrantConfigEncryptionAccess(Version frameworkVersion)
         {
+            try
+            {
+                RunRegIIS("-pc \"NetFrameworkConfigurationKey\" -exp", frameworkVersion);
+            }
+            catch (Exception ex)
+            {
+                // Exception is not important because we run this step in case the key container does not exist
+            }
             string[] users = new string[]
             {                
                 "AUTHENTICATED USERS"
