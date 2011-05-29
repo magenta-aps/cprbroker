@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using Microsoft.Deployment.WindowsInstaller;
+using System.Text.RegularExpressions;
 
 namespace CprBroker.Installers
 {
@@ -265,8 +266,45 @@ namespace CprBroker.Installers
             }
         }
 
+        private bool ValidateEncryptionKey(ref string message)
+        {
+            if (!EncryptionKeyEnabled)
+            {
+                return true;
+            }
+            if (this.EncryptionKey.Length < 6)
+            {
+                message = "Encryption key is too short";
+                return false;
+            }
+            if (!Regex.Match(EncryptionKey, @"\d+").Success)
+            {
+                message = "Encryption key should contain at least one digit";
+                return false;
+            }
+            if (!Regex.Match(EncryptionKey, @"[a-z]+").Success)
+            {
+                message = "Encryption key should contain at least one lowercase character";
+                return false;
+            }
+            if (!Regex.Match(EncryptionKey, @"[A-Z]+").Success)
+            {
+                message = "Encryption key should contain at least one uppercase character";
+                return false;
+            }
+            if (!Regex.Match(EncryptionKey, @"\W+").Success)
+            {
+                message = "Encryption key should contain at least one non alphanumeric character";
+                return false;
+            }
+            return true;
+        }
         public bool Validate(ref string message)
         {
+            if (!ValidateEncryptionKey(ref message))
+            {
+                return false;
+            }
             if (!TryOpenConnection(CreateConnectionString(true, false)))
             {
                 // Admin connection failed
