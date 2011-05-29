@@ -123,19 +123,20 @@ namespace CprBroker.Installers
                 if (databaseSetupInfo.EffectiveApplicationAuthenticationInfo.IntegratedSecurity)
                 {
                     userName = @"NT AUTHORITY\NETWORK SERVICE";
-                    createLoginMethod = (connection) => new SqlCommand(string.Format("CREATE LOGIN [{0}] FROM WINDOWS", userName), connection);// login.Create();
+                    createLoginMethod = (connection) => new SqlCommand(string.Format("CREATE LOGIN [{0}] FROM WINDOWS", userName), connection);
                 }
                 else
                 {
                     userName = databaseSetupInfo.EffectiveApplicationAuthenticationInfo.UserName;
-                    createLoginMethod = (connection) =>
-                    {
-                        var ret = new SqlCommand("sp_addlogin", connection);
-                        ret.CommandType = System.Data.CommandType.StoredProcedure;
-                        ret.Parameters.Add("@loginame", System.Data.SqlDbType.VarChar).Value = databaseSetupInfo.EffectiveApplicationAuthenticationInfo.UserName;
-                        ret.Parameters.Add("@passwd", System.Data.SqlDbType.VarChar).Value = databaseSetupInfo.EffectiveApplicationAuthenticationInfo.Password;
-                        return ret;
-                    };
+                    createLoginMethod = (connection) => new SqlCommand(
+                        string.Format(
+                        "CREATE LOGIN [{0}] WITH PASSWORD='{1}', DEFAULT_DATABASE=[{2}], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF",
+                        userName,
+                        databaseSetupInfo.EffectiveApplicationAuthenticationInfo.Password,
+                        databaseSetupInfo.DatabaseName
+                        ),
+                        connection
+                    );
                 }
 
                 using (SqlConnection adminConnection = new SqlConnection(databaseSetupInfo.CreateConnectionString(true, false)))
@@ -266,7 +267,7 @@ namespace CprBroker.Installers
 
             using (SqlConnection adminConnection = new SqlConnection(setupInfo.CreateConnectionString(true, false)))
             {
-                adminConnection.Open();                
+                adminConnection.Open();
                 if (!setupInfo.ApplicationAuthenticationSameAsAdmin && !setupInfo.ApplicationAuthenticationInfo.IntegratedSecurity)
                 {
                     if (!setupInfo.IsServerRoleMember("sysadmin", setupInfo.ApplicationAuthenticationInfo.UserName, adminConnection))
@@ -290,7 +291,7 @@ namespace CprBroker.Installers
                                     {
                                         using (var dropUserCommand = new SqlCommand(string.Format("DROP USER [{0}]", setupInfo.ApplicationAuthenticationInfo.UserName), adminConnectionWithDB))
                                         {
-                                            dropUserCommand.ExecuteNonQuery();                                            
+                                            dropUserCommand.ExecuteNonQuery();
                                         }
                                         dropLoginMethod(adminConnection);
                                     }
