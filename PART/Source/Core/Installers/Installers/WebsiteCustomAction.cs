@@ -96,7 +96,7 @@ namespace CprBroker.Installers
             {
                 var siteData = sitesData[i];
                 Record record = session.Database.CreateRecord(4);
-                record.SetString(1, "WEB_SITENAME");
+                record.SetString(1, "WEB_SITENAME_VDIR");
                 record.SetInteger(2, i + 1);
                 record.SetString(3, siteData.Name);
                 record.SetString(4, siteData.Name);
@@ -105,7 +105,7 @@ namespace CprBroker.Installers
             }
             if (sitesData.Length > 0)
             {
-                session["WEB_SITENAME"] = sitesData[0].Name;
+                session["WEB_SITENAME_VDIR"] = sitesData[0].Name;
             }
             return ActionResult.Success;
         }

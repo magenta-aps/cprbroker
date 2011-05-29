@@ -14,7 +14,7 @@
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
           <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
         </Control>
-        <Control Id="siteNameCombo" Type="ComboBox" Property="WEB_SITENAME" Sorted="yes" ComboList="yes" X="80" Y="100" Width="100" Height="17">
+        <Control Id="siteNameCombo" Type="ComboBox" Property="WEB_SITENAME_VDIR" Sorted="yes" ComboList="yes" X="80" Y="100" Width="100" Height="17">
           <ComboBox Property="WEB_VIRTUALDIRECTORYSITEPATH">
           </ComboBox>
           <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
@@ -31,9 +31,10 @@
         </Control>
 
         <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" >
-          <Publish Event="DoAction" Value="ValidateWebProperties" Order="1">1</Publish>
-          <Publish Event="DoAction" Value="ShowValidateWebPropertiesFailure" Order="2"><![CDATA[WEB_VALID <> "True"]]></Publish>
-          <Publish Event="DoAction" Value="CA_Set_WEB_AllProperties" Order="3"><![CDATA[WEB_VALID = "True"]]></Publish>
+          <Publish Property="WEB_SITENAME" Value="[WEB_SITENAME_VDIR]" Order="1">1</Publish>
+          <Publish Event="DoAction" Value="ValidateWebProperties" Order="2">1</Publish>
+          <Publish Event="DoAction" Value="ShowValidateWebPropertiesFailure" Order="3"><![CDATA[WEB_VALID <> "True"]]></Publish>
+          <Publish Event="DoAction" Value="CA_Set_WEB_AllProperties" Order="4"><![CDATA[WEB_VALID = "True"]]></Publish>
         </Control>
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
         

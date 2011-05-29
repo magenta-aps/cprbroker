@@ -10,6 +10,9 @@
     <Property Id="WEB_SITENAME" Value="-" >
       <RegistrySearch Id="RS_WEB_SITENAME" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" Type="raw" Name="SiteName"/>
     </Property>
+    <Property Id="WEB_SITENAME_SITE" Value="-" />
+    <Property Id="WEB_SITENAME_VDIR" Value="-" />
+    
     <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="-">
       <RegistrySearch Id="RS_WEB_VIRTUALDIRECTORYNAME" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" Type="raw" Name="VirtualDirectoryName"/>
     </Property>
@@ -38,6 +41,7 @@
     <CustomAction Id="CA_InitializeWebPropertiesFromProductName" Execute="immediate" Script="vbscript">
       <![CDATA[
       Session.Property("WEB_SITENAME") = Replace(Session.Property("ProductName"), " ", "")
+      Session.Property("WEB_SITENAME_SITE") = Replace(Session.Property("ProductName"), " ", "")
       Session.Property("WEB_VIRTUALDIRECTORYNAME") = Replace(Session.Property("ProductName"), " ", "")
       Session.Property("WEB_VIRTUALDIRECTORYSITEPATH") = Replace(Session.Property("ProductName"), " ", "")
       ]]>
@@ -52,7 +56,7 @@
     </CustomAction>
 
     <Property Id="WEB_AllProperties"/>
-    <CustomAction Id="CA_Set_WEB_AllProperties" Property="WEB_AllProperties" Value="WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
+    <CustomAction Id="CA_Set_WEB_AllProperties" Property="WEB_AllProperties" Value="WEB_MULTIPLESITESALLOWED=[WEB_MULTIPLESITESALLOWED];WEB_CREATEASWEBSITE=[WEB_CREATEASWEBSITE];WEB_SITENAME=[WEB_SITENAME];WEB_SITENAME_VDIR=[WEB_SITENAME_VDIR];WEB_SITENAME_SITE=[WEB_SITENAME_SITE];WEB_VIRTUALDIRECTORYSITEPATH=[WEB_VIRTUALDIRECTORYSITEPATH];WEB_VIRTUALDIRECTORYNAME=[WEB_VIRTUALDIRECTORYNAME];WEB_APPLICATIONPATH=[WEB_APPLICATIONPATH]"/>
 
     <CustomAction Id="RollbackWebsite_" Property="RollbackWebsite" Value="INSTALLDIR=[INSTALLDIR];[WEB_AllProperties]"/>
     <CustomAction Id="RollbackWebsite" BinaryKey="InstallersDll" DllEntry="RollbackWebsite" Execute="rollback" Return="check" Impersonate="no"></CustomAction>
