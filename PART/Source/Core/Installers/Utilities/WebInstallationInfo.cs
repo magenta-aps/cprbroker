@@ -132,9 +132,19 @@ namespace CprBroker.Installers
 
         protected string[] GetSiteHostHeaders(DirectoryEntry siteEntry)
         {
-            List<string> ret = new List<string>();
-            var serverBindings = siteEntry.Properties["ServerBindings"].Value as object[];
-            foreach (string serverBinding in serverBindings)
+            siteEntry.RefreshCache();
+            List<string> ret = new List<string>();                                                       
+            var serverBindings = siteEntry.Properties["ServerBindings"].Value;
+            object[] serverBindingsArray;
+            if (serverBindings is string)
+            {
+                serverBindingsArray = new object[] { serverBindings };
+            }
+            else
+            {
+                serverBindingsArray = serverBindings as object[];
+            }
+            foreach (string serverBinding in serverBindingsArray)
             {
                 string[] arr = serverBinding.Split(':');
                 if (arr.Length == 3)

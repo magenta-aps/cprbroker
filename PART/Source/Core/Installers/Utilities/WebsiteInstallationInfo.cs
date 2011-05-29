@@ -107,7 +107,7 @@ namespace CprBroker.Installers
         {
             using (DirectoryEntry ent = new DirectoryEntry(this.TargetWmiPath))
             {
-                string[] hostHeaders = GetSiteHostHeaders(ent.Parent);
+                string[] hostHeaders = GetSiteHostHeaders(ent);
                 return hostHeaders.Select(hh => string.Format("http://{0}/", hh)).ToArray();
             }
         }
