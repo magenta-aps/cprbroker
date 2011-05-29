@@ -62,14 +62,16 @@ namespace CprBroker.Installers
         [CustomAction]
         public static ActionResult PopulateWebsites(Session session)
         {
-            DirectoryEntry w3svc = new DirectoryEntry(WebInstallationInfo.ServerRoot);
+            var iisMajorVersion = Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\INetStp", "MajorVersion", 0);
+            bool multiWebSiteAllowed = Convert.ToInt32(iisMajorVersion) > 5;
 
-            bool multiWebSiteAllowed = Convert.ToInt32(w3svc.Properties["MaxConnections"].Value) == 0;
             session["WEB_MULTIPLESITESALLOWED"] = (multiWebSiteAllowed).ToString();
             if (!multiWebSiteAllowed)
             {
                 session["WEB_CREATEASWEBSITE"] = "False";
             }
+
+            DirectoryEntry w3svc = new DirectoryEntry(WebInstallationInfo.ServerRoot);
             List<DirectoryEntry> websites = new List<DirectoryEntry>();
             foreach (DirectoryEntry de in w3svc.Children)
             {
