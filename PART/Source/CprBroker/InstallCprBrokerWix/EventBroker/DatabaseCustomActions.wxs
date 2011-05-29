@@ -22,17 +22,20 @@
     <CustomAction Id="RemoveEventBrokerDatabase" BinaryKey="EventBrokerInstallersDll" DllEntry="RemoveEventBrokerDatabase" Execute="deferred" />
 
     <InstallExecuteSequence>
+      <!--Reset standard database properties to CPR database to let standard custom actions run correctly-->
       <Custom Action="RollbackDatabase_Overwrite" After="RollbackDatabase_">NOT REMOVE</Custom>
-      <Custom Action="RollbackEventBrokerDatabase_" After="RollbackDatabase_">NOT REMOVE</Custom>
-      <Custom Action="RollbackEventBrokerDatabase" After="RollbackDatabase">NOT REMOVE</Custom>
-
       <Custom Action="DeployDatabase_Overwrite" After="DeployDatabase_">NOT REMOVE</Custom>
-      <Custom Action="DeployEventBrokerDatabase_" After="DeployDatabase_">NOT REMOVE</Custom>
-      <Custom Action="DeployEventBrokerDatabase" After="DeployDatabase">NOT REMOVE</Custom>
-
       <Custom Action="RemoveDatabase_Overwrite" After="RemoveDatabase_"><![CDATA[REMOVE = "ALL"]]></Custom>
+
+      <!--Set event broker database properties-->
+      <Custom Action="RollbackEventBrokerDatabase_" After="RollbackDatabase_">NOT REMOVE</Custom>
+      <Custom Action="DeployEventBrokerDatabase_" After="DeployDatabase_">NOT REMOVE</Custom>
       <Custom Action="RemoveEventBrokerDatabase_" After="RemoveDatabase_"><![CDATA[REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveEventBrokerDatabase" After="RemoveDatabase"><![CDATA[REMOVE = "ALL"]]></Custom>
+
+      <!--Standard custom actions-->
+      <Custom Action="RollbackEventBrokerDatabase" After="RemoveDatabase">NOT REMOVE</Custom>
+      <Custom Action="DeployEventBrokerDatabase" After="RollbackEventBrokerDatabase">NOT REMOVE</Custom>
+      <Custom Action="RemoveEventBrokerDatabase" After="DeployEventBrokerDatabase"><![CDATA[REMOVE = "ALL"]]></Custom>
 
     </InstallExecuteSequence>
 
