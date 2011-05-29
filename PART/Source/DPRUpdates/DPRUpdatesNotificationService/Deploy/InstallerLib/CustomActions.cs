@@ -55,10 +55,14 @@ namespace InstallerLib
             {
                 var response = service.ListAppRegistrations();
                 session["CPRBROKERSERVICESURL_VALID"] = "True";
+                if (int.Parse(response.StandardRetur.StatusKode) != 200)
+                {
+                    session["CPRBROKERSERVICESURL_VALID"] = response.StandardRetur.FejlbeskedTekst;
+                }
             }
             catch (Exception ex)
             {
-                session["CPRBROKERSERVICESURL_VALID"] = "False";
+                session["CPRBROKERSERVICESURL_VALID"] = ex.Message;
             }
             return ActionResult.Success;
         }
