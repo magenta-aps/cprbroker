@@ -138,7 +138,7 @@ namespace CprBroker.Providers.DPR
                .FirstOrDefault();
         }
 
-       
+
 
         public static Schemas.Part.PersonGenderCodeType PersonGenderCodeTypeFromChar(char? gen)
         {
@@ -155,7 +155,7 @@ namespace CprBroker.Providers.DPR
                     break;
             }
         }
-    
+
     }
 
     public static class Extensions
@@ -163,6 +163,14 @@ namespace CprBroker.Providers.DPR
         public static string ToDecimalString(this decimal val)
         {
             return val.ToString("F0");
+        }
+
+        public static string ToPnrDecimalString(this decimal val)
+        {
+            var ret = ToDecimalString(val);
+            int cprNumberLength = 10;
+            ret = new string('0', cprNumberLength - ret.Length) + ret;
+            return ret;
         }
     }
 }

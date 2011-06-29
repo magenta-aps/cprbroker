@@ -248,7 +248,7 @@ namespace CprBroker.Providers.DPR
             {
                 ret.Item = new UkendtBorgerType()
                 {
-                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToDecimalString(),
+                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToPnrDecimalString(),
                 };
                 ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
             }
@@ -259,7 +259,7 @@ namespace CprBroker.Providers.DPR
                     AdresseNoteTekst = null,
                     FolkeregisterAdresse = Address != null ? Address.ToAdresseType(Street) : null,
                     ForskerBeskyttelseIndikator = PersonTotal.DirectoryProtectionMarker == '1',
-                    PersonCivilRegistrationIdentifier = PersonTotal.PNR.ToDecimalString(),
+                    PersonCivilRegistrationIdentifier = PersonTotal.PNR.ToPnrDecimalString(),
                     PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Nationality.CountryCode.ToDecimalString()),
 
                     //PNR validity status
@@ -298,7 +298,7 @@ namespace CprBroker.Providers.DPR
                     { 
                         CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Nationality.CountryCode.ToDecimalString()) 
                     },
-                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToDecimalString(),
+                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToPnrDecimalString(),
                 };
                 ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
             }
