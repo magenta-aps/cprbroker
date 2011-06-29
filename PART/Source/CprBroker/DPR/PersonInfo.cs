@@ -78,7 +78,7 @@ namespace CprBroker.Providers.DPR
             join strt in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { strt.MunicipalityCode, strt.StreetCode } into streets
 
             from personNationality in personNationalities.DefaultIfEmpty()
-            from personAddress in personAddresses.DefaultIfEmpty()
+            from personAddress in personAddresses.OrderByDescending(pa => pa.CprUpdateDate).DefaultIfEmpty()
             from personName in personNames.DefaultIfEmpty()
             from street in streets.DefaultIfEmpty()
 

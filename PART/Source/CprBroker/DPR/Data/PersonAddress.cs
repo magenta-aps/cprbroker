@@ -54,7 +54,7 @@ namespace CprBroker.Providers.DPR
 {
     public partial class PersonAddress
     {
-        public AdresseType ToAdresseType(Street street)
+        public AdresseType ToAdresseType(PersonTotal personTotal, Street street)
         {
             return new AdresseType()
             {
@@ -71,11 +71,11 @@ namespace CprBroker.Providers.DPR
                         AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
                         {
                             CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode),
-                            DistrictName = Town,
+                            DistrictName = personTotal.PostDistrictName,
                             DistrictSubdivisionIdentifier = null,
                             FloorIdentifier = Floor,
                             MailDeliverySublocationIdentifier = null,
-                            PostCodeIdentifier = PostCode.ToDecimalString(),
+                            PostCodeIdentifier = personTotal.PostCode.ToDecimalString(),
                             PostOfficeBoxIdentifier = null,
                             StreetBuildingIdentifier = HouseNumber,
                             StreetName = street != null ? street.StreetAddressingName : null,
@@ -87,7 +87,7 @@ namespace CprBroker.Providers.DPR
                     AddressPoint = null,
                     NoteTekst = null,
                     PolitiDistriktTekst = null,
-                    PostDistriktTekst = null,
+                    PostDistriktTekst = personTotal.PostDistrictName,
                     SkoleDistriktTekst = null,
                     SocialDistriktTekst = null,
                     SogneDistriktTekst = null,
