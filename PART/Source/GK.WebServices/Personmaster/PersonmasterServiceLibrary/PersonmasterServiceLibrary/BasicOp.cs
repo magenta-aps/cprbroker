@@ -46,6 +46,7 @@
 
 using System;
 using System.Data;
+using System.Collections.Generic;
 
 using System.Security.Principal;
 using System.Threading;
@@ -111,13 +112,25 @@ namespace PersonmasterServiceLibrary
         // ================================================================================
         public Guid GetObjectIDFromCpr(string context, string cprNo, ref string aux)
         {
-            return this.GetObjectIDFromCpr(context, cprNo, Guid.Empty, ref aux);
+            return this.GetObjectIDFromCpr(context, new string[] { cprNo }, Guid.Empty, ref aux)[0];
+        }
+
+        // ================================================================================
+        public Guid[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux)
+        {
+            return this.GetObjectIDFromCpr(context, cprNoArr, Guid.Empty, ref aux);
         }
 
         // ================================================================================
         public Guid GetObjectIDFromCprWithOwner(string context, string cprNo, Guid objectOwnerID, ref string aux)
         {
-            return this.GetObjectIDFromCpr(context, cprNo, objectOwnerID, ref aux);
+            return this.GetObjectIDFromCpr(context, new string[] { cprNo }, objectOwnerID, ref aux)[0];
+        }
+
+        // ================================================================================
+        public Guid[] GetObjectIDFromCprArrayWithOwner(string context, string[] cprNoArr, Guid objectOwnerID, ref string aux)
+        {
+            return this.GetObjectIDFromCpr(context, cprNoArr, objectOwnerID, ref aux);
         }
 
         // ================================================================================
@@ -459,7 +472,7 @@ namespace PersonmasterServiceLibrary
         //}
 
         // ================================================================================
-        private Guid GetObjectIDFromCpr(string context, string cprNo, Guid objectOwnerID, ref string aux)
+        private Guid[] GetObjectIDFromCpr(string context, string[] cprNoArr, Guid objectOwnerID, ref string aux)
         {
             //CREATE PROCEDURE spGK_PM_GetObjectIDFromCPR
             //    @context            VARCHAR(120),
@@ -468,28 +481,34 @@ namespace PersonmasterServiceLibrary
             //    @objectID           uniqueidentifier    OUTPUT,
             //    @aux                VARCHAR(1020)       OUTPUT
 
-            // Init params
-            StoredProcedureCallContext.ClearStandardParams(ref context, ref aux);
+            var returnValue = new List<Guid>(cprNoArr.Length);
 
-            StoredProcedureCallContext spContext = new StoredProcedureCallContext("CPRMapperDB", "spGK_PM_GetObjectIDFromCPR");
-
-            spContext.AddInParameter("cprNo", DbType.String, cprNo.Trim());
-
-            if (objectOwnerID == Guid.Empty)
+            foreach (var cprNo in cprNoArr)
             {
-                spContext.AddInParameter("objectOwnerID", DbType.Guid, null);
+                // Init params
+                StoredProcedureCallContext.ClearStandardParams(ref context, ref aux);
+
+                StoredProcedureCallContext spContext = new StoredProcedureCallContext("CPRMapperDB", "spGK_PM_GetObjectIDFromCPR");
+
+                spContext.AddInParameter("cprNo", DbType.String, cprNo.Trim());
+
+                if (objectOwnerID == Guid.Empty)
+                {
+                    spContext.AddInParameter("objectOwnerID", DbType.Guid, null);
+                }
+                else
+                {
+                    spContext.AddInParameter("objectOwnerID", DbType.Guid, objectOwnerID);
+                }
+
+                spContext.AddOutParameter("objectID", DbType.Guid);
+
+                spContext.ExecuteNonQueryWithReturnValue();
+
+                aux = spContext.Aux;
+                returnValue.Add(spContext.GetParameterGuidValue("objectID"));
             }
-            else
-            {
-                spContext.AddInParameter("objectOwnerID", DbType.Guid, objectOwnerID);
-            }
-
-            spContext.AddOutParameter("objectID", DbType.Guid);
-
-            spContext.ExecuteNonQueryWithReturnValue();
-
-            aux = spContext.Aux;
-            return spContext.GetParameterGuidValue("objectID");
+            return returnValue.ToArray();
         }
 
         // ================================================================================
