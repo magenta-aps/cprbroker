@@ -47,6 +47,7 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Linq;
 
 using System.Security.Principal;
 using System.Threading;
@@ -481,34 +482,29 @@ namespace PersonmasterServiceLibrary
             //    @objectID           uniqueidentifier    OUTPUT,
             //    @aux                VARCHAR(1020)       OUTPUT
 
-            var returnValue = new List<Guid>(cprNoArr.Length);
 
-            foreach (var cprNo in cprNoArr)
+            // Init params
+            StoredProcedureCallContext.ClearStandardParams(ref context, ref aux);
+
+            StoredProcedureCallContext spContext = new StoredProcedureCallContext("CPRMapperDB", "spGK_PM_GetObjectIDsFromCPRArray");
+
+            spContext.AddInParameter("cprNoArray", DbType.String, string.Join(",", cprNoArr).Trim());
+
+            if (objectOwnerID == Guid.Empty)
             {
-                // Init params
-                StoredProcedureCallContext.ClearStandardParams(ref context, ref aux);
-
-                StoredProcedureCallContext spContext = new StoredProcedureCallContext("CPRMapperDB", "spGK_PM_GetObjectIDFromCPR");
-
-                spContext.AddInParameter("cprNo", DbType.String, cprNo.Trim());
-
-                if (objectOwnerID == Guid.Empty)
-                {
-                    spContext.AddInParameter("objectOwnerID", DbType.Guid, null);
-                }
-                else
-                {
-                    spContext.AddInParameter("objectOwnerID", DbType.Guid, objectOwnerID);
-                }
-
-                spContext.AddOutParameter("objectID", DbType.Guid);
-
-                spContext.ExecuteNonQueryWithReturnValue();
-
-                aux = spContext.Aux;
-                returnValue.Add(spContext.GetParameterGuidValue("objectID"));
+                spContext.AddInParameter("objectOwnerID", DbType.Guid, null);
             }
-            return returnValue.ToArray();
+            else
+            {
+                spContext.AddInParameter("objectOwnerID", DbType.Guid, objectOwnerID);
+            }
+
+            var dataSet = spContext.ExecuteDataSet();
+            var returnTable = dataSet.Tables[0];
+            var rows = new DataRow[returnTable.Rows.Count];
+            returnTable.Rows.CopyTo(rows, 0);
+            return rows.Select((dr) => (Guid)dr["ObjectID"]).ToArray();
+            aux = spContext.Aux;
         }
 
         // ================================================================================

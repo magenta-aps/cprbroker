@@ -134,7 +134,7 @@ if exists (select 1
           from sysobjects
           where  id = object_id('spGK_PM_GetObjectIDsFromCPRArray')
           and type in ('P','PC'))
-   drop procedure spGK_PM_GetObjectIDFromCPR
+   drop procedure spGK_PM_GetObjectIDsFromCPRArray
 go
 
 if exists (select 1
@@ -1657,10 +1657,10 @@ go
 
 CREATE PROCEDURE spGK_PM_GetObjectIDsFromCPRArray
     @context            VARCHAR(1020),
-    @cprNo              VARCHAR(10),
+    @cprNoArray              VARCHAR(MAX),
     @objectOwnerID      uniqueidentifier,
-    @objectID           uniqueidentifier    OUTPUT,
-    @aux                VARCHAR(1020)       OUTPUT
+	@aux                        VARCHAR(1020)       OUTPUT	
+    
 AS
 BEGIN TRY
     SET NOCOUNT ON
@@ -1682,75 +1682,100 @@ BEGIN TRY
     DECLARE @objectOwnerNamespace       VARCHAR(510)
     
     DECLARE @encryptedCprNo             VARBINARY(90)
+
+	DECLARE @cprNo              VARCHAR(10)
+	DECLARE @index			INT
+	DECLARE @ReturnTable TABLE  (ID INT IDENTITY, CprNo VARCHAR(10), ObjectID UNIQUEIDENTIFIER, RetVal INTEGER, Aux VARCHAR(1020))
+        
+	-- ---
     
-    -- ---
-    
-    EXEC spGK_PM_PrepareSPInvocation @context OUTPUT, spGK_PM_GetObjectIDFromCPR, @cprNo
+    EXEC spGK_PM_PrepareSPInvocation @context OUTPUT, spGK_PM_GetObjectIDsFromCPRArray, @cprNoArray
                     
     -- Prepare parameters
-    SET @ObjectID = NULL
-    SET @aux = ''
+    DECLARE @objectID           uniqueidentifier
+	
     
-    -- Validate CPR (and extract birtdate and gender)
-    EXEC spGK_CORE_ValidateCPR @cprNo, @birthdate OUTPUT, @gender OUTPUT, @aux OUTPUT
+    WHILE LEN(@cprNoArray) > 0
+	BEGIN		
+		SET @ObjectID = NULL
+		SET @aux = ''
+		SET @index = CHARINDEX (',' , @cprNoArray)
+		IF @INDEX > 0
+		BEGIN
+			SET @cprNo = SUBSTRING(@cprNoArray , 1 , @index - 1)
+			SET @cprNoArray = SUBSTRING(@cprNoArray , @index + 1 , LEN(@cprNoArray) - @index)
+		END
+		ELSE
+		BEGIN
+			SET @CprNo = @cprNoArray
+			SET @cprNoArray = ''
+		END
+		PRINT @cprNo
+		
+		-- Validate CPR (and extract birtdate and gender)
+		EXEC spGK_CORE_ValidateCPR @cprNo, @birthdate OUTPUT, @gender OUTPUT, @aux OUTPUT
+	
+		-- gender param is negative on validation errors
+		IF @gender < 0 GOTO ErrExit
+		
+		-- Open key to be used for encrypting CPR
+		SET @RetVal = -2
+		OPEN SYMMETRIC KEY CprNoEncryptKey DECRYPTION BY CERTIFICATE CertForEncryptOfCprNoKey;
 
-    -- gender param is negative on validation errors
-    IF @gender < 0 GOTO ErrExit
+		-- Get the object ID that correspond to the specified CPR (iff any). @ObjectID is NULL if no match is found.
+		SET @RetVal = -3
+		SELECT  @ObjectID = pm.ObjectID
+		FROM    T_PM_CPR cpr, T_PM_PersonMaster pm
+		WHERE   DecryptByKey(cpr.encryptedCprNo) = @cprNo
+		AND     cpr.personMasterID = pm.objectID
     
-    -- Open key to be used for encrypting CPR
-    SET @RetVal = -2
-    OPEN SYMMETRIC KEY CprNoEncryptKey DECRYPTION BY CERTIFICATE CertForEncryptOfCprNoKey;
-
-    -- Get the object ID that correspond to the specified CPR (iff any). @ObjectID is NULL if no match is found.
-    SET @RetVal = -3
-    SELECT  @ObjectID = pm.ObjectID
-    FROM    T_PM_CPR cpr, T_PM_PersonMaster pm
-    WHERE   DecryptByKey(cpr.encryptedCprNo) = @cprNo
-    AND     cpr.personMasterID = pm.objectID
-    
-    IF @ObjectID IS NULL
-    BEGIN
-        -- No CPR entry was found
+		IF @ObjectID IS NULL
+		BEGIN
+			-- No CPR entry was found
         
-        SET @RetVal = -4
+			SET @RetVal = -4
         
-        -- If object owner ID is NULL (unspecified) - get the owner ID for the self namespace configured for this installation
-        IF @objectOwnerID IS NULL
-        BEGIN
-            SET @RetVal = -5
-            SET @aux = 'ObjectOwner ID was not specified in call, and NO default namespace (namespace-self) was defined in the config table (T_CORE_Config). Verify that DB has been initalized (spGK_InitDB).'
-            SET @objectOwnerNamespace = dbo.fnGK_CORE_GetConfigValue('namespace-self')
+			-- If object owner ID is NULL (unspecified) - get the owner ID for the self namespace configured for this installation
+			IF @objectOwnerID IS NULL
+			BEGIN
+				SET @RetVal = -5
+				SET @aux = 'ObjectOwner ID was not specified in call, and NO default namespace (namespace-self) was defined in the config table (T_CORE_Config). Verify that DB has been initalized (spGK_InitDB).'
+				SET @objectOwnerNamespace = dbo.fnGK_CORE_GetConfigValue('namespace-self')
             
-            IF LEN(@objectOwnerNamespace) = 0 GOTO ErrExit
+				IF LEN(@objectOwnerNamespace) = 0 GOTO ErrExit
             
-            SET @RetVal = -6
-            EXEC spGK_PM_GetOwnerIDFromNamespace @context, @objectOwnerID OUTPUT, @objectOwnerNamespace, @aux OUTPUT
-        END
+				SET @RetVal = -6
+				EXEC spGK_PM_GetOwnerIDFromNamespace @context, @objectOwnerID OUTPUT, @objectOwnerNamespace, @aux OUTPUT
+			END
         
-        -- Create new entry in PersonMaster table
-        SET @ObjectID = newid()
+			-- Create new entry in PersonMaster table
+			SET @ObjectID = newid()
         
-        SET @RetVal = -7
+			SET @RetVal = -7
         
-        BEGIN TRAN
-            INSERT INTO T_PM_PersonMaster VALUES (@ObjectID, @objectOwnerID, GETDATE())
-            INSERT INTO T_PM_CPR VALUES (EncryptByKey(key_GUID('CprNoEncryptKey'), @cprNo), @birthdate, @gender, @ObjectID, GETDATE())
-        COMMIT TRAN
-    END
+			BEGIN TRAN
+				INSERT INTO T_PM_PersonMaster VALUES (@ObjectID, @objectOwnerID, GETDATE())
+				INSERT INTO T_PM_CPR VALUES (EncryptByKey(key_GUID('CprNoEncryptKey'), @cprNo), @birthdate, @gender, @ObjectID, GETDATE())
+			COMMIT TRAN
+		END
     
-LifeIsGood:
-    SELECT  @aux = '',
-            @RetVal = 0
+	LifeIsGood:
+		SELECT  @aux = '',
+				@RetVal = 0
         
-ErrExit:
-    IF @RetVal < 0
-    BEGIN
-        SELECT  @aux = 'Retrieval of object ID FROM CPR failed! ' + @aux,
-                @ErrorState = @RetVal * -1
-        RAISERROR (@aux, @ErrorSeverity, @ErrorState)
-    END
+	ErrExit:
+		IF @RetVal < 0
+		BEGIN
+			SELECT  @aux = 'Retrieval of object ID FROM CPR failed! ' + @aux,
+					@ErrorState = @RetVal * -1
+			RAISERROR (@aux, @ErrorSeverity, @ErrorState)
+		END
 
-    RETURN @RetVal
+		INSERT INTO @ReturnTable (CprNo, ObjectID, RetVal, Aux) VALUES (@cprNo, @ObjectID, @RetVal, @aux)
+	
+	END -- WHILE
+	SELECT * FROM @ReturnTable
+	RETURN @RetVal
 END TRY
 
 BEGIN CATCH
