@@ -1685,7 +1685,7 @@ BEGIN TRY
 
 	DECLARE @cprNo                      VARCHAR(10)
 	DECLARE @index			            INT
-	DECLARE @ReturnTable                TABLE  (ID INT IDENTITY, CprNo VARCHAR(10), ObjectID UNIQUEIDENTIFIER)
+	DECLARE @ReturnTable                TABLE  (ID INT IDENTITY, CprNo VARCHAR(10), Birthdate DATETIME, Gender INT, ObjectID UNIQUEIDENTIFIER, Done BIT DEFAULT 0)
         
 	-- ---
     
@@ -1736,50 +1736,37 @@ BEGIN TRY
 		-- gender param is negative on validation errors
 		IF @gender < 0 GOTO ErrExit
 		
-		INSERT INTO @ReturnTable (CprNo) VALUES (@cprNo)		
+		INSERT INTO @ReturnTable (CprNo, Birthdate, Gender) VALUES (@cprNo, @birthdate, @gender)		
 	END
 	
-	DECLARE PersonCursor CURSOR FOR SELECT CprNo FROM @ReturnTable ORDER BY ID
-	OPEN PersonCursor
-	FETCH NEXT FROM PersonCursor INTO @cprNo
-	
-	WHILE @@FETCH_STATUS <> -1
-		BEGIN
-			print @cprNo
-			-- Get the object ID that correspond to the specified CPR (iff any). @ObjectID is NULL if no match is found.
-			SET @RetVal = -3
-			
-			SET @ObjectID = NULL
-			
-			SELECT  @ObjectID = pm.ObjectID
-			FROM    T_PM_CPR cpr, T_PM_PersonMaster pm
-			WHERE   DecryptByKey(cpr.encryptedCprNo) = @cprNo
+	-- Existing ObjectIDs
+	UPDATE RET	
+	SET ObjectID = pm.ObjectID, Done = 1
+	FROM @ReturnTable RET, T_PM_CPR cpr, T_PM_PersonMaster pm
+	WHERE DecryptByKey(cpr.encryptedCprNo) = RET.CprNo
 			AND     cpr.personMasterID = pm.objectID
-	    PRINT @ObjectID
-			IF @ObjectID IS NULL
-			BEGIN
-				-- No CPR entry was found	        
-				SET @RetVal = -4
-	        
-				-- Create new entry in PersonMaster table
-				SET @ObjectID = newid()
-	        
-				SET @RetVal = -7
-	        
-				BEGIN TRAN
-					INSERT INTO T_PM_PersonMaster VALUES (@ObjectID, @objectOwnerID, GETDATE())
-					INSERT INTO T_PM_CPR VALUES (EncryptByKey(key_GUID('CprNoEncryptKey'), @cprNo), @birthdate, @gender, @ObjectID, GETDATE())
-				COMMIT TRAN
-			END
-			
-			UPDATE @ReturnTable SET ObjectID = @ObjectID WHERE CprNo = @cprNo
-			
-			FETCH NEXT FROM PersonCursor INTO @cprNo
-		END 
+	
+	-- New ObjctIDs
+	UPDATE @ReturnTable
+	SET ObjectID = NEWID()
+	WHERE Done = 0
+	
+	BEGIN TRAN
+		INSERT INTO T_PM_PersonMaster 
+		SELECT ObjectID, @objectOwnerID, GETDATE() 
+		FROM @ReturnTable 
+		WHERE Done = 0
 		
-    CLOSE PersonCursor
-    DEALLOCATE PersonCursor
-    
+		INSERT INTO T_PM_CPR 
+		SELECT EncryptByKey(key_GUID('CprNoEncryptKey'), CprNo), Birthdate, Gender, ObjectID, GETDATE()
+		FROM @ReturnTable 
+		WHERE Done = 0
+		
+		UPDATE @ReturnTable 
+		SET Done = 1 
+		WHERE Done = 0
+	COMMIT TRAN
+	
 	LifeIsGood:
 		SELECT  @aux = '',
 				@RetVal = 0
@@ -1803,7 +1790,7 @@ BEGIN CATCH
     
     RETURN @RetVal
 END CATCH
-go
+
 
 
 CREATE PROCEDURE spGK_N2L_IsRegisteredExplicitAccess
