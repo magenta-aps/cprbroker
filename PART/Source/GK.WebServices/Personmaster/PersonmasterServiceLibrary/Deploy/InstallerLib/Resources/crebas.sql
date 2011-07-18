@@ -1657,9 +1657,9 @@ go
 
 CREATE PROCEDURE spGK_PM_GetObjectIDsFromCPRArray
     @context            VARCHAR(1020),
-    @cprNoArray              VARCHAR(MAX),
+    @cprNoArray         VARCHAR(MAX),
     @objectOwnerID      uniqueidentifier,
-	@aux                        VARCHAR(1020)       OUTPUT	
+	@aux                VARCHAR(1020)       OUTPUT	
     
 AS
 BEGIN TRY
@@ -1683,9 +1683,9 @@ BEGIN TRY
     
     DECLARE @encryptedCprNo             VARBINARY(90)
 
-	DECLARE @cprNo              VARCHAR(10)
-	DECLARE @index			INT
-	DECLARE @ReturnTable TABLE  (ID INT IDENTITY, CprNo VARCHAR(10), ObjectID UNIQUEIDENTIFIER, RetVal INTEGER, Aux VARCHAR(1020))
+	DECLARE @cprNo                      VARCHAR(10)
+	DECLARE @index			            INT
+	DECLARE @ReturnTable                TABLE  (ID INT IDENTITY, CprNo VARCHAR(10), ObjectID UNIQUEIDENTIFIER)
         
 	-- ---
     
@@ -1694,23 +1694,41 @@ BEGIN TRY
     -- Prepare parameters
     DECLARE @objectID           uniqueidentifier
 	
+    -- Open key to be used for encrypting CPR
+	SET @RetVal = -2
+	OPEN SYMMETRIC KEY CprNoEncryptKey DECRYPTION BY CERTIFICATE CertForEncryptOfCprNoKey;
+	
+	-- If object owner ID is NULL (unspecified) - get the owner ID for the self namespace configured for this installation
+	IF @objectOwnerID IS NULL
+	BEGIN
+		SET @RetVal = -5
+		SET @aux = 'ObjectOwner ID was not specified in call, and NO default namespace (namespace-self) was defined in the config table (T_CORE_Config). Verify that DB has been initalized (spGK_InitDB).'
+		SET @objectOwnerNamespace = dbo.fnGK_CORE_GetConfigValue('namespace-self')
     
+		IF LEN(@objectOwnerNamespace) = 0 GOTO ErrExit
+    
+		SET @RetVal = -6
+		EXEC spGK_PM_GetOwnerIDFromNamespace @context, @objectOwnerID OUTPUT, @objectOwnerNamespace, @aux OUTPUT
+	END
+		
+	SET @RetVal = -33
+
+    -- Split the CPR numbers array and validate elements
     WHILE LEN(@cprNoArray) > 0
-	BEGIN		
+	BEGIN
 		SET @ObjectID = NULL
 		SET @aux = ''
 		SET @index = CHARINDEX (',' , @cprNoArray)
 		IF @INDEX > 0
-		BEGIN
-			SET @cprNo = SUBSTRING(@cprNoArray , 1 , @index - 1)
-			SET @cprNoArray = SUBSTRING(@cprNoArray , @index + 1 , LEN(@cprNoArray) - @index)
-		END
+			BEGIN
+				SET @cprNo = SUBSTRING(@cprNoArray , 1 , @index - 1)
+				SET @cprNoArray = SUBSTRING(@cprNoArray , @index + 1 , LEN(@cprNoArray) - @index)
+			END
 		ELSE
-		BEGIN
-			SET @CprNo = @cprNoArray
-			SET @cprNoArray = ''
-		END
-		PRINT @cprNo
+			BEGIN
+				SET @CprNo = @cprNoArray
+				SET @cprNoArray = ''
+			END		
 		
 		-- Validate CPR (and extract birtdate and gender)
 		EXEC spGK_CORE_ValidateCPR @cprNo, @birthdate OUTPUT, @gender OUTPUT, @aux OUTPUT
@@ -1718,46 +1736,49 @@ BEGIN TRY
 		-- gender param is negative on validation errors
 		IF @gender < 0 GOTO ErrExit
 		
-		-- Open key to be used for encrypting CPR
-		SET @RetVal = -2
-		OPEN SYMMETRIC KEY CprNoEncryptKey DECRYPTION BY CERTIFICATE CertForEncryptOfCprNoKey;
-
-		-- Get the object ID that correspond to the specified CPR (iff any). @ObjectID is NULL if no match is found.
-		SET @RetVal = -3
-		SELECT  @ObjectID = pm.ObjectID
-		FROM    T_PM_CPR cpr, T_PM_PersonMaster pm
-		WHERE   DecryptByKey(cpr.encryptedCprNo) = @cprNo
-		AND     cpr.personMasterID = pm.objectID
-    
-		IF @ObjectID IS NULL
+		INSERT INTO @ReturnTable (CprNo) VALUES (@cprNo)		
+	END
+	
+	DECLARE PersonCursor CURSOR FOR SELECT CprNo FROM @ReturnTable ORDER BY ID
+	OPEN PersonCursor
+	FETCH NEXT FROM PersonCursor INTO @cprNo
+	
+	WHILE @@FETCH_STATUS <> -1
 		BEGIN
-			-- No CPR entry was found
-        
-			SET @RetVal = -4
-        
-			-- If object owner ID is NULL (unspecified) - get the owner ID for the self namespace configured for this installation
-			IF @objectOwnerID IS NULL
+			print @cprNo
+			-- Get the object ID that correspond to the specified CPR (iff any). @ObjectID is NULL if no match is found.
+			SET @RetVal = -3
+			
+			SET @ObjectID = NULL
+			
+			SELECT  @ObjectID = pm.ObjectID
+			FROM    T_PM_CPR cpr, T_PM_PersonMaster pm
+			WHERE   DecryptByKey(cpr.encryptedCprNo) = @cprNo
+			AND     cpr.personMasterID = pm.objectID
+	    PRINT @ObjectID
+			IF @ObjectID IS NULL
 			BEGIN
-				SET @RetVal = -5
-				SET @aux = 'ObjectOwner ID was not specified in call, and NO default namespace (namespace-self) was defined in the config table (T_CORE_Config). Verify that DB has been initalized (spGK_InitDB).'
-				SET @objectOwnerNamespace = dbo.fnGK_CORE_GetConfigValue('namespace-self')
-            
-				IF LEN(@objectOwnerNamespace) = 0 GOTO ErrExit
-            
-				SET @RetVal = -6
-				EXEC spGK_PM_GetOwnerIDFromNamespace @context, @objectOwnerID OUTPUT, @objectOwnerNamespace, @aux OUTPUT
+				-- No CPR entry was found	        
+				SET @RetVal = -4
+	        
+				-- Create new entry in PersonMaster table
+				SET @ObjectID = newid()
+	        
+				SET @RetVal = -7
+	        
+				BEGIN TRAN
+					INSERT INTO T_PM_PersonMaster VALUES (@ObjectID, @objectOwnerID, GETDATE())
+					INSERT INTO T_PM_CPR VALUES (EncryptByKey(key_GUID('CprNoEncryptKey'), @cprNo), @birthdate, @gender, @ObjectID, GETDATE())
+				COMMIT TRAN
 			END
-        
-			-- Create new entry in PersonMaster table
-			SET @ObjectID = newid()
-        
-			SET @RetVal = -7
-        
-			BEGIN TRAN
-				INSERT INTO T_PM_PersonMaster VALUES (@ObjectID, @objectOwnerID, GETDATE())
-				INSERT INTO T_PM_CPR VALUES (EncryptByKey(key_GUID('CprNoEncryptKey'), @cprNo), @birthdate, @gender, @ObjectID, GETDATE())
-			COMMIT TRAN
-		END
+			
+			UPDATE @ReturnTable SET ObjectID = @ObjectID WHERE CprNo = @cprNo
+			
+			FETCH NEXT FROM PersonCursor INTO @cprNo
+		END 
+		
+    CLOSE PersonCursor
+    DEALLOCATE PersonCursor
     
 	LifeIsGood:
 		SELECT  @aux = '',
@@ -1770,10 +1791,7 @@ BEGIN TRY
 					@ErrorState = @RetVal * -1
 			RAISERROR (@aux, @ErrorSeverity, @ErrorState)
 		END
-
-		INSERT INTO @ReturnTable (CprNo, ObjectID, RetVal, Aux) VALUES (@cprNo, @ObjectID, @RetVal, @aux)
 	
-	END -- WHILE
 	SELECT * FROM @ReturnTable
 	RETURN @RetVal
 END TRY
