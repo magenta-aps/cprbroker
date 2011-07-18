@@ -1655,7 +1655,7 @@ BEGIN CATCH
 END CATCH
 go
 
-CREATE PROCEDURE spGK_PM_GetObjectIDsFromCPRArray
+CREATE PROCEDURE [dbo].[spGK_PM_GetObjectIDsFromCPRArray]
     @context            VARCHAR(1020),
     @cprNoArray         VARCHAR(MAX),
     @objectOwnerID      uniqueidentifier,
@@ -1701,21 +1701,21 @@ BEGIN TRY
 	-- If object owner ID is NULL (unspecified) - get the owner ID for the self namespace configured for this installation
 	IF @objectOwnerID IS NULL
 	BEGIN
-		SET @RetVal = -5
+		SET @RetVal = -3
 		SET @aux = 'ObjectOwner ID was not specified in call, and NO default namespace (namespace-self) was defined in the config table (T_CORE_Config). Verify that DB has been initalized (spGK_InitDB).'
 		SET @objectOwnerNamespace = dbo.fnGK_CORE_GetConfigValue('namespace-self')
     
 		IF LEN(@objectOwnerNamespace) = 0 GOTO ErrExit
     
-		SET @RetVal = -6
+		SET @RetVal = -4
 		EXEC spGK_PM_GetOwnerIDFromNamespace @context, @objectOwnerID OUTPUT, @objectOwnerNamespace, @aux OUTPUT
 	END
 		
-	SET @RetVal = -33
-
+	SET @RetVal = -5
     -- Split the CPR numbers array and validate elements
     WHILE LEN(@cprNoArray) > 0
 	BEGIN
+		SET @RetVal = -6
 		SET @ObjectID = NULL
 		SET @aux = ''
 		SET @index = CHARINDEX (',' , @cprNoArray)
@@ -1730,15 +1730,18 @@ BEGIN TRY
 				SET @cprNoArray = ''
 			END		
 		
+		SET @RetVal = -7
 		-- Validate CPR (and extract birtdate and gender)
 		EXEC spGK_CORE_ValidateCPR @cprNo, @birthdate OUTPUT, @gender OUTPUT, @aux OUTPUT
 	
 		-- gender param is negative on validation errors
 		IF @gender < 0 GOTO ErrExit
 		
+		SET @RetVal = -8
 		INSERT INTO @ReturnTable (CprNo, Birthdate, Gender) VALUES (@cprNo, @birthdate, @gender)		
 	END
 	
+	SET @RetVal = -9
 	-- Existing ObjectIDs
 	UPDATE RET	
 	SET ObjectID = pm.ObjectID, Done = 1
@@ -1746,21 +1749,28 @@ BEGIN TRY
 	WHERE DecryptByKey(cpr.encryptedCprNo) = RET.CprNo
 			AND     cpr.personMasterID = pm.objectID
 	
+	
+	SET @RetVal = -10
 	-- New ObjctIDs
 	UPDATE @ReturnTable
 	SET ObjectID = NEWID()
 	WHERE Done = 0
 	
 	BEGIN TRAN
+		SET @RetVal = -11
+		
 		INSERT INTO T_PM_PersonMaster 
 		SELECT ObjectID, @objectOwnerID, GETDATE() 
 		FROM @ReturnTable 
 		WHERE Done = 0
 		
+		SET @RetVal = -12
 		INSERT INTO T_PM_CPR 
 		SELECT EncryptByKey(key_GUID('CprNoEncryptKey'), CprNo), Birthdate, Gender, ObjectID, GETDATE()
 		FROM @ReturnTable 
 		WHERE Done = 0
+		
+		SET @RetVal = -13
 		
 		UPDATE @ReturnTable 
 		SET Done = 1 
@@ -1791,6 +1801,7 @@ BEGIN CATCH
     RETURN @RetVal
 END CATCH
 
+go
 
 
 CREATE PROCEDURE spGK_N2L_IsRegisteredExplicitAccess
