@@ -92,12 +92,6 @@
     <Compile Include="UI\DatabaseForm.Designer.cs">
       <DependentUpon>DatabaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Installers\DatabaseInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Installers\DatabaseInstaller.Designer.cs">
-      <DependentUpon>DatabaseInstaller.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\DropDatabaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,9 +152,6 @@
     </Compile>
     <Compile Include="UI\WebSiteForm.designer.cs">
       <DependentUpon>WebSiteForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Installers\WebSiteInstaller.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utilities\WebInstallationInfo.Exchange.cs" />
     <Compile Include="Utilities\WebInstallationOptions.cs" />
