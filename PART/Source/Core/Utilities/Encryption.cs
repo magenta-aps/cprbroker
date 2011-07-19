@@ -54,7 +54,6 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Configuration;
-using CprBroker.Config;
 using System.Web;
 
 namespace CprBroker.Utilities
