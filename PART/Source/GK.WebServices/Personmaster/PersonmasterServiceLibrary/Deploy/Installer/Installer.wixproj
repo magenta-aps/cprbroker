@@ -25,6 +25,7 @@
     <Compile Include="Dialogs.wxs" />
     <Compile Include="Directories.wxs" />
     <Compile Include="Files.wxs" />
+    <None Include="Patch.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bitmaps" />
+    <Folder Include="Patch" />
+    <Folder Include="Patch\OldPDB\" />
     <Folder Include="Resources" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +60,7 @@
     <Content Include="Bitmaps\info.ico" />
     <Content Include="Bitmaps\New.ico" />
     <Content Include="Bitmaps\Up.ico" />
+    <None Include="Patch\OldPDB\PersonMasterInstaller_v1.0.0.wixpdb" />
     <Content Include="Resources\PersonmasterServiceLibrary.BasicOp.svc" />
   </ItemGroup>
   <ItemGroup>
@@ -74,7 +78,11 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PostBuildEvent />
+    <PostBuildEvent>cd "$(ProjectDir)"
+candle Patch.wxs -out Patch.wixobj
+light Patch.wixobj -out Patch.wixmsp
+torch -p -xi Patch\OldPDB\PersonMasterInstaller_v1.0.0.wixpdb $(OutDir)en-US\$(TargetName).wixpdb -out Patch.wixmst
+pyro Patch.wixmsp -t MyPatch Patch.wixmst -out $(OutDir)en-US\Patch.msp</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
