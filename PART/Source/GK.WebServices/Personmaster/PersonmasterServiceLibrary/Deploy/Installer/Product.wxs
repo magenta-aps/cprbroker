@@ -6,7 +6,7 @@
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
     <PropertyRef Id="Dummy_DialogsFragmentRefProp"/>
     <PropertyRef Id="Dummy_ConditionsFragmentRefProp"/>
-
+    <PropertyRef Id="Dummy_DatabasePatchFragmentRefProp"/>
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">

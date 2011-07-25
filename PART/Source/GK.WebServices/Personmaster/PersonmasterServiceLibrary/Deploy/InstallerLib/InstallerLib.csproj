@@ -72,6 +72,9 @@
   <ItemGroup>
     <None Include="Resources\crebas.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\patchbas.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />
   <PropertyGroup>

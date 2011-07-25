@@ -79,5 +79,10 @@ namespace PersonMasterInstallers
             return WebsiteCustomAction.RemoveWebsite(session);
         }
 
+        [CustomAction]
+        public static ActionResult PatchDatabase(Session sesion)
+        {
+            return DatabaseCustomAction.PatchDatabase(sesion, Properties.Resources.patchbas);
+        }
     }
 }

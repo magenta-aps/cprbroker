@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="DatabasePatchFragment">
+    <Property Id="Dummy_DatabasePatchFragmentRefProp" Value="-"/>
+
+    <Property Id="PatchPersonMasterDatabase" Hidden="yes"/>
+    <CustomAction Id="PatchPersonMasterDatabase_" Property="PatchPersonMasterDatabase" Value="[CommonProductProperties];[DB_AllProperties]" />
+    <CustomAction Id="PatchPersonMasterDatabase" BinaryKey="InstallersDll" DllEntry="PatchDatabase" Execute="deferred" Impersonate="yes" Return="check" />
+
+    <InstallExecuteSequence>
+      <Custom Action="PatchPersonMasterDatabase_" After="RollbackDatabase_">PATCH</Custom>
+      <Custom Action="PatchPersonMasterDatabase" After="RollbackDatabase">PATCH</Custom>
+    </InstallExecuteSequence>
+  </Fragment>
+</Wix>
