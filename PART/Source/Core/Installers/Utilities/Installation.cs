@@ -314,7 +314,13 @@ namespace CprBroker.Installers
 
         public static WindowHandleWrapper InstallerWindowWrapper(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            return new WindowHandleWrapper(session.GetPropertyValue("ProductName"));
+            var title = session.GetPropertyValue("ProductName");
+            var ret = new WindowHandleWrapper(title + " Setup");
+            if (ret.Handle == IntPtr.Zero)
+            {
+                ret = new WindowHandleWrapper(title);
+            }
+            return ret;
         }
 
         public static bool IsInDeferredMode(this Microsoft.Deployment.WindowsInstaller.Session session)
@@ -370,5 +376,5 @@ namespace CprBroker.Installers
         }
     }
 
-   
+
 }
