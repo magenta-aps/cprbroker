@@ -86,10 +86,19 @@ namespace CprBroker.Installers
             set
             {
                 _AuthenticationInfo = value;
-                windowsAuthenticationRadio.Checked = value.IntegratedSecurity;
-                sqlAuthenticationRadio.Checked = !value.IntegratedSecurity;
-                userIdTextBox.Text = value.UserName;
-                passwordTextBox.Text = value.Password;
+                if (value != null)
+                {
+                    windowsAuthenticationRadio.Checked = value.IntegratedSecurity;
+                    sqlAuthenticationRadio.Checked = !value.IntegratedSecurity;
+                    userIdTextBox.Text = value.UserName;
+                    passwordTextBox.Text = value.Password;
+                }
+                else
+                {
+                    windowsAuthenticationRadio.Checked = true;
+                    userIdTextBox.Text = "";
+                    passwordTextBox.Text = "";
+                }
             }
         }
 
