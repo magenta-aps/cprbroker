@@ -148,5 +148,25 @@ namespace CprBroker.Installers
             }
             return ActionResult.Success;
         }
+
+        public static ActionResult PatchDatabase(Session session, string sql)
+        {
+            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
+            PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
+            patchDatabaseForm.SetupInfo = setupInfo;
+
+            var dialogResult = BaseForm.ShowAsDialog(patchDatabaseForm, session.InstallerWindowWrapper());
+            if (dialogResult == DialogResult.Cancel)
+            {
+                return ActionResult.UserExit;
+            }
+            else
+            {
+                ExecuteDDL(sql, patchDatabaseForm.SetupInfo);
+            }
+            return ActionResult.Success;
+        }
     }
+
+
 }

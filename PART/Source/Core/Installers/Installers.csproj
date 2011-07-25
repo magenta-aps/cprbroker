@@ -72,6 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI\PatchDatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PatchDatabaseForm.Designer.cs">
+      <DependentUpon>PatchDatabaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Installation.cs" />
     <Compile Include="Installers\ConnectionStringsInstaller.cs">
       <SubType>Component</SubType>
@@ -110,6 +116,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PatchDatabaseForm.resx">
+      <DependentUpon>PatchDatabaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\DatabaseForm.resx">
       <DependentUpon>DatabaseForm.cs</DependentUpon>
