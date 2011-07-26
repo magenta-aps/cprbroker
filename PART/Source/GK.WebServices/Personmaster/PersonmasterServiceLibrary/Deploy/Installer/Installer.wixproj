@@ -95,10 +95,10 @@ rem light Patch.wixobj -out Patch.wixmsp
 rem torch -p -xi "C:\Documents and Settings\Beemen\Desktop\Source\GK.WebServices\Personmaster\PersonmasterServiceLibrary\Deploy\Installer\bin\Debug\en-US\PersonMasterInstaller_v1.0.0.wixpdb" $(OutDir)en-US\$(TargetName).wixpdb -out Patch.wixmst
 rem pyro Patch.wixmsp -t MyPatch Patch.wixmst -out $(OutDir)en-US\Patch.msp
 
-msiexec /a "$(ProjectDir)Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" /qb TARGETDIR="$(ProjectDir)Patch\OldMsi\admin"
-msiexec /a "$(ProjectDir)$(OutDir)en-US\PersonMasterInstaller.msi" /qb TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
+rem msiexec /a "$(ProjectDir)Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" /qb TARGETDIR="$(ProjectDir)Patch\OldMsi\admin"
+rem msiexec /a "$(ProjectDir)$(OutDir)en-US\PersonMasterInstaller.msi" /qb TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
 
-candle -dConfigurationName=$(ConfigurationName) -dOutDir="$(OutDir)" Patch.wxs
+candle.exe -dOutDir=$(OutDir) "-dProjectDir=$(SolutionDir)Deploy\Installer" Patch.wxs 
 light Patch.wixobj -out Patch.pcp
 msimsp.exe -s patch.pcp -p "$(ProjectDir)$(OutDir)en-US\Patch.msp" -l patch.log</PostBuildEvent>
   </PropertyGroup>

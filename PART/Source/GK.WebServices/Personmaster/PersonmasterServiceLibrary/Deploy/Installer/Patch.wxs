@@ -6,8 +6,8 @@
     <PatchInformation Description="Updates Person Master to v. 1.1.0.0"  Comments="Patch for Person Master v. 1.0.0.0" Manufacturer="Magenta ApS"  />
     <PatchMetadata AllowRemoval="no" Description="Updates Person Master to v. 1.1.0.0" ManufacturerName="Magenta ApS" TargetProductName="Person Master" MoreInfoURL="http://magenta-aps.dk" Classification="Update" DisplayName="Person Master Patch 2011-07-31"/>
     <Family DiskId="1000" MediaSrcProp="Sample" Name="Sample" SequenceStart="1000">
-      <UpgradeImage SourceFile="$(var.ProjectDir)Patch\OldMsi\admin\PersonMasterInstaller.2011.05.29.msi" Id="SampleUpgrade">
-        <TargetImage SourceFile="$(var.ProjectDir)$(var.OutDir)\en-US\admin\PersonMasterInstaller.msi" Order="2" Id="SampleTarget" IgnoreMissingFiles="no"/>
+      <UpgradeImage SourceFile="$(var.ProjectDir)\Patch\OldMsi\admin\PersonMasterInstaller.2011.05.29.msi" Id="SampleUpgrade">
+        <TargetImage SourceFile="$(var.ProjectDir)\$(var.OutDir)\en-US\admin\PersonMasterInstaller.msi" Order="2" Id="SampleTarget" IgnoreMissingFiles="no"/>
       </UpgradeImage>
     </Family>
 
