@@ -5,7 +5,7 @@
 
     <PropertyRef Id="Dummy_DatabaseFragmentRefProperty"/>
 
-    <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)PersonMasterInstallers.CA.dll"/>
+    <Binary Id="InstallersDll" SourceFile="$(var.InstallerLib.ProjectDir)bin\$(var.InstallerLib.Configuration)\PersonMasterInstallers.CA.dll"/>
 
     <WixVariable Id="WEB_CREATEWEB" Value="True"/>
 

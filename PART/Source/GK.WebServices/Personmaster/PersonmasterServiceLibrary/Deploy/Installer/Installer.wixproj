@@ -30,6 +30,14 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\PersonmasterServiceLibrary\PersonmasterServiceLibrary.csproj">
+      <Name>PersonmasterServiceLibrary</Name>
+      <Project>{861b016b-5332-41fe-8f2b-2e9ec4bc13b6}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\InstallerLib\InstallerLib.csproj">
       <Name>InstallerLib</Name>
       <Project>{df2cfa18-b54c-4f7d-b7ce-14c76df1d04b}</Project>

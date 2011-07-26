@@ -14,12 +14,12 @@
     <WixVariable Id="WixUINewIco" Value="Bitmaps\New.ico"/>
     <WixVariable Id="WixUIUpIco" Value="Bitmaps\Up.ico"/>
 
-    <Binary Id="WixUI_Bmp_Banner" SourceFile="!(wix.WixUIBannerBmp=$(var.bannerBmp))" />
-    <Binary Id="WixUI_Bmp_Dialog" SourceFile="!(wix.WixUIDialogBmp=$(var.dialogBmp))" />
-    <Binary Id="WixUI_Ico_Exclam" SourceFile="!(wix.WixUIExclamationIco=$(var.exclamationIco))" />
-    <Binary Id="WixUI_Ico_Info" SourceFile="!(wix.WixUIInfoIco=$(var.infoIco))" />
-    <Binary Id="WixUI_Bmp_New" SourceFile="!(wix.WixUINewIco=$(var.newIco))" />
-    <Binary Id="WixUI_Bmp_Up" SourceFile="!(wix.WixUIUpIco=$(var.upIco))" />
+    <Binary Id="WixUI_Bmp_Banner" SourceFile="Bitmaps\bannrbmp.bmp" />
+    <Binary Id="WixUI_Bmp_Dialog" SourceFile="Bitmaps\dlgbmp.bmp" />
+    <Binary Id="WixUI_Ico_Exclam" SourceFile="Bitmaps\exclamic.ico" />
+    <Binary Id="WixUI_Ico_Info" SourceFile="Bitmaps\info.ico" />
+    <Binary Id="WixUI_Bmp_New" SourceFile="Bitmaps\New.ico" />
+    <Binary Id="WixUI_Bmp_Up" SourceFile="Bitmaps\Up.ico" />
     <WixVariable Id="WixUICostingPopupOptOut" Value="1" Overridable="yes" />
 
     <UI Id="PersonMasterUI">
