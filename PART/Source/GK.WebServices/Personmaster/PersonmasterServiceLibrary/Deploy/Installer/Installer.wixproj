@@ -59,6 +59,7 @@
   <ItemGroup>
     <Folder Include="Bitmaps" />
     <Folder Include="Patch" />
+    <Folder Include="Patch\OldMsi" />
     <Folder Include="Patch\OldPDB\" />
     <Folder Include="Resources" />
   </ItemGroup>
@@ -70,6 +71,7 @@
     <Content Include="Bitmaps\New.ico" />
     <Content Include="Bitmaps\Up.ico" />
     <None Include="Patch\OldPDB\PersonMasterInstaller_v1.0.0.wixpdb" />
+    <Content Include="Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" />
     <Content Include="Resources\PersonmasterServiceLibrary.BasicOp.svc" />
   </ItemGroup>
   <ItemGroup>
@@ -88,10 +90,17 @@
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
     <PostBuildEvent>cd "$(ProjectDir)"
-candle Patch.wxs -out Patch.wixobj
-light Patch.wixobj -out Patch.wixmsp
-torch -p -xi Patch\OldPDB\PersonMasterInstaller_v1.0.0.wixpdb $(OutDir)en-US\$(TargetName).wixpdb -out Patch.wixmst
-pyro Patch.wixmsp -t MyPatch Patch.wixmst -out $(OutDir)en-US\Patch.msp</PostBuildEvent>
+rem candle Patch.wxs -out Patch.wixobj
+rem light Patch.wixobj -out Patch.wixmsp
+rem torch -p -xi "C:\Documents and Settings\Beemen\Desktop\Source\GK.WebServices\Personmaster\PersonmasterServiceLibrary\Deploy\Installer\bin\Debug\en-US\PersonMasterInstaller_v1.0.0.wixpdb" $(OutDir)en-US\$(TargetName).wixpdb -out Patch.wixmst
+rem pyro Patch.wixmsp -t MyPatch Patch.wixmst -out $(OutDir)en-US\Patch.msp
+
+msiexec /a "$(ProjectDir)Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" /qb TARGETDIR="$(ProjectDir)Patch\OldMsi\admin"
+msiexec /a "$(ProjectDir)$(OutDir)en-US\PersonMasterInstaller.msi" /qb TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
+
+candle -dConfigurationName=$(ConfigurationName) -dOutDir="$(OutDir)" Patch.wxs
+light Patch.wixobj -out Patch.pcp
+msimsp.exe -s patch.pcp -p "$(ProjectDir)$(OutDir)en-US\Patch.msp" -l patch.log</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

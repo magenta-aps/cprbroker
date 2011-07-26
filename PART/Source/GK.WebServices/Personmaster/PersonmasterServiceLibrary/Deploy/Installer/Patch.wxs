@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Patch AllowRemoval="no" Classification="Update" Comments="Patch for Person Master v. 1.0.0.0" Description="Updates Person Master to v. 1.1.0.0" DisplayName="Person Master Patch 2011-07-31" Manufacturer="Magenta ApS" MoreInfoURL="http://magenta-aps.dk" TargetProductName="Person Master">
 
-    <Media Id="1000" Cabinet="MyPatch.cab">
-      <PatchBaseline Id="MyPatch" />
-    </Media>
+  <PatchCreation Id="12521639-B581-45AF-9A7F-794E67DA41FC" CleanWorkingFolder="yes" OutputPath="Patch.pcp" WholeFilesOnly="yes">
 
-    <PatchFamily Id="MyPatchFamily" Version="1.1.0.0" ProductCode="ddb79617-a985-4841-9626-22779ded8d13" Supersede="yes">      
-      <ComponentRef Id="CMP_PersonmasterServiceLibrary.dll" />
-      <ComponentRef Id="CMP_PersonmasterServiceLibrary.pdb" />
+    <PatchInformation Description="Updates Person Master to v. 1.1.0.0"  Comments="Patch for Person Master v. 1.0.0.0" Manufacturer="Magenta ApS"  />
+    <PatchMetadata AllowRemoval="no" Description="Updates Person Master to v. 1.1.0.0" ManufacturerName="Magenta ApS" TargetProductName="Person Master" MoreInfoURL="http://magenta-aps.dk" Classification="Update" DisplayName="Person Master Patch 2011-07-31"/>
+    <Family DiskId="1000" MediaSrcProp="Sample" Name="Sample" SequenceStart="1000">
+      <UpgradeImage SourceFile="$(var.ProjectDir)Patch\OldMsi\admin\PersonMasterInstaller.2011.05.29.msi" Id="SampleUpgrade">
+        <TargetImage SourceFile="$(var.ProjectDir)$(var.OutDir)\en-US\admin\PersonMasterInstaller.msi" Order="2" Id="SampleTarget" IgnoreMissingFiles="no"/>
+      </UpgradeImage>
+    </Family>
 
-      <BinaryRef Id="InstallersDll"/>
-      
-      <CustomActionRef Id="CA_Set_DB_AllProperties"/>
-      <CustomActionRef Id="CA_Set_CommonProductProperties"/>
-      <CustomActionRef Id="PatchPersonMasterDatabase_"/>
-      <CustomActionRef Id="PatchPersonMasterDatabase"/>
-    </PatchFamily>
-    
-  </Patch>
+    <PatchSequence PatchFamily="SamplePatchFamily" Sequence="1.0.0.0" Supersede="yes"/>
+  </PatchCreation >
 </Wix>
