@@ -95,8 +95,9 @@
 rem Method 1 - Wix
 candle Patch_Wix.wxs -out Patch_Wix.wixobj
 light Patch_Wix.wixobj -out Patch_Wix.wixmsp
-torch -p "Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" $(OutDir)en-US\$(TargetFileName) -out Patch_Wix.mst
-pyro Patch_Wix.wixmsp -t MyPatch Patch_Wix.mst -out $(OutDir)en-US\Patch_Wix.msp
+torch -xo "Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" $(OutDir)en-US\$(TargetFileName) -out Patch_Wix.wixmst
+pyro Patch_Wix.wixmsp -t MyPatch Patch_Wix.wixmst -out $(OutDir)en-US\Patch_Wix.msp
+
 
 rem Method 2 - Windows SDK
 rem msiexec /a "$(ProjectDir)Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" /qb TARGETDIR="$(ProjectDir)Patch\OldMsi\admin"
