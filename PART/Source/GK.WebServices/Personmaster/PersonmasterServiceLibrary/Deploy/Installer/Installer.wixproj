@@ -21,11 +21,12 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="Patch_WinSDK.wxs" />
     <Compile Include="Customizations.wxs" />
     <Compile Include="Dialogs.wxs" />
     <Compile Include="Directories.wxs" />
     <Compile Include="Files.wxs" />
-    <None Include="Patch.wxs" />
+    <None Include="Patch_Wix.wxs" />
     <Compile Include="Patch\DatabasePatch.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
@@ -90,12 +91,20 @@
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
     <PostBuildEvent>cd "$(ProjectDir)"
-msiexec /a "$(ProjectDir)Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" /qb TARGETDIR="$(ProjectDir)Patch\OldMsi\admin"
-msiexec /a "$(ProjectDir)$(OutDir)en-US\PersonMasterInstaller.msi" /qb TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
 
-candle.exe -dOutDir=$(OutDir) "-dProjectDir=$(SolutionDir)Deploy\Installer" Patch.wxs 
-light Patch.wixobj -out Patch.pcp
-msimsp.exe -s patch.pcp -p "$(ProjectDir)$(OutDir)en-US\Patch.msp" -l patch.log</PostBuildEvent>
+rem Method 1 - Wix
+candle Patch_Wix.wxs -out Patch_Wix.wixobj
+light Patch_Wix.wixobj -out Patch_Wix.wixmsp
+torch -p "Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" $(OutDir)en-US\$(TargetFileName) -out Patch_Wix.mst
+pyro Patch_Wix.wixmsp -t MyPatch Patch_Wix.mst -out $(OutDir)en-US\Patch_Wix.msp
+
+rem Method 2 - Windows SDK
+rem msiexec /a "$(ProjectDir)Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" /qb TARGETDIR="$(ProjectDir)Patch\OldMsi\admin"
+rem msiexec /a "$(ProjectDir)$(OutDir)en-US\PersonMasterInstaller.msi" /qb TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
+
+rem candle.exe -dOutDir=$(OutDir) "-dProjectDir=$(SolutionDir)Deploy\Installer" Patch.wxs 
+rem light Patch.wixobj -out Patch.pcp
+rem msimsp.exe -s patch.pcp -p "$(ProjectDir)$(OutDir)en-US\Patch.msp" -l patch.log</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
