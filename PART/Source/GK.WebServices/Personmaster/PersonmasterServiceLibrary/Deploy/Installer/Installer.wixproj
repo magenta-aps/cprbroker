@@ -93,10 +93,10 @@
     <PostBuildEvent>cd "$(ProjectDir)"
 
 rem Method 1 - Wix
-candle Patch_Wix.wxs -out Patch_Wix.wixobj
-light Patch_Wix.wixobj -out Patch_Wix.wixmsp
-torch -xo "Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" $(OutDir)en-US\$(TargetFileName) -out Patch_Wix.wixmst
-pyro Patch_Wix.wixmsp -t MyPatch Patch_Wix.wixmst -out $(OutDir)en-US\Patch_Wix.msp
+rem candle Patch_Wix.wxs -out Patch_Wix.wixobj
+rem light Patch_Wix.wixobj -out Patch_Wix.wixmsp
+rem torch -xo "Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" $(OutDir)en-US\$(TargetFileName) -out Patch_Wix.wixmst
+rem pyro Patch_Wix.wixmsp -t MyPatch Patch_Wix.wixmst -out $(OutDir)en-US\Patch_Wix.msp
 
 
 rem Method 2 - Windows SDK
