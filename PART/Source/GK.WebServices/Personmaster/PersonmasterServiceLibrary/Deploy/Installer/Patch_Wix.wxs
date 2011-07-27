@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Patch AllowRemoval="no" Classification="Update" Comments="Patch for Person Master v. 1.0.0.0" Description="Updates Person Master to v. 1.1.0.0" DisplayName="Person Master Patch 2011-07-31" Manufacturer="Magenta ApS" MoreInfoURL="http://magenta-aps.dk" TargetProductName="Person Master">
+  <Patch AllowRemoval="yes" Classification="Update" Comments="Patch for Person Master v. 1.0.0.0" Description="Updates Person Master to v. 1.1.0.0" DisplayName="Person Master Patch 2011-07-31" Manufacturer="Magenta ApS" MoreInfoURL="http://magenta-aps.dk" TargetProductName="Person Master">
 
     <Media Id="1000" Cabinet="MyPatch.cab">
       <PatchBaseline Id="MyPatch" />
