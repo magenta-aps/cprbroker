@@ -92,20 +92,14 @@
   <PropertyGroup>
     <PostBuildEvent>cd "$(ProjectDir)"
 
-rem Method 1 - Wix
-rem candle Patch_Wix.wxs -out Patch_Wix.wixobj
-rem light Patch_Wix.wixobj -out Patch_Wix.wixmsp
-rem torch -xo "Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" $(OutDir)en-US\$(TargetFileName) -out Patch_Wix.wixmst
-rem pyro Patch_Wix.wixmsp -t MyPatch Patch_Wix.wixmst -out $(OutDir)en-US\Patch_Wix.msp
+candle Patch_Wix.wxs -out Patch_Wix.wixobj
+light Patch_Wix.wixobj -out Patch_Wix.wixmsp
 
+SET OldProjectDir=C:\Patch\OldSource\GK.WebServices\Personmaster\PersonmasterServiceLibrary\Deploy\Installer\
 
-rem Method 2 - Windows SDK
-rem msiexec /a "$(ProjectDir)Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" /qb TARGETDIR="$(ProjectDir)Patch\OldMsi\admin"
-rem msiexec /a "$(ProjectDir)$(OutDir)en-US\PersonMasterInstaller.msi" /qb TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
-
-rem candle.exe -dOutDir=$(OutDir) "-dProjectDir=$(SolutionDir)Deploy\Installer" Patch.wxs 
-rem light Patch.wixobj -out Patch.pcp
-rem msimsp.exe -s patch.pcp -p "$(ProjectDir)$(OutDir)en-US\Patch.msp" -l patch.log</PostBuildEvent>
+torch -p -xi %OldProjectDir%bin\Debug\en-US\PersonMasterInstaller.wixpdb $(OutDir)en-US\PersonMasterInstaller.wixpdb -out Patch_Wix.wixmst
+cd %OldProjectDir%
+pyro $(ProjectDir)Patch_Wix.wixmsp -t MyPatch $(ProjectDir)Patch_Wix.wixmst -out $(ProjectDir)$(OutDir)en-US\Patch_Wix.msp</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
