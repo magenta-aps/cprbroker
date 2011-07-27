@@ -60,8 +60,6 @@
   <ItemGroup>
     <Folder Include="Bitmaps" />
     <Folder Include="Patch" />
-    <Folder Include="Patch\OldMsi" />
-    <Folder Include="Patch\OldPDB\" />
     <Folder Include="Resources" />
   </ItemGroup>
   <ItemGroup>
@@ -71,8 +69,6 @@
     <Content Include="Bitmaps\info.ico" />
     <Content Include="Bitmaps\New.ico" />
     <Content Include="Bitmaps\Up.ico" />
-    <None Include="Patch\OldPDB\PersonMasterInstaller_v1.0.0.wixpdb" />
-    <Content Include="Patch\OldMsi\PersonMasterInstaller.2011.05.29.msi" />
     <Content Include="Resources\PersonmasterServiceLibrary.BasicOp.svc" />
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +95,7 @@ SET OldProjectDir=C:\Patch\OldSource\GK.WebServices\Personmaster\PersonmasterSer
 
 torch -p -xi %OldProjectDir%bin\Debug\en-US\PersonMasterInstaller.wixpdb $(OutDir)en-US\PersonMasterInstaller.wixpdb -out Patch_Wix.wixmst
 cd %OldProjectDir%
-pyro $(ProjectDir)Patch_Wix.wixmsp -t MyPatch $(ProjectDir)Patch_Wix.wixmst -out $(ProjectDir)$(OutDir)en-US\Patch_Wix.msp</PostBuildEvent>
+pyro "$(ProjectDir)Patch_Wix.wixmsp" -t MyPatch "$(ProjectDir)Patch_Wix.wixmst" -out "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp"</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
