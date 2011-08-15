@@ -82,7 +82,7 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult PatchDatabase(Session sesion)
         {
-            return DatabaseCustomAction.PatchDatabase(sesion, Properties.Resources.patchbas);
+            return DatabaseCustomAction.PatchDatabase(sesion, Properties.Resources.patchbas_1_1);
         }
     }
 }

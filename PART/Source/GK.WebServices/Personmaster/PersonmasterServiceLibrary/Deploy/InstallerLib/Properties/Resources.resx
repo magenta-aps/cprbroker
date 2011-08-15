@@ -121,8 +121,7 @@
   <data name="crebas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crebas.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="patchbas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\patchbas.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+  <data name="patchbas_1_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\patchbas_1_1.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
 </root>

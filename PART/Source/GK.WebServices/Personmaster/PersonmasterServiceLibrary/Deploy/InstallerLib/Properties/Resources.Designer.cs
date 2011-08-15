@@ -100,9 +100,9 @@ namespace PersonMasterInstallers.Properties {
         ///
         ///CREATE PROCEDURE [dbo].[ [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string patchbas {
+        internal static string patchbas_1_1 {
             get {
-                return ResourceManager.GetString("patchbas", resourceCulture);
+                return ResourceManager.GetString("patchbas_1_1", resourceCulture);
             }
         }
     }
