@@ -61,7 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\personmaster\BasicOp.wsdl" />
+    <None Include="Service References\personmaster\BasicOp.wsdl">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\personmaster\personmaster.wsdl" />
     <None Include="Service References\personmaster\personmaster.xsd">
       <SubType>Designer</SubType>

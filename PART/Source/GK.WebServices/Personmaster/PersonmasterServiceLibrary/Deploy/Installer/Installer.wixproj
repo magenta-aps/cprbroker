@@ -14,13 +14,15 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;bannerBmp=Bitmaps\bannrbmp.bmp;dialogBmp=$(MSBuildProjectDirectory)\Bitmaps\dlgbmp.bmp;exclamationIco=$(MSBuildProjectDirectory)\Bitmaps\exclamic.ico;infoIco=$(MSBuildProjectDirectory)\Bitmaps\info.ico;licenseRtf=$(MSBuildProjectDirectory)\license.rtf;newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;printeulaDll=$(OutputPath)\PrintEula.dll;SitePath=..\..\PersonmasterServiceLibrary\;OutputPath=..\Output\;</DefineConstants>
+    <DefineConstants>Debug;bannerBmp=Bitmaps\bannrbmp.bmp;dialogBmp=$(MSBuildProjectDirectory)\Bitmaps\dlgbmp.bmp;exclamationIco=$(MSBuildProjectDirectory)\Bitmaps\exclamic.ico;infoIco=$(MSBuildProjectDirectory)\Bitmaps\info.ico;licenseRtf=$(MSBuildProjectDirectory)\license.rtf;newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;printeulaDll=$(OutputPath)\PrintEula.dll;SitePath=..\..\PersonmasterServiceLibrary\;OutputPath=..\Output\;WixCommonPath=..\..\..\..\..\Core\WixCommon\</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Database.wxs" />
+    <Compile Include="Upgrades.wxs" />
     <None Include="Patch_WinSDK.wxs" />
     <Compile Include="Customizations.wxs" />
     <Compile Include="Dialogs.wxs" />
@@ -59,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bitmaps" />
+    <Folder Include="SQL" />
     <Folder Include="Patch" />
     <Folder Include="Resources" />
   </ItemGroup>
@@ -69,9 +72,21 @@
     <Content Include="Bitmaps\info.ico" />
     <Content Include="Bitmaps\New.ico" />
     <Content Include="Bitmaps\Up.ico" />
+    <Content Include="Resources\MsiZap.Exe" />
     <Content Include="Resources\PersonmasterServiceLibrary.BasicOp.svc" />
+    <Content Include="SQL\Procedures.sql" />
+    <Content Include="SQL\Functions.sql" />
+    <Content Include="SQL\Tables.sql" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixSqlExtension">
+      <HintPath>$(WixExtDir)\WixSqlExtension.dll</HintPath>
+      <Name>WixSqlExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixNetFxExtension">
       <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
       <Name>WixNetFxExtension</Name>
@@ -86,17 +101,17 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PostBuildEvent>cd "$(ProjectDir)"
+    <PostBuildEvent>rem cd "$(ProjectDir)"
 
-candle Patch_Wix.wxs -out Patch_Wix.wixobj
-light Patch_Wix.wixobj -out Patch_Wix.wixmsp
+rem candle Patch_Wix.wxs -out Patch_Wix.wixobj
+rem light Patch_Wix.wixobj -out Patch_Wix.wixmsp
 
-SET OldProjectDir=C:\Patch\OldSource\GK.WebServices\Personmaster\PersonmasterServiceLibrary\Deploy\Installer\
+rem SET OldProjectDir=C:\Patch\OldSource\GK.WebServices\Personmaster\PersonmasterServiceLibrary\Deploy\Installer\
 
-torch -p -xi %OldProjectDir%bin\Debug\en-US\PersonMasterInstaller.wixpdb $(OutDir)en-US\PersonMasterInstaller.wixpdb -out Patch_Wix.wixmst
-cd %OldProjectDir%
-pyro "$(ProjectDir)Patch_Wix.wixmsp" -t MyPatch "$(ProjectDir)Patch_Wix.wixmst" -out "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp"
-copy "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp" "$(ProjectDir)$(OutDir)en-US\PersonMasterPatch_1_1.msp" /y</PostBuildEvent>
+rem torch -p -xi %OldProjectDir%bin\Debug\en-US\PersonMasterInstaller.wixpdb $(OutDir)en-US\PersonMasterInstaller.wixpdb -out Patch_Wix.wixmst
+rem cd %OldProjectDir%
+rem pyro "$(ProjectDir)Patch_Wix.wixmsp" -t MyPatch "$(ProjectDir)Patch_Wix.wixmst" -out "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp"
+rem copy "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp" "$(ProjectDir)$(OutDir)en-US\PersonMasterPatch_1_1.msp" /y</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
