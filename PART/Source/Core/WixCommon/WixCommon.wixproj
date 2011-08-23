@@ -13,7 +13,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
+    <DefineConstants>Debug;WixCommonPath=;</DefineConstants>
+    <LibBindFiles>True</LibBindFiles>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -27,6 +28,34 @@
     <Compile Include="Website.wxs" />
     <Compile Include="WebsiteDialog.wxs" />
     <Compile Include="WebSiteOrDirectoryDialog.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SQL" />
+    <Folder Include="SQL\Base" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQL\Base\AddColumn.sql" />
+    <Content Include="SQL\Base\AddForeignKey.sql" />
+    <Content Include="SQL\Base\AddIndex.sql" />
+    <Content Include="SQL\Base\AddTable.sql" />
+    <Content Include="SQL\Base\AddSql.sql" />
+    <Content Include="SQL\Base\AddPrimaryKey.sql" />
+    <Content Include="SQL\Base\DropColumn.sql" />
+    <Content Include="SQL\Base\DropForeignKey.sql" />
+    <Content Include="SQL\Base\DropIndex.sql" />
+    <Content Include="SQL\Base\DropTable.sql" />
+    <Content Include="SQL\Base\ExecuteInstallerSql.sql" />
+    <Content Include="SQL\Base\InstallerSqlTable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixSqlExtension">
+      <HintPath>$(WixExtDir)\WixSqlExtension.dll</HintPath>
+      <Name>WixSqlExtension</Name>
+    </WixExtension>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
