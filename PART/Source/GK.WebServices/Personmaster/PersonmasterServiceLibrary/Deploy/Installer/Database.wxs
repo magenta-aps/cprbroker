@@ -56,15 +56,11 @@
     <Component Id="CMP_DatabaseObjects" Guid="{3BEAEF0B-4F6A-42F2-80DC-A93FDBA86506}" Directory="INSTALLDIR" KeyPath="yes">
       <sql:SqlScript Id="SQL_Tables.sql" BinaryKey="BIN_Tables.sql" SqlDb="DB_Database" Sequence="2001" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
       <sql:SqlScript Id="SQL_Procedures.sql" BinaryKey="BIN_Procedures.sql" SqlDb="DB_Database" Sequence="2002" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
-      <sql:SqlScript Id="SQL_Functions.sql" BinaryKey="BIN_Functions.sql" SqlDb="DB_Database" Sequence="2003" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>      
+      <sql:SqlScript Id="SQL_Functions.sql" BinaryKey="BIN_Functions.sql" SqlDb="DB_Database" Sequence="2003" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
       <sql:SqlString Id="SQL_InsertDomain" SQL="EXEC AddSql 'INSERT INTO T_CORE_Config VALUES (''namespace-self'', ''[DB_DOMAIN]'')'" SqlDb="DB_Database" Sequence="9998" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
       <sql:SqlString Id="SQL_CreateMasterKey" SQL="IF NOT EXISTS (SELECT * FROM sys.symmetric_keys WHERE symmetric_key_id = 101) CREATE MASTER KEY ENCRYPTION BY PASSWORD = '[DB_ENCRYPTIONKEY]'" SqlDb="DB_Database" Sequence="10001" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
       <sql:SqlString Id="SQL_InitDB" SQL="EXEC spGK_PM_InitDB" SqlDb="DB_Database" Sequence="10002" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
     </Component>
-
-
-    <CustomAction Id="ValidateDatabaseConnection" BinaryKey="InstallersDll" DllEntry="TestDatabaseConnection" Execute="immediate" Return="check" Impersonate="yes"/>
-
 
   </Fragment>
 </Wix>
