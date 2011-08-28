@@ -88,7 +88,7 @@ namespace CprBroker.Providers.DPR
                 // Active name only
             && (personName == null || (personName.CorrectionMarker == null && personName.NameTerminationDate == null))
                 // Active address only
-            && (personAddress != null || (personAddress.CorrectionMarker == null && personAddress.AddressEndDate == null))
+            && (personAddress == null || (personAddress.CorrectionMarker == null && personAddress.AddressEndDate == null))
 
             select new PersonInfo()
             {
@@ -257,7 +257,7 @@ namespace CprBroker.Providers.DPR
                 ret.Item = new CprBorgerType()
                 {
                     AdresseNoteTekst = null,
-                    FolkeregisterAdresse = Address != null ? Address.ToAdresseType(Street) : null,
+                    FolkeregisterAdresse = Address != null ? Address.ToAdresseType(PersonTotal, Street) : null,
                     ForskerBeskyttelseIndikator = PersonTotal.DirectoryProtectionMarker == '1',
                     PersonCivilRegistrationIdentifier = PersonTotal.PNR.ToPnrDecimalString(),
                     PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Nationality.CountryCode.ToDecimalString()),
