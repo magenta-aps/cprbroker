@@ -88,7 +88,7 @@ namespace CprBroker.Providers.DPR
                 // Active name only
             && (personName == null || (personName.CorrectionMarker == null && personName.NameTerminationDate == null))
                 // Active address only
-            && (personAddress == null || (personAddress.CorrectionMarker == null && personAddress.AddressEndDate == null))
+            && (personAddress == null || personAddress.CorrectionMarker == null )
 
             select new PersonInfo()
             {
