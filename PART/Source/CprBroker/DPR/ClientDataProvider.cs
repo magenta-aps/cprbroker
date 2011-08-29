@@ -104,8 +104,13 @@ namespace CprBroker.Providers.DPR
                 var exists = (from personTotal in dataContext.PersonTotals
                               select personTotal.PNR).Contains(cprNum);
 
-                if (!exists)
+                if (exists)
                 {
+                    Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "EnsurePersonDataExists", string.Format("PNR {0} Exists in DPR, DPR Diversion not called", cprNumber), null, null);
+                }
+                else
+                {
+                    Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "EnsurePersonDataExists", string.Format("Calling DPR Diversion : {0}", cprNumber), null, null);
                     GetPersonData(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.ExtendedData, cprNumber);
                     if (!KeepSubscription)
                     {
