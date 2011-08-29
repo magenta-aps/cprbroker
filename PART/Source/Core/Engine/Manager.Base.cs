@@ -72,7 +72,7 @@ namespace CprBroker.Engine
         {
             try
             {
-                #region Initialization and loading of clearData providers
+                #region Initialization and loading of data providers
                 // Initialize context
                 try
                 {
