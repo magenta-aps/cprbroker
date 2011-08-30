@@ -78,7 +78,7 @@ namespace CprBroker.Providers.DPR
             join strt in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { strt.MunicipalityCode, strt.StreetCode } into streets
 
             from personNationality in personNationalities.DefaultIfEmpty()
-            from personAddress in personAddresses.OrderByDescending(pa => pa.CprUpdateDate).DefaultIfEmpty()
+            from personAddress in personAddresses.OrderByDescending(pa => pa.AddressStartDate).DefaultIfEmpty()
             from personName in personNames.DefaultIfEmpty()
             from street in streets.DefaultIfEmpty()
 
@@ -88,7 +88,7 @@ namespace CprBroker.Providers.DPR
                 // Active name only
             && (personName == null || (personName.CorrectionMarker == null && personName.NameTerminationDate == null))
                 // Active address only
-            && (personAddress == null || personAddress.CorrectionMarker == null )
+            && (personAddress == null || personAddress.CorrectionMarker == null)
 
             select new PersonInfo()
             {
