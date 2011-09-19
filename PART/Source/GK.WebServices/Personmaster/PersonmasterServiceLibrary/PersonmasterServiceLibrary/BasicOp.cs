@@ -113,25 +113,21 @@ namespace PersonmasterServiceLibrary
         // ================================================================================
         public Guid GetObjectIDFromCpr(string context, string cprNo, ref string aux)
         {
-            return this.GetObjectIDFromCpr(context, new string[] { cprNo }, Guid.Empty, ref aux)[0];
+            var ret = this.GetObjectIDsFromCprArrayImpl(context, new string[] { cprNo }, Guid.Empty, ref aux)[0];
+            return ret == null ? Guid.Empty : ret.Value;
         }
 
         // ================================================================================
-        public Guid[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux)
+        public Guid?[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux)
         {
-            return this.GetObjectIDFromCpr(context, cprNoArr, Guid.Empty, ref aux);
+            return this.GetObjectIDsFromCprArrayImpl(context, cprNoArr, Guid.Empty, ref aux);
         }
 
         // ================================================================================
         public Guid GetObjectIDFromCprWithOwner(string context, string cprNo, Guid objectOwnerID, ref string aux)
         {
-            return this.GetObjectIDFromCpr(context, new string[] { cprNo }, objectOwnerID, ref aux)[0];
-        }
-
-        // ================================================================================
-        public Guid[] GetObjectIDFromCprArrayWithOwner(string context, string[] cprNoArr, Guid objectOwnerID, ref string aux)
-        {
-            return this.GetObjectIDFromCpr(context, cprNoArr, objectOwnerID, ref aux);
+            var ret = this.GetObjectIDsFromCprArrayImpl(context, new string[] { cprNo }, objectOwnerID, ref aux)[0];
+            return ret == null ? Guid.Empty : ret.Value;
         }
 
         // ================================================================================
@@ -473,13 +469,12 @@ namespace PersonmasterServiceLibrary
         //}
 
         // ================================================================================
-        private Guid[] GetObjectIDFromCpr(string context, string[] cprNoArr, Guid objectOwnerID, ref string aux)
+        private Guid?[] GetObjectIDsFromCprArrayImpl(string context, string[] cprNoArr, Guid objectOwnerID, ref string aux)
         {
-            //CREATE PROCEDURE spGK_PM_GetObjectIDFromCPR
-            //    @context            VARCHAR(120),
-            //    @cprNo              VARCHAR(10),
+            //CREATE PROCEDURE spGK_PM_GetObjectIDsFromCPRArray
+            //    @context            VARCHAR(1020),
+            //    @cprNoArray              VARCHAR(MAX),
             //    @objectOwnerID      uniqueidentifier,
-            //    @objectID           uniqueidentifier    OUTPUT,
             //    @aux                VARCHAR(1020)       OUTPUT
 
 
@@ -498,13 +493,33 @@ namespace PersonmasterServiceLibrary
             {
                 spContext.AddInParameter("objectOwnerID", DbType.Guid, objectOwnerID);
             }
-
+            Dictionary<string, List<string>> errors = new Dictionary<string, List<string>>();
             var dataSet = spContext.ExecuteDataSet();
             var returnTable = dataSet.Tables[0];
-            var rows = new DataRow[returnTable.Rows.Count];
-            returnTable.Rows.CopyTo(rows, 0);
-            return rows.Select((dr) => (Guid)dr["ObjectID"]).ToArray();
-            aux = spContext.Aux;
+            var ret = new Guid?[returnTable.Rows.Count];
+            for (int iRow = 0; iRow < returnTable.Rows.Count; iRow++)
+            {
+                var row = returnTable.Rows[iRow];
+                if (row.IsNull("ObjectID"))
+                {
+                    string error = row["Aux"] as string;
+                    string cprNumber = row["CprNo"] as string;
+                    if (!errors.ContainsKey(error))
+                    {
+                        errors.Add(error, new List<string>());
+                    }
+                    errors[error].Add(cprNumber);
+                }
+                else
+                {
+                    ret[iRow] = (Guid)row["ObjectID"];
+                }
+            }
+            aux = string.Join(
+                Environment.NewLine,
+                errors.Select(e => string.Format("{0}: {1}", e.Key, string.Join(", ", e.Value)))
+                );
+            return ret;
         }
 
         // ================================================================================

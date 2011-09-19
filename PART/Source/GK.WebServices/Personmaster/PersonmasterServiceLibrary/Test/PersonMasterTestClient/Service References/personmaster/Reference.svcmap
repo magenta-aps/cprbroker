@@ -24,6 +24,7 @@
     <MetadataFile FileName="personmaster.wsdl" MetadataType="Wsdl" ID="e3d9e4c0-bdc3-4865-9047-cb8582075066" SourceId="1" SourceUrl="http://localhost:8000/personmaster?wsdl=wsdl0" />
     <MetadataFile FileName="personmaster.xsd" MetadataType="Schema" ID="695de60f-296d-4dc5-9d7f-24b139d19fb7" SourceId="1" SourceUrl="http://localhost:8000/personmaster?xsd=xsd1" />
     <MetadataFile FileName="BasicOp.wsdl" MetadataType="Wsdl" ID="dfec6df8-1152-41f3-a041-76d4696e8821" SourceId="1" SourceUrl="http://localhost:8000/personmaster?wsdl" />
+    <MetadataFile FileName="personmaster3.xsd" MetadataType="Schema" ID="e8d57196-6b32-40f6-b3bb-bbaf0b05fe03" SourceId="1" SourceUrl="http://localhost:8000/personmaster?xsd=xsd3" />
     <MetadataFile FileName="personmaster1.xsd" MetadataType="Schema" ID="94018ade-f989-469a-8194-907f7bd10a85" SourceId="1" SourceUrl="http://localhost:8000/personmaster?xsd=xsd2" />
     <MetadataFile FileName="personmaster.disco" MetadataType="Disco" ID="3d880ae8-255b-4fd6-a644-d5790ef2f5b4" SourceId="1" SourceUrl="http://localhost:8000/personmaster?disco" />
     <MetadataFile FileName="personmaster2.xsd" MetadataType="Schema" ID="6e72a8d6-14e8-4547-8ba9-67eec037ab5c" SourceId="1" SourceUrl="http://localhost:8000/personmaster?xsd=xsd0" />

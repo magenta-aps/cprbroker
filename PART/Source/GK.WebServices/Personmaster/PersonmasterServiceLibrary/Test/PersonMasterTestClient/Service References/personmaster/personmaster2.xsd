@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://personmaster.gentofte.dk/BasicOp/01" elementFormDefault="qualified" targetNamespace="http://personmaster.gentofte.dk/BasicOp/01" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:element name="CreateObjectOwner">
     <xs:complexType>
       <xs:sequence>
@@ -66,7 +67,7 @@
   <xs:element name="GetObjectIDsFromCprArrayResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetObjectIDsFromCprArrayResult" nillable="true" type="q6:ArrayOfguid" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="GetObjectIDsFromCprArrayResult" nillable="true" type="q6:ArrayOfNullableOfguid" />
         <xs:element minOccurs="0" name="aux" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>

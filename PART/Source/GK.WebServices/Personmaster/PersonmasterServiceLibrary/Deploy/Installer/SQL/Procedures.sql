@@ -569,7 +569,7 @@ go
 
 
 CREATE PROCEDURE spGK_CORE_ValidateCPR
-    @cprNo      VARCHAR(10),
+    @cprNo      VARCHAR(MAX),
     @birthdate  datetime        OUTPUT,
     @gender     INTEGER         OUTPUT,
     @aux        VARCHAR(1020)   OUTPUT
@@ -1038,11 +1038,9 @@ BEGIN TRY
     
     DECLARE @objectOwnerNamespace       VARCHAR(510)
     
-    DECLARE @encryptedCprNo             VARBINARY(90)
-
-	DECLARE @cprNo                      VARCHAR(10)
+	DECLARE @cprNo                      VARCHAR(MAX)
 	DECLARE @index			            INT
-	DECLARE @ReturnTable                TABLE  (ID INT IDENTITY, CprNo VARCHAR(10), Birthdate DATETIME, Gender INT, ObjectID UNIQUEIDENTIFIER, Done BIT DEFAULT 0)
+	DECLARE @ReturnTable                TABLE  (ID INT IDENTITY, CprNo VARCHAR(MAX), Birthdate DATETIME, Gender INT, ObjectID UNIQUEIDENTIFIER, Existing BIT DEFAULT 0, Aux VARCHAR(1020))
         
 	-- ---
     
@@ -1070,6 +1068,7 @@ BEGIN TRY
 		
 	SET @RetVal = -5
     -- Split the CPR numbers array and validate elements
+	-- Invalid Cpr numbers will have Gender < 0
     WHILE LEN(@cprNoArray) > 0
 	BEGIN
 		SET @RetVal = -6
@@ -1089,29 +1088,33 @@ BEGIN TRY
 		
 		SET @RetVal = -7
 		-- Validate CPR (and extract birtdate and gender)
-		EXEC spGK_CORE_ValidateCPR @cprNo, @birthdate OUTPUT, @gender OUTPUT, @aux OUTPUT
-	
-		-- gender param is negative on validation errors
-		IF @gender < 0 GOTO ErrExit
+		BEGIN TRY
+			EXEC spGK_CORE_ValidateCPR @cprNo, @birthdate OUTPUT, @gender OUTPUT, @aux OUTPUT
+		END TRY
+		BEGIN CATCH
+			-- gender param is negative on validation errors. Do nothing
+		END CATCH
 		
 		SET @RetVal = -8
-		INSERT INTO @ReturnTable (CprNo, Birthdate, Gender) VALUES (@cprNo, @birthdate, @gender)		
+		INSERT INTO @ReturnTable (CprNo, Birthdate, Gender, Aux) VALUES (@cprNo, @birthdate, @gender, @aux)
 	END
 	
 	SET @RetVal = -9
 	-- Existing ObjectIDs
 	UPDATE RET	
-	SET ObjectID = pm.ObjectID, Done = 1
+	SET ObjectID = pm.ObjectID, Existing = 1
 	FROM @ReturnTable RET, T_PM_CPR cpr, T_PM_PersonMaster pm
-	WHERE DecryptByKey(cpr.encryptedCprNo) = RET.CprNo
+	WHERE 
+			RET.Gender >= 0
+			AND DecryptByKey(cpr.encryptedCprNo) = RET.CprNo
 			AND     cpr.personMasterID = pm.objectID
-	
 	
 	SET @RetVal = -10
 	-- New ObjctIDs
 	UPDATE @ReturnTable
 	SET ObjectID = NEWID()
-	WHERE Done = 0
+	WHERE Gender >= 0
+		AND Existing = 0
 	
 	BEGIN TRAN
 		SET @RetVal = -11
@@ -1119,19 +1122,17 @@ BEGIN TRY
 		INSERT INTO T_PM_PersonMaster 
 		SELECT ObjectID, @objectOwnerID, GETDATE() 
 		FROM @ReturnTable 
-		WHERE Done = 0
+		WHERE Gender >= 0
+			AND Existing = 0
 		
 		SET @RetVal = -12
 		INSERT INTO T_PM_CPR 
 		SELECT EncryptByKey(key_GUID('CprNoEncryptKey'), CprNo), Birthdate, Gender, ObjectID, GETDATE()
 		FROM @ReturnTable 
-		WHERE Done = 0
+		WHERE Gender >= 0
+			AND Existing = 0
 		
 		SET @RetVal = -13
-		
-		UPDATE @ReturnTable 
-		SET Done = 1 
-		WHERE Done = 0
 	COMMIT TRAN
 	
 	LifeIsGood:

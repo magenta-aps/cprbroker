@@ -55,6 +55,22 @@ namespace PersonMasterTestClient
             return cprNumbers.ToArray();
         }
 
+        private string[] InvalidCprNumbers(int count)
+        {
+            string[] ret = new string[count];
+            Random r = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                string cprNumber = r.Next().ToString() + r.Next().ToString();
+                if (cprNumber.Length == 10)
+                {
+                    cprNumber = "99" + cprNumber.Substring(2);
+                }
+                ret[i] = cprNumber;
+            }
+            return ret;
+        }
+
         private const string PersonMasterConnectionString = "";
         public int[] CprCounts = new[] { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 /*, 1024, 2048, 4096, 8192, 16384, 32768, 65536*/ };
 
@@ -82,7 +98,24 @@ namespace PersonMasterTestClient
             ValidateOutput(cprNumbers, ret);
         }
 
-        public void ValidateOutput(string[] cprNumbers, Guid[] objectIds)
+        [Test]
+        public void TestInvalidCprNumbers(
+            [ValueSource("CprCounts")] int count)
+        {
+            var cprNumbers = InvalidCprNumbers(count);
+
+            personmaster.BasicOpClient client = new personmaster.BasicOpClient();
+            string aux = null;
+            var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
+            Assert.NotNull(aux, "Aux is null");
+            Assert.Greater(aux.Length, 0, "Aux is empty");
+            for (int i = 0; i < count; i++)
+            {
+                Assert.IsNull(ret[i], string.Format("Cpr number {0} did not fail", cprNumbers[i]));
+            }
+        }
+
+        public void ValidateOutput(string[] cprNumbers, Guid?[] objectIds)
         {
             Assert.IsNotNull(objectIds, "Return value is null");
             Assert.AreEqual(cprNumbers.Length, objectIds.Length, "Return value length does not equal input length");
@@ -90,35 +123,6 @@ namespace PersonMasterTestClient
             {
                 Assert.AreNotEqual(Guid.Empty, uuid, "UUID is empty");
                 Assert.AreEqual(1, objectIds.Where((id) => id == uuid).Count(), "Repeated UUID : " + uuid.ToString());
-            }
-        }
-
-        public void TestGetUUIDStoredProcedure(int count)
-        {
-            var cprNumbers = RandomCprNumbers(count);
-            using (var connection = new SqlConnection(PersonMasterConnectionString))
-            {
-                connection.Open();
-                using (var command = new SqlCommand("spGK_PM_GetObjectIDsFromCPRArray", connection))
-                {
-                    //CREATE PROCEDURE spGK_PM_GetObjectIDFromCPR
-                    //    @context            VARCHAR(120),
-                    //    @cprNo              VARCHAR(10),
-                    //    @objectOwnerID      uniqueidentifier,
-                    //    @objectID           uniqueidentifier    OUTPUT,
-                    //    @aux                VARCHAR(1020)       OUTPUT
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.Add("context", SqlDbType.VarChar).Value = "";
-                    command.Parameters.Add("cprNo", SqlDbType.VarChar).Value = "";
-                    command.Parameters.Add("objectOwnerID", SqlDbType.UniqueIdentifier).Value = "";
-                    using (var adapter = new SqlDataAdapter(command))
-                    {
-                        var data = new DataTable();
-                        adapter.Fill(data);
-
-                        Assert.AreEqual(cprNumbers.Length, data.Rows.Count);
-                    }
-                }
             }
         }
 

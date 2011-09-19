@@ -100,18 +100,19 @@ namespace PersonmasterServiceLibrary
         /// <summary>
         /// Retrieve the unique objectIDs attached to specific persons. If any person is not already
         /// assigned an objectID, one is created, persisted and returned. Therefore, this method will
-        /// always succeed (under normal operation conditions) because of the lazy instantiation pattern used.        
+        /// always succeed (under normal operation conditions) because of the lazy instantiation pattern used.
+        /// Invalid cpr numbers will return Guid.Empty and will be reported in <paramref name="aux"/>
         /// </summary>
         /// <param name="context">Not used atm.</param>
         /// <param name="cprNoArr">CPR number of the persons to be found (10 digits precisely for each). Method will fail if this is null or contains invalid elements</param>
         /// <param name="aux">Standard auxiliary input/output.</param>
         /// <returns>The new or existing array of objectIDs/guids for the persons in question.</returns>
         [OperationContract]
-        Guid[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux);
+        Guid?[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux);
 
         /// <summary>
         /// Retrieve the unique objectID attached to a specific person. Works in the same way as the
-        /// GetObjectIDFromCpr() operation above, except that a mandatory object owner ID,
+        /// GetObjectIDsFromCpr() operation above, except that a mandatory object owner ID,
         /// ie. the owner of the person master record, MUST be specified. The object owner ID value, is used
         /// if the person master record do not exists and as a consequence, is has to be created.
         /// </summary>

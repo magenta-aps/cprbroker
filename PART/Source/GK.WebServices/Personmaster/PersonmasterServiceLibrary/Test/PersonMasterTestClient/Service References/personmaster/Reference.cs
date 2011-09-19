@@ -28,7 +28,7 @@ namespace PersonMasterTestClient.personmaster {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDsFromCprArray", ReplyAction="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDsFromCprArrayRespo" +
             "nse")]
-        System.Guid[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux);
+        System.Nullable<System.Guid>[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDFromCprWithOwner", ReplyAction="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDFromCprWithOwnerRe" +
             "sponse")]
@@ -121,7 +121,7 @@ namespace PersonMasterTestClient.personmaster {
             return base.Channel.GetObjectIDFromCpr(context, cprNo, ref aux);
         }
         
-        public System.Guid[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux) {
+        public System.Nullable<System.Guid>[] GetObjectIDsFromCprArray(string context, string[] cprNoArr, ref string aux) {
             return base.Channel.GetObjectIDsFromCprArray(context, cprNoArr, ref aux);
         }
         

@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd0" namespace="http://personmaster.gentofte.dk/BasicOp/01" />
       <xsd:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IBasicOp_CreateObjectOwner_InputMessage">
