@@ -483,7 +483,8 @@ namespace PersonmasterServiceLibrary
 
             StoredProcedureCallContext spContext = new StoredProcedureCallContext("CPRMapperDB", "spGK_PM_GetObjectIDsFromCPRArray");
 
-            spContext.AddInParameter("cprNoArray", DbType.String, string.Join(",", cprNoArr).Trim());
+            var cprNoArrComma = Array.ConvertAll<string, string>(cprNoArr, s => string.Format("{0}", s).Trim().Replace(",", "") + ",");
+            spContext.AddInParameter("cprNoArray", DbType.String, string.Join("", cprNoArrComma));
 
             if (objectOwnerID == Guid.Empty)
             {

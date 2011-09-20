@@ -43,8 +43,12 @@ namespace PersonMasterTestClient
                             var month = iMonth.ToString("00");
                             var year = iYear.ToString("00");
                             var part1 = iPart.ToString("0000");
-                            cprNumbers.Add(day + month + year + part1);
-                            if (cprNumbers.Count == count)
+
+                            if (cprNumbers.Count < count)
+                            {
+                                cprNumbers.Add(day + month + year + part1);
+                            }
+                            else
                             {
                                 return cprNumbers.ToArray();
                             }
@@ -72,7 +76,7 @@ namespace PersonMasterTestClient
         }
 
         private const string PersonMasterConnectionString = "";
-        public int[] CprCounts = new[] { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 /*, 1024, 2048, 4096, 8192, 16384, 32768, 65536*/ };
+        public int[] CprCounts = new[] { 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 /*, 1024, 2048, 4096, 8192, 16384, 32768, 65536*/ };
 
         [Test]
         public void TestGetUuidArrayOfRandomCpr(
@@ -108,11 +112,26 @@ namespace PersonMasterTestClient
             string aux = null;
             var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
             Assert.NotNull(aux, "Aux is null");
-            Assert.Greater(aux.Length, 0, "Aux is empty");
+            if (count > 0)
+            {
+                Assert.Greater(aux.Length, 0, "Aux is empty");
+            }
             for (int i = 0; i < count; i++)
             {
                 Assert.IsNull(ret[i], string.Format("Cpr number {0} did not fail", cprNumbers[i]));
             }
+        }
+
+        [Test]
+        public void TestNullValues(
+            [ValueSource("CprCounts")] int count)
+        {
+            string[] cprNumbers=new string[count];
+            personmaster.BasicOpClient client = new personmaster.BasicOpClient();
+            string aux = null;
+            var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
+            Assert.NotNull(ret, "Output array is null");
+            Assert.AreEqual(count, ret.Length);
         }
 
         public void ValidateOutput(string[] cprNumbers, Guid?[] objectIds)
