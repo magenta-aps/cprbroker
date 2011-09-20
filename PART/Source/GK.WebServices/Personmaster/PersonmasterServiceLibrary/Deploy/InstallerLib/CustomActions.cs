@@ -19,7 +19,10 @@ namespace PersonMasterInstallers
         public static ActionResult DeployDatabase(Session session)
         {
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
-            return DatabaseCustomAction.DeployDatabase(session, "", new KeyValuePair<string, string>[0]);
+            string sql = Properties.Resources.crebas;
+            sql = sql.Replace("<pm-cryptpassword>", databaseSetupInfo.EncryptionKey);
+            sql = sql.Replace("<pm-namespace>", databaseSetupInfo.Domain);
+            return DatabaseCustomAction.DeployDatabase(session, sql, new KeyValuePair<string, string>[0]);
         }
 
         [CustomAction]
