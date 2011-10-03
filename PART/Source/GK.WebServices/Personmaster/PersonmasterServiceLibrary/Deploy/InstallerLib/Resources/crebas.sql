@@ -473,6 +473,15 @@ if exists (select 1
 go
 
 if exists (select 1
+            from  sysindexes
+           where  id    = object_id('T_PM_CPR')
+            and   name  = 'T_CPR_IDX_CPRNO'
+            and   indid > 0
+            and   indid < 255)
+   drop index T_PM_CPR.T_CPR_IDX_BIRTHDATE
+go
+
+if exists (select 1
             from  sysobjects
            where  id = object_id('T_PM_CPR')
             and   type = 'U')
@@ -703,6 +712,7 @@ create table T_PM_CPR (
    gender               int                  not null,
    personMasterID       uniqueidentifier     not null,
    createTS             datetime             not null,
+   cprNo                varchar(10)          not null,
    constraint PK_T_PM_CPR primary key (encryptedCprNo)
 )
 go
@@ -722,6 +732,16 @@ create unique index T_CPR_IDX_PERSONMASTER on T_PM_CPR (
 personMasterID ASC
 )
 go
+
+/*==============================================================*/
+/* Index: T_CPR_IDX_CPRNO                                */
+/*==============================================================*/
+CREATE NONCLUSTERED INDEX T_CPR_IDX_CPRNO ON dbo.T_PM_CPR
+	(
+	cprNo
+	)
+go
+
 
 /*==============================================================*/
 /* Table: T_PM_Gender                                           */
@@ -1598,7 +1618,7 @@ BEGIN TRY
     SET @RetVal = -3
     SELECT  @ObjectID = pm.ObjectID
     FROM    T_PM_CPR cpr, T_PM_PersonMaster pm
-    WHERE   DecryptByKey(cpr.encryptedCprNo) = @cprNo
+    WHERE   cpr.cprNo = @cprNo
     AND     cpr.personMasterID = pm.objectID
     
     IF @ObjectID IS NULL
@@ -1627,7 +1647,7 @@ BEGIN TRY
         
         BEGIN TRAN
             INSERT INTO T_PM_PersonMaster VALUES (@ObjectID, @objectOwnerID, GETDATE())
-            INSERT INTO T_PM_CPR VALUES (EncryptByKey(key_GUID('CprNoEncryptKey'), @cprNo), @birthdate, @gender, @ObjectID, GETDATE())
+            INSERT INTO T_PM_CPR VALUES (EncryptByKey(key_GUID('CprNoEncryptKey'), @cprNo), @birthdate, @gender, @ObjectID, GETDATE(), @cprNo)
         COMMIT TRAN
     END
     
@@ -1653,6 +1673,7 @@ BEGIN CATCH
     
     RETURN @RetVal
 END CATCH
+
 go
 
 CREATE PROCEDURE [dbo].[spGK_PM_GetObjectIDsFromCPRArray]
@@ -1727,7 +1748,7 @@ BEGIN TRY
 			BEGIN
 				SET @CprNo = @cprNoArray
 				SET @cprNoArray = ''
-			END		
+			END
 		
 		SET @RetVal = -7
 		-- Validate CPR (and extract birtdate and gender)
@@ -1749,7 +1770,7 @@ BEGIN TRY
 	FROM @ReturnTable RET, T_PM_CPR cpr, T_PM_PersonMaster pm
 	WHERE 
 			RET.Gender >= 0
-			AND DecryptByKey(cpr.encryptedCprNo) = RET.CprNo
+			AND cpr.cprNo = RET.CprNo
 			AND     cpr.personMasterID = pm.objectID
 	
 	SET @RetVal = -10
@@ -1770,7 +1791,7 @@ BEGIN TRY
 		
 		SET @RetVal = -12
 		INSERT INTO T_PM_CPR 
-		SELECT EncryptByKey(key_GUID('CprNoEncryptKey'), CprNo), Birthdate, Gender, ObjectID, GETDATE()
+		SELECT EncryptByKey(key_GUID('CprNoEncryptKey'), CprNo), Birthdate, Gender, ObjectID, GETDATE(), CprNo
 		FROM @ReturnTable 
 		WHERE Gender >= 0
 			AND Existing = 0
@@ -2365,7 +2386,7 @@ ErrExit:
         RAISERROR (@aux, @ErrorSeverity, @ErrorState)
     END
 
-    SELECT  CAST (DecryptByKey(cpr.encryptedCprNo) AS VARCHAR(10)) AS cprNo, cpr.*
+    SELECT  cpr.cprNo, cpr.encryptedCprNo, cpr.birthDate, cpr.gender, cpr.personMasterID, cpr.createTS
     FROM    T_PMU_UserAccount ua, T_PM_CPR cpr
     WHERE   ua.objectID = @uaObjectID
     AND     ua.transactTo = @transactToMax

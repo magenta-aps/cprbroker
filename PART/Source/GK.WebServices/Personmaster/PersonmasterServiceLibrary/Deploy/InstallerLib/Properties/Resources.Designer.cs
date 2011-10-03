@@ -96,13 +96,14 @@ namespace PersonMasterInstallers.Properties {
         ///          where  id = object_id(&apos;spGK_PM_GetObjectIDsFromCPRArray&apos;)
         ///          and type in (&apos;P&apos;,&apos;PC&apos;))
         ///   drop procedure spGK_PM_GetObjectIDsFromCPRArray
-        ///go
         ///
-        ///CREATE PROCEDURE [dbo].[ [rest of string was truncated]&quot;;.
+        ///GO
+        ///
+        ///CREATE PROCEDURE [dbo] [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string patchbas_1_1_1 {
+        internal static string patchbas_1_2 {
             get {
-                return ResourceManager.GetString("patchbas_1_1_1", resourceCulture);
+                return ResourceManager.GetString("patchbas_1_2", resourceCulture);
             }
         }
     }
