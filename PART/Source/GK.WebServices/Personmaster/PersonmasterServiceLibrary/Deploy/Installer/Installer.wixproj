@@ -96,7 +96,7 @@ SET OldProjectDir=C:\Patch\OldSource\GK.WebServices\Personmaster\PersonmasterSer
 torch -p -xi %OldProjectDir%bin\Debug\en-US\PersonMasterInstaller.wixpdb $(OutDir)en-US\PersonMasterInstaller.wixpdb -out Patch_Wix.wixmst
 cd %OldProjectDir%
 pyro "$(ProjectDir)Patch_Wix.wixmsp" -t MyPatch "$(ProjectDir)Patch_Wix.wixmst" -out "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp"
-copy "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp" "$(ProjectDir)$(OutDir)en-US\PersonMasterPatch_1_1_1.msp" /y</PostBuildEvent>
+copy "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp" "$(ProjectDir)$(OutDir)en-US\PersonMasterPatch_1_2.msp" /y</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
