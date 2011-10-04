@@ -87,16 +87,23 @@
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
     <PostBuildEvent>cd "$(ProjectDir)"
+msiexec /a "!(TargetPath)" /qn TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
+candle Patch_WinSDK.wxs -out Patch_WinSDK.wixobj -dProjectDir="$(ProjectDir)\" -dOutDir="$(OutDir)\" 
+light Patch_WinSDK.wixobj
+msimsp -s Patch_WinSDK.pcp -p Patch_WinSDK.msp
 
-candle Patch_Wix.wxs -out Patch_Wix.wixobj
-light Patch_Wix.wixobj -out Patch_Wix.wixmsp
+copy Patch_WinSDK.msp $(OutDir)en-US\PersonMasterPatch_1_2.msp /y
 
-SET OldProjectDir=C:\Patch\OldSource\GK.WebServices\Personmaster\PersonmasterServiceLibrary\Deploy\Installer\
 
-torch -p -xi %OldProjectDir%bin\Debug\en-US\PersonMasterInstaller.wixpdb $(OutDir)en-US\PersonMasterInstaller.wixpdb -out Patch_Wix.wixmst
-cd %OldProjectDir%
-pyro "$(ProjectDir)Patch_Wix.wixmsp" -t MyPatch "$(ProjectDir)Patch_Wix.wixmst" -out "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp"
-copy "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp" "$(ProjectDir)$(OutDir)en-US\PersonMasterPatch_1_2.msp" /y</PostBuildEvent>
+REM candle Patch_Wix.wxs -out Patch_Wix.wixobj
+REM light Patch_Wix.wixobj -out Patch_Wix.wixmsp
+
+REM SET OldProjectDir=C:\Patch\OldSource\GK.WebServices\Personmaster\PersonmasterServiceLibrary\Deploy\Installer\
+
+REM torch -p -xi %OldProjectDir%bin\Debug\en-US\PersonMasterInstaller.wixpdb $(OutDir)en-US\PersonMasterInstaller.wixpdb -out Patch_Wix.wixmst
+REM cd %OldProjectDir%
+REM pyro "$(ProjectDir)Patch_Wix.wixmsp" -t MyPatch "$(ProjectDir)Patch_Wix.wixmst" -out "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp"
+REM copy "$(ProjectDir)$(OutDir)en-US\Patch_Wix.msp" "$(ProjectDir)$(OutDir)en-US\PersonMasterPatch_1_2.msp" /y</PostBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
