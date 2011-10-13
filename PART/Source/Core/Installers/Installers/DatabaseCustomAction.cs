@@ -72,35 +72,13 @@ namespace CprBroker.Installers
                 string message = "";
                 dbInfo.UseExistingDatabase = false;
 
-                if (dbInfo.Validate(ref message))
+                if (dbInfo.Validate(ref message)
+                    && dbInfo.ValidateDatabaseExistence(
+                    databaseShouldBeNew,
+                    ()=> MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes,
+                    ref message))
                 {
-                    if (databaseShouldBeNew)
-                    {
-                        if (!dbInfo.DatabaseExists()) // Normal case
-                        {
-                            session["DB_VALID"] = "True";
-                        }
-                        else if (MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes) // Database exists and won't be created
-                        {
-                            dbInfo.UseExistingDatabase = true;
-                            session["DB_VALID"] = "True";
-                        }
-                        else  // Database exists and user should change its name
-                        {
-                            session["DB_VALID"] = "False";
-                        }
-                    }
-                    else
-                    {
-                        if (dbInfo.DatabaseExists())
-                        {
-                            session["DB_VALID"] = "True";
-                        }
-                        else
-                        {
-                            session["DB_VALID"] = Messages.DatabaseDoesNotExist;
-                        }
-                    }
+                    session["DB_VALID"] = "True";
                 }
                 else
                 {
