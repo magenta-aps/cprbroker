@@ -73,15 +73,18 @@ namespace CprBroker.Providers.DPR
             get
             {
                 return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){Name="Address", Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Port", Required=true, Confidential=false},                    
-                    new DataProviderConfigPropertyInfo(){Name="Keep Subscription" , Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Data Source", Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Initial Catalog", Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="User ID", Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Password", Required=false, Confidential=true},
                     new DataProviderConfigPropertyInfo(){Name="Integrated Security", Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Other Connection String", Required=false, Confidential=false},
+                    
+                    new DataProviderConfigPropertyInfo(){Name="Disable diversion", Required=false,Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Address", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Port", Required=false, Confidential=false},                    
+                    new DataProviderConfigPropertyInfo(){Name="Keep Subscription" , Required=false, Confidential=false},
+                    
                 };
             }
         }
@@ -145,6 +148,14 @@ namespace CprBroker.Providers.DPR
             get
             {
                 return Convert.ToBoolean(ConfigurationProperties["Keep Subscription"]);
+            }
+        }
+
+        public bool DisableDiversion
+        {
+            get
+            {
+                return Convert.ToBoolean(ConfigurationProperties["Disable diversion"]);
             }
         }
 

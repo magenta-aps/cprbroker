@@ -97,26 +97,33 @@ namespace CprBroker.Providers.DPR
         /// <param name="cprNumber"></param>
         protected void EnsurePersonDataExists(string cprNumber)
         {
-            // TODO: include BirthDate in the search
-            decimal cprNum = Convert.ToDecimal(cprNumber);
-            using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
+            if (!this.DisableDiversion)
             {
-                var exists = (from personTotal in dataContext.PersonTotals
-                              select personTotal.PNR).Contains(cprNum);
+                // TODO: include BirthDate in the search
+                decimal cprNum = Convert.ToDecimal(cprNumber);
+                using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
+                {
+                    var exists = (from personTotal in dataContext.PersonTotals
+                                  select personTotal.PNR).Contains(cprNum);
 
-                if (exists)
-                {
-                    Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "EnsurePersonDataExists", string.Format("PNR {0} Exists in DPR, DPR Diversion not called", cprNumber), null, null);
-                }
-                else
-                {
-                    Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "EnsurePersonDataExists", string.Format("Calling DPR Diversion : {0}", cprNumber), null, null);
-                    GetPersonData(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.ExtendedData, cprNumber);
-                    if (!KeepSubscription)
+                    if (exists)
                     {
-                        GetPersonData(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.ExtendedData, cprNumber);
+                        Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "EnsurePersonDataExists", string.Format("PNR {0} Exists in DPR, DPR Diversion not called", cprNumber), null, null);
+                    }
+                    else
+                    {
+                        Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "EnsurePersonDataExists", string.Format("Calling DPR Diversion : {0}", cprNumber), null, null);
+                        CallDiversion(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.ExtendedData, cprNumber);
+                        if (!KeepSubscription)
+                        {
+                            CallDiversion(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.ExtendedData, cprNumber);
+                        }
                     }
                 }
+            }
+            else
+            {
+                Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "EnsurePersonDataExists", string.Format("DPR Diversion is disabled: {0}", cprNumber), null, null);
             }
         }
 
@@ -128,8 +135,11 @@ namespace CprBroker.Providers.DPR
             try
             {
                 // TODO : Put a maximum timeout for DPR connection
-                client.Connect(this.Address, this.Port);
-                client.GetStream().Close();
+                if (!DisableDiversion)
+                {
+                    client.Connect(this.Address, this.Port);
+                    client.GetStream().Close();
+                }
                 conn.ConnectionString = this.ConnectionString;
                 conn.Open();
                 return true;
@@ -154,7 +164,7 @@ namespace CprBroker.Providers.DPR
              );
         }
 
-        private string GetPersonData(InquiryType inquiryType, DetailType detailType, string cprNumber)
+        private string CallDiversion(InquiryType inquiryType, DetailType detailType, string cprNumber)
         {
             string message = CreateMessage(inquiryType, detailType, cprNumber);
             return Send(message);
