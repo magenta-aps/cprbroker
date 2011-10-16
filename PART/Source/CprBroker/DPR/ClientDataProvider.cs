@@ -127,18 +127,34 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public override bool IsAlive()
+        public bool IsDiversionAlive()
         {
-            // Try to open a socket on the server
             System.Net.Sockets.TcpClient client = new System.Net.Sockets.TcpClient();
-            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
             try
             {
                 if (!DisableDiversion)
                 {
+                    // Try to open a socket on the server
                     client.Connect(this.Address, this.Port);
                     client.GetStream().Close();
                 }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                client.Close();
+            }
+        }
+        
+        public bool IsDatabaseAlive()
+        {
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
+            try
+            {
                 conn.ConnectionString = this.ConnectionString;
                 conn.Open();
                 return true;
@@ -149,9 +165,13 @@ namespace CprBroker.Providers.DPR
             }
             finally
             {
-                client.Close();
                 conn.Close();
             }
+        }
+
+        public override bool IsAlive()
+        {
+            return IsDiversionAlive() && IsDatabaseAlive();
         }
 
         private string CreateMessage(InquiryType inquiryType, DetailType detailType, string cprNumber)
