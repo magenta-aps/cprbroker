@@ -134,7 +134,6 @@ namespace CprBroker.Providers.DPR
             System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
             try
             {
-                // TODO : Put a maximum timeout for DPR connection
                 if (!DisableDiversion)
                 {
                     client.Connect(this.Address, this.Port);
