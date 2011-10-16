@@ -33,6 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Providers.DPR, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CprBroker\Output\CprBroker.Providers.DPR.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dll\nunit.framework.dll</HintPath>
@@ -65,6 +73,7 @@
   <ItemGroup>
     <Compile Include="ApplicationManagementTest.cs" />
     <Compile Include="BaseTest.cs" />
+    <Compile Include="DPRTests.cs" />
     <Compile Include="EventTest.cs" />
     <Compile Include="NotificationTest.cs" />
     <Compile Include="PartTest.cs" />
