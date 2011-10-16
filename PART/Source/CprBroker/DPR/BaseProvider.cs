@@ -80,7 +80,7 @@ namespace CprBroker.Providers.DPR
                     new DataProviderConfigPropertyInfo(){Name="Integrated Security", Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Other Connection String", Required=false, Confidential=false},
                     
-                    new DataProviderConfigPropertyInfo(){Name="Disable diversion", Required=false,Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Disable Diversion", Required=false,Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Address", Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Port", Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){Name="Keep Subscription" , Required=false, Confidential=false},
@@ -155,7 +155,7 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
-                return Convert.ToBoolean(ConfigurationProperties["Disable diversion"]);
+                return Convert.ToBoolean(ConfigurationProperties["Disable Diversion"]);
             }
         }
 
