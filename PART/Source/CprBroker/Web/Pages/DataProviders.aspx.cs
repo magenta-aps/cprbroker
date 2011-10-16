@@ -323,12 +323,13 @@ namespace CprBroker.Web.Pages
             var prov = DataProviderManager.CreateDataProvider(dbProv);
             var properties = dbProv.GetProperties();
             return (from pInfo in prov.ConfigurationKeys
-                    from pp in properties
-                    where pInfo.Name == pp.Name
+                    join pp in properties
+                    on pInfo.Name equals pp.Name into joined
+                    from pVal in joined.DefaultIfEmpty()
                     select new
                     {
-                        Name = pp.Name,
-                        Value = pInfo.Confidential ? null : pp.Value,
+                        Name = pInfo.Name,
+                        Value = (pVal == null || pInfo.Confidential) ? null : pVal.Value,
                         Confidential = pInfo.Confidential,
                         Required = pInfo.Required
                     }).ToArray();
