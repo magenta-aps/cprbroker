@@ -61,7 +61,6 @@ namespace CprBroker.Providers.KMD
         {
             get
             {
-                // TODO: Fill this ActorRef object
                 return UnikIdType.Create(new Guid("{A4E9B3E0-275F-4b76-AADB-4398AA56B871}"));
             }
         }
