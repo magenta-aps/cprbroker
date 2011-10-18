@@ -42,12 +42,12 @@
                     </asp:Repeater>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# GetAttributes(Container.DataItem) %>'
+                    <asp:DataList ID="EditDataList" runat="server" DataSource='<%# GetAttributes(Container.DataItem) %>' RepeatColumns="3"
                         DataKeyField="Name" RepeatDirection="Horizontal">
                         <ItemTemplate>
                             <b>
                                 <%# Eval("Name")%>:</b>
-                            <cc1:SmartTextBox ID="SmartTextBox" runat="server" Text='<%# Bind("Value") %>' Required='<%# Bind("Required") %>' Confidential='<%# Bind("Confidential") %>' />
+                            <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Text='<%# Bind("Value") %>' Required='<%# Bind("Required") %>' Confidential='<%# Bind("Confidential") %>' />
                         </ItemTemplate>
                     </asp:DataList>
                 </EditItemTemplate>
@@ -121,8 +121,8 @@
             </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <cc1:SmartTextBox ID="SmartTextBox" runat="server" Required='<%# Eval("Required") %>'
-                        Confidential='<%# Eval("Confidential") %>' ValidationGroup="Add" />
+                    <cc1:SmartTextBox ID="SmartTextBox" runat="server" Type='<%# Eval("Type") %>' Required='<%# Eval("Required") %>'
+                        Confidential='<%# Eval("Confidential") %>' ValidationGroup="Add"  />
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

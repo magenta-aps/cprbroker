@@ -331,7 +331,8 @@ namespace CprBroker.Web.Pages
                         Name = pInfo.Name,
                         Value = (pVal == null || pInfo.Confidential) ? null : pVal.Value,
                         Confidential = pInfo.Confidential,
-                        Required = pInfo.Required
+                        Required = pInfo.Required,
+                        Type = pInfo.Type
                     }).ToArray();
         }
 

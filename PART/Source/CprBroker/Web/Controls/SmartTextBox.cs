@@ -57,6 +57,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.ComponentModel;
 using System.IO;
+using CprBroker.Engine;
 
 namespace CprBroker.Web.Controls
 {
@@ -99,6 +100,18 @@ namespace CprBroker.Web.Controls
             }
         }
 
+        public DataProviderConfigPropertyInfoTypes Type
+        {
+            get
+            {
+                return FromViewstate<DataProviderConfigPropertyInfoTypes>("Type");
+            }
+            set
+            {
+                ViewState["Type"] = value;
+            }
+        }
+
         [DefaultValue(null)]
         public string ValidationGroup
         {
@@ -129,35 +142,75 @@ namespace CprBroker.Web.Controls
         public TextBox InnerTextBox = new TextBox();
         public RequiredFieldValidator requiredValidator = new RequiredFieldValidator();
         public RegularExpressionValidator regularExpressionValidator = new RegularExpressionValidator();
+        public RegularExpressionValidator intRegularExpressionValidator = new RegularExpressionValidator();
+        public CheckBox booleanCheckBox = new CheckBox();
 
         protected override void CreateChildControls()
         {
             InnerTextBox.ID = "txt";
             InnerTextBox.TextMode = Confidential ? TextBoxMode.Password : TextBoxMode.SingleLine;
+            InnerTextBox.Visible = Type != DataProviderConfigPropertyInfoTypes.Boolean;
             Controls.Add(InnerTextBox);
 
             requiredValidator.ControlToValidate = "txt";
             requiredValidator.Text = "Required";
             requiredValidator.ValidationGroup = ValidationGroup;
-            requiredValidator.Enabled = Required;
+            requiredValidator.Enabled = Required && Type!= DataProviderConfigPropertyInfoTypes.Boolean;
+            requiredValidator.Visible = requiredValidator.Enabled;
             Controls.Add(requiredValidator);
 
             regularExpressionValidator.ControlToValidate = "txt";
-            regularExpressionValidator.Enabled = !string.IsNullOrEmpty(ValidationExpression);
+            regularExpressionValidator.Enabled = !string.IsNullOrEmpty(ValidationExpression) && Type != DataProviderConfigPropertyInfoTypes.Boolean;
+            regularExpressionValidator.Visible = regularExpressionValidator.Enabled;
             regularExpressionValidator.Text = "Invalid Input";
             regularExpressionValidator.ValidationGroup = ValidationGroup;
             Controls.Add(regularExpressionValidator);
+
+
+            intRegularExpressionValidator.ControlToValidate = "txt";
+            intRegularExpressionValidator.Enabled = this.Type == DataProviderConfigPropertyInfoTypes.Integer;
+            intRegularExpressionValidator.Visible = intRegularExpressionValidator.Enabled;
+            intRegularExpressionValidator.ValidationGroup = ValidationGroup;
+            intRegularExpressionValidator.Text = "Invalid Input";
+            intRegularExpressionValidator.ValidationExpression = "\\d*";
+            intRegularExpressionValidator.Text = "Digits only";            
+            Controls.Add(intRegularExpressionValidator);
+
+            booleanCheckBox.Visible = this.Type == DataProviderConfigPropertyInfoTypes.Boolean;            
+            Controls.Add(booleanCheckBox);
+
         }
 
         public string Text
         {
             get
             {
-                return InnerTextBox.Text;
+                if (this.Type == DataProviderConfigPropertyInfoTypes.Boolean)
+                {
+                    return this.booleanCheckBox.Checked.ToString();
+                }
+                else
+                {
+                    return InnerTextBox.Text;
+                }
             }
             set
             {
-                InnerTextBox.Text = value;
+                if (this.Type == DataProviderConfigPropertyInfoTypes.Boolean)
+                {
+                    try
+                    {
+                        this.booleanCheckBox.Checked = Convert.ToBoolean(value);
+                    }
+                    catch
+                    {
+                        booleanCheckBox.Checked = false;
+                    }
+                }
+                else
+                {
+                    InnerTextBox.Text = value;
+                }
             }
         }
     }
