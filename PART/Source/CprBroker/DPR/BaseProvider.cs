@@ -73,17 +73,17 @@ namespace CprBroker.Providers.DPR
             get
             {
                 return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){Name="Data Source", Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Initial Catalog", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="User ID", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Password", Required=false, Confidential=true},
-                    new DataProviderConfigPropertyInfo(){Name="Integrated Security", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Other Connection String", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Data Source", Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Initial Catalog", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="User ID", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Password", Required=false, Confidential=true},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Integrated Security", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Other Connection String", Required=false, Confidential=false},
                     
-                    new DataProviderConfigPropertyInfo(){Name="Disable Diversion", Required=false,Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Address", Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Port", Required=false, Confidential=false},                    
-                    new DataProviderConfigPropertyInfo(){Name="Keep Subscription" , Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},                    
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Keep Subscription" , Required=false, Confidential=false},
                     
                 };
             }
