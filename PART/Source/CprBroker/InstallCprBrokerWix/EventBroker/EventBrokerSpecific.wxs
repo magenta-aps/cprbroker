@@ -20,18 +20,18 @@
 
     
     <InstallExecuteSequence>
-      <Custom Action="SetCprBrokerConnectionStrings_" After="CreateEventBrokerWebsite_">NOT REMOVE</Custom>
-      <Custom Action="SetCprBrokerConnectionStrings" After="CreateEventBrokerWebsite">NOT REMOVE</Custom>
+      <Custom Action="SetCprBrokerConnectionStrings_" After="CreateEventBrokerWebsite_">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="SetCprBrokerConnectionStrings" After="CreateEventBrokerWebsite">NOT REMOVE AND NOT PATCH</Custom>
 
-      <Custom Action="SetCprBrokerUrl_" After="CreateEventBrokerWebsite_">NOT REMOVE</Custom>
-      <Custom Action="RollbackBackendService_" After="SetCprBrokerConnectionStrings_">NOT REMOVE</Custom>
-      <Custom Action="InstallBackendService_" After="SetCprBrokerConnectionStrings_">NOT REMOVE</Custom>
-      <Custom Action="UnInstallBackendService_" After="SetCprBrokerConnectionStrings_"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="SetCprBrokerUrl_" After="CreateEventBrokerWebsite_">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="RollbackBackendService_" After="SetCprBrokerConnectionStrings_">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="InstallBackendService_" After="SetCprBrokerConnectionStrings_">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="UnInstallBackendService_" After="SetCprBrokerConnectionStrings_"><![CDATA[REMOVE = "ALL" AND NOT PATCH]]></Custom>
 
-      <Custom Action="SetCprBrokerUrl" After="CreateEventBrokerWebsite">NOT REMOVE</Custom>
-      <Custom Action="RollbackBackendService" After="RollbackEventBrokerWebsite">NOT REMOVE</Custom>
-      <Custom Action="InstallBackendService" After="RollbackBackendService">NOT REMOVE</Custom>
-      <Custom Action="UnInstallBackendService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="SetCprBrokerUrl" After="CreateEventBrokerWebsite">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="RollbackBackendService" After="RollbackEventBrokerWebsite">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="InstallBackendService" After="RollbackBackendService">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="UnInstallBackendService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL" AND NOT PATCH]]></Custom>
       
     </InstallExecuteSequence>
 	</Fragment>

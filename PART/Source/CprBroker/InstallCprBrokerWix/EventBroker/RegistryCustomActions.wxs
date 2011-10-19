@@ -19,11 +19,11 @@
     <InstallExecuteSequence>
       <Custom Action="RunRegistrySearch" After="AppSearch"><![CDATA[REMOVE = "ALL"]]></Custom>      
 
-      <Custom Action="RunWriteRegistryValues_Cpr" After="DeployDatabase_Overwrite">NOT REMOVE</Custom>
-      <Custom Action="RunWriteRegistryValuesCpr" After="WriteRegistryValues">NOT REMOVE</Custom>
+      <Custom Action="RunWriteRegistryValues_Cpr" After="DeployDatabase_Overwrite">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="RunWriteRegistryValuesCpr" After="WriteRegistryValues">NOT REMOVE AND NOT PATCH</Custom>
 
-      <Custom Action="RunWriteRegistryValues_Event" After="DeployDatabase_Overwrite">NOT REMOVE</Custom>
-      <Custom Action="RunWriteRegistryValuesEvent" After="WriteRegistryValues">NOT REMOVE</Custom>
+      <Custom Action="RunWriteRegistryValues_Event" After="DeployDatabase_Overwrite">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="RunWriteRegistryValuesEvent" After="WriteRegistryValues">NOT REMOVE AND NOT PATCH</Custom>
     </InstallExecuteSequence>
   </Fragment>
 </Wix>

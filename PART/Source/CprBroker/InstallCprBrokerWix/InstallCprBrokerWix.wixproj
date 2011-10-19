@@ -79,6 +79,7 @@
     <Compile Include="EventBroker\RegistryCustomActions.wxs" />
     <Compile Include="EventBroker\WebCustomActions.wxs" />
     <Compile Include="EventBroker\EventBrokerDialog.wxs" />
+    <None Include="Patch_WinSDK.wxs" />
     <Content Include="CprBroker\Resources\CprBroker.log" />
     <Content Include="License.rtf" />
   </ItemGroup>
@@ -117,4 +118,13 @@
 	<Target Name="AfterBuild">
 	</Target>
 	-->
+  <PropertyGroup>
+    <PostBuildEvent>cd "$(ProjectDir)"
+msiexec /a "!(TargetPath)" /qn TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
+candle Patch_WinSDK.wxs -out Patch_WinSDK.wixobj -dProjectDir="$(ProjectDir)\" -dOutDir="$(OutDir)\" 
+light Patch_WinSDK.wixobj
+msimsp -s Patch_WinSDK.pcp -p Patch_WinSDK.msp
+
+copy Patch_WinSDK.msp $(OutDir)en-US\CprBrokerPatch_1_0_1.msp /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
