@@ -78,11 +78,24 @@ namespace CprBroker.Engine
         DataProviderConfigPropertyInfo[] ConfigurationKeys { get; }
     }
 
+    public enum DataProviderConfigPropertyInfoTypes
+    {
+        String,
+        Integer,
+        Boolean
+    }
+
     public class DataProviderConfigPropertyInfo
     {
         public string Name { get; set; }
         public bool Confidential { get; set; }
         public bool Required { get; set; }
+        public DataProviderConfigPropertyInfoTypes Type { get; set; }
+
+        public DataProviderConfigPropertyInfo()
+        {
+            Type = DataProviderConfigPropertyInfoTypes.String;
+        }
     }
 
 
