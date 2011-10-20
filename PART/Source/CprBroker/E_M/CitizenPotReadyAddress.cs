@@ -9,7 +9,7 @@ namespace CprBroker.Providers.E_M
     public partial class CitizenPotReadyAddress
     {
         //TODO: What is Building number(Citizen table) vs house number
-        internal AdresseType ToAdresseType()
+        internal static AdresseType ToAdresseType(CitizenPotReadyAddress address)
         {
             return new AdresseType()
             {
@@ -19,23 +19,23 @@ namespace CprBroker.Providers.E_M
                     {
                         AddressAccess = new CprBroker.Schemas.Part.AddressAccessType()
                         {
-                            MunicipalityCode = Converters.ShortToString(MunicipalityCode),
-                            StreetBuildingIdentifier = HouseNumber,
-                            StreetCode = Converters.ShortToString(RoadCode)
+                            MunicipalityCode = Converters.ShortToString(address.MunicipalityCode),
+                            StreetBuildingIdentifier = address.HouseNumber,
+                            StreetCode = Converters.ShortToString(address.RoadCode)
                         },
                         AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
                         {
                             CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-                            DistrictName = PostDistrict,
+                            DistrictName = address.PostDistrict,
                             DistrictSubdivisionIdentifier = null,
-                            FloorIdentifier = Floor,
+                            FloorIdentifier = address.Floor,
                             MailDeliverySublocationIdentifier = null,
-                            PostCodeIdentifier = Converters.ShortToString(PostCode),
+                            PostCodeIdentifier = Converters.ShortToString(address.PostCode),
                             PostOfficeBoxIdentifier = null,
-                            StreetBuildingIdentifier = HouseNumber,
-                            StreetName = RoadName,
+                            StreetBuildingIdentifier = address.HouseNumber,
+                            StreetName = address.RoadName,
                             StreetNameForAddressingName = null,
-                            SuiteIdentifier = Door,
+                            SuiteIdentifier = address.Door,
                         }
                     },
                     // No address point

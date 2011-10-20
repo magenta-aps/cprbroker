@@ -9,57 +9,57 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
+        public static RegistreringType1 ToRegistreringType1(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RegistreringType1()
             {
                 AktoerRef = UnikIdType.Create(E_MDataProvider.ActorId),
-                AttributListe = ToAttributListeType(),
+                AttributListe = ToAttributListeType(citizen),
                 CommentText = null,
                 LivscyklusKode = LivscyklusKodeType.Rettet,
-                RelationListe = ToRelationListeType(cpr2uuidFunc),
-                Tidspunkt = ToTidspunktType(),
-                TilstandListe = ToTilstandListeType(),
+                RelationListe = ToRelationListeType(citizen, cpr2uuidFunc),
+                Tidspunkt = ToTidspunktType(citizen),
+                TilstandListe = ToTilstandListeType(citizen),
                 Virkning = null
             };
             ret.CalculateVirkning();
             return ret;
         }
 
-        private AttributListeType ToAttributListeType()
+        private static AttributListeType ToAttributListeType(Citizen citizen)
         {
             return new AttributListeType()
             {
-                Egenskab = new EgenskabType[] { ToEgenskabType() },
-                LokalUdvidelse = ToLokalUdvidelseType(),
-                RegisterOplysning = new RegisterOplysningType[] { ToRegisterOplysningType() },
-                SundhedOplysning = new SundhedOplysningType[] { ToSundhedOplysningType() }
+                Egenskab = new EgenskabType[] { ToEgenskabType(citizen) },
+                LokalUdvidelse = ToLokalUdvidelseType(citizen),
+                RegisterOplysning = new RegisterOplysningType[] { ToRegisterOplysningType(citizen) },
+                SundhedOplysning = new SundhedOplysningType[] { ToSundhedOplysningType(citizen) }
             };
         }
 
-        private EgenskabType ToEgenskabType()
+        private static EgenskabType ToEgenskabType(Citizen citizen)
         {
             return new EgenskabType()
             {
-                AndreAdresser = ToAndreAdresse(),
-                BirthDate = this.Birthdate.Value,
+                AndreAdresser = ToAndreAdresse(citizen),
+                BirthDate = citizen.Birthdate.Value,
                 FoedestedNavn = null,
-                FoedselsregistreringMyndighedNavn = this.BirthRegistrationText,
-                KontaktKanal = ToKontaktKanalType(),
-                NaermestePaaroerende = ToNextOfKin(),
-                NavnStruktur = ToNavnStrukturType(),
-                PersonGenderCode = Converters.ToPersonGenderCodeType(Gender),
-                Virkning = ToVirkningType()
+                FoedselsregistreringMyndighedNavn = citizen.BirthRegistrationText,
+                KontaktKanal = ToKontaktKanalType(citizen),
+                NaermestePaaroerende = ToNextOfKin(citizen),
+                NavnStruktur = ToNavnStrukturType(citizen),
+                PersonGenderCode = Converters.ToPersonGenderCodeType(citizen.Gender),
+                Virkning = ToVirkningType(citizen)
             };
         }
 
-        private NavnStrukturType ToNavnStrukturType()
+        private static NavnStrukturType ToNavnStrukturType(Citizen citizen)
         {
             //TODO: Fill person name
             return null;
         }
 
-        private RegisterOplysningType ToRegisterOplysningType()
+        private static RegisterOplysningType ToRegisterOplysningType(Citizen citizen)
         {
             var ret = new RegisterOplysningType()
             {
@@ -67,37 +67,37 @@ namespace CprBroker.Providers.E_M
                 // TODO: Fill effect dates
                 Virkning = null,
             };
-            if (!CountryCode.HasValue
-                || new short[] { Constants.AbroadCountryCode, Constants.ReservedCountryCode, Constants.StatelessCountryCode, Constants.UnknownCountryCode }.Contains(CountryCode.Value))
+            if (!citizen.CountryCode.HasValue
+                || new short[] { Constants.AbroadCountryCode, Constants.ReservedCountryCode, Constants.StatelessCountryCode, Constants.UnknownCountryCode }.Contains(citizen.CountryCode.Value))
             {
-                ret.Item = ToUkendtBorgerType();
+                ret.Item = ToUkendtBorgerType(citizen);
             }
-            else if (CountryCode.Value == Constants.DenmarkCountryCode)
+            else if (citizen.CountryCode.Value == Constants.DenmarkCountryCode)
             {
-                ret.Item = ToCprBorgerType();
+                ret.Item = ToCprBorgerType(citizen);
             }
             else
             {
-                ret.Item = ToUdenlandskBorgerType();
+                ret.Item = ToUdenlandskBorgerType(citizen);
             }
             return ret;
         }
 
-        private UkendtBorgerType ToUkendtBorgerType()
+        private static UkendtBorgerType ToUkendtBorgerType(Citizen citizen)
         {
             return new UkendtBorgerType()
             {
-                PersonCivilRegistrationReplacementIdentifier = PNR.ToString()
+                PersonCivilRegistrationReplacementIdentifier = citizen.PNR.ToString()
             };
         }
 
-        private CprBorgerType ToCprBorgerType()
+        private static CprBorgerType ToCprBorgerType(Citizen citizen)
         {
             return new CprBorgerType()
             {
                 AdresseNoteTekst = null,
                 FolkekirkeMedlemIndikator = false,
-                FolkeregisterAdresse = this.CitizenPotReadyAddresses.First().ToAdresseType(),
+                FolkeregisterAdresse = CitizenPotReadyAddress.ToAdresseType(citizen.CitizenPotReadyAddresses.First()),
                 ForskerBeskyttelseIndikator = false,
                 NavneAdresseBeskyttelseIndikator = false,
                 PersonCivilRegistrationIdentifier = null,
@@ -108,15 +108,15 @@ namespace CprBroker.Providers.E_M
         }
 
 
-        private UdenlandskBorgerType ToUdenlandskBorgerType()
+        private static UdenlandskBorgerType ToUdenlandskBorgerType(Citizen citizen)
         {
             //TODO: Revise foreign citizen data
             return new UdenlandskBorgerType()
             {
-                FoedselslandKode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, CountryCode.Value.ToString()),
-                PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(PNR),
+                FoedselslandKode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.Value.ToString()),
+                PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR),
                 PersonIdentifikator = null,
-                PersonNationalityCode = new CountryIdentificationCodeType[] { CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, CountryCode.Value.ToString()) },
+                PersonNationalityCode = new CountryIdentificationCodeType[] { CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.Value.ToString()) },
                 SprogKode = null
             };
         }

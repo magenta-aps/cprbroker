@@ -9,31 +9,31 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        private LokalUdvidelseType ToLokalUdvidelseType()
+        private static LokalUdvidelseType ToLokalUdvidelseType(Citizen citizen)
         {
             // No extension
             return null;
         }
 
-        private KontaktKanalType ToNextOfKin()
+        private static KontaktKanalType ToNextOfKin(Citizen citizen)
         {
             //TODO: Shoud NextOfKin be implemented?
             return null;
         }
 
-        private KontaktKanalType ToKontaktKanalType()
+        private static KontaktKanalType ToKontaktKanalType(Citizen citizen)
         {
             // No contact channels
             return null;
         }
 
-        private AdresseType ToAndreAdresse()
+        private static AdresseType ToAndreAdresse(Citizen citizen)
         {
             //TODO: Shoud other address be filled?
             return null;
         }
 
-        private SundhedOplysningType ToSundhedOplysningType()
+        private static SundhedOplysningType ToSundhedOplysningType(Citizen citizen)
         {
             return null;
         }

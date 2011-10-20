@@ -9,21 +9,21 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        private RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidFunc)
+        private static RelationListeType ToRelationListeType(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RelationListeType()
             {
-                Aegtefaelle = ToSpouses(cpr2uuidFunc),
-                Boern = ToChildren(cpr2uuidFunc),
+                Aegtefaelle = ToSpouses(citizen, cpr2uuidFunc),
+                Boern = ToChildren(citizen, cpr2uuidFunc),
                 Bopaelssamling = null,
                 ErstatningAf = null,
                 ErstatningFor = null,
-                Fader = ToFather(cpr2uuidFunc),
+                Fader = ToFather(citizen, cpr2uuidFunc),
                 Foraeldremyndighedsboern = null,
                 Foraeldremyndighedsindehaver = null,
                 LokalUdvidelse = null,
-                Moder = ToMother(cpr2uuidFunc),
-                RegistreretPartner = ToRegisteredPartners(cpr2uuidFunc),
+                Moder = ToMother(citizen, cpr2uuidFunc),
+                RegistreretPartner = ToRegisteredPartners(citizen, cpr2uuidFunc),
                 RetligHandleevneVaergeForPersonen = null,
                 RetligHandleevneVaergemaalsindehaver = null
             };
@@ -31,23 +31,23 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        private PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
+        private static PersonRelationType[] ToSpouses(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
             //TODO: Revise the logic for start and end dates
             PersonRelationType ret = null;
-            switch (Converters.ToCivilStatusKodeType(MaritalStatus))
+            switch (Converters.ToCivilStatusKodeType(citizen.MaritalStatus))
             {
                 case CivilStatusKodeType.Gift:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(SpousePNR)), Converters.ToDateTime(MaritalStatusTimestamp, MaritalStatusTimestampUncertainty), null);
+                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), null);
                     break;
                 case CivilStatusKodeType.Separeret:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(SpousePNR)), Converters.ToDateTime(MaritalStatusTimestamp, MaritalStatusTimestampUncertainty), Converters.ToDateTime(MaritalStatusTerminationTimestamp, MaritalStatusTerminationTimestampUncertainty));
+                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty));
                     break;
                 case CivilStatusKodeType.Skilt:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(SpousePNR)), Converters.ToDateTime(MaritalStatusTimestamp, MaritalStatusTimestampUncertainty), Converters.ToDateTime(MaritalStatusTerminationTimestamp, MaritalStatusTerminationTimestampUncertainty));
+                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty));
                     break;
                 case CivilStatusKodeType.Enke:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(SpousePNR)), Converters.ToDateTime(MaritalStatusTimestamp, MaritalStatusTimestampUncertainty), Converters.ToDateTime(MaritalStatusTerminationTimestamp, MaritalStatusTerminationTimestampUncertainty));
+                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty));
                     break;
                 default:
                     return null;
@@ -55,26 +55,26 @@ namespace CprBroker.Providers.E_M
             return new PersonRelationType[] { ret };
         }
 
-        private PersonFlerRelationType[] ToChildren(Func<string, Guid> cpr2uuidFunc)
+        private static PersonFlerRelationType[] ToChildren(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
-            var children = Converters.ToPersonGenderCodeType(Gender) == PersonGenderCodeType.male ? ChildrenAsFather : ChildrenAsMother;
+            var children = Converters.ToPersonGenderCodeType(citizen.Gender) == PersonGenderCodeType.male ? citizen.ChildrenAsFather : citizen.ChildrenAsMother;
             return PersonFlerRelationType.CreateList(children.Select(child => cpr2uuidFunc(Converters.ToCprNumber(child.PNR))).ToArray());
         }
 
-        private PersonRelationType[] ToRegisteredPartners(Func<string, Guid> cpr2uuidFunc)
+        private static PersonRelationType[] ToRegisteredPartners(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
             //TODO: Revise the logic for start and end dates
             PersonRelationType ret = null;
-            switch (Converters.ToCivilStatusKodeType(MaritalStatus))
+            switch (Converters.ToCivilStatusKodeType(citizen.MaritalStatus))
             {
                 case CivilStatusKodeType.RegistreretPartner:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(SpousePNR)), Converters.ToDateTime(MaritalStatusTimestamp, MaritalStatusTimestampUncertainty), null);
+                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), null);
                     break;
                 case CivilStatusKodeType.OphaevetPartnerskab:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(SpousePNR)), Converters.ToDateTime(MaritalStatusTimestamp, MaritalStatusTimestampUncertainty), Converters.ToDateTime(MaritalStatusTerminationTimestamp, MaritalStatusTerminationTimestampUncertainty));
+                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty));
                     break;
                 case CivilStatusKodeType.Laengstlevende:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(SpousePNR)), Converters.ToDateTime(MaritalStatusTimestamp, MaritalStatusTimestampUncertainty), Converters.ToDateTime(MaritalStatusTerminationTimestamp, MaritalStatusTerminationTimestampUncertainty));
+                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty));
                     break;
                 default:
                     return null;
@@ -82,14 +82,14 @@ namespace CprBroker.Providers.E_M
             return new PersonRelationType[] { ret };
         }
 
-        private PersonRelationType[] ToFather(Func<string, Guid> cpr2uuidFunc)
+        private static PersonRelationType[] ToFather(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
-            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(FatherPNR)));
+            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.FatherPNR)));
         }
 
-        private PersonRelationType[] ToMother(Func<string, Guid> cpr2uuidFunc)
+        private static PersonRelationType[] ToMother(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
-            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(MotherPNR)));
+            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.MotherPNR)));
         }
 
     }

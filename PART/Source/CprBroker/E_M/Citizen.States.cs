@@ -9,24 +9,24 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        private TilstandListeType ToTilstandListeType()
+        private static TilstandListeType ToTilstandListeType(Citizen citizen)
         {
 
             return new TilstandListeType()
             {
                 CivilStatus = new CivilStatusType()
                 {
-                    CivilStatusKode = Converters.ToCivilStatusKodeType(MaritalStatus),
+                    CivilStatusKode = Converters.ToCivilStatusKodeType(citizen.MaritalStatus),
                     //TODO: Check if this is the mariage start or end date
-                    TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(MaritalStatusTimestamp, MaritalStatusTimestampUncertainty))
+                    TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty))
                 },
                 LivStatus = new LivStatusType()
                 {
-                    LivStatusKode = Converters.ToLivStatusKodeType(CitizenStatusCode, Converters.ToDateTime(Birthdate, BirthdateUncertainty)),
+                    LivStatusKode = Converters.ToLivStatusKodeType(citizen.CitizenStatusCode, Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty)),
                     //TODO: Ensure the dates are correct
-                    TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(CitizenStatusTimestamp, CitizenStatusTimestampUncertainty))
+                    TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(citizen.CitizenStatusTimestamp, citizen.CitizenStatusTimestampUncertainty))
                 },
-                LokalUdvidelse = ToLokalUdvidelseType()
+                LokalUdvidelse = ToLokalUdvidelseType(citizen)
             };
         }
     }

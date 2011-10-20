@@ -9,31 +9,32 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        private VirkningType ToVirkningType()
+        private static VirkningType ToVirkningType(Citizen citizen)
         {
             // TODO: validate outcome of this method
             var dates = new List<DateTime?>();
             dates.AddRange(new DateTime?[]
             {           
                 
-                    Converters.ToDateTime(Birthdate,BirthdateUncertainty),
-                    Converters.ToDateTime(CitizenStatusTimestamp,CitizenStatusTimestampUncertainty),                    
-                    CpcNationalChurchTimestamp,
-                    CprPersonTimestamp,
-                    Converters.ToDateTime(DepartureTimestamp,DepartureTimestampUncertainty),
-                    Converters.ToDateTime(DirectoryProtectionEndDate,DirectoryProtectionRemovalDateUncertainty),
-                    Converters.ToDateTime(DiretoryProtectionDate, DirectoryProtectionDateUncertainty),
-                    Converters.ToDateTime(MaritalStatusTimestamp,MaritalStatusTimestampUncertainty),
-                    Converters.ToDateTime(MaritalStatusTerminationTimestamp,MaritalStatusTerminationTimestampUncertainty),
-                    Converters.ToDateTime(MunicipalityArrivalDate,MunicipalityArrivalTimestampUncertainty),
-                    Converters.ToDateTime(NationalChurchMarkerDate, NationalChurchMarkerUncertainty),
-                    Converters.ToDateTime(NationalityChangeTimestamp,NationalityChangeTimestampUncertainty),
-                    Converters.ToDateTime(NationalityTerminationTimestamp,NationalityTerminationTimestampUncertainty),
-                    Converters.ToDateTime(OccupationDate,OccupationDateUncertainty),
-                    Converters.ToDateTime(PNRCreationDate, PnrCreationdateUncertainty),
-                    Converters.ToDateTime(PNRMarkingDate,PnrMarkingDateUncertainty)                    
+                    Converters.ToDateTime(citizen.Birthdate,citizen.BirthdateUncertainty),
+                    Converters.ToDateTime(citizen.CitizenStatusTimestamp,citizen.CitizenStatusTimestampUncertainty),                    
+                    citizen.CpcNationalChurchTimestamp,
+                    citizen.CprPersonTimestamp,
+                    Converters.ToDateTime(citizen.DepartureTimestamp,citizen.DepartureTimestampUncertainty),
+                    Converters.ToDateTime(citizen.DirectoryProtectionEndDate,citizen.DirectoryProtectionRemovalDateUncertainty),
+                    Converters.ToDateTime(citizen.DiretoryProtectionDate, citizen.DirectoryProtectionDateUncertainty),
+                    Converters.ToDateTime(citizen.MaritalStatusTimestamp,citizen.MaritalStatusTimestampUncertainty),
+                    Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp,citizen.MaritalStatusTerminationTimestampUncertainty),
+                    Converters.ToDateTime(citizen.MunicipalityArrivalDate,citizen.MunicipalityArrivalTimestampUncertainty),
+                    Converters.ToDateTime(citizen.NationalChurchMarkerDate, citizen.NationalChurchMarkerUncertainty),
+                    Converters.ToDateTime(citizen.NationalityChangeTimestamp,citizen.NationalityChangeTimestampUncertainty),
+                    Converters.ToDateTime(citizen.NationalityTerminationTimestamp,citizen.NationalityTerminationTimestampUncertainty),
+                    Converters.ToDateTime(citizen.OccupationDate,citizen.OccupationDateUncertainty),
+                    Converters.ToDateTime(citizen.PNRCreationDate, citizen.PnrCreationdateUncertainty),
+                    Converters.ToDateTime(citizen.PNRMarkingDate,citizen.PnrMarkingDateUncertainty)                    
             });
-            foreach (var res in Resettlements)
+            // TODO: Move this in the Resettlement class
+            foreach (var res in citizen.Resettlements)
             {
                 dates.Add(Converters.ToDateTime(res.ArrivalTimestamp, res.ArrivalTimestampUncertainty));
                 dates.Add(res.CprResettlementTimestamp);
@@ -45,11 +46,11 @@ namespace CprBroker.Providers.E_M
 
         }
 
-        private TidspunktType ToTidspunktType()
+        private static TidspunktType ToTidspunktType(Citizen citizen)
         {
             // TODO: Add a more meaningful date to registration date input
             return TidspunktType.Create(Converters.GetMaxDate(
-                Converters.ToDateTime(BirthRegistrationDate, BirthRegistrationDateUncertainty)
+                Converters.ToDateTime(citizen.BirthRegistrationDate, citizen.BirthRegistrationDateUncertainty)
                 ));
         }
 
