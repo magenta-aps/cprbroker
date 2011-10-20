@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="E&amp;M" Class="E_MDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.[Aktiv borger]" Member="ActiveCitizens">
+    <Type Name="ActiveCitizen">
+      <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="FODSEL_DATO" Member="Birthdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="KON" Member="Gender" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="STILLING" Member="Occupation" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="STILLING_DATO" Member="OccupationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ADRESSERINGSNAVN" Member="AddressingName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="ADRNAVN_DATO" Member="AddressingNameDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FOLKEKIRK_TILH_MRK" Member="NationalChurchMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="FOLKEKIRK_MRK_DATO" Member="NationalChurchMarkerDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_KODE" Member="CitizenStatusCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_TS" Member="CitizenStatusCodeTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ANTAL_BORN" Member="NumberOfChildren" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ADR_TILFLYT_TS" Member="ArrivalTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="Char(2)" CanBeNull="true" />
+      <Column Name="SIDE_DORNR" Member="Door" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="BYGNING_NUMMER" Member="BuildingNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="ADR_FRAFLYT_TS" Member="DepartureTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CO_NAVN" Member="CareOfName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="KOM_TILFLYTDATO" Member="MunicipalityArrivalDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FRAFLYT_KOMMUNENR" Member="DepartureMunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ADRESSEBESKYT_DATO" Member="AddressProtectionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ADR_BESKYT_SLTDATO" Member="AddressProtectionTerminationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CIVILSTAND_TS" Member="MaritalStatusTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CIVILSTAND" Member="MaritalStatus" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="CIVILST_OPHOR_TS" Member="MaritalStatusTerminationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PERSONNR_AGTEFALLE" Member="SpousePNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="AGTEFALLE_FLAG" Member="SpouseFlag" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="LAND_KODE" Member="CountryCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="STATSB_RET_TS" Member="NationalityChangeTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="STATBORG_OPHOR_TS" Member="NationalityTerminationTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PERSONNUMMER_MOR" Member="MotherPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="PERSONNUMMER_FAR" Member="FatherPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="MOR_DOK" Member="MotherDocument" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="FAR_DOK" Member="FatherDocument" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_UM" Member="CitizenStatusTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="FODSELSREG_UM" Member="BirthRegistrationDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Postnummer" Member="Postcodes">
+    <Type Name="Postcode">
+      <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Borger" Member="Citizens">
+    <Type Name="Citizen">
+      <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="FODSEL_DATO" Member="Birthdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PERSONNR_OPRETDATO" Member="PNRCreationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PERSONNR_MRK_DATO" Member="PNRMarkingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="KON" Member="Gender" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="STILLING" Member="Occupation" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="STILLING_DATO" Member="OccupationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ADRESSERINGSNAVN" Member="AddressingName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="ADRNAVN_DATO" Member="AddressingNameDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FOLKEKIRKE_MYND_KD" Member="NationalChurchAuthorityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="FOLKEKIRK_TILH_MRK" Member="NationalChurchMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="FOLKEKIRK_MRK_DATO" Member="NationalChurchMarkerDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_KODE" Member="CitizenStatusCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_TS" Member="CitizenStatusTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FODSELSREG_MYND_KD" Member="BirthRegistrationAuthorityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="FODSELSREG_DATO" Member="BirthRegistrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FODESTED_TEKST" Member="BirthRegistrationText" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="ANTAL_BORN" Member="NumberOfChildren" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="CPR_FOLKEKIRKE_TS" Member="CpcNationalChurchTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CPR_PERSON_TS" Member="CprPersonTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ADR_TILFLYT_TS" Member="ArrivalTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="Char(2)" CanBeNull="true" />
+      <Column Name="SIDE_DORNR" Member="Door" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="BYGNING_NUMMER" Member="BuildingNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="ADR_FRAFLYT_TS" Member="DepartureTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CO_NAVN" Member="CareOfName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="VEJSIDE_F_LIG_ULIG" Member="OddEvenRoadSide" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="KOM_TILFLYTDATO" Member="MunicipalityArrivalDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FRAFLYT_KOMMUNENR" Member="DepartureMunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ADRESSEBESKYT_DATO" Member="AddressProtectionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ADR_BESKYT_SLTDATO" Member="AddressProtectionRemovalDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="VEJVIS_BESKYT_DATO" Member="DiretoryProtectionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CIVILSTAND_TS" Member="MaritalStatusTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CIVILSTAND" Member="MaritalStatus" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="CIVILST_OPHOR_TS" Member="MaritalStatusTerminationTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PERSONNR_AGTEFALLE" Member="SpousePNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="AGTEFALLE_FLAG" Member="SpouseFlag" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="LAND_KODE" Member="CountryCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="STATSB_RET_TS" Member="NationalityChangeTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="STATBORG_OPHOR_TS" Member="NationalityTerminationTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PERSONNUMMER_MOR" Member="MotherPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="PERSONNUMMER_FAR" Member="FatherPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="MOR_DOK" Member="MotherDocument" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="FAR_DOK" Member="FatherDocument" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="VEJVIS_BESK_SLTDTO" Member="DirectoryProtectionEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FODSEL_UM" Member="BirthdateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="PERSONNR_OPRET_UM" Member="PnrCreationdateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="PERSONNR_MRK_UM" Member="PnrMarkingDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="STILLING_UM" Member="OccupationDateUncertainty" Storage="_PostDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="ADRNAVN_UM" Member="AddressingNameUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="FOLKEKIRK_MRK_UM" Member="NationalChurchMarkerUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_UM" Member="CitizenStatusTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="FODSELSREG_UM" Member="BirthRegistrationDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="ADR_TILFLYT_UM" Member="ArrivalTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="ADR_FRAFLYT_UM" Member="DepartureTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="KOM_TILFLYT_UM" Member="MunicipalityArrivalTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="ADR_BESKYT_UM" Member="AddressProtectionDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="ADR_BESKYT_SLT_UM" Member="AddressProtectionTerminationDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="VEJVIS_BESKYT_UM" Member="DirectoryProtectionDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="CIVILSTAND_UM" Member="MaritalStatusTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="CIVILST_OPHOR_UM" Member="MaritalStatusTerminationTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="STATSB_RET_UM" Member="NationalityChangeTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="STATBORG_OPHOR_UM" Member="NationalityTerminationTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="VEJVIS_BESK_SLT_UM" Member="DirectoryProtectionRemovalDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Association Name="Citizen_CitizenPotReadyAddress" Member="CitizenPotReadyAddresses" ThisKey="PNR" OtherKey="PNR" Type="CitizenPotReadyAddress" />
+      <Association Name="Citizen_Child" Member="ChildrenAsMother" ThisKey="PNR" OtherKey="MotherPNR" Type="Child" />
+      <Association Name="Citizen_Child1" Member="ChildrenAsFather" ThisKey="PNR" OtherKey="FatherPNR" Type="Child" />
+      <Association Name="Citizen_Resettlement" Member="Resettlements" ThisKey="PNR" OtherKey="PNR" Type="Resettlement" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Borger - afdøde]" Member="DeadCitizens">
+    <Type Name="DeadCitizen">
+      <Column Name="EKOMNR" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="ADRESSERINGSNAVN" Member="AddressingName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="CO_NAVN" Member="CareOfName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="VEJ_NAVN" Member="RoadName" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="Char(2)" CanBeNull="true" />
+      <Column Name="SIDE_DORNR" Member="Door" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="BYNAVN" Member="CityName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_KODE" Member="CitizenStatusCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_TS" Member="CitizenStatusDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Borger grydeklar adresse]" Member="CitizenPotReadyAddresses">
+    <Type Name="CitizenPotReadyAddress">
+      <Column Name="EKOMNR" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="ADRESSERINGSNAVN" Member="AddressingName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="CO_NAVN" Member="CareOfName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="VEJ_NAVN" Member="RoadName" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="Char(2)" CanBeNull="true" />
+      <Column Name="SIDE_DORNR" Member="Door" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="BYNAVN" Member="CityName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Association Name="Citizen_CitizenPotReadyAddress" Member="Citizen" ThisKey="PNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Børnetabel" Member="Childs">
+    <Type Name="Child">
+      <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="PERSONNUMMER_MOR" Member="MotherPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="PERSONNUMMER_FAR" Member="FatherPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="MOR_DOK" Member="MotherDocument" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="FAR_DOK" Member="FatherDocument" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="BORGERSTATUS_KODE" Member="CitizenStatusCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Association Name="Citizen_Child" Member="Mother" ThisKey="MotherPNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
+      <Association Name="Citizen_Child1" Member="Father" ThisKey="FatherPNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bosættelse" Member="Resettlements">
+    <Type Name="Resettlement">
+      <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="ADR_TILFLYT_TS" Member="ArrivalTimestamp" Type="System.DateTime" DbType="DateTime" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="Char(2)" CanBeNull="true" />
+      <Column Name="SIDE_DORNR" Member="Door" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="BYGNING_NUMMER" Member="BuildingNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="ADR_FRAFLYT_TS" Member="DepartureTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ADRESSE_KORR_MRK" Member="AddressCorrectionMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="CO_NAVN" Member="CareOfName" Type="System.String" DbType="Char(34)" CanBeNull="true" />
+      <Column Name="KOM_FRAFLYTDATO" Member="MunicipalityDepartureDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FRAFLYT_KOMMUNENR" Member="DepartureMunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="KOM_TILFLYTDATO" Member="MunicipalityArrivalDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CPR_BOSAT_TS" Member="CprResettlementTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="VEJSIDE_F_LIG_ULIG" Member="OddEvenRoadSide" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="ADR_TILFLYT_MRK" Member="ArrivalMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="ADR_TILFLYT_UM" Member="ArrivalTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="ADR_FRAFLYT_UM" Member="DepartureTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="KOM_TILFLYT_UM" Member="MunicipalityArrivalDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="KOM_FRAFLYT_UM" Member="MunicipalityDepartureDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Association Name="Citizen_Resettlement" Member="Citizen" ThisKey="PNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 14.875" name="E_MDataContext">
+  <DataContextMoniker Name="/E_MDataContext" />
+  <nestedChildShapes>
+    <classShape Id="1e7a2ab3-753c-4bf5-8c9c-83559d3be404" absoluteBounds="0.625, 3.375, 2, 6.82805094629526">
+      <DataClassMoniker Name="/E_MDataContext/ActiveCitizen" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2912720e-e46b-4727-85dc-1a5e71a73945" absoluteBounds="0.64, 3.835, 1.9700000000000002, 6.2680509462952614" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="31503a0b-2c6c-4097-ab57-54155b276997" absoluteBounds="3.75, 0.75, 2, 1.533190275331338">
+      <DataClassMoniker Name="/E_MDataContext/Postcode" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ea70410b-fbe0-470c-b0df-720d59a021d7" absoluteBounds="3.765, 1.21, 1.9700000000000002, 0.97319027533133817" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" absoluteBounds="3.75, 3.375, 2.5, 11.188524440030257">
+      <DataClassMoniker Name="/E_MDataContext/Citizen" />
+      <nestedChildShapes>
+        <elementListCompartment Id="de4e3f7f-ab62-42ed-862c-18f590a0d5ed" absoluteBounds="3.765, 3.835, 2.4699999999999998, 10.628524440030256" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a8e48ffb-3956-475a-ba50-133b7ed8e464" absoluteBounds="6.75, 0.75, 2, 2.934771041174729">
+      <DataClassMoniker Name="/E_MDataContext/DeadCitizen" />
+      <nestedChildShapes>
+        <elementListCompartment Id="34e35007-5c64-412a-81e1-8050ae1fae95" absoluteBounds="6.765, 1.21, 1.9700000000000002, 2.3747710411747294" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c7d93008-ffd3-49a1-b522-1aee58006cf8" absoluteBounds="6.75, 4.75, 2, 2.6233086487650876">
+      <DataClassMoniker Name="/E_MDataContext/CitizenPotReadyAddress" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6f3dd506-e96e-4ffa-bcf4-db4ec3a2a6ff" absoluteBounds="6.765, 5.21, 1.9700000000000002, 2.0633086487650871" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cd6d0fab-6d22-420b-a114-692e89a74215" absoluteBounds="6.75, 8.75, 2, 1.6889214715361582">
+      <DataClassMoniker Name="/E_MDataContext/Child" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ba616626-ca52-46a1-909f-00d437881cdf" absoluteBounds="6.765, 9.21, 1.9700000000000002, 1.1289214715361595" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0877a919-044d-4803-b6e8-789d83ea1744" absoluteBounds="9.75, 0.75, 2, 4.0248894146084773">
+      <DataClassMoniker Name="/E_MDataContext/Resettlement" />
+      <nestedChildShapes>
+        <elementListCompartment Id="61567983-c60e-4730-a99e-2dcfb6aec567" absoluteBounds="9.765, 1.21, 1.9700000000000002, 3.4648894146084785" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.25 : 6.06165432438254); (6.75 : 6.06165432438254)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/E_MDataContext/Citizen/Citizen_CitizenPotReadyAddress" />
+      <nodes>
+        <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
+        <classShapeMoniker Id="c7d93008-ffd3-49a1-b522-1aee58006cf8" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.25 : 9.59446073576808); (6.75 : 9.59446073576808)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/E_MDataContext/Citizen/Citizen_Child" />
+      <nodes>
+        <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
+        <classShapeMoniker Id="cd6d0fab-6d22-420b-a114-692e89a74215" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.25 : 9.10973036788404); (6.75 : 9.10973036788404)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/E_MDataContext/Citizen/Citizen_Child1" />
+      <nodes>
+        <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
+        <classShapeMoniker Id="cd6d0fab-6d22-420b-a114-692e89a74215" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.25 : 4.21738552058736); (9.75 : 4.21738552058736)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/E_MDataContext/Citizen/Citizen_Resettlement" />
+      <nodes>
+        <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
+        <classShapeMoniker Id="0877a919-044d-4803-b6e8-789d83ea1744" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
