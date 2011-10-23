@@ -92,7 +92,17 @@ namespace CprBroker.Providers.E_M
 
         internal static PersonGenderCodeType ToPersonGenderCodeType(char? value)
         {
-            //TODO: Fill gender conversion
+            //TODO: check the gender conversion char codes in database
+            if (value.HasValue)
+            {
+                switch (value.ToString().ToUpper()[0])
+                {
+                    case 'M':
+                        return PersonGenderCodeType.male;
+                    case 'K':
+                        return PersonGenderCodeType.female;
+                }
+            }
             return PersonGenderCodeType.unspecified;
         }
 
@@ -202,6 +212,21 @@ namespace CprBroker.Providers.E_M
                 {
                     Assert.IsNotNullOrEmpty(result);
                     Assert.AreEqual(val.ToString(), result);
+                }
+            }
+
+            [Test]            
+            public void TestToPersonGenderCodeType(
+                [Values('M', 'm', 'K', null, ' ', 'w')] char? value)
+            {
+                var result = Converters.ToPersonGenderCodeType(value);
+                if (value.HasValue && new string[] { "M", "K" }.Contains(value.Value.ToString().ToUpper()))
+                {
+                    Assert.AreNotEqual(PersonGenderCodeType.unspecified, result);
+                }
+                else
+                {
+                    Assert.AreEqual(PersonGenderCodeType.unspecified, result);
                 }
             }
 
