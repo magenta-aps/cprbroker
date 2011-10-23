@@ -44,5 +44,20 @@ namespace CprBroker.Providers.E_M
                 Assert.IsNotNull(result);
             }
         }
+
+        public static decimal?[] RandomCprNumbers(int count)
+        {
+            var cprNumbers = new List<decimal?>();
+            Random random = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                var day = random.Next(1, 29).ToString("00");
+                var month = random.Next(1, 13).ToString("00");
+                var year = random.Next(1, 100).ToString("00");
+                var part1 = random.Next(1000, 9999).ToString();
+                cprNumbers.Add(decimal.Parse(day + month + year + part1));
+            }
+            return cprNumbers.ToArray();
+        }
     }
 }

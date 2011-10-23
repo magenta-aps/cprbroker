@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Child.cs" />
     <Compile Include="Citizen.cs" />
     <Compile Include="Citizen.States.cs" />
     <Compile Include="Citizen.NotImplemented.cs" />
