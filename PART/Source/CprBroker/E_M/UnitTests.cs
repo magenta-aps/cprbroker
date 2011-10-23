@@ -12,7 +12,7 @@ namespace CprBroker.Providers.E_M
     {
         public void PickRandomRecord(string connectionString)
         {
- 
+
         }
 
         public void Read(string cprNumber, string connectionString)
@@ -29,6 +29,20 @@ namespace CprBroker.Providers.E_M
             QualityLevel? ql;
             var registration = emProvider.Read(new CprBroker.Schemas.PersonIdentifier() { CprNumber = cprNumber }, null, (cpr) => Guid.NewGuid(), out ql);
             Assert.NotNull(registration);
+        }
+
+        public static void ValidateNulls<TSource, TResult>(TSource address, TResult result)
+            where TSource : class
+            where TResult : class
+        {
+            if (address == null)
+            {
+                Assert.IsNull(result);
+            }
+            else
+            {
+                Assert.IsNotNull(result);
+            }
         }
     }
 }

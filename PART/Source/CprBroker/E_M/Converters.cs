@@ -73,6 +73,10 @@ namespace CprBroker.Providers.E_M
         internal static DateTime? ToDateTime(DateTime? value, char? uncertainty)
         {
             //TODO: Fill date time conversion
+            if (value.HasValue && uncertainty.HasValue && uncertainty.Value == 'T')
+            {
+                return value.Value;
+            }
             return null;
         }
 
@@ -162,6 +166,24 @@ namespace CprBroker.Providers.E_M
                     {
                         Assert.AreNotEqual(LivStatusKodeType.Prenatal, result);
                     }
+                }
+            }
+
+            DateTime?[] SampleDates = new DateTime?[] { null, new DateTime(2011, 10, 10), new DateTime(2000, 8, 22), DateTime.MinValue, DateTime.MaxValue };
+            [Test]
+            [Combinatorial]
+            public void TestToDateTime(
+                [ValueSource("SampleDates")] DateTime? value,
+                [Values(null, 'T', 'd', 'W', ' ')] char? uncertainty)
+            {
+                var result = Converters.ToDateTime(value, uncertainty);
+                if (!value.HasValue || !uncertainty.HasValue || (uncertainty.Value != 'T' && uncertainty.Value != 't'))
+                {
+                    Assert.IsNull(result);
+                }
+                else
+                {
+                    Assert.AreEqual(value.Value, result.Value);
                 }
             }
 

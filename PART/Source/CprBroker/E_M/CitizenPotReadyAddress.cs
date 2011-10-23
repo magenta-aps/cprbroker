@@ -104,52 +104,39 @@ namespace CprBroker.Providers.E_M
                 new CitizenPotReadyAddress()
             };
 
-            void ValidateNulls<T>(CitizenPotReadyAddress address, T result) where T : class
-            {
-                if (address == null)
-                {
-                    Assert.IsNull(result);
-                }
-                else
-                {
-                    Assert.IsNotNull(result);
-                }
-            }
-
-            
             [TestCaseSource("AddressTestValues")]
             public void TestAdresseType(CitizenPotReadyAddress address)
             {
                 var result = ToAdresseType(address);
-                ValidateNulls<AdresseType>(address, result);
+                UnitTests.ValidateNulls<CitizenPotReadyAddress, AdresseType>(address, result);
             }
 
             [TestCaseSource("AddressTestValues")]
             public void TestDanskAdresseType(CitizenPotReadyAddress address)
             {
                 var result = ToDanskAdresseType(address);
-                ValidateNulls<DanskAdresseType>(address, result);
+                UnitTests.ValidateNulls<CitizenPotReadyAddress, DanskAdresseType>(address, result);
             }
 
             [TestCaseSource("AddressTestValues")]
             public void TestToAddressCompleteType(CitizenPotReadyAddress address)
             {
                 var result = ToAddressCompleteType(address);
-                ValidateNulls<AddressCompleteType>(address, result);
+                UnitTests.ValidateNulls<CitizenPotReadyAddress, AddressCompleteType>(address, result);
             }
 
             [TestCaseSource("AddressTestValues")]
             public void TestToAddressAccessType(CitizenPotReadyAddress address)
             {
                 var result = ToAddressAccessType(address);
-                ValidateNulls<AddressAccessType>(address, result);
+                UnitTests.ValidateNulls<CitizenPotReadyAddress, AddressAccessType>(address, result);
             }
 
             [TestCaseSource("AddressTestValues")]
             public void TestToAddressPostalType(CitizenPotReadyAddress address)
             {
                 var result = ToAddressPostalType(address);
-                ValidateNulls<AddressPostalType>(address, result);
+                UnitTests.ValidateNulls<CitizenPotReadyAddress, AddressPostalType>(address, result);
             }
         }
     }
