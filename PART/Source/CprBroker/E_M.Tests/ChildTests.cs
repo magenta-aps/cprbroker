@@ -45,7 +45,6 @@ namespace CprBroker.Tests.E_M
         public void ToPersonFlerRelationType_WrongPNR_ThrowsException(
             [ValueSource("WrongCprNumbers")] decimal? cprNumber)
         {
-            var ss = 10m;
             var child = CreateChild(cprNumber);
             Child.ToPersonFlerRelationType(child, ToUuid);
         }
