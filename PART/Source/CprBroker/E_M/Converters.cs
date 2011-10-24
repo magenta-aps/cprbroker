@@ -9,18 +9,35 @@ namespace CprBroker.Providers.E_M
 {
     public class Converters
     {
+        public static bool IsValidCprNumber(decimal? cprNumber)
+        {
+            if (cprNumber.HasValue)
+            {
+                cprNumber = Math.Floor(cprNumber.Value);
+                string s = cprNumber.Value.ToString("F0");
+                if (s.Length == 9 || s.Length == 10)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static string ToCprNumber(decimal? cprNumber)
         {
             //TODO: Test cpr number conversion
-            if (cprNumber.HasValue)
+            if (IsValidCprNumber(cprNumber))
             {
                 string ret = cprNumber.Value.ToString("F0");
-                ret = new string('0', 10 - ret.Length) + ret;
+                if (ret.Length == 9)
+                {
+                    ret = new string('0', 10 - ret.Length) + ret;
+                }
                 return ret;
             }
             else
             {
-                return null;
+                throw new ArgumentException("Invalid CPR number", string.Format("{0}", cprNumber));
             }
         }
 
