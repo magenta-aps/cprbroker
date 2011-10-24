@@ -10,38 +10,40 @@ namespace CprBroker.Providers.E_M
     {
         public static AdresseType ToAdresseType(CitizenPotReadyAddress address)
         {
-            if (address != null)
+            return new AdresseType()
             {
-                return new AdresseType()
-                {
-                    Item = ToDanskAdresseType(address)
-                };
-            }
-            return null;
+                Item = ToDanskAdresseType(address)
+            };
         }
 
         public static DanskAdresseType ToDanskAdresseType(CitizenPotReadyAddress address)
         {
-            if (address != null)
+            var ret = new DanskAdresseType()
             {
-                return new DanskAdresseType()
-                {
-                    AddressComplete = ToAddressCompleteType(address),
-                    // No address point
-                    AddressPoint = null,
-                    NoteTekst = null,
-                    PolitiDistriktTekst = null,
-                    PostDistriktTekst = null,
-                    SkoleDistriktTekst = null,
-                    SocialDistriktTekst = null,
-                    SogneDistriktTekst = null,
-                    SpecielVejkodeIndikator = false,
-                    SpecielVejkodeIndikatorSpecified = false,
-                    UkendtAdresseIndikator = false,
-                    ValgkredsDistriktTekst = null
-                };
+                AddressComplete = null,
+                // No address point
+                AddressPoint = null,
+                NoteTekst = null,
+                PolitiDistriktTekst = null,
+                PostDistriktTekst = null,
+                SkoleDistriktTekst = null,
+                SocialDistriktTekst = null,
+                SogneDistriktTekst = null,
+                SpecielVejkodeIndikator = false,
+                SpecielVejkodeIndikatorSpecified = false,
+                UkendtAdresseIndikator = false,
+                ValgkredsDistriktTekst = null
+            };
+            if (address == null)
+            {
+                ret.UkendtAdresseIndikator = true;
             }
-            return null;
+            else
+            {
+                ret.AddressComplete = ToAddressCompleteType(address);
+                ret.PostDistriktTekst = address.PostDistrict;
+            }
+            return ret;
         }
 
         public static AddressCompleteType ToAddressCompleteType(CitizenPotReadyAddress address)
