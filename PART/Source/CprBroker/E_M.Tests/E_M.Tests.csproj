@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{24E1E816-D9CD-47B8-96B6-619EAF3379C6}</ProjectGuid>
+    <ProjectGuid>{37B2453E-5D68-4920-98D3-476BA76DF900}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CprBroker.Providers.E_M</RootNamespace>
-    <AssemblyName>CprBroker.Providers.E_M</AssemblyName>
+    <RootNamespace>CprBroker.Tests.E_M</RootNamespace>
+    <AssemblyName>CprBroker.Tests.E_M</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CprBroker.Engine, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
     </Reference>
@@ -39,10 +39,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
     </Reference>
-    <Reference Include="CprBroker.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
-    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.8.10295, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -50,8 +47,6 @@
     <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -62,39 +57,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Child.cs" />
-    <Compile Include="Citizen.cs" />
-    <Compile Include="Citizen.States.cs" />
-    <Compile Include="Citizen.NotImplemented.cs" />
-    <Compile Include="Citizen.Bitemporal.cs" />
-    <Compile Include="Converters.cs" />
-    <Compile Include="CitizenPotReadyAddress.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="E_MDataContext.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>E_MDataContext.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="E_MDataProvider.Helpers..cs" />
-    <Compile Include="E_MDataProvider.cs" />
-    <Compile Include="Citizen.Relations.cs" />
-    <Compile Include="LookupMap.cs" />
+    <Compile Include="ChildTests.cs" />
+    <Compile Include="CitizenPotReadyAddressTests.cs" />
+    <Compile Include="CitizenRelationsTests.cs" />
+    <Compile Include="CitizenStatesTests.cs" />
+    <Compile Include="ConvertersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="E_MDataContext.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>E_MDataContext.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="E_MDataContext.dbml.layout">
-      <DependentUpon>E_MDataContext.dbml</DependentUpon>
-    </None>
+    <ProjectReference Include="..\E_M\E_M.csproj">
+      <Project>{24E1E816-D9CD-47B8-96B6-619EAF3379C6}</Project>
+      <Name>E_M</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

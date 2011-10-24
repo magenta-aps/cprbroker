@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_M", "E_M\E_M.csproj", "{2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPRClientTester", "DPRClientTester\DPRClientTester.csproj", "{895FDF74-8A3F-475B-B28D-B88BAB9C941E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_M.Tests", "E_M.Tests\E_M.Tests.csproj", "{37B2453E-5D68-4920-98D3-476BA76DF900}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -148,6 +150,18 @@ Global
 		{895FDF74-8A3F-475B-B28D-B88BAB9C941E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{895FDF74-8A3F-475B-B28D-B88BAB9C941E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{895FDF74-8A3F-475B-B28D-B88BAB9C941E}.Release|x86.ActiveCfg = Release|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|.NET.ActiveCfg = Release|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

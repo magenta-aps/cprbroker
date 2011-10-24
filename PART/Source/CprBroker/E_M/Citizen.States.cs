@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-using NUnit.Framework;
 
 namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        private static TilstandListeType ToTilstandListeType(Citizen citizen)
+        public static TilstandListeType ToTilstandListeType(Citizen citizen)
         {
 
             return new TilstandListeType()
@@ -21,7 +20,7 @@ namespace CprBroker.Providers.E_M
             };
         }
 
-        private static CivilStatusType ToCivilStatusType(Citizen citizen)
+        public static CivilStatusType ToCivilStatusType(Citizen citizen)
         {
             if (citizen != null)
             {
@@ -35,7 +34,7 @@ namespace CprBroker.Providers.E_M
             return null;
         }
 
-        private static LivStatusType ToLivStatusType(Citizen citizen)
+        public static LivStatusType ToLivStatusType(Citizen citizen)
         {
             if (citizen != null)
             {
@@ -48,36 +47,6 @@ namespace CprBroker.Providers.E_M
             }
             return null;
         }
-
-        [TestFixture]
-        private partial class Tests
-        {
-            [TestFixtureSetUp]
-            public void InitializeTestCitizens()
-            {
-
-            }
-            private Citizen[] TestCitizens = new Citizen[]
-            {
-                null,
-                new Citizen(){CitizenStatusCode = 1, CitizenStatusTimestamp = DateTime.Today, CitizenStatusTimestampUncertainty='T',MaritalStatus='U',MaritalStatusTimestamp=DateTime.Today, MaritalStatusTimestampUncertainty='T'}
-            };
-
-            [Test]
-            [TestCaseSource("TestCitizens")]
-            public void TestToCivilStatusType(Citizen citizen)
-            {
-                var result = ToCivilStatusType(citizen);
-                UnitTests.ValidateNulls<Citizen, CivilStatusType>(citizen, result);
-            }
-
-            [Test]
-            [TestCaseSource("TestCitizens")]
-            public void TestToLivStatusType(Citizen citizen)
-            {
-                var result = ToLivStatusType(citizen);
-                UnitTests.ValidateNulls<Citizen, LivStatusType>(citizen, result);
-            }
-        }
+        
     }
 }
