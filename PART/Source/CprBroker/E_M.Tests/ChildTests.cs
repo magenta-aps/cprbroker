@@ -87,5 +87,15 @@ namespace CprBroker.Tests.E_M
             Assert.AreEqual(lastUuid.ToString(), result.ReferenceID.Item);
         }
 
+        [Test]
+        [TestCaseSource("TestCprNumbers")]
+        public void ToPersonFlerRelationType_Valid_NullCommentText(decimal? cprNumber)
+        {
+            var child = CreateChild(cprNumber);
+            var result = Child.ToPersonFlerRelationType(child, ToUuid);
+            var stringCprNumber = Converters.ToCprNumber(cprNumber);
+            Assert.IsNull(result.CommentText);
+        }
+
     }
 }
