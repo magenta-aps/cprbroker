@@ -33,7 +33,7 @@ namespace CprBroker.Tests.Schemas
 
         [Test]
         [Combinatorial]
-        public void Compose_Valid_NotNull(
+        public void Create_Valid_NotNull(
             [ValueSource("PastDatesWithNull")] DateTime? fromDate,
             [ValueSource("FutureDatesWithNull")] DateTime? toDate)
         {
@@ -43,7 +43,7 @@ namespace CprBroker.Tests.Schemas
 
         [Test]
         [Combinatorial]
-        public void Compose_Valid_EqualFromDate(
+        public void Create_Valid_EqualFromDate(
             [ValueSource("PastDatesWithNull")] DateTime? fromDate,
             [ValueSource("FutureDatesWithNull")] DateTime? toDate)
         {
@@ -53,7 +53,7 @@ namespace CprBroker.Tests.Schemas
 
         [Test]
         [Combinatorial]
-        public void Compose_Valid_EqualToDate(
+        public void Create_Valid_EqualToDate(
             [ValueSource("PastDatesWithNull")] DateTime? fromDate,
             [ValueSource("FutureDatesWithNull")] DateTime? toDate)
         {
@@ -63,7 +63,7 @@ namespace CprBroker.Tests.Schemas
 
         [Test]
         [Combinatorial]
-        public void Compose_Valid_AktoerRefNull(
+        public void Create_Valid_AktoerRefNull(
             [ValueSource("PastDatesWithNull")] DateTime? fromDate,
             [ValueSource("FutureDatesWithNull")] DateTime? toDate)
         {
@@ -73,7 +73,7 @@ namespace CprBroker.Tests.Schemas
 
         [Test]
         [Combinatorial]
-        public void Compose_Valid_CommentTextNull(
+        public void Create_Valid_CommentTextNull(
             [ValueSource("PastDatesWithNull")] DateTime? fromDate,
             [ValueSource("FutureDatesWithNull")] DateTime? toDate)
         {
@@ -84,7 +84,7 @@ namespace CprBroker.Tests.Schemas
         [Test]
         [Combinatorial]
         [ExpectedException(typeof(ArgumentException))]
-        public void Compose_InconsistentDates_ThrowsException(
+        public void Create_InconsistentDates_ThrowsException(
             [ValueSource("FutureDates")] DateTime? fromDate,
             [ValueSource("PastDates")] DateTime? toDate)
         {
