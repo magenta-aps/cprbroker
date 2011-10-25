@@ -90,7 +90,7 @@ namespace CprBroker.Schemas.Part
 
         }
 
-        public static bool IsOpen(VirkningType v)
+        public static bool IsDoubleOpen(VirkningType v)
         {
             if (v == null)
                 return true;

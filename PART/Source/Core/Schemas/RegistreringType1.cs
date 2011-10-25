@@ -58,7 +58,7 @@ namespace CprBroker.Schemas.Part
         {
             this.Virkning = null;
             var partialVirkning = GetPropertyValuesOfType<VirkningType>(this)
-                .Where(v => !VirkningType.IsOpen(v))
+                .Where(v => !VirkningType.IsDoubleOpen(v))
                 .ToArray();
             // TODO: Check this
             this.Virkning = partialVirkning;

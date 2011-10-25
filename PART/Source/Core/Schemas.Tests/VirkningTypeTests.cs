@@ -18,6 +18,8 @@ namespace CprBroker.Tests.Schemas
             FutureDates = new DateTime?[] { today.AddYears(3), today.AddMonths(3), today.AddDays(3), today.AddHours(3), today.AddMinutes(3), today.AddSeconds(3), today.AddMilliseconds(3) };
             PastDatesWithNull = new DateTime?[] { null, today }.Union(PastDates).ToArray();
             FutureDatesWithNull = new DateTime?[] { null, today }.Union(FutureDates).ToArray();
+            AllDates = PastDates.Union(new DateTime?[] { today }).Union(FutureDates).ToArray();
+            AllDatesWithNull = new DateTime?[] { today }.Union(AllDates).ToArray();
         }
 
         DateTime?[] PastDates = null;
@@ -25,6 +27,8 @@ namespace CprBroker.Tests.Schemas
 
         DateTime?[] PastDatesWithNull = null;
         DateTime?[] FutureDatesWithNull = null;
+        DateTime?[] AllDates = null;
+        DateTime?[] AllDatesWithNull = null;
 
 
         [Test]
@@ -87,5 +91,39 @@ namespace CprBroker.Tests.Schemas
             VirkningType.Create(fromDate, toDate);
         }
 
+        [Test]
+        public void IsDoubleOpen_Null_ReturnsTrue()
+        {
+            var result = VirkningType.IsDoubleOpen(null);
+            Assert.True(result);
+        }
+
+        [Test]
+        [TestCaseSource("AllDates")]
+        public void IsDoubleOpen_ToSpecified_ReturnsFalse(
+            DateTime? toDate)
+        {
+            var result = VirkningType.IsDoubleOpen(VirkningType.Create(null, toDate));
+            Assert.False(result);
+        }
+
+        [Test]
+        [TestCaseSource("AllDates")]
+        public void IsDoubleOpen_FromSpecified_ReturnsFalse(
+            DateTime? fromDate)
+        {
+            var result = VirkningType.IsDoubleOpen(VirkningType.Create(fromDate, null));
+            Assert.False(result);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void IsDoubleOpen_ClosedValues_ReturnsFalse(
+            [ValueSource("PastDates")] DateTime? fromDate,
+            [ValueSource("FutureDates")] DateTime? toDate)
+        {
+            var result = VirkningType.IsDoubleOpen(VirkningType.Create(fromDate, toDate));
+            Assert.False(result);
+        }
     }
 }
