@@ -30,7 +30,7 @@ namespace CprBroker.Tests.E_M
         }
         decimal?[] TestCprNumbers
         {
-            get { return UnitTests.RandomCprNumbers(3); }
+            get { return Utilities.RandomCprNumbers(3); }
         }
 
         private Child CreateChild(decimal? cprNumber)

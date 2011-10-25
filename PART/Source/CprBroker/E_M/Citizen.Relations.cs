@@ -84,13 +84,55 @@ namespace CprBroker.Providers.E_M
 
         public static PersonRelationType[] ToFather(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
-            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.FatherPNR)));
+            if (citizen != null)
+            {
+                if (Converters.IsValidCprNumber(citizen.FatherPNR))
+                {
+                    if (cpr2uuidFunc != null)
+                    {
+                        return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.FatherPNR)));
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("cpr2uuidFunc");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid FatherPNR", "citizen.FatherPNR");
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException("citizen");
+            }
         }
 
         public static PersonRelationType[] ToMother(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
-            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.MotherPNR)));
+            if (citizen != null)
+            {
+                if (Converters.IsValidCprNumber(citizen.MotherPNR))
+                {
+                    if (cpr2uuidFunc != null)
+                    {
+                        return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.MotherPNR)));
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("cpr2uuidFunc");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid MotherPNR", "citizen.MotherPNR");
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException("citizen");
+            }
         }
-       
+
     }
 }

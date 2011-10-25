@@ -26,18 +26,25 @@ namespace CprBroker.Providers.E_M
         public static string ToCprNumber(decimal? cprNumber)
         {
             //TODO: Test cpr number conversion
-            if (IsValidCprNumber(cprNumber))
+            if (cprNumber.HasValue)
             {
-                string ret = cprNumber.Value.ToString("F0");
-                if (ret.Length == 9)
+                if (IsValidCprNumber(cprNumber))
                 {
-                    ret = new string('0', 10 - ret.Length) + ret;
+                    string ret = cprNumber.Value.ToString("F0");
+                    if (ret.Length == 9)
+                    {
+                        ret = new string('0', 10 - ret.Length) + ret;
+                    }
+                    return ret;
                 }
-                return ret;
+                else
+                {
+                    throw new ArgumentException("Invalid CPR number", string.Format("{0}", cprNumber));
+                }
             }
             else
             {
-                throw new ArgumentException("Invalid CPR number", string.Format("{0}", cprNumber));
+                throw new ArgumentNullException("cprNumber");
             }
         }
 

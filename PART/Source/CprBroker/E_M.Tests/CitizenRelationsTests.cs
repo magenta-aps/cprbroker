@@ -24,14 +24,15 @@ namespace CprBroker.Tests.E_M
             return ret;
         }
 
-        public decimal?[] RandomCprNumbers10
+        public decimal?[] RandomCprNumbers
         {
-            get { return UnitTests.RandomCprNumbers(10); }
+            get { return Utilities.RandomCprNumbers(10); }
         }
         public decimal?[] RandomCprNumbers1
         {
-            get { return UnitTests.RandomCprNumbers(1); }
+            get { return Utilities.RandomCprNumbers(1); }
         }
+        public decimal?[] InvalidCprNumbers = new decimal?[] { null, 10m, 6567576m };
 
         private void AssertCprNumbers(decimal?[] cprNumbers, PersonFlerRelationType[] result)
         {
@@ -66,7 +67,7 @@ namespace CprBroker.Tests.E_M
             [Values('M', 'K')] char gender)
         {
             var citizen = new Citizen();
-            var childCprNumbers = UnitTests.RandomCprNumbers(count);
+            var childCprNumbers = Utilities.RandomCprNumbers(count);
             var children = childCprNumbers.Select(pnr => new Child() { PNR = pnr });
             citizen.Gender = gender;
             var childrenEntitySet = gender == 'M' ? citizen.ChildrenAsFather : citizen.ChildrenAsMother;
@@ -125,24 +126,188 @@ namespace CprBroker.Tests.E_M
             AssertCprNumbers(new decimal?[] { cprNumber }, result);
         }
 
+
+        #region ToFather
         [Test]
-        [TestCaseSource("RandomCprNumbers10")]
-        public void TestToFather(decimal? cprNumber)
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToFather_Null_ThrowsException()
+        {
+            Citizen.ToFather(null, ToUuid);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToFather_NullConverter_ThrowsException()
+        {
+            var citizen = new Citizen();
+            citizen.FatherPNR = Utilities.RandomCprNumber();
+            Citizen.ToFather(citizen, null);
+        }
+
+        [Test]
+        [TestCaseSource("InvalidCprNumbers")]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToFather_InvalidFatherPNR_Exception(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.FatherPNR = cprNumber;
+            Citizen.ToFather(citizen, ToUuid);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToFather_Valid_NotNull(decimal? cprNumber)
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
             var result = Citizen.ToFather(citizen, ToUuid);
-            AssertCprNumbers(new decimal?[] { cprNumber }, result);
+            Assert.NotNull(result);
         }
 
         [Test]
-        [TestCaseSource("RandomCprNumbers10")]
-        public void TestToMother(decimal? cprNumber)
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToFather_Valid_SingleArrayElement(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.FatherPNR = cprNumber;
+            var result = Citizen.ToFather(citizen, ToUuid);
+            Assert.AreEqual(1, result.Length);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToFather_Valid_ElementNotNull(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.FatherPNR = cprNumber;
+            var result = Citizen.ToFather(citizen, ToUuid);
+            Assert.NotNull(result[0]);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToFather_Valid_ReferenceIDNotNull(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.FatherPNR = cprNumber;
+            var result = Citizen.ToFather(citizen, ToUuid);
+            Assert.IsNotNull(result[0].ReferenceID);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToFather_Valid_CorrectPnrPassed(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.FatherPNR = cprNumber;
+            var result = Citizen.ToFather(citizen, ToUuid);
+            Assert.NotNull(result);
+            var stringCprNumber = Converters.ToCprNumber(cprNumber);
+            Assert.IsTrue(uuids.ContainsKey(stringCprNumber));
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToFather_Valid_CorrectUuid(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.FatherPNR = cprNumber;
+            var result = Citizen.ToFather(citizen, ToUuid);
+            var stringCprNumber = Converters.ToCprNumber(cprNumber);
+            Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
+        }
+        #endregion
+
+        #region ToMother
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToMother_Null_ThrowsException()
+        {
+            Citizen.ToMother(null, ToUuid);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToMother_NullConverter_ThrowsException()
+        {
+            var citizen = new Citizen();
+            citizen.MotherPNR = Utilities.RandomCprNumber();
+            Citizen.ToMother(citizen, null);
+        }
+
+
+        [Test]
+        [TestCaseSource("InvalidCprNumbers")]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToMother_InvalidMotherPNR_Exception(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.MotherPNR = cprNumber;
+            Citizen.ToMother(citizen, ToUuid);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToMother_Valid_NotNull(decimal? cprNumber)
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
             var result = Citizen.ToMother(citizen, ToUuid);
-            AssertCprNumbers(new decimal?[] { cprNumber }, result);
+            Assert.NotNull(result);
         }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToMother_Valid_SingleArrayElement(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.MotherPNR = cprNumber;
+            var result = Citizen.ToMother(citizen, ToUuid);
+            Assert.AreEqual(1, result.Length);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToMother_Valid_ElementNotNull(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.MotherPNR = cprNumber;
+            var result = Citizen.ToMother(citizen, ToUuid);
+            Assert.NotNull(result[0]);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToMother_Valid_ReferenceIDNotNull(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.MotherPNR = cprNumber;
+            var result = Citizen.ToMother(citizen, ToUuid);
+            Assert.IsNotNull(result[0].ReferenceID);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToMother_Valid_CorrectPnrPassed(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.MotherPNR = cprNumber;
+            var result = Citizen.ToMother(citizen, ToUuid);
+            Assert.NotNull(result);
+            var stringCprNumber = Converters.ToCprNumber(cprNumber);
+            Assert.IsTrue(uuids.ContainsKey(stringCprNumber));
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToMother_Valid_CorrectUuid(decimal? cprNumber)
+        {
+            var citizen = new Citizen();
+            citizen.MotherPNR = cprNumber;
+            var result = Citizen.ToMother(citizen, ToUuid);
+            var stringCprNumber = Converters.ToCprNumber(cprNumber);
+            Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
+        }
+        #endregion
     }
 }
