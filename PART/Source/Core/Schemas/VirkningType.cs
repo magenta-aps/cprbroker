@@ -55,6 +55,10 @@ namespace CprBroker.Schemas.Part
     {
         public static VirkningType Create(DateTime? fromDate, DateTime? toDate)
         {
+            if (fromDate.HasValue && toDate.HasValue && toDate < fromDate)
+            {
+                throw new ArgumentException(string.Format("toDate ({0}) should be greater than or equal fromDate ({0})", toDate, fromDate));
+            }
             return new VirkningType()
             {
                 //TODO: Fill actor

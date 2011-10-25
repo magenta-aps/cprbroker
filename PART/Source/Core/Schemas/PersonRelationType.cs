@@ -55,12 +55,19 @@ namespace CprBroker.Schemas.Part
     {
         public static PersonRelationType Create(Guid targetUuid, DateTime? fromDate, DateTime? toDate)
         {
-            return new PersonRelationType()
-                {
-                    CommentText = null,                    
-                    ReferenceID = UnikIdType.Create(targetUuid),                    
-                    Virkning = VirkningType.Create(fromDate, toDate)
-                };
+            if (targetUuid != Guid.Empty)
+            {
+                return new PersonRelationType()
+                    {
+                        CommentText = null,
+                        ReferenceID = UnikIdType.Create(targetUuid),
+                        Virkning = VirkningType.Create(fromDate, toDate)
+                    };
+            }
+            else
+            {
+                throw new ArgumentNullException("targetUuid");
+            }
         }
         //TODO: Add fromDate and to parameters
         public static PersonRelationType[]CreateList(params Guid[] targetUuids)
