@@ -72,22 +72,25 @@ namespace CprBroker.Schemas.Part
 
         public static VirkningType Compose(params VirkningType[] partialEffects)
         {
+            if (partialEffects == null || partialEffects.Where(ef => ef == null || ef.FraTidspunkt == null || ef.TilTidspunkt == null).Count() > 0)
+            {
+                throw new ArgumentNullException("partialEffects");
+            }
             // TODO: What is the default value for DateTime? in case input array is empty?
             var fromDate =
                 partialEffects
-                .Select(pe => pe.FraTidspunkt.ToDateTime())
-                .Select(d => d.HasValue ? d.Value : DateTime.MinValue)
-                .OrderBy(d => d)
+                .Where(pe => pe.FraTidspunkt.ToDateTime().HasValue)
+                .Select(pe => pe.FraTidspunkt.ToDateTime())                
+                .OrderBy(d => d.Value)
                 .FirstOrDefault();
 
             var to =
                 partialEffects
-                .Select(pe => pe.FraTidspunkt.ToDateTime())
-                .Select(d => d.HasValue ? d.Value : DateTime.MaxValue)
-                .OrderByDescending(d => d)
+                .Where(pe => pe.TilTidspunkt.ToDateTime().HasValue)
+                .Select(pe => pe.TilTidspunkt.ToDateTime())
+                .OrderByDescending(d => d.Value)
                 .FirstOrDefault();
             return VirkningType.Create(fromDate, to);
-
         }
 
         public static bool IsDoubleOpen(VirkningType v)

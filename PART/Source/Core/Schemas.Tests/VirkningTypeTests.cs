@@ -31,6 +31,7 @@ namespace CprBroker.Tests.Schemas
         DateTime?[] AllDatesWithNull = null;
 
 
+        #region Create
         [Test]
         [Combinatorial]
         public void Create_Valid_NotNull(
@@ -90,7 +91,83 @@ namespace CprBroker.Tests.Schemas
         {
             VirkningType.Create(fromDate, toDate);
         }
+        #endregion
 
+        #region Compose
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Compose_Null_ThrowsException()
+        {
+            var result = VirkningType.Compose(null as VirkningType[]);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Compose_NullElement_ThrowsException()
+        {
+            var result = VirkningType.Compose(new VirkningType[] { null });
+        }
+
+        [Test]
+        public void Compose_Valid_DoubleOpen()
+        {
+            var result = VirkningType.Compose(VirkningType.Create(null, null), VirkningType.Create(null, null));
+            Assert.True(VirkningType.IsDoubleOpen(result));
+        }
+
+        [Test]
+        [Combinatorial]
+        public void Compose_ValidSingle_EqualsInput(
+            [ValueSource("PastDatesWithNull")] DateTime? fromDate,
+            [ValueSource("FutureDatesWithNull")] DateTime? toDate)
+        {
+            var virkning = VirkningType.Create(fromDate, toDate);
+            var result = VirkningType.Compose(virkning);
+            Assert.NotNull(result);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void Compose_ValidSingle_FraTidspunktEqualsInput(
+            [ValueSource("PastDatesWithNull")] DateTime? fromDate,
+            [ValueSource("FutureDatesWithNull")] DateTime? toDate)
+        {
+            var virkning = VirkningType.Create(fromDate, toDate);
+            var result = VirkningType.Compose(virkning);
+            Assert.AreEqual(virkning.FraTidspunkt.ToDateTime(), result.FraTidspunkt.ToDateTime());
+        }
+
+        [Test]
+        [Combinatorial]
+        public void Compose_ValidSingle_TilTidspunktEqualsInput(
+            [ValueSource("PastDatesWithNull")] DateTime? fromDate,
+            [ValueSource("FutureDatesWithNull")] DateTime? toDate)
+        {
+            var virkning = VirkningType.Create(fromDate, toDate);
+            var result = VirkningType.Compose(virkning);
+            Assert.AreEqual(virkning.TilTidspunkt.ToDateTime(), result.TilTidspunkt.ToDateTime());
+        }
+
+        [Test]
+        public void Compose_ValidArray_CorrectFraTidspunkt(
+            [ValueSource("FutureDatesWithNull")] DateTime? toDate)
+        {
+            var input = PastDates.Select(pd => VirkningType.Create(pd, toDate)).ToArray();
+            var result = VirkningType.Compose(input);
+            Assert.AreEqual(PastDates.Min(), result.FraTidspunkt.ToDateTime());
+        }
+
+        [Test]
+        public void Compose_ValidArray_CorrectTilTidspunkt(
+            [ValueSource("PastDatesWithNull")] DateTime? fromDate)
+        {
+            var input = FutureDates.Select(pd => VirkningType.Create(fromDate, pd)).ToArray();
+            var result = VirkningType.Compose(input);
+            Assert.AreEqual(FutureDates.Max(), result.TilTidspunkt.ToDateTime());
+        }
+        #endregion
+
+        #region IsDoubleOpen
         [Test]
         public void IsDoubleOpen_Null_ReturnsTrue()
         {
@@ -125,5 +202,6 @@ namespace CprBroker.Tests.Schemas
             var result = VirkningType.IsDoubleOpen(VirkningType.Create(fromDate, toDate));
             Assert.False(result);
         }
+        #endregion
     }
 }
