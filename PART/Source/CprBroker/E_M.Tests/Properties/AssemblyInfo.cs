@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("E_M.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Unit tests for E_M project")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Magenta ApS")]
-[assembly: AssemblyProduct("E_M.Tests")]
+[assembly: AssemblyProduct("CPR Broker")]
 [assembly: AssemblyCopyright("Copyright © Magenta ApS 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
