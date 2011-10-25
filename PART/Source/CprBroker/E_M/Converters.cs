@@ -50,13 +50,14 @@ namespace CprBroker.Providers.E_M
 
         public static CivilStatusKodeType ToCivilStatusKodeType(char? status)
         {
-            if (status.HasValue)
+            var codes = new CivilStatusCodes();
+            if (status.HasValue && codes.ContainsKey(status.Value))
             {
-                return new CivilStatusCodes().Map(status.Value);
+                return codes.Map(status.Value);
             }
             else
             {
-                throw new Exception(string.Format("Invalid input <{0}>"));
+                throw new ArgumentException(string.Format("Invalid input <{0}>", status), "status");
             }
         }
 
@@ -73,7 +74,7 @@ namespace CprBroker.Providers.E_M
 
         public static DateTime? ToDateTime(DateTime? value, char? uncertainty)
         {
-            //TODO: Fill date time conversion
+            //TODO: make sure that 'T' means ''certain'
             if (value.HasValue && uncertainty.HasValue && uncertainty.Value == 'T')
             {
                 return value.Value;

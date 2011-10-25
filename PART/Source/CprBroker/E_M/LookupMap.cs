@@ -15,6 +15,11 @@ namespace CprBroker.Providers.E_M
             Mappings[key] = value;
         }
 
+        public bool ContainsKey(TKey key)
+        {
+            return Mappings.ContainsKey(key);
+        }
+
         public TValue Map(TKey c)
         {
             return Mappings[c];

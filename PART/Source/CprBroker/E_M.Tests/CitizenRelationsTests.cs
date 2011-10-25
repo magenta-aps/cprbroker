@@ -24,6 +24,7 @@ namespace CprBroker.Tests.E_M
             return ret;
         }
 
+        char? DateCertaintyTrue = 'T';
         public decimal?[] RandomCprNumbers
         {
             get { return Utilities.RandomCprNumbers(10); }
@@ -32,7 +33,8 @@ namespace CprBroker.Tests.E_M
         {
             get { return Utilities.RandomCprNumbers(1); }
         }
-        public decimal?[] InvalidCprNumbers = new decimal?[] { null, 10m, 6567576m };
+        public decimal?[] InvalidCprNumbers = new decimal?[] { 10m, 6567576m };
+        public decimal?[] InvalidCprNumbersWithNull = new decimal?[] { null, 10m, 6567576m };        
 
         private void AssertCprNumbers(decimal?[] cprNumbers, PersonFlerRelationType[] result)
         {
@@ -102,6 +104,110 @@ namespace CprBroker.Tests.E_M
             AssertCprNumbers(new decimal?[] { cprNumber }, result);
         }
 
+
+        #region ToRegisteredPartners
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToRegisteredPartners_Null_ThrowsException()
+        {
+            Citizen.ToRegisteredPartners(null, ToUuid);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToRegisteredPartners_NullConverter_ThrowsException()
+        {
+            var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber() };
+            Citizen.ToRegisteredPartners(citizen, null);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        [TestCaseSource("InvalidCprNumbers")]
+        public void ToRegisteredPartners_InvalidSpousePNR_ThrowsException(decimal? spousePNR)
+        {
+            var citizen = new Citizen() { SpousePNR = spousePNR };
+            Citizen.ToRegisteredPartners(citizen, ToUuid);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToRegisteredPartners_InvalidMaritalStatus_ThrowsException(
+            [Values(null, 'W')] char? maritalStatus)
+        {
+            var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
+            Citizen.ToRegisteredPartners(citizen, ToUuid);
+        }
+
+        [Test]
+        public void ToRegisteredPartners_IrrelevantMaritalStatus_NotNull(
+            [Values('E', 'F', 'G', 'U')] char? maritalStatus)
+        {
+            var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
+            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
+            Assert.NotNull(result);
+        }
+
+        [Test]
+        public void ToRegisteredPartners_IrrelevantMaritalStatus_ZeroElements(
+            [Values('E', 'F', 'G', 'U')] char? maritalStatus)
+        {
+            var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
+            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
+            Assert.AreEqual(0, result.Length);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToRegisteredPartners_InconsistentDates_ThrowsException(
+            [Values('L', 'O')]char? maritalStatus)
+        {
+            var citizen = new Citizen()
+            {
+                SpousePNR = Utilities.RandomCprNumber(),
+                MaritalStatus = maritalStatus,
+                MaritalStatusTimestamp = DateTime.Today,
+                MaritalStatusTimestampUncertainty = DateCertaintyTrue,
+                MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
+                MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
+            };
+            Citizen.ToRegisteredPartners(citizen, ToUuid);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToRegisteredPartners_TerminationDateForUnTerminatedPartnership_ThrowsException()
+        {
+            var citizen = new Citizen()
+            {
+                SpousePNR = Utilities.RandomCprNumber(),
+                MaritalStatus = 'P',
+                MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
+                MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
+            };
+            Citizen.ToRegisteredPartners(citizen, ToUuid);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToRegisteredPartners_InvalidSpousePnr_Exception(
+            [Values('L', 'O', 'P')]char? maritalStatus,
+            [ValueSource("InvalidCprNumbers")]decimal? spousePnr)
+        {
+            var citizen = new Citizen() { MaritalStatus = maritalStatus, SpousePNR = spousePnr };
+            Citizen.ToRegisteredPartners(citizen, ToUuid);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToRegisteredPartners_NullSpousePnr_Exception(
+            [Values('L', 'O', 'P')]char? maritalStatus)
+        {
+            var citizen = new Citizen() { MaritalStatus = maritalStatus, SpousePNR = null};
+            Citizen.ToRegisteredPartners(citizen, ToUuid);
+        }
+
         [Test]
         [Combinatorial]
         public void TestToRegisteredPartners(
@@ -123,8 +229,13 @@ namespace CprBroker.Tests.E_M
             };
 
             var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
-            AssertCprNumbers(new decimal?[] { cprNumber }, result);
+            var stringCprNumber = Converters.ToCprNumber(cprNumber);
+            Assert.IsNotNull(result[0]);
+            Assert.IsNotNull(result[0].ReferenceID);
+            Assert.IsTrue(uuids.ContainsKey(stringCprNumber));
+            Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
         }
+        #endregion
 
 
         #region ToFather
@@ -145,7 +256,7 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [TestCaseSource("InvalidCprNumbers")]
+        [TestCaseSource("InvalidCprNumbersWithNull")]
         [ExpectedException(typeof(ArgumentException))]
         public void ToFather_InvalidFatherPNR_Exception(decimal? cprNumber)
         {
@@ -237,7 +348,7 @@ namespace CprBroker.Tests.E_M
 
 
         [Test]
-        [TestCaseSource("InvalidCprNumbers")]
+        [TestCaseSource("InvalidCprNumbersWithNull")]
         [ExpectedException(typeof(ArgumentException))]
         public void ToMother_InvalidMotherPNR_Exception(decimal? cprNumber)
         {
