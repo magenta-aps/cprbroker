@@ -31,28 +31,64 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
+        public static DateTime? ToMaritalStatusDate(Citizen citizen)
+        {
+            if (citizen != null)
+            {
+                return Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty);
+            }
+            else
+            {
+                throw new ArgumentNullException("citizen");
+            }
+        }
+
+        public static DateTime? ToMaritalStatusTerminationDate(Citizen citizen)
+        {
+            if (citizen != null)
+            {
+                return Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty);
+            }
+            else
+            {
+                throw new ArgumentNullException("citizen");
+            }
+        }
+
         public static PersonRelationType[] ToSpouses(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
-            //TODO: Revise the logic for start and end dates
-            PersonRelationType ret = null;
-            switch (Converters.ToCivilStatusKodeType(citizen.MaritalStatus))
+            if (citizen != null)
             {
-                case CivilStatusKodeType.Gift:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), null);
-                    break;
-                case CivilStatusKodeType.Separeret:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty));
-                    break;
-                case CivilStatusKodeType.Skilt:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty));
-                    break;
-                case CivilStatusKodeType.Enke:
-                    ret = PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty));
-                    break;
-                default:
-                    return null;
+                if (cpr2uuidFunc != null)
+                {
+                    //TODO: Revise the logic for start and end dates
+                    List<PersonRelationType> ret = new List<PersonRelationType>();
+                    switch (Converters.ToCivilStatusKodeType(citizen.MaritalStatus))
+                    {
+                        case CivilStatusKodeType.Gift:
+                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), null));
+                            break;
+                        case CivilStatusKodeType.Separeret:
+                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty)));
+                            break;
+                        case CivilStatusKodeType.Skilt:
+                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty)));
+                            break;
+                        case CivilStatusKodeType.Enke:
+                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty)));
+                            break;
+                    }
+                    return ret.ToArray();
+                }
+                else
+                {
+                    throw new ArgumentNullException("cpr2uuidFunc");
+                }
             }
-            return new PersonRelationType[] { ret };
+            else
+            {
+                throw new ArgumentNullException("citizen");
+            }
         }
 
         public static PersonFlerRelationType[] ToChildren(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
@@ -67,22 +103,17 @@ namespace CprBroker.Providers.E_M
             {
                 if (cpr2uuidFunc != null)
                 {
-                    //TODO: Revise the logic for start and end dates
                     List<PersonRelationType> ret = new List<PersonRelationType>();
                     switch (Converters.ToCivilStatusKodeType(citizen.MaritalStatus))
                     {
                         case CivilStatusKodeType.RegistreretPartner:
-                            if (Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty).HasValue)
-                            {
-                                throw new ArgumentException("Termination date should be empty for existing registered partnership");
-                            }
-                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), null));
+                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), null));
                             break;
                         case CivilStatusKodeType.OphaevetPartnerskab:
-                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty)));
+                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), ToMaritalStatusTerminationDate(citizen)));
                             break;
                         case CivilStatusKodeType.Laengstlevende:
-                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty), Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp, citizen.MaritalStatusTerminationTimestampUncertainty)));
+                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), ToMaritalStatusTerminationDate(citizen)));
                             break;
                     }
                     return ret.ToArray();

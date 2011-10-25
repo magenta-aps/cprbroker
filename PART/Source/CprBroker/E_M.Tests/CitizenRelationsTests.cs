@@ -34,7 +34,7 @@ namespace CprBroker.Tests.E_M
             get { return Utilities.RandomCprNumbers(1); }
         }
         public decimal?[] InvalidCprNumbers = new decimal?[] { 10m, 6567576m };
-        public decimal?[] InvalidCprNumbersWithNull = new decimal?[] { null, 10m, 6567576m };        
+        public decimal?[] InvalidCprNumbersWithNull = new decimal?[] { null, 10m, 6567576m };
 
         private void AssertCprNumbers(decimal?[] cprNumbers, PersonFlerRelationType[] result)
         {
@@ -78,7 +78,8 @@ namespace CprBroker.Tests.E_M
             AssertCprNumbers(childCprNumbers, result);
         }
 
-        DateTime?[] TestDates = new DateTime?[] { null, new DateTime(2010, 5, 5), new DateTime(2011, 7, 7) };
+        DateTime?[] TestDates = new DateTime?[] { new DateTime(2010, 5, 5), new DateTime(2011, 7, 7) };
+        DateTime?[] TestDatesWithNull = new DateTime?[] { null, new DateTime(2010, 5, 5), new DateTime(2011, 7, 7) };
 
         [Test]
         [Combinatorial]
@@ -104,6 +105,83 @@ namespace CprBroker.Tests.E_M
             AssertCprNumbers(new decimal?[] { cprNumber }, result);
         }
 
+        #region ToMaritalStatusDate
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToMaritalStatusDate_Null_ThrowsException()
+        {
+            Citizen.ToMaritalStatusDate(null);
+        }
+
+        [Test]
+        public void ToMaritalStatusDate_NullDate_ReturnsNull()
+        {
+            var result = Citizen.ToMaritalStatusDate(new Citizen());
+            Assert.False(result.HasValue);
+        }
+
+        [Test]
+        [TestCaseSource("TestDates")]
+        public void ToMaritalStatusDate_InvalidUncertainty_ReturnsNull(DateTime? maritalStatusDate)
+        {
+            var result = Citizen.ToMaritalStatusDate(new Citizen() { MaritalStatusTimestamp = maritalStatusDate, MaritalStatusTimestampUncertainty = null });
+            Assert.False(result.HasValue);
+        }
+
+        [Test]
+        public void ToMaritalStatusDate_InvalidDate_ReturnsNull()
+        {
+            var result = Citizen.ToMaritalStatusDate(new Citizen() { MaritalStatusTimestamp = null, MaritalStatusTimestampUncertainty = DateCertaintyTrue });
+            Assert.False(result.HasValue);
+        }
+
+        [Test]
+        [TestCaseSource("TestDates")]
+        public void ToMaritalStatusDate_Valid_ReturnsValue(DateTime? maritalStatusDate)
+        {
+            var result = Citizen.ToMaritalStatusDate(new Citizen() { MaritalStatusTimestamp = maritalStatusDate, MaritalStatusTimestampUncertainty = DateCertaintyTrue });
+            Assert.True(result.HasValue);
+        }
+        #endregion
+
+        #region ToMaritalStatusEndDate
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ToMaritalStatusTerminationDate_Null_ThrowsException()
+        {
+            Citizen.ToMaritalStatusTerminationDate(null);
+        }
+
+        [Test]
+        public void ToMaritalStatusTerminationDate_NullDate_ReturnsNull()
+        {
+            var result = Citizen.ToMaritalStatusTerminationDate(new Citizen());
+            Assert.False(result.HasValue);
+        }
+
+        [Test]
+        [TestCaseSource("TestDates")]
+        public void ToMaritalStatusTerminationDate_InvalidUncertainty_ReturnsNull(DateTime? maritalStatusDate)
+        {
+            var result = Citizen.ToMaritalStatusTerminationDate(new Citizen() { MaritalStatusTerminationTimestamp = maritalStatusDate, MaritalStatusTerminationTimestampUncertainty = null });
+            Assert.False(result.HasValue);
+        }
+
+        [Test]
+        public void ToMaritalStatusTerminationDate_InvalidDate_ReturnsNull()
+        {
+            var result = Citizen.ToMaritalStatusTerminationDate(new Citizen() { MaritalStatusTerminationTimestamp = null, MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue });
+            Assert.False(result.HasValue);
+        }
+
+        [Test]
+        [TestCaseSource("TestDates")]
+        public void ToMaritalStatusTerminationDate_Valid_ReturnsValue(DateTime? maritalStatusDate)
+        {
+            var result = Citizen.ToMaritalStatusTerminationDate(new Citizen() { MaritalStatusTerminationTimestamp = maritalStatusDate, MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue });
+            Assert.True(result.HasValue);
+        }
+        #endregion
 
         #region ToRegisteredPartners
 
@@ -176,6 +254,7 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
+        [Ignore]
         [ExpectedException(typeof(ArgumentException))]
         public void ToRegisteredPartners_TerminationDateForUnTerminatedPartnership_ThrowsException()
         {
