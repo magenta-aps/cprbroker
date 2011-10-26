@@ -55,9 +55,9 @@ namespace CprBroker.Tests.E_M
             return decimal.Parse(day + month + year + part1);
         }
 
-        public static decimal?[] RandomCprNumbers(int count)
+        public static decimal[] RandomCprNumbers(int count)
         {
-            var cprNumbers = new List<decimal?>();
+            var cprNumbers = new List<decimal>();
             
             for (int i = 0; i < count; i++)
             {
