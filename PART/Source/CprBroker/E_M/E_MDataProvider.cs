@@ -20,7 +20,7 @@ namespace CprBroker.Providers.E_M
             using (var dataContext = new E_MDataContext(ConnectionString))
             {
                 var dbCitizen = dataContext.Citizens
-                    .Where(cit => cit.PNR.Value.ToString() == uuid.CprNumber)
+                    .Where(cit => Converters.ToCprNumber(cit.PNR) == uuid.CprNumber)
                      .FirstOrDefault();
                 if (dbCitizen != null)
                 {

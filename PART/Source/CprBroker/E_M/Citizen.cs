@@ -42,7 +42,8 @@ namespace CprBroker.Providers.E_M
             return new EgenskabType()
             {
                 AndreAdresser = ToAndreAdresse(citizen),
-                BirthDate = citizen.Birthdate.Value,
+                // TODO: make sure this is never null
+                BirthDate = Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty).Value,
                 FoedestedNavn = null,
                 FoedselsregistreringMyndighedNavn = citizen.BirthRegistrationText,
                 KontaktKanal = ToKontaktKanalType(citizen),
@@ -67,12 +68,11 @@ namespace CprBroker.Providers.E_M
                 // TODO: Fill effect dates
                 Virkning = null,
             };
-            if (!citizen.CountryCode.HasValue
-                || new short[] { Constants.AbroadCountryCode, Constants.ReservedCountryCode, Constants.StatelessCountryCode, Constants.UnknownCountryCode }.Contains(citizen.CountryCode.Value))
+            if (new short[] { 0, Constants.AbroadCountryCode, Constants.ReservedCountryCode, Constants.StatelessCountryCode, Constants.UnknownCountryCode }.Contains(citizen.CountryCode))
             {
                 ret.Item = ToUkendtBorgerType(citizen);
             }
-            else if (citizen.CountryCode.Value == Constants.DenmarkCountryCode)
+            else if (citizen.CountryCode == Constants.DenmarkCountryCode)
             {
                 ret.Item = ToCprBorgerType(citizen);
             }
@@ -113,10 +113,10 @@ namespace CprBroker.Providers.E_M
             //TODO: Revise foreign citizen data
             return new UdenlandskBorgerType()
             {
-                FoedselslandKode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.Value.ToString()),
+                FoedselslandKode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.ToString()),
                 PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR),
                 PersonIdentifikator = null,
-                PersonNationalityCode = new CountryIdentificationCodeType[] { CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.Value.ToString()) },
+                PersonNationalityCode = new CountryIdentificationCodeType[] { CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.ToString()) },
                 SprogKode = null
             };
         }

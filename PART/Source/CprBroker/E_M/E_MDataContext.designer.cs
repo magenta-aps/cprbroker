@@ -121,35 +121,35 @@ namespace CprBroker.Providers.E_M
 	public partial class ActiveCitizen
 	{
 		
-		private System.Nullable<decimal> _PNR;
+		private decimal _PNR;
 		
-		private System.Nullable<short> _MunicipalityCode;
+		private short _MunicipalityCode;
 		
-		private System.Nullable<System.DateTime> _Birthdate;
+		private System.DateTime _Birthdate;
 		
-		private System.Nullable<char> _Gender;
+		private char _Gender;
 		
 		private string _Occupation;
 		
-		private System.Nullable<System.DateTime> _OccupationDate;
+		private System.DateTime _OccupationDate;
 		
 		private string _AddressingName;
 		
-		private System.Nullable<System.DateTime> _AddressingNameDate;
+		private System.DateTime _AddressingNameDate;
 		
-		private System.Nullable<char> _NationalChurchMarker;
+		private char _NationalChurchMarker;
 		
-		private System.Nullable<System.DateTime> _NationalChurchMarkerDate;
+		private System.DateTime _NationalChurchMarkerDate;
 		
-		private System.Nullable<short> _CitizenStatusCode;
+		private short _CitizenStatusCode;
 		
-		private System.Nullable<System.DateTime> _CitizenStatusCodeTimestamp;
+		private System.DateTime _CitizenStatusCodeTimestamp;
 		
-		private System.Nullable<short> _NumberOfChildren;
+		private short _NumberOfChildren;
 		
-		private System.Nullable<System.DateTime> _ArrivalTimestamp;
+		private System.DateTime _ArrivalTimestamp;
 		
-		private System.Nullable<short> _RoadCode;
+		private short _RoadCode;
 		
 		private string _HouseNumber;
 		
@@ -159,52 +159,52 @@ namespace CprBroker.Providers.E_M
 		
 		private string _BuildingNumber;
 		
-		private System.Nullable<System.DateTime> _DepartureTimestamp;
+		private System.DateTime _DepartureTimestamp;
 		
 		private string _CareOfName;
 		
-		private System.Nullable<System.DateTime> _MunicipalityArrivalDate;
+		private System.DateTime _MunicipalityArrivalDate;
 		
-		private System.Nullable<short> _DepartureMunicipalityCode;
+		private short _DepartureMunicipalityCode;
 		
-		private System.Nullable<System.DateTime> _AddressProtectionDate;
+		private System.DateTime _AddressProtectionDate;
 		
-		private System.Nullable<System.DateTime> _AddressProtectionTerminationDate;
+		private System.DateTime _AddressProtectionTerminationDate;
 		
-		private System.Nullable<System.DateTime> _MaritalStatusTimestamp;
+		private System.DateTime _MaritalStatusTimestamp;
 		
-		private System.Nullable<char> _MaritalStatus;
+		private char _MaritalStatus;
 		
-		private System.Nullable<System.DateTime> _MaritalStatusTerminationDate;
+		private System.DateTime _MaritalStatusTerminationDate;
 		
-		private System.Nullable<decimal> _SpousePNR;
+		private decimal _SpousePNR;
 		
-		private System.Nullable<char> _SpouseFlag;
+		private char _SpouseFlag;
 		
-		private System.Nullable<short> _CountryCode;
+		private short _CountryCode;
 		
-		private System.Nullable<System.DateTime> _NationalityChangeTimestamp;
+		private System.DateTime _NationalityChangeTimestamp;
 		
-		private System.Nullable<System.DateTime> _NationalityTerminationTimestamp;
+		private System.DateTime _NationalityTerminationTimestamp;
 		
-		private System.Nullable<decimal> _MotherPNR;
+		private decimal _MotherPNR;
 		
-		private System.Nullable<decimal> _FatherPNR;
+		private decimal _FatherPNR;
 		
 		private string _MotherDocument;
 		
 		private string _FatherDocument;
 		
-		private System.Nullable<char> _CitizenStatusTimestampUncertainty;
+		private char _CitizenStatusTimestampUncertainty;
 		
-		private System.Nullable<char> _BirthRegistrationDateUncertainty;
+		private char _BirthRegistrationDateUncertainty;
 		
 		public ActiveCitizen()
 		{
 		}
 		
 		[Column(Name="PERSONNUMMER", Storage="_PNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> PNR
+		public decimal PNR
 		{
 			get
 			{
@@ -220,7 +220,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOMMUNENUMMER", Storage="_MunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> MunicipalityCode
+		public short MunicipalityCode
 		{
 			get
 			{
@@ -236,7 +236,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FODSEL_DATO", Storage="_Birthdate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Birthdate
+		public System.DateTime Birthdate
 		{
 			get
 			{
@@ -252,7 +252,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KON", Storage="_Gender", DbType="Char(1)")]
-		public System.Nullable<char> Gender
+		public char Gender
 		{
 			get
 			{
@@ -267,7 +267,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="STILLING", Storage="_Occupation", DbType="Char(34)")]
+		[Column(Name="STILLING", Storage="_Occupation", DbType="Char(34)", CanBeNull=false)]
 		public string Occupation
 		{
 			get
@@ -284,7 +284,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STILLING_DATO", Storage="_OccupationDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> OccupationDate
+		public System.DateTime OccupationDate
 		{
 			get
 			{
@@ -299,7 +299,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)")]
+		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)", CanBeNull=false)]
 		public string AddressingName
 		{
 			get
@@ -316,7 +316,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADRNAVN_DATO", Storage="_AddressingNameDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> AddressingNameDate
+		public System.DateTime AddressingNameDate
 		{
 			get
 			{
@@ -332,7 +332,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FOLKEKIRK_TILH_MRK", Storage="_NationalChurchMarker", DbType="Char(1)")]
-		public System.Nullable<char> NationalChurchMarker
+		public char NationalChurchMarker
 		{
 			get
 			{
@@ -348,7 +348,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FOLKEKIRK_MRK_DATO", Storage="_NationalChurchMarkerDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NationalChurchMarkerDate
+		public System.DateTime NationalChurchMarkerDate
 		{
 			get
 			{
@@ -364,7 +364,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_KODE", Storage="_CitizenStatusCode", DbType="SmallInt")]
-		public System.Nullable<short> CitizenStatusCode
+		public short CitizenStatusCode
 		{
 			get
 			{
@@ -380,7 +380,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_TS", Storage="_CitizenStatusCodeTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CitizenStatusCodeTimestamp
+		public System.DateTime CitizenStatusCodeTimestamp
 		{
 			get
 			{
@@ -396,7 +396,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ANTAL_BORN", Storage="_NumberOfChildren", DbType="SmallInt")]
-		public System.Nullable<short> NumberOfChildren
+		public short NumberOfChildren
 		{
 			get
 			{
@@ -412,7 +412,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_TILFLYT_TS", Storage="_ArrivalTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ArrivalTimestamp
+		public System.DateTime ArrivalTimestamp
 		{
 			get
 			{
@@ -428,7 +428,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt")]
-		public System.Nullable<short> RoadCode
+		public short RoadCode
 		{
 			get
 			{
@@ -443,7 +443,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)")]
+		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)", CanBeNull=false)]
 		public string HouseNumber
 		{
 			get
@@ -459,7 +459,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)")]
+		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)", CanBeNull=false)]
 		public string Floor
 		{
 			get
@@ -475,7 +475,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)")]
+		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)", CanBeNull=false)]
 		public string Door
 		{
 			get
@@ -491,7 +491,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="BYGNING_NUMMER", Storage="_BuildingNumber", DbType="Char(4)")]
+		[Column(Name="BYGNING_NUMMER", Storage="_BuildingNumber", DbType="Char(4)", CanBeNull=false)]
 		public string BuildingNumber
 		{
 			get
@@ -508,7 +508,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_FRAFLYT_TS", Storage="_DepartureTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DepartureTimestamp
+		public System.DateTime DepartureTimestamp
 		{
 			get
 			{
@@ -523,7 +523,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)")]
+		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)", CanBeNull=false)]
 		public string CareOfName
 		{
 			get
@@ -540,7 +540,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOM_TILFLYTDATO", Storage="_MunicipalityArrivalDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MunicipalityArrivalDate
+		public System.DateTime MunicipalityArrivalDate
 		{
 			get
 			{
@@ -556,7 +556,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FRAFLYT_KOMMUNENR", Storage="_DepartureMunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> DepartureMunicipalityCode
+		public short DepartureMunicipalityCode
 		{
 			get
 			{
@@ -572,7 +572,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADRESSEBESKYT_DATO", Storage="_AddressProtectionDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> AddressProtectionDate
+		public System.DateTime AddressProtectionDate
 		{
 			get
 			{
@@ -588,7 +588,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_BESKYT_SLTDATO", Storage="_AddressProtectionTerminationDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> AddressProtectionTerminationDate
+		public System.DateTime AddressProtectionTerminationDate
 		{
 			get
 			{
@@ -604,7 +604,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CIVILSTAND_TS", Storage="_MaritalStatusTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MaritalStatusTimestamp
+		public System.DateTime MaritalStatusTimestamp
 		{
 			get
 			{
@@ -620,7 +620,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CIVILSTAND", Storage="_MaritalStatus", DbType="Char(1)")]
-		public System.Nullable<char> MaritalStatus
+		public char MaritalStatus
 		{
 			get
 			{
@@ -636,7 +636,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CIVILST_OPHOR_TS", Storage="_MaritalStatusTerminationDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MaritalStatusTerminationDate
+		public System.DateTime MaritalStatusTerminationDate
 		{
 			get
 			{
@@ -652,7 +652,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNR_AGTEFALLE", Storage="_SpousePNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> SpousePNR
+		public decimal SpousePNR
 		{
 			get
 			{
@@ -668,7 +668,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="AGTEFALLE_FLAG", Storage="_SpouseFlag", DbType="Char(1)")]
-		public System.Nullable<char> SpouseFlag
+		public char SpouseFlag
 		{
 			get
 			{
@@ -684,7 +684,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="LAND_KODE", Storage="_CountryCode", DbType="SmallInt")]
-		public System.Nullable<short> CountryCode
+		public short CountryCode
 		{
 			get
 			{
@@ -700,7 +700,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STATSB_RET_TS", Storage="_NationalityChangeTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NationalityChangeTimestamp
+		public System.DateTime NationalityChangeTimestamp
 		{
 			get
 			{
@@ -716,7 +716,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STATBORG_OPHOR_TS", Storage="_NationalityTerminationTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NationalityTerminationTimestamp
+		public System.DateTime NationalityTerminationTimestamp
 		{
 			get
 			{
@@ -732,7 +732,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER_MOR", Storage="_MotherPNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> MotherPNR
+		public decimal MotherPNR
 		{
 			get
 			{
@@ -748,7 +748,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER_FAR", Storage="_FatherPNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> FatherPNR
+		public decimal FatherPNR
 		{
 			get
 			{
@@ -763,7 +763,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="MOR_DOK", Storage="_MotherDocument", DbType="Char(3)")]
+		[Column(Name="MOR_DOK", Storage="_MotherDocument", DbType="Char(3)", CanBeNull=false)]
 		public string MotherDocument
 		{
 			get
@@ -779,7 +779,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="FAR_DOK", Storage="_FatherDocument", DbType="Char(3)")]
+		[Column(Name="FAR_DOK", Storage="_FatherDocument", DbType="Char(3)", CanBeNull=false)]
 		public string FatherDocument
 		{
 			get
@@ -796,7 +796,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_UM", Storage="_CitizenStatusTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> CitizenStatusTimestampUncertainty
+		public char CitizenStatusTimestampUncertainty
 		{
 			get
 			{
@@ -812,7 +812,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FODSELSREG_UM", Storage="_BirthRegistrationDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> BirthRegistrationDateUncertainty
+		public char BirthRegistrationDateUncertainty
 		{
 			get
 			{
@@ -834,51 +834,51 @@ namespace CprBroker.Providers.E_M
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private System.Nullable<decimal> _PNR;
+		private decimal _PNR;
 		
-		private System.Nullable<short> _MunicipalityCode;
+		private short _MunicipalityCode;
 		
-		private System.Nullable<System.DateTime> _Birthdate;
+		private System.DateTime _Birthdate;
 		
-		private System.Nullable<System.DateTime> _PNRCreationDate;
+		private System.DateTime _PNRCreationDate;
 		
-		private System.Nullable<System.DateTime> _PNRMarkingDate;
+		private System.DateTime _PNRMarkingDate;
 		
-		private System.Nullable<char> _Gender;
+		private char _Gender;
 		
 		private string _Occupation;
 		
-		private System.Nullable<System.DateTime> _OccupationDate;
+		private System.DateTime _OccupationDate;
 		
 		private string _AddressingName;
 		
-		private System.Nullable<System.DateTime> _AddressingNameDate;
+		private System.DateTime _AddressingNameDate;
 		
-		private System.Nullable<short> _NationalChurchAuthorityCode;
+		private short _NationalChurchAuthorityCode;
 		
-		private System.Nullable<char> _NationalChurchMarker;
+		private char _NationalChurchMarker;
 		
-		private System.Nullable<System.DateTime> _NationalChurchMarkerDate;
+		private System.DateTime _NationalChurchMarkerDate;
 		
-		private System.Nullable<short> _CitizenStatusCode;
+		private short _CitizenStatusCode;
 		
-		private System.Nullable<System.DateTime> _CitizenStatusTimestamp;
+		private System.DateTime _CitizenStatusTimestamp;
 		
-		private System.Nullable<short> _BirthRegistrationAuthorityCode;
+		private short _BirthRegistrationAuthorityCode;
 		
-		private System.Nullable<System.DateTime> _BirthRegistrationDate;
+		private System.DateTime _BirthRegistrationDate;
 		
 		private string _BirthRegistrationText;
 		
-		private System.Nullable<short> _NumberOfChildren;
+		private short _NumberOfChildren;
 		
-		private System.Nullable<System.DateTime> _CpcNationalChurchTimestamp;
+		private System.DateTime _CpcNationalChurchTimestamp;
 		
-		private System.Nullable<System.DateTime> _CprPersonTimestamp;
+		private System.DateTime _CprPersonTimestamp;
 		
-		private System.Nullable<System.DateTime> _ArrivalTimestamp;
+		private System.DateTime _ArrivalTimestamp;
 		
-		private System.Nullable<short> _RoadCode;
+		private short _RoadCode;
 		
 		private string _HouseNumber;
 		
@@ -888,85 +888,85 @@ namespace CprBroker.Providers.E_M
 		
 		private string _BuildingNumber;
 		
-		private System.Nullable<System.DateTime> _DepartureTimestamp;
+		private System.DateTime _DepartureTimestamp;
 		
 		private string _CareOfName;
 		
-		private System.Nullable<char> _OddEvenRoadSide;
+		private char _OddEvenRoadSide;
 		
-		private System.Nullable<System.DateTime> _MunicipalityArrivalDate;
+		private System.DateTime _MunicipalityArrivalDate;
 		
-		private System.Nullable<short> _DepartureMunicipalityCode;
+		private short _DepartureMunicipalityCode;
 		
-		private System.Nullable<System.DateTime> _AddressProtectionDate;
+		private System.DateTime _AddressProtectionDate;
 		
-		private System.Nullable<System.DateTime> _AddressProtectionRemovalDate;
+		private System.DateTime _AddressProtectionRemovalDate;
 		
-		private System.Nullable<System.DateTime> _DiretoryProtectionDate;
+		private System.DateTime _DiretoryProtectionDate;
 		
-		private System.Nullable<System.DateTime> _MaritalStatusTimestamp;
+		private System.DateTime _MaritalStatusTimestamp;
 		
-		private System.Nullable<char> _MaritalStatus;
+		private char _MaritalStatus;
 		
-		private System.Nullable<System.DateTime> _MaritalStatusTerminationTimestamp;
+		private System.DateTime _MaritalStatusTerminationTimestamp;
 		
-		private System.Nullable<decimal> _SpousePNR;
+		private decimal _SpousePNR;
 		
-		private System.Nullable<char> _SpouseFlag;
+		private char _SpouseFlag;
 		
-		private System.Nullable<short> _CountryCode;
+		private short _CountryCode;
 		
-		private System.Nullable<System.DateTime> _NationalityChangeTimestamp;
+		private System.DateTime _NationalityChangeTimestamp;
 		
-		private System.Nullable<System.DateTime> _NationalityTerminationTimestamp;
+		private System.DateTime _NationalityTerminationTimestamp;
 		
-		private System.Nullable<decimal> _MotherPNR;
+		private decimal _MotherPNR;
 		
-		private System.Nullable<decimal> _FatherPNR;
+		private decimal _FatherPNR;
 		
 		private string _MotherDocument;
 		
 		private string _FatherDocument;
 		
-		private System.Nullable<System.DateTime> _DirectoryProtectionEndDate;
+		private System.DateTime _DirectoryProtectionEndDate;
 		
-		private System.Nullable<char> _BirthdateUncertainty;
+		private char _BirthdateUncertainty;
 		
-		private System.Nullable<char> _PnrCreationdateUncertainty;
+		private char _PnrCreationdateUncertainty;
 		
-		private System.Nullable<char> _PnrMarkingDateUncertainty;
+		private char _PnrMarkingDateUncertainty;
 		
-		private System.Nullable<char> _PostDateUncertainty;
+		private char _PostDateUncertainty;
 		
-		private System.Nullable<char> _AddressingNameUncertainty;
+		private char _AddressingNameUncertainty;
 		
-		private System.Nullable<char> _NationalChurchMarkerUncertainty;
+		private char _NationalChurchMarkerUncertainty;
 		
-		private System.Nullable<char> _CitizenStatusTimestampUncertainty;
+		private char _CitizenStatusTimestampUncertainty;
 		
-		private System.Nullable<char> _BirthRegistrationDateUncertainty;
+		private char _BirthRegistrationDateUncertainty;
 		
-		private System.Nullable<char> _ArrivalTimestampUncertainty;
+		private char _ArrivalTimestampUncertainty;
 		
-		private System.Nullable<char> _DepartureTimestampUncertainty;
+		private char _DepartureTimestampUncertainty;
 		
-		private System.Nullable<char> _MunicipalityArrivalTimestampUncertainty;
+		private char _MunicipalityArrivalTimestampUncertainty;
 		
-		private System.Nullable<char> _AddressProtectionDateUncertainty;
+		private char _AddressProtectionDateUncertainty;
 		
-		private System.Nullable<char> _AddressProtectionTerminationDateUncertainty;
+		private char _AddressProtectionTerminationDateUncertainty;
 		
-		private System.Nullable<char> _DirectoryProtectionDateUncertainty;
+		private char _DirectoryProtectionDateUncertainty;
 		
-		private System.Nullable<char> _MaritalStatusTimestampUncertainty;
+		private char _MaritalStatusTimestampUncertainty;
 		
-		private System.Nullable<char> _MaritalStatusTerminationTimestampUncertainty;
+		private char _MaritalStatusTerminationTimestampUncertainty;
 		
-		private System.Nullable<char> _NationalityChangeTimestampUncertainty;
+		private char _NationalityChangeTimestampUncertainty;
 		
-		private System.Nullable<char> _NationalityTerminationTimestampUncertainty;
+		private char _NationalityTerminationTimestampUncertainty;
 		
-		private System.Nullable<char> _DirectoryProtectionRemovalDateUncertainty;
+		private char _DirectoryProtectionRemovalDateUncertainty;
 		
 		private EntitySet<CitizenPotReadyAddress> _CitizenPotReadyAddresses;
 		
@@ -980,51 +980,51 @@ namespace CprBroker.Providers.E_M
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnPNRChanging(System.Nullable<decimal> value);
+    partial void OnPNRChanging(decimal value);
     partial void OnPNRChanged();
-    partial void OnMunicipalityCodeChanging(System.Nullable<short> value);
+    partial void OnMunicipalityCodeChanging(short value);
     partial void OnMunicipalityCodeChanged();
-    partial void OnBirthdateChanging(System.Nullable<System.DateTime> value);
+    partial void OnBirthdateChanging(System.DateTime value);
     partial void OnBirthdateChanged();
-    partial void OnPNRCreationDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnPNRCreationDateChanging(System.DateTime value);
     partial void OnPNRCreationDateChanged();
-    partial void OnPNRMarkingDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnPNRMarkingDateChanging(System.DateTime value);
     partial void OnPNRMarkingDateChanged();
-    partial void OnGenderChanging(System.Nullable<char> value);
+    partial void OnGenderChanging(char value);
     partial void OnGenderChanged();
     partial void OnOccupationChanging(string value);
     partial void OnOccupationChanged();
-    partial void OnOccupationDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnOccupationDateChanging(System.DateTime value);
     partial void OnOccupationDateChanged();
     partial void OnAddressingNameChanging(string value);
     partial void OnAddressingNameChanged();
-    partial void OnAddressingNameDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnAddressingNameDateChanging(System.DateTime value);
     partial void OnAddressingNameDateChanged();
-    partial void OnNationalChurchAuthorityCodeChanging(System.Nullable<short> value);
+    partial void OnNationalChurchAuthorityCodeChanging(short value);
     partial void OnNationalChurchAuthorityCodeChanged();
-    partial void OnNationalChurchMarkerChanging(System.Nullable<char> value);
+    partial void OnNationalChurchMarkerChanging(char value);
     partial void OnNationalChurchMarkerChanged();
-    partial void OnNationalChurchMarkerDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnNationalChurchMarkerDateChanging(System.DateTime value);
     partial void OnNationalChurchMarkerDateChanged();
-    partial void OnCitizenStatusCodeChanging(System.Nullable<short> value);
+    partial void OnCitizenStatusCodeChanging(short value);
     partial void OnCitizenStatusCodeChanged();
-    partial void OnCitizenStatusTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnCitizenStatusTimestampChanging(System.DateTime value);
     partial void OnCitizenStatusTimestampChanged();
-    partial void OnBirthRegistrationAuthorityCodeChanging(System.Nullable<short> value);
+    partial void OnBirthRegistrationAuthorityCodeChanging(short value);
     partial void OnBirthRegistrationAuthorityCodeChanged();
-    partial void OnBirthRegistrationDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnBirthRegistrationDateChanging(System.DateTime value);
     partial void OnBirthRegistrationDateChanged();
     partial void OnBirthRegistrationTextChanging(string value);
     partial void OnBirthRegistrationTextChanged();
-    partial void OnNumberOfChildrenChanging(System.Nullable<short> value);
+    partial void OnNumberOfChildrenChanging(short value);
     partial void OnNumberOfChildrenChanged();
-    partial void OnCpcNationalChurchTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnCpcNationalChurchTimestampChanging(System.DateTime value);
     partial void OnCpcNationalChurchTimestampChanged();
-    partial void OnCprPersonTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnCprPersonTimestampChanging(System.DateTime value);
     partial void OnCprPersonTimestampChanged();
-    partial void OnArrivalTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnArrivalTimestampChanging(System.DateTime value);
     partial void OnArrivalTimestampChanged();
-    partial void OnRoadCodeChanging(System.Nullable<short> value);
+    partial void OnRoadCodeChanging(short value);
     partial void OnRoadCodeChanged();
     partial void OnHouseNumberChanging(string value);
     partial void OnHouseNumberChanged();
@@ -1034,85 +1034,85 @@ namespace CprBroker.Providers.E_M
     partial void OnDoorChanged();
     partial void OnBuildingNumberChanging(string value);
     partial void OnBuildingNumberChanged();
-    partial void OnDepartureTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnDepartureTimestampChanging(System.DateTime value);
     partial void OnDepartureTimestampChanged();
     partial void OnCareOfNameChanging(string value);
     partial void OnCareOfNameChanged();
-    partial void OnOddEvenRoadSideChanging(System.Nullable<char> value);
+    partial void OnOddEvenRoadSideChanging(char value);
     partial void OnOddEvenRoadSideChanged();
-    partial void OnMunicipalityArrivalDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnMunicipalityArrivalDateChanging(System.DateTime value);
     partial void OnMunicipalityArrivalDateChanged();
-    partial void OnDepartureMunicipalityCodeChanging(System.Nullable<short> value);
+    partial void OnDepartureMunicipalityCodeChanging(short value);
     partial void OnDepartureMunicipalityCodeChanged();
-    partial void OnAddressProtectionDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnAddressProtectionDateChanging(System.DateTime value);
     partial void OnAddressProtectionDateChanged();
-    partial void OnAddressProtectionRemovalDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnAddressProtectionRemovalDateChanging(System.DateTime value);
     partial void OnAddressProtectionRemovalDateChanged();
-    partial void OnDiretoryProtectionDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDiretoryProtectionDateChanging(System.DateTime value);
     partial void OnDiretoryProtectionDateChanged();
-    partial void OnMaritalStatusTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnMaritalStatusTimestampChanging(System.DateTime value);
     partial void OnMaritalStatusTimestampChanged();
-    partial void OnMaritalStatusChanging(System.Nullable<char> value);
+    partial void OnMaritalStatusChanging(char value);
     partial void OnMaritalStatusChanged();
-    partial void OnMaritalStatusTerminationTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnMaritalStatusTerminationTimestampChanging(System.DateTime value);
     partial void OnMaritalStatusTerminationTimestampChanged();
-    partial void OnSpousePNRChanging(System.Nullable<decimal> value);
+    partial void OnSpousePNRChanging(decimal value);
     partial void OnSpousePNRChanged();
-    partial void OnSpouseFlagChanging(System.Nullable<char> value);
+    partial void OnSpouseFlagChanging(char value);
     partial void OnSpouseFlagChanged();
-    partial void OnCountryCodeChanging(System.Nullable<short> value);
+    partial void OnCountryCodeChanging(short value);
     partial void OnCountryCodeChanged();
-    partial void OnNationalityChangeTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnNationalityChangeTimestampChanging(System.DateTime value);
     partial void OnNationalityChangeTimestampChanged();
-    partial void OnNationalityTerminationTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnNationalityTerminationTimestampChanging(System.DateTime value);
     partial void OnNationalityTerminationTimestampChanged();
-    partial void OnMotherPNRChanging(System.Nullable<decimal> value);
+    partial void OnMotherPNRChanging(decimal value);
     partial void OnMotherPNRChanged();
-    partial void OnFatherPNRChanging(System.Nullable<decimal> value);
+    partial void OnFatherPNRChanging(decimal value);
     partial void OnFatherPNRChanged();
     partial void OnMotherDocumentChanging(string value);
     partial void OnMotherDocumentChanged();
     partial void OnFatherDocumentChanging(string value);
     partial void OnFatherDocumentChanged();
-    partial void OnDirectoryProtectionEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDirectoryProtectionEndDateChanging(System.DateTime value);
     partial void OnDirectoryProtectionEndDateChanged();
-    partial void OnBirthdateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnBirthdateUncertaintyChanging(char value);
     partial void OnBirthdateUncertaintyChanged();
-    partial void OnPnrCreationdateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnPnrCreationdateUncertaintyChanging(char value);
     partial void OnPnrCreationdateUncertaintyChanged();
-    partial void OnPnrMarkingDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnPnrMarkingDateUncertaintyChanging(char value);
     partial void OnPnrMarkingDateUncertaintyChanged();
-    partial void OnOccupationDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnOccupationDateUncertaintyChanging(char value);
     partial void OnOccupationDateUncertaintyChanged();
-    partial void OnAddressingNameUncertaintyChanging(System.Nullable<char> value);
+    partial void OnAddressingNameUncertaintyChanging(char value);
     partial void OnAddressingNameUncertaintyChanged();
-    partial void OnNationalChurchMarkerUncertaintyChanging(System.Nullable<char> value);
+    partial void OnNationalChurchMarkerUncertaintyChanging(char value);
     partial void OnNationalChurchMarkerUncertaintyChanged();
-    partial void OnCitizenStatusTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnCitizenStatusTimestampUncertaintyChanging(char value);
     partial void OnCitizenStatusTimestampUncertaintyChanged();
-    partial void OnBirthRegistrationDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnBirthRegistrationDateUncertaintyChanging(char value);
     partial void OnBirthRegistrationDateUncertaintyChanged();
-    partial void OnArrivalTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnArrivalTimestampUncertaintyChanging(char value);
     partial void OnArrivalTimestampUncertaintyChanged();
-    partial void OnDepartureTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnDepartureTimestampUncertaintyChanging(char value);
     partial void OnDepartureTimestampUncertaintyChanged();
-    partial void OnMunicipalityArrivalTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnMunicipalityArrivalTimestampUncertaintyChanging(char value);
     partial void OnMunicipalityArrivalTimestampUncertaintyChanged();
-    partial void OnAddressProtectionDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnAddressProtectionDateUncertaintyChanging(char value);
     partial void OnAddressProtectionDateUncertaintyChanged();
-    partial void OnAddressProtectionTerminationDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnAddressProtectionTerminationDateUncertaintyChanging(char value);
     partial void OnAddressProtectionTerminationDateUncertaintyChanged();
-    partial void OnDirectoryProtectionDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnDirectoryProtectionDateUncertaintyChanging(char value);
     partial void OnDirectoryProtectionDateUncertaintyChanged();
-    partial void OnMaritalStatusTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnMaritalStatusTimestampUncertaintyChanging(char value);
     partial void OnMaritalStatusTimestampUncertaintyChanged();
-    partial void OnMaritalStatusTerminationTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnMaritalStatusTerminationTimestampUncertaintyChanging(char value);
     partial void OnMaritalStatusTerminationTimestampUncertaintyChanged();
-    partial void OnNationalityChangeTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnNationalityChangeTimestampUncertaintyChanging(char value);
     partial void OnNationalityChangeTimestampUncertaintyChanged();
-    partial void OnNationalityTerminationTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnNationalityTerminationTimestampUncertaintyChanging(char value);
     partial void OnNationalityTerminationTimestampUncertaintyChanged();
-    partial void OnDirectoryProtectionRemovalDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnDirectoryProtectionRemovalDateUncertaintyChanging(char value);
     partial void OnDirectoryProtectionRemovalDateUncertaintyChanged();
     #endregion
 		
@@ -1126,7 +1126,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER", Storage="_PNR", DbType="Decimal(11,0)", IsPrimaryKey=true)]
-		public System.Nullable<decimal> PNR
+		public decimal PNR
 		{
 			get
 			{
@@ -1146,7 +1146,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOMMUNENUMMER", Storage="_MunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> MunicipalityCode
+		public short MunicipalityCode
 		{
 			get
 			{
@@ -1166,7 +1166,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FODSEL_DATO", Storage="_Birthdate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Birthdate
+		public System.DateTime Birthdate
 		{
 			get
 			{
@@ -1186,7 +1186,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNR_OPRETDATO", Storage="_PNRCreationDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> PNRCreationDate
+		public System.DateTime PNRCreationDate
 		{
 			get
 			{
@@ -1206,7 +1206,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNR_MRK_DATO", Storage="_PNRMarkingDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> PNRMarkingDate
+		public System.DateTime PNRMarkingDate
 		{
 			get
 			{
@@ -1226,7 +1226,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KON", Storage="_Gender", DbType="Char(1)")]
-		public System.Nullable<char> Gender
+		public char Gender
 		{
 			get
 			{
@@ -1245,7 +1245,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="STILLING", Storage="_Occupation", DbType="Char(34)")]
+		[Column(Name="STILLING", Storage="_Occupation", DbType="Char(34)", CanBeNull=false)]
 		public string Occupation
 		{
 			get
@@ -1266,7 +1266,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STILLING_DATO", Storage="_OccupationDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> OccupationDate
+		public System.DateTime OccupationDate
 		{
 			get
 			{
@@ -1285,7 +1285,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)")]
+		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)", CanBeNull=false)]
 		public string AddressingName
 		{
 			get
@@ -1306,7 +1306,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADRNAVN_DATO", Storage="_AddressingNameDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> AddressingNameDate
+		public System.DateTime AddressingNameDate
 		{
 			get
 			{
@@ -1326,7 +1326,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FOLKEKIRKE_MYND_KD", Storage="_NationalChurchAuthorityCode", DbType="SmallInt")]
-		public System.Nullable<short> NationalChurchAuthorityCode
+		public short NationalChurchAuthorityCode
 		{
 			get
 			{
@@ -1346,7 +1346,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FOLKEKIRK_TILH_MRK", Storage="_NationalChurchMarker", DbType="Char(1)")]
-		public System.Nullable<char> NationalChurchMarker
+		public char NationalChurchMarker
 		{
 			get
 			{
@@ -1366,7 +1366,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FOLKEKIRK_MRK_DATO", Storage="_NationalChurchMarkerDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NationalChurchMarkerDate
+		public System.DateTime NationalChurchMarkerDate
 		{
 			get
 			{
@@ -1386,7 +1386,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_KODE", Storage="_CitizenStatusCode", DbType="SmallInt")]
-		public System.Nullable<short> CitizenStatusCode
+		public short CitizenStatusCode
 		{
 			get
 			{
@@ -1406,7 +1406,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_TS", Storage="_CitizenStatusTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CitizenStatusTimestamp
+		public System.DateTime CitizenStatusTimestamp
 		{
 			get
 			{
@@ -1426,7 +1426,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FODSELSREG_MYND_KD", Storage="_BirthRegistrationAuthorityCode", DbType="SmallInt")]
-		public System.Nullable<short> BirthRegistrationAuthorityCode
+		public short BirthRegistrationAuthorityCode
 		{
 			get
 			{
@@ -1446,7 +1446,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FODSELSREG_DATO", Storage="_BirthRegistrationDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> BirthRegistrationDate
+		public System.DateTime BirthRegistrationDate
 		{
 			get
 			{
@@ -1465,7 +1465,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="FODESTED_TEKST", Storage="_BirthRegistrationText", DbType="Char(20)")]
+		[Column(Name="FODESTED_TEKST", Storage="_BirthRegistrationText", DbType="Char(20)", CanBeNull=false)]
 		public string BirthRegistrationText
 		{
 			get
@@ -1486,7 +1486,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ANTAL_BORN", Storage="_NumberOfChildren", DbType="SmallInt")]
-		public System.Nullable<short> NumberOfChildren
+		public short NumberOfChildren
 		{
 			get
 			{
@@ -1506,7 +1506,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CPR_FOLKEKIRKE_TS", Storage="_CpcNationalChurchTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CpcNationalChurchTimestamp
+		public System.DateTime CpcNationalChurchTimestamp
 		{
 			get
 			{
@@ -1526,7 +1526,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CPR_PERSON_TS", Storage="_CprPersonTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CprPersonTimestamp
+		public System.DateTime CprPersonTimestamp
 		{
 			get
 			{
@@ -1546,7 +1546,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_TILFLYT_TS", Storage="_ArrivalTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ArrivalTimestamp
+		public System.DateTime ArrivalTimestamp
 		{
 			get
 			{
@@ -1566,7 +1566,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt")]
-		public System.Nullable<short> RoadCode
+		public short RoadCode
 		{
 			get
 			{
@@ -1585,7 +1585,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)")]
+		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)", CanBeNull=false)]
 		public string HouseNumber
 		{
 			get
@@ -1605,7 +1605,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)")]
+		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)", CanBeNull=false)]
 		public string Floor
 		{
 			get
@@ -1625,7 +1625,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)")]
+		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)", CanBeNull=false)]
 		public string Door
 		{
 			get
@@ -1645,7 +1645,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="BYGNING_NUMMER", Storage="_BuildingNumber", DbType="Char(4)")]
+		[Column(Name="BYGNING_NUMMER", Storage="_BuildingNumber", DbType="Char(4)", CanBeNull=false)]
 		public string BuildingNumber
 		{
 			get
@@ -1666,7 +1666,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_FRAFLYT_TS", Storage="_DepartureTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DepartureTimestamp
+		public System.DateTime DepartureTimestamp
 		{
 			get
 			{
@@ -1685,7 +1685,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)")]
+		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)", CanBeNull=false)]
 		public string CareOfName
 		{
 			get
@@ -1706,7 +1706,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJSIDE_F_LIG_ULIG", Storage="_OddEvenRoadSide", DbType="Char(1)")]
-		public System.Nullable<char> OddEvenRoadSide
+		public char OddEvenRoadSide
 		{
 			get
 			{
@@ -1726,7 +1726,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOM_TILFLYTDATO", Storage="_MunicipalityArrivalDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MunicipalityArrivalDate
+		public System.DateTime MunicipalityArrivalDate
 		{
 			get
 			{
@@ -1746,7 +1746,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FRAFLYT_KOMMUNENR", Storage="_DepartureMunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> DepartureMunicipalityCode
+		public short DepartureMunicipalityCode
 		{
 			get
 			{
@@ -1766,7 +1766,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADRESSEBESKYT_DATO", Storage="_AddressProtectionDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> AddressProtectionDate
+		public System.DateTime AddressProtectionDate
 		{
 			get
 			{
@@ -1786,7 +1786,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_BESKYT_SLTDATO", Storage="_AddressProtectionRemovalDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> AddressProtectionRemovalDate
+		public System.DateTime AddressProtectionRemovalDate
 		{
 			get
 			{
@@ -1806,7 +1806,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJVIS_BESKYT_DATO", Storage="_DiretoryProtectionDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DiretoryProtectionDate
+		public System.DateTime DiretoryProtectionDate
 		{
 			get
 			{
@@ -1826,7 +1826,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CIVILSTAND_TS", Storage="_MaritalStatusTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MaritalStatusTimestamp
+		public System.DateTime MaritalStatusTimestamp
 		{
 			get
 			{
@@ -1846,7 +1846,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CIVILSTAND", Storage="_MaritalStatus", DbType="Char(1)")]
-		public System.Nullable<char> MaritalStatus
+		public char MaritalStatus
 		{
 			get
 			{
@@ -1866,7 +1866,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CIVILST_OPHOR_TS", Storage="_MaritalStatusTerminationTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MaritalStatusTerminationTimestamp
+		public System.DateTime MaritalStatusTerminationTimestamp
 		{
 			get
 			{
@@ -1886,7 +1886,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNR_AGTEFALLE", Storage="_SpousePNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> SpousePNR
+		public decimal SpousePNR
 		{
 			get
 			{
@@ -1906,7 +1906,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="AGTEFALLE_FLAG", Storage="_SpouseFlag", DbType="Char(1)")]
-		public System.Nullable<char> SpouseFlag
+		public char SpouseFlag
 		{
 			get
 			{
@@ -1926,7 +1926,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="LAND_KODE", Storage="_CountryCode", DbType="SmallInt")]
-		public System.Nullable<short> CountryCode
+		public short CountryCode
 		{
 			get
 			{
@@ -1946,7 +1946,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STATSB_RET_TS", Storage="_NationalityChangeTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NationalityChangeTimestamp
+		public System.DateTime NationalityChangeTimestamp
 		{
 			get
 			{
@@ -1966,7 +1966,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STATBORG_OPHOR_TS", Storage="_NationalityTerminationTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NationalityTerminationTimestamp
+		public System.DateTime NationalityTerminationTimestamp
 		{
 			get
 			{
@@ -1986,7 +1986,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER_MOR", Storage="_MotherPNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> MotherPNR
+		public decimal MotherPNR
 		{
 			get
 			{
@@ -2006,7 +2006,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER_FAR", Storage="_FatherPNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> FatherPNR
+		public decimal FatherPNR
 		{
 			get
 			{
@@ -2025,7 +2025,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="MOR_DOK", Storage="_MotherDocument", DbType="Char(3)")]
+		[Column(Name="MOR_DOK", Storage="_MotherDocument", DbType="Char(3)", CanBeNull=false)]
 		public string MotherDocument
 		{
 			get
@@ -2045,7 +2045,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="FAR_DOK", Storage="_FatherDocument", DbType="Char(3)")]
+		[Column(Name="FAR_DOK", Storage="_FatherDocument", DbType="Char(3)", CanBeNull=false)]
 		public string FatherDocument
 		{
 			get
@@ -2066,7 +2066,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJVIS_BESK_SLTDTO", Storage="_DirectoryProtectionEndDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DirectoryProtectionEndDate
+		public System.DateTime DirectoryProtectionEndDate
 		{
 			get
 			{
@@ -2086,7 +2086,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FODSEL_UM", Storage="_BirthdateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> BirthdateUncertainty
+		public char BirthdateUncertainty
 		{
 			get
 			{
@@ -2106,7 +2106,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNR_OPRET_UM", Storage="_PnrCreationdateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> PnrCreationdateUncertainty
+		public char PnrCreationdateUncertainty
 		{
 			get
 			{
@@ -2126,7 +2126,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNR_MRK_UM", Storage="_PnrMarkingDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> PnrMarkingDateUncertainty
+		public char PnrMarkingDateUncertainty
 		{
 			get
 			{
@@ -2146,7 +2146,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STILLING_UM", Storage="_PostDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> OccupationDateUncertainty
+		public char OccupationDateUncertainty
 		{
 			get
 			{
@@ -2166,7 +2166,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADRNAVN_UM", Storage="_AddressingNameUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> AddressingNameUncertainty
+		public char AddressingNameUncertainty
 		{
 			get
 			{
@@ -2186,7 +2186,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FOLKEKIRK_MRK_UM", Storage="_NationalChurchMarkerUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> NationalChurchMarkerUncertainty
+		public char NationalChurchMarkerUncertainty
 		{
 			get
 			{
@@ -2206,7 +2206,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_UM", Storage="_CitizenStatusTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> CitizenStatusTimestampUncertainty
+		public char CitizenStatusTimestampUncertainty
 		{
 			get
 			{
@@ -2226,7 +2226,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FODSELSREG_UM", Storage="_BirthRegistrationDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> BirthRegistrationDateUncertainty
+		public char BirthRegistrationDateUncertainty
 		{
 			get
 			{
@@ -2246,7 +2246,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_TILFLYT_UM", Storage="_ArrivalTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> ArrivalTimestampUncertainty
+		public char ArrivalTimestampUncertainty
 		{
 			get
 			{
@@ -2266,7 +2266,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_FRAFLYT_UM", Storage="_DepartureTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> DepartureTimestampUncertainty
+		public char DepartureTimestampUncertainty
 		{
 			get
 			{
@@ -2286,7 +2286,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOM_TILFLYT_UM", Storage="_MunicipalityArrivalTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> MunicipalityArrivalTimestampUncertainty
+		public char MunicipalityArrivalTimestampUncertainty
 		{
 			get
 			{
@@ -2306,7 +2306,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_BESKYT_UM", Storage="_AddressProtectionDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> AddressProtectionDateUncertainty
+		public char AddressProtectionDateUncertainty
 		{
 			get
 			{
@@ -2326,7 +2326,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_BESKYT_SLT_UM", Storage="_AddressProtectionTerminationDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> AddressProtectionTerminationDateUncertainty
+		public char AddressProtectionTerminationDateUncertainty
 		{
 			get
 			{
@@ -2346,7 +2346,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJVIS_BESKYT_UM", Storage="_DirectoryProtectionDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> DirectoryProtectionDateUncertainty
+		public char DirectoryProtectionDateUncertainty
 		{
 			get
 			{
@@ -2366,7 +2366,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CIVILSTAND_UM", Storage="_MaritalStatusTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> MaritalStatusTimestampUncertainty
+		public char MaritalStatusTimestampUncertainty
 		{
 			get
 			{
@@ -2386,7 +2386,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CIVILST_OPHOR_UM", Storage="_MaritalStatusTerminationTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> MaritalStatusTerminationTimestampUncertainty
+		public char MaritalStatusTerminationTimestampUncertainty
 		{
 			get
 			{
@@ -2406,7 +2406,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STATSB_RET_UM", Storage="_NationalityChangeTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> NationalityChangeTimestampUncertainty
+		public char NationalityChangeTimestampUncertainty
 		{
 			get
 			{
@@ -2426,7 +2426,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="STATBORG_OPHOR_UM", Storage="_NationalityTerminationTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> NationalityTerminationTimestampUncertainty
+		public char NationalityTerminationTimestampUncertainty
 		{
 			get
 			{
@@ -2446,7 +2446,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJVIS_BESK_SLT_UM", Storage="_DirectoryProtectionRemovalDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> DirectoryProtectionRemovalDateUncertainty
+		public char DirectoryProtectionRemovalDateUncertainty
 		{
 			get
 			{
@@ -2590,15 +2590,15 @@ namespace CprBroker.Providers.E_M
 	public partial class DeadCitizen
 	{
 		
-		private System.Nullable<short> _MunicipalityCode;
+		private short _MunicipalityCode;
 		
-		private System.Nullable<decimal> _PNR;
+		private decimal _PNR;
 		
 		private string _AddressingName;
 		
 		private string _CareOfName;
 		
-		private System.Nullable<short> _RoadCode;
+		private short _RoadCode;
 		
 		private string _RoadName;
 		
@@ -2610,20 +2610,20 @@ namespace CprBroker.Providers.E_M
 		
 		private string _CityName;
 		
-		private System.Nullable<short> _PostCode;
+		private short _PostCode;
 		
 		private string _PostDistrict;
 		
-		private System.Nullable<short> _CitizenStatusCode;
+		private short _CitizenStatusCode;
 		
-		private System.Nullable<System.DateTime> _CitizenStatusDate;
+		private System.DateTime _CitizenStatusDate;
 		
 		public DeadCitizen()
 		{
 		}
 		
 		[Column(Name="EKOMNR", Storage="_MunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> MunicipalityCode
+		public short MunicipalityCode
 		{
 			get
 			{
@@ -2639,7 +2639,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER", Storage="_PNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> PNR
+		public decimal PNR
 		{
 			get
 			{
@@ -2654,7 +2654,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)")]
+		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)", CanBeNull=false)]
 		public string AddressingName
 		{
 			get
@@ -2670,7 +2670,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)")]
+		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)", CanBeNull=false)]
 		public string CareOfName
 		{
 			get
@@ -2687,7 +2687,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt")]
-		public System.Nullable<short> RoadCode
+		public short RoadCode
 		{
 			get
 			{
@@ -2702,7 +2702,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="VEJ_NAVN", Storage="_RoadName", DbType="Char(20)")]
+		[Column(Name="VEJ_NAVN", Storage="_RoadName", DbType="Char(20)", CanBeNull=false)]
 		public string RoadName
 		{
 			get
@@ -2718,7 +2718,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)")]
+		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)", CanBeNull=false)]
 		public string HouseNumber
 		{
 			get
@@ -2734,7 +2734,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)")]
+		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)", CanBeNull=false)]
 		public string Floor
 		{
 			get
@@ -2750,7 +2750,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)")]
+		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)", CanBeNull=false)]
 		public string Door
 		{
 			get
@@ -2766,7 +2766,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="BYNAVN", Storage="_CityName", DbType="Char(34)")]
+		[Column(Name="BYNAVN", Storage="_CityName", DbType="Char(34)", CanBeNull=false)]
 		public string CityName
 		{
 			get
@@ -2783,7 +2783,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="POSTNR", Storage="_PostCode", DbType="SmallInt")]
-		public System.Nullable<short> PostCode
+		public short PostCode
 		{
 			get
 			{
@@ -2798,7 +2798,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="POSTDISTRIKT", Storage="_PostDistrict", DbType="Char(20)")]
+		[Column(Name="POSTDISTRIKT", Storage="_PostDistrict", DbType="Char(20)", CanBeNull=false)]
 		public string PostDistrict
 		{
 			get
@@ -2815,7 +2815,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_KODE", Storage="_CitizenStatusCode", DbType="SmallInt")]
-		public System.Nullable<short> CitizenStatusCode
+		public short CitizenStatusCode
 		{
 			get
 			{
@@ -2831,7 +2831,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_TS", Storage="_CitizenStatusDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CitizenStatusDate
+		public System.DateTime CitizenStatusDate
 		{
 			get
 			{
@@ -2853,15 +2853,15 @@ namespace CprBroker.Providers.E_M
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private System.Nullable<short> _MunicipalityCode;
+		private short _MunicipalityCode;
 		
-		private System.Nullable<decimal> _PNR;
+		private decimal _PNR;
 		
 		private string _AddressingName;
 		
 		private string _CareOfName;
 		
-		private System.Nullable<short> _RoadCode;
+		private short _RoadCode;
 		
 		private string _RoadName;
 		
@@ -2873,7 +2873,7 @@ namespace CprBroker.Providers.E_M
 		
 		private string _CityName;
 		
-		private System.Nullable<short> _PostCode;
+		private short _PostCode;
 		
 		private string _PostDistrict;
 		
@@ -2883,15 +2883,15 @@ namespace CprBroker.Providers.E_M
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnMunicipalityCodeChanging(System.Nullable<short> value);
+    partial void OnMunicipalityCodeChanging(short value);
     partial void OnMunicipalityCodeChanged();
-    partial void OnPNRChanging(System.Nullable<decimal> value);
+    partial void OnPNRChanging(decimal value);
     partial void OnPNRChanged();
     partial void OnAddressingNameChanging(string value);
     partial void OnAddressingNameChanged();
     partial void OnCareOfNameChanging(string value);
     partial void OnCareOfNameChanged();
-    partial void OnRoadCodeChanging(System.Nullable<short> value);
+    partial void OnRoadCodeChanging(short value);
     partial void OnRoadCodeChanged();
     partial void OnRoadNameChanging(string value);
     partial void OnRoadNameChanged();
@@ -2903,7 +2903,7 @@ namespace CprBroker.Providers.E_M
     partial void OnDoorChanged();
     partial void OnCityNameChanging(string value);
     partial void OnCityNameChanged();
-    partial void OnPostCodeChanging(System.Nullable<short> value);
+    partial void OnPostCodeChanging(short value);
     partial void OnPostCodeChanged();
     partial void OnPostDistrictChanging(string value);
     partial void OnPostDistrictChanged();
@@ -2916,7 +2916,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="EKOMNR", Storage="_MunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> MunicipalityCode
+		public short MunicipalityCode
 		{
 			get
 			{
@@ -2936,7 +2936,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER", Storage="_PNR", DbType="Decimal(11,0)", IsPrimaryKey=true)]
-		public System.Nullable<decimal> PNR
+		public decimal PNR
 		{
 			get
 			{
@@ -2955,7 +2955,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)")]
+		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)", CanBeNull=false)]
 		public string AddressingName
 		{
 			get
@@ -2975,7 +2975,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)")]
+		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)", CanBeNull=false)]
 		public string CareOfName
 		{
 			get
@@ -2996,7 +2996,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt")]
-		public System.Nullable<short> RoadCode
+		public short RoadCode
 		{
 			get
 			{
@@ -3015,7 +3015,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="VEJ_NAVN", Storage="_RoadName", DbType="Char(20)")]
+		[Column(Name="VEJ_NAVN", Storage="_RoadName", DbType="Char(20)", CanBeNull=false)]
 		public string RoadName
 		{
 			get
@@ -3035,7 +3035,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)")]
+		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)", CanBeNull=false)]
 		public string HouseNumber
 		{
 			get
@@ -3055,7 +3055,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)")]
+		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)", CanBeNull=false)]
 		public string Floor
 		{
 			get
@@ -3075,7 +3075,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)")]
+		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)", CanBeNull=false)]
 		public string Door
 		{
 			get
@@ -3095,7 +3095,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="BYNAVN", Storage="_CityName", DbType="Char(34)")]
+		[Column(Name="BYNAVN", Storage="_CityName", DbType="Char(34)", CanBeNull=false)]
 		public string CityName
 		{
 			get
@@ -3116,7 +3116,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="POSTNR", Storage="_PostCode", DbType="SmallInt")]
-		public System.Nullable<short> PostCode
+		public short PostCode
 		{
 			get
 			{
@@ -3135,7 +3135,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="POSTDISTRIKT", Storage="_PostDistrict", DbType="Char(20)")]
+		[Column(Name="POSTDISTRIKT", Storage="_PostDistrict", DbType="Char(20)", CanBeNull=false)]
 		public string PostDistrict
 		{
 			get
@@ -3182,7 +3182,7 @@ namespace CprBroker.Providers.E_M
 					}
 					else
 					{
-						this._PNR = default(Nullable<decimal>);
+						this._PNR = default(decimal);
 					}
 					this.SendPropertyChanged("Citizen");
 				}
@@ -3216,17 +3216,17 @@ namespace CprBroker.Providers.E_M
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private System.Nullable<decimal> _PNR;
+		private decimal _PNR;
 		
-		private System.Nullable<decimal> _MotherPNR;
+		private decimal _MotherPNR;
 		
-		private System.Nullable<decimal> _FatherPNR;
+		private decimal _FatherPNR;
 		
 		private string _MotherDocument;
 		
 		private string _FatherDocument;
 		
-		private System.Nullable<short> _CitizenStatusCode;
+		private short _CitizenStatusCode;
 		
 		private EntityRef<Citizen> _Mother;
 		
@@ -3236,17 +3236,17 @@ namespace CprBroker.Providers.E_M
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnPNRChanging(System.Nullable<decimal> value);
+    partial void OnPNRChanging(decimal value);
     partial void OnPNRChanged();
-    partial void OnMotherPNRChanging(System.Nullable<decimal> value);
+    partial void OnMotherPNRChanging(decimal value);
     partial void OnMotherPNRChanged();
-    partial void OnFatherPNRChanging(System.Nullable<decimal> value);
+    partial void OnFatherPNRChanging(decimal value);
     partial void OnFatherPNRChanged();
     partial void OnMotherDocumentChanging(string value);
     partial void OnMotherDocumentChanged();
     partial void OnFatherDocumentChanging(string value);
     partial void OnFatherDocumentChanged();
-    partial void OnCitizenStatusCodeChanging(System.Nullable<short> value);
+    partial void OnCitizenStatusCodeChanging(short value);
     partial void OnCitizenStatusCodeChanged();
     #endregion
 		
@@ -3258,7 +3258,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER", Storage="_PNR", DbType="Decimal(11,0)", IsPrimaryKey=true)]
-		public System.Nullable<decimal> PNR
+		public decimal PNR
 		{
 			get
 			{
@@ -3278,7 +3278,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER_MOR", Storage="_MotherPNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> MotherPNR
+		public decimal MotherPNR
 		{
 			get
 			{
@@ -3298,7 +3298,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER_FAR", Storage="_FatherPNR", DbType="Decimal(11,0)")]
-		public System.Nullable<decimal> FatherPNR
+		public decimal FatherPNR
 		{
 			get
 			{
@@ -3317,7 +3317,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="MOR_DOK", Storage="_MotherDocument", DbType="Char(3)")]
+		[Column(Name="MOR_DOK", Storage="_MotherDocument", DbType="Char(3)", CanBeNull=false)]
 		public string MotherDocument
 		{
 			get
@@ -3337,7 +3337,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="FAR_DOK", Storage="_FatherDocument", DbType="Char(3)")]
+		[Column(Name="FAR_DOK", Storage="_FatherDocument", DbType="Char(3)", CanBeNull=false)]
 		public string FatherDocument
 		{
 			get
@@ -3358,7 +3358,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="BORGERSTATUS_KODE", Storage="_CitizenStatusCode", DbType="SmallInt")]
-		public System.Nullable<short> CitizenStatusCode
+		public short CitizenStatusCode
 		{
 			get
 			{
@@ -3404,7 +3404,7 @@ namespace CprBroker.Providers.E_M
 					}
 					else
 					{
-						this._MotherPNR = default(Nullable<decimal>);
+						this._MotherPNR = default(decimal);
 					}
 					this.SendPropertyChanged("Mother");
 				}
@@ -3438,7 +3438,7 @@ namespace CprBroker.Providers.E_M
 					}
 					else
 					{
-						this._FatherPNR = default(Nullable<decimal>);
+						this._FatherPNR = default(decimal);
 					}
 					this.SendPropertyChanged("Father");
 				}
@@ -3472,13 +3472,13 @@ namespace CprBroker.Providers.E_M
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private System.Nullable<short> _MunicipalityCode;
+		private short _MunicipalityCode;
 		
-		private System.Nullable<decimal> _PNR;
+		private decimal _PNR;
 		
-		private System.Nullable<System.DateTime> _ArrivalTimestamp;
+		private System.DateTime _ArrivalTimestamp;
 		
-		private System.Nullable<short> _RoadCode;
+		private short _RoadCode;
 		
 		private string _HouseNumber;
 		
@@ -3488,31 +3488,31 @@ namespace CprBroker.Providers.E_M
 		
 		private string _BuildingNumber;
 		
-		private System.Nullable<System.DateTime> _DepartureTimestamp;
+		private System.DateTime _DepartureTimestamp;
 		
-		private System.Nullable<char> _AddressCorrectionMarker;
+		private char _AddressCorrectionMarker;
 		
 		private string _CareOfName;
 		
-		private System.Nullable<System.DateTime> _MunicipalityDepartureDate;
+		private System.DateTime _MunicipalityDepartureDate;
 		
-		private System.Nullable<short> _DepartureMunicipalityCode;
+		private short _DepartureMunicipalityCode;
 		
-		private System.Nullable<System.DateTime> _MunicipalityArrivalDate;
+		private System.DateTime _MunicipalityArrivalDate;
 		
-		private System.Nullable<System.DateTime> _CprResettlementTimestamp;
+		private System.DateTime _CprResettlementTimestamp;
 		
-		private System.Nullable<char> _OddEvenRoadSide;
+		private char _OddEvenRoadSide;
 		
-		private System.Nullable<char> _ArrivalMarker;
+		private char _ArrivalMarker;
 		
-		private System.Nullable<char> _ArrivalTimestampUncertainty;
+		private char _ArrivalTimestampUncertainty;
 		
-		private System.Nullable<char> _DepartureTimestampUncertainty;
+		private char _DepartureTimestampUncertainty;
 		
-		private System.Nullable<char> _MunicipalityArrivalDateUncertainty;
+		private char _MunicipalityArrivalDateUncertainty;
 		
-		private System.Nullable<char> _MunicipalityDepartureDateUncertainty;
+		private char _MunicipalityDepartureDateUncertainty;
 		
 		private EntityRef<Citizen> _Citizen;
 		
@@ -3520,13 +3520,13 @@ namespace CprBroker.Providers.E_M
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnMunicipalityCodeChanging(System.Nullable<short> value);
+    partial void OnMunicipalityCodeChanging(short value);
     partial void OnMunicipalityCodeChanged();
-    partial void OnPNRChanging(System.Nullable<decimal> value);
+    partial void OnPNRChanging(decimal value);
     partial void OnPNRChanged();
-    partial void OnArrivalTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnArrivalTimestampChanging(System.DateTime value);
     partial void OnArrivalTimestampChanged();
-    partial void OnRoadCodeChanging(System.Nullable<short> value);
+    partial void OnRoadCodeChanging(short value);
     partial void OnRoadCodeChanged();
     partial void OnHouseNumberChanging(string value);
     partial void OnHouseNumberChanged();
@@ -3536,31 +3536,31 @@ namespace CprBroker.Providers.E_M
     partial void OnDoorChanged();
     partial void OnBuildingNumberChanging(string value);
     partial void OnBuildingNumberChanged();
-    partial void OnDepartureTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnDepartureTimestampChanging(System.DateTime value);
     partial void OnDepartureTimestampChanged();
-    partial void OnAddressCorrectionMarkerChanging(System.Nullable<char> value);
+    partial void OnAddressCorrectionMarkerChanging(char value);
     partial void OnAddressCorrectionMarkerChanged();
     partial void OnCareOfNameChanging(string value);
     partial void OnCareOfNameChanged();
-    partial void OnMunicipalityDepartureDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnMunicipalityDepartureDateChanging(System.DateTime value);
     partial void OnMunicipalityDepartureDateChanged();
-    partial void OnDepartureMunicipalityCodeChanging(System.Nullable<short> value);
+    partial void OnDepartureMunicipalityCodeChanging(short value);
     partial void OnDepartureMunicipalityCodeChanged();
-    partial void OnMunicipalityArrivalDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnMunicipalityArrivalDateChanging(System.DateTime value);
     partial void OnMunicipalityArrivalDateChanged();
-    partial void OnCprResettlementTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnCprResettlementTimestampChanging(System.DateTime value);
     partial void OnCprResettlementTimestampChanged();
-    partial void OnOddEvenRoadSideChanging(System.Nullable<char> value);
+    partial void OnOddEvenRoadSideChanging(char value);
     partial void OnOddEvenRoadSideChanged();
-    partial void OnArrivalMarkerChanging(System.Nullable<char> value);
+    partial void OnArrivalMarkerChanging(char value);
     partial void OnArrivalMarkerChanged();
-    partial void OnArrivalTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnArrivalTimestampUncertaintyChanging(char value);
     partial void OnArrivalTimestampUncertaintyChanged();
-    partial void OnDepartureTimestampUncertaintyChanging(System.Nullable<char> value);
+    partial void OnDepartureTimestampUncertaintyChanging(char value);
     partial void OnDepartureTimestampUncertaintyChanged();
-    partial void OnMunicipalityArrivalDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnMunicipalityArrivalDateUncertaintyChanging(char value);
     partial void OnMunicipalityArrivalDateUncertaintyChanged();
-    partial void OnMunicipalityDepartureDateUncertaintyChanging(System.Nullable<char> value);
+    partial void OnMunicipalityDepartureDateUncertaintyChanging(char value);
     partial void OnMunicipalityDepartureDateUncertaintyChanged();
     #endregion
 		
@@ -3571,7 +3571,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOMMUNENUMMER", Storage="_MunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> MunicipalityCode
+		public short MunicipalityCode
 		{
 			get
 			{
@@ -3591,7 +3591,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNUMMER", Storage="_PNR", DbType="Decimal(11,0)", IsPrimaryKey=true)]
-		public System.Nullable<decimal> PNR
+		public decimal PNR
 		{
 			get
 			{
@@ -3611,7 +3611,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_TILFLYT_TS", Storage="_ArrivalTimestamp", DbType="DateTime", IsPrimaryKey=true)]
-		public System.Nullable<System.DateTime> ArrivalTimestamp
+		public System.DateTime ArrivalTimestamp
 		{
 			get
 			{
@@ -3631,7 +3631,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt")]
-		public System.Nullable<short> RoadCode
+		public short RoadCode
 		{
 			get
 			{
@@ -3650,7 +3650,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)")]
+		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)", CanBeNull=false)]
 		public string HouseNumber
 		{
 			get
@@ -3670,7 +3670,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)")]
+		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)", CanBeNull=false)]
 		public string Floor
 		{
 			get
@@ -3690,7 +3690,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)")]
+		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)", CanBeNull=false)]
 		public string Door
 		{
 			get
@@ -3710,7 +3710,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="BYGNING_NUMMER", Storage="_BuildingNumber", DbType="Char(4)")]
+		[Column(Name="BYGNING_NUMMER", Storage="_BuildingNumber", DbType="Char(4)", CanBeNull=false)]
 		public string BuildingNumber
 		{
 			get
@@ -3731,7 +3731,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_FRAFLYT_TS", Storage="_DepartureTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DepartureTimestamp
+		public System.DateTime DepartureTimestamp
 		{
 			get
 			{
@@ -3751,7 +3751,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADRESSE_KORR_MRK", Storage="_AddressCorrectionMarker", DbType="Char(1)")]
-		public System.Nullable<char> AddressCorrectionMarker
+		public char AddressCorrectionMarker
 		{
 			get
 			{
@@ -3770,7 +3770,7 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)")]
+		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)", CanBeNull=false)]
 		public string CareOfName
 		{
 			get
@@ -3791,7 +3791,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOM_FRAFLYTDATO", Storage="_MunicipalityDepartureDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MunicipalityDepartureDate
+		public System.DateTime MunicipalityDepartureDate
 		{
 			get
 			{
@@ -3811,7 +3811,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FRAFLYT_KOMMUNENR", Storage="_DepartureMunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> DepartureMunicipalityCode
+		public short DepartureMunicipalityCode
 		{
 			get
 			{
@@ -3831,7 +3831,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOM_TILFLYTDATO", Storage="_MunicipalityArrivalDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> MunicipalityArrivalDate
+		public System.DateTime MunicipalityArrivalDate
 		{
 			get
 			{
@@ -3851,7 +3851,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CPR_BOSAT_TS", Storage="_CprResettlementTimestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CprResettlementTimestamp
+		public System.DateTime CprResettlementTimestamp
 		{
 			get
 			{
@@ -3871,7 +3871,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJSIDE_F_LIG_ULIG", Storage="_OddEvenRoadSide", DbType="Char(1)")]
-		public System.Nullable<char> OddEvenRoadSide
+		public char OddEvenRoadSide
 		{
 			get
 			{
@@ -3891,7 +3891,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_TILFLYT_MRK", Storage="_ArrivalMarker", DbType="Char(1)")]
-		public System.Nullable<char> ArrivalMarker
+		public char ArrivalMarker
 		{
 			get
 			{
@@ -3911,7 +3911,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_TILFLYT_UM", Storage="_ArrivalTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> ArrivalTimestampUncertainty
+		public char ArrivalTimestampUncertainty
 		{
 			get
 			{
@@ -3931,7 +3931,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_FRAFLYT_UM", Storage="_DepartureTimestampUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> DepartureTimestampUncertainty
+		public char DepartureTimestampUncertainty
 		{
 			get
 			{
@@ -3951,7 +3951,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOM_TILFLYT_UM", Storage="_MunicipalityArrivalDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> MunicipalityArrivalDateUncertainty
+		public char MunicipalityArrivalDateUncertainty
 		{
 			get
 			{
@@ -3971,7 +3971,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOM_FRAFLYT_UM", Storage="_MunicipalityDepartureDateUncertainty", DbType="Char(1)")]
-		public System.Nullable<char> MunicipalityDepartureDateUncertainty
+		public char MunicipalityDepartureDateUncertainty
 		{
 			get
 			{
@@ -4017,7 +4017,7 @@ namespace CprBroker.Providers.E_M
 					}
 					else
 					{
-						this._PNR = default(Nullable<decimal>);
+						this._PNR = default(decimal);
 					}
 					this.SendPropertyChanged("Citizen");
 				}
