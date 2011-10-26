@@ -9,51 +9,41 @@ namespace CprBroker.Providers.E_M
 {
     public class Converters
     {
-        public static bool IsValidCprNumber(decimal? cprNumber)
+        public static bool IsValidCprNumber(decimal cprNumber)
         {
-            if (cprNumber.HasValue)
+            cprNumber = Math.Floor(cprNumber);
+            string s = cprNumber.ToString("F0");
+            if (s.Length == 9 || s.Length == 10)
             {
-                cprNumber = Math.Floor(cprNumber.Value);
-                string s = cprNumber.Value.ToString("F0");
-                if (s.Length == 9 || s.Length == 10)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
 
-        public static string ToCprNumber(decimal? cprNumber)
+        public static string ToCprNumber(decimal cprNumber)
         {
             //TODO: Test cpr number conversion
-            if (cprNumber.HasValue)
+            if (IsValidCprNumber(cprNumber))
             {
-                if (IsValidCprNumber(cprNumber))
+                string ret = cprNumber.ToString("F0");
+                if (ret.Length == 9)
                 {
-                    string ret = cprNumber.Value.ToString("F0");
-                    if (ret.Length == 9)
-                    {
-                        ret = new string('0', 10 - ret.Length) + ret;
-                    }
-                    return ret;
+                    ret = new string('0', 10 - ret.Length) + ret;
                 }
-                else
-                {
-                    throw new ArgumentException("Invalid CPR number", string.Format("{0}", cprNumber));
-                }
+                return ret;
             }
             else
             {
-                throw new ArgumentNullException("cprNumber");
+                throw new ArgumentException("Invalid CPR number", string.Format("{0}", cprNumber));
             }
         }
 
-        public static CivilStatusKodeType ToCivilStatusKodeType(char? status)
+        public static CivilStatusKodeType ToCivilStatusKodeType(char status)
         {
             var codes = new CivilStatusCodes();
-            if (status.HasValue && codes.ContainsKey(status.Value))
+            if (codes.ContainsKey(status))
             {
-                return codes.Map(status.Value);
+                return codes.Map(status);
             }
             else
             {
@@ -61,49 +51,39 @@ namespace CprBroker.Providers.E_M
             }
         }
 
-        public static LivStatusKodeType ToLivStatusKodeType(short? value, DateTime? birthDate)
+        public static LivStatusKodeType ToLivStatusKodeType(short value, DateTime? birthDate)
         {
             decimal decimalStatus = 0;
-            if (value.HasValue)
-            {
-                decimalStatus = (decimal)value.Value;
-            }
+            decimalStatus = (decimal)value;
+
             //TODO: Validate this call
             return Schemas.Util.Enums.ToLifeStatus(decimalStatus, birthDate);
         }
 
-        public static DateTime? ToDateTime(DateTime? value, char? uncertainty)
+        public static DateTime? ToDateTime(DateTime value, char uncertainty)
         {
-            //TODO: make sure that 'T' means ''certain'
-            if (value.HasValue && uncertainty.HasValue && uncertainty.Value == 'T')
+            if (uncertainty == ' ')
             {
-                return value.Value;
+                return value;
             }
             return null;
         }
 
-        public static string ShortToString(short? val)
+        public static string ShortToString(short val)
         {
             //TODO: Revise this short to string conversion
-            if (val.HasValue)
-            {
-                return val.Value.ToString("F0");
-            }
-            return null;
+            return val.ToString("F0");
         }
 
-        public static PersonGenderCodeType ToPersonGenderCodeType(char? value)
+        public static PersonGenderCodeType ToPersonGenderCodeType(char value)
         {
-            //TODO: check the gender conversion char codes in database
-            if (value.HasValue)
+            //TODO: check the gender conversion char codes in database            
+            switch (value.ToString().ToUpper()[0])
             {
-                switch (value.ToString().ToUpper()[0])
-                {
-                    case 'M':
-                        return PersonGenderCodeType.male;
-                    case 'K':
-                        return PersonGenderCodeType.female;
-                }
+                case 'M':
+                    return PersonGenderCodeType.male;
+                case 'K':
+                    return PersonGenderCodeType.female;
             }
             return PersonGenderCodeType.unspecified;
         }
