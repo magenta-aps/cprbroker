@@ -103,20 +103,19 @@ namespace CprBroker.Providers.E_M
             {
                 if (cpr2uuidFunc != null)
                 {
-                    List<PersonRelationType> ret = new List<PersonRelationType>();
                     switch (Converters.ToCivilStatusKodeType(citizen.MaritalStatus))
                     {
                         case CivilStatusKodeType.RegistreretPartner:
-                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), null));
+                            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), null);
                             break;
                         case CivilStatusKodeType.OphaevetPartnerskab:
-                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), ToMaritalStatusTerminationDate(citizen)));
+                            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), ToMaritalStatusTerminationDate(citizen));
                             break;
                         case CivilStatusKodeType.Laengstlevende:
-                            ret.Add(PersonRelationType.Create(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), ToMaritalStatusTerminationDate(citizen)));
+                            return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(citizen.SpousePNR)), ToMaritalStatusDate(citizen), ToMaritalStatusTerminationDate(citizen));
                             break;
                     }
-                    return ret.ToArray();
+                    return new PersonRelationType[0];
                 }
                 else
                 {
