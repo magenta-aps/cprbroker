@@ -144,6 +144,17 @@ namespace CprBroker.Tests.E_M
         }
         #endregion
 
+        #region ShortToString
+        [Test]
+        [Sequential]
+        public void ShortToString_Valid(
+            [Values(0, 10, 7652, -12)] short shortValue,
+            [Values("0", "10", "7652", "-12")] string stringValue)
+        {
+            var result = Converters.ShortToString(shortValue);
+            Assert.AreEqual(stringValue, result);
+        }
+        #endregion
 
         [Test]
         [TestCase(0)]
