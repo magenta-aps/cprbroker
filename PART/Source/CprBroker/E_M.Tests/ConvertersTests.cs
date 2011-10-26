@@ -122,23 +122,28 @@ namespace CprBroker.Tests.E_M
         }
         #endregion
 
+        #region ToDateTime
         DateTime[] SampleDates = new DateTime[] { new DateTime(2011, 10, 10), new DateTime(2000, 8, 22), DateTime.MinValue, DateTime.MaxValue };
+
         [Test]
         [Combinatorial]
-        public void TestToDateTime(
-            [ValueSource("SampleDates")] DateTime value,
-            [Values('T', 'd', 'W', ' ')] char uncertainty)
+        public void ToDateTime_InvalidCertainty_ReturnsNull(
+            [ValueSource("SampleDates")] DateTime dateValue,
+            [Values('d', 'e', 'q', 'G', 'O', '2')] char certaintyFlag)
         {
-            var result = Converters.ToDateTime(value, uncertainty);
-            if (uncertainty != ' ')
-            {
-                Assert.IsNull(result);
-            }
-            else
-            {
-                Assert.AreEqual(value, result.Value);
-            }
+            var result = Converters.ToDateTime(dateValue, certaintyFlag);
+            Assert.False(result.HasValue);
         }
+
+        [Test]
+        public void ToDateTime_InvalidDate_ReturnsDateValue(
+            [ValueSource("SampleDates")] DateTime dateValue)
+        {
+            var result = Converters.ToDateTime(dateValue, ' ');
+            Assert.AreEqual(dateValue, result.Value);
+        }
+        #endregion
+
 
         [Test]
         [TestCase(0)]
