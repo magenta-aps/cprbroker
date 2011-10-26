@@ -57,7 +57,7 @@ namespace CprBroker.Schemas.Part
         {
             if (fromDate.HasValue && toDate.HasValue && toDate < fromDate)
             {
-                throw new ArgumentException(string.Format("toDate ({0}) should be greater than or equal fromDate ({0})", toDate, fromDate));
+                throw new ArgumentException(string.Format("fromDate ({0}) should be less than or equal to toDate ({1})", fromDate, toDate));
             }
             return new VirkningType()
             {
