@@ -99,14 +99,15 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        public void ToChildren_InvalidGender_ReturnsEmpty(
-            [Random(0, 100, 5)] int count)
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToChildren_InvalidGender_ThrowsException(
+            [Random(0, 100, 5)] int count,
+            [Values(' ', 'L', 'w')] char gender)
         {
-            var citizen = new Citizen() { Gender = 'I' };
+            var citizen = new Citizen() { Gender = gender };
             citizen.ChildrenAsFather.AddRange(CreateChildren(count));
             citizen.ChildrenAsMother.AddRange(CreateChildren(count));
-            var result = Citizen.ToChildren(citizen, ToUuid);
-            Assert.IsEmpty(result);
+            Citizen.ToChildren(citizen, ToUuid);
         }
 
         [Test]
