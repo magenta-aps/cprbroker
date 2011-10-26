@@ -168,62 +168,66 @@ namespace CprBroker.Tests.E_M
         }
         #endregion
 
+        #region ToPersonGenderCodeType
         [Test]
-        [TestCase(0)]
-        [TestCase((short)10)]
-        [TestCase((short)100)]
-        public void TestShortToString(short val)
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToPersonGenderCodeType_InvalidGender_ThrowsException(
+            [Values('e', ' ', 'L', '2', 'F', 'f')] char gender)
         {
-            var result = Converters.ShortToString(val);
-            if (val == null)
-            {
-                Assert.IsNull(result);
-            }
-            else
-            {
-                Assert.IsNotNullOrEmpty(result);
-                Assert.AreEqual(val.ToString(), result);
-            }
+            Converters.ToPersonGenderCodeType(gender);
         }
 
         [Test]
-        public void TestToPersonGenderCodeType(
-            [Values('M', 'm', 'K', ' ', 'w')] char value)
+        public void ToPersonGenderCodeType_Male_ReturnsMale(
+            [Values('M', 'm')] char gender)
         {
-            var result = Converters.ToPersonGenderCodeType(value);
-            if (new string[] { "M", "K" }.Contains(value.ToString().ToUpper()))
-            {
-                Assert.AreNotEqual(PersonGenderCodeType.unspecified, result);
-            }
-            else
-            {
-                Assert.AreEqual(PersonGenderCodeType.unspecified, result);
-            }
+            var result = Converters.ToPersonGenderCodeType(gender);
+            Assert.AreEqual(PersonGenderCodeType.male, result);
         }
 
-        DateTime?[][] TestGetMaxDateCases = new DateTime?[][]
-            {
-                new DateTime?[]{null},
-                new DateTime?[]{null, null},
-                new DateTime?[] { null, new DateTime(2011, 10, 10) },
-                new DateTime?[]{null, new DateTime(2011, 10, 10), new DateTime(2011, 10, 10)},
-                new DateTime?[]{null, new DateTime(2011, 10, 10), new DateTime(2011, 10, 10), null}
-            };
         [Test]
-        [TestCaseSource("TestGetMaxDateCases")]
-        public void TestGetMaxDate(params DateTime?[] dates)
+        public void ToPersonGenderCodeType_Female_ReturnsFemale(
+            [Values('K', 'k')] char gender)
+        {
+            var result = Converters.ToPersonGenderCodeType(gender);
+            Assert.AreEqual(PersonGenderCodeType.female, result);
+        }
+        #endregion
+
+        DateTime?[][] NullDateArrays = new DateTime?[][]{
+            new DateTime?[]{null},
+            new DateTime?[]{null, null}
+        };
+
+        DateTime?[][] FilledDateArrays = new DateTime?[][]{
+            new DateTime?[] { null, new DateTime(2011, 10, 10) },
+            new DateTime?[]{null, new DateTime(2011, 10, 10), new DateTime(2011, 10, 10)},
+            new DateTime?[]{null, new DateTime(2011, 10, 10), new DateTime(2011, 10, 10), null}
+        };
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void GetMaxDate_NullArray_ThrowsException()
+        {
+            Converters.GetMaxDate(null as DateTime?[]);
+        }
+
+        [Test]
+        public void GetMaxDate_NullElements_ReturnsNull(
+            [ValueSource("NullDateArrays")] DateTime?[] dates)
+        {
+            var result = Converters.GetMaxDate(dates);
+            Assert.Null(result);
+        }
+
+        [Test]
+        public void GetMaxDate_ValuedElements_ReturnsMaximumValue(
+            [ValueSource("FilledDateArrays")] DateTime?[] dates)
         {
             var result = Converters.GetMaxDate(dates);
             var dd = dates.Where(d => d.HasValue).Select(d => d.Value);
-            if (dd.Count() > 0)
-            {
-                Assert.IsNotNull(result);
-                Assert.AreEqual(dd.Max(), result);
-            }
-            else
-            {
-                Assert.IsNull(result);
-            }
+            Assert.AreEqual(dd.Max(), result);
         }
+
     }
 }

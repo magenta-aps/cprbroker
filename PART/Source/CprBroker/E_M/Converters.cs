@@ -81,30 +81,34 @@ namespace CprBroker.Providers.E_M
             return val.ToString("F0");
         }
 
-        public static PersonGenderCodeType ToPersonGenderCodeType(char value)
+        public static PersonGenderCodeType ToPersonGenderCodeType(char gender)
         {
             //TODO: check the gender conversion char codes in database            
-            switch (value.ToString().ToUpper()[0])
+            switch (gender.ToString().ToUpper()[0])
             {
                 case 'M':
                     return PersonGenderCodeType.male;
                 case 'K':
                     return PersonGenderCodeType.female;
             }
-            return PersonGenderCodeType.unspecified;
+            throw new ArgumentException(string.Format("Invalid gender value <{0}>", gender), "gender");
         }
 
         public static DateTime? GetMaxDate(params DateTime?[] dates)
         {
-            var datesWithValues = dates.Where(d => d.HasValue).Select(d => d.Value);
-            if (datesWithValues.Count() > 0)
+            if (dates != null)
             {
-                return datesWithValues.Max();
+                var datesWithValues = dates.Where(d => d.HasValue).Select(d => d.Value);
+                if (datesWithValues.Count() > 0)
+                {
+                    return datesWithValues.Max();
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
-            {
-                return null;
-            }
+            throw new ArgumentNullException("dates");
         }
 
     }
