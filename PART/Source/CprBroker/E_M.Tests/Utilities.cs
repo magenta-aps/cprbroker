@@ -45,9 +45,9 @@ namespace CprBroker.Tests.E_M
             }
         }
 
+        private static Random random = new Random();
         public static decimal RandomCprNumber()
         {
-            Random random = new Random(); 
             var day = random.Next(1, 29).ToString("00");
             var month = random.Next(1, 13).ToString("00");
             var year = random.Next(1, 100).ToString("00");
@@ -58,7 +58,7 @@ namespace CprBroker.Tests.E_M
         public static decimal[] RandomCprNumbers(int count)
         {
             var cprNumbers = new List<decimal>();
-            
+
             for (int i = 0; i < count; i++)
             {
                 cprNumbers.Add(RandomCprNumber());

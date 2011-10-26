@@ -93,8 +93,32 @@ namespace CprBroker.Providers.E_M
 
         public static PersonFlerRelationType[] ToChildren(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
         {
-            var children = Converters.ToPersonGenderCodeType(citizen.Gender) == PersonGenderCodeType.male ? citizen.ChildrenAsFather : citizen.ChildrenAsMother;
-            return children.Select(child => Child.ToPersonFlerRelationType(child, cpr2uuidFunc)).ToArray();
+            if (citizen != null)
+            {
+                if (cpr2uuidFunc != null)
+                {
+                    var gender = Converters.ToPersonGenderCodeType(citizen.Gender);
+                    Func<System.Data.Linq.EntitySet<Child>, PersonFlerRelationType[]> converter =
+                        (children) =>
+                            children.Select(child => Child.ToPersonFlerRelationType(child, cpr2uuidFunc)).ToArray();
+                    switch (gender)
+                    {
+                        case PersonGenderCodeType.male:
+                            return converter(citizen.ChildrenAsFather);
+                        case PersonGenderCodeType.female:
+                            return converter(citizen.ChildrenAsMother);
+                    }
+                    return new PersonFlerRelationType[0];
+                }
+                else
+                {
+                    throw new ArgumentNullException("cpr2uuidFunc");
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException("citizen");
+            }
         }
 
         public static PersonRelationType[] ToRegisteredPartners(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
