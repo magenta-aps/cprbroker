@@ -156,6 +156,18 @@ namespace CprBroker.Tests.E_M
         }
         #endregion
 
+        #region DecimalToString
+        [Test]
+        [Sequential]
+        public void DecimalToString_Valid(
+            [Values(0.0, 10.25, 7652.5, -12)] double decimalValue,
+            [Values("0", "10", "7653", "-12")] string stringValue)
+        {
+            var result = Converters.DecimalToString((decimal)decimalValue);
+            Assert.AreEqual(stringValue, result);
+        }
+        #endregion
+
         [Test]
         [TestCase(0)]
         [TestCase((short)10)]

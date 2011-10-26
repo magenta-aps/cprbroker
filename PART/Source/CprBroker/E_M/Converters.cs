@@ -14,7 +14,7 @@ namespace CprBroker.Providers.E_M
             decimal cprNumber2 = Math.Abs(Math.Floor(cprNumber));
             if (cprNumber2.Equals(cprNumber))
             {
-                string s = cprNumber.ToString("F0");
+                string s = DecimalToString(cprNumber);
                 if (s.Length == 9 || s.Length == 10)
                 {
                     return true;
@@ -28,7 +28,7 @@ namespace CprBroker.Providers.E_M
             //TODO: Test cpr number conversion
             if (IsValidCprNumber(cprNumber))
             {
-                string ret = cprNumber.ToString("F0");
+                string ret = DecimalToString(cprNumber);
                 if (ret.Length == 9)
                 {
                     ret = new string('0', 10 - ret.Length) + ret;
@@ -73,6 +73,11 @@ namespace CprBroker.Providers.E_M
         public static string ShortToString(short val)
         {
             //TODO: Revise this short to string conversion
+            return val.ToString("F0");
+        }
+
+        public static string DecimalToString(decimal val)
+        {
             return val.ToString("F0");
         }
 
