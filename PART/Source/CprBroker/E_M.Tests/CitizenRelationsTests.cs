@@ -273,6 +273,26 @@ namespace CprBroker.Tests.E_M
         }
         #endregion
 
+        #region ToSpousePNR
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        [TestCaseSource("InvalidCprNumbers")]
+        public void ToSpousePNR_InvalidSpousePNR_ThrowsException(decimal spousePNR)
+        {
+            var citizen = new Citizen() { SpousePNR = spousePNR };
+            Citizen.ToSpousePNR(citizen);
+        }
+
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToSpousePNR_Valid_ThrowsException(decimal spousePNR)
+        {
+            var citizen = new Citizen() { SpousePNR = spousePNR };
+            var result = Citizen.ToSpousePNR(citizen);
+            Assert.AreEqual(Converters.ToCprNumber(spousePNR), result);
+        }
+        #endregion
+
         #region ToRegisteredPartners
 
         [Test]
@@ -288,15 +308,6 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber() };
             Citizen.ToRegisteredPartners(citizen, null);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        [TestCaseSource("InvalidCprNumbers")]
-        public void ToRegisteredPartners_InvalidSpousePNR_ThrowsException(decimal spousePNR)
-        {
-            var citizen = new Citizen() { SpousePNR = spousePNR };
-            Citizen.ToRegisteredPartners(citizen, ToUuid);
         }
 
         [Test]
@@ -551,7 +562,6 @@ namespace CprBroker.Tests.E_M
             Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
         }
         #endregion
-
 
         #region ToFather
         [Test]
