@@ -19,7 +19,7 @@ namespace CprBroker.Tests.E_M
         [SetUp]
         public void InitializeTestCitizens()
         {
-            TestCitizen = new Citizen() { CitizenStatusCode = 1, CitizenStatusTimestamp = DateTime.Today, CitizenStatusTimestampUncertainty = 'T', MaritalStatus = 'U', MaritalStatusTimestamp = DateTime.Today, MaritalStatusTimestampUncertainty = 'T' };
+            TestCitizen = new Citizen() { CitizenStatusCode = 1, CitizenStatusTimestamp = DateTime.Today, CitizenStatusTimestampUncertainty = ' ', MaritalStatus = 'U', MaritalStatusTimestamp = DateTime.Today, MaritalStatusTimestampUncertainty = ' ', Birthdate = DateTime.Today, BirthdateUncertainty = ' ' };
             TestCitizens = new Citizen[] { TestCitizen };
         }
 
