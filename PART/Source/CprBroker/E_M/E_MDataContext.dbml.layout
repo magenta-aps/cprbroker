@@ -8,12 +8,6 @@
         <elementListCompartment Id="2912720e-e46b-4727-85dc-1a5e71a73945" absoluteBounds="0.64, 3.835, 1.9700000000000002, 6.2680509462952614" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="31503a0b-2c6c-4097-ab57-54155b276997" absoluteBounds="3.75, 0.75, 2, 1.533190275331338">
-      <DataClassMoniker Name="/E_MDataContext/Postcode" />
-      <nestedChildShapes>
-        <elementListCompartment Id="ea70410b-fbe0-470c-b0df-720d59a021d7" absoluteBounds="3.765, 1.21, 1.9700000000000002, 0.97319027533133817" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" absoluteBounds="3.75, 3.375, 2.5, 11.188524440030257">
       <DataClassMoniker Name="/E_MDataContext/Citizen" />
       <nestedChildShapes>

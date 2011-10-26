@@ -76,14 +76,6 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		public System.Data.Linq.Table<Postcode> Postcodes
-		{
-			get
-			{
-				return this.GetTable<Postcode>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Citizen> Citizens
 		{
 			get
@@ -125,7 +117,7 @@ namespace CprBroker.Providers.E_M
 		}
 	}
 	
-	[Table(Name="dbo.[Aktiv borger]")]
+	[Table(Name="dbo.JY64300V")]
 	public partial class ActiveCitizen
 	{
 		
@@ -836,106 +828,7 @@ namespace CprBroker.Providers.E_M
 		}
 	}
 	
-	[Table(Name="dbo.Postnummer")]
-	public partial class Postcode
-	{
-		
-		private System.Nullable<short> _MunicipalityCode;
-		
-		private System.Nullable<short> _RoadCode;
-		
-		private string _HouseNumber;
-		
-		private System.Nullable<short> _PostCode;
-		
-		private string _PostDistrict;
-		
-		public Postcode()
-		{
-		}
-		
-		[Column(Name="KOMMUNENUMMER", Storage="_MunicipalityCode", DbType="SmallInt")]
-		public System.Nullable<short> MunicipalityCode
-		{
-			get
-			{
-				return this._MunicipalityCode;
-			}
-			set
-			{
-				if ((this._MunicipalityCode != value))
-				{
-					this._MunicipalityCode = value;
-				}
-			}
-		}
-		
-		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt")]
-		public System.Nullable<short> RoadCode
-		{
-			get
-			{
-				return this._RoadCode;
-			}
-			set
-			{
-				if ((this._RoadCode != value))
-				{
-					this._RoadCode = value;
-				}
-			}
-		}
-		
-		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)")]
-		public string HouseNumber
-		{
-			get
-			{
-				return this._HouseNumber;
-			}
-			set
-			{
-				if ((this._HouseNumber != value))
-				{
-					this._HouseNumber = value;
-				}
-			}
-		}
-		
-		[Column(Name="POSTNR", Storage="_PostCode", DbType="SmallInt")]
-		public System.Nullable<short> PostCode
-		{
-			get
-			{
-				return this._PostCode;
-			}
-			set
-			{
-				if ((this._PostCode != value))
-				{
-					this._PostCode = value;
-				}
-			}
-		}
-		
-		[Column(Name="POSTDISTRIKT", Storage="_PostDistrict", DbType="Char(20)")]
-		public string PostDistrict
-		{
-			get
-			{
-				return this._PostDistrict;
-			}
-			set
-			{
-				if ((this._PostDistrict != value))
-				{
-					this._PostDistrict = value;
-				}
-			}
-		}
-	}
-	
-	[Table(Name="dbo.Borger")]
+	[Table(Name="dbo.JY64000V")]
 	public partial class Citizen : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -2693,7 +2586,7 @@ namespace CprBroker.Providers.E_M
 		}
 	}
 	
-	[Table(Name="dbo.[Borger - afdøde]")]
+	[Table(Name="dbo.JY68800V")]
 	public partial class DeadCitizen
 	{
 		
@@ -2954,7 +2847,7 @@ namespace CprBroker.Providers.E_M
 		}
 	}
 	
-	[Table(Name="dbo.[Borger grydeklar adresse]")]
+	[Table(Name="dbo.JY67800V")]
 	public partial class CitizenPotReadyAddress : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -3317,7 +3210,7 @@ namespace CprBroker.Providers.E_M
 		}
 	}
 	
-	[Table(Name="dbo.Børnetabel")]
+	[Table(Name="dbo.JY64200V")]
 	public partial class Child : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -3573,7 +3466,7 @@ namespace CprBroker.Providers.E_M
 		}
 	}
 	
-	[Table(Name="dbo.Bosættelse")]
+	[Table(Name="dbo.JY64100V")]
 	public partial class Resettlement : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		

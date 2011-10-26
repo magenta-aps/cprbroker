@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="E&amp;M" Class="E_MDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="dbo.[Aktiv borger]" Member="ActiveCitizens">
+  <Table Name="dbo.JY64300V" Member="ActiveCitizens">
     <Type Name="ActiveCitizen">
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
       <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
@@ -43,16 +43,7 @@
       <Column Name="FODSELSREG_UM" Member="BirthRegistrationDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Postnummer" Member="Postcodes">
-    <Type Name="Postcode">
-      <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="true" />
-      <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Borger" Member="Citizens">
+  <Table Name="dbo.JY64000V" Member="Citizens">
     <Type Name="Citizen">
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
@@ -127,7 +118,7 @@
       <Association Name="Citizen_Resettlement" Member="Resettlements" ThisKey="PNR" OtherKey="PNR" Type="Resettlement" />
     </Type>
   </Table>
-  <Table Name="dbo.[Borger - afdøde]" Member="DeadCitizens">
+  <Table Name="dbo.JY68800V" Member="DeadCitizens">
     <Type Name="DeadCitizen">
       <Column Name="EKOMNR" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
@@ -145,7 +136,7 @@
       <Column Name="BORGERSTATUS_TS" Member="CitizenStatusDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[Borger grydeklar adresse]" Member="CitizenPotReadyAddresses">
+  <Table Name="dbo.JY67800V" Member="CitizenPotReadyAddresses">
     <Type Name="CitizenPotReadyAddress">
       <Column Name="EKOMNR" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
@@ -162,7 +153,7 @@
       <Association Name="Citizen_CitizenPotReadyAddress" Member="Citizen" ThisKey="PNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Børnetabel" Member="Childs">
+  <Table Name="dbo.JY64200V" Member="Childs">
     <Type Name="Child">
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="PERSONNUMMER_MOR" Member="MotherPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
@@ -174,7 +165,7 @@
       <Association Name="Citizen_Child1" Member="Father" ThisKey="FatherPNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Bosættelse" Member="Resettlements">
+  <Table Name="dbo.JY64100V" Member="Resettlements">
     <Type Name="Resettlement">
       <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
