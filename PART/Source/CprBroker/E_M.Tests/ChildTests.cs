@@ -28,22 +28,22 @@ namespace CprBroker.Tests.E_M
             lastUuid = ret;
             return ret;
         }
-        decimal?[] TestCprNumbers
+        decimal[] TestCprNumbers
         {
             get { return Utilities.RandomCprNumbers(3); }
         }
 
-        private Child CreateChild(decimal? cprNumber)
+        private Child CreateChild(decimal cprNumber)
         {
             return new Child() { PNR = cprNumber };
         }
 
-        decimal?[] WrongCprNumbers = new decimal?[] { null, 10m, 23m };
+        decimal[] WrongCprNumbers = new decimal[] { 0, 10m, 23m };
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void ToPersonFlerRelationType_WrongPNR_ThrowsException(
-            [ValueSource("WrongCprNumbers")] decimal? cprNumber)
+            [ValueSource("WrongCprNumbers")] decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
             Child.ToPersonFlerRelationType(child, ToUuid);
@@ -51,7 +51,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [TestCaseSource("TestCprNumbers")]
-        public void ToPersonFlerRelationType_Valid_NotNull(decimal? cprNumber)
+        public void ToPersonFlerRelationType_Valid_NotNull(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
             var result = Child.ToPersonFlerRelationType(child, ToUuid);
@@ -60,7 +60,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [TestCaseSource("TestCprNumbers")]
-        public void ToPersonFlerRelationType_Valid_HasReferenceID(decimal? cprNumber)
+        public void ToPersonFlerRelationType_Valid_HasReferenceID(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
             var result = Child.ToPersonFlerRelationType(child, ToUuid);
@@ -69,7 +69,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [TestCaseSource("TestCprNumbers")]
-        public void ToPersonFlerRelationType_Valid_CorrectCprNumberPassed(decimal? cprNumber)
+        public void ToPersonFlerRelationType_Valid_CorrectCprNumberPassed(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
             var result = Child.ToPersonFlerRelationType(child, ToUuid);
@@ -79,7 +79,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [TestCaseSource("TestCprNumbers")]
-        public void ToPersonFlerRelationType_Valid_ValidUuid(decimal? cprNumber)
+        public void ToPersonFlerRelationType_Valid_ValidUuid(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
             var result = Child.ToPersonFlerRelationType(child, ToUuid);
@@ -89,7 +89,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [TestCaseSource("TestCprNumbers")]
-        public void ToPersonFlerRelationType_Valid_NullCommentText(decimal? cprNumber)
+        public void ToPersonFlerRelationType_Valid_NullCommentText(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
             var result = Child.ToPersonFlerRelationType(child, ToUuid);
