@@ -389,23 +389,6 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        public void ToRegisteredPartners_Valid_NotNull(
-            [ValueSource("TestDates")] DateTime maritalStatusDate,
-            [Values('P', 'O', 'L')] char maritalStatus)
-        {
-            var citizen = new Citizen()
-            {
-                SpousePNR = Utilities.RandomCprNumber(),
-                MaritalStatus = maritalStatus,
-                MaritalStatusTimestamp = maritalStatusDate,
-                MaritalStatusTimestampUncertainty = DateCertaintyTrue
-            };
-
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
         public void ToRegisteredPartners_Valid_Has1Element(
             [ValueSource("TestDates")] DateTime maritalStatusDate,
             [Values('P', 'O', 'L')] char maritalStatus)
@@ -420,58 +403,6 @@ namespace CprBroker.Tests.E_M
 
             var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
             Assert.AreEqual(1, result.Length);
-        }
-
-        [Test]
-        public void ToRegisteredPartners_Valid_ElementNotNull(
-            [ValueSource("TestDates")] DateTime maritalStatusDate,
-            [Values('P', 'O', 'L')] char maritalStatus)
-        {
-            var citizen = new Citizen()
-            {
-                SpousePNR = Utilities.RandomCprNumber(),
-                MaritalStatus = maritalStatus,
-                MaritalStatusTimestamp = maritalStatusDate,
-                MaritalStatusTimestampUncertainty = DateCertaintyTrue
-            };
-
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
-            Assert.IsNotNull(result[0]);
-        }
-
-        [Test]
-        public void ToRegisteredPartners_Valid_HasReferenceID(
-            [ValueSource("TestDates")] DateTime maritalStatusDate,
-            [Values('P', 'O', 'L')] char maritalStatus)
-        {
-            var citizen = new Citizen()
-            {
-                SpousePNR = Utilities.RandomCprNumber(),
-                MaritalStatus = maritalStatus,
-                MaritalStatusTimestamp = maritalStatusDate,
-                MaritalStatusTimestampUncertainty = DateCertaintyTrue
-            };
-
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
-            Assert.IsNotNull(result[0].ReferenceID);
-        }
-
-        [Test]
-        public void ToRegisteredPartners_Valid_CorrectPnrPassed(
-            [ValueSource("TestDates")] DateTime maritalStatusDate,
-            [Values('P', 'O', 'L')] char maritalStatus)
-        {
-            var citizen = new Citizen()
-            {
-                SpousePNR = Utilities.RandomCprNumber(),
-                MaritalStatus = maritalStatus,
-                MaritalStatusTimestamp = maritalStatusDate,
-                MaritalStatusTimestampUncertainty = DateCertaintyTrue
-            };
-
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
-            var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
-            Assert.IsTrue(uuids.ContainsKey(stringCprNumber));
         }
 
         [Test]
@@ -515,7 +446,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [Combinatorial]
-        public void ToRegisteredPartners_Unterminated_HasEndDate(
+        public void ToRegisteredPartners_Terminated_HasEndDate(
             [ValueSource("TestDates")] DateTime maritalStatusDate,
             [Values('O', 'L')] char maritalStatus)
         {
@@ -532,34 +463,6 @@ namespace CprBroker.Tests.E_M
             var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.NotNull(result[0].Virkning.TilTidspunkt.ToDateTime());
-        }
-
-
-
-        public void ToRegisteredPartners_Unterminated_(
-            [ValueSource("RandomCprNumbers1")] decimal cprNumber,
-            [Values('P', 'O', 'L')]char maritalStatus,
-            [ValueSource("TestDates")] DateTime maritalStatusDate,
-            [Values(' ')]char maritalStatusDateUncertainty,
-            [ValueSource("TestDates")]DateTime maritalStatusEndDate,
-            [Values(' ')]char maritalStatusEndDateUncertainty)
-        {
-            var citizen = new Citizen()
-            {
-                SpousePNR = cprNumber,
-                MaritalStatus = maritalStatus,
-                MaritalStatusTimestamp = maritalStatusDate,
-                MaritalStatusTimestampUncertainty = maritalStatusDateUncertainty,
-                MaritalStatusTerminationTimestamp = maritalStatusEndDate,
-                MaritalStatusTerminationTimestampUncertainty = maritalStatusEndDateUncertainty
-            };
-
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
-            var stringCprNumber = Converters.ToCprNumber(cprNumber);
-            Assert.IsNotNull(result[0]);
-            Assert.IsNotNull(result[0].ReferenceID);
-            Assert.IsTrue(uuids.ContainsKey(stringCprNumber));
-            Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
         }
         #endregion
 

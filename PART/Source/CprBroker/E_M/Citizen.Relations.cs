@@ -142,13 +142,10 @@ namespace CprBroker.Providers.E_M
                     {
                         case CivilStatusKodeType.RegistreretPartner:
                             return PersonRelationType.CreateList(cpr2uuidFunc(ToSpousePNR(citizen)), ToMaritalStatusDate(citizen), null);
-                            break;
                         case CivilStatusKodeType.OphaevetPartnerskab:
                             return PersonRelationType.CreateList(cpr2uuidFunc(ToSpousePNR(citizen)), ToMaritalStatusDate(citizen), ToMaritalStatusTerminationDate(citizen));
-                            break;
                         case CivilStatusKodeType.Laengstlevende:
                             return PersonRelationType.CreateList(cpr2uuidFunc(ToSpousePNR(citizen)), ToMaritalStatusDate(citizen), ToMaritalStatusTerminationDate(citizen));
-                            break;
                     }
                     return new PersonRelationType[0];
                 }
