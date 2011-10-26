@@ -14,7 +14,7 @@ namespace CprBroker.Tests.E_M
         [Test]
         [Ignore]
         public void TestToCivilStatusKodeType(
-            [Values(null, 'd', 'E', 's', ' ', 'W')]char? status
+            [Values(' ', 'd', 'E', 's', ' ', 'W')]char status
             )
         {
             var validValues = new char?[] { 'D', 'E', 'F', 'G', 'L', 'O', 'P', 'U', 'd', 'e', 'f', 'g', 'l', 'o', 'p', 'u' };
@@ -36,7 +36,7 @@ namespace CprBroker.Tests.E_M
         [Combinatorial]
         [Ignore]
         public void TestToLivStatusKodeType(
-            [Values(null, (short)1, (short)2, (short)70, (short)85)] short? value,
+            [Values((short)0, (short)1, (short)2, (short)70, (short)85)] short value,
             [ValueSource("TestToLivStatusKodeTypeDates")] DateTime? birthDate)
         {
             LivStatusKodeType result = LivStatusKodeType.Foedt;
@@ -49,7 +49,7 @@ namespace CprBroker.Tests.E_M
             {
                 exception = true;
             }
-            if (value == null && birthDate != null)
+            if (value == 0 && birthDate != null)
             {
                 Assert.IsTrue(exception, "Exception should have been thrown");
             }
@@ -70,29 +70,29 @@ namespace CprBroker.Tests.E_M
             }
         }
 
-        DateTime?[] SampleDates = new DateTime?[] { null, new DateTime(2011, 10, 10), new DateTime(2000, 8, 22), DateTime.MinValue, DateTime.MaxValue };
+        DateTime[] SampleDates = new DateTime[] { new DateTime(2011, 10, 10), new DateTime(2000, 8, 22), DateTime.MinValue, DateTime.MaxValue };
         [Test]
         [Combinatorial]
         public void TestToDateTime(
-            [ValueSource("SampleDates")] DateTime? value,
-            [Values(null, 'T', 'd', 'W', ' ')] char? uncertainty)
+            [ValueSource("SampleDates")] DateTime value,
+            [Values('T', 'd', 'W', ' ')] char uncertainty)
         {
             var result = Converters.ToDateTime(value, uncertainty);
-            if (!value.HasValue || !uncertainty.HasValue || (uncertainty.Value != 'T' && uncertainty.Value != 't'))
+            if (uncertainty != ' ')
             {
                 Assert.IsNull(result);
             }
             else
             {
-                Assert.AreEqual(value.Value, result.Value);
+                Assert.AreEqual(value, result.Value);
             }
         }
 
         [Test]
-        [TestCase(null)]
+        [TestCase(0)]
         [TestCase((short)10)]
         [TestCase((short)100)]
-        public void TestShortToString(short? val)
+        public void TestShortToString(short val)
         {
             var result = Converters.ShortToString(val);
             if (val == null)
@@ -108,10 +108,10 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         public void TestToPersonGenderCodeType(
-            [Values('M', 'm', 'K', null, ' ', 'w')] char? value)
+            [Values('M', 'm', 'K', ' ', 'w')] char value)
         {
             var result = Converters.ToPersonGenderCodeType(value);
-            if (value.HasValue && new string[] { "M", "K" }.Contains(value.Value.ToString().ToUpper()))
+            if (new string[] { "M", "K" }.Contains(value.ToString().ToUpper()))
             {
                 Assert.AreNotEqual(PersonGenderCodeType.unspecified, result);
             }
