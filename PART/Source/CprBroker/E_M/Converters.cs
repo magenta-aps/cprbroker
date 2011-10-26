@@ -11,11 +11,14 @@ namespace CprBroker.Providers.E_M
     {
         public static bool IsValidCprNumber(decimal cprNumber)
         {
-            cprNumber = Math.Floor(cprNumber);
-            string s = cprNumber.ToString("F0");
-            if (s.Length == 9 || s.Length == 10)
+            decimal cprNumber2 = Math.Abs(Math.Floor(cprNumber));
+            if (cprNumber2.Equals(cprNumber))
             {
-                return true;
+                string s = cprNumber.ToString("F0");
+                if (s.Length == 9 || s.Length == 10)
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -51,13 +54,11 @@ namespace CprBroker.Providers.E_M
             }
         }
 
-        public static LivStatusKodeType ToLivStatusKodeType(short value, DateTime? birthDate)
+        public static LivStatusKodeType ToLivStatusKodeType(short value, bool birthdateHasValue)
         {
-            decimal decimalStatus = 0;
-            decimalStatus = (decimal)value;
-
+            decimal decimalStatus = (decimal)value;
             //TODO: Validate this call
-            return Schemas.Util.Enums.ToLifeStatus(decimalStatus, birthDate);
+            return Schemas.Util.Enums.ToLifeStatus(decimalStatus, birthdateHasValue);
         }
 
         public static DateTime? ToDateTime(DateTime value, char uncertainty)

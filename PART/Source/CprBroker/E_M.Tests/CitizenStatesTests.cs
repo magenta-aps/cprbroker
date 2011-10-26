@@ -80,7 +80,7 @@ namespace CprBroker.Tests.E_M
         public void ToLivStatusType_Valid_CorrectCode(Citizen citizen)
         {
             var result = Citizen.ToLivStatusType(citizen);
-            Assert.AreEqual(Converters.ToLivStatusKodeType(citizen.CitizenStatusCode, citizen.Birthdate), result.LivStatusKode);
+            Assert.AreEqual(Schemas.Util.Enums.ToLifeStatus((decimal)citizen.CitizenStatusCode, citizen.Birthdate), result.LivStatusKode);
         }
 
         [Test]

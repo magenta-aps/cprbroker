@@ -11,64 +11,116 @@ namespace CprBroker.Tests.E_M
     [TestFixture]
     public class ConvertersTests
     {
-        [Test]
-        [Ignore]
-        public void TestToCivilStatusKodeType(
-            [Values(' ', 'd', 'E', 's', ' ', 'W')]char status
-            )
-        {
-            var validValues = new char?[] { 'D', 'E', 'F', 'G', 'L', 'O', 'P', 'U', 'd', 'e', 'f', 'g', 'l', 'o', 'p', 'u' };
-            try
-            {
-                var result = Converters.ToCivilStatusKodeType(status);
-                Assert.IsTrue(validValues.Contains(status));
-            }
-            catch
-            {
-                Assert.IsFalse(validValues.Contains(status));
-            }
+        decimal[] InvalidCprNumbers = new decimal[] { 0, 13, -123456789, -12345678, 1234.56789m };
+        decimal[] RandomCprNumbers = Utilities.RandomCprNumbers(5);
 
+        #region IsValidCprNumber
+        [Test]
+        [TestCaseSource("InvalidCprNumbers")]
+        public void IsValidCprNumber_Invalid_ReturnsFalse(decimal cprNumber)
+        {
+            var result = Converters.IsValidCprNumber(cprNumber);
+            Assert.False(result);
         }
 
-        DateTime?[] TestToLivStatusKodeTypeDates = new DateTime?[] { null, new DateTime(2011, 10, 10) };
+        [Test]
+        [TestCaseSource("RandomCprNumbers")]
+        public void IsValidCprNumber_Valid_ReturnsTrue(decimal cprNumber)
+        {
+            var result = Converters.IsValidCprNumber(cprNumber);
+            Assert.True(result);
+        }
+        #endregion
+
+        #region ToCprNumber
+        [Test]
+        [TestCaseSource("InvalidCprNumbers")]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToCprNumber_Invalid_ThrowsException(decimal cprNumber)
+        {
+            Converters.ToCprNumber(cprNumber);
+        }
 
         [Test]
-        [Combinatorial]
-        [Ignore]
-        public void TestToLivStatusKodeType(
-            [Values((short)0, (short)1, (short)2, (short)70, (short)85)] short value,
-            [ValueSource("TestToLivStatusKodeTypeDates")] DateTime? birthDate)
+        [TestCaseSource("RandomCprNumbers")]
+        public void ToCprNumber_Valid_CorrectOutput(decimal cprNumber)
         {
-            LivStatusKodeType result = LivStatusKodeType.Foedt;
-            bool exception = false;
-            try
-            {
-                result = Converters.ToLivStatusKodeType(value, birthDate);
-            }
-            catch (Exception ex)
-            {
-                exception = true;
-            }
-            if (value == 0 && birthDate != null)
-            {
-                Assert.IsTrue(exception, "Exception should have been thrown");
-            }
-            else
-            {
-                if (exception)
-                {
-                    Assert.Fail("Exception thrown");
-                }
-                if (birthDate == null)
-                {
-                    Assert.AreEqual(LivStatusKodeType.Prenatal, result);
-                }
-                else
-                {
-                    Assert.AreNotEqual(LivStatusKodeType.Prenatal, result);
-                }
-            }
+            var result = Converters.ToCprNumber(cprNumber);
+            string cprNumberString = cprNumber.ToString();
+            if (cprNumberString.Length < 10)
+                cprNumberString = "0" + cprNumberString;
+            Assert.AreEqual(cprNumberString, result);
         }
+        #endregion
+
+        #region ToCivilStatusKodeType
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToCivilStatusKodeType_Invalid_ThrowsException(
+            [Values('e', 'W', 's', ' ')] char status)
+        {
+            Converters.ToCivilStatusKodeType(status);
+        }
+
+        [Test]
+        public void ToCivilStatusKodeType_Valid_Passes(
+            [Values('E', 'F', 'G', 'L', 'O', 'P', 'U')] char status)
+        {
+            Converters.ToCivilStatusKodeType(status);
+        }
+
+        [Test]
+        [Ignore]
+        public void ToCivilStatusKodeType_Dead_Passes(
+            [Values('D')] char status)
+        {
+            Converters.ToCivilStatusKodeType(status);
+        }
+        #endregion
+
+        #region ToLivStatusKodeType
+        [Test]
+        [Ignore("Need to throw exception from Schemas.Util.Enums.ToLifeStatus()")]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToLivStatusKodeType_InvalidStatus_ThrowsExcption(
+            [Values(33, 55, 12, 0, -23)] short status,
+            [Values(true, false)] bool hasBirthdate)
+        {
+            Converters.ToLivStatusKodeType(status, hasBirthdate);
+        }
+
+        [Test]
+        public void ToLivStatusKodeType_AliveStatusWithBirthdate_ReturnsFoedt(
+            [Values(1, 10, 20, 3, 30, 5, 50, 60, 7, 80)] short status)
+        {
+            var result = Converters.ToLivStatusKodeType(status, true);
+            Assert.AreEqual(LivStatusKodeType.Foedt, result);
+        }
+
+        [Test]
+        public void ToLivStatusKodeType_AliveStatusWithoutBirthdate_ReturnsPrenatal(
+            [Values(1, 10, 20, 3, 30, 5, 50, 60, 7, 80)] short status)
+        {
+            var result = Converters.ToLivStatusKodeType(status, false);
+            Assert.AreEqual(LivStatusKodeType.Prenatal, result);
+        }
+
+        [Test]
+        public void ToLivStatusKodeType_DeadStatus_ReturnsDoed(
+            [Values(true, false)] bool hasBirthdate)
+        {
+            var result = Converters.ToLivStatusKodeType(90, hasBirthdate);
+            Assert.AreEqual(LivStatusKodeType.Doed, result);
+        }
+
+        [Test]
+        public void ToLivStatusKodeType_DisappearedStatus_ReturnsDiasppeared(
+            [Values(true, false)] bool hasBirthdate)
+        {
+            var result = Converters.ToLivStatusKodeType(70, hasBirthdate);
+            Assert.AreEqual(LivStatusKodeType.Forsvundet, result);
+        }
+        #endregion
 
         DateTime[] SampleDates = new DateTime[] { new DateTime(2011, 10, 10), new DateTime(2000, 8, 22), DateTime.MinValue, DateTime.MaxValue };
         [Test]
