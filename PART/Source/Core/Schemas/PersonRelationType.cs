@@ -69,6 +69,15 @@ namespace CprBroker.Schemas.Part
                 throw new ArgumentNullException("targetUuid");
             }
         }
+        
+        public static PersonRelationType[] CreateList(Guid targetUuid, DateTime? fromDate, DateTime? toDate)
+        {
+            return new PersonRelationType[] 
+            { 
+                Create(targetUuid, fromDate, toDate) 
+            };
+        }
+        
         //TODO: Add fromDate and to parameters
         public static PersonRelationType[]CreateList(params Guid[] targetUuids)
         {
