@@ -68,7 +68,7 @@
     <Compile Include="Citizen.NotImplemented.cs" />
     <Compile Include="Citizen.Bitemporal.cs" />
     <Compile Include="Converters.cs" />
-    <Compile Include="CitizenPotReadyAddress.cs" />
+    <Compile Include="Citizen.Address.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="E_MDataContext.designer.cs">
       <AutoGen>True</AutoGen>

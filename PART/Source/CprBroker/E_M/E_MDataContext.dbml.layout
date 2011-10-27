@@ -1,44 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 14.875" name="E_MDataContext">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 12" name="E_MDataContext">
   <DataContextMoniker Name="/E_MDataContext" />
   <nestedChildShapes>
-    <classShape Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" absoluteBounds="3.75, 3.375, 2.5, 11.188524440030257">
+    <classShape Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" absoluteBounds="0.75, 0.5, 2.5, 11.188524440030257">
       <DataClassMoniker Name="/E_MDataContext/Citizen" />
       <nestedChildShapes>
-        <elementListCompartment Id="de4e3f7f-ab62-42ed-862c-18f590a0d5ed" absoluteBounds="3.765, 3.835, 2.4699999999999998, 10.628524440030256" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="de4e3f7f-ab62-42ed-862c-18f590a0d5ed" absoluteBounds="0.76500000000000012, 0.96, 2.4699999999999998, 10.628524440030256" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="c7d93008-ffd3-49a1-b522-1aee58006cf8" absoluteBounds="6.75, 4.75, 2, 2.6233086487650876">
-      <DataClassMoniker Name="/E_MDataContext/CitizenPotReadyAddress" />
-      <nestedChildShapes>
-        <elementListCompartment Id="6f3dd506-e96e-4ffa-bcf4-db4ec3a2a6ff" absoluteBounds="6.765, 5.21, 1.9700000000000002, 2.0633086487650871" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="cd6d0fab-6d22-420b-a114-692e89a74215" absoluteBounds="6.75, 8.75, 2, 1.6889214715361582">
+    <classShape Id="cd6d0fab-6d22-420b-a114-692e89a74215" absoluteBounds="4.25, 3.625, 2, 1.6889214715361582">
       <DataClassMoniker Name="/E_MDataContext/Child" />
       <nestedChildShapes>
-        <elementListCompartment Id="ba616626-ca52-46a1-909f-00d437881cdf" absoluteBounds="6.765, 9.21, 1.9700000000000002, 1.1289214715361595" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ba616626-ca52-46a1-909f-00d437881cdf" absoluteBounds="4.265, 4.0850000000000009, 1.9700000000000002, 1.1289214715361595" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.25 : 6.06165432438254); (6.75 : 6.06165432438254)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/E_MDataContext/Citizen/Citizen_CitizenPotReadyAddress" />
-      <nodes>
-        <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
-        <classShapeMoniker Id="c7d93008-ffd3-49a1-b522-1aee58006cf8" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(6.25 : 9.59446073576808); (6.75 : 9.59446073576808)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.25 : 4.46946073576808); (4.25 : 4.46946073576808)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/E_MDataContext/Citizen/Citizen_Child" />
       <nodes>
         <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
         <classShapeMoniker Id="cd6d0fab-6d22-420b-a114-692e89a74215" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.25 : 9.10973036788404); (6.75 : 9.10973036788404)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.25 : 3.98473036788404); (4.25 : 3.98473036788404)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/E_MDataContext/Citizen/Citizen_Child1" />
       <nodes>
         <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
         <classShapeMoniker Id="cd6d0fab-6d22-420b-a114-692e89a74215" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="84558402-2348-41c2-9066-352f780d8f29" absoluteBounds="4.25, 1.375, 2, 1.6889214715361596">
+      <DataClassMoniker Name="/E_MDataContext/HousePostCode" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a27406fe-5823-4d8b-b2ef-03c54327145c" absoluteBounds="4.2650000000000006, 1.835, 1.9700000000000002, 1.1289214715361595" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.25 : 2.21946073576808); (3.25 : 2.21946073576808)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/E_MDataContext/HousePostCode/HousePostCode_Citizen" />
+      <nodes>
+        <classShapeMoniker Id="84558402-2348-41c2-9066-352f780d8f29" />
+        <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

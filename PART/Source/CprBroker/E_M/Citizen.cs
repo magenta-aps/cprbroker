@@ -97,7 +97,7 @@ namespace CprBroker.Providers.E_M
             {
                 AdresseNoteTekst = null,
                 FolkekirkeMedlemIndikator = false,
-                FolkeregisterAdresse = CitizenPotReadyAddress.ToAdresseType(citizen.CitizenPotReadyAddresses.First()),
+                FolkeregisterAdresse = ToAdresseType(citizen),
                 ForskerBeskyttelseIndikator = false,
                 NavneAdresseBeskyttelseIndikator = false,
                 PersonCivilRegistrationIdentifier = null,

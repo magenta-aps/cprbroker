@@ -33,12 +33,12 @@ namespace CprBroker.Providers.E_M
     partial void InsertCitizen(Citizen instance);
     partial void UpdateCitizen(Citizen instance);
     partial void DeleteCitizen(Citizen instance);
-    partial void InsertCitizenPotReadyAddress(CitizenPotReadyAddress instance);
-    partial void UpdateCitizenPotReadyAddress(CitizenPotReadyAddress instance);
-    partial void DeleteCitizenPotReadyAddress(CitizenPotReadyAddress instance);
     partial void InsertChild(Child instance);
     partial void UpdateChild(Child instance);
     partial void DeleteChild(Child instance);
+    partial void InsertHousePostCode(HousePostCode instance);
+    partial void UpdateHousePostCode(HousePostCode instance);
+    partial void DeleteHousePostCode(HousePostCode instance);
     #endregion
 		
 		public E_MDataContext(string connection) : 
@@ -73,19 +73,19 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		public System.Data.Linq.Table<CitizenPotReadyAddress> CitizenPotReadyAddresses
-		{
-			get
-			{
-				return this.GetTable<CitizenPotReadyAddress>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Child> Childs
 		{
 			get
 			{
 				return this.GetTable<Child>();
+			}
+		}
+		
+		public System.Data.Linq.Table<HousePostCode> HousePostCodes
+		{
+			get
+			{
+				return this.GetTable<HousePostCode>();
 			}
 		}
 	}
@@ -230,11 +230,11 @@ namespace CprBroker.Providers.E_M
 		
 		private char _DirectoryProtectionRemovalDateUncertainty;
 		
-		private EntitySet<CitizenPotReadyAddress> _CitizenPotReadyAddresses;
-		
 		private EntitySet<Child> _ChildrenAsMother;
 		
 		private EntitySet<Child> _ChildrenAsFather;
+		
+		private EntityRef<HousePostCode> _HousePostCode;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -378,9 +378,9 @@ namespace CprBroker.Providers.E_M
 		
 		public Citizen()
 		{
-			this._CitizenPotReadyAddresses = new EntitySet<CitizenPotReadyAddress>(new Action<CitizenPotReadyAddress>(this.attach_CitizenPotReadyAddresses), new Action<CitizenPotReadyAddress>(this.detach_CitizenPotReadyAddresses));
 			this._ChildrenAsMother = new EntitySet<Child>(new Action<Child>(this.attach_ChildrenAsMother), new Action<Child>(this.detach_ChildrenAsMother));
 			this._ChildrenAsFather = new EntitySet<Child>(new Action<Child>(this.attach_ChildrenAsFather), new Action<Child>(this.detach_ChildrenAsFather));
+			this._HousePostCode = default(EntityRef<HousePostCode>);
 			OnCreated();
 		}
 		
@@ -1724,19 +1724,6 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Association(Name="Citizen_CitizenPotReadyAddress", Storage="_CitizenPotReadyAddresses", ThisKey="PNR", OtherKey="PNR")]
-		public EntitySet<CitizenPotReadyAddress> CitizenPotReadyAddresses
-		{
-			get
-			{
-				return this._CitizenPotReadyAddresses;
-			}
-			set
-			{
-				this._CitizenPotReadyAddresses.Assign(value);
-			}
-		}
-		
 		[Association(Name="Citizen_Child", Storage="_ChildrenAsMother", ThisKey="PNR", OtherKey="MotherPNR")]
 		public EntitySet<Child> ChildrenAsMother
 		{
@@ -1763,6 +1750,44 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
+		[Association(Name="HousePostCode_Citizen", Storage="_HousePostCode", ThisKey="MunicipalityCode,RoadCode,HouseNumber", OtherKey="MunicipalityCode,RoadCode,HouseNumber", IsForeignKey=true)]
+		public HousePostCode HousePostCode
+		{
+			get
+			{
+				return this._HousePostCode.Entity;
+			}
+			set
+			{
+				HousePostCode previousValue = this._HousePostCode.Entity;
+				if (((previousValue != value) 
+							|| (this._HousePostCode.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._HousePostCode.Entity = null;
+						previousValue.Citizens.Remove(this);
+					}
+					this._HousePostCode.Entity = value;
+					if ((value != null))
+					{
+						value.Citizens.Add(this);
+						this._MunicipalityCode = value.MunicipalityCode;
+						this._RoadCode = value.RoadCode;
+						this._HouseNumber = value.HouseNumber;
+					}
+					else
+					{
+						this._MunicipalityCode = default(short);
+						this._RoadCode = default(short);
+						this._HouseNumber = default(string);
+					}
+					this.SendPropertyChanged("HousePostCode");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1781,18 +1806,6 @@ namespace CprBroker.Providers.E_M
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_CitizenPotReadyAddresses(CitizenPotReadyAddress entity)
-		{
-			this.SendPropertyChanging();
-			entity.Citizen = this;
-		}
-		
-		private void detach_CitizenPotReadyAddresses(CitizenPotReadyAddress entity)
-		{
-			this.SendPropertyChanging();
-			entity.Citizen = null;
 		}
 		
 		private void attach_ChildrenAsMother(Child entity)
@@ -1817,369 +1830,6 @@ namespace CprBroker.Providers.E_M
 		{
 			this.SendPropertyChanging();
 			entity.Father = null;
-		}
-	}
-	
-	[Table(Name="dbo.JY67800V")]
-	public partial class CitizenPotReadyAddress : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private short _MunicipalityCode;
-		
-		private decimal _PNR;
-		
-		private string _AddressingName;
-		
-		private string _CareOfName;
-		
-		private short _RoadCode;
-		
-		private string _RoadName;
-		
-		private string _HouseNumber;
-		
-		private string _Floor;
-		
-		private string _Door;
-		
-		private string _CityName;
-		
-		private short _PostCode;
-		
-		private string _PostDistrict;
-		
-		private EntityRef<Citizen> _Citizen;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMunicipalityCodeChanging(short value);
-    partial void OnMunicipalityCodeChanged();
-    partial void OnPNRChanging(decimal value);
-    partial void OnPNRChanged();
-    partial void OnAddressingNameChanging(string value);
-    partial void OnAddressingNameChanged();
-    partial void OnCareOfNameChanging(string value);
-    partial void OnCareOfNameChanged();
-    partial void OnRoadCodeChanging(short value);
-    partial void OnRoadCodeChanged();
-    partial void OnRoadNameChanging(string value);
-    partial void OnRoadNameChanged();
-    partial void OnHouseNumberChanging(string value);
-    partial void OnHouseNumberChanged();
-    partial void OnFloorChanging(string value);
-    partial void OnFloorChanged();
-    partial void OnDoorChanging(string value);
-    partial void OnDoorChanged();
-    partial void OnCityNameChanging(string value);
-    partial void OnCityNameChanged();
-    partial void OnPostCodeChanging(short value);
-    partial void OnPostCodeChanged();
-    partial void OnPostDistrictChanging(string value);
-    partial void OnPostDistrictChanged();
-    #endregion
-		
-		public CitizenPotReadyAddress()
-		{
-			this._Citizen = default(EntityRef<Citizen>);
-			OnCreated();
-		}
-		
-		[Column(Name="EKOMNR", Storage="_MunicipalityCode", DbType="SmallInt")]
-		public short MunicipalityCode
-		{
-			get
-			{
-				return this._MunicipalityCode;
-			}
-			set
-			{
-				if ((this._MunicipalityCode != value))
-				{
-					this.OnMunicipalityCodeChanging(value);
-					this.SendPropertyChanging();
-					this._MunicipalityCode = value;
-					this.SendPropertyChanged("MunicipalityCode");
-					this.OnMunicipalityCodeChanged();
-				}
-			}
-		}
-		
-		[Column(Name="PERSONNUMMER", Storage="_PNR", DbType="Decimal(11,0)", IsPrimaryKey=true)]
-		public decimal PNR
-		{
-			get
-			{
-				return this._PNR;
-			}
-			set
-			{
-				if ((this._PNR != value))
-				{
-					this.OnPNRChanging(value);
-					this.SendPropertyChanging();
-					this._PNR = value;
-					this.SendPropertyChanged("PNR");
-					this.OnPNRChanged();
-				}
-			}
-		}
-		
-		[Column(Name="ADRESSERINGSNAVN", Storage="_AddressingName", DbType="Char(34)", CanBeNull=false)]
-		public string AddressingName
-		{
-			get
-			{
-				return this._AddressingName;
-			}
-			set
-			{
-				if ((this._AddressingName != value))
-				{
-					this.OnAddressingNameChanging(value);
-					this.SendPropertyChanging();
-					this._AddressingName = value;
-					this.SendPropertyChanged("AddressingName");
-					this.OnAddressingNameChanged();
-				}
-			}
-		}
-		
-		[Column(Name="CO_NAVN", Storage="_CareOfName", DbType="Char(34)", CanBeNull=false)]
-		public string CareOfName
-		{
-			get
-			{
-				return this._CareOfName;
-			}
-			set
-			{
-				if ((this._CareOfName != value))
-				{
-					this.OnCareOfNameChanging(value);
-					this.SendPropertyChanging();
-					this._CareOfName = value;
-					this.SendPropertyChanged("CareOfName");
-					this.OnCareOfNameChanged();
-				}
-			}
-		}
-		
-		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt")]
-		public short RoadCode
-		{
-			get
-			{
-				return this._RoadCode;
-			}
-			set
-			{
-				if ((this._RoadCode != value))
-				{
-					this.OnRoadCodeChanging(value);
-					this.SendPropertyChanging();
-					this._RoadCode = value;
-					this.SendPropertyChanged("RoadCode");
-					this.OnRoadCodeChanged();
-				}
-			}
-		}
-		
-		[Column(Name="VEJ_NAVN", Storage="_RoadName", DbType="Char(20)", CanBeNull=false)]
-		public string RoadName
-		{
-			get
-			{
-				return this._RoadName;
-			}
-			set
-			{
-				if ((this._RoadName != value))
-				{
-					this.OnRoadNameChanging(value);
-					this.SendPropertyChanging();
-					this._RoadName = value;
-					this.SendPropertyChanged("RoadName");
-					this.OnRoadNameChanged();
-				}
-			}
-		}
-		
-		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4)", CanBeNull=false)]
-		public string HouseNumber
-		{
-			get
-			{
-				return this._HouseNumber;
-			}
-			set
-			{
-				if ((this._HouseNumber != value))
-				{
-					this.OnHouseNumberChanging(value);
-					this.SendPropertyChanging();
-					this._HouseNumber = value;
-					this.SendPropertyChanged("HouseNumber");
-					this.OnHouseNumberChanged();
-				}
-			}
-		}
-		
-		[Column(Name="ETAGE", Storage="_Floor", DbType="Char(2)", CanBeNull=false)]
-		public string Floor
-		{
-			get
-			{
-				return this._Floor;
-			}
-			set
-			{
-				if ((this._Floor != value))
-				{
-					this.OnFloorChanging(value);
-					this.SendPropertyChanging();
-					this._Floor = value;
-					this.SendPropertyChanged("Floor");
-					this.OnFloorChanged();
-				}
-			}
-		}
-		
-		[Column(Name="SIDE_DORNR", Storage="_Door", DbType="Char(4)", CanBeNull=false)]
-		public string Door
-		{
-			get
-			{
-				return this._Door;
-			}
-			set
-			{
-				if ((this._Door != value))
-				{
-					this.OnDoorChanging(value);
-					this.SendPropertyChanging();
-					this._Door = value;
-					this.SendPropertyChanged("Door");
-					this.OnDoorChanged();
-				}
-			}
-		}
-		
-		[Column(Name="BYNAVN", Storage="_CityName", DbType="Char(34)", CanBeNull=false)]
-		public string CityName
-		{
-			get
-			{
-				return this._CityName;
-			}
-			set
-			{
-				if ((this._CityName != value))
-				{
-					this.OnCityNameChanging(value);
-					this.SendPropertyChanging();
-					this._CityName = value;
-					this.SendPropertyChanged("CityName");
-					this.OnCityNameChanged();
-				}
-			}
-		}
-		
-		[Column(Name="POSTNR", Storage="_PostCode", DbType="SmallInt")]
-		public short PostCode
-		{
-			get
-			{
-				return this._PostCode;
-			}
-			set
-			{
-				if ((this._PostCode != value))
-				{
-					this.OnPostCodeChanging(value);
-					this.SendPropertyChanging();
-					this._PostCode = value;
-					this.SendPropertyChanged("PostCode");
-					this.OnPostCodeChanged();
-				}
-			}
-		}
-		
-		[Column(Name="POSTDISTRIKT", Storage="_PostDistrict", DbType="Char(20)", CanBeNull=false)]
-		public string PostDistrict
-		{
-			get
-			{
-				return this._PostDistrict;
-			}
-			set
-			{
-				if ((this._PostDistrict != value))
-				{
-					this.OnPostDistrictChanging(value);
-					this.SendPropertyChanging();
-					this._PostDistrict = value;
-					this.SendPropertyChanged("PostDistrict");
-					this.OnPostDistrictChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Citizen_CitizenPotReadyAddress", Storage="_Citizen", ThisKey="PNR", OtherKey="PNR", IsForeignKey=true)]
-		public Citizen Citizen
-		{
-			get
-			{
-				return this._Citizen.Entity;
-			}
-			set
-			{
-				Citizen previousValue = this._Citizen.Entity;
-				if (((previousValue != value) 
-							|| (this._Citizen.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Citizen.Entity = null;
-						previousValue.CitizenPotReadyAddresses.Remove(this);
-					}
-					this._Citizen.Entity = value;
-					if ((value != null))
-					{
-						value.CitizenPotReadyAddresses.Add(this);
-						this._PNR = value.PNR;
-					}
-					else
-					{
-						this._PNR = default(decimal);
-					}
-					this.SendPropertyChanged("Citizen");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -2436,6 +2086,216 @@ namespace CprBroker.Providers.E_M
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[Table(Name="dbo.JY64401V")]
+	public partial class HousePostCode : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private short _MunicipalityCode;
+		
+		private short _RoadCode;
+		
+		private string _RoadName;
+		
+		private string _HouseNumber;
+		
+		private short _PostCode;
+		
+		private string _PostDistrict;
+		
+		private EntitySet<Citizen> _Citizens;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMunicipalityCodeChanging(short value);
+    partial void OnMunicipalityCodeChanged();
+    partial void OnRoadCodeChanging(short value);
+    partial void OnRoadCodeChanged();
+    partial void OnRoadNameChanging(string value);
+    partial void OnRoadNameChanged();
+    partial void OnHouseNumberChanging(string value);
+    partial void OnHouseNumberChanged();
+    partial void OnPostCodeChanging(short value);
+    partial void OnPostCodeChanged();
+    partial void OnPostDistrictChanging(string value);
+    partial void OnPostDistrictChanged();
+    #endregion
+		
+		public HousePostCode()
+		{
+			this._Citizens = new EntitySet<Citizen>(new Action<Citizen>(this.attach_Citizens), new Action<Citizen>(this.detach_Citizens));
+			OnCreated();
+		}
+		
+		[Column(Name="KOMMUNENUMMER", Storage="_MunicipalityCode", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short MunicipalityCode
+		{
+			get
+			{
+				return this._MunicipalityCode;
+			}
+			set
+			{
+				if ((this._MunicipalityCode != value))
+				{
+					this.OnMunicipalityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._MunicipalityCode = value;
+					this.SendPropertyChanged("MunicipalityCode");
+					this.OnMunicipalityCodeChanged();
+				}
+			}
+		}
+		
+		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short RoadCode
+		{
+			get
+			{
+				return this._RoadCode;
+			}
+			set
+			{
+				if ((this._RoadCode != value))
+				{
+					this.OnRoadCodeChanging(value);
+					this.SendPropertyChanging();
+					this._RoadCode = value;
+					this.SendPropertyChanged("RoadCode");
+					this.OnRoadCodeChanged();
+				}
+			}
+		}
+		
+		[Column(Name="VEJ_NAVN", Storage="_RoadName", DbType="VarChar(40) NOT NULL", CanBeNull=false)]
+		public string RoadName
+		{
+			get
+			{
+				return this._RoadName;
+			}
+			set
+			{
+				if ((this._RoadName != value))
+				{
+					this.OnRoadNameChanging(value);
+					this.SendPropertyChanging();
+					this._RoadName = value;
+					this.SendPropertyChanged("RoadName");
+					this.OnRoadNameChanged();
+				}
+			}
+		}
+		
+		[Column(Name="HUS_NUMMER", Storage="_HouseNumber", DbType="Char(4) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string HouseNumber
+		{
+			get
+			{
+				return this._HouseNumber;
+			}
+			set
+			{
+				if ((this._HouseNumber != value))
+				{
+					this.OnHouseNumberChanging(value);
+					this.SendPropertyChanging();
+					this._HouseNumber = value;
+					this.SendPropertyChanged("HouseNumber");
+					this.OnHouseNumberChanged();
+				}
+			}
+		}
+		
+		[Column(Name="POSTNR", Storage="_PostCode", DbType="SmallInt NOT NULL")]
+		public short PostCode
+		{
+			get
+			{
+				return this._PostCode;
+			}
+			set
+			{
+				if ((this._PostCode != value))
+				{
+					this.OnPostCodeChanging(value);
+					this.SendPropertyChanging();
+					this._PostCode = value;
+					this.SendPropertyChanged("PostCode");
+					this.OnPostCodeChanged();
+				}
+			}
+		}
+		
+		[Column(Name="POSTDISTRIKT", Storage="_PostDistrict", DbType="Char(20) NOT NULL", CanBeNull=false)]
+		public string PostDistrict
+		{
+			get
+			{
+				return this._PostDistrict;
+			}
+			set
+			{
+				if ((this._PostDistrict != value))
+				{
+					this.OnPostDistrictChanging(value);
+					this.SendPropertyChanging();
+					this._PostDistrict = value;
+					this.SendPropertyChanged("PostDistrict");
+					this.OnPostDistrictChanged();
+				}
+			}
+		}
+		
+		[Association(Name="HousePostCode_Citizen", Storage="_Citizens", ThisKey="MunicipalityCode,RoadCode,HouseNumber", OtherKey="MunicipalityCode,RoadCode,HouseNumber")]
+		public EntitySet<Citizen> Citizens
+		{
+			get
+			{
+				return this._Citizens;
+			}
+			set
+			{
+				this._Citizens.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Citizens(Citizen entity)
+		{
+			this.SendPropertyChanging();
+			entity.HousePostCode = this;
+		}
+		
+		private void detach_Citizens(Citizen entity)
+		{
+			this.SendPropertyChanging();
+			entity.HousePostCode = null;
 		}
 	}
 }

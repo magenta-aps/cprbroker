@@ -69,26 +69,9 @@
       <Column Name="STATSB_RET_UM" Member="NationalityChangeTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="STATBORG_OPHOR_UM" Member="NationalityTerminationTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="VEJVIS_BESK_SLT_UM" Member="DirectoryProtectionRemovalDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
-      <Association Name="Citizen_CitizenPotReadyAddress" Member="CitizenPotReadyAddresses" ThisKey="PNR" OtherKey="PNR" Type="CitizenPotReadyAddress" />
       <Association Name="Citizen_Child" Member="ChildrenAsMother" ThisKey="PNR" OtherKey="MotherPNR" Type="Child" />
       <Association Name="Citizen_Child1" Member="ChildrenAsFather" ThisKey="PNR" OtherKey="FatherPNR" Type="Child" />
-    </Type>
-  </Table>
-  <Table Name="dbo.JY67800V" Member="CitizenPotReadyAddresses">
-    <Type Name="CitizenPotReadyAddress">
-      <Column Name="EKOMNR" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="false" />
-      <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ADRESSERINGSNAVN" Member="AddressingName" Type="System.String" DbType="Char(34)" CanBeNull="false" />
-      <Column Name="CO_NAVN" Member="CareOfName" Type="System.String" DbType="Char(34)" CanBeNull="false" />
-      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="false" />
-      <Column Name="VEJ_NAVN" Member="RoadName" Type="System.String" DbType="Char(20)" CanBeNull="false" />
-      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="false" />
-      <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="Char(2)" CanBeNull="false" />
-      <Column Name="SIDE_DORNR" Member="Door" Type="System.String" DbType="Char(4)" CanBeNull="false" />
-      <Column Name="BYNAVN" Member="CityName" Type="System.String" DbType="Char(34)" CanBeNull="false" />
-      <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt" CanBeNull="false" />
-      <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20)" CanBeNull="false" />
-      <Association Name="Citizen_CitizenPotReadyAddress" Member="Citizen" ThisKey="PNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
+      <Association Name="HousePostCode_Citizen" Member="HousePostCode" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="HousePostCode" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.JY64200V" Member="Childs">
@@ -101,6 +84,17 @@
       <Column Name="BORGERSTATUS_KODE" Member="CitizenStatusCode" Type="System.Int16" DbType="SmallInt" CanBeNull="false" />
       <Association Name="Citizen_Child" Member="Mother" ThisKey="MotherPNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
       <Association Name="Citizen_Child1" Member="Father" ThisKey="FatherPNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JY64401V" Member="HousePostCodes">
+    <Type Name="HousePostCode">
+      <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VEJ_NAVN" Member="RoadName" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Association Name="HousePostCode_Citizen" Member="Citizens" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="Citizen" />
     </Type>
   </Table>
 </Database>
