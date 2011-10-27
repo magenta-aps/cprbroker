@@ -19,7 +19,7 @@
       <Column Name="BORGERSTATUS_TS" Member="CitizenStatusTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
       <Column Name="FODSELSREG_MYND_KD" Member="BirthRegistrationAuthorityCode" Type="System.Int16" DbType="SmallInt" CanBeNull="false" />
       <Column Name="FODSELSREG_DATO" Member="BirthRegistrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
-      <Column Name="FODESTED_TEKST" Member="BirthRegistrationText" Type="System.String" DbType="Char(20)" CanBeNull="false" />
+      <Column Name="FODESTED_TEKST" Member="BirthPlaceText" Storage="_BirthRegistrationText" Type="System.String" DbType="Char(20)" CanBeNull="false" />
       <Column Name="ANTAL_BORN" Member="NumberOfChildren" Type="System.Int16" DbType="SmallInt" CanBeNull="false" />
       <Column Name="CPR_FOLKEKIRKE_TS" Member="CpcNationalChurchTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
       <Column Name="CPR_PERSON_TS" Member="CprPersonTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
@@ -72,6 +72,7 @@
       <Association Name="Citizen_Child" Member="ChildrenAsMother" ThisKey="PNR" OtherKey="MotherPNR" Type="Child" />
       <Association Name="Citizen_Child1" Member="ChildrenAsFather" ThisKey="PNR" OtherKey="FatherPNR" Type="Child" />
       <Association Name="HousePostCode_Citizen" Member="HousePostCode" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="HousePostCode" IsForeignKey="true" />
+      <Association Name="Authority_Citizen" Member="BirthRegistrationAuthority" ThisKey="BirthRegistrationAuthorityCode" OtherKey="AuthorityCode" Type="Authority" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.JY64200V" Member="Childs">
@@ -95,6 +96,27 @@
       <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
       <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
       <Association Name="HousePostCode_Citizen" Member="Citizens" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="Citizen" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AA74000V" Member="Authorities">
+    <Type Name="Authority">
+      <Column Name="MYNDIGHED_KODE" Member="AuthorityCode" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MYNDIGHED_TYPE" Member="AuthorityType" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="MYNDIGHED_NAVN" Member="AuthorityName" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNDIGHED_ADRESSAT" Type="System.String" DbType="Char(34) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNDIGHED_ADR_1" Type="System.String" DbType="Char(34) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNDIGHED_ADR_2" Type="System.String" DbType="Char(34) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNDIGHED_ADR_3" Type="System.String" DbType="Char(34) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNDIGHED_ADR_4" Type="System.String" DbType="Char(34) NOT NULL" CanBeNull="false" />
+      <Column Name="MYNDIGHED_TLFNR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MYND_OPRETDATO" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="MYND_OPHORDATO" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CPR_MYNDIGHED_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CPR_MYND_TYPE_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FAXNR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MYND_OPRET_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="MYND_OPHOR_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="Authority_Citizen" Member="Citizens" ThisKey="AuthorityCode" OtherKey="BirthRegistrationAuthorityCode" Type="Citizen" />
     </Type>
   </Table>
 </Database>

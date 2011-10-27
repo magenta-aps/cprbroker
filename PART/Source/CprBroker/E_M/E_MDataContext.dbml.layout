@@ -41,5 +41,18 @@
         <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
       </nodes>
     </associationConnector>
+    <classShape Id="8e5fd43b-80b0-49ed-9824-7c4feab8d48b" absoluteBounds="7.875, 1.375, 2, 3.2462334335843721">
+      <DataClassMoniker Name="/E_MDataContext/Authority" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b9ba41f2-5d5a-4327-bce1-bbaa26bb8f01" absoluteBounds="7.8900000000000006, 1.835, 1.9700000000000002, 2.6862334335843721" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.875 : 3.34446073576808); (3.25 : 3.34446073576808)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/E_MDataContext/Authority/Authority_Citizen" />
+      <nodes>
+        <classShapeMoniker Id="8e5fd43b-80b0-49ed-9824-7c4feab8d48b" />
+        <classShapeMoniker Id="0094dcc8-e85e-4099-bfd2-9b3ef41e68c1" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -39,6 +39,9 @@ namespace CprBroker.Providers.E_M
     partial void InsertHousePostCode(HousePostCode instance);
     partial void UpdateHousePostCode(HousePostCode instance);
     partial void DeleteHousePostCode(HousePostCode instance);
+    partial void InsertAuthority(Authority instance);
+    partial void UpdateAuthority(Authority instance);
+    partial void DeleteAuthority(Authority instance);
     #endregion
 		
 		public E_MDataContext(string connection) : 
@@ -86,6 +89,14 @@ namespace CprBroker.Providers.E_M
 			get
 			{
 				return this.GetTable<HousePostCode>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Authority> Authorities
+		{
+			get
+			{
+				return this.GetTable<Authority>();
 			}
 		}
 	}
@@ -236,6 +247,8 @@ namespace CprBroker.Providers.E_M
 		
 		private EntityRef<HousePostCode> _HousePostCode;
 		
+		private EntityRef<Authority> _BirthRegistrationAuthority;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -274,8 +287,8 @@ namespace CprBroker.Providers.E_M
     partial void OnBirthRegistrationAuthorityCodeChanged();
     partial void OnBirthRegistrationDateChanging(System.DateTime value);
     partial void OnBirthRegistrationDateChanged();
-    partial void OnBirthRegistrationTextChanging(string value);
-    partial void OnBirthRegistrationTextChanged();
+    partial void OnBirthPlaceTextChanging(string value);
+    partial void OnBirthPlaceTextChanged();
     partial void OnNumberOfChildrenChanging(short value);
     partial void OnNumberOfChildrenChanged();
     partial void OnCpcNationalChurchTimestampChanging(System.DateTime value);
@@ -381,6 +394,7 @@ namespace CprBroker.Providers.E_M
 			this._ChildrenAsMother = new EntitySet<Child>(new Action<Child>(this.attach_ChildrenAsMother), new Action<Child>(this.detach_ChildrenAsMother));
 			this._ChildrenAsFather = new EntitySet<Child>(new Action<Child>(this.attach_ChildrenAsFather), new Action<Child>(this.detach_ChildrenAsFather));
 			this._HousePostCode = default(EntityRef<HousePostCode>);
+			this._BirthRegistrationAuthority = default(EntityRef<Authority>);
 			OnCreated();
 		}
 		
@@ -725,7 +739,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FODESTED_TEKST", Storage="_BirthRegistrationText", DbType="Char(20)", CanBeNull=false)]
-		public string BirthRegistrationText
+		public string BirthPlaceText
 		{
 			get
 			{
@@ -735,11 +749,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._BirthRegistrationText != value))
 				{
-					this.OnBirthRegistrationTextChanging(value);
+					this.OnBirthPlaceTextChanging(value);
 					this.SendPropertyChanging();
 					this._BirthRegistrationText = value;
-					this.SendPropertyChanged("BirthRegistrationText");
-					this.OnBirthRegistrationTextChanged();
+					this.SendPropertyChanged("BirthPlaceText");
+					this.OnBirthPlaceTextChanged();
 				}
 			}
 		}
@@ -1788,6 +1802,40 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
+		[Association(Name="Authority_Citizen", Storage="_BirthRegistrationAuthority", ThisKey="BirthRegistrationAuthorityCode", OtherKey="AuthorityCode", IsForeignKey=true)]
+		public Authority BirthRegistrationAuthority
+		{
+			get
+			{
+				return this._BirthRegistrationAuthority.Entity;
+			}
+			set
+			{
+				Authority previousValue = this._BirthRegistrationAuthority.Entity;
+				if (((previousValue != value) 
+							|| (this._BirthRegistrationAuthority.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BirthRegistrationAuthority.Entity = null;
+						previousValue.Citizens.Remove(this);
+					}
+					this._BirthRegistrationAuthority.Entity = value;
+					if ((value != null))
+					{
+						value.Citizens.Add(this);
+						this._BirthRegistrationAuthorityCode = value.AuthorityCode;
+					}
+					else
+					{
+						this._BirthRegistrationAuthorityCode = default(short);
+					}
+					this.SendPropertyChanged("BirthRegistrationAuthority");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2296,6 +2344,456 @@ namespace CprBroker.Providers.E_M
 		{
 			this.SendPropertyChanging();
 			entity.HousePostCode = null;
+		}
+	}
+	
+	[Table(Name="dbo.AA74000V")]
+	public partial class Authority : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private short _AuthorityCode;
+		
+		private short _AuthorityType;
+		
+		private string _AuthorityName;
+		
+		private string _MYNDIGHED_ADRESSAT;
+		
+		private string _MYNDIGHED_ADR_1;
+		
+		private string _MYNDIGHED_ADR_2;
+		
+		private string _MYNDIGHED_ADR_3;
+		
+		private string _MYNDIGHED_ADR_4;
+		
+		private int _MYNDIGHED_TLFNR;
+		
+		private System.DateTime _MYND_OPRETDATO;
+		
+		private System.DateTime _MYND_OPHORDATO;
+		
+		private System.DateTime _CPR_MYNDIGHED_TS;
+		
+		private System.DateTime _CPR_MYND_TYPE_TS;
+		
+		private int _FAXNR;
+		
+		private char _MYND_OPRET_UM;
+		
+		private char _MYND_OPHOR_UM;
+		
+		private EntitySet<Citizen> _Citizens;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAuthorityCodeChanging(short value);
+    partial void OnAuthorityCodeChanged();
+    partial void OnAuthorityTypeChanging(short value);
+    partial void OnAuthorityTypeChanged();
+    partial void OnAuthorityNameChanging(string value);
+    partial void OnAuthorityNameChanged();
+    partial void OnMYNDIGHED_ADRESSATChanging(string value);
+    partial void OnMYNDIGHED_ADRESSATChanged();
+    partial void OnMYNDIGHED_ADR_1Changing(string value);
+    partial void OnMYNDIGHED_ADR_1Changed();
+    partial void OnMYNDIGHED_ADR_2Changing(string value);
+    partial void OnMYNDIGHED_ADR_2Changed();
+    partial void OnMYNDIGHED_ADR_3Changing(string value);
+    partial void OnMYNDIGHED_ADR_3Changed();
+    partial void OnMYNDIGHED_ADR_4Changing(string value);
+    partial void OnMYNDIGHED_ADR_4Changed();
+    partial void OnMYNDIGHED_TLFNRChanging(int value);
+    partial void OnMYNDIGHED_TLFNRChanged();
+    partial void OnMYND_OPRETDATOChanging(System.DateTime value);
+    partial void OnMYND_OPRETDATOChanged();
+    partial void OnMYND_OPHORDATOChanging(System.DateTime value);
+    partial void OnMYND_OPHORDATOChanged();
+    partial void OnCPR_MYNDIGHED_TSChanging(System.DateTime value);
+    partial void OnCPR_MYNDIGHED_TSChanged();
+    partial void OnCPR_MYND_TYPE_TSChanging(System.DateTime value);
+    partial void OnCPR_MYND_TYPE_TSChanged();
+    partial void OnFAXNRChanging(int value);
+    partial void OnFAXNRChanged();
+    partial void OnMYND_OPRET_UMChanging(char value);
+    partial void OnMYND_OPRET_UMChanged();
+    partial void OnMYND_OPHOR_UMChanging(char value);
+    partial void OnMYND_OPHOR_UMChanged();
+    #endregion
+		
+		public Authority()
+		{
+			this._Citizens = new EntitySet<Citizen>(new Action<Citizen>(this.attach_Citizens), new Action<Citizen>(this.detach_Citizens));
+			OnCreated();
+		}
+		
+		[Column(Name="MYNDIGHED_KODE", Storage="_AuthorityCode", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short AuthorityCode
+		{
+			get
+			{
+				return this._AuthorityCode;
+			}
+			set
+			{
+				if ((this._AuthorityCode != value))
+				{
+					this.OnAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._AuthorityCode = value;
+					this.SendPropertyChanged("AuthorityCode");
+					this.OnAuthorityCodeChanged();
+				}
+			}
+		}
+		
+		[Column(Name="MYNDIGHED_TYPE", Storage="_AuthorityType", DbType="SmallInt NOT NULL")]
+		public short AuthorityType
+		{
+			get
+			{
+				return this._AuthorityType;
+			}
+			set
+			{
+				if ((this._AuthorityType != value))
+				{
+					this.OnAuthorityTypeChanging(value);
+					this.SendPropertyChanging();
+					this._AuthorityType = value;
+					this.SendPropertyChanged("AuthorityType");
+					this.OnAuthorityTypeChanged();
+				}
+			}
+		}
+		
+		[Column(Name="MYNDIGHED_NAVN", Storage="_AuthorityName", DbType="Char(20) NOT NULL", CanBeNull=false)]
+		public string AuthorityName
+		{
+			get
+			{
+				return this._AuthorityName;
+			}
+			set
+			{
+				if ((this._AuthorityName != value))
+				{
+					this.OnAuthorityNameChanging(value);
+					this.SendPropertyChanging();
+					this._AuthorityName = value;
+					this.SendPropertyChanged("AuthorityName");
+					this.OnAuthorityNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYNDIGHED_ADRESSAT", DbType="Char(34) NOT NULL", CanBeNull=false)]
+		public string MYNDIGHED_ADRESSAT
+		{
+			get
+			{
+				return this._MYNDIGHED_ADRESSAT;
+			}
+			set
+			{
+				if ((this._MYNDIGHED_ADRESSAT != value))
+				{
+					this.OnMYNDIGHED_ADRESSATChanging(value);
+					this.SendPropertyChanging();
+					this._MYNDIGHED_ADRESSAT = value;
+					this.SendPropertyChanged("MYNDIGHED_ADRESSAT");
+					this.OnMYNDIGHED_ADRESSATChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYNDIGHED_ADR_1", DbType="Char(34) NOT NULL", CanBeNull=false)]
+		public string MYNDIGHED_ADR_1
+		{
+			get
+			{
+				return this._MYNDIGHED_ADR_1;
+			}
+			set
+			{
+				if ((this._MYNDIGHED_ADR_1 != value))
+				{
+					this.OnMYNDIGHED_ADR_1Changing(value);
+					this.SendPropertyChanging();
+					this._MYNDIGHED_ADR_1 = value;
+					this.SendPropertyChanged("MYNDIGHED_ADR_1");
+					this.OnMYNDIGHED_ADR_1Changed();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYNDIGHED_ADR_2", DbType="Char(34) NOT NULL", CanBeNull=false)]
+		public string MYNDIGHED_ADR_2
+		{
+			get
+			{
+				return this._MYNDIGHED_ADR_2;
+			}
+			set
+			{
+				if ((this._MYNDIGHED_ADR_2 != value))
+				{
+					this.OnMYNDIGHED_ADR_2Changing(value);
+					this.SendPropertyChanging();
+					this._MYNDIGHED_ADR_2 = value;
+					this.SendPropertyChanged("MYNDIGHED_ADR_2");
+					this.OnMYNDIGHED_ADR_2Changed();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYNDIGHED_ADR_3", DbType="Char(34) NOT NULL", CanBeNull=false)]
+		public string MYNDIGHED_ADR_3
+		{
+			get
+			{
+				return this._MYNDIGHED_ADR_3;
+			}
+			set
+			{
+				if ((this._MYNDIGHED_ADR_3 != value))
+				{
+					this.OnMYNDIGHED_ADR_3Changing(value);
+					this.SendPropertyChanging();
+					this._MYNDIGHED_ADR_3 = value;
+					this.SendPropertyChanged("MYNDIGHED_ADR_3");
+					this.OnMYNDIGHED_ADR_3Changed();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYNDIGHED_ADR_4", DbType="Char(34) NOT NULL", CanBeNull=false)]
+		public string MYNDIGHED_ADR_4
+		{
+			get
+			{
+				return this._MYNDIGHED_ADR_4;
+			}
+			set
+			{
+				if ((this._MYNDIGHED_ADR_4 != value))
+				{
+					this.OnMYNDIGHED_ADR_4Changing(value);
+					this.SendPropertyChanging();
+					this._MYNDIGHED_ADR_4 = value;
+					this.SendPropertyChanged("MYNDIGHED_ADR_4");
+					this.OnMYNDIGHED_ADR_4Changed();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYNDIGHED_TLFNR", DbType="Int NOT NULL")]
+		public int MYNDIGHED_TLFNR
+		{
+			get
+			{
+				return this._MYNDIGHED_TLFNR;
+			}
+			set
+			{
+				if ((this._MYNDIGHED_TLFNR != value))
+				{
+					this.OnMYNDIGHED_TLFNRChanging(value);
+					this.SendPropertyChanging();
+					this._MYNDIGHED_TLFNR = value;
+					this.SendPropertyChanged("MYNDIGHED_TLFNR");
+					this.OnMYNDIGHED_TLFNRChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYND_OPRETDATO", DbType="DateTime NOT NULL")]
+		public System.DateTime MYND_OPRETDATO
+		{
+			get
+			{
+				return this._MYND_OPRETDATO;
+			}
+			set
+			{
+				if ((this._MYND_OPRETDATO != value))
+				{
+					this.OnMYND_OPRETDATOChanging(value);
+					this.SendPropertyChanging();
+					this._MYND_OPRETDATO = value;
+					this.SendPropertyChanged("MYND_OPRETDATO");
+					this.OnMYND_OPRETDATOChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYND_OPHORDATO", DbType="DateTime NOT NULL")]
+		public System.DateTime MYND_OPHORDATO
+		{
+			get
+			{
+				return this._MYND_OPHORDATO;
+			}
+			set
+			{
+				if ((this._MYND_OPHORDATO != value))
+				{
+					this.OnMYND_OPHORDATOChanging(value);
+					this.SendPropertyChanging();
+					this._MYND_OPHORDATO = value;
+					this.SendPropertyChanged("MYND_OPHORDATO");
+					this.OnMYND_OPHORDATOChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CPR_MYNDIGHED_TS", DbType="DateTime NOT NULL")]
+		public System.DateTime CPR_MYNDIGHED_TS
+		{
+			get
+			{
+				return this._CPR_MYNDIGHED_TS;
+			}
+			set
+			{
+				if ((this._CPR_MYNDIGHED_TS != value))
+				{
+					this.OnCPR_MYNDIGHED_TSChanging(value);
+					this.SendPropertyChanging();
+					this._CPR_MYNDIGHED_TS = value;
+					this.SendPropertyChanged("CPR_MYNDIGHED_TS");
+					this.OnCPR_MYNDIGHED_TSChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CPR_MYND_TYPE_TS", DbType="DateTime NOT NULL")]
+		public System.DateTime CPR_MYND_TYPE_TS
+		{
+			get
+			{
+				return this._CPR_MYND_TYPE_TS;
+			}
+			set
+			{
+				if ((this._CPR_MYND_TYPE_TS != value))
+				{
+					this.OnCPR_MYND_TYPE_TSChanging(value);
+					this.SendPropertyChanging();
+					this._CPR_MYND_TYPE_TS = value;
+					this.SendPropertyChanged("CPR_MYND_TYPE_TS");
+					this.OnCPR_MYND_TYPE_TSChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FAXNR", DbType="Int NOT NULL")]
+		public int FAXNR
+		{
+			get
+			{
+				return this._FAXNR;
+			}
+			set
+			{
+				if ((this._FAXNR != value))
+				{
+					this.OnFAXNRChanging(value);
+					this.SendPropertyChanging();
+					this._FAXNR = value;
+					this.SendPropertyChanged("FAXNR");
+					this.OnFAXNRChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYND_OPRET_UM", DbType="Char(1) NOT NULL")]
+		public char MYND_OPRET_UM
+		{
+			get
+			{
+				return this._MYND_OPRET_UM;
+			}
+			set
+			{
+				if ((this._MYND_OPRET_UM != value))
+				{
+					this.OnMYND_OPRET_UMChanging(value);
+					this.SendPropertyChanging();
+					this._MYND_OPRET_UM = value;
+					this.SendPropertyChanged("MYND_OPRET_UM");
+					this.OnMYND_OPRET_UMChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_MYND_OPHOR_UM", DbType="Char(1) NOT NULL")]
+		public char MYND_OPHOR_UM
+		{
+			get
+			{
+				return this._MYND_OPHOR_UM;
+			}
+			set
+			{
+				if ((this._MYND_OPHOR_UM != value))
+				{
+					this.OnMYND_OPHOR_UMChanging(value);
+					this.SendPropertyChanging();
+					this._MYND_OPHOR_UM = value;
+					this.SendPropertyChanged("MYND_OPHOR_UM");
+					this.OnMYND_OPHOR_UMChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Authority_Citizen", Storage="_Citizens", ThisKey="AuthorityCode", OtherKey="BirthRegistrationAuthorityCode")]
+		public EntitySet<Citizen> Citizens
+		{
+			get
+			{
+				return this._Citizens;
+			}
+			set
+			{
+				this._Citizens.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Citizens(Citizen entity)
+		{
+			this.SendPropertyChanging();
+			entity.BirthRegistrationAuthority = this;
+		}
+		
+		private void detach_Citizens(Citizen entity)
+		{
+			this.SendPropertyChanging();
+			entity.BirthRegistrationAuthority = null;
 		}
 	}
 }

@@ -39,19 +39,34 @@ namespace CprBroker.Providers.E_M
 
         private static EgenskabType ToEgenskabType(Citizen citizen)
         {
-            return new EgenskabType()
+            var ret = new EgenskabType()
             {
                 AndreAdresser = ToAndreAdresse(citizen),
-                // TODO: make sure this is never null
-                BirthDate = Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty).Value,
-                FoedestedNavn = null,
-                FoedselsregistreringMyndighedNavn = citizen.BirthRegistrationText,
+                //BirthDate = new DateTime(),
+                FoedestedNavn = citizen.BirthPlaceText,
+                FoedselsregistreringMyndighedNavn = null,
                 KontaktKanal = ToKontaktKanalType(citizen),
                 NaermestePaaroerende = ToNextOfKin(citizen),
                 NavnStruktur = ToNavnStrukturType(citizen),
                 PersonGenderCode = Converters.ToPersonGenderCodeType(citizen.Gender),
                 Virkning = ToVirkningType(citizen)
             };
+
+            var birthdate = Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty);
+            if (birthdate.HasValue)
+            {
+                ret.BirthDate = birthdate.Value;
+            }
+            else
+            {
+                CprBroker.Utilities.Strings.PersonNumberToDate(Converters.ToCprNumber(citizen.PNR));
+            }
+
+            if (citizen.BirthRegistrationAuthority != null)
+            {
+                ret.FoedselsregistreringMyndighedNavn = citizen.BirthRegistrationAuthority.AuthorityName;
+            }
+            return ret;
         }
 
         private static NavnStrukturType ToNavnStrukturType(Citizen citizen)
