@@ -320,7 +320,6 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_StreetBuildingIdentifierNotNull(Citizen citizen)
         {
-            System.Diagnostics.Debugger.Break();
             var result = Citizen.ToAddressPostalType(citizen);
             Assert.IsNotNullOrEmpty(result.StreetBuildingIdentifier);
         }
