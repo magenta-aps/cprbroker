@@ -9,10 +9,10 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Tests.E_M
 {
     [TestFixture]
-    class CitizenPotReadyAddressTests
+    class CitizenAddressTests
     {
 
-        public CitizenPotReadyAddressTests()
+        public CitizenAddressTests()
         {
             var citizen = new Citizen()
                 {

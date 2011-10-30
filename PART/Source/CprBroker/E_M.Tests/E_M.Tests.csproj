@@ -64,7 +64,7 @@
     <Compile Include="AuthorityTests.cs" />
     <Compile Include="ChildTests.cs" />
     <Compile Include="CitizenConvertersTests.cs" />
-    <Compile Include="CitizenPotReadyAddressTests.cs" />
+    <Compile Include="CitizenAddressTests.cs" />
     <Compile Include="CitizenRelationsTests.cs" />
     <Compile Include="CitizenStatesTests.cs" />
     <Compile Include="CitizenTests.cs" />
