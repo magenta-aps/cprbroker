@@ -88,7 +88,7 @@ namespace CprBroker.Providers.E_M
                 // TODO: Fill effect dates
                 Virkning = null,
             };
-            if (new short[] { 0, Constants.AbroadCountryCode, Constants.ReservedCountryCode, Constants.StatelessCountryCode, Constants.UnknownCountryCode }.Contains(citizen.CountryCode))
+            if (Constants.UnknownCountryCodes.Contains(citizen.CountryCode))
             {
                 ret.Item = ToUkendtBorgerType(citizen);
             }
@@ -101,14 +101,6 @@ namespace CprBroker.Providers.E_M
                 ret.Item = ToUdenlandskBorgerType(citizen);
             }
             return ret;
-        }
-
-        private static UkendtBorgerType ToUkendtBorgerType(Citizen citizen)
-        {
-            return new UkendtBorgerType()
-            {
-                PersonCivilRegistrationReplacementIdentifier = citizen.PNR.ToString()
-            };
         }
 
         private static CprBorgerType ToCprBorgerType(Citizen citizen)
@@ -128,7 +120,7 @@ namespace CprBroker.Providers.E_M
         }
 
 
-        private static UdenlandskBorgerType ToUdenlandskBorgerType(Citizen citizen)
+        public static UdenlandskBorgerType ToUdenlandskBorgerType(Citizen citizen)
         {
             //TODO: Revise foreign citizen data
             return new UdenlandskBorgerType()
@@ -139,6 +131,21 @@ namespace CprBroker.Providers.E_M
                 PersonNationalityCode = new CountryIdentificationCodeType[] { CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.ToString()) },
                 SprogKode = null
             };
+        }
+
+        public static UkendtBorgerType ToUkendtBorgerType(Citizen citizen)
+        {
+            if (citizen != null)
+            {
+                return new UkendtBorgerType()
+                {
+                    PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR)
+                };
+            }
+            else
+            {
+                throw new ArgumentNullException("citizen");
+            }
         }
 
     }
