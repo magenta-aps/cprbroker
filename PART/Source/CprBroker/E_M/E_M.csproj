@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authority.cs" />
     <Compile Include="Child.cs" />
     <Compile Include="Citizen.cs" />
     <Compile Include="Citizen.States.cs" />

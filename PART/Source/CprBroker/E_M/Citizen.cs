@@ -42,31 +42,36 @@ namespace CprBroker.Providers.E_M
             var ret = new EgenskabType()
             {
                 AndreAdresser = ToAndreAdresse(citizen),
-                //BirthDate = new DateTime(),
+                BirthDate = ToBirthdate(citizen),
                 FoedestedNavn = citizen.BirthPlaceText,
-                FoedselsregistreringMyndighedNavn = null,
+                FoedselsregistreringMyndighedNavn = Authority.ToAuthorityName(citizen.BirthRegistrationAuthority),
                 KontaktKanal = ToKontaktKanalType(citizen),
                 NaermestePaaroerende = ToNextOfKin(citizen),
                 NavnStruktur = ToNavnStrukturType(citizen),
                 PersonGenderCode = Converters.ToPersonGenderCodeType(citizen.Gender),
                 Virkning = ToVirkningType(citizen)
             };
+            return ret;
+        }
 
-            var birthdate = Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty);
-            if (birthdate.HasValue)
+        public static DateTime ToBirthdate(Citizen citizen)
+        {
+            if (citizen != null)
             {
-                ret.BirthDate = birthdate.Value;
+                var birthdate = Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty);
+                if (birthdate.HasValue)
+                {
+                    return birthdate.Value;
+                }
+                else
+                {
+                    return CprBroker.Utilities.Strings.PersonNumberToDate(Converters.ToCprNumber(citizen.PNR)).Value;
+                }
             }
             else
             {
-                CprBroker.Utilities.Strings.PersonNumberToDate(Converters.ToCprNumber(citizen.PNR));
+                throw new ArgumentNullException("citizen");
             }
-
-            if (citizen.BirthRegistrationAuthority != null)
-            {
-                ret.FoedselsregistreringMyndighedNavn = citizen.BirthRegistrationAuthority.AuthorityName;
-            }
-            return ret;
         }
 
         private static NavnStrukturType ToNavnStrukturType(Citizen citizen)
