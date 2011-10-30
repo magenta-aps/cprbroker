@@ -54,26 +54,6 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        public static DateTime ToBirthdate(Citizen citizen)
-        {
-            if (citizen != null)
-            {
-                var birthdate = Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty);
-                if (birthdate.HasValue)
-                {
-                    return birthdate.Value;
-                }
-                else
-                {
-                    return CprBroker.Utilities.Strings.PersonNumberToDate(Converters.ToCprNumber(citizen.PNR)).Value;
-                }
-            }
-            else
-            {
-                throw new ArgumentNullException("citizen");
-            }
-        }
-
         private static NavnStrukturType ToNavnStrukturType(Citizen citizen)
         {
             //TODO: Fill person name
@@ -119,16 +99,15 @@ namespace CprBroker.Providers.E_M
             };
         }
 
-
         public static UdenlandskBorgerType ToUdenlandskBorgerType(Citizen citizen)
         {
             //TODO: Revise foreign citizen data
             return new UdenlandskBorgerType()
             {
-                FoedselslandKode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.ToString()),
+                FoedselslandKode = ToCountryIdentificationCodeType(citizen),
                 PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR),
                 PersonIdentifikator = null,
-                PersonNationalityCode = new CountryIdentificationCodeType[] { CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.ToString()) },
+                PersonNationalityCode = new CountryIdentificationCodeType[] { ToCountryIdentificationCodeType(citizen) },
                 SprogKode = null
             };
         }
