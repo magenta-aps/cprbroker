@@ -101,15 +101,23 @@ namespace CprBroker.Providers.E_M
 
         public static UdenlandskBorgerType ToUdenlandskBorgerType(Citizen citizen)
         {
-            //TODO: Revise foreign citizen data
-            return new UdenlandskBorgerType()
+            if (citizen != null)
             {
-                FoedselslandKode = ToCountryIdentificationCodeType(citizen),
-                PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR),
-                PersonIdentifikator = null,
-                PersonNationalityCode = new CountryIdentificationCodeType[] { ToCountryIdentificationCodeType(citizen) },
-                SprogKode = null
-            };
+                return new UdenlandskBorgerType()
+                {
+                    // TODO: See if we can find a birth nationality (different from current nationality)
+                    FoedselslandKode = null,
+                    // TODO: Shall PersonCivilRegistrationReplacementIdentifier and PersonIdentifikator be swapped ?
+                    PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR),
+                    PersonIdentifikator = null,
+                    PersonNationalityCode = new CountryIdentificationCodeType[] { ToCountryIdentificationCodeType(citizen) },
+                    SprogKode = null
+                };
+            }
+            else
+            {
+                throw new ArgumentNullException("citizen");
+            }
         }
 
         public static UkendtBorgerType ToUkendtBorgerType(Citizen citizen)
