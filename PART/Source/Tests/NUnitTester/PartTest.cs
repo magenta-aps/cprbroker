@@ -286,7 +286,7 @@ namespace CprBroker.NUnitTester
         }
         [Test]
         public void T410_List_Mixed(
-            [Values(0, 1, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000)] int count)
+            [Values(1, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000)] int count)
         {
             var uuids = new List<string>();
             for (int i = 0; i < count; i++)
