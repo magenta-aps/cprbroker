@@ -215,16 +215,31 @@ namespace CprBroker.Engine
 
                 #region Final aggregation
 
-                var subResultsFinished = (from mi in subMethodRunStates where !mi.Succeeded select mi).Count() == 0;
-                if (subResultsFinished)
+                var succeededCount = (from mi in subMethodRunStates where mi.Succeeded select mi).Count();
+                var subResults = (from mi in subMethodRunStates select mi.Result).ToArray();
+
+                bool canAggregate = facade.AggregationFailOption == AggregationFailOption.FailNever
+                    || facade.AggregationFailOption == AggregationFailOption.FailOnAll && succeededCount > 0
+                    || facade.AggregationFailOption == AggregationFailOption.FailOnAny && succeededCount == subMethodRunStates.Length;
+
+                if (canAggregate)
                 {
-                    var subResults = (from mi in subMethodRunStates select mi.Result).ToArray();
                     var outputMainItem = facade.Aggregate(subResults);
                     if (facade.IsValidResult(outputMainItem))
                     {
                         Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.Succeeded, null, null);
-                        var output = new TOutput() { StandardRetur = StandardReturType.OK() };
+                        var output = new TOutput();
                         output.SetMainItem(outputMainItem);
+                        if (succeededCount == subMethodRunStates.Length)
+                        {
+                            output.StandardRetur = StandardReturType.OK();
+                        }
+                        else
+                        {
+                            var failedInput = subMethodRunStates.Where(smi => !smi.Succeeded).Select(smi => smi.SubMethodInfo.InputToString()).ToArray();
+                            output.StandardRetur = StandardReturType.PartialSuccess(failedInput);
+                        }
+
                         return output;
                     }
                     else

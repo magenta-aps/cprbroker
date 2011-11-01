@@ -111,5 +111,10 @@ namespace CprBroker.Engine.Part
             return Guid.Empty;
         }
 
+        public override string InputToString()
+        {
+            return this.Input.UUID;
+        }
+
     }
 }

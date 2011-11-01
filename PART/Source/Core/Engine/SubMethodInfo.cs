@@ -66,6 +66,7 @@ namespace CprBroker.Engine
         public abstract void InvokeUpdateMethod(object result);
         public abstract bool IsSuccessfulOutput(object o);
         public abstract bool IsUpdatableOutput(object o);
+        public abstract string InputToString();
     }
 
     public class SubMethodInfo<TInterface, TOutput> : SubMethodInfo where TInterface : class, IDataProvider
@@ -152,6 +153,11 @@ namespace CprBroker.Engine
             {
                 return true;
             }
+        }
+
+        public override string InputToString()
+        {
+            return this.ToString();
         }
     }
 

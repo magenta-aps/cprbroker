@@ -70,6 +70,7 @@ namespace CprBroker.Engine.Part
         {
             input = inp;
             this.InitializationMethod = new Action(InitializationMethod);
+            this.AggregationFailOption = AggregationFailOption.FailOnAll;
         }
 
         public override StandardReturType ValidateInput()
@@ -131,7 +132,7 @@ namespace CprBroker.Engine.Part
             return Array.ConvertAll<object, LaesResultatType>
                 (
                     results,
-                    (s) => (s is RegistreringType1) ? new LaesResultatType() { Item = s as RegistreringType1 } : null
+                    (s) => new LaesResultatType() { Item = s as RegistreringType1 }
                 );
         }
 

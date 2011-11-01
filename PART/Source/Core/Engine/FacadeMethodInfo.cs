@@ -60,6 +60,8 @@ namespace CprBroker.Engine
     /// <typeparam name="TItem">Type of the inner item of the result</typeparam>
     public class FacadeMethodInfo<TOutput, TItem> where TOutput : class, IBasicOutput<TItem>, new()
     {
+        public AggregationFailOption AggregationFailOption = AggregationFailOption.FailOnAny;
+
         public FacadeMethodInfo()
         { }
 
@@ -105,5 +107,15 @@ namespace CprBroker.Engine
         public string UserToken;
 
         public SubMethodInfo[] SubMethodInfos = new SubMethodInfo[0];
+    }
+
+    public enum AggregationFailOption
+    {
+        // Fail if any submethod has failed
+        FailOnAny,
+        // Fail only if all submethods have failed
+        FailOnAll,
+        // Never fail, even if all submethods have failed
+        FailNever
     }
 }

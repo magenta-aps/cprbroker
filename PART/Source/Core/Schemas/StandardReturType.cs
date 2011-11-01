@@ -55,6 +55,7 @@ namespace CprBroker.Schemas.Part
     public enum HttpErrorCode
     {
         OK = 200,
+        PARTIAL_SUCCESS = 206,
         UNSPECIFIED = 500, /* Server */
         DATASOURCE_UNAVAILABLE = 503, /* Server unavailable*/
         BAD_CLIENT_REQUEST = 400, /* Client */
@@ -85,7 +86,7 @@ namespace CprBroker.Schemas.Part
                 int code;
                 if (int.TryParse(ret.StatusKode, out code))
                 {
-                    return code == (int)HttpErrorCode.OK;
+                    return code / 100 == (int)HttpErrorCode.OK / 100;
                 }
             }
             return false;
@@ -94,6 +95,12 @@ namespace CprBroker.Schemas.Part
         public static StandardReturType OK()
         {
             return Create(HttpErrorCode.OK);
+        }
+
+        public static StandardReturType PartialSuccess(string[] failedInputs)
+        {
+            string text = "Partial success. Failed = " + string.Join(",", failedInputs);
+            return Create(HttpErrorCode.PARTIAL_SUCCESS, text);
         }
 
         public static StandardReturType UnspecifiedError()
@@ -167,7 +174,7 @@ namespace CprBroker.Schemas.Part
 
         public static StandardReturType ApplicationNameExists(string applicationName)
         {
-            return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST,string.Format("ApplicationName '{0}' already exists", applicationName));
+            return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("ApplicationName '{0}' already exists", applicationName));
         }
 
         public static StandardReturType UnknownUuid(string uuid)
