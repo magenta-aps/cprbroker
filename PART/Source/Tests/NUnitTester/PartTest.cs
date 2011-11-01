@@ -251,7 +251,7 @@ namespace CprBroker.NUnitTester
                 UUID = cprNumbers == null ? null : Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).UUID),
             };
 
-            var persons=TestRunner.PartService.List(input);
+            var persons = TestRunner.PartService.List(input);
 
             Assert.IsNotNull(persons);
             if (cprNumbers != null)
@@ -269,6 +269,54 @@ namespace CprBroker.NUnitTester
             {
                 ValidateInvalid(persons.StandardRetur);
                 Assert.IsNull(persons.LaesResultat);
+            }
+        }
+
+        Dictionary<string, GetUuidOutputType> GetUuidResults = new Dictionary<string, GetUuidOutputType>();
+        GetUuidOutputType GetUuid(string cpr)
+        {
+            if (GetUuidResults.ContainsKey(cpr))
+                return GetUuidResults[cpr];
+            else
+            {
+                var ret = TestRunner.PartService.GetUuid(cpr);
+                GetUuidResults[cpr] = ret;
+                return ret;
+            }
+        }
+        [Test]
+        public void T410_List_Mixed(
+            [Values(0, 1, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000)] int count)
+        {
+            var uuids = new List<string>();
+            for (int i = 0; i < count; i++)
+            {
+                uuids.Add(Guid.NewGuid().ToString());
+            }
+            uuids.AddRange(Array.ConvertAll<string, string>(TestData.cprNumbers, (cpr) => GetUuid(cpr).UUID));
+
+            Part.ListInputType input = new Part.ListInputType()
+            {
+                UUID = uuids.ToArray()
+            };
+
+            var persons = TestRunner.PartService.List(input);
+
+            Assert.IsNotNull(persons, "List response is null");
+            Assert.AreEqual("206", persons.StandardRetur.StatusKode);
+            Assert.IsNotNull(persons.LaesResultat, "Persons array is null");
+            Assert.AreEqual(uuids.Count, persons.LaesResultat.Length, "Incorrect length of returned array");
+
+            var partCount = persons.StandardRetur.FejlbeskedTekst.Split(',').Length;
+            Assert.AreEqual(count, partCount);
+            for (int i = 0; i < count; i++)
+            {
+                Assert.NotNull(persons.LaesResultat[i]);
+                Assert.Null(persons.LaesResultat[i].Item);
+            }
+            for (int i = count; i < uuids.Count; i++)
+            {
+                Validate(new Guid(input.UUID[i]), persons.LaesResultat[i], TestRunner.PartService);
             }
         }
 
