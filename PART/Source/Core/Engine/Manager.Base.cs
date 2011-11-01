@@ -129,7 +129,7 @@ namespace CprBroker.Engine
                 #region creation of sub results in threads
                 // Catch the current broker context in a local variable
                 var currentBrokerContext = BrokerContext.Current;
-
+                long finishedThreads = 0;
                 // Now create the sub results
                 for (int iSubMethod = 0; iSubMethod < subMethodRunStates.Length; iSubMethod++)
                 {
@@ -179,7 +179,7 @@ namespace CprBroker.Engine
                             }
 
                             // Signal the end of processing
-                            subMethodInfo.WaitHandle.Set();
+                            System.Threading.Interlocked.Increment(ref finishedThreads);
                         }
                     );
 
@@ -195,8 +195,13 @@ namespace CprBroker.Engine
                 if (subMethodRunStates.Length > 1)
                 {
                     // Wait for sub results to continue
-                    var waitHandles = (from mi in subMethodRunStates select mi.WaitHandle).ToArray();
-                    WaitHandle.WaitAll(waitHandles, Config.Properties.Settings.Default.DataProviderMillisecondsTimeout);
+                    DateTime executionStartTime = DateTime.Now;
+
+                    while (System.Threading.Interlocked.Read(ref finishedThreads) < subMethodRunStates.Length && (DateTime.Now - executionStartTime).TotalMilliseconds < Config.Properties.Settings.Default.DataProviderMillisecondsTimeout)
+                    {
+                        int waitMilliseconds = 100;
+                        Thread.Sleep(waitMilliseconds);
+                    }
                     foreach (var mi in subMethodRunStates)
                     {
                         mi.Thread.Abort();
@@ -251,7 +256,6 @@ namespace CprBroker.Engine
             public ParameterizedThreadStart ThreadStart;
             public Thread Thread;
             public bool Succeeded = false;
-            public ManualResetEvent WaitHandle = new ManualResetEvent(false);
         }
     }
 }
