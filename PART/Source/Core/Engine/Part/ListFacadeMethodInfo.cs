@@ -104,7 +104,7 @@ namespace CprBroker.Engine.Part
                 }
                 else
                 {
-                    inputUuidToPersonIdentifierMap.Add(inputPersonUuid, personIdentifier);
+                    inputUuidToPersonIdentifierMap[inputPersonUuid] = personIdentifier;
                 }
             }
             if (unknownUuidErrors.Count > 0)
