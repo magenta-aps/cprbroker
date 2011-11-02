@@ -57,8 +57,13 @@ namespace CprBroker.Schemas.Util
     /// </summary>
     public static class Enums
     {
-       
+
         public static LivStatusKodeType ToLifeStatus(decimal civilRegistrationStatus, DateTime? birthDate)
+        {
+            return ToLifeStatus(civilRegistrationStatus, birthDate.HasValue);
+        }
+
+        public static LivStatusKodeType ToLifeStatus(decimal civilRegistrationStatus, bool birthdateHasValue)
         {
             switch ((int)civilRegistrationStatus)
             {
@@ -67,7 +72,7 @@ namespace CprBroker.Schemas.Util
                 case 90:
                     return LivStatusKodeType.Doed;
                 default:
-                    if (birthDate.HasValue)
+                    if (birthdateHasValue)
                         return LivStatusKodeType.Foedt;
                     else
                         return LivStatusKodeType.Prenatal;
