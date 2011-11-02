@@ -95,16 +95,37 @@ namespace CprBroker.Providers.DPR
         {
             if (!string.IsNullOrEmpty(str))
             {
+                DateTime ret;
                 switch (str.Length)
                 {
                     case 8:
-                        return DateTime.ParseExact(str, "yyyyMMdd", null);
+                        if (DateTime.TryParseExact(str, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out ret))
+                        {
+                            return ret;
+                        }
+                        break;
 
                     case 12:
-                        if (str.EndsWith("99"))
-                            str = str.Substring(0, 10) + "00";
-                        return DateTime.ParseExact(str, "yyyyMMddHHmm", null);
+                        if (str.Substring(4, 2) == "00") //zero month
+                        {
+                            str = str.Substring(0, 4) + "01" + str.Substring(6);
+                        }
 
+                        if (str.Substring(6, 2) == "00") //zero day
+                        {
+                            str = str.Substring(0, 6) + "01" + str.Substring(8);
+                        }
+
+                        if (str.Substring(10, 2) == "99") //99 minute
+                        {
+                            str = str.Substring(0, 10) + "00";
+                        }
+
+                        if (DateTime.TryParseExact(str, "yyyyMMddHHmm", null, System.Globalization.DateTimeStyles.None, out ret))
+                        {
+                            return ret;
+                        }
+                        break;
                 }
             }
             return null;
