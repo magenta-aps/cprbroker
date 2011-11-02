@@ -17,6 +17,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WixCommon", "WixCommon\WixC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schemas.Tests", "Schemas.Tests\Schemas.Tests.csproj", "{A05A4338-8E7F-41D7-A530-95FE0BB7CB24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Tests", "Engine.Tests\Engine.Tests.csproj", "{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,16 @@ Global
 		{A05A4338-8E7F-41D7-A530-95FE0BB7CB24}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A05A4338-8E7F-41D7-A530-95FE0BB7CB24}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A05A4338-8E7F-41D7-A530-95FE0BB7CB24}.Release|x86.ActiveCfg = Release|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8CCCE0D5-9234-4CEF-AAC8-720E56FBFE95}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
