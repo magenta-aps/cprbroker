@@ -248,7 +248,7 @@ namespace CprBroker.NUnitTester
         {
             Part.ListInputType input = new Part.ListInputType()
             {
-                UUID = cprNumbers == null ? null : Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).UUID),
+                UUID = cprNumbers == null ? null : Array.ConvertAll<string, string>(cprNumbers, (cpr) => GetUuid(cpr).UUID),
             };
 
             var persons = TestRunner.PartService.List(input);

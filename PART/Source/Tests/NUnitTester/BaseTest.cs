@@ -64,7 +64,7 @@ namespace CprBroker.NUnitTester
         public void Validate(string code, string text)
         {
             Assert.IsNotNullOrEmpty(code, "Status Code");
-            Assert.AreEqual("200", code, "Status Code");
+            Assert.AreEqual("200", code, "Status Code. Text = <{0}>",text);
         }
 
         public void ValidateInvalid(string code, string text)
