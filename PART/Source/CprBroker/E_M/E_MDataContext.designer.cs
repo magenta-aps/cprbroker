@@ -273,12 +273,12 @@ namespace CprBroker.Providers.E_M
     partial void OnAddressingNameChanged();
     partial void OnAddressingNameDateChanging(System.DateTime value);
     partial void OnAddressingNameDateChanged();
-    partial void OnNationalChurchAuthorityCodeChanging(short value);
-    partial void OnNationalChurchAuthorityCodeChanged();
-    partial void OnNationalChurchMarkerChanging(char value);
-    partial void OnNationalChurchMarkerChanged();
-    partial void OnNationalChurchMarkerDateChanging(System.DateTime value);
-    partial void OnNationalChurchMarkerDateChanged();
+    partial void OnChurchAuthorityCodeChanging(short value);
+    partial void OnChurchAuthorityCodeChanged();
+    partial void OnChurchMarkerChanging(char value);
+    partial void OnChurchMarkerChanged();
+    partial void OnChurchMarkerDateChanging(System.DateTime value);
+    partial void OnChurchMarkerDateChanged();
     partial void OnCitizenStatusCodeChanging(short value);
     partial void OnCitizenStatusCodeChanged();
     partial void OnCitizenStatusTimestampChanging(System.DateTime value);
@@ -291,8 +291,8 @@ namespace CprBroker.Providers.E_M
     partial void OnBirthPlaceTextChanged();
     partial void OnNumberOfChildrenChanging(short value);
     partial void OnNumberOfChildrenChanged();
-    partial void OnCpcNationalChurchTimestampChanging(System.DateTime value);
-    partial void OnCpcNationalChurchTimestampChanged();
+    partial void OnCprChurchTimestampChanging(System.DateTime value);
+    partial void OnCprChurchTimestampChanged();
     partial void OnCprPersonTimestampChanging(System.DateTime value);
     partial void OnCprPersonTimestampChanged();
     partial void OnRelocationTimestampChanging(System.DateTime value);
@@ -319,10 +319,10 @@ namespace CprBroker.Providers.E_M
     partial void OnDepartureMunicipalityCodeChanged();
     partial void OnAddressProtectionDateChanging(System.DateTime value);
     partial void OnAddressProtectionDateChanged();
-    partial void OnAddressProtectionRemovalDateChanging(System.DateTime value);
-    partial void OnAddressProtectionRemovalDateChanged();
-    partial void OnDiretoryProtectionDateChanging(System.DateTime value);
-    partial void OnDiretoryProtectionDateChanged();
+    partial void OnAddressProtectionEndDateChanging(System.DateTime value);
+    partial void OnAddressProtectionEndDateChanged();
+    partial void OnDirectoryProtectionDateChanging(System.DateTime value);
+    partial void OnDirectoryProtectionDateChanged();
     partial void OnMaritalStatusTimestampChanging(System.DateTime value);
     partial void OnMaritalStatusTimestampChanged();
     partial void OnMaritalStatusChanging(char value);
@@ -359,8 +359,8 @@ namespace CprBroker.Providers.E_M
     partial void OnOccupationDateUncertaintyChanged();
     partial void OnAddressingNameUncertaintyChanging(char value);
     partial void OnAddressingNameUncertaintyChanged();
-    partial void OnNationalChurchMarkerUncertaintyChanging(char value);
-    partial void OnNationalChurchMarkerUncertaintyChanged();
+    partial void OnChurchMarkerDateUncertaintyChanging(char value);
+    partial void OnChurchMarkerDateUncertaintyChanged();
     partial void OnCitizenStatusTimestampUncertaintyChanging(char value);
     partial void OnCitizenStatusTimestampUncertaintyChanged();
     partial void OnBirthRegistrationDateUncertaintyChanging(char value);
@@ -373,8 +373,8 @@ namespace CprBroker.Providers.E_M
     partial void OnMunicipalityArrivalTimestampUncertaintyChanged();
     partial void OnAddressProtectionDateUncertaintyChanging(char value);
     partial void OnAddressProtectionDateUncertaintyChanged();
-    partial void OnAddressProtectionTerminationDateUncertaintyChanging(char value);
-    partial void OnAddressProtectionTerminationDateUncertaintyChanged();
+    partial void OnAddressProtectionEndDateUncertaintyChanging(char value);
+    partial void OnAddressProtectionEndDateUncertaintyChanged();
     partial void OnDirectoryProtectionDateUncertaintyChanging(char value);
     partial void OnDirectoryProtectionDateUncertaintyChanged();
     partial void OnMaritalStatusTimestampUncertaintyChanging(char value);
@@ -385,8 +385,8 @@ namespace CprBroker.Providers.E_M
     partial void OnNationalityChangeTimestampUncertaintyChanged();
     partial void OnNationalityTerminationTimestampUncertaintyChanging(char value);
     partial void OnNationalityTerminationTimestampUncertaintyChanged();
-    partial void OnDirectoryProtectionRemovalDateUncertaintyChanging(char value);
-    partial void OnDirectoryProtectionRemovalDateUncertaintyChanged();
+    partial void OnDirectoryProtectionEndDateUncertaintyChanging(char value);
+    partial void OnDirectoryProtectionEndDateUncertaintyChanged();
     #endregion
 		
 		public Citizen()
@@ -599,7 +599,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FOLKEKIRKE_MYND_KD", Storage="_NationalChurchAuthorityCode", DbType="SmallInt")]
-		public short NationalChurchAuthorityCode
+		public short ChurchAuthorityCode
 		{
 			get
 			{
@@ -609,17 +609,17 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._NationalChurchAuthorityCode != value))
 				{
-					this.OnNationalChurchAuthorityCodeChanging(value);
+					this.OnChurchAuthorityCodeChanging(value);
 					this.SendPropertyChanging();
 					this._NationalChurchAuthorityCode = value;
-					this.SendPropertyChanged("NationalChurchAuthorityCode");
-					this.OnNationalChurchAuthorityCodeChanged();
+					this.SendPropertyChanged("ChurchAuthorityCode");
+					this.OnChurchAuthorityCodeChanged();
 				}
 			}
 		}
 		
 		[Column(Name="FOLKEKIRK_TILH_MRK", Storage="_NationalChurchMarker", DbType="Char(1)")]
-		public char NationalChurchMarker
+		public char ChurchMarker
 		{
 			get
 			{
@@ -629,17 +629,17 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._NationalChurchMarker != value))
 				{
-					this.OnNationalChurchMarkerChanging(value);
+					this.OnChurchMarkerChanging(value);
 					this.SendPropertyChanging();
 					this._NationalChurchMarker = value;
-					this.SendPropertyChanged("NationalChurchMarker");
-					this.OnNationalChurchMarkerChanged();
+					this.SendPropertyChanged("ChurchMarker");
+					this.OnChurchMarkerChanged();
 				}
 			}
 		}
 		
 		[Column(Name="FOLKEKIRK_MRK_DATO", Storage="_NationalChurchMarkerDate", DbType="DateTime")]
-		public System.DateTime NationalChurchMarkerDate
+		public System.DateTime ChurchMarkerDate
 		{
 			get
 			{
@@ -649,11 +649,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._NationalChurchMarkerDate != value))
 				{
-					this.OnNationalChurchMarkerDateChanging(value);
+					this.OnChurchMarkerDateChanging(value);
 					this.SendPropertyChanging();
 					this._NationalChurchMarkerDate = value;
-					this.SendPropertyChanged("NationalChurchMarkerDate");
-					this.OnNationalChurchMarkerDateChanged();
+					this.SendPropertyChanged("ChurchMarkerDate");
+					this.OnChurchMarkerDateChanged();
 				}
 			}
 		}
@@ -779,7 +779,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="CPR_FOLKEKIRKE_TS", Storage="_CpcNationalChurchTimestamp", DbType="DateTime")]
-		public System.DateTime CpcNationalChurchTimestamp
+		public System.DateTime CprChurchTimestamp
 		{
 			get
 			{
@@ -789,11 +789,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._CpcNationalChurchTimestamp != value))
 				{
-					this.OnCpcNationalChurchTimestampChanging(value);
+					this.OnCprChurchTimestampChanging(value);
 					this.SendPropertyChanging();
 					this._CpcNationalChurchTimestamp = value;
-					this.SendPropertyChanged("CpcNationalChurchTimestamp");
-					this.OnCpcNationalChurchTimestampChanged();
+					this.SendPropertyChanged("CprChurchTimestamp");
+					this.OnCprChurchTimestampChanged();
 				}
 			}
 		}
@@ -1059,7 +1059,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_BESKYT_SLTDATO", Storage="_AddressProtectionRemovalDate", DbType="DateTime")]
-		public System.DateTime AddressProtectionRemovalDate
+		public System.DateTime AddressProtectionEndDate
 		{
 			get
 			{
@@ -1069,17 +1069,17 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._AddressProtectionRemovalDate != value))
 				{
-					this.OnAddressProtectionRemovalDateChanging(value);
+					this.OnAddressProtectionEndDateChanging(value);
 					this.SendPropertyChanging();
 					this._AddressProtectionRemovalDate = value;
-					this.SendPropertyChanged("AddressProtectionRemovalDate");
-					this.OnAddressProtectionRemovalDateChanged();
+					this.SendPropertyChanged("AddressProtectionEndDate");
+					this.OnAddressProtectionEndDateChanged();
 				}
 			}
 		}
 		
 		[Column(Name="VEJVIS_BESKYT_DATO", Storage="_DiretoryProtectionDate", DbType="DateTime")]
-		public System.DateTime DiretoryProtectionDate
+		public System.DateTime DirectoryProtectionDate
 		{
 			get
 			{
@@ -1089,11 +1089,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._DiretoryProtectionDate != value))
 				{
-					this.OnDiretoryProtectionDateChanging(value);
+					this.OnDirectoryProtectionDateChanging(value);
 					this.SendPropertyChanging();
 					this._DiretoryProtectionDate = value;
-					this.SendPropertyChanged("DiretoryProtectionDate");
-					this.OnDiretoryProtectionDateChanged();
+					this.SendPropertyChanged("DirectoryProtectionDate");
+					this.OnDirectoryProtectionDateChanged();
 				}
 			}
 		}
@@ -1459,7 +1459,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="FOLKEKIRK_MRK_UM", Storage="_NationalChurchMarkerUncertainty", DbType="Char(1)")]
-		public char NationalChurchMarkerUncertainty
+		public char ChurchMarkerDateUncertainty
 		{
 			get
 			{
@@ -1469,11 +1469,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._NationalChurchMarkerUncertainty != value))
 				{
-					this.OnNationalChurchMarkerUncertaintyChanging(value);
+					this.OnChurchMarkerDateUncertaintyChanging(value);
 					this.SendPropertyChanging();
 					this._NationalChurchMarkerUncertainty = value;
-					this.SendPropertyChanged("NationalChurchMarkerUncertainty");
-					this.OnNationalChurchMarkerUncertaintyChanged();
+					this.SendPropertyChanged("ChurchMarkerDateUncertainty");
+					this.OnChurchMarkerDateUncertaintyChanged();
 				}
 			}
 		}
@@ -1599,7 +1599,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADR_BESKYT_SLT_UM", Storage="_AddressProtectionTerminationDateUncertainty", DbType="Char(1)")]
-		public char AddressProtectionTerminationDateUncertainty
+		public char AddressProtectionEndDateUncertainty
 		{
 			get
 			{
@@ -1609,11 +1609,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._AddressProtectionTerminationDateUncertainty != value))
 				{
-					this.OnAddressProtectionTerminationDateUncertaintyChanging(value);
+					this.OnAddressProtectionEndDateUncertaintyChanging(value);
 					this.SendPropertyChanging();
 					this._AddressProtectionTerminationDateUncertainty = value;
-					this.SendPropertyChanged("AddressProtectionTerminationDateUncertainty");
-					this.OnAddressProtectionTerminationDateUncertaintyChanged();
+					this.SendPropertyChanged("AddressProtectionEndDateUncertainty");
+					this.OnAddressProtectionEndDateUncertaintyChanged();
 				}
 			}
 		}
@@ -1719,7 +1719,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="VEJVIS_BESK_SLT_UM", Storage="_DirectoryProtectionRemovalDateUncertainty", DbType="Char(1)")]
-		public char DirectoryProtectionRemovalDateUncertainty
+		public char DirectoryProtectionEndDateUncertainty
 		{
 			get
 			{
@@ -1729,11 +1729,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._DirectoryProtectionRemovalDateUncertainty != value))
 				{
-					this.OnDirectoryProtectionRemovalDateUncertaintyChanging(value);
+					this.OnDirectoryProtectionEndDateUncertaintyChanging(value);
 					this.SendPropertyChanging();
 					this._DirectoryProtectionRemovalDateUncertainty = value;
-					this.SendPropertyChanged("DirectoryProtectionRemovalDateUncertainty");
-					this.OnDirectoryProtectionRemovalDateUncertaintyChanged();
+					this.SendPropertyChanged("DirectoryProtectionEndDateUncertainty");
+					this.OnDirectoryProtectionEndDateUncertaintyChanged();
 				}
 			}
 		}

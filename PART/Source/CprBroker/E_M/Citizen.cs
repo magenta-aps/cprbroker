@@ -9,12 +9,12 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        public static RegistreringType1 ToRegistreringType1(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
+        public static RegistreringType1 ToRegistreringType1(Citizen citizen, DateTime effectDate, Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RegistreringType1()
             {
                 AktoerRef = UnikIdType.Create(E_MDataProvider.ActorId),
-                AttributListe = ToAttributListeType(citizen),
+                AttributListe = ToAttributListeType(citizen, effectDate),
                 CommentText = null,
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 RelationListe = ToRelationListeType(citizen, cpr2uuidFunc),
@@ -26,13 +26,13 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        private static AttributListeType ToAttributListeType(Citizen citizen)
+        private static AttributListeType ToAttributListeType(Citizen citizen, DateTime effectDate)
         {
             return new AttributListeType()
             {
                 Egenskab = new EgenskabType[] { ToEgenskabType(citizen) },
                 LokalUdvidelse = ToLokalUdvidelseType(citizen),
-                RegisterOplysning = new RegisterOplysningType[] { ToRegisterOplysningType(citizen) },
+                RegisterOplysning = new RegisterOplysningType[] { ToRegisterOplysningType(citizen, effectDate) },
                 SundhedOplysning = new SundhedOplysningType[] { ToSundhedOplysningType(citizen) }
             };
         }
@@ -60,7 +60,7 @@ namespace CprBroker.Providers.E_M
             return null;
         }
 
-        private static RegisterOplysningType ToRegisterOplysningType(Citizen citizen)
+        private static RegisterOplysningType ToRegisterOplysningType(Citizen citizen, DateTime effectDate)
         {
             var ret = new RegisterOplysningType()
             {
@@ -74,7 +74,7 @@ namespace CprBroker.Providers.E_M
             }
             else if (citizen.CountryCode == Constants.DenmarkCountryCode)
             {
-                ret.Item = ToCprBorgerType(citizen);
+                ret.Item = ToCprBorgerType(citizen, effectDate);
             }
             else
             {
@@ -83,18 +83,20 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        private static CprBorgerType ToCprBorgerType(Citizen citizen)
+        public static CprBorgerType ToCprBorgerType(Citizen citizen, DateTime effectDate)
         {
             return new CprBorgerType()
             {
                 AdresseNoteTekst = null,
-                FolkekirkeMedlemIndikator = false,
+                FolkekirkeMedlemIndikator = ToChurchMembershipIndicator(citizen),
                 FolkeregisterAdresse = ToAdresseType(citizen),
-                ForskerBeskyttelseIndikator = false,
-                NavneAdresseBeskyttelseIndikator = false,
-                PersonCivilRegistrationIdentifier = null,
-                PersonNationalityCode = null,
-                PersonNummerGyldighedStatusIndikator = false,
+                ForskerBeskyttelseIndikator = ToDirectoryProtectionIndicator(citizen, effectDate),
+                NavneAdresseBeskyttelseIndikator = ToAddressProtectionIndicator(citizen, effectDate),
+                PersonCivilRegistrationIdentifier = Converters.ToCprNumber(citizen.PNR),
+                PersonNationalityCode = Citizen.ToCountryIdentificationCodeType(citizen),
+                // Person number is valid as long as it is in the database
+                PersonNummerGyldighedStatusIndikator = true,
+                // Telphone numbers are not supported
                 TelefonNummerBeskyttelseIndikator = false
             };
         }

@@ -16,7 +16,9 @@ namespace CprBroker.Providers.E_M
 
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out CprBroker.Schemas.QualityLevel? ql)
         {
+            DateTime effectDate = DateTime.Now;
             ql = QualityLevel.DataProvider;
+
             using (var dataContext = new E_MDataContext(ConnectionString))
             {
                 var dbCitizen = dataContext.Citizens
@@ -24,7 +26,7 @@ namespace CprBroker.Providers.E_M
                      .FirstOrDefault();
                 if (dbCitizen != null)
                 {
-                    return Citizen.ToRegistreringType1(dbCitizen, cpr2uuidFunc);
+                    return Citizen.ToRegistreringType1(dbCitizen, effectDate, cpr2uuidFunc);
                 }
             }
 
