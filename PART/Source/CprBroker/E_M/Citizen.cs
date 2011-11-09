@@ -88,12 +88,12 @@ namespace CprBroker.Providers.E_M
             return new CprBorgerType()
             {
                 AdresseNoteTekst = null,
-                FolkekirkeMedlemIndikator = ToChurchMembershipIndicator(citizen),
-                FolkeregisterAdresse = ToAdresseType(citizen),
-                ForskerBeskyttelseIndikator = ToDirectoryProtectionIndicator(citizen, effectDate),
-                NavneAdresseBeskyttelseIndikator = ToAddressProtectionIndicator(citizen, effectDate),
+                FolkekirkeMedlemIndikator = citizen.ToChurchMembershipIndicator(),
+                FolkeregisterAdresse = citizen.ToAdresseType(),
+                ForskerBeskyttelseIndikator = citizen.ToDirectoryProtectionIndicator(effectDate),
+                NavneAdresseBeskyttelseIndikator = citizen.ToAddressProtectionIndicator(effectDate),
                 PersonCivilRegistrationIdentifier = Converters.ToCprNumber(citizen.PNR),
-                PersonNationalityCode = Citizen.ToCountryIdentificationCodeType(citizen),
+                PersonNationalityCode = citizen.ToCountryIdentificationCodeType(),
                 // Person number is valid as long as it is in the database
                 PersonNummerGyldighedStatusIndikator = true,
                 // Telphone numbers are not supported
@@ -112,7 +112,7 @@ namespace CprBroker.Providers.E_M
                     // TODO: Shall PersonCivilRegistrationReplacementIdentifier and PersonIdentifikator be swapped ?
                     PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR),
                     PersonIdentifikator = null,
-                    PersonNationalityCode = new CountryIdentificationCodeType[] { ToCountryIdentificationCodeType(citizen) },
+                    PersonNationalityCode = new CountryIdentificationCodeType[] { citizen.ToCountryIdentificationCodeType() },
                     SprogKode = null
                 };
             }

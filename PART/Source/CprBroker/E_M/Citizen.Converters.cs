@@ -8,22 +8,15 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        public static CountryIdentificationCodeType ToCountryIdentificationCodeType(Citizen citizen)
+        public virtual CountryIdentificationCodeType ToCountryIdentificationCodeType()
         {
-            if (citizen != null)
+            if (this.CountryCode > 0 && !Constants.UnknownCountryCodes.Contains(this.CountryCode))
             {
-                if (citizen.CountryCode > 0 && !Constants.UnknownCountryCodes.Contains(citizen.CountryCode))
-                {
-                    return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, citizen.CountryCode.ToString());
-                }
-                else
-                {
-                    throw new ArgumentException(string.Format("Invalid country code <{0}>", citizen.CountryCode));
-                }
+                return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, this.CountryCode.ToString());
             }
             else
             {
-                throw new ArgumentNullException("citizen");
+                throw new ArgumentException(string.Format("Invalid country code <{0}>", this.CountryCode));
             }
         }
 
@@ -47,18 +40,11 @@ namespace CprBroker.Providers.E_M
             }
         }
 
-        public static bool ToChurchMembershipIndicator(Citizen citizen)
+        public virtual bool ToChurchMembershipIndicator()
         {
-            if (citizen != null)
-            {
-                // TODO: What do the other values mean?
-                // F U A M S 
-                return citizen.ChurchMarker == 'F';
-            }
-            else
-            {
-                throw new ArgumentNullException("citizen");
-            }
+            // TODO: What do the other values mean?
+            // F U A M S 
+            return this.ChurchMarker == 'F';
         }
 
         public static DateTime? ToDirectoryProtectionStartDate(Citizen citizen)
@@ -71,9 +57,9 @@ namespace CprBroker.Providers.E_M
             return Converters.ToDateTime(citizen.DirectoryProtectionEndDate, citizen.DirectoryProtectionEndDateUncertainty);
         }
 
-        public static bool ToDirectoryProtectionIndicator(Citizen citizen, DateTime effectDate)
+        public virtual bool ToDirectoryProtectionIndicator(DateTime effectDate)
         {
-            return Utilities.Dates.DateRangeIncludes(ToDirectoryProtectionStartDate(citizen), ToDirectoryProtectionEndDate(citizen), effectDate, false);
+            return Utilities.Dates.DateRangeIncludes(ToDirectoryProtectionStartDate(this), ToDirectoryProtectionEndDate(this), effectDate, false);
         }
 
         public static DateTime? ToAddressProtectionStartDate(Citizen citizen)
@@ -86,9 +72,9 @@ namespace CprBroker.Providers.E_M
             return Converters.ToDateTime(citizen.AddressProtectionEndDate, citizen.AddressProtectionEndDateUncertainty);
         }
 
-        public static bool ToAddressProtectionIndicator(Citizen citizen, DateTime effectDate)
+        public virtual bool ToAddressProtectionIndicator(DateTime effectDate)
         {
-            return Utilities.Dates.DateRangeIncludes(ToAddressProtectionStartDate(citizen), ToAddressProtectionEndDate(citizen), effectDate, false);
+            return Utilities.Dates.DateRangeIncludes(ToAddressProtectionStartDate(this), ToAddressProtectionEndDate(this), effectDate, false);
         }
     }
 }

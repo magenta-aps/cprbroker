@@ -8,11 +8,11 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        public static AdresseType ToAdresseType(Citizen citizen)
+        public virtual AdresseType ToAdresseType()
         {
             return new AdresseType()
             {
-                Item = ToDanskAdresseType(citizen)
+                Item = ToDanskAdresseType(this)
             };
         }
 
@@ -99,7 +99,7 @@ namespace CprBroker.Providers.E_M
                     ret.PostCodeIdentifier = Converters.ShortToString(citizen.HousePostCode.PostCode);
                     ret.DistrictName = citizen.HousePostCode.PostDistrict;
                     ret.StreetName = citizen.HousePostCode.RoadName;
-                   
+
                 }
                 return ret;
             }
