@@ -12,6 +12,8 @@ namespace CprBroker.Tests.E_M
     {
         public decimal[] RandomCprNumbers = Utilities.RandomCprNumbers(5);
 
+        #region ToUdenlandskBorgerType
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ToUdenlandskBorgerType_Null_ThrowsException()
@@ -76,6 +78,10 @@ namespace CprBroker.Tests.E_M
             Assert.Null(result.SprogKode);
         }
 
+        #endregion
+
+        #region ToUkendtBorgerType
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ToUkendtBorgerType_Null_ThrowsException()
@@ -98,5 +104,7 @@ namespace CprBroker.Tests.E_M
             var result = Citizen.ToUkendtBorgerType(new Citizen() { PNR = cprNumber });
             Assert.AreEqual(Converters.ToCprNumber(cprNumber), result.PersonCivilRegistrationReplacementIdentifier);
         }
+
+        #endregion
     }
 }
