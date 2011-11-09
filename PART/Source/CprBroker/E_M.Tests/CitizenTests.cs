@@ -51,6 +51,49 @@ namespace CprBroker.Tests.E_M
             }
         }
 
+        #region ToNavnStrukturType
+
+        [Test]
+        public void ToNavnStrukturType_Null_NotNull(
+            [Values(null, "")]string addressingName)
+        {
+            var citizen = new Citizen() { AddressingName = addressingName };
+            var result = citizen.ToNavnStrukturType();
+            Assert.NotNull(result);
+        }
+
+        string[] AddressingNames = new string[] { "John Mendel-Jensen Smith", "Smith, John Mendel-Jensen", "John Mendel-Jensen         Smith" };
+
+        [Test]
+        public void ToNavnStrukturType_Valid_AddressingNameNotNull(
+            [ValueSource("AddressingNames")]string addressingName)
+        {
+            var citizen = new Citizen() { AddressingName = addressingName };
+            var result = citizen.ToNavnStrukturType();
+            Assert.IsNotNullOrEmpty(result.PersonNameForAddressingName);
+        }
+
+        [Test]
+        public void ToNavnStrukturType_Valid_PersonNameNotNull(
+            [ValueSource("AddressingNames")]string addressingName)
+        {
+            var citizen = new Citizen() { AddressingName = addressingName };
+            var result = citizen.ToNavnStrukturType();
+            Assert.NotNull(result.PersonNameStructure);
+        }
+
+        [Test]
+        public void ToNavnStrukturType_Valid_CorrectLastName(
+            [ValueSource("AddressingNames")]string addressingName)
+        {
+            var citizen = new Citizen() { AddressingName = addressingName };
+            var result = citizen.ToNavnStrukturType();
+            Assert.AreEqual("John Mendel-Jensen Smith", result.PersonNameStructure.ToString());
+        }
+
+
+        #endregion
+
         #region ToRegisterOplysningType
 
         [Test]

@@ -47,17 +47,19 @@ namespace CprBroker.Providers.E_M
                 FoedselsregistreringMyndighedNavn = Authority.ToAuthorityName(citizen.BirthRegistrationAuthority),
                 KontaktKanal = ToKontaktKanalType(citizen),
                 NaermestePaaroerende = ToNextOfKin(citizen),
-                NavnStruktur = ToNavnStrukturType(citizen),
+                NavnStruktur = citizen.ToNavnStrukturType(),
                 PersonGenderCode = Converters.ToPersonGenderCodeType(citizen.Gender),
                 Virkning = ToVirkningType(citizen)
             };
             return ret;
         }
 
-        private static NavnStrukturType ToNavnStrukturType(Citizen citizen)
+        public NavnStrukturType ToNavnStrukturType()
         {
-            //TODO: Fill person name
-            return null;
+
+            var ret = NavnStrukturType.Create(this.AddressingName);
+            ret.PersonNameForAddressingName = this.AddressingName;
+            return ret;
         }
 
         public RegisterOplysningType ToRegisterOplysningType(DateTime effectDate)
