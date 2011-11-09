@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.E_M;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Tests.E_M
 {
@@ -11,6 +12,132 @@ namespace CprBroker.Tests.E_M
     public class CitizenTests
     {
         public decimal[] RandomCprNumbers = Utilities.RandomCprNumbers(5);
+
+        class CitizenStub : Citizen
+        {
+            public CitizenStub()
+            {
+                PNR = Utilities.RandomCprNumber();
+            }
+
+            public bool _ToChurchMembershipIndicator;
+            public override bool ToChurchMembershipIndicator()
+            {
+                return _ToChurchMembershipIndicator;
+            }
+
+            public AdresseType _ToAdresseType = new AdresseType();
+            public override AdresseType ToAdresseType()
+            {
+                return _ToAdresseType;
+            }
+
+            public bool _ToDirectoryProtectionIndicator;
+            public override bool ToDirectoryProtectionIndicator(DateTime effectDate)
+            {
+                return _ToDirectoryProtectionIndicator;
+            }
+
+            public bool _ToAddressProtectionIndicator;
+            public override bool ToAddressProtectionIndicator(DateTime effectDate)
+            {
+                return _ToAddressProtectionIndicator;
+            }
+
+            public CountryIdentificationCodeType _ToCountryIdentificationCodeType = new CountryIdentificationCodeType() { Value = "5648465" };
+            public override CountryIdentificationCodeType ToCountryIdentificationCodeType()
+            {
+                return _ToCountryIdentificationCodeType;
+            }
+        }
+
+        #region ToCprBorgerType
+
+        [Test]
+        public void ToCprBorgerType_Valid_NotNull()
+        {
+            var citizen = new CitizenStub();
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.NotNull(result);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_NullAddressNoteText()
+        {
+            var citizen = new CitizenStub();
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.IsNullOrEmpty(result.AdresseNoteTekst);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_CorrectFolkekirkeMedlemIndikator(
+            [Values(true, false)]bool isMember)
+        {
+            var citizen = new CitizenStub() { _ToChurchMembershipIndicator = isMember };
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.AreEqual(isMember, result.FolkekirkeMedlemIndikator);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_CorrectAdresseType()
+        {
+            var citizen = new CitizenStub() { };
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.AreEqual(citizen._ToAdresseType, result.FolkeregisterAdresse);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_CorrectForskerBeskyttelseIndikator(
+            [Values(true, false)] bool isProtected)
+        {
+            var citizen = new CitizenStub() { _ToDirectoryProtectionIndicator = isProtected };
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.AreEqual(citizen._ToDirectoryProtectionIndicator, result.ForskerBeskyttelseIndikator);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_CorrectNavneAdresseBeskyttelseIndikator(
+            [Values(true, false)] bool isProtected)
+        {
+            var citizen = new CitizenStub() { _ToAddressProtectionIndicator = isProtected };
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.AreEqual(citizen._ToAddressProtectionIndicator, result.NavneAdresseBeskyttelseIndikator);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_CorrectPersonCivilRegistrationIdentifier(
+            [ValueSource("RandomCprNumbers")] decimal cprNumber)
+        {
+            var citizen = new CitizenStub() { PNR = cprNumber };
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.AreEqual(Converters.ToCprNumber(citizen.PNR), result.PersonCivilRegistrationIdentifier);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_CorrectPersonNationalityCode()
+        {
+            var citizen = new CitizenStub() { };
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.AreEqual(citizen._ToCountryIdentificationCodeType, result.PersonNationalityCode);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_CorrectPersonNummerGyldighedStatusIndikator()
+        {
+            var citizen = new CitizenStub() { };
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.AreEqual(true, result.PersonNummerGyldighedStatusIndikator);
+        }
+
+        [Test]
+        public void ToCprBorgerType_Valid_CorrectTelefonNummerBeskyttelseIndikator()
+        {
+            var citizen = new CitizenStub() { };
+            var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+            Assert.AreEqual(false, result.TelefonNummerBeskyttelseIndikator);
+        }
+
+        #endregion
 
         #region ToUdenlandskBorgerType
 

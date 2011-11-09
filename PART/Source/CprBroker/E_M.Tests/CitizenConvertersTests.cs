@@ -12,26 +12,21 @@ namespace CprBroker.Tests.E_M
     public class CitizenConvertersTests
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ToCountryIdentificationCodeType_Null_ThrowsException()
-        {
-            Citizen.ToCountryIdentificationCodeType(null);
-        }
-
-        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void ToCountryIdentificationCodeType_InvalidCountryCode_ThrowsException(
              [Values(-66, -1, 0, 5999, 5103, 5102, 5001)]              
             short countryCode)
         {
-            Citizen.ToCountryIdentificationCodeType(new Citizen() { CountryCode = countryCode });
+            var citizen = new Citizen() { CountryCode = countryCode };
+            citizen.ToCountryIdentificationCodeType();
         }
 
         [Test]
         public void ToCountryIdentificationCodeType_Valid_CorrectScheme(
             [Values(123, 838, 767)] short countryCode)
         {
-            var result = Citizen.ToCountryIdentificationCodeType(new Citizen() { CountryCode = countryCode });
+            var citizen = new Citizen() { CountryCode = countryCode };
+            var result = citizen.ToCountryIdentificationCodeType();
             Assert.AreEqual(_CountryIdentificationSchemeType.imk, result.scheme);
         }
 
@@ -39,7 +34,8 @@ namespace CprBroker.Tests.E_M
         public void ToCountryIdentificationCodeType_Valid_CorrectCode(
             [Values(123, 838, 767)] short countryCode)
         {
-            var result = Citizen.ToCountryIdentificationCodeType(new Citizen() { CountryCode = countryCode });
+            var citizen = new Citizen() { CountryCode = countryCode };
+            var result = citizen.ToCountryIdentificationCodeType();
             Assert.AreEqual(countryCode.ToString(), result.Value);
         }
 
@@ -140,7 +136,8 @@ namespace CprBroker.Tests.E_M
         [Test]
         public void ToDirectoryProtectionIndicator_NullStartAndEnd_ReturnsFalse()
         {
-            var result = Citizen.ToDirectoryProtectionIndicator(new Citizen() { DirectoryProtectionDateUncertainty = 'U', DirectoryProtectionEndDateUncertainty = 'U' }, DateTime.Now);
+            var citizen = new Citizen() { DirectoryProtectionDateUncertainty = 'U', DirectoryProtectionEndDateUncertainty = 'U' };
+            var result = citizen.ToDirectoryProtectionIndicator(DateTime.Now);
             Assert.False(result);
         }
 
@@ -148,7 +145,8 @@ namespace CprBroker.Tests.E_M
         public void ToDirectoryProtectionIndicator_NullStart_ReturnsFalse(
             [ValueSource("SampleDates")]DateTime endDate)
         {
-            var result = Citizen.ToDirectoryProtectionIndicator(new Citizen() { DirectoryProtectionDateUncertainty = 'U', DirectoryProtectionEndDate = endDate, DirectoryProtectionEndDateUncertainty = ' ' }, DateTime.Now);
+            var citizen = new Citizen() { DirectoryProtectionDateUncertainty = 'U', DirectoryProtectionEndDate = endDate, DirectoryProtectionEndDateUncertainty = ' ' };
+            var result = citizen.ToDirectoryProtectionIndicator(DateTime.Now);
             Assert.False(result);
         }
 
@@ -156,7 +154,8 @@ namespace CprBroker.Tests.E_M
         public void ToDirectoryProtectionIndicator_NullEnd_ReturnsTrue(
             [ValueSource("SampleDates")]DateTime startDate)
         {
-            var result = Citizen.ToDirectoryProtectionIndicator(new Citizen() { DirectoryProtectionDate = startDate, DirectoryProtectionDateUncertainty = ' ', DirectoryProtectionEndDateUncertainty = 'U' }, DateTime.Now);
+            var citizen = new Citizen() { DirectoryProtectionDate = startDate, DirectoryProtectionDateUncertainty = ' ', DirectoryProtectionEndDateUncertainty = 'U' };
+            var result = citizen.ToDirectoryProtectionIndicator(DateTime.Now);
             Assert.True(result);
         }
 
@@ -164,7 +163,8 @@ namespace CprBroker.Tests.E_M
         public void ToDirectoryProtectionIndicator_FilledWithOutEffect_ReturnsFalse(
             [ValueSource("SampleDates")]DateTime startDate)
         {
-            var result = Citizen.ToDirectoryProtectionIndicator(new Citizen() { DirectoryProtectionDate = startDate, DirectoryProtectionDateUncertainty = ' ', DirectoryProtectionEndDate = startDate.AddDays(10), DirectoryProtectionEndDateUncertainty = ' ' }, startDate.AddDays(20));
+            var citizen = new Citizen() { DirectoryProtectionDate = startDate, DirectoryProtectionDateUncertainty = ' ', DirectoryProtectionEndDate = startDate.AddDays(10), DirectoryProtectionEndDateUncertainty = ' ' };
+            var result = citizen.ToDirectoryProtectionIndicator(startDate.AddDays(20));
             Assert.False(result);
         }
 
@@ -172,7 +172,8 @@ namespace CprBroker.Tests.E_M
         public void ToDirectoryProtectionIndicator_FilledWithInEffect_ReturnsTrue(
             [ValueSource("SampleDates")]DateTime startDate)
         {
-            var result = Citizen.ToDirectoryProtectionIndicator(new Citizen() { DirectoryProtectionDate = startDate, DirectoryProtectionDateUncertainty = ' ', DirectoryProtectionEndDate = startDate.AddDays(10), DirectoryProtectionEndDateUncertainty = ' ' }, startDate.AddDays(5));
+            var citizen = new Citizen() { DirectoryProtectionDate = startDate, DirectoryProtectionDateUncertainty = ' ', DirectoryProtectionEndDate = startDate.AddDays(10), DirectoryProtectionEndDateUncertainty = ' ' };
+            var result = citizen.ToDirectoryProtectionIndicator(startDate.AddDays(5));
             Assert.True(result);
         }
 
@@ -237,7 +238,8 @@ namespace CprBroker.Tests.E_M
         [Test]
         public void ToAddressProtectionIndicator_NullStartAndEnd_ReturnsFalse()
         {
-            var result = Citizen.ToAddressProtectionIndicator(new Citizen() { AddressProtectionDateUncertainty = 'U', AddressProtectionEndDateUncertainty = 'U' }, DateTime.Now);
+            var citizen = new Citizen() { AddressProtectionDateUncertainty = 'U', AddressProtectionEndDateUncertainty = 'U' };
+            var result = citizen.ToAddressProtectionIndicator(DateTime.Now);
             Assert.False(result);
         }
 
@@ -245,7 +247,8 @@ namespace CprBroker.Tests.E_M
         public void ToAddressProtectionIndicator_NullStart_ReturnsFalse(
             [ValueSource("SampleDates")]DateTime endDate)
         {
-            var result = Citizen.ToAddressProtectionIndicator(new Citizen() { AddressProtectionDateUncertainty = 'U', AddressProtectionEndDate = endDate, AddressProtectionEndDateUncertainty = ' ' }, DateTime.Now);
+            var citizen = new Citizen() { AddressProtectionDateUncertainty = 'U', AddressProtectionEndDate = endDate, AddressProtectionEndDateUncertainty = ' ' };
+            var result = citizen.ToAddressProtectionIndicator(DateTime.Now);
             Assert.False(result);
         }
 
@@ -253,7 +256,8 @@ namespace CprBroker.Tests.E_M
         public void ToAddressProtectionIndicator_NullEnd_ReturnsTrue(
             [ValueSource("SampleDates")]DateTime startDate)
         {
-            var result = Citizen.ToAddressProtectionIndicator(new Citizen() { AddressProtectionDate = startDate, AddressProtectionDateUncertainty = ' ', AddressProtectionEndDateUncertainty = 'U' }, DateTime.Now);
+            var citizen = new Citizen() { AddressProtectionDate = startDate, AddressProtectionDateUncertainty = ' ', AddressProtectionEndDateUncertainty = 'U' };
+            var result = citizen.ToAddressProtectionIndicator(DateTime.Now);
             Assert.True(result);
         }
 
@@ -261,7 +265,8 @@ namespace CprBroker.Tests.E_M
         public void ToAddressProtectionIndicator_FilledWithOutEffect_ReturnsFalse(
             [ValueSource("SampleDates")]DateTime startDate)
         {
-            var result = Citizen.ToAddressProtectionIndicator(new Citizen() { AddressProtectionDate = startDate, AddressProtectionDateUncertainty = ' ', AddressProtectionEndDate = startDate.AddDays(10), AddressProtectionEndDateUncertainty = ' ' }, startDate.AddDays(20));
+            var citizen = new Citizen() { AddressProtectionDate = startDate, AddressProtectionDateUncertainty = ' ', AddressProtectionEndDate = startDate.AddDays(10), AddressProtectionEndDateUncertainty = ' ' };
+            var result = citizen.ToAddressProtectionIndicator(startDate.AddDays(20));
             Assert.False(result);
         }
 
@@ -269,7 +274,8 @@ namespace CprBroker.Tests.E_M
         public void ToAddressProtectionIndicator_FilledWithInEffect_ReturnsTrue(
             [ValueSource("SampleDates")]DateTime startDate)
         {
-            var result = Citizen.ToAddressProtectionIndicator(new Citizen() { AddressProtectionDate = startDate, AddressProtectionDateUncertainty = ' ', AddressProtectionEndDate = startDate.AddDays(10), AddressProtectionEndDateUncertainty = ' ' }, startDate.AddDays(5));
+            var citizen = new Citizen() { AddressProtectionDate = startDate, AddressProtectionDateUncertainty = ' ', AddressProtectionEndDate = startDate.AddDays(10), AddressProtectionEndDateUncertainty = ' ' };
+            var result = citizen.ToAddressProtectionIndicator(startDate.AddDays(5));
             Assert.True(result);
         }
 

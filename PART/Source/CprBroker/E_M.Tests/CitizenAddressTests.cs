@@ -21,15 +21,15 @@ namespace CprBroker.Tests.E_M
                     //CityName = "Copenhagen",
                     Door = "1",
                     Floor = "7",
-                    PNR = 120420070111m,                          
-                    HousePostCode = new HousePostCode() 
+                    PNR = 120420070111m,
+                    HousePostCode = new HousePostCode()
                     {
                         MunicipalityCode = 561,
                         RoadCode = 112,
                         HouseNumber = "61",
                         PostCode = 123,
-                        PostDistrict ="Gentofte",
-                        RoadName ="Studiestraede"
+                        PostDistrict = "Gentofte",
+                        RoadName = "Studiestraede"
                     }
                 };
 
@@ -46,7 +46,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("AllAddressTestValues")]
         public void ToAdresseType_All_NotNull(Citizen citizen)
         {
-            var result = Citizen.ToAdresseType(citizen);
+            var result = citizen.ToAdresseType();
             Assert.NotNull(result);
         }
 
@@ -54,7 +54,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("AllAddressTestValues")]
         public void ToAdresseType_All_ItemNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAdresseType(citizen);
+            var result = citizen.ToAdresseType();
             Assert.NotNull(result.Item);
         }
 
@@ -62,8 +62,8 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("AllAddressTestValues")]
         public void ToAdresseType_Alll_ItemIsDanskAdresseType(Citizen citizen)
         {
-            var result = Citizen.ToAdresseType(citizen);
-            Assert.IsInstanceOf<CprBroker.Schemas.Part.DanskAdresseType> (result.Item);
+            var result = citizen.ToAdresseType();
+            Assert.IsInstanceOf<CprBroker.Schemas.Part.DanskAdresseType>(result.Item);
         }
         #endregion
 
@@ -71,7 +71,7 @@ namespace CprBroker.Tests.E_M
         [Test]
         public void ToDanskAdresseType_Null_NotNull()
         {
-            var result = Citizen.ToDanskAdresseType(null); 
+            var result = Citizen.ToDanskAdresseType(null);
             Assert.IsNotNull(result);
         }
 
