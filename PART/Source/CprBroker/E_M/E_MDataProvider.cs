@@ -26,7 +26,7 @@ namespace CprBroker.Providers.E_M
                      .FirstOrDefault();
                 if (dbCitizen != null)
                 {
-                    return Citizen.ToRegistreringType1(dbCitizen, effectDate, cpr2uuidFunc);
+                    return dbCitizen.ToRegistreringType1(effectDate, cpr2uuidFunc);
                 }
             }
 

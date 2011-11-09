@@ -51,6 +51,46 @@ namespace CprBroker.Tests.E_M
             }
         }
 
+        #region ToRegisterOplysningType
+
+        [Test]
+        public void ToRegisterOplysningType_WhateverCountry_ReturnsNotNull(
+            [Values(5100, 6763, 12)]short countryCode)
+        {
+            var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode };
+            var result = citizen.ToRegisterOplysningType(DateTime.Today);
+            Assert.NotNull(result.Item);
+        }
+
+        [Test]
+        public void ToRegisterOplysningType_UnknownCountry_ReturnsUkendtBorgerType(
+            [ValueSource(typeof(Constants), "UnknownCountryCodes")]short countryCode)
+        {
+            var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode };
+            var result = citizen.ToRegisterOplysningType(DateTime.Today);
+            Assert.IsInstanceOf<UkendtBorgerType>(result.Item);
+        }
+
+        [Test]
+        public void ToRegisterOplysningType_UnknownCountry_ReturnsCprBorgerType(
+            [Values(5100)]short countryCode)
+        {
+            var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode };
+            var result = citizen.ToRegisterOplysningType(DateTime.Today);
+            Assert.IsInstanceOf<CprBorgerType>(result.Item);
+        }
+
+        [Test]
+        public void ToRegisterOplysningType_UnknownCountry_ReturnsUdenlandskBorgerType(
+            [Values(1, 7683, 628, 6583)]short countryCode)
+        {
+            var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode };
+            var result = citizen.ToRegisterOplysningType(DateTime.Today);
+            Assert.IsInstanceOf<UdenlandskBorgerType>(result.Item);
+        }
+
+        #endregion
+
         #region ToCprBorgerType
 
         [Test]

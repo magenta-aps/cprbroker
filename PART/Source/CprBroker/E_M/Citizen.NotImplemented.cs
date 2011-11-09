@@ -33,7 +33,7 @@ namespace CprBroker.Providers.E_M
             return null;
         }
 
-        private static SundhedOplysningType ToSundhedOplysningType(Citizen citizen)
+        public SundhedOplysningType ToSundhedOplysningType()
         {
             return null;
         }

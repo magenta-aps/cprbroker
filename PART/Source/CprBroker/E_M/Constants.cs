@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CprBroker.Providers.E_M
 {
-    class Constants
+    public class Constants
     {
         //TODO: Revise all the codes        
         public static readonly short DenmarkCountryCode = 5100;
