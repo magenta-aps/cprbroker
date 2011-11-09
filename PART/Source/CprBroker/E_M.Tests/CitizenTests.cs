@@ -63,6 +63,16 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
+        [Ignore]
+        public void ToRegisterOplysningType_WhateverCountry_VirkningNotNull(
+            [Values(5100, 6763, 12)]short countryCode)
+        {
+            var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode };
+            var result = citizen.ToRegisterOplysningType(DateTime.Today);
+            Assert.NotNull(result.Virkning);
+        }
+
+        [Test]
         public void ToRegisterOplysningType_UnknownCountry_ReturnsUkendtBorgerType(
             [ValueSource(typeof(Constants), "UnknownCountryCodes")]short countryCode)
         {
