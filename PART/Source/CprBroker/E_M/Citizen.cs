@@ -14,7 +14,7 @@ namespace CprBroker.Providers.E_M
             var ret = new RegistreringType1()
             {
                 AktoerRef = UnikIdType.Create(E_MDataProvider.ActorId),
-                AttributListe = ToAttributListeType(this, effectDate),
+                AttributListe = this.ToAttributListeType(effectDate),
                 CommentText = null,
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 RelationListe = ToRelationListeType(this, cpr2uuidFunc),
@@ -26,18 +26,18 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        public AttributListeType ToAttributListeType(Citizen citizen, DateTime effectDate)
+        public AttributListeType ToAttributListeType(DateTime effectDate)
         {
             return new AttributListeType()
             {
-                Egenskab = new EgenskabType[] { citizen.ToEgenskabType() },
-                LokalUdvidelse = ToLokalUdvidelseType(citizen),
+                Egenskab = new EgenskabType[] { this.ToEgenskabType() },
+                LokalUdvidelse = this.ToLokalUdvidelseType(),
                 RegisterOplysning = new RegisterOplysningType[] { this.ToRegisterOplysningType(effectDate) },
                 SundhedOplysning = new SundhedOplysningType[] { this.ToSundhedOplysningType() }
             };
         }
 
-        public EgenskabType ToEgenskabType()
+        public virtual EgenskabType ToEgenskabType()
         {
             var ret = new EgenskabType()
             {
@@ -61,7 +61,7 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        public RegisterOplysningType ToRegisterOplysningType(DateTime effectDate)
+        public virtual RegisterOplysningType ToRegisterOplysningType(DateTime effectDate)
         {
             var ret = new RegisterOplysningType()
             {

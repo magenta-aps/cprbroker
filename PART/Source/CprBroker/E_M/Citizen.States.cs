@@ -11,12 +11,11 @@ namespace CprBroker.Providers.E_M
     {
         public static TilstandListeType ToTilstandListeType(Citizen citizen)
         {
-
             return new TilstandListeType()
             {
                 CivilStatus = ToCivilStatusType(citizen),
                 LivStatus = ToLivStatusType(citizen),
-                LokalUdvidelse = ToLokalUdvidelseType(citizen)
+                LokalUdvidelse = citizen.ToLokalUdvidelseType()
             };
         }
 
@@ -47,6 +46,6 @@ namespace CprBroker.Providers.E_M
             }
             return null;
         }
-        
+
     }
 }

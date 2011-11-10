@@ -94,6 +94,101 @@ namespace CprBroker.Tests.E_M
         }
 
         [TestFixture]
+        public class ToAttributListeType
+        {
+            class ToAttributListeTypeCitizen : Citizen
+            {
+                public EgenskabType _ToEgenskabType = new EgenskabType();
+                public override EgenskabType ToEgenskabType()
+                {
+                    return _ToEgenskabType;
+                }
+
+                public LokalUdvidelseType _ToLokalUdvidelseType = new LokalUdvidelseType();
+                public override LokalUdvidelseType ToLokalUdvidelseType()
+                {
+                    return _ToLokalUdvidelseType;
+                }
+
+                public RegisterOplysningType _ToRegisterOplysningType = new RegisterOplysningType();
+                public override RegisterOplysningType ToRegisterOplysningType(DateTime effectDate)
+                {
+                    return _ToRegisterOplysningType;
+                }
+
+                public SundhedOplysningType _ToSundhedOplysningType=new SundhedOplysningType();
+                public override SundhedOplysningType ToSundhedOplysningType()
+                {
+                    return _ToSundhedOplysningType;
+                }
+            }
+
+            [Test]
+            public void ToAttributListeType_Valid_NotNull()
+            {
+                var citizen = new ToAttributListeTypeCitizen();
+                var result = citizen.ToAttributListeType(DateTime.Now);
+                Assert.NotNull(result);
+            }
+
+            [Test]
+            public void ToAttributListeType_Valid_SingleEgenskab()
+            {
+                var citizen = new ToAttributListeTypeCitizen();
+                var result = citizen.ToAttributListeType(DateTime.Now);
+                Assert.AreEqual(1, result.Egenskab.Length);
+            }
+
+            [Test]
+            public void ToAttributListeType_Valid_CorrectEgenskab()
+            {
+                var citizen = new ToAttributListeTypeCitizen();
+                var result = citizen.ToAttributListeType(DateTime.Now);
+                Assert.AreEqual(citizen._ToEgenskabType, result.Egenskab[0]);
+            }
+
+            [Test]
+            public void ToAttributListeType_Valid_CorrectLokalUdvidelse()
+            {
+                var citizen = new ToAttributListeTypeCitizen();
+                var result = citizen.ToAttributListeType(DateTime.Now);
+                Assert.AreEqual(citizen._ToLokalUdvidelseType, result.LokalUdvidelse);
+            }
+
+            [Test]
+            public void ToAttributListeType_Valid_SingleRegisterOplysning()
+            {
+                var citizen = new ToAttributListeTypeCitizen();
+                var result = citizen.ToAttributListeType(DateTime.Now);
+                Assert.AreEqual(1, result.RegisterOplysning.Length);
+            }
+
+            [Test]
+            public void ToAttributListeType_Valid_CorrectRegisterOplysning()
+            {
+                var citizen = new ToAttributListeTypeCitizen();
+                var result = citizen.ToAttributListeType(DateTime.Now);
+                Assert.AreEqual(citizen._ToRegisterOplysningType, result.RegisterOplysning[0]);
+            }
+
+            [Test]
+            public void ToAttributListeType_Valid_SingleSundhedOplysning()
+            {
+                var citizen = new ToAttributListeTypeCitizen();
+                var result = citizen.ToAttributListeType(DateTime.Now);
+                Assert.AreEqual(1, result.SundhedOplysning.Length);
+            }
+
+            [Test]
+            public void ToAttributListeType_Valid_CorrectSundhedOplysning()
+            {
+                var citizen = new ToAttributListeTypeCitizen();
+                var result = citizen.ToAttributListeType(DateTime.Now);
+                Assert.AreEqual(citizen._ToSundhedOplysningType, result.SundhedOplysning[0]);
+            }
+        }
+
+        [TestFixture]
         public class ToEgenskabType
         {
             [Test]

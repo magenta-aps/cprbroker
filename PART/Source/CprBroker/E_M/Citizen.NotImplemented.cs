@@ -9,7 +9,7 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        private static LokalUdvidelseType ToLokalUdvidelseType(Citizen citizen)
+        public virtual LokalUdvidelseType ToLokalUdvidelseType()
         {
             // No extension
             return null;
@@ -33,7 +33,7 @@ namespace CprBroker.Providers.E_M
             return null;
         }
 
-        public SundhedOplysningType ToSundhedOplysningType()
+        public virtual SundhedOplysningType ToSundhedOplysningType()
         {
             return null;
         }
