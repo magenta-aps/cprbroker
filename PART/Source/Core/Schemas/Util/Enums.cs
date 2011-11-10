@@ -109,19 +109,7 @@ namespace CprBroker.Schemas.Util
         /// <returns>True if the status code is valid, false otherwise</returns>
         public static bool IsValidCivilRegistrationStatus(decimal civilRegistrationStatus)
         {
-            var validStates = new decimal[] { 
-                (decimal)PersonCivilRegistrationStatusCode.CancelledCivilRegistrationNumbers, 
-                (decimal)PersonCivilRegistrationStatusCode.ChangedCivilRegistrationNumbers, 
-                (decimal)PersonCivilRegistrationStatusCode.dead,
-                (decimal)PersonCivilRegistrationStatusCode.DeletedCivilRegistrationNumbers,
-                (decimal)PersonCivilRegistrationStatusCode.Disappeared,
-                (decimal)PersonCivilRegistrationStatusCode.Emigrated,
-                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithHighStreetcodeIn_GreenlandicPopulationRegister,
-                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithHighStreetcodeInDanishPopulationRegister,
-                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithoutResidenceInDanishOrGreenlandicPopulationRegisterAndAdministrativeCivilRegistrationNumbers,
-                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithResidenceInDanishPopulationRegister,
-                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithResidenceInGreenlandicPopulationRegister            
-            };
+            var validStates = GetEnumValues<PersonCivilRegistrationStatusCode>().Select(s => (decimal)s.Value);
             return validStates.Contains(civilRegistrationStatus);
         }
 
