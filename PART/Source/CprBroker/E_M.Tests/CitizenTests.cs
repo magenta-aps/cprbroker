@@ -91,6 +91,12 @@ namespace CprBroker.Tests.E_M
             {
                 return _ToNavnStrukturType;
             }
+
+            public VirkningType _ToEgenskabVirkningType = new VirkningType();
+            public override VirkningType ToEgenskabVirkningType()
+            {
+                return this._ToEgenskabVirkningType;
+            }
         }
 
         [TestFixture]
@@ -378,13 +384,21 @@ namespace CprBroker.Tests.E_M
 
             [Test]
             public void ToEgenskabType_Valid_CorrectGender(
-                [Values('K', 'M')]char gender
-                )
+                [Values('K', 'M')]char gender)
             {
                 var citizen = new CitizenStub() { Gender = gender };
                 var result = citizen.ToEgenskabType();
                 Assert.AreEqual(Converters.ToPersonGenderCodeType(gender), result.PersonGenderCode);
             }
+
+            [Test]
+            public void ToEgenskabType_Valid_CorrectVirkning()
+            {
+                var citizen = new CitizenStub() { };
+                var result = citizen.ToEgenskabType();
+                Assert.AreEqual(citizen._ToEgenskabVirkningType, result.Virkning);
+            }
+
         }
 
         [TestFixture]
@@ -487,7 +501,7 @@ namespace CprBroker.Tests.E_M
             public void ToCprBorgerType_Valid_NotNull()
             {
                 var citizen = new CitizenStub();
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.NotNull(result);
             }
 
@@ -495,7 +509,7 @@ namespace CprBroker.Tests.E_M
             public void ToCprBorgerType_Valid_NullAddressNoteText()
             {
                 var citizen = new CitizenStub();
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.IsNullOrEmpty(result.AdresseNoteTekst);
             }
 
@@ -504,7 +518,7 @@ namespace CprBroker.Tests.E_M
                 [Values(true, false)]bool isMember)
             {
                 var citizen = new CitizenStub() { _ToChurchMembershipIndicator = isMember };
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.AreEqual(isMember, result.FolkekirkeMedlemIndikator);
             }
 
@@ -512,7 +526,7 @@ namespace CprBroker.Tests.E_M
             public void ToCprBorgerType_Valid_CorrectAdresseType()
             {
                 var citizen = new CitizenStub() { };
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.AreEqual(citizen._ToAdresseType, result.FolkeregisterAdresse);
             }
 
@@ -521,7 +535,7 @@ namespace CprBroker.Tests.E_M
                 [Values(true, false)] bool isProtected)
             {
                 var citizen = new CitizenStub() { _ToDirectoryProtectionIndicator = isProtected };
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.AreEqual(citizen._ToDirectoryProtectionIndicator, result.ForskerBeskyttelseIndikator);
             }
 
@@ -530,7 +544,7 @@ namespace CprBroker.Tests.E_M
                 [Values(true, false)] bool isProtected)
             {
                 var citizen = new CitizenStub() { _ToAddressProtectionIndicator = isProtected };
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.AreEqual(citizen._ToAddressProtectionIndicator, result.NavneAdresseBeskyttelseIndikator);
             }
 
@@ -539,7 +553,7 @@ namespace CprBroker.Tests.E_M
                 [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber)
             {
                 var citizen = new CitizenStub() { PNR = cprNumber };
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.AreEqual(Converters.ToCprNumber(citizen.PNR), result.PersonCivilRegistrationIdentifier);
             }
 
@@ -547,7 +561,7 @@ namespace CprBroker.Tests.E_M
             public void ToCprBorgerType_Valid_CorrectPersonNationalityCode()
             {
                 var citizen = new CitizenStub() { };
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.AreEqual(citizen._ToCountryIdentificationCodeType, result.PersonNationalityCode);
             }
 
@@ -556,7 +570,7 @@ namespace CprBroker.Tests.E_M
                 [Values(true, false)]bool pnrValidity)
             {
                 var citizen = new CitizenStub() { _ToCivilRegistrationValidityStatusIndicator = pnrValidity };
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.AreEqual(citizen._ToCivilRegistrationValidityStatusIndicator, result.PersonNummerGyldighedStatusIndikator);
             }
 
@@ -564,7 +578,7 @@ namespace CprBroker.Tests.E_M
             public void ToCprBorgerType_Valid_FalsePersonNummerGyldighedStatusIndikator()
             {
                 var citizen = new CitizenStub() { };
-                var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
+                var result = citizen.ToCprBorgerType(DateTime.Now);
                 Assert.AreEqual(false, result.TelefonNummerBeskyttelseIndikator);
             }
         }
@@ -573,17 +587,11 @@ namespace CprBroker.Tests.E_M
         public class ToUdenlandskBorgerType
         {
             [Test]
-            [ExpectedException(typeof(ArgumentNullException))]
-            public void ToUdenlandskBorgerType_Null_ThrowsException()
-            {
-                Citizen.ToUdenlandskBorgerType(null);
-            }
-
-            [Test]
             [ExpectedException()]
             public void ToUdenlandskBorgerType_Empty_ThrowsException()
             {
-                Citizen.ToUdenlandskBorgerType(new Citizen());
+                var citizen = new Citizen();
+                citizen.ToUdenlandskBorgerType();
             }
 
             [Test]
@@ -592,7 +600,8 @@ namespace CprBroker.Tests.E_M
                 [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
-                var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
+                var citizen = new Citizen() { PNR = cprNumber, CountryCode = countryCode };
+                var result = citizen.ToUdenlandskBorgerType();
                 Assert.AreEqual(countryCode.ToString(), result.PersonNationalityCode[0].Value);
             }
 
@@ -602,7 +611,8 @@ namespace CprBroker.Tests.E_M
                 [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
-                var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
+                var citizen = new Citizen() { PNR = cprNumber, CountryCode = countryCode };
+                var result = citizen.ToUdenlandskBorgerType();
                 Assert.AreEqual(Converters.ToCprNumber(cprNumber), result.PersonCivilRegistrationReplacementIdentifier);
             }
 
@@ -612,7 +622,8 @@ namespace CprBroker.Tests.E_M
                 [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
-                var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
+                var citizen = new Citizen() { PNR = cprNumber, CountryCode = countryCode };
+                var result = citizen.ToUdenlandskBorgerType();
                 Assert.Null(result.FoedselslandKode);
             }
 
@@ -622,7 +633,8 @@ namespace CprBroker.Tests.E_M
                 [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
-                var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
+                var citizen = new Citizen() { PNR = cprNumber, CountryCode = countryCode };
+                var result = citizen.ToUdenlandskBorgerType();
                 Assert.IsNullOrEmpty(result.PersonIdentifikator);
             }
 
@@ -632,7 +644,8 @@ namespace CprBroker.Tests.E_M
                 [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
-                var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
+                var citizen = new Citizen() { PNR = cprNumber, CountryCode = countryCode };
+                var result = citizen.ToUdenlandskBorgerType();
                 Assert.Null(result.SprogKode);
             }
         }
@@ -640,26 +653,22 @@ namespace CprBroker.Tests.E_M
         [TestFixture]
         public class ToUkendtBorgerType
         {
-            [Test]
-            [ExpectedException(typeof(ArgumentNullException))]
-            public void ToUkendtBorgerType_Null_ThrowsException()
-            {
-                Citizen.ToUkendtBorgerType(null);
-            }
 
             [Test]
             [ExpectedException]
             public void ToUkendtBorgerType_InvalidPNR_ThrowsException(
                 [Values(0, 43, -99, 23.4)] decimal cprNumber)
             {
-                Citizen.ToUkendtBorgerType(new Citizen() { PNR = cprNumber });
+                var citizen = new Citizen() { PNR = cprNumber };
+                citizen.ToUkendtBorgerType();
             }
 
             [Test]
             public void ToUkendtBorgerType_Valid_CorrectPNR(
                 [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber)
             {
-                var result = Citizen.ToUkendtBorgerType(new Citizen() { PNR = cprNumber });
+                var citizen = new Citizen() { PNR = cprNumber };
+                var result = citizen.ToUkendtBorgerType();
                 Assert.AreEqual(Converters.ToCprNumber(cprNumber), result.PersonCivilRegistrationReplacementIdentifier);
             }
         }

@@ -13,38 +13,30 @@ namespace CprBroker.Providers.E_M
         {
             return new TilstandListeType()
             {
-                CivilStatus = ToCivilStatusType(this),
-                LivStatus = ToLivStatusType(this),
+                CivilStatus = this.ToCivilStatusType(),
+                LivStatus = this.ToLivStatusType(),
                 LokalUdvidelse = this.ToLokalUdvidelseType()
             };
         }
 
-        public static CivilStatusType ToCivilStatusType(Citizen citizen)
+        public CivilStatusType ToCivilStatusType()
         {
-            if (citizen != null)
+            return new CivilStatusType()
             {
-                return new CivilStatusType()
-                {
-                    CivilStatusKode = Converters.ToCivilStatusKodeType(citizen.MaritalStatus),
-                    //TODO: Check if this is the mariage start or end date
-                    TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(citizen.MaritalStatusTimestamp, citizen.MaritalStatusTimestampUncertainty))
-                };
-            }
-            return null;
+                CivilStatusKode = Converters.ToCivilStatusKodeType(this.MaritalStatus),
+                //TODO: Check if this is the mariage start or end date
+                TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(this.MaritalStatusTimestamp, this.MaritalStatusTimestampUncertainty))
+            };
         }
 
-        public static LivStatusType ToLivStatusType(Citizen citizen)
+        public LivStatusType ToLivStatusType()
         {
-            if (citizen != null)
-            {
-                return new LivStatusType()
+            return new LivStatusType()
                 {
-                    LivStatusKode = Converters.ToLivStatusKodeType(citizen.CitizenStatusCode, Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty).HasValue),
+                    LivStatusKode = Converters.ToLivStatusKodeType(this.CitizenStatusCode, Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty).HasValue),
                     //TODO: Ensure the dates are correct
-                    TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(citizen.CitizenStatusTimestamp, citizen.CitizenStatusTimestampUncertainty))
+                    TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(this.CitizenStatusTimestamp, this.CitizenStatusTimestampUncertainty))
                 };
-            }
-            return null;
         }
 
     }

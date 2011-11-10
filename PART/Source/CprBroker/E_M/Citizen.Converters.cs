@@ -45,34 +45,34 @@ namespace CprBroker.Providers.E_M
             return this.ChurchMarker == 'F';
         }
 
-        public static DateTime? ToDirectoryProtectionStartDate(Citizen citizen)
+        public DateTime? ToDirectoryProtectionStartDate()
         {
-            return Converters.ToDateTime(citizen.DirectoryProtectionDate, citizen.DirectoryProtectionDateUncertainty);
+            return Converters.ToDateTime(this.DirectoryProtectionDate, this.DirectoryProtectionDateUncertainty);
         }
 
-        public static DateTime? ToDirectoryProtectionEndDate(Citizen citizen)
+        public DateTime? ToDirectoryProtectionEndDate()
         {
-            return Converters.ToDateTime(citizen.DirectoryProtectionEndDate, citizen.DirectoryProtectionEndDateUncertainty);
+            return Converters.ToDateTime(this.DirectoryProtectionEndDate, this.DirectoryProtectionEndDateUncertainty);
         }
 
         public virtual bool ToDirectoryProtectionIndicator(DateTime effectDate)
         {
-            return Utilities.Dates.DateRangeIncludes(ToDirectoryProtectionStartDate(this), ToDirectoryProtectionEndDate(this), effectDate, false);
+            return Utilities.Dates.DateRangeIncludes(this.ToDirectoryProtectionStartDate(), this.ToDirectoryProtectionEndDate(), effectDate, false);
         }
 
-        public static DateTime? ToAddressProtectionStartDate(Citizen citizen)
+        public DateTime? ToAddressProtectionStartDate()
         {
-            return Converters.ToDateTime(citizen.AddressProtectionDate, citizen.AddressProtectionDateUncertainty);
+            return Converters.ToDateTime(this.AddressProtectionDate, this.AddressProtectionDateUncertainty);
         }
 
-        public static DateTime? ToAddressProtectionEndDate(Citizen citizen)
+        public DateTime? ToAddressProtectionEndDate()
         {
-            return Converters.ToDateTime(citizen.AddressProtectionEndDate, citizen.AddressProtectionEndDateUncertainty);
+            return Converters.ToDateTime(this.AddressProtectionEndDate, this.AddressProtectionEndDateUncertainty);
         }
 
         public virtual bool ToAddressProtectionIndicator(DateTime effectDate)
         {
-            return Utilities.Dates.DateRangeIncludes(ToAddressProtectionStartDate(this), ToAddressProtectionEndDate(this), effectDate, false);
+            return Utilities.Dates.DateRangeIncludes(this.ToAddressProtectionStartDate(), this.ToAddressProtectionEndDate(), effectDate, false);
         }
 
         public virtual bool ToCivilRegistrationValidityStatusIndicator()

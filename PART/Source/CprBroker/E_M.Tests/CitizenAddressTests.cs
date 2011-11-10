@@ -68,32 +68,21 @@ namespace CprBroker.Tests.E_M
         #endregion
 
         #region ToDanskAdresseType
-        [Test]
-        public void ToDanskAdresseType_Null_NotNull()
-        {
-            var result = Citizen.ToDanskAdresseType(null);
-            Assert.IsNotNull(result);
-        }
 
         [Test]
+        [Ignore]
         public void ToDanskAdresseType_Null_UkendtAdresseIndikatorTrue()
         {
-            var result = Citizen.ToDanskAdresseType(null);
+            var citizen = new Citizen();
+            var result = citizen.ToDanskAdresseType();
             Assert.True(result.UkendtAdresseIndikator);
-        }
-
-        [Test]
-        public void ToDanskAdresseType_Null_AddressCompleteNull()
-        {
-            var result = Citizen.ToDanskAdresseType(null);
-            Assert.Null(result.AddressComplete);
         }
 
         [Test]
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_AddressCompleteNotNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNotNull(result.AddressComplete);
         }
 
@@ -101,7 +90,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_AddressPointNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNull(result.AddressPoint);
         }
 
@@ -109,7 +98,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_NoteTekstNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNullOrEmpty(result.NoteTekst);
         }
 
@@ -117,7 +106,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_PolitiDistriktTekstNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNullOrEmpty(result.PolitiDistriktTekst);
         }
 
@@ -125,7 +114,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_PostDistriktTekstNotNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNotNullOrEmpty(result.PostDistriktTekst);
         }
 
@@ -133,7 +122,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_SkoleDistriktTekstNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNullOrEmpty(result.SkoleDistriktTekst);
         }
 
@@ -141,7 +130,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_SocialDistriktTekstNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNullOrEmpty(result.SocialDistriktTekst);
         }
 
@@ -149,7 +138,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_SogneDistriktTekstNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNullOrEmpty(result.SogneDistriktTekst);
         }
 
@@ -157,7 +146,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_SpecielVejkodeIndikatorFalse(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.False(result.SpecielVejkodeIndikator);
         }
 
@@ -165,7 +154,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_SpecielVejkodeIndikatorSpecifiedFalse(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.False(result.SpecielVejkodeIndikatorSpecified);
         }
 
@@ -173,7 +162,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_UkendtAdresseIndikatorFalse(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.False(result.UkendtAdresseIndikator);
         }
 
@@ -181,24 +170,18 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToDanskAdresseType_Valid_ValgkredsDistriktTekstNull(Citizen citizen)
         {
-            var result = Citizen.ToDanskAdresseType(citizen);
+            var result = citizen.ToDanskAdresseType();
             Assert.IsNullOrEmpty(result.ValgkredsDistriktTekst);
         }
         #endregion
 
         #region ToAddressCompleteType
-        [Test]
-        public void ToAddressCompleteType_Null_Null()
-        {
-            var result = Citizen.ToAddressCompleteType(null);
-            Assert.IsNull(result);
-        }
 
         [Test]
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressCompleteType_Valid_AddressAccessNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressCompleteType(citizen);
+            var result = citizen.ToAddressCompleteType();
             Assert.IsNotNull(result.AddressAccess);
         }
 
@@ -206,24 +189,18 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressCompleteType_Valid_AddressPostalNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressCompleteType(citizen);
+            var result = citizen.ToAddressCompleteType();
             Assert.IsNotNull(result.AddressPostal);
         }
         #endregion
 
         #region ToAddressAccessType
-        [Test]
-        public void ToAddressAccessType_Null_Null()
-        {
-            var result = Citizen.ToAddressAccessType(null);
-            Assert.IsNull(result);
-        }
 
         [Test]
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressAccessType_Valid_MunicipalityCodeNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressAccessType(citizen);
+            var result = citizen.ToAddressAccessType();
             Assert.IsNotNullOrEmpty(result.MunicipalityCode);
         }
 
@@ -231,7 +208,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressAccessType_Valid_StreetBuildingIdentifierNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressAccessType(citizen);
+            var result = citizen.ToAddressAccessType();
             Assert.IsNotNullOrEmpty(result.StreetBuildingIdentifier);
         }
 
@@ -239,24 +216,18 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressAccessType_Valid_StreetCodeNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressAccessType(citizen);
+            var result = citizen.ToAddressAccessType();
             Assert.IsNotNullOrEmpty(result.StreetCode);
         }
         #endregion
 
         #region ToAddressPostalType
-        [Test]
-        public void ToAddressPostalType_Null_Null()
-        {
-            var result = Citizen.ToAddressPostalType(null);
-            Assert.IsNull(result);
-        }
 
         [Test]
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_NotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNull(result);
         }
 
@@ -264,7 +235,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_CountryIdentificationCodeNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNull(result.CountryIdentificationCode);
         }
 
@@ -272,7 +243,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_DistrictNameNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.DistrictName);
         }
 
@@ -281,7 +252,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_DistrictSubdivisionIdentifierNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.DistrictSubdivisionIdentifier);
         }
 
@@ -289,7 +260,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_FloorIdentifierNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.FloorIdentifier);
         }
 
@@ -298,14 +269,14 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_MailDeliverySublocationIdentifierNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.MailDeliverySublocationIdentifier);
         }
         [Test]
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_PostCodeIdentifierNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.PostCodeIdentifier);
         }
         [Test]
@@ -313,14 +284,14 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_PostOfficeBoxIdentifierNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.PostOfficeBoxIdentifier);
         }
         [Test]
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_StreetBuildingIdentifierNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.StreetBuildingIdentifier);
         }
 
@@ -328,7 +299,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_StreetNameNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.StreetName);
         }
 
@@ -337,7 +308,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_StreetNameForAddressingNameNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.StreetNameForAddressingName);
         }
 
@@ -345,7 +316,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_SuiteIdentifierNotNull(Citizen citizen)
         {
-            var result = Citizen.ToAddressPostalType(citizen);
+            var result = citizen.ToAddressPostalType();
             Assert.IsNotNullOrEmpty(result.SuiteIdentifier);
         }
         #endregion

@@ -46,7 +46,7 @@ namespace CprBroker.Tests.E_M
             [ValueSource("WrongCprNumbers")] decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
-            Child.ToPersonFlerRelationType(child, ToUuid);
+            child.ToPersonFlerRelationType(ToUuid);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace CprBroker.Tests.E_M
         public void ToPersonFlerRelationType_Valid_NotNull(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
-            var result = Child.ToPersonFlerRelationType(child, ToUuid);
+            var result = child.ToPersonFlerRelationType(ToUuid);
             Assert.IsNotNull(result);
         }
 
@@ -63,7 +63,7 @@ namespace CprBroker.Tests.E_M
         public void ToPersonFlerRelationType_Valid_HasReferenceID(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
-            var result = Child.ToPersonFlerRelationType(child, ToUuid);
+            var result = child.ToPersonFlerRelationType(ToUuid);
             Assert.IsNotNull(result.ReferenceID);
         }
 
@@ -72,7 +72,7 @@ namespace CprBroker.Tests.E_M
         public void ToPersonFlerRelationType_Valid_CorrectCprNumberPassed(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
-            var result = Child.ToPersonFlerRelationType(child, ToUuid);
+            var result = child.ToPersonFlerRelationType(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(cprNumber);
             Assert.AreEqual(lastCprNumber, stringCprNumber);
         }
@@ -82,7 +82,7 @@ namespace CprBroker.Tests.E_M
         public void ToPersonFlerRelationType_Valid_ValidUuid(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
-            var result = Child.ToPersonFlerRelationType(child, ToUuid);
+            var result = child.ToPersonFlerRelationType(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(cprNumber);
             Assert.AreEqual(lastUuid.ToString(), result.ReferenceID.Item);
         }
@@ -92,7 +92,7 @@ namespace CprBroker.Tests.E_M
         public void ToPersonFlerRelationType_Valid_NullCommentText(decimal cprNumber)
         {
             var child = CreateChild(cprNumber);
-            var result = Child.ToPersonFlerRelationType(child, ToUuid);
+            var result = child.ToPersonFlerRelationType(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(cprNumber);
             Assert.IsNull(result.CommentText);
         }

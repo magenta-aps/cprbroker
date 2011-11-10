@@ -49,7 +49,7 @@ namespace CprBroker.Providers.E_M
                 NaermestePaaroerende = this.ToNextOfKin(),
                 NavnStruktur = this.ToNavnStrukturType(),
                 PersonGenderCode = Converters.ToPersonGenderCodeType(this.Gender),
-                Virkning = ToVirkningType(this)
+                Virkning = this.ToEgenskabVirkningType()
             };
             return ret;
         }
@@ -71,70 +71,56 @@ namespace CprBroker.Providers.E_M
             };
             if (Constants.UnknownCountryCodes.Contains(this.CountryCode))
             {
-                ret.Item = ToUkendtBorgerType(this);
+                ret.Item = this.ToUkendtBorgerType();
             }
             else if (this.CountryCode == Constants.DenmarkCountryCode)
             {
-                ret.Item = ToCprBorgerType(this, effectDate);
+                ret.Item = this.ToCprBorgerType(effectDate);
             }
             else
             {
-                ret.Item = ToUdenlandskBorgerType(this);
+                ret.Item = this.ToUdenlandskBorgerType();
             }
             return ret;
         }
 
-        public static CprBorgerType ToCprBorgerType(Citizen citizen, DateTime effectDate)
+        public CprBorgerType ToCprBorgerType(DateTime effectDate)
         {
             return new CprBorgerType()
             {
                 AdresseNoteTekst = null,
-                FolkekirkeMedlemIndikator = citizen.ToChurchMembershipIndicator(),
-                FolkeregisterAdresse = citizen.ToAdresseType(),
-                ForskerBeskyttelseIndikator = citizen.ToDirectoryProtectionIndicator(effectDate),
-                NavneAdresseBeskyttelseIndikator = citizen.ToAddressProtectionIndicator(effectDate),
-                PersonCivilRegistrationIdentifier = Converters.ToCprNumber(citizen.PNR),
-                PersonNationalityCode = citizen.ToCountryIdentificationCodeType(),
-                PersonNummerGyldighedStatusIndikator = citizen.ToCivilRegistrationValidityStatusIndicator(),
+                FolkekirkeMedlemIndikator = this.ToChurchMembershipIndicator(),
+                FolkeregisterAdresse = this.ToAdresseType(),
+                ForskerBeskyttelseIndikator = this.ToDirectoryProtectionIndicator(effectDate),
+                NavneAdresseBeskyttelseIndikator = this.ToAddressProtectionIndicator(effectDate),
+                PersonCivilRegistrationIdentifier = Converters.ToCprNumber(this.PNR),
+                PersonNationalityCode = this.ToCountryIdentificationCodeType(),
+                PersonNummerGyldighedStatusIndikator = this.ToCivilRegistrationValidityStatusIndicator(),
                 // Telphone numbers are not supported
                 TelefonNummerBeskyttelseIndikator = false
             };
         }
 
-        public static UdenlandskBorgerType ToUdenlandskBorgerType(Citizen citizen)
+        public UdenlandskBorgerType ToUdenlandskBorgerType()
         {
-            if (citizen != null)
+            return new UdenlandskBorgerType()
             {
-                return new UdenlandskBorgerType()
-                {
-                    // TODO: See if we can find a birth nationality (different from current nationality)
-                    FoedselslandKode = null,
-                    // TODO: Shall PersonCivilRegistrationReplacementIdentifier and PersonIdentifikator be swapped ?
-                    PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR),
-                    PersonIdentifikator = null,
-                    PersonNationalityCode = new CountryIdentificationCodeType[] { citizen.ToCountryIdentificationCodeType() },
-                    SprogKode = null
-                };
-            }
-            else
-            {
-                throw new ArgumentNullException("citizen");
-            }
+                // TODO: See if we can find a birth nationality (different from current nationality)
+                FoedselslandKode = null,
+                // TODO: Shall PersonCivilRegistrationReplacementIdentifier and PersonIdentifikator be swapped ?
+                PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(this.PNR),
+                PersonIdentifikator = null,
+                PersonNationalityCode = new CountryIdentificationCodeType[] { this.ToCountryIdentificationCodeType() },
+                SprogKode = null
+            };
         }
 
-        public static UkendtBorgerType ToUkendtBorgerType(Citizen citizen)
+        public UkendtBorgerType ToUkendtBorgerType()
         {
-            if (citizen != null)
+            return new UkendtBorgerType()
             {
-                return new UkendtBorgerType()
-                {
-                    PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(citizen.PNR)
-                };
-            }
-            else
-            {
-                throw new ArgumentNullException("citizen");
-            }
+                PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(this.PNR)
+            };
         }
 
     }

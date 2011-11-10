@@ -12,11 +12,11 @@ namespace CprBroker.Providers.E_M
         {
             return new AdresseType()
             {
-                Item = ToDanskAdresseType(this)
+                Item = this.ToDanskAdresseType()
             };
         }
 
-        public static DanskAdresseType ToDanskAdresseType(Citizen citizen)
+        public DanskAdresseType ToDanskAdresseType()
         {
             var ret = new DanskAdresseType()
             {
@@ -34,76 +34,65 @@ namespace CprBroker.Providers.E_M
                 UkendtAdresseIndikator = false,
                 ValgkredsDistriktTekst = null
             };
-            if (citizen == null)
+            if (this == null)
             {
+                // TODO: See when to set this flag
                 ret.UkendtAdresseIndikator = true;
             }
             else
             {
-                ret.AddressComplete = ToAddressCompleteType(citizen);
-                if (citizen.HousePostCode != null)
+                ret.AddressComplete = this.ToAddressCompleteType();
+                // TODO: Find a way to get the postal code if not found in the current way
+                if (this.HousePostCode != null)
                 {
-                    ret.PostDistriktTekst = citizen.HousePostCode.PostDistrict;
+                    ret.PostDistriktTekst = this.HousePostCode.PostDistrict;
                 }
             }
             return ret;
         }
 
-        public static AddressCompleteType ToAddressCompleteType(Citizen citizen)
+        public AddressCompleteType ToAddressCompleteType()
         {
-            if (citizen != null)
-            {
-                return new CprBroker.Schemas.Part.AddressCompleteType()
-               {
-                   AddressAccess = ToAddressAccessType(citizen),
-                   AddressPostal = ToAddressPostalType(citizen)
-               };
-            }
-            return null;
+            return new CprBroker.Schemas.Part.AddressCompleteType()
+           {
+               AddressAccess = this.ToAddressAccessType(),
+               AddressPostal = this.ToAddressPostalType()
+           };
         }
 
-        public static AddressAccessType ToAddressAccessType(Citizen citizen)
+        public AddressAccessType ToAddressAccessType()
         {
-            if (citizen != null)
-            {
-                return new CprBroker.Schemas.Part.AddressAccessType()
-               {
-                   MunicipalityCode = Converters.ShortToString(citizen.MunicipalityCode),
-                   StreetBuildingIdentifier = citizen.HouseNumber,
-                   StreetCode = Converters.ShortToString(citizen.RoadCode)
-               };
-            }
-            return null;
+            return new CprBroker.Schemas.Part.AddressAccessType()
+           {
+               MunicipalityCode = Converters.ShortToString(this.MunicipalityCode),
+               StreetBuildingIdentifier = this.HouseNumber,
+               StreetCode = Converters.ShortToString(this.RoadCode)
+           };
         }
 
-        public static AddressPostalType ToAddressPostalType(Citizen citizen)
+        public AddressPostalType ToAddressPostalType()
         {
-            if (citizen != null)
+            var ret = new CprBroker.Schemas.Part.AddressPostalType()
+           {
+               CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
+               DistrictSubdivisionIdentifier = null,
+               FloorIdentifier = this.Floor,
+               MailDeliverySublocationIdentifier = null,
+               PostCodeIdentifier = null,
+               DistrictName = null,
+               PostOfficeBoxIdentifier = null,
+               StreetBuildingIdentifier = this.HouseNumber,
+               StreetName = null,
+               StreetNameForAddressingName = null,
+               SuiteIdentifier = this.Door,
+           };
+            if (this.HousePostCode != null)
             {
-                var ret = new CprBroker.Schemas.Part.AddressPostalType()
-               {
-                   CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-                   DistrictSubdivisionIdentifier = null,
-                   FloorIdentifier = citizen.Floor,
-                   MailDeliverySublocationIdentifier = null,
-                   PostCodeIdentifier = null,
-                   DistrictName = null,
-                   PostOfficeBoxIdentifier = null,
-                   StreetBuildingIdentifier = citizen.HouseNumber,
-                   StreetName = null,
-                   StreetNameForAddressingName = null,
-                   SuiteIdentifier = citizen.Door,
-               };
-                if (citizen.HousePostCode != null)
-                {
-                    ret.PostCodeIdentifier = Converters.ShortToString(citizen.HousePostCode.PostCode);
-                    ret.DistrictName = citizen.HousePostCode.PostDistrict;
-                    ret.StreetName = citizen.HousePostCode.RoadName;
-
-                }
-                return ret;
+                ret.PostCodeIdentifier = Converters.ShortToString(this.HousePostCode.PostCode);
+                ret.DistrictName = this.HousePostCode.PostDistrict;
+                ret.StreetName = this.HousePostCode.RoadName;
             }
-            return null;
+            return ret;
         }
 
     }

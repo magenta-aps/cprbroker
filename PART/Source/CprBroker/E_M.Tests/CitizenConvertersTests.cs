@@ -79,14 +79,16 @@ namespace CprBroker.Tests.E_M
         public void ToDirectoryProtectionStartDate_DateWithNullFlag_ReturnsNull(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
-            var result = Citizen.ToDirectoryProtectionStartDate(new Citizen() { DirectoryProtectionDate = dateValue, DirectoryProtectionDateUncertainty = 'U' });
+            var citizen = new Citizen() { DirectoryProtectionDate = dateValue, DirectoryProtectionDateUncertainty = 'U' };
+            var result = citizen.ToDirectoryProtectionStartDate();
             Assert.False(result.HasValue);
         }
 
         [Test]
         public void ToDirectoryProtectionStartDate_Null_ReturnsNull()
         {
-            var result = Citizen.ToDirectoryProtectionStartDate(new Citizen() { DirectoryProtectionDateUncertainty = 'U' });
+            var citizen = new Citizen() { DirectoryProtectionDateUncertainty = 'U' };
+            var result = citizen.ToDirectoryProtectionStartDate();
             Assert.False(result.HasValue);
         }
 
@@ -94,7 +96,8 @@ namespace CprBroker.Tests.E_M
         public void ToDirectoryProtectionStartDate_Valid_ReturnsValid(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
-            var result = Citizen.ToDirectoryProtectionStartDate(new Citizen() { DirectoryProtectionDate = dateValue, DirectoryProtectionDateUncertainty = ' ' });
+            var citizen = new Citizen() { DirectoryProtectionDate = dateValue, DirectoryProtectionDateUncertainty = ' ' };
+            var result = citizen.ToDirectoryProtectionStartDate();
             Assert.AreEqual(dateValue, result.Value);
         }
 
@@ -106,14 +109,16 @@ namespace CprBroker.Tests.E_M
         public void ToDirectoryProtectionEndDate_DateWithNullFlag_ReturnsNull(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
-            var result = Citizen.ToDirectoryProtectionEndDate(new Citizen() { DirectoryProtectionEndDate = dateValue, DirectoryProtectionEndDateUncertainty = 'U' });
+            var citizen = new Citizen() { DirectoryProtectionEndDate = dateValue, DirectoryProtectionEndDateUncertainty = 'U' };
+            var result = citizen.ToDirectoryProtectionEndDate();
             Assert.False(result.HasValue);
         }
 
         [Test]
         public void ToDirectoryProtectionEndDate_Null_ReturnsNull()
         {
-            var result = Citizen.ToDirectoryProtectionEndDate(new Citizen() { DirectoryProtectionEndDateUncertainty = 'U' });
+            var citizen = new Citizen() { DirectoryProtectionEndDateUncertainty = 'U' };
+            var result = citizen.ToDirectoryProtectionEndDate();
             Assert.False(result.HasValue);
         }
 
@@ -121,7 +126,8 @@ namespace CprBroker.Tests.E_M
         public void ToDirectoryProtectionEndDate_Valid_ReturnsValid(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
-            var result = Citizen.ToDirectoryProtectionEndDate(new Citizen() { DirectoryProtectionEndDate = dateValue, DirectoryProtectionEndDateUncertainty = ' ' });
+            var citizen = new Citizen() { DirectoryProtectionEndDate = dateValue, DirectoryProtectionEndDateUncertainty = ' ' };
+            var result = citizen.ToDirectoryProtectionEndDate();
             Assert.AreEqual(dateValue, result.Value);
         }
 
@@ -181,14 +187,16 @@ namespace CprBroker.Tests.E_M
         public void ToAddressProtectionStartDate_DateWithNullFlag_ReturnsNull(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
-            var result = Citizen.ToAddressProtectionStartDate(new Citizen() { AddressProtectionDate = dateValue, AddressProtectionDateUncertainty = 'U' });
+            var citizen = new Citizen() { AddressProtectionDate = dateValue, AddressProtectionDateUncertainty = 'U' };
+            var result = citizen.ToAddressProtectionStartDate();
             Assert.False(result.HasValue);
         }
 
         [Test]
         public void ToAddressProtectionStartDate_Null_ReturnsNull()
         {
-            var result = Citizen.ToAddressProtectionStartDate(new Citizen() { AddressProtectionDateUncertainty = 'U' });
+            var citizen = new Citizen() { AddressProtectionDateUncertainty = 'U' };
+            var result = citizen.ToAddressProtectionStartDate();
             Assert.False(result.HasValue);
         }
 
@@ -196,7 +204,8 @@ namespace CprBroker.Tests.E_M
         public void ToAddressProtectionStartDate_Valid_ReturnsValid(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
-            var result = Citizen.ToAddressProtectionStartDate(new Citizen() { AddressProtectionDate = dateValue, AddressProtectionDateUncertainty = ' ' });
+            var citizen = new Citizen() { AddressProtectionDate = dateValue, AddressProtectionDateUncertainty = ' ' };
+            var result = citizen.ToAddressProtectionStartDate();
             Assert.AreEqual(dateValue, result.Value);
         }
 
@@ -208,14 +217,16 @@ namespace CprBroker.Tests.E_M
         public void ToAddressProtectionEndDate_DateWithNullFlag_ReturnsNull(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
-            var result = Citizen.ToAddressProtectionEndDate(new Citizen() { AddressProtectionEndDate = dateValue, AddressProtectionEndDateUncertainty = 'U' });
+            var citizen = new Citizen() { AddressProtectionEndDate = dateValue, AddressProtectionEndDateUncertainty = 'U' };
+            var result = citizen.ToAddressProtectionEndDate();
             Assert.False(result.HasValue);
         }
 
         [Test]
         public void ToAddressProtectionEndDate_Null_ReturnsNull()
         {
-            var result = Citizen.ToAddressProtectionEndDate(new Citizen() { AddressProtectionEndDateUncertainty = 'U' });
+            var citizen = new Citizen() { AddressProtectionEndDateUncertainty = 'U' };
+            var result = citizen.ToAddressProtectionEndDate();
             Assert.False(result.HasValue);
         }
 
@@ -223,7 +234,8 @@ namespace CprBroker.Tests.E_M
         public void ToAddressProtectionEndDate_Valid_ReturnsValid(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
-            var result = Citizen.ToAddressProtectionEndDate(new Citizen() { AddressProtectionEndDate = dateValue, AddressProtectionEndDateUncertainty = ' ' });
+            var citizen = new Citizen() { AddressProtectionEndDate = dateValue, AddressProtectionEndDateUncertainty = ' ' };
+            var result = citizen.ToAddressProtectionEndDate();
             Assert.AreEqual(dateValue, result.Value);
         }
 

@@ -63,24 +63,20 @@ namespace CprBroker.Tests.E_M
         }
 
         #region ToChildren
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ToChildren_Null_ThrowsException()
-        {
-            Citizen.ToChildren(null, ToUuid);
-        }
 
         [Test]
         public void ToChildren_MaleWithNullChildrenAsFather_ThrowsException()
         {
-            var result = Citizen.ToChildren(new Citizen() { Gender = 'M', ChildrenAsFather = null }, ToUuid);
+            var citizen = new Citizen() { Gender = 'M', ChildrenAsFather = null };
+            var result = citizen.ToChildren(ToUuid);
             Assert.IsEmpty(result);
         }
 
         [Test]
         public void ToChildren_FemaleWithNullChildrenAsMother_ReturnsEmpty()
         {
-            var result = Citizen.ToChildren(new Citizen() { Gender = 'K', ChildrenAsMother = null }, ToUuid);
+            var citizen = new Citizen() { Gender = 'K', ChildrenAsMother = null };
+            var result = citizen.ToChildren(ToUuid);
             Assert.IsEmpty(result);
         }
 
@@ -88,7 +84,8 @@ namespace CprBroker.Tests.E_M
         [ExpectedException(typeof(ArgumentNullException))]
         public void ToChildren_NullConverter_ThrowsException()
         {
-            Citizen.ToChildren(new Citizen(), null);
+            var citizen = new Citizen() { };
+            citizen.ToChildren(null);
         }
 
         private Child[] CreateChildren(int count)
@@ -107,7 +104,7 @@ namespace CprBroker.Tests.E_M
             var citizen = new Citizen() { Gender = gender };
             citizen.ChildrenAsFather.AddRange(CreateChildren(count));
             citizen.ChildrenAsMother.AddRange(CreateChildren(count));
-            Citizen.ToChildren(citizen, ToUuid);
+            citizen.ToChildren(ToUuid);
         }
 
         [Test]
@@ -116,7 +113,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen() { Gender = 'M' };
             citizen.ChildrenAsMother.AddRange(CreateChildren(count));
-            var result = Citizen.ToChildren(citizen, ToUuid);
+            var result = citizen.ToChildren(ToUuid);
             Assert.IsEmpty(result);
         }
 
@@ -126,7 +123,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen() { Gender = 'M' };
             citizen.ChildrenAsFather.AddRange(CreateChildren(count));
-            var result = Citizen.ToChildren(citizen, ToUuid);
+            var result = citizen.ToChildren(ToUuid);
             Assert.AreEqual(citizen.ChildrenAsFather.Count, result.Length);
         }
 
@@ -137,7 +134,7 @@ namespace CprBroker.Tests.E_M
             count = 2;
             var citizen = new Citizen() { Gender = 'M' };
             citizen.ChildrenAsFather.AddRange(CreateChildren(count));
-            var result = Citizen.ToChildren(citizen, ToUuid);
+            var result = citizen.ToChildren(ToUuid);
 
             for (int i = 0; i < citizen.ChildrenAsFather.Count; i++)
             {
@@ -152,7 +149,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen() { Gender = 'K' };
             citizen.ChildrenAsFather.AddRange(CreateChildren(count));
-            var result = Citizen.ToChildren(citizen, ToUuid);
+            var result = citizen.ToChildren(ToUuid);
             Assert.IsEmpty(result);
         }
 
@@ -162,7 +159,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen() { Gender = 'K' };
             citizen.ChildrenAsMother.AddRange(CreateChildren(count));
-            var result = Citizen.ToChildren(citizen, ToUuid);
+            var result = citizen.ToChildren(ToUuid);
             Assert.AreEqual(citizen.ChildrenAsMother.Count, result.Length);
         }
 
@@ -172,7 +169,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen() { Gender = 'K' };
             citizen.ChildrenAsMother.AddRange(CreateChildren(count));
-            var result = Citizen.ToChildren(citizen, ToUuid);
+            var result = citizen.ToChildren(ToUuid);
 
             for (int i = 0; i < citizen.ChildrenAsMother.Count; i++)
             {
@@ -187,17 +184,12 @@ namespace CprBroker.Tests.E_M
         DateTime[] TestDatesWithNull = new DateTime[] { new DateTime(), new DateTime(2010, 5, 5), new DateTime(2011, 7, 7) };
 
         #region ToMaritalStatusDate
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ToMaritalStatusDate_Null_ThrowsException()
-        {
-            Citizen.ToMaritalStatusDate(null);
-        }
 
         [Test]
         public void ToMaritalStatusDate_NullDate_ReturnsNull()
         {
-            var result = Citizen.ToMaritalStatusDate(new Citizen());
+            var citizen = new Citizen();
+            var result = citizen.ToMaritalStatusDate();
             Assert.False(result.HasValue);
         }
 
@@ -205,7 +197,8 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("TestDates")]
         public void ToMaritalStatusDate_InvalidUncertainty_ReturnsNull(DateTime maritalStatusDate)
         {
-            var result = Citizen.ToMaritalStatusDate(new Citizen() { MaritalStatusTimestamp = maritalStatusDate, MaritalStatusTimestampUncertainty = 'w' });
+            var citizen = new Citizen() { MaritalStatusTimestamp = maritalStatusDate, MaritalStatusTimestampUncertainty = 'w' };
+            var result = citizen.ToMaritalStatusDate();
             Assert.False(result.HasValue);
         }
 
@@ -213,23 +206,19 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("TestDates")]
         public void ToMaritalStatusDate_Valid_ReturnsValue(DateTime maritalStatusDate)
         {
-            var result = Citizen.ToMaritalStatusDate(new Citizen() { MaritalStatusTimestamp = maritalStatusDate, MaritalStatusTimestampUncertainty = DateCertaintyTrue });
+            var citizen = new Citizen() { MaritalStatusTimestamp = maritalStatusDate, MaritalStatusTimestampUncertainty = DateCertaintyTrue };
+            var result = citizen.ToMaritalStatusDate();
             Assert.True(result.HasValue);
         }
         #endregion
 
         #region ToMaritalStatusEndDate
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ToMaritalStatusTerminationDate_Null_ThrowsException()
-        {
-            Citizen.ToMaritalStatusTerminationDate(null);
-        }
 
         [Test]
         public void ToMaritalStatusTerminationDate_NullDate_ReturnsNull()
         {
-            var result = Citizen.ToMaritalStatusTerminationDate(new Citizen());
+            var citizen = new Citizen();
+            var result = citizen.ToMaritalStatusTerminationDate();
             Assert.False(result.HasValue);
         }
 
@@ -237,7 +226,8 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("TestDates")]
         public void ToMaritalStatusTerminationDate_InvalidUncertainty_ReturnsNull(DateTime maritalStatusDate)
         {
-            var result = Citizen.ToMaritalStatusTerminationDate(new Citizen() { MaritalStatusTerminationTimestamp = maritalStatusDate, MaritalStatusTerminationTimestampUncertainty = 'w' });
+            var citizen = new Citizen() { MaritalStatusTerminationTimestamp = maritalStatusDate, MaritalStatusTerminationTimestampUncertainty = 'w' };
+            var result = citizen.ToMaritalStatusTerminationDate();
             Assert.False(result.HasValue);
         }
 
@@ -245,7 +235,8 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("TestDates")]
         public void ToMaritalStatusTerminationDate_Valid_ReturnsValue(DateTime maritalStatusDate)
         {
-            var result = Citizen.ToMaritalStatusTerminationDate(new Citizen() { MaritalStatusTerminationTimestamp = maritalStatusDate, MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue });
+            var citizen = new Citizen() { MaritalStatusTerminationTimestamp = maritalStatusDate, MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue };
+            var result = citizen.ToMaritalStatusTerminationDate();
             Assert.True(result.HasValue);
         }
         #endregion
@@ -257,7 +248,7 @@ namespace CprBroker.Tests.E_M
         public void ToSpousePNR_InvalidSpousePNR_ThrowsException(decimal spousePNR)
         {
             var citizen = new Citizen() { SpousePNR = spousePNR };
-            Citizen.ToSpousePNR(citizen);
+            citizen.ToSpousePNR();
         }
 
         [Test]
@@ -265,7 +256,7 @@ namespace CprBroker.Tests.E_M
         public void ToSpousePNR_Valid_ThrowsException(decimal spousePNR)
         {
             var citizen = new Citizen() { SpousePNR = spousePNR };
-            var result = Citizen.ToSpousePNR(citizen);
+            var result = citizen.ToSpousePNR();
             Assert.AreEqual(Converters.ToCprNumber(spousePNR), result);
         }
         #endregion
@@ -274,17 +265,10 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ToSpouses_Null_ThrowsException()
-        {
-            Citizen.ToSpouses(null, ToUuid);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToSpouses_NullConverter_ThrowsException()
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber() };
-            Citizen.ToSpouses(citizen, null);
+            citizen.ToSpouses(null);
         }
 
         [Test]
@@ -293,7 +277,7 @@ namespace CprBroker.Tests.E_M
             [Values(' ', 'W')] char maritalStatus)
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
-            Citizen.ToSpouses(citizen, ToUuid);
+            citizen.ToSpouses(ToUuid);
         }
 
         [Test]
@@ -301,7 +285,7 @@ namespace CprBroker.Tests.E_M
             [Values('U', 'P', 'O', 'L')] char maritalStatus)
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
-            var result = Citizen.ToSpouses(citizen, ToUuid);
+            var result = citizen.ToSpouses(ToUuid);
             Assert.AreEqual(0, result.Length);
         }
 
@@ -319,7 +303,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
-            Citizen.ToSpouses(citizen, ToUuid);
+            citizen.ToSpouses(ToUuid);
         }
 
         [Test]
@@ -334,7 +318,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
-            Citizen.ToSpouses(citizen, ToUuid);
+            citizen.ToSpouses(ToUuid);
         }
 
         [Test]
@@ -344,7 +328,7 @@ namespace CprBroker.Tests.E_M
             [ValueSource("InvalidCprNumbers")]decimal spousePnr)
         {
             var citizen = new Citizen() { MaritalStatus = maritalStatus, SpousePNR = spousePnr };
-            Citizen.ToSpouses(citizen, ToUuid);
+            citizen.ToSpouses(ToUuid);
         }
 
         [Test]
@@ -353,7 +337,7 @@ namespace CprBroker.Tests.E_M
             [Values('G', 'F', 'E')]char maritalStatus)
         {
             var citizen = new Citizen() { MaritalStatus = maritalStatus, SpousePNR = 0 };
-            Citizen.ToSpouses(citizen, ToUuid);
+            citizen.ToSpouses(ToUuid);
         }
 
         [Test]
@@ -369,7 +353,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTimestampUncertainty = DateCertaintyTrue
             };
 
-            var result = Citizen.ToSpouses(citizen, ToUuid);
+            var result = citizen.ToSpouses(ToUuid);
             Assert.AreEqual(1, result.Length);
         }
 
@@ -386,7 +370,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTimestampUncertainty = DateCertaintyTrue
             };
 
-            var result = Citizen.ToSpouses(citizen, ToUuid);
+            var result = citizen.ToSpouses(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
         }
@@ -407,7 +391,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
 
-            var result = Citizen.ToSpouses(citizen, ToUuid);
+            var result = citizen.ToSpouses(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.Null(result[0].Virkning.TilTidspunkt.ToDateTime());
         }
@@ -428,7 +412,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
 
-            var result = Citizen.ToSpouses(citizen, ToUuid);
+            var result = citizen.ToSpouses(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.NotNull(result[0].Virkning.TilTidspunkt.ToDateTime());
         }
@@ -438,17 +422,10 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ToRegisteredPartners_Null_ThrowsException()
-        {
-            Citizen.ToRegisteredPartners(null, ToUuid);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToRegisteredPartners_NullConverter_ThrowsException()
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber() };
-            Citizen.ToRegisteredPartners(citizen, null);
+            citizen.ToRegisteredPartners(null);
         }
 
         [Test]
@@ -457,7 +434,7 @@ namespace CprBroker.Tests.E_M
             [Values(' ', 'W')] char maritalStatus)
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
-            Citizen.ToRegisteredPartners(citizen, ToUuid);
+            citizen.ToRegisteredPartners(ToUuid);
         }
 
         [Test]
@@ -465,7 +442,7 @@ namespace CprBroker.Tests.E_M
             [Values('E', 'F', 'G', 'U')] char maritalStatus)
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
+            var result = citizen.ToRegisteredPartners(ToUuid);
             Assert.AreEqual(0, result.Length);
         }
 
@@ -483,7 +460,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
-            Citizen.ToRegisteredPartners(citizen, ToUuid);
+            citizen.ToRegisteredPartners(ToUuid);
         }
 
         [Test]
@@ -498,7 +475,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
-            Citizen.ToRegisteredPartners(citizen, ToUuid);
+            citizen.ToRegisteredPartners(ToUuid);
         }
 
         [Test]
@@ -508,7 +485,7 @@ namespace CprBroker.Tests.E_M
             [ValueSource("InvalidCprNumbers")]decimal spousePnr)
         {
             var citizen = new Citizen() { MaritalStatus = maritalStatus, SpousePNR = spousePnr };
-            Citizen.ToRegisteredPartners(citizen, ToUuid);
+            citizen.ToRegisteredPartners(ToUuid);
         }
 
         [Test]
@@ -517,7 +494,7 @@ namespace CprBroker.Tests.E_M
             [Values('L', 'O', 'P')]char maritalStatus)
         {
             var citizen = new Citizen() { MaritalStatus = maritalStatus, SpousePNR = 0 };
-            Citizen.ToRegisteredPartners(citizen, ToUuid);
+            citizen.ToRegisteredPartners(ToUuid);
         }
 
         [Test]
@@ -533,7 +510,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTimestampUncertainty = DateCertaintyTrue
             };
 
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
+            var result = citizen.ToRegisteredPartners(ToUuid);
             Assert.AreEqual(1, result.Length);
         }
 
@@ -550,7 +527,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTimestampUncertainty = DateCertaintyTrue
             };
 
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
+            var result = citizen.ToRegisteredPartners(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
         }
@@ -571,7 +548,7 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
 
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
+            var result = citizen.ToRegisteredPartners(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.Null(result[0].Virkning.TilTidspunkt.ToDateTime());
         }
@@ -592,19 +569,13 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
 
-            var result = Citizen.ToRegisteredPartners(citizen, ToUuid);
+            var result = citizen.ToRegisteredPartners(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.NotNull(result[0].Virkning.TilTidspunkt.ToDateTime());
         }
         #endregion
 
         #region ToFather
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ToFather_Null_ThrowsException()
-        {
-            Citizen.ToFather(null, ToUuid);
-        }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -612,7 +583,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.FatherPNR = Utilities.RandomCprNumber();
-            Citizen.ToFather(citizen, null);
+            citizen.ToFather(null);
         }
 
         [Test]
@@ -622,7 +593,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
-            Citizen.ToFather(citizen, ToUuid);
+            citizen.ToFather(ToUuid);
         }
 
         [Test]
@@ -631,7 +602,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
-            var result = Citizen.ToFather(citizen, ToUuid);
+            var result = citizen.ToFather(ToUuid);
             Assert.NotNull(result);
         }
 
@@ -641,7 +612,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
-            var result = Citizen.ToFather(citizen, ToUuid);
+            var result = citizen.ToFather(ToUuid);
             Assert.AreEqual(1, result.Length);
         }
 
@@ -651,7 +622,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
-            var result = Citizen.ToFather(citizen, ToUuid);
+            var result = citizen.ToFather(ToUuid);
             Assert.NotNull(result[0]);
         }
 
@@ -661,7 +632,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
-            var result = Citizen.ToFather(citizen, ToUuid);
+            var result = citizen.ToFather(ToUuid);
             Assert.IsNotNull(result[0].ReferenceID);
         }
 
@@ -671,7 +642,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
-            var result = Citizen.ToFather(citizen, ToUuid);
+            var result = citizen.ToFather(ToUuid);
             Assert.NotNull(result);
             var stringCprNumber = Converters.ToCprNumber(cprNumber);
             Assert.IsTrue(uuids.ContainsKey(stringCprNumber));
@@ -683,19 +654,13 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
-            var result = Citizen.ToFather(citizen, ToUuid);
+            var result = citizen.ToFather(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(cprNumber);
             Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
         }
         #endregion
 
         #region ToMother
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ToMother_Null_ThrowsException()
-        {
-            Citizen.ToMother(null, ToUuid);
-        }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -703,7 +668,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.MotherPNR = Utilities.RandomCprNumber();
-            Citizen.ToMother(citizen, null);
+            citizen.ToMother(null);
         }
 
 
@@ -714,7 +679,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
-            Citizen.ToMother(citizen, ToUuid);
+            citizen.ToMother(ToUuid);
         }
 
         [Test]
@@ -723,7 +688,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
-            var result = Citizen.ToMother(citizen, ToUuid);
+            var result = citizen.ToMother(ToUuid);
             Assert.NotNull(result);
         }
 
@@ -733,7 +698,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
-            var result = Citizen.ToMother(citizen, ToUuid);
+            var result = citizen.ToMother(ToUuid);
             Assert.AreEqual(1, result.Length);
         }
 
@@ -743,7 +708,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
-            var result = Citizen.ToMother(citizen, ToUuid);
+            var result = citizen.ToMother(ToUuid);
             Assert.NotNull(result[0]);
         }
 
@@ -753,7 +718,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
-            var result = Citizen.ToMother(citizen, ToUuid);
+            var result = citizen.ToMother(ToUuid);
             Assert.IsNotNull(result[0].ReferenceID);
         }
 
@@ -763,7 +728,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
-            var result = Citizen.ToMother(citizen, ToUuid);
+            var result = citizen.ToMother(ToUuid);
             Assert.NotNull(result);
             var stringCprNumber = Converters.ToCprNumber(cprNumber);
             Assert.IsTrue(uuids.ContainsKey(stringCprNumber));
@@ -775,7 +740,7 @@ namespace CprBroker.Tests.E_M
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
-            var result = Citizen.ToMother(citizen, ToUuid);
+            var result = citizen.ToMother(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(cprNumber);
             Assert.AreEqual(uuids[stringCprNumber].ToString(), result[0].ReferenceID.Item);
         }

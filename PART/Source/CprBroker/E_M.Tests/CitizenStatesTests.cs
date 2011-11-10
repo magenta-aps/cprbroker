@@ -27,18 +27,12 @@ namespace CprBroker.Tests.E_M
         private Citizen[] TestCitizens = null;
 
         #region ToCivilStatusType
-        [Test]
-        public void ToCivilStatusType_Null_Null()
-        {
-            var result = Citizen.ToCivilStatusType(null);
-            Assert.IsNull(result);
-        }
 
         [Test]
         [TestCaseSource("TestCitizens")]
         public void ToCivilStatusType_Valid_NotNull(Citizen citizen)
         {
-            var result = Citizen.ToCivilStatusType(citizen);
+            var result = citizen.ToCivilStatusType();
             Assert.IsNotNull(result);
         }
 
@@ -46,7 +40,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("TestCitizens")]
         public void ToCivilStatusType_Valid_CorrectCode(Citizen citizen)
         {
-            var result = Citizen.ToCivilStatusType(citizen);
+            var result = citizen.ToCivilStatusType();
             Assert.AreEqual(Converters.ToCivilStatusKodeType(citizen.MaritalStatus), result.CivilStatusKode);
         }
 
@@ -54,24 +48,18 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("TestCitizens")]
         public void ToCivilStatusType_Valid_TilstandVirkningNotNull(Citizen citizen)
         {
-            var result = Citizen.ToCivilStatusType(citizen);
+            var result = citizen.ToCivilStatusType();
             Assert.NotNull(result.TilstandVirkning);
         }
         #endregion
 
         #region ToLivStatusType
-        [Test]
-        public void ToLivStatusType_Null_Null()
-        {
-            var result = Citizen.ToLivStatusType(null);
-            Assert.IsNull(result);
-        }
 
         [Test]
         [TestCaseSource("TestCitizens")]
         public void ToLivStatusType_Valid_NotNull(Citizen citizen)
         {
-            var result = Citizen.ToLivStatusType(citizen);
+            var result = citizen.ToLivStatusType();
             Assert.IsNotNull(result);
         }
 
@@ -79,7 +67,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("TestCitizens")]
         public void ToLivStatusType_Valid_CorrectCode(Citizen citizen)
         {
-            var result = Citizen.ToLivStatusType(citizen);
+            var result = citizen.ToLivStatusType();
             Assert.AreEqual(Schemas.Util.Enums.ToLifeStatus((decimal)citizen.CitizenStatusCode, citizen.Birthdate), result.LivStatusKode);
         }
 
@@ -87,7 +75,7 @@ namespace CprBroker.Tests.E_M
         [TestCaseSource("TestCitizens")]
         public void ToLivStatusType_Valid_TilstandVirkningNotNull(Citizen citizen)
         {
-            var result = Citizen.ToLivStatusType(citizen);
+            var result = citizen.ToLivStatusType();
             Assert.NotNull(result.TilstandVirkning);
         }
         #endregion

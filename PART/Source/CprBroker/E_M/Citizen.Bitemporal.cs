@@ -9,33 +9,32 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        private static VirkningType ToVirkningType(Citizen citizen)
+        public virtual VirkningType ToEgenskabVirkningType()
         {
             // TODO: validate outcome of this method
             var dates = new List<DateTime?>();
             dates.AddRange(new DateTime?[]
             {           
-                Converters.ToDateTime(citizen.Birthdate,citizen.BirthdateUncertainty),
-                Converters.ToDateTime(citizen.CitizenStatusTimestamp,citizen.CitizenStatusTimestampUncertainty),                    
-                citizen.CprChurchTimestamp,
-                citizen.CprPersonTimestamp,
-                Converters.ToDateTime(citizen.DepartureTimestamp,citizen.DepartureTimestampUncertainty),
-                Converters.ToDateTime(citizen.DirectoryProtectionEndDate,citizen.DirectoryProtectionEndDateUncertainty),
-                Converters.ToDateTime(citizen.DirectoryProtectionDate, citizen.DirectoryProtectionDateUncertainty),
-                Converters.ToDateTime(citizen.MaritalStatusTimestamp,citizen.MaritalStatusTimestampUncertainty),
-                Converters.ToDateTime(citizen.MaritalStatusTerminationTimestamp,citizen.MaritalStatusTerminationTimestampUncertainty),
-                Converters.ToDateTime(citizen.MunicipalityArrivalDate,citizen.MunicipalityArrivalTimestampUncertainty),
-                Converters.ToDateTime(citizen.ChurchMarkerDate, citizen.ChurchMarkerDateUncertainty),
-                Converters.ToDateTime(citizen.NationalityChangeTimestamp,citizen.NationalityChangeTimestampUncertainty),
-                Converters.ToDateTime(citizen.NationalityTerminationTimestamp,citizen.NationalityTerminationTimestampUncertainty),
-                Converters.ToDateTime(citizen.OccupationDate,citizen.OccupationDateUncertainty),
-                Converters.ToDateTime(citizen.PNRCreationDate, citizen.PnrCreationdateUncertainty),
-                Converters.ToDateTime(citizen.PNRMarkingDate,citizen.PnrMarkingDateUncertainty),
-                Converters.ToDateTime(citizen.RelocationTimestamp,citizen.RelocationTimestampUncertainty),
+                Converters.ToDateTime(this.Birthdate,this.BirthdateUncertainty),
+                Converters.ToDateTime(this.CitizenStatusTimestamp,this.CitizenStatusTimestampUncertainty),                    
+                this.CprChurchTimestamp,
+                this.CprPersonTimestamp,
+                Converters.ToDateTime(this.DepartureTimestamp,this.DepartureTimestampUncertainty),
+                Converters.ToDateTime(this.DirectoryProtectionEndDate,this.DirectoryProtectionEndDateUncertainty),
+                Converters.ToDateTime(this.DirectoryProtectionDate, this.DirectoryProtectionDateUncertainty),
+                Converters.ToDateTime(this.MaritalStatusTimestamp,this.MaritalStatusTimestampUncertainty),
+                Converters.ToDateTime(this.MaritalStatusTerminationTimestamp,this.MaritalStatusTerminationTimestampUncertainty),
+                Converters.ToDateTime(this.MunicipalityArrivalDate,this.MunicipalityArrivalTimestampUncertainty),
+                Converters.ToDateTime(this.ChurchMarkerDate, this.ChurchMarkerDateUncertainty),
+                Converters.ToDateTime(this.NationalityChangeTimestamp,this.NationalityChangeTimestampUncertainty),
+                Converters.ToDateTime(this.NationalityTerminationTimestamp,this.NationalityTerminationTimestampUncertainty),
+                Converters.ToDateTime(this.OccupationDate,this.OccupationDateUncertainty),
+                Converters.ToDateTime(this.PNRCreationDate, this.PnrCreationdateUncertainty),
+                Converters.ToDateTime(this.PNRMarkingDate,this.PnrMarkingDateUncertainty),
+                Converters.ToDateTime(this.RelocationTimestamp,this.RelocationTimestampUncertainty),
             });
             var maxDate = Converters.GetMaxDate(dates.ToArray());
             return VirkningType.Create(maxDate, null);
-
         }
 
         public virtual TidspunktType ToTidspunktType()
