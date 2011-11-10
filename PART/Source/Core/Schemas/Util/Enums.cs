@@ -100,5 +100,48 @@ namespace CprBroker.Schemas.Util
             return (from name in names select new KeyValuePair<string, TEnum>(valueGetter(name), (TEnum)Enum.Parse(t, name))).ToArray();
 
         }
+
+        /// <summary>
+        /// Checks whether the specified civil registration status is valid.
+        /// Works according to http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/cpr_personcivilregistrationstatuscode.xsd.meta.xml
+        /// </summary>
+        /// <param name="civilRegistrationStatus"></param>
+        /// <returns>True if the status code is valid, false otherwise</returns>
+        public static bool IsValidCivilRegistrationStatus(decimal civilRegistrationStatus)
+        {
+            var validStates = new decimal[] { 
+                (decimal)PersonCivilRegistrationStatusCode.CancelledCivilRegistrationNumbers, 
+                (decimal)PersonCivilRegistrationStatusCode.ChangedCivilRegistrationNumbers, 
+                (decimal)PersonCivilRegistrationStatusCode.dead,
+                (decimal)PersonCivilRegistrationStatusCode.DeletedCivilRegistrationNumbers,
+                (decimal)PersonCivilRegistrationStatusCode.Disappeared,
+                (decimal)PersonCivilRegistrationStatusCode.Emigrated,
+                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithHighStreetcodeIn_GreenlandicPopulationRegister,
+                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithHighStreetcodeInDanishPopulationRegister,
+                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithoutResidenceInDanishOrGreenlandicPopulationRegisterAndAdministrativeCivilRegistrationNumbers,
+                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithResidenceInDanishPopulationRegister,
+                (decimal)PersonCivilRegistrationStatusCode.RegisteredWithResidenceInGreenlandicPopulationRegister            
+            };
+            return validStates.Contains(civilRegistrationStatus);
+        }
+
+        /// <summary>
+        /// Tells whether the specified civil registration status refers to an active CPR number
+        /// </summary>
+        /// <exception cref="System.ArgumentException">Thrown if the value in<paramref name="civilRegistrationStatus"/> is an invalid status </exception>
+        /// <param name="civilRegistrationStatus"></param>
+        /// <returns>True if the status means an active CPR number, false otherwise</returns>
+        public static bool IsActiveCivilRegistrationStatus(decimal civilRegistrationStatus)
+        {
+            if (!IsValidCivilRegistrationStatus(civilRegistrationStatus))
+            {
+                throw new ArgumentException(string.Format("Invalid value <{0}> for civilRegistrationStatus", civilRegistrationStatus));
+            }
+            var inactiveStates = new decimal[] { 
+                (decimal)PersonCivilRegistrationStatusCode.CancelledCivilRegistrationNumbers, 
+                (decimal)PersonCivilRegistrationStatusCode.ChangedCivilRegistrationNumbers, 
+                (decimal)PersonCivilRegistrationStatusCode.DeletedCivilRegistrationNumbers };
+            return !inactiveStates.Contains(civilRegistrationStatus);
+        }
     }
 }

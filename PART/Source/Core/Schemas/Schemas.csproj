@@ -62,6 +62,7 @@
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="IBasicOutput.cs" />
     <Compile Include="LaesInputType.cs" />
+    <Compile Include="PersonCivilRegistrationStatusCode.cs" />
     <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="NavnStrukturType.cs" />
     <Compile Include="OIOXSD\Subscription.Designer.cs" />
