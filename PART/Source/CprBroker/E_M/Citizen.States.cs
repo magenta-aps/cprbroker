@@ -9,13 +9,13 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        public static TilstandListeType ToTilstandListeType(Citizen citizen)
+        public virtual TilstandListeType ToTilstandListeType()
         {
             return new TilstandListeType()
             {
-                CivilStatus = ToCivilStatusType(citizen),
-                LivStatus = ToLivStatusType(citizen),
-                LokalUdvidelse = citizen.ToLokalUdvidelseType()
+                CivilStatus = ToCivilStatusType(this),
+                LivStatus = ToLivStatusType(this),
+                LokalUdvidelse = this.ToLokalUdvidelseType()
             };
         }
 

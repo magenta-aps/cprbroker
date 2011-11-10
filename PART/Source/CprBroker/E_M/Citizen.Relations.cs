@@ -9,21 +9,21 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        public static RelationListeType ToRelationListeType(Citizen citizen, Func<string, Guid> cpr2uuidFunc)
+        public virtual RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RelationListeType()
             {
-                Aegtefaelle = ToSpouses(citizen, cpr2uuidFunc),
-                Boern = ToChildren(citizen, cpr2uuidFunc),
+                Aegtefaelle = ToSpouses(this, cpr2uuidFunc),
+                Boern = ToChildren(this, cpr2uuidFunc),
                 Bopaelssamling = null,
                 ErstatningAf = null,
                 ErstatningFor = null,
-                Fader = ToFather(citizen, cpr2uuidFunc),
+                Fader = ToFather(this, cpr2uuidFunc),
                 Foraeldremyndighedsboern = null,
                 Foraeldremyndighedsindehaver = null,
                 LokalUdvidelse = null,
-                Moder = ToMother(citizen, cpr2uuidFunc),
-                RegistreretPartner = ToRegisteredPartners(citizen, cpr2uuidFunc),
+                Moder = ToMother(this, cpr2uuidFunc),
+                RegistreretPartner = ToRegisteredPartners(this, cpr2uuidFunc),
                 RetligHandleevneVaergeForPersonen = null,
                 RetligHandleevneVaergemaalsindehaver = null
             };

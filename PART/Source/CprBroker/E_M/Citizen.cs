@@ -17,16 +17,16 @@ namespace CprBroker.Providers.E_M
                 AttributListe = this.ToAttributListeType(effectDate),
                 CommentText = null,
                 LivscyklusKode = LivscyklusKodeType.Rettet,
-                RelationListe = ToRelationListeType(this, cpr2uuidFunc),
-                Tidspunkt = ToTidspunktType(this),
-                TilstandListe = ToTilstandListeType(this),
+                RelationListe = this.ToRelationListeType(cpr2uuidFunc),
+                Tidspunkt = this.ToTidspunktType(),
+                TilstandListe = this.ToTilstandListeType(),
                 Virkning = null
             };
             ret.CalculateVirkning();
             return ret;
         }
 
-        public AttributListeType ToAttributListeType(DateTime effectDate)
+        public virtual AttributListeType ToAttributListeType(DateTime effectDate)
         {
             return new AttributListeType()
             {

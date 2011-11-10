@@ -38,11 +38,11 @@ namespace CprBroker.Providers.E_M
 
         }
 
-        private static TidspunktType ToTidspunktType(Citizen citizen)
+        public virtual TidspunktType ToTidspunktType()
         {
             // TODO: Add a more meaningful date to registration date input
             return TidspunktType.Create(Converters.GetMaxDate(
-                Converters.ToDateTime(citizen.BirthRegistrationDate, citizen.BirthRegistrationDateUncertainty)
+                Converters.ToDateTime(this.BirthRegistrationDate, this.BirthRegistrationDateUncertainty)
                 ));
         }
 

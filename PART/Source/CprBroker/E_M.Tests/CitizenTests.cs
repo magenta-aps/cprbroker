@@ -94,6 +94,126 @@ namespace CprBroker.Tests.E_M
         }
 
         [TestFixture]
+        public class ToRegistreringType1
+        {
+            public class ToRegistreringType1Citizen : Citizen
+            {
+                public AttributListeType _ToAttributListeType = new AttributListeType();
+                public override AttributListeType ToAttributListeType(DateTime effectDate)
+                {
+                    return _ToAttributListeType;
+                }
+
+                public TilstandListeType _ToTilstandListeType = new TilstandListeType();
+                public override TilstandListeType ToTilstandListeType()
+                {
+                    return _ToTilstandListeType;
+                }
+
+                public RelationListeType _ToRelationListeType = new RelationListeType();
+                public override RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidFunc)
+                {
+                    return _ToRelationListeType;
+                }
+
+                public TidspunktType _ToTidspunktType = new TidspunktType();
+                public override TidspunktType ToTidspunktType()
+                {
+                    return _ToTidspunktType;
+                }
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_NotNull()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.NotNull(result);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_CorrectActorRefItem()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.AreEqual(E_MDataProvider.ActorId.ToString(), result.AktoerRef.Item);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_CorrectActorRefItemEkementName()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.AreEqual(ItemChoiceType.UUID, result.AktoerRef.ItemElementName);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_CorrectAttributListe()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.AreEqual(citizen._ToAttributListeType, result.AttributListe);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_NullCommentText()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.IsNullOrEmpty(result.CommentText);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_CorrectLivscyklusKode()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.AreEqual(LivscyklusKodeType.Rettet, result.LivscyklusKode);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_CorrectRelationListe()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.AreEqual(citizen._ToRelationListeType, result.RelationListe);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_CorrectTidspunkt()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.AreEqual(citizen._ToTidspunktType, result.Tidspunkt);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_CorrectTilstandListe()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.AreEqual(citizen._ToTilstandListeType, result.TilstandListe);
+            }
+
+            [Test]
+            public void ToRegistreringType1_Valid_VirkningNotNull()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.NotNull(result.Virkning);
+            }
+
+            [Test]
+            [Ignore]
+            public void ToRegistreringType1_Valid_VirkningNotZero()
+            {
+                var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.GreaterOrEqual(result.Virkning.Length, 1);
+            }
+        }
+
+        [TestFixture]
         public class ToAttributListeType
         {
             class ToAttributListeTypeCitizen : Citizen
@@ -116,7 +236,7 @@ namespace CprBroker.Tests.E_M
                     return _ToRegisterOplysningType;
                 }
 
-                public SundhedOplysningType _ToSundhedOplysningType=new SundhedOplysningType();
+                public SundhedOplysningType _ToSundhedOplysningType = new SundhedOplysningType();
                 public override SundhedOplysningType ToSundhedOplysningType()
                 {
                     return _ToSundhedOplysningType;
