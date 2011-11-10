@@ -34,7 +34,7 @@ namespace CprBroker.Tests.E_M
                 };
 
             ValidAddressTestValues = new Citizen[] { citizen };
-            AllAddressTestValues = new Citizen[] { null, citizen };
+            AllAddressTestValues = new Citizen[] { citizen };
 
         }
 

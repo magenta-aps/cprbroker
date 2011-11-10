@@ -222,7 +222,7 @@ namespace CprBroker.Tests.E_M
             public void ToRegisterOplysningType_WhateverCountry_ReturnsNotNull(
                 [Values(5100, 6763, 12)]short countryCode)
             {
-                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode };
+                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1 };
                 var result = citizen.ToRegisterOplysningType(DateTime.Today);
                 Assert.NotNull(result.Item);
             }
@@ -250,7 +250,7 @@ namespace CprBroker.Tests.E_M
             public void ToRegisterOplysningType_UnknownCountry_ReturnsCprBorgerType(
                 [Values(5100)]short countryCode)
             {
-                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode };
+                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1 };
                 var result = citizen.ToRegisterOplysningType(DateTime.Today);
                 Assert.IsInstanceOf<CprBorgerType>(result.Item);
             }
@@ -321,7 +321,7 @@ namespace CprBroker.Tests.E_M
 
             [Test]
             public void ToCprBorgerType_Valid_CorrectPersonCivilRegistrationIdentifier(
-                [ValueSource("RandomCprNumbers")] decimal cprNumber)
+                [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber)
             {
                 var citizen = new CitizenStub() { PNR = cprNumber };
                 var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
@@ -374,7 +374,7 @@ namespace CprBroker.Tests.E_M
             [Test]
             [Combinatorial]
             public void ToUdenlandskBorgerType_Valid_CorrectCountryCode(
-                [ValueSource("RandomCprNumbers")] decimal cprNumber,
+                [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
                 var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
@@ -384,7 +384,7 @@ namespace CprBroker.Tests.E_M
             [Test]
             [Combinatorial]
             public void ToUdenlandskBorgerType_Valid_CorrectPNR(
-                [ValueSource("RandomCprNumbers")] decimal cprNumber,
+                [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
                 var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
@@ -394,7 +394,7 @@ namespace CprBroker.Tests.E_M
             [Test]
             [Combinatorial]
             public void ToUdenlandskBorgerType_Valid_NullFoedselslandKode(
-                [ValueSource("RandomCprNumbers")] decimal cprNumber,
+                [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
                 var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
@@ -404,7 +404,7 @@ namespace CprBroker.Tests.E_M
             [Test]
             [Combinatorial]
             public void ToUdenlandskBorgerType_Valid_NullPersonIdentifikator(
-                [ValueSource("RandomCprNumbers")] decimal cprNumber,
+                [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
                 var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
@@ -414,7 +414,7 @@ namespace CprBroker.Tests.E_M
             [Test]
             [Combinatorial]
             public void ToUdenlandskBorgerType_Valid_NullSprogCode(
-                [ValueSource("RandomCprNumbers")] decimal cprNumber,
+                [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber,
                 [Values(1500, 762, 876)] short countryCode)
             {
                 var result = Citizen.ToUdenlandskBorgerType(new Citizen() { PNR = cprNumber, CountryCode = countryCode });
@@ -442,7 +442,7 @@ namespace CprBroker.Tests.E_M
 
             [Test]
             public void ToUkendtBorgerType_Valid_CorrectPNR(
-                [ValueSource("RandomCprNumbers")] decimal cprNumber)
+                [ValueSource(typeof(CitizenTests), "RandomCprNumbers")] decimal cprNumber)
             {
                 var result = Citizen.ToUkendtBorgerType(new Citizen() { PNR = cprNumber });
                 Assert.AreEqual(Converters.ToCprNumber(cprNumber), result.PersonCivilRegistrationReplacementIdentifier);
