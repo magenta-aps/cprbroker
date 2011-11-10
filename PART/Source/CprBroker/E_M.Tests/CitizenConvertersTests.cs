@@ -40,17 +40,11 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ToBirthdate_Null_ThrowsException()
-        {
-            Citizen.ToBirthdate(null);
-        }
-
-        [Test]
         [ExpectedException()]
         public void ToBirthdate_EmptyBirthdate_EmptyBirthdateAndPNR_ThrowsException()
         {
-            Citizen.ToBirthdate(new Citizen() { });
+            var citizen = new Citizen() { };
+            citizen.ToBirthdate();
         }
 
         public DateTime[] SampleDates = new DateTime[] { new DateTime(2009, 4, 18), new DateTime(2010, 3, 8) };
@@ -63,7 +57,8 @@ namespace CprBroker.Tests.E_M
         public void ToBirthdate_HasBirthdateNoPNR_CorrectBirthdate(
             [ValueSource("SampleDates")] DateTime birthDate)
         {
-            var result = Citizen.ToBirthdate(new Citizen() { Birthdate = birthDate, BirthdateUncertainty = ' ' });
+            var citizen = new Citizen() { Birthdate = birthDate, BirthdateUncertainty = ' ' };
+            var result = citizen.ToBirthdate();
             Assert.AreEqual(birthDate, result);
         }
 
@@ -73,7 +68,8 @@ namespace CprBroker.Tests.E_M
             [ValueSource("SampleDates")] DateTime expectedBirthDate,
             [ValueSource("MatchingPNRs")] string cprNumber)
         {
-            var result = Citizen.ToBirthdate(new Citizen() { PNR = decimal.Parse(cprNumber), BirthdateUncertainty = 'e' });
+            var citizen = new Citizen() { PNR = decimal.Parse(cprNumber), BirthdateUncertainty = 'e' };
+            var result = citizen.ToBirthdate();
             Assert.AreEqual(expectedBirthDate, result);
         }
 
@@ -277,6 +273,19 @@ namespace CprBroker.Tests.E_M
             var citizen = new Citizen() { AddressProtectionDate = startDate, AddressProtectionDateUncertainty = ' ', AddressProtectionEndDate = startDate.AddDays(10), AddressProtectionEndDateUncertainty = ' ' };
             var result = citizen.ToAddressProtectionIndicator(startDate.AddDays(5));
             Assert.True(result);
+        }
+
+        #endregion
+
+        #region ToCivilRegistrationValidityStatusIndicator
+
+        [Test]
+        public void ToCivilRegistrationValidityStatusIndicator_Valid_ReturnsCorrect(
+            [Values(1, 3, 90, 80)]short status)
+        {
+            var citizen = new Citizen() { CitizenStatusCode = status };
+            var result = citizen.ToCivilRegistrationValidityStatusIndicator();
+            Assert.AreEqual(Schemas.Util.Enums.IsActiveCivilRegistrationStatus(status), result);
         }
 
         #endregion

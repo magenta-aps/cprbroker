@@ -30,26 +30,26 @@ namespace CprBroker.Providers.E_M
         {
             return new AttributListeType()
             {
-                Egenskab = new EgenskabType[] { ToEgenskabType(citizen) },
+                Egenskab = new EgenskabType[] { citizen.ToEgenskabType() },
                 LokalUdvidelse = ToLokalUdvidelseType(citizen),
                 RegisterOplysning = new RegisterOplysningType[] { this.ToRegisterOplysningType(effectDate) },
                 SundhedOplysning = new SundhedOplysningType[] { this.ToSundhedOplysningType() }
             };
         }
 
-        private static EgenskabType ToEgenskabType(Citizen citizen)
+        public EgenskabType ToEgenskabType()
         {
             var ret = new EgenskabType()
             {
-                AndreAdresser = ToAndreAdresse(citizen),
-                BirthDate = ToBirthdate(citizen),
-                FoedestedNavn = citizen.BirthPlaceText,
-                FoedselsregistreringMyndighedNavn = Authority.ToAuthorityName(citizen.BirthRegistrationAuthority),
-                KontaktKanal = ToKontaktKanalType(citizen),
-                NaermestePaaroerende = ToNextOfKin(citizen),
-                NavnStruktur = citizen.ToNavnStrukturType(),
-                PersonGenderCode = Converters.ToPersonGenderCodeType(citizen.Gender),
-                Virkning = ToVirkningType(citizen)
+                AndreAdresser = this.ToAndreAdresse(),
+                BirthDate = this.ToBirthdate(),
+                FoedestedNavn = this.BirthPlaceText,
+                FoedselsregistreringMyndighedNavn = ToBirthRegistrationAuthority(),
+                KontaktKanal = this.ToKontaktKanalType(),
+                NaermestePaaroerende = this.ToNextOfKin(),
+                NavnStruktur = this.ToNavnStrukturType(),
+                PersonGenderCode = Converters.ToPersonGenderCodeType(this.Gender),
+                Virkning = ToVirkningType(this)
             };
             return ret;
         }
@@ -95,8 +95,7 @@ namespace CprBroker.Providers.E_M
                 NavneAdresseBeskyttelseIndikator = citizen.ToAddressProtectionIndicator(effectDate),
                 PersonCivilRegistrationIdentifier = Converters.ToCprNumber(citizen.PNR),
                 PersonNationalityCode = citizen.ToCountryIdentificationCodeType(),
-                // Person number is valid as long as it is in the database
-                PersonNummerGyldighedStatusIndikator = true,
+                PersonNummerGyldighedStatusIndikator = citizen.ToCivilRegistrationValidityStatusIndicator(),
                 // Telphone numbers are not supported
                 TelefonNummerBeskyttelseIndikator = false
             };

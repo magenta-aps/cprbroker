@@ -83,7 +83,6 @@ namespace CprBroker.Providers.E_M
 
         public static PersonGenderCodeType ToPersonGenderCodeType(char gender)
         {
-            //TODO: check the gender conversion char codes in database            
             switch (gender.ToString().ToUpper()[0])
             {
                 case 'M':

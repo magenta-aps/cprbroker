@@ -20,24 +20,22 @@ namespace CprBroker.Providers.E_M
             }
         }
 
-        public static DateTime ToBirthdate(Citizen citizen)
+        public virtual DateTime ToBirthdate()
         {
-            if (citizen != null)
+            var birthdate = Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty);
+            if (birthdate.HasValue)
             {
-                var birthdate = Converters.ToDateTime(citizen.Birthdate, citizen.BirthdateUncertainty);
-                if (birthdate.HasValue)
-                {
-                    return birthdate.Value;
-                }
-                else
-                {
-                    return CprBroker.Utilities.Strings.PersonNumberToDate(Converters.ToCprNumber(citizen.PNR)).Value;
-                }
+                return birthdate.Value;
             }
             else
             {
-                throw new ArgumentNullException("citizen");
+                return CprBroker.Utilities.Strings.PersonNumberToDate(Converters.ToCprNumber(this.PNR)).Value;
             }
+        }
+
+        public virtual string ToBirthRegistrationAuthority()
+        {
+            return Authority.ToAuthorityName(this.BirthRegistrationAuthority);
         }
 
         public virtual bool ToChurchMembershipIndicator()
@@ -75,6 +73,11 @@ namespace CprBroker.Providers.E_M
         public virtual bool ToAddressProtectionIndicator(DateTime effectDate)
         {
             return Utilities.Dates.DateRangeIncludes(ToAddressProtectionStartDate(this), ToAddressProtectionEndDate(this), effectDate, false);
+        }
+
+        public virtual bool ToCivilRegistrationValidityStatusIndicator()
+        {
+            return Schemas.Util.Enums.IsActiveCivilRegistrationStatus(CitizenStatusCode);
         }
     }
 }

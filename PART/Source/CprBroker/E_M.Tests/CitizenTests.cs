@@ -18,6 +18,7 @@ namespace CprBroker.Tests.E_M
             public CitizenStub()
             {
                 PNR = Utilities.RandomCprNumber();
+                Gender = 'M';
             }
 
             public bool _ToChurchMembershipIndicator;
@@ -49,7 +50,90 @@ namespace CprBroker.Tests.E_M
             {
                 return _ToCountryIdentificationCodeType;
             }
+
+            public AdresseType _ToAndreAdresse = new AdresseType();
+            public override AdresseType ToAndreAdresse()
+            {
+                return _ToAndreAdresse;
+            }
+
+            public DateTime _ToBirthdate = new DateTime(2011, 11, 9);
+            public override DateTime ToBirthdate()
+            {
+                return _ToBirthdate;
+            }
+
+            public string _ToBirthRegistrationAuthority;
+            public override string ToBirthRegistrationAuthority()
+            {
+                return _ToBirthRegistrationAuthority;
+            }
+
+            public KontaktKanalType _ToKontaktKanalType = new KontaktKanalType();
+            public override KontaktKanalType ToKontaktKanalType()
+            {
+                return _ToKontaktKanalType;
+            }
+
+            public bool _ToCivilRegistrationValidityStatusIndicator;
+            public override bool ToCivilRegistrationValidityStatusIndicator()
+            {
+                return _ToCivilRegistrationValidityStatusIndicator;
+            }
         }
+
+        #region ToEgenskabType
+        [Test]
+        public void ToEgenskabType_Valid_NotNull()
+        {
+            var citizen = new CitizenStub() { };
+            var result = citizen.ToEgenskabType();
+            Assert.NotNull(result);
+        }
+
+        [Test]
+        public void ToEgenskabType_Valid_CorrectAndreAdresser()
+        {
+            var citizen = new CitizenStub() { };
+            var result = citizen.ToEgenskabType();
+            Assert.AreEqual(citizen._ToAndreAdresse, result.AndreAdresser);
+        }
+
+        [Test]
+        public void ToEgenskabType_Valid_CorrectBirthdate()
+        {
+            var citizen = new CitizenStub() { };
+            var result = citizen.ToEgenskabType();
+            Assert.AreEqual(citizen._ToBirthdate, result.BirthDate);
+        }
+
+        [Test]
+        public void ToEgenskabType_Valid_CorrectBirthPlaceText()
+        {
+            var citizen = new CitizenStub() { BirthPlaceText = "jkhgkhkahkj" };
+            var result = citizen.ToEgenskabType();
+            Assert.AreEqual(citizen.BirthPlaceText, result.FoedestedNavn);
+        }
+
+        [Test]
+        public void ToEgenskabType_Valid_CorrectBirthPlaceText(
+            [Values("GK", "LTK")]string authorityName)
+        {
+            var citizen = new CitizenStub() { _ToBirthRegistrationAuthority = authorityName };
+            var result = citizen.ToEgenskabType();
+            Assert.AreEqual(citizen._ToBirthRegistrationAuthority, result.FoedselsregistreringMyndighedNavn);
+        }
+
+        [Test]
+        public void ToEgenskabType_Valid_CorrectKontaktKanal()
+        {
+            var citizen = new CitizenStub() { };
+            var result = citizen.ToEgenskabType();
+            Assert.AreEqual(citizen._ToKontaktKanalType, result.KontaktKanal);
+        }
+
+
+        #endregion
 
         #region ToNavnStrukturType
 
@@ -215,15 +299,16 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        public void ToCprBorgerType_Valid_CorrectPersonNummerGyldighedStatusIndikator()
+        public void ToCprBorgerType_Valid_CorrectPersonNummerGyldighedStatusIndikator(
+            [Values(true, false)]bool pnrValidity)
         {
-            var citizen = new CitizenStub() { };
+            var citizen = new CitizenStub() { _ToCivilRegistrationValidityStatusIndicator = pnrValidity };
             var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);
-            Assert.AreEqual(true, result.PersonNummerGyldighedStatusIndikator);
+            Assert.AreEqual(citizen._ToCivilRegistrationValidityStatusIndicator, result.PersonNummerGyldighedStatusIndikator);
         }
 
         [Test]
-        public void ToCprBorgerType_Valid_CorrectTelefonNummerBeskyttelseIndikator()
+        public void ToCprBorgerType_Valid_FalsePersonNummerGyldighedStatusIndikator()
         {
             var citizen = new CitizenStub() { };
             var result = Citizen.ToCprBorgerType(citizen, DateTime.Now);

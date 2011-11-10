@@ -15,19 +15,19 @@ namespace CprBroker.Providers.E_M
             return null;
         }
 
-        private static KontaktKanalType ToNextOfKin(Citizen citizen)
+        public virtual KontaktKanalType ToNextOfKin()
         {
             //TODO: Shoud NextOfKin be implemented?
             return null;
         }
 
-        private static KontaktKanalType ToKontaktKanalType(Citizen citizen)
+        public virtual KontaktKanalType ToKontaktKanalType()
         {
             // No contact channels
             return null;
         }
 
-        private static AdresseType ToAndreAdresse(Citizen citizen)
+        public virtual AdresseType ToAndreAdresse()
         {
             //TODO: Shoud other address be filled?
             return null;
