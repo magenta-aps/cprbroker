@@ -54,7 +54,7 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        public NavnStrukturType ToNavnStrukturType()
+        public virtual NavnStrukturType ToNavnStrukturType()
         {
             var ret = NavnStrukturType.Create(this.AddressingName);
             ret.PersonNameForAddressingName = this.AddressingName;

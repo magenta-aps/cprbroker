@@ -80,6 +80,18 @@ namespace CprBroker.Tests.E_M
             {
                 return _ToCivilRegistrationValidityStatusIndicator;
             }
+
+            public KontaktKanalType _ToNextOfKin = new KontaktKanalType();
+            public override KontaktKanalType ToNextOfKin()
+            {
+                return _ToNextOfKin;
+            }
+
+            public NavnStrukturType _ToNavnStrukturType = new NavnStrukturType();
+            public override NavnStrukturType ToNavnStrukturType()
+            {
+                return _ToNavnStrukturType;
+            }
         }
 
         #region ToEgenskabType
@@ -116,12 +128,12 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        public void ToEgenskabType_Valid_CorrectBirthPlaceText(
+        public void ToEgenskabType_Valid_CorrectBirthRegistrationAuthority(
             [Values("GK", "LTK")]string authorityName)
         {
             var citizen = new CitizenStub() { _ToBirthRegistrationAuthority = authorityName };
             var result = citizen.ToEgenskabType();
-            Assert.AreEqual(citizen._ToBirthRegistrationAuthority, result.FoedselsregistreringMyndighedNavn);
+            Assert.AreEqual(authorityName, result.FoedselsregistreringMyndighedNavn);
         }
 
         [Test]
@@ -132,6 +144,31 @@ namespace CprBroker.Tests.E_M
             Assert.AreEqual(citizen._ToKontaktKanalType, result.KontaktKanal);
         }
 
+        [Test]
+        public void ToEgenskabType_Valid_CorrectNaermestePaaroerende()
+        {
+            var citizen = new CitizenStub() { };
+            var result = citizen.ToEgenskabType();
+            Assert.AreEqual(citizen._ToNextOfKin, result.NaermestePaaroerende);
+        }
+
+        [Test]
+        public void ToEgenskabType_Valid_CorrectNavnStruktur()
+        {
+            var citizen = new CitizenStub() { };
+            var result = citizen.ToEgenskabType();
+            Assert.AreEqual(citizen._ToNavnStrukturType, result.NavnStruktur);
+        }
+
+        [Test]
+        public void ToEgenskabType_Valid_CorrectGender(
+            [Values('K', 'M')]char gender
+            )
+        {
+            var citizen = new CitizenStub() { Gender = gender };
+            var result = citizen.ToEgenskabType();
+            Assert.AreEqual(Converters.ToPersonGenderCodeType(gender), result.PersonGenderCode);
+        }
 
         #endregion
 
