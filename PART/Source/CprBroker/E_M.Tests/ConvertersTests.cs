@@ -194,6 +194,33 @@ namespace CprBroker.Tests.E_M
         }
         #endregion
 
+        #region ToChurchMembershipIndicator
+
+        [Test]
+        public void ToChurchMembershipIndicator_Member_F_ReturnsTrue()
+        {
+            var result = Converters.ToChurchMembershipIndicator('F');
+            Assert.True(result);
+        }
+
+        [Test]
+        public void ToChurchMembershipIndicator_OtherValues_ReturnsFalse(
+            [Values('U', 'A', 'M', 'S')]char value)
+        {
+            var result = Converters.ToChurchMembershipIndicator(value);
+            Assert.False(result);
+        }
+
+        [Test]
+        public void ToChurchMembershipIndicator_InvalidValues_ReturnsFalse(
+            [Values('W', 'I', '8', ' ')]char value)
+        {
+            var result = Converters.ToChurchMembershipIndicator(value);
+            Assert.False(result);
+        }
+
+        #endregion
+
         DateTime?[][] NullDateArrays = new DateTime?[][]{
             new DateTime?[]{null},
             new DateTime?[]{null, null}
