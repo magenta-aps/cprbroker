@@ -51,10 +51,10 @@
       <Column Name="FAR_DOK" Member="FatherDocument" Type="System.String" DbType="Char(3)" CanBeNull="false" />
       <Column Name="VEJVIS_BESK_SLTDTO" Member="DirectoryProtectionEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
       <Column Name="FODSEL_UM" Member="BirthdateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
-      <Column Name="PERSONNR_OPRET_UM" Member="PnrCreationdateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
-      <Column Name="PERSONNR_MRK_UM" Member="PnrMarkingDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
+      <Column Name="PERSONNR_OPRET_UM" Member="PNRCreationdateUncertainty" Storage="_PnrCreationdateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
+      <Column Name="PERSONNR_MRK_UM" Member="PNRMarkingDateUncertainty" Storage="_PnrMarkingDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="STILLING_UM" Member="OccupationDateUncertainty" Storage="_PostDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
-      <Column Name="ADRNAVN_UM" Member="AddressingNameUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
+      <Column Name="ADRNAVN_UM" Member="AddressingNameDateUncertainty" Storage="_AddressingNameUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="FOLKEKIRK_MRK_UM" Member="ChurchMarkerDateUncertainty" Storage="_NationalChurchMarkerUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="BORGERSTATUS_UM" Member="CitizenStatusTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="FODSELSREG_UM" Member="BirthRegistrationDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />

@@ -351,14 +351,14 @@ namespace CprBroker.Providers.E_M
     partial void OnDirectoryProtectionEndDateChanged();
     partial void OnBirthdateUncertaintyChanging(char value);
     partial void OnBirthdateUncertaintyChanged();
-    partial void OnPnrCreationdateUncertaintyChanging(char value);
-    partial void OnPnrCreationdateUncertaintyChanged();
-    partial void OnPnrMarkingDateUncertaintyChanging(char value);
-    partial void OnPnrMarkingDateUncertaintyChanged();
+    partial void OnPNRCreationdateUncertaintyChanging(char value);
+    partial void OnPNRCreationdateUncertaintyChanged();
+    partial void OnPNRMarkingDateUncertaintyChanging(char value);
+    partial void OnPNRMarkingDateUncertaintyChanged();
     partial void OnOccupationDateUncertaintyChanging(char value);
     partial void OnOccupationDateUncertaintyChanged();
-    partial void OnAddressingNameUncertaintyChanging(char value);
-    partial void OnAddressingNameUncertaintyChanged();
+    partial void OnAddressingNameDateUncertaintyChanging(char value);
+    partial void OnAddressingNameDateUncertaintyChanged();
     partial void OnChurchMarkerDateUncertaintyChanging(char value);
     partial void OnChurchMarkerDateUncertaintyChanged();
     partial void OnCitizenStatusTimestampUncertaintyChanging(char value);
@@ -1379,7 +1379,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="PERSONNR_OPRET_UM", Storage="_PnrCreationdateUncertainty", DbType="Char(1)")]
-		public char PnrCreationdateUncertainty
+		public char PNRCreationdateUncertainty
 		{
 			get
 			{
@@ -1389,17 +1389,17 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._PnrCreationdateUncertainty != value))
 				{
-					this.OnPnrCreationdateUncertaintyChanging(value);
+					this.OnPNRCreationdateUncertaintyChanging(value);
 					this.SendPropertyChanging();
 					this._PnrCreationdateUncertainty = value;
-					this.SendPropertyChanged("PnrCreationdateUncertainty");
-					this.OnPnrCreationdateUncertaintyChanged();
+					this.SendPropertyChanged("PNRCreationdateUncertainty");
+					this.OnPNRCreationdateUncertaintyChanged();
 				}
 			}
 		}
 		
 		[Column(Name="PERSONNR_MRK_UM", Storage="_PnrMarkingDateUncertainty", DbType="Char(1)")]
-		public char PnrMarkingDateUncertainty
+		public char PNRMarkingDateUncertainty
 		{
 			get
 			{
@@ -1409,11 +1409,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._PnrMarkingDateUncertainty != value))
 				{
-					this.OnPnrMarkingDateUncertaintyChanging(value);
+					this.OnPNRMarkingDateUncertaintyChanging(value);
 					this.SendPropertyChanging();
 					this._PnrMarkingDateUncertainty = value;
-					this.SendPropertyChanged("PnrMarkingDateUncertainty");
-					this.OnPnrMarkingDateUncertaintyChanged();
+					this.SendPropertyChanged("PNRMarkingDateUncertainty");
+					this.OnPNRMarkingDateUncertaintyChanged();
 				}
 			}
 		}
@@ -1439,7 +1439,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="ADRNAVN_UM", Storage="_AddressingNameUncertainty", DbType="Char(1)")]
-		public char AddressingNameUncertainty
+		public char AddressingNameDateUncertainty
 		{
 			get
 			{
@@ -1449,11 +1449,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._AddressingNameUncertainty != value))
 				{
-					this.OnAddressingNameUncertaintyChanging(value);
+					this.OnAddressingNameDateUncertaintyChanging(value);
 					this.SendPropertyChanging();
 					this._AddressingNameUncertainty = value;
-					this.SendPropertyChanged("AddressingNameUncertainty");
-					this.OnAddressingNameUncertaintyChanged();
+					this.SendPropertyChanged("AddressingNameDateUncertainty");
+					this.OnAddressingNameDateUncertaintyChanged();
 				}
 			}
 		}

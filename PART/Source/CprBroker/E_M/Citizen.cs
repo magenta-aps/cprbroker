@@ -9,6 +9,8 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
+        // TODO: See what is meant bt PNRMarkingDate?? If applicable, add to Virkning in RegisterOplysning
+
         public RegistreringType1 ToRegistreringType1(DateTime effectDate, Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RegistreringType1()
@@ -49,9 +51,20 @@ namespace CprBroker.Providers.E_M
                 NaermestePaaroerende = this.ToNextOfKin(),
                 NavnStruktur = this.ToNavnStrukturType(),
                 PersonGenderCode = Converters.ToPersonGenderCodeType(this.Gender),
-                Virkning = this.ToEgenskabVirkningType()
+                Virkning = this.ToEgenskabTypeVirkning()
             };
             return ret;
+        }
+
+        public VirkningType ToEgenskabTypeVirkning()
+        {
+            return VirkningType.Create(
+               Converters.GetMaxDate(
+                    this.ToBirthdate(),
+                    Converters.ToDateTime(this.AddressingNameDate, this.AddressingNameDateUncertainty)
+               ),
+               null
+           );
         }
 
         public virtual NavnStrukturType ToNavnStrukturType()
@@ -118,7 +131,7 @@ namespace CprBroker.Providers.E_M
                     Converters.ToDateTime(this.AddressProtectionEndDate, this.AddressProtectionEndDateUncertainty),
                     Converters.ToDateTime(this.NationalityChangeTimestamp, this.NationalityChangeTimestampUncertainty),
                     Converters.ToDateTime(this.NationalityTerminationTimestamp, this.NationalityTerminationTimestampUncertainty),
-                    Converters.ToDateTime(this.CitizenStatusTimestamp, this.CitizenStatusTimestampUncertainty)
+                    Converters.ToDateTime(this.PNRCreationDate, this.PNRCreationdateUncertainty)
                ),
                null
            );
@@ -141,7 +154,7 @@ namespace CprBroker.Providers.E_M
         {
             return VirkningType.Create(
                 Converters.GetMaxDate(
-                    Converters.ToDateTime(this.CitizenStatusTimestamp, this.CitizenStatusTimestampUncertainty),
+                    Converters.ToDateTime(this.PNRCreationDate, this.PNRCreationdateUncertainty),
                     Converters.ToDateTime(this.NationalityChangeTimestamp, this.NationalityChangeTimestampUncertainty),
                     Converters.ToDateTime(this.NationalityTerminationTimestamp, this.NationalityTerminationTimestampUncertainty)
                 ),
@@ -161,7 +174,7 @@ namespace CprBroker.Providers.E_M
         {
             return VirkningType.Create(
                 Converters.GetMaxDate(
-                    Converters.ToDateTime(CitizenStatusTimestamp, CitizenStatusTimestampUncertainty)
+                    Converters.ToDateTime(this.PNRCreationDate, this.PNRCreationdateUncertainty)
                 ),
                 null
             );
