@@ -25,7 +25,6 @@ namespace CprBroker.Providers.E_M
 
         public static string ToCprNumber(decimal cprNumber)
         {
-            //TODO: Test cpr number conversion
             if (IsValidCprNumber(cprNumber))
             {
                 string ret = DecimalToString(cprNumber);
@@ -57,7 +56,6 @@ namespace CprBroker.Providers.E_M
         public static LivStatusKodeType ToLivStatusKodeType(short value, bool birthdateHasValue)
         {
             decimal decimalStatus = (decimal)value;
-            //TODO: Validate this call
             return Schemas.Util.Enums.ToLifeStatus(decimalStatus, birthdateHasValue);
         }
 
@@ -72,7 +70,6 @@ namespace CprBroker.Providers.E_M
 
         public static string ShortToString(short val)
         {
-            //TODO: Revise this short to string conversion
             return val.ToString("F0");
         }
 

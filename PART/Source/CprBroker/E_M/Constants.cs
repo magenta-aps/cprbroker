@@ -7,7 +7,6 @@ namespace CprBroker.Providers.E_M
 {
     public class Constants
     {
-        //TODO: Revise all the codes        
         public static readonly short DenmarkCountryCode = 5100;
 
         public static readonly short NullCountryCode = 0;

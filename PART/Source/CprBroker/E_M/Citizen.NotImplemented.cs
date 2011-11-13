@@ -17,7 +17,7 @@ namespace CprBroker.Providers.E_M
 
         public virtual KontaktKanalType ToNextOfKin()
         {
-            //TODO: Shoud NextOfKin be implemented?
+            // No NextOfKin
             return null;
         }
 

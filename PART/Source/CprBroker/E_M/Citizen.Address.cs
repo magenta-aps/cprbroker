@@ -21,7 +21,6 @@ namespace CprBroker.Providers.E_M
             var ret = new DanskAdresseType()
             {
                 AddressComplete = null,
-                // TODO: Fill citizen point
                 AddressPoint = null,
                 NoteTekst = null,
                 PolitiDistriktTekst = null,
