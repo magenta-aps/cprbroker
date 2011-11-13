@@ -90,6 +90,12 @@ namespace CprBroker.Providers.E_M
             throw new ArgumentException(string.Format("Invalid gender value <{0}>", gender), "gender");
         }
 
+        public static bool ToChurchMembershipIndicator(char churchMarker)
+        {
+            // F U A M S 
+            return churchMarker == 'F';
+        }
+
         public static DateTime? GetMaxDate(params DateTime?[] dates)
         {
             if (dates != null)

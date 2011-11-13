@@ -40,9 +40,7 @@ namespace CprBroker.Providers.E_M
 
         public virtual bool ToChurchMembershipIndicator()
         {
-            // TODO: What do the other values mean?
-            // F U A M S 
-            return this.ChurchMarker == 'F';
+            return Converters.ToChurchMembershipIndicator(this.ChurchMarker);
         }
 
         public DateTime? ToDirectoryProtectionStartDate()
