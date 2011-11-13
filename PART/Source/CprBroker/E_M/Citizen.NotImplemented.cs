@@ -29,7 +29,6 @@ namespace CprBroker.Providers.E_M
 
         public virtual AdresseType ToAndreAdresse()
         {
-            //TODO: Shoud other address be filled?
             return null;
         }
 
