@@ -24,7 +24,7 @@ namespace CprBroker.Providers.E_M
                 Converters.ToDateTime(this.DirectoryProtectionDate, this.DirectoryProtectionDateUncertainty),
                 Converters.ToDateTime(this.MaritalStatusTimestamp,this.MaritalStatusTimestampUncertainty),
                 Converters.ToDateTime(this.MaritalStatusTerminationTimestamp,this.MaritalStatusTerminationTimestampUncertainty),
-                Converters.ToDateTime(this.MunicipalityArrivalDate,this.MunicipalityArrivalTimestampUncertainty),
+                Converters.ToDateTime(this.MunicipalityArrivalDate,this.MunicipalityArrivalDateUncertainty),
                 Converters.ToDateTime(this.ChurchMarkerDate, this.ChurchMarkerDateUncertainty),
                 Converters.ToDateTime(this.NationalityChangeTimestamp,this.NationalityChangeTimestampUncertainty),
                 Converters.ToDateTime(this.NationalityTerminationTimestamp,this.NationalityTerminationTimestampUncertainty),

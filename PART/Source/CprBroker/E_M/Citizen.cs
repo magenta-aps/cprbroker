@@ -66,20 +66,23 @@ namespace CprBroker.Providers.E_M
             var ret = new RegisterOplysningType()
             {
                 Item = null,
-                // TODO: Fill effect dates
                 Virkning = null,
             };
+
             if (Constants.UnknownCountryCodes.Contains(this.CountryCode))
             {
                 ret.Item = this.ToUkendtBorgerType();
+                ret.Virkning = this.ToUkendtBorgerTypeVirkning();
             }
             else if (this.CountryCode == Constants.DenmarkCountryCode)
             {
                 ret.Item = this.ToCprBorgerType(effectDate);
+                ret.Virkning = this.ToCprBorgerTypeVirkning();
             }
             else
             {
                 ret.Item = this.ToUdenlandskBorgerType();
+                ret.Virkning = this.ToUdenlandskBorgerTypeVirkning();
             }
             return ret;
         }
@@ -101,18 +104,49 @@ namespace CprBroker.Providers.E_M
             };
         }
 
+        public VirkningType ToCprBorgerTypeVirkning()
+        {
+            return VirkningType.Create(
+               Converters.GetMaxDate(
+                    Converters.ToDateTime(this.ChurchMarkerDate, this.ChurchMarkerDateUncertainty),
+                    Converters.ToDateTime(this.MunicipalityArrivalDate, this.MunicipalityArrivalDateUncertainty),
+                    Converters.ToDateTime(this.DepartureTimestamp, this.DepartureTimestampUncertainty),
+                    Converters.ToDateTime(this.RelocationTimestamp, this.RelocationTimestampUncertainty),
+                    Converters.ToDateTime(this.DirectoryProtectionDate, this.DirectoryProtectionDateUncertainty),
+                    Converters.ToDateTime(this.DirectoryProtectionEndDate, this.DirectoryProtectionEndDateUncertainty),
+                    Converters.ToDateTime(this.AddressProtectionDate, this.AddressProtectionDateUncertainty),
+                    Converters.ToDateTime(this.AddressProtectionEndDate, this.AddressProtectionEndDateUncertainty),
+                    Converters.ToDateTime(this.NationalityChangeTimestamp, this.NationalityChangeTimestampUncertainty),
+                    Converters.ToDateTime(this.NationalityTerminationTimestamp, this.NationalityTerminationTimestampUncertainty),
+                    Converters.ToDateTime(this.CitizenStatusTimestamp, this.CitizenStatusTimestampUncertainty)
+               ),
+               null
+           );
+        }
+
         public UdenlandskBorgerType ToUdenlandskBorgerType()
         {
             return new UdenlandskBorgerType()
             {
                 // TODO: See if we can find a birth nationality (different from current nationality)
                 FoedselslandKode = null,
-                // TODO: Shall PersonCivilRegistrationReplacementIdentifier and PersonIdentifikator be swapped ?
                 PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(this.PNR),
                 PersonIdentifikator = null,
                 PersonNationalityCode = new CountryIdentificationCodeType[] { this.ToCountryIdentificationCodeType() },
                 SprogKode = null
             };
+        }
+
+        public VirkningType ToUdenlandskBorgerTypeVirkning()
+        {
+            return VirkningType.Create(
+                Converters.GetMaxDate(
+                    Converters.ToDateTime(this.CitizenStatusTimestamp, this.CitizenStatusTimestampUncertainty),
+                    Converters.ToDateTime(this.NationalityChangeTimestamp, this.NationalityChangeTimestampUncertainty),
+                    Converters.ToDateTime(this.NationalityTerminationTimestamp, this.NationalityTerminationTimestampUncertainty)
+                ),
+                null
+            );
         }
 
         public UkendtBorgerType ToUkendtBorgerType()
@@ -121,6 +155,16 @@ namespace CprBroker.Providers.E_M
             {
                 PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(this.PNR)
             };
+        }
+
+        public VirkningType ToUkendtBorgerTypeVirkning()
+        {
+            return VirkningType.Create(
+                Converters.GetMaxDate(
+                    Converters.ToDateTime(CitizenStatusTimestamp, CitizenStatusTimestampUncertainty)
+                ),
+                null
+            );
         }
 
     }

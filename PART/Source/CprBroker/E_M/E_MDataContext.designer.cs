@@ -369,8 +369,8 @@ namespace CprBroker.Providers.E_M
     partial void OnRelocationTimestampUncertaintyChanged();
     partial void OnDepartureTimestampUncertaintyChanging(char value);
     partial void OnDepartureTimestampUncertaintyChanged();
-    partial void OnMunicipalityArrivalTimestampUncertaintyChanging(char value);
-    partial void OnMunicipalityArrivalTimestampUncertaintyChanged();
+    partial void OnMunicipalityArrivalDateUncertaintyChanging(char value);
+    partial void OnMunicipalityArrivalDateUncertaintyChanged();
     partial void OnAddressProtectionDateUncertaintyChanging(char value);
     partial void OnAddressProtectionDateUncertaintyChanged();
     partial void OnAddressProtectionEndDateUncertaintyChanging(char value);
@@ -1559,7 +1559,7 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		[Column(Name="KOM_TILFLYT_UM", Storage="_MunicipalityArrivalTimestampUncertainty", DbType="Char(1)")]
-		public char MunicipalityArrivalTimestampUncertainty
+		public char MunicipalityArrivalDateUncertainty
 		{
 			get
 			{
@@ -1569,11 +1569,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._MunicipalityArrivalTimestampUncertainty != value))
 				{
-					this.OnMunicipalityArrivalTimestampUncertaintyChanging(value);
+					this.OnMunicipalityArrivalDateUncertaintyChanging(value);
 					this.SendPropertyChanging();
 					this._MunicipalityArrivalTimestampUncertainty = value;
-					this.SendPropertyChanged("MunicipalityArrivalTimestampUncertainty");
-					this.OnMunicipalityArrivalTimestampUncertaintyChanged();
+					this.SendPropertyChanged("MunicipalityArrivalDateUncertainty");
+					this.OnMunicipalityArrivalDateUncertaintyChanged();
 				}
 			}
 		}

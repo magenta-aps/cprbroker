@@ -60,7 +60,7 @@
       <Column Name="FODSELSREG_UM" Member="BirthRegistrationDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="ADR_TILFLYT_UM" Member="RelocationTimestampUncertainty" Storage="_ArrivalTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="ADR_FRAFLYT_UM" Member="DepartureTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
-      <Column Name="KOM_TILFLYT_UM" Member="MunicipalityArrivalTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
+      <Column Name="KOM_TILFLYT_UM" Member="MunicipalityArrivalDateUncertainty" Storage="_MunicipalityArrivalTimestampUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="ADR_BESKYT_UM" Member="AddressProtectionDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="ADR_BESKYT_SLT_UM" Member="AddressProtectionEndDateUncertainty" Storage="_AddressProtectionTerminationDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="VEJVIS_BESKYT_UM" Member="DirectoryProtectionDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
