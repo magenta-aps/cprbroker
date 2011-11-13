@@ -93,7 +93,7 @@ namespace CprBroker.Tests.E_M
             }
 
             public VirkningType _ToEgenskabVirkningType = new VirkningType();
-            public override VirkningType ToEgenskabVirkningType()
+            public override VirkningType ToEgenskabTypeVirkning()
             {
                 return this._ToEgenskabVirkningType;
             }

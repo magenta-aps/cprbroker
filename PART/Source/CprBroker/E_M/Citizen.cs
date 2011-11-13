@@ -56,7 +56,7 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        public VirkningType ToEgenskabTypeVirkning()
+        public virtual VirkningType ToEgenskabTypeVirkning()
         {
             return VirkningType.Create(
                Converters.GetMaxDate(
