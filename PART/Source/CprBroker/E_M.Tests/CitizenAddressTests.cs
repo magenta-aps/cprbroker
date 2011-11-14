@@ -175,6 +175,35 @@ namespace CprBroker.Tests.E_M
         }
         #endregion
 
+        #region ToSpecielVejkodeIndikator
+        [Test]
+        public void ToSpecielVejkodeIndikator_LowCode_ReturnsFalse(
+            [Values(1, 4, 5, 34, 500, 700, 899)]short roadCode)
+        {
+            var citizen = new Citizen() { RoadCode = roadCode };
+            var result = citizen.ToSpecielVejkodeIndikator();
+            Assert.False(result);
+        }
+
+        [Test]
+        public void ToSpecielVejkodeIndikator_HighCode_ReturnsTrue(
+            [Values(9900, 9950, 9999)]short roadCode)
+        {
+            var citizen = new Citizen() { RoadCode = roadCode };
+            var result = citizen.ToSpecielVejkodeIndikator();
+            Assert.True(result);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToSpecielVejkodeIndikator_InvalidCode_ThrowsException(
+            [Values(-20,-1, 0, 10000,10022)]short roadCode)
+        {
+            var citizen = new Citizen() { RoadCode = roadCode };
+            citizen.ToSpecielVejkodeIndikator();
+        }
+        #endregion
+
         #region ToAddressCompleteType
 
         [Test]

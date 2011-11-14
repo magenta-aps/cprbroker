@@ -43,7 +43,7 @@ namespace CprBroker.Providers.E_M
                 UkendtAdresseIndikator = false,
                 // No election district
                 ValgkredsDistriktTekst = null
-            };            
+            };
             // TODO: Find a way to get the postal code if not found in the current way
             if (this.HousePostCode != null)
             {
@@ -54,7 +54,14 @@ namespace CprBroker.Providers.E_M
 
         public bool ToSpecielVejkodeIndikator()
         {
-            return this.RoadCode >= 9900;
+            if (RoadCode >= 1 && RoadCode <= 9999)
+            {
+                return this.RoadCode >= 9900;
+            }
+            else
+            {
+                throw new ArgumentException(string.Format("RoadCode <{0}> must be between 1 and 9999", RoadCode));
+            }
         }
 
         public AddressCompleteType ToAddressCompleteType()
