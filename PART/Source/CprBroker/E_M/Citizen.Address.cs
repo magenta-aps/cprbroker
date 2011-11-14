@@ -20,34 +20,41 @@ namespace CprBroker.Providers.E_M
         {
             var ret = new DanskAdresseType()
             {
-                AddressComplete = null,
+                AddressComplete = this.ToAddressCompleteType(),
+                // No address point for persons
                 AddressPoint = null,
+                // No address note
                 NoteTekst = null,
+                // No political districts
                 PolitiDistriktTekst = null,
+                // Will be set later in this method
                 PostDistriktTekst = null,
+                // No school district
                 SkoleDistriktTekst = null,
+                // No social disrict
                 SocialDistriktTekst = null,
+                // No church district
                 SogneDistriktTekst = null,
-                SpecielVejkodeIndikator = false,
-                SpecielVejkodeIndikatorSpecified = false,
+                // Assumed as high road code
+                SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(),
+                // Always true because SpecielVejkodeIndikator is always set
+                SpecielVejkodeIndikatorSpecified = true,
+                // Always false
                 UkendtAdresseIndikator = false,
+                // No election district
                 ValgkredsDistriktTekst = null
-            };
-            if (this == null)
+            };            
+            // TODO: Find a way to get the postal code if not found in the current way
+            if (this.HousePostCode != null)
             {
-                // TODO: See when to set this flag
-                ret.UkendtAdresseIndikator = true;
-            }
-            else
-            {
-                ret.AddressComplete = this.ToAddressCompleteType();
-                // TODO: Find a way to get the postal code if not found in the current way
-                if (this.HousePostCode != null)
-                {
-                    ret.PostDistriktTekst = this.HousePostCode.PostDistrict;
-                }
+                ret.PostDistriktTekst = this.HousePostCode.PostDistrict;
             }
             return ret;
+        }
+
+        public bool ToSpecielVejkodeIndikator()
+        {
+            return this.RoadCode >= 9900;
         }
 
         public AddressCompleteType ToAddressCompleteType()
