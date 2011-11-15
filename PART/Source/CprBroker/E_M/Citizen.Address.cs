@@ -98,12 +98,13 @@ namespace CprBroker.Providers.E_M
 
             var ret = new CprBroker.Schemas.Part.AddressPostalType()
            {
+               // Set country code
                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-               // TODO: See if DistrictSubdivisionIdentifier can be found
+               // DistrictSubdivisionIdentifier not supported
                DistrictSubdivisionIdentifier = null,
                // Set floor
                FloorIdentifier = this.Floor,
-               // TODO: See if MailDeliverySublocationIdentifier can be found
+               // MailDeliverySublocationIdentifier not supported
                MailDeliverySublocationIdentifier = null,
                // Set post code
                PostCodeIdentifier = postCode,
