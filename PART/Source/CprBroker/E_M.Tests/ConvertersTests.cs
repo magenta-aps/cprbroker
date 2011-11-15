@@ -264,6 +264,15 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [Sequential]
+        public void ToNeutralHouseNumber_Empty_ReturnsZero(
+            [Values(null, "", " ", "     ")]string houseNumber)
+        {
+            var result = Converters.ToNeutralHouseNumber(houseNumber);
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        [Sequential]
         public void ToNeutralHouseNumber_Normal_ReturnsCorrect(
             [Values("1", "22", "   ")]string houseNumber,
             [Values(1, 22, 0)]int houseNumberIntExpected)

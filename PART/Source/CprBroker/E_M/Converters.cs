@@ -115,7 +115,7 @@ namespace CprBroker.Providers.E_M
 
         public static int ToNeutralHouseNumber(string houseNumber)
         {
-            houseNumber = houseNumber.Trim();
+            houseNumber = string.Format("{0}", houseNumber).Trim();
             if (houseNumber.Length > 0)
             {
                 string pat = "\\A0*(?<num>[1-9][0-9]*)[a-zA-Z]?\\z";
@@ -126,13 +126,13 @@ namespace CprBroker.Providers.E_M
                 }
                 else
                 {
-                    throw new ArgumentException(string.Format("Invalid format in houseNumber <{0}>",houseNumber));
+                    throw new ArgumentException(string.Format("Invalid format in houseNumber <{0}>", houseNumber));
                 }
             }
             else
             {
                 return 0;
-            }            
+            }
         }
     }
 }
