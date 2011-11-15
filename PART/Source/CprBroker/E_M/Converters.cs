@@ -113,5 +113,26 @@ namespace CprBroker.Providers.E_M
             throw new ArgumentNullException("dates");
         }
 
+        public static int ToNeutralHouseNumber(string houseNumber)
+        {
+            houseNumber = houseNumber.Trim();
+            if (houseNumber.Length > 0)
+            {
+                string pat = "\\A0*(?<num>[1-9][0-9]*)[a-zA-Z]?\\z";
+                var match = System.Text.RegularExpressions.Regex.Match(houseNumber, pat);
+                if (match.Success)
+                {
+                    return int.Parse(match.Groups["num"].Value);
+                }
+                else
+                {
+                    throw new ArgumentException(string.Format("Invalid format in houseNumber <{0}>",houseNumber));
+                }
+            }
+            else
+            {
+                return 0;
+            }            
+        }
     }
 }

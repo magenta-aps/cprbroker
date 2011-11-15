@@ -221,6 +221,8 @@ namespace CprBroker.Tests.E_M
 
         #endregion
 
+        #region GetMaxDate
+
         DateTime?[][] NullDateArrays = new DateTime?[][]{
             new DateTime?[]{null},
             new DateTime?[]{null, null}
@@ -255,6 +257,49 @@ namespace CprBroker.Tests.E_M
             var dd = dates.Where(d => d.HasValue).Select(d => d.Value);
             Assert.AreEqual(dd.Max(), result);
         }
+
+        #endregion
+
+        #region ToNeutralHouseNumber
+
+        [Test]
+        [Sequential]
+        public void ToNeutralHouseNumber_Normal_ReturnsCorrect(
+            [Values("1", "22", "   ")]string houseNumber,
+            [Values(1, 22, 0)]int houseNumberIntExpected)
+        {
+            var result = Converters.ToNeutralHouseNumber(houseNumber);
+            Assert.AreEqual(houseNumberIntExpected, result);
+        }
+
+        [Test]
+        [Sequential]
+        public void ToNeutralHouseNumber_ZeroStart_ReturnsCorrect(
+            [Values("022", "0001", "0022  ")]string houseNumber,
+            [Values(22, 1, 22)]int houseNumberIntExpected)
+        {
+            var result = Converters.ToNeutralHouseNumber(houseNumber);
+            Assert.AreEqual(houseNumberIntExpected, result);
+        }
+
+        [Test]
+        [Sequential]
+        public void ToNeutralHouseNumber_EndChar_ReturnsCorrect(
+            [Values("1A", "22W", "022C ", "0001S   ")]string houseNumber,
+            [Values(1, 22, 22, 1)]int houseNumberIntExpected)
+        {
+            var result = Converters.ToNeutralHouseNumber(houseNumber);
+            Assert.AreEqual(houseNumberIntExpected, result);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToNeutralHouseNumber_Invalid_ThrowsException(
+            [Values("A", "!", "S22", "23AA")]string houseNumber)
+        {
+            Converters.ToNeutralHouseNumber(houseNumber);
+        }
+        #endregion
 
     }
 }
