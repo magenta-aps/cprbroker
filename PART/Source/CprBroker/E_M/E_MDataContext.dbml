@@ -71,6 +71,8 @@
       <Column Name="VEJVIS_BESK_SLT_UM" Member="DirectoryProtectionEndDateUncertainty" Storage="_DirectoryProtectionRemovalDateUncertainty" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Association Name="Citizen_Child" Member="ChildrenAsMother" ThisKey="PNR" OtherKey="MotherPNR" Type="Child" />
       <Association Name="Citizen_Child1" Member="ChildrenAsFather" ThisKey="PNR" OtherKey="FatherPNR" Type="Child" />
+      <Association Name="Citizen_HousePostCode" Member="RoadPostCodes" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="HousePostCode" />
+      <Association Name="Citizen_HouseRangePostCode" Member="HouseRangePostCodes" ThisKey="MunicipalityCode,RoadCode,OddEvenRoadSide" OtherKey="MunicipalityCode,RoadCode,OddEvenRoadSide" Type="HouseRangePostCode" />
       <Association Name="HousePostCode_Citizen" Member="HousePostCode" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="HousePostCode" IsForeignKey="true" />
       <Association Name="Authority_Citizen" Member="BirthRegistrationAuthority" ThisKey="BirthRegistrationAuthorityCode" OtherKey="AuthorityCode" Type="Authority" IsForeignKey="true" />
     </Type>
@@ -96,6 +98,7 @@
       <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
       <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
       <Association Name="HousePostCode_Citizen" Member="Citizens" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="Citizen" />
+      <Association Name="Citizen_HousePostCode" Member="Citizen" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Citizen" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.AA74000V" Member="Authorities">
@@ -117,6 +120,22 @@
       <Column Name="MYND_OPRET_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="MYND_OPHOR_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Association Name="Authority_Citizen" Member="Citizens" ThisKey="AuthorityCode" OtherKey="BirthRegistrationAuthorityCode" Type="Citizen" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AA73400V" Member="HouseRangePostCodes">
+    <Type Name="HouseRangePostCode">
+      <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CPR_DISTRIKT_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DIST_INDD_OPRET_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DIST_INDD_OPHOR_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="HUSNUMMER_FRA" Member="FromHouseNumber" Type="System.String" DbType="Char(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HUSNUMMER_TIL" Member="ToHouseNumber" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJSIDE_F_LIG_ULIG" Member="OddEvenRoadSide" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="POST_INDD_OPRET_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="POST_INDD_OPHOR_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="Citizen_HouseRangePostCode" Member="Citizen" ThisKey="MunicipalityCode,RoadCode,OddEvenRoadSide" OtherKey="MunicipalityCode,RoadCode,OddEvenRoadSide" Type="Citizen" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

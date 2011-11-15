@@ -451,7 +451,7 @@ namespace CprBroker.Tests.E_M
             public void ToRegisterOplysningType_WhateverCountry_ReturnsNotNull(
                 [Values(5100, 6763, 12)]short countryCode)
             {
-                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1 };
+                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1, RoadCode = 222 };
                 var result = citizen.ToRegisterOplysningType(DateTime.Today);
                 Assert.NotNull(result.Item);
             }
@@ -479,7 +479,7 @@ namespace CprBroker.Tests.E_M
             public void ToRegisterOplysningType_UnknownCountry_ReturnsCprBorgerType(
                 [Values(5100)]short countryCode)
             {
-                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1 };
+                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1, RoadCode = 222 };
                 var result = citizen.ToRegisterOplysningType(DateTime.Today);
                 Assert.IsInstanceOf<CprBorgerType>(result.Item);
             }

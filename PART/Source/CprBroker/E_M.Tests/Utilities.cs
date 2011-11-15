@@ -45,13 +45,13 @@ namespace CprBroker.Tests.E_M
             }
         }
 
-        private static Random random = new Random();
+        public static readonly Random Random = new Random();
         public static decimal RandomCprNumber()
         {
-            var day = random.Next(1, 29).ToString("00");
-            var month = random.Next(1, 13).ToString("00");
-            var year = random.Next(1, 100).ToString("00");
-            var part1 = random.Next(1000, 9999).ToString();
+            var day = Random.Next(1, 29).ToString("00");
+            var month = Random.Next(1, 13).ToString("00");
+            var year = Random.Next(1, 100).ToString("00");
+            var part1 = Random.Next(1000, 9999).ToString();
             return decimal.Parse(day + month + year + part1);
         }
 
@@ -64,6 +64,16 @@ namespace CprBroker.Tests.E_M
                 cprNumbers.Add(RandomCprNumber());
             }
             return cprNumbers.ToArray();
+        }
+
+        public static short RandomShort()
+        {
+            return (short)Random.Next(short.MaxValue);
+        }
+
+        public static string RandomString()
+        {
+            return Guid.NewGuid().ToString().Substring(0, 10);
         }
     }
 }
