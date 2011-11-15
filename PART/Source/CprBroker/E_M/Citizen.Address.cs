@@ -94,15 +94,25 @@ namespace CprBroker.Providers.E_M
             var ret = new CprBroker.Schemas.Part.AddressPostalType()
            {
                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
+               // TODO: See if DistrictSubdivisionIdentifier can be found
                DistrictSubdivisionIdentifier = null,
+               // Set floor
                FloorIdentifier = this.Floor,
+               // TODO: See if MailDeliverySublocationIdentifier can be found
                MailDeliverySublocationIdentifier = null,
+               // Set post code
                PostCodeIdentifier = postCode,
+               // Set post district
                DistrictName = postDistrict,
+               // TODO: See if PostOfficeBoxIdentifier can be set
                PostOfficeBoxIdentifier = null,
+               // Set building identifier
                StreetBuildingIdentifier = this.HouseNumber,
+               // TODO: Set street name
                StreetName = null,
+               // TODO: Set street name for addressing
                StreetNameForAddressingName = null,
+               // Set suite identifier
                SuiteIdentifier = this.Door,
            };
             if (this.HousePostCode != null)
