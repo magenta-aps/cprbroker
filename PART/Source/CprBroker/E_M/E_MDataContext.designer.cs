@@ -45,7 +45,16 @@ namespace CprBroker.Providers.E_M
     partial void InsertHouseRangePostCode(HouseRangePostCode instance);
     partial void UpdateHouseRangePostCode(HouseRangePostCode instance);
     partial void DeleteHouseRangePostCode(HouseRangePostCode instance);
+    partial void InsertRoad(Road instance);
+    partial void UpdateRoad(Road instance);
+    partial void DeleteRoad(Road instance);
     #endregion
+		
+		public E_MDataContext() : 
+				base(global::CprBroker.Providers.E_M.Properties.Settings.Default.E_MConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
 		
 		public E_MDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -108,6 +117,14 @@ namespace CprBroker.Providers.E_M
 			get
 			{
 				return this.GetTable<HouseRangePostCode>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Road> Roads
+		{
+			get
+			{
+				return this.GetTable<Road>();
 			}
 		}
 	}
@@ -264,6 +281,8 @@ namespace CprBroker.Providers.E_M
 		
 		private EntityRef<Authority> _BirthRegistrationAuthority;
 		
+		private EntityRef<Road> _Road;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -412,6 +431,7 @@ namespace CprBroker.Providers.E_M
 			this._HouseRangePostCodes = new EntitySet<HouseRangePostCode>(new Action<HouseRangePostCode>(this.attach_HouseRangePostCodes), new Action<HouseRangePostCode>(this.detach_HouseRangePostCodes));
 			this._HousePostCode = default(EntityRef<HousePostCode>);
 			this._BirthRegistrationAuthority = default(EntityRef<Authority>);
+			this._Road = default(EntityRef<Road>);
 			OnCreated();
 		}
 		
@@ -1879,6 +1899,42 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
+		[Association(Name="Road_Citizen", Storage="_Road", ThisKey="MunicipalityCode,RoadCode", OtherKey="MunicipalityCode,RoadCode", IsForeignKey=true)]
+		public Road Road
+		{
+			get
+			{
+				return this._Road.Entity;
+			}
+			set
+			{
+				Road previousValue = this._Road.Entity;
+				if (((previousValue != value) 
+							|| (this._Road.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Road.Entity = null;
+						previousValue.Citizens.Remove(this);
+					}
+					this._Road.Entity = value;
+					if ((value != null))
+					{
+						value.Citizens.Add(this);
+						this._MunicipalityCode = value.MunicipalityCode;
+						this._RoadCode = value.RoadCode;
+					}
+					else
+					{
+						this._MunicipalityCode = default(short);
+						this._RoadCode = default(short);
+					}
+					this.SendPropertyChanged("Road");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3243,6 +3299,504 @@ namespace CprBroker.Providers.E_M
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[Table(Name="dbo.AA73000V")]
+	public partial class Road : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private short _MunicipalityCode;
+		
+		private short _RoadCode;
+		
+		private string _RoadName;
+		
+		private string _RoadAddressingName;
+		
+		private System.DateTime _VEJ_OPRET_TS;
+		
+		private System.DateTime _VEJ_OPHOR_TS;
+		
+		private char _VEJ_KORR_MRK;
+		
+		private short _HENV_AKTUEL_KOM;
+		
+		private short _HENV_AKTUEL_VEJ;
+		
+		private short _VEJ_TIL_KOMMUNE;
+		
+		private short _VEJ_TIL_VEJ;
+		
+		private short _VEJ_FRA_KOMMUNE;
+		
+		private short _VEJ_FRA_VEJ;
+		
+		private System.DateTime _CPR_VEJ_TS;
+		
+		private char _VEJ_OPRET_UM;
+		
+		private char _VEJ_OPHOR_UM;
+		
+		private string _RoadSearchName;
+		
+		private string _RoadPhoneticName;
+		
+		private EntitySet<Citizen> _Citizens;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMunicipalityCodeChanging(short value);
+    partial void OnMunicipalityCodeChanged();
+    partial void OnRoadCodeChanging(short value);
+    partial void OnRoadCodeChanged();
+    partial void OnRoadNameChanging(string value);
+    partial void OnRoadNameChanged();
+    partial void OnRoadAddressingNameChanging(string value);
+    partial void OnRoadAddressingNameChanged();
+    partial void OnVEJ_OPRET_TSChanging(System.DateTime value);
+    partial void OnVEJ_OPRET_TSChanged();
+    partial void OnVEJ_OPHOR_TSChanging(System.DateTime value);
+    partial void OnVEJ_OPHOR_TSChanged();
+    partial void OnVEJ_KORR_MRKChanging(char value);
+    partial void OnVEJ_KORR_MRKChanged();
+    partial void OnHENV_AKTUEL_KOMChanging(short value);
+    partial void OnHENV_AKTUEL_KOMChanged();
+    partial void OnHENV_AKTUEL_VEJChanging(short value);
+    partial void OnHENV_AKTUEL_VEJChanged();
+    partial void OnVEJ_TIL_KOMMUNEChanging(short value);
+    partial void OnVEJ_TIL_KOMMUNEChanged();
+    partial void OnVEJ_TIL_VEJChanging(short value);
+    partial void OnVEJ_TIL_VEJChanged();
+    partial void OnVEJ_FRA_KOMMUNEChanging(short value);
+    partial void OnVEJ_FRA_KOMMUNEChanged();
+    partial void OnVEJ_FRA_VEJChanging(short value);
+    partial void OnVEJ_FRA_VEJChanged();
+    partial void OnCPR_VEJ_TSChanging(System.DateTime value);
+    partial void OnCPR_VEJ_TSChanged();
+    partial void OnVEJ_OPRET_UMChanging(char value);
+    partial void OnVEJ_OPRET_UMChanged();
+    partial void OnVEJ_OPHOR_UMChanging(char value);
+    partial void OnVEJ_OPHOR_UMChanged();
+    partial void OnRoadSearchNameChanging(string value);
+    partial void OnRoadSearchNameChanged();
+    partial void OnRoadPhoneticNameChanging(string value);
+    partial void OnRoadPhoneticNameChanged();
+    #endregion
+		
+		public Road()
+		{
+			this._Citizens = new EntitySet<Citizen>(new Action<Citizen>(this.attach_Citizens), new Action<Citizen>(this.detach_Citizens));
+			OnCreated();
+		}
+		
+		[Column(Name="KOMMUNENUMMER", Storage="_MunicipalityCode", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short MunicipalityCode
+		{
+			get
+			{
+				return this._MunicipalityCode;
+			}
+			set
+			{
+				if ((this._MunicipalityCode != value))
+				{
+					this.OnMunicipalityCodeChanging(value);
+					this.SendPropertyChanging();
+					this._MunicipalityCode = value;
+					this.SendPropertyChanged("MunicipalityCode");
+					this.OnMunicipalityCodeChanged();
+				}
+			}
+		}
+		
+		[Column(Name="VEJ_KODE", Storage="_RoadCode", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short RoadCode
+		{
+			get
+			{
+				return this._RoadCode;
+			}
+			set
+			{
+				if ((this._RoadCode != value))
+				{
+					this.OnRoadCodeChanging(value);
+					this.SendPropertyChanging();
+					this._RoadCode = value;
+					this.SendPropertyChanged("RoadCode");
+					this.OnRoadCodeChanged();
+				}
+			}
+		}
+		
+		[Column(Name="VEJ_NAVN", Storage="_RoadName", DbType="Char(40) NOT NULL", CanBeNull=false)]
+		public string RoadName
+		{
+			get
+			{
+				return this._RoadName;
+			}
+			set
+			{
+				if ((this._RoadName != value))
+				{
+					this.OnRoadNameChanging(value);
+					this.SendPropertyChanging();
+					this._RoadName = value;
+					this.SendPropertyChanged("RoadName");
+					this.OnRoadNameChanged();
+				}
+			}
+		}
+		
+		[Column(Name="VEJ_ADRESSENAVN", Storage="_RoadAddressingName", DbType="Char(20) NOT NULL", CanBeNull=false)]
+		public string RoadAddressingName
+		{
+			get
+			{
+				return this._RoadAddressingName;
+			}
+			set
+			{
+				if ((this._RoadAddressingName != value))
+				{
+					this.OnRoadAddressingNameChanging(value);
+					this.SendPropertyChanging();
+					this._RoadAddressingName = value;
+					this.SendPropertyChanged("RoadAddressingName");
+					this.OnRoadAddressingNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_OPRET_TS", DbType="DateTime NOT NULL")]
+		public System.DateTime VEJ_OPRET_TS
+		{
+			get
+			{
+				return this._VEJ_OPRET_TS;
+			}
+			set
+			{
+				if ((this._VEJ_OPRET_TS != value))
+				{
+					this.OnVEJ_OPRET_TSChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_OPRET_TS = value;
+					this.SendPropertyChanged("VEJ_OPRET_TS");
+					this.OnVEJ_OPRET_TSChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_OPHOR_TS", DbType="DateTime NOT NULL")]
+		public System.DateTime VEJ_OPHOR_TS
+		{
+			get
+			{
+				return this._VEJ_OPHOR_TS;
+			}
+			set
+			{
+				if ((this._VEJ_OPHOR_TS != value))
+				{
+					this.OnVEJ_OPHOR_TSChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_OPHOR_TS = value;
+					this.SendPropertyChanged("VEJ_OPHOR_TS");
+					this.OnVEJ_OPHOR_TSChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_KORR_MRK", DbType="Char(1) NOT NULL")]
+		public char VEJ_KORR_MRK
+		{
+			get
+			{
+				return this._VEJ_KORR_MRK;
+			}
+			set
+			{
+				if ((this._VEJ_KORR_MRK != value))
+				{
+					this.OnVEJ_KORR_MRKChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_KORR_MRK = value;
+					this.SendPropertyChanged("VEJ_KORR_MRK");
+					this.OnVEJ_KORR_MRKChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_HENV_AKTUEL_KOM", DbType="SmallInt NOT NULL")]
+		public short HENV_AKTUEL_KOM
+		{
+			get
+			{
+				return this._HENV_AKTUEL_KOM;
+			}
+			set
+			{
+				if ((this._HENV_AKTUEL_KOM != value))
+				{
+					this.OnHENV_AKTUEL_KOMChanging(value);
+					this.SendPropertyChanging();
+					this._HENV_AKTUEL_KOM = value;
+					this.SendPropertyChanged("HENV_AKTUEL_KOM");
+					this.OnHENV_AKTUEL_KOMChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_HENV_AKTUEL_VEJ", DbType="SmallInt NOT NULL")]
+		public short HENV_AKTUEL_VEJ
+		{
+			get
+			{
+				return this._HENV_AKTUEL_VEJ;
+			}
+			set
+			{
+				if ((this._HENV_AKTUEL_VEJ != value))
+				{
+					this.OnHENV_AKTUEL_VEJChanging(value);
+					this.SendPropertyChanging();
+					this._HENV_AKTUEL_VEJ = value;
+					this.SendPropertyChanged("HENV_AKTUEL_VEJ");
+					this.OnHENV_AKTUEL_VEJChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_TIL_KOMMUNE", DbType="SmallInt NOT NULL")]
+		public short VEJ_TIL_KOMMUNE
+		{
+			get
+			{
+				return this._VEJ_TIL_KOMMUNE;
+			}
+			set
+			{
+				if ((this._VEJ_TIL_KOMMUNE != value))
+				{
+					this.OnVEJ_TIL_KOMMUNEChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_TIL_KOMMUNE = value;
+					this.SendPropertyChanged("VEJ_TIL_KOMMUNE");
+					this.OnVEJ_TIL_KOMMUNEChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_TIL_VEJ", DbType="SmallInt NOT NULL")]
+		public short VEJ_TIL_VEJ
+		{
+			get
+			{
+				return this._VEJ_TIL_VEJ;
+			}
+			set
+			{
+				if ((this._VEJ_TIL_VEJ != value))
+				{
+					this.OnVEJ_TIL_VEJChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_TIL_VEJ = value;
+					this.SendPropertyChanged("VEJ_TIL_VEJ");
+					this.OnVEJ_TIL_VEJChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_FRA_KOMMUNE", DbType="SmallInt NOT NULL")]
+		public short VEJ_FRA_KOMMUNE
+		{
+			get
+			{
+				return this._VEJ_FRA_KOMMUNE;
+			}
+			set
+			{
+				if ((this._VEJ_FRA_KOMMUNE != value))
+				{
+					this.OnVEJ_FRA_KOMMUNEChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_FRA_KOMMUNE = value;
+					this.SendPropertyChanged("VEJ_FRA_KOMMUNE");
+					this.OnVEJ_FRA_KOMMUNEChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_FRA_VEJ", DbType="SmallInt NOT NULL")]
+		public short VEJ_FRA_VEJ
+		{
+			get
+			{
+				return this._VEJ_FRA_VEJ;
+			}
+			set
+			{
+				if ((this._VEJ_FRA_VEJ != value))
+				{
+					this.OnVEJ_FRA_VEJChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_FRA_VEJ = value;
+					this.SendPropertyChanged("VEJ_FRA_VEJ");
+					this.OnVEJ_FRA_VEJChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CPR_VEJ_TS", DbType="DateTime NOT NULL")]
+		public System.DateTime CPR_VEJ_TS
+		{
+			get
+			{
+				return this._CPR_VEJ_TS;
+			}
+			set
+			{
+				if ((this._CPR_VEJ_TS != value))
+				{
+					this.OnCPR_VEJ_TSChanging(value);
+					this.SendPropertyChanging();
+					this._CPR_VEJ_TS = value;
+					this.SendPropertyChanged("CPR_VEJ_TS");
+					this.OnCPR_VEJ_TSChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_OPRET_UM", DbType="Char(1) NOT NULL")]
+		public char VEJ_OPRET_UM
+		{
+			get
+			{
+				return this._VEJ_OPRET_UM;
+			}
+			set
+			{
+				if ((this._VEJ_OPRET_UM != value))
+				{
+					this.OnVEJ_OPRET_UMChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_OPRET_UM = value;
+					this.SendPropertyChanged("VEJ_OPRET_UM");
+					this.OnVEJ_OPRET_UMChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VEJ_OPHOR_UM", DbType="Char(1) NOT NULL")]
+		public char VEJ_OPHOR_UM
+		{
+			get
+			{
+				return this._VEJ_OPHOR_UM;
+			}
+			set
+			{
+				if ((this._VEJ_OPHOR_UM != value))
+				{
+					this.OnVEJ_OPHOR_UMChanging(value);
+					this.SendPropertyChanging();
+					this._VEJ_OPHOR_UM = value;
+					this.SendPropertyChanged("VEJ_OPHOR_UM");
+					this.OnVEJ_OPHOR_UMChanged();
+				}
+			}
+		}
+		
+		[Column(Name="VEJ_NAVN_SOGE", Storage="_RoadSearchName", DbType="Char(20) NOT NULL", CanBeNull=false)]
+		public string RoadSearchName
+		{
+			get
+			{
+				return this._RoadSearchName;
+			}
+			set
+			{
+				if ((this._RoadSearchName != value))
+				{
+					this.OnRoadSearchNameChanging(value);
+					this.SendPropertyChanging();
+					this._RoadSearchName = value;
+					this.SendPropertyChanged("RoadSearchName");
+					this.OnRoadSearchNameChanged();
+				}
+			}
+		}
+		
+		[Column(Name="VEJ_NAVN_FONETIK", Storage="_RoadPhoneticName", DbType="Char(7) NOT NULL", CanBeNull=false)]
+		public string RoadPhoneticName
+		{
+			get
+			{
+				return this._RoadPhoneticName;
+			}
+			set
+			{
+				if ((this._RoadPhoneticName != value))
+				{
+					this.OnRoadPhoneticNameChanging(value);
+					this.SendPropertyChanging();
+					this._RoadPhoneticName = value;
+					this.SendPropertyChanged("RoadPhoneticName");
+					this.OnRoadPhoneticNameChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Road_Citizen", Storage="_Citizens", ThisKey="MunicipalityCode,RoadCode", OtherKey="MunicipalityCode,RoadCode")]
+		public EntitySet<Citizen> Citizens
+		{
+			get
+			{
+				return this._Citizens;
+			}
+			set
+			{
+				this._Citizens.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Citizens(Citizen entity)
+		{
+			this.SendPropertyChanging();
+			entity.Road = this;
+		}
+		
+		private void detach_Citizens(Citizen entity)
+		{
+			this.SendPropertyChanging();
+			entity.Road = null;
 		}
 	}
 }

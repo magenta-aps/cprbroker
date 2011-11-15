@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="E&amp;M" Class="E_MDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=E&amp;M;Integrated Security=True" SettingsObjectName="CprBroker.Providers.E_M.Properties.Settings" SettingsPropertyName="E_MConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.JY64000V" Member="Citizens">
     <Type Name="Citizen">
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="false" />
@@ -75,6 +76,7 @@
       <Association Name="Citizen_HouseRangePostCode" Member="HouseRangePostCodes" ThisKey="MunicipalityCode,RoadCode,OddEvenRoadSide" OtherKey="MunicipalityCode,RoadCode,OddEvenRoadSide" Type="HouseRangePostCode" />
       <Association Name="HousePostCode_Citizen" Member="HousePostCode" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="HousePostCode" IsForeignKey="true" />
       <Association Name="Authority_Citizen" Member="BirthRegistrationAuthority" ThisKey="BirthRegistrationAuthorityCode" OtherKey="AuthorityCode" Type="Authority" IsForeignKey="true" />
+      <Association Name="Road_Citizen" Member="Road" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Road" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.JY64200V" Member="Childs">
@@ -136,6 +138,29 @@
       <Column Name="POST_INDD_OPRET_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="POST_INDD_OPHOR_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Association Name="Citizen_HouseRangePostCode" Member="Citizen" ThisKey="MunicipalityCode,RoadCode,OddEvenRoadSide" OtherKey="MunicipalityCode,RoadCode,OddEvenRoadSide" Type="Citizen" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AA73000V" Member="Roads">
+    <Type Name="Road">
+      <Column Name="KOMMUNENUMMER" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VEJ_NAVN" Member="RoadName" Type="System.String" DbType="Char(40) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_ADRESSENAVN" Member="RoadAddressingName" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_OPRET_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_OPHOR_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_KORR_MRK" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="HENV_AKTUEL_KOM" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="HENV_AKTUEL_VEJ" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_TIL_KOMMUNE" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_TIL_VEJ" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_FRA_KOMMUNE" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_FRA_VEJ" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CPR_VEJ_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_OPRET_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_OPHOR_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_NAVN_SOGE" Member="RoadSearchName" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_NAVN_FONETIK" Member="RoadPhoneticName" Type="System.String" DbType="Char(7) NOT NULL" CanBeNull="false" />
+      <Association Name="Road_Citizen" Member="Citizens" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Citizen" />
     </Type>
   </Table>
 </Database>

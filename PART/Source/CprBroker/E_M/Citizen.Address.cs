@@ -91,6 +91,11 @@ namespace CprBroker.Providers.E_M
         /// <returns></returns>
         public AddressPostalType ToAddressPostalType(string postCode, string postDistrict)
         {
+            if (Road == null)
+            {
+                throw new ArgumentException(string.Format("Road property cannot be null"));
+            }
+
             var ret = new CprBroker.Schemas.Part.AddressPostalType()
            {
                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
@@ -108,17 +113,13 @@ namespace CprBroker.Providers.E_M
                PostOfficeBoxIdentifier = null,
                // Set building identifier
                StreetBuildingIdentifier = this.HouseNumber,
-               // TODO: Set street name
-               StreetName = null,
-               // TODO: Set street name for addressing
-               StreetNameForAddressingName = null,
+               // Set street name
+               StreetName = Road.RoadName,
+               // Set street addressing name
+               StreetNameForAddressingName = Road.RoadAddressingName,
                // Set suite identifier
                SuiteIdentifier = this.Door,
            };
-            if (this.HousePostCode != null)
-            {
-                ret.StreetName = this.HousePostCode.RoadName;
-            }
             return ret;
         }
 

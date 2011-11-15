@@ -12,27 +12,37 @@ namespace CprBroker.Tests.E_M
     [TestFixture]
     class CitizenAddressTests
     {
-
+        private Citizen CreateCitizen()
+        {
+            return new Citizen()
+            {
+                AddressingName = "Beemen Beshara",
+                CareOfName = "Beemen Beshara",
+                //CityName = "Copenhagen",
+                Door = "1",
+                Floor = "7",
+                PNR = 120420070111m,
+                HousePostCode = new HousePostCode()
+                {
+                    MunicipalityCode = 561,
+                    RoadCode = 112,
+                    HouseNumber = "61",
+                    PostCode = 123,
+                    PostDistrict = "Gentofte",
+                    RoadName = "Studiestraede"
+                },
+                Road = new Road()
+                {
+                    MunicipalityCode = 561,
+                    RoadCode = 112,
+                    RoadName = "Studistraede",
+                    RoadAddressingName = "Studistraede"
+                }
+            };
+        }
         public CitizenAddressTests()
         {
-            var citizen = new Citizen()
-                {
-                    AddressingName = "Beemen Beshara",
-                    CareOfName = "Beemen Beshara",
-                    //CityName = "Copenhagen",
-                    Door = "1",
-                    Floor = "7",
-                    PNR = 120420070111m,
-                    HousePostCode = new HousePostCode()
-                    {
-                        MunicipalityCode = 561,
-                        RoadCode = 112,
-                        HouseNumber = "61",
-                        PostCode = 123,
-                        PostDistrict = "Gentofte",
-                        RoadName = "Studiestraede"
-                    }
-                };
+            var citizen = CreateCitizen();
 
             ValidAddressTestValues = new Citizen[] { citizen };
             AllAddressTestValues = new Citizen[] { citizen };
@@ -295,6 +305,14 @@ namespace CprBroker.Tests.E_M
         #region ToAddressPostalType
 
         [Test]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Road", MatchType = MessageMatch.Contains)]
+        public void ToAddressPostalType_NullRoad_ThrowsException()
+        {
+            var citizen = new Citizen() { Road = null };
+            citizen.ToAddressPostalType(null, null);
+        }
+
+        [Test]
         [TestCaseSource("ValidAddressTestValues")]
         public void ToAddressPostalType_Valid_NotNull(Citizen citizen)
         {
@@ -369,20 +387,23 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [TestCaseSource("ValidAddressTestValues")]
-        public void ToAddressPostalType_Valid_StreetNameNotNull(Citizen citizen)
+        public void ToAddressPostalType_Valid_CorrectStreetName(
+            [ValueSource(typeof(Utilities), "RandomStrings5")]string roadName)
         {
+            var citizen = CreateCitizen();
+            citizen.Road.RoadName = roadName;
             var result = citizen.ToAddressPostalType(null, null);
-            Assert.IsNotNullOrEmpty(result.StreetName);
+            Assert.AreEqual(roadName, result.StreetName);
         }
 
         [Test]
-        [Ignore]
-        [TestCaseSource("ValidAddressTestValues")]
-        public void ToAddressPostalType_Valid_StreetNameForAddressingNameNotNull(Citizen citizen)
+        public void ToAddressPostalType_Valid_CorrectStreetNameForAddressingName(
+            [ValueSource(typeof(Utilities), "RandomStrings5")]string roadAddressingName)
         {
+            var citizen = CreateCitizen();
+            citizen.Road.RoadAddressingName = roadAddressingName;
             var result = citizen.ToAddressPostalType(null, null);
-            Assert.IsNotNullOrEmpty(result.StreetNameForAddressingName);
+            Assert.AreEqual(roadAddressingName, result.StreetNameForAddressingName);
         }
 
         [Test]

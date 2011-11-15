@@ -75,5 +75,23 @@ namespace CprBroker.Tests.E_M
         {
             return Guid.NewGuid().ToString().Substring(0, 10);
         }
+
+        public string[] RandomStrings(int count)
+        {
+            var ret = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                ret[i] = RandomString();
+            }
+            return ret;
+        }
+
+        public string[] RandomStrings5
+        {
+            get
+            {
+                return RandomStrings(5);
+            }
+        }
     }
 }
