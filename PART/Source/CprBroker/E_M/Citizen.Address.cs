@@ -100,17 +100,17 @@ namespace CprBroker.Providers.E_M
            {
                // Set country code
                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-               // DistrictSubdivisionIdentifier not supported
+               // DistrictSubdivisionIdentifier is not supported
                DistrictSubdivisionIdentifier = null,
                // Set floor
                FloorIdentifier = this.Floor,
-               // MailDeliverySublocationIdentifier not supported
+               // MailDeliverySublocationIdentifier is not supported
                MailDeliverySublocationIdentifier = null,
                // Set post code
                PostCodeIdentifier = postCode,
                // Set post district
                DistrictName = postDistrict,
-               // TODO: See if PostOfficeBoxIdentifier can be set
+               // PostOfficeBoxIdentifier is not supported
                PostOfficeBoxIdentifier = null,
                // Set building identifier
                StreetBuildingIdentifier = this.HouseNumber,
