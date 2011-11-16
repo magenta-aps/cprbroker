@@ -103,13 +103,21 @@ namespace CprBroker.Providers.E_M
         {
             return new CprBorgerType()
             {
+                // Not supported
                 AdresseNoteTekst = null,
+                // Set church membership
                 FolkekirkeMedlemIndikator = this.ToChurchMembershipIndicator(),
+                // Set address
                 FolkeregisterAdresse = this.ToAdresseType(),
+                // Set address indicator
                 ForskerBeskyttelseIndikator = this.ToDirectoryProtectionIndicator(effectDate),
+                // Set ddress protection indicator
                 NavneAdresseBeskyttelseIndikator = this.ToAddressProtectionIndicator(effectDate),
+                // Set CPR number
                 PersonCivilRegistrationIdentifier = Converters.ToCprNumber(this.PNR),
+                // Set nationality (always Danish in this case)
                 PersonNationalityCode = this.ToCountryIdentificationCodeType(),
+                // Set CPR number validity
                 PersonNummerGyldighedStatusIndikator = this.ToCivilRegistrationValidityStatusIndicator(),
                 // Telphone numbers are not supported
                 TelefonNummerBeskyttelseIndikator = false
@@ -140,11 +148,15 @@ namespace CprBroker.Providers.E_M
         {
             return new UdenlandskBorgerType()
             {
-                // TODO: See if we can find a birth nationality (different from current nationality)
+                // Birth nationality cannot be retrieved
                 FoedselslandKode = null,
+                // Set to PNR
                 PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(this.PNR),
+                // Not supported
                 PersonIdentifikator = null,
+                // Set to current nationality
                 PersonNationalityCode = new CountryIdentificationCodeType[] { this.ToCountryIdentificationCodeType() },
+                // Languages are not supported
                 SprogKode = null
             };
         }
@@ -165,6 +177,7 @@ namespace CprBroker.Providers.E_M
         {
             return new UkendtBorgerType()
             {
+                // Set to PNR
                 PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(this.PNR)
             };
         }
