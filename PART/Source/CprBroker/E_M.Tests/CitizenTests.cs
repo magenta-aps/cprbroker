@@ -672,5 +672,55 @@ namespace CprBroker.Tests.E_M
                 Assert.AreEqual(Converters.ToCprNumber(cprNumber), result.PersonCivilRegistrationReplacementIdentifier);
             }
         }
+
+        [TestFixture]
+        public class ToTidspunktType
+        {
+            [Test]
+            public void ToTidspunktType_EmptyFields_ReturnsEmpty()
+            {
+                var citizen = new Citizen();
+                var result = citizen.ToTidspunktType();
+                Assert.Null(result.ToDateTime());
+            }
+
+            [Test]
+            public void ToTidspunktType_IrrelevantFields_ReturnsEmpty()
+            {
+                var citizen = new Citizen() { Birthdate = DateTime.Today, BirthdateUncertainty = ' ', NationalityChangeTimestamp = DateTime.Today, NationalityChangeTimestampUncertainty = ' ', PNRCreationDate = DateTime.Today, MunicipalityArrivalDateUncertainty = ' ' };
+                var result = citizen.ToTidspunktType();
+                Assert.Null(result.ToDateTime());
+            }
+
+            [Test]
+            [Combinatorial]
+            public void ToTidspunktType_RelevantFields_ReturnsValue(
+                [Values(0, -1, -5)]int birthRegOffset,
+                [Values(0, -1, -5)]int cprChurchOffset,
+                [Values(0, -1, -5)]int cprPersonOffset,
+                [Values(0, -1, -5)]int pnrMarkingOffset,
+                [Values(0, -1, -5)]int municipalityArrivalOffset)
+            {
+                var today = DateTime.Today;
+                var citizen = new Citizen()
+                {
+                    BirthRegistrationDate = today.AddYears(birthRegOffset),
+                    BirthRegistrationDateUncertainty = ' ',
+                    CprChurchTimestamp = today.AddYears(cprChurchOffset),
+                    CprPersonTimestamp = today.AddYears(cprPersonOffset),
+                    PNRMarkingDate = today.AddYears(pnrMarkingOffset),
+                    PNRMarkingDateUncertainty = ' ',
+                    MunicipalityArrivalDate = today.AddYears(municipalityArrivalOffset),
+                    MunicipalityArrivalDateUncertainty = ' '
+                };
+                var result = citizen.ToTidspunktType();
+                var maxOffset = Math.Max(birthRegOffset, Math.Max(cprChurchOffset, Math.Max(cprPersonOffset, Math.Max(pnrMarkingOffset, municipalityArrivalOffset))));
+                if (today.AddYears(maxOffset) != result.ToDateTime().Value)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
+                Assert.AreEqual(today.AddYears(maxOffset), result.ToDateTime().Value);
+            }
+        }
     }
 }

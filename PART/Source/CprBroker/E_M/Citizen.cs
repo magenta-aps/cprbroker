@@ -9,7 +9,6 @@ namespace CprBroker.Providers.E_M
 {
     public partial class Citizen
     {
-        // TODO: See what is meant bt PNRMarkingDate?? If applicable, add to Virkning in RegisterOplysning
 
         public RegistreringType1 ToRegistreringType1(DateTime effectDate, Func<string, Guid> cpr2uuidFunc)
         {
@@ -177,6 +176,19 @@ namespace CprBroker.Providers.E_M
                     Converters.ToDateTime(this.PNRCreationDate, this.PNRCreationdateUncertainty)
                 ),
                 null
+            );
+        }
+
+        public virtual TidspunktType ToTidspunktType()
+        {
+            return TidspunktType.Create(
+                Converters.GetMaxDate(
+                    Converters.ToDateTime(this.BirthRegistrationDate, this.BirthRegistrationDateUncertainty),
+                    this.CprChurchTimestamp,
+                    this.CprPersonTimestamp,
+                    Converters.ToDateTime(this.PNRMarkingDate, this.PNRMarkingDateUncertainty),
+                    Converters.ToDateTime(this.MunicipalityArrivalDate, MunicipalityArrivalDateUncertainty)
+                )
             );
         }
 

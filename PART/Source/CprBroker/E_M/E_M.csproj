@@ -67,7 +67,6 @@
     <Compile Include="Citizen.cs" />
     <Compile Include="Citizen.States.cs" />
     <Compile Include="Citizen.NotImplemented.cs" />
-    <Compile Include="Citizen.Bitemporal.cs" />
     <Compile Include="Citizen.Converters.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="Citizen.Address.cs" />
