@@ -261,6 +261,73 @@ namespace CprBroker.Tests.E_M
         }
         #endregion
 
+        #region Generic ToSpouses
+
+        [Test]
+        public void ToSpouses_Unmarried_ReurnsEmpty(
+            [Values('U')]char maritalStatus,
+            [Values(true, false)]bool sameGender)
+        {
+            var citizen = new Citizen() { MaritalStatus = maritalStatus };
+            var result = citizen.ToSpouses(CivilStatusKodeType.Gift, new CivilStatusKodeType[0], sameGender, ToUuid);
+            Assert.AreEqual(0, result.Length);
+        }
+
+        [Test]
+        public void ToSpouses_DeadWNoSpouse_ReurnsEmpty(
+            [Values('D')]char maritalStatus,
+            [Values(true, false)]bool sameGender)
+        {
+            var citizen = new Citizen() { MaritalStatus = maritalStatus };
+            var result = citizen.ToSpouses(CivilStatusKodeType.Gift, new CivilStatusKodeType[0], sameGender, ToUuid);
+            Assert.AreEqual(0, result.Length);
+        }
+
+        [Test]
+        public void ToSpouses_DeadWithSpouseOfSameGenderAskedForSameGender_ReurnsValue(
+            [Values('M', 'K')]char gender)
+        {
+            var spousePnr = Utilities.RandomCprNumber();
+            var citizen = new Citizen() { MaritalStatus = 'D', Gender = gender, SpousePNR = spousePnr, Spouse = new Citizen() { PNR = spousePnr, Gender = gender } };
+            var result = citizen.ToSpouses(CivilStatusKodeType.Gift, new CivilStatusKodeType[0], true, ToUuid);
+            Assert.AreEqual(1, result.Length);
+        }
+
+        [Test]
+        public void ToSpouses_DeadWithSpouseOfSameGenderAskedForDifferentGender_ReurnsEmpty(
+            [Values('M', 'K')]char gender)
+        {
+            var citizen = new Citizen() { MaritalStatus = 'D', Gender = gender, Spouse = new Citizen() { PNR = Utilities.RandomCprNumber(), Gender = gender } };
+            var result = citizen.ToSpouses(CivilStatusKodeType.Gift, new CivilStatusKodeType[0], false, ToUuid);
+            Assert.AreEqual(0, result.Length);
+        }
+
+        [Test]
+        [Sequential]
+        public void ToSpouses_DeadWithSpouseOfDifferentGenderAskedForDifferentGender_ReurnsValue(
+            [Values('M', 'K')]char gender,
+            [Values('K', 'M')]char spouseGender)
+        {
+            var spousePnr = Utilities.RandomCprNumber();
+            var citizen = new Citizen() { MaritalStatus = 'D', Gender = gender, SpousePNR = spousePnr, Spouse = new Citizen() { PNR = spousePnr, Gender = spouseGender } };
+            var result = citizen.ToSpouses(CivilStatusKodeType.Gift, new CivilStatusKodeType[0], false, ToUuid);
+            Assert.AreEqual(1, result.Length);
+        }
+
+        [Test]
+        [Sequential]
+        public void ToSpouses_DeadWithSpouseOfDifferentGenderAskedForSameGender_ReurnsEmpty(
+            [Values('M', 'K')]char gender,
+            [Values('K', 'M')]char spouseGender)
+        {
+            var spousePnr = Utilities.RandomCprNumber();
+            var citizen = new Citizen() { MaritalStatus = 'D', Gender = gender, SpousePNR = spousePnr, Spouse = new Citizen() { PNR = spousePnr, Gender = spouseGender } };
+            var result = citizen.ToSpouses(CivilStatusKodeType.Gift, new CivilStatusKodeType[0], true, ToUuid);
+            Assert.AreEqual(0, result.Length);
+        }
+
+        #endregion
+
         #region ToSpouses
 
         [Test]
@@ -282,7 +349,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         public void ToSpouses_IrrelevantMaritalStatus_ZeroElements(
-            [Values('U', 'P', 'O', 'L')] char maritalStatus)
+            [Values('P', 'O', 'L')] char maritalStatus)
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
             var result = citizen.ToSpouses(ToUuid);
@@ -422,6 +489,7 @@ namespace CprBroker.Tests.E_M
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.NotNull(result[0].Virkning.TilTidspunkt.ToDateTime());
         }
+
         #endregion
 
         #region ToRegisteredPartners
@@ -445,7 +513,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         public void ToRegisteredPartners_IrrelevantMaritalStatus_ZeroElements(
-            [Values('E', 'F', 'G', 'U')] char maritalStatus)
+            [Values('E', 'F', 'G')] char maritalStatus)
         {
             var citizen = new Citizen() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus };
             var result = citizen.ToRegisteredPartners(ToUuid);
