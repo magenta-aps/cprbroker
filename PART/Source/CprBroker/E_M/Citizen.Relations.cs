@@ -40,7 +40,6 @@ namespace CprBroker.Providers.E_M
         {
             if (cpr2uuidFunc != null)
             {
-                //TODO: Revise the logic for start and end dates
                 switch (Converters.ToCivilStatusKodeType(this.MaritalStatus))
                 {
                     case CivilStatusKodeType.Gift:
