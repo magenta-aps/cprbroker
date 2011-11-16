@@ -76,6 +76,7 @@
       <Association Name="HousePostCode_Citizen" Member="HousePostCode" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="HousePostCode" IsForeignKey="true" />
       <Association Name="Authority_Citizen" Member="BirthRegistrationAuthority" ThisKey="BirthRegistrationAuthorityCode" OtherKey="AuthorityCode" Type="Authority" IsForeignKey="true" />
       <Association Name="Road_Citizen" Member="Road" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Road" IsForeignKey="true" />
+      <Association Name="Citizen_Citizen" Member="Spouse" ThisKey="SpousePNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.JY64200V" Member="Childs">

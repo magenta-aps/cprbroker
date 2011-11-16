@@ -88,6 +88,10 @@ namespace CprBroker.Providers.E_M
             // Termintion date is always null
             return null;
         }
-        
+
+        public string ToSpousePNR()
+        {
+            return Converters.ToCprNumber(this.SpousePNR);
+        }
     }
 }

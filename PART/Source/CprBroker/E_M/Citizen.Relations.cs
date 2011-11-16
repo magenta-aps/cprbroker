@@ -31,11 +31,6 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        public string ToSpousePNR()
-        {
-            return Converters.ToCprNumber(this.SpousePNR);
-        }
-
         public PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
         {
             if (cpr2uuidFunc != null)
@@ -50,6 +45,12 @@ namespace CprBroker.Providers.E_M
                         return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
                     case CivilStatusKodeType.Enke:
                         return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
+                    case CivilStatusKodeType.Ugift:
+                        if (this.Spouse != null && this.Gender != this.Spouse.Gender)// This is a dead person
+                        {
+                            return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
+                        }
+                        break;
                 }
                 return new PersonRelationType[0];
             }
@@ -94,6 +95,12 @@ namespace CprBroker.Providers.E_M
                         return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
                     case CivilStatusKodeType.Laengstlevende:
                         return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
+                    case CivilStatusKodeType.Ugift:
+                        if (this.Spouse != null && this.Gender == this.Spouse.Gender)// This is a dead person
+                        {
+                            return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
+                        }
+                        break;
                 }
                 return new PersonRelationType[0];
             }

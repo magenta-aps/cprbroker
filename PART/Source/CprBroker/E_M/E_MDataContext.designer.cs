@@ -277,6 +277,8 @@ namespace CprBroker.Providers.E_M
 		
 		private EntityRef<Road> _Road;
 		
+		private EntityRef<Citizen> _Spouse;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -426,6 +428,7 @@ namespace CprBroker.Providers.E_M
 			this._HousePostCode = default(EntityRef<HousePostCode>);
 			this._BirthRegistrationAuthority = default(EntityRef<Authority>);
 			this._Road = default(EntityRef<Road>);
+			this._Spouse = default(EntityRef<Citizen>);
 			OnCreated();
 		}
 		
@@ -1925,6 +1928,24 @@ namespace CprBroker.Providers.E_M
 						this._RoadCode = default(short);
 					}
 					this.SendPropertyChanged("Road");
+				}
+			}
+		}
+		
+		[Association(Name="Citizen_Citizen", Storage="_Spouse", ThisKey="SpousePNR", OtherKey="PNR", IsForeignKey=true)]
+		public Citizen Spouse
+		{
+			get
+			{
+				return this._Spouse.Entity;
+			}
+			set
+			{
+				if ((this._Spouse.Entity != value))
+				{
+					this.SendPropertyChanging();
+					this._Spouse.Entity = value;
+					this.SendPropertyChanged("Spouse");
 				}
 			}
 		}

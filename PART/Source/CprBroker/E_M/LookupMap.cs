@@ -8,7 +8,7 @@ namespace CprBroker.Providers.E_M
 {
     public class LookupMap<TKey, TValue>
     {
-        private  Dictionary<TKey, TValue> Mappings = new Dictionary<TKey, TValue>();
+        private Dictionary<TKey, TValue> Mappings = new Dictionary<TKey, TValue>();
 
         protected void AddMapping(TKey key, TValue value)
         {
@@ -38,7 +38,7 @@ namespace CprBroker.Providers.E_M
             //TODO: Handle 'D' (dead) 
             //TODO: See what fits into CivilStatusKodeType.Separeret
 
-            //AddMapping('D',CivilStatusKodeType.??? );
+            AddMapping('D', CivilStatusKodeType.Ugift);
             AddMapping('E', CivilStatusKodeType.Enke);
             AddMapping('F', CivilStatusKodeType.Skilt);
             AddMapping('G', CivilStatusKodeType.Gift);
