@@ -210,7 +210,6 @@ namespace CprBroker.Tests.E_M
             }
 
             [Test]
-            [Ignore]
             public void ToRegistreringType1_Valid_VirkningNotZero()
             {
                 var citizen = new ToRegistreringType1Citizen();
@@ -457,11 +456,10 @@ namespace CprBroker.Tests.E_M
             }
 
             [Test]
-            [Ignore]
             public void ToRegisterOplysningType_WhateverCountry_VirkningNotNull(
                 [Values(5100, 6763, 12)]short countryCode)
             {
-                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode };
+                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CitizenStatusCode = 1, CountryCode = countryCode, Road = new Road() { RoadCode = 22 } };
                 var result = citizen.ToRegisterOplysningType(DateTime.Today);
                 Assert.NotNull(result.Virkning);
             }

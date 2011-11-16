@@ -81,12 +81,11 @@ namespace CprBroker.Tests.E_M
         #region ToDanskAdresseType
 
         [Test]
-        [Ignore]
-        public void ToDanskAdresseType_Null_UkendtAdresseIndikatorTrue()
+        public void ToDanskAdresseType_Empty_UkendtAdresseIndikatorFalse()
         {
-            var citizen = new Citizen();
+            var citizen = new Citizen() { Road = new Road() { RoadCode = 22 } };
             var result = citizen.ToDanskAdresseType();
-            Assert.True(result.UkendtAdresseIndikator);
+            Assert.False(result.UkendtAdresseIndikator);
         }
 
         [Test]
@@ -338,12 +337,11 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [Ignore]
         [TestCaseSource("ValidAddressTestValues")]
-        public void ToAddressPostalType_Valid_DistrictSubdivisionIdentifierNotNull(Citizen citizen)
+        public void ToAddressPostalType_Valid_DistrictSubdivisionIdentifierEmpty(Citizen citizen)
         {
             var result = citizen.ToAddressPostalType(null, null);
-            Assert.IsNotNullOrEmpty(result.DistrictSubdivisionIdentifier);
+            Assert.IsNullOrEmpty(result.DistrictSubdivisionIdentifier);
         }
 
         [Test]
@@ -355,12 +353,11 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [Ignore]
         [TestCaseSource("ValidAddressTestValues")]
-        public void ToAddressPostalType_Valid_MailDeliverySublocationIdentifierNotNull(Citizen citizen)
+        public void ToAddressPostalType_Valid_MailDeliverySublocationIdentifierEmpty(Citizen citizen)
         {
             var result = citizen.ToAddressPostalType(null, null);
-            Assert.IsNotNullOrEmpty(result.MailDeliverySublocationIdentifier);
+            Assert.IsNullOrEmpty(result.MailDeliverySublocationIdentifier);
         }
         [Test]
         [TestCaseSource("ValidAddressTestValues")]
@@ -371,12 +368,11 @@ namespace CprBroker.Tests.E_M
             Assert.AreEqual(postCode, result.PostCodeIdentifier);
         }
         [Test]
-        [Ignore]
         [TestCaseSource("ValidAddressTestValues")]
-        public void ToAddressPostalType_Valid_PostOfficeBoxIdentifierNotNull(Citizen citizen)
+        public void ToAddressPostalType_Valid_PostOfficeBoxIdentifierEmpty(Citizen citizen)
         {
             var result = citizen.ToAddressPostalType(null, null);
-            Assert.IsNotNullOrEmpty(result.PostOfficeBoxIdentifier);
+            Assert.IsNullOrEmpty(result.PostOfficeBoxIdentifier);
         }
         [Test]
         [TestCaseSource("ValidAddressTestValues")]

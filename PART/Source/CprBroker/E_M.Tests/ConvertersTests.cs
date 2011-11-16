@@ -70,7 +70,6 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [Ignore]
         public void ToCivilStatusKodeType_Dead_Passes(
             [Values('D')] char status)
         {
@@ -80,7 +79,6 @@ namespace CprBroker.Tests.E_M
 
         #region ToLivStatusKodeType
         [Test]
-        [Ignore("Need to throw exception from Schemas.Util.Enums.ToLifeStatus()")]
         [ExpectedException(typeof(ArgumentException))]
         public void ToLivStatusKodeType_InvalidStatus_ThrowsExcption(
             [Values(33, 55, 12, 0, -23)] short status,
@@ -91,7 +89,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         public void ToLivStatusKodeType_AliveStatusWithBirthdate_ReturnsFoedt(
-            [Values(1, 10, 20, 3, 30, 5, 50, 60, 7, 80)] short status)
+            [Values(1, 3, 5, 7, 20, 30, 5, 50, 60, 80)] short status)
         {
             var result = Converters.ToLivStatusKodeType(status, true);
             Assert.AreEqual(LivStatusKodeType.Foedt, result);
@@ -99,7 +97,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         public void ToLivStatusKodeType_AliveStatusWithoutBirthdate_ReturnsPrenatal(
-            [Values(1, 10, 20, 3, 30, 5, 50, 60, 7, 80)] short status)
+            [Values(1, 3, 5, 7, 20, 30, 5, 50, 60, 80)] short status)
         {
             var result = Converters.ToLivStatusKodeType(status, false);
             Assert.AreEqual(LivStatusKodeType.Prenatal, result);

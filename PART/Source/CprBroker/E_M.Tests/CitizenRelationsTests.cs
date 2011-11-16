@@ -253,7 +253,7 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [TestCaseSource("RandomCprNumbers")]
-        public void ToSpousePNR_Valid_ThrowsException(decimal spousePNR)
+        public void ToSpousePNR_Valid_ReturnsCorrect(decimal spousePNR)
         {
             var citizen = new Citizen() { SpousePNR = spousePNR };
             var result = citizen.ToSpousePNR();
@@ -304,21 +304,6 @@ namespace CprBroker.Tests.E_M
             };
             var result = citizen.ToSpouses(ToUuid);
             Assert.AreEqual(citizen.MaritalStatusTimestamp, result[0].Virkning.TilTidspunkt.ToDateTime());
-        }
-
-        [Test]
-        [Ignore]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ToSpouses_TerminationDateForUnterminatedPartnership_ThrowsException()
-        {
-            var citizen = new Citizen()
-            {
-                SpousePNR = Utilities.RandomCprNumber(),
-                MaritalStatus = 'G',
-                MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
-                MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
-            };
-            citizen.ToSpouses(ToUuid);
         }
 
         [Test]
@@ -398,6 +383,27 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [Combinatorial]
+        public void ToSpouses_Terminated_HasNullStartDate(
+            [ValueSource("TestDates")] DateTime maritalStatusDate,
+            [Values('F', 'E')] char maritalStatus)
+        {
+            var citizen = new Citizen()
+            {
+                SpousePNR = Utilities.RandomCprNumber(),
+                MaritalStatus = maritalStatus,
+                MaritalStatusTimestamp = maritalStatusDate,
+                MaritalStatusTimestampUncertainty = DateCertaintyTrue,
+                MaritalStatusTerminationTimestamp = maritalStatusDate.AddDays(1),
+                MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
+            };
+
+            var result = citizen.ToSpouses(ToUuid);
+            var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
+            Assert.Null(result[0].Virkning.FraTidspunkt.ToDateTime());
+        }
+
+        [Test]
+        [Combinatorial]
         public void ToSpouses_Terminated_HasEndDate(
             [ValueSource("TestDates")] DateTime maritalStatusDate,
             [Values('F', 'E')] char maritalStatus)
@@ -461,21 +467,6 @@ namespace CprBroker.Tests.E_M
             };
             var result = citizen.ToRegisteredPartners(ToUuid);
             Assert.AreEqual(citizen.MaritalStatusTimestamp, result[0].Virkning.TilTidspunkt.ToDateTime());
-        }
-
-        [Test]
-        [Ignore]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ToRegisteredPartners_TerminationDateForUnterminatedPartnership_ThrowsException()
-        {
-            var citizen = new Citizen()
-            {
-                SpousePNR = Utilities.RandomCprNumber(),
-                MaritalStatus = 'P',
-                MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
-                MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
-            };
-            citizen.ToRegisteredPartners(ToUuid);
         }
 
         [Test]
@@ -551,6 +542,27 @@ namespace CprBroker.Tests.E_M
             var result = citizen.ToRegisteredPartners(ToUuid);
             var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
             Assert.Null(result[0].Virkning.TilTidspunkt.ToDateTime());
+        }
+
+        [Test]
+        [Combinatorial]
+        public void ToRegisteredPartners_Terminated_HasNullStartDate(
+            [ValueSource("TestDates")] DateTime maritalStatusDate,
+            [Values('O', 'L')] char maritalStatus)
+        {
+            var citizen = new Citizen()
+            {
+                SpousePNR = Utilities.RandomCprNumber(),
+                MaritalStatus = maritalStatus,
+                MaritalStatusTimestamp = maritalStatusDate,
+                MaritalStatusTimestampUncertainty = DateCertaintyTrue,
+                MaritalStatusTerminationTimestamp = maritalStatusDate.AddDays(1),
+                MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
+            };
+
+            var result = citizen.ToRegisteredPartners(ToUuid);
+            var stringCprNumber = Converters.ToCprNumber(citizen.SpousePNR);
+            Assert.Null(result[0].Virkning.FraTidspunkt.ToDateTime());
         }
 
         [Test]
