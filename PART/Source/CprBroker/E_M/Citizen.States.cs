@@ -33,7 +33,6 @@ namespace CprBroker.Providers.E_M
             return new LivStatusType()
                 {
                     LivStatusKode = Converters.ToLivStatusKodeType(this.CitizenStatusCode, Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty).HasValue),
-                    //TODO: Ensure the dates are correct
                     TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(this.CitizenStatusTimestamp, this.CitizenStatusTimestampUncertainty))
                 };
         }
