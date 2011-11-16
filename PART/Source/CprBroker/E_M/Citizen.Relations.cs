@@ -31,16 +31,6 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        public DateTime? ToMaritalStatusDate()
-        {
-            return Converters.ToDateTime(this.MaritalStatusTimestamp, this.MaritalStatusTimestampUncertainty);
-        }
-
-        public DateTime? ToMaritalStatusTerminationDate()
-        {
-            return Converters.ToDateTime(this.MaritalStatusTerminationTimestamp, this.MaritalStatusTerminationTimestampUncertainty);
-        }
-
         public string ToSpousePNR()
         {
             return Converters.ToCprNumber(this.SpousePNR);
@@ -56,11 +46,11 @@ namespace CprBroker.Providers.E_M
                     case CivilStatusKodeType.Gift:
                         return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), null);
                     case CivilStatusKodeType.Separeret:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), this.ToMaritalStatusTerminationDate());
+                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
                     case CivilStatusKodeType.Skilt:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), this.ToMaritalStatusTerminationDate());
+                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
                     case CivilStatusKodeType.Enke:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), this.ToMaritalStatusTerminationDate());
+                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
                 }
                 return new PersonRelationType[0];
             }
@@ -102,9 +92,9 @@ namespace CprBroker.Providers.E_M
                     case CivilStatusKodeType.RegistreretPartner:
                         return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), null);
                     case CivilStatusKodeType.OphaevetPartnerskab:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), this.ToMaritalStatusTerminationDate());
+                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
                     case CivilStatusKodeType.Laengstlevende:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), this.ToMaritalStatusTerminationDate());
+                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
                 }
                 return new PersonRelationType[0];
             }

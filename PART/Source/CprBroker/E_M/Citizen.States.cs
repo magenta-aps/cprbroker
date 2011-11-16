@@ -25,7 +25,7 @@ namespace CprBroker.Providers.E_M
             {
                 CivilStatusKode = Converters.ToCivilStatusKodeType(this.MaritalStatus),
                 //TODO: Check if this is the mariage start or end date
-                TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(this.MaritalStatusTimestamp, this.MaritalStatusTimestampUncertainty))
+                TilstandVirkning = TilstandVirkningType.Create(ToMaritalStatusDate())
             };
         }
 

@@ -301,5 +301,50 @@ namespace CprBroker.Tests.E_M
         }
 
         #endregion
+
+        #region ToMaritalStatusDate
+
+        [Test]
+        public void ToMaritalStatusDate_NullDate_ReturnsNull()
+        {
+            var citizen = new Citizen() { MaritalStatusTimestampUncertainty = 'U' };
+            var result = citizen.ToMaritalStatusDate();
+            Assert.Null(result);
+        }
+
+        [Test]
+        public void ToMaritalStatusDate_Value_ReturnsCorrect()
+        {
+            var date = DateTime.Today;
+            var citizen = new Citizen() { MaritalStatusTimestamp = date, MaritalStatusTimestampUncertainty = ' ' };
+            var result = citizen.ToMaritalStatusDate();
+            Assert.AreEqual(date, result);
+        }
+
+        #endregion
+
+        #region ToMaritalStatusTerminationDate
+
+        [Test]
+        public void ToMaritalStatusTerminationDate_Null_ReturnsNull()
+        {
+            var citizen = new Citizen();
+            var result = citizen.ToMaritalStatusTerminationDate();
+            Assert.Null(result);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void ToMaritalStatusTerminationDate_Value_ReturnsNull(
+            [Values(1, 200, -1000)] int todayOffset,
+            [Values(' ', 'U')] char dateMarker)
+        {
+            var date = DateTime.Today.AddDays(todayOffset);
+            var citizen = new Citizen() { MaritalStatusTimestamp = date, MaritalStatusTimestampUncertainty = dateMarker };
+            var result = citizen.ToMaritalStatusTerminationDate();
+            Assert.Null(result);
+        }
+
+        #endregion
     }
 }

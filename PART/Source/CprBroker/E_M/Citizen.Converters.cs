@@ -77,5 +77,17 @@ namespace CprBroker.Providers.E_M
         {
             return Schemas.Util.Enums.IsActiveCivilRegistrationStatus(CitizenStatusCode);
         }
+
+        public DateTime? ToMaritalStatusDate()
+        {
+            return Converters.ToDateTime(this.MaritalStatusTimestamp, this.MaritalStatusTimestampUncertainty);
+        }
+
+        public DateTime? ToMaritalStatusTerminationDate()
+        {
+            // Termintion date is always null
+            return null;
+        }
+        
     }
 }

@@ -233,11 +233,11 @@ namespace CprBroker.Tests.E_M
 
         [Test]
         [TestCaseSource("TestDates")]
-        public void ToMaritalStatusTerminationDate_Valid_ReturnsValue(DateTime maritalStatusDate)
+        public void ToMaritalStatusTerminationDate_Valid_ReturnsNull(DateTime maritalStatusDate)
         {
             var citizen = new Citizen() { MaritalStatusTerminationTimestamp = maritalStatusDate, MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue };
             var result = citizen.ToMaritalStatusTerminationDate();
-            Assert.True(result.HasValue);
+            Assert.Null(result);
         }
         #endregion
 
@@ -290,8 +290,7 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ToSpouses_InconsistentDates_ThrowsException(
+        public void ToSpouses_InconsistentDates_ReturnsCorrect(
             [Values('E', 'F')]char maritalStatus)
         {
             var citizen = new Citizen()
@@ -303,7 +302,8 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
-            citizen.ToSpouses(ToUuid);
+            var result = citizen.ToSpouses(ToUuid);
+            Assert.AreEqual(citizen.MaritalStatusTimestamp, result[0].Virkning.TilTidspunkt.ToDateTime());
         }
 
         [Test]
@@ -447,7 +447,6 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ToRegisteredPartners_InconsistentDates_ThrowsException(
             [Values('L', 'O')]char maritalStatus)
         {
@@ -460,7 +459,8 @@ namespace CprBroker.Tests.E_M
                 MaritalStatusTerminationTimestamp = DateTime.Today.AddDays(-2),
                 MaritalStatusTerminationTimestampUncertainty = DateCertaintyTrue
             };
-            citizen.ToRegisteredPartners(ToUuid);
+            var result = citizen.ToRegisteredPartners(ToUuid);
+            Assert.AreEqual(citizen.MaritalStatusTimestamp, result[0].Virkning.TilTidspunkt.ToDateTime());
         }
 
         [Test]
