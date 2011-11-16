@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="E&amp;M" Class="E_MDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=E&amp;M;Integrated Security=True" SettingsObjectName="CprBroker.Providers.E_M.Properties.Settings" SettingsPropertyName="E_MConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.JY64000V" Member="Citizens">
     <Type Name="Citizen">
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="false" />

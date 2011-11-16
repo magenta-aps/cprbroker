@@ -50,12 +50,6 @@ namespace CprBroker.Providers.E_M
     partial void DeleteRoad(Road instance);
     #endregion
 		
-		public E_MDataContext() : 
-				base(global::CprBroker.Providers.E_M.Properties.Settings.Default.E_MConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public E_MDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
