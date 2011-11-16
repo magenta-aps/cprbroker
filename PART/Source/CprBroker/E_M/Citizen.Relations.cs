@@ -31,33 +31,60 @@ namespace CprBroker.Providers.E_M
             return ret;
         }
 
-        public PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
+        public PersonRelationType[] ToSpouses(CivilStatusKodeType existingStatusCode, CivilStatusKodeType[] terminatedStatusCodes, bool sameGenderSpouseForDead, Func<string, Guid> cpr2uuidFunc)
         {
             if (cpr2uuidFunc != null)
             {
-                switch (Converters.ToCivilStatusKodeType(this.MaritalStatus))
+                var status = Converters.ToCivilStatusKodeType(this.MaritalStatus);
+                if (status == CivilStatusKodeType.Ugift
+                    && this.Spouse != null
+                    && sameGenderSpouseForDead == (this.Gender == this.Spouse.Gender)
+                    )
                 {
-                    case CivilStatusKodeType.Gift:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), null);
-                    case CivilStatusKodeType.Separeret:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
-                    case CivilStatusKodeType.Skilt:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
-                    case CivilStatusKodeType.Enke:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
-                    case CivilStatusKodeType.Ugift:
-                        if (this.Spouse != null && this.Gender != this.Spouse.Gender)// This is a dead person
-                        {
-                            return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
-                        }
-                        break;
+                    return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
                 }
-                return new PersonRelationType[0];
+                else if (status == existingStatusCode)
+                {
+                    return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), null);
+                }
+                else if (terminatedStatusCodes.Contains(status))
+                {
+                    return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
+                }
+                else
+                {
+                    return new PersonRelationType[0];
+                }
             }
             else
             {
                 throw new ArgumentNullException("cpr2uuidFunc");
             }
+        }
+
+        public PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
+        {
+            return ToSpouses(
+                CivilStatusKodeType.Gift,
+                new CivilStatusKodeType[]{
+                    CivilStatusKodeType.Separeret,
+                    CivilStatusKodeType.Skilt,
+                    CivilStatusKodeType.Enke},
+                false,
+                cpr2uuidFunc
+            );
+        }
+
+        public PersonRelationType[] ToRegisteredPartners(Func<string, Guid> cpr2uuidFunc)
+        {
+            return ToSpouses(
+               CivilStatusKodeType.RegistreretPartner,
+               new CivilStatusKodeType[]{
+                    CivilStatusKodeType.OphaevetPartnerskab,
+                    CivilStatusKodeType.Laengstlevende},
+               true,
+               cpr2uuidFunc
+           );
         }
 
         public PersonFlerRelationType[] ToChildren(Func<string, Guid> cpr2uuidFunc)
@@ -76,33 +103,6 @@ namespace CprBroker.Providers.E_M
                         return converter(this.ChildrenAsMother);
                 }
                 return new PersonFlerRelationType[0];
-            }
-            else
-            {
-                throw new ArgumentNullException("cpr2uuidFunc");
-            }
-        }
-
-        public PersonRelationType[] ToRegisteredPartners(Func<string, Guid> cpr2uuidFunc)
-        {
-            if (cpr2uuidFunc != null)
-            {
-                switch (Converters.ToCivilStatusKodeType(this.MaritalStatus))
-                {
-                    case CivilStatusKodeType.RegistreretPartner:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), null);
-                    case CivilStatusKodeType.OphaevetPartnerskab:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
-                    case CivilStatusKodeType.Laengstlevende:
-                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
-                    case CivilStatusKodeType.Ugift:
-                        if (this.Spouse != null && this.Gender == this.Spouse.Gender)// This is a dead person
-                        {
-                            return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
-                        }
-                        break;
-                }
-                return new PersonRelationType[0];
             }
             else
             {
