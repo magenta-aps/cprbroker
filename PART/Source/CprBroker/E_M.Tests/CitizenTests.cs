@@ -116,7 +116,7 @@ namespace CprBroker.Tests.E_M
                     return _ToTilstandListeType;
                 }
 
-                public RelationListeType _ToRelationListeType = new RelationListeType();
+                public RelationListeType _ToRelationListeType = new RelationListeType() { Aegtefaelle = new PersonRelationType[] { new PersonRelationType() { Virkning = VirkningType.Create(DateTime.Today, null) } } };
                 public override RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidFunc)
                 {
                     return _ToRelationListeType;
@@ -210,9 +210,17 @@ namespace CprBroker.Tests.E_M
             }
 
             [Test]
-            public void ToRegistreringType1_Valid_VirkningNotZero()
+            public void ToRegistreringType1_EmptyCitizen_VirkningElementsNotZero()
             {
                 var citizen = new ToRegistreringType1Citizen();
+                var result = citizen.ToRegistreringType1(DateTime.Now, null);
+                Assert.GreaterOrEqual(result.Virkning.Length, 1);
+            }
+
+            [Test]
+            public void ToRegistreringType1_CitizenWithMaritalStatus_VirkningElementsNotZero()
+            {
+                var citizen = new ToRegistreringType1Citizen() { MaritalStatus = 'G', MaritalStatusTimestamp = DateTime.Today, MaritalStatusTimestampUncertainty = ' ' };
                 var result = citizen.ToRegistreringType1(DateTime.Now, null);
                 Assert.GreaterOrEqual(result.Virkning.Length, 1);
             }
