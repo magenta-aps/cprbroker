@@ -65,6 +65,10 @@ namespace CprBroker.Schemas.Util
 
         public static LivStatusKodeType ToLifeStatus(decimal civilRegistrationStatus, bool birthdateHasValue)
         {
+            if (!IsValidCivilRegistrationStatus(civilRegistrationStatus))
+            {
+                throw new ArgumentException(string.Format("Invalid value <{0}> for civilRegistrationStatus", civilRegistrationStatus));
+            }
             switch ((int)civilRegistrationStatus)
             {
                 case 70:
