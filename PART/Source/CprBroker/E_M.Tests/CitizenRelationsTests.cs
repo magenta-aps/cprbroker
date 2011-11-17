@@ -34,7 +34,6 @@ namespace CprBroker.Tests.E_M
             get { return Utilities.RandomCprNumbers(1); }
         }
         public decimal[] InvalidCprNumbers = new decimal[] { 10m, 6567576m };
-        public decimal[] InvalidCprNumbersWithNull = new decimal[] { 0, 10m, 6567576m };
 
         private void AssertCprNumbers(decimal[] cprNumbers, PersonFlerRelationType[] result)
         {
@@ -667,13 +666,21 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [TestCaseSource("InvalidCprNumbersWithNull")]
+        [TestCaseSource("InvalidCprNumbers")]
         [ExpectedException(typeof(ArgumentException))]
         public void ToFather_InvalidFatherPNR_Exception(decimal cprNumber)
         {
             var citizen = new Citizen();
             citizen.FatherPNR = cprNumber;
             citizen.ToFather(ToUuid);
+        }
+
+        [Test]
+        public void ToFather_ZeroFatherPNR_ReturnsZeroElements()
+        {
+            var citizen = new Citizen() { FatherPNR = 0 };
+            var result = citizen.ToFather(ToUuid);
+            Assert.AreEqual(0, result.Length);
         }
 
         [Test]
@@ -751,15 +758,22 @@ namespace CprBroker.Tests.E_M
             citizen.ToMother(null);
         }
 
-
         [Test]
-        [TestCaseSource("InvalidCprNumbersWithNull")]
+        [TestCaseSource("InvalidCprNumbers")]
         [ExpectedException(typeof(ArgumentException))]
         public void ToMother_InvalidMotherPNR_Exception(decimal cprNumber)
         {
             var citizen = new Citizen();
             citizen.MotherPNR = cprNumber;
             citizen.ToMother(ToUuid);
+        }
+
+        [Test]
+        public void ToMother_ZeroMotherPNR_ReturnsZeroElements()
+        {
+            var citizen = new Citizen() { MotherPNR = 0 };
+            var result = citizen.ToMother(ToUuid);
+            Assert.AreEqual(0, result.Length);
         }
 
         [Test]

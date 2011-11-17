@@ -112,40 +112,48 @@ namespace CprBroker.Providers.E_M
 
         public PersonRelationType[] ToFather(Func<string, Guid> cpr2uuidFunc)
         {
-            if (Converters.IsValidCprNumber(this.FatherPNR))
+            if (this.FatherPNR > 0)
             {
-                if (cpr2uuidFunc != null)
+                if (Converters.IsValidCprNumber(this.FatherPNR))
                 {
-                    return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(this.FatherPNR)));
+                    if (cpr2uuidFunc != null)
+                    {
+                        return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(this.FatherPNR)));
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("cpr2uuidFunc");
+                    }
                 }
                 else
                 {
-                    throw new ArgumentNullException("cpr2uuidFunc");
+                    throw new ArgumentException("Invalid FatherPNR", "citizen.FatherPNR");
                 }
             }
-            else
-            {
-                throw new ArgumentException("Invalid FatherPNR", "citizen.FatherPNR");
-            }
+            return new PersonRelationType[0];
         }
 
         public PersonRelationType[] ToMother(Func<string, Guid> cpr2uuidFunc)
         {
-            if (Converters.IsValidCprNumber(this.MotherPNR))
+            if (this.MotherPNR > 0)
             {
-                if (cpr2uuidFunc != null)
+                if (Converters.IsValidCprNumber(this.MotherPNR))
                 {
-                    return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(this.MotherPNR)));
+                    if (cpr2uuidFunc != null)
+                    {
+                        return PersonRelationType.CreateList(cpr2uuidFunc(Converters.ToCprNumber(this.MotherPNR)));
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("cpr2uuidFunc");
+                    }
                 }
                 else
                 {
-                    throw new ArgumentNullException("cpr2uuidFunc");
+                    throw new ArgumentException("Invalid MotherPNR", "citizen.MotherPNR");
                 }
             }
-            else
-            {
-                throw new ArgumentException("Invalid MotherPNR", "citizen.MotherPNR");
-            }
+            return new PersonRelationType[0];
         }
 
     }
