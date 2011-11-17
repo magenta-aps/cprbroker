@@ -57,11 +57,13 @@ namespace CprBroker.Schemas.Part
         public void CalculateVirkning()
         {
             this.Virkning = null;
-            var partialVirkning = GetPropertyValuesOfType<VirkningType>(this)
-                .Where(v => !VirkningType.IsDoubleOpen(v))
-                .ToArray();
+            var partialVirkning = GetPropertyValuesOfType<VirkningType>(this);
+            var partialVirkning2 = GetPropertyValuesOfType<TilstandVirkningType>(this)
+                .Select(tv => tv.ToVirkningType());
+            var allVirknings = partialVirkning.Concat(partialVirkning2)
+                .Where(v => !VirkningType.IsDoubleOpen(v));
             // TODO: Check this
-            this.Virkning = partialVirkning;
+            this.Virkning = allVirknings.ToArray();
         }
 
         public static T[] GetPropertyValuesOfType<T>(object root) where T : class

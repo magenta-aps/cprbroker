@@ -64,5 +64,16 @@ namespace CprBroker.Schemas.Part
                 FraTidspunkt = TidspunktType.Create(fromDate)
             };
         }
+
+        public VirkningType ToVirkningType()
+        {
+            return new VirkningType()
+            {
+                AktoerRef = UnikIdType.Clone(this.AktoerRef),
+                CommentText = this.CommentText,
+                FraTidspunkt = TidspunktType.Create(TidspunktType.ToDateTime(this.FraTidspunkt)),
+                TilTidspunkt = null
+            };
+        }
     }
 }

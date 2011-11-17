@@ -61,5 +61,14 @@ namespace CprBroker.Schemas.Part
                 ItemElementName = ItemChoiceType.UUID
             };
         }
+
+        public static UnikIdType Clone(UnikIdType unikId)
+        {
+            if (unikId != null)
+            {
+                return unikId.MemberwiseClone() as UnikIdType;
+            }
+            return null;
+        }
     }
 }

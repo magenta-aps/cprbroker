@@ -81,6 +81,9 @@
     <Compile Include="EnumsTests.cs" />
     <Compile Include="PersonRelationTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistreringType1Tests.cs" />
+    <Compile Include="TilstandVirkningTypeTests.cs" />
+    <Compile Include="UnikIdTypeTests.cs" />
     <Compile Include="VirkningTypeTests.cs" />
   </ItemGroup>
   <ItemGroup>
