@@ -73,9 +73,9 @@
       <Association Name="Citizen_Child1" Member="ChildrenAsFather" ThisKey="PNR" OtherKey="FatherPNR" Type="Child" />
       <Association Name="Citizen_HousePostCode" Member="RoadPostCodes" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="HousePostCode" />
       <Association Name="Citizen_HouseRangePostCode" Member="HouseRangePostCodes" ThisKey="MunicipalityCode,RoadCode,OddEvenRoadSide" OtherKey="MunicipalityCode,RoadCode,OddEvenRoadSide" Type="HouseRangePostCode" />
+      <Association Name="Citizen_Road" Member="Roads" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Road" />
       <Association Name="HousePostCode_Citizen" Member="HousePostCode" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="HousePostCode" IsForeignKey="true" />
       <Association Name="Authority_Citizen" Member="BirthRegistrationAuthority" ThisKey="BirthRegistrationAuthorityCode" OtherKey="AuthorityCode" Type="Authority" IsForeignKey="true" />
-      <Association Name="Road_Citizen" Member="Road" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Road" IsForeignKey="true" />
       <Association Name="Citizen_Citizen" Member="Spouse" ThisKey="SpousePNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
     </Type>
   </Table>
@@ -146,8 +146,8 @@
       <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="VEJ_NAVN" Member="RoadName" Type="System.String" DbType="Char(40) NOT NULL" CanBeNull="false" />
       <Column Name="VEJ_ADRESSENAVN" Member="RoadAddressingName" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
-      <Column Name="VEJ_OPRET_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="VEJ_OPHOR_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_OPRET_TS" Member="RoadCreationDate" Storage="_VEJ_OPRET_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_OPHOR_TS" Member="RoadEndDate" Storage="_VEJ_OPHOR_TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="VEJ_KORR_MRK" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="HENV_AKTUEL_KOM" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
       <Column Name="HENV_AKTUEL_VEJ" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
@@ -160,7 +160,7 @@
       <Column Name="VEJ_OPHOR_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="VEJ_NAVN_SOGE" Member="RoadSearchName" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
       <Column Name="VEJ_NAVN_FONETIK" Member="RoadPhoneticName" Type="System.String" DbType="Char(7) NOT NULL" CanBeNull="false" />
-      <Association Name="Road_Citizen" Member="Citizens" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Citizen" />
+      <Association Name="Citizen_Road" Member="Citizen" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Citizen" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

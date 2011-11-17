@@ -91,10 +91,7 @@ namespace CprBroker.Providers.E_M
         /// <returns></returns>
         public AddressPostalType ToAddressPostalType(string postCode, string postDistrict)
         {
-            if (Road == null)
-            {
-                throw new ArgumentException(string.Format("Road property cannot be null"));
-            }
+            Road activeRoad = GetActiveRoad();
 
             var ret = new CprBroker.Schemas.Part.AddressPostalType()
            {
@@ -115,13 +112,22 @@ namespace CprBroker.Providers.E_M
                // Set building identifier
                StreetBuildingIdentifier = this.HouseNumber,
                // Set street name
-               StreetName = Road.RoadName,
+               StreetName = activeRoad.RoadName,
                // Set street addressing name
-               StreetNameForAddressingName = Road.RoadAddressingName,
+               StreetNameForAddressingName = activeRoad.RoadAddressingName,
                // Set suite identifier
                SuiteIdentifier = this.Door,
            };
             return ret;
+        }
+
+        public Road GetActiveRoad()
+        {
+            if (Roads.Count == 0)
+            {
+                throw new ArgumentException(string.Format("Road property cannot be null"));
+            }
+            return this.Roads.OrderByDescending(rd => rd.RoadEndDate).First();
         }
 
         /// <summary>

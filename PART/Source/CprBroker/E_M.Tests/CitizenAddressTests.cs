@@ -14,7 +14,7 @@ namespace CprBroker.Tests.E_M
     {
         private Citizen CreateCitizen()
         {
-            return new Citizen()
+            var ret = new Citizen()
             {
                 AddressingName = "Beemen Beshara",
                 CareOfName = "Beemen Beshara",
@@ -31,14 +31,15 @@ namespace CprBroker.Tests.E_M
                     PostDistrict = "Gentofte",
                     RoadName = "Studiestraede"
                 },
-                Road = new Road()
+            };
+            ret.Roads.Add(new Road()
                 {
                     MunicipalityCode = 561,
                     RoadCode = 112,
                     RoadName = "Studistraede",
                     RoadAddressingName = "Studistraede"
-                }
-            };
+                });
+            return ret;
         }
         public CitizenAddressTests()
         {
@@ -83,7 +84,8 @@ namespace CprBroker.Tests.E_M
         [Test]
         public void ToDanskAdresseType_Empty_UkendtAdresseIndikatorFalse()
         {
-            var citizen = new Citizen() { Road = new Road() { RoadCode = 22 } };
+            var citizen = new Citizen() { RoadCode = 22 };
+            citizen.Roads.Add(new Road() { RoadCode = 22 });
             var result = citizen.ToDanskAdresseType();
             Assert.False(result.UkendtAdresseIndikator);
         }
@@ -307,7 +309,7 @@ namespace CprBroker.Tests.E_M
         [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Road", MatchType = MessageMatch.Contains)]
         public void ToAddressPostalType_NullRoad_ThrowsException()
         {
-            var citizen = new Citizen() { Road = null };
+            var citizen = new Citizen() { };
             citizen.ToAddressPostalType(null, null);
         }
 
@@ -387,7 +389,7 @@ namespace CprBroker.Tests.E_M
             [ValueSource(typeof(Utilities), "RandomStrings5")]string roadName)
         {
             var citizen = CreateCitizen();
-            citizen.Road.RoadName = roadName;
+            citizen.Roads[0].RoadName = roadName;
             var result = citizen.ToAddressPostalType(null, null);
             Assert.AreEqual(roadName, result.StreetName);
         }
@@ -397,7 +399,7 @@ namespace CprBroker.Tests.E_M
             [ValueSource(typeof(Utilities), "RandomStrings5")]string roadAddressingName)
         {
             var citizen = CreateCitizen();
-            citizen.Road.RoadAddressingName = roadAddressingName;
+            citizen.Roads[0].RoadAddressingName = roadAddressingName;
             var result = citizen.ToAddressPostalType(null, null);
             Assert.AreEqual(roadAddressingName, result.StreetNameForAddressingName);
         }
@@ -409,6 +411,49 @@ namespace CprBroker.Tests.E_M
             var result = citizen.ToAddressPostalType(null, null);
             Assert.IsNotNullOrEmpty(result.SuiteIdentifier);
         }
+        #endregion
+
+        #region GetActiveRoad
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetActiveRoad_NoRoads_ThrowsException()
+        {
+            var citizen = new Citizen();
+            citizen.GetActiveRoad();
+        }
+
+        [Test]
+        public void GetActiveRoad_OneRoad_ReturnsCorrect()
+        {
+            var citizen = new Citizen();
+            var road = new Road();
+            citizen.Roads.Add(road);
+            var result = citizen.GetActiveRoad();
+            Assert.AreEqual(road, result);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void GetActiveRoad_MultipleRoad_ReturnsCorrect(
+            [Values(2, 3, 5, 20, 78)]int count)
+        {
+            int maxOffset = -10000;
+            var today = DateTime.Today;
+
+            var citizen = new Citizen();
+            for (int i = 0; i < count; i++)
+            {
+                var yearOffset = Utilities.Random.Next(-1000, 1000);
+                var endDate = today.AddYears(yearOffset);
+                var road = new Road() { RoadEndDate = endDate };
+                citizen.Roads.Add(road);
+                maxOffset = Math.Max(yearOffset, maxOffset);
+            }
+            var result = citizen.GetActiveRoad();
+            Assert.AreEqual(today.AddYears(maxOffset), result.RoadEndDate);
+        }
+
         #endregion
 
         #region GetPostCodeAndDistrict()

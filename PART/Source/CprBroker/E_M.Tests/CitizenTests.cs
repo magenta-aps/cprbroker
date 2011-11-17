@@ -458,7 +458,8 @@ namespace CprBroker.Tests.E_M
             public void ToRegisterOplysningType_WhateverCountry_ReturnsNotNull(
                 [Values(5100, 6763, 12)]short countryCode)
             {
-                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1, Road = new Road() { RoadCode = 222 } };
+                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1, RoadCode = 222 };
+                citizen.Roads.Add(new Road() { RoadCode = 222 });
                 var result = citizen.ToRegisterOplysningType(DateTime.Today);
                 Assert.NotNull(result.Item);
             }
@@ -467,7 +468,8 @@ namespace CprBroker.Tests.E_M
             public void ToRegisterOplysningType_WhateverCountry_VirkningNotNull(
                 [Values(5100, 6763, 12)]short countryCode)
             {
-                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CitizenStatusCode = 1, CountryCode = countryCode, Road = new Road() { RoadCode = 22 } };
+                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CitizenStatusCode = 1, CountryCode = countryCode, RoadCode = 22 };
+                citizen.Roads.Add(new Road() { RoadCode = 22 });
                 var result = citizen.ToRegisterOplysningType(DateTime.Today);
                 Assert.NotNull(result.Virkning);
             }
@@ -485,7 +487,8 @@ namespace CprBroker.Tests.E_M
             public void ToRegisterOplysningType_UnknownCountry_ReturnsCprBorgerType(
                 [Values(5100)]short countryCode)
             {
-                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1, Road = new Road() { RoadCode = 222 } };
+                var citizen = new Citizen() { PNR = Utilities.RandomCprNumber(), CountryCode = countryCode, CitizenStatusCode = 1, RoadCode = 222 };
+                citizen.Roads.Add(new Road() { RoadCode = 222 });
                 var result = citizen.ToRegisterOplysningType(DateTime.Today);
                 Assert.IsInstanceOf<CprBorgerType>(result.Item);
             }

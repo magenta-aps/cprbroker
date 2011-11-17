@@ -271,11 +271,11 @@ namespace CprBroker.Providers.E_M
 		
 		private EntitySet<HouseRangePostCode> _HouseRangePostCodes;
 		
+		private EntitySet<Road> _Roads;
+		
 		private EntityRef<HousePostCode> _HousePostCode;
 		
 		private EntityRef<Authority> _BirthRegistrationAuthority;
-		
-		private EntityRef<Road> _Road;
 		
 		private EntityRef<Citizen> _Spouse;
 		
@@ -425,9 +425,9 @@ namespace CprBroker.Providers.E_M
 			this._ChildrenAsFather = new EntitySet<Child>(new Action<Child>(this.attach_ChildrenAsFather), new Action<Child>(this.detach_ChildrenAsFather));
 			this._RoadPostCodes = new EntitySet<HousePostCode>(new Action<HousePostCode>(this.attach_RoadPostCodes), new Action<HousePostCode>(this.detach_RoadPostCodes));
 			this._HouseRangePostCodes = new EntitySet<HouseRangePostCode>(new Action<HouseRangePostCode>(this.attach_HouseRangePostCodes), new Action<HouseRangePostCode>(this.detach_HouseRangePostCodes));
+			this._Roads = new EntitySet<Road>(new Action<Road>(this.attach_Roads), new Action<Road>(this.detach_Roads));
 			this._HousePostCode = default(EntityRef<HousePostCode>);
 			this._BirthRegistrationAuthority = default(EntityRef<Authority>);
-			this._Road = default(EntityRef<Road>);
 			this._Spouse = default(EntityRef<Citizen>);
 			OnCreated();
 		}
@@ -1824,6 +1824,19 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
+		[Association(Name="Citizen_Road", Storage="_Roads", ThisKey="MunicipalityCode,RoadCode", OtherKey="MunicipalityCode,RoadCode")]
+		public EntitySet<Road> Roads
+		{
+			get
+			{
+				return this._Roads;
+			}
+			set
+			{
+				this._Roads.Assign(value);
+			}
+		}
+		
 		[Association(Name="HousePostCode_Citizen", Storage="_HousePostCode", ThisKey="MunicipalityCode,RoadCode,HouseNumber", OtherKey="MunicipalityCode,RoadCode,HouseNumber", IsForeignKey=true)]
 		public HousePostCode HousePostCode
 		{
@@ -1892,42 +1905,6 @@ namespace CprBroker.Providers.E_M
 						this._BirthRegistrationAuthorityCode = default(short);
 					}
 					this.SendPropertyChanged("BirthRegistrationAuthority");
-				}
-			}
-		}
-		
-		[Association(Name="Road_Citizen", Storage="_Road", ThisKey="MunicipalityCode,RoadCode", OtherKey="MunicipalityCode,RoadCode", IsForeignKey=true)]
-		public Road Road
-		{
-			get
-			{
-				return this._Road.Entity;
-			}
-			set
-			{
-				Road previousValue = this._Road.Entity;
-				if (((previousValue != value) 
-							|| (this._Road.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Road.Entity = null;
-						previousValue.Citizens.Remove(this);
-					}
-					this._Road.Entity = value;
-					if ((value != null))
-					{
-						value.Citizens.Add(this);
-						this._MunicipalityCode = value.MunicipalityCode;
-						this._RoadCode = value.RoadCode;
-					}
-					else
-					{
-						this._MunicipalityCode = default(short);
-						this._RoadCode = default(short);
-					}
-					this.SendPropertyChanged("Road");
 				}
 			}
 		}
@@ -2013,6 +1990,18 @@ namespace CprBroker.Providers.E_M
 		}
 		
 		private void detach_HouseRangePostCodes(HouseRangePostCode entity)
+		{
+			this.SendPropertyChanging();
+			entity.Citizen = null;
+		}
+		
+		private void attach_Roads(Road entity)
+		{
+			this.SendPropertyChanging();
+			entity.Citizen = this;
+		}
+		
+		private void detach_Roads(Road entity)
 		{
 			this.SendPropertyChanging();
 			entity.Citizen = null;
@@ -3359,7 +3348,7 @@ namespace CprBroker.Providers.E_M
 		
 		private string _RoadPhoneticName;
 		
-		private EntitySet<Citizen> _Citizens;
+		private EntityRef<Citizen> _Citizen;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3373,10 +3362,10 @@ namespace CprBroker.Providers.E_M
     partial void OnRoadNameChanged();
     partial void OnRoadAddressingNameChanging(string value);
     partial void OnRoadAddressingNameChanged();
-    partial void OnVEJ_OPRET_TSChanging(System.DateTime value);
-    partial void OnVEJ_OPRET_TSChanged();
-    partial void OnVEJ_OPHOR_TSChanging(System.DateTime value);
-    partial void OnVEJ_OPHOR_TSChanged();
+    partial void OnRoadCreationDateChanging(System.DateTime value);
+    partial void OnRoadCreationDateChanged();
+    partial void OnRoadEndDateChanging(System.DateTime value);
+    partial void OnRoadEndDateChanged();
     partial void OnVEJ_KORR_MRKChanging(char value);
     partial void OnVEJ_KORR_MRKChanged();
     partial void OnHENV_AKTUEL_KOMChanging(short value);
@@ -3405,7 +3394,7 @@ namespace CprBroker.Providers.E_M
 		
 		public Road()
 		{
-			this._Citizens = new EntitySet<Citizen>(new Action<Citizen>(this.attach_Citizens), new Action<Citizen>(this.detach_Citizens));
+			this._Citizen = default(EntityRef<Citizen>);
 			OnCreated();
 		}
 		
@@ -3489,8 +3478,8 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Column(Storage="_VEJ_OPRET_TS", DbType="DateTime NOT NULL")]
-		public System.DateTime VEJ_OPRET_TS
+		[Column(Name="VEJ_OPRET_TS", Storage="_VEJ_OPRET_TS", DbType="DateTime NOT NULL")]
+		public System.DateTime RoadCreationDate
 		{
 			get
 			{
@@ -3500,17 +3489,17 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._VEJ_OPRET_TS != value))
 				{
-					this.OnVEJ_OPRET_TSChanging(value);
+					this.OnRoadCreationDateChanging(value);
 					this.SendPropertyChanging();
 					this._VEJ_OPRET_TS = value;
-					this.SendPropertyChanged("VEJ_OPRET_TS");
-					this.OnVEJ_OPRET_TSChanged();
+					this.SendPropertyChanged("RoadCreationDate");
+					this.OnRoadCreationDateChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_VEJ_OPHOR_TS", DbType="DateTime NOT NULL")]
-		public System.DateTime VEJ_OPHOR_TS
+		[Column(Name="VEJ_OPHOR_TS", Storage="_VEJ_OPHOR_TS", DbType="DateTime NOT NULL")]
+		public System.DateTime RoadEndDate
 		{
 			get
 			{
@@ -3520,11 +3509,11 @@ namespace CprBroker.Providers.E_M
 			{
 				if ((this._VEJ_OPHOR_TS != value))
 				{
-					this.OnVEJ_OPHOR_TSChanging(value);
+					this.OnRoadEndDateChanging(value);
 					this.SendPropertyChanging();
 					this._VEJ_OPHOR_TS = value;
-					this.SendPropertyChanged("VEJ_OPHOR_TS");
-					this.OnVEJ_OPHOR_TSChanged();
+					this.SendPropertyChanged("RoadEndDate");
+					this.OnRoadEndDateChanged();
 				}
 			}
 		}
@@ -3769,16 +3758,39 @@ namespace CprBroker.Providers.E_M
 			}
 		}
 		
-		[Association(Name="Road_Citizen", Storage="_Citizens", ThisKey="MunicipalityCode,RoadCode", OtherKey="MunicipalityCode,RoadCode")]
-		public EntitySet<Citizen> Citizens
+		[Association(Name="Citizen_Road", Storage="_Citizen", ThisKey="MunicipalityCode,RoadCode", OtherKey="MunicipalityCode,RoadCode", IsForeignKey=true)]
+		public Citizen Citizen
 		{
 			get
 			{
-				return this._Citizens;
+				return this._Citizen.Entity;
 			}
 			set
 			{
-				this._Citizens.Assign(value);
+				Citizen previousValue = this._Citizen.Entity;
+				if (((previousValue != value) 
+							|| (this._Citizen.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Citizen.Entity = null;
+						previousValue.Roads.Remove(this);
+					}
+					this._Citizen.Entity = value;
+					if ((value != null))
+					{
+						value.Roads.Add(this);
+						this._MunicipalityCode = value.MunicipalityCode;
+						this._RoadCode = value.RoadCode;
+					}
+					else
+					{
+						this._MunicipalityCode = default(short);
+						this._RoadCode = default(short);
+					}
+					this.SendPropertyChanged("Citizen");
+				}
 			}
 		}
 		
@@ -3800,18 +3812,6 @@ namespace CprBroker.Providers.E_M
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Citizens(Citizen entity)
-		{
-			this.SendPropertyChanging();
-			entity.Road = this;
-		}
-		
-		private void detach_Citizens(Citizen entity)
-		{
-			this.SendPropertyChanging();
-			entity.Road = null;
 		}
 	}
 }
