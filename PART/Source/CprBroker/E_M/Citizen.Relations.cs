@@ -35,26 +35,26 @@ namespace CprBroker.Providers.E_M
         {
             if (cpr2uuidFunc != null)
             {
-                var status = Converters.ToCivilStatusKodeType(this.MaritalStatus);
-                if (status == CivilStatusKodeType.Ugift
-                    && this.Spouse != null
-                    && sameGenderSpouseForDead == (this.Gender == this.Spouse.Gender)
-                    )
+                if (this.SpousePNR > 0)
                 {
-                    return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
+                    var status = Converters.ToCivilStatusKodeType(this.MaritalStatus);
+                    if (status == CivilStatusKodeType.Ugift // Dead
+                        && this.Spouse != null
+                        && sameGenderSpouseForDead == (this.Gender == this.Spouse.Gender)
+                        )
+                    {
+                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
+                    }
+                    else if (status == existingStatusCode) // Married or registered partner
+                    {
+                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), null);
+                    }
+                    else if (terminatedStatusCodes.Contains(status)) // Terminated relationship (divorced, widow...)
+                    {
+                        return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
+                    }
                 }
-                else if (status == existingStatusCode)
-                {
-                    return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), this.ToMaritalStatusDate(), null);
-                }
-                else if (terminatedStatusCodes.Contains(status))
-                {
-                    return PersonRelationType.CreateList(cpr2uuidFunc(this.ToSpousePNR()), null, this.ToMaritalStatusDate());
-                }
-                else
-                {
-                    return new PersonRelationType[0];
-                }
+                return new PersonRelationType[0];
             }
             else
             {

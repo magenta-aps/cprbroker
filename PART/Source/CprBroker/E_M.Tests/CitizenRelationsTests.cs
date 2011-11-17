@@ -383,12 +383,12 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ToSpouses_ZeroSpousePnr_Exception(
             [Values('G', 'F', 'E')]char maritalStatus)
         {
             var citizen = new Citizen() { MaritalStatus = maritalStatus, SpousePNR = 0 };
-            citizen.ToSpouses(ToUuid);
+            var result = citizen.ToSpouses(ToUuid);
+            Assert.IsEmpty(result);
         }
 
         [Test]
@@ -547,12 +547,12 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ToRegisteredPartners_ZeroSpousePnr_Exception(
+        public void ToRegisteredPartners_ZeroSpousePnr_ZeroElements(
             [Values('L', 'O', 'P')]char maritalStatus)
         {
             var citizen = new Citizen() { MaritalStatus = maritalStatus, SpousePNR = 0 };
-            citizen.ToRegisteredPartners(ToUuid);
+            var result = citizen.ToRegisteredPartners(ToUuid);
+            Assert.IsEmpty(result);
         }
 
         [Test]
