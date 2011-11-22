@@ -60,7 +60,6 @@ namespace CprBroker.Engine.Part
     public class ReadFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
     {
         LaesInputType Input = null;
-        PersonIdentifier pId = null;
         LocalDataProviderUsageOption LocalAction;
         public QualityLevel? QualityLevel;
 
@@ -86,12 +85,6 @@ namespace CprBroker.Engine.Part
                 return StandardReturType.InvalidUuid(Input.UUID);
             }
 
-            pId = Data.Part.PersonMapping.GetPersonIdentifier(new Guid(Input.UUID));
-            if (pId == null)
-            {
-                return StandardReturType.UnknownUuid(Input.UUID);
-            }
-
             return StandardReturType.OK();
         }
 
@@ -99,7 +92,7 @@ namespace CprBroker.Engine.Part
         {
             SubMethodInfos = new SubMethodInfo[] 
             {
-                new ReadSubMethodInfo(pId, Input, LocalAction)
+                new ReadSubMethodInfo(Input, LocalAction)
             };
         }
 

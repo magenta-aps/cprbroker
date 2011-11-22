@@ -68,10 +68,9 @@ namespace CprBroker.Engine.Part
             FailOnDefaultOutput = true;
         }
 
-        public ReadSubMethodInfo(PersonIdentifier pId, LaesInputType input, LocalDataProviderUsageOption localAction)
+        public ReadSubMethodInfo(LaesInputType input, LocalDataProviderUsageOption localAction)
             : this()
         {
-            PersonIdentifier = pId;
             this.Input = input;
             LocalDataProviderOption = localAction;
             UpdateMethod = (personRegistration) => Local.UpdateDatabase.UpdatePersonRegistration(PersonIdentifier, personRegistration);
@@ -79,13 +78,18 @@ namespace CprBroker.Engine.Part
 
         public override RegistreringType1 RunMainMethod(IPartReadDataProvider prov)
         {
-            return prov.Read
-           (
-                this.PersonIdentifier,
-               Input,
-               (cprNumber) => CprToUuid(cprNumber),
-               out QualityLevel
-           );
+            this.PersonIdentifier = UuidToPersonIdentifier(Input.UUID);
+            if (this.PersonIdentifier != null)
+            {
+                return prov.Read
+               (
+                    this.PersonIdentifier,
+                   Input,
+                   (cprNumber) => CprToUuid(cprNumber),
+                   out QualityLevel
+               );
+            }
+            return null;
         }
 
         public override bool IsValidResult(CprBroker.Schemas.Part.RegistreringType1 result)
@@ -111,9 +115,26 @@ namespace CprBroker.Engine.Part
             return Guid.Empty;
         }
 
+        protected virtual PersonIdentifier UuidToPersonIdentifier(string uuidString)
+        {
+            return Data.Part.PersonMapping.GetPersonIdentifier(new Guid(uuidString));
+        }
+
         public override string InputToString()
         {
             return this.Input.UUID;
+        }
+
+        public override string PossibleErrorReason()
+        {
+            if (this.PersonIdentifier == null)
+            {
+                return StandardReturType.UnknownUuidText;
+            }
+            else
+            {
+                return base.PossibleErrorReason();
+            }
         }
 
     }

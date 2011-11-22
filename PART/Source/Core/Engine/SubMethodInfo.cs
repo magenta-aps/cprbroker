@@ -58,7 +58,7 @@ namespace CprBroker.Engine
     /// </summary>
     public abstract class SubMethodInfo
     {
-        public abstract Type InterfaceType { get; }
+        public abstract List<IDataProvider> GetDataProviderList();
         public bool FailOnDefaultOutput;
         public LocalDataProviderUsageOption LocalDataProviderOption;
         public bool FailIfNoDataProvider;
@@ -67,6 +67,7 @@ namespace CprBroker.Engine
         public abstract bool IsSuccessfulOutput(object o);
         public abstract bool IsUpdatableOutput(object o);
         public abstract string InputToString();
+        public abstract string PossibleErrorReason();
     }
 
     public class SubMethodInfo<TInterface, TOutput> : SubMethodInfo where TInterface : class, IDataProvider
@@ -77,9 +78,14 @@ namespace CprBroker.Engine
 
         public TOutput CurrentResult;
 
-        public override Type InterfaceType
+        public Type InterfaceType
         {
             get { return typeof(TInterface); }
+        }
+
+        public override List<IDataProvider> GetDataProviderList()
+        {
+            return DataProviderManager.GetDataProviderList(this.InterfaceType, this.LocalDataProviderOption);
         }
 
         public override sealed object Invoke(IDataProvider prov)
@@ -126,7 +132,7 @@ namespace CprBroker.Engine
             return IsNonEmptyResult(result);
         }
 
-        public sealed override bool  IsUpdatableOutput(object o)
+        public sealed override bool IsUpdatableOutput(object o)
         {
             if (typeof(TOutput).IsInstanceOfType(o))
             {
@@ -158,6 +164,11 @@ namespace CprBroker.Engine
         public override string InputToString()
         {
             return this.ToString();
+        }
+
+        public override string PossibleErrorReason()
+        {
+            return Schemas.Part.StandardReturType.DataProviderFailedText;
         }
     }
 

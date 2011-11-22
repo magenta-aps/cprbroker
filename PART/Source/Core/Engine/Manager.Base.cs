@@ -109,7 +109,7 @@ namespace CprBroker.Engine
                     .Select(mi => new SubMethodRunState()
                     {
                         SubMethodInfo = mi,
-                        DataProviders = DataProviderManager.GetDataProviderList(mi.InterfaceType, mi.LocalDataProviderOption)
+                        DataProviders = mi.GetDataProviderList()
                     })
                     .ToArray();
 
@@ -236,8 +236,10 @@ namespace CprBroker.Engine
                         }
                         else
                         {
-                            var failedInput = subMethodRunStates.Where(smi => !smi.Succeeded).Select(smi => smi.SubMethodInfo.InputToString()).ToArray();
-                            output.StandardRetur = StandardReturType.PartialSuccess(failedInput);
+                            var failedSubMethods = subMethodRunStates.Where(smi => !smi.Succeeded).Select(smi=>smi.SubMethodInfo);
+                            var failedSubMethodsByReason = failedSubMethods.GroupBy(smi => smi.PossibleErrorReason());
+                            var failuresAndReasons = failedSubMethodsByReason.ToDictionary(grp => grp.Key, grp => grp.Select(smi=>smi.InputToString()));                                                        
+                            output.StandardRetur = StandardReturType.PartialSuccess(failuresAndReasons);
                         }
 
                         return output;

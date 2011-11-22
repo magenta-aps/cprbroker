@@ -65,6 +65,9 @@ namespace CprBroker.Schemas.Part
 
     public partial class StandardReturType
     {
+        public static string UnknownUuidText = "Unknown UUID";
+        public static string DataProviderFailedText = "Data provider failed";
+
         public static StandardReturType Create(HttpErrorCode code)
         {
             return Create(code, code.ToString());
@@ -100,6 +103,13 @@ namespace CprBroker.Schemas.Part
         public static StandardReturType PartialSuccess(string[] failedInputs)
         {
             string text = "Partial success. Failed = " + string.Join(",", failedInputs);
+            return Create(HttpErrorCode.PARTIAL_SUCCESS, text);
+        }
+
+        public static StandardReturType PartialSuccess(Dictionary<string, IEnumerable<string>> failures)
+        {
+            var allReasons = failures.Select(ff => string.Format("{0} : {1}", ff.Key, string.Join(",", ff.Value.ToArray()))).ToArray();
+            string text = "Partial success. Failed = " + string.Join(";", allReasons);
             return Create(HttpErrorCode.PARTIAL_SUCCESS, text);
         }
 
@@ -179,7 +189,7 @@ namespace CprBroker.Schemas.Part
 
         public static StandardReturType UnknownUuid(string uuid)
         {
-            return Create(HttpErrorCode.NOT_FOUND, string.Format("UUID valid but not found : {0}", uuid));
+            return Create(HttpErrorCode.NOT_FOUND, string.Format("{0} : {1}", UnknownUuidText, uuid));
         }
 
         public static StandardReturType UnreachableChannel()

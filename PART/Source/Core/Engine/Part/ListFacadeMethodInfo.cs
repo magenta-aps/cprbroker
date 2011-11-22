@@ -60,7 +60,6 @@ namespace CprBroker.Engine.Part
     public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1, LaesResultatType[]>
     {
         public ListInputType input;
-        public Dictionary<string, PersonIdentifier> inputUuidToPersonIdentifierMap = new Dictionary<string, PersonIdentifier>();
 
         private ListFacadeMethodInfo()
         { }
@@ -94,24 +93,6 @@ namespace CprBroker.Engine.Part
                 return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidUuids));
             }
 
-            var unknownUuidErrors = new List<String>();
-            foreach (var inputPersonUuid in input.UUID)
-            {
-                var personIdentifier = Data.Part.PersonMapping.GetPersonIdentifier(new Guid(inputPersonUuid));
-                if (personIdentifier == null)
-                {
-                    unknownUuidErrors.Add("uuid " + inputPersonUuid + "valid but not found");
-                }
-                else
-                {
-                    inputUuidToPersonIdentifierMap[inputPersonUuid] = personIdentifier;
-                }
-            }
-            if (unknownUuidErrors.Count > 0)
-            {
-                return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", unknownUuidErrors.ToArray()));
-            }
-
             return StandardReturType.OK();
         }
 
@@ -121,7 +102,6 @@ namespace CprBroker.Engine.Part
             (
                 input.UUID.ToArray(),
                 (pUUID) => new ReadSubMethodInfo(
-                    inputUuidToPersonIdentifierMap[pUUID],
                     LaesInputType.Create(pUUID, input),
                     LocalDataProviderUsageOption.UseFirst)
            );
