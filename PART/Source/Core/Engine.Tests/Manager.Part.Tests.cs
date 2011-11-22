@@ -12,6 +12,25 @@ namespace CprBroker.Tests.Engine
     [TestFixture]
     class ManagerPartTests
     {
+        #region Stubs
+
+        class ReadFacadeMethodInfoStub : ReadFacadeMethodInfo
+        {
+            public ReadFacadeMethodInfoStub(string uuid)
+                : base(new LaesInputType() { UUID = uuid }, LocalDataProviderUsageOption.UseFirst, Utilities.AppToken, "")
+            { }
+
+            public ReadFacadeMethodInfoStub()
+                : this(null)
+            {
+            }
+
+            public override void Initialize()
+            {
+                this.SubMethodInfos = new SubMethodInfo[] { new ReadSubMethodInfoStub(Input.UUID) };
+            }
+        }
+
         class ListFacadeMethodInfoStub : ListFacadeMethodInfo
         {
             public ListFacadeMethodInfoStub(string[] uuids)
@@ -95,10 +114,20 @@ namespace CprBroker.Tests.Engine
             }
         }
 
-        ListOutputType1 GetMethodOutput(string[] uuids)
+        #endregion
+
+        #region Common Methods
+
+        ListOutputType1 GetListMethodOutput(string[] uuids)
         {
             return Manager.GetMethodOutput<ListOutputType1, LaesResultatType[]>(
                     new ListFacadeMethodInfoStub(uuids));
+        }
+
+        LaesOutputType GetReadMethodOutput(string uuid)
+        {
+            return Manager.GetMethodOutput<LaesOutputType, LaesResultatType>(
+                    new ReadFacadeMethodInfoStub(uuid));
         }
 
         [TearDown]
@@ -107,6 +136,10 @@ namespace CprBroker.Tests.Engine
             ReadSubMethodInfoStub.knownUuids.Clear();
             PartReadDataProviderStub.knownCprNumbers.Clear();
         }
+
+        #endregion
+
+        #region List
 
         [Test]
         [RequiresThread]
@@ -129,14 +162,14 @@ namespace CprBroker.Tests.Engine
         [Test]
         public void List_NullUuids_ReturnsBadRequest()
         {
-            var ret = GetMethodOutput(null);
+            var ret = GetListMethodOutput(null);
             Assert.AreEqual("400", ret.StandardRetur.StatusKode);
         }
 
         [Test]
         public void List_ZeroUuids_ReturnsBadRequest()
         {
-            var ret = GetMethodOutput(new string[0]);
+            var ret = GetListMethodOutput(new string[0]);
             Assert.AreEqual("400", ret.StandardRetur.StatusKode);
         }
 
@@ -144,7 +177,7 @@ namespace CprBroker.Tests.Engine
         public void List_InvalidUuids_ReturnsBadRequest(
             [Values("kalskldjas", "2610802222", "Data kljaslkj")]string inValidUuid)
         {
-            var ret = GetMethodOutput(new string[] { inValidUuid });
+            var ret = GetListMethodOutput(new string[] { inValidUuid });
             Assert.AreEqual("400", ret.StandardRetur.StatusKode);
         }
 
@@ -152,7 +185,7 @@ namespace CprBroker.Tests.Engine
         public void List_InvalidUuids_ReturnsUuidInStatusText(
             [Values("kalskldjas", "2610802222", "Data kljaslkj")]string inValidUuid)
         {
-            var ret = GetMethodOutput(new string[] { inValidUuid });
+            var ret = GetListMethodOutput(new string[] { inValidUuid });
             StringAssert.Contains(inValidUuid, ret.StandardRetur.FejlbeskedTekst);
         }
 
@@ -160,7 +193,7 @@ namespace CprBroker.Tests.Engine
         public void List_InvalidUuids_ReturnsNullLaesResultat(
             [Values("kalskldjas", "2610802222", "Data kljaslkj")]string inValidUuid)
         {
-            var ret = GetMethodOutput(new string[] { inValidUuid });
+            var ret = GetListMethodOutput(new string[] { inValidUuid });
             Assert.Null(ret.LaesResultat);
         }
 
@@ -170,7 +203,7 @@ namespace CprBroker.Tests.Engine
             [ValueSource(typeof(Utilities), "RandomGuids5")]string validUuid,
             [Values(null, "", "kalskldjas", "2610802222", "Data kljaslkj")]string inValidUuid)
         {
-            var ret = GetMethodOutput(new string[] { validUuid, inValidUuid });
+            var ret = GetListMethodOutput(new string[] { validUuid, inValidUuid });
             Assert.AreEqual("400", ret.StandardRetur.StatusKode);
         }
 
@@ -179,7 +212,7 @@ namespace CprBroker.Tests.Engine
             [ValueSource(typeof(Utilities), "RandomGuids5")]string validUuid,
             [Values("kalskldjas", "2610802222", "Data kljaslkj")]string inValidUuid)
         {
-            var ret = GetMethodOutput(new string[] { validUuid, inValidUuid });
+            var ret = GetListMethodOutput(new string[] { validUuid, inValidUuid });
             StringAssert.Contains(inValidUuid, ret.StandardRetur.FejlbeskedTekst);
         }
 
@@ -188,7 +221,7 @@ namespace CprBroker.Tests.Engine
             [ValueSource(typeof(Utilities), "RandomGuids5")]string validUuid,
             [Values(null, "", "kalskldjas", "2610802222", "Data kljaslkj")]string inValidUuid)
         {
-            var ret = GetMethodOutput(new string[] { validUuid, inValidUuid });
+            var ret = GetListMethodOutput(new string[] { validUuid, inValidUuid });
             Assert.Null(ret.LaesResultat);
         }
 
@@ -200,7 +233,7 @@ namespace CprBroker.Tests.Engine
             var cprNumber = Utilities.RandomCprNumber();
             ReadSubMethodInfoStub.knownUuids.Add(validUuid, cprNumber);
             PartReadDataProviderStub.knownCprNumbers.Add(cprNumber);
-            var ret = GetMethodOutput(new string[] { validUuid });
+            var ret = GetListMethodOutput(new string[] { validUuid });
             Assert.AreEqual("200", ret.StandardRetur.StatusKode);
         }
 
@@ -213,7 +246,7 @@ namespace CprBroker.Tests.Engine
             var cprNumber = Utilities.RandomCprNumber();
             ReadSubMethodInfoStub.knownUuids.Add(knownUuid, cprNumber);
             PartReadDataProviderStub.knownCprNumbers.Add(cprNumber);
-            var ret = GetMethodOutput(new string[] { knownUuid, unknownUuid });
+            var ret = GetListMethodOutput(new string[] { knownUuid, unknownUuid });
             Assert.AreEqual("206", ret.StandardRetur.StatusKode);
         }
 
@@ -226,7 +259,7 @@ namespace CprBroker.Tests.Engine
             var cprNumber = Utilities.RandomCprNumber();
             ReadSubMethodInfoStub.knownUuids.Add(knownUuid, cprNumber);
             PartReadDataProviderStub.knownCprNumbers.Add(cprNumber);
-            var ret = GetMethodOutput(new string[] { knownUuid, unknownUuid });
+            var ret = GetListMethodOutput(new string[] { knownUuid, unknownUuid });
             StringAssert.Contains("Unknown", ret.StandardRetur.FejlbeskedTekst);
         }
 
@@ -239,7 +272,7 @@ namespace CprBroker.Tests.Engine
             var cprNumber = Utilities.RandomCprNumber();
             ReadSubMethodInfoStub.knownUuids.Add(knownUuid, cprNumber);
             PartReadDataProviderStub.knownCprNumbers.Add(cprNumber);
-            var ret = GetMethodOutput(new string[] { knownUuid, unknownUuid });
+            var ret = GetListMethodOutput(new string[] { knownUuid, unknownUuid });
             StringAssert.Contains(unknownUuid, ret.StandardRetur.FejlbeskedTekst);
         }
 
@@ -257,7 +290,7 @@ namespace CprBroker.Tests.Engine
             var unfoundCprNumber = Utilities.RandomCprNumber();
             ReadSubMethodInfoStub.knownUuids.Add(unfoundCprNumber, unfoundCprNumber);
 
-            var ret = GetMethodOutput(new string[] { foundUuid, unfoundUuid });
+            var ret = GetListMethodOutput(new string[] { foundUuid, unfoundUuid });
             Assert.AreEqual("206", ret.StandardRetur.StatusKode);
         }
 
@@ -273,8 +306,8 @@ namespace CprBroker.Tests.Engine
 
             var unfoundCprNumber = Utilities.RandomCprNumber();
             ReadSubMethodInfoStub.knownUuids.Add(unfoundUuid, unfoundCprNumber);
-            
-            var ret = GetMethodOutput(new string[] { foundUuid, unfoundUuid });
+
+            var ret = GetListMethodOutput(new string[] { foundUuid, unfoundUuid });
             StringAssert.Contains("Data provider failed", ret.StandardRetur.FejlbeskedTekst);
         }
 
@@ -291,7 +324,7 @@ namespace CprBroker.Tests.Engine
             var unfoundCprNumber = Utilities.RandomCprNumber();
             ReadSubMethodInfoStub.knownUuids.Add(unfoundCprNumber, unfoundCprNumber);
 
-            var ret = GetMethodOutput(new string[] { foundUuid, unfoundUuid });
+            var ret = GetListMethodOutput(new string[] { foundUuid, unfoundUuid });
             StringAssert.Contains(unfoundUuid, ret.StandardRetur.FejlbeskedTekst);
         }
 
@@ -301,7 +334,7 @@ namespace CprBroker.Tests.Engine
             [ValueSource(typeof(Utilities), "RandomGuids5")]string unfoundUuid1,
             [ValueSource(typeof(Utilities), "RandomGuids5")]string unfoundUuid2)
         {
-            var ret = GetMethodOutput(new string[] { unfoundUuid1, unfoundUuid2 });
+            var ret = GetListMethodOutput(new string[] { unfoundUuid1, unfoundUuid2 });
             Assert.AreEqual("503", ret.StandardRetur.StatusKode);
         }
 
@@ -317,9 +350,50 @@ namespace CprBroker.Tests.Engine
             var unfoundCprNumber2 = Utilities.RandomCprNumber();
             ReadSubMethodInfoStub.knownUuids.Add(unfoundCprNumber2, unfoundCprNumber2);
 
-            var ret = GetMethodOutput(new string[] { unfoundUuid1, unfoundUuid2 });
+            var ret = GetListMethodOutput(new string[] { unfoundUuid1, unfoundUuid2 });
             Assert.AreEqual("503", ret.StandardRetur.StatusKode);
         }
 
+        #endregion
+
+        #region Read
+
+        [Test]
+        public void Read_InvalidUuid_ReturnsBadRequest(
+            [Values(null, "", "jkahkjhkj", "uqy876hkjhjk")]string uuid)
+        {
+            var ret = GetReadMethodOutput(uuid);
+            Assert.AreEqual("400", ret.StandardRetur.StatusKode);
+        }
+
+        [Test]
+        public void Read_UnknownUuid_ReturnsDataSourceUnavailable(
+            [ValueSource(typeof(Utilities), "RandomGuids5")]string unknownUuid)
+        {
+            var ret = GetReadMethodOutput(unknownUuid);
+            Assert.AreEqual("503", ret.StandardRetur.StatusKode);
+        }
+
+        [Test]
+        public void Read_NotFoundUuidData_ReturnsDataSourceUnavailable(
+            [ValueSource(typeof(Utilities), "RandomGuids5")]string unfoundUuid)
+        {
+            ReadSubMethodInfoStub.knownUuids.Add(unfoundUuid, Utilities.RandomCprNumber());
+            var ret = GetReadMethodOutput(unfoundUuid);
+            Assert.AreEqual("503", ret.StandardRetur.StatusKode);
+        }
+
+        [Test]
+        public void Read_FoundUuid_ReturnsOK(
+            [ValueSource(typeof(Utilities), "RandomGuids5")]string foundUuid)
+        {
+            var foundCprNumber = Utilities.RandomCprNumber();
+            ReadSubMethodInfoStub.knownUuids.Add(foundUuid, foundCprNumber);
+            PartReadDataProviderStub.knownCprNumbers.Add(foundCprNumber);
+            var ret = GetReadMethodOutput(foundUuid);
+            Assert.AreEqual("200", ret.StandardRetur.StatusKode);
+        }
+
+        #endregion
     }
 }

@@ -59,7 +59,7 @@ namespace CprBroker.Engine.Part
     /// </summary>
     public class ReadFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
     {
-        LaesInputType Input = null;
+        protected LaesInputType Input = null;
         LocalDataProviderUsageOption LocalAction;
         public QualityLevel? QualityLevel;
 
