@@ -3,13 +3,14 @@
 
   <PatchCreation Id="D9BA77D5-C16D-458a-8A7E-ABB1C237FC02" AllowMajorVersionMismatches="no" AllowProductCodeMismatches="no" CleanWorkingFolder="no" WholeFilesOnly="yes" >
 
-    <PatchInformation Description="Updates CPR Broker to v. 1.1"  Comments="Patch for CPR Broker" Manufacturer="Magenta ApS"  />
-    <PatchMetadata AllowRemoval="yes" Description="Updates CPR Broker to v. 1.1" ManufacturerName="Magenta ApS" TargetProductName="CPR Broker" MoreInfoURL="http://magenta-aps.dk" Classification="Update" DisplayName="CPR Broker Patch"/>
+    <PatchInformation Description="Updates CPR Broker to v. 1..11"  Comments="Patch for CPR Broker" Manufacturer="Magenta ApS"  />
+    <PatchMetadata AllowRemoval="yes" Description="Updates CPR Broker to v. 1.1.1" ManufacturerName="Magenta ApS" TargetProductName="CPR Broker" MoreInfoURL="http://magenta-aps.dk" Classification="Update" DisplayName="CPR Broker Patch"/>
     
     <Family Name="Sample" DiskId="1000" MediaSrcProp="Sample" SequenceStart="1000">
       <UpgradeImage Id="CprUpgrade" SourceFile="$(var.ProjectDir)$(var.OutDir)en-US\admin\InstallCprBrokerWix.msi" >
         <TargetImage  SourceFile="$(var.ProjectDir)Patch\OldMsi\1.0\admin\InstallCprBrokerWix.msi" Order="1" Id="Target_1_0" IgnoreMissingFiles="no"/>
         <TargetImage  SourceFile="$(var.ProjectDir)Patch\OldMsi\1.0.1\admin\InstallCprBrokerWix.msi" Order="1" Id="Target_1_0_1" IgnoreMissingFiles="no"/>
+        <TargetImage  SourceFile="$(var.ProjectDir)Patch\OldMsi\1.1\admin\InstallCprBrokerWix.msi" Order="1" Id="Target_1_1" IgnoreMissingFiles="no"/>
       </UpgradeImage>
     </Family>
 

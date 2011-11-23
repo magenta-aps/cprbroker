@@ -125,6 +125,6 @@ candle Patch_WinSDK.wxs -out Patch_WinSDK.wixobj -dProjectDir="$(ProjectDir)\" -
 light Patch_WinSDK.wixobj
 msimsp -s Patch_WinSDK.pcp -p Patch_WinSDK.msp
 
-copy Patch_WinSDK.msp $(OutDir)en-US\CprBrokerPatch_1_1.msp /y</PostBuildEvent>
+copy Patch_WinSDK.msp $(OutDir)en-US\CprBrokerPatch_1_1_1.msp /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
