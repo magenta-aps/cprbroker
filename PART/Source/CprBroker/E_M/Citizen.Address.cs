@@ -77,7 +77,7 @@ namespace CprBroker.Providers.E_M
             return new CprBroker.Schemas.Part.AddressAccessType()
            {
                MunicipalityCode = Converters.ShortToString(this.MunicipalityCode),
-               StreetBuildingIdentifier = this.HouseNumber,
+               StreetBuildingIdentifier = Converters.ToNeutralString(this.HouseNumber),
                StreetCode = Converters.ShortToString(this.RoadCode)
            };
         }
@@ -100,7 +100,7 @@ namespace CprBroker.Providers.E_M
                // DistrictSubdivisionIdentifier is not supported
                DistrictSubdivisionIdentifier = null,
                // Set floor
-               FloorIdentifier = this.Floor,
+               FloorIdentifier = Converters.ToNeutralString(this.Floor),
                // MailDeliverySublocationIdentifier is not supported
                MailDeliverySublocationIdentifier = null,
                // Set post code
@@ -110,13 +110,13 @@ namespace CprBroker.Providers.E_M
                // PostOfficeBoxIdentifier is not supported
                PostOfficeBoxIdentifier = null,
                // Set building identifier
-               StreetBuildingIdentifier = this.HouseNumber,
+               StreetBuildingIdentifier = Converters.ToNeutralString(this.HouseNumber),
                // Set street name
-               StreetName = activeRoad.RoadName,
+               StreetName = Converters.ToNeutralString(activeRoad.RoadName),
                // Set street addressing name
-               StreetNameForAddressingName = activeRoad.RoadAddressingName,
+               StreetNameForAddressingName = Converters.ToNeutralString(activeRoad.RoadAddressingName),
                // Set suite identifier
-               SuiteIdentifier = this.Door,
+               SuiteIdentifier = Converters.ToNeutralString(this.Door),
            };
             return ret;
         }
@@ -163,7 +163,7 @@ namespace CprBroker.Providers.E_M
                 {
                     var houseRangePostCodes = this.HouseRangePostCodes.ToArray();
                     var houseNumber = Converters.ToNeutralHouseNumber(this.HouseNumber);
-                    var houseRangePostCode = HouseRangePostCodes
+                    var houseRangePostCode = houseRangePostCodes
                         .Where(
                             hrpc => houseNumber >= Converters.ToNeutralHouseNumber(hrpc.FromHouseNumber)
                                 && houseNumber <= Converters.ToNeutralHouseNumber(hrpc.ToHouseNumber)
@@ -179,6 +179,7 @@ namespace CprBroker.Providers.E_M
             {
                 postCode = Converters.ShortToString(postCodeInt);
             }
+            postDistrict = Converters.ToNeutralString(postDistrict);
         }
     }
 }

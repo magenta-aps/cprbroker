@@ -44,7 +44,7 @@ namespace CprBroker.Providers.E_M
             {
                 AndreAdresser = this.ToAndreAdresse(),
                 BirthDate = this.ToBirthdate(),
-                FoedestedNavn = this.BirthPlaceText,
+                FoedestedNavn = Converters.ToNeutralString(this.BirthPlaceText),
                 FoedselsregistreringMyndighedNavn = ToBirthRegistrationAuthority(),
                 KontaktKanal = this.ToKontaktKanalType(),
                 NaermestePaaroerende = this.ToNextOfKin(),
@@ -68,8 +68,9 @@ namespace CprBroker.Providers.E_M
 
         public virtual NavnStrukturType ToNavnStrukturType()
         {
-            var ret = NavnStrukturType.Create(this.AddressingName);
-            ret.PersonNameForAddressingName = this.AddressingName;
+            var addressingName = Converters.ToNeutralString(this.AddressingName);
+            var ret = NavnStrukturType.Create(addressingName);
+            ret.PersonNameForAddressingName = addressingName;
             return ret;
         }
 

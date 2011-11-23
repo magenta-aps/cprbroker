@@ -11,9 +11,10 @@ namespace CprBroker.Providers.E_M
         {
             if (authority != null)
             {
-                if (!string.IsNullOrEmpty(authority.AuthorityName))
+                var authorityName = Converters.ToNeutralString(authority.AuthorityName);
+                if (!string.IsNullOrEmpty(authorityName))
                 {
-                    return authority.AuthorityName;
+                    return authorityName;
                 }
                 else
                 {

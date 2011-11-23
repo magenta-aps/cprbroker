@@ -258,10 +258,28 @@ namespace CprBroker.Tests.E_M
 
         #endregion
 
-        #region ToNeutralHouseNumber
+        #region ToNeutralString
+
+        [Test]
+        public void ToNeutralString_NullOrEmpty_ReturnsEmpty(
+            [Values(null, "", "                  ")]string value)
+        {
+            var ret = Converters.ToNeutralString(value);
+            Assert.AreEqual("", ret);
+        }
 
         [Test]
         [Sequential]
+        public void ToNeutralString_Various_ReturnsExpected(
+            [Values("aaa", "  aaa", "aaa   ", "      aaa   ", "bbb bbb", "   bbb bbb    ")]string value,
+            [Values("aaa", "aaa", "aaa", "aaa", "bbb bbb", "bbb bbb")]string expectedValue)
+        { }
+
+        #endregion
+
+        #region ToNeutralHouseNumber
+
+        [Test]
         public void ToNeutralHouseNumber_Empty_ReturnsZero(
             [Values(null, "", " ", "     ")]string houseNumber)
         {

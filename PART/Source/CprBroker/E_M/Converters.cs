@@ -113,9 +113,14 @@ namespace CprBroker.Providers.E_M
             throw new ArgumentNullException("dates");
         }
 
+        public static string ToNeutralString(string value)
+        {
+            return string.Format("{0}", value).Trim();
+        }
+
         public static int ToNeutralHouseNumber(string houseNumber)
         {
-            houseNumber = string.Format("{0}", houseNumber).Trim();
+            houseNumber = ToNeutralString(houseNumber);
             if (houseNumber.Length > 0)
             {
                 string pat = "\\A0*(?<num>[1-9][0-9]*)[a-zA-Z]?\\z";
