@@ -243,6 +243,29 @@ namespace CprBroker.NUnitTester
         }
 
         [Test]
+        [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
+        public void T405_List_SingleWithPartial(string cprNumber)
+        {
+            string[] cprNumbers = new string[] { cprNumber };
+            var uuids = new List<string>(Array.ConvertAll<string, string>(cprNumbers, (cpr) => TestRunner.PartService.GetUuid(cpr).UUID));
+            uuids.Add(Guid.NewGuid().ToString());
+            Part.ListInputType input = new Part.ListInputType()
+            {
+                UUID = uuids.ToArray(),
+            };
+
+            var persons = TestRunner.PartService.List(input);
+            Assert.IsNotNull(persons, "List response is null");            
+            Assert.AreEqual("206", persons.StandardRetur.StatusKode);
+            Assert.IsNotNull(persons.LaesResultat, "Persons array is null");
+            for (int i = 0; i < cprNumbers.Length; i++)
+            {
+                Validate(new Guid(input.UUID[i]), persons.LaesResultat[i], TestRunner.PartService);
+            }
+            Assert.IsNull(persons.LaesResultat[1].Item);
+        }
+
+        [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersToSubscribeFieldName)]
         public void T410_List_All(string[] cprNumbers)
         {
