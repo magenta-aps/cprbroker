@@ -169,6 +169,10 @@
       <Project>{F98E5179-88E3-404E-83BE-54F0A3E7DBC0}</Project>
       <Name>DPR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\E_M\E_M.csproj">
+      <Project>{24E1E816-D9CD-47B8-96B6-619EAF3379C6}</Project>
+      <Name>E_M</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KMD\KMD.csproj">
       <Project>{47B58366-342A-4699-9CF5-E13FB8F8B413}</Project>
       <Name>KMD</Name>
