@@ -32,6 +32,7 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.connectionTabPage = new System.Windows.Forms.TabPage();
+            this.eventBrokerWebServiceUrlTextBox = new System.Windows.Forms.TextBox();
             this.appRegistrationGroupBox = new System.Windows.Forms.GroupBox();
             this.CPRBrokerLogPage = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
@@ -58,8 +59,7 @@
             this.userTokenTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.applyButton = new System.Windows.Forms.Button();
-            this.eventBrokerWebServiceUrlTextBox = new System.Windows.Forms.TextBox();
-            this.testEventBrokerConnectionButton = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.connectionTabPage.SuspendLayout();
             this.appRegistrationGroupBox.SuspendLayout();
@@ -102,7 +102,7 @@
             // 
             // connectionTabPage
             // 
-            this.connectionTabPage.Controls.Add(this.testEventBrokerConnectionButton);
+            this.connectionTabPage.Controls.Add(this.label7);
             this.connectionTabPage.Controls.Add(this.eventBrokerWebServiceUrlTextBox);
             this.connectionTabPage.Controls.Add(this.appRegistrationGroupBox);
             this.connectionTabPage.Controls.Add(this.testConnectionButton);
@@ -117,6 +117,15 @@
             this.connectionTabPage.Text = "Connection";
             this.connectionTabPage.UseVisualStyleBackColor = true;
             // 
+            // eventBrokerWebServiceUrlTextBox
+            // 
+            this.eventBrokerWebServiceUrlTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::CPR_Business_Application_Demo.Properties.Settings.Default, "EventBrokerWebServiceUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.eventBrokerWebServiceUrlTextBox.Location = new System.Drawing.Point(9, 127);
+            this.eventBrokerWebServiceUrlTextBox.Name = "eventBrokerWebServiceUrlTextBox";
+            this.eventBrokerWebServiceUrlTextBox.Size = new System.Drawing.Size(311, 20);
+            this.eventBrokerWebServiceUrlTextBox.TabIndex = 5;
+            this.eventBrokerWebServiceUrlTextBox.Text = global::CPR_Business_Application_Demo.Properties.Settings.Default.EventBrokerWebServiceUrl;
+            // 
             // appRegistrationGroupBox
             // 
             this.appRegistrationGroupBox.Controls.Add(this.CPRBrokerLogPage);
@@ -126,9 +135,9 @@
             this.appRegistrationGroupBox.Controls.Add(this.appRegistrationLabel);
             this.appRegistrationGroupBox.Controls.Add(this.registerApplicationButton);
             this.appRegistrationGroupBox.Enabled = false;
-            this.appRegistrationGroupBox.Location = new System.Drawing.Point(9, 148);
+            this.appRegistrationGroupBox.Location = new System.Drawing.Point(9, 173);
             this.appRegistrationGroupBox.Name = "appRegistrationGroupBox";
-            this.appRegistrationGroupBox.Size = new System.Drawing.Size(436, 236);
+            this.appRegistrationGroupBox.Size = new System.Drawing.Size(436, 211);
             this.appRegistrationGroupBox.TabIndex = 4;
             this.appRegistrationGroupBox.TabStop = false;
             this.appRegistrationGroupBox.Text = "Application Registration";
@@ -192,9 +201,9 @@
             // 
             // testConnectionButton
             // 
-            this.testConnectionButton.Location = new System.Drawing.Point(338, 26);
+            this.testConnectionButton.Location = new System.Drawing.Point(354, 76);
             this.testConnectionButton.Name = "testConnectionButton";
-            this.testConnectionButton.Size = new System.Drawing.Size(107, 23);
+            this.testConnectionButton.Size = new System.Drawing.Size(91, 71);
             this.testConnectionButton.TabIndex = 2;
             this.testConnectionButton.Text = "Test connection";
             this.testConnectionButton.UseVisualStyleBackColor = true;
@@ -202,7 +211,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(6, 52);
+            this.label2.Location = new System.Drawing.Point(6, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(439, 35);
             this.label2.TabIndex = 2;
@@ -212,20 +221,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 13);
+            this.label1.Location = new System.Drawing.Point(6, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 13);
+            this.label1.Size = new System.Drawing.Size(155, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Web Service URL:";
+            this.label1.Text = "CPR broker services base URL:";
             // 
             // cprBrokerWebServiceUrlTextBox
             // 
-            this.cprBrokerWebServiceUrlTextBox.Location = new System.Drawing.Point(9, 29);
+            this.cprBrokerWebServiceUrlTextBox.Location = new System.Drawing.Point(9, 76);
             this.cprBrokerWebServiceUrlTextBox.Name = "cprBrokerWebServiceUrlTextBox";
             this.cprBrokerWebServiceUrlTextBox.Size = new System.Drawing.Size(311, 20);
             this.cprBrokerWebServiceUrlTextBox.TabIndex = 1;
             this.cprBrokerWebServiceUrlTextBox.Text = global::CPR_Business_Application_Demo.Properties.Settings.Default.CPRBrokerWebServiceUrl;
-            this.cprBrokerWebServiceUrlTextBox.TextChanged += new System.EventHandler(this.cprBrokerWebServiceUrlTextBox_TextChanged);
             // 
             // notificationsTabPage
             // 
@@ -383,24 +391,14 @@
             this.applyButton.UseVisualStyleBackColor = true;
             this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
-            // eventBrokerWebServiceUrlTextBox
+            // label7
             // 
-            this.eventBrokerWebServiceUrlTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::CPR_Business_Application_Demo.Properties.Settings.Default, "EventBrokerWebServiceUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.eventBrokerWebServiceUrlTextBox.Location = new System.Drawing.Point(9, 90);
-            this.eventBrokerWebServiceUrlTextBox.Name = "eventBrokerWebServiceUrlTextBox";
-            this.eventBrokerWebServiceUrlTextBox.Size = new System.Drawing.Size(311, 20);
-            this.eventBrokerWebServiceUrlTextBox.TabIndex = 5;
-            this.eventBrokerWebServiceUrlTextBox.Text = global::CPR_Business_Application_Demo.Properties.Settings.Default.EventBrokerWebServiceUrl;
-            // 
-            // testEventBrokerConnectionButton
-            // 
-            this.testEventBrokerConnectionButton.Location = new System.Drawing.Point(338, 87);
-            this.testEventBrokerConnectionButton.Name = "testEventBrokerConnectionButton";
-            this.testEventBrokerConnectionButton.Size = new System.Drawing.Size(107, 23);
-            this.testEventBrokerConnectionButton.TabIndex = 6;
-            this.testEventBrokerConnectionButton.Text = "Test connection";
-            this.testEventBrokerConnectionButton.UseVisualStyleBackColor = true;
-            this.testEventBrokerConnectionButton.Click += new System.EventHandler(this.testEventBrokerConnectionButton_Click);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 111);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(163, 13);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Event broker services base URL:";
             // 
             // OptionsForm
             // 
@@ -464,7 +462,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.LinkLabel CPRBrokerLogPage;
-        private System.Windows.Forms.Button testEventBrokerConnectionButton;
         private System.Windows.Forms.TextBox eventBrokerWebServiceUrlTextBox;
+        private System.Windows.Forms.Label label7;
     }
 }

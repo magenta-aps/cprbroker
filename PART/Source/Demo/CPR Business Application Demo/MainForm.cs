@@ -337,5 +337,10 @@ namespace CPR_Business_Application_Demo
 
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
     }
 }

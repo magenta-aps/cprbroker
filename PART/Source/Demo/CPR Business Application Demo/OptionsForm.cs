@@ -43,7 +43,7 @@ namespace CPR_Business_Application_Demo
             CancelButton = cancelButton;
         }
 
-        
+
         #region Private Methods
         private void VerifyRegistrationAndApproval()
         {
@@ -76,7 +76,7 @@ namespace CPR_Business_Application_Demo
             var pageBasicUrl = serviceBasicUrl.Replace("Services", "Pages");
             if (pageBasicUrl.IndexOfAny(new char[] { '/', '\\' }, pageBasicUrl.Length - 1) < 0)
                 pageBasicUrl += "/";
-            return pageBasicUrl;            
+            return pageBasicUrl;
         }
 
         private string GetWebLogUrl()
@@ -112,9 +112,60 @@ namespace CPR_Business_Application_Demo
 
             Properties.Settings.Default.Save();
         }
+
         #endregion
 
+        private bool TestBrokerUrl()
+        {
+            var adminController = new ApplicationsController(Properties.Settings.Default);
+            bool testOk = adminController.TestWSConnection(cprBrokerWebServiceUrlTextBox.Text);
+            if (!testOk)
+            {
+                MessageBox.Show(this, "Connection failed. The CPR Broker Web Service URL is incorrect or the service is unavailable", "Connection failure", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            return testOk;
+        }
+
+        private bool TestEventUrl()
+        {
+            var subscriptionsController = new SubscriptionsController(Properties.Settings.Default);
+            bool testOk = subscriptionsController.TestWSConnection(eventBrokerWebServiceUrlTextBox.Text);
+            if (!testOk)
+            {
+                MessageBox.Show(this, "Connection failed. The Event Broker Web Service URL is incorrect or the service is unavailable", "Connection failure", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            return testOk;
+        }
+
         #region Events
+
+        private void OptionsForm_Load(object sender, EventArgs e)
+        {
+            switch (Properties.Settings.Default.NotificationMode)
+            {
+                case 0:
+                    notificationModeDisabledRadioButton.Checked = true;
+                    callbackWebServiceGroupBox.Enabled = false;
+                    fileShareGroupBox.Enabled = false;
+                    break;
+                case 1:
+                    notificationModeCallbackWebServiceRadioButton.Checked = true;
+                    callbackWebServiceGroupBox.Enabled = true;
+                    fileShareGroupBox.Enabled = false;
+                    break;
+                case 2:
+                    notificationModeFileShareRadioButton.Checked = true;
+                    callbackWebServiceGroupBox.Enabled = false;
+                    fileShareGroupBox.Enabled = true;
+                    break;
+            }
+        }
+
+        private void OptionsForm_Shown(object sender, EventArgs e)
+        {
+            VerifyRegistrationAndApproval();
+        }
+
         /// <summary>
         /// Verifies whether the url in in Web Service URL text box is pointing to a CPR Broker installation
         /// </summary>
@@ -123,49 +174,22 @@ namespace CPR_Business_Application_Demo
         private void testConnectionButton_Click(object sender, EventArgs e)
         {
             CPRBrokerLogPage.Links.Clear();
-            var adminController = new ApplicationsController(Properties.Settings.Default);
-
-            bool testOk = adminController.TestWSConnection(cprBrokerWebServiceUrlTextBox.Text);
-            appRegistrationGroupBox.Enabled = testOk;
-            if (testOk)
+            if (TestBrokerUrl() && TestEventUrl())
             {
-                MessageBox.Show(this, "Connection succeeded. The Web Service URL is correct.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                appRegistrationGroupBox.Enabled = true;
+                MessageBox.Show(this, "Connection succeeded. The Web Service URLs are correct.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Properties.Settings.Default.EventBrokerWebServiceUrl = eventBrokerWebServiceUrlTextBox.Text;
                 Properties.Settings.Default.CPRBrokerWebServiceUrl = cprBrokerWebServiceUrlTextBox.Text;
-                CPRBrokerLogPage.Links.Add(0, CPRBrokerLogPage.Text.Length, GetPageBasicUrl() + "LogEntries.aspx");
+                CPRBrokerLogPage.Links.Add(0, CPRBrokerLogPage.Text.Length, GetWebLogUrl());
+
                 VerifyRegistrationAndApproval();
             }
             else
             {
-                MessageBox.Show(this,
-                                "Connection failed. The Web Service URL is incorrect or the service is unavailable",
-                                "Connection failure",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
+                appRegistrationGroupBox.Enabled = false;
             }
 
-        }
-
-        private void testEventBrokerConnectionButton_Click(object sender, EventArgs e)
-        {
-            CPRBrokerLogPage.Links.Clear();
-            var subscriptionsController = new SubscriptionsController(Properties.Settings.Default);
-
-            bool testOk = subscriptionsController.TestWSConnection(eventBrokerWebServiceUrlTextBox.Text);
-            appRegistrationGroupBox.Enabled = testOk;            
-            if (testOk)
-            {
-                MessageBox.Show(this, "Connection succeeded. The Web Service URL is correct.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Properties.Settings.Default.EventBrokerWebServiceUrl = eventBrokerWebServiceUrlTextBox.Text;                
-                VerifyRegistrationAndApproval();
-            }
-            else
-            {
-                MessageBox.Show(this,
-                                "Connection failed. The Web Service URL is incorrect or the service is unavailable",
-                                "Connection failure",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-            }
         }
 
         private void registerApplicationButton_Click(object sender, EventArgs e)
@@ -214,37 +238,9 @@ namespace CPR_Business_Application_Demo
             Properties.Settings.Default.Reload();
         }
 
-        private void OptionsForm_Load(object sender, EventArgs e)
-        {
-            switch (Properties.Settings.Default.NotificationMode)
-            {
-                case 0:
-                    notificationModeDisabledRadioButton.Checked = true;
-                    callbackWebServiceGroupBox.Enabled = false;
-                    fileShareGroupBox.Enabled = false;
-                    break;
-                case 1:
-                    notificationModeCallbackWebServiceRadioButton.Checked = true;
-                    callbackWebServiceGroupBox.Enabled = true;
-                    fileShareGroupBox.Enabled = false;
-                    break;
-                case 2:
-                    notificationModeFileShareRadioButton.Checked = true;
-                    callbackWebServiceGroupBox.Enabled = false;
-                    fileShareGroupBox.Enabled = true;
-                    break;
-            }
-        }
-
         private void applyButton_Click(object sender, EventArgs e)
         {
             SaveSettings();
-        }
-
-        private void cprBrokerWebServiceUrlTextBox_TextChanged(object sender, EventArgs e)
-        {
-            
-                
         }
 
         private void notificationModeCallbackWebServiceRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -275,11 +271,6 @@ namespace CPR_Business_Application_Demo
                 notificationFileShareTextBox.Text = dialog.SelectedPath;
         }
 
-        private void OptionsForm_Shown(object sender, EventArgs e)
-        {
-            VerifyRegistrationAndApproval();
-        }
-
         private void CPRBrokerLogPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var processInfo = new ProcessStartInfo(e.Link.LinkData.ToString());
@@ -288,7 +279,7 @@ namespace CPR_Business_Application_Demo
 
         #endregion
 
-       
+
 
     }
 }

@@ -156,8 +156,9 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -165,7 +166,7 @@
             this.optionsToolStripMenuItem,
             this.checkRegistrationToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // optionsToolStripMenuItem
@@ -185,7 +186,7 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // mainTabControl
@@ -898,19 +899,19 @@
             // currentActionStatusLabel
             // 
             this.currentActionStatusLabel.Name = "currentActionStatusLabel";
-            this.currentActionStatusLabel.Size = new System.Drawing.Size(25, 17);
+            this.currentActionStatusLabel.Size = new System.Drawing.Size(24, 17);
             this.currentActionStatusLabel.Text = "Idle";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(807, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(811, 17);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // registeredStatusLabel
             // 
             this.registeredStatusLabel.Name = "registeredStatusLabel";
-            this.registeredStatusLabel.Size = new System.Drawing.Size(76, 17);
+            this.registeredStatusLabel.Size = new System.Drawing.Size(73, 17);
             this.registeredStatusLabel.Text = "Not registered";
             // 
             // textBox1
