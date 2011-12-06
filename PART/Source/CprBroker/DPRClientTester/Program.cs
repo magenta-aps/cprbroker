@@ -17,9 +17,7 @@ namespace DPRClientTester
 
         static string[] ReadCprNumbers(string[] args)
         {
-            //return new string[] { "2709761466" };
-            string fileName;
-            //fileName = "WrongAddressPNRs 2.txt";
+            string fileName;            
             fileName = args[0];
 
             string[] allCprNumbers = File.ReadAllLines(fileName);
@@ -90,11 +88,7 @@ namespace DPRClientTester
                 {
                     var uuid = getUuidResult.UUID;
                     var request = new DPRClientTester.Part.LaesInputType()
-                    {
-                        RegistreringFraFilter = new DPRClientTester.Part.TidspunktType()
-                        {
-                            Item = DateTime.Now
-                        },
+                    {                        
                         UUID = uuid
                     };
                     var readResult = partService.RefreshRead(request);
