@@ -57,7 +57,7 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Used as a link between miscellaneous person tables & person information
     /// </summary>
-    internal partial class PersonInfo
+    public partial class PersonInfo
     {
         #region Properties & database expressions
 
@@ -70,7 +70,7 @@ namespace CprBroker.Providers.DPR
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
         /// </summary>
-        internal static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
+        public static readonly Expression<Func<DPRDataContext, IQueryable<PersonInfo>>> PersonInfoExpression = (DPRDataContext dataContext) =>
             from personTotal in dataContext.PersonTotals
             join pNationality in dataContext.Nationalities on personTotal.PNR equals pNationality.PNR into personNationalities
             join pAddr in dataContext.PersonAddresses on personTotal.PNR equals pAddr.PNR into personAddresses
@@ -99,13 +99,22 @@ namespace CprBroker.Providers.DPR
                 Street = street,
             };
 
-        internal static readonly Expression<Func<decimal, decimal, DPRDataContext, PersonTotal>> NextPersonTotalExpression = (pnr, statusDate, dataContext) =>
-            (from personTotal in dataContext.PersonTotals
-             where pnr == personTotal.PNR && personTotal.StatusDate > statusDate
-             orderby personTotal.StatusDate
-             select personTotal
-            ).FirstOrDefault();
-
+        public static PersonInfo GetPersonInfo(DPRDataContext dataContext, decimal pnr)
+        {
+            var personTotal = dataContext.PersonTotals.Where(pt => pt.PNR == pnr).FirstOrDefault();
+            if (personTotal != null)
+            {
+                return new PersonInfo()
+                {
+                    PersonTotal = personTotal,
+                    Nationality = personTotal.Nationalities.Where(pn => pn.CorrectionMarker == null && pn.NationalityEndDate == null).OrderByDescending(pn => pn.NationalityStartDate).FirstOrDefault(),
+                    Address = personTotal.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
+                    PersonName = personTotal.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),
+                    Street = personTotal.Street
+                };
+            }
+            return null;
+        }
         #endregion
 
         public DateTime[] GetCandidateRegistrationDates()

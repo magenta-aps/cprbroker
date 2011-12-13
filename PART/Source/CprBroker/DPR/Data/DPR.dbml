@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="DPR" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" AccessModifier="Internal" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+<Database Name="DPR" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=DPR;Persist Security Info=True;User ID=sa" SettingsObjectName="CprBroker.Providers.DPR.Properties.Settings" SettingsPropertyName="DPRConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.DTNAVNE" Member="PersonNames">
     <Type Name="PersonName">
-      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AJFDTO" Member="CprUpdateDate" Storage="_AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="MYNKOD" Member="NameAuthorityCode" Storage="_MYNKOD" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
       <Column Name="STATUS" Member="Status" Storage="_STATUS" Type="System.Decimal" DbType="Decimal(3,0)" CanBeNull="true" />
       <Column Name="STHAENST" Member="StatusDate" Storage="_STHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="FORNMRK" Member="FirstNameMarker" Storage="_FORNMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="EFTNMRK" Member="SurnameMarker" Storage="_EFTNMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
-      <Column Name="NVHAENST" Member="NameStartDate" Storage="_NVHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="NVHAENST" Member="NameStartDate" Storage="_NVHAENST" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="NVHAENSL" Member="NameTerminationDate" Storage="_NVHAENSL" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="ANHAENST" Member="AddressingNameDate" Storage="_ANHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="ANNKOR" Member="CorrectionMarker" Storage="_ANNKOR" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Storage="_ANNKOR" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="INDRAP" Member="AddressingNameReportingMarker" Storage="_INDRAP" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
       <Column Name="MYTAJDTO" Member="AuthorityTextUpdateDate" Storage="_MYTAJDTO" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="SNHAENST" Member="SearchNameDate" Storage="_SNHAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
@@ -22,6 +22,7 @@
       <Column Name="ADRNVN" Member="AddressingName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="SOEGNVN" Member="SearchName" Storage="_SOEGNVN" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="MYNTXT" Member="NameAuthorityText" Storage="_MYNTXT" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="PersonTotal_PersonName" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTBOERN" Member="Childs">
@@ -33,7 +34,7 @@
   </Table>
   <Table Name="dbo.DTTOTAL" Member="PersonTotals">
     <Type Name="PersonTotal">
-      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="STHAENST" Member="StatusDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="STATUS" Member="Status" Type="System.Decimal" DbType="Decimal(3,0) NOT NULL" CanBeNull="false" />
       <Column Name="FOEDDTO" Member="DateOfBirth" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
@@ -89,6 +90,10 @@
       <Column Name="STANDADR" Member="StandardAddress" Storage="_STANDADR" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="LOKAL" Member="Location" Storage="_LOKAL" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="KADRMRK" Member="ContactAddressMarker" Storage="_KADRMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Association Name="PersonTotal_PersonName" Member="PersonNames" ThisKey="PNR" OtherKey="PNR" Type="PersonName" />
+      <Association Name="PersonTotal_PersonAddress" Member="PersonAddresses" ThisKey="PNR" OtherKey="PNR" Type="PersonAddress" />
+      <Association Name="PersonTotal_Nationality" Member="Nationalities" ThisKey="PNR" OtherKey="PNR" Type="Nationality" />
+      <Association Name="Street_PersonTotal" Member="Street" ThisKey="MunicipalityCode,StreetCode" OtherKey="MunicipalityCode,StreetCode" Type="Street" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTBESKYT" Member="Protections">
@@ -121,10 +126,11 @@
   </Table>
   <Table Name="dbo.DTAKTVEJ" Member="Streets">
     <Type Name="Street">
-      <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="VEJADNVN" Member="StreetAddressingName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="SVEJADRNVN" Member="SeekStreetAddressingName" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Association Name="Street_PersonTotal" Member="PersonTotals" ThisKey="MunicipalityCode,StreetCode" OtherKey="MunicipalityCode,StreetCode" Type="PersonTotal" />
     </Type>
   </Table>
   <Table Name="dbo.DTKADR" Member="ContactAddresses">
@@ -142,7 +148,7 @@
   </Table>
   <Table Name="dbo.DTPERSBO" Member="PersonAddresses">
     <Type Name="PersonAddress">
-      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
@@ -153,7 +159,7 @@
       <Column Name="POSTNR" Member="PostCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
       <Column Name="KOMNVN" Member="MunicipalityName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="VEJADNVN" Member="StreetAddressingName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="TILFDTO" Member="AddressStartDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="TILFDTO" Member="AddressStartDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TFDTOMRK" Member="ArrivalDateMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="FRAFDTO" Member="AddressEndDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="FRAFKKOD" Member="LeavingFromMunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
@@ -163,7 +169,7 @@
       <Column Name="ABSLEDTO" Member="AlwaysNull2" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="LBHAENST" Member="AlwaysNull3" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="SAHAENST" Member="AdditionalAddressDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="CONVN" Member="CareOfName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="BYNVN" Member="Town" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="LOKAL" Member="Location" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
@@ -174,16 +180,18 @@
       <Column Name="LBINDRAP" Member="AlwaysNull5" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
       <Column Name="SUPLADR4" Member="AdditionalAddressLine4" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="SUPLADR5" Member="AdditionalAddressLine5" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Association Name="PersonTotal_PersonAddress" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTSTAT" Member="Nationalities">
     <Type Name="Nationality">
-      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
       <Column Name="MYNKOD" Member="CountryCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="HAENST" Member="NationalityStartDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HAENST" Member="NationalityStartDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="HAENSLUT" Member="NationalityEndDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
+      <Association Name="PersonTotal_Nationality" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

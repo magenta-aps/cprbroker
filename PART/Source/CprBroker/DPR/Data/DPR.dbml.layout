@@ -2,59 +2,87 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 13.875" name="DPR">
   <DataContextMoniker Name="/DPRDataContext" />
   <nestedChildShapes>
-    <classShape Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" absoluteBounds="4.125, 0.5, 2, 3.8900577799479166">
+    <classShape Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" absoluteBounds="4.125, 0.5, 2, 3.7134270221988359">
       <DataClassMoniker Name="/DPRDataContext/PersonName" />
       <nestedChildShapes>
-        <elementListCompartment Id="31d87e5a-7848-4a71-a65a-3a1cb6c5dd01" absoluteBounds="4.14, 0.96, 1.9700000000000002, 3.3300577799479165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="31d87e5a-7848-4a71-a65a-3a1cb6c5dd01" absoluteBounds="4.14, 0.96, 1.9700000000000002, 3.1534270221988359" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="66e6d696-3081-45e3-8a0c-503ca6c44dad" absoluteBounds="0.75, 0.625, 2, 1.26050048828125">
+    <classShape Id="66e6d696-3081-45e3-8a0c-503ca6c44dad" absoluteBounds="0.75, 0.625, 2, 1.2217278829216958">
       <DataClassMoniker Name="/DPRDataContext/Child" />
       <nestedChildShapes>
-        <elementListCompartment Id="d8c13d8b-2659-4b7d-b01b-1f9cd24a6e1c" absoluteBounds="0.76499999999999968, 1.085, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d8c13d8b-2659-4b7d-b01b-1f9cd24a6e1c" absoluteBounds="0.76499999999999968, 1.085, 1.9700000000000002, 0.66172788292169571" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e41857ad-de04-40ac-b603-8b733e41b7d7" absoluteBounds="7.5, 0.625, 2, 9.9709090169270826">
+    <classShape Id="e41857ad-de04-40ac-b603-8b733e41b7d7" absoluteBounds="7.5, 0.625, 2, 9.4754812817772223">
       <DataClassMoniker Name="/DPRDataContext/PersonTotal" />
       <nestedChildShapes>
-        <elementListCompartment Id="50b06b23-d5c0-407a-a7bf-5c57d4b4767e" absoluteBounds="7.5150000000000006, 1.0850000000000009, 1.9700000000000002, 9.4109090169270821" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="50b06b23-d5c0-407a-a7bf-5c57d4b4767e" absoluteBounds="7.5150000000000006, 1.0850000000000009, 1.9700000000000002, 8.9154812817772218" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="78a26890-a847-496c-8903-6fac08549e0f" absoluteBounds="0.75, 2.25, 2, 1.75354248046875">
+    <classShape Id="78a26890-a847-496c-8903-6fac08549e0f" absoluteBounds="0.75, 2.25, 2, 1.6889214715361596">
       <DataClassMoniker Name="/DPRDataContext/Protection" />
       <nestedChildShapes>
-        <elementListCompartment Id="c0679d9e-32b6-4585-b27f-b598949eacb6" absoluteBounds="0.76500000000000012, 2.71, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c0679d9e-32b6-4585-b27f-b598949eacb6" absoluteBounds="0.76500000000000012, 2.71, 1.9700000000000002, 1.1289214715361595" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8d15bd4f-a9a6-4609-a9c1-3dd5971cd780" absoluteBounds="0.875, 10.25, 2, 3.0683211263020831">
+    <classShape Id="8d15bd4f-a9a6-4609-a9c1-3dd5971cd780" absoluteBounds="0.875, 10.25, 2, 2.934771041174729">
       <DataClassMoniker Name="/DPRDataContext/CivilStatus" />
       <nestedChildShapes>
-        <elementListCompartment Id="927a5b63-21e6-4146-8c70-8080710c9677" absoluteBounds="0.89000000000000057, 10.71, 1.9700000000000002, 2.508321126302083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="927a5b63-21e6-4146-8c70-8080710c9677" absoluteBounds="0.89000000000000057, 10.71, 1.9700000000000002, 2.3747710411747294" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7b666ff2-e31a-4f11-b780-bcdc99e8d6a9" absoluteBounds="0.625, 5.625, 2, 1.4248478190104168">
+    <classShape Id="7b666ff2-e31a-4f11-b780-bcdc99e8d6a9" absoluteBounds="0.625, 5.625, 2, 1.3774590791265169">
       <DataClassMoniker Name="/DPRDataContext/Street" />
       <nestedChildShapes>
-        <elementListCompartment Id="7a244e27-c542-4c0c-bdc8-643ccbf4c6a4" absoluteBounds="0.64000000000000057, 6.085, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7a244e27-c542-4c0c-bdc8-643ccbf4c6a4" absoluteBounds="0.64000000000000057, 6.085, 1.9700000000000002, 0.81745907912651694" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4af1d26a-8f1a-4e8e-8da8-87a992deca75" absoluteBounds="0.75, 7.75, 2, 2.24658447265625">
+    <classShape Id="4af1d26a-8f1a-4e8e-8da8-87a992deca75" absoluteBounds="0.75, 7.75, 2, 2.1561150601506238">
       <DataClassMoniker Name="/DPRDataContext/ContactAddress" />
       <nestedChildShapes>
-        <elementListCompartment Id="edbf8ffb-ef95-4626-aac8-99933500f5ce" absoluteBounds="0.76500000000000012, 8.21, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="edbf8ffb-ef95-4626-aac8-99933500f5ce" absoluteBounds="0.76500000000000012, 8.21, 1.9700000000000002, 1.5961150601506233" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="417a32f9-d71c-4d19-b114-a7677b90d466" absoluteBounds="4.125, 5.5, 2, 6.0265730794270826">
+    <classShape Id="417a32f9-d71c-4d19-b114-a7677b90d466" absoluteBounds="4.125, 5.5, 2, 5.7379325728615118">
       <DataClassMoniker Name="/DPRDataContext/PersonAddress" />
       <nestedChildShapes>
-        <elementListCompartment Id="0a5d93da-5484-4e68-bb06-4e1e53998632" absoluteBounds="4.14, 5.96, 1.9700000000000002, 5.466573079427083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0a5d93da-5484-4e68-bb06-4e1e53998632" absoluteBounds="4.14, 5.96, 1.9700000000000002, 5.1779325728615122" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b8bebd5d-955c-48ad-acac-5526af185947" absoluteBounds="4.125, 11.875, 2, 1.75354248046875">
+    <classShape Id="b8bebd5d-955c-48ad-acac-5526af185947" absoluteBounds="4.125, 11.875, 2, 1.68892147153616">
       <DataClassMoniker Name="/DPRDataContext/Nationality" />
       <nestedChildShapes>
-        <elementListCompartment Id="ea8c750d-dc6e-472a-b9f3-dbde91a9c35d" absoluteBounds="4.14, 12.335, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ea8c750d-dc6e-472a-b9f3-dbde91a9c35d" absoluteBounds="4.14, 12.335, 1.9700000000000002, 1.1289214715361595" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <associationConnector edgePoints="[(7.5 : 2.41921351109942); (6.125 : 2.41921351109942)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_PersonName" />
+      <nodes>
+        <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
+        <classShapeMoniker Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.5 : 7.80024064088861); (6.125 : 7.80024064088861)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_PersonAddress" />
+      <nodes>
+        <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
+        <classShapeMoniker Id="417a32f9-d71c-4d19-b114-a7677b90d466" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 10.1004812817772); (8.5 : 12.7194607357681); (6.125 : 12.7194607357681)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Nationality" />
+      <nodes>
+        <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
+        <classShapeMoniker Id="b8bebd5d-955c-48ad-acac-5526af185947" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(0.65625 : 5.625); (0.65625 : 4.85671351109942); (7.5 : 4.85671351109942)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DPRDataContext/Street/Street_PersonTotal" />
+      <nodes>
+        <classShapeMoniker Id="7b666ff2-e31a-4f11-b780-bcdc99e8d6a9" />
+        <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
