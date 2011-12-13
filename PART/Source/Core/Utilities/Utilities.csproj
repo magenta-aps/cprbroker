@@ -50,7 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleApps\CommandArgument.cs" />
+    <Compile Include="ConsoleApps\CommandlineParser.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="ConsoleApps\ConsoleEnvironment.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataProviderKeysSection.cs" />
     <Compile Include="Dates.cs" />
