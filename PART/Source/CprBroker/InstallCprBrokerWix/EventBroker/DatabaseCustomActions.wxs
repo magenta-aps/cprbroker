@@ -6,31 +6,25 @@
     <Property Id="DB_ALLPROPERTIES_CPR" Secure="yes" />
     <Property Id="DB_ALLPROPERTIES_EVENT" Secure="yes" />
 
-    <CustomAction Id="RollbackDatabase_Overwrite" Property="RollbackDatabase" Value="[CommonProductProperties];[DB_ALLPROPERTIES_CPR]" />
-    <Property Id="RollbackEventBrokerDatabase" Value="-"/>
-    <CustomAction Id="RollbackEventBrokerDatabase_" Property="RollbackEventBrokerDatabase" Value="[CommonProductProperties];[DB_ALLPROPERTIES_EVENT]" />
+    <CustomAction Id="CA_Set_DB_AllProperties_Overwrite" Execute="immediate" Script="vbscript">
+      <![CDATA[
+        Session.Property("RollbackDatabase") = Session.Property("CommonProductProperties") & ";" & Session.Property("DB_ALLPROPERTIES_CPR")
+        Session.Property("DeployDatabase") = Session.Property("CommonProductProperties") & ";" & Session.Property("DB_ALLPROPERTIES_CPR")
+        Session.Property("RemoveDatabase") = Session.Property("CommonProductProperties") & ";" & Session.Property("DB_ALLPROPERTIES_CPR")
+        
+        Session.Property("RollbackEventBrokerDatabase") = Session.Property("CommonProductProperties") & ";" & Session.Property("DB_ALLPROPERTIES_EVENT")
+        Session.Property("DeployEventBrokerDatabase") = Session.Property("CommonProductProperties") & ";" & Session.Property("DB_ALLPROPERTIES_EVENT")
+        Session.Property("RemoveEventBrokerDatabase") = Session.Property("CommonProductProperties") & ";" & Session.Property("DB_ALLPROPERTIES_EVENT")
+    ]]>
+  </CustomAction>    
+    
     <CustomAction Id="RollbackEventBrokerDatabase" BinaryKey="EventBrokerInstallersDll" DllEntry="RollbackEventBrokerDatabase" Execute="rollback" />
-
-    <CustomAction Id="DeployDatabase_Overwrite" Property="DeployDatabase" Value="[CommonProductProperties];[DB_ALLPROPERTIES_CPR]" />
-    <Property Id="DeployEventBrokerDatabase" Value="-"/>
-    <CustomAction Id="DeployEventBrokerDatabase_" Property="DeployEventBrokerDatabase" Value="[CommonProductProperties];[DB_ALLPROPERTIES_EVENT]" />
     <CustomAction Id="DeployEventBrokerDatabase" BinaryKey="EventBrokerInstallersDll" DllEntry="DeployEventBrokerDatabase" Execute="deferred" />
-
-    <CustomAction Id="RemoveDatabase_Overwrite" Property="RemoveDatabase" Value="[CommonProductProperties];[DB_ALLPROPERTIES_CPR]" />
-    <Property Id="RemoveEventBrokerDatabase" Value="-"/>
-    <CustomAction Id="RemoveEventBrokerDatabase_" Property="RemoveEventBrokerDatabase" Value="[CommonProductProperties];[DB_ALLPROPERTIES_EVENT]" />
     <CustomAction Id="RemoveEventBrokerDatabase" BinaryKey="EventBrokerInstallersDll" DllEntry="RemoveEventBrokerDatabase" Execute="deferred" />
 
     <InstallExecuteSequence>
       <!--Reset standard database properties to CPR database to let standard custom actions run correctly-->
-      <Custom Action="RollbackDatabase_Overwrite" After="RollbackDatabase_">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="DeployDatabase_Overwrite" After="DeployDatabase_">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="RemoveDatabase_Overwrite" After="RemoveDatabase_"><![CDATA[REMOVE = "ALL" AND NOT PATCH]]></Custom>
-
-      <!--Set event broker database properties-->
-      <Custom Action="RollbackEventBrokerDatabase_" After="RollbackDatabase_">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="DeployEventBrokerDatabase_" After="DeployDatabase_">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="RemoveEventBrokerDatabase_" After="RemoveDatabase_"><![CDATA[REMOVE = "ALL" AND NOT PATCH]]></Custom>
+      <Custom Action="CA_Set_DB_AllProperties_Overwrite" After="CA_Set_DB_AllProperties">NOT PATCH</Custom>
 
       <!--Standard custom actions-->
       <Custom Action="RollbackEventBrokerDatabase" After="RemoveDatabase">NOT REMOVE AND NOT PATCH</Custom>

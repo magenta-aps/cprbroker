@@ -59,6 +59,13 @@ namespace CprBrokerWixInstallers
 {
     public class CprBrokerCustomActions
     {
+
+        [CustomAction]
+        public static ActionResult CA_Set_DB_AllProperties(Session session)
+        {
+            return DatabaseCustomAction.CA_Set_DB_AllProperties(session);
+        }
+
         [CustomAction]
         public static ActionResult TestDatabaseConnection(Session session)
         {
