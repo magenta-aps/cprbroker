@@ -101,28 +101,20 @@
     </CustomAction>
 
 
-    <!--Installation custom actions-->
+    <!--Installation properties for use by custom actions-->
     <Property Id="DB_AllProperties" Hidden="yes" />
-    <CustomAction Id="CA_Set_DB_AllProperties" Property="DB_AllProperties" Value="DB_SERVERNAME=[DB_SERVERNAME];DB_DATABASENAME=[DB_DATABASENAME];DB_USEEXISTINGDATABASE=[DB_USEEXISTINGDATABASE];DB_ADMININTEGRATEDSECURITY=[DB_ADMININTEGRATEDSECURITY];DB_ADMINUSERNAME=[DB_ADMINUSERNAME];DB_ADMINPASSWORD=[DB_ADMINPASSWORD];DB_APPSAMEASADMIN=[DB_APPSAMEASADMIN];DB_APPINTEGRATEDSECURITY=[DB_APPINTEGRATEDSECURITY];DB_APPINTEGRATEDSECURITYALLOWED=!(wix.DB_APPINTEGRATEDSECURITYALLOWED);DB_APPUSERNAME=[DB_APPUSERNAME];DB_APPPASSWORD=[DB_APPPASSWORD];DB_ENCRYPTIONKEY=[DB_ENCRYPTIONKEY];DB_ENCRYPTIONKEYENABLED=!(wix.DB_ENCRYPTIONKEYENABLED);DB_DOMAIN=[DB_DOMAIN];DB_DOMAINENABLED=!(wix.DB_DOMAINENABLED)"/>
-
-    <Property Id="RollbackDatabase" Hidden="yes"/>
-    <CustomAction Id="RollbackDatabase_" Property="RollbackDatabase" Value="[DB_AllProperties]" />
+    <Property Id="RollbackDatabase" Hidden="yes" />
+    <Property Id="DeployDatabase" Hidden="yes" />
+    <Property Id="RemoveDatabase" Hidden="yes" />
+    
+    <!--Installation custom actions-->
+    <CustomAction Id="CA_Set_DB_AllProperties" Execute="immediate" BinaryKey="InstallersDll" DllEntry="CA_Set_DB_AllProperties"/>
     <CustomAction Id="RollbackDatabase" BinaryKey="InstallersDll" DllEntry="RollbackDatabase" Execute="rollback" Return="check" Impersonate="yes"/>
-
-    <Property Id="DeployDatabase" Hidden="yes"/>
-    <CustomAction Id="DeployDatabase_" Property="DeployDatabase" Value="[DB_AllProperties]" />
     <CustomAction Id="DeployDatabase" BinaryKey="InstallersDll" DllEntry="DeployDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
-
-    <Property Id="RemoveDatabase" Hidden="yes"/>
-    <CustomAction Id="RemoveDatabase_" Property="RemoveDatabase" Value="ProductName=[ProductName];[DB_AllProperties]" />
     <CustomAction Id="RemoveDatabase" BinaryKey="InstallersDll" DllEntry="RemoveDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
     <InstallExecuteSequence>
       <Custom Action="CA_Set_DB_AllProperties" After="CA_Set_CommonProductProperties">!(wix.DB_CREATEDATABASE) = True</Custom>
-
-      <Custom Action="RollbackDatabase_" After="CA_Set_DB_AllProperties"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
-      <Custom Action="DeployDatabase_" After="RollbackDatabase_"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE AND NOT PATCH]]></Custom>
-      <Custom Action="RemoveDatabase_" After="DeployDatabase_"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND REMOVE = "ALL" AND NOT PATCH]]></Custom>
 
       <Custom Action="RollbackDatabase" After="InstallFiles"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
       <Custom Action="DeployDatabase" After="RollbackDatabase"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE AND NOT PATCH]]></Custom>

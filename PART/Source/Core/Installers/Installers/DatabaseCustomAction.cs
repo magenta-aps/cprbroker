@@ -58,6 +58,14 @@ namespace CprBroker.Installers
 {
     public static partial class DatabaseCustomAction
     {
+        public static ActionResult CA_Set_DB_AllProperties(Session session)
+        {
+            session["DB_AllProperties"] = "DB_SERVERNAME=" + session["DB_SERVERNAME"] + ";" + "DB_DATABASENAME=" + session["DB_DATABASENAME"] + ";" + "DB_USEEXISTINGDATABASE=" + session["DB_USEEXISTINGDATABASE"] + ";" + "DB_ADMININTEGRATEDSECURITY=" + session["DB_ADMININTEGRATEDSECURITY"] + ";" + "DB_ADMINUSERNAME=" + session["DB_ADMINUSERNAME"] + ";" + "DB_ADMINPASSWORD=" + session["DB_ADMINPASSWORD"] + ";" + "DB_APPSAMEASADMIN=" + session["DB_APPSAMEASADMIN"] + ";" + "DB_APPINTEGRATEDSECURITY=" + session["DB_APPINTEGRATEDSECURITY"] + ";" + "DB_APPINTEGRATEDSECURITYALLOWED=" + session["DB_APPINTEGRATEDSECURITYALLOWED"] + ";" + "DB_APPUSERNAME=" + session["DB_APPUSERNAME"] + ";" + "DB_APPPASSWORD=" + session["DB_APPPASSWORD"] + ";" + "DB_ENCRYPTIONKEY=" + session["DB_ENCRYPTIONKEY"] + ";" + "DB_ENCRYPTIONKEYENABLED=" + session["DB_ENCRYPTIONKEYENABLED"] + ";" + "DB_DOMAIN=" + session["DB_DOMAIN"] + ";" + "DB_DOMAINENABLED=" + session["DB_DOMAINENABLED"];
+            session["RollbackDatabase"] = session["DB_AllProperties"];
+            session["DeployDatabase"] = session["DB_AllProperties"];
+            session["RemoveDatabase"] = session["DB_AllProperties"] + ";" + "ProductName=" + session["ProductName"];
+            return ActionResult.Success;
+        }
 
         public static ActionResult TestConnectionString(Session session)
         {
