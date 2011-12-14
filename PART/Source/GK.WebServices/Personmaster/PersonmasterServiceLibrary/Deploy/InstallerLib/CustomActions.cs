@@ -10,6 +10,12 @@ namespace PersonMasterInstallers
     public class CustomActions
     {
         [CustomAction]
+        public static ActionResult CA_Set_DB_AllProperties(Session session)
+        {
+            return DatabaseCustomAction.CA_Set_DB_AllProperties(session);
+        }
+        
+        [CustomAction]
         public static ActionResult TestDatabaseConnection(Session session)
         {
             return DatabaseCustomAction.TestConnectionString(session);

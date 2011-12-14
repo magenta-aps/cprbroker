@@ -8,7 +8,7 @@
     <CustomAction Id="PatchPersonMasterDatabase" BinaryKey="InstallersDll" DllEntry="PatchDatabase" Execute="deferred" Impersonate="yes" Return="check" />
 
     <InstallExecuteSequence>
-      <Custom Action="PatchPersonMasterDatabase_" After="RollbackDatabase_">PATCH</Custom>
+      <Custom Action="PatchPersonMasterDatabase_" After="CA_Set_DB_AllProperties">PATCH</Custom>
       <Custom Action="PatchPersonMasterDatabase" After="RollbackDatabase">PATCH</Custom>
     </InstallExecuteSequence>
   </Fragment>
