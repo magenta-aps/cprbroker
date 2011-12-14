@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPRClientTester", "DPRClien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_M.Tests", "E_M.Tests\E_M.Tests.csproj", "{37B2453E-5D68-4920-98D3-476BA76DF900}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPR.Tests", "DPR.Tests\DPR.Tests.csproj", "{6EC5979C-CDC3-4F01-8527-344A3307D642}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -162,6 +164,18 @@ Global
 		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{37B2453E-5D68-4920-98D3-476BA76DF900}.Release|x86.ActiveCfg = Release|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Release|.NET.ActiveCfg = Release|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6EC5979C-CDC3-4F01-8527-344A3307D642}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
