@@ -133,7 +133,7 @@ namespace CprBroker.Installers
             }
 
             ret.ApplicationIntegratedSecurityAllowed = bool.Parse(session.GetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED"));
-            
+
             ret.ApplicationAuthenticationSameAsAdmin = !string.IsNullOrEmpty(session.GetPropertyValue("DB_APPSAMEASADMIN"));
             if (!ret.ApplicationAuthenticationSameAsAdmin)
             {
@@ -176,6 +176,70 @@ namespace CprBroker.Installers
                 session.SetPropertyValue("DB_APPUSERNAME", this.ApplicationAuthenticationInfo.UserName);
                 session.SetPropertyValue("DB_APPPASSWORD", this.ApplicationAuthenticationInfo.Password);
             }
+        }
+
+        public static string[] GetDatabaseFeatureNames(Session session)
+        {
+            return session.GetPropertyValue("DB_FeatureNames").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static string GetDatabaseFeatureName(Session session)
+        {
+            return session.GetPropertyValue("DB_Feature");
+        }
+
+        public static void SetDatabaseFeatureName(Session session, string value)
+        {
+            session.SetPropertyValue("DB_Feature", value);
+        }
+
+        public static string GetDatabaseFeaturePropertyName(Session session)
+        {
+            return GetDatabaseFeaturePropertyName(session.GetPropertyValue("DB_Feature"));
+        }
+
+        public static string GetDatabaseFeaturePropertyName(string featureName)
+        {
+            return "DB_ALLPROPERTIES_" + featureName;
+        }
+
+        public static void ExtractDatabaseFeatureProperties(Session session, string featureName)
+        {
+            var allPropName = GetDatabaseFeaturePropertyName(featureName);
+            var allPropVal = session.GetPropertyValue(allPropName);
+            allPropVal = allPropVal.Replace(DBPropSeparator, ";");
+            string[] propArr = allPropVal.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var prop in propArr)
+            {
+                var arr = prop.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                var propName = arr[0];
+                var propVal = arr.Length == 1 ? "" : arr[1];
+                session.SetPropertyValue(propName, propVal);
+            }
+        }
+
+        public static void AggregateFeatureProperties(Session session)
+        {
+            var propName = GetDatabaseFeaturePropertyName(session);
+            var propVal = "DB_SERVERNAME=" + session.GetPropertyValue("DB_SERVERNAME") + ";" + "DB_DATABASENAME=" + session.GetPropertyValue("DB_DATABASENAME") + ";" + "DB_USEEXISTINGDATABASE=" + session.GetPropertyValue("DB_USEEXISTINGDATABASE") + ";" + "DB_ADMININTEGRATEDSECURITY=" + session.GetPropertyValue("DB_ADMININTEGRATEDSECURITY") + ";" + "DB_ADMINUSERNAME=" + session.GetPropertyValue("DB_ADMINUSERNAME") + ";" + "DB_ADMINPASSWORD=" + session.GetPropertyValue("DB_ADMINPASSWORD") + ";" + "DB_APPSAMEASADMIN=" + session.GetPropertyValue("DB_APPSAMEASADMIN") + ";" + "DB_APPINTEGRATEDSECURITY=" + session.GetPropertyValue("DB_APPINTEGRATEDSECURITY") + ";" + "DB_APPINTEGRATEDSECURITYALLOWED=" + session.GetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED") + ";" + "DB_APPUSERNAME=" + session.GetPropertyValue("DB_APPUSERNAME") + ";" + "DB_APPPASSWORD=" + session.GetPropertyValue("DB_APPPASSWORD") + ";" + "DB_ENCRYPTIONKEY=" + session.GetPropertyValue("DB_ENCRYPTIONKEY") + ";" + "DB_ENCRYPTIONKEYENABLED=" + session.GetPropertyValue("DB_ENCRYPTIONKEYENABLED") + ";" + "DB_DOMAIN=" + session.GetPropertyValue("DB_DOMAIN") + ";" + "DB_DOMAINENABLED=" + session.GetPropertyValue("DB_DOMAINENABLED") + ";" + "ProductName=" + session.GetPropertyValue("ProductName");
+            session.SetPropertyValue(propName, propVal);
+        }
+
+        public static readonly string DBPropSeparator = ".......";
+
+        public static string AggregateAllProperties(Session session)
+        {
+            var allValues = DatabaseSetupInfo.GetDatabaseFeatureNames(session)
+                .Select((featureName) =>
+                {
+                    DatabaseSetupInfo.SetDatabaseFeatureName(session, featureName);
+                    string propName = DatabaseSetupInfo.GetDatabaseFeaturePropertyName(session);
+                    string propVal = session.GetPropertyValue(propName).Replace(";", DBPropSeparator);
+                    return string.Format("{0}={1}", propName, propVal);
+                }
+                ).ToArray();
+            string val = string.Format("DB_FeatureNames={0};{1}", session.GetPropertyValue("DB_FeatureNames"), string.Join(";", allValues));
+            return val;
         }
 
     }

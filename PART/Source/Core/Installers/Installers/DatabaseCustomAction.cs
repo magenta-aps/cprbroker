@@ -58,12 +58,32 @@ namespace CprBroker.Installers
 {
     public static partial class DatabaseCustomAction
     {
-        public static ActionResult CA_Set_DB_AllProperties(Session session)
+        public static ActionResult CA_PreDatabaseDialog(Session session)
         {
             session["DB_AllProperties"] = "DB_SERVERNAME=" + session["DB_SERVERNAME"] + ";" + "DB_DATABASENAME=" + session["DB_DATABASENAME"] + ";" + "DB_USEEXISTINGDATABASE=" + session["DB_USEEXISTINGDATABASE"] + ";" + "DB_ADMININTEGRATEDSECURITY=" + session["DB_ADMININTEGRATEDSECURITY"] + ";" + "DB_ADMINUSERNAME=" + session["DB_ADMINUSERNAME"] + ";" + "DB_ADMINPASSWORD=" + session["DB_ADMINPASSWORD"] + ";" + "DB_APPSAMEASADMIN=" + session["DB_APPSAMEASADMIN"] + ";" + "DB_APPINTEGRATEDSECURITY=" + session["DB_APPINTEGRATEDSECURITY"] + ";" + "DB_APPINTEGRATEDSECURITYALLOWED=" + session["DB_APPINTEGRATEDSECURITYALLOWED"] + ";" + "DB_APPUSERNAME=" + session["DB_APPUSERNAME"] + ";" + "DB_APPPASSWORD=" + session["DB_APPPASSWORD"] + ";" + "DB_ENCRYPTIONKEY=" + session["DB_ENCRYPTIONKEY"] + ";" + "DB_ENCRYPTIONKEYENABLED=" + session["DB_ENCRYPTIONKEYENABLED"] + ";" + "DB_DOMAIN=" + session["DB_DOMAIN"] + ";" + "DB_DOMAINENABLED=" + session["DB_DOMAINENABLED"];
-            session["RollbackDatabase"] = session["DB_AllProperties"];
-            session["DeployDatabase"] = session["DB_AllProperties"];
-            session["RemoveDatabase"] = session["DB_AllProperties"] + ";" + "ProductName=" + session["ProductName"];
+            var featureName = DatabaseSetupInfo.GetDatabaseFeatureName(session);
+            DatabaseSetupInfo.ExtractDatabaseFeatureProperties(session, featureName);
+            return ActionResult.Success;
+        }
+
+        public static ActionResult CA_AfterDatabaseDialog(Session session)
+        {
+            bool success;
+            TestConnectionString(session, true, out success);
+            if (success)
+            {
+                DatabaseSetupInfo.AggregateFeatureProperties(session);
+            }
+            return ActionResult.Success;
+        }
+
+        public static ActionResult CA_AfterInstallInitialize_DB(Session session)
+        {
+            System.Diagnostics.Debugger.Break();
+            var aggregatedProps = DatabaseSetupInfo.AggregateAllProperties(session);
+            session.SetPropertyValue("RollbackDatabase", aggregatedProps);
+            session.SetPropertyValue("DeployDatabase", aggregatedProps);
+            session.SetPropertyValue("RemoveDatabase", aggregatedProps);
             return ActionResult.Success;
         }
 
@@ -74,6 +94,13 @@ namespace CprBroker.Installers
 
         public static ActionResult TestConnectionString(Session session, bool databaseShouldBeNew)
         {
+            bool success = false;
+            return TestConnectionString(session, databaseShouldBeNew, out success);
+        }
+
+        public static ActionResult TestConnectionString(Session session, bool databaseShouldBeNew, out bool success)
+        {
+            success = false;
             try
             {
                 DatabaseSetupInfo dbInfo = DatabaseSetupInfo.FromSession(session);
@@ -83,14 +110,16 @@ namespace CprBroker.Installers
                 if (dbInfo.Validate(ref message)
                     && dbInfo.ValidateDatabaseExistence(
                     databaseShouldBeNew,
-                    ()=> MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes,
+                    () => MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes,
                     ref message))
                 {
                     session["DB_VALID"] = "True";
+                    success = true;
                 }
                 else
                 {
                     session["DB_VALID"] = message;
+                    MessageBox.Show(session.InstallerWindowWrapper(), message, "", MessageBoxButtons.OK);
                 }
 
                 dbInfo.CopyToSession(session);
@@ -103,35 +132,56 @@ namespace CprBroker.Installers
             }
         }
 
-        public static ActionResult DeployDatabase(Session session, string createDatabaseObjectsSql, KeyValuePair<string, string>[] lookupDataArray)
+        static void RunDatabaseAction(Session session, Action<string> func)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
-            if (CreateDatabase(databaseSetupInfo, createDatabaseObjectsSql, lookupDataArray))
+            foreach (var featureName in DatabaseSetupInfo.GetDatabaseFeatureNames(session))
             {
-                ExecuteDDL(createDatabaseObjectsSql, databaseSetupInfo);
-                InsertLookups(lookupDataArray, databaseSetupInfo);
+                DatabaseSetupInfo.SetDatabaseFeatureName(session, featureName);
+                DatabaseSetupInfo.ExtractDatabaseFeatureProperties(session, featureName);
+                func(featureName);
             }
-            CreateDatabaseUser(databaseSetupInfo, null);
+        }
 
+        public static ActionResult DeployDatabase(Session session, Dictionary<string, string> createDatabaseObjectsSql, Dictionary<string, KeyValuePair<string, string>[]> lookupDataArray)
+        {
+            RunDatabaseAction(
+                session,
+                (featureName) =>
+                {
+                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+                    if (CreateDatabase(databaseSetupInfo, createDatabaseObjectsSql[featureName], lookupDataArray[featureName]))
+                    {
+                        ExecuteDDL(createDatabaseObjectsSql[featureName], databaseSetupInfo);
+                        InsertLookups(lookupDataArray[featureName], databaseSetupInfo);
+                    }
+                    CreateDatabaseUser(databaseSetupInfo, null);
+                }
+            );
             return ActionResult.Success;
         }
 
         public static ActionResult RemoveDatabase(Session session, bool askUser)
         {
-            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
-            if (!setupInfo.UseExistingDatabase)
-            {
-                DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
+            RunDatabaseAction(
+                session,
+                (featureName) =>
                 {
-                    SetupInfo = setupInfo
-                };
+                    DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
+                    if (!setupInfo.UseExistingDatabase)
+                    {
+                        DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
+                        {
+                            SetupInfo = setupInfo
+                        };
 
-                if (!askUser || BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
-                {
-                    DropDatabase(setupInfo);
-                    DropDatabaseUser(setupInfo);
+                        if (!askUser || BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
+                        {
+                            DropDatabase(setupInfo);
+                            DropDatabaseUser(setupInfo);
+                        }
+                    }
                 }
-            }
+            );
             return ActionResult.Success;
         }
 

@@ -75,7 +75,7 @@
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="CA_Set_WEB_AllProperties" After="CA_Set_DB_AllProperties">!(wix.WEB_CREATEWEB) = True</Custom>
+      <Custom Action="CA_Set_WEB_AllProperties" After="CA_AfterInstallInitialize_DB">!(wix.WEB_CREATEWEB) = True</Custom>
 
       <Custom Action="RollbackWebsite_" After="CA_Set_WEB_AllProperties"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
       <Custom Action="CreateWebsite_" After="CA_Set_WEB_AllProperties"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
