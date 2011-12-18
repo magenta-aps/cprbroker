@@ -10,25 +10,34 @@ namespace PersonMasterInstallers
     public class CustomActions
     {
         [CustomAction]
-        public static ActionResult CA_Set_DB_AllProperties(Session session)
+        public static ActionResult CA_AfterDatabaseDialog(Session session)
         {
-            return DatabaseCustomAction.CA_Set_DB_AllProperties(session);
+            return DatabaseCustomAction.CA_AfterDatabaseDialog(session);
         }
-        
+
         [CustomAction]
-        public static ActionResult TestDatabaseConnection(Session session)
+        public static ActionResult CA_AfterInstallInitialize_DB(Session session)
         {
-            return DatabaseCustomAction.TestConnectionString(session);
+            return DatabaseCustomAction.CA_AfterInstallInitialize_DB(session);
         }
 
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
+            DatabaseSetupInfo.SetDatabaseFeatureName(session, "PM");
+            DatabaseSetupInfo.ExtractDatabaseFeatureProperties(session, "PM");
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
             string sql = Properties.Resources.crebas;
             sql = sql.Replace("<pm-cryptpassword>", databaseSetupInfo.EncryptionKey);
             sql = sql.Replace("<pm-namespace>", databaseSetupInfo.Domain);
-            return DatabaseCustomAction.DeployDatabase(session, sql, new KeyValuePair<string, string>[0]);
+
+            var sqlDictionary = new Dictionary<string, string>();
+            sqlDictionary["PM"] = sql;
+
+            var lookupDictinary = new Dictionary<string, KeyValuePair<string, string>[]>();
+            lookupDictinary["PM"] = new KeyValuePair<string, string>[0];
+
+            return DatabaseCustomAction.DeployDatabase(session, sqlDictionary, lookupDictinary);
         }
 
         [CustomAction]
