@@ -110,9 +110,86 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public static DatabaseSetupInfo FromSession(Session session)
+
+        public void CopyToCurrentDetails(Session session)
+        {
+            session.SetPropertyValue(FeaturePropertyName, this.FeatureName);
+
+            session.SetPropertyValue("DB_SERVERNAME", this.ServerName);
+            session.SetPropertyValue("DB_DATABASENAME", this.DatabaseName);
+            session.SetPropertyValue("DB_USEEXISTINGDATABASE", this.UseExistingDatabase.ToString());
+
+            session.SetPropertyValue("DB_ENCRYPTIONKEY", this.EncryptionKey);
+            session.SetPropertyValue("DB_ENCRYPTIONKEYENABLED", this.EncryptionKeyEnabled.ToString());
+
+            session.SetPropertyValue("DB_DOMAIN", this.Domain);
+            session.SetPropertyValue("DB_DOMAINENABLED", this.DomainEnabled.ToString());
+
+            if (this.AdminAuthenticationInfo != null)
+            {
+                session.SetPropertyValue("DB_ADMININTEGRATEDSECURITY", this.AdminAuthenticationInfo.IntegratedSecurity.ToString());
+                session.SetPropertyValue("DB_ADMINUSERNAME", this.AdminAuthenticationInfo.UserName);
+                session.SetPropertyValue("DB_ADMINPASSWORD", this.AdminAuthenticationInfo.Password);
+            }
+
+            session.SetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED", this.ApplicationIntegratedSecurityAllowed.ToString());
+            session.SetPropertyValue("DB_APPSAMEASADMIN", this.ApplicationAuthenticationSameAsAdmin ? "True" : "");
+
+            if (this.ApplicationAuthenticationInfo != null)
+            {
+                session.SetPropertyValue("DB_APPINTEGRATEDSECURITY", this.ApplicationAuthenticationInfo.IntegratedSecurity.ToString());
+                session.SetPropertyValue("DB_APPUSERNAME", this.ApplicationAuthenticationInfo.UserName);
+                session.SetPropertyValue("DB_APPPASSWORD", this.ApplicationAuthenticationInfo.Password);
+            }
+        }
+
+        public static string[] GetDatabaseFeatureNames(Session session)
+        {
+            return session.GetPropertyValue(AllFeaturesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static readonly string FeaturePropertyName = "DB_FEATURE";
+        public static readonly string AllFeaturesPropertyName = "DB_FEATURENAMES";
+        public static readonly string AllInfoPropertyName = "DB_ALL";
+
+        private static DatabaseSetupInfo[] DeserializeAllFeatures(Session session)
+        {
+            var allPropVal = session.GetPropertyValue(AllInfoPropertyName);
+            var allInfo = CprBroker.Utilities.Strings.Deserialize<DatabaseSetupInfo[]>(allPropVal);
+            if (allInfo == null)
+                allInfo = new DatabaseSetupInfo[0];
+            return allInfo;
+        }
+
+        private static void SerializeAllFeatures(Session session, DatabaseSetupInfo[] allInfo)
+        {
+            var allPropVal = CprBroker.Utilities.Strings.SerializeObject(allInfo);
+            session.SetPropertyValue(AllInfoPropertyName, allPropVal);
+
+        }
+
+        public static void AddFeatureDetails(Session session, DatabaseSetupInfo databaseSetupInfo)
+        {
+            var allInfo = DeserializeAllFeatures(session);
+            var index = Array.FindIndex<DatabaseSetupInfo>(allInfo, inf => inf.FeatureName == databaseSetupInfo.FeatureName);
+            if (index != -1)
+            {
+                allInfo[index] = databaseSetupInfo;
+            }
+            else
+            {
+                var list = new List<DatabaseSetupInfo>(allInfo);
+                list.Add(databaseSetupInfo);
+                allInfo = list.ToArray();
+            }
+            SerializeAllFeatures(session, allInfo);
+        }
+
+        public static DatabaseSetupInfo CreateFromCurrentDetails(Session session)
         {
             DatabaseSetupInfo ret = new DatabaseSetupInfo();
+
+            ret.FeatureName = session.GetPropertyValue(FeaturePropertyName);
 
             ret.ServerName = session.GetPropertyValue("DB_SERVERNAME");
             ret.DatabaseName = session.GetPropertyValue("DB_DATABASENAME");
@@ -148,98 +225,11 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public void CopyToSession(Session session)
+        public static DatabaseSetupInfo CreateFromFeature(Session session, string featureName)
         {
-            session.SetPropertyValue("DB_SERVERNAME", this.ServerName);
-            session.SetPropertyValue("DB_DATABASENAME", this.DatabaseName);
-            session.SetPropertyValue("DB_USEEXISTINGDATABASE", this.UseExistingDatabase.ToString());
-
-            session.SetPropertyValue("DB_ENCRYPTIONKEY", this.EncryptionKey);
-            session.SetPropertyValue("DB_ENCRYPTIONKEYENABLED", this.EncryptionKeyEnabled.ToString());
-
-            session.SetPropertyValue("DB_DOMAIN", this.Domain);
-            session.SetPropertyValue("DB_DOMAINENABLED", this.DomainEnabled.ToString());
-
-            if (this.AdminAuthenticationInfo != null)
-            {
-                session.SetPropertyValue("DB_ADMININTEGRATEDSECURITY", this.AdminAuthenticationInfo.IntegratedSecurity.ToString());
-                session.SetPropertyValue("DB_ADMINUSERNAME", this.AdminAuthenticationInfo.UserName);
-                session.SetPropertyValue("DB_ADMINPASSWORD", this.AdminAuthenticationInfo.Password);
-            }
-
-            session.SetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED", this.ApplicationIntegratedSecurityAllowed.ToString());
-            session.SetPropertyValue("DB_APPSAMEASADMIN", this.ApplicationAuthenticationSameAsAdmin ? "True" : "");
-
-            if (this.ApplicationAuthenticationInfo != null)
-            {
-                session.SetPropertyValue("DB_APPINTEGRATEDSECURITY", this.ApplicationAuthenticationInfo.IntegratedSecurity.ToString());
-                session.SetPropertyValue("DB_APPUSERNAME", this.ApplicationAuthenticationInfo.UserName);
-                session.SetPropertyValue("DB_APPPASSWORD", this.ApplicationAuthenticationInfo.Password);
-            }
-        }
-
-        public static string[] GetDatabaseFeatureNames(Session session)
-        {
-            return session.GetPropertyValue("DB_FeatureNames").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-        }
-
-        public static string GetDatabaseFeatureName(Session session)
-        {
-            return session.GetPropertyValue("DB_Feature");
-        }
-
-        public static void SetDatabaseFeatureName(Session session, string value)
-        {
-            session.SetPropertyValue("DB_Feature", value);
-        }
-
-        public static string GetDatabaseFeaturePropertyName(Session session)
-        {
-            return GetDatabaseFeaturePropertyName(session.GetPropertyValue("DB_Feature"));
-        }
-
-        public static string GetDatabaseFeaturePropertyName(string featureName)
-        {
-            return "DB_ALLPROPERTIES_" + featureName;
-        }
-
-        public static void ExtractDatabaseFeatureProperties(Session session, string featureName)
-        {
-            var allPropName = GetDatabaseFeaturePropertyName(featureName);
-            var allPropVal = session.GetPropertyValue(allPropName);
-            allPropVal = allPropVal.Replace(DBPropSeparator, ";");
-            string[] propArr = allPropVal.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var prop in propArr)
-            {
-                var arr = prop.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-                var propName = arr[0];
-                var propVal = arr.Length == 1 ? "" : arr[1];
-                session.SetPropertyValue(propName, propVal);
-            }
-        }
-
-        public static void AggregateFeatureProperties(Session session)
-        {
-            var propName = GetDatabaseFeaturePropertyName(session);
-            var propVal = "DB_SERVERNAME=" + session.GetPropertyValue("DB_SERVERNAME") + ";" + "DB_DATABASENAME=" + session.GetPropertyValue("DB_DATABASENAME") + ";" + "DB_USEEXISTINGDATABASE=" + session.GetPropertyValue("DB_USEEXISTINGDATABASE") + ";" + "DB_ADMININTEGRATEDSECURITY=" + session.GetPropertyValue("DB_ADMININTEGRATEDSECURITY") + ";" + "DB_ADMINUSERNAME=" + session.GetPropertyValue("DB_ADMINUSERNAME") + ";" + "DB_ADMINPASSWORD=" + session.GetPropertyValue("DB_ADMINPASSWORD") + ";" + "DB_APPSAMEASADMIN=" + session.GetPropertyValue("DB_APPSAMEASADMIN") + ";" + "DB_APPINTEGRATEDSECURITY=" + session.GetPropertyValue("DB_APPINTEGRATEDSECURITY") + ";" + "DB_APPINTEGRATEDSECURITYALLOWED=" + session.GetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED") + ";" + "DB_APPUSERNAME=" + session.GetPropertyValue("DB_APPUSERNAME") + ";" + "DB_APPPASSWORD=" + session.GetPropertyValue("DB_APPPASSWORD") + ";" + "DB_ENCRYPTIONKEY=" + session.GetPropertyValue("DB_ENCRYPTIONKEY") + ";" + "DB_ENCRYPTIONKEYENABLED=" + session.GetPropertyValue("DB_ENCRYPTIONKEYENABLED") + ";" + "DB_DOMAIN=" + session.GetPropertyValue("DB_DOMAIN") + ";" + "DB_DOMAINENABLED=" + session.GetPropertyValue("DB_DOMAINENABLED") + ";" + "ProductName=" + session.GetPropertyValue("ProductName");
-            session.SetPropertyValue(propName, propVal);
-        }
-
-        public static readonly string DBPropSeparator = ".......";
-
-        public static string AggregateAllProperties(Session session)
-        {
-            var allValues = DatabaseSetupInfo.GetDatabaseFeatureNames(session)
-                .Select((featureName) =>
-                {
-                    DatabaseSetupInfo.SetDatabaseFeatureName(session, featureName);
-                    string propName = DatabaseSetupInfo.GetDatabaseFeaturePropertyName(session);
-                    string propVal = session.GetPropertyValue(propName).Replace(";", DBPropSeparator);
-                    return string.Format("{0}={1}", propName, propVal);
-                }
-                ).ToArray();
-            string val = string.Format("DB_FeatureNames={0};{1}", session.GetPropertyValue("DB_FeatureNames"), string.Join(";", allValues));
-            return val;
+            var allPropValue = session.GetPropertyValue(AllInfoPropertyName);
+            var allInfo = CprBroker.Utilities.Strings.Deserialize<DatabaseSetupInfo[]>(allPropValue);
+            return allInfo.Where(inf => inf.FeatureName == featureName).FirstOrDefault();
         }
 
     }

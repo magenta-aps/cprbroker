@@ -60,9 +60,13 @@ namespace CprBroker.Installers
     {
         public static ActionResult CA_PreDatabaseDialog(Session session)
         {
-            session["DB_AllProperties"] = "DB_SERVERNAME=" + session["DB_SERVERNAME"] + ";" + "DB_DATABASENAME=" + session["DB_DATABASENAME"] + ";" + "DB_USEEXISTINGDATABASE=" + session["DB_USEEXISTINGDATABASE"] + ";" + "DB_ADMININTEGRATEDSECURITY=" + session["DB_ADMININTEGRATEDSECURITY"] + ";" + "DB_ADMINUSERNAME=" + session["DB_ADMINUSERNAME"] + ";" + "DB_ADMINPASSWORD=" + session["DB_ADMINPASSWORD"] + ";" + "DB_APPSAMEASADMIN=" + session["DB_APPSAMEASADMIN"] + ";" + "DB_APPINTEGRATEDSECURITY=" + session["DB_APPINTEGRATEDSECURITY"] + ";" + "DB_APPINTEGRATEDSECURITYALLOWED=" + session["DB_APPINTEGRATEDSECURITYALLOWED"] + ";" + "DB_APPUSERNAME=" + session["DB_APPUSERNAME"] + ";" + "DB_APPPASSWORD=" + session["DB_APPPASSWORD"] + ";" + "DB_ENCRYPTIONKEY=" + session["DB_ENCRYPTIONKEY"] + ";" + "DB_ENCRYPTIONKEYENABLED=" + session["DB_ENCRYPTIONKEYENABLED"] + ";" + "DB_DOMAIN=" + session["DB_DOMAIN"] + ";" + "DB_DOMAINENABLED=" + session["DB_DOMAINENABLED"];
-            var featureName = DatabaseSetupInfo.GetDatabaseFeatureName(session);
-            DatabaseSetupInfo.ExtractDatabaseFeatureProperties(session, featureName);
+            System.Diagnostics.Debugger.Break();
+            var featureName = session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName);
+            var databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
+            if (databaseSetupInfo != null)
+            {
+                databaseSetupInfo.CopyToCurrentDetails(session);
+            }
             return ActionResult.Success;
         }
 
@@ -72,15 +76,19 @@ namespace CprBroker.Installers
             TestConnectionString(session, true, out success);
             if (success)
             {
-                DatabaseSetupInfo.AggregateFeatureProperties(session);
+                var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
+                DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
             }
             return ActionResult.Success;
         }
 
         public static ActionResult CA_AfterInstallInitialize_DB(Session session)
         {
-            System.Diagnostics.Debugger.Break();
-            var aggregatedProps = DatabaseSetupInfo.AggregateAllProperties(session);
+            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5}",
+                DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
+                DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
+                DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName)
+                );
             session.SetPropertyValue("RollbackDatabase", aggregatedProps);
             session.SetPropertyValue("DeployDatabase", aggregatedProps);
             session.SetPropertyValue("RemoveDatabase", aggregatedProps);
@@ -103,7 +111,7 @@ namespace CprBroker.Installers
             success = false;
             try
             {
-                DatabaseSetupInfo dbInfo = DatabaseSetupInfo.FromSession(session);
+                DatabaseSetupInfo dbInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
                 string message = "";
                 dbInfo.UseExistingDatabase = false;
 
@@ -121,8 +129,7 @@ namespace CprBroker.Installers
                     session["DB_VALID"] = message;
                     MessageBox.Show(session.InstallerWindowWrapper(), message, "", MessageBoxButtons.OK);
                 }
-
-                dbInfo.CopyToSession(session);
+                DatabaseSetupInfo.AddFeatureDetails(session, dbInfo);
                 return ActionResult.Success;
             }
             catch (Exception ex)
@@ -136,8 +143,6 @@ namespace CprBroker.Installers
         {
             foreach (var featureName in DatabaseSetupInfo.GetDatabaseFeatureNames(session))
             {
-                DatabaseSetupInfo.SetDatabaseFeatureName(session, featureName);
-                DatabaseSetupInfo.ExtractDatabaseFeatureProperties(session, featureName);
                 func(featureName);
             }
         }
@@ -148,7 +153,7 @@ namespace CprBroker.Installers
                 session,
                 (featureName) =>
                 {
-                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
                     if (CreateDatabase(databaseSetupInfo, createDatabaseObjectsSql[featureName], lookupDataArray[featureName]))
                     {
                         ExecuteDDL(createDatabaseObjectsSql[featureName], databaseSetupInfo);
@@ -166,7 +171,7 @@ namespace CprBroker.Installers
                 session,
                 (featureName) =>
                 {
-                    DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
+                    DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
                     if (!setupInfo.UseExistingDatabase)
                     {
                         DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
@@ -187,7 +192,7 @@ namespace CprBroker.Installers
 
         public static ActionResult PatchDatabase(Session session, string sql)
         {
-            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.FromSession(session);
+            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
             PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
             patchDatabaseForm.SetupInfo = setupInfo;
 

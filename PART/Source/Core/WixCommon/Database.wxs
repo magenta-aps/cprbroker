@@ -5,11 +5,11 @@
 
     <WixVariable Id="DB_CREATEDATABASE" Value="False" Overridable="yes"/>
 
-    <WixVariable Id="DB_Feature" Value="-" Overridable="yes"/>
-    <WixVariable Id="DB_FeatureNames" Value="-" Overridable="yes"/>
+    <WixVariable Id="DB_FEATURE" Value="-" Overridable="yes"/>
+    <WixVariable Id="DB_FEATURENAMES" Value="-" Overridable="yes"/>
 
-    <Property Id="DB_Feature" Value="!(wix.DB_Feature)"/>
-    <Property Id="DB_FeatureNames" Value="!(wix.DB_FeatureNames)"/>
+    <Property Id="DB_FEATURE" Value="!(wix.DB_FEATURE)"/>
+    <Property Id="DB_FEATURENAMES" Value="!(wix.DB_FEATURENAMES)"/>
 
     <Property Id="DB_SERVERNAME" Value="SqlServer" >
       <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="ServerName"/>

@@ -71,6 +71,7 @@ namespace CprBroker.Installers
             public string Password = "";
         }
 
+        public string FeatureName = "";
         public string ServerName = "";
         public string DatabaseName = "";
         public bool UseExistingDatabase = false;
