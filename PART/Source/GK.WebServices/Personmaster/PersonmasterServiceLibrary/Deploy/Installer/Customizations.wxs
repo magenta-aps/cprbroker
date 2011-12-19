@@ -17,5 +17,8 @@
     <WixVariable Id="DB_FEATURE" Value="PM"/>
     <WixVariable Id="DB_FEATURENAMES" Value="PM"/>
 
+    <WixVariable Id="WEB_FEATURE" Value="PM"/>
+    <WixVariable Id="WEB_FEATURENAMES" Value="PM"/>
+
   </Fragment>
 </Wix>

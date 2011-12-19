@@ -57,15 +57,21 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
-        public static ActionResult ValidateWebProperties(Session session)
+        public static ActionResult CA_AfterWebDialog(Session session)
         {
-            return WebsiteCustomAction.ValidateWebProperties(session);
+            return WebsiteCustomAction.CA_AfterWebDialog(session);
+        }
+
+        [CustomAction]
+        public static ActionResult CA_AfterInstallInitialize_WEB(Session session)
+        {
+            return WebsiteCustomAction.CA_AfterInstallInitialize_WEB(session);
         }
 
         [CustomAction]
         public static ActionResult CreateWebsite(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "PM");
             Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
             connectionStrings["CPRMapperDB"] = databaseSetupInfo.CreateConnectionString(false, true);
             WebInstallationOptions options = new WebInstallationOptions()
