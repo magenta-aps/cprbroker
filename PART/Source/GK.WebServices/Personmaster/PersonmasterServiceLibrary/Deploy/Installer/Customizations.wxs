@@ -14,5 +14,8 @@
     <WixVariable Id="DB_DOMAINENABLED" Value="True"/>
     <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="False"/>
 
+    <WixVariable Id="DB_FEATURE" Value="PM"/>
+    <WixVariable Id="DB_FEATURENAMES" Value="PM"/>
+
   </Fragment>
 </Wix>

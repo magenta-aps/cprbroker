@@ -24,9 +24,7 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
-            DatabaseSetupInfo.SetDatabaseFeatureName(session, "PM");
-            DatabaseSetupInfo.ExtractDatabaseFeatureProperties(session, "PM");
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "PM");
             string sql = Properties.Resources.crebas;
             sql = sql.Replace("<pm-cryptpassword>", databaseSetupInfo.EncryptionKey);
             sql = sql.Replace("<pm-namespace>", databaseSetupInfo.Domain);
@@ -67,7 +65,7 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult CreateWebsite(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
             Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
             connectionStrings["CPRMapperDB"] = databaseSetupInfo.CreateConnectionString(false, true);
             WebInstallationOptions options = new WebInstallationOptions()
