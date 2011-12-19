@@ -56,13 +56,16 @@ namespace CprBroker.Installers
     public abstract partial class WebInstallationInfo
     {
 
-        public static WebInstallationInfo FromSession(Session session)
+        public static WebInstallationInfo CreateFromCurrentDetails(Session session)
         {
+            var featureName = session.GetPropertyValue(FeaturePropertyName);
+
             bool createAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True";
             if (createAsWebsite)
             {
                 return new WebsiteInstallationInfo()
                 {
+                    FeatureName = featureName,
                     //CreateAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True",
                     //ApplicationPath = session.GetPropertyValue("WEB_APPLICATIONPATH"),
                     //VirtualDirectoryName = session.GetPropertyValue("WEB_VIRTUALDIRECTORYNAME"),
@@ -75,6 +78,7 @@ namespace CprBroker.Installers
             {
                 return new VirtualDirectoryInstallationInfo()
                 {
+                    FeatureName = featureName,
                     //CreateAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True",
                     //ApplicationPath = session.GetPropertyValue("WEB_APPLICATIONPATH"),
                     VirtualDirectoryName = session.GetPropertyValue("WEB_VIRTUALDIRECTORYNAME"),
@@ -85,8 +89,10 @@ namespace CprBroker.Installers
             }
         }
 
-        public void CopyToSession(Session session)
+        public void CopyToCurrentDetails(Session session)
         {
+            session.SetPropertyValue(FeaturePropertyName, this.FeatureName);
+
             if (this is WebsiteInstallationInfo)
             {
                 WebsiteInstallationInfo websiteInstallationInfo = this as WebsiteInstallationInfo;
@@ -107,6 +113,56 @@ namespace CprBroker.Installers
                 session.SetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH", virtualDirectoryInstallationInfo.WebsitePath);
                 session.SetPropertyValue("INSTALLDIR", virtualDirectoryInstallationInfo.InstallDir);
             }
+        }
+
+        public static string[] GetWebFeatureNames(Session session)
+        {
+            return session.GetPropertyValue(AllFeaturesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static readonly string FeaturePropertyName = "WEB_FEATURE";
+        public static readonly string AllFeaturesPropertyName = "WEB_FEATURENAMES";
+        public static readonly string AllInfoPropertyName = "WEB_ALL";
+
+        private static WebInstallationInfo[] DeserializeAllFeatures(Session session)
+        {
+            var allPropVal = session.GetPropertyValue(AllInfoPropertyName);
+            if (allPropVal == "-")
+                allPropVal = "";
+            var allInfo = CprBroker.Utilities.Strings.Deserialize<WebInstallationInfo[]>(allPropVal);
+            if (allInfo == null)
+                allInfo = new WebInstallationInfo[0];
+            return allInfo;
+        }
+
+        private static void SerializeAllFeatures(Session session, WebInstallationInfo[] allInfo)
+        {
+            var allPropVal = CprBroker.Utilities.Strings.SerializeObject(allInfo);
+            session.SetPropertyValue(AllInfoPropertyName, allPropVal);
+        }
+
+        public static void AddFeatureDetails(Session session, WebInstallationInfo webInstallationInfo)
+        {
+            var allInfo = DeserializeAllFeatures(session);
+            var index = Array.FindIndex<WebInstallationInfo>(allInfo, inf => inf.FeatureName == webInstallationInfo.FeatureName);
+            if (index != -1)
+            {
+                allInfo[index] = webInstallationInfo;
+            }
+            else
+            {
+                var list = new List<WebInstallationInfo>(allInfo);
+                list.Add(webInstallationInfo);
+                allInfo = list.ToArray();
+            }
+            SerializeAllFeatures(session, allInfo);
+        }
+
+        public static WebInstallationInfo CreateFromFeature(Session session, string featureName)
+        {
+            var allPropValue = session.GetPropertyValue(AllInfoPropertyName);
+            var allInfo = CprBroker.Utilities.Strings.Deserialize<WebInstallationInfo[]>(allPropValue);
+            return allInfo.Where(inf => inf.FeatureName == featureName).FirstOrDefault();
         }
 
     }

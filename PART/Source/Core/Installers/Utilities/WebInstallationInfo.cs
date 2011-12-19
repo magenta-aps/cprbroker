@@ -48,15 +48,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using System.DirectoryServices;
 
 namespace CprBroker.Installers
 {
     [Serializable]
+    [XmlInclude(typeof(WebsiteInstallationInfo))]
+    [XmlInclude(typeof(WebsiteInstallationInfo))]
     public abstract partial class WebInstallationInfo
     {
+        public string FeatureName = "";
         // OK
         public static readonly string ServerRoot = "IIS://localhost/w3svc";
+        [XmlIgnore]
         public bool CreateAsWebsite
         {
             get
@@ -67,8 +72,9 @@ namespace CprBroker.Installers
 
         public string WebsiteName;
 
-        public string InstallDir { get; private set; }
+        public string InstallDir { get; set; }
 
+        [XmlIgnore]
         public virtual bool TargetEntryExists { get { throw new Exception(""); } }
 
         public int GetSiteId()
@@ -117,7 +123,9 @@ namespace CprBroker.Installers
         }
 
 
+        [XmlIgnore]
         public abstract string TargetWmiPath { get; }
+        [XmlIgnore]
         public abstract string TargetWmiSubPath { get; }
 
         // Not yet        
@@ -133,7 +141,7 @@ namespace CprBroker.Installers
         protected string[] GetSiteHostHeaders(DirectoryEntry siteEntry)
         {
             siteEntry.RefreshCache();
-            List<string> ret = new List<string>();                                                       
+            List<string> ret = new List<string>();
             var serverBindings = siteEntry.Properties["ServerBindings"].Value;
             object[] serverBindingsArray;
             if (serverBindings is string)

@@ -109,14 +109,25 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        [CustomAction]
-        public static ActionResult ValidateWebProperties(Session session)
+        public static ActionResult CA_PreWebDialog(Session session)
         {
-            WebInstallationInfo webInstallationInfo = WebInstallationInfo.FromSession(session);
+            var featureName = session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName);
+            var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
+            if (webInstallationInfo != null)
+            {
+                webInstallationInfo.CopyToCurrentDetails(session);
+            }
+            return ActionResult.Success;
+        }
+
+        public static ActionResult CA_AfterWebDialog(Session session)
+        {
+            WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
             string message;
             if (webInstallationInfo.Validate(out message))
             {
                 session["WEB_VALID"] = "True";
+                WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
             }
             else
             {
@@ -125,128 +136,157 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        [CustomAction]
+        public static ActionResult CA_AfterInstallInitialize_WEB(Session session)
+        {
+            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};ProductName={13}",
+                WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
+                WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),
+                WebInstallationInfo.AllFeaturesPropertyName, session.GetPropertyValue(WebInstallationInfo.AllFeaturesPropertyName),
+                DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
+                DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
+                DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName),
+                session.GetPropertyValue("INSTALLDIR"),
+                session.GetPropertyValue("ProductName")
+                );
+            session.SetPropertyValue("RollbackWebsite", aggregatedProps);
+            session.SetPropertyValue("CreateWebsite", aggregatedProps);
+            session.SetPropertyValue("RemoveWebsite", aggregatedProps);
+            return ActionResult.Success;
+        }
+
+        static void RunWebAction(Session session, Action<string> func)
+        {
+            foreach (var featureName in WebInstallationInfo.GetWebFeatureNames(session))
+            {
+                func(featureName);
+            }
+        }
+
         public static ActionResult DeployWebsite(Session session, WebInstallationOptions options)
         {
-            try
-            {
-                EnsureIISComponents();
-                var webInstallationInfo = WebInstallationInfo.FromSession(session);
-                bool exists = webInstallationInfo.TargetEntryExists;
-                int siteID = webInstallationInfo.GetSiteId();
-                int scriptMapVersion;
-
-                if (webInstallationInfo.CreateAsWebsite)
+            RunWebAction(session,
+                featureName =>
                 {
-                    WebsiteInstallationInfo websiteInstallationInfo = webInstallationInfo as WebsiteInstallationInfo;
-                    using (DirectoryEntry machineRoot = new DirectoryEntry(WebInstallationInfo.ServerRoot))
+                    try
                     {
-                        string appPoolName = "";
-                        if (DirectoryEntry.Exists(WebsiteInstallationInfo.AppPoolsRoot))
+                        EnsureIISComponents();
+                        var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
+                        bool exists = webInstallationInfo.TargetEntryExists;
+                        int siteID = webInstallationInfo.GetSiteId();
+                        int scriptMapVersion;
+
+                        if (webInstallationInfo.CreateAsWebsite)
                         {
-                            using (DirectoryEntry appPools = new DirectoryEntry(WebsiteInstallationInfo.AppPoolsRoot))
+                            WebsiteInstallationInfo websiteInstallationInfo = webInstallationInfo as WebsiteInstallationInfo;
+                            using (DirectoryEntry machineRoot = new DirectoryEntry(WebInstallationInfo.ServerRoot))
                             {
-                                appPoolName = webInstallationInfo.WebsiteName;
-                                bool appPoolExixts = DirectoryEntry.Exists(websiteInstallationInfo.AppPoolWmiPath);
-                                using (DirectoryEntry appPool = appPoolExixts ? new DirectoryEntry(appPools.Path + "/" + websiteInstallationInfo.WebsiteName) : appPools.Invoke("Create", "IIsApplicationPool", websiteInstallationInfo.WebsiteName) as DirectoryEntry)
+                                string appPoolName = "";
+                                if (DirectoryEntry.Exists(WebsiteInstallationInfo.AppPoolsRoot))
                                 {
-                                    appPool.InvokeSet("AppPoolIdentityType", 2);//LocalSystem 0; LocalService 1; NetworkService 2;  Custom (user & pwd) 3;  ApplicationPoolIdentity 4
-                                    appPool.InvokeSet("AppPoolAutoStart", true);
-                                    if (GetIisMajorVersion() > 6)
+                                    using (DirectoryEntry appPools = new DirectoryEntry(WebsiteInstallationInfo.AppPoolsRoot))
                                     {
-                                        appPool.InvokeSet("ManagedRuntimeVersion", string.Format("v{0}", options.FrameworkVersion.ToString(2)));
-                                        appPool.InvokeSet("ManagedPipelineMode", 0); // Integrated 0; Classic 1
+                                        appPoolName = webInstallationInfo.WebsiteName;
+                                        bool appPoolExixts = DirectoryEntry.Exists(websiteInstallationInfo.AppPoolWmiPath);
+                                        using (DirectoryEntry appPool = appPoolExixts ? new DirectoryEntry(appPools.Path + "/" + websiteInstallationInfo.WebsiteName) : appPools.Invoke("Create", "IIsApplicationPool", websiteInstallationInfo.WebsiteName) as DirectoryEntry)
+                                        {
+                                            appPool.InvokeSet("AppPoolIdentityType", 2);//LocalSystem 0; LocalService 1; NetworkService 2;  Custom (user & pwd) 3;  ApplicationPoolIdentity 4
+                                            appPool.InvokeSet("AppPoolAutoStart", true);
+                                            if (GetIisMajorVersion() > 6)
+                                            {
+                                                appPool.InvokeSet("ManagedRuntimeVersion", string.Format("v{0}", options.FrameworkVersion.ToString(2)));
+                                                appPool.InvokeSet("ManagedPipelineMode", 0); // Integrated 0; Classic 1
+                                            }
+                                            appPool.CommitChanges();
+                                        }
                                     }
-                                    appPool.CommitChanges();
+                                }
+                                using (DirectoryEntry site = exists ? new DirectoryEntry(machineRoot.Path + "/" + siteID) : machineRoot.Invoke("Create", "IIsWebServer", siteID) as System.DirectoryServices.DirectoryEntry)
+                                {
+                                    site.Invoke("Put", "ServerComment", websiteInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "KeyType", "IIsWebServer");
+                                    site.Invoke("Put", "ServerBindings", "*:80:" + websiteInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "ServerState", 2);
+                                    site.Invoke("Put", "FrontPageWeb", 1);
+                                    site.Invoke("Put", "DefaultDoc", "Default.aspx");
+                                    site.Invoke("Put", "SecureBindings", "*:443:" + websiteInstallationInfo.WebsiteName);
+                                    site.Invoke("Put", "ServerAutoStart", 1);
+                                    site.Invoke("Put", "ServerSize", 1);
+                                    site.Invoke("SetInfo");
+                                    site.CommitChanges();
+
+                                    WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+                                    string siteRootPath = site.Path + "/Root";
+                                    using (DirectoryEntry siteRoot = DirectoryEntry.Exists(siteRootPath) ? new DirectoryEntry(siteRootPath) : site.Children.Add("Root", "IIsWebVirtualDir"))
+                                    {
+                                        siteRoot.InvokeSet("Path", websiteInstallationInfo.GetWebFolderPath(options));
+                                        siteRoot.InvokeSet("DefaultDoc", "Default.aspx");
+                                        if (!string.IsNullOrEmpty(appPoolName))
+                                            siteRoot.InvokeSet("AppPoolId", appPoolName);
+                                        siteRoot.Invoke("AppCreate", true);
+                                        siteRoot.CommitChanges();
+                                        scriptMapVersion = GetScriptMapsVersion(siteRoot);
+                                    }
                                 }
                             }
                         }
-                        using (DirectoryEntry site = exists ? new DirectoryEntry(machineRoot.Path + "/" + siteID) : machineRoot.Invoke("Create", "IIsWebServer", siteID) as System.DirectoryServices.DirectoryEntry)
+                        else
                         {
-                            site.Invoke("Put", "ServerComment", websiteInstallationInfo.WebsiteName);
-                            site.Invoke("Put", "KeyType", "IIsWebServer");
-                            site.Invoke("Put", "ServerBindings", "*:80:" + websiteInstallationInfo.WebsiteName);
-                            site.Invoke("Put", "ServerState", 2);
-                            site.Invoke("Put", "FrontPageWeb", 1);
-                            site.Invoke("Put", "DefaultDoc", "Default.aspx");
-                            site.Invoke("Put", "SecureBindings", "*:443:" + websiteInstallationInfo.WebsiteName);
-                            site.Invoke("Put", "ServerAutoStart", 1);
-                            site.Invoke("Put", "ServerSize", 1);
-                            site.Invoke("SetInfo");
-                            site.CommitChanges();
-
-                            webInstallationInfo.CopyToSession(session);
-                            string siteRootPath = site.Path + "/Root";
-                            using (DirectoryEntry siteRoot = DirectoryEntry.Exists(siteRootPath) ? new DirectoryEntry(siteRootPath) : site.Children.Add("Root", "IIsWebVirtualDir"))
+                            VirtualDirectoryInstallationInfo virtualDirectoryInstallationInfo = webInstallationInfo as VirtualDirectoryInstallationInfo;
+                            using (DirectoryEntry websiteEntry = new DirectoryEntry(virtualDirectoryInstallationInfo.WebsitePath))
                             {
-                                siteRoot.InvokeSet("Path", websiteInstallationInfo.GetWebFolderPath(options));
-                                siteRoot.InvokeSet("DefaultDoc", "Default.aspx");
-                                if (!string.IsNullOrEmpty(appPoolName))
-                                    siteRoot.InvokeSet("AppPoolId", appPoolName);
-                                siteRoot.Invoke("AppCreate", true);
-                                siteRoot.CommitChanges();
-                                scriptMapVersion = GetScriptMapsVersion(siteRoot);
+                                using (DirectoryEntry applicationEntry = exists ? new DirectoryEntry(virtualDirectoryInstallationInfo.TargetWmiPath) : websiteEntry.Invoke("Create", "IIsWebVirtualDir", virtualDirectoryInstallationInfo.VirtualDirectoryName) as DirectoryEntry)
+                                {
+                                    applicationEntry.InvokeSet("Path", virtualDirectoryInstallationInfo.GetWebFolderPath(options));
+                                    applicationEntry.Invoke("AppCreate", true);
+                                    applicationEntry.InvokeSet("AppFriendlyName", virtualDirectoryInstallationInfo.VirtualDirectoryName);
+                                    applicationEntry.InvokeSet("DefaultDoc", "Default.aspx");
+                                    applicationEntry.CommitChanges();
+                                    WebInstallationInfo.AddFeatureDetails(session, virtualDirectoryInstallationInfo);
+                                }
+                                scriptMapVersion = GetScriptMapsVersion(websiteEntry);
                             }
                         }
-                    }
-                }
-                else
-                {
-                    VirtualDirectoryInstallationInfo virtualDirectoryInstallationInfo = webInstallationInfo as VirtualDirectoryInstallationInfo;
-                    using (DirectoryEntry websiteEntry = new DirectoryEntry(virtualDirectoryInstallationInfo.WebsitePath))
-                    {
-                        using (DirectoryEntry applicationEntry = exists ? new DirectoryEntry(virtualDirectoryInstallationInfo.TargetWmiPath) : websiteEntry.Invoke("Create", "IIsWebVirtualDir", virtualDirectoryInstallationInfo.VirtualDirectoryName) as DirectoryEntry)
+
+                        // Set ASP.NET to target framework version                
+                        if (scriptMapVersion != options.FrameworkVersion.Major)
                         {
-                            applicationEntry.InvokeSet("Path", virtualDirectoryInstallationInfo.GetWebFolderPath(options));
-                            applicationEntry.Invoke("AppCreate", true);
-                            applicationEntry.InvokeSet("AppFriendlyName", virtualDirectoryInstallationInfo.VirtualDirectoryName);
-                            applicationEntry.InvokeSet("DefaultDoc", "Default.aspx");
-                            applicationEntry.CommitChanges();
-                            virtualDirectoryInstallationInfo.CopyToSession(session);
+                            RunRegIIS("-ir", options.FrameworkVersion);
+                            RunRegIIS(string.Format("-s {0}", webInstallationInfo.TargetWmiSubPath), options.FrameworkVersion);
                         }
-                        scriptMapVersion = GetScriptMapsVersion(websiteEntry);
+
+                        // Mark as done
+                        WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+
+                        GrantConfigEncryptionAccess(options.FrameworkVersion);
+
+                        var configFilePath = webInstallationInfo.GetWebConfigFilePath(options);
+                        var appRelativePath = webInstallationInfo.GetAppRelativePath();
+
+                        // Data provider keys
+                        EncryptConfigSections(configFilePath, siteID.ToString(), appRelativePath, options.ConfigSectionGroupEncryptionOptions, options.FrameworkVersion);
+
+                        // Logging flat file access
+                        if (options.InitializeFlatFileLogging)
+                        {
+                            InitializeFlatFileLogging(configFilePath);
+                        }
+
+                        // Set and encrypt connection strings and enqueue their encryption
+                        SetConnectionStrings(configFilePath, options.ConnectionStrings);
+                        if (options.EncryptConnectionStrings)
+                        {
+                            EncryptConnectionStrings(siteID.ToString(), appRelativePath, options.FrameworkVersion);
+                        }
                     }
-                }
-
-                // Set ASP.NET to target framework version                
-                if (scriptMapVersion != options.FrameworkVersion.Major)
-                {
-                    RunRegIIS("-ir", options.FrameworkVersion);
-                    RunRegIIS(string.Format("-s {0}", webInstallationInfo.TargetWmiSubPath), options.FrameworkVersion);
-                }
-
-                // Mark as done
-                webInstallationInfo.CopyToSession(session);
-
-                GrantConfigEncryptionAccess(options.FrameworkVersion);
-
-                var configFilePath = webInstallationInfo.GetWebConfigFilePath(options);
-                var appRelativePath = webInstallationInfo.GetAppRelativePath();
-
-                // Data provider keys
-                EncryptConfigSections(configFilePath, siteID.ToString(), appRelativePath, options.ConfigSectionGroupEncryptionOptions, options.FrameworkVersion);
-
-                // Logging flat file access
-                if (options.InitializeFlatFileLogging)
-                {
-                    InitializeFlatFileLogging(configFilePath);
-                }
-
-                // Set and encrypt connection strings and enqueue their encryption
-                SetConnectionStrings(configFilePath, options.ConnectionStrings);
-                if (options.EncryptConnectionStrings)
-                {
-                    EncryptConnectionStrings(siteID.ToString(), appRelativePath, options.FrameworkVersion);
-                }
-            }
-            catch (InstallException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new InstallException(Messages.AnErrorHasOccurredAndInstallationWillBeCancelled, ex);
-            }
+                    catch (InstallException ex)
+                    {
+                        throw ex;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new InstallException(Messages.AnErrorHasOccurredAndInstallationWillBeCancelled, ex);
+                    }
+                });
             return ActionResult.Success;
         }
 
@@ -259,26 +299,31 @@ namespace CprBroker.Installers
         [CustomAction]
         public static ActionResult RemoveWebsite(Session session)
         {
-            var webInstallationInfo = WebInstallationInfo.FromSession(session);
-            string applicationDirectoryPath = webInstallationInfo.TargetWmiPath;
-            if (DirectoryEntry.Exists(applicationDirectoryPath))
-            {
-                using (DirectoryEntry applicationEntry = new DirectoryEntry(applicationDirectoryPath))
+            RunWebAction(
+                session,
+                featureName =>
                 {
-                    applicationEntry.DeleteTree();
-                }
-            }
-            if (webInstallationInfo is WebsiteInstallationInfo)
-            {
-                WebsiteInstallationInfo websiteInstallationInfo = webInstallationInfo as WebsiteInstallationInfo;
-                if (DirectoryEntry.Exists(websiteInstallationInfo.AppPoolWmiPath))
-                {
-                    using (DirectoryEntry appPoolEntry = new DirectoryEntry(websiteInstallationInfo.AppPoolWmiPath))
+                    var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
+                    string applicationDirectoryPath = webInstallationInfo.TargetWmiPath;
+                    if (DirectoryEntry.Exists(applicationDirectoryPath))
                     {
-                        appPoolEntry.DeleteTree();
+                        using (DirectoryEntry applicationEntry = new DirectoryEntry(applicationDirectoryPath))
+                        {
+                            applicationEntry.DeleteTree();
+                        }
                     }
-                }
-            }
+                    if (webInstallationInfo is WebsiteInstallationInfo)
+                    {
+                        WebsiteInstallationInfo websiteInstallationInfo = webInstallationInfo as WebsiteInstallationInfo;
+                        if (DirectoryEntry.Exists(websiteInstallationInfo.AppPoolWmiPath))
+                        {
+                            using (DirectoryEntry appPoolEntry = new DirectoryEntry(websiteInstallationInfo.AppPoolWmiPath))
+                            {
+                                appPoolEntry.DeleteTree();
+                            }
+                        }
+                    }
+                });
             return ActionResult.Success;
         }
 

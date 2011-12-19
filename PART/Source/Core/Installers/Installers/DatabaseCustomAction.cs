@@ -60,7 +60,6 @@ namespace CprBroker.Installers
     {
         public static ActionResult CA_PreDatabaseDialog(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             var featureName = session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName);
             var databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
             if (databaseSetupInfo != null)
@@ -84,10 +83,12 @@ namespace CprBroker.Installers
 
         public static ActionResult CA_AfterInstallInitialize_DB(Session session)
         {
-            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5}",
+            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};ProductName={7}",
                 DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
                 DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
-                DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName)
+                DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName),
+                session.GetPropertyValue("INSTALLDIR"),
+                session.GetPropertyValue("ProductName")
                 );
             session.SetPropertyValue("RollbackDatabase", aggregatedProps);
             session.SetPropertyValue("DeployDatabase", aggregatedProps);

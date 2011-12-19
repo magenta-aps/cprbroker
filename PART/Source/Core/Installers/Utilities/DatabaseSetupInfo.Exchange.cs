@@ -155,6 +155,8 @@ namespace CprBroker.Installers
         private static DatabaseSetupInfo[] DeserializeAllFeatures(Session session)
         {
             var allPropVal = session.GetPropertyValue(AllInfoPropertyName);
+            if (allPropVal == "-")
+                allPropVal = "";
             var allInfo = CprBroker.Utilities.Strings.Deserialize<DatabaseSetupInfo[]>(allPropVal);
             if (allInfo == null)
                 allInfo = new DatabaseSetupInfo[0];
@@ -165,7 +167,6 @@ namespace CprBroker.Installers
         {
             var allPropVal = CprBroker.Utilities.Strings.SerializeObject(allInfo);
             session.SetPropertyValue(AllInfoPropertyName, allPropVal);
-
         }
 
         public static void AddFeatureDetails(Session session, DatabaseSetupInfo databaseSetupInfo)
