@@ -83,6 +83,19 @@ namespace CprBroker.Installers
 
         public static ActionResult CA_AfterInstallInitialize_DB(Session session)
         {
+            if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
+            {
+                RunDatabaseAction(
+                    session,
+                    featureName =>
+                    {
+                        session.SetPropertyValue(DatabaseSetupInfo.FeaturePropertyName, featureName);
+                        session.DoAction("AppSearch");
+                        var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
+                        DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
+                    }
+                );
+            }
             var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};ProductName={7}",
                 DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
                 DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),

@@ -229,7 +229,7 @@ namespace CprBroker.Installers
         public static DatabaseSetupInfo CreateFromFeature(Session session, string featureName)
         {
             var allPropValue = session.GetPropertyValue(AllInfoPropertyName);
-            var allInfo = CprBroker.Utilities.Strings.Deserialize<DatabaseSetupInfo[]>(allPropValue);
+            var allInfo = DeserializeAllFeatures(session);
             return allInfo.Where(inf => inf.FeatureName == featureName).FirstOrDefault();
         }
 

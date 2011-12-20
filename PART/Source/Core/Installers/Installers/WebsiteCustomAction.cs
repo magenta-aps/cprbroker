@@ -138,6 +138,19 @@ namespace CprBroker.Installers
 
         public static ActionResult CA_AfterInstallInitialize_WEB(Session session)
         {
+            if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
+            {
+                RunWebAction(
+                    session,
+                    featureName =>
+                    {
+                        session.SetPropertyValue(WebInstallationInfo.FeaturePropertyName, featureName);
+                        session.DoAction("AppSearch");
+                        var webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
+                        WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+                    }
+                );
+            }
             var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};ProductName={13}",
                 WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
                 WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),
