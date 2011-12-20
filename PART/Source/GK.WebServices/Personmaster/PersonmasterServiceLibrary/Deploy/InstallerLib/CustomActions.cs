@@ -10,15 +10,15 @@ namespace PersonMasterInstallers
     public class CustomActions
     {
         [CustomAction]
-        public static ActionResult CA_AfterDatabaseDialog(Session session)
+        public static ActionResult AfterDatabaseDialog(Session session)
         {
-            return DatabaseCustomAction.CA_AfterDatabaseDialog(session);
+            return DatabaseCustomAction.AfterDatabaseDialog(session);
         }
 
         [CustomAction]
-        public static ActionResult CA_AfterInstallInitialize_DB(Session session)
+        public static ActionResult AfterInstallInitialize_DB(Session session)
         {
-            return DatabaseCustomAction.CA_AfterInstallInitialize_DB(session);
+            return DatabaseCustomAction.AfterInstallInitialize_DB(session);
         }
 
         [CustomAction]
@@ -57,15 +57,15 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
-        public static ActionResult CA_AfterWebDialog(Session session)
+        public static ActionResult AfterWebDialog(Session session)
         {
-            return WebsiteCustomAction.CA_AfterWebDialog(session);
+            return WebsiteCustomAction.AfterWebDialog(session);
         }
 
         [CustomAction]
-        public static ActionResult CA_AfterInstallInitialize_WEB(Session session)
+        public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
-            return WebsiteCustomAction.CA_AfterInstallInitialize_WEB(session);
+            return WebsiteCustomAction.AfterInstallInitialize_WEB(session);
         }
 
         [CustomAction]
