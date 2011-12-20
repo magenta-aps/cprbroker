@@ -73,14 +73,14 @@
     </ComponentGroup>
 
     <!--Initialize some DB names from product name-->
-    <CustomAction Id="CA_InitializeDatabasePropertiesFromProductName" Execute="immediate" Script="vbscript">
+    <CustomAction Id="InitializeDatabasePropertiesFromProductName" Execute="immediate" Script="vbscript">
       <![CDATA[
       Session.Property("DB_DATABASENAME") = Replace(Session.Property("ProductName"), " ", "")
       Session.Property("DB_APPUSERNAME") = Replace(Session.Property("ProductName"), " ", "")
       ]]>
     </CustomAction>
 
-    <CustomAction Id="CA_InitializeDatabasePropertiesByRemovingConflicts" Execute="immediate" Script="vbscript">
+    <CustomAction Id="InitializeDatabasePropertiesByRemovingConflicts" Execute="immediate" Script="vbscript">
       <![CDATA[
       If !(wix.DB_APPINTEGRATEDSECURITYALLOWED) <> True Then
         Session.Property("DB_APPINTEGRATEDSECURITY") = "False"
@@ -90,12 +90,12 @@
     </CustomAction>
 
     <InstallUISequence>
-      <Custom Action="CA_InitializeDatabasePropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
-      <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="InitializeDatabasePropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
+      <Custom Action="InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="CA_InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND REMOVE]]></Custom>
+      <Custom Action="InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND REMOVE]]></Custom>
     </InstallExecuteSequence>
 
     <!--Installation properties for use by custom actions-->
@@ -105,15 +105,15 @@
     <Property Id="RemoveDatabase" Hidden="yes" />
 
     <!--Installation custom actions-->
-    <CustomAction Id="CA_PreDatabaseDialog" Execute="immediate" BinaryKey="InstallersDll" DllEntry="CA_PreDatabaseDialog"/>
-    <CustomAction Id="CA_AfterDatabaseDialog" Execute="immediate" BinaryKey="InstallersDll" DllEntry="CA_AfterDatabaseDialog"/>
-    <CustomAction Id="CA_AfterInstallInitialize_DB" Execute="immediate" BinaryKey="InstallersDll" DllEntry="CA_AfterInstallInitialize_DB"/>
+    <CustomAction Id="PreDatabaseDialog" Execute="immediate" BinaryKey="InstallersDll" DllEntry="PreDatabaseDialog"/>
+    <CustomAction Id="AfterDatabaseDialog" Execute="immediate" BinaryKey="InstallersDll" DllEntry="AfterDatabaseDialog"/>
+    <CustomAction Id="AfterInstallInitialize_DB" Execute="immediate" BinaryKey="InstallersDll" DllEntry="AfterInstallInitialize_DB"/>
     <CustomAction Id="RollbackDatabase" BinaryKey="InstallersDll" DllEntry="RollbackDatabase" Execute="rollback" Return="check" Impersonate="yes"/>
     <CustomAction Id="DeployDatabase" BinaryKey="InstallersDll" DllEntry="DeployDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
     <CustomAction Id="RemoveDatabase" BinaryKey="InstallersDll" DllEntry="RemoveDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
     <InstallExecuteSequence>
-      <Custom Action="CA_AfterInstallInitialize_DB" After="CA_Set_CommonProductProperties">!(wix.DB_CREATEDATABASE) = True</Custom>
+      <Custom Action="AfterInstallInitialize_DB" After="Set_CommonProductProperties">!(wix.DB_CREATEDATABASE) = True</Custom>
 
       <Custom Action="RollbackDatabase" After="InstallFiles"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
       <Custom Action="DeployDatabase" After="RollbackDatabase"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE AND NOT PATCH]]></Custom>

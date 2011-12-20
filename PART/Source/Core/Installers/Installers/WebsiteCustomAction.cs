@@ -109,7 +109,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult CA_PreWebDialog(Session session)
+        public static ActionResult PreWebDialog(Session session)
         {
             var featureName = session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName);
             var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
@@ -120,7 +120,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult CA_AfterWebDialog(Session session)
+        public static ActionResult AfterWebDialog(Session session)
         {
             WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
             string message;
@@ -136,7 +136,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult CA_AfterInstallInitialize_WEB(Session session)
+        public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
             if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
             {

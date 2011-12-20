@@ -4,10 +4,10 @@
     <Property Id="Dummy_CommonProductPropertiesFragmentRefProp" Value="-"/>
 
     <Property Id="CommonProductProperties" Value="-"/>
-    <CustomAction Id="CA_Set_CommonProductProperties" Property="CommonProductProperties" Value="INSTALLDIR=[INSTALLDIR];ProductName=[ProductName];Manufacturer=[Manufacturer]"/>
+    <CustomAction Id="Set_CommonProductProperties" Property="CommonProductProperties" Value="INSTALLDIR=[INSTALLDIR];ProductName=[ProductName];Manufacturer=[Manufacturer]"/>
 
     <InstallExecuteSequence>
-      <Custom Action="CA_Set_CommonProductProperties" After="InstallInitialize">1</Custom>
+      <Custom Action="Set_CommonProductProperties" After="InstallInitialize">1</Custom>
     </InstallExecuteSequence>
   </Fragment>
 </Wix>

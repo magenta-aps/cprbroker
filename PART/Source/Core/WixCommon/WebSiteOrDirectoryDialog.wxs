@@ -49,7 +49,7 @@
         <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" >
           <Publish Property="WEB_SITENAME" Value="[WEB_SITENAME_SITE]" Order="1"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Publish>
           <Publish Property="WEB_SITENAME" Value="[WEB_SITENAME_VDIR]" Order="1"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Publish>
-          <Publish Event="DoAction" Value="CA_AfterWebDialog" Order="2">1</Publish>
+          <Publish Event="DoAction" Value="AfterWebDialog" Order="2">1</Publish>
         </Control>
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
 

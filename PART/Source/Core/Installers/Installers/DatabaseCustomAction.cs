@@ -58,7 +58,7 @@ namespace CprBroker.Installers
 {
     public static partial class DatabaseCustomAction
     {
-        public static ActionResult CA_PreDatabaseDialog(Session session)
+        public static ActionResult PreDatabaseDialog(Session session)
         {
             var featureName = session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName);
             var databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
@@ -69,7 +69,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult CA_AfterDatabaseDialog(Session session)
+        public static ActionResult AfterDatabaseDialog(Session session)
         {
             bool success;
             TestConnectionString(session, true, out success);
@@ -81,7 +81,7 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult CA_AfterInstallInitialize_DB(Session session)
+        public static ActionResult AfterInstallInitialize_DB(Session session)
         {
             if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
             {
