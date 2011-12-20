@@ -262,11 +262,54 @@ namespace CprBroker.Utilities
         }
 
         public static bool IsValidName(string name)
-        {            
+        {
             string pat = @"\A\w[\w\d_]*\Z";
             if (!System.Text.RegularExpressions.Regex.Match(name, pat).Success)
             {
                 return false;
+            }
+            return true;
+        }
+
+        public static bool IsValidHostName(string name)
+        {
+            if (!Regex.Match(name, @"\A[0-9A-Za-z\-\.]+\z").Success)
+                return false;
+
+            string[] labels = name.Split('.');
+            // eliminate empty host
+            if (labels.Length == 0)
+                return false;
+
+            // eliminate empty labels
+            if(labels.Where(l => string.IsNullOrEmpty(l)).Count() > 0)
+                return false;
+            
+            // eliminate hosts that look like IP addresses 
+            if(labels.Where(l => Regex.Match(l, @"\A[0-9]*\z").Success).Count() == labels.Length)
+                return false;
+            
+            foreach (var label in labels)
+            {
+                // label length
+                if (label.Length == 0 || label.Length > 63)
+                    return false;
+
+                // eliminate hyphen start/end
+                if (label.StartsWith("-") || label.EndsWith("-"))
+                    return false;
+
+                //// contain at least one alpha character
+                //if (!Regex.Match(label, "[a-zA-Z]+").Success)
+                //    return false;
+
+                var labelParts = label.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var labelPart in labelParts)
+                {
+                    // eliminate consecutive hyphens 
+                    if (labelPart.Length == 0)
+                        return false;
+                }
             }
             return true;
         }

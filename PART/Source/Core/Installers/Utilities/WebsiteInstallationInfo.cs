@@ -120,7 +120,7 @@ namespace CprBroker.Installers
         public override bool Validate(out string message)
         {
             message = null;
-            if (!Strings.IsValidName(this.WebsiteName))
+            if (!Strings.IsValidHostName(this.WebsiteName))
             {
                 message = string.Format("Invalid name: '{0}'", WebsiteName);
                 return false;

@@ -112,7 +112,7 @@ namespace CprBroker.Installers
         public override bool Validate(out string message)
         {
             message = null;
-            if (!Strings.IsValidName(this.VirtualDirectoryName))
+            if (!Strings.IsValidHostName(this.VirtualDirectoryName))
             {
                 message = string.Format("Invalid name: '{0}'", VirtualDirectoryName);
                 return false;
