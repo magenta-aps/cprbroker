@@ -158,7 +158,7 @@ namespace CprBroker.Installers
                 using (SqlConnection adminConnection = new SqlConnection(adminConnectionString))
                 {
                     adminConnection.Open();
-                    return IsServerRoleMember("sysadmin", null, adminConnection) || IsServerRoleMember("dbcreator", null, adminConnection);
+                    return IsServerRoleMember("sysadmin", null, adminConnection);
                 }
             }
             catch (Exception)
@@ -389,7 +389,7 @@ namespace CprBroker.Installers
             return true;
         }
 
-        public bool ValidateDatabaseExistence(bool databaseShouldBeNew,Func<bool> askOverwrite, ref string message)
+        public bool ValidateDatabaseExistence(bool databaseShouldBeNew, Func<bool> askOverwrite, ref string message)
         {
             if (databaseShouldBeNew)
             {
