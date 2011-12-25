@@ -12,95 +12,191 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult AfterDatabaseDialog(Session session)
         {
-            return DatabaseCustomAction.AfterDatabaseDialog(session);
+            try
+            {
+                return DatabaseCustomAction.AfterDatabaseDialog(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult AfterInstallInitialize_DB(Session session)
         {
-            return DatabaseCustomAction.AfterInstallInitialize_DB(session);
+            try
+            {
+                return DatabaseCustomAction.AfterInstallInitialize_DB(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "PM");
-            string sql = Properties.Resources.crebas;
-            sql = sql.Replace("<pm-cryptpassword>", databaseSetupInfo.EncryptionKey);
-            sql = sql.Replace("<pm-namespace>", databaseSetupInfo.Domain);
+            try
+            {
+                DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "PM");
+                string sql = Properties.Resources.crebas;
+                sql = sql.Replace("<pm-cryptpassword>", databaseSetupInfo.EncryptionKey);
+                sql = sql.Replace("<pm-namespace>", databaseSetupInfo.Domain);
 
-            var sqlDictionary = new Dictionary<string, string>();
-            sqlDictionary["PM"] = sql;
+                var sqlDictionary = new Dictionary<string, string>();
+                sqlDictionary["PM"] = sql;
 
-            var lookupDictinary = new Dictionary<string, KeyValuePair<string, string>[]>();
-            lookupDictinary["PM"] = new KeyValuePair<string, string>[0];
+                var lookupDictinary = new Dictionary<string, KeyValuePair<string, string>[]>();
+                lookupDictinary["PM"] = new KeyValuePair<string, string>[0];
 
-            return DatabaseCustomAction.DeployDatabase(session, sqlDictionary, lookupDictinary);
+                return DatabaseCustomAction.DeployDatabase(session, sqlDictionary, lookupDictinary);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RollbackDatabase(Session session)
         {
-            return DatabaseCustomAction.RemoveDatabase(session, false);
+            try
+            {
+                return DatabaseCustomAction.RemoveDatabase(session, false);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RemoveDatabase(Session session)
         {
-            return DatabaseCustomAction.RemoveDatabase(session, true);
+            try
+            {
+                return DatabaseCustomAction.RemoveDatabase(session, true);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult PopulateWebsites(Session session)
         {
-            return ActionResult.Success;
+            try
+            {
+                return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult AfterWebDialog(Session session)
         {
-            return WebsiteCustomAction.AfterWebDialog(session);
+            try
+            {
+                return WebsiteCustomAction.AfterWebDialog(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
-            return WebsiteCustomAction.AfterInstallInitialize_WEB(session);
+            try
+            {
+                return WebsiteCustomAction.AfterInstallInitialize_WEB(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult CreateWebsite(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "PM");
-            Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
-            connectionStrings["CPRMapperDB"] = databaseSetupInfo.CreateConnectionString(false, true);
-            WebInstallationOptions options = new WebInstallationOptions()
+            try
             {
-                ConnectionStrings = connectionStrings,
-                ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[0],
-                EncryptConnectionStrings = false,
-                InitializeFlatFileLogging = false,
-                FrameworkVersion = new Version("4.0")
-            };
-            return WebsiteCustomAction.DeployWebsite(session, options);
+                DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "PM");
+                Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
+                connectionStrings["CPRMapperDB"] = databaseSetupInfo.CreateConnectionString(false, true);
+                WebInstallationOptions options = new WebInstallationOptions()
+                {
+                    ConnectionStrings = connectionStrings,
+                    ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[0],
+                    EncryptConnectionStrings = false,
+                    InitializeFlatFileLogging = false,
+                    FrameworkVersion = new Version("4.0")
+                };
+                return WebsiteCustomAction.DeployWebsite(session, options);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RollbackWebsite(Session session)
         {
-            return WebsiteCustomAction.RollbackWebsite(session);
+            try
+            {
+                return WebsiteCustomAction.RollbackWebsite(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RemoveWebsite(Session session)
         {
-            return WebsiteCustomAction.RemoveWebsite(session);
+            try
+            {
+                return WebsiteCustomAction.RemoveWebsite(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
-        public static ActionResult PatchDatabase(Session sesion)
+        public static ActionResult PatchDatabase(Session session)
         {
-            return DatabaseCustomAction.PatchDatabase(sesion, Properties.Resources.patchbas_1_2);
+            try
+            {
+                return DatabaseCustomAction.PatchDatabase(session, Properties.Resources.patchbas_1_2);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
     }
 }
