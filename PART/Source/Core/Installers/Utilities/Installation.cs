@@ -357,6 +357,15 @@ namespace CprBroker.Installers
             return CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(session.GetPropertyValue("INSTALLDIR"));
         }
 
+        public static void ShowErrorMessage(this Microsoft.Deployment.WindowsInstaller.Session session, Exception ex)
+        {
+            Microsoft.Deployment.WindowsInstaller.Record record = new Microsoft.Deployment.WindowsInstaller.Record();
+            record.FormatString = ex.ToString();
+            session.Message(
+                Microsoft.Deployment.WindowsInstaller.InstallMessage.Error | (Microsoft.Deployment.WindowsInstaller.InstallMessage)System.Windows.Forms.MessageBoxButtons.OK | (Microsoft.Deployment.WindowsInstaller.InstallMessage)System.Windows.Forms.MessageBoxIcon.Error,
+                record);
+        }
+
         public static void RunCommand(string fileName, string args)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
