@@ -83,6 +83,7 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_DB(Session session)
         {
+            System.Diagnostics.Debugger.Break();
             if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
             {
                 RunDatabaseAction(
@@ -92,6 +93,17 @@ namespace CprBroker.Installers
                         session.SetPropertyValue(DatabaseSetupInfo.FeaturePropertyName, featureName);
                         session.DoAction("AppSearch");
                         var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
+                        DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
+                    }
+                );
+            }
+            else if (session.UiLevel() != InstallUILevel.Full)
+            {
+                RunDatabaseAction(
+                    session,
+                    featureName =>
+                    {
+                        var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session, featureName);
                         DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
                     }
                 );

@@ -330,6 +330,14 @@ namespace CprBroker.Installers
 
         public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
         {
+            return GetPropertyValue(session, propName, "");
+        }
+
+        public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName)
+        {
+            if (!string.IsNullOrEmpty(featureName))
+                propName = string.Format("{0}_{1}", propName, featureName);
+
             if (session.IsInDeferredMode())
             {
                 return session.CustomActionData[propName];
@@ -364,6 +372,11 @@ namespace CprBroker.Installers
             session.Message(
                 Microsoft.Deployment.WindowsInstaller.InstallMessage.Error | (Microsoft.Deployment.WindowsInstaller.InstallMessage)System.Windows.Forms.MessageBoxButtons.OK | (Microsoft.Deployment.WindowsInstaller.InstallMessage)System.Windows.Forms.MessageBoxIcon.Error,
                 record);
+        }
+
+        public static InstallUILevel UiLevel(this Microsoft.Deployment.WindowsInstaller.Session session)
+        {
+            return (InstallUILevel)int.Parse(session.GetPropertyValue("UILevel"));
         }
 
         public static void RunCommand(string fileName, string args)

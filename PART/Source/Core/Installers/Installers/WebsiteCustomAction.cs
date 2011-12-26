@@ -138,6 +138,7 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
+            System.Diagnostics.Debugger.Break();
             if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
             {
                 RunWebAction(
@@ -147,6 +148,17 @@ namespace CprBroker.Installers
                         session.SetPropertyValue(WebInstallationInfo.FeaturePropertyName, featureName);
                         session.DoAction("AppSearch");
                         var webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
+                        WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+                    }
+                );
+            }
+            else if (session.UiLevel() != InstallUILevel.Full)
+            {
+                RunWebAction(
+                    session,
+                    featureName =>
+                    {
+                        var webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session, featureName);
                         WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
                     }
                 );

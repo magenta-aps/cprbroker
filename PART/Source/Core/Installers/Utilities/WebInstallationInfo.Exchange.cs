@@ -55,23 +55,25 @@ namespace CprBroker.Installers
 {
     public abstract partial class WebInstallationInfo
     {
-
         public static WebInstallationInfo CreateFromCurrentDetails(Session session)
         {
-            var featureName = session.GetPropertyValue(FeaturePropertyName);
+            return CreateFromCurrentDetails(session, "");
+        }
+        public static WebInstallationInfo CreateFromCurrentDetails(Session session, string featureName)
+        {
+            if (!string.IsNullOrEmpty(featureName))
+            {
+                session.SetPropertyValue(FeaturePropertyName, featureName);
+            }
 
-            bool createAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True";
+            bool createAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE", featureName) == "True";
             if (createAsWebsite)
             {
                 return new WebsiteInstallationInfo()
                 {
                     FeatureName = featureName,
-                    //CreateAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True",
-                    //ApplicationPath = session.GetPropertyValue("WEB_APPLICATIONPATH"),
-                    //VirtualDirectoryName = session.GetPropertyValue("WEB_VIRTUALDIRECTORYNAME"),
-                    WebsiteName = session.GetPropertyValue("WEB_SITENAME"),
-                    //WebsitePath = session.GetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH"),
-                    InstallDir = session.GetPropertyValue("INSTALLDIR"),
+                    WebsiteName = session.GetPropertyValue("WEB_SITENAME", featureName),
+                    InstallDir = session.GetPropertyValue("INSTALLDIR", featureName),
                 };
             }
             else
@@ -79,12 +81,9 @@ namespace CprBroker.Installers
                 return new VirtualDirectoryInstallationInfo()
                 {
                     FeatureName = featureName,
-                    //CreateAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE") == "True",
-                    //ApplicationPath = session.GetPropertyValue("WEB_APPLICATIONPATH"),
-                    VirtualDirectoryName = session.GetPropertyValue("WEB_VIRTUALDIRECTORYNAME"),
-                    WebsiteName = session.GetPropertyValue("WEB_SITENAME"),
-                    //WebsitePath = session.GetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH"),
-                    InstallDir = session.GetPropertyValue("INSTALLDIR"),
+                    VirtualDirectoryName = session.GetPropertyValue("WEB_VIRTUALDIRECTORYNAME", featureName),
+                    WebsiteName = session.GetPropertyValue("WEB_SITENAME", featureName),
+                    InstallDir = session.GetPropertyValue("INSTALLDIR", featureName),
                 };
             }
         }

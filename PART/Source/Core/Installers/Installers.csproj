@@ -78,6 +78,7 @@
     <Compile Include="UI\PatchDatabaseForm.Designer.cs">
       <DependentUpon>PatchDatabaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\Installation.cs" />
     <Compile Include="Installers\ConnectionStringsInstaller.cs">
       <SubType>Component</SubType>
