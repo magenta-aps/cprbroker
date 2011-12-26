@@ -264,5 +264,22 @@ namespace CprBroker.Installers
         {
             Installation.SetFlatFileLogListenerAccessRights(configFilePath);
         }
+
+        public static void AddUrlToLocalIntranet(string url)
+        {
+            uint zone;
+            var manager = InternetSecurityManager.CreateObject();
+            int result;
+            result = manager.MapUrlToZone(url, out zone, (uint)InternetSecurityManager.SZM_FLAGS.SZM_CREATE);
+            InternetSecurityManager.WinError.TestHResult(result);
+            if (zone != (int)InternetSecurityManager.URLZONE.URLZONE_INTRANET)
+            {
+                result = manager.SetZoneMapping(zone, url, InternetSecurityManager.SZM_FLAGS.SZM_DELETE);
+                InternetSecurityManager.WinError.TestHResult(result);
+                result = manager.SetZoneMapping(InternetSecurityManager.URLZONE.URLZONE_INTRANET, url, InternetSecurityManager.SZM_FLAGS.SZM_CREATE);
+                InternetSecurityManager.WinError.TestHResult(result);
+            }
+        }
     }
 }
+

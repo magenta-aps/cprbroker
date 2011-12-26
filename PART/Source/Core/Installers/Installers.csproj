@@ -112,6 +112,7 @@
     <Compile Include="UI\LoginInfo.Designer.cs">
       <DependentUpon>LoginInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\InternetSecurityManager.cs" />
     <Compile Include="Utilities\Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\BaseForm.resx">

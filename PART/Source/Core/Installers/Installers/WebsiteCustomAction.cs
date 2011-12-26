@@ -290,6 +290,13 @@ namespace CprBroker.Installers
                         {
                             EncryptConnectionStrings(siteID.ToString(), appRelativePath, options.FrameworkVersion);
                         }
+
+                        // Add url to internet explorer trusted zone
+                        var internetSecurityManager = InternetSecurityManager.CreateObject();
+                        foreach (var url in webInstallationInfo.CalculateWebUrls())
+                        {
+                            AddUrlToLocalIntranet(url);
+                        }
                     }
                     catch (InstallException ex)
                     {
