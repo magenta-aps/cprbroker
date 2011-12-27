@@ -66,7 +66,7 @@ namespace CprBroker.Installers
                 session.SetPropertyValue(FeaturePropertyName, featureName);
             }
 
-            bool createAsWebsite = session.GetPropertyValue("WEB_CREATEASWEBSITE", featureName) == "True";
+            bool createAsWebsite = session.GetBooleanPropertyValue("WEB_CREATEASWEBSITE", featureName);
             if (createAsWebsite)
             {
                 return new WebsiteInstallationInfo()

@@ -207,13 +207,13 @@ namespace CprBroker.Installers
 
             ret.ServerName = session.GetPropertyValue("DB_SERVERNAME", featureName);
             ret.DatabaseName = session.GetPropertyValue("DB_DATABASENAME", featureName);
-            ret.UseExistingDatabase = bool.Parse(session.GetPropertyValue("DB_USEEXISTINGDATABASE", featureName));
+            ret.UseExistingDatabase = session.GetBooleanPropertyValue("DB_USEEXISTINGDATABASE", featureName);
 
             ret.EncryptionKey = session.GetPropertyValue("DB_ENCRYPTIONKEY", featureName);
-            ret.EncryptionKeyEnabled = bool.Parse(session.GetPropertyValue("DB_ENCRYPTIONKEYENABLED", featureName));
+            ret.EncryptionKeyEnabled = session.GetBooleanPropertyValue("DB_ENCRYPTIONKEYENABLED", featureName);
 
             ret.Domain = session.GetPropertyValue("DB_DOMAIN", featureName);
-            ret.DomainEnabled = bool.Parse(session.GetPropertyValue("DB_DOMAINENABLED", featureName));
+            ret.DomainEnabled = session.GetBooleanPropertyValue("DB_DOMAINENABLED", featureName);
 
             ret.AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
             ret.AdminAuthenticationInfo.IntegratedSecurity = session.GetPropertyValue("DB_ADMININTEGRATEDSECURITY", featureName) == "True";
@@ -223,13 +223,13 @@ namespace CprBroker.Installers
                 ret.AdminAuthenticationInfo.Password = session.GetPropertyValue("DB_ADMINPASSWORD", featureName);
             }
 
-            ret.ApplicationIntegratedSecurityAllowed = bool.Parse(session.GetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED", featureName));
+            ret.ApplicationIntegratedSecurityAllowed = session.GetBooleanPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED", featureName);
 
-            ret.ApplicationAuthenticationSameAsAdmin = !string.IsNullOrEmpty(session.GetPropertyValue("DB_APPSAMEASADMIN", featureName));
+            ret.ApplicationAuthenticationSameAsAdmin = session.GetBooleanPropertyValue("DB_APPSAMEASADMIN", featureName);
             if (!ret.ApplicationAuthenticationSameAsAdmin)
             {
                 ret.ApplicationAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-                ret.ApplicationAuthenticationInfo.IntegratedSecurity = session.GetPropertyValue("DB_APPINTEGRATEDSECURITY", featureName) == "True";
+                ret.ApplicationAuthenticationInfo.IntegratedSecurity = session.GetBooleanPropertyValue("DB_APPINTEGRATEDSECURITY", featureName);
                 if (!ret.ApplicationAuthenticationInfo.IntegratedSecurity)
                 {
                     ret.ApplicationAuthenticationInfo.UserName = session.GetPropertyValue("DB_APPUSERNAME", featureName);

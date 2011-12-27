@@ -348,6 +348,19 @@ namespace CprBroker.Installers
             }
         }
 
+        public static bool GetBooleanPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
+        {
+            return GetBooleanPropertyValue(session, propName, "");
+        }
+
+        public static bool GetBooleanPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName)
+        {
+            var stringValue = GetPropertyValue(session, propName, featureName);
+            bool ret;
+            bool.TryParse(stringValue, out ret);
+            return ret;
+        }
+
         public static void SetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string propValue)
         {
             if (session.IsInDeferredMode())
