@@ -110,36 +110,35 @@ namespace CprBroker.Installers
             return ret;
         }
 
-
         public void CopyToCurrentDetails(Session session)
         {
             session.SetPropertyValue(FeaturePropertyName, this.FeatureName);
 
-            session.SetPropertyValue("DB_SERVERNAME", this.ServerName);
-            session.SetPropertyValue("DB_DATABASENAME", this.DatabaseName);
-            session.SetPropertyValue("DB_USEEXISTINGDATABASE", this.UseExistingDatabase.ToString());
+            session.SetPropertyValue(Constants.ServerName, this.ServerName);
+            session.SetPropertyValue(Constants.DatabaseName, this.DatabaseName);
+            session.SetPropertyValue(Constants.UseExistingDatabase, this.UseExistingDatabase.ToString());
 
-            session.SetPropertyValue("DB_ENCRYPTIONKEY", this.EncryptionKey);
-            session.SetPropertyValue("DB_ENCRYPTIONKEYENABLED", this.EncryptionKeyEnabled.ToString());
+            session.SetPropertyValue(Constants.EncryptionKey, this.EncryptionKey);
+            session.SetPropertyValue(Constants.EncryptionKeyEnabled, this.EncryptionKeyEnabled.ToString());
 
-            session.SetPropertyValue("DB_DOMAIN", this.Domain);
-            session.SetPropertyValue("DB_DOMAINENABLED", this.DomainEnabled.ToString());
+            session.SetPropertyValue(Constants.Domain, this.Domain);
+            session.SetPropertyValue(Constants.DomainEnabled, this.DomainEnabled.ToString());
 
             if (this.AdminAuthenticationInfo != null)
             {
-                session.SetPropertyValue("DB_ADMININTEGRATEDSECURITY", this.AdminAuthenticationInfo.IntegratedSecurity.ToString());
-                session.SetPropertyValue("DB_ADMINUSERNAME", this.AdminAuthenticationInfo.UserName);
-                session.SetPropertyValue("DB_ADMINPASSWORD", this.AdminAuthenticationInfo.Password);
+                session.SetPropertyValue(Constants.AdminIntegratedSecurity, this.AdminAuthenticationInfo.IntegratedSecurity.ToString());
+                session.SetPropertyValue(Constants.AdminUsername, this.AdminAuthenticationInfo.UserName);
+                session.SetPropertyValue(Constants.AdminPassword, this.AdminAuthenticationInfo.Password);
             }
 
-            session.SetPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED", this.ApplicationIntegratedSecurityAllowed.ToString());
-            session.SetPropertyValue("DB_APPSAMEASADMIN", this.ApplicationAuthenticationSameAsAdmin ? "True" : "");
+            session.SetPropertyValue(Constants.AppIntegratedSecurityAllowed, this.ApplicationIntegratedSecurityAllowed.ToString());
+            session.SetPropertyValue(Constants.AppSameAsAdmin, this.ApplicationAuthenticationSameAsAdmin ? "True" : "");
 
             if (this.ApplicationAuthenticationInfo != null)
             {
-                session.SetPropertyValue("DB_APPINTEGRATEDSECURITY", this.ApplicationAuthenticationInfo.IntegratedSecurity.ToString());
-                session.SetPropertyValue("DB_APPUSERNAME", this.ApplicationAuthenticationInfo.UserName);
-                session.SetPropertyValue("DB_APPPASSWORD", this.ApplicationAuthenticationInfo.Password);
+                session.SetPropertyValue(Constants.AppIntegratedSecurity, this.ApplicationAuthenticationInfo.IntegratedSecurity.ToString());
+                session.SetPropertyValue(Constants.AppUsername, this.ApplicationAuthenticationInfo.UserName);
+                session.SetPropertyValue(Constants.AppPassword, this.ApplicationAuthenticationInfo.Password);
             }
         }
 
@@ -205,35 +204,35 @@ namespace CprBroker.Installers
                 session.SetPropertyValue(FeaturePropertyName, ret.FeatureName);
             }
 
-            ret.ServerName = session.GetPropertyValue("DB_SERVERNAME", featureName);
-            ret.DatabaseName = session.GetPropertyValue("DB_DATABASENAME", featureName);
-            ret.UseExistingDatabase = session.GetBooleanPropertyValue("DB_USEEXISTINGDATABASE", featureName);
+            ret.ServerName = session.GetPropertyValue(Constants.ServerName, featureName);
+            ret.DatabaseName = session.GetPropertyValue(Constants.DatabaseName, featureName);
+            ret.UseExistingDatabase = session.GetBooleanPropertyValue(Constants.UseExistingDatabase, featureName);
 
-            ret.EncryptionKey = session.GetPropertyValue("DB_ENCRYPTIONKEY", featureName);
-            ret.EncryptionKeyEnabled = session.GetBooleanPropertyValue("DB_ENCRYPTIONKEYENABLED", featureName);
+            ret.EncryptionKey = session.GetPropertyValue(Constants.EncryptionKey, featureName);
+            ret.EncryptionKeyEnabled = session.GetBooleanPropertyValue(Constants.EncryptionKeyEnabled, featureName);
 
-            ret.Domain = session.GetPropertyValue("DB_DOMAIN", featureName);
-            ret.DomainEnabled = session.GetBooleanPropertyValue("DB_DOMAINENABLED", featureName);
+            ret.Domain = session.GetPropertyValue(Constants.Domain, featureName);
+            ret.DomainEnabled = session.GetBooleanPropertyValue(Constants.DomainEnabled, featureName);
 
             ret.AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-            ret.AdminAuthenticationInfo.IntegratedSecurity = session.GetPropertyValue("DB_ADMININTEGRATEDSECURITY", featureName) == "True";
+            ret.AdminAuthenticationInfo.IntegratedSecurity = session.GetBooleanPropertyValue(Constants.AdminIntegratedSecurity, featureName);
             if (!ret.AdminAuthenticationInfo.IntegratedSecurity)
             {
-                ret.AdminAuthenticationInfo.UserName = session.GetPropertyValue("DB_ADMINUSERNAME", featureName);
-                ret.AdminAuthenticationInfo.Password = session.GetPropertyValue("DB_ADMINPASSWORD", featureName);
+                ret.AdminAuthenticationInfo.UserName = session.GetPropertyValue(Constants.AdminUsername, featureName);
+                ret.AdminAuthenticationInfo.Password = session.GetPropertyValue(Constants.AdminPassword, featureName);
             }
 
-            ret.ApplicationIntegratedSecurityAllowed = session.GetBooleanPropertyValue("DB_APPINTEGRATEDSECURITYALLOWED", featureName);
+            ret.ApplicationIntegratedSecurityAllowed = session.GetBooleanPropertyValue(Constants.AppIntegratedSecurityAllowed, featureName);
 
-            ret.ApplicationAuthenticationSameAsAdmin = session.GetBooleanPropertyValue("DB_APPSAMEASADMIN", featureName);
+            ret.ApplicationAuthenticationSameAsAdmin = session.GetBooleanPropertyValue(Constants.AppSameAsAdmin, featureName);
             if (!ret.ApplicationAuthenticationSameAsAdmin)
             {
                 ret.ApplicationAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-                ret.ApplicationAuthenticationInfo.IntegratedSecurity = session.GetBooleanPropertyValue("DB_APPINTEGRATEDSECURITY", featureName);
+                ret.ApplicationAuthenticationInfo.IntegratedSecurity = session.GetBooleanPropertyValue(Constants.AppIntegratedSecurity, featureName);
                 if (!ret.ApplicationAuthenticationInfo.IntegratedSecurity)
                 {
-                    ret.ApplicationAuthenticationInfo.UserName = session.GetPropertyValue("DB_APPUSERNAME", featureName);
-                    ret.ApplicationAuthenticationInfo.Password = session.GetPropertyValue("DB_APPPASSWORD", featureName);
+                    ret.ApplicationAuthenticationInfo.UserName = session.GetPropertyValue(Constants.AppUsername, featureName);
+                    ret.ApplicationAuthenticationInfo.Password = session.GetPropertyValue(Constants.AppPassword, featureName);
                 }
             }
             return ret;

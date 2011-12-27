@@ -58,6 +58,21 @@ namespace CprBroker.Installers
 {
     public static partial class DatabaseCustomAction
     {
+        public static ActionResult AppSearch_DB(Session session)
+        {
+            System.Diagnostics.Debugger.Break();
+            RunDatabaseAction(
+                session,
+                featureName =>
+                {
+                    DatabaseSetupInfo.CopyRegistryToProperties(session, featureName);
+                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session, featureName);
+                    DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
+                }
+            );
+            return ActionResult.Success;
+        }
+
         public static ActionResult PreDatabaseDialog(Session session)
         {
             var featureName = session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName);
@@ -83,7 +98,6 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_DB(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
             {
                 RunDatabaseAction(
@@ -108,16 +122,18 @@ namespace CprBroker.Installers
                     }
                 );
             }
-            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};ProductName={7}",
+            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};Manufacturer={7};ProductName={8}",
                 DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
                 DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
                 DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName),
                 session.GetPropertyValue("INSTALLDIR"),
+                session.GetPropertyValue("Manufacturer"),
                 session.GetPropertyValue("ProductName")
                 );
             session.SetPropertyValue("RollbackDatabase", aggregatedProps);
             session.SetPropertyValue("DeployDatabase", aggregatedProps);
             session.SetPropertyValue("RemoveDatabase", aggregatedProps);
+            session.SetPropertyValue("WriteRegistryValues_DB", aggregatedProps);
             return ActionResult.Success;
         }
 
@@ -231,6 +247,21 @@ namespace CprBroker.Installers
             {
                 ExecuteDDL(sql, patchDatabaseForm.SetupInfo);
             }
+            return ActionResult.Success;
+        }
+
+        public static ActionResult WriteRegistryValues_DB(Session session)
+        {
+            System.Diagnostics.Debugger.Break();
+            RunDatabaseAction(
+                session,
+                featureName =>
+                {
+                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
+                    databaseSetupInfo.CopyToCurrentDetails(session);
+                    DatabaseSetupInfo.CopyPropertiesToRegistry(session, featureName);
+                }
+            );
             return ActionResult.Success;
         }
     }

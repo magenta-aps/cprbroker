@@ -138,7 +138,6 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
             {
                 RunWebAction(

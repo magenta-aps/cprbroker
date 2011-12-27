@@ -58,7 +58,7 @@ namespace CprBroker.Installers
     /// Contains the database information that are gathered from the user and used throughout the application
     /// </summary>
     [Serializable]
-    public partial class DatabaseSetupInfo
+    public partial class DatabaseSetupInfo : BaseSetupInfo
     {
         /// <summary>
         /// Contains database login information

@@ -325,7 +325,7 @@ namespace CprBroker.Installers
 
         public static bool IsInDeferredMode(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            return session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Scheduled) || session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Rollback);
+            return session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Scheduled) || session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Rollback) || session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Commit);
         }
 
         public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
