@@ -62,25 +62,31 @@
     <Property Id="RemoveWebsite" Value="-" Hidden="yes" />
 
     <!--Installation custom actions-->
+    <CustomAction Id="AppSearch_WEB" BinaryKey="InstallersDll" DllEntry="AppSearch_WEB" Execute="immediate" />
     <CustomAction Id="PreWebDialog" BinaryKey="InstallersDll" DllEntry="PreWebDialog" Execute="immediate" Return="check" Impersonate="no"/>
     <CustomAction Id="AfterWebDialog" BinaryKey="InstallersDll" DllEntry="AfterWebDialog" Execute="immediate" Return="check" Impersonate="no"/>
     <CustomAction Id="AfterInstallInitialize_WEB" BinaryKey="InstallersDll" DllEntry="AfterInstallInitialize_WEB" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
     <CustomAction Id="RollbackWebsite" BinaryKey="InstallersDll" DllEntry="RollbackWebsite" Execute="rollback" Return="check" Impersonate="no"></CustomAction>
     <CustomAction Id="CreateWebsite" BinaryKey="InstallersDll" DllEntry="CreateWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
     <CustomAction Id="RemoveWebsite" BinaryKey="InstallersDll" DllEntry="RemoveWebsite" Execute="deferred" Return="check" Impersonate="no"></CustomAction>
+    <CustomAction Id="WriteRegistryValues_WEB" BinaryKey="InstallersDll" DllEntry="WriteRegistryValues_WEB" Execute="commit" />
 
     <InstallUISequence >
+      <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CREATEWEB) = True AND (REMOVE OR PATCH)]]></Custom>
       <Custom Action="PopulateWebsites" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
       <Custom Action="InitializeWebPropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
     </InstallUISequence>
 
     <InstallExecuteSequence>
+      <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CREATEWEB) = True AND (REMOVE OR PATCH)]]></Custom>
+      
       <Custom Action="AfterInstallInitialize_WEB" After="AfterInstallInitialize_DB">!(wix.WEB_CREATEWEB) = True</Custom>
 
       <Custom Action="RollbackWebsite" After="InstallFiles"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
       <Custom Action="CreateWebsite" After="RollbackWebsite"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
       <Custom Action="RemoveWebsite" After="CreateWebsite"><![CDATA[!(wix.WEB_CREATEWEB) = True AND REMOVE = "ALL" AND NOT PATCH]]></Custom>
-
+      
+      <Custom Action="WriteRegistryValues_WEB" After="WriteRegistryValues"><![CDATA[!(wix.WEB_CREATEWEB)  = True AND NOT PATCH]]></Custom>
     </InstallExecuteSequence>
 
   </Fragment>

@@ -59,6 +59,22 @@ namespace CprBroker.Installers
 {
     public partial class WebsiteCustomAction
     {
+        public static ActionResult AppSearch_WEB(Session session)
+        {
+            System.Diagnostics.Debugger.Break();
+            RunWebAction(
+                session,
+                featureName =>
+                {
+                    session.SetPropertyValue(WebInstallationInfo.FeaturePropertyName, featureName);
+                    WebInstallationInfo.CopyRegistryToProperties(session, featureName);
+                    WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
+                    WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+                }
+            );
+            return ActionResult.Success;
+        }
+
         [CustomAction]
         public static ActionResult PopulateWebsites(Session session)
         {
@@ -138,20 +154,7 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
-            if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
-            {
-                RunWebAction(
-                    session,
-                    featureName =>
-                    {
-                        session.SetPropertyValue(WebInstallationInfo.FeaturePropertyName, featureName);
-                        session.DoAction("AppSearch");
-                        var webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
-                        WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
-                    }
-                );
-            }
-            else if (session.UiLevel() != InstallUILevel.Full)
+            if (!session.IsRemoving() && session.UiLevel() != InstallUILevel.Full)
             {
                 RunWebAction(
                     session,
@@ -162,7 +165,7 @@ namespace CprBroker.Installers
                     }
                 );
             }
-            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};ProductName={13}",
+            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};Manufacturer={13};ProductName={14}",
                 WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
                 WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),
                 WebInstallationInfo.AllFeaturesPropertyName, session.GetPropertyValue(WebInstallationInfo.AllFeaturesPropertyName),
@@ -170,11 +173,13 @@ namespace CprBroker.Installers
                 DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
                 DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName),
                 session.GetPropertyValue("INSTALLDIR"),
+                session.GetPropertyValue("Manufacturer"),
                 session.GetPropertyValue("ProductName")
                 );
             session.SetPropertyValue("RollbackWebsite", aggregatedProps);
             session.SetPropertyValue("CreateWebsite", aggregatedProps);
             session.SetPropertyValue("RemoveWebsite", aggregatedProps);
+            session.SetPropertyValue("WriteRegistryValues_WEB", aggregatedProps);
             return ActionResult.Success;
         }
 
@@ -330,6 +335,7 @@ namespace CprBroker.Installers
         [CustomAction]
         public static ActionResult RemoveWebsite(Session session)
         {
+            System.Diagnostics.Debugger.Break();
             RunWebAction(
                 session,
                 featureName =>
@@ -358,5 +364,19 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
+        public static ActionResult WriteRegistryValues_WEB(Session session)
+        {
+            System.Diagnostics.Debugger.Break();
+            RunWebAction(
+                session,
+                featureName =>
+                {
+                    WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
+                    webInstallationInfo.CopyToCurrentDetails(session);
+                    WebInstallationInfo.CopyPropertiesToRegistry(session, featureName);
+                }
+            );
+            return ActionResult.Success;
+        }
     }
 }

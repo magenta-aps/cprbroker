@@ -65,8 +65,9 @@ namespace CprBroker.Installers
                 session,
                 featureName =>
                 {
+                    session.SetPropertyValue(DatabaseSetupInfo.FeaturePropertyName, featureName);
                     DatabaseSetupInfo.CopyRegistryToProperties(session, featureName);
-                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session, featureName);
+                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
                     DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
                 }
             );
@@ -98,20 +99,7 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_DB(Session session)
         {
-            if (!string.IsNullOrEmpty(session.GetPropertyValue("REMOVE")))
-            {
-                RunDatabaseAction(
-                    session,
-                    featureName =>
-                    {
-                        session.SetPropertyValue(DatabaseSetupInfo.FeaturePropertyName, featureName);
-                        session.DoAction("AppSearch");
-                        var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
-                        DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
-                    }
-                );
-            }
-            else if (session.UiLevel() != InstallUILevel.Full)
+            if (!session.IsRemoving() && session.UiLevel() != InstallUILevel.Full)
             {
                 RunDatabaseAction(
                     session,
@@ -252,7 +240,6 @@ namespace CprBroker.Installers
 
         public static ActionResult WriteRegistryValues_DB(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             RunDatabaseAction(
                 session,
                 featureName =>

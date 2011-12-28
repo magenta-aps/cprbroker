@@ -55,7 +55,7 @@ namespace CprBroker.Installers
 {
     [Serializable]
     [XmlInclude(typeof(WebsiteInstallationInfo))]
-    [XmlInclude(typeof(WebsiteInstallationInfo))]
+    [XmlInclude(typeof(VirtualDirectoryInstallationInfo))]
     public abstract partial class WebInstallationInfo
     {
         public string FeatureName = "";

@@ -160,6 +160,7 @@
     <Compile Include="Utilities\SavedStateWrapper.cs" />
     <Compile Include="Utilities\DatabaseSetupInfo.cs" />
     <Compile Include="Utilities\VirtualDirectoryInstallationInfo.cs" />
+    <Compile Include="Utilities\WebInstallationInfo.Constants.cs" />
     <Compile Include="Utilities\WebInstallationInfo.cs" />
     <Compile Include="UI\WebSiteForm.cs">
       <SubType>Form</SubType>
@@ -168,6 +169,7 @@
       <DependentUpon>WebSiteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\WebInstallationInfo.Exchange.cs" />
+    <Compile Include="Utilities\WebInstallationInfo.Registry.cs" />
     <Compile Include="Utilities\WebInstallationOptions.cs" />
     <Compile Include="Utilities\WebsiteInstallationInfo.cs" />
     <Compile Include="Utilities\WindowHandleWrapper.cs" />

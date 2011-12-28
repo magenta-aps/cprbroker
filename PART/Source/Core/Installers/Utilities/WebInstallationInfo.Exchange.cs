@@ -66,24 +66,24 @@ namespace CprBroker.Installers
                 session.SetPropertyValue(FeaturePropertyName, featureName);
             }
 
-            bool createAsWebsite = session.GetBooleanPropertyValue("WEB_CREATEASWEBSITE", featureName);
+            bool createAsWebsite = session.GetBooleanPropertyValue(Constants.CreateWebsite, featureName);
             if (createAsWebsite)
             {
                 return new WebsiteInstallationInfo()
                 {
-                    FeatureName = featureName,
-                    WebsiteName = session.GetPropertyValue("WEB_SITENAME", featureName),
-                    InstallDir = session.GetPropertyValue("INSTALLDIR", featureName),
+                    FeatureName = session.GetPropertyValue(FeaturePropertyName),
+                    WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName),
+                    InstallDir = session.GetPropertyValue(Constants.InstallDir, featureName),
                 };
             }
             else
             {
                 return new VirtualDirectoryInstallationInfo()
                 {
-                    FeatureName = featureName,
-                    VirtualDirectoryName = session.GetPropertyValue("WEB_VIRTUALDIRECTORYNAME", featureName),
-                    WebsiteName = session.GetPropertyValue("WEB_SITENAME", featureName),
-                    InstallDir = session.GetPropertyValue("INSTALLDIR", featureName),
+                    FeatureName = session.GetPropertyValue(FeaturePropertyName),
+                    VirtualDirectoryName = session.GetPropertyValue(Constants.VirtualDirectoryName, featureName),
+                    WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName),
+                    InstallDir = session.GetPropertyValue(Constants.InstallDir, featureName),
                 };
             }
         }
@@ -95,22 +95,22 @@ namespace CprBroker.Installers
             if (this is WebsiteInstallationInfo)
             {
                 WebsiteInstallationInfo websiteInstallationInfo = this as WebsiteInstallationInfo;
-                session.SetPropertyValue("WEB_CREATEASWEBSITE", websiteInstallationInfo.CreateAsWebsite.ToString());
-                session.SetPropertyValue("WEB_APPLICATIONPATH", websiteInstallationInfo.TargetWmiPath);
-                //session.SetPropertyValue("WEB_VIRTUALDIRECTORYNAME", websiteInstallationInfo.VirtualDirectoryName);
-                session.SetPropertyValue("WEB_SITENAME", websiteInstallationInfo.WebsiteName);
-                //session.SetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH", websiteInstallationInfo.WebsitePath);
-                session.SetPropertyValue("INSTALLDIR", websiteInstallationInfo.InstallDir);
+                session.SetPropertyValue(Constants.CreateWebsite, websiteInstallationInfo.CreateAsWebsite.ToString());
+                session.SetPropertyValue(Constants.ApplicationPath, websiteInstallationInfo.TargetWmiPath);
+                session.SetPropertyValue(Constants.VirtualDirectoryName, "");
+                session.SetPropertyValue(Constants.WebsiteName, websiteInstallationInfo.WebsiteName);
+                session.SetPropertyValue(Constants.VirtualDirectorySitePath, "");
+                session.SetPropertyValue(Constants.InstallDir, websiteInstallationInfo.InstallDir);
             }
             else
             {
                 VirtualDirectoryInstallationInfo virtualDirectoryInstallationInfo = this as VirtualDirectoryInstallationInfo;
-                session.SetPropertyValue("WEB_CREATEASWEBSITE", virtualDirectoryInstallationInfo.CreateAsWebsite.ToString());
-                session.SetPropertyValue("WEB_APPLICATIONPATH", virtualDirectoryInstallationInfo.TargetWmiPath);
-                session.SetPropertyValue("WEB_VIRTUALDIRECTORYNAME", virtualDirectoryInstallationInfo.VirtualDirectoryName);
-                session.SetPropertyValue("WEB_SITENAME", virtualDirectoryInstallationInfo.WebsiteName);
-                session.SetPropertyValue("WEB_VIRTUALDIRECTORYSITEPATH", virtualDirectoryInstallationInfo.WebsitePath);
-                session.SetPropertyValue("INSTALLDIR", virtualDirectoryInstallationInfo.InstallDir);
+                session.SetPropertyValue(Constants.CreateWebsite, virtualDirectoryInstallationInfo.CreateAsWebsite.ToString());
+                session.SetPropertyValue(Constants.ApplicationPath, virtualDirectoryInstallationInfo.TargetWmiPath);
+                session.SetPropertyValue(Constants.VirtualDirectoryName, virtualDirectoryInstallationInfo.VirtualDirectoryName);
+                session.SetPropertyValue(Constants.WebsiteName, virtualDirectoryInstallationInfo.WebsiteName);
+                session.SetPropertyValue(Constants.VirtualDirectorySitePath, virtualDirectoryInstallationInfo.WebsitePath);
+                session.SetPropertyValue(Constants.InstallDir, virtualDirectoryInstallationInfo.InstallDir);
             }
         }
 

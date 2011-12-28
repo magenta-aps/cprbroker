@@ -328,6 +328,11 @@ namespace CprBroker.Installers
             return session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Scheduled) || session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Rollback) || session.GetMode(Microsoft.Deployment.WindowsInstaller.InstallRunMode.Commit);
         }
 
+        public static bool IsRemoving(this Microsoft.Deployment.WindowsInstaller.Session session)
+        {
+            return !string.IsNullOrEmpty(session.GetPropertyValue("REMOVE"));
+        }
+
         public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
         {
             return GetPropertyValue(session, propName, "");
