@@ -60,7 +60,6 @@ namespace CprBroker.Installers
     {
         public static ActionResult AppSearch_DB(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             RunDatabaseAction(
                 session,
                 featureName =>
