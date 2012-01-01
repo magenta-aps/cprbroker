@@ -10,6 +10,20 @@ namespace PersonMasterInstallers
     public class CustomActions
     {
         [CustomAction]
+        public static ActionResult AppSearch_DB(Session session)
+        {
+            try
+            {
+                return DatabaseCustomAction.AppSearch_DB(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
         public static ActionResult AfterDatabaseDialog(Session session)
         {
             try
@@ -91,11 +105,39 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
+        public static ActionResult WriteRegistryValues_DB(Session session)
+        {
+            try
+            {
+                return DatabaseCustomAction.WriteRegistryValues_DB(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
         public static ActionResult PopulateWebsites(Session session)
         {
             try
             {
                 return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult AppSearch_WEB(Session session)
+        {
+            try
+            {
+                return WebsiteCustomAction.AppSearch_WEB(session);
             }
             catch (Exception ex)
             {
@@ -186,6 +228,21 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
+        public static ActionResult WriteRegistryValues_WEB(Session session)
+        {
+            try
+            {
+                return WebsiteCustomAction.WriteRegistryValues_WEB(session);
+            }
+            
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
         public static ActionResult PatchDatabase(Session session)
         {
             try
@@ -198,5 +255,6 @@ namespace PersonMasterInstallers
                 throw ex;
             }
         }
+
     }
 }
