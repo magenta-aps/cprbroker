@@ -84,19 +84,19 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult AfterDatabaseDialog(Session session)
+        public static ActionResult AfterDatabaseDialog(Session session, bool databaseShouldBeNew)
         {
-            bool success;
-            TestConnectionString(session, true, out success);
-            if (success)
+            var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
+            databaseSetupInfo.UseExistingDatabase = false;
+
+            if (TestConnectionString(session, databaseSetupInfo, databaseShouldBeNew, true))
             {
-                var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
                 DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
             }
             return ActionResult.Success;
         }
 
-        public static ActionResult AfterInstallInitialize_DB(Session session)
+        public static ActionResult AfterInstallInitialize_DB(Session session, bool databaseShouldBeNew)
         {
             if (!session.IsRemoving() && session.UiLevel() != InstallUILevel.Full)
             {
@@ -105,7 +105,10 @@ namespace CprBroker.Installers
                     featureName =>
                     {
                         var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session, featureName);
-                        DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
+                        if (TestConnectionString(session, databaseSetupInfo, databaseShouldBeNew, false))
+                        {
+                            DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
+                        }
                     }
                 );
             }
@@ -124,47 +127,48 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult TestConnectionString(Session session)
+        public static bool TestConnectionString(Session session, DatabaseSetupInfo dbInfo, bool databaseShouldBeNew, bool userInterfaceEnabled)
         {
-            return TestConnectionString(session, true);
-        }
+            string message = "";
+            dbInfo.UseExistingDatabase = false;
+            session["DB_VALID"] = "False";
 
-        public static ActionResult TestConnectionString(Session session, bool databaseShouldBeNew)
-        {
-            bool success = false;
-            return TestConnectionString(session, databaseShouldBeNew, out success);
-        }
+            Func<bool> asker = userInterfaceEnabled ?
+                () => MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes
+                : null as Func<bool>;
 
-        public static ActionResult TestConnectionString(Session session, bool databaseShouldBeNew, out bool success)
-        {
-            success = false;
-            try
+            if (dbInfo.Validate(ref message))
             {
-                DatabaseSetupInfo dbInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
-                string message = "";
-                dbInfo.UseExistingDatabase = false;
-
-                if (dbInfo.Validate(ref message)
-                    && dbInfo.ValidateDatabaseExistence(
-                    databaseShouldBeNew,
-                    () => MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes,
-                    ref message))
+                if (dbInfo.ValidateDatabaseExistence(databaseShouldBeNew, asker, ref message))
                 {
                     session["DB_VALID"] = "True";
-                    success = true;
+                    return true;
                 }
                 else
                 {
-                    session["DB_VALID"] = message;
-                    MessageBox.Show(session.InstallerWindowWrapper(), message, "", MessageBoxButtons.OK);
+                    session["DB_VALID"] = "False";
+                    if (userInterfaceEnabled)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        throw new Exception(message);
+                    }
                 }
-                DatabaseSetupInfo.AddFeatureDetails(session, dbInfo);
-                return ActionResult.Success;
             }
-            catch (Exception ex)
+            else
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-                return ActionResult.Failure;
+                session["DB_VALID"] = message;
+                if (userInterfaceEnabled)
+                {
+                    MessageBox.Show(session.InstallerWindowWrapper(), message, "", MessageBoxButtons.OK);
+                    return false;
+                }
+                else
+                {
+                    throw new Exception(message);
+                }
             }
         }
 

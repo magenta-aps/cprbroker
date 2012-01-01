@@ -395,18 +395,15 @@ namespace CprBroker.Installers
             {
                 if (!this.DatabaseExists()) // Normal case
                 {
-                    //session["DB_VALID"] = "True";
                     return true;
                 }
-                else if (askOverwrite()) // Database exists and won't be created
+                else if (askOverwrite != null && askOverwrite()) // Database exists and won't be created
                 {
                     this.UseExistingDatabase = true;
-                    //session["DB_VALID"] = "True";
                     return true;
                 }
                 else  // Database exists and user should change its name
                 {
-                    //session["DB_VALID"] = "False";
                     message = "False";
                     return false;
                 }
@@ -415,12 +412,10 @@ namespace CprBroker.Installers
             {
                 if (this.DatabaseExists())
                 {
-                    //session["DB_VALID"] = "True";
                     return true;
                 }
                 else
                 {
-                    //session["DB_VALID"] = Messages.DatabaseDoesNotExist;
                     message = Messages.DatabaseDoesNotExist;
                     return false;
                 }
