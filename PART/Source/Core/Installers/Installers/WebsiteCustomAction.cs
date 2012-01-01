@@ -61,7 +61,6 @@ namespace CprBroker.Installers
     {
         public static ActionResult AppSearch_WEB(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             RunWebAction(
                 session,
                 featureName =>
@@ -161,6 +160,9 @@ namespace CprBroker.Installers
                     featureName =>
                     {
                         var webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session, featureName);
+                        string message = "";
+                        if (!webInstallationInfo.Validate(out message))
+                            throw new Exception(message);
                         WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
                     }
                 );
@@ -335,7 +337,6 @@ namespace CprBroker.Installers
         [CustomAction]
         public static ActionResult RemoveWebsite(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             RunWebAction(
                 session,
                 featureName =>
@@ -366,7 +367,6 @@ namespace CprBroker.Installers
 
         public static ActionResult WriteRegistryValues_WEB(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             RunWebAction(
                 session,
                 featureName =>
