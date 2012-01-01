@@ -28,7 +28,7 @@ namespace PersonMasterInstallers
         {
             try
             {
-                return DatabaseCustomAction.AfterDatabaseDialog(session);
+                return DatabaseCustomAction.AfterDatabaseDialog(session, true);
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace PersonMasterInstallers
         {
             try
             {
-                return DatabaseCustomAction.AfterInstallInitialize_DB(session);
+                return DatabaseCustomAction.AfterInstallInitialize_DB(session, true);
             }
             catch (Exception ex)
             {
@@ -234,7 +234,6 @@ namespace PersonMasterInstallers
             {
                 return WebsiteCustomAction.WriteRegistryValues_WEB(session);
             }
-            
             catch (Exception ex)
             {
                 session.ShowErrorMessage(ex);
