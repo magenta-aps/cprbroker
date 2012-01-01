@@ -10,29 +10,19 @@
     <Property Id="WEB_FEATURE" Value="!(wix.DB_FEATURE)"/>
     <Property Id="WEB_FEATURENAMES" Value="!(wix.DB_FEATURENAMES)"/>
 
-    <Property Id="WEB_CREATEASWEBSITE" Value="True">
-      <RegistrySearch Id="RS_WEB_CREATEASWEBSITE" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" Type="raw" Name="CreateAsWebsite"/>
-    </Property>
-    <Property Id="WEB_SITENAME" Value="-" >
-      <RegistrySearch Id="RS_WEB_SITENAME" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" Type="raw" Name="SiteName"/>
-    </Property>
+    <Property Id="WEB_CREATEASWEBSITE" Value="True"/>
+    <Property Id="WEB_SITENAME" Value="-" />
     <Property Id="WEB_SITENAME_SITE" Value="-" />
     <Property Id="WEB_SITENAME_VDIR" Value="-" />
 
-    <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="-">
-      <RegistrySearch Id="RS_WEB_VIRTUALDIRECTORYNAME" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" Type="raw" Name="VirtualDirectoryName"/>
-    </Property>
+    <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="-"/>
 
     <Property Id="WEB_MULTIPLESITESALLOWED" Value="True"/>
     <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="-" />
     <Property Id="WEB_APPLICATIONPATH" Value="-"/>
 
     <Component Id="CMP_WebRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="F28ACE50-EDFB-4939-9DF2-1022D97F9C8F">
-      <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website">
-        <RegistryValue Id="REG_WebCreateAsWebsite" Action="write" Type="string" Name="CreateAsWebsite" Value="[WEB_CREATEASWEBSITE]"/>
-        <RegistryValue Id="REG_WebSiteName" Action="write" Type="string" Name="SiteName" Value="[WEB_SITENAME]"/>
-        <RegistryValue Id="REG_WebVirtualDirectoryName" Action="write" Type="string" Name="VirtualDirectoryName" Value="[WEB_VIRTUALDIRECTORYNAME]"/>
-      </RegistryKey>
+      <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" />
     </Component>
 
 

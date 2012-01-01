@@ -11,37 +11,20 @@
     <Property Id="DB_FEATURE" Value="!(wix.DB_FEATURE)"/>
     <Property Id="DB_FEATURENAMES" Value="!(wix.DB_FEATURENAMES)"/>
 
-    <Property Id="DB_SERVERNAME" Value="SqlServer" >
-      <RegistrySearch Id="RS_DbServerName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="ServerName"/>
-    </Property>
-    <Property Id="DB_DATABASENAME" Value="-" >
-      <RegistrySearch Id="RS_DbDatabaseName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="DatabaseName"/>
-    </Property>
-    <Property Id="DB_USEEXISTINGDATABASE" Value="False">
-      <RegistrySearch Id="RS_DbUseExistingDatabase" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="UseExistingDatabase"/>
-    </Property>
-    <Property Id="DB_ADMININTEGRATEDSECURITY" Value="True" >
-      <RegistrySearch Id="RS_DbAdminIntegratedSecurity" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AdminIntegratedSecurity"/>
-    </Property>
-    <Property Id="DB_ADMINUSERNAME"  Value="sa" >
-      <RegistrySearch Id="RS_DbAdminUserName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AdminUserName"/>
-    </Property>
+    <Property Id="DB_SERVERNAME" Value="SqlServer" />
+    <Property Id="DB_DATABASENAME" Value="-" />
+    <Property Id="DB_USEEXISTINGDATABASE" Value="False"/>
+    <Property Id="DB_ADMININTEGRATEDSECURITY" Value="True" />
+    <Property Id="DB_ADMINUSERNAME"  Value="sa" />
     <Property Id="DB_ADMINPASSWORD" Value="-" Hidden="yes" />
 
-    <Property Id="DB_APPSAMEASADMIN" Value="True">
-      <RegistrySearch Id="RS_DbAppSameAsAdmin" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppSameAsAdmin"/>
-    </Property>
+    <Property Id="DB_APPSAMEASADMIN" Value="True"/>
 
-    <Property Id="DB_APPINTEGRATEDSECURITY" Value="!(wix.DB_APPINTEGRATEDSECURITYALLOWED)">
-      <RegistrySearch Id="RS_AppIntegratedSecurity" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppIntegratedSecurity"/>
-    </Property>
+    <Property Id="DB_APPINTEGRATEDSECURITY" Value="!(wix.DB_APPINTEGRATEDSECURITYALLOWED)"/>
     <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True" Overridable="yes"/>
     <Property Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="!(wix.DB_APPINTEGRATEDSECURITYALLOWED)"/>
 
-    <Property Id="DB_APPUSERNAME" Value="-">
-      <RegistrySearch Id="RS_AppUserName" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" Type="raw" Name="AppUserName"/>
-    </Property>
-
+    <Property Id="DB_APPUSERNAME" Value="-"/>
     <Property Id="DB_APPPASSWORD" Value="-" Hidden="yes" />
 
     <Property Id="DB_ENCRYPTIONKEY" Value="-" Hidden="yes"/>
@@ -57,17 +40,7 @@
     <ComponentGroup Id="CMPGRP_Database">
 
       <Component Id="CMP_DatabaseRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="0A328B61-2AD2-473b-B4E5-43F9FC4CF997">
-        <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database">
-          <RegistryValue Id="REG_DbServerName" Action="write" Type="string" Name="ServerName" Value="[DB_SERVERNAME]"/>
-          <RegistryValue Id="REG_DbDatabaseName" Action="write" Type="string" Name="DatabaseName" Value="[DB_DATABASENAME]"/>
-          <RegistryValue Id="REG_DbUseExistingDatabase" Action="write" Type="string" Name="UseExistingDatabase" Value="[DB_USEEXISTINGDATABASE]"/>
-          <RegistryValue Id="REG_DbAdminIntegratedSecurity" Action="write" Type="string" Name="AdminIntegratedSecurity" Value="[DB_ADMININTEGRATEDSECURITY]"/>
-          <RegistryValue Id="REG_DbAdminUserName" Action="write" Type="string" Name="AdminUserName" Value="[DB_ADMINUSERNAME]"/>
-
-          <RegistryValue Id="REG_DbAppSameAsAdmin" Action="write" Type="string" Name="AppSameAsAdmin" Value="[DB_APPSAMEASADMIN]"/>
-          <RegistryValue Id="REG_DbAppIntegratedSecurity" Action="write" Type="string" Name="AppIntegratedSecurity" Value="[DB_APPINTEGRATEDSECURITY]"/>
-          <RegistryValue Id="REG_DbAppUserName" Action="write" Type="string" Name="AppUserName" Value="[DB_APPUSERNAME]"/>
-        </RegistryKey>
+        <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" />
       </Component>
 
     </ComponentGroup>
