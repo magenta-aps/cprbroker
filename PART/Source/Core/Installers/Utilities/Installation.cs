@@ -333,6 +333,11 @@ namespace CprBroker.Installers
             return !string.IsNullOrEmpty(session.GetPropertyValue("REMOVE"));
         }
 
+        public static bool IsPatching(this Microsoft.Deployment.WindowsInstaller.Session session)
+        {
+            return !string.IsNullOrEmpty(session.GetPropertyValue("PATCH"));
+        }
+
         public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
         {
             return GetPropertyValue(session, propName, "");

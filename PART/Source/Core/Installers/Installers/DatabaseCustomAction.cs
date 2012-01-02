@@ -58,16 +58,27 @@ namespace CprBroker.Installers
 {
     public static partial class DatabaseCustomAction
     {
-        public static ActionResult AppSearch_DB(Session session)
+        public static ActionResult AppSearch_DB(Session session, bool databaseShouldBeNew)
         {
             RunDatabaseAction(
                 session,
                 featureName =>
                 {
                     session.SetPropertyValue(DatabaseSetupInfo.FeaturePropertyName, featureName);
-                    DatabaseSetupInfo.CopyRegistryToProperties(session, featureName);
-                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
-                    DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
+                    if (session.IsRemoving() || session.IsPatching())
+                    {
+                        DatabaseSetupInfo.CopyRegistryToProperties(session, featureName);
+                        DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
+                        DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
+                    }
+                    else if (session.UiLevel() != InstallUILevel.Full)
+                    {
+                        DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session, featureName);
+                        if (TestConnectionString(session, databaseSetupInfo, databaseShouldBeNew, false))
+                        {
+                            DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
+                        }
+                    }
                 }
             );
             return ActionResult.Success;
@@ -96,22 +107,8 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult AfterInstallInitialize_DB(Session session, bool databaseShouldBeNew)
+        public static ActionResult AfterInstallInitialize_DB(Session session)
         {
-            if (!session.IsRemoving() && session.UiLevel() != InstallUILevel.Full)
-            {
-                RunDatabaseAction(
-                    session,
-                    featureName =>
-                    {
-                        var databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session, featureName);
-                        if (TestConnectionString(session, databaseSetupInfo, databaseShouldBeNew, false))
-                        {
-                            DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);
-                        }
-                    }
-                );
-            }
             var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};Manufacturer={7};ProductName={8}",
                 DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
                 DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
@@ -134,7 +131,7 @@ namespace CprBroker.Installers
             session["DB_VALID"] = "False";
 
             Func<bool> asker = userInterfaceEnabled ?
-                () => MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExists, "", MessageBoxButtons.YesNo) == DialogResult.Yes
+                () => MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExistsDoYouWantToUseExisting, "", MessageBoxButtons.YesNo) == DialogResult.Yes
                 : null as Func<bool>;
 
             if (dbInfo.Validate(ref message))
@@ -146,15 +143,8 @@ namespace CprBroker.Installers
                 }
                 else
                 {
-                    session["DB_VALID"] = "False";
-                    if (userInterfaceEnabled)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        throw new Exception(message);
-                    }
+                    session["DB_VALID"] = message;
+                    return false;
                 }
             }
             else
@@ -163,12 +153,8 @@ namespace CprBroker.Installers
                 if (userInterfaceEnabled)
                 {
                     MessageBox.Show(session.InstallerWindowWrapper(), message, "", MessageBoxButtons.OK);
-                    return false;
                 }
-                else
-                {
-                    throw new Exception(message);
-                }
+                return false;
             }
         }
 

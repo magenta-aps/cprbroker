@@ -404,7 +404,7 @@ namespace CprBroker.Installers
                 }
                 else  // Database exists and user should change its name
                 {
-                    message = "False";
+                    message = Messages.DatabaseAlreadyExists;
                     return false;
                 }
             }
