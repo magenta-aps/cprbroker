@@ -122,7 +122,7 @@ namespace CprBroker.Installers
             message = null;
             if (!Strings.IsValidHostName(this.WebsiteName))
             {
-                message = string.Format("Invalid name: '{0}'", WebsiteName);
+                message = string.Format("Invalid website name: '{0}'", WebsiteName);
                 return false;
             }
             return true;

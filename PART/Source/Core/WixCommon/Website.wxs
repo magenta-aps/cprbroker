@@ -25,6 +25,9 @@
       <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" />
     </Component>
 
+    <Condition Message="[WEB_VALID]">
+      <![CDATA[REMOVE OR PATCH OR UILevel=5 OR WEB_VALID = "True"]]>
+    </Condition>
 
     <CustomAction Id="PopulateWebsites" BinaryKey="InstallersDll" DllEntry="PopulateWebsites" Execute="immediate" Return="check" Impersonate="no"></CustomAction>
     <Property Id="PopulateWebSites_DUMMYPROPERTY" Value="PopulateWebSites_DUMMYPROPERTY"/>
@@ -62,13 +65,13 @@
     <CustomAction Id="WriteRegistryValues_WEB" BinaryKey="InstallersDll" DllEntry="WriteRegistryValues_WEB" Execute="commit" />
 
     <InstallUISequence >
-      <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CREATEWEB) = True AND (REMOVE OR PATCH)]]></Custom>
+      <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CREATEWEB) = True]]></Custom>
       <Custom Action="PopulateWebsites" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE]]></Custom>
       <Custom Action="InitializeWebPropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CREATEWEB) = True AND (REMOVE OR PATCH)]]></Custom>
+      <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CREATEWEB) = True]]></Custom>
       
       <Custom Action="AfterInstallInitialize_WEB" After="AfterInstallInitialize_DB">!(wix.WEB_CREATEWEB) = True</Custom>
 

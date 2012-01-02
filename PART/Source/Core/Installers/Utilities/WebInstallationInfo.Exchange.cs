@@ -73,7 +73,7 @@ namespace CprBroker.Installers
                 {
                     FeatureName = session.GetPropertyValue(FeaturePropertyName),
                     WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName),
-                    InstallDir = session.GetPropertyValue(Constants.InstallDir, featureName),
+                    InstallDir = session.GetPropertyValue(Constants.InstallDir),
                 };
             }
             else
@@ -83,7 +83,7 @@ namespace CprBroker.Installers
                     FeatureName = session.GetPropertyValue(FeaturePropertyName),
                     VirtualDirectoryName = session.GetPropertyValue(Constants.VirtualDirectoryName, featureName),
                     WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName),
-                    InstallDir = session.GetPropertyValue(Constants.InstallDir, featureName),
+                    InstallDir = session.GetPropertyValue(Constants.InstallDir),
                 };
             }
         }

@@ -66,9 +66,20 @@ namespace CprBroker.Installers
                 featureName =>
                 {
                     session.SetPropertyValue(WebInstallationInfo.FeaturePropertyName, featureName);
-                    WebInstallationInfo.CopyRegistryToProperties(session, featureName);
-                    WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
-                    WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+                    if (session.IsRemoving() || session.IsPatching())
+                    {
+                        WebInstallationInfo.CopyRegistryToProperties(session, featureName);
+                        WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
+                        WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+                    }
+                    else if (session.UiLevel() != InstallUILevel.Full)
+                    {
+                        WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session, featureName);
+                        if (ValidateWebProperties(session, webInstallationInfo))
+                        {
+                            WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+                        }
+                    }
                 }
             );
             return ActionResult.Success;
@@ -138,35 +149,28 @@ namespace CprBroker.Installers
         public static ActionResult AfterWebDialog(Session session)
         {
             WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
+            ValidateWebProperties(session, webInstallationInfo);
+            return ActionResult.Success;
+        }
+
+        static bool ValidateWebProperties(Session session, WebInstallationInfo webInstallationInfo)
+        {
             string message;
             if (webInstallationInfo.Validate(out message))
             {
                 session["WEB_VALID"] = "True";
                 WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
+                return true;
             }
             else
             {
                 session["WEB_VALID"] = message;
+                return false;
             }
-            return ActionResult.Success;
         }
 
         public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
-            if (!session.IsRemoving() && session.UiLevel() != InstallUILevel.Full)
-            {
-                RunWebAction(
-                    session,
-                    featureName =>
-                    {
-                        var webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session, featureName);
-                        string message = "";
-                        if (!webInstallationInfo.Validate(out message))
-                            throw new Exception(message);
-                        WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
-                    }
-                );
-            }
             var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};Manufacturer={13};ProductName={14}",
                 WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
                 WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),

@@ -114,7 +114,7 @@ namespace CprBroker.Installers
             message = null;
             if (!Strings.IsValidHostName(this.VirtualDirectoryName))
             {
-                message = string.Format("Invalid name: '{0}'", VirtualDirectoryName);
+                message = string.Format("Invalid virtual directory name: '{0}'", VirtualDirectoryName);
                 return false;
             }
             return true;

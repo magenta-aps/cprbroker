@@ -46,7 +46,7 @@
     </ComponentGroup>
 
     <Condition Message="[DB_VALID]">
-      <![CDATA[REMOVE OR PATCH OR UiLevel=5 OR DB_VALID = "True"]]>
+      <![CDATA[REMOVE OR PATCH OR UILevel=5 OR DB_VALID = "True"]]>
     </Condition>
 
     <!--Initialize some DB names from product name-->
