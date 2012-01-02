@@ -196,7 +196,6 @@ namespace CprBroker.Installers
             session.SetPropertyValue("RollbackWebsite", aggregatedProps);
             session.SetPropertyValue("CreateWebsite", aggregatedProps);
             session.SetPropertyValue("RemoveWebsite", aggregatedProps);
-            session.SetPropertyValue("WriteRegistryValues_WEB", aggregatedProps);
             return ActionResult.Success;
         }
 
