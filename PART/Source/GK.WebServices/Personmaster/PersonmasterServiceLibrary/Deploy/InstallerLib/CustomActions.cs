@@ -14,7 +14,7 @@ namespace PersonMasterInstallers
         {
             try
             {
-                return DatabaseCustomAction.AppSearch_DB(session);
+                return DatabaseCustomAction.AppSearch_DB(session, true);
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace PersonMasterInstallers
         {
             try
             {
-                return DatabaseCustomAction.AfterInstallInitialize_DB(session, true);
+                return DatabaseCustomAction.AfterInstallInitialize_DB(session);
             }
             catch (Exception ex)
             {
