@@ -383,11 +383,6 @@ namespace CprBroker.Installers
             }
         }
 
-        public static string GetInstallDirProperty(this Microsoft.Deployment.WindowsInstaller.Session session)
-        {
-            return CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(session.GetPropertyValue("INSTALLDIR"));
-        }
-
         public static void ShowErrorMessage(this Microsoft.Deployment.WindowsInstaller.Session session, Exception ex)
         {
             Microsoft.Deployment.WindowsInstaller.Record record = new Microsoft.Deployment.WindowsInstaller.Record();
