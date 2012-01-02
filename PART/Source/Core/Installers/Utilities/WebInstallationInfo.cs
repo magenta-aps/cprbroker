@@ -72,7 +72,8 @@ namespace CprBroker.Installers
 
         public string WebsiteName;
 
-        public string InstallDir { get; set; }
+        [XmlIgnore]
+        public string InstallDir { get; private set; }
 
         [XmlIgnore]
         public virtual bool TargetEntryExists { get { throw new Exception(""); } }

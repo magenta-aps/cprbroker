@@ -73,7 +73,7 @@ namespace CprBroker.Installers
                 {
                     FeatureName = session.GetPropertyValue(FeaturePropertyName),
                     WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName),
-                    InstallDir = session.GetPropertyValue(Constants.InstallDir),
+                    InstallDir = session.GetInstallDirProperty()
                 };
             }
             else
@@ -83,7 +83,7 @@ namespace CprBroker.Installers
                     FeatureName = session.GetPropertyValue(FeaturePropertyName),
                     VirtualDirectoryName = session.GetPropertyValue(Constants.VirtualDirectoryName, featureName),
                     WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName),
-                    InstallDir = session.GetPropertyValue(Constants.InstallDir),
+                    InstallDir = session.GetInstallDirProperty()
                 };
             }
         }
@@ -100,7 +100,6 @@ namespace CprBroker.Installers
                 session.SetPropertyValue(Constants.VirtualDirectoryName, "");
                 session.SetPropertyValue(Constants.WebsiteName, websiteInstallationInfo.WebsiteName);
                 session.SetPropertyValue(Constants.VirtualDirectorySitePath, "");
-                session.SetPropertyValue(Constants.InstallDir, websiteInstallationInfo.InstallDir);
             }
             else
             {
@@ -110,7 +109,6 @@ namespace CprBroker.Installers
                 session.SetPropertyValue(Constants.VirtualDirectoryName, virtualDirectoryInstallationInfo.VirtualDirectoryName);
                 session.SetPropertyValue(Constants.WebsiteName, virtualDirectoryInstallationInfo.WebsiteName);
                 session.SetPropertyValue(Constants.VirtualDirectorySitePath, virtualDirectoryInstallationInfo.WebsitePath);
-                session.SetPropertyValue(Constants.InstallDir, virtualDirectoryInstallationInfo.InstallDir);
             }
         }
 
@@ -161,7 +159,12 @@ namespace CprBroker.Installers
         {
             var allPropValue = session.GetPropertyValue(AllInfoPropertyName);
             var allInfo = CprBroker.Utilities.Strings.Deserialize<WebInstallationInfo[]>(allPropValue);
-            return allInfo.Where(inf => inf.FeatureName == featureName).FirstOrDefault();
+            var ret = allInfo.Where(inf => inf.FeatureName == featureName).FirstOrDefault();
+            if (ret != null && string.IsNullOrEmpty(ret.InstallDir))
+            {
+                ret.InstallDir = session.GetInstallDirProperty();
+            }
+            return ret;
         }
 
     }
