@@ -21,8 +21,10 @@
     <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="-" />
     <Property Id="WEB_APPLICATIONPATH" Value="-"/>
 
-    <Component Id="CMP_WebRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="F28ACE50-EDFB-4939-9DF2-1022D97F9C8F">
-      <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" />
+    <Component Id="CMP_WebRegistry" Directory="INSTALLDIR" >
+      <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" >
+        <RegistryValue Id="REG_Web_Dummy" Action="write" Type="string" KeyPath="yes" Name="Dummy" Value="Dummy" />
+      </RegistryKey>
     </Component>
 
     <Condition Message="[WEB_VALID]">
@@ -71,7 +73,7 @@
 
     <InstallExecuteSequence>
       <Custom Action="AppSearch_WEB" After="AppSearch"><![CDATA[!(wix.WEB_CREATEWEB) = True]]></Custom>
-      
+
       <Custom Action="AfterInstallInitialize_WEB" After="AfterInstallInitialize_DB">!(wix.WEB_CREATEWEB) = True</Custom>
 
       <Custom Action="RollbackWebsite" After="InstallFiles"><![CDATA[!(wix.WEB_CREATEWEB) = True AND NOT REMOVE AND NOT PATCH]]></Custom>

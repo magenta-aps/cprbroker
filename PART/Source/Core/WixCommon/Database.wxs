@@ -39,8 +39,10 @@
 
     <ComponentGroup Id="CMPGRP_Database">
 
-      <Component Id="CMP_DatabaseRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="0A328B61-2AD2-473b-B4E5-43F9FC4CF997">
-        <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database" />
+      <Component Id="CMP_DatabaseRegistry" Directory="INSTALLDIR" >
+        <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database">
+          <RegistryValue Id="REG_Database_Dummy" Action="write" Type="string" KeyPath="yes" Name="Dummy" Value="Dummy" />
+        </RegistryKey>
       </Component>
 
     </ComponentGroup>
