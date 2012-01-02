@@ -105,20 +105,6 @@ namespace PersonMasterInstallers
         }
 
         [CustomAction]
-        public static ActionResult WriteRegistryValues_DB(Session session)
-        {
-            try
-            {
-                return DatabaseCustomAction.WriteRegistryValues_DB(session);
-            }
-            catch (Exception ex)
-            {
-                session.ShowErrorMessage(ex);
-                throw ex;
-            }
-        }
-
-        [CustomAction]
         public static ActionResult PopulateWebsites(Session session)
         {
             try
@@ -219,20 +205,6 @@ namespace PersonMasterInstallers
             try
             {
                 return WebsiteCustomAction.RemoveWebsite(session);
-            }
-            catch (Exception ex)
-            {
-                session.ShowErrorMessage(ex);
-                throw ex;
-            }
-        }
-
-        [CustomAction]
-        public static ActionResult WriteRegistryValues_WEB(Session session)
-        {
-            try
-            {
-                return WebsiteCustomAction.WriteRegistryValues_WEB(session);
             }
             catch (Exception ex)
             {
