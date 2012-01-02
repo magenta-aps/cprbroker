@@ -54,19 +54,22 @@ namespace CprBroker.Installers
 {
     public abstract class BaseSetupInfo
     {
-        public static string GetRegistryRoot(Session session)
+        public static string GetRegistryProductRoot(Session session, bool includeLocalMachine)
         {
-            return string.Format(@"HKEY_LOCAL_MACHINE\Software\{0}\{1}", session.GetPropertyValue("Manufacturer"), session.GetPropertyValue("ProductName"));
+            var ret = string.Format(@"Software\{0}\{1}", session.GetPropertyValue("Manufacturer"), session.GetPropertyValue("ProductName"));
+            if (includeLocalMachine)
+                ret = @"HKEY_LOCAL_MACHINE\" + ret;
+            return ret;
         }
 
-        public static string GetRegistryPath(Session session, string subRoot, string featureName)
+        public static string GetRegistryPath(Session session, string subRoot, string featureName, bool includeLocalMachine)
         {
-            return string.Format(@"{0}\{1}\{2}", GetRegistryRoot(session), subRoot, featureName);
+            return string.Format(@"{0}\{1}\{2}", GetRegistryProductRoot(session, includeLocalMachine), subRoot, featureName);
         }
 
         public static void CopyPropertiesToRegistry(Session session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName)
         {
-            string key = GetRegistryPath(session, subRoot, featureName);
+            string key = GetRegistryPath(session, subRoot, featureName, true);
             foreach (var map in propertyToRegistryMappings)
             {
                 string value = session.GetPropertyValue(map.Key);
@@ -76,7 +79,7 @@ namespace CprBroker.Installers
 
         public static void CopyRegistryToProperties(Session session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName)
         {
-            string key = GetRegistryPath(session, subRoot, featureName);
+            string key = GetRegistryPath(session, subRoot, featureName, true);
             foreach (var map in propertyToRegistryMappings)
             {
                 string value = Microsoft.Win32.Registry.GetValue(key, map.Value, "") as string;
@@ -84,6 +87,19 @@ namespace CprBroker.Installers
             }
         }
 
-
+        public static void DeleteRegistryProperties(Session session, string subRoot, string featureName)
+        {
+            string path = GetRegistryPath(session, subRoot, featureName, false);
+            string[] nodes = path.Split('\\');
+            if (nodes.Length > 1)
+            {
+                Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.LocalMachine;
+                for (int i = 0; i < nodes.Length - 1; i++)
+                {
+                    registryKey = registryKey.OpenSubKey(nodes[i]);
+                }
+                registryKey.DeleteSubKey(nodes.Last());
+            }
+        }
     }
 }

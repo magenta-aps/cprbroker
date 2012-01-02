@@ -171,7 +171,7 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
-            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};Manufacturer={13};ProductName={14}",
+            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};Manufacturer={13};ProductName={14};REMOVE={15};PATCH={16}",
                 WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
                 WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),
                 WebInstallationInfo.AllFeaturesPropertyName, session.GetPropertyValue(WebInstallationInfo.AllFeaturesPropertyName),
@@ -180,7 +180,9 @@ namespace CprBroker.Installers
                 DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName),
                 session.GetPropertyValue("INSTALLDIR"),
                 session.GetPropertyValue("Manufacturer"),
-                session.GetPropertyValue("ProductName")
+                session.GetPropertyValue("ProductName"),
+                session.GetPropertyValue("REMOVE"),
+                session.GetPropertyValue("PATCH")
                 );
             session.SetPropertyValue("RollbackWebsite", aggregatedProps);
             session.SetPropertyValue("CreateWebsite", aggregatedProps);
@@ -377,7 +379,14 @@ namespace CprBroker.Installers
                 {
                     WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
                     webInstallationInfo.CopyToCurrentDetails(session);
-                    WebInstallationInfo.CopyPropertiesToRegistry(session, featureName);
+                    if (session.IsRemoving())
+                    {
+                        WebInstallationInfo.DeleteRegistryProperties(session, featureName);
+                    }
+                    else
+                    {
+                        WebInstallationInfo.CopyPropertiesToRegistry(session, featureName);
+                    }
                 }
             );
             return ActionResult.Success;

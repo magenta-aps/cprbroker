@@ -109,13 +109,15 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_DB(Session session)
         {
-            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};Manufacturer={7};ProductName={8}",
+            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};Manufacturer={7};ProductName={8};REMOVE={9};PATCH={10}",
                 DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
                 DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
                 DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName),
                 session.GetPropertyValue("INSTALLDIR"),
                 session.GetPropertyValue("Manufacturer"),
-                session.GetPropertyValue("ProductName")
+                session.GetPropertyValue("ProductName"),
+                session.GetPropertyValue("REMOVE"),
+                session.GetPropertyValue("PATCH")
                 );
             session.SetPropertyValue("RollbackDatabase", aggregatedProps);
             session.SetPropertyValue("DeployDatabase", aggregatedProps);
@@ -235,7 +237,14 @@ namespace CprBroker.Installers
                 {
                     DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
                     databaseSetupInfo.CopyToCurrentDetails(session);
-                    DatabaseSetupInfo.CopyPropertiesToRegistry(session, featureName);
+                    if (session.IsRemoving())
+                    {
+                        DatabaseSetupInfo.DeleteRegistryProperties(session, featureName);
+                    }
+                    else
+                    {
+                        DatabaseSetupInfo.CopyPropertiesToRegistry(session, featureName);
+                    }
                 }
             );
             return ActionResult.Success;

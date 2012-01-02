@@ -83,5 +83,10 @@ namespace CprBroker.Installers
             BaseSetupInfo.CopyRegistryToProperties(session, RegistrySubRoot, PropertyToRegistryMappings, featureName);
         }
 
+        public static void DeleteRegistryProperties(Session session, string featureName)
+        {
+            BaseSetupInfo.DeleteRegistryProperties(session, RegistrySubRoot, featureName);
+        }
+
     }
 }
