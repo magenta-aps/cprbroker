@@ -67,13 +67,25 @@ namespace CprBroker.Installers
             return string.Format(@"{0}\{1}\{2}", GetRegistryProductRoot(session, includeLocalMachine), subRoot, featureName);
         }
 
-        public static void CopyPropertiesToRegistry(Session session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName)
+        public static void AddRegistryEntries(Session session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName, string componentName)
         {
-            string key = GetRegistryPath(session, subRoot, featureName, true);
+            string key = GetRegistryPath(session, subRoot, featureName, false);
+            View lView = session.Database.OpenView("SELECT * FROM Registry");
+            lView.Execute();
+
             foreach (var map in propertyToRegistryMappings)
             {
-                string value = session.GetPropertyValue(map.Key);
-                Microsoft.Win32.Registry.SetValue(key, map.Value, value, Microsoft.Win32.RegistryValueKind.String);
+                string valueName = map.Value;
+                string valueValue = session.GetPropertyValue(map.Key);
+
+                Record record = session.Database.CreateRecord(6);
+                record.SetString(1, string.Format("REG_{0}_{1}_{2}", subRoot, featureName, valueName));
+                record.SetInteger(2, 2);
+                record.SetString(3, key);
+                record.SetString(4, valueName);
+                record.SetString(5, valueValue);
+                record.SetString(6, componentName);
+                lView.Modify(ViewModifyMode.InsertTemporary, record);
             }
         }
 
@@ -96,7 +108,7 @@ namespace CprBroker.Installers
                 Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.LocalMachine;
                 for (int i = 0; i < nodes.Length - 1; i++)
                 {
-                    registryKey = registryKey.OpenSubKey(nodes[i]);
+                    registryKey = registryKey.OpenSubKey(nodes[i], true);
                 }
                 registryKey.DeleteSubKey(nodes.Last());
             }

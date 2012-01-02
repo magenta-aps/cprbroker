@@ -109,6 +109,15 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_DB(Session session)
         {
+            RunDatabaseAction(
+                session,
+                (featureName) =>
+                {
+                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
+                    databaseSetupInfo.CopyToCurrentDetails(session);
+                    DatabaseSetupInfo.AddRegistryEntries(session, featureName);
+                }
+            );
             var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};Manufacturer={7};ProductName={8};REMOVE={9};PATCH={10}",
                 DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
                 DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
@@ -229,27 +238,6 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult WriteRegistryValues_DB(Session session)
-        {
-            RunDatabaseAction(
-                session,
-                featureName =>
-                {
-                    DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
-                    databaseSetupInfo.CopyToCurrentDetails(session);
-                    if (session.IsRemoving())
-                    {
-                        DatabaseSetupInfo.DeleteRegistryProperties(session, featureName);
-                    }
-                    else
-                    {
-                        DatabaseSetupInfo.CopyPropertiesToRegistry(session, featureName);
-                    }
-                }
-            );
-            return ActionResult.Success;
-        }
     }
-
 
 }

@@ -159,7 +159,6 @@
     </Compile>
     <Compile Include="Utilities\SavedStateWrapper.cs" />
     <Compile Include="Utilities\DatabaseSetupInfo.cs" />
-    <Compile Include="Utilities\SessionAdapter.cs" />
     <Compile Include="Utilities\VirtualDirectoryInstallationInfo.cs" />
     <Compile Include="Utilities\WebInstallationInfo.Constants.cs" />
     <Compile Include="Utilities\WebInstallationInfo.cs" />

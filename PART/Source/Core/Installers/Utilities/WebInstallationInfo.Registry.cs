@@ -22,10 +22,11 @@ namespace CprBroker.Installers
         }
 
         public const string RegistrySubRoot = "Website";
+        public const string ComponentName = "CMP_WebRegistry";
 
-        public static void CopyPropertiesToRegistry(Session session, string featureName)
+        public static void AddRegistryEntries(Session session, string featureName)
         {
-            BaseSetupInfo.CopyPropertiesToRegistry(session, RegistrySubRoot, PropertyToRegistryMappings, featureName);
+            BaseSetupInfo.AddRegistryEntries(session, RegistrySubRoot, PropertyToRegistryMappings, featureName, ComponentName);
         }
 
         public static void CopyRegistryToProperties(Session session, string featureName)

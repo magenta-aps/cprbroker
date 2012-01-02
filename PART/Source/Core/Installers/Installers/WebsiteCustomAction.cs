@@ -171,6 +171,15 @@ namespace CprBroker.Installers
 
         public static ActionResult AfterInstallInitialize_WEB(Session session)
         {
+            RunWebAction(
+                session,
+                (featureName) =>
+                {
+                    WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
+                    webInstallationInfo.CopyToCurrentDetails(session);
+                    WebInstallationInfo.AddRegistryEntries(session, featureName);
+                }
+            );
             var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};Manufacturer={13};ProductName={14};REMOVE={15};PATCH={16}",
                 WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
                 WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),
@@ -371,25 +380,5 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult WriteRegistryValues_WEB(Session session)
-        {
-            RunWebAction(
-                session,
-                featureName =>
-                {
-                    WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
-                    webInstallationInfo.CopyToCurrentDetails(session);
-                    if (session.IsRemoving())
-                    {
-                        WebInstallationInfo.DeleteRegistryProperties(session, featureName);
-                    }
-                    else
-                    {
-                        WebInstallationInfo.CopyPropertiesToRegistry(session, featureName);
-                    }
-                }
-            );
-            return ActionResult.Success;
-        }
     }
 }
