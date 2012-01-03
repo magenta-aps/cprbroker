@@ -117,9 +117,9 @@ namespace CprBroker.Installers
             return session.GetPropertyValue(AllFeaturesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public static readonly string FeaturePropertyName = "WEB_FEATURE";
-        public static readonly string AllFeaturesPropertyName = "WEB_FEATURENAMES";
-        public static readonly string AllInfoPropertyName = "WEB_ALL";
+        public static readonly string FeaturePropertyName = "WEB_Feature";
+        public static readonly string AllFeaturesPropertyName = "WEB_FeatureNames";
+        public static readonly string AllInfoPropertyName = "WEB_All";
 
         private static WebInstallationInfo[] DeserializeAllFeatures(Session session)
         {

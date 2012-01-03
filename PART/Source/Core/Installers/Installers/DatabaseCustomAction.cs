@@ -129,7 +129,7 @@ namespace CprBroker.Installers
         {
             string message = "";
             dbInfo.UseExistingDatabase = false;
-            session["DB_VALID"] = "False";
+            session["DB_Valid"] = "False";
 
             Func<bool> asker = userInterfaceEnabled ?
                 () => MessageBox.Show(session.InstallerWindowWrapper(), Messages.DatabaseAlreadyExistsDoYouWantToUseExisting, "", MessageBoxButtons.YesNo) == DialogResult.Yes
@@ -139,18 +139,18 @@ namespace CprBroker.Installers
             {
                 if (dbInfo.ValidateDatabaseExistence(databaseShouldBeNew, asker, ref message))
                 {
-                    session["DB_VALID"] = "True";
+                    session["DB_Valid"] = "True";
                     return true;
                 }
                 else
                 {
-                    session["DB_VALID"] = message;
+                    session["DB_Valid"] = message;
                     return false;
                 }
             }
             else
             {
-                session["DB_VALID"] = message;
+                session["DB_Valid"] = message;
                 if (userInterfaceEnabled)
                 {
                     MessageBox.Show(session.InstallerWindowWrapper(), message, "", MessageBoxButtons.OK);

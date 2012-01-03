@@ -59,13 +59,13 @@ namespace CprBroker.Installers
             public const string DatabaseName = "DB_DATABASENAME";
             public const string UseExistingDatabase = "DB_USEEXISTINGDATABASE";
             public const string EncryptionKey = "DB_ENCRYPTIONKEY";
-            public const string EncryptionKeyEnabled = "DB_ENCRYPTIONKEYENABLED";
+            public const string EncryptionKeyEnabled = "DB_EncryptionKeyEnabled";
             public const string Domain = "DB_DOMAIN";
-            public const string DomainEnabled = "DB_DOMAINENABLED";
+            public const string DomainEnabled = "DB_DomainEnabled";
             public const string AdminIntegratedSecurity = "DB_ADMININTEGRATEDSECURITY";
             public const string AdminUsername = "DB_ADMINUSERNAME";
             public const string AdminPassword = "DB_ADMINPASSWORD";
-            public const string AppIntegratedSecurityAllowed = "DB_APPINTEGRATEDSECURITYALLOWED";
+            public const string AppIntegratedSecurityAllowed = "DB_AppIntegratedSecurityAllowed";
             public const string AppSameAsAdmin = "DB_APPSAMEASADMIN";
             public const string AppIntegratedSecurity = "DB_APPINTEGRATEDSECURITY";
             public const string AppUsername = "DB_APPUSERNAME";

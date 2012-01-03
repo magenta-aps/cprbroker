@@ -3,13 +3,13 @@
   <Fragment Id="DatabaseFragment">
     <Property Id="Dummy_DatabaseFragmentRefProperty" Value="-"/>
 
-    <WixVariable Id="DB_CREATEDATABASE" Value="False" Overridable="yes"/>
+    <WixVariable Id="DB_CreateDatabase" Value="False" Overridable="yes"/>
 
-    <WixVariable Id="DB_FEATURE" Value="-" Overridable="yes"/>
-    <WixVariable Id="DB_FEATURENAMES" Value="-" Overridable="yes"/>
+    <WixVariable Id="DB_Feature" Value="-" Overridable="yes"/>
+    <WixVariable Id="DB_FeatureNames" Value="-" Overridable="yes"/>
 
-    <Property Id="DB_FEATURE" Value="!(wix.DB_FEATURE)"/>
-    <Property Id="DB_FEATURENAMES" Value="!(wix.DB_FEATURENAMES)"/>
+    <Property Id="DB_Feature" Value="!(wix.DB_Feature)" />
+    <Property Id="DB_FeatureNames" Value="!(wix.DB_FeatureNames)"/>
 
     <Property Id="DB_SERVERNAME" Value="SqlServer" />
     <Property Id="DB_DATABASENAME" Value="-" />
@@ -20,22 +20,22 @@
 
     <Property Id="DB_APPSAMEASADMIN" Value="True"/>
 
-    <Property Id="DB_APPINTEGRATEDSECURITY" Value="!(wix.DB_APPINTEGRATEDSECURITYALLOWED)"/>
-    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="True" Overridable="yes"/>
-    <Property Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="!(wix.DB_APPINTEGRATEDSECURITYALLOWED)"/>
+    <Property Id="DB_APPINTEGRATEDSECURITY" Value="!(wix.DB_AppIntegratedSecurityAllowed)"/>
+    <WixVariable Id="DB_AppIntegratedSecurityAllowed" Value="True" Overridable="yes"/>
+    <Property Id="DB_AppIntegratedSecurityAllowed" Value="!(wix.DB_AppIntegratedSecurityAllowed)"/>
 
     <Property Id="DB_APPUSERNAME" Value="-"/>
     <Property Id="DB_APPPASSWORD" Value="-" Hidden="yes" />
 
     <Property Id="DB_ENCRYPTIONKEY" Value="-" Hidden="yes"/>
-    <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="True" Overridable="yes"/>
-    <Property Id="DB_ENCRYPTIONKEYENABLED" Value="!(wix.DB_ENCRYPTIONKEYENABLED)"/>
+    <WixVariable Id="DB_EncryptionKeyEnabled" Value="True" Overridable="yes"/>
+    <Property Id="DB_EncryptionKeyEnabled" Value="!(wix.DB_EncryptionKeyEnabled)"/>
 
     <Property Id="DB_DOMAIN" Value="-"/>
-    <WixVariable Id="DB_DOMAINENABLED" Value="True" Overridable="yes"/>
-    <Property Id="DB_DOMAINENABLED" Value="!(wix.DB_DOMAINENABLED)"/>
+    <WixVariable Id="DB_DomainEnabled" Value="True" Overridable="yes"/>
+    <Property Id="DB_DomainEnabled" Value="!(wix.DB_DomainEnabled)"/>
 
-    <Property Id="DB_VALID" Value="False"/>
+    <Property Id="DB_Valid" Value="False"/>
 
     <ComponentGroup Id="CMPGRP_Database">
 
@@ -47,8 +47,8 @@
 
     </ComponentGroup>
 
-    <Condition Message="[DB_VALID]">
-      <![CDATA[REMOVE OR PATCH OR UILevel=5 OR DB_VALID = "True"]]>
+    <Condition Message="[DB_Valid]">
+      <![CDATA[REMOVE OR PATCH OR UILevel=5 OR DB_Valid = "True"]]>
     </Condition>
 
     <!--Initialize some DB names from product name-->
@@ -61,7 +61,7 @@
 
     <CustomAction Id="InitializeDatabasePropertiesByRemovingConflicts" Execute="immediate" Script="vbscript">
       <![CDATA[
-      If !(wix.DB_APPINTEGRATEDSECURITYALLOWED) <> True Then
+      If !(wix.DB_AppIntegratedSecurityAllowed) <> True Then
         Session.Property("DB_APPINTEGRATEDSECURITY") = "False"
         Session.Property("DB_APPSAMEASADMIN") = ""
       End If
@@ -69,17 +69,17 @@
     </CustomAction>
 
     <InstallUISequence>
-      <Custom Action="AppSearch_DB" After="AppSearch"><![CDATA[!(wix.DB_CREATEDATABASE) = True]]></Custom>
-      <Custom Action="InitializeDatabasePropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
-      <Custom Action="InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE]]></Custom>
+      <Custom Action="AppSearch_DB" After="AppSearch"><![CDATA[!(wix.DB_CreateDatabase) = True]]></Custom>
+      <Custom Action="InitializeDatabasePropertiesFromProductName" After="CostFinalize"><![CDATA[!(wix.DB_CreateDatabase) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
+      <Custom Action="InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CreateDatabase) = True AND NOT REMOVE]]></Custom>
     </InstallUISequence>
 
     <InstallExecuteSequence>
-      <Custom Action="InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND REMOVE]]></Custom>
+      <Custom Action="InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CreateDatabase) = True AND REMOVE]]></Custom>
     </InstallExecuteSequence>
 
     <!--Installation properties for use by custom actions-->
-    <Property Id="DB_ALL" Hidden="yes" />
+    <Property Id="DB_All" Hidden="yes" />
     <Property Id="RollbackDatabase" Hidden="yes" />
     <Property Id="DeployDatabase" Hidden="yes" />
     <Property Id="RemoveDatabase" Hidden="yes" />
@@ -94,13 +94,13 @@
     <CustomAction Id="RemoveDatabase" BinaryKey="InstallersDll" DllEntry="RemoveDatabase" Execute="deferred" Return="check" Impersonate="yes"/>
 
     <InstallExecuteSequence>
-      <Custom Action="AppSearch_DB" After="AppSearch"><![CDATA[!(wix.DB_CREATEDATABASE) = True]]></Custom>
+      <Custom Action="AppSearch_DB" After="AppSearch"><![CDATA[!(wix.DB_CreateDatabase) = True]]></Custom>
 
-      <Custom Action="AfterInstallInitialize_DB" After="Set_CommonProductProperties">!(wix.DB_CREATEDATABASE) = True</Custom>
+      <Custom Action="AfterInstallInitialize_DB" After="Set_CommonProductProperties">!(wix.DB_CreateDatabase) = True</Custom>
 
-      <Custom Action="RollbackDatabase" After="InstallFiles"><![CDATA[!(wix.DB_CREATEDATABASE) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
-      <Custom Action="DeployDatabase" After="RollbackDatabase"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND NOT REMOVE AND NOT PATCH]]></Custom>
-      <Custom Action="RemoveDatabase" After="DeployDatabase"><![CDATA[!(wix.DB_CREATEDATABASE)  = True AND REMOVE = "ALL" AND NOT PATCH]]></Custom>
+      <Custom Action="RollbackDatabase" After="InstallFiles"><![CDATA[!(wix.DB_CreateDatabase) = True AND NOT REMOVE AND NOT PATCH]]></Custom>
+      <Custom Action="DeployDatabase" After="RollbackDatabase"><![CDATA[!(wix.DB_CreateDatabase)  = True AND NOT REMOVE AND NOT PATCH]]></Custom>
+      <Custom Action="RemoveDatabase" After="DeployDatabase"><![CDATA[!(wix.DB_CreateDatabase)  = True AND REMOVE = "ALL" AND NOT PATCH]]></Custom>
     </InstallExecuteSequence>
 
   </Fragment>

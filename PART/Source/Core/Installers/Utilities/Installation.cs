@@ -345,8 +345,13 @@ namespace CprBroker.Installers
 
         public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName)
         {
-            if (!string.IsNullOrEmpty(featureName))
+            if (
+                !string.IsNullOrEmpty(featureName) // if belongs to a feature
+                && propName.Equals(propName.ToUpper()) // if it is a public property (upper case)
+                )
+            {
                 propName = string.Format("{0}_{1}", propName, featureName);
+            }
 
             if (session.IsInDeferredMode())
             {

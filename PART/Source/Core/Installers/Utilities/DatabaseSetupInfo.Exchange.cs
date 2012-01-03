@@ -147,9 +147,9 @@ namespace CprBroker.Installers
             return session.GetPropertyValue(AllFeaturesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public static readonly string FeaturePropertyName = "DB_FEATURE";
-        public static readonly string AllFeaturesPropertyName = "DB_FEATURENAMES";
-        public static readonly string AllInfoPropertyName = "DB_ALL";
+        public static readonly string FeaturePropertyName = "DB_Feature";
+        public static readonly string AllFeaturesPropertyName = "DB_FeatureNames";
+        public static readonly string AllInfoPropertyName = "DB_All";
 
         private static DatabaseSetupInfo[] DeserializeAllFeatures(Session session)
         {

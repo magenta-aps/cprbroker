@@ -158,13 +158,13 @@ namespace CprBroker.Installers
             string message;
             if (webInstallationInfo.Validate(out message))
             {
-                session["WEB_VALID"] = "True";
+                session["WEB_Valid"] = "True";
                 WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);
                 return true;
             }
             else
             {
-                session["WEB_VALID"] = message;
+                session["WEB_Valid"] = message;
                 return false;
             }
         }
