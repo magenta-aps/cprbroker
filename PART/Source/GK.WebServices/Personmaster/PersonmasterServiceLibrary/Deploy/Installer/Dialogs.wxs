@@ -62,10 +62,10 @@
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
 
       <Publish Dialog="WebsiteDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
-      <Publish Dialog="WebsiteDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="101"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebsiteDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="101"><![CDATA[WEB_Valid = "True"]]></Publish>
       
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebsiteDialog" Order="1">1</Publish>
-      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="101"><![CDATA[DB_VALID = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="101"><![CDATA[DB_Valid = "True"]]></Publish>
 
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="1">NOT Installed</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="2">Installed AND NOT PATCH</Publish>

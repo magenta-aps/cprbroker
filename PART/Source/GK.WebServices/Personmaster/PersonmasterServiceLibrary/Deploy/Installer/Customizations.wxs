@@ -7,18 +7,18 @@
 
     <Binary Id="InstallersDll" SourceFile="$(var.InstallerLib.ProjectDir)bin\$(var.InstallerLib.Configuration)\PersonMasterInstallers.CA.dll"/>
 
-    <WixVariable Id="WEB_CREATEWEB" Value="True"/>
+    <WixVariable Id="WEB_CreateWeb" Value="True"/>
 
-    <WixVariable Id="DB_CREATEDATABASE" Value="True"/>
-    <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="True"/>
-    <WixVariable Id="DB_DOMAINENABLED" Value="True"/>
-    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="False"/>
+    <WixVariable Id="DB_CreateDatabase" Value="True"/>
+    <WixVariable Id="DB_EncryptionKeyEnabled" Value="True"/>
+    <WixVariable Id="DB_DomainEnabled" Value="True"/>
+    <WixVariable Id="DB_AppIntegratedSecurityAllowed" Value="False"/>
 
-    <WixVariable Id="DB_FEATURE" Value="PM"/>
-    <WixVariable Id="DB_FEATURENAMES" Value="PM"/>
+    <WixVariable Id="DB_Feature" Value="PM"/>
+    <WixVariable Id="DB_FeatureNames" Value="PM"/>
 
-    <WixVariable Id="WEB_FEATURE" Value="PM"/>
-    <WixVariable Id="WEB_FEATURENAMES" Value="PM"/>
+    <WixVariable Id="WEB_Feature" Value="PM"/>
+    <WixVariable Id="WEB_FeatureNames" Value="PM"/>
 
   </Fragment>
 </Wix>
