@@ -104,7 +104,7 @@ namespace CprBroker.EventBroker.Notifications
                 {
                     lastPersonGuid = personBirthdates[personBirthdates.Length - 1].PersonUuid;
                 }
-                morePersons = personBirthdates.Length < BatchSize;
+                morePersons = personBirthdates.Length == BatchSize;
 
                 using (var dataContext = new Data.EventBrokerDataContext())
                 {
