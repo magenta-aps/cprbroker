@@ -118,16 +118,7 @@ namespace CprBroker.Installers
                     DatabaseSetupInfo.AddRegistryEntries(session, featureName);
                 }
             );
-            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};INSTALLDIR={6};Manufacturer={7};ProductName={8};REMOVE={9};PATCH={10}",
-                DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
-                DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
-                DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName),
-                session.GetPropertyValue("INSTALLDIR"),
-                session.GetPropertyValue("Manufacturer"),
-                session.GetPropertyValue("ProductName"),
-                session.GetPropertyValue("REMOVE"),
-                session.GetPropertyValue("PATCH")
-                );
+            var aggregatedProps = DatabaseSetupInfo.GetCustomActionData(session);
             session.SetPropertyValue("RollbackDatabase", aggregatedProps);
             session.SetPropertyValue("DeployDatabase", aggregatedProps);
             session.SetPropertyValue("RemoveDatabase", aggregatedProps);

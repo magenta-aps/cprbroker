@@ -180,19 +180,7 @@ namespace CprBroker.Installers
                     WebInstallationInfo.AddRegistryEntries(session, featureName);
                 }
             );
-            var aggregatedProps = string.Format("{0}={1};{2}={3};{4}={5};{6}={7};{8}={9};{10}={11};INSTALLDIR={12};Manufacturer={13};ProductName={14};REMOVE={15};PATCH={16}",
-                WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
-                WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),
-                WebInstallationInfo.AllFeaturesPropertyName, session.GetPropertyValue(WebInstallationInfo.AllFeaturesPropertyName),
-                DatabaseSetupInfo.AllInfoPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllInfoPropertyName),
-                DatabaseSetupInfo.FeaturePropertyName, session.GetPropertyValue(DatabaseSetupInfo.FeaturePropertyName),
-                DatabaseSetupInfo.AllFeaturesPropertyName, session.GetPropertyValue(DatabaseSetupInfo.AllFeaturesPropertyName),
-                session.GetPropertyValue("INSTALLDIR"),
-                session.GetPropertyValue("Manufacturer"),
-                session.GetPropertyValue("ProductName"),
-                session.GetPropertyValue("REMOVE"),
-                session.GetPropertyValue("PATCH")
-                );
+            var aggregatedProps = WebInstallationInfo.GetCustomActionData(session);
             session.SetPropertyValue("RollbackWebsite", aggregatedProps);
             session.SetPropertyValue("CreateWebsite", aggregatedProps);
             session.SetPropertyValue("RemoveWebsite", aggregatedProps);

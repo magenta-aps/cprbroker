@@ -113,5 +113,17 @@ namespace CprBroker.Installers
                 registryKey.DeleteSubKey(nodes.Last());
             }
         }
+
+        public static string GetCustomActionData(Session session)
+        {
+            var aggregatedProps = string.Format("INSTALLDIR={0};Manufacturer={1};ProductName={2};REMOVE={3};PATCH={4}",
+                session.GetPropertyValue("INSTALLDIR"),
+                session.GetPropertyValue("Manufacturer"),
+                session.GetPropertyValue("ProductName"),
+                session.GetPropertyValue("REMOVE"),
+                session.GetPropertyValue("PATCH")
+                );
+            return aggregatedProps;
+        }
     }
 }

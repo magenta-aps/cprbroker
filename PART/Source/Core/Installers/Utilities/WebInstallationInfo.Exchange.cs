@@ -167,5 +167,17 @@ namespace CprBroker.Installers
             return ret;
         }
 
+        public static string GetCustomActionData(Session session)
+        {
+            var commponProps = BaseSetupInfo.GetCustomActionData(session);
+            var databaseProps = DatabaseSetupInfo.GetCustomActionData(session);
+            var webProps = string.Format("{0}={1};{2}={3};{4}={5}",
+                WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
+                WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),
+                WebInstallationInfo.AllFeaturesPropertyName, session.GetPropertyValue(WebInstallationInfo.AllFeaturesPropertyName)
+                );
+            return string.Format("{0};{1};{2}", commponProps, webProps, databaseProps);
+        }
+
     }
 }
