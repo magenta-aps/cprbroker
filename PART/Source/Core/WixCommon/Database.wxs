@@ -7,9 +7,11 @@
 
     <WixVariable Id="DB_Feature" Value="-" Overridable="yes"/>
     <WixVariable Id="DB_FeatureNames" Value="-" Overridable="yes"/>
+    <WixVariable Id="DB_SuggestedDatabaseNames" Value="-" Overridable="yes"/>
 
     <Property Id="DB_Feature" Value="!(wix.DB_Feature)" />
     <Property Id="DB_FeatureNames" Value="!(wix.DB_FeatureNames)"/>
+    <Property Id="DB_SuggestedDatabaseNames" Value="!(wix.DB_SuggestedDatabaseNames)"/> 
 
     <Property Id="DB_SERVERNAME" Value="SqlServer" />
     <Property Id="DB_DATABASENAME" Value="-" />

@@ -143,6 +143,10 @@ namespace CprBroker.Installers
             {
                 webInstallationInfo.CopyToCurrentDetails(session);
             }
+            else
+            {
+                WebInstallationInfo.SetSuggestedPropertyValues(session, featureName);
+            }
             return ActionResult.Success;
         }
 

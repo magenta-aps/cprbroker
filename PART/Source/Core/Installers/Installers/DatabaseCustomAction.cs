@@ -92,6 +92,10 @@ namespace CprBroker.Installers
             {
                 databaseSetupInfo.CopyToCurrentDetails(session);
             }
+            else
+            {
+                DatabaseSetupInfo.SetSuggestedPropertyValues(session, featureName);
+            }
             return ActionResult.Success;
         }
 

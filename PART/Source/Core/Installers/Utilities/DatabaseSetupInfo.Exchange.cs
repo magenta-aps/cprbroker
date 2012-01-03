@@ -147,9 +147,15 @@ namespace CprBroker.Installers
             return session.GetPropertyValue(AllFeaturesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
+        public static string[] GetSuggestedDatabaseNames(Session session)
+        {
+            return session.GetPropertyValue(SuggestedDatabaseNamesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
         public static readonly string FeaturePropertyName = "DB_Feature";
         public static readonly string AllFeaturesPropertyName = "DB_FeatureNames";
         public static readonly string AllInfoPropertyName = "DB_ALL";
+        public static readonly string SuggestedDatabaseNamesPropertyName = "DB_SuggestedDatabaseNames";
 
         private static DatabaseSetupInfo[] DeserializeAllFeatures(Session session)
         {
@@ -255,6 +261,18 @@ namespace CprBroker.Installers
                 );
             return string.Format("{0};{1}", commponProps, databaseProps);
         }
+
+        public static void SetSuggestedPropertyValues(Session session, string featureName)
+        {
+            BaseSetupInfo.SetSuggestedPropertyValues(
+                session,
+                featureName,
+                DatabaseSetupInfo.GetDatabaseFeatureNames(session),
+                DatabaseSetupInfo.GetSuggestedDatabaseNames(session),
+                new string[] { DatabaseSetupInfo.Constants.DatabaseName, DatabaseSetupInfo.Constants.AppUsername }
+            );
+        }
+
     }
 
 }

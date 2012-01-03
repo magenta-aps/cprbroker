@@ -125,5 +125,22 @@ namespace CprBroker.Installers
                 );
             return aggregatedProps;
         }
+
+        public static void SetSuggestedPropertyValues(Session session,string featureName, string [] allFeatureNames,string [] allSuggestedNames, string[] propertyNames)
+        {
+            var index = Array.IndexOf<string>(allFeatureNames, featureName);
+            if (index != -1)
+            {
+                if (index < allSuggestedNames.Length)
+                {
+                    string suggestedValue = allSuggestedNames[index];
+                    foreach (var propName in propertyNames)
+                    {
+                        session.SetPropertyValue(propName, suggestedValue);
+                    }
+                    
+                }
+            }
+        }
     }
 }

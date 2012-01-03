@@ -6,9 +6,11 @@
 
     <WixVariable Id="WEB_Feature" Value="-" Overridable="yes"/>
     <WixVariable Id="WEB_FeatureNames" Value="-" Overridable="yes"/>
+    <WixVariable Id="WEB_SuggestedWebNames" Value="-" Overridable="yes"/>
 
     <Property Id="WEB_Feature" Value="!(wix.WEB_Feature)"/>
     <Property Id="WEB_FeatureNames" Value="!(wix.WEB_FeatureNames)"/>
+    <Property Id="WEB_SuggestedWebNames" Value="!(wix.WEB_SuggestedWebNames)"/>
 
     <Property Id="WEB_CREATEASWEBSITE" Value="True"/>
     <Property Id="WEB_SITENAME" Value="-" />
@@ -51,7 +53,7 @@
     <Property Id="WEB_Valid" Value="False" />
 
     <!--Installation properties for use by custom actions-->
-    <Property Id="WEB_ALL" Value="-" Hidden="yes"/>
+    <Property Id="WEB_ALL" Hidden="yes"/>
     <Property Id="RollbackWebsite" Value="-" Hidden="yes"/>
     <Property Id="CreateWebsite" Value="-" Hidden="yes"/>
     <Property Id="RemoveWebsite" Value="-" Hidden="yes" />

@@ -117,9 +117,15 @@ namespace CprBroker.Installers
             return session.GetPropertyValue(AllFeaturesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
+        public static string[] GetSuggestedWebNames(Session session)
+        {
+            return session.GetPropertyValue(SuggestedWebNamesPropertyName).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
         public static readonly string FeaturePropertyName = "WEB_Feature";
         public static readonly string AllFeaturesPropertyName = "WEB_FeatureNames";
         public static readonly string AllInfoPropertyName = "WEB_ALL";
+        public static readonly string SuggestedWebNamesPropertyName = "WEB_SuggestedWebNames";
 
         private static WebInstallationInfo[] DeserializeAllFeatures(Session session)
         {
@@ -158,7 +164,7 @@ namespace CprBroker.Installers
         public static WebInstallationInfo CreateFromFeature(Session session, string featureName)
         {
             var allPropValue = session.GetPropertyValue(AllInfoPropertyName);
-            var allInfo = CprBroker.Utilities.Strings.Deserialize<WebInstallationInfo[]>(allPropValue);
+            var allInfo = DeserializeAllFeatures(session);
             var ret = allInfo.Where(inf => inf.FeatureName == featureName).FirstOrDefault();
             if (ret != null && string.IsNullOrEmpty(ret.InstallDir))
             {
@@ -177,6 +183,22 @@ namespace CprBroker.Installers
                 WebInstallationInfo.AllFeaturesPropertyName, session.GetPropertyValue(WebInstallationInfo.AllFeaturesPropertyName)
                 );
             return string.Format("{0};{1};{2}", commponProps, webProps, databaseProps);
+        }
+
+        public static void SetSuggestedPropertyValues(Session session, string featureName)
+        {
+            bool createAsWebSite = session.GetBooleanPropertyValue(WebInstallationInfo.Constants.CreateWebsite);
+            string[] propertyNames = createAsWebSite ?
+                new string[] { WebInstallationInfo.Constants.WebsiteName, WebInstallationInfo.Constants.VirtualDirectoryName }
+                : new string[] { WebInstallationInfo.Constants.VirtualDirectoryName };
+
+            BaseSetupInfo.SetSuggestedPropertyValues(
+                session,
+                featureName,
+                WebInstallationInfo.GetWebFeatureNames(session),
+                WebInstallationInfo.GetSuggestedWebNames(session),
+                propertyNames
+            );
         }
 
     }
