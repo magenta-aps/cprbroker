@@ -71,13 +71,10 @@
     <Compile Include="CprBroker\Logging.wxs" />
     <Compile Include="Dialogs.wxs" />
     <Compile Include="Directories.wxs" />
-    <Compile Include="EventBroker\DatabaseCustomActions.wxs" />
     <Compile Include="EventBroker\Directories.wxs" />
     <Compile Include="EventBroker\EventBroker.wxs" />
     <Compile Include="EventBroker\EventBrokerSpecific.wxs" />
     <Compile Include="EventBroker\Files.wxs" />
-    <Compile Include="EventBroker\RegistryCustomActions.wxs" />
-    <Compile Include="EventBroker\WebCustomActions.wxs" />
     <Compile Include="EventBroker\EventBrokerDialog.wxs" />
     <None Include="Patch_WinSDK.wxs" />
     <Content Include="CprBroker\Resources\CprBroker.log" />

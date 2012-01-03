@@ -3,9 +3,6 @@
   <Fragment Id="EventBrokerFragment">
     <Property Id="Dummy_EventBrokerFragmentRefProp" Value="-"/>
 
-    <PropertyRef Id="Dummy_DatabaseCustomActionsFragmentRefProp"/>
-    <PropertyRef Id="Dummy_WebsiteCustomActionsFragmentRefProp"/>
-    <PropertyRef Id="Dummy_RegistryCustomActionsFragmentRefProp"/>
     <PropertyRef Id="Dummy_EventBrokerDirectoriesFragmentRefProp"/>
     <PropertyRef Id="Dummy_EventBrokerFilesFragmentRefProp"/>
     <PropertyRef Id="Dummy_EventBrokerSpecificRefProp"/>
