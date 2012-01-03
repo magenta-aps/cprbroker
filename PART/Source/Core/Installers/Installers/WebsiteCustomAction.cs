@@ -90,7 +90,7 @@ namespace CprBroker.Installers
         {
             bool multiWebSiteAllowed = GetIisMajorVersion() > 5;
 
-            session["WEB_MULTIPLESITESALLOWED"] = (multiWebSiteAllowed).ToString();
+            session["WEB_MultipleSitesAllowed"] = (multiWebSiteAllowed).ToString();
             if (!multiWebSiteAllowed)
             {
                 session["WEB_CREATEASWEBSITE"] = "False";
@@ -169,7 +169,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public static ActionResult AfterInstallInitialize_WEB(Session session)
+        public static ActionResult AfterInstallInitialize_WEB(Session session, string[] extraCustomActionNames)
         {
             RunWebAction(
                 session,
@@ -184,6 +184,10 @@ namespace CprBroker.Installers
             session.SetPropertyValue("RollbackWebsite", aggregatedProps);
             session.SetPropertyValue("CreateWebsite", aggregatedProps);
             session.SetPropertyValue("RemoveWebsite", aggregatedProps);
+            foreach (var customActionName in extraCustomActionNames)
+            {
+                session.SetPropertyValue(customActionName, aggregatedProps);
+            }
             return ActionResult.Success;
         }
 
@@ -195,7 +199,7 @@ namespace CprBroker.Installers
             }
         }
 
-        public static ActionResult DeployWebsite(Session session, WebInstallationOptions options)
+        public static ActionResult DeployWebsite(Session session, Dictionary<string, WebInstallationOptions> allOptions)
         {
             RunWebAction(session,
                 featureName =>
@@ -203,6 +207,7 @@ namespace CprBroker.Installers
                     try
                     {
                         EnsureIISComponents();
+                        var options = allOptions[featureName];
                         var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, featureName);
                         bool exists = webInstallationInfo.TargetEntryExists;
                         int siteID = webInstallationInfo.GetSiteId();

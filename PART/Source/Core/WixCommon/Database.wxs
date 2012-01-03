@@ -79,7 +79,7 @@
     </InstallExecuteSequence>
 
     <!--Installation properties for use by custom actions-->
-    <Property Id="DB_All" Hidden="yes" />
+    <Property Id="DB_ALL" Hidden="yes" />
     <Property Id="RollbackDatabase" Hidden="yes" />
     <Property Id="DeployDatabase" Hidden="yes" />
     <Property Id="RemoveDatabase" Hidden="yes" />

@@ -149,7 +149,7 @@ namespace CprBroker.Installers
 
         public static readonly string FeaturePropertyName = "DB_Feature";
         public static readonly string AllFeaturesPropertyName = "DB_FeatureNames";
-        public static readonly string AllInfoPropertyName = "DB_All";
+        public static readonly string AllInfoPropertyName = "DB_ALL";
 
         private static DatabaseSetupInfo[] DeserializeAllFeatures(Session session)
         {

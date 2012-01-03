@@ -17,7 +17,7 @@
 
     <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="-"/>
 
-    <Property Id="WEB_MULTIPLESITESALLOWED" Value="True"/>
+    <Property Id="WEB_MultipleSitesAllowed" Value="True"/>
     <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="-" />
     <Property Id="WEB_APPLICATIONPATH" Value="-"/>
 
@@ -51,7 +51,7 @@
     <Property Id="WEB_Valid" Value="False" />
 
     <!--Installation properties for use by custom actions-->
-    <Property Id="WEB_All" Value="-" Hidden="yes"/>
+    <Property Id="WEB_ALL" Value="-" Hidden="yes"/>
     <Property Id="RollbackWebsite" Value="-" Hidden="yes"/>
     <Property Id="CreateWebsite" Value="-" Hidden="yes"/>
     <Property Id="RemoveWebsite" Value="-" Hidden="yes" />

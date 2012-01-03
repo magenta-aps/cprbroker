@@ -119,7 +119,7 @@ namespace CprBroker.Installers
 
         public static readonly string FeaturePropertyName = "WEB_Feature";
         public static readonly string AllFeaturesPropertyName = "WEB_FeatureNames";
-        public static readonly string AllInfoPropertyName = "WEB_All";
+        public static readonly string AllInfoPropertyName = "WEB_ALL";
 
         private static WebInstallationInfo[] DeserializeAllFeatures(Session session)
         {
