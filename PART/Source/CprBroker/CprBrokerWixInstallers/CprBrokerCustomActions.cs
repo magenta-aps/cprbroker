@@ -54,92 +54,232 @@ using CprBroker.Data.Part;
 using CprBroker.Data.Applications;
 using CprBroker.Utilities;
 using CprBroker.Engine;
+using CprBroker.EventBroker.Data;
+using CprBroker.Installers.EventBrokerInstallers;
 
 namespace CprBrokerWixInstallers
 {
     public class CprBrokerCustomActions
     {
-
         [CustomAction]
-        public static ActionResult CA_Set_DB_AllProperties(Session session)
+        public static ActionResult AppSearch_DB(Session session)
         {
-            return DatabaseCustomAction.CA_Set_DB_AllProperties(session);
-        }
-
-        [CustomAction]
-        public static ActionResult TestDatabaseConnection(Session session)
-        {
-            return DatabaseCustomAction.TestConnectionString(session);
-        }
-
-        [CustomAction]
-        public static ActionResult CopyCustomActionDataToSession(Session session)
-        {
-            var cad = new CustomActionData(session["CopyCustomActionDataToSession"]);
-            foreach (var propName in cad.Keys)
+            try
             {
-                session[propName] = cad[propName];
+                return DatabaseCustomAction.AppSearch_DB(session, true);
             }
-            return ActionResult.Success;
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult PreDatabaseDialog(Session session)
+        {
+            try
+            {
+                return DatabaseCustomAction.PreDatabaseDialog(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult AfterDatabaseDialog(Session session)
+        {
+            try
+            {
+                return DatabaseCustomAction.AfterDatabaseDialog(session, true);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult AfterInstallInitialize_DB(Session session)
+        {
+            try
+            {
+                return DatabaseCustomAction.AfterInstallInitialize_DB(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
-            List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
-            ret.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, Properties.Resources.AddressCoordinateQualityType));
-            ret.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Applications.Application).Name, Properties.Resources.Application));
-            ret.Add(new KeyValuePair<string, string>(typeof(CivilStatusCodeType).Name, Properties.Resources.CivilStatusCodeType));
-            ret.Add(new KeyValuePair<string, string>(typeof(ContactChannelType).Name, Properties.Resources.ContactChannelType));
-            ret.Add(new KeyValuePair<string, string>(typeof(CountrySchemeType).Name, Properties.Resources.CountrySchemeType));
-            ret.Add(new KeyValuePair<string, string>(typeof(Gender).Name, Properties.Resources.Gender));
-            ret.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
-            ret.Add(new KeyValuePair<string, string>(typeof(LifeStatusCodeType).Name, Properties.Resources.LifeStatusCodeType));
-            ret.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
-            ret.Add(new KeyValuePair<string, string>(typeof(RelationshipType).Name, Properties.Resources.RelationshipType));
+            try
+            {
+                var createDatabaseObjectsSql = new Dictionary<string, string>();
+                var lookupDataArray = new Dictionary<string, KeyValuePair<string, string>[]>();
 
-            return DatabaseCustomAction.DeployDatabase(session, Properties.Resources.CreatePartDatabaseObjects, ret.ToArray());
+                List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Part.AddressCoordinateQualityType).Name, Properties.Resources.AddressCoordinateQualityType));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(CprBroker.Data.Applications.Application).Name, Properties.Resources.Application));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(CivilStatusCodeType).Name, Properties.Resources.CivilStatusCodeType));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(ContactChannelType).Name, Properties.Resources.ContactChannelType));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(CountrySchemeType).Name, Properties.Resources.CountrySchemeType));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(Gender).Name, Properties.Resources.Gender));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(LifecycleStatus).Name, Properties.Resources.LifecycleStatus));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(LifeStatusCodeType).Name, Properties.Resources.LifeStatusCodeType));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(LogType).Name, Properties.Resources.LogType));
+                cprLookups.Add(new KeyValuePair<string, string>(typeof(RelationshipType).Name, Properties.Resources.RelationshipType));
+
+                lookupDataArray["CPR"] = cprLookups.ToArray();
+                createDatabaseObjectsSql["CPR"] = Properties.Resources.CreatePartDatabaseObjects;
+
+                List<KeyValuePair<string, string>> eventLookups = new List<KeyValuePair<string, string>>();
+
+                eventLookups.Add(new KeyValuePair<string, string>(typeof(ChannelType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.ChannelType));
+                eventLookups.Add(new KeyValuePair<string, string>(typeof(SubscriptionType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.SubscriptionType));
+
+                lookupDataArray["EVENT"] = eventLookups.ToArray();
+                createDatabaseObjectsSql["EVENT"] = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.CreateEventBrokerDatabaseObjects;
+
+                return DatabaseCustomAction.DeployDatabase(session, createDatabaseObjectsSql, lookupDataArray);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RemoveDatabase(Session session)
         {
-            return DatabaseCustomAction.RemoveDatabase(session, true);
+            try
+            {
+                return DatabaseCustomAction.RemoveDatabase(session, true);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RollbackDatabase(Session session)
         {
-            return DatabaseCustomAction.RemoveDatabase(session, false);
+            try
+            {
+                return DatabaseCustomAction.RemoveDatabase(session, false);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult PopulateWebsites(Session session)
         {
-            return WebsiteCustomAction.PopulateWebsites(session);
+            try
+            {
+                return WebsiteCustomAction.PopulateWebsites(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+
+        [CustomAction]
+        public static ActionResult AppSearch_WEB(Session session)
+        {
+            try
+            {
+                return WebsiteCustomAction.AppSearch_WEB(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
-        public static ActionResult ValidateWebProperties(Session session)
+        public static ActionResult PreWebDialog(Session session)
         {
-            return WebsiteCustomAction.ValidateWebProperties(session);
+            try
+            {
+                return WebsiteCustomAction.PreWebDialog(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult AfterWebDialog(Session session)
+        {
+            try
+            {
+                return WebsiteCustomAction.AfterWebDialog(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult AfterInstallInitialize_WEB(Session session)
+        {
+            try
+            {
+                string[] extraCustomActionNames = new string[]
+                {
+                    "InstallBackendService",
+                    "RollbackBackendService",
+                    "UnInstallBackendService",
+                    "SetCprBrokerUrl"
+                };
+                return WebsiteCustomAction.AfterInstallInitialize_WEB(session, extraCustomActionNames);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult CreateWebsite(Session session)
         {
-            Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
-
-            connectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"] = databaseSetupInfo.CreateConnectionString(false, true);
-
-            WebInstallationOptions options = new WebInstallationOptions()
+            try
             {
-                EncryptConnectionStrings = true,
-                ConnectionStrings = connectionStrings,
-                InitializeFlatFileLogging = true,
-                WebsiteDirectoryRelativePath = "CprBroker\\Website\\",
-                ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
+                var allOptions = new Dictionary<string, WebInstallationOptions>();
+
+                Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
+                connectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"] = DatabaseSetupInfo.CreateFromFeature(session, "CPR").CreateConnectionString(false, true);
+
+                WebInstallationOptions cprOptions = new WebInstallationOptions()
+                {
+                    EncryptConnectionStrings = true,
+                    ConnectionStrings = new Dictionary<string, string>(connectionStrings),
+                    InitializeFlatFileLogging = true,
+                    WebsiteDirectoryRelativePath = "CprBroker\\Website\\",
+                    ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()
                     {
@@ -151,20 +291,66 @@ namespace CprBrokerWixInstallers
                         }
                     }
                 }
-            };
-            return WebsiteCustomAction.DeployWebsite(session, options);
+                };
+                allOptions["CPR"] = cprOptions;
+
+                connectionStrings["CprBroker.Config.Properties.Settings.EventBrokerConnectionString"] = DatabaseSetupInfo.CreateFromFeature(session, "EVENT").CreateConnectionString(false, true);
+                WebInstallationOptions eventOptions = new WebInstallationOptions()
+                {
+                    EncryptConnectionStrings = false,
+                    ConnectionStrings = connectionStrings,
+                    InitializeFlatFileLogging = true,
+                    WebsiteDirectoryRelativePath = "EventBroker\\Website\\",
+                    ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
+                {
+                    new ConfigSectionGroupEncryptionOptions()
+                    {
+                        ConfigSectionGroupName = Constants.DataProvidersSectionGroupName,
+                        ConfigSectionEncryptionOptions = new ConfigSectionEncryptionOptions[]
+                        {
+                            new ConfigSectionEncryptionOptions(){ SectionName = DataProviderKeysSection.SectionName, SectionType=typeof(DataProviderKeysSection), CustomMethod = config=>DataProviderKeysSection.RegisterInConfig(config)},
+                            new ConfigSectionEncryptionOptions(){ SectionName = DataProvidersConfigurationSection.SectionName, SectionType=typeof(DataProvidersConfigurationSection),CustomMethod =null}
+                        }
+                    }
+                }
+                };
+                allOptions["EVENT"] = eventOptions;
+
+                return WebsiteCustomAction.DeployWebsite(session, allOptions);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RollbackWebsite(Session session)
         {
-            return WebsiteCustomAction.RollbackWebsite(session);
+            try
+            {
+                return WebsiteCustomAction.RollbackWebsite(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RemoveWebsite(Session session)
         {
-            return WebsiteCustomAction.RemoveWebsite(session);
+            try
+            {
+                return WebsiteCustomAction.RemoveWebsite(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
     }

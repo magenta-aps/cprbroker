@@ -53,11 +53,15 @@
       <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">LicenseAccepted = "1"</Publish>
 
       <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg">1</Publish>
+      
       <Publish Dialog="InstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="DoAction" Value="WixUIValidatePath" Order="2">NOT WIXUI_DONTVALIDATEPATH</Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="SpawnDialog" Value="InvalidDirDlg" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="4"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MULTIPLESITESALLOWED = "True")]]></Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="4"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MULTIPLESITESALLOWED = "False")]]></Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Property="DB_Feature" Value="CPR" Order="4">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Property="WEB_Feature" Value="CPR" Order="5">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="6"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "True")]]></Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="6"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "False")]]></Publish>
+      
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
 
@@ -66,45 +70,41 @@
       <!-- - - - - - - - - - - - - - - - - - - -->
 
       <!-- Back-->
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1"><![CDATA[UI_Phase = 1]]></Publish>
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="EventBrokerDialog" Order="1"><![CDATA[UI_Phase = 2]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1"><![CDATA[WEB_Feature = "CPR"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Back" Event="NewDialog" Value="EventBrokerDialog" Order="1"><![CDATA[WEB_Feature = "EVENT"]]></Publish>
       <!-- Next-->
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Property="WEB_ALLPROPERTIES_CPR" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Property="WEB_ALLPROPERTIES_EVENT" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next"  Event="DoAction" Value="PreDatabaseDialog" Order="101"><![CDATA[WEB_Valid = "True"]]></Publish>
+      <Publish Dialog="WebSiteOrDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_Valid = "True"]]></Publish>
 
       <!-- Back -->
-      <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1"><![CDATA[UI_Phase = 1]]></Publish>
-      <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="EventBrokerDialog" Order="1"><![CDATA[UI_Phase = 2]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1"><![CDATA[WEB_Feature = "CPR"]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Back" Event="NewDialog" Value="EventBrokerDialog" Order="1"><![CDATA[WEB_Feature = "EVENT"]]></Publish>
       <!-- Next -->
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_ALLPROPERTIES_CPR" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Property="WEB_ALLPROPERTIES_EVENT" Value="[WEB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND WEB_VALID = "True"]]></Publish>
-      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_VALID = "True"]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Next"  Event="DoAction" Value="PreDatabaseDialog" Order="101"><![CDATA[WEB_Valid = "True"]]></Publish>
+      <Publish Dialog="WebDirectoryDialog" Control="Next" Event="NewDialog" Value="DatabaseDialog" Order="102"><![CDATA[WEB_Valid = "True"]]></Publish>
 
       <!--Database-->
       <!-- Back -->
-      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebDirectoryDialog" Order="1"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Back"  Event="DoAction" Value="PreWebDialog" Order="1">1</Publish>
+      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="2"><![CDATA[WEB_MultipleSitesAllowed = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebDirectoryDialog" Order="2"><![CDATA[WEB_MultipleSitesAllowed = "False"]]></Publish>
       <!-- Next -->
-      <Publish Dialog="DatabaseDialog" Control="Next" Property="DB_ALLPROPERTIES_CPR" Value="[DB_AllProperties]" Order="101"><![CDATA[UI_Phase = 1 AND DB_VALID = "True"]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Next" Property="DB_ALLPROPERTIES_EVENT" Value="[DB_AllProperties]" Order="101"><![CDATA[UI_Phase = 2 AND DB_VALID = "True"]]></Publish>      
-      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="EventBrokerDialog" Order="102"><![CDATA[UI_Phase = 1 AND DB_VALID = "True"]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="102"><![CDATA[UI_Phase = 2 AND DB_VALID = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="EventBrokerDialog" Order="102"><![CDATA[DB_Feature = "CPR" AND DB_Valid = "True"]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="102"><![CDATA[DB_Feature = "EVENT" AND DB_Valid = "True"]]></Publish>
 
       <!-- Event broker -->
       <!-- Back -->
-      <Publish Dialog="EventBrokerDialog" Control="Back" Property="CopyCustomActionDataToSession" Value="[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]" Order="101">1</Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Back" Event="DoAction" Value="CopyCustomActionDataToSession" Order="102">1</Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="103">1</Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Back" Property="DB_Feature" Value="CPR" Order="101">1</Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Back" Property="WEB_Feature" Value="CPR" Order="102">1</Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Back" Event="DoAction" Value="PreDatabaseDialog" Order="103">1</Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="104">1</Publish>
       <!-- Next -->
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="CopyCustomActionDataToSession" Value="[WEB_ALLPROPERTIES_EVENT];[DB_ALLPROPERTIES_EVENT]" Order="101"><![CDATA[WEB_ALLPROPERTIES_EVENT]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="DB_DATABASENAME" Value="EventBroker" Order="102"><![CDATA[NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_SITENAME_SITE" Value="EventBroker" Order="103"><![CDATA[WEB_MULTIPLESITESALLOWED = "True" AND NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_VIRTUALDIRECTORYNAME" Value="EventBroker" Order="104"><![CDATA[NOT WEB_ALLPROPERTIES_EVENT]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Event="DoAction" Value="CopyCustomActionDataToSession" Order="105"><![CDATA[WEB_ALLPROPERTIES_EVENT]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="106"><![CDATA[WEB_MULTIPLESITESALLOWED = "True"]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="107"><![CDATA[WEB_MULTIPLESITESALLOWED = "False"]]></Publish>
-      
+      <Publish Dialog="EventBrokerDialog" Control="Next" Property="DB_Feature" Value="EVENT" Order="101">1</Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_Feature" Value="EVENT" Order="102">1</Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Event="DoAction" Value="PreWebDialog" Order="103">1</Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="104"><![CDATA[WEB_MultipleSitesAllowed = "True"]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="105"><![CDATA[WEB_MultipleSitesAllowed = "False"]]></Publish>
+
       <!-- - - - - - - - - - - - - -  -->
       <!--Final dialogs-->
       <!-- - - - - - - - - - - - - -  -->

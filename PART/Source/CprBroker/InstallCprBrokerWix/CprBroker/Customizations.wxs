@@ -5,12 +5,16 @@
 
     <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)CprBrokerWixInstallers.CA.dll"/>
 
-    <WixVariable Id="DB_CREATEDATABASE" Value="True"/>
-    <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="False"/>
-    <WixVariable Id="DB_DOMAINENABLED" Value="False"/>
-    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="False"/>
-    <WixVariable Id="WEB_CREATEWEB" Value="True"/>
+    <WixVariable Id="DB_CreateDatabase" Value="True"/>
+    <WixVariable Id="DB_EncryptionKeyEnabled" Value="False"/>
+    <WixVariable Id="DB_DomainEnabled" Value="False"/>
+    <WixVariable Id="DB_AppIntegratedSecurityAllowed" Value="False"/>
+    <WixVariable Id="WEB_CreateWeb" Value="True"/>
 
+    <WixVariable Id="DB_Feature" Value="CPR"/>
+    <WixVariable Id="DB_FeatureNames" Value="CPR,EVENT"/>
 
+    <WixVariable Id="WEB_Feature" Value="CPR"/>
+    <WixVariable Id="WEB_FeatureNames" Value="CPR,EVENT"/>
   </Fragment>
 </Wix>

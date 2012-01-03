@@ -3,36 +3,16 @@
 	<Fragment Id="EventBrokerSpecific">
     <Property Id="Dummy_EventBrokerSpecificRefProp" Value="-"/>
 
-    <CustomAction Id="SetCprBrokerConnectionStrings_" Property="SetCprBrokerConnectionStrings" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];[DB_ALLPROPERTIES_CPR]"/>
-    <CustomAction Id="SetCprBrokerConnectionStrings"  BinaryKey="EventBrokerInstallersDll" DllEntry="SetCprBrokerConnectionStrings" Execute="deferred"/>
-
-    <CustomAction Id="SetCprBrokerUrl_" Property="SetCprBrokerUrl" Value="[CommonProductProperties];[WEB_ALLPROPERTIES_CPR];"/>
     <CustomAction Id="SetCprBrokerUrl"  BinaryKey="EventBrokerInstallersDll" DllEntry="SetCprBrokerUrl" Execute="deferred"/>
-
-    <CustomAction Id="InstallBackendService_" Property="InstallBackendService" Value="[CommonProductProperties]"/>
     <CustomAction Id="InstallBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="InstallBackendService" Execute="deferred"/>
-
-    <CustomAction Id="UnInstallBackendService_" Property="UnInstallBackendService" Value="[CommonProductProperties]"/>
     <CustomAction Id="UnInstallBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="UnInstallBackendService" Execute="deferred"/>
-
-    <CustomAction Id="RollbackBackendService_" Property="RollbackBackendService" Value="[CommonProductProperties]"/>
     <CustomAction Id="RollbackBackendService" BinaryKey="EventBrokerInstallersDll" DllEntry="RollbackBackendService" Execute="rollback" Return="ignore"/>
-
     
     <InstallExecuteSequence>
-      <Custom Action="SetCprBrokerConnectionStrings_" After="CreateEventBrokerWebsite_">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="SetCprBrokerConnectionStrings" After="CreateEventBrokerWebsite">NOT REMOVE AND NOT PATCH</Custom>
-
-      <Custom Action="SetCprBrokerUrl_" After="CreateEventBrokerWebsite_">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="RollbackBackendService_" After="SetCprBrokerConnectionStrings_">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="InstallBackendService_" After="SetCprBrokerConnectionStrings_">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="UnInstallBackendService_" After="SetCprBrokerConnectionStrings_"><![CDATA[REMOVE = "ALL" AND NOT PATCH]]></Custom>
-
-      <Custom Action="SetCprBrokerUrl" After="CreateEventBrokerWebsite">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="RollbackBackendService" After="RollbackEventBrokerWebsite">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="SetCprBrokerUrl" After="CreateWebsite">NOT REMOVE AND NOT PATCH</Custom>
+      <Custom Action="RollbackBackendService" After="RollbackWebsite">NOT REMOVE AND NOT PATCH</Custom>
       <Custom Action="InstallBackendService" After="RollbackBackendService">NOT REMOVE AND NOT PATCH</Custom>
-      <Custom Action="UnInstallBackendService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL" AND NOT PATCH]]></Custom>
-      
+      <Custom Action="UnInstallBackendService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL" AND NOT PATCH]]></Custom>      
     </InstallExecuteSequence>
 	</Fragment>
 </Wix>
