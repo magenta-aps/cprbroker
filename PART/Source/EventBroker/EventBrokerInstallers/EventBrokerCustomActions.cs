@@ -32,6 +32,9 @@ namespace CprBroker.Installers.EventBrokerInstallers
                     string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(2, 0))),
                     string.Format("/i \"{0}\"", GetServiceExeFullFileName(session))
                 );
+
+                System.ServiceProcess.ServiceController controller = new System.ServiceProcess.ServiceController(new CprBroker.EventBroker.Backend.BackendService().ServiceName);
+                controller.Start();
                 return ActionResult.Success;
             }
             catch (Exception ex)
