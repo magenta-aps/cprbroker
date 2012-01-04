@@ -151,7 +151,7 @@ namespace PersonMasterInstallers
         {
             try
             {
-                return WebsiteCustomAction.AfterInstallInitialize_WEB(session);
+                return WebsiteCustomAction.AfterInstallInitialize_WEB(session, new string[0]);
             }
             catch (Exception ex)
             {
@@ -176,7 +176,9 @@ namespace PersonMasterInstallers
                     InitializeFlatFileLogging = false,
                     FrameworkVersion = new Version("4.0")
                 };
-                return WebsiteCustomAction.DeployWebsite(session, options);
+                var allOptions = new Dictionary<string, WebInstallationOptions>();
+                allOptions["PM"] = options;
+                return WebsiteCustomAction.DeployWebsite(session, allOptions);
             }
             catch (Exception ex)
             {
