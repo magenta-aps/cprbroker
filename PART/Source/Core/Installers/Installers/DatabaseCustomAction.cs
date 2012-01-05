@@ -65,7 +65,7 @@ namespace CprBroker.Installers
                 featureName =>
                 {
                     session.SetPropertyValue(DatabaseSetupInfo.FeaturePropertyName, featureName);
-                    if (session.IsRemoving() || session.IsPatching())
+                    if (session.IsRemoving() || session.IsPatching() || session.IsOlderVersionDetected())
                     {
                         DatabaseSetupInfo.CopyRegistryToProperties(session, featureName);
                         DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);

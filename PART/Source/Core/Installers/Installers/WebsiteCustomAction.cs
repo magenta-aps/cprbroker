@@ -66,7 +66,7 @@ namespace CprBroker.Installers
                 featureName =>
                 {
                     session.SetPropertyValue(WebInstallationInfo.FeaturePropertyName, featureName);
-                    if (session.IsRemoving() || session.IsPatching())
+                    if (session.IsRemoving() || session.IsPatching() || session.IsOlderVersionDetected())
                     {
                         WebInstallationInfo.CopyRegistryToProperties(session, featureName);
                         WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session);
