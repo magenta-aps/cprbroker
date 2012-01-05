@@ -116,12 +116,12 @@
 	</Target>
 	-->
   <PropertyGroup>
-    <PostBuildEvent>cd "$(ProjectDir)"
-msiexec /a "!(TargetPath)" /qn TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
-candle Patch_WinSDK.wxs -out Patch_WinSDK.wixobj -dProjectDir="$(ProjectDir)\" -dOutDir="$(OutDir)\" 
-light Patch_WinSDK.wixobj
-msimsp -s Patch_WinSDK.pcp -p Patch_WinSDK.msp
+    <PostBuildEvent>rem cd "$(ProjectDir)"
+rem msiexec /a "!(TargetPath)" /qn TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
+rem candle Patch_WinSDK.wxs -out Patch_WinSDK.wixobj -dProjectDir="$(ProjectDir)\" -dOutDir="$(OutDir)\" 
+rem light Patch_WinSDK.wixobj
+rem msimsp -s Patch_WinSDK.pcp -p Patch_WinSDK.msp
 
-copy Patch_WinSDK.msp $(OutDir)en-US\CprBrokerPatch_1_1_1.msp /y</PostBuildEvent>
+rem copy Patch_WinSDK.msp $(OutDir)en-US\CprBrokerPatch_1_1_1.msp /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
