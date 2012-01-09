@@ -217,6 +217,8 @@ namespace CprBroker.Installers
                         int siteID = webInstallationInfo.GetSiteId();
                         int scriptMapVersion;
 
+                        RunRegIIS("-ir", options.FrameworkVersion);
+
                         if (webInstallationInfo.CreateAsWebsite)
                         {
                             WebsiteInstallationInfo websiteInstallationInfo = webInstallationInfo as WebsiteInstallationInfo;
@@ -292,7 +294,6 @@ namespace CprBroker.Installers
                         // Set ASP.NET to target framework version                
                         if (scriptMapVersion != options.FrameworkVersion.Major)
                         {
-                            RunRegIIS("-ir", options.FrameworkVersion);
                             RunRegIIS(string.Format("-s {0}", webInstallationInfo.TargetWmiSubPath), options.FrameworkVersion);
                         }
 
