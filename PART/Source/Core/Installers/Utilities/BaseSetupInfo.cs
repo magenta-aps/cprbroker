@@ -92,9 +92,16 @@ namespace CprBroker.Installers
         public static void CopyRegistryToProperties(Session session, string subRoot, Dictionary<string, string> propertyToRegistryMappings, string featureName)
         {
             string key = GetRegistryPath(session, subRoot, featureName, true);
+            string keyWithoutFeature = key.Replace("\\" + featureName, "");
+            var allValues = new List<string>();
+
             foreach (var map in propertyToRegistryMappings)
             {
                 string value = Microsoft.Win32.Registry.GetValue(key, map.Value, "") as string;
+                if (string.IsNullOrEmpty(value))
+                {
+                    value = Microsoft.Win32.Registry.GetValue(keyWithoutFeature, map.Value, "") as string;
+                }
                 session.SetPropertyValue(map.Key, value);
             }
         }
@@ -126,7 +133,7 @@ namespace CprBroker.Installers
             return aggregatedProps;
         }
 
-        public static void SetSuggestedPropertyValues(Session session,string featureName, string [] allFeatureNames,string [] allSuggestedNames, string[] propertyNames)
+        public static void SetSuggestedPropertyValues(Session session, string featureName, string[] allFeatureNames, string[] allSuggestedNames, string[] propertyNames)
         {
             var index = Array.IndexOf<string>(allFeatureNames, featureName);
             if (index != -1)
@@ -138,7 +145,7 @@ namespace CprBroker.Installers
                     {
                         session.SetPropertyValue(propName, suggestedValue);
                     }
-                    
+
                 }
             }
         }

@@ -214,21 +214,28 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult PatchDatabase(Session session, string sql)
+        public static ActionResult PatchDatabase(Session session, Dictionary<string, string> featurePatchSql)
         {
-            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session);
-            PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
-            patchDatabaseForm.SetupInfo = setupInfo;
+            RunDatabaseAction(
+                session,
+                (featureName) =>
+                {
+                    DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
+                    string sql = featurePatchSql[featureName];
+                    PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
+                    patchDatabaseForm.SetupInfo = setupInfo;
 
-            var dialogResult = BaseForm.ShowAsDialog(patchDatabaseForm, session.InstallerWindowWrapper());
-            if (dialogResult == DialogResult.Cancel)
-            {
-                return ActionResult.UserExit;
-            }
-            else
-            {
-                ExecuteDDL(sql, patchDatabaseForm.SetupInfo);
-            }
+                    var dialogResult = BaseForm.ShowAsDialog(patchDatabaseForm, session.InstallerWindowWrapper());
+                    if (dialogResult == DialogResult.Cancel)
+                    {
+                        throw new Exception("Cancelled");
+                    }
+                    else
+                    {
+                        ExecuteDDL(sql, patchDatabaseForm.SetupInfo);
+                    }
+                }
+            );
             return ActionResult.Success;
         }
 
