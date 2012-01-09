@@ -4,12 +4,10 @@
     <Property Id="Dummy_DatabasePatchFragmentRefProp" Value="-"/>
 
     <Property Id="PatchPersonMasterDatabase" Hidden="yes"/>
-    <CustomAction Id="PatchPersonMasterDatabase_" Property="PatchPersonMasterDatabase" Value="[CommonProductProperties];[DB_AllProperties]" />
     <CustomAction Id="PatchPersonMasterDatabase" BinaryKey="InstallersDll" DllEntry="PatchDatabase" Execute="deferred" Impersonate="yes" Return="check" />
 
     <InstallExecuteSequence>
-      <Custom Action="PatchPersonMasterDatabase_" After="AfterInstallInitialize_DB">PATCH</Custom>
-      <Custom Action="PatchPersonMasterDatabase" After="RollbackDatabase">PATCH</Custom>
+      <Custom Action="PatchPersonMasterDatabase" After="RollbackDatabase">PATCH OR OLDER_VERSION_DETECTED</Custom>
     </InstallExecuteSequence>
   </Fragment>
 </Wix>

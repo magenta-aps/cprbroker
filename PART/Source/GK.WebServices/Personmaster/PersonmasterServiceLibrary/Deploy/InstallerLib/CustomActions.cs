@@ -151,7 +151,7 @@ namespace PersonMasterInstallers
         {
             try
             {
-                return WebsiteCustomAction.AfterInstallInitialize_WEB(session, new string[0]);
+                return WebsiteCustomAction.AfterInstallInitialize_WEB(session, new string[] { "PatchPersonMasterDatabase" });
             }
             catch (Exception ex)
             {
@@ -220,7 +220,9 @@ namespace PersonMasterInstallers
         {
             try
             {
-                return DatabaseCustomAction.PatchDatabase(session, Properties.Resources.patchbas_1_2);
+                var patchSql = new Dictionary<string, string>();
+                patchSql["PM"] = Properties.Resources.patchbas_1_2;
+                return DatabaseCustomAction.PatchDatabase(session, patchSql);
             }
             catch (Exception ex)
             {

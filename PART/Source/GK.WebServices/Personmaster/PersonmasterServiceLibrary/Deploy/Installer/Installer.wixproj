@@ -86,13 +86,13 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PostBuildEvent>cd "$(ProjectDir)"
-msiexec /a "!(TargetPath)" /qn TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
-candle Patch_WinSDK.wxs -out Patch_WinSDK.wixobj -dProjectDir="$(ProjectDir)\" -dOutDir="$(OutDir)\" 
-light Patch_WinSDK.wixobj
-msimsp -s Patch_WinSDK.pcp -p Patch_WinSDK.msp
+    <PostBuildEvent>rem cd "$(ProjectDir)"
+rem msiexec /a "!(TargetPath)" /qn TARGETDIR="$(ProjectDir)$(OutDir)en-US\admin"
+rem candle Patch_WinSDK.wxs -out Patch_WinSDK.wixobj -dProjectDir="$(ProjectDir)\" -dOutDir="$(OutDir)\" 
+rem light Patch_WinSDK.wixobj
+rem msimsp -s Patch_WinSDK.pcp -p Patch_WinSDK.msp
 
-copy Patch_WinSDK.msp $(OutDir)en-US\PersonMasterPatch_1_2.msp /y
+rem copy Patch_WinSDK.msp $(OutDir)en-US\PersonMasterPatch_1_2.msp /y
 
 
 REM candle Patch_Wix.wxs -out Patch_Wix.wixobj
