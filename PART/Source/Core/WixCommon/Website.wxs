@@ -23,7 +23,8 @@
     <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="-" />
     <Property Id="WEB_APPLICATIONPATH" Value="-"/>
 
-    <Component Id="CMP_WebRegistry" Directory="INSTALLDIR" >
+    <WixVariable Id="CMP_WebRegistry_Guid" Overridable="yes" Value="-"/>
+    <Component Id="CMP_WebRegistry" Directory="INSTALLDIR" Guid="!(wix.CMP_WebRegistry_Guid)" >
       <RegistryKey Id="REG_Web" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Website" >
         <RegistryValue Id="REG_Web_Dummy" Action="write" Type="string" KeyPath="yes" Name="Dummy" Value="Dummy" />
       </RegistryKey>

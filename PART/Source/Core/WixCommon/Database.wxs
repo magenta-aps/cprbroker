@@ -39,9 +39,10 @@
 
     <Property Id="DB_Valid" Value="False"/>
 
+    <WixVariable Id="CMP_DatabaseRegistry_Guid" Overridable="yes" Value="-"/>
     <ComponentGroup Id="CMPGRP_Database">
 
-      <Component Id="CMP_DatabaseRegistry" Directory="INSTALLDIR" >
+      <Component Id="CMP_DatabaseRegistry" Directory="INSTALLDIR" Guid="!(wix.CMP_DatabaseRegistry_Guid)" >
         <RegistryKey Id="REG_Database" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Database">
           <RegistryValue Id="REG_Database_Dummy" Action="write" Type="string" KeyPath="yes" Name="Dummy" Value="Dummy" />
         </RegistryKey>
