@@ -16,9 +16,11 @@
 
     <WixVariable Id="DB_Feature" Value="PM"/>
     <WixVariable Id="DB_FeatureNames" Value="PM"/>
+    <WixVariable Id="CMP_DatabaseRegistry_Guid" Value="{98E146F5-9974-427B-82A7-49C97A85A1A5}"/>
 
     <WixVariable Id="WEB_Feature" Value="PM"/>
     <WixVariable Id="WEB_FeatureNames" Value="PM"/>
+    <WixVariable Id="CMP_WebRegistry_Guid" Value="{74885F05-2BA0-4C4D-96DF-A8A692AD68F2}"/>
 
   </Fragment>
 </Wix>
