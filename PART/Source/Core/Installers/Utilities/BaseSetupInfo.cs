@@ -106,21 +106,6 @@ namespace CprBroker.Installers
             }
         }
 
-        public static void DeleteRegistryProperties(Session session, string subRoot, string featureName)
-        {
-            string path = GetRegistryPath(session, subRoot, featureName, false);
-            string[] nodes = path.Split('\\');
-            if (nodes.Length > 1)
-            {
-                Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.LocalMachine;
-                for (int i = 0; i < nodes.Length - 1; i++)
-                {
-                    registryKey = registryKey.OpenSubKey(nodes[i], true);
-                }
-                registryKey.DeleteSubKey(nodes.Last());
-            }
-        }
-
         public static string GetCustomActionData(Session session)
         {
             var aggregatedProps = string.Format("INSTALLDIR={0};Manufacturer={1};ProductName={2};REMOVE={3};PATCH={4}",
