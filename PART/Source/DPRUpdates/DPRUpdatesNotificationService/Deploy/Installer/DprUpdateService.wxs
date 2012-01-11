@@ -24,6 +24,9 @@
     <CustomAction Id="ValidateCprBrokerServicesUrl_ShowError" Script="vbscript">
       <![CDATA[msgbox "Invalid service url"]]>
     </CustomAction>
+    <InstallExecuteSequence>
+      <Custom Action="ValidateCprBrokerServicesUrl" After="AppSearch"><![CDATA[UILevel < 5]]></Custom>
+    </InstallExecuteSequence>
 
     <Property Id="ALL_DPRUPDATEPROPERTIES" Value="-"/>
     <CustomAction Id="Set_AllDprUpdateProperties" Property="ALL_DPRUPDATEPROPERTIES" Value="[DeployDatabase];PARTSERVICEURL=[PARTSERVICEURL];BASEAPPLICATIONTOKEN=[BASEAPPLICATIONTOKEN];APPLICATIONTOKEN=[APPLICATIONTOKEN]" />

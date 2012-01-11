@@ -59,7 +59,7 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DprNotif");
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.crebas, databaseSetupInfo);
             DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { "T_DPRUpdateStaging" });
             return ActionResult.Success;
@@ -68,7 +68,7 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult RollbackDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DprNotif");
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
             DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             return ActionResult.Success;
@@ -77,7 +77,7 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult RemoveDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DprNotif");
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
             DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             return ActionResult.Success;
@@ -108,11 +108,12 @@ namespace InstallerLib
         {
             try
             {
-            string appToken = RegisterApplicationInCprBroker(session);
-            UpdateConfigFile(session, appToken);
-            UpdateRegistry(session, appToken);
-            InstallAndStartService(session);
-            return ActionResult.Success;
+                System.Diagnostics.Debugger.Break();
+                string appToken = RegisterApplicationInCprBroker(session);
+                UpdateConfigFile(session, appToken);
+                UpdateRegistry(session, appToken);
+                InstallAndStartService(session);
+                return ActionResult.Success;
             }
             catch (Exception ex)
             {

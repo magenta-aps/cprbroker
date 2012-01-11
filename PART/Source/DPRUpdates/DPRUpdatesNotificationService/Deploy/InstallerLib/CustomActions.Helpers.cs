@@ -62,7 +62,7 @@ namespace InstallerLib
         {
             string configFileName = GetConfigFileName(session);
             // Connection string
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DprNotif");
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
             CprBroker.Installers.Installation.SetConnectionStringInConfigFile(
                 configFileName,
                 "DPRUpdates",

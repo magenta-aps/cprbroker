@@ -13,8 +13,8 @@
     <WixVariable Id="DB_AppIntegratedSecurityAllowed" Value="False"/>
     <WixVariable Id="WEB_CreateWeb" Value="False"/>
 
-    <WixVariable Id="DB_Feature" Value="DprNotif"/>
-    <WixVariable Id="DB_FeatureNames" Value="DprNotif"/>
+    <WixVariable Id="DB_Feature" Value="DPRN"/>
+    <WixVariable Id="DB_FeatureNames" Value="DPRN"/>
     
     <CustomAction Id="CustomizeDprDatabaseName" Execute="immediate" Property="DB_DATABASENAME" Value="DPR"/>
 
