@@ -15,21 +15,51 @@ namespace InstallerLib
         private static readonly string ServiceName = "DPR Updates Notification Service";
 
         [CustomAction]
-        public static ActionResult CA_Set_DB_AllProperties(Session session)
+        public static ActionResult AppSearch_DB(Session session)
         {
-            return DatabaseCustomAction.CA_Set_DB_AllProperties(session);
+            try
+            {
+                return DatabaseCustomAction.AppSearch_DB(session, false);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
-        public static ActionResult TestDatabaseConnection(Session session)
+        public static ActionResult AfterDatabaseDialog(Session session)
         {
-            return DatabaseCustomAction.TestConnectionString(session, false);
+            try
+            {
+                return DatabaseCustomAction.AfterDatabaseDialog(session, false);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult AfterInstallInitialize_DB(Session session)
+        {
+            try
+            {
+                return DatabaseCustomAction.AfterInstallInitialize_DB(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DprNotif");
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.crebas, databaseSetupInfo);
             DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { "T_DPRUpdateStaging" });
             return ActionResult.Success;
@@ -38,7 +68,7 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult RollbackDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DprNotif");
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
             DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             return ActionResult.Success;
@@ -47,7 +77,7 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult RemoveDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DprNotif");
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
             DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             return ActionResult.Success;
@@ -76,11 +106,19 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult InstallDprUpdatesService(Session session)
         {
+            try
+            {
             string appToken = RegisterApplicationInCprBroker(session);
             UpdateConfigFile(session, appToken);
             UpdateRegistry(session, appToken);
             InstallAndStartService(session);
             return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
@@ -92,8 +130,30 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult RemoveDprUpdatesService(Session session)
         {
-            UnregisterApplicationInCprBroker(session);
-            StopAndUnInstallService(session);
+            try
+            {
+                UnregisterApplicationInCprBroker(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+            }
+            try
+            {
+                StopService(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+            }
+            try
+            {
+                UnInstallService(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+            }
             return ActionResult.Success;
         }
 

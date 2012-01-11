@@ -62,7 +62,7 @@ namespace InstallerLib
         {
             string configFileName = GetConfigFileName(session);
             // Connection string
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.FromSession(session);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DprNotif");
             CprBroker.Installers.Installation.SetConnectionStringInConfigFile(
                 configFileName,
                 "DPRUpdates",
@@ -93,12 +93,15 @@ namespace InstallerLib
             new System.ServiceProcess.ServiceController(ServiceName).Start();
         }
 
-        private static void StopAndUnInstallService(Session session)
+        private static void StopService(Session session)
         {
             var controller = new System.ServiceProcess.ServiceController(ServiceName);
             if (controller.CanStop)
                 controller.Stop();
+        }
 
+        private static void UnInstallService(Session session)
+        {
             CprBroker.Installers.Installation.RunCommand(
                 string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
                 string.Format("/u \"{0}bin\\{1}\"", session.GetInstallDirProperty(), ServiceExeFileName)

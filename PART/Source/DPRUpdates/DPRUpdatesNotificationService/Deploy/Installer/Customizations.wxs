@@ -7,16 +7,19 @@
 
     <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)InstallerLib.CA.dll"/>
 
-    <WixVariable Id="DB_CREATEDATABASE" Value="True"/>
-    <WixVariable Id="DB_ENCRYPTIONKEYENABLED" Value="False"/>
-    <WixVariable Id="DB_DOMAINENABLED" Value="False"/>
-    <WixVariable Id="DB_APPINTEGRATEDSECURITYALLOWED" Value="False"/>
-    <WixVariable Id="WEB_CREATEWEB" Value="False"/>
+    <WixVariable Id="DB_CreateDatabase" Value="True"/>
+    <WixVariable Id="DB_EncryptionKeyEnabled" Value="False"/>
+    <WixVariable Id="DB_DomainEnabled" Value="False"/>
+    <WixVariable Id="DB_AppIntegratedSecurityAllowed" Value="False"/>
+    <WixVariable Id="WEB_CreateWeb" Value="False"/>
+
+    <WixVariable Id="DB_Feature" Value="DprNotif"/>
+    <WixVariable Id="DB_FeatureNames" Value="DprNotif"/>
     
-    <CustomAction Id="CA_CustomizeDprDatabaseName" Execute="immediate" Property="DB_DATABASENAME" Value="DPR"/>
+    <CustomAction Id="CustomizeDprDatabaseName" Execute="immediate" Property="DB_DATABASENAME" Value="DPR"/>
 
     <InstallUISequence>
-      <Custom Action="CA_CustomizeDprDatabaseName" After="CA_InitializeDatabasePropertiesFromProductName">1</Custom>
+      <Custom Action="CustomizeDprDatabaseName" After="InitializeDatabasePropertiesFromProductName">NOT (REMOVE OR PATCH OR OLDER_VERSION_DETECTED)</Custom>
     </InstallUISequence>
 
   </Fragment>

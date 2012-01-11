@@ -26,7 +26,7 @@
     </CustomAction>
 
     <Property Id="ALL_DPRUPDATEPROPERTIES" Value="-"/>
-    <CustomAction Id="CA_Set_AllDprUpdateProperties" Property="ALL_DPRUPDATEPROPERTIES" Value="ProductName=[ProductName];INSTALLDIR=[INSTALLDIR];Manufacturer=[Manufacturer];PARTSERVICEURL=[PARTSERVICEURL];BASEAPPLICATIONTOKEN=[BASEAPPLICATIONTOKEN];APPLICATIONTOKEN=[APPLICATIONTOKEN];[DB_AllProperties]" />
+    <CustomAction Id="Set_AllDprUpdateProperties" Property="ALL_DPRUPDATEPROPERTIES" Value="[DeployDatabase];PARTSERVICEURL=[PARTSERVICEURL];BASEAPPLICATIONTOKEN=[BASEAPPLICATIONTOKEN];APPLICATIONTOKEN=[APPLICATIONTOKEN]" />
 
     <Property Id="RollbackDprUpdatesService" Hidden="yes" />
     <CustomAction Id="RollbackDprUpdatesService_" Property="RollbackDprUpdatesService" Value="[ALL_DPRUPDATEPROPERTIES]" />
@@ -41,16 +41,16 @@
     <CustomAction Id="RemoveDprUpdatesService" BinaryKey="InstallersDll" DllEntry="RemoveDprUpdatesService" Execute="deferred" Impersonate="no" />
 
     <InstallExecuteSequence>
-      <Custom Action="CA_Set_AllDprUpdateProperties" After="CA_Set_DB_AllProperties">1</Custom>
+      <Custom Action="Set_AllDprUpdateProperties" After="AfterInstallInitialize_DB">1</Custom>
 
-      <Custom Action="RollbackDprUpdatesService_" After="CA_Set_AllDprUpdateProperties">NOT REMOVE</Custom>
-      <Custom Action="RollbackDprUpdatesService" After="InstallFiles">NOT REMOVE</Custom>
+      <Custom Action="RollbackDprUpdatesService_" After="Set_AllDprUpdateProperties">NOT REMOVE</Custom>
+      <Custom Action="RollbackDprUpdatesService" After="DeployDatabase">NOT REMOVE</Custom>
 
-      <Custom Action="InstallDprUpdatesService_" After="CA_Set_AllDprUpdateProperties">NOT REMOVE</Custom>
-      <Custom Action="InstallDprUpdatesService" After="InstallFiles">NOT REMOVE</Custom>
+      <Custom Action="InstallDprUpdatesService_" After="Set_AllDprUpdateProperties">NOT REMOVE</Custom>
+      <Custom Action="InstallDprUpdatesService" After="RollbackDprUpdatesService">NOT REMOVE</Custom>
 
-      <Custom Action="RemoveDprUpdatesService_" After="CA_Set_AllDprUpdateProperties"><![CDATA[REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveDprUpdatesService" Before="RemoveDatabase"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveDprUpdatesService_" After="Set_AllDprUpdateProperties"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveDprUpdatesService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL"]]></Custom>
 
     </InstallExecuteSequence>
   </Fragment>
