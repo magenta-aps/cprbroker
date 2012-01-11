@@ -14,9 +14,9 @@
       <RegistrySearch Id="RS_ApplicationToken" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\CprBroker" Type="raw" Name="ApplicationToken"/>
     </Property>
 
-    <Component Id="CMP_DPRUpdatesRegistry" KeyPath="yes" Directory="INSTALLDIR" Guid="70F294DE-E9C3-4EA1-818F-3FDB83862C5B">
+    <Component Id="CMP_DPRUpdatesRegistry" Directory="INSTALLDIR">
       <RegistryKey Id="REG_DPRUpdatesRegistry" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\CprBroker">
-        <RegistryValue Id="REG_PartServiceUrl" Action="write" Type="string" Name="PartServiceUrl" Value="[PARTSERVICEURL]"/>
+        <RegistryValue Id="REG_PartServiceUrl" KeyPath="yes" Action="write" Type="string" Name="PartServiceUrl" Value="[PARTSERVICEURL]"/>
       </RegistryKey>
     </Component>
 
@@ -25,10 +25,10 @@
       <![CDATA[msgbox "Invalid service url"]]>
     </CustomAction>
     <InstallExecuteSequence>
-      <Custom Action="ValidateCprBrokerServicesUrl" After="AppSearch"><![CDATA[UILevel < 5]]></Custom>
+      <Custom Action="ValidateCprBrokerServicesUrl" After="AppSearch"><![CDATA[UILevel < 5 AND NOT REMOVE AND NOT PATCH]]></Custom>
     </InstallExecuteSequence>
 
-    <Property Id="ALL_DPRUPDATEPROPERTIES" Value="-"/>
+    <Property Id="ALL_DPRUPDATEPROPERTIES" Value="-" Hidden="yes"/>
     <CustomAction Id="Set_AllDprUpdateProperties" Property="ALL_DPRUPDATEPROPERTIES" Value="[DeployDatabase];PARTSERVICEURL=[PARTSERVICEURL];BASEAPPLICATIONTOKEN=[BASEAPPLICATIONTOKEN];APPLICATIONTOKEN=[APPLICATIONTOKEN]" />
 
     <Property Id="RollbackDprUpdatesService" Hidden="yes" />

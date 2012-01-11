@@ -15,6 +15,7 @@
 
     <WixVariable Id="DB_Feature" Value="DPRN"/>
     <WixVariable Id="DB_FeatureNames" Value="DPRN"/>
+    <WixVariable Id="CMP_DatabaseRegistry_Guid" Value="{4199C8D8-B393-4ACE-84FC-49FD4B94F435}"/>
     
     <CustomAction Id="CustomizeDprDatabaseName" Execute="immediate" Property="DB_DATABASENAME" Value="DPR"/>
 
