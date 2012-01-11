@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Microsoft.Deployment.WindowsInstaller;
 using System.Data.SqlClient;
 using CprBroker.Installers;
@@ -78,8 +79,21 @@ namespace InstallerLib
         public static ActionResult RemoveDatabase(Session session)
         {
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
-            DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
-            DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
+            DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
+            {
+                SetupInfo = databaseSetupInfo,
+                Text = "Drop database objects",
+                QuestionText = "Should the database objects be removed?",
+                NoText = "No, keep the database objects",
+                YesText = "Yes, drop the database objects"
+            };
+            
+
+            if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
+            {
+                DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
+                DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
+            }
             return ActionResult.Success;
         }
 
