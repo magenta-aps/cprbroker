@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo authenticationInfo1 = new CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DropDatabaseForm));
             this.questionLabel = new System.Windows.Forms.Label();
             this.yesRadioButton = new System.Windows.Forms.RadioButton();
             this.noRadioButton = new System.Windows.Forms.RadioButton();
@@ -104,7 +104,7 @@
             this.adminLoginInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.adminLoginInfo.AuthenticationInfo = authenticationInfo1;
+            this.adminLoginInfo.AuthenticationInfo = ((CprBroker.Installers.DatabaseSetupInfo.AuthenticationInfo)(resources.GetObject("adminLoginInfo.AuthenticationInfo")));
             this.adminLoginInfo.Enabled = false;
             this.adminLoginInfo.Location = new System.Drawing.Point(6, 19);
             this.adminLoginInfo.Name = "adminLoginInfo";
@@ -146,7 +146,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(495, 381);
+            this.ClientSize = new System.Drawing.Size(495, 388);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.databaseNameTextBox);
             this.Controls.Add(this.databaseNameLabelabel);
@@ -169,7 +169,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label questionLabel;
         private System.Windows.Forms.RadioButton yesRadioButton;
         private System.Windows.Forms.RadioButton noRadioButton;
         private System.Windows.Forms.Button okButton;
@@ -178,5 +177,6 @@
         private System.Windows.Forms.Label databaseNameLabelabel;
         private System.Windows.Forms.TextBox databaseNameTextBox;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label questionLabel;
     }
 }

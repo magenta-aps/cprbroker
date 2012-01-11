@@ -62,6 +62,21 @@ namespace CprBroker.Installers
     public partial class DropDatabaseForm : BaseForm
     {
         public DatabaseSetupInfo SetupInfo { get; set; }
+        public string QuestionText
+        {
+            get { return questionLabel.Text; }
+            set { questionLabel.Text = value; }
+        }
+        public string YesText
+        {
+            get { return yesRadioButton.Text; }
+            set { yesRadioButton.Text = value; }
+        }
+        public string NoText
+        {
+            get { return noRadioButton.Text; }
+            set { noRadioButton.Text = value; }
+        }
 
         public DropDatabaseForm()
         {
