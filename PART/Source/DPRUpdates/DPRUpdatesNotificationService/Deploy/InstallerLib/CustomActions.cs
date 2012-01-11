@@ -108,7 +108,6 @@ namespace InstallerLib
         {
             try
             {
-                System.Diagnostics.Debugger.Break();
                 string appToken = RegisterApplicationInCprBroker(session);
                 UpdateConfigFile(session, appToken);
                 UpdateRegistry(session, appToken);
