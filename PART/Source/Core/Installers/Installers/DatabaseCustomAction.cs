@@ -149,6 +149,10 @@ namespace CprBroker.Installers
                 else
                 {
                     session["DB_Valid"] = message;
+                    if (userInterfaceEnabled && !databaseShouldBeNew)
+                    {
+                        MessageBox.Show(session.InstallerWindowWrapper(), message, "", MessageBoxButtons.OK);
+                    }
                     return false;
                 }
             }
