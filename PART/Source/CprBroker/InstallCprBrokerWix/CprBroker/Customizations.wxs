@@ -14,9 +14,11 @@
     <WixVariable Id="DB_Feature" Value="CPR"/>
     <WixVariable Id="DB_FeatureNames" Value="CPR,EVENT"/>
     <WixVariable Id="DB_SuggestedDatabaseNames" Value="CprBroker,EventBroker"/>
+    <WixVariable Id="CMP_DatabaseRegistry_Guid" Value="{5A57E488-6752-4AB6-9314-6DA3F04FDA79}"/>
 
     <WixVariable Id="WEB_Feature" Value="CPR"/>
     <WixVariable Id="WEB_FeatureNames" Value="CPR,EVENT"/>
     <WixVariable Id="WEB_SuggestedWebNames" Value="CprBroker,EventBroker"/>
+    <WixVariable Id="CMP_WebRegistry_Guid" Value="{A4E58D89-798D-422C-8120-26F1735F2259}"/>
   </Fragment>
 </Wix>
