@@ -74,7 +74,8 @@ namespace CprBroker.Installers
                     }
                     else if (session.UiLevel() != InstallUILevel.Full)
                     {
-                        WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session, featureName);
+                        bool allowPropNameWithoutFeature = WebInstallationInfo.GetWebFeatureNames(session).Length == 1;
+                        WebInstallationInfo webInstallationInfo = WebInstallationInfo.CreateFromCurrentDetails(session, featureName, allowPropNameWithoutFeature);
                         if (ValidateWebProperties(session, webInstallationInfo))
                         {
                             WebInstallationInfo.AddFeatureDetails(session, webInstallationInfo);

@@ -73,7 +73,8 @@ namespace CprBroker.Installers
                     }
                     else if (session.UiLevel() != InstallUILevel.Full)
                     {
-                        DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session, featureName);
+                        bool allowPropNameWithoutFeature = DatabaseSetupInfo.GetDatabaseFeatureNames(session).Length == 1;
+                        DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromCurrentDetails(session, featureName, allowPropNameWithoutFeature);
                         if (TestConnectionString(session, databaseSetupInfo, databaseShouldBeNew, false))
                         {
                             DatabaseSetupInfo.AddFeatureDetails(session, databaseSetupInfo);

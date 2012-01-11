@@ -350,22 +350,38 @@ namespace CprBroker.Installers
 
         public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName)
         {
+            return GetPropertyValue(session, propName, featureName, false);
+        }
+
+        public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName, bool tryWithoutFeature)
+        {
+            string featurePropName = propName;
             if (
                 !string.IsNullOrEmpty(featureName) // if belongs to a feature
                 && propName.Equals(propName.ToUpper()) // if it is a public property (upper case)
                 )
             {
-                propName = string.Format("{0}_{1}", propName, featureName);
+                featurePropName = string.Format("{0}_{1}", propName, featureName);
             }
 
-            if (session.IsInDeferredMode())
+            Func<string, string> valueGetter = (name) =>
+                {
+                    if (session.IsInDeferredMode())
+                    {
+                        return session.CustomActionData[name];
+                    }
+                    else
+                    {
+                        return session[name];
+                    }
+                };
+            var ret = valueGetter(featurePropName);
+            if (string.IsNullOrEmpty(ret) && !featurePropName.Equals(propName))
             {
-                return session.CustomActionData[propName];
+                ret = valueGetter(propName);
             }
-            else
-            {
-                return session[propName];
-            }
+            return ret;
+
         }
 
         public static bool GetBooleanPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
@@ -375,7 +391,12 @@ namespace CprBroker.Installers
 
         public static bool GetBooleanPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName)
         {
-            var stringValue = GetPropertyValue(session, propName, featureName);
+            return GetBooleanPropertyValue(session, propName, featureName, false);
+        }
+
+        public static bool GetBooleanPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName, string featureName, bool tryWithoutFeature)
+        {
+            var stringValue = GetPropertyValue(session, propName, featureName, tryWithoutFeature);
             bool ret;
             bool.TryParse(stringValue, out ret);
             return ret;

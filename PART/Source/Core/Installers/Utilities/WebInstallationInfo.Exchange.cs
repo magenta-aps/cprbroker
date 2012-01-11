@@ -61,18 +61,22 @@ namespace CprBroker.Installers
         }
         public static WebInstallationInfo CreateFromCurrentDetails(Session session, string featureName)
         {
+            return CreateFromCurrentDetails(session, featureName, false);
+        }
+        public static WebInstallationInfo CreateFromCurrentDetails(Session session, string featureName, bool tryWithoutFeature)
+        {
             if (!string.IsNullOrEmpty(featureName))
             {
                 session.SetPropertyValue(FeaturePropertyName, featureName);
             }
 
-            bool createAsWebsite = session.GetBooleanPropertyValue(Constants.CreateWebsite, featureName);
+            bool createAsWebsite = session.GetBooleanPropertyValue(Constants.CreateWebsite, featureName, tryWithoutFeature);
             if (createAsWebsite)
             {
                 return new WebsiteInstallationInfo()
                 {
                     FeatureName = session.GetPropertyValue(FeaturePropertyName),
-                    WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName),
+                    WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName, tryWithoutFeature),
                     InstallDir = session.GetInstallDirProperty()
                 };
             }
@@ -81,8 +85,8 @@ namespace CprBroker.Installers
                 return new VirtualDirectoryInstallationInfo()
                 {
                     FeatureName = session.GetPropertyValue(FeaturePropertyName),
-                    VirtualDirectoryName = session.GetPropertyValue(Constants.VirtualDirectoryName, featureName),
-                    WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName),
+                    VirtualDirectoryName = session.GetPropertyValue(Constants.VirtualDirectoryName, featureName, tryWithoutFeature),
+                    WebsiteName = session.GetPropertyValue(Constants.WebsiteName, featureName, tryWithoutFeature),
                     InstallDir = session.GetInstallDirProperty()
                 };
             }

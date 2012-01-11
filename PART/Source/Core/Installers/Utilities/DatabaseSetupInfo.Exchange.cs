@@ -198,6 +198,11 @@ namespace CprBroker.Installers
 
         public static DatabaseSetupInfo CreateFromCurrentDetails(Session session, string featureName)
         {
+            return CreateFromCurrentDetails(session, featureName, false);
+        }
+
+        public static DatabaseSetupInfo CreateFromCurrentDetails(Session session, string featureName, bool tryWithoutFeature)
+        {
             DatabaseSetupInfo ret = new DatabaseSetupInfo();
 
             if (string.IsNullOrEmpty(featureName))
@@ -210,35 +215,35 @@ namespace CprBroker.Installers
                 session.SetPropertyValue(FeaturePropertyName, ret.FeatureName);
             }
 
-            ret.ServerName = session.GetPropertyValue(Constants.ServerName, featureName);
-            ret.DatabaseName = session.GetPropertyValue(Constants.DatabaseName, featureName);
-            ret.UseExistingDatabase = session.GetBooleanPropertyValue(Constants.UseExistingDatabase, featureName);
+            ret.ServerName = session.GetPropertyValue(Constants.ServerName, featureName, tryWithoutFeature);
+            ret.DatabaseName = session.GetPropertyValue(Constants.DatabaseName, featureName, tryWithoutFeature);
+            ret.UseExistingDatabase = session.GetBooleanPropertyValue(Constants.UseExistingDatabase, featureName, tryWithoutFeature);
 
-            ret.EncryptionKey = session.GetPropertyValue(Constants.EncryptionKey, featureName);
-            ret.EncryptionKeyEnabled = session.GetBooleanPropertyValue(Constants.EncryptionKeyEnabled, featureName);
+            ret.EncryptionKey = session.GetPropertyValue(Constants.EncryptionKey, featureName, tryWithoutFeature);
+            ret.EncryptionKeyEnabled = session.GetBooleanPropertyValue(Constants.EncryptionKeyEnabled, featureName, tryWithoutFeature);
 
-            ret.Domain = session.GetPropertyValue(Constants.Domain, featureName);
-            ret.DomainEnabled = session.GetBooleanPropertyValue(Constants.DomainEnabled, featureName);
+            ret.Domain = session.GetPropertyValue(Constants.Domain, featureName, tryWithoutFeature);
+            ret.DomainEnabled = session.GetBooleanPropertyValue(Constants.DomainEnabled, featureName, tryWithoutFeature);
 
             ret.AdminAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-            ret.AdminAuthenticationInfo.IntegratedSecurity = session.GetBooleanPropertyValue(Constants.AdminIntegratedSecurity, featureName);
+            ret.AdminAuthenticationInfo.IntegratedSecurity = session.GetBooleanPropertyValue(Constants.AdminIntegratedSecurity, featureName, tryWithoutFeature);
             if (!ret.AdminAuthenticationInfo.IntegratedSecurity)
             {
-                ret.AdminAuthenticationInfo.UserName = session.GetPropertyValue(Constants.AdminUsername, featureName);
-                ret.AdminAuthenticationInfo.Password = session.GetPropertyValue(Constants.AdminPassword, featureName);
+                ret.AdminAuthenticationInfo.UserName = session.GetPropertyValue(Constants.AdminUsername, featureName, tryWithoutFeature);
+                ret.AdminAuthenticationInfo.Password = session.GetPropertyValue(Constants.AdminPassword, featureName, tryWithoutFeature);
             }
 
-            ret.ApplicationIntegratedSecurityAllowed = session.GetBooleanPropertyValue(Constants.AppIntegratedSecurityAllowed, featureName);
+            ret.ApplicationIntegratedSecurityAllowed = session.GetBooleanPropertyValue(Constants.AppIntegratedSecurityAllowed, featureName, tryWithoutFeature);
 
-            ret.ApplicationAuthenticationSameAsAdmin = session.GetBooleanPropertyValue(Constants.AppSameAsAdmin, featureName);
+            ret.ApplicationAuthenticationSameAsAdmin = session.GetBooleanPropertyValue(Constants.AppSameAsAdmin, featureName, tryWithoutFeature);
             if (!ret.ApplicationAuthenticationSameAsAdmin)
             {
                 ret.ApplicationAuthenticationInfo = new DatabaseSetupInfo.AuthenticationInfo();
-                ret.ApplicationAuthenticationInfo.IntegratedSecurity = session.GetBooleanPropertyValue(Constants.AppIntegratedSecurity, featureName);
+                ret.ApplicationAuthenticationInfo.IntegratedSecurity = session.GetBooleanPropertyValue(Constants.AppIntegratedSecurity, featureName, tryWithoutFeature);
                 if (!ret.ApplicationAuthenticationInfo.IntegratedSecurity)
                 {
-                    ret.ApplicationAuthenticationInfo.UserName = session.GetPropertyValue(Constants.AppUsername, featureName);
-                    ret.ApplicationAuthenticationInfo.Password = session.GetPropertyValue(Constants.AppPassword, featureName);
+                    ret.ApplicationAuthenticationInfo.UserName = session.GetPropertyValue(Constants.AppUsername, featureName, tryWithoutFeature);
+                    ret.ApplicationAuthenticationInfo.Password = session.GetPropertyValue(Constants.AppPassword, featureName, tryWithoutFeature);
                 }
             }
             return ret;
