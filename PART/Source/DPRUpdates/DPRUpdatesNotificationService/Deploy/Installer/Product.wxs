@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="C6AF26F9-AF9F-4592-A2BE-A50F4DCBBB44" Name="DPR Updates" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="54EFDD4F-03FC-44A8-9C87-6500E51DA70F">
+  <Product Id="C6AF26F9-AF9F-4592-A2BE-A50F4DCBBB44" Name="DPR Updates" Language="1033" Version="1.0.1.0" Manufacturer="ITST" UpgradeCode="54EFDD4F-03FC-44A8-9C87-6500E51DA70F">
     <Package InstallerVersion="200" Compressed="yes" />
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
@@ -21,6 +21,14 @@
       </Directory>
     </Directory>
 
+    <Upgrade Id="54EFDD4F-03FC-44A8-9C87-6500E51DA70F">
+      <!--Detect old version -->
+      <UpgradeVersion Property="OLDER_VERSION_DETECTED" Maximum="1.0.1.0" IncludeMaximum="no" OnlyDetect="yes"></UpgradeVersion>
+
+      <!--Detect newer versions, set a property that triggers a condition failure -->
+      <UpgradeVersion Property="NEWER_VERSION_DETECTED" Minimum="1.0.1.0" IncludeMinimum="no" OnlyDetect="yes"></UpgradeVersion>
+    </Upgrade>
+    
     <Feature Id="ProductFeature" Title="Installer" Level="1">
       <ComponentGroupRef Id="CMPGRP_bin"/>
       <ComponentGroupRef Id="CMPGRP_Database"/>

@@ -3,6 +3,11 @@
   <Fragment Id="ConditionsFragment" >
     <Property Id="Dummy_ConditionsFragmentRefProp" Value="-"/>
 
+    <!-- Fail on newer versions-->
+    <Condition Message="A newer version of [ProductName] is already installed. Exiting installation.">
+      <![CDATA[Installed OR NOT NEWER_VERSION_DETECTED]]>
+    </Condition>
+    
     <!--.NET Framework-->
     <PropertyRef Id="NETFRAMEWORK35"/>
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
