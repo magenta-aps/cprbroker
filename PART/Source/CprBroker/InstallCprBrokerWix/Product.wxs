@@ -14,7 +14,11 @@
     <FeatureRef Id="CprBrokerFeature"/>
 
     <Upgrade Id="FF0F6556-3323-43A8-9AB3-E567BEF13F6A">
-      <UpgradeVersion Minimum="1.0.0" IncludeMinimum="yes" Maximum="1.1.2" IncludeMaximum="no" OnlyDetect="yes" Property="OLDER_VERSION_DETECTED" MigrateFeatures="yes"></UpgradeVersion>
+      <!--Detect old version -->
+      <UpgradeVersion Maximum="1.1.2.0" IncludeMaximum="no" Property="OLDER_VERSION_DETECTED" OnlyDetect="yes" MigrateFeatures="yes" />
+
+      <!--Detect newer versions, set a property that triggers a condition failure -->
+      <UpgradeVersion Minimum="1.1.2.0" IncludeMinimum="no" Property="NEWER_VERSION_DETECTED" OnlyDetect="yes" />
     </Upgrade>
 
   </Product>
