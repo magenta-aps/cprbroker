@@ -20,6 +20,7 @@
     <Property Id="WEB_VIRTUALDIRECTORYNAME" Value="-"/>
 
     <Property Id="WEB_MultipleSitesAllowed" Value="True"/>
+    <Property Id="WEB_SitesFound" Value="False"/>
     <Property Id="WEB_VIRTUALDIRECTORYSITEPATH" Value="-" />
     <Property Id="WEB_APPLICATIONPATH" Value="-"/>
 
