@@ -76,7 +76,6 @@
     <Compile Include="EventBroker\EventBrokerSpecific.wxs" />
     <Compile Include="EventBroker\Files.wxs" />
     <Compile Include="EventBroker\EventBrokerDialog.wxs" />
-    <None Include="Patch_WinSDK.wxs" />
     <Content Include="CprBroker\Resources\CprBroker.log" />
     <Content Include="License.rtf" />
   </ItemGroup>
