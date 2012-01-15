@@ -4,7 +4,7 @@
     <Property Id="Dummy_DatabasePatchFragmentRefProp" Value="-"/>
 
     <Property Id="PatchPersonMasterDatabase" Hidden="yes"/>
-    <CustomAction Id="PatchPersonMasterDatabase" BinaryKey="InstallersDll" DllEntry="PatchDatabase" Execute="deferred" Impersonate="yes" Return="check" />
+    <CustomAction Id="PatchPersonMasterDatabase" BinaryKey="InstallersDll" DllEntry="PatchDatabase" Execute="deferred" Impersonate="yes" Return="check" HideTarget="yes"/>
 
     <InstallExecuteSequence>
       <Custom Action="PatchPersonMasterDatabase" After="RollbackDatabase">PATCH OR OLDER_VERSION_DETECTED</Custom>
