@@ -5,37 +5,30 @@
 /*==============================================================*/
 
 
-if exists (SELECT * from sys.indexes where name = 'IX_T_PM_CPR_CprNo')
-	DROP INDEX IX_T_PM_CPR_CprNo ON dbo.T_PM_CPR
+if not exists (select * from sys.columns c inner join sys.tables t on c.object_id = t.object_id where t.object_id=object_id('T_PM_CPR') and c.name = 'cprNo')
+	ALTER TABLE dbo.T_PM_CPR ADD
+		cprNo varchar(10) NOT NULL CONSTRAINT DF_T_PM_CPR_cprNo DEFAULT '0000000000'
 
 GO
 
-if exists (select * from sys.columns c inner join sys.tables t on c.object_id = t.object_id where t.object_id=object_id('T_PM_CPR') and c.name = 'cprNo')
-	ALTER TABLE dbo.T_PM_CPR DROP COLUMN cprNo
+if not exists (SELECT * from sys.indexes where name = 'IX_T_PM_CPR_CprNo')
+	CREATE NONCLUSTERED INDEX IX_T_PM_CPR_CprNo ON dbo.T_PM_CPR
+		(
+		cprNo
+		) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 
 GO
 
-ALTER TABLE dbo.T_PM_CPR ADD
-	cprNo varchar(10) NOT NULL CONSTRAINT DF_T_PM_CPR_cprNo DEFAULT '1234567890'
-
-GO
-
-CREATE NONCLUSTERED INDEX IX_T_PM_CPR_CprNo ON dbo.T_PM_CPR
-	(
-	cprNo
-	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-
-GO
 
 OPEN SYMMETRIC KEY CprNoEncryptKey DECRYPTION BY CERTIFICATE CertForEncryptOfCprNoKey;
 
 UPDATE T_PM_CPR 
-SET cprNo = DecryptByKey(encryptedCprNo)
+SET cprNo = DecryptByKey(encryptedCprNo) WHERE cprNo = '0000000000'
 
 GO
 
-ALTER TABLE T_PM_CPR 
-	DROP CONSTRAINT DF_T_PM_CPR_cprNo
+if exists (select * from sys.default_constraints where name = 'DF_T_PM_CPR_cprNo')
+	ALTER TABLE T_PM_CPR DROP CONSTRAINT DF_T_PM_CPR_cprNo
 
 GO
 
