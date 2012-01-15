@@ -19,11 +19,11 @@
     <PropertyRef Id="Dummy_CustomizationsFragmentRefProp"/>
 
     <Upgrade Id="016e932b-5404-4626-ba78-7347a4cb9cc1">
-      <!--Detect old version not configured for updates-->
-      <UpgradeVersion Property="OLDER_VERSION_DETECTED" Minimum="1.0.0.0" IncludeMinimum="yes" Maximum="1.2.0.0" IncludeMaximum="yes" OnlyDetect="yes"></UpgradeVersion>
+      <!--Detect old version -->
+      <UpgradeVersion Property="OLDER_VERSION_DETECTED" Maximum="1.2.1.0" IncludeMaximum="no" OnlyDetect="yes"></UpgradeVersion>
 
       <!--Detect newer versions, set a property that triggers a condition failure -->
-      <UpgradeVersion Property="NEWER_VERSION_FOUND" Minimum="1.2.1.0" IncludeMinimum="no" OnlyDetect="yes"></UpgradeVersion>
+      <UpgradeVersion Property="NEWER_VERSION_DETECTED" Minimum="1.2.1.0" IncludeMinimum="no" OnlyDetect="yes"></UpgradeVersion>
     </Upgrade>
 
     <Feature Id="ProductFeature" Title="PersonMasterInstaller" Level="1">

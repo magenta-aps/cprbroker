@@ -5,7 +5,7 @@
     
     <!-- Fail on newer versions-->
     <Condition Message="A newer version of [ProductName] is already installed. Exiting installation.">
-      <![CDATA[Installed OR NOT NEWER_VERSION_FOUND]]>
+      <![CDATA[Installed OR NOT NEWER_VERSION_DETECTED]]>
     </Condition>
 
     <!--.NET Framework-->
