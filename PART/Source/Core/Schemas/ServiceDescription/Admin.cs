@@ -54,7 +54,7 @@ namespace CprBroker.Schemas.ServiceDescription
     public abstract class Admin
     {
         public const string Service = @"
-Contains methods related to administrative functions
+This service contains methods related to administrative functions of CPR Broker. Basically it is used to manage applications, data providers and query system capabilities.
 ";
 
         public const string RequestAppRegistration = @"
@@ -65,12 +65,12 @@ Creates a new un-approved application in the system.
 
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
-<tr><td>ApplicationName (input):</td><td>Application name that ask for registering.</td></tr>
+<tr><td>ApplicationName (input):</td><td>Name of the application that is wanted to be registered. This name should be different from all application names registered in CPR Broker.</td></tr>
 </table>
 
 <br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item : The new ApplicationType object. Null on failure.
+<br>Item : The new ApplicationType object. A new application token will be assigned and passed in this object. Null on failure.
 
 <br><br><b><u>Review:</u></b>
 <table>
@@ -80,18 +80,18 @@ Creates a new un-approved application in the system.
 ";
 
         public const string ApproveAppRegistration = @"
-Approves an application's registeration
+Approves an application's registration. This makes it possible to pass the application's token in the application header of future requests.
 <br><br><b><u>Signature:</u></b>
 <br>BasicOutputTypeOfBoolean ApproveAppRegisteration(string ApplicationToken)
 
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
-<tr><td>ApplicationToken (input):</td><td>Token for the business client application to be approved.</td></tr>
+<tr><td>ApplicationToken:</td><td>Token for the business client application to be approved.</td></tr>
 </table>
 
 <br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item : boolean specifying whether the operation has succeeded.
+<br>Item : A boolean value specifying whether the operation has succeeded.
 
 <br><br><b><u>Review:</u></b>
 <table>
@@ -101,7 +101,7 @@ Approves an application's registeration
 ";
 
         public const string ListAppRegistrations = @"
-List Application Registeration
+Lists all registered business applications.
 <br><br><b><u>Signature:</u></b>
 <br>BasicOutputTypeOfApplicationType ListAppRegisterations()
 
@@ -110,7 +110,7 @@ List Application Registeration
 
 <br><br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item : Array of ApplicationType containing the list of applications
+<br>Item : Array of ApplicationType containing the list of applications.
 
 
 <br><br><b><u>Review:</u></b>
@@ -121,13 +121,13 @@ List Application Registeration
 ";
 
         public const string UnregisterApp = @"
-Unregister an application registeration
+Unregister an application registration. An application can unregister itself, but its token would then be unusable until another application approves it.
 <br><br><b><u>Signature:</u></b>
 <br>BasicOutputTypeOfBoolean UnregisterApp(string ApplicationToken)
 
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
-<tr><td>ApplicationToken (input):</td><td>Security Token for the current business client application.</td></tr>
+<tr><td>ApplicationToken (input):</td><td>Security Token for the application the should be unregistered.</td></tr>
 </table>
 
 <br><b><u>Return value copmponents:</u></b>
@@ -142,7 +142,7 @@ Unregister an application registeration
 ";
 
         public const string GetCapabilities = @"
-Gets a list of service operations
+Gets a list of service operations.
 <br><br><b><u>Signature:</u></b>
 <br>BasicOutputTypeOfArrayOfServiceVersionType GetCapabilities()
 
@@ -151,7 +151,7 @@ Gets a list of service operations
 
 <br><br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item : Array of ServiceVersionType with the supported service list
+<br>Item : Array of ServiceVersionType with the supported service list.
 
 <br><br><b><u>Review:</u></b>
 <table>
@@ -161,10 +161,10 @@ Gets a list of service operations
 ";
 
         public const string IsImplementing = @"
-Direct (easier) alternative to GetCapabilities()
+A diirect (easier) alternative to GetCapabilities().
 
 <br><br><b><u>Signature:</u></b>
-<br>BasicOutputTypeOfBoolean IsImplementing(string serviceName,string serviceVersion)
+<br>BasicOutputTypeOfBoolean IsImplementing(string serviceName, string serviceVersion)
 
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
@@ -174,7 +174,7 @@ Direct (easier) alternative to GetCapabilities()
 
 <br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item : boolean specifying whether the service is implemented.
+<br>Item : A boolean value specifying whether the service is implemented.
 
 
 <br><br><b><u>Review:</u></b>
@@ -185,10 +185,10 @@ Direct (easier) alternative to GetCapabilities()
 ";
 
         public const string GetDataProviderList = @"
-Returns a list of objects that contain information about the data providers that are currently used by the system.
+Returns a list of objects that contain information about the external data providers that are currently used by the system.
 
 <br><br><b><u>Signature:</u></b>
-<br>BasicOutputTypeOArrayOffDataProviderType GetDataProviderList()
+<br>BasicOutputTypeOfArrayOfDataProviderType GetDataProviderList()
 
 <br><br><b><u>Parameter Description:</u></b>
 <br>(none)
@@ -206,10 +206,10 @@ Returns a list of objects that contain information about the data providers that
 ";
 
         public const string SetDataProviderList = @"
-Sets the list of data providers that are used bythe service,e.g., DPR, KMD & PersonMaster.
+Sets the list of data providers that are used by the service,e.g., DPR, KMD & PersonMaster. This method will overwrite all data providers currently registered in the system.
 
 <br><br><b><u>Signature:</u></b>
-<br>BasicOutputType of bool SetDataProviderList(DataProviderType[] dataProviders)
+<br>BasicOutputTypeOfBoolean SetDataProviderList(DataProviderType[] dataProviders)
 
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
@@ -228,18 +228,19 @@ Sets the list of data providers that are used bythe service,e.g., DPR, KMD & Per
 ";
 
         public const string Log = @"
-Writes a text string to the system's log
+Writes a text string to the system's log. The text will be logged as type 'Information'.
+
 <br><br><b><u>Signature:</u></b>
 <br>BasicOutputTypeOfBoolean Log(string Text)
 
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
-<tr><td>Text (input):</td><td>the text value to be logged.</td></tr>
+<tr><td>Text (input):</td><td>The text value to be logged.</td></tr>
 </table>
 
 <br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item : Boolean specifying whether the opeation has succeeded
+<br>Item : Boolean specifying whether the opeation has succeeded.
 
 <br><br><b><u>Review:</u></b>
 <table>
