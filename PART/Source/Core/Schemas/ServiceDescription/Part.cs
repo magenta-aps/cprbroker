@@ -53,20 +53,21 @@ namespace CprBroker.Schemas.ServiceDescription
 {
     public static class Part
     {
-        public const string Service = "Allows accesss to CPR data through a standard PART interface";
+        public const string Service = "This is the main service of CPR Broker. It allows access to CPR data through a standard PART interface.  Methods of this service are executed via local data provider whenever possible (except RefreshRead). Otherwise, an external data provider is used to implement the request.";
         public static class Methods
         {
 
 
             public const string Read =
-@"Find and return object (Always latest registration). Looks in the local database first
+@"Finds and returns a single person object. It will return the latest registration within the specified range. It first looks in the local database, and attempts external data providers if no data is found locally.
 <br><br><b><u>Signature:</u></b>
 <br>LaesOutputType Read(LaesInputType input)
 <br><br><b><u>Parameter Description:</u></b>
-<br>input: Contains the person UUID and (optionally) requested registration & effect date ranges
+<br>input: Contains the person UUID and (optionally) requested registration & effect date ranges.
 <br><br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>LaesResultat: Read operation result.
+<br>LaesResultat: If succeeded, its Item property will be a Registrering object with the found person registration. 
+<br>If failed, contains null.
 <br><br><b><u>Review:</u></b>
 <table>
 <tr><td width='30%'>2011-03-06, CPR Broker </td><td width='10%'></td><td width='60%'>Part release.</td></tr>
@@ -75,7 +76,7 @@ namespace CprBroker.Schemas.ServiceDescription
 ";
 
             public const string RefreshRead =
-@"Reads person information from external data sources
+@"This method is the same as Read, except that it does not look in the broker's local database to load the data. Instead, it queries external data providers directly for the data.
 <br><br><b><u>Signature:</u></b>
 <br>LaesOutputType RefreshRead(LaesInputType input)
 <br><br><b><u>Parameter Description:</u></b>
@@ -92,31 +93,32 @@ namespace CprBroker.Schemas.ServiceDescription
 
 
             public const string List =
-@"Find and return several objects that match the ID List supplied
+@"Finds and returns several person objects that match the ID List supplied. Just like Read, every person is first attempted locally, and if not found, an external data provider is attempted.
 <br><br><b><u>Signature:</u></b>
 <br>ListOutputType1 List(ListInputType input)
 <br><br><b><u>Parameter Description:</u></b>
-<br>input: List of person UUIDs to get
+<br>input: Contains the UUIDs of the person objects to be retrieved.
 <br><br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>LaesResultat: Array of Read operation results.
+<br>LaesResultat: Array of Read operation results. In case of full or partial success, each element at index i in the array corresponds to the UUID at index i in the input array. Contains null in case of failure.
 <br><br><b><u>Review:</u></b>
 <table>
 <tr><td width='30%'>2011-03-06, CPR Broker </td><td width='10%'></td><td width='60%'>Part release.</td></tr>
+<tr><td width='30%'>2011-11-29, CPR Broker </td><td width='10%'></td><td width='60%'>Allowed partial success.</td></tr>
 </table>
 <br>==============================
 ";
 
 
             public const string Search =
-@"Searches the local database for matching persons.
+@"Searches the local database for matching persons. The current implementation can only search by UUID, CPR number, first name, middle  name or last name. Search is performed for whole words only.
 <br><br><b><u>Signature:</u></b>
 <br>SoegOutputType Search(SoegInputType1 searchCriteria)
 <br><br><b><u>Parameter Description:</u></b>
-<br>searchCriteria: The search criteria. Only CPR numbers and name are implemented.
+<br>searchCriteria: The search criteria. 
 <br><br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Idliste: List of UUID's of the found persons.
+<br>Idliste: List of UUID's of the found persons. You can then call Read or List to get detailed data.
 <br><br><b><u>Review:</u></b>
 <table>
 <tr><td width='30%'>2011-03-06, CPR Broker </td><td width='10%'></td><td width='60%'>Part release.</td></tr>
@@ -125,11 +127,11 @@ namespace CprBroker.Schemas.ServiceDescription
 ";
 
             public const string GetUuid =
-@"Gets the person's UUID from his CPR number. Calls the UUID assignment authority (PersonMaster service) if not found locally.
+@"Gets the person's UUID from his CPR number. If no mapping is found locally, it calls the UUID assignment authority (PersonMaster service).
 <br><br><b><u>Signature:</u></b>
 <br>GetUuidOutputType GetUuid(string cprNumber)
 <br><br><b><u>Parameter Description:</u></b>
-<br>cprNumber: CPR number of person needed
+<br>cprNumber: CPR number of person needed.
 <br><br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
 <br>UUID: The person's UUID.
