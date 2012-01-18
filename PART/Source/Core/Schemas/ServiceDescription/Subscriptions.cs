@@ -53,10 +53,10 @@ namespace CprBroker.Schemas.ServiceDescription
 {
     public static class Subscriptions
     {
-        public const string Service = "Allows client applications to subscribe to data events";
+        public const string Service = "This service is part of Event Broker. It allows client applications to subscribe to data events. Client applications send information on how they want to be notified of the event. This can be via a web service call or a new XML file placed at a certain directory.";
 
         public const string Subscribe = @"
-Allows a client business application to be notified when there is a change in one or more person's data
+Allows a client business application to be notified when there is a change in one or more person's data.
 
 <br><br><b><u>Signature:</u></b>
 <br>BasicOutputTypeOfChangeSubscriptionType Subscribe(ChannelBaseType NotificationChannel, Guid[] personUuids)
@@ -64,16 +64,12 @@ Allows a client business application to be notified when there is a change in on
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
 <tr><td>NotificationChannel:</td><td>Channel to send notification through it (Web service, FileShare...) .</td></tr>
-<tr><td>personUuids:</td><td>Array of persons UUIDs that you want to subscribe their events. Null for all persons</td></tr>
+<tr><td>personUuids:</td><td>Array of persons UUIDs that you want to subscribe their events. Null for all persons.</td></tr>
 </table>
 
 <br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item: ChangeSubscriptionType that represents the newly created subscription object
-
-<br><br><b><u>Notes:</u></b>
-<br> The component will keep track on any person that has already has been queried
-once.
+<br>Item: An object of type ChangeSubscriptionType that represents the newly created subscription object.
 
 <br><br><b><u>Review:</u></b>
 <table>
@@ -82,19 +78,19 @@ once.
 <br>==============================
 ";
         public const string Unsubscribe = @"
-Removes a subscription.
+Removes a subscription. The subscription can not be used any further, and will be deleted with all its notification history.
 
 <br><br><b><u>Signature:</u></b>
 <br>BasicOutputTypeOfBoolean Unsubscribe(Guid SubscriptionId)
 
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
-<tr><td>SubscriptionId:</td><td>Subscription Id that you want to remove its subscription.</td></tr>
+<tr><td>SubscriptionId:</td><td>The UUID of the subscription to be removed.</td></tr>
 </table>
 
 <br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item: boolean that represents whether the operation has succeeded.
+<br>Item: A boolean value that represents whether the operation has succeeded.
 
 <br><br><b><u>Review:</u></b>
 <table>
@@ -114,14 +110,14 @@ minus 3 weeks. This subscription can be created for all persons or for a specifi
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
 <tr><td>NotificationChannel:</td><td>Channel to send notification through it (Web service, FileShare...) .</td></tr>
-<tr><td>Years:</td><td>Years.</td></tr>
-<tr><td>PriorDays:</td><td>Prior days.</td></tr>
-<tr><td>personUuids:</td><td>Array of persons uuids that you want to subscribe the their events. Null for all persons</td></tr>
+<tr><td>Years:</td><td>Age of the person (in years) at which the notification should be fired. Null for every year.</td></tr>
+<tr><td>PriorDays:</td><td>The period before the actual birthdate event (in days) at which the notification should be fired.</td></tr>
+<tr><td>personUuids:</td><td>Array of persons uuids that you want to subscribe the their events. Null for all persons.</td></tr>
 </table>
 
 <br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item: BirthdateSubscriptionType that represents the created subscription object.
+<br>Item: An object of type BirthdateSubscriptionType that represents the created subscription object.
 
 <br><br><b><u>Review:</u></b>
 <table>
@@ -137,12 +133,12 @@ Removes one extended subscription for a user application.
 
 <br><br><b><u>Parameter Description:</u></b>
 <br><table>
-<tr><td>SubscriptionId:</td><td>Subscription Id that you want to remove its subscription.</td></tr>
+<tr><td>SubscriptionId:</td><td>The UUID of the subscription to be removed.</td></tr>
 </table>
 
 <br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item: boolean that represents whether the operation has succeeded.
+<br>Item: A boolean value that represents whether the operation has succeeded.
 
 <br><br><b><u>Review:</u></b>
 <table>
@@ -161,7 +157,7 @@ Allows a business application to get a list of all subscriptions
 
 <br><br><b><u>Return value copmponents:</u></b>
 <br>StandardRetur: Detailed status code and text.
-<br>Item: Array of SubscriptionType that represents the current subscriptions
+<br>Item: Array of SubscriptionType that represents the current subscriptions. Only subscriptions belonging to the caller application are retrieved.
 
 <br><br><b><u>Review:</u></b>
 <table>
