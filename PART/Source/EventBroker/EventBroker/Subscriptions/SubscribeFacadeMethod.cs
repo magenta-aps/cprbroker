@@ -124,13 +124,14 @@ namespace CprBroker.EventBroker
             {
                 if (channel == null || !channel.IsAlive())
                 {
+                    // TODO: Call StandardReturType.UnreachableChannel()
                     return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Unreachable channel");
                 }
             }
             catch (Exception ex)
             {
                 Engine.Local.Admin.LogException(ex);
-
+                // TODO: Call StandardReturType.UnreachableChannel()
                 return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, "Unreachable channel");
             }
             return StandardReturType.OK();
