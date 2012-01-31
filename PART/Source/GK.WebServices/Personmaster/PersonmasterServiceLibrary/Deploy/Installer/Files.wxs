@@ -29,17 +29,11 @@
       <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Common.pdb" Directory="bin">
         <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Common.pdb" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Common.pdb" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Common.xml" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Common.xml" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Common.xml" KeyPath="yes"/>
-      </Component>
       <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Data.dll" Directory="bin">
         <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Data.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Data.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Data.pdb" Directory="bin">
         <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Data.pdb" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Data.pdb" KeyPath="yes"/>
-      </Component>
-      <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Data.xml" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Data.xml" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Data.xml" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Directory="bin">
         <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
