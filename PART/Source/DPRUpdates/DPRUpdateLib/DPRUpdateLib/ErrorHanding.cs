@@ -52,27 +52,24 @@ using System.Text;
 using GKApp2010.Core;
 
 namespace DPRUpdateLib
-{
-    public class ErrorHanding
-    {
-    }
+{  
 
     // ================================================================================
-    public class DPRUpdBrokerRequestException : GKAException
+    public class BrokerRequestException : GKAException
     {
         // -----------------------------------------------------------------------------
-        public DPRUpdBrokerRequestException()
+        public BrokerRequestException()
         {
         }
 
         // -----------------------------------------------------------------------------
-        public DPRUpdBrokerRequestException(string message)
+        public BrokerRequestException(string message)
             : base(message)
         {
         }
 
         // -----------------------------------------------------------------------------
-        public DPRUpdBrokerRequestException(string message, Exception inner)
+        public BrokerRequestException(string message, Exception inner)
             : base(message, inner)
         {
         }

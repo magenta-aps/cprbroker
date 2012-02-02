@@ -263,7 +263,7 @@ namespace DPRUpdateLib
                     }
                     else
                     {
-                        throw new DPRUpdBrokerRequestException("*** ERROR: GetRefresh unexpected returned false. ", null);
+                        throw new BrokerRequestException("*** ERROR: GetRefresh unexpected returned false. ", null);
                     }
                 }
 
@@ -343,7 +343,7 @@ namespace DPRUpdateLib
             catch (Exception ex)
             {
                 string msg = "Call to CPRBroker service (URL=[" + _CPRBrokerServiceURL + "]) failed inside DPRUpdateLib.Runner.GetRefresh() .";
-                throw new DPRUpdBrokerRequestException(msg, ex);
+                throw new BrokerRequestException(msg, ex);
             }
 
             return success;
