@@ -43,8 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Runner.cs" />
+    <Compile Include="UpdateDetectionVariables.cs" />
     <Compile Include="UpdatedStagingBatch.cs" />
-    <Compile Include="DPRUpdatedStagingBatch.cs" />
     <Compile Include="ErrorHanding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -52,7 +52,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="DPRRunner.cs" />
     <Compile Include="Web References\CPRBroker.Part\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

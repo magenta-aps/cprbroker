@@ -56,32 +56,26 @@ using GKApp2010.Threads;
 namespace DPRUpdateLib
 {
     // ================================================================================
-    public abstract class UpdatedStagingBatch
+    public class UpdatedStagingBatch
     {
+        UpdateDetectionVariables _UpdateDetectionVariables;
         IsStopRequestedFunc _shouldIStop = null;
         DataSet dsUpdatedCPRs = null;
 
         // -----------------------------------------------------------------------------
-        public UpdatedStagingBatch(IsStopRequestedFunc shouldIStop)
+        public UpdatedStagingBatch(UpdateDetectionVariables updateDetectionVariables, IsStopRequestedFunc shouldIStop)
         {
+            _UpdateDetectionVariables = updateDetectionVariables;
             _shouldIStop = shouldIStop;
 
             GetBatchFromDB();
         }
 
-        public abstract string PnrColumnName { get; }
-        public abstract string IdColumnName { get; }
-        public abstract string StagingTableName { get; }
-        public abstract string ConnectionStringName { get; }
-        public abstract string TableColumnName { get; }
-        public abstract string TimestampColumnName { get; }
-        public abstract string SchemaName { get; }
-
         public string DatabaseName
         {
             get
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(GKApp2010.Config.Default.GetConnectionString(ConnectionStringName));
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(GKApp2010.Config.Default.GetConnectionString(_UpdateDetectionVariables.ConnectionStringName));
                 return builder.InitialCatalog;
             }
         }
@@ -99,7 +93,7 @@ namespace DPRUpdateLib
                 DataTable dt = dsUpdatedCPRs.Tables[0];
                 if (dt != null)
                 {
-                    int pnrColIdx = dt.Columns.IndexOf(PnrColumnName);
+                    int pnrColIdx = dt.Columns.IndexOf(_UpdateDetectionVariables.PnrColumnName);
 
                     decimal prevPnr = 0m;
                     foreach (DataRow row in dt.Rows)
@@ -134,9 +128,9 @@ namespace DPRUpdateLib
                 {
                     decimal pnr = GetCprNoAsDecimalFromString(cprNo);
 
-                    DataRow[] rowsForThisPerson = dt.Select(PnrColumnName + "=" + pnr.ToString());
+                    DataRow[] rowsForThisPerson = dt.Select(_UpdateDetectionVariables.PnrColumnName + "=" + pnr.ToString());
 
-                    int idColIdx = dt.Columns.IndexOf(IdColumnName);
+                    int idColIdx = dt.Columns.IndexOf(_UpdateDetectionVariables.IdColumnName);
 
                     StringBuilder sb = new StringBuilder();
                     foreach (DataRow row in rowsForThisPerson)
@@ -153,9 +147,9 @@ namespace DPRUpdateLib
                     delStmt = delStmt.Substring(0, delStmt.Length - 1);
 
                     // Build delete statement to delete this persons rows from batch ()
-                    delStmt = "DELETE FROM [" + DatabaseName + "].[" + SchemaName + "].[" + StagingTableName + "] WHERE [" + IdColumnName + "] IN (" + delStmt + ")";
+                    delStmt = "DELETE FROM [" + DatabaseName + "].[" + _UpdateDetectionVariables.SchemaName + "].[" + _UpdateDetectionVariables.StagingTableName + "] WHERE [" + _UpdateDetectionVariables.IdColumnName + "] IN (" + delStmt + ")";
 
-                    CRUDContext dbCtx = new CRUDContext(ConnectionStringName, delStmt);
+                    CRUDContext dbCtx = new CRUDContext(_UpdateDetectionVariables.ConnectionStringName, delStmt);
 
                     int rowCnt = dbCtx.ExecuteNonQuery();
                 }
@@ -165,9 +159,9 @@ namespace DPRUpdateLib
         // -----------------------------------------------------------------------------
         private void GetBatchFromDB()
         {
-            string sqlStmt = "SELECT [" + IdColumnName + "], [" + PnrColumnName + "], [" + TableColumnName + "], [" + TimestampColumnName + "] FROM [" + DatabaseName + "].[" + SchemaName + "].[" + StagingTableName + "]";
+            string sqlStmt = "SELECT [" + _UpdateDetectionVariables.IdColumnName + "], [" + _UpdateDetectionVariables.PnrColumnName + "], [" + _UpdateDetectionVariables.TableColumnName + "], [" + _UpdateDetectionVariables.TimestampColumnName + "] FROM [" + DatabaseName + "].[" + _UpdateDetectionVariables.SchemaName + "].[" + _UpdateDetectionVariables.StagingTableName + "]";
 
-            CRUDContext dbCtx = new CRUDContext(ConnectionStringName, sqlStmt);
+            CRUDContext dbCtx = new CRUDContext(_UpdateDetectionVariables.ConnectionStringName, sqlStmt);
             dsUpdatedCPRs = dbCtx.ExecuteDataSet();
         }
 

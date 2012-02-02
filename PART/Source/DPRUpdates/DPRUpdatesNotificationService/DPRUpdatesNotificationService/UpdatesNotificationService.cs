@@ -65,14 +65,12 @@ namespace DPRUpdatesNotification
     {
         Runner run = null;
 
-        protected abstract Runner CreateRunner(HaltOperationDelegate haltOperationFunc);
-
         // -----------------------------------------------------------------------------
-        public UpdatesNotificationService()
+        public UpdatesNotificationService(UpdateDetectionVariables updateDetectionVariables)
         {
             AutoLog = true;
 
-            run = CreateRunner(HaltOperation);
+            run = new Runner(updateDetectionVariables, HaltOperation);
 
             run.SetCPRBrokerServiceURL(Properties.Settings.Default.CPRBrokerPartServiceUrl);
             run.SetCPRBrokerAppToken(Properties.Settings.Default.ApplicationToken);

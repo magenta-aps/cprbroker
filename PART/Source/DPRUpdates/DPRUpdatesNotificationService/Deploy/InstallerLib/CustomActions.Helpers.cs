@@ -56,7 +56,7 @@ namespace InstallerLib
 
         private static string GetConfigFileName(Session session)
         {
-            return string.Format("{0}bin\\{1}.config", session.GetInstallDirProperty(), ServiceExeFileName);
+            return string.Format("{0}bin\\{1}.config", session.GetInstallDirProperty(), _UpdateDetectionVariables.ServiceExeFileName);
         }
         private static void UpdateConfigFile(Session session, string appToken)
         {
@@ -88,14 +88,14 @@ namespace InstallerLib
         {
             CprBroker.Installers.Installation.RunCommand(
                 string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
-                string.Format("/i \"{0}bin\\{1}\"", session.GetInstallDirProperty(), ServiceExeFileName)
+                string.Format("/i \"{0}bin\\{1}\"", session.GetInstallDirProperty(), _UpdateDetectionVariables.ServiceExeFileName)
             );
-            new System.ServiceProcess.ServiceController(ServiceName).Start();
+            new System.ServiceProcess.ServiceController(_UpdateDetectionVariables.ServiceName).Start();
         }
 
         private static void StopService(Session session)
         {
-            var controller = new System.ServiceProcess.ServiceController(ServiceName);
+            var controller = new System.ServiceProcess.ServiceController(_UpdateDetectionVariables.ServiceName);
             if (controller.CanStop)
                 controller.Stop();
         }
@@ -104,7 +104,7 @@ namespace InstallerLib
         {
             CprBroker.Installers.Installation.RunCommand(
                 string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
-                string.Format("/u \"{0}bin\\{1}\"", session.GetInstallDirProperty(), ServiceExeFileName)
+                string.Format("/u \"{0}bin\\{1}\"", session.GetInstallDirProperty(), _UpdateDetectionVariables.ServiceExeFileName)
             );
         }
 

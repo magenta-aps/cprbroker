@@ -92,12 +92,6 @@
     <Compile Include="UpdatesNotificationService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DPRUpdatesNotificationService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DPRUpdatesNotificationService.Designer.cs">
-      <DependentUpon>DPRUpdatesNotificationService.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>

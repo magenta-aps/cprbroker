@@ -7,13 +7,13 @@ using Microsoft.Deployment.WindowsInstaller;
 using System.Data.SqlClient;
 using CprBroker.Installers;
 using CprBroker.Utilities;
+using DPRUpdateLib;
 
 namespace InstallerLib
 {
     public partial class CustomActions
     {
-        private static readonly string ServiceExeFileName = "DPRUpdatesNotificationService.exe";
-        private static readonly string ServiceName = "DPR Updates Notification Service";
+        private static UpdateDetectionVariables _UpdateDetectionVariables = new DPRUpdateDetectionVariables();
 
         [CustomAction]
         public static ActionResult AppSearch_DB(Session session)
@@ -60,16 +60,16 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, _UpdateDetectionVariables.DatabaseFeatureName);
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.crebas, databaseSetupInfo);
-            DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { "T_DPRUpdateStaging" });
+            DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { _UpdateDetectionVariables.StagingTableName });
             return ActionResult.Success;
         }
 
         [CustomAction]
         public static ActionResult RollbackDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, _UpdateDetectionVariables.DatabaseFeatureName);
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
             DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             return ActionResult.Success;
@@ -78,7 +78,7 @@ namespace InstallerLib
         [CustomAction]
         public static ActionResult RemoveDatabase(Session session)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, _UpdateDetectionVariables.DatabaseFeatureName);
             DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
             {
                 SetupInfo = databaseSetupInfo,
@@ -87,7 +87,7 @@ namespace InstallerLib
                 NoText = "No, keep the database objects",
                 YesText = "Yes, drop the database objects"
             };
-            
+
 
             if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
             {

@@ -59,11 +59,9 @@ namespace DPRUpdateLib
     public delegate void HaltOperationDelegate(Exception ex, string auxMessage);
 
     // ================================================================================
-    public abstract class Runner : GKABase
+    public class Runner : GKABase
     {
-        protected abstract string Tag { get; }
-        protected abstract string ServiceName { get; }
-
+        private UpdateDetectionVariables _UpdateDetectionVariables = null;
         private HaltOperationDelegate _haltOperationFunc = null;
 
         private const int _WildRunningMinimumWaitInterval = 500;
@@ -89,8 +87,9 @@ namespace DPRUpdateLib
 
         #region constructors
         // -----------------------------------------------------------------------------
-        public Runner(HaltOperationDelegate haltOperationFunc)
+        public Runner(UpdateDetectionVariables updateDetectionVariables, HaltOperationDelegate haltOperationFunc)
         {
+            _UpdateDetectionVariables = updateDetectionVariables;
             SetHaltOperation(haltOperationFunc);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
         }
@@ -133,10 +132,10 @@ namespace DPRUpdateLib
                     if (_stopped == true)
                     {
                         LogHelper.LogToFile("-----------------------------------------------------------------------------");
-                        LogHelper.LogToFile("INFO: Attempting to START " + ServiceName + "...");
+                        LogHelper.LogToFile("INFO: Attempting to START " + _UpdateDetectionVariables.ServiceName + "...");
 
                         // Start process thread
-                        _worker = new WorkerThread(DoOneBatch, Tag);
+                        _worker = new WorkerThread(DoOneBatch, _UpdateDetectionVariables.Tag);
 
                         _stopRequestedFunc = _worker.IsStopRequested;
                         _worker.Start();
@@ -148,7 +147,7 @@ namespace DPRUpdateLib
                         LogHelper.LogToFile("INFO: Runtime identity=[" + _runIdentity + "]");
                         LogHelper.LogToFile("INFO: Batch run attempted every " + _pollInterval.ToString() + " seconds!");
 
-                        LogHelper.LogToFile("INFO: " + ServiceName + "...");
+                        LogHelper.LogToFile("INFO: " + _UpdateDetectionVariables.ServiceName + "...");
                         LogHelper.LogToFile("INFO: ---");
                     }
                 }
@@ -187,7 +186,7 @@ namespace DPRUpdateLib
                         _stopped = true;
 
                         LogHelper.LogToFile("INFO: ---");
-                        LogHelper.LogToFile("INFO: " + ServiceName + " was stopped!");
+                        LogHelper.LogToFile("INFO: " + _UpdateDetectionVariables.ServiceName + " was stopped!");
                     }
                 }
             }
@@ -235,7 +234,6 @@ namespace DPRUpdateLib
             _haltOperationFunc(ex, "*** FATAL: An uncaught exception was thrown from somewhere inside the UpdateLib.Runner class. ");
         }
 
-        protected abstract UpdatedStagingBatch CreateUpdatedStagingBatch(IsStopRequestedFunc stopRequestedFunc);
 
         // -----------------------------------------------------------------------------
         private int DoOneBatch()
@@ -245,7 +243,7 @@ namespace DPRUpdateLib
 
             try
             {
-                batch = CreateUpdatedStagingBatch(_stopRequestedFunc);
+                batch = new UpdatedStagingBatch(_UpdateDetectionVariables, _stopRequestedFunc);
                 updatedPersons = batch.GetUpdatedPersonsList();
 
                 int noOfPersonsProcessed = 0;
