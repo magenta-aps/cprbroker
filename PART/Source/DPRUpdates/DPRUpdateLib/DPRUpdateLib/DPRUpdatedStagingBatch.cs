@@ -55,132 +55,49 @@ using GKApp2010.Threads;
 namespace DPRUpdateLib
 {
     // ================================================================================
-    public class DPRUpdatedStagingBatch
+    public class DPRUpdatedStagingBatch : UpdatedStagingBatch
     {
-        IsStopRequestedFunc _shouldIStop = null;
-        DataSet dsUpdatedCPRs = null;
-
         // -----------------------------------------------------------------------------
         public DPRUpdatedStagingBatch(IsStopRequestedFunc shouldIStop)
+            : base(shouldIStop)
         {
-            _shouldIStop = shouldIStop;
 
-            GetBatchFromDB();
         }
 
-        // -----------------------------------------------------------------------------
-        public List<string> GetUpdatedPersonsList()
+        public override string ConnectionStringName
         {
-            List<string> updatedPersons = new List<string>();
-
-            updatedPersons.Clear();
-
-            //int cnt = 0;
-            if (dsUpdatedCPRs != null)
-            {
-                DataTable dt = dsUpdatedCPRs.Tables[0];
-                if (dt != null)
-                {
-                    int pnrColIdx = dt.Columns.IndexOf("PNR");
-
-                    decimal prevPnr = 0m;
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        if (ShouldIStop())
-                            break;
-
-                        decimal currPnr = (decimal)row[pnrColIdx];
-
-                        if (prevPnr != currPnr)
-                        {
-                            updatedPersons.Add(GetCprNoAsStringFromDecimal(currPnr));
-                            prevPnr = currPnr;
-                        }
-
-                        //cnt++;
-                    }
-                }
-            }
-
-            //Console.WriteLine("Noof recs=(" + cnt.ToString() + ")");
-            return updatedPersons;
+            get { return "DPRUpdates"; }
         }
 
-        // -----------------------------------------------------------------------------
-        public void DeletePersonFromStaging(string cprNo)
+        public override string PnrColumnName
         {
-            if (dsUpdatedCPRs != null)
-            {
-                DataTable dt = dsUpdatedCPRs.Tables[0];
-                if (dt != null)
-                {
-                    decimal pnr = GetCprNoAsDecimalFromString(cprNo);
-
-                    DataRow[] rowsForThisPerson = dt.Select("PNR=" + pnr.ToString());
-
-                    int idColIdx = dt.Columns.IndexOf("Id");
-
-                    StringBuilder sb = new StringBuilder();
-                    foreach (DataRow row in rowsForThisPerson)
-                    {
-                        if (ShouldIStop())
-                            return;
-
-                        sb.Append(row[idColIdx].ToString() + ",");
-                    }
-
-                    string delStmt = sb.ToString();
-
-                    // Remove trailing delimiter
-                    delStmt = delStmt.Substring(0, delStmt.Length - 1);
-
-                    // Build delete statement to delete this persons rows from batch ()
-                    delStmt = "DELETE FROM [DPR].[dbo].[T_DPRUpdateStaging] WHERE [Id] IN (" + delStmt + ")";
-
-                    CRUDContext dbCtx = new CRUDContext("DPRUpdates", delStmt);
-
-                    int rowCnt = dbCtx.ExecuteNonQuery();
-                }
-            }
+            get { return "PNR"; }
         }
 
-        // -----------------------------------------------------------------------------
-        private void GetBatchFromDB()
+        public override string IdColumnName
         {
-            string sqlStmt = "SELECT [Id], [PNR], [DPRTable], [CreateTS] FROM [DPR].[dbo].[T_DPRUpdateStaging]";
-
-            CRUDContext dbCtx = new CRUDContext("DPRUpdates", sqlStmt);
-            dsUpdatedCPRs = dbCtx.ExecuteDataSet();
+            get { return "Id"; }
         }
 
-        // -----------------------------------------------------------------------------
-        private string GetCprNoAsStringFromDecimal(decimal cprAsDecimal)
+        public override string StagingTableName
         {
-            string cprno = "";
-
-            cprno = cprAsDecimal.ToString();
-            if (cprno.Length == 9)
-            {
-                cprno = "0" + cprno;
-            }
-
-            return cprno;
+            get { return "T_DPRUpdateStaging"; }
         }
 
-        // -----------------------------------------------------------------------------
-        private decimal GetCprNoAsDecimalFromString(string cprAsString)
+        public override string TableColumnName
         {
-            decimal cprno = 0;
-
-            cprno = Convert.ToDecimal(cprAsString);
-
-            return cprno;
+            get { return "DPRTable"; }
         }
 
-        // -----------------------------------------------------------------------------
-        private bool ShouldIStop()
+        public override string TimestampColumnName
         {
-            return (_shouldIStop != null ? _shouldIStop() : false);
+            get { return "CreateTS"; }
         }
+
+        public override string SchemaName
+        {
+            get { return "dbo"; }
+        }
+
     }
 }
