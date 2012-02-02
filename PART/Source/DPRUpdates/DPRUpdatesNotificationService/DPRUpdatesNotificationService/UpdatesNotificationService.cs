@@ -61,20 +61,54 @@ using GKApp2010.Core;
 namespace DPRUpdatesNotification
 {
     // ================================================================================
-    partial class DPRUpdatesNotificationService : UpdatesNotificationService
+    partial class UpdatesNotificationService : ServiceBase
     {
-        protected override Runner CreateRunner(HaltOperationDelegate haltOperationFunc)
-        {
-            return new DPRRunner(HaltOperation);
-        }
+        Runner run = null;
 
+        protected abstract Runner CreateRunner(HaltOperationDelegate haltOperationFunc);
 
         // -----------------------------------------------------------------------------
-        public DPRUpdatesNotificationService()
-            : base()
+        public UpdatesNotificationService()
         {
-            InitializeComponent();
+            AutoLog = true;
+
+            run = CreateRunner(HaltOperation);
+
+            run.SetCPRBrokerServiceURL(Properties.Settings.Default.CPRBrokerPartServiceUrl);
+            run.SetCPRBrokerAppToken(Properties.Settings.Default.ApplicationToken);
         }
 
+        // -----------------------------------------------------------------------------
+        protected override void OnStart(string[] args)
+        {
+            try
+            {
+                run.Start();
+            }
+            catch (Exception ex)
+            {
+                HaltOperation(ex, "*** FATAL: An exception was thrown during service start up (onStart()). ");
+            }
+        }
+
+        // -----------------------------------------------------------------------------
+        protected override void OnStop()
+        {
+            run.Stop();
+        }
+
+        // -----------------------------------------------------------------------------
+        public void HaltOperation(Exception ex, string auxMessage)
+        {
+            string msg = ExceptionMessageBuilder.Build(auxMessage, ex);
+
+            LogHelper.LogToFile(msg);
+            EventLog.WriteEntry(msg, EventLogEntryType.Error);
+            MailHelper.SendMessage(msg);
+
+            // Wait a second, then re throw to let environment handle proces termination
+
+            throw ex;
+        }
     }
 }

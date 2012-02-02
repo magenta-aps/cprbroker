@@ -89,6 +89,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UpdatesNotificationService.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DPRUpdatesNotificationService.cs">
       <SubType>Component</SubType>
     </Compile>
