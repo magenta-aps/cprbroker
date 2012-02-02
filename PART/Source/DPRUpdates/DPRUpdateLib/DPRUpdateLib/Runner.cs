@@ -59,15 +59,15 @@ namespace DPRUpdateLib
     public delegate void HaltOperationDelegate(Exception ex, string auxMessage);
 
     // ================================================================================
-    public class Runner : GKABase
+    public abstract class Runner : GKABase
     {
+        protected abstract string Tag { get; }
+        protected abstract string ServiceName { get; }
+
         private HaltOperationDelegate _haltOperationFunc = null;
 
         private const int _WildRunningMinimumWaitInterval = 500;
-
         private WorkerThread _worker = null;
-        private string _tag = "DPRUpdateLib.Runner";
-
         private object _stoppedLock = new object();
         private bool _stopped = true;
 
@@ -125,7 +125,7 @@ namespace DPRUpdateLib
 
                 if (Disposed)
                 {
-                    throw new ObjectDisposedException("DPRUpdateLib.Runner.Start()", "Object is disposed");
+                    throw new ObjectDisposedException("UpdateLib.Runner.Start()", "Object is disposed");
                 }
 
                 lock (_stoppedLock)
@@ -133,10 +133,10 @@ namespace DPRUpdateLib
                     if (_stopped == true)
                     {
                         LogHelper.LogToFile("-----------------------------------------------------------------------------");
-                        LogHelper.LogToFile("INFO: Attempting to START DPR Updates Notification Service...");
+                        LogHelper.LogToFile("INFO: Attempting to START " + ServiceName + "...");
 
                         // Start process thread
-                        _worker = new WorkerThread(DoOneBatch, _tag);
+                        _worker = new WorkerThread(DoOneBatch, Tag);
 
                         _stopRequestedFunc = _worker.IsStopRequested;
                         _worker.Start();
@@ -148,7 +148,7 @@ namespace DPRUpdateLib
                         LogHelper.LogToFile("INFO: Runtime identity=[" + _runIdentity + "]");
                         LogHelper.LogToFile("INFO: Batch run attempted every " + _pollInterval.ToString() + " seconds!");
 
-                        LogHelper.LogToFile("INFO: DPR Updates Notification Service running...");
+                        LogHelper.LogToFile("INFO: " + ServiceName + "...");
                         LogHelper.LogToFile("INFO: ---");
                     }
                 }
@@ -170,7 +170,7 @@ namespace DPRUpdateLib
             {
                 if (Disposed)
                 {
-                    throw new ObjectDisposedException("DPRUpdateLib.Runner.Stop()", "Object is disposed");
+                    throw new ObjectDisposedException("UpdateLib.Runner.Stop()", "Object is disposed");
                 }
 
                 DisposePollTimer();
@@ -187,7 +187,7 @@ namespace DPRUpdateLib
                         _stopped = true;
 
                         LogHelper.LogToFile("INFO: ---");
-                        LogHelper.LogToFile("INFO: DPR Updates Notification Service was stopped!");
+                        LogHelper.LogToFile("INFO: " + ServiceName + " was stopped!");
                     }
                 }
             }
@@ -232,18 +232,20 @@ namespace DPRUpdateLib
         {
             Exception ex = (Exception)e.ExceptionObject;
 
-            _haltOperationFunc(ex, "*** FATAL: An uncaught exception was thrown from somewhere inside the DPRUpdateLib.Runner class. ");
+            _haltOperationFunc(ex, "*** FATAL: An uncaught exception was thrown from somewhere inside the UpdateLib.Runner class. ");
         }
+
+        protected abstract UpdatedStagingBatch CreateUpdatedStagingBatch(IsStopRequestedFunc stopRequestedFunc);
 
         // -----------------------------------------------------------------------------
         private int DoOneBatch()
         {
-            DPRUpdatedStagingBatch batch = null;
+            UpdatedStagingBatch batch = null;
             List<string> updatedPersons = null;
 
             try
             {
-                batch = new DPRUpdatedStagingBatch(_stopRequestedFunc);
+                batch = CreateUpdatedStagingBatch(_stopRequestedFunc);
                 updatedPersons = batch.GetUpdatedPersonsList();
 
                 int noOfPersonsProcessed = 0;
@@ -282,7 +284,7 @@ namespace DPRUpdateLib
             }
             catch (Exception ex)
             {
-                string msg = ExceptionMessageBuilder.Build("*** ERROR: An exception was thrown inside DPRUpdateLib.Runner.DoOneBatch(). ", ex);
+                string msg = ExceptionMessageBuilder.Build("*** ERROR: An exception was thrown inside UpdateLib.Runner.DoOneBatch(). ", ex);
                 LogHelper.LogToFile(msg);
 
                 _noOfMinorErrors++;
@@ -302,7 +304,7 @@ namespace DPRUpdateLib
 
         // -----------------------------------------------------------------------------
         /// <summary>
-        /// This method actually calls the CPR-Broker service, to refresh() itself from DPR.
+        /// This method actually calls the CPR-Broker service, to refresh() itself from database.
         /// </summary>
         /// <param name="cprNo"></param>
         /// <returns></returns>
@@ -342,7 +344,7 @@ namespace DPRUpdateLib
             }
             catch (Exception ex)
             {
-                string msg = "Call to CPRBroker service (URL=[" + _CPRBrokerServiceURL + "]) failed inside DPRUpdateLib.Runner.GetRefresh() .";
+                string msg = "Call to CPRBroker service (URL=[" + _CPRBrokerServiceURL + "]) failed inside UpdateLib.Runner.GetRefresh() .";
                 throw new BrokerRequestException(msg, ex);
             }
 
