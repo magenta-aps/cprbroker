@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPRUpdatesNotificationService", "DPRUpdatesNotificationService\DPRUpdatesNotificationService.csproj", "{056549B2-8354-48CA-8AA3-4C8F205DC327}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateLib", "..\DPRUpdateLib\DPRUpdateLib\UpdateLib.csproj", "{CFCD510E-E2BA-48D6-955A-D9992BF85B18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateLib", "..\Core\UpdateLib\UpdateLib.csproj", "{CFCD510E-E2BA-48D6-955A-D9992BF85B18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKApp2010", "..\..\Lib\GKApp2010\GKApp2010.csproj", "{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKApp2010", "..\Lib\GKApp2010\GKApp2010.csproj", "{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DPRUpdatesInstaller", "Deploy\Installer\DPRUpdatesInstaller.wixproj", "{2C6FC71D-89FC-4CA8-9D0E-F0045DAC6346}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DPRUpdatesInstaller", "DPRUpdatesInstaller\DPRUpdatesInstaller.wixproj", "{2C6FC71D-89FC-4CA8-9D0E-F0045DAC6346}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
