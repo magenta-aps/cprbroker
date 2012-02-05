@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may   
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="BasicOutputTypeOfArrayOfServiceVersionType" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>InstallerLib.AdminService.BasicOutputTypeOfArrayOfServiceVersionType, Web References.AdminService.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+<GenericObjectDataSource DisplayName="BasicOutputTypeOfArrayOfDataProviderType" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+   <TypeInfo>UpdateLib.AdminService.BasicOutputTypeOfArrayOfDataProviderType</TypeInfo>
 </GenericObjectDataSource>

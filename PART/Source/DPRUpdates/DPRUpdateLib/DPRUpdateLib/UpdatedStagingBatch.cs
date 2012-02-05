@@ -53,7 +53,7 @@ using System.Text;
 using GKApp2010.DB;
 using GKApp2010.Threads;
 
-namespace DPRUpdateLib
+namespace UpdateLib
 {
     // ================================================================================
     public class UpdatedStagingBatch

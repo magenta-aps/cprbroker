@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using GKApp2010.RTE;
-using DPRUpdateLib;
+using UpdateLib;
 
 namespace DPRUpdatesNotification
 {

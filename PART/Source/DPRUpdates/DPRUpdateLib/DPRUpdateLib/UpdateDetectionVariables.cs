@@ -5,7 +5,7 @@ using System.Text;
 
 using GKApp2010.RTE;
 
-namespace DPRUpdateLib
+namespace UpdateLib
 {
     public abstract class UpdateDetectionVariables
     {

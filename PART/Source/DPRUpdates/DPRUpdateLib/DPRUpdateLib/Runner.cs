@@ -54,7 +54,7 @@ using GKApp2010.Common;
 using GKApp2010.Core;
 using GKApp2010.Threads;
 
-namespace DPRUpdateLib
+namespace UpdateLib
 {
     public delegate void HaltOperationDelegate(Exception ex, string auxMessage);
 

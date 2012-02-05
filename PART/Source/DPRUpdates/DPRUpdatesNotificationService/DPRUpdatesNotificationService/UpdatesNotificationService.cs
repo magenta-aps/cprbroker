@@ -53,7 +53,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 
-using DPRUpdateLib;
+using UpdateLib;
 
 using GKApp2010.Common;
 using GKApp2010.Core;

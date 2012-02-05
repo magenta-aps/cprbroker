@@ -8,7 +8,7 @@ using CprBroker.Installers;
 using CprBroker.Utilities;
 using Microsoft.Win32;
 
-namespace InstallerLib
+namespace UpdateLib
 {
     public partial class CustomActions
     {
@@ -54,13 +54,13 @@ namespace InstallerLib
             var response = service.UnregisterApp(appToken);
         }
 
-        private static string GetConfigFileName(Session session)
+        private static string GetConfigFileName(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            return string.Format("{0}bin\\{1}.config", session.GetInstallDirProperty(), _UpdateDetectionVariables.ServiceExeFileName);
+            return string.Format("{0}bin\\{1}.config", session.GetInstallDirProperty(), updateDetectionVariables.ServiceExeFileName);
         }
-        private static void UpdateConfigFile(Session session, string appToken)
+        private static void UpdateConfigFile(Session session, UpdateDetectionVariables updateDetectionVariables, string appToken)
         {
-            string configFileName = GetConfigFileName(session);
+            string configFileName = GetConfigFileName(session, updateDetectionVariables);
             // Connection string
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
             CprBroker.Installers.Installation.SetConnectionStringInConfigFile(
@@ -84,27 +84,27 @@ namespace InstallerLib
             );
         }
 
-        private static void InstallAndStartService(Session session)
+        private static void InstallAndStartService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
             CprBroker.Installers.Installation.RunCommand(
                 string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
-                string.Format("/i \"{0}bin\\{1}\"", session.GetInstallDirProperty(), _UpdateDetectionVariables.ServiceExeFileName)
+                string.Format("/i \"{0}bin\\{1}\"", session.GetInstallDirProperty(), updateDetectionVariables.ServiceExeFileName)
             );
-            new System.ServiceProcess.ServiceController(_UpdateDetectionVariables.ServiceName).Start();
+            new System.ServiceProcess.ServiceController(updateDetectionVariables.ServiceName).Start();
         }
 
-        private static void StopService(Session session)
+        private static void StopService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            var controller = new System.ServiceProcess.ServiceController(_UpdateDetectionVariables.ServiceName);
+            var controller = new System.ServiceProcess.ServiceController(updateDetectionVariables.ServiceName);
             if (controller.CanStop)
                 controller.Stop();
         }
 
-        private static void UnInstallService(Session session)
+        private static void UnInstallService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
             CprBroker.Installers.Installation.RunCommand(
                 string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(4, 0))),
-                string.Format("/u \"{0}bin\\{1}\"", session.GetInstallDirProperty(), _UpdateDetectionVariables.ServiceExeFileName)
+                string.Format("/u \"{0}bin\\{1}\"", session.GetInstallDirProperty(), updateDetectionVariables.ServiceExeFileName)
             );
         }
 

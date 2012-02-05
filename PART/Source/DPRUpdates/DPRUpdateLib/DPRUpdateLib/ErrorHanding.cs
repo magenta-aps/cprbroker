@@ -51,7 +51,7 @@ using System.Text;
 
 using GKApp2010.Core;
 
-namespace DPRUpdateLib
+namespace UpdateLib
 {  
 
     // ================================================================================

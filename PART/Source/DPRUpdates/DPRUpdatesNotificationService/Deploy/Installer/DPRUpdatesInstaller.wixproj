@@ -33,16 +33,6 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InstallerLib\InstallerLib.csproj">
-      <Name>InstallerLib</Name>
-      <Project>{3ab8e5f7-45af-4289-bd43-243fb00624f9}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WixLibrary Include="WixCommon">
       <HintPath>..\..\..\..\Core\Output\WixCommon.wixlib</HintPath>
       <Name>WixCommon</Name>

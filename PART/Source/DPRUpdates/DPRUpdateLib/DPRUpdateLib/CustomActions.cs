@@ -7,14 +7,11 @@ using Microsoft.Deployment.WindowsInstaller;
 using System.Data.SqlClient;
 using CprBroker.Installers;
 using CprBroker.Utilities;
-using DPRUpdateLib;
 
-namespace InstallerLib
+namespace UpdateLib
 {
     public partial class CustomActions
     {
-        private static UpdateDetectionVariables _UpdateDetectionVariables = new DPRUpdatesNotification.DPRUpdateDetectionVariables();
-
         [CustomAction]
         public static ActionResult AppSearch_DB(Session session)
         {
@@ -58,28 +55,28 @@ namespace InstallerLib
         }
 
         [CustomAction]
-        public static ActionResult DeployDatabase(Session session)
+        public static ActionResult DeployDatabase(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, _UpdateDetectionVariables.DatabaseFeatureName);
-            var ddl = _UpdateDetectionVariables.SubstituteDDL(Properties.Resources.crebas);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
+            var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.crebas);
             DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
-            DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { _UpdateDetectionVariables.StagingTableName });
+            DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { updateDetectionVariables.StagingTableName });
             return ActionResult.Success;
         }
 
         [CustomAction]
-        public static ActionResult RollbackDatabase(Session session)
+        public static ActionResult RollbackDatabase(Session session, UpdateDetectionVariables udateDetectionVariables)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, _UpdateDetectionVariables.DatabaseFeatureName);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, udateDetectionVariables.DatabaseFeatureName);
             DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
             DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             return ActionResult.Success;
         }
 
         [CustomAction]
-        public static ActionResult RemoveDatabase(Session session)
+        public static ActionResult RemoveDatabase(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, _UpdateDetectionVariables.DatabaseFeatureName);
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
             DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
             {
                 SetupInfo = databaseSetupInfo,
@@ -92,7 +89,7 @@ namespace InstallerLib
 
             if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
             {
-                var ddl = _UpdateDetectionVariables.SubstituteDDL(Properties.Resources.drpbas);
+                var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.drpbas);
                 DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
                 DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             }
@@ -120,14 +117,14 @@ namespace InstallerLib
         }
 
         [CustomAction]
-        public static ActionResult InstallDprUpdatesService(Session session)
+        public static ActionResult InstallUpdatesService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
             try
             {
                 string appToken = RegisterApplicationInCprBroker(session);
-                UpdateConfigFile(session, appToken);
+                UpdateConfigFile(session, updateDetectionVariables, appToken);
                 UpdateRegistry(session, appToken);
-                InstallAndStartService(session);
+                InstallAndStartService(session, updateDetectionVariables);
                 return ActionResult.Success;
             }
             catch (Exception ex)
@@ -138,13 +135,13 @@ namespace InstallerLib
         }
 
         [CustomAction]
-        public static ActionResult RollbackDprUpdatesService(Session session)
+        public static ActionResult RollbackDprUpdatesService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            return RemoveDprUpdatesService(session);
+            return RemoveDprUpdatesService(session, updateDetectionVariables);
         }
 
         [CustomAction]
-        public static ActionResult RemoveDprUpdatesService(Session session)
+        public static ActionResult RemoveDprUpdatesService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
             try
             {
@@ -156,7 +153,7 @@ namespace InstallerLib
             }
             try
             {
-                StopService(session);
+                StopService(session, updateDetectionVariables);
             }
             catch (Exception ex)
             {
@@ -164,7 +161,7 @@ namespace InstallerLib
             }
             try
             {
-                UnInstallService(session);
+                UnInstallService(session, updateDetectionVariables);
             }
             catch (Exception ex)
             {

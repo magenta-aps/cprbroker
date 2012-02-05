@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateLib", "..\DPRUpdateLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKApp2010", "..\..\Lib\GKApp2010\GKApp2010.csproj", "{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallerLib", "Deploy\InstallerLib\InstallerLib.csproj", "{3AB8E5F7-45AF-4289-BD43-243FB00624F9}"
-EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DPRUpdatesInstaller", "Deploy\Installer\DPRUpdatesInstaller.wixproj", "{2C6FC71D-89FC-4CA8-9D0E-F0045DAC6346}"
 EndProject
 Global
@@ -52,16 +50,6 @@ Global
 		{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}.Release|x86.ActiveCfg = Release|Any CPU
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Debug|x86.ActiveCfg = Debug|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Debug|x86.Build.0 = Debug|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Release|Any CPU.ActiveCfg = Release|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Release|Mixed Platforms.Build.0 = Release|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Release|x86.ActiveCfg = Release|x86
-		{3AB8E5F7-45AF-4289-BD43-243FB00624F9}.Release|x86.Build.0 = Release|x86
 		{2C6FC71D-89FC-4CA8-9D0E-F0045DAC6346}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{2C6FC71D-89FC-4CA8-9D0E-F0045DAC6346}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{2C6FC71D-89FC-4CA8-9D0E-F0045DAC6346}.Debug|Mixed Platforms.Build.0 = Debug|x86

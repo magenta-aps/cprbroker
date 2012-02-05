@@ -4,9 +4,9 @@
     <Property Id="Dummy_FilesFragmentRefProperty" Value="-"/>
 
     <ComponentGroup Id="CMPGRP_bin">      
-      <Component Id="CMP_DPRUpdateLib.dll" Directory="bin">
+      <!--<Component Id="CMP_DPRUpdateLib.dll" Directory="bin">
         <File Id="FILE_DPRUpdateLib.dll" Source="$(var.ServicePath)bin\Debug\DPRUpdateLib.dll" KeyPath="yes"/>
-      </Component>
+      </Component>-->
       <Component Id="CMP_DPRUpdateLib.XmlSerializers.dll" Directory="bin">
         <File Id="FILE_DPRUpdateLib.XmlSerializers.dll" Source="$(var.ServicePath)bin\Release\DPRUpdateLib.XmlSerializers.dll" KeyPath="yes"/>
       </Component>
