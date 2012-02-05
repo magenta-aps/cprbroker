@@ -70,6 +70,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -179,11 +180,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Lib\GKApp2010\GKApp2010.csproj">
+    <ProjectReference Include="..\..\Lib\GKApp2010\GKApp2010.csproj">
       <Project>{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}</Project>
       <Name>GKApp2010</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DPRUpdateLib\DPRUpdateLib\UpdateLib.csproj">
+    <ProjectReference Include="..\..\Core\UpdateLib\UpdateLib.csproj">
       <Project>{CFCD510E-E2BA-48D6-955A-D9992BF85B18}</Project>
       <Name>UpdateLib</Name>
     </ProjectReference>
@@ -213,8 +214,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Deploy\Output\ /y
-copy $(TargetName).CA.exe ..\..\..\Deploy\Output\ /y</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y
+copy $(TargetName).CA.exe ..\..\..\Output\ /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

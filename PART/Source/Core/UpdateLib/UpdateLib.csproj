@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CprBroker.Installers">
-      <HintPath>..\..\..\Core\Output\CprBroker.Installers.dll</HintPath>
+      <HintPath>..\Output\CprBroker.Installers.dll</HintPath>
     </Reference>
     <Reference Include="CprBroker.Utilities">
-      <HintPath>..\..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
+      <HintPath>..\Output\CprBroker.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -163,7 +164,7 @@
     <None Include="Web References\CPRBroker.Part\Part.disco" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Lib\GKApp2010\GKApp2010.csproj">
+    <ProjectReference Include="..\..\Lib\GKApp2010\GKApp2010.csproj">
       <Project>{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}</Project>
       <Name>GKApp2010</Name>
     </ProjectReference>

@@ -5,7 +5,7 @@
 
     <PropertyRef Id="Dummy_DatabaseFragmentRefProperty"/>
 
-    <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)InstallerLib.CA.dll"/>
+    <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)DPRUpdatesNotificationService.CA.exe"/>
 
     <WixVariable Id="DB_CreateDatabase" Value="True"/>
     <WixVariable Id="DB_EncryptionKeyEnabled" Value="False"/>
