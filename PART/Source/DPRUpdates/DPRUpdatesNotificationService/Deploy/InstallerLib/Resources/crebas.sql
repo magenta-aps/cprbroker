@@ -6,95 +6,82 @@
 
 if exists (select 1
           from sysobjects
-          where  id = object_id('fnGK_DPRUpdateStaging_Get_TriggerNamePrefix')
+          where  id = object_id('fnGK_<SystemName>UpdateStaging_Get_TriggerNamePrefix')
           and type in ('IF', 'FN', 'TF'))
-   drop function fnGK_DPRUpdateStaging_Get_TriggerNamePrefix
+   drop function fnGK_<SystemName>UpdateStaging_Get_TriggerNamePrefix
 go
 
 if exists (select 1
           from sysobjects
-          where  id = object_id('spGK_DPRUpdateStaging_ResetAllTriggers')
+          where  id = object_id('spGK_<SystemName>UpdateStaging_ResetAllTriggers')
           and type in ('P','PC'))
-   drop procedure spGK_DPRUpdateStaging_ResetAllTriggers
+   drop procedure spGK_<SystemName>UpdateStaging_ResetAllTriggers
 go
 
 if exists (select 1
           from sysobjects
-          where  id = object_id('spGK_DPRUpdateStaging_Create_Trigger')
+          where  id = object_id('spGK_<SystemName>UpdateStaging_Create_Trigger')
           and type in ('P','PC'))
-   drop procedure spGK_DPRUpdateStaging_Create_Trigger
+   drop procedure spGK_<SystemName>UpdateStaging_Create_Trigger
 go
 
 if exists (select 1
           from sysobjects
-          where  id = object_id('spGK_DPRUpdateStaging_Drop_Trigger')
+          where  id = object_id('spGK_<SystemName>UpdateStaging_Drop_Trigger')
           and type in ('P','PC'))
-   drop procedure spGK_DPRUpdateStaging_Drop_Trigger
+   drop procedure spGK_<SystemName>UpdateStaging_Drop_Trigger
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('T_DPRUpdateStaging')
+           where  id = object_id('<StagingTableName>')
             and   type = 'U')
-   drop table T_DPRUpdateStaging
+   drop table T_<SystemName>UpdateStaging
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('T_DPRUpdateStaging_DPRTable')
+           where  id = object_id('<TablesTableName>')
             and   type = 'U')
-   drop table T_DPRUpdateStaging_DPRTable
+   drop table <TablesTableName>
 go
 
 /*==============================================================*/
-/* Table: T_DPRUpdateStaging                                    */
+/* Table: T_<SystemName>UpdateStaging                                    */
 /*==============================================================*/
-create table T_DPRUpdateStaging (
-   Id                   int                  identity,
+create table <StagingTableName> (
+   <IdColumnName>                   int                  identity,
    PNR                  decimal(11)          not null,
-   DPRTable             varchar(120)         not null,
+   <TableColumnName>             varchar(120)         not null,
    CreateTS             datetime             not null,
-   constraint PK_T_DPRUPDATESTAGING primary key (Id)
+   constraint PK_T_<SystemName>UPDATESTAGING primary key (<IdColumnName>)
 )
 go
 
 /*==============================================================*/
-/* Table: T_DPRUpdateStaging_DPRTable                           */
+/* Table: <TablesTableName>                           */
 /*==============================================================*/
-create table T_DPRUpdateStaging_DPRTable (
-   Id                   int                  identity,
-   DPRTable             varchar(120)         not null,
-   constraint PK_T_DPRUPDATESTAGING_DPRTABLE primary key (Id)
+create table <TablesTableName> (
+   <IdColumnName>                   int                  identity,
+   <TableColumnName>             varchar(120)         not null,
+   constraint PK_<TablesTableName> primary key (Id)
 )
 go
 
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTBESKYT')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTBOERN')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTCIV')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTFORALDREMYND')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTFORSV')
--- INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTHAEN')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTKADR')
--- INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTKOMFOR')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTNAVNE')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTPERS')
--- INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTPERSBO')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTSEPARATION')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTSTAT')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTTOTAL')
-INSERT INTO T_DPRUpdateStaging_DPRTable (DPRTable) VALUES ('DTUDRIND')
+<InsertTableNames>
+
 GO
 
 
-CREATE FUNCTION fnGK_DPRUpdateStaging_Get_TriggerNamePrefix ()
+CREATE FUNCTION fnGK_<SystemName>UpdateStaging_Get_TriggerNamePrefix ()
 RETURNS NVARCHAR(120)
 BEGIN
-    RETURN 'trgGK_DPRUpdateStaging_'
+    RETURN 'trgGK_<SystemName>UpdateStaging_'
 END
 go
 
 
-CREATE PROCEDURE spGK_DPRUpdateStaging_Drop_Trigger
+CREATE PROCEDURE spGK_<SystemName>UpdateStaging_Drop_Trigger
     @triggerName  NVARCHAR(120)
 AS
     SET NOCOUNT ON
@@ -106,7 +93,7 @@ AS
     
     IF @triggerName = '' RETURN
     
-    IF CHARINDEX(dbo.fnGK_DPRUpdateStaging_Get_TriggerNamePrefix(), @triggerName) = 0 RETURN
+    IF CHARINDEX(dbo.fnGK_<SystemName>UpdateStaging_Get_TriggerNamePrefix(), @triggerName) = 0 RETURN
     
     -- Delete trigger if it exists
     SELECT @sqlStmt =
@@ -119,7 +106,7 @@ IF OBJECT_ID ( ''' + @triggerName + ''', ''TR'' ) IS NOT NULL DROP TRIGGER ' + @
 go
 
 
-CREATE PROCEDURE spGK_DPRUpdateStaging_Create_Trigger
+CREATE PROCEDURE spGK_<SystemName>UpdateStaging_Create_Trigger
     @tableName  NVARCHAR(120)
 AS
     SET NOCOUNT ON
@@ -132,9 +119,9 @@ AS
     
     IF @tableName = '' RETURN
     
-    SELECT @triggerName = dbo.fnGK_DPRUpdateStaging_Get_TriggerNamePrefix() + @tableName
+    SELECT @triggerName = dbo.fnGK_<SystemName>UpdateStaging_Get_TriggerNamePrefix() + @tableName
 
-    EXECUTE spGK_DPRUpdateStaging_Drop_Trigger @triggerName
+    EXECUTE spGK_<SystemName>UpdateStaging_Drop_Trigger @triggerName
 
     -- Create trigger
     SELECT @sqlStmt =
@@ -148,7 +135,7 @@ BEGIN
 
 	BEGIN TRY
 
-		INSERT INTO T_DPRUpdateStaging (PNR, DPRTable, CreateTS)
+		INSERT INTO <StagingTableName> (<PnrColumnName>, <TableColumnName>, <TimestampColumnName>)
 		SELECT PNR, ''' + @tableName + ''', GETDATE()
 		FROM inserted
 
@@ -167,16 +154,16 @@ END
 go
 
 
-CREATE PROCEDURE spGK_DPRUpdateStaging_ResetAllTriggers
+CREATE PROCEDURE spGK_<SystemName>UpdateStaging_ResetAllTriggers
     @deleteOnly INTEGER
 AS
     SET NOCOUNT ON
 
     DECLARE @triggerNamePrefix NVARCHAR(120)
-    SELECT @triggerNamePrefix = dbo.fnGK_DPRUpdateStaging_Get_TriggerNamePrefix() + '%'
+    SELECT @triggerNamePrefix = dbo.fnGK_<SystemName>UpdateStaging_Get_TriggerNamePrefix() + '%'
     
     
-    -- Drop all existing triggers regardless of _DPRTable content
+    -- Drop all existing triggers regardless of _<SystemName>Table content
     
     DECLARE @trgName NVARCHAR(120)
             
@@ -189,7 +176,7 @@ AS
     BEGIN
         --PRINT @trgName
         
-        EXECUTE spGK_DPRUpdateStaging_Drop_Trigger @trgName
+        EXECUTE spGK_<SystemName>UpdateStaging_Drop_Trigger @trgName
 
         FETCH NEXT FROM TrgName_Cursor INTO @trgName
     END
@@ -203,11 +190,11 @@ AS
     -- Skip creation of new triggers
     IF @deleteOnly <> 0 RETURN
     
-    -- Create triggers on all tables specified in T_DPRUpdateStaging_DPRTable table
+    -- Create triggers on all tables specified in <TablesTableName> table
 
     DECLARE @tblName NVARCHAR(120)
             
-    DECLARE TblName_Cursor CURSOR FOR SELECT DPRTable FROM T_DPRUpdateStaging_DPRTable
+    DECLARE TblName_Cursor CURSOR FOR SELECT <SystemName>Table FROM <TablesTableName>
     
     OPEN TblName_Cursor
     
@@ -216,7 +203,7 @@ AS
     BEGIN
         -- PRINT @tblName
         
-        EXECUTE spGK_DPRUpdateStaging_Create_Trigger @tblName
+        EXECUTE spGK_<SystemName>UpdateStaging_Create_Trigger @tblName
 
         FETCH NEXT FROM TblName_Cursor INTO @tblName
     END
@@ -227,6 +214,6 @@ AS
     SET NOCOUNT OFF
 go
 
-EXEC spGK_DPRUpdateStaging_ResetAllTriggers 0
+EXEC spGK_<SystemName>UpdateStaging_ResetAllTriggers 0
 
 go

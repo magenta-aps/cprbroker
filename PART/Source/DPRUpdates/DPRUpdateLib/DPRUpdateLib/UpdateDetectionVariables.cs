@@ -30,6 +30,11 @@ namespace DPRUpdateLib
         // From CustomActions
         public abstract string ServiceExeFileName { get; }
         public abstract string DatabaseFeatureName { get; }
+
+        // From SQL
+        public abstract string[] TrackedTableNames { get; }
+        public abstract string TablesTableName { get; }
+        public abstract string SystemName{get;}
     }
 
     public class DPRUpdateDetectionVariables : UpdateDetectionVariables
@@ -98,6 +103,23 @@ namespace DPRUpdateLib
         public override string DatabaseFeatureName
         {
             get { return "DPRN"; }
+        }
+
+        // From SQL
+        public override string[] TrackedTableNames 
+        {
+            get
+            {
+                return new string[] {"DTBESKYT","DTBOERN","DTCIV","DTFORALDREMYND","DTFORSV","DTKADR","DTNAVNE","DTPERS","DTSEPARATION","DTSTAT","DTTOTAL","DTUDRIND" };
+            }
+        }
+        public override string TablesTableName
+        {
+            get { return "T_DPRUpdateStaging_DPRTable"; }
+        }
+        public override string SystemName
+        {
+            get { return "DPR"; }
         }
     }
 }

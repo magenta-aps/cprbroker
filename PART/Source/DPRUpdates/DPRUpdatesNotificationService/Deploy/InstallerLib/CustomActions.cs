@@ -61,7 +61,8 @@ namespace InstallerLib
         public static ActionResult DeployDatabase(Session session)
         {
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, _UpdateDetectionVariables.DatabaseFeatureName);
-            DatabaseCustomAction.ExecuteDDL(Properties.Resources.crebas, databaseSetupInfo);
+            var ddl = GetCreationDDL();
+            DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
             DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { _UpdateDetectionVariables.StagingTableName });
             return ActionResult.Success;
         }
