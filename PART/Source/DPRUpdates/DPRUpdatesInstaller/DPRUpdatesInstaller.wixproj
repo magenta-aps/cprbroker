@@ -23,23 +23,10 @@
     <DefineConstants>bannerBmp=Bitmaps\bannrbmp.bmp;dialogBmp=$(MSBuildProjectDirectory)\Bitmaps\dlgbmp.bmp;exclamationIco=$(MSBuildProjectDirectory)\Bitmaps\exclamic.ico;infoIco=$(MSBuildProjectDirectory)\Bitmaps\info.ico;licenseRtf=$(MSBuildProjectDirectory)\license.rtf;newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;printeulaDll=$(OutputPath)\PrintEula.dll;ServicePath=..\..\DPRUpdatesNotificationService\;OutputPath=..\Output\</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Conditions.wxs" />
-    <Compile Include="CprBrokerDialog.wxs" />
-    <Compile Include="Customizations.wxs" />
-    <Compile Include="Dialogs.wxs" />
-    <Compile Include="Directories.wxs" />
-    <Compile Include="DprUpdateService.wxs" />
-    <Compile Include="Files.wxs" />
-    <Compile Include="Product.wxs" />
-  </ItemGroup>
-  <ItemGroup>
     <WixLibrary Include="WixCommon">
       <HintPath>..\..\Core\Output\WixCommon.wixlib</HintPath>
       <Name>WixCommon</Name>
     </WixLibrary>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="en-us.wxl" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">
@@ -52,7 +39,31 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Bitmaps" />
+    <Compile Include="Conditions.wxs" />
+    <Compile Include="CprBrokerDialog.wxs" />
+    <Compile Include="Customizations.wxs" />
+    <Compile Include="Dialogs.wxs" />
+    <Compile Include="Directories.wxs" />
+    <Compile Include="DprUpdateService.wxs" />
+    <Compile Include="Files.wxs" />
+    <Compile Include="Library.wxs" />
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\UpdateLibWix\UpdateLibWix.wixproj">
+      <Name>UpdateLibWix</Name>
+      <Project>{a615f9db-327d-4c85-b0f2-76e50ec7e232}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="en-us.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Bitmaps\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Bitmaps\bannrbmp.bmp" />

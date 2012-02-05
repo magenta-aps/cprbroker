@@ -10,17 +10,17 @@
       <Component Id="CMP_UpdateLib.XmlSerializers.dll" Directory="bin">
         <File Id="FILE_UpdateLib.XmlSerializers.dll" Source="$(var.ServicePath)bin\Debug\UpdateLib.XmlSerializers.dll" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_DPRUpdatesNotificationService.application" Directory="bin">
-        <File Id="FILE_DPRUpdatesNotificationService.application" Source="$(var.ServicePath)bin\Debug\DPRUpdatesNotificationService.application" KeyPath="yes"/>
+      <Component Id="CMP_UpdatesNotificationService.application" Directory="bin">
+        <File Id="FILE_UpdatesNotificationService.application" Source="$(var.ServicePath)bin\Debug\!(wix.ServiceTargetName).application" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_DPRUpdatesNotificationService.exe" Directory="bin">
-        <File Id="FILE_DPRUpdatesNotificationService.exe" Source="$(var.ServicePath)bin\Debug\DPRUpdatesNotificationService.exe" KeyPath="yes"/>
+      <Component Id="CMP_UpdatesNotificationService.exe" Directory="bin">
+        <File Id="FILE_UpdatesNotificationService.exe" Source="$(var.ServicePath)bin\Debug\!(wix.ServiceTargetName).exe" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_DPRUpdatesNotificationService.exe.config" Directory="bin">
-        <File Id="FILE_DPRUpdatesNotificationService.exe.config" Source="$(var.ServicePath)bin\Debug\DPRUpdatesNotificationService.exe.config" KeyPath="yes"/>
+      <Component Id="CMP_UpdatesNotificationService.exe.config" Directory="bin">
+        <File Id="FILE_UpdatesNotificationService.exe.config" Source="$(var.ServicePath)bin\Debug\!(wix.ServiceTargetName).exe.config" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_DPRUpdatesNotificationService.XmlSerializers.dll" Directory="bin">
-        <File Id="FILE_DPRUpdatesNotificationService.XmlSerializers.dll" Source="$(var.ServicePath)bin\Debug\DPRUpdatesNotificationService.XmlSerializers.dll" KeyPath="yes"/>
+      <Component Id="CMP_UpdatesNotificationService.XmlSerializers.dll" Directory="bin">
+        <File Id="FILE_UpdatesNotificationService.XmlSerializers.dll" Source="$(var.ServicePath)bin\Debug\!(wix.ServiceTargetName).XmlSerializers.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_GKApp2010.dll" Directory="bin">
         <File Id="FILE_GKApp2010.dll" Source="$(var.ServicePath)bin\Debug\GKApp2010.dll" KeyPath="yes"/>

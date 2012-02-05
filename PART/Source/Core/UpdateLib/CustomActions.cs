@@ -135,13 +135,13 @@ namespace UpdateLib
         }
 
         [CustomAction]
-        public static ActionResult RollbackDprUpdatesService(Session session, UpdateDetectionVariables updateDetectionVariables)
+        public static ActionResult RollbackUpdatesService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            return RemoveDprUpdatesService(session, updateDetectionVariables);
+            return RemoveUpdatesService(session, updateDetectionVariables);
         }
 
         [CustomAction]
-        public static ActionResult RemoveDprUpdatesService(Session session, UpdateDetectionVariables updateDetectionVariables)
+        public static ActionResult RemoveUpdatesService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
             try
             {

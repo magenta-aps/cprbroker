@@ -54,21 +54,21 @@ namespace DPRUpdatesNotification
         }
 
         [CustomAction]
-        public static ActionResult InstallDprUpdatesService(Session session)
+        public static ActionResult InstallUpdatesService(Session session)
         {
             return UpdateLib.CustomActions.InstallUpdatesService(session, _UpdateDetectionVariables);
         }
 
         [CustomAction]
-        public static ActionResult RollbackDprUpdatesService(Session session)
+        public static ActionResult RollbackUpdatesService(Session session)
         {
-            return UpdateLib.CustomActions.RollbackDprUpdatesService(session, _UpdateDetectionVariables);
+            return UpdateLib.CustomActions.RollbackUpdatesService(session, _UpdateDetectionVariables);
         }
 
         [CustomAction]
-        public static ActionResult RemoveDprUpdatesService(Session session)
+        public static ActionResult RemoveUpdatesService(Session session)
         {
-            return UpdateLib.CustomActions.RemoveDprUpdatesService(session, _UpdateDetectionVariables);
+            return UpdateLib.CustomActions.RemoveUpdatesService(session, _UpdateDetectionVariables);
         }
 
     }

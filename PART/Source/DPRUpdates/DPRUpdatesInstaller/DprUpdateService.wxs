@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Fragment Id="DprUpdateServiceFragment">
-    <Property Id="Dummy_DprUpdateServiceFragmentRefProp" Value="-"/>
+  <Fragment Id="UpdateServiceFragment">
+    <Property Id="Dummy_UpdateServiceFragmentRefProp" Value="-"/>
 
     <Property Id="PARTSERVICEURL" Value="http://cprbroker/Services/Part.asmx">
       <RegistrySearch Id="RS_CprBrokerServiceUrl" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\CprBroker" Type="raw" Name="PartServiceUrl"/>
@@ -14,8 +14,8 @@
       <RegistrySearch Id="RS_ApplicationToken" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\CprBroker" Type="raw" Name="ApplicationToken"/>
     </Property>
 
-    <Component Id="CMP_DPRUpdatesRegistry" Directory="INSTALLDIR">
-      <RegistryKey Id="REG_DPRUpdatesRegistry" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\CprBroker">
+    <Component Id="CMP_UpdatesRegistry" Directory="INSTALLDIR">
+      <RegistryKey Id="REG_UpdatesRegistry" Action="createAndRemoveOnUninstall" Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\CprBroker">
         <RegistryValue Id="REG_PartServiceUrl" KeyPath="yes" Action="write" Type="string" Name="PartServiceUrl" Value="[PARTSERVICEURL]"/>
       </RegistryKey>
     </Component>
@@ -28,32 +28,32 @@
       <Custom Action="ValidateCprBrokerServicesUrl" After="AppSearch"><![CDATA[UILevel < 5 AND NOT REMOVE AND NOT PATCH]]></Custom>
     </InstallExecuteSequence>
 
-    <Property Id="ALL_DPRUPDATEPROPERTIES" Value="-" Hidden="yes"/>
-    <CustomAction Id="Set_AllDprUpdateProperties" Property="ALL_DPRUPDATEPROPERTIES" Value="[DeployDatabase];PARTSERVICEURL=[PARTSERVICEURL];BASEAPPLICATIONTOKEN=[BASEAPPLICATIONTOKEN];APPLICATIONTOKEN=[APPLICATIONTOKEN]" />
+    <Property Id="ALL_UPDATEPROPERTIES" Value="-" Hidden="yes"/>
+    <CustomAction Id="Set_AllUpdateProperties" Property="ALL_UPDATEPROPERTIES" Value="[DeployDatabase];PARTSERVICEURL=[PARTSERVICEURL];BASEAPPLICATIONTOKEN=[BASEAPPLICATIONTOKEN];APPLICATIONTOKEN=[APPLICATIONTOKEN]" />
 
-    <Property Id="RollbackDprUpdatesService" Hidden="yes" />
-    <CustomAction Id="RollbackDprUpdatesService_" Property="RollbackDprUpdatesService" Value="[ALL_DPRUPDATEPROPERTIES]" />
-    <CustomAction Id="RollbackDprUpdatesService" BinaryKey="InstallersDll" DllEntry="RollbackDprUpdatesService" Execute="rollback" Impersonate="no" />
+    <Property Id="RollbackUpdatesService" Hidden="yes" />
+    <CustomAction Id="RollbackUpdatesService_" Property="RollbackUpdatesService" Value="[ALL_UPDATEPROPERTIES]" />
+    <CustomAction Id="RollbackUpdatesService" BinaryKey="InstallersDll" DllEntry="RollbackUpdatesService" Execute="rollback" Impersonate="no" />
 
-    <Property Id="InstallDprUpdatesService" Hidden="yes" />
-    <CustomAction Id="InstallDprUpdatesService_" Property="InstallDprUpdatesService" Value="[ALL_DPRUPDATEPROPERTIES]" />
-    <CustomAction Id="InstallDprUpdatesService" BinaryKey="InstallersDll" DllEntry="InstallDprUpdatesService" Execute="deferred" Impersonate="no" />
+    <Property Id="InstallUpdatesService" Hidden="yes" />
+    <CustomAction Id="InstallUpdatesService_" Property="InstallUpdatesService" Value="[ALL_UPDATEPROPERTIES]" />
+    <CustomAction Id="InstallUpdatesService" BinaryKey="InstallersDll" DllEntry="InstallUpdatesService" Execute="deferred" Impersonate="no" />
 
-    <Property Id="RemoveDprUpdatesService" Hidden="yes" />
-    <CustomAction Id="RemoveDprUpdatesService_" Property="RemoveDprUpdatesService" Value="[ALL_DPRUPDATEPROPERTIES]" />
-    <CustomAction Id="RemoveDprUpdatesService" BinaryKey="InstallersDll" DllEntry="RemoveDprUpdatesService" Execute="deferred" Impersonate="no" />
+    <Property Id="RemoveUpdatesService" Hidden="yes" />
+    <CustomAction Id="RemoveUpdatesService_" Property="RemoveUpdatesService" Value="[ALL_UPDATEPROPERTIES]" />
+    <CustomAction Id="RemoveUpdatesService" BinaryKey="InstallersDll" DllEntry="RemoveUpdatesService" Execute="deferred" Impersonate="no" />
 
     <InstallExecuteSequence>
-      <Custom Action="Set_AllDprUpdateProperties" After="AfterInstallInitialize_DB">1</Custom>
+      <Custom Action="Set_AllUpdateProperties" After="AfterInstallInitialize_DB">1</Custom>
 
-      <Custom Action="RollbackDprUpdatesService_" After="Set_AllDprUpdateProperties">NOT REMOVE</Custom>
-      <Custom Action="RollbackDprUpdatesService" After="DeployDatabase">NOT REMOVE</Custom>
+      <Custom Action="RollbackUpdatesService_" After="Set_AllUpdateProperties">NOT REMOVE</Custom>
+      <Custom Action="RollbackUpdatesService" After="DeployDatabase">NOT REMOVE</Custom>
 
-      <Custom Action="InstallDprUpdatesService_" After="Set_AllDprUpdateProperties">NOT REMOVE</Custom>
-      <Custom Action="InstallDprUpdatesService" After="RollbackDprUpdatesService">NOT REMOVE</Custom>
+      <Custom Action="InstallUpdatesService_" After="Set_AllUpdateProperties">NOT REMOVE</Custom>
+      <Custom Action="InstallUpdatesService" After="RollbackUpdatesService">NOT REMOVE</Custom>
 
-      <Custom Action="RemoveDprUpdatesService_" After="Set_AllDprUpdateProperties"><![CDATA[REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveDprUpdatesService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveUpdatesService_" After="Set_AllUpdateProperties"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveUpdatesService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL"]]></Custom>
 
     </InstallExecuteSequence>
   </Fragment>

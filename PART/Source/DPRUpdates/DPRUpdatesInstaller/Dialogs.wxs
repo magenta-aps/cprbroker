@@ -7,19 +7,12 @@
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 
-    <WixVariable Id="WixUIBannerBmp" Value="Bitmaps\bannrbmp.bmp"/>
-    <WixVariable Id="WixUIDialogBmp" Value="Bitmaps\dlgbmp.bmp"/>
-    <WixVariable Id="WixUIExclamationIco" Value="Bitmaps\exclamic.ico"/>
-    <WixVariable Id="WixUIInfoIco" Value="Bitmaps\info.ico"/>
-    <WixVariable Id="WixUINewIco" Value="Bitmaps\New.ico"/>
-    <WixVariable Id="WixUIUpIco" Value="Bitmaps\Up.ico"/>
-
-    <Binary Id="WixUI_Bmp_Banner" SourceFile="!(wix.WixUIBannerBmp=$(var.bannerBmp))" />
-    <Binary Id="WixUI_Bmp_Dialog" SourceFile="!(wix.WixUIDialogBmp=$(var.dialogBmp))" />
-    <Binary Id="WixUI_Ico_Exclam" SourceFile="!(wix.WixUIExclamationIco=$(var.exclamationIco))" />
-    <Binary Id="WixUI_Ico_Info" SourceFile="!(wix.WixUIInfoIco=$(var.infoIco))" />
-    <Binary Id="WixUI_Bmp_New" SourceFile="!(wix.WixUINewIco=$(var.newIco))" />
-    <Binary Id="WixUI_Bmp_Up" SourceFile="!(wix.WixUIUpIco=$(var.upIco))" />
+    <Binary Id="WixUI_Bmp_Banner" SourceFile="!(wix.UpdateLibWixPath)Bitmaps\bannrbmp.bmp" />
+    <Binary Id="WixUI_Bmp_Dialog" SourceFile="!(wix.UpdateLibWixPath)Bitmaps\dlgbmp.bmp" />
+    <Binary Id="WixUI_Ico_Exclam" SourceFile="!(wix.UpdateLibWixPath)Bitmaps\exclamic.ico" />
+    <Binary Id="WixUI_Ico_Info" SourceFile="!(wix.UpdateLibWixPath)Bitmaps\info.ico" />
+    <Binary Id="WixUI_Bmp_New" SourceFile="!(wix.UpdateLibWixPath)Bitmaps\New.ico" />
+    <Binary Id="WixUI_Bmp_Up" SourceFile="!(wix.UpdateLibWixPath)Bitmaps\Up.ico" />
     <WixVariable Id="WixUICostingPopupOptOut" Value="1" Overridable="yes" />
 
     <UI Id="PersonMasterUI">
@@ -64,9 +57,9 @@
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">1</Publish>
       <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="CprBrokerDialog" Order="101"><![CDATA[DB_Valid = "True"]]></Publish>
 
-      <Publish Dialog="CprBrokerDialog" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="1">1</Publish>      
+      <Publish Dialog="CprBrokerDialog" Control="Back" Event="NewDialog" Value="DatabaseDialog" Order="1">1</Publish>
       <Publish Dialog="CprBrokerDialog" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="3"><![CDATA[CPRBROKERSERVICESURL_VALID = "True" ]]></Publish>
-      
+
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="CprBrokerDialog" Order="1">NOT Installed</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="2">Installed AND NOT PATCH</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">Installed AND PATCH</Publish>

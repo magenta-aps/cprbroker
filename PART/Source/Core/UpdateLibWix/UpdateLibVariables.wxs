@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <!-- Product -->
+    <WixVariable Id="ProductName" Value="-" Overridable="yes"/>
+    <WixVariable Id="ProductCode" Value="-" Overridable="yes"/>
+    <WixVariable Id="UpgradeCode" Value="-" Overridable="yes"/>
+    <WixVariable Id="ProductVersion" Value="-" Overridable="yes"/>
+    <WixVariable Id="Manufacturer" Value="-" Overridable="yes"/>
+    
+    <!-- Dialogs -->
+    <WixVariable Id="UpdateLibWixPath" Value="-" Overridable="yes"/>
+    
+	</Fragment>
+</Wix>

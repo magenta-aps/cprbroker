@@ -23,5 +23,8 @@
       <Custom Action="CustomizeDprDatabaseName" After="InitializeDatabasePropertiesFromProductName">NOT (REMOVE OR PATCH OR OLDER_VERSION_DETECTED)</Custom>
     </InstallUISequence>
 
+
+    <WixVariable Id="UpdateLibWixPath" Value=".\"/>
+    <WixVariable Id="ServiceTargetName" Value="DPRUpdatesNotificationService"/>
   </Fragment>
 </Wix>
