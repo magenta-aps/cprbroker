@@ -65,7 +65,7 @@ namespace DPRUpdatesNotification
     {
         protected override Runner CreateRunner(HaltOperationDelegate haltOperationFunc)
         {
-            return new DPRRunner(HaltOperation);
+            return new Runner( HaltOperation);
         }
 
 
