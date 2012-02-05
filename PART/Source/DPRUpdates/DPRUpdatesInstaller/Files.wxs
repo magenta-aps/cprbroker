@@ -24,10 +24,7 @@
       </Component>
       <Component Id="CMP_GKApp2010.dll" Directory="bin">
         <File Id="FILE_GKApp2010.dll" Source="$(var.ServicePath)bin\Debug\GKApp2010.dll" KeyPath="yes"/>
-      </Component>
-      <Component Id="CMP_Install.bat" Directory="bin">
-        <File Id="FILE_Install.bat" Source="$(var.ServicePath)bin\Debug\Install.bat" KeyPath="yes"/>
-      </Component>
+      </Component>      
       <Component Id="CMP_Microsoft.Practices.EnterpriseLibrary.Common.dll" Directory="bin">
         <File Id="FILE_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.ServicePath)bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
       </Component>
@@ -45,10 +42,7 @@
       </Component>
       <Component Id="CMP_Microsoft.Practices.Unity.Interception.dll" Directory="bin">
         <File Id="FILE_Microsoft.Practices.Unity.Interception.dll" Source="$(var.ServicePath)bin\Debug\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
-      </Component>
-      <Component Id="CMP_Uninstall.bat" Directory="bin">
-        <File Id="FILE_Uninstall.bat" Source="$(var.ServicePath)bin\Debug\Uninstall.bat" KeyPath="yes"/>
-      </Component>
+      </Component>      
 
     </ComponentGroup>
 

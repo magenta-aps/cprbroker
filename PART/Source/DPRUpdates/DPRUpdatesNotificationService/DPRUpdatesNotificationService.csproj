@@ -124,15 +124,9 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="CustomAction.config" />
-    <None Include="Install.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Uninstall.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Web References\CPRBroker.Part\GetUuidOutputType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
