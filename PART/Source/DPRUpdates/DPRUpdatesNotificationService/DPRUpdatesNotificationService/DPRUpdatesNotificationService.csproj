@@ -176,9 +176,9 @@
       <Project>{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}</Project>
       <Name>GKApp2010</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DPRUpdateLib\DPRUpdateLib\DPRUpdateLib.csproj">
+    <ProjectReference Include="..\..\DPRUpdateLib\DPRUpdateLib\UpdateLib.csproj">
       <Project>{CFCD510E-E2BA-48D6-955A-D9992BF85B18}</Project>
-      <Name>DPRUpdateLib</Name>
+      <Name>UpdateLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
