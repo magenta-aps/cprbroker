@@ -64,7 +64,7 @@ namespace DPRUpdatesNotification
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
 			{ 
-				new UpdatesNotificationService(new DPRUpdateLib.DPRUpdateDetectionVariables()) 
+				new UpdatesNotificationService(new DPRUpdateDetectionVariables()) 
 			};
 
             ServiceBase.Run(ServicesToRun);

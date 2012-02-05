@@ -124,6 +124,10 @@
       <Project>{CFCD510E-E2BA-48D6-955A-D9992BF85B18}</Project>
       <Name>DPRUpdateLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DPRUpdatesNotificationService\DPRUpdatesNotificationService.csproj">
+      <Project>{056549B2-8354-48CA-8AA3-4C8F205DC327}</Project>
+      <Name>DPRUpdatesNotificationService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />

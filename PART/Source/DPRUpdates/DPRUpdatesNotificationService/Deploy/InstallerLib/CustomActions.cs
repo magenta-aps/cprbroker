@@ -13,7 +13,7 @@ namespace InstallerLib
 {
     public partial class CustomActions
     {
-        private static UpdateDetectionVariables _UpdateDetectionVariables = new DPRUpdateDetectionVariables();
+        private static UpdateDetectionVariables _UpdateDetectionVariables = new DPRUpdatesNotification.DPRUpdateDetectionVariables();
 
         [CustomAction]
         public static ActionResult AppSearch_DB(Session session)
