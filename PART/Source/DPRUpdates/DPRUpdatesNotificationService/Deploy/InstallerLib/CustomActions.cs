@@ -61,7 +61,7 @@ namespace InstallerLib
         public static ActionResult DeployDatabase(Session session)
         {
             DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, _UpdateDetectionVariables.DatabaseFeatureName);
-            var ddl = GetCreationDDL();
+            var ddl = _UpdateDetectionVariables.SubstituteDDL(Properties.Resources.crebas);
             DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
             DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { _UpdateDetectionVariables.StagingTableName });
             return ActionResult.Success;
@@ -92,7 +92,8 @@ namespace InstallerLib
 
             if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
             {
-                DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
+                var ddl = _UpdateDetectionVariables.SubstituteDDL(Properties.Resources.drpbas);
+                DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
                 DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
             }
             return ActionResult.Success;

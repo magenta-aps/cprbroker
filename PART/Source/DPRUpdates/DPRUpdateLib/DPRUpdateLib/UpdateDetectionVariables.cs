@@ -34,7 +34,28 @@ namespace DPRUpdateLib
         // From SQL
         public abstract string[] TrackedTableNames { get; }
         public abstract string TablesTableName { get; }
-        public abstract string SystemName{get;}
+        public abstract string SystemName { get; }
+
+        public string SubstituteDDL(string ddl)
+        {
+            ddl = ddl.Replace(
+                "<InsertTableNames>",
+                string.Join(
+                    Environment.NewLine,
+                    this.TrackedTableNames.Select(
+                        t => "INSERT INTO " + this.TablesTableName + " (" + this.TableColumnName + ") VALUES ('" + t + "')"
+                        )
+                    )
+                );
+            ddl = ddl.Replace("<StagingTableName>", this.StagingTableName);
+            ddl = ddl.Replace("<PnrColumnName>", this.PnrColumnName);
+            ddl = ddl.Replace("<TableColumnName>", this.TableColumnName);
+            ddl = ddl.Replace("<TimestampColumnName>", this.TimestampColumnName);
+            ddl = ddl.Replace("<TablesTableName>", this.TablesTableName);
+            ddl = ddl.Replace("<SystemName>", this.SystemName);
+            ddl = ddl.Replace("<IdColumnName>", this.IdColumnName);
+            return ddl;
+        }
     }
 
     public class DPRUpdateDetectionVariables : UpdateDetectionVariables
@@ -99,18 +120,18 @@ namespace DPRUpdateLib
         public override string ServiceExeFileName
         {
             get { return "DPRUpdatesNotificationService.exe"; }
-        }       
+        }
         public override string DatabaseFeatureName
         {
             get { return "DPRN"; }
         }
 
         // From SQL
-        public override string[] TrackedTableNames 
+        public override string[] TrackedTableNames
         {
             get
             {
-                return new string[] {"DTBESKYT","DTBOERN","DTCIV","DTFORALDREMYND","DTFORSV","DTKADR","DTNAVNE","DTPERS","DTSEPARATION","DTSTAT","DTTOTAL","DTUDRIND" };
+                return new string[] { "DTBESKYT", "DTBOERN", "DTCIV", "DTFORALDREMYND", "DTFORSV", "DTKADR", "DTNAVNE", "DTPERS", "DTSEPARATION", "DTSTAT", "DTTOTAL", "DTUDRIND" };
             }
         }
         public override string TablesTableName

@@ -118,27 +118,5 @@ namespace InstallerLib
             );
         }
 
-        private static string GetCreationDDL()
-        {
-            var ddl = Properties.Resources.crebas;
-            ddl = ddl.Replace(
-                "<InsertTableNames>",
-                string.Join(
-                    Environment.NewLine,
-                    _UpdateDetectionVariables.TrackedTableNames.Select(
-                        t => "INSERT INTO " + _UpdateDetectionVariables.TablesTableName + " (" + _UpdateDetectionVariables.TableColumnName + ") VALUES ('" + t + "')"
-                        )
-                    )
-                );
-            ddl = ddl.Replace("<StagingTableName>", _UpdateDetectionVariables.StagingTableName);
-            ddl = ddl.Replace("<PnrColumnName>", _UpdateDetectionVariables.PnrColumnName);
-            ddl = ddl.Replace("<TableColumnName>", _UpdateDetectionVariables.TableColumnName);
-            ddl = ddl.Replace("<TimestampColumnName>", _UpdateDetectionVariables.TimestampColumnName);
-            ddl = ddl.Replace("<TablesTableName>", _UpdateDetectionVariables.TablesTableName);
-            ddl = ddl.Replace("<SystemName>", _UpdateDetectionVariables.SystemName);
-            ddl = ddl.Replace("<IdColumnName>", _UpdateDetectionVariables.IdColumnName);
-            return ddl;
-        }
-
     }
 }
