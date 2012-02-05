@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Customizations.wxs" />
-    <Compile Include="Library.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
