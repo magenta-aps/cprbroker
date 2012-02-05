@@ -39,13 +39,7 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conditions.wxs" />
-    <Compile Include="CprBrokerDialog.wxs" />
     <Compile Include="Customizations.wxs" />
-    <Compile Include="Dialogs.wxs" />
-    <Compile Include="Directories.wxs" />
-    <Compile Include="DprUpdateService.wxs" />
-    <Compile Include="Files.wxs" />
     <Compile Include="Library.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
@@ -61,17 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="en-us.wxl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Bitmaps\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Bitmaps\bannrbmp.bmp" />
-    <Content Include="Bitmaps\dlgbmp.bmp" />
-    <Content Include="Bitmaps\exclamic.ico" />
-    <Content Include="Bitmaps\info.ico" />
-    <Content Include="Bitmaps\New.ico" />
-    <Content Include="Bitmaps\Up.ico" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

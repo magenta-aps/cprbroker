@@ -24,7 +24,8 @@
     </InstallUISequence>
 
 
-    <WixVariable Id="UpdateLibWixPath" Value=".\"/>
+    <WixVariable Id="UpdateLibWixPath" Value="..\..\Core\UpdateLibWix\"/>
+    <WixVariable Id="ServicePath" Value="..\DPRUpdatesNotificationService\"/>
     <WixVariable Id="ServiceTargetName" Value="DPRUpdatesNotificationService"/>
   </Fragment>
 </Wix>
