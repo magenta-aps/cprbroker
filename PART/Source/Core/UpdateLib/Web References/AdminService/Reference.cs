@@ -65,7 +65,7 @@ namespace UpdateLib.AdminService {
         /// <remarks/>
         public Admin() {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
-            this.Url = global::UpdateLib.Properties.Settings.Default.DPRUpdateLib_AdminService_Admin;
+            this.Url = "http://localhost:1551/Services/Admin.asmx";
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

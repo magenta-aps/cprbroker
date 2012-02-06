@@ -26,7 +26,7 @@ namespace UpdateLib.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://cprbroker20110310/Services/Part.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://cprbroker/Services/Part.asmx")]
         public string CPRBrokerPartServiceUrl {
             get {
                 return ((string)(this["CPRBrokerPartServiceUrl"]));
@@ -48,16 +48,6 @@ namespace UpdateLib.Properties {
         public string ApplicationToken {
             get {
                 return ((string)(this["ApplicationToken"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:1551/Services/Admin.asmx")]
-        public string DPRUpdateLib_AdminService_Admin {
-            get {
-                return ((string)(this["DPRUpdateLib_AdminService_Admin"]));
             }
         }
     }

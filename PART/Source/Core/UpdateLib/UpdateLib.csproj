@@ -112,7 +112,7 @@
       <CachedSettingsPropName>CPRBrokerPartServiceUrl</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:1551/Services/Admin.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
+      <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\AdminService\</RelPath>
       <UpdateFromURL>http://localhost:1551/Services/Admin.asmx</UpdateFromURL>
       <ServiceLocationURL>
