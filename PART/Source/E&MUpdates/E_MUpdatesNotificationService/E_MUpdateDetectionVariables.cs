@@ -77,7 +77,7 @@ namespace E_MUpdatesNotification
         }
         public override string PnrColumnName
         {
-            get { return "PNR"; }
+            get { return "PERSONNUMMER"; }
         }
         public override string IdColumnName
         {

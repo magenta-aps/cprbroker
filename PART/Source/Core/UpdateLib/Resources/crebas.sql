@@ -51,7 +51,7 @@ go
 /*==============================================================*/
 create table <StagingTableName> (
    <IdColumnName>                   int                  identity,
-   PNR                  decimal(11)          not null,
+   <PnrColumnName>                  decimal(11)          not null,
    <TableColumnName>             varchar(120)         not null,
    CreateTS             datetime             not null,
    constraint PK_T_<SystemName>UPDATESTAGING primary key (<IdColumnName>)
@@ -136,7 +136,7 @@ BEGIN
 	BEGIN TRY
 
 		INSERT INTO <StagingTableName> (<PnrColumnName>, <TableColumnName>, <TimestampColumnName>)
-		SELECT PNR, ''' + @tableName + ''', GETDATE()
+		SELECT <PnrColumnName>, ''' + @tableName + ''', GETDATE()
 		FROM inserted
 
 	END TRY
