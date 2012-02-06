@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="979C573B-A46F-408B-A63F-C52C69D32202" Name="E&amp;MUpdatesInstaller" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="81511F81-6A0D-44D4-B976-2560FA604ABB">
+	<Product Id="979C573B-A46F-408B-A63F-C52C69D32202" Name="E&amp;M Updates" Language="1033" Version="1.0.0.0" Manufacturer="ITST" UpgradeCode="81511F81-6A0D-44D4-B976-2560FA604ABB">
 		<Package InstallerVersion="200" Compressed="yes" />
 
 		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
