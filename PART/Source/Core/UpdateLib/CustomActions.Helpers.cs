@@ -108,23 +108,23 @@ namespace UpdateLib
         {
             string configFileName = GetConfigFileName(session, updateDetectionVariables);
             // Connection string
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "DPRN");
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
             CprBroker.Installers.Installation.SetConnectionStringInConfigFile(
                 configFileName,
-                "DPRUpdates",
+                updateDetectionVariables.ConnectionStringName,
                 databaseSetupInfo.CreateConnectionString(false, true)
             );
             // Service url
             CprBroker.Installers.Installation.SetApplicationSettingInConfigFile(
                 configFileName,
-                "DPRUpdatesNotification.Properties.Settings",
+                "UpdateLib.Properties.Settings",
                 "CPRBrokerPartServiceUrl",
                 string.Format("{0}/Services/Part.asmx", session.GetPropertyValue("PARTSERVICEURL"))
             );
             // App token
             CprBroker.Installers.Installation.SetApplicationSettingInConfigFile(
                 configFileName,
-                "DPRUpdatesNotification.Properties.Settings",
+                "UpdateLib.Properties.Settings",
                 "ApplicationToken",
                 appToken
             );
