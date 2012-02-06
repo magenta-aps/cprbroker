@@ -45,31 +45,26 @@
  * ***** END LICENSE BLOCK ***** */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration.Install;
 using System.Linq;
-using System.ServiceProcess;
-using System.Text;
 
+using GKApp2010.RTE;
 using UpdateLib;
 
 namespace DPRUpdatesNotification
 {
     // ================================================================================
-    static class Program
+    [RunInstaller(true)]
+    public partial class DPRUpdatesProjectInstaller : UpdatesProjectInstaller
     {
         // -----------------------------------------------------------------------------
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        static void Main()
+        public DPRUpdatesProjectInstaller()
+            : base(new DPRUpdateDetectionVariables())
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-			{ 
-				new UpdatesNotificationService(new DPRUpdateDetectionVariables()) 
-			};
 
-            ServiceBase.Run(ServicesToRun);
         }
     }
 }

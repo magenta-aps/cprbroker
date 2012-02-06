@@ -63,6 +63,10 @@ namespace DPRUpdatesNotification
         }
         public override string ServiceName
         {
+            get { return "DPRUpdatesNotificationService"; }
+        }
+        public override string ServiceDisplayName
+        {
             get { return "DPR Updates Notification Service"; }
         }
 

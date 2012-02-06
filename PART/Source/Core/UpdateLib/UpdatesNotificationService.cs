@@ -46,30 +46,66 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 
-using UpdateLib;
+using GKApp2010.Common;
+using GKApp2010.Core;
 
-namespace DPRUpdatesNotification
+namespace UpdateLib
 {
     // ================================================================================
-    static class Program
+    public class UpdatesNotificationService : ServiceBase
     {
-        // -----------------------------------------------------------------------------
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        static void Main()
-        {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-			{ 
-				new UpdatesNotificationService(new DPRUpdateDetectionVariables()) 
-			};
+        Runner run = null;
 
-            ServiceBase.Run(ServicesToRun);
+        // -----------------------------------------------------------------------------
+        public UpdatesNotificationService(UpdateDetectionVariables updateDetectionVariables)
+        {
+            AutoLog = true;
+
+            ServiceName = updateDetectionVariables.ServiceName;
+            run = new Runner(updateDetectionVariables, HaltOperation);
+
+            run.SetCPRBrokerServiceURL(Properties.Settings.Default.CPRBrokerPartServiceUrl);
+            run.SetCPRBrokerAppToken(Properties.Settings.Default.ApplicationToken);
+        }
+
+        // -----------------------------------------------------------------------------
+        protected override void OnStart(string[] args)
+        {
+            try
+            {
+                run.Start();
+            }
+            catch (Exception ex)
+            {
+                HaltOperation(ex, "*** FATAL: An exception was thrown during service start up (onStart()). ");
+            }
+        }
+
+        // -----------------------------------------------------------------------------
+        protected override void OnStop()
+        {
+            run.Stop();
+        }
+
+        // -----------------------------------------------------------------------------
+        public void HaltOperation(Exception ex, string auxMessage)
+        {
+            string msg = ExceptionMessageBuilder.Build(auxMessage, ex);
+
+            LogHelper.LogToFile(msg);
+            EventLog.WriteEntry(msg, EventLogEntryType.Error);
+            MailHelper.SendMessage(msg);
+
+            // Wait a second, then re throw to let environment handle proces termination
+
+            throw ex;
         }
     }
 }

@@ -73,6 +73,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="UpdatesNotificationService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UpdatesProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UpdatesProjectInstaller.Designer.cs">
+      <DependentUpon>UpdatesProjectInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Web References\AdminService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -173,6 +182,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdatesProjectInstaller.resx">
+      <DependentUpon>UpdatesProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
