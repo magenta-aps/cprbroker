@@ -78,7 +78,6 @@ namespace E_MUpdatesNotification
         [CustomAction]
         public static ActionResult DeployDatabase(Session session)
         {
-            System.Diagnostics.Debugger.Break();
             return UpdateLib.CustomActions.DeployDatabase(session, _UpdateDetectionVariables);
         }
 
