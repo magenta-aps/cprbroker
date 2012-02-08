@@ -161,26 +161,25 @@ namespace CprBroker.Installers
                                 }
                                 SqlCommand createUserCommand = new SqlCommand(string.Format("CREATE USER [{0}] FOR LOGIN  [{0}]", userName), adminConnectionWithDb);
                                 createUserCommand.ExecuteNonQuery();
-
-                                using (SqlCommand permissionsCommand = new SqlCommand("", adminConnectionWithDb))
+                            }
+                        }
+                        using (SqlCommand permissionsCommand = new SqlCommand("", adminConnectionWithDb))
+                        {
+                            if (neededTables == null || neededTables.Length == 0)
+                            {
+                                permissionsCommand.CommandText = "sp_addrolemember";
+                                permissionsCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                                permissionsCommand.Parameters.Add("@rolename", System.Data.SqlDbType.VarChar).Value = "db_owner";
+                                permissionsCommand.Parameters.Add("@membername", System.Data.SqlDbType.VarChar).Value = userName;
+                                permissionsCommand.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                permissionsCommand.CommandType = System.Data.CommandType.Text;
+                                foreach (string tableName in neededTables)
                                 {
-                                    if (neededTables == null || neededTables.Length == 0)
-                                    {
-                                        permissionsCommand.CommandText = "sp_addrolemember";
-                                        permissionsCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                                        permissionsCommand.Parameters.Add("@rolename", System.Data.SqlDbType.VarChar).Value = "db_owner";
-                                        permissionsCommand.Parameters.Add("@membername", System.Data.SqlDbType.VarChar).Value = userName;
-                                        permissionsCommand.ExecuteNonQuery();
-                                    }
-                                    else
-                                    {
-                                        permissionsCommand.CommandType = System.Data.CommandType.Text;
-                                        foreach (string tableName in neededTables)
-                                        {
-                                            permissionsCommand.CommandText = string.Format("GRANT DELETE,INSERT,REFERENCES,SELECT,UPDATE,VIEW DEFINITION ON [dbo].[{0}] TO [{1}]", tableName, userName);
-                                            permissionsCommand.ExecuteNonQuery();
-                                        }
-                                    }
+                                    permissionsCommand.CommandText = string.Format("GRANT DELETE,INSERT,REFERENCES,SELECT,UPDATE,VIEW DEFINITION ON [dbo].[{0}] TO [{1}]", tableName, userName);
+                                    permissionsCommand.ExecuteNonQuery();
                                 }
                             }
                         }
