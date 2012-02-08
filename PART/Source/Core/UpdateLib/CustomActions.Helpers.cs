@@ -119,7 +119,7 @@ namespace UpdateLib
                 configFileName,
                 "UpdateLib.Properties.Settings",
                 "CPRBrokerPartServiceUrl",
-                string.Format("{0}/Services/Part.asmx", session.GetPropertyValue("PARTSERVICEURL"))
+                session.GetPropertyValue("PARTSERVICEURL")
             );
             // App token
             CprBroker.Installers.Installation.SetApplicationSettingInConfigFile(
