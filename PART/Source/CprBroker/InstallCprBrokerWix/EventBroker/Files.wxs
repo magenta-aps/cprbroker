@@ -24,9 +24,6 @@
       <Component Id="CMP_EVENT_bin_CprBroker.Config.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_CprBroker.Config.dll" Source="$(var.EventSitePath)bin\CprBroker.Config.dll" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_EVENT_bin_CprBroker.DAL.dll" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_CprBroker.DAL.dll" Source="$(var.EventSitePath)bin\CprBroker.DAL.dll" KeyPath="yes"/>
-      </Component>
       <Component Id="CMP_EVENT_bin_CprBroker.Data.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_CprBroker.Data.dll" Source="$(var.EventSitePath)bin\CprBroker.Data.dll" KeyPath="yes"/>
       </Component>
