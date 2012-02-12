@@ -131,7 +131,7 @@ namespace E_MUpdatesNotification
         {
             get
             {
-                return new string[] { "JY64000V", "JY64200V" };
+                return new string[] { "AA70000T", "AA70300T" };
             }
         }
         public override string TablesTableName
