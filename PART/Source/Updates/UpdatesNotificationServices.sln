@@ -14,9 +14,9 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DPRUpdatesInstaller", "DPRU
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "UpdateLibWix", "..\Core\UpdateLibWix\UpdateLibWix.wixproj", "{A615F9DB-327D-4C85-B0F2-76E50EC7E232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_MUpdatesNotificationService", "..\E&MUpdates\E_MUpdatesNotificationService\E_MUpdatesNotificationService.csproj", "{7AFDF0EB-216E-4D82-915F-4A9CA8CA891A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_MUpdatesNotificationService", "E_MUpdatesNotificationService\E_MUpdatesNotificationService.csproj", "{7AFDF0EB-216E-4D82-915F-4A9CA8CA891A}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "E_MUpdatesInstaller", "..\E&MUpdates\E_MUpdatesInstaller\E_MUpdatesInstaller.wixproj", "{DE065032-6EC4-462D-9FAE-E1DB4347795F}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "E_MUpdatesInstaller", "E_MUpdatesInstaller\E_MUpdatesInstaller.wixproj", "{DE065032-6EC4-462D-9FAE-E1DB4347795F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7AFDF0EB-216E-4D82-915F-4A9CA8CA891A} = {7AFDF0EB-216E-4D82-915F-4A9CA8CA891A}
 	EndProjectSection
