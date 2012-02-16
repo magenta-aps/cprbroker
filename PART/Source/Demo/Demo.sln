@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPR Business Application Demo", "CPR Business Application Demo\CPR Business Application Demo.csproj", "{F5B234B8-F852-470B-AB7D-A3C4F3C66EDB}"
 EndProject
 Global
