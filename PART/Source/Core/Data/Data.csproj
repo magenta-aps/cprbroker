@@ -79,10 +79,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Events\DataChangeEventDataContext.designer.cs">
       <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Part\Address.cs" />
     <Compile Include="Part\CprData.cs" />
@@ -125,7 +130,7 @@
     <None Include="Part\PartDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>PartDataContext1.designer.cs</LastGenOutput>
+      <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -151,11 +156,6 @@
     <Compile Include="DataProviders\DataProvider.cs" />
     <Compile Include="DataProviders\DataProvidersDataContext.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Events\DataChangeEventDataContext.cs" />
     <Compile Include="Part\ActorRef.cs" />
@@ -187,7 +187,7 @@
     <None Include="Events\DataChangeEventDataContext.dbml">
       <SubType>Designer</SubType>
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataChangeEventDataContext2.designer.cs</LastGenOutput>
+      <LastGenOutput>DataChangeEventDataContext.designer.cs</LastGenOutput>
     </None>
     <None Include="Events\DataChangeEventDataContext.dbml.layout">
       <DependentUpon>DataChangeEventDataContext.dbml</DependentUpon>
@@ -197,7 +197,7 @@
     <None Include="DataProviders\DataProvidersDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>DataProvidersDataContext2.designer.cs</LastGenOutput>
+      <LastGenOutput>DataProvidersDataContext.designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
