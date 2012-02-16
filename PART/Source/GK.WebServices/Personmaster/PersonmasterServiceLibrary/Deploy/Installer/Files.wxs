@@ -47,20 +47,11 @@
       <Component Id="CMP_Microsoft.Practices.ServiceLocation.dll" Directory="bin">
         <File Id="FILE_Microsoft.Practices.ServiceLocation.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.ServiceLocation.dll" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_Microsoft.Practices.ServiceLocation.xml" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.ServiceLocation.xml" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.ServiceLocation.xml" KeyPath="yes"/>
-      </Component>
       <Component Id="CMP_Microsoft.Practices.Unity.dll" Directory="bin">
         <File Id="FILE_Microsoft.Practices.Unity.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_Microsoft.Practices.Unity.Interception.dll" Directory="bin">
         <File Id="FILE_Microsoft.Practices.Unity.Interception.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
-      </Component>
-      <Component Id="CMP_Microsoft.Practices.Unity.Interception.xml" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.Unity.Interception.xml" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.Unity.Interception.xml" KeyPath="yes"/>
-      </Component>
-      <Component Id="CMP_Microsoft.Practices.Unity.xml" Directory="bin">
-        <File Id="FILE_Microsoft.Practices.Unity.xml" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\Microsoft.Practices.Unity.xml" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_PersonmasterServiceLibrary.dll" Directory="bin">
         <File Id="FILE_PersonmasterServiceLibrary.dll" Source="$(var.PersonmasterServiceLibrary.ProjectDir)bin\$(var.PersonmasterServiceLibrary.Configuration)\PersonmasterServiceLibrary.dll" KeyPath="yes"/>
