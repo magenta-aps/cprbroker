@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -21,7 +22,7 @@
       newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;
       upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;
       printeulaDll=$(OutputPath)\PrintEula.dll;
-      SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\CprBrokerInstallers\;EventSitePath=..\..\EventBroker\EventBrokerWeb\;EventOutputPath=..\..\EventBroker\Output\;</DefineConstants>
+      SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\CprBrokerInstallers\;EventSitePath=..\..\EventBroker\EventBrokerWeb\;EventOutputPath=..\..\EventBroker\Output\;DllPath=..\..\Dll\</DefineConstants>
     <SuppressIces>
     </SuppressIces>
     <LinkerAdditionalOptions>

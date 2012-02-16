@@ -43,22 +43,22 @@
         <File Id="FILE_EVENT_bin_CprBroker.Utilities.dll" Source="$(var.EventSitePath)bin\CprBroker.Utilities.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
+        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.DllPath)Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.xml" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.xml" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.xml" KeyPath="yes"/>
+        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.xml" Source="$(var.DllPath)Microsoft.Practices.EnterpriseLibrary.Common.xml" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
+        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.DllPath)Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.xml" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.xml" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Logging.xml" KeyPath="yes"/>
+        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.xml" Source="$(var.DllPath)Microsoft.Practices.EnterpriseLibrary.Logging.xml" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.ObjectBuilder2.dll" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_Microsoft.Practices.ObjectBuilder2.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.ObjectBuilder2.dll" KeyPath="yes"/>
+        <File Id="FILE_EVENT_bin_Microsoft.Practices.ObjectBuilder2.dll" Source="$(var.DllPath)Microsoft.Practices.ObjectBuilder2.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.Unity.dll" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_Microsoft.Practices.Unity.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
+        <File Id="FILE_EVENT_bin_Microsoft.Practices.Unity.dll" Source="$(var.DllPath)Microsoft.Practices.Unity.dll" KeyPath="yes"/>
       </Component>
 
       <Component Id="CMP_EVENT_bin_CprBroker.EventBroker.Backend.exe" Directory="EVENT_bin">

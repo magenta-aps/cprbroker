@@ -74,16 +74,16 @@
       </Component>
 
       <Component Id="CMP_CPR_EntLib_Common_Dll" Directory="CPR_bin">
-        <File Id="FILE_CPR_bin_EntLib_Common_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
+        <File Id="FILE_CPR_bin_EntLib_Common_DLL" Source="$(var.DllPath)Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_EntLib_Logging_Dll" Directory="CPR_bin">
-        <File Id="FILE_CPR_bin_EntLib_Logging_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
+        <File Id="FILE_CPR_bin_EntLib_Logging_DLL" Source="$(var.DllPath)Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_EntLib_ObjectBuilder2_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_EntLib_ObjectBuilder2_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.ObjectBuilder2.dll" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_EntLib_Unity_Dll" Directory="CPR_bin">
-        <File Id="FILE_CPR_bin_EntLib_Unity_Dll" Source="$(var.SitePath)bin\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
+        <File Id="FILE_CPR_bin_EntLib_Unity_Dll" Source="$(var.DllPath)Microsoft.Practices.Unity.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
