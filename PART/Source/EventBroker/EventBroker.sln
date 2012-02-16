@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "Scripts", "Scripts\Scripts.dbp", "{9A8F23D7-E12D-4174-8B34-E8BCC705235E}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{C8D11400-126E-41CD-887F-60BD40844F9E}") = "Scripts", "Scripts\Scripts.dbproj", "{67CBC824-A49E-4E9B-A947-360F3DFE65C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBroker", "EventBroker\EventBroker.csproj", "{D8FC2102-488A-480A-8197-8842B8192E68}"
 EndProject
@@ -17,6 +17,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67CBC824-A49E-4E9B-A947-360F3DFE65C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67CBC824-A49E-4E9B-A947-360F3DFE65C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8FC2102-488A-480A-8197-8842B8192E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8FC2102-488A-480A-8197-8842B8192E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
