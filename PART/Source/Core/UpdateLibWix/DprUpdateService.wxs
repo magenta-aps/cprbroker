@@ -46,14 +46,14 @@
     <InstallExecuteSequence>
       <Custom Action="Set_AllUpdateProperties" After="AfterInstallInitialize_DB">1</Custom>
 
-      <Custom Action="RollbackUpdatesService_" After="Set_AllUpdateProperties">NOT REMOVE</Custom>
-      <Custom Action="RollbackUpdatesService" After="DeployDatabase">NOT REMOVE</Custom>
+      <Custom Action="RollbackUpdatesService_" After="Set_AllUpdateProperties">NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED</Custom>
+      <Custom Action="RollbackUpdatesService" After="DeployDatabase">NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED</Custom>
 
-      <Custom Action="InstallUpdatesService_" After="Set_AllUpdateProperties">NOT REMOVE</Custom>
-      <Custom Action="InstallUpdatesService" After="RollbackUpdatesService">NOT REMOVE</Custom>
+      <Custom Action="InstallUpdatesService_" After="Set_AllUpdateProperties">NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED</Custom>
+      <Custom Action="InstallUpdatesService" After="RollbackUpdatesService">NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED</Custom>
 
-      <Custom Action="RemoveUpdatesService_" After="Set_AllUpdateProperties"><![CDATA[REMOVE = "ALL"]]></Custom>
-      <Custom Action="RemoveUpdatesService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL"]]></Custom>
+      <Custom Action="RemoveUpdatesService_" After="Set_AllUpdateProperties"><![CDATA[REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
+      <Custom Action="RemoveUpdatesService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
 
     </InstallExecuteSequence>
   </Fragment>
