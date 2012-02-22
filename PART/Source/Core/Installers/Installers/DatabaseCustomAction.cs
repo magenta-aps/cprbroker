@@ -123,7 +123,7 @@ namespace CprBroker.Installers
                     DatabaseSetupInfo.AddRegistryEntries(session, featureName);
                 }
             );
-            var aggregatedProps = DatabaseSetupInfo.GetCustomActionData(session);
+            var aggregatedProps = DatabaseSetupInfo.GetCustomActionData(session).ToString();
             session.SetPropertyValue("RollbackDatabase", aggregatedProps);
             session.SetPropertyValue("DeployDatabase", aggregatedProps);
             session.SetPropertyValue("RemoveDatabase", aggregatedProps);

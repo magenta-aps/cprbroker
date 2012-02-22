@@ -450,6 +450,14 @@ namespace CprBroker.Installers
                 throw new InstallException(string.Format("Process '{0} {1}' failed", startInfo.FileName, startInfo.Arguments));
             }
         }
+
+        public static void Merge(this Microsoft.Deployment.WindowsInstaller.CustomActionData source, Microsoft.Deployment.WindowsInstaller.CustomActionData other)
+        {
+            foreach (var key in other.Keys)
+            {
+                source[key] = other[key];
+            }
+        }
     }
 
 

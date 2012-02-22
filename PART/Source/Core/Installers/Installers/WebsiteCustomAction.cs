@@ -186,7 +186,7 @@ namespace CprBroker.Installers
                     WebInstallationInfo.AddRegistryEntries(session, featureName);
                 }
             );
-            var aggregatedProps = WebInstallationInfo.GetCustomActionData(session);
+            var aggregatedProps = WebInstallationInfo.GetCustomActionData(session).ToString();
             session.SetPropertyValue("RollbackWebsite", aggregatedProps);
             session.SetPropertyValue("CreateWebsite", aggregatedProps);
             session.SetPropertyValue("RemoveWebsite", aggregatedProps);

@@ -177,16 +177,20 @@ namespace CprBroker.Installers
             return ret;
         }
 
-        public static string GetCustomActionData(Session session)
+        public static CustomActionData GetCustomActionData(Session session)
         {
             var commponProps = BaseSetupInfo.GetCustomActionData(session);
+
             var databaseProps = DatabaseSetupInfo.GetCustomActionData(session);
-            var webProps = string.Format("{0}={1};{2}={3};{4}={5}",
-                WebInstallationInfo.AllInfoPropertyName, session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName),
-                WebInstallationInfo.FeaturePropertyName, session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName),
-                WebInstallationInfo.AllFeaturesPropertyName, session.GetPropertyValue(WebInstallationInfo.AllFeaturesPropertyName)
-                );
-            return string.Format("{0};{1};{2}", commponProps, webProps, databaseProps);
+            commponProps.Merge(databaseProps);
+
+            var webProps = new CustomActionData();
+            webProps[WebInstallationInfo.AllInfoPropertyName] = session.GetPropertyValue(WebInstallationInfo.AllInfoPropertyName);
+            webProps[WebInstallationInfo.FeaturePropertyName] = session.GetPropertyValue(WebInstallationInfo.FeaturePropertyName);
+            webProps[WebInstallationInfo.AllFeaturesPropertyName] = session.GetPropertyValue(WebInstallationInfo.AllFeaturesPropertyName);
+            commponProps.Merge(webProps);
+
+            return commponProps;
         }
 
         public static void SetSuggestedPropertyValues(Session session, string featureName)

@@ -106,16 +106,15 @@ namespace CprBroker.Installers
             }
         }
 
-        public static string GetCustomActionData(Session session)
+        public static CustomActionData GetCustomActionData(Session session)
         {
-            var aggregatedProps = string.Format("INSTALLDIR={0};Manufacturer={1};ProductName={2};REMOVE={3};PATCH={4}",
-                session.GetPropertyValue("INSTALLDIR"),
-                session.GetPropertyValue("Manufacturer"),
-                session.GetPropertyValue("ProductName"),
-                session.GetPropertyValue("REMOVE"),
-                session.GetPropertyValue("PATCH")
-                );
-            return aggregatedProps;
+            var ret = new CustomActionData();
+            ret["INSTALLDIR"] = session.GetPropertyValue("INSTALLDIR");
+            ret["Manufacturer"] = session.GetPropertyValue("Manufacturer");
+            ret["ProductName"] = session.GetPropertyValue("ProductName");
+            ret["REMOVE"] = session.GetPropertyValue("REMOVE");
+            ret["PATCH"] = session.GetPropertyValue("PATCH");
+            return ret;
         }
 
         public static void SetSuggestedPropertyValues(Session session, string featureName, string[] allFeatureNames, string[] allSuggestedNames, string[] propertyNames)
