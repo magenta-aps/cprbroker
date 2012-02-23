@@ -249,5 +249,17 @@ namespace UpdateLib
             return ActionResult.Success;
         }
 
+        [CustomAction]
+        public static ActionResult AfterInstallInitialize_Product(Session session)
+        {
+            return ProductCustomActions.AfterInstallInitialize_Product(session);
+        }
+
+        [CustomAction]
+        public static ActionResult ForgetOlderVersions(Session session)
+        {
+            return ProductCustomActions.ForgetOlderVersions(session);
+        }
+
     }
 }

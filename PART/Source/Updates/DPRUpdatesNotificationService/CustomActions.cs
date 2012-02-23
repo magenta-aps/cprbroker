@@ -117,5 +117,17 @@ namespace DPRUpdatesNotification
             return UpdateLib.CustomActions.RemoveUpdatesService(session, _UpdateDetectionVariables);
         }
 
+        [CustomAction]
+        public static ActionResult AfterInstallInitialize_Product(Session session)
+        {
+            return UpdateLib.CustomActions.AfterInstallInitialize_Product(session);
+        }
+
+        [CustomAction]
+        public static ActionResult ForgetOlderVersions(Session session)
+        {
+            return UpdateLib.CustomActions.ForgetOlderVersions(session);
+        }
+
     }
 }
