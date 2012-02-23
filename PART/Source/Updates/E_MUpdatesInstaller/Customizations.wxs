@@ -4,6 +4,7 @@
     <Property Id="Dummy_CustomizationsFragmentRefProp" Value="-"/>
 
     <PropertyRef Id="Dummy_DatabaseFragmentRefProperty"/>
+    <PropertyRef Id="Dummy_ForgetOlderVersionFragmentRefProp"/>
 
     <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)E_MUpdatesNotificationService.CA.exe"/>
 
@@ -27,5 +28,7 @@
     <WixVariable Id="UpdateLibWixPath" Value="..\..\Core\UpdateLibWix\"/>
     <WixVariable Id="ServicePath" Value="..\E_MUpdatesNotificationService\"/>
     <WixVariable Id="ServiceTargetName" Value="E_MUpdatesNotificationService"/>
+
+    <WixVariable Id="ForgetOlderVersions" Value="1"/>
   </Fragment>
 </Wix>
