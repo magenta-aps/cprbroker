@@ -53,6 +53,7 @@ using System.Data.SqlClient;
 using CprBroker.Installers;
 using CprBroker.Utilities;
 using Microsoft.Win32;
+using System.ServiceProcess;
 
 namespace UpdateLib
 {
@@ -128,6 +129,14 @@ namespace UpdateLib
                 "ApplicationToken",
                 appToken
             );
+        }
+
+        private static void UninstallServiceByName(Session session, UpdateDetectionVariables updateDetectionVariables)
+        {
+            if(CprBroker.Installers.Installation.ServiceExists(updateDetectionVariables.ServiceName,updateDetectionVariables.ServiceDisplayName))
+            {
+                UnInstallService(session,updateDetectionVariables);
+            }
         }
 
         private static void InstallAndStartService(Session session, UpdateDetectionVariables updateDetectionVariables)

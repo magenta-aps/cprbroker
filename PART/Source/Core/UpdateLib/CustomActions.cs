@@ -103,43 +103,67 @@ namespace UpdateLib
         [CustomAction]
         public static ActionResult DeployDatabase(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
-            var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.crebas);
-            DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
-            DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { updateDetectionVariables.StagingTableName });
-            return ActionResult.Success;
+            try
+            {
+                DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
+                var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.crebas);
+                DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
+                DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { updateDetectionVariables.StagingTableName });
+                return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RollbackDatabase(Session session, UpdateDetectionVariables udateDetectionVariables)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, udateDetectionVariables.DatabaseFeatureName);
-            DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
-            DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
-            return ActionResult.Success;
+            try
+            {
+                DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, udateDetectionVariables.DatabaseFeatureName);
+                DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
+                DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
+                return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
         public static ActionResult RemoveDatabase(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
-            DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
+            try
             {
-                SetupInfo = databaseSetupInfo,
-                Text = "Drop database objects",
-                QuestionText = "Should the database objects be removed?",
-                NoText = "No, keep the database objects",
-                YesText = "Yes, drop the database objects"
-            };
+                DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
+                DropDatabaseForm dropDatabaseForm = new DropDatabaseForm()
+                {
+                    SetupInfo = databaseSetupInfo,
+                    Text = "Drop database objects",
+                    QuestionText = "Should the database objects be removed?",
+                    NoText = "No, keep the database objects",
+                    YesText = "Yes, drop the database objects"
+                };
 
 
-            if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
-            {
-                var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.drpbas);
-                DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
-                DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
+                if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
+                {
+                    var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.drpbas);
+                    DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
+                    DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
+                }
+                return ActionResult.Success;
             }
-            return ActionResult.Success;
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
@@ -170,6 +194,7 @@ namespace UpdateLib
                 string appToken = RegisterApplicationInCprBroker(session);
                 UpdateConfigFile(session, updateDetectionVariables, appToken);
                 UpdateRegistry(session, appToken);
+                UninstallServiceByName(session, updateDetectionVariables);
                 InstallAndStartService(session, updateDetectionVariables);
                 return ActionResult.Success;
             }
@@ -183,7 +208,15 @@ namespace UpdateLib
         [CustomAction]
         public static ActionResult RollbackUpdatesService(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
-            return RemoveUpdatesService(session, updateDetectionVariables);
+            try
+            {
+                return RemoveUpdatesService(session, updateDetectionVariables);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
         }
 
         [CustomAction]
