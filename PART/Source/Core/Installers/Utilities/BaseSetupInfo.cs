@@ -114,6 +114,7 @@ namespace CprBroker.Installers
             ret["ProductName"] = session.GetPropertyValue("ProductName");
             ret["REMOVE"] = session.GetPropertyValue("REMOVE");
             ret["PATCH"] = session.GetPropertyValue("PATCH");
+            ret["OLDER_VERSION_DETECTED"] = session.GetPropertyValue("OLDER_VERSION_DETECTED");
             return ret;
         }
 
