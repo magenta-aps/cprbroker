@@ -22,7 +22,7 @@
       newIco=$(MSBuildProjectDirectory)\Bitmaps\new.ico;
       upIco=$(MSBuildProjectDirectory)\Bitmaps\up.ico;
       printeulaDll=$(OutputPath)\PrintEula.dll;
-      SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\CprBrokerInstallers\;EventSitePath=..\..\EventBroker\EventBrokerWeb\;EventOutputPath=..\..\EventBroker\Output\;DllPath=..\..\Dll\</DefineConstants>
+      SitePath=..\Web\;OutputPath=..\Output\;InstallersPath=..\CprBrokerInstallers\;EventSitePath=..\..\EventBroker\EventBrokerWeb\;EventOutputPath=..\..\EventBroker\Output\</DefineConstants>
     <SuppressIces>
     </SuppressIces>
     <LinkerAdditionalOptions>
