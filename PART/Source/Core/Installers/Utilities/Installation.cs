@@ -56,6 +56,7 @@ using System.Configuration;
 using System.Security;
 using System.Security.AccessControl;
 using System.Diagnostics;
+using System.ServiceProcess;
 
 namespace CprBroker.Installers
 {
@@ -457,6 +458,18 @@ namespace CprBroker.Installers
             {
                 source[key] = other[key];
             }
+        }
+
+        public static bool ServiceExists(string serviceName, string serviceDisplayName)
+        {
+            var allServices = ServiceController.GetServices();
+            return allServices
+                .Where(
+                    ctl =>
+                        ctl.ServiceName == serviceName
+                    || ctl.DisplayName == serviceDisplayName
+                    )
+                .Count() > 0;
         }
     }
 
