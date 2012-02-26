@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPRUpdatesNotificationService", "DPRUpdatesNotificationService\DPRUpdatesNotificationService.csproj", "{056549B2-8354-48CA-8AA3-4C8F205DC327}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateLib", "..\Core\UpdateLib\UpdateLib.csproj", "{CFCD510E-E2BA-48D6-955A-D9992BF85B18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateLib", "UpdateLib\UpdateLib.csproj", "{CFCD510E-E2BA-48D6-955A-D9992BF85B18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKApp2010", "..\Lib\GKApp2010\GKApp2010.csproj", "{849E35C1-271C-4A61-BB61-FBD6CF24EDBB}"
 EndProject
@@ -12,7 +12,7 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DPRUpdatesInstaller", "DPRU
 		{056549B2-8354-48CA-8AA3-4C8F205DC327} = {056549B2-8354-48CA-8AA3-4C8F205DC327}
 	EndProjectSection
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "UpdateLibWix", "..\Core\UpdateLibWix\UpdateLibWix.wixproj", "{A615F9DB-327D-4C85-B0F2-76E50EC7E232}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "UpdateLibWix", "UpdateLibWix\UpdateLibWix.wixproj", "{A615F9DB-327D-4C85-B0F2-76E50EC7E232}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_MUpdatesNotificationService", "E_MUpdatesNotificationService\E_MUpdatesNotificationService.csproj", "{7AFDF0EB-216E-4D82-915F-4A9CA8CA891A}"
 EndProject
