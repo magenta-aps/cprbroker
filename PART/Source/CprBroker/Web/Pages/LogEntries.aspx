@@ -3,8 +3,9 @@
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
     <asp:LinqDataSource ID="logEntriesLinqDataSource" runat="server" ContextTypeName="CprBroker.Data.Applications.ApplicationDataContext"
-        OrderBy="LogDate desc" TableName="LogEntries" AutoPage="true" 
-        onselected="logEntriesLinqDataSource_Selected">
+        OrderBy="LogDate desc" TableName="LogEntries" AutoPage="False" 
+        onselected="logEntriesLinqDataSource_Selected" 
+        onselecting="logEntriesLinqDataSource_Selecting">
     </asp:LinqDataSource>
     <table>
         <tr>

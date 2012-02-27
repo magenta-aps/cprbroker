@@ -82,5 +82,11 @@ namespace CprBroker.Web.Pages
                 }
             }
         }
+
+        protected void logEntriesLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        {
+            e.Arguments.TotalRowCount = (int)Data.Statistics.stat.CountRowsByStatistics<Data.Applications.LogEntry>(Config.Properties.Settings.Default.CprBrokerConnectionString, TimeSpan.FromMinutes(15));
+            e.Result = Data.Applications.LogEntry.LoadByPage(pager.StartRowIndex, pager.PageSize).ToList();
+        }
     }
 }
