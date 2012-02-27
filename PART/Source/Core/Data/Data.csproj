@@ -79,6 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApplicationDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Applications\LogEntry.cs" />
     <Compile Include="DataProviders\DataProvidersDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,6 +109,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Statistics\stat.cs" />
+    <Compile Include="Statistics\StatisticsDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatisticsDataContext.dbml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Config\Config.csproj">
@@ -131,6 +138,11 @@
       <Generator>MSLinqToSQLGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>PartDataContext.designer.cs</LastGenOutput>
+    </None>
+    <None Include="Statistics\StatisticsDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>StatisticsDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +213,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="DataProviders\DataProvidersDataContext.dbml.layout">
       <DependentUpon>DataProvidersDataContext.dbml</DependentUpon>
     </None>
@@ -229,6 +240,11 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Statistics\StatisticsDataContext.dbml.layout">
+      <DependentUpon>StatisticsDataContext.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

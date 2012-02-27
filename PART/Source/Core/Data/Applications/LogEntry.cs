@@ -48,47 +48,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data;
-using System.Data.SqlClient;
+using System.Data.Linq;
 
-namespace CprBroker.Utilities
+namespace CprBroker.Data.Applications
 {
-    /// <summary>
-    /// Contains utility methods that support SQL server access
-    /// </summary>
-    public static class Sql
+    public partial class LogEntry
     {
         /// <summary>
-        /// Converts the value of the DateTime to null if is is out of the possible values in SQL Server
+        /// Reads the LogEntry objects as requested
+        /// Makes dummy calls to Application and LogType properties to allow accessing them without the source data context object
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static DateTime? GetSqlDateTime(DateTime? value)
+        /// <param name="startRow">Zero based start row number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>The found LogEntry objects</returns>
+        public static List<LogEntry> LoadByPage(int startRow, int pageSize)
         {
-            if (value == null)
-                return null;
-            if (value <= Constants.MinSqlDate)
-                return null;
-            return value;
-        }
-
-        /// <summary>
-        /// Fills a DataSet object with the result of a SQL query
-        /// </summary>
-        /// <param name="command">SQL string to execute</param>
-        /// <param name="connectionString">SQL connection string</param>
-        /// <returns>A DataSet object containing the returned data</returns>
-        public static DataSet FillDataSet(string command, string connectionString)
-        {
-            using (var conn = new SqlConnection(connectionString))
+            using (ApplicationDataContext dataContext = new ApplicationDataContext())
             {
-                conn.Open();
-                using (var adpt = new SqlDataAdapter(command, conn))
+                DataLoadOptions options = new DataLoadOptions();
+                
+                dataContext.LoadOptions = options;
+
+                var ret= dataContext.LogEntries
+                    .OrderByDescending(le => le.LogDate)
+                    .Skip(startRow)
+                    .Take(pageSize)
+                    .ToList();
+                foreach (var logEntry in ret)
                 {
-                    DataSet ret = new DataSet();
-                    adpt.Fill(ret);
-                    return ret;
+                    object o = logEntry.Application;
+                    object s = logEntry.LogType;
                 }
+                return ret;
             }
         }
     }

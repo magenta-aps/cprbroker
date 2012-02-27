@@ -76,7 +76,7 @@ namespace CprBroker.Utilities
             }
             else
             {
-                return tableAttribute.Name;
+                return tableAttribute.Name.Split('.').Last();
             }
         }
 
