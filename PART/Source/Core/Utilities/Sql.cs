@@ -48,6 +48,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace CprBroker.Utilities
 {
@@ -68,6 +70,71 @@ namespace CprBroker.Utilities
             if (value <= Constants.MinSqlDate)
                 return null;
             return value;
+        }
+
+        /// <summary>
+        /// Executes SqlCommand.ExecuteScalar() and casts the result to Nullable&lt;<typeparamref name="T"/>&gt;
+        /// </summary>
+        /// <typeparam name="T">Type to cast the result to (if not DBNull)</typeparam>
+        /// <param name="command">SQL string to execute</param>
+        /// <param name="connectionString">SQL connection string</param>
+        /// <returns>The result (or Null)</returns>
+        public static T? ExecuteScalar<T>(string command, string connectionString) where T : struct
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(command, conn))
+                {
+                    var ret = cmd.ExecuteScalar();
+                    if (DBNull.Value.Equals(ret))
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return (T?)ret;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Executes SqlCommand.ExecuteNonQuery()
+        /// </summary>
+        /// <param name="command">SQL string to execute</param>
+        /// <param name="connectionString">SQL connection string</param>
+        /// <returns>The number of affected rows</returns>
+        public static int ExecuteNonQuery(string command, string connectionString)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(command, conn))
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Fills a DataSet object with the result of a SQL query
+        /// </summary>
+        /// <param name="command">SQL string to execute</param>
+        /// <param name="connectionString">SQL connection string</param>
+        /// <returns>A DataSet object containing the returned data</returns>
+        public static DataSet FillDataSet(string command, string connectionString)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                using (var adpt = new SqlDataAdapter(command, conn))
+                {
+                    DataSet ret = new DataSet();
+                    adpt.Fill(ret);
+                    return ret;
+                }
+            }
         }
     }
 }
