@@ -43,7 +43,10 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\UpdateLibWix\UpdateLibWix.wixproj">
+    <EmbeddedResource Include="en-us.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UpdateLibWix\UpdateLibWix.wixproj">
       <Name>UpdateLibWix</Name>
       <Project>{a615f9db-327d-4c85-b0f2-76e50ec7e232}</Project>
       <Private>True</Private>
@@ -51,9 +54,6 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLLOCATION</RefTargetDir>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="en-us.wxl" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
