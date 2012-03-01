@@ -94,6 +94,15 @@ namespace CprBroker.Tests.Engine
             public bool IsAlive() { return true; }
         }
 
+        class GuidDataProvider2 : GuidDataProvider
+        { }
+        class GuidDataProvider3 : GuidDataProvider
+        { }
+        class GuidDataProvider4 : GuidDataProvider
+        { }
+        class GuidDataProvider5 : GuidDataProvider
+        { }
+
         class GuidMethodInfo : SubMethodInfo<GuidDataProvider, Guid>
         {
             public Guid Input;

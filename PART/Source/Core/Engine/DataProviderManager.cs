@@ -75,8 +75,7 @@ namespace CprBroker.Engine
             {
                 try
                 {
-                    IExternalDataProvider externalProvider = dataProvider as IExternalDataProvider;
-                    externalProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(externalProvider.ConfigurationKeys.Select(p => p.Name).ToArray());
+                    dataProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(dataProvider.ConfigurationKeys.Select(p => p.Name).ToArray());
                 }
                 catch (Exception ex)
                 {
@@ -90,107 +89,116 @@ namespace CprBroker.Engine
 
         #region Loaders
 
-        public static Type[] GetAvailableDataProviderTypes(bool isExternal)
+        public static IEnumerable<Type> GetAvailableDataProviderTypes(bool isExternal)
         {
             return GetAvailableDataProviderTypes(null, isExternal);
         }
 
-        public static Type[] GetAvailableDataProviderTypes(Type interfaceType, bool isExternal)
+        public static IEnumerable<Type> GetAvailableDataProviderTypes(Type interfaceType, bool isExternal)
+        {
+            return GetAvailableDataProviderTypes(DataProvidersConfigurationSection.GetCurrent(), interfaceType, isExternal);
+
+        }
+
+        public static IEnumerable<Type> GetAvailableDataProviderTypes(DataProvidersConfigurationSection section, Type interfaceType, bool isExternal)
         {
             if (interfaceType == null)
             {
                 interfaceType = typeof(IDataProvider);
             }
 
-            List<Type> neededTypes = new List<Type>();
-            try
+            if (section != null)
             {
-                DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
-                if (section != null)
+                try
                 {
-                    for (int i = 0; i < section.Types.Count; i++)
-                    {
-                        try
+                    var typesConfigurationElements = new TypeElement[section.Types.Count];
+                    section.Types.CopyTo(typesConfigurationElements, 0);
+
+                    return typesConfigurationElements
+                        .Select(typeConfigElement =>
                         {
-                            string typeName = section.Types[i].TypeName;
-                            Type t = Type.GetType(typeName);
-                            if (interfaceType.IsAssignableFrom(t))
+                            try
                             {
-                                if (t.IsClass && !t.IsAbstract && typeof(IDataProvider).IsAssignableFrom(t))
+                                string typeName = typeConfigElement.TypeName;
+                                Type t = Type.GetType(typeName);
+                                if (interfaceType.IsAssignableFrom(t))
                                 {
-                                    if (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t))
+                                    if (t.IsClass && !t.IsAbstract && typeof(IDataProvider).IsAssignableFrom(t))
                                     {
-                                        neededTypes.Add(t);
-                                    }
-                                    else if (!isExternal && !typeof(IExternalDataProvider).IsAssignableFrom(t))
-                                    {
-                                        neededTypes.Add(t);
+                                        if (isExternal && typeof(IExternalDataProvider).IsAssignableFrom(t))
+                                        {
+                                            return t;
+                                        }
+                                        else if (!isExternal && !typeof(IExternalDataProvider).IsAssignableFrom(t))
+                                        {
+                                            return t;
+                                        }
                                     }
                                 }
                             }
-                        }
-                        catch (System.Reflection.ReflectionTypeLoadException ex)
-                        {
-                            Local.Admin.LogException(ex, ex.LoaderExceptions);
-                        }
-                        catch (Exception ex)
-                        {
-                            Local.Admin.LogException(ex);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Local.Admin.LogException(ex);
-            }
-            return neededTypes.ToArray();
-        }
-
-        private static IExternalDataProvider[] LoadExternalDataProviders(Type interfaceType)
-        {
-            List<IExternalDataProvider> providers = new List<IExternalDataProvider>();
-            try
-            {
-                using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
-                {
-                    var dbProviders = (from prov in dataContext.DataProviders
-                                       where prov.IsEnabled
-                                       orderby prov.Ordinal
-                                       select prov).ToArray();
-
-                    // Append external clearData providers
-                    foreach (var dbProv in dbProviders)
-                    {
-                        try
-                        {
-                            Type providerType = Type.GetType(dbProv.TypeName);
-                            if (providerType != null && interfaceType.IsAssignableFrom(providerType))
+                            catch (System.Reflection.ReflectionTypeLoadException ex)
                             {
-                                IExternalDataProvider dataProvider = CreateDataProvider(dbProv) as IExternalDataProvider;
-                                if (dataProvider != null)
-                                {
-                                    providers.Add(dataProvider);
-                                }
+                                Local.Admin.LogException(ex, ex.LoaderExceptions);
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            Local.Admin.LogException(ex);
-                        }
-                    }
+                            catch (Exception ex)
+                            {
+                                Local.Admin.LogException(ex);
+                            }
+                            return null;
+                        })
+                        .Where(t => t != null);
+
+                }
+                catch (Exception ex)
+                {
+                    Local.Admin.LogException(ex);
                 }
             }
-            catch (Exception ex)
-            {
-                Local.Admin.LogException(ex);
-            }
-            return providers.ToArray();
+            return new Type[0];
         }
 
-        private static IDataProvider[] LoadLocalDataProviders(Type interfaceType)
+        private static IEnumerable<IDataProvider> LoadExternalDataProviders(Type interfaceType)
         {
-            return Array.ConvertAll<Type, IDataProvider>(GetAvailableDataProviderTypes(interfaceType, false), t => Reflection.CreateInstance<IDataProvider>(t.AssemblyQualifiedName));
+            using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
+            {
+                var dbProviders = (from prov in dataContext.DataProviders
+                                   where prov.IsEnabled
+                                   orderby prov.Ordinal
+                                   select prov).ToArray();
+                return LoadExternalDataProviders(dbProviders, interfaceType);
+            }
+        }
+
+        public static IEnumerable<IDataProvider> LoadExternalDataProviders(DataProvider[] dbProviders, Type interfaceType)
+        {
+            return dbProviders
+                .AsEnumerable()
+                .Select(dbProv =>
+                {
+                    IDataProvider dataProvider = null;
+                    try
+                    {
+                        Type providerType = Type.GetType(dbProv.TypeName);
+                        if (providerType != null && interfaceType.IsAssignableFrom(providerType) && typeof(IExternalDataProvider).IsAssignableFrom(providerType))
+                        {
+                            dataProvider = CreateDataProvider(dbProv) as IDataProvider;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Local.Admin.LogException(ex);
+                    }
+                    return dataProvider;
+                })
+                .Where(prov => prov != null);
+        }
+
+        public static IEnumerable<IDataProvider> LoadLocalDataProviders(DataProvidersConfigurationSection section, Type interfaceType)
+        {
+            return GetAvailableDataProviderTypes(section, interfaceType, false)
+                .Select(
+                    t => Reflection.CreateInstance<IDataProvider>(t)
+                );
         }
 
         #endregion
@@ -198,32 +206,33 @@ namespace CprBroker.Engine
         #region Filtration by type
 
 
-        internal static List<IDataProvider> GetDataProviderList(Type interfaceType, LocalDataProviderUsageOption localOption)
+        internal static IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, Type interfaceType, LocalDataProviderUsageOption localOption)
         {
-
-            // First copy to local defined list to avoid threading issues
-            List<IDataProvider> availableProviders = new List<IDataProvider>();
-
             // External
-            availableProviders.AddRange(LoadExternalDataProviders(interfaceType));
+            var availableExternalProviders = LoadExternalDataProviders(interfaceType);
 
             // Now add the local clearData providers if needed
             if (localOption != LocalDataProviderUsageOption.Forbidden)
             {
-                var availableLocalProviders = LoadLocalDataProviders(interfaceType);
+                var availableLocalProviders = LoadLocalDataProviders(section, interfaceType);
 
                 if (localOption == LocalDataProviderUsageOption.UseFirst)
                 {
-                    availableProviders.InsertRange(0, availableLocalProviders);
+                    return availableLocalProviders.Concat(availableExternalProviders);
                 }
                 else
                 {
-                    availableProviders.AddRange(availableLocalProviders);
+                    return availableExternalProviders.Concat(availableLocalProviders);
                 }
             }
-            return availableProviders;
+            else
+            {
+                return availableExternalProviders;
+            }
         }
 
         #endregion
+
+
     }
 }

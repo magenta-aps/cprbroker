@@ -61,6 +61,11 @@ namespace CprBroker.Utilities
         public static T CreateInstance<T>(string typeName) where T : class
         {
             Type t = Type.GetType(typeName);
+            return CreateInstance<T>(t);
+        }
+
+        public static T CreateInstance<T>(Type t) where T : class
+        {
             if (t != null)
             {
                 object ret = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null);

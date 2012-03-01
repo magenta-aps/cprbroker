@@ -133,7 +133,7 @@ namespace CprBroker.Tests.Engine
             {
             }
 
-            public override List<IDataProvider> GetDataProviderList()
+            public override IEnumerable<IDataProvider> GetDataProviderList()
             {
                 var ret = new List<IDataProvider>();
                 ret.Add(new PartReadDataProviderStub());

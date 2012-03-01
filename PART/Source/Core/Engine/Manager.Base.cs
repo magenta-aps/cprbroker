@@ -114,7 +114,7 @@ namespace CprBroker.Engine
                     .ToArray();
 
                 // Now check that each method call info either has at least one clearData provider implementation or can be safely ignored. 
-                var missingDataProvidersExist = subMethodRunStates.Where(mi => mi.SubMethodInfo.FailIfNoDataProvider && mi.DataProviders.Count == 0).FirstOrDefault() != null;
+                var missingDataProvidersExist = subMethodRunStates.Where(mi => mi.SubMethodInfo.FailIfNoDataProvider && mi.DataProviders.FirstOrDefault() == null).FirstOrDefault() != null;
 
                 if (missingDataProvidersExist)
                 {
@@ -236,9 +236,9 @@ namespace CprBroker.Engine
                         }
                         else
                         {
-                            var failedSubMethods = subMethodRunStates.Where(smi => !smi.Succeeded).Select(smi=>smi.SubMethodInfo);
+                            var failedSubMethods = subMethodRunStates.Where(smi => !smi.Succeeded).Select(smi => smi.SubMethodInfo);
                             var failedSubMethodsByReason = failedSubMethods.GroupBy(smi => smi.PossibleErrorReason());
-                            var failuresAndReasons = failedSubMethodsByReason.ToDictionary(grp => grp.Key, grp => grp.Select(smi=>smi.InputToString()));                                                        
+                            var failuresAndReasons = failedSubMethodsByReason.ToDictionary(grp => grp.Key, grp => grp.Select(smi => smi.InputToString()));
                             output.StandardRetur = StandardReturType.PartialSuccess(failuresAndReasons);
                         }
 
@@ -268,7 +268,7 @@ namespace CprBroker.Engine
         private class SubMethodRunState
         {
             public SubMethodInfo SubMethodInfo;
-            public List<IDataProvider> DataProviders;
+            public IEnumerable<IDataProvider> DataProviders;
             public object Result = null;
             public ParameterizedThreadStart ThreadStart;
             public Thread Thread;

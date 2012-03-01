@@ -58,7 +58,7 @@ namespace CprBroker.Engine
     /// </summary>
     public abstract class SubMethodInfo
     {
-        public abstract List<IDataProvider> GetDataProviderList();
+        public abstract IEnumerable<IDataProvider> GetDataProviderList();
         public bool FailOnDefaultOutput;
         public LocalDataProviderUsageOption LocalDataProviderOption;
         public bool FailIfNoDataProvider;
@@ -83,9 +83,9 @@ namespace CprBroker.Engine
             get { return typeof(TInterface); }
         }
 
-        public override List<IDataProvider> GetDataProviderList()
+        public override IEnumerable<IDataProvider> GetDataProviderList()
         {
-            return DataProviderManager.GetDataProviderList(this.InterfaceType, this.LocalDataProviderOption);
+            return DataProviderManager.GetDataProviderList(DataProvidersConfigurationSection.GetCurrent(), this.InterfaceType, this.LocalDataProviderOption);
         }
 
         public override sealed object Invoke(IDataProvider prov)
