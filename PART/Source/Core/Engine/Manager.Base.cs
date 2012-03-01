@@ -104,17 +104,9 @@ namespace CprBroker.Engine
                 // Initialize facade method
                 facade.Initialize();
 
-                // have a list of clearData provider types and corresponding methods to call
-                var subMethodRunStates = facade.SubMethodInfos
-                    .Select(mi => new SubMethodRunState()
-                    {
-                        SubMethodInfo = mi,
-                        DataProviders = mi.GetDataProviderList()
-                    })
-                    .ToArray();
-
-                // Now check that each method call info either has at least one clearData provider implementation or can be safely ignored. 
-                var missingDataProvidersExist = subMethodRunStates.Where(mi => mi.SubMethodInfo.FailIfNoDataProvider && mi.DataProviders.FirstOrDefault() == null).FirstOrDefault() != null;
+                // have a list of data provider types and corresponding methods to call
+                bool missingDataProvidersExist;
+                var subMethodRunStates = facade.CreateSubMethodRunStates(out missingDataProvidersExist);
 
                 if (missingDataProvidersExist)
                 {
@@ -264,15 +256,16 @@ namespace CprBroker.Engine
                 return new TOutput() { StandardRetur = StandardReturType.UnspecifiedError() };
             }
         }
-
-        private class SubMethodRunState
-        {
-            public SubMethodInfo SubMethodInfo;
-            public IEnumerable<IDataProvider> DataProviders;
-            public object Result = null;
-            public ParameterizedThreadStart ThreadStart;
-            public Thread Thread;
-            public bool Succeeded = false;
-        }
     }
+
+    public class SubMethodRunState
+    {
+        public SubMethodInfo SubMethodInfo;
+        public IEnumerable<IDataProvider> DataProviders;
+        public object Result = null;
+        public ParameterizedThreadStart ThreadStart;
+        public Thread Thread;
+        public bool Succeeded = false;
+    }
+
 }

@@ -52,6 +52,7 @@ using NUnit.Framework;
 using CprBroker.Engine;
 using CprBroker.Engine.Part;
 using CprBroker.Schemas.Part;
+using CprBroker.Data.DataProviders;
 
 namespace CprBroker.Tests.Engine
 {
@@ -133,7 +134,7 @@ namespace CprBroker.Tests.Engine
             {
             }
 
-            public override IEnumerable<IDataProvider> GetDataProviderList()
+            public override IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders)
             {
                 var ret = new List<IDataProvider>();
                 ret.Add(new PartReadDataProviderStub());

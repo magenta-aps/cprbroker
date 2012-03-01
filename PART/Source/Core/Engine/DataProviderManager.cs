@@ -157,7 +157,7 @@ namespace CprBroker.Engine
             return new Type[0];
         }
 
-        private static IEnumerable<IDataProvider> LoadExternalDataProviders(Type interfaceType)
+        public static DataProvider[] ReadDatabaseDataProviders()
         {
             using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
             {
@@ -165,7 +165,7 @@ namespace CprBroker.Engine
                                    where prov.IsEnabled
                                    orderby prov.Ordinal
                                    select prov).ToArray();
-                return LoadExternalDataProviders(dbProviders, interfaceType);
+                return dbProviders;
             }
         }
 
@@ -206,10 +206,10 @@ namespace CprBroker.Engine
         #region Filtration by type
 
 
-        internal static IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, Type interfaceType, LocalDataProviderUsageOption localOption)
+        public static IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders, Type interfaceType, LocalDataProviderUsageOption localOption)
         {
             // External
-            var availableExternalProviders = LoadExternalDataProviders(interfaceType);
+            var availableExternalProviders = LoadExternalDataProviders(dbProviders, interfaceType);
 
             // Now add the local clearData providers if needed
             if (localOption != LocalDataProviderUsageOption.Forbidden)

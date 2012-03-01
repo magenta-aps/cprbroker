@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using CprBroker.Data.DataProviders;
 
 namespace CprBroker.Engine
 {
@@ -58,7 +59,7 @@ namespace CprBroker.Engine
     /// </summary>
     public abstract class SubMethodInfo
     {
-        public abstract IEnumerable<IDataProvider> GetDataProviderList();
+        public abstract IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders);
         public bool FailOnDefaultOutput;
         public LocalDataProviderUsageOption LocalDataProviderOption;
         public bool FailIfNoDataProvider;
@@ -83,9 +84,9 @@ namespace CprBroker.Engine
             get { return typeof(TInterface); }
         }
 
-        public override IEnumerable<IDataProvider> GetDataProviderList()
+        public override IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders)
         {
-            return DataProviderManager.GetDataProviderList(DataProvidersConfigurationSection.GetCurrent(), this.InterfaceType, this.LocalDataProviderOption);
+            return DataProviderManager.GetDataProviderList(section, dbProviders, this.InterfaceType, this.LocalDataProviderOption);
         }
 
         public override sealed object Invoke(IDataProvider prov)

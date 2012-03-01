@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using CprBroker.Data.DataProviders;
 
 namespace CprBroker.Engine
 {
@@ -85,6 +86,24 @@ namespace CprBroker.Engine
         }
         public Action InitializationMethod = () => { };
 
+        public virtual SubMethodRunState[] CreateSubMethodRunStates(out bool missingDataProvidersExist)
+        {
+            DataProvidersConfigurationSection section = DataProvidersConfigurationSection.GetCurrent();
+            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
+
+            var subMethodRunStates = this.SubMethodInfos
+                .Select(mi => new SubMethodRunState()
+                {
+                    SubMethodInfo = mi,
+                    DataProviders = mi.GetDataProviderList(section, dbProviders)
+                })
+                .ToArray();
+
+            // Now check that each method call info either has at least one clearData provider implementation or can be safely ignored. 
+            missingDataProvidersExist = subMethodRunStates.Where(mi => mi.SubMethodInfo.FailIfNoDataProvider && mi.DataProviders.FirstOrDefault() == null).FirstOrDefault() != null;
+
+            return subMethodRunStates;
+        }
 
         public virtual TItem Aggregate(object[] results)
         {
