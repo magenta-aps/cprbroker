@@ -207,7 +207,7 @@ namespace CprBroker.Engine
                         mi.Thread.Abort();
                     }
                 }
-                else
+                else if (subMethodRunStates.Length == 1)
                 {
                     subMethodRunStates[0].ThreadStart.Invoke(0);
                 }
