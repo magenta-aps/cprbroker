@@ -107,6 +107,12 @@
     </WixLibrary>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PreBuildEvent>rem copy "$(TargetDir).msi" "$(TargetDir)Setup.exe" /y</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>setupbld.exe -msu "$(TargetDir)en-US\$(TargetFileName)" -setup "$(ProjectDir)..\..\Core\Output\Setup.exe" -out "$(TargetDir)en-US\Setup.exe"</PostBuildEvent>
+  </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
@@ -115,8 +121,4 @@
 	<Target Name="AfterBuild">
 	</Target>
 	-->
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>
