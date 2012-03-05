@@ -4,6 +4,7 @@
     <Property Id="Dummy_CustomizationsFragmentRefProp" Value="-"/>
 
     <PropertyRef Id="Dummy_DatabaseFragmentRefProperty"/>
+    <PropertyRef Id="Dummy_ForgetOlderVersionFragmentRefProp"/>
 
     <Binary Id="InstallersDll" SourceFile="$(var.InstallerLib.ProjectDir)bin\$(var.InstallerLib.Configuration)\PersonMasterInstallers.CA.dll"/>
 
@@ -21,6 +22,8 @@
     <WixVariable Id="WEB_Feature" Value="PM"/>
     <WixVariable Id="WEB_FeatureNames" Value="PM"/>
     <WixVariable Id="CMP_WebRegistry_Guid" Value="{74885F05-2BA0-4C4D-96DF-A8A692AD68F2}"/>
+
+    <WixVariable Id="ForgetOlderVersions" Value="1"/>
 
   </Fragment>
 </Wix>

@@ -29,6 +29,7 @@
     <Feature Id="ProductFeature" Title="PersonMasterInstaller" Level="1">
       <ComponentRef Id="CMP_WebRegistry"/>
       <ComponentRef Id="CMP_DatabaseRegistry"/>
+      <ComponentRef Id="CMP_MsiZap"/>
 
       <ComponentGroupRef Id="CMPGRP_Root"/>
       <ComponentGroupRef Id="CMPGRP_bin"/>
