@@ -108,10 +108,10 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>rem copy "$(TargetDir).msi" "$(TargetDir)Setup.exe" /y</PreBuildEvent>
+    <PostBuildEvent>setupbld.exe -msu "$(TargetDir)en-US\$(TargetFileName)" -setup "$(ProjectDir)..\..\Core\Output\Setup.exe" -out "$(TargetDir)en-US\Setup.exe"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>setupbld.exe -msu "$(TargetDir)en-US\$(TargetFileName)" -setup "$(ProjectDir)..\..\Core\Output\Setup.exe" -out "$(TargetDir)en-US\Setup.exe"</PostBuildEvent>
+    <PreBuildEvent />
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
