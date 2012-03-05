@@ -62,6 +62,34 @@ namespace CprBrokerWixInstallers
     public class CprBrokerCustomActions
     {
         [CustomAction]
+        public static ActionResult AfterInstallInitialize_Product(Session session)
+        {
+            try
+            {
+                return ProductCustomActions.AfterInstallInitialize_Product(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult ForgetOlderVersions(Session session)
+        {
+            try
+            {
+                return ProductCustomActions.ForgetOlderVersions(session);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
         public static ActionResult AppSearch_DB(Session session)
         {
             try
