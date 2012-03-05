@@ -36,6 +36,8 @@
     <Folder Include="SQL\Base" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="setup.exe" />
+    <None Include="setup.manifest" />
     <Content Include="SQL\Base\AddColumn.sql" />
     <Content Include="SQL\Base\AddForeignKey.sql" />
     <Content Include="SQL\Base\AddIndex.sql" />
@@ -69,6 +71,13 @@
 	</Target>
 	-->
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+    <PreBuildEvent />
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(ProjectDir)setup.manifest" "$(TargetDir)setup.manifest"
+copy "$(ProjectDir)setup.exe" "$(TargetDir)setup.exe"
+mt.exe -manifest "$(TargetDir)setup.manifest" -outputresource:"$(TargetDir)setup.exe%3b#1"
+copy $(TargetFileName) ..\..\..\Output\ /y
+copy "$(TargetDir)setup.exe" ..\..\..\Output\ /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
