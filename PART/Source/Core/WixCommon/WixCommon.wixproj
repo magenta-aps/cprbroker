@@ -25,6 +25,7 @@
     <Compile Include="Database.wxs" />
     <Compile Include="DatabaseDialog.wxs" />
     <Compile Include="CommonProductProperties.wxs" />
+    <Compile Include="Elevation.wxs" />
     <Compile Include="ForgetOlderVersions.wxs" />
     <Compile Include="WebDirectoryDialog.wxs" />
     <Compile Include="Website.wxs" />

@@ -56,6 +56,17 @@ namespace CprBroker.Installers
     public class ProductCustomActions
     {
         [CustomAction]
+        public static ActionResult CalculateExecutionElevated(Session session)
+        {
+            session.SetPropertyValue(
+                "ExecutionElevated",
+                UacHelper.IsProcessElevated ? "1" : ""
+            );
+
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
         public static ActionResult AfterInstallInitialize_Product(Session session)
         {
             var props = BaseSetupInfo.GetCustomActionData(session).ToString();

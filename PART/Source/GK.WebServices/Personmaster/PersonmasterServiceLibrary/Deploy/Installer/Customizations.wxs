@@ -5,6 +5,7 @@
 
     <PropertyRef Id="Dummy_DatabaseFragmentRefProperty"/>
     <PropertyRef Id="Dummy_ForgetOlderVersionFragmentRefProp"/>
+    <PropertyRef Id="Dummy_ElevationFragmentRefProp"/>
 
     <Binary Id="InstallersDll" SourceFile="$(var.InstallerLib.ProjectDir)bin\$(var.InstallerLib.Configuration)\PersonMasterInstallers.CA.dll"/>
 
@@ -24,6 +25,7 @@
     <WixVariable Id="CMP_WebRegistry_Guid" Value="{74885F05-2BA0-4C4D-96DF-A8A692AD68F2}"/>
 
     <WixVariable Id="ForgetOlderVersions" Value="1"/>
+    <WixVariable Id="ElevationRequired" Value="1"/>
 
   </Fragment>
 </Wix>

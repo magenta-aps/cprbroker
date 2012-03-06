@@ -62,6 +62,12 @@ namespace CprBrokerWixInstallers
     public class CprBrokerCustomActions
     {
         [CustomAction]
+        public static ActionResult CalculateExecutionElevated(Session session)
+        {
+            return ProductCustomActions.CalculateExecutionElevated(session);            
+        }
+
+        [CustomAction]
         public static ActionResult AfterInstallInitialize_Product(Session session)
         {
             try
