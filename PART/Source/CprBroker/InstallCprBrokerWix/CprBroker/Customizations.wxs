@@ -24,7 +24,7 @@
     <WixVariable Id="CMP_WebRegistry_Guid" Value="{A4E58D89-798D-422C-8120-26F1735F2259}"/>
 
     <WixVariable Id="ForgetOlderVersions" Value="1"/>
-    <WixVariable Id="ElevationRequired" Value="0"/>
+    <WixVariable Id="ElevationRequired" Value="1"/>
     
   </Fragment>
 </Wix>
