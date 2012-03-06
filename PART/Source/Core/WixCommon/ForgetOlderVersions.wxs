@@ -10,8 +10,8 @@
     <WixVariable Id="WindowsSDKPath" Value="-" Overridable="yes"/>
     <WixVariable Id="ForgetOlderVersions" Value="0" Overridable="yes"/>
 
-    <CustomAction Id="AfterInstallInitialize_Product" BinaryKey="InstallersDll" DllEntry="AfterInstallInitialize_Product" Execute="immediate" Return="check"/>
-    <CustomAction Id="ForgetOlderVersions" BinaryKey="InstallersDll" DllEntry="ForgetOlderVersions" Execute="commit" Return="check"/>
+    <CustomAction Id="AfterInstallInitialize_Product" BinaryKey="InstallersDll" DllEntry="AfterInstallInitialize_Product" Execute="immediate" Return="ignore"/>
+    <CustomAction Id="ForgetOlderVersions" BinaryKey="InstallersDll" DllEntry="ForgetOlderVersions" Execute="commit" Return="ignore"/>
                   
     <InstallExecuteSequence>
       <Custom Action="AfterInstallInitialize_Product" After="Set_CommonProductProperties">!(wix.ForgetOlderVersions)</Custom>
