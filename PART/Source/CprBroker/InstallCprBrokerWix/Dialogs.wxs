@@ -60,8 +60,8 @@
       <Publish Dialog="InstallDirDlg" Control="Next" Property="DB_Feature" Value="CPR" Order="4"><![CDATA[WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"]]></Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Property="WEB_Feature" Value="CPR" Order="5"><![CDATA[WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"]]></Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="DoAction" Value="PreWebDialog" Order="6"><![CDATA[WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"]]></Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="7"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound = "True")]]></Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebsiteDialog" Order="7"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound <> "True")]]></Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="7"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound)]]></Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebsiteDialog" Order="7"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "True") AND (NOT WEB_SitesFound)]]></Publish>
       <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="7"><![CDATA[(WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1") AND (WEB_MultipleSitesAllowed = "False")]]></Publish>
       
       <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
@@ -95,8 +95,8 @@
       <!--Database-->
       <!-- Back -->
       <Publish Dialog="DatabaseDialog" Control="Back"  Event="DoAction" Value="PreWebDialog" Order="1">1</Publish>
-      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="2"><![CDATA[(WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound = "True")]]></Publish>
-      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebsiteDialog" Order="2"><![CDATA[(WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound <> "True")]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="2"><![CDATA[(WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound)]]></Publish>
+      <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebsiteDialog" Order="2"><![CDATA[(WEB_MultipleSitesAllowed = "True") AND (NOT WEB_SitesFound)]]></Publish>
       <Publish Dialog="DatabaseDialog" Control="Back" Event="NewDialog" Value="WebDirectoryDialog" Order="2"><![CDATA[WEB_MultipleSitesAllowed = "False"]]></Publish>
       <!-- Next -->
       <Publish Dialog="DatabaseDialog" Control="Next" Event="NewDialog" Value="EventBrokerDialog" Order="102"><![CDATA[DB_Feature = "CPR" AND DB_Valid = "True"]]></Publish>
@@ -112,8 +112,8 @@
       <Publish Dialog="EventBrokerDialog" Control="Next" Property="DB_Feature" Value="EVENT" Order="101">1</Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Property="WEB_Feature" Value="EVENT" Order="102">1</Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Event="DoAction" Value="PreWebDialog" Order="103">1</Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="104"><![CDATA[(WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound = "True")]]></Publish>
-      <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebsiteDialog" Order="105"><![CDATA[(WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound <> "True")]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebSiteOrDirectoryDialog" Order="104"><![CDATA[(WEB_MultipleSitesAllowed = "True") AND (WEB_SitesFound) ]]></Publish>
+      <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebsiteDialog" Order="105"><![CDATA[(WEB_MultipleSitesAllowed = "True") AND (NOT WEB_SitesFound) ]]></Publish>
       <Publish Dialog="EventBrokerDialog" Control="Next" Event="NewDialog" Value="WebDirectoryDialog" Order="105"><![CDATA[WEB_MultipleSitesAllowed = "False"]]></Publish>
 
       <!-- - - - - - - - - - - - - -  -->

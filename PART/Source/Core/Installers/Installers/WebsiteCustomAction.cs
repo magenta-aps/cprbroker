@@ -133,7 +133,7 @@ namespace CprBroker.Installers
             {
                 session["WEB_SITENAME_VDIR"] = sitesData[0].Name;
             }
-            session["WEB_SitesFound"] = sitesData.Length.ToString();
+            session["WEB_SitesFound"] = sitesData.Length > 0 ? sitesData.Length.ToString() : "";
             return ActionResult.Success;
         }
 
