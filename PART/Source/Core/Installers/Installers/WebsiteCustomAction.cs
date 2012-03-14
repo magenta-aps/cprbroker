@@ -149,6 +149,9 @@ namespace CprBroker.Installers
             {
                 WebInstallationInfo.SetSuggestedPropertyValues(session, featureName);
             }
+            // Necessary step for WebSiteOrDirectoryDialog
+            session.SetPropertyValue("WEB_SITENAME_SITE", session.GetPropertyValue(WebInstallationInfo.Constants.WebsiteName));
+            session.SetPropertyValue("WEB_SITENAME_VDIR", session.GetPropertyValue(WebInstallationInfo.Constants.VirtualDirectoryName));
             return ActionResult.Success;
         }
 
