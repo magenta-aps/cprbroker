@@ -6,6 +6,7 @@
 
     <PropertyRef Id="Dummy_CprBrokerFragmentRefProp"/>
     <PropertyRef Id="Dummy_EventBrokerFragmentRefProp"/>
+    <PropertyRef Id="Dummy_StandardActionTextFragmentRefProp"/>
 
     <DirectoryRef Id="TARGETDIR"/>
 

@@ -14,5 +14,12 @@
       <Custom Action="InstallBackendService" After="RollbackBackendService">NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED</Custom>
       <Custom Action="UnInstallBackendService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
     </InstallExecuteSequence>
+
+    <UI>
+      <ProgressText Action="SetCprBrokerUrl">Setting CPR Broker service url</ProgressText>
+      <ProgressText Action="RollbackBackendService">Rolling back backend service</ProgressText>
+      <ProgressText Action="InstallBackendService">Installing backend service</ProgressText>
+      <ProgressText Action="UnInstallBackendService">Removing backend service</ProgressText>
+    </UI>
   </Fragment>
 </Wix>
