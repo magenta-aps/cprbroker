@@ -27,6 +27,7 @@
     <Compile Include="CommonProductProperties.wxs" />
     <Compile Include="Elevation.wxs" />
     <Compile Include="ForgetOlderVersions.wxs" />
+    <Compile Include="StandardActionText.wxs" />
     <Compile Include="WebDirectoryDialog.wxs" />
     <Compile Include="Website.wxs" />
     <Compile Include="WebsiteDialog.wxs" />

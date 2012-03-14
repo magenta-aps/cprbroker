@@ -85,5 +85,13 @@
       <Custom Action="RemoveWebsite" After="CreateWebsite"><![CDATA[!(wix.WEB_CreateWeb) = True AND REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
     </InstallExecuteSequence>
 
+    <UI>
+      <ProgressText Action="AppSearch_WEB">Doing web registry search</ProgressText>
+      <ProgressText Action="AfterInstallInitialize_WEB">Initializing web properties</ProgressText>
+      <ProgressText Action="RollbackWebsite">Rolling back web</ProgressText>
+      <ProgressText Action="CreateWebsite">Creating web</ProgressText>
+      <ProgressText Action="RemoveWebsite">Removing web</ProgressText>
+    </UI>
+
   </Fragment>
 </Wix>

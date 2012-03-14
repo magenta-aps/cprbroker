@@ -80,6 +80,9 @@
     <InstallExecuteSequence>
       <Custom Action="InitializeDatabasePropertiesByRemovingConflicts" After="CostFinalize"><![CDATA[!(wix.DB_CreateDatabase) = True AND REMOVE]]></Custom>
     </InstallExecuteSequence>
+    <UI>
+      <ProgressText Action="InitializeDatabasePropertiesByRemovingConflicts">Initializing database properties by removing conflicts</ProgressText>
+    </UI>
 
     <!--Installation properties for use by custom actions-->
     <Property Id="DB_ALL" Hidden="yes" />
@@ -106,5 +109,13 @@
       <Custom Action="RemoveDatabase" After="DeployDatabase"><![CDATA[!(wix.DB_CreateDatabase)  = True AND REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
     </InstallExecuteSequence>
 
+    <UI>
+      <ProgressText Action="AppSearch_DB">Doing database registry search</ProgressText>
+      <ProgressText Action="AfterInstallInitialize_DB">Initializing database properties</ProgressText>
+      <ProgressText Action="RollbackDatabase">Rolling back database</ProgressText>
+      <ProgressText Action="DeployDatabase">Creating database</ProgressText>
+      <ProgressText Action="RemoveDatabase">Removing database</ProgressText>
+    </UI>
+    
   </Fragment>
 </Wix>

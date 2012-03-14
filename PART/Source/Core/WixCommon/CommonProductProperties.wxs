@@ -9,5 +9,9 @@
     <InstallExecuteSequence>
       <Custom Action="Set_CommonProductProperties" After="InstallInitialize">1</Custom>
     </InstallExecuteSequence>
+
+    <UI>
+      <ProgressText Action="Set_CommonProductProperties">Setting common product properties</ProgressText>
+    </UI>
   </Fragment>
 </Wix>

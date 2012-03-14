@@ -18,5 +18,10 @@
       <Custom Action="ForgetOlderVersions" Before="InstallFinalize">!(wix.ForgetOlderVersions)</Custom>
     </InstallExecuteSequence>
 
+    <UI>
+      <ProgressText Action="AfterInstallInitialize_Product">Initializing product properties</ProgressText>
+      <ProgressText Action="ForgetOlderVersions">Forgetting older versions</ProgressText>
+    </UI>
+
   </Fragment>
 </Wix>
