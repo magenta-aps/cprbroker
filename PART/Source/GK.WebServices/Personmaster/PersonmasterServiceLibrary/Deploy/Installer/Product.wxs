@@ -7,6 +7,7 @@
     <PropertyRef Id="Dummy_DialogsFragmentRefProp"/>
     <PropertyRef Id="Dummy_ConditionsFragmentRefProp"/>
     <PropertyRef Id="Dummy_DatabasePatchFragmentRefProp"/>
+    <PropertyRef Id="Dummy_StandardActionTextFragmentRefProp"/>
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">

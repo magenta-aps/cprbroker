@@ -9,5 +9,9 @@
     <InstallExecuteSequence>
       <Custom Action="PatchPersonMasterDatabase" After="RollbackDatabase">PATCH OR OLDER_VERSION_DETECTED</Custom>
     </InstallExecuteSequence>
+
+    <UI>
+      <ProgressText Action="CustomAction">Patching database</ProgressText>
+    </UI>
   </Fragment>
 </Wix>
