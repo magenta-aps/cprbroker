@@ -45,20 +45,20 @@
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
       </Component>
-      <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.xml" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.xml" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.xml" KeyPath="yes"/>
-      </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll" KeyPath="yes"/>
-      </Component>
-      <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.xml" Directory="EVENT_bin">
-        <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Logging.xml" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Logging.xml" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.ObjectBuilder2.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_Microsoft.Practices.ObjectBuilder2.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.ObjectBuilder2.dll" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_EVENT_bin_Microsoft.Practices.ServiceLocation.dll" Directory="EVENT_bin">
+        <File Id="FILE_EVENT_bin_Microsoft.Practices.ServiceLocation.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.ServiceLocation.dll" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.Unity.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_Microsoft.Practices.Unity.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_EVENT_bin_Microsoft.Practices.Unity.Interception.dll" Directory="EVENT_bin">
+        <File Id="FILE_EVENT_bin_Microsoft.Practices.Unity.Interception.dllL" Source="$(var.EventSitePath)bin\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
       </Component>
 
       <Component Id="CMP_EVENT_bin_CprBroker.EventBroker.Backend.exe" Directory="EVENT_bin">
