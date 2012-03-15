@@ -274,6 +274,7 @@ namespace CprBroker.Installers
                         using (SqlCommand selectUsersCommand = new SqlCommand("exec sp_MSloginmappings @User", adminConnection))
                         {
                             selectUsersCommand.Parameters.Add("@User", SqlDbType.VarChar).Value = setupInfo.ApplicationAuthenticationInfo.UserName;
+                            selectUsersCommand.CommandTimeout *= 4;
                             SqlDataAdapter adpt = new SqlDataAdapter(selectUsersCommand);
                             DataTable usersTable = new DataTable();
                             adpt.Fill(usersTable);
