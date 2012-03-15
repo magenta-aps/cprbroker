@@ -82,8 +82,14 @@
       <Component Id="CMP_CPR_EntLib_ObjectBuilder2_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_EntLib_ObjectBuilder2_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.ObjectBuilder2.dll" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_CPR_EntLib_ServiceLocation_Dll" Directory="CPR_bin">
+        <File Id="FILE_CPR_bin_EntLib_ServiceLocation_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.ServiceLocation.dll" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_CPR_EntLib_Unity_Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_EntLib_Unity_Dll" Source="$(var.SitePath)bin\Microsoft.Practices.Unity.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="CMP_CPR_EntLib_Interception_Dll" Directory="CPR_bin">
+        <File Id="FILE_CPR_bin_EntLib_Interception_DLL" Source="$(var.SitePath)bin\Microsoft.Practices.Unity.Interception.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
