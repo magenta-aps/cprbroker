@@ -255,11 +255,8 @@ namespace CprBroker.Providers.DPR
                 || Nationality.CountryCode.ToDecimalString().Equals(Constants.CprNationalityKmdCode)
                 || Nationality.CountryCode.ToDecimalString().Equals(Constants.StatelessKmdCode))
             {
-                ret.Item = new UkendtBorgerType()
-                {
-                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToPnrDecimalString(),
-                };
-                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
+                ret.Item= PersonTotal.ToUkendtBorgerType();
+                ret.Virkning = PersonTotal.ToUkendtBorgerTypeVirkning(); 
             }
             else if (string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
             {

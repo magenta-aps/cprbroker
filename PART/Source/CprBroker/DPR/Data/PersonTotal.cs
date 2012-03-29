@@ -118,6 +118,19 @@ namespace CprBroker.Providers.DPR
             return null;
         }
 
+        public UkendtBorgerType ToUkendtBorgerType()
+        {
+            return new UkendtBorgerType()
+            {
+                PersonCivilRegistrationReplacementIdentifier = PNR.ToPnrDecimalString(),
+            };
+        }
+
+        public VirkningType ToUkendtBorgerTypeVirkning()
+        {
+            return VirkningType.Create(Utilities.GetMaxDate(StatusDate), null);
+        }
+
 
 
 

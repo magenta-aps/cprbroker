@@ -69,8 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTests.cs" />
+    <Compile Include="PersonInfo ToRegisterOplysningType.Tests.cs" />
     <Compile Include="PersonInfo.Tests.cs" />
+    <Compile Include="PersonTotal.UkendtBorgerType.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DPR\DPR.csproj">
