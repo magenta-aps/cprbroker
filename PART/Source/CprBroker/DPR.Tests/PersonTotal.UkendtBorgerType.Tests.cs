@@ -37,7 +37,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
 
         #region ToUkendtBorgerTypeVirvning
         [Test]
-        public void ToUkendtBorgerTypVirvninge_Empty_NotNull()
+        public void ToUkendtBorgerTypeVirvning_Empty_NotNull()
         {
             var personTotal = new PersonTotal();
             var result = personTotal.ToUkendtBorgerTypeVirkning();
@@ -45,7 +45,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         }
 
         [Test]
-        public void ToUkendtBorgerTypVirvninge_Empty_EmptyResultFra()
+        public void ToUkendtBorgerTypeVirvning_Empty_EmptyResultFra()
         {
             var personTotal = new PersonTotal();
             var result = personTotal.ToUkendtBorgerTypeVirkning();
@@ -53,7 +53,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         }
 
         [Test]
-        public void ToUkendtBorgerTypVirvninge_Empty_EmptyResultTil()
+        public void ToUkendtBorgerTypeVirvning_Empty_EmptyResultTil()
         {
             var personTotal = new PersonTotal();
             var result = personTotal.ToUkendtBorgerTypeVirkning();
