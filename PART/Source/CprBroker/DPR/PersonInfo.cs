@@ -255,8 +255,8 @@ namespace CprBroker.Providers.DPR
                 || Nationality.CountryCode.ToDecimalString().Equals(Constants.CprNationalityKmdCode)
                 || Nationality.CountryCode.ToDecimalString().Equals(Constants.StatelessKmdCode))
             {
-                ret.Item= PersonTotal.ToUkendtBorgerType();
-                ret.Virkning = PersonTotal.ToUkendtBorgerTypeVirkning(); 
+                ret.Item = PersonTotal.ToUkendtBorgerType();
+                ret.Virkning = PersonTotal.ToUkendtBorgerTypeVirkning();
             }
             else if (string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
             {
@@ -291,22 +291,8 @@ namespace CprBroker.Providers.DPR
             }
             else
             {
-                ret.Item = new UdenlandskBorgerType()
-                {
-                    // Birth country.Not in DPR
-                    FoedselslandKode = null,
-                    // TODO: What is that?
-                    PersonIdentifikator = "",
-                    // Languages. Not implemented here
-                    SprogKode = new CountryIdentificationCodeType[] { },
-                    // Citizenships
-                    PersonNationalityCode = new CountryIdentificationCodeType[] 
-                    { 
-                        CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Nationality.CountryCode.ToDecimalString()) 
-                    },
-                    PersonCivilRegistrationReplacementIdentifier = PersonTotal.PNR.ToPnrDecimalString(),
-                };
-                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(PersonTotal.StatusDate), null);
+                ret.Item = PersonTotal.ToUdenlandskBorgerType(this.Nationality);
+                ret.Virkning = PersonTotal.ToUdenlandskBorgerTypeVirkning();
             }
 
             return ret;

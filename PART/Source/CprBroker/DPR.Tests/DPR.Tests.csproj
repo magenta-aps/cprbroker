@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTests.cs" />
+    <Compile Include="PersonTotal.UdenlandskBorgerType.Tests.cs" />
     <Compile Include="PersonInfo ToRegisterOplysningType.Tests.cs" />
     <Compile Include="PersonInfo.Tests.cs" />
     <Compile Include="PersonTotal.UkendtBorgerType.Tests.cs" />

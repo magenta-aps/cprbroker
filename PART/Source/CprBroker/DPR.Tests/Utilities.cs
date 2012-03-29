@@ -97,6 +97,16 @@ namespace CprBroker.Tests.DPR
             return (short)Random.Next(short.MaxValue);
         }
 
+        public static short[] RandomShorts(int count)
+        {
+            var ret = new short[count];
+            for (int i = 0; i < count; i++)
+            {
+                ret[i] = RandomShort();
+            }
+            return ret;
+        }
+
         public static string RandomString()
         {
             return Guid.NewGuid().ToString().Substring(0, 10);

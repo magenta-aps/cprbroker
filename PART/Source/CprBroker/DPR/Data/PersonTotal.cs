@@ -131,8 +131,29 @@ namespace CprBroker.Providers.DPR
             return VirkningType.Create(Utilities.GetMaxDate(StatusDate), null);
         }
 
+        public UdenlandskBorgerType ToUdenlandskBorgerType(Nationality dbNationality)
+        {
+            return new UdenlandskBorgerType()
+            {
+                // Birth country.Not in DPR
+                FoedselslandKode = null,
+                // TODO: What is that?
+                PersonIdentifikator = "",
+                // Languages. Not implemented here
+                SprogKode = new CountryIdentificationCodeType[] { },
+                // Citizenships
+                PersonNationalityCode = new CountryIdentificationCodeType[] 
+                { 
+                    CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, dbNationality.CountryCode.ToDecimalString()) 
+                },
+                PersonCivilRegistrationReplacementIdentifier = PNR.ToPnrDecimalString(),
+            };
+        }
 
-
+        public VirkningType ToUdenlandskBorgerTypeVirkning()
+        {
+            return VirkningType.Create(Utilities.GetMaxDate(StatusDate), null);
+        }
 
     }
 }

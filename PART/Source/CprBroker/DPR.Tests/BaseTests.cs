@@ -17,5 +17,9 @@ namespace CprBroker.Tests.DPR
             return Utilities.RandomDecimalDates(5);
         }
 
+        public decimal[] RandomCountryCodes5()
+        {
+            return Utilities.RandomShorts(5).Select(s => (decimal)s).ToArray();
+        }
     }
 }
