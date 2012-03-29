@@ -260,34 +260,8 @@ namespace CprBroker.Providers.DPR
             }
             else if (string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
             {
-                ret.Item = new CprBorgerType()
-                {
-                    AdresseNoteTekst = null,
-                    FolkeregisterAdresse = Address != null ? Address.ToAdresseType(PersonTotal, Street) : null,
-                    ForskerBeskyttelseIndikator = PersonTotal.DirectoryProtectionMarker == '1',
-                    PersonCivilRegistrationIdentifier = PersonTotal.PNR.ToPnrDecimalString(),
-                    PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Nationality.CountryCode.ToDecimalString()),
-
-                    //PNR validity status
-                    // TODO: Make sure that true is the correct value
-                    PersonNummerGyldighedStatusIndikator = true,
-                    // TODO : What to put here? Could it be PersonTotal.AddressProtectionMarker?
-                    NavneAdresseBeskyttelseIndikator = false,
-                    // Church membership
-                    // TODO : Where to fill fromDate?
-                    FolkekirkeMedlemIndikator = PersonTotal.ChristianMark.HasValue,
-                    //Use false since we do not have telephone numbers here
-                    // TODO: Check if this is correct
-                    TelefonNummerBeskyttelseIndikator = false,
-                };
-
-                List<decimal?> effects = new List<decimal?>();
-                effects.AddRange(new decimal?[] { PersonTotal.AddressDate, PersonTotal.StatusDate, Nationality.NationalityStartDate });
-                if (Address != null)
-                {
-                    effects.AddRange(new decimal?[] { Address.AddressStartDate, Address.CprUpdateDate, Address.LeavingFromMunicipalityDate, Address.MunicipalityArrivalDate });
-                }
-                ret.Virkning = VirkningType.Create(Utilities.GetMaxDate(effects.ToArray()), null);
+                ret.Item = PersonTotal.ToCprBorgerType(Nationality, Address);
+                ret.Virkning = PersonTotal.ToCprBorgerTypeVirkning(Nationality, Address);
             }
             else
             {

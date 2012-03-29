@@ -21,5 +21,12 @@ namespace CprBroker.Tests.DPR
         {
             return Utilities.RandomShorts(5).Select(s => (decimal)s).ToArray();
         }
+
+        public decimal[] AllCivilRegistrationStates()
+        {
+            var values = Enum.GetValues(typeof(Schemas.PersonCivilRegistrationStatusCode)).AsQueryable();
+            return values.Cast<Schemas.PersonCivilRegistrationStatusCode>().Select(e => (decimal)e).ToArray();
+
+        }
     }
 }

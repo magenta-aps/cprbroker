@@ -103,7 +103,32 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        //TODO: Add logic to get value fromDate DTBOERN if not found in DTTOTAL
+        public bool ForskerBeskyttelseIndikator()
+        {
+            return DirectoryProtectionMarker == '1';
+        }
+
+        public bool ToPersonNummerGyldighedStatusIndikator()
+        {
+            return Schemas.Util.Enums.IsActiveCivilRegistrationStatus(this.Status);
+        }
+
+        public bool ToNavneAdresseBeskyttelseIndikator()
+        {
+            return AddressProtectionMarker == '1';
+        }
+
+        public bool ToChurchMembershipIndicator()
+        {
+            return ChristianMark.HasValue;
+        }
+
+        public bool ToTelephoneNumberProtectionIndicator()
+        {
+            return false;
+        }
+
+        //TODO: Add logic to get value from DTBOERN if not found in DTTOTAL
         public static decimal? GetParent(char? parentMarker, string parentPnrOrBirthdate)
         {
             if (parentMarker.HasValue && parentMarker.Value == '*')
@@ -116,6 +141,40 @@ namespace CprBroker.Providers.DPR
                 }
             }
             return null;
+        }
+
+        public CprBorgerType ToCprBorgerType(Nationality dbNationality, PersonAddress dbAddress)
+        {
+            return new CprBorgerType()
+            {
+                AdresseNoteTekst = null,
+                FolkeregisterAdresse = dbAddress != null ? dbAddress.ToAdresseType(this, Street) : null,
+                ForskerBeskyttelseIndikator = ForskerBeskyttelseIndikator(),
+                PersonCivilRegistrationIdentifier = PNR.ToPnrDecimalString(),
+                PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, dbNationality.CountryCode.ToDecimalString()),
+
+                //PNR validity status
+                // TODO: Make sure that true is the correct value
+                PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
+                // Address protection
+                NavneAdresseBeskyttelseIndikator = ToNavneAdresseBeskyttelseIndikator(),
+                // Church membership
+                FolkekirkeMedlemIndikator = ToChurchMembershipIndicator(),
+                //Use false since we do not have telephone numbers here
+                // TODO: Check if this is correct
+                TelefonNummerBeskyttelseIndikator = ToTelephoneNumberProtectionIndicator(),
+            };
+        }
+
+        public VirkningType ToCprBorgerTypeVirkning(Nationality dbNationality, PersonAddress dbAddress)
+        {
+            List<decimal?> effects = new List<decimal?>();
+            effects.AddRange(new decimal?[] { AddressDate, StatusDate, dbNationality.NationalityStartDate });
+            if (dbAddress != null)
+            {
+                effects.AddRange(new decimal?[] { dbAddress.AddressStartDate, dbAddress.CprUpdateDate, dbAddress.LeavingFromMunicipalityDate, dbAddress.MunicipalityArrivalDate });
+            }
+            return VirkningType.Create(Utilities.GetMaxDate(effects.ToArray()), null);
         }
 
         public UkendtBorgerType ToUkendtBorgerType()
