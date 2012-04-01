@@ -71,6 +71,8 @@
   <ItemGroup>
     <Compile Include="BaseTests.cs" />
     <Compile Include="PersonAddress.Tests.cs" />
+    <Compile Include="PersonAddress.ToCountryIdentificationCodeType.Tests.cs" />
+    <Compile Include="PersonAddress.ToAddressAccessType.Tests.cs" />
     <Compile Include="PersonTotal.CprBorgerType.Tests.cs" />
     <Compile Include="PersonTotal.UdenlandskBorgerType.Tests.cs" />
     <Compile Include="PersonInfo ToRegisterOplysningType.Tests.cs" />

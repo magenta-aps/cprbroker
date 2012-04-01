@@ -63,20 +63,7 @@ namespace CprBroker.Providers.DPR
                     AddressComplete = new CprBroker.Schemas.Part.AddressCompleteType()
                     {
                         AddressAccess = ToAddressAccessType(),
-                        AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
-                        {
-                            CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode),
-                            DistrictName = personTotal.PostDistrictName,
-                            DistrictSubdivisionIdentifier = null,
-                            FloorIdentifier = Floor,
-                            MailDeliverySublocationIdentifier = null,
-                            PostCodeIdentifier = personTotal.PostCode.ToDecimalString(),
-                            PostOfficeBoxIdentifier = null,
-                            StreetBuildingIdentifier = HouseNumber,
-                            StreetName = street != null ? street.StreetAddressingName : null,
-                            StreetNameForAddressingName = StreetAddressingName,
-                            SuiteIdentifier = DoorNumber,
-                        }
+                        AddressPostal = ToAddressPostalType(personTotal, street),
                     },
                     // No address point
                     AddressPoint = null,
@@ -102,6 +89,29 @@ namespace CprBroker.Providers.DPR
                 StreetBuildingIdentifier = HouseNumber,
                 StreetCode = StreetCode.ToDecimalString()
             };
+        }
+
+        public AddressPostalType ToAddressPostalType(PersonTotal personTotal, Street street)
+        {
+            return new CprBroker.Schemas.Part.AddressPostalType()
+            {
+                CountryIdentificationCode = ToCountryIdentificationCodeType(),
+                DistrictName = personTotal.PostDistrictName,
+                DistrictSubdivisionIdentifier = null,
+                FloorIdentifier = Floor,
+                MailDeliverySublocationIdentifier = null,
+                PostCodeIdentifier = personTotal.PostCode.ToDecimalString(),
+                PostOfficeBoxIdentifier = null,
+                StreetBuildingIdentifier = HouseNumber,
+                StreetName = street != null ? street.StreetAddressingName : null,
+                StreetNameForAddressingName = StreetAddressingName,
+                SuiteIdentifier = DoorNumber,
+            };
+        }
+
+        public CountryIdentificationCodeType ToCountryIdentificationCodeType()
+        {
+            return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode);
         }
 
         public AdresseType ToForeignAddressFromSupplementary()
