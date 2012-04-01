@@ -60,11 +60,7 @@ namespace CprBroker.Providers.DPR
             {
                 Item = new DanskAdresseType()
                 {
-                    AddressComplete = new CprBroker.Schemas.Part.AddressCompleteType()
-                    {
-                        AddressAccess = ToAddressAccessType(),
-                        AddressPostal = ToAddressPostalType(personTotal.PostDistrictName),
-                    },
+                    AddressComplete = ToAddressCompleteType(personTotal.PostDistrictName),
                     // No address point
                     AddressPoint = null,
                     NoteTekst = null,
@@ -78,6 +74,15 @@ namespace CprBroker.Providers.DPR
                     UkendtAdresseIndikator = false,
                     ValgkredsDistriktTekst = null
                 }
+            };
+        }
+
+        public AddressCompleteType ToAddressCompleteType(string postDistrictName)
+        {
+            return new CprBroker.Schemas.Part.AddressCompleteType()
+            {
+                AddressAccess = ToAddressAccessType(),
+                AddressPostal = ToAddressPostalType(postDistrictName),
             };
         }
 
