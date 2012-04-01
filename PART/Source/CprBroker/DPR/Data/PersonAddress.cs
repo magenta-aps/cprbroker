@@ -63,7 +63,7 @@ namespace CprBroker.Providers.DPR
                     AddressComplete = new CprBroker.Schemas.Part.AddressCompleteType()
                     {
                         AddressAccess = ToAddressAccessType(),
-                        AddressPostal = ToAddressPostalType(personTotal, street),
+                        AddressPostal = ToAddressPostalType(personTotal.PostDistrictName),
                     },
                     // No address point
                     AddressPoint = null,
@@ -91,19 +91,19 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public AddressPostalType ToAddressPostalType(PersonTotal personTotal, Street street)
+        public AddressPostalType ToAddressPostalType(string postDistrictName)
         {
             return new CprBroker.Schemas.Part.AddressPostalType()
             {
                 CountryIdentificationCode = ToCountryIdentificationCodeType(),
-                DistrictName = personTotal.PostDistrictName,
+                DistrictName = postDistrictName,
                 DistrictSubdivisionIdentifier = null,
                 FloorIdentifier = Floor,
                 MailDeliverySublocationIdentifier = null,
-                PostCodeIdentifier = personTotal.PostCode.ToDecimalString(),
+                PostCodeIdentifier = PostCode.ToDecimalString(),
                 PostOfficeBoxIdentifier = null,
                 StreetBuildingIdentifier = HouseNumber,
-                StreetName = street != null ? street.StreetAddressingName : null,
+                StreetName = StreetAddressingName,
                 StreetNameForAddressingName = StreetAddressingName,
                 SuiteIdentifier = DoorNumber,
             };

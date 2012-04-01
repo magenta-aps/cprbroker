@@ -17,6 +17,11 @@ namespace CprBroker.Tests.DPR
             return Utilities.RandomDecimalDates(5);
         }
 
+        public decimal[] RandomDecimals5()
+        {
+            return Utilities.RandomShorts(5).Select(s => (decimal)s).ToArray();
+        }
+
         public decimal[] RandomCountryCodes5()
         {
             return Utilities.RandomShorts(5).Select(s => (decimal)s).ToArray();
@@ -33,6 +38,11 @@ namespace CprBroker.Tests.DPR
         }
 
         public string[] RandomHouseNumbers5()
+        {
+            return Utilities.RandomStrings(5);
+        }
+
+        public string[] RandomStrings5()
         {
             return Utilities.RandomStrings(5);
         }

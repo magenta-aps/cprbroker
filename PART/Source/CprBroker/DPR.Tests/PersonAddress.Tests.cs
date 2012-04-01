@@ -14,4 +14,6 @@ namespace CprBroker.Tests.DPR
     public class PersonAddressStub : PersonAddress
     { }
 
+    public class PersonTotalStub : PersonTotal
+    { }
 }
