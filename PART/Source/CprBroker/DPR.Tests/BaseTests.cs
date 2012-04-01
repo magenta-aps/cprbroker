@@ -22,6 +22,21 @@ namespace CprBroker.Tests.DPR
             return Utilities.RandomShorts(5).Select(s => (decimal)s).ToArray();
         }
 
+        public decimal[] RandomMunicipalityCodes5()
+        {
+            return Utilities.RandomShorts(5).Select(s => (decimal)s).ToArray();
+        }
+
+        public decimal[] RandomStreetCodes5()
+        {
+            return Utilities.RandomShorts(5).Select(s => (decimal)s).ToArray();
+        }
+
+        public string[] RandomHouseNumbers5()
+        {
+            return Utilities.RandomStrings(5);
+        }
+
         public decimal[] AllCivilRegistrationStates()
         {
             var values = Enum.GetValues(typeof(Schemas.PersonCivilRegistrationStatusCode)).AsQueryable();

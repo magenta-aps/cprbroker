@@ -62,12 +62,7 @@ namespace CprBroker.Providers.DPR
                 {
                     AddressComplete = new CprBroker.Schemas.Part.AddressCompleteType()
                     {
-                        AddressAccess = new CprBroker.Schemas.Part.AddressAccessType()
-                        {
-                            MunicipalityCode = MunicipalityCode.ToDecimalString(),
-                            StreetBuildingIdentifier = HouseNumber,
-                            StreetCode = StreetCode.ToDecimalString()
-                        },
+                        AddressAccess = ToAddressAccessType(),
                         AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
                         {
                             CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode),
@@ -96,6 +91,16 @@ namespace CprBroker.Providers.DPR
                     UkendtAdresseIndikator = false,
                     ValgkredsDistriktTekst = null
                 }
+            };
+        }
+
+        public AddressAccessType ToAddressAccessType()
+        {
+            return new CprBroker.Schemas.Part.AddressAccessType()
+            {
+                MunicipalityCode = MunicipalityCode.ToDecimalString(),
+                StreetBuildingIdentifier = HouseNumber,
+                StreetCode = StreetCode.ToDecimalString()
             };
         }
 
