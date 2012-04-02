@@ -287,10 +287,6 @@ namespace CprBroker.Providers.DPR
                     LivStatusKode = PersonTotal.ToLivStatusKodeType(),
                     TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromFirstDecimal(PersonTotal.StatusDate)),
                 },
-
-                //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
-                //Gyldighed = null,
-
                 // No extensions now
                 LokalUdvidelse = null
             };

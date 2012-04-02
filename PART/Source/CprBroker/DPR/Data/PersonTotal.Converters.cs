@@ -83,7 +83,7 @@ namespace CprBroker.Providers.DPR
                         return CivilStatusKodeType.OphaevetPartnerskab;
                     case Constants.MaritalStatus.LongestLivingPartner:
                         return CivilStatusKodeType.Laengstlevende;
-                    // TODO : GetPropertyValuesOfType fromDate latest marital status before this record
+                    // TODO : GetPropertyValuesOfType from latest marital status before this record
                     case Constants.MaritalStatus.Deceased:
                         return CivilStatusKodeType.Ugift;
                     // TODO: When to use CivilStatusKode.Separeret?
@@ -114,7 +114,8 @@ namespace CprBroker.Providers.DPR
 
         public bool ToChurchMembershipIndicator()
         {
-            return ChristianMark.HasValue;
+            // F U A M S 
+            return ChristianMark.ToString().ToUpper() == "F";
         }
 
         public bool ToTelephoneNumberProtectionIndicator()

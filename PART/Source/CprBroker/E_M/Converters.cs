@@ -139,7 +139,7 @@ namespace CprBroker.Providers.E_M
         public static bool ToChurchMembershipIndicator(char churchMarker)
         {
             // F U A M S 
-            return churchMarker == 'F';
+            return churchMarker.ToString().ToUpper() == "F";
         }
 
         public static DateTime? GetMaxDate(params DateTime?[] dates)

@@ -241,15 +241,16 @@ namespace CprBroker.Tests.E_M
         #region ToChurchMembershipIndicator
 
         [Test]
-        public void ToChurchMembershipIndicator_Member_F_ReturnsTrue()
+        public void ToChurchMembershipIndicator_Member_F_ReturnsTrue(
+            [Values('F', 'f')]char value)
         {
-            var result = Converters.ToChurchMembershipIndicator('F');
+            var result = Converters.ToChurchMembershipIndicator(value);
             Assert.True(result);
         }
 
         [Test]
         public void ToChurchMembershipIndicator_OtherValues_ReturnsFalse(
-            [Values('U', 'A', 'M', 'S')]char value)
+            [Values('A', 'a', 'U', 'u', 'M', 'm', 'S', 's')]char value)
         {
             var result = Converters.ToChurchMembershipIndicator(value);
             Assert.False(result);
