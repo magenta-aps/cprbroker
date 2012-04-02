@@ -185,13 +185,43 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
 
             [Test]
             public void ToDirectoryProtectionIndicator_OtherValues_False(
-                [Values(null,'2','0','w','A')]char? protectionIndicator)
+                [Values(null, '2', '0', 'w', 'A')]char? protectionIndicator)
             {
                 var personTotal = new PersonTotalStub() { DirectoryProtectionMarker = protectionIndicator };
                 var result = personTotal.ToDirectoryProtectionIndicator();
                 Assert.False(result);
             }
+        }
 
+        [TestFixture]
+        public class ToCivilRegistrationValidityStatusIndicator
+        {
+            [Test]
+            public void ToCivilRegistrationValidityStatusIndicator_ActiveValues_ReturnsTrue(
+                [Values(1, 3, 5, 7, 20, 70, 80, 90)]decimal status)
+            {
+                var personTotal = new PersonTotalStub() { Status = status };
+                var result = personTotal.ToCivilRegistrationValidityStatusIndicator();
+                Assert.True(result);
+            }
+
+            [Test]
+            public void ToCivilRegistrationValidityStatusIndicator_InActiveValues_ReturnsFalse(
+                [Values(30, 50, 60)]decimal status)
+            {
+                var personTotal = new PersonTotalStub() { Status = status };
+                var result = personTotal.ToCivilRegistrationValidityStatusIndicator();
+                Assert.False(result);
+            }
+
+            [Test]
+            [ExpectedException]
+            public void ToCivilRegistrationValidityStatusIndicator_WrongValues_ThrowsException(
+                [Values(12, -22, 58, 111, 0)]decimal status)
+            {
+                var personTotal = new PersonTotalStub() { Status = status };
+                personTotal.ToLivStatusKodeType();
+            }
         }
 
 
