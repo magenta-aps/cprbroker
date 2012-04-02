@@ -54,7 +54,7 @@ namespace CprBroker.Providers.DPR
 {
     public partial class PersonAddress
     {
-        public AdresseType ToAdresseType(PersonTotal personTotal, Street street)
+        public AdresseType ToAdresseType(PersonTotal personTotal)
         {
             return new AdresseType()
             {

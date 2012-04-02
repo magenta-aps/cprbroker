@@ -148,7 +148,7 @@ namespace CprBroker.Providers.DPR
             return new CprBorgerType()
             {
                 AdresseNoteTekst = null,
-                FolkeregisterAdresse = dbAddress != null ? dbAddress.ToAdresseType(this, Street) : null,
+                FolkeregisterAdresse = dbAddress != null ? dbAddress.ToAdresseType(this) : null,
                 ForskerBeskyttelseIndikator = ForskerBeskyttelseIndikator(),
                 PersonCivilRegistrationIdentifier = PNR.ToPnrDecimalString(),
                 PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, dbNationality.CountryCode.ToDecimalString()),
