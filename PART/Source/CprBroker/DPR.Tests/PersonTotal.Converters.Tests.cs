@@ -224,6 +224,27 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             }
         }
 
+        [TestFixture]
+        public class ToAddressProtectionIndicator
+        {
+            [Test]
+            public void ToAddressProtectionIndicator_1_True()
+            {
+                var personTotal = new PersonTotalStub() { AddressProtectionMarker = '1' };
+                var result = personTotal.ToAddressProtectionIndicator();
+                Assert.True(result);
+            }
+
+            [Test]
+            public void ToAddressProtectionIndicator_OtherValues_False(
+                [Values(null, '2', '0', 'w', 'A')]char? protectionIndicator)
+            {
+                var personTotal = new PersonTotalStub() { AddressProtectionMarker = protectionIndicator };
+                var result = personTotal.ToAddressProtectionIndicator();
+                Assert.False(result);
+            }
+        }
+
 
 
     }
