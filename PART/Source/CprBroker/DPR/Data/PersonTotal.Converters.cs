@@ -63,44 +63,38 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public partial class PersonTotal
     {
-        public CivilStatusKodeType ToCivilStatusCodeType
+        public CivilStatusKodeType ToCivilStatusCodeType()
         {
-            get
+            if (this.MaritalStatus.HasValue)
             {
-                if (this.MaritalStatus.HasValue)
+                switch (this.MaritalStatus)
                 {
-                    switch (this.MaritalStatus)
-                    {
-                        case Constants.MaritalStatus.Unmarried:
-                            return CivilStatusKodeType.Ugift;
-                        case Constants.MaritalStatus.Married:
-                            return CivilStatusKodeType.Gift;
-                        case Constants.MaritalStatus.Divorced:
-                            return CivilStatusKodeType.Skilt;
-                        case Constants.MaritalStatus.Widow:
-                            return CivilStatusKodeType.Enke;
-                        case Constants.MaritalStatus.RegisteredPartnership:
-                            return CivilStatusKodeType.RegistreretPartner;
-                        case Constants.MaritalStatus.AbolitionOfRegisteredPartnership:
-                            return CivilStatusKodeType.OphaevetPartnerskab;
-                        case Constants.MaritalStatus.LongestLivingPartner:
-                            return CivilStatusKodeType.Laengstlevende;
-                        // TODO : GetPropertyValuesOfType fromDate latest marital status before this record
-                        case Constants.MaritalStatus.Deceased:
-                            return CivilStatusKodeType.Ugift;
-                        // TODO: When to use CivilStatusKode.Separeret?
-                    }
+                    case Constants.MaritalStatus.Unmarried:
+                        return CivilStatusKodeType.Ugift;
+                    case Constants.MaritalStatus.Married:
+                        return CivilStatusKodeType.Gift;
+                    case Constants.MaritalStatus.Divorced:
+                        return CivilStatusKodeType.Skilt;
+                    case Constants.MaritalStatus.Widow:
+                        return CivilStatusKodeType.Enke;
+                    case Constants.MaritalStatus.RegisteredPartnership:
+                        return CivilStatusKodeType.RegistreretPartner;
+                    case Constants.MaritalStatus.AbolitionOfRegisteredPartnership:
+                        return CivilStatusKodeType.OphaevetPartnerskab;
+                    case Constants.MaritalStatus.LongestLivingPartner:
+                        return CivilStatusKodeType.Laengstlevende;
+                    // TODO : GetPropertyValuesOfType fromDate latest marital status before this record
+                    case Constants.MaritalStatus.Deceased:
+                        return CivilStatusKodeType.Ugift;
+                    // TODO: When to use CivilStatusKode.Separeret?
                 }
-                throw new NotSupportedException("Unknown marital status");
             }
+            throw new NotSupportedException("Unknown marital status");
         }
 
-        public LivStatusKodeType ToLivStatusKodeType
+        public LivStatusKodeType ToLivStatusKodeType()
         {
-            get
-            {
-                return Schemas.Util.Enums.ToLifeStatus(this.Status, Utilities.DateFromDecimal(DateOfBirth));
-            }
+            return Schemas.Util.Enums.ToLifeStatus(this.Status, Utilities.DateFromDecimal(DateOfBirth));
         }
 
         public bool ToDirectoryProtectionIndicator()
