@@ -14,19 +14,12 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
     [TestFixture]
     public class ToCprBorgerType : BaseTests
     {
-        class PersonTotalStub : PersonTotal
-        {
-            public PersonTotalStub()
-            {
-                Status = 1;
-            }
-        }
-        #region ToCprBorgerType
+
         [Test]
         public void ToCprBorgerType_Normal_NotNull()
         {
-            var personTotal = new PersonTotal();
-            var result = personTotal.ToUkendtBorgerType();
+            var personTotal = new PersonTotalStub();
+            var result = personTotal.ToCprBorgerType(null, null);
             Assert.NotNull(result);
         }
 
@@ -35,7 +28,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             [ValueSource("RandomCprNumbers5")]decimal cprNumber)
         {
             var personTotal = new PersonTotalStub() { PNR = cprNumber };
-            var result = personTotal.ToCprBorgerType(new Nationality(), new PersonAddress());
+            var result = personTotal.ToCprBorgerType(null, null);
             Assert.AreEqual(cprNumber, decimal.Parse(result.PersonCivilRegistrationIdentifier));
         }
 
@@ -43,7 +36,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         public void ToCprBorgerType_Normal_NullAdresseNoteTekst()
         {
             var personTotal = new PersonTotalStub();
-            var result = personTotal.ToCprBorgerType(new Nationality(), new PersonAddress());
+            var result = personTotal.ToCprBorgerType(null, null);
             Assert.IsNullOrEmpty(result.AdresseNoteTekst);
         }
 
@@ -51,7 +44,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         public void ToCprBorgerType_NoAddress_NullAddress()
         {
             var personTotal = new PersonTotalStub();
-            var result = personTotal.ToCprBorgerType(new Nationality(), null);
+            var result = personTotal.ToCprBorgerType(null, null);
             Assert.Null(result.FolkeregisterAdresse);
         }
 
@@ -59,7 +52,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         public void ToCprBorgerType_WithAddress_AddressNotNull()
         {
             var personTotal = new PersonTotalStub();
-            var result = personTotal.ToCprBorgerType(new Nationality(), new PersonAddress());
+            var result = personTotal.ToCprBorgerType(null, new PersonAddress());
             Assert.NotNull(result.FolkeregisterAdresse);
         }
 
@@ -68,7 +61,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             [Values(null, '1')]char? dirProtection)
         {
             var personTotal = new PersonTotalStub() { DirectoryProtectionMarker = dirProtection };
-            var result = personTotal.ToCprBorgerType(new Nationality(), null);
+            var result = personTotal.ToCprBorgerType(null, null);
             Assert.AreEqual(personTotal.ToDirectoryProtectionIndicator(), result.ForskerBeskyttelseIndikator);
         }
 
@@ -86,7 +79,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             [ValueSource("AllCivilRegistrationStates")] decimal status)
         {
             var personTotal = new PersonTotal() { Status = status };
-            var result = personTotal.ToCprBorgerType(new Nationality(), new PersonAddress());
+            var result = personTotal.ToCprBorgerType(null, null);
             Assert.AreEqual(personTotal.ToCivilRegistrationValidityStatusIndicator(), result.PersonNummerGyldighedStatusIndikator);
         }
 
@@ -95,7 +88,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             [Values(null, '1')] char? christianMark)
         {
             var personTotal = new PersonTotalStub() { ChristianMark = christianMark };
-            var result = personTotal.ToCprBorgerType(new Nationality(), new PersonAddress());
+            var result = personTotal.ToCprBorgerType(null, null);
             Assert.AreEqual(personTotal.ToChurchMembershipIndicator(), result.FolkekirkeMedlemIndikator);
         }
 
@@ -104,12 +97,9 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         {
             // TODO: Add more cases for values of other data protection types
             var personTotal = new PersonTotalStub();
-            var result = personTotal.ToCprBorgerType(new Nationality(), null);
+            var result = personTotal.ToCprBorgerType(null, null);
             Assert.False(result.TelefonNummerBeskyttelseIndikator);
         }
-
-
-        #endregion
 
     }
 }

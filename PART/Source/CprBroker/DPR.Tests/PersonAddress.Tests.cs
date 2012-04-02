@@ -15,5 +15,10 @@ namespace CprBroker.Tests.DPR
     { }
 
     public class PersonTotalStub : PersonTotal
-    { }
+    {
+        public PersonTotalStub()
+        {
+            Status = 1;
+        }
+    }
 }
