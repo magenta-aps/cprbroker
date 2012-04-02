@@ -87,7 +87,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         {
             var personTotal = new PersonTotal() { Status = status };
             var result = personTotal.ToCprBorgerType(new Nationality(), new PersonAddress());
-            Assert.AreEqual(personTotal.ToPersonNummerGyldighedStatusIndikator(), result.PersonNummerGyldighedStatusIndikator);
+            Assert.AreEqual(personTotal.ToCivilRegistrationValidityStatusIndicator(), result.PersonNummerGyldighedStatusIndikator);
         }
 
         [Test]

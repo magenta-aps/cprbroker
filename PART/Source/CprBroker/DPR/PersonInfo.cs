@@ -279,12 +279,12 @@ namespace CprBroker.Providers.DPR
                 // TODO: Is it OK to get the full history here?
                 CivilStatus = new CivilStatusType()
                 {
-                    CivilStatusKode = PersonTotal.PartCivilStatus,
+                    CivilStatusKode = PersonTotal.ToCivilStatusCodeType,
                     TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate))
                 },
                 LivStatus = new LivStatusType()
                 {
-                    LivStatusKode = PersonTotal.PartLifeStatus,
+                    LivStatusKode = PersonTotal.ToLivStatusKodeType,
                     TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromFirstDecimal(PersonTotal.StatusDate)),
                 },
 

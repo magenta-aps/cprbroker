@@ -63,86 +63,6 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public partial class PersonTotal
     {
-        public CivilStatusKodeType PartCivilStatus
-        {
-            get
-            {
-                if (this.MaritalStatus.HasValue)
-                {
-                    switch (this.MaritalStatus)
-                    {
-                        case Constants.MaritalStatus.Unmarried:
-                            return CivilStatusKodeType.Ugift;
-                        case Constants.MaritalStatus.Married:
-                            return CivilStatusKodeType.Gift;
-                        case Constants.MaritalStatus.Divorced:
-                            return CivilStatusKodeType.Skilt;
-                        case Constants.MaritalStatus.Widow:
-                            return CivilStatusKodeType.Enke;
-                        case Constants.MaritalStatus.RegisteredPartnership:
-                            return CivilStatusKodeType.RegistreretPartner;
-                        case Constants.MaritalStatus.AbolitionOfRegisteredPartnership:
-                            return CivilStatusKodeType.OphaevetPartnerskab;
-                        case Constants.MaritalStatus.LongestLivingPartner:
-                            return CivilStatusKodeType.Laengstlevende;
-                        // TODO : GetPropertyValuesOfType fromDate latest marital status before this record
-                        case Constants.MaritalStatus.Deceased:
-                            return CivilStatusKodeType.Ugift;
-                        // TODO: When to use CivilStatusKode.Separeret?
-                    }
-                }
-                throw new NotSupportedException("Unknown marital status");
-            }
-        }
-
-        public LivStatusKodeType PartLifeStatus
-        {
-            get
-            {
-                return Schemas.Util.Enums.ToLifeStatus(this.Status, Utilities.DateFromDecimal(DateOfBirth));
-            }
-        }
-
-        public bool ToDirectoryProtectionIndicator()
-        {
-            return DirectoryProtectionMarker == '1';
-        }
-
-        public bool ToPersonNummerGyldighedStatusIndikator()
-        {
-            return Schemas.Util.Enums.IsActiveCivilRegistrationStatus(this.Status);
-        }
-
-        public bool ToNavneAdresseBeskyttelseIndikator()
-        {
-            return AddressProtectionMarker == '1';
-        }
-
-        public bool ToChurchMembershipIndicator()
-        {
-            return ChristianMark.HasValue;
-        }
-
-        public bool ToTelephoneNumberProtectionIndicator()
-        {
-            return false;
-        }
-
-        //TODO: Add logic to get value from DTBOERN if not found in DTTOTAL
-        public static decimal? GetParent(char? parentMarker, string parentPnrOrBirthdate)
-        {
-            if (parentMarker.HasValue && parentMarker.Value == '*')
-            {
-                string parentPnr = parentPnrOrBirthdate.Trim().Replace("-", "");
-                decimal ret;
-                if (parentPnr.Length == 10 && decimal.TryParse(parentPnr, out ret) && ret > 0)
-                {
-                    return ret;
-                }
-            }
-            return null;
-        }
-
         public CprBorgerType ToCprBorgerType(Nationality dbNationality, PersonAddress dbAddress)
         {
             return new CprBorgerType()
@@ -155,9 +75,9 @@ namespace CprBroker.Providers.DPR
 
                 //PNR validity status
                 // TODO: Make sure that true is the correct value
-                PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
+                PersonNummerGyldighedStatusIndikator = ToCivilRegistrationValidityStatusIndicator(),
                 // Address protection
-                NavneAdresseBeskyttelseIndikator = ToNavneAdresseBeskyttelseIndikator(),
+                NavneAdresseBeskyttelseIndikator = ToAddressProtectionIndicator(),
                 // Church membership
                 FolkekirkeMedlemIndikator = ToChurchMembershipIndicator(),
                 //Use false since we do not have telephone numbers here
@@ -213,6 +133,5 @@ namespace CprBroker.Providers.DPR
         {
             return VirkningType.Create(Utilities.GetMaxDate(StatusDate), null);
         }
-
     }
 }

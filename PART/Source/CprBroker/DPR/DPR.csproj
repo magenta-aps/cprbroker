@@ -69,6 +69,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="ClientDataProvider.cs" />
     <Compile Include="Data\ContactAddress.cs" />
+    <Compile Include="Data\PersonTotal.Converters.cs" />
     <Compile Include="Data\PersonAddress.cs" />
     <Compile Include="PersonInfo.cs" />
     <Compile Include="Data\Child.cs" />
