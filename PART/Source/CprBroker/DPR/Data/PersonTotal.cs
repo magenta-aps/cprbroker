@@ -67,21 +67,23 @@ namespace CprBroker.Providers.DPR
         {
             return new CprBorgerType()
             {
-                AdresseNoteTekst = null,
+                // Address note - not supported
+                AdresseNoteTekst = ToAdresseNoteTekst(),
+                // Fill address from PersonAddress table if possible
                 FolkeregisterAdresse = dbAddress != null ? dbAddress.ToAdresseType(this) : null,
+                // Directory protection
                 ForskerBeskyttelseIndikator = ToDirectoryProtectionIndicator(),
+                // PNR
                 PersonCivilRegistrationIdentifier = PNR.ToPnrDecimalString(),
-                PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, dbNationality.CountryCode.ToDecimalString()),
-
+                // Fill nationality
+                PersonNationalityCode = dbNationality != null ? dbNationality.ToCountryIdentificationCodeType() : null,
                 //PNR validity status
-                // TODO: Make sure that true is the correct value
                 PersonNummerGyldighedStatusIndikator = ToCivilRegistrationValidityStatusIndicator(),
                 // Address protection
                 NavneAdresseBeskyttelseIndikator = ToAddressProtectionIndicator(),
                 // Church membership
                 FolkekirkeMedlemIndikator = ToChurchMembershipIndicator(),
                 //Use false since we do not have telephone numbers here
-                // TODO: Check if this is correct
                 TelefonNummerBeskyttelseIndikator = ToTelephoneNumberProtectionIndicator(),
             };
         }
