@@ -69,7 +69,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
         {
             var personTotal = new PersonTotalStub() { DirectoryProtectionMarker = dirProtection };
             var result = personTotal.ToCprBorgerType(new Nationality(), null);
-            Assert.AreEqual(personTotal.ForskerBeskyttelseIndikator(), result.ForskerBeskyttelseIndikator);
+            Assert.AreEqual(personTotal.ToDirectoryProtectionIndicator(), result.ForskerBeskyttelseIndikator);
         }
 
         [Test]

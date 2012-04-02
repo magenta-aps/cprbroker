@@ -103,7 +103,7 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public bool ForskerBeskyttelseIndikator()
+        public bool ToDirectoryProtectionIndicator()
         {
             return DirectoryProtectionMarker == '1';
         }
@@ -149,7 +149,7 @@ namespace CprBroker.Providers.DPR
             {
                 AdresseNoteTekst = null,
                 FolkeregisterAdresse = dbAddress != null ? dbAddress.ToAdresseType(this) : null,
-                ForskerBeskyttelseIndikator = ForskerBeskyttelseIndikator(),
+                ForskerBeskyttelseIndikator = ToDirectoryProtectionIndicator(),
                 PersonCivilRegistrationIdentifier = PNR.ToPnrDecimalString(),
                 PersonNationalityCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, dbNationality.CountryCode.ToDecimalString()),
 
