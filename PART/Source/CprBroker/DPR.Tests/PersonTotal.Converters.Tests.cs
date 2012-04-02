@@ -137,9 +137,39 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
                 var personTotal = new PersonTotalStub() { MaritalStatus = maritalStatus };
                 personTotal.ToCivilStatusCodeType();
             }
+        }
 
+        [TestFixture]
+        public class ToLivStatusKodeType : BaseTests
+        {
+            [Test]
+            public void ToLivStatusKodeType_CorrectValues_ReturnsCorrect(
+                [Values(1, 3, 5, 7, 20, 30, 50, 60, 70, 80, 90)]decimal status,
+                [ValueSource("RandomDecimalDates5")]decimal decimalBirthDate)
+            {
+                var personTotal = new PersonTotalStub() { Status = status, DateOfBirth = decimalBirthDate };
+                var result = personTotal.ToLivStatusKodeType();
+                var birthDate = Providers.DPR.Utilities.DateFromDecimal(decimalBirthDate);
+                Assert.AreEqual(Schemas.Util.Enums.ToLifeStatus(status, birthDate), result);
+            }
 
+            [Test]
+            public void ToLivStatusKodeType_CorrectValuesWithZeroBirthDateBirthDate_ThrowsException(
+                [Values(1, 3, 5, 7, 20, 30, 50, 60, 70, 80, 90)]decimal status)
+            {
+                var personTotal = new PersonTotalStub() { Status = status, DateOfBirth = 0 };
+                var result = personTotal.ToLivStatusKodeType();
+                Assert.AreEqual(Schemas.Util.Enums.ToLifeStatus(status, null), result);
+            }
 
+            [Test]
+            [ExpectedException]
+            public void ToLivStatusKodeType_WrongValues_ThrowsException(
+                [Values(12, -22, 58, 111, 0)]decimal status)
+            {
+                var personTotal = new PersonTotalStub() { Status = status };
+                personTotal.ToLivStatusKodeType();
+            }
         }
 
 
