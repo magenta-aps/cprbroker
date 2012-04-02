@@ -67,11 +67,12 @@ namespace CprBroker.Providers.DPR
         {
             if (this.MaritalStatus.HasValue)
             {
-                switch (this.MaritalStatus)
+                switch (this.MaritalStatus.ToString().ToUpper()[0])
                 {
                     case Constants.MaritalStatus.Unmarried:
                         return CivilStatusKodeType.Ugift;
                     case Constants.MaritalStatus.Married:
+                        // TODO: return Separeret if there is record in DTSEPARATION
                         return CivilStatusKodeType.Gift;
                     case Constants.MaritalStatus.Divorced:
                         return CivilStatusKodeType.Skilt;
@@ -86,7 +87,6 @@ namespace CprBroker.Providers.DPR
                     // TODO : GetPropertyValuesOfType from latest marital status before this record
                     case Constants.MaritalStatus.Deceased:
                         return CivilStatusKodeType.Ugift;
-                    // TODO: When to use CivilStatusKode.Separeret?
                 }
             }
             throw new NotSupportedException("Unknown marital status");
