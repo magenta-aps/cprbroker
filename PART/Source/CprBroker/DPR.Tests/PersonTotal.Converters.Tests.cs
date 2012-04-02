@@ -172,6 +172,28 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             }
         }
 
+        [TestFixture]
+        public class ToDirectoryProtectionIndicator
+        {
+            [Test]
+            public void ToDirectoryProtectionIndicator_1_True()
+            {
+                var personTotal = new PersonTotalStub() { DirectoryProtectionMarker = '1' };
+                var result = personTotal.ToDirectoryProtectionIndicator();
+                Assert.True(result);
+            }
+
+            [Test]
+            public void ToDirectoryProtectionIndicator_OtherValues_False(
+                [Values(null,'2','0','w','A')]char? protectionIndicator)
+            {
+                var personTotal = new PersonTotalStub() { DirectoryProtectionMarker = protectionIndicator };
+                var result = personTotal.ToDirectoryProtectionIndicator();
+                Assert.False(result);
+            }
+
+        }
+
 
 
     }
