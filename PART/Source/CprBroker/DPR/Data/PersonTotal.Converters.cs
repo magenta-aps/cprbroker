@@ -118,19 +118,6 @@ namespace CprBroker.Providers.DPR
             return ChristianMark.ToString().ToUpper() == "F";
         }
 
-        //TODO: Add logic to get value from DTBOERN if not found in DTTOTAL
-        public static decimal? GetParent(char? parentMarker, string parentPnrOrBirthdate)
-        {
-            if (parentMarker.HasValue && parentMarker.Value == '*')
-            {
-                string parentPnr = parentPnrOrBirthdate.Trim().Replace("-", "");
-                decimal ret;
-                if (parentPnr.Length == 10 && decimal.TryParse(parentPnr, out ret) && ret > 0)
-                {
-                    return ret;
-                }
-            }
-            return null;
-        }
+        
     }
 }

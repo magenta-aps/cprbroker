@@ -296,7 +296,7 @@ namespace CprBroker.Providers.DPR
         {
             var ret = new RelationListeType();
             // Now fill the relations
-            var fatherPnr = PersonTotal.GetParent(this.PersonTotal.FatherMarker, this.PersonTotal.FatherPersonalOrBirthdate);
+            var fatherPnr = Utilities.ToParentPnr(this.PersonTotal.FatherPersonalOrBirthdate);
             if (fatherPnr.HasValue)
             {
                 ret.Fader = new PersonRelationType[]
@@ -309,7 +309,7 @@ namespace CprBroker.Providers.DPR
                 };
             }
 
-            var motherPnr = PersonTotal.GetParent(this.PersonTotal.MotherMarker, this.PersonTotal.MotherPersonalOrBirthDate);
+            var motherPnr = Utilities.ToParentPnr(this.PersonTotal.MotherPersonalOrBirthDate);
             if (motherPnr.HasValue)
             {
                 ret.Moder = new PersonRelationType[]

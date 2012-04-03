@@ -83,6 +83,7 @@
     <Compile Include="PersonTotal.UkendtBorgerType.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="Utilities.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DPR\DPR.csproj">

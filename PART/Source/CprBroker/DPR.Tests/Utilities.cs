@@ -72,22 +72,41 @@ namespace CprBroker.Tests.DPR
         }
 
         public static readonly Random Random = new Random();
-        public static decimal RandomCprNumber()
+        public enum NumDigits
         {
-            var day = Random.Next(1, 29).ToString("00");
+            Ten,
+            Nine,
+            NoneSpecified
+        }
+        public static decimal RandomCprNumber(NumDigits numDigits = NumDigits.NoneSpecified)
+        {
+            string day = "";
+            switch (numDigits)
+            {
+                case NumDigits.NoneSpecified:
+                    day = Random.Next(1, 29).ToString("00");
+                    break;
+                case NumDigits.Ten:
+                    day = Random.Next(10, 29).ToString("00");
+                    break;
+                case NumDigits.Nine:
+                    day = Random.Next(1, 10).ToString("00");
+                    break;
+            }
+
             var month = Random.Next(1, 13).ToString("00");
             var year = Random.Next(1, 100).ToString("00");
             var part1 = Random.Next(1000, 9999).ToString();
             return decimal.Parse(day + month + year + part1);
         }
 
-        public static decimal[] RandomCprNumbers(int count)
+        public static decimal[] RandomCprNumbers(int count, NumDigits numDigits = NumDigits.NoneSpecified)
         {
             var cprNumbers = new List<decimal>();
 
             for (int i = 0; i < count; i++)
             {
-                cprNumbers.Add(RandomCprNumber());
+                cprNumbers.Add(RandomCprNumber(numDigits));
             }
             return cprNumbers.ToArray();
         }

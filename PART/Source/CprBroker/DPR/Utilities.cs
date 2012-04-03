@@ -177,6 +177,20 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        //TODO: Add logic to get value from DTBOERN if not found in DTTOTAL
+        public static decimal? ToParentPnr(string parentPnrOrBirthdate)
+        {
+            string parentPnr = parentPnrOrBirthdate.Trim().Replace("-", "");
+            decimal ret;
+            if (
+                (parentPnr.Length == 10 || parentPnr.Length == 9)
+                && decimal.TryParse(parentPnr, out ret) && ret > 0)
+            {
+                return ret;
+            }
+            return null;
+        }
+
     }
 
     public static class Extensions

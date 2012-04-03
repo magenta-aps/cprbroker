@@ -243,7 +243,10 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
                 var result = personTotal.ToAddressProtectionIndicator();
                 Assert.False(result);
             }
+
         }
+
+        
 
 
 

@@ -12,6 +12,12 @@ namespace CprBroker.Tests.DPR
             return Utilities.RandomCprNumbers(5);
         }
 
+        public decimal[] Random9DigitCprNumbers5()
+        {
+            var ret = Utilities.RandomCprNumbers(5, Utilities.NumDigits.Nine);
+            return ret;
+        }
+
         public decimal[] RandomDecimalDates5()
         {
             return Utilities.RandomDecimalDates(5);
