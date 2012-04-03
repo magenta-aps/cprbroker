@@ -63,7 +63,33 @@ namespace CprBroker.Tests.DPR
         class PersonInfoStub : PersonInfo
         { }
 
+        class DprDatabaseDataProviderStub : DprDatabaseDataProvider
+        {
+            public DprDatabaseDataProviderStub()
+            {
+                this.ConfigurationProperties = new Dictionary<string, string>();
+                this.ReturnForeignersAsCprBorgerType = false;
+            }
+        }
+
         #region ToRegisterOplysningType
+
+        [Test]
+        public void ToRegisterOplysningType_DanishNationality_ReturnsCprBorger(
+            [Values(5100)]decimal nationality,
+            [ValueSource("RandomCprNumbers5")]decimal cprNumber,
+            [Values(true, false)] bool alwaysReturnCprBorger)
+        {
+            var personInfo = new PersonInfo()
+            {
+                PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
+                Nationality = new Nationality() { CountryCode = nationality }
+            };
+            var result = personInfo.ToRegisterOplysningType(new DprDatabaseDataProviderStub() { ReturnForeignersAsCprBorgerType = alwaysReturnCprBorger });
+            Assert.IsInstanceOf<CprBorgerType>(result.Item);
+        }
+
+
         [Test]
         public void ToRegisterOplysningType_SpecialNationality_ReturnsUkendt(
             [Values(5001, 5103)]decimal nationality,
@@ -71,25 +97,39 @@ namespace CprBroker.Tests.DPR
         {
             var personInfo = new PersonInfo()
             {
-                PersonTotal = new PersonTotal() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
+                PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
-            var result = personInfo.ToRegisterOplysningType();
+            var result = personInfo.ToRegisterOplysningType(new DprDatabaseDataProviderStub() { ReturnForeignersAsCprBorgerType = false });
             Assert.IsInstanceOf<UkendtBorgerType>(result.Item);
         }
 
         [Test]
-        public void ToRegisterOplysningType_DanishNationality_ReturnsCprBorger(
-            [Values(5100)]decimal nationality,
+        public void ToRegisterOplysningType_SpecialNationality_ReturnsCprBorger(
+            [Values(5001, 5103)]decimal nationality,
             [ValueSource("RandomCprNumbers5")]decimal cprNumber)
         {
             var personInfo = new PersonInfo()
             {
-                PersonTotal = new PersonTotal() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
+                PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
-            var result = personInfo.ToRegisterOplysningType();
+            var result = personInfo.ToRegisterOplysningType(new DprDatabaseDataProviderStub() { ReturnForeignersAsCprBorgerType = true });
             Assert.IsInstanceOf<CprBorgerType>(result.Item);
+        }
+
+        [Test]
+        public void ToRegisterOplysningType_ForeignNationality_ReturnsUdenlandsBorger(
+            [Values(5150, 856, 12, 99)]decimal nationality,
+            [ValueSource("RandomCprNumbers5")]decimal cprNumber)
+        {
+            var personInfo = new PersonInfo()
+            {
+                PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
+                Nationality = new Nationality() { CountryCode = nationality }
+            };
+            var result = personInfo.ToRegisterOplysningType(new DprDatabaseDataProviderStub() { ReturnForeignersAsCprBorgerType = false });
+            Assert.IsInstanceOf<UdenlandskBorgerType>(result.Item);
         }
 
         [Test]
@@ -99,15 +139,15 @@ namespace CprBroker.Tests.DPR
         {
             var personInfo = new PersonInfo()
             {
-                PersonTotal = new PersonTotal() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
+                PersonTotal = new PersonTotalStub() { PNR = cprNumber, Nationality = nationality.ToDecimalString() },
                 Nationality = new Nationality() { CountryCode = nationality }
             };
-            var result = personInfo.ToRegisterOplysningType();
+            var result = personInfo.ToRegisterOplysningType(new DprDatabaseDataProviderStub() { ReturnForeignersAsCprBorgerType = true });
             Assert.IsInstanceOf<CprBorgerType>(result.Item);
         }
         #endregion
 
-       
+
 
     }
 }

@@ -100,7 +100,7 @@ namespace CprBroker.Tests.DPR
                 LogText("GetPersonInfo()");
                 Assert.NotNull(simplifiedPersonInfo, "simplifiedPersonInfo");
                 LogText("Assert");
-                var simplifiedPersonRegistration = simplifiedPersonInfo.ToRegisteringType1(effectDate, func, dataContext);
+                var simplifiedPersonRegistration = simplifiedPersonInfo.ToRegisteringType1(effectDate, func, dataContext, new DprDatabaseDataProvider());
                 LogText("Converted");
                 Assert.NotNull(simplifiedPersonRegistration, "simplifiedPersonRegistration");
                 LogText("Assert");
@@ -113,7 +113,7 @@ namespace CprBroker.Tests.DPR
                 LogText("Expression retrieval");
                 if (expressionPersonInfo != null)
                 {
-                    var expressionPersonRegistration = expressionPersonInfo.ToRegisteringType1(effectDate, func, dataContext);
+                    var expressionPersonRegistration = expressionPersonInfo.ToRegisteringType1(effectDate, func, dataContext, new DprDatabaseDataProvider());
                     LogText("Conversion");
                     Assert.NotNull(expressionPersonRegistration, "expressionPersonRegistration");
                     LogText("Assert");

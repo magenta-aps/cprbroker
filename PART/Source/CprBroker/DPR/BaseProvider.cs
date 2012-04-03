@@ -159,6 +159,18 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        public bool ReturnForeignersAsCprBorgerType
+        {
+            get
+            {
+                return Convert.ToBoolean(ConfigurationProperties["Return Foreigners As CprBorgerType"]);
+            }
+            set
+            {
+                ConfigurationProperties["Return Foreigners As CprBorgerType"] = value.ToString();
+            }
+        }
+
         #region IDataProvider Members
 
         public virtual bool IsAlive()

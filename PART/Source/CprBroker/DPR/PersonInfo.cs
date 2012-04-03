@@ -164,7 +164,7 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public RegistreringType1 ToRegisteringType1(DateTime? effectTime, Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext)
+        public RegistreringType1 ToRegisteringType1(DateTime? effectTime, Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext, DprDatabaseDataProvider dataProvider)
         {
             Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToPnrDecimalString());
 
@@ -172,7 +172,7 @@ namespace CprBroker.Providers.DPR
 
             RegistreringType1 ret = new RegistreringType1()
             {
-                AttributListe = ToAttributListeType(),
+                AttributListe = ToAttributListeType(dataProvider),
                 TilstandListe = ToTilstandListeType(),
                 RelationListe = ToRelationListeType(cpr2uuidFunc, effectTimeDecimal, dataContext),
 
@@ -187,7 +187,7 @@ namespace CprBroker.Providers.DPR
             return ret;
         }
 
-        public AttributListeType ToAttributListeType()
+        public AttributListeType ToAttributListeType(DprDatabaseDataProvider dataProvider)
         {
             return new AttributListeType()
             {
@@ -197,7 +197,7 @@ namespace CprBroker.Providers.DPR
                 },
                 RegisterOplysning = new RegisterOplysningType[]
                 {
-                    ToRegisterOplysningType()
+                    ToRegisterOplysningType(dataProvider)
                 },
 
                 // Health information not implemented
@@ -242,26 +242,27 @@ namespace CprBroker.Providers.DPR
             return ret;
         }
 
-        public RegisterOplysningType ToRegisterOplysningType()
+        public RegisterOplysningType ToRegisterOplysningType(DprDatabaseDataProvider dataProvider)
         {
             var ret = new RegisterOplysningType()
             {
                 Item = null,
                 Virkning = VirkningType.Create(null, null)
             };
+
             // Now create the appropriate object based on nationality
-            if (
+            if (dataProvider.ReturnForeignersAsCprBorgerType || string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
+            {
+                ret.Item = PersonTotal.ToCprBorgerType(Nationality, Address);
+                ret.Virkning = PersonTotal.ToCprBorgerTypeVirkning(Nationality, Address);
+            }
+            else if (
                 Nationality == null
                 || Nationality.CountryCode.ToDecimalString().Equals(Constants.CprNationalityKmdCode)
                 || Nationality.CountryCode.ToDecimalString().Equals(Constants.StatelessKmdCode))
             {
                 ret.Item = PersonTotal.ToUkendtBorgerType();
                 ret.Virkning = PersonTotal.ToUkendtBorgerTypeVirkning();
-            }
-            else if (string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
-            {
-                ret.Item = PersonTotal.ToCprBorgerType(Nationality, Address);
-                ret.Virkning = PersonTotal.ToCprBorgerTypeVirkning(Nationality, Address);
             }
             else
             {

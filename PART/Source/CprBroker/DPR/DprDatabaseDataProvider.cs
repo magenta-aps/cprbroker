@@ -86,7 +86,7 @@ namespace CprBroker.Providers.DPR
 
                 if (db != null)
                 {
-                    ret = db.ToRegisteringType1(effectDate, cpr2uuidFunc, dataContext);
+                    ret = db.ToRegisteringType1(effectDate, cpr2uuidFunc, dataContext, this);
                 }
             }
             ql = QualityLevel.DataProvider;
