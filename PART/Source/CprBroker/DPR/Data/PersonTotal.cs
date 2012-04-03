@@ -91,7 +91,11 @@ namespace CprBroker.Providers.DPR
         public VirkningType ToCprBorgerTypeVirkning(Nationality dbNationality, PersonAddress dbAddress)
         {
             List<decimal?> effects = new List<decimal?>();
-            effects.AddRange(new decimal?[] { AddressDate, StatusDate, dbNationality.NationalityStartDate });
+            effects.AddRange(new decimal?[] { AddressDate, StatusDate });
+            if (dbNationality != null)
+            {
+                effects.AddRange(new decimal?[] { dbNationality.NationalityStartDate, dbNationality.NationalityEndDate });
+            }
             if (dbAddress != null)
             {
                 effects.AddRange(new decimal?[] { dbAddress.AddressStartDate, dbAddress.CprUpdateDate, dbAddress.LeavingFromMunicipalityDate, dbAddress.MunicipalityArrivalDate });
