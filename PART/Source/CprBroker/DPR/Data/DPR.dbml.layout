@@ -26,12 +26,6 @@
         <elementListCompartment Id="927a5b63-21e6-4146-8c70-8080710c9677" absoluteBounds="0.76500000000000057, 10.96, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4af1d26a-8f1a-4e8e-8da8-87a992deca75" absoluteBounds="0.75, 7.75, 2, 2.5401025390625005">
-      <DataClassMoniker Name="/DPRDataContext/ContactAddress" />
-      <nestedChildShapes>
-        <elementListCompartment Id="edbf8ffb-ef95-4626-aac8-99933500f5ce" absoluteBounds="0.76500000000000012, 8.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="417a32f9-d71c-4d19-b114-a7677b90d466" absoluteBounds="4.125, 5.5, 2, 6.9630354817708326">
       <DataClassMoniker Name="/DPRDataContext/PersonAddress" />
       <nestedChildShapes>

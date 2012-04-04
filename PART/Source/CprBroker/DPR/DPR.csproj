@@ -68,7 +68,6 @@
     <Compile Include="BaseProvider.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ClientDataProvider.cs" />
-    <Compile Include="Data\ContactAddress.cs" />
     <Compile Include="Data\PersonTotal.NotImplemented.cs" />
     <Compile Include="Data\Nationality.cs" />
     <Compile Include="Data\PersonTotal.Converters.cs" />

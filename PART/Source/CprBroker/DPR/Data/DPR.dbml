@@ -112,19 +112,6 @@
       <Column Name="SEP_HENVIS_TS" Member="SeparationReferralTimestamp" Storage="_SEP_HENVIS_TS" Type="System.String" DbType="VarChar(26)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.DTKADR" Member="ContactAddresses">
-    <Type Name="ContactAddress">
-      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
-      <Column Name="AJFDTO" Member="UpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
-      <Column Name="HAENST" Member="ContactAddressDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="KADR1" Member="Line1" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
-      <Column Name="KADR2" Member="Line2" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
-      <Column Name="KADR3" Member="Line3" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
-      <Column Name="KADR4" Member="Line4" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
-      <Column Name="KADR5" Member="Line5" Modifier="New" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DTPERSBO" Member="PersonAddresses">
     <Type Name="PersonAddress">
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
