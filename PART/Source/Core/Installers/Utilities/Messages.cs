@@ -83,6 +83,7 @@ namespace CprBroker.Installers
 
         public static readonly string WindowsAuthenticationNotAllowed = "Windows authentication is not allowed for application login";
         public static readonly string WindowsAuthenticationContactAdmin = "The web site and backend service are configured to use Windows authentication to connect to the database. \r\nYou may need to contact your database administrator to add a new user for the windows identity used by the web site and backend service";
+        public static readonly string SqlAuthenticationNotAllowedOnServer = "SQL Server authentication is not allowed on the server";
 
         public static readonly string CancelSetup = "Cancel setup";
         public static readonly string AreYouSureYouWantToCancel = "Are you sure you want to cancel setup?";

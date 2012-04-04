@@ -267,6 +267,20 @@ namespace CprBroker.Installers
             }
         }
 
+        private bool IsIntegratedSecurityOnly()
+        {
+            string adminConnectionString = CreateConnectionString(true, false);
+            using (SqlConnection adminConnection = new SqlConnection(adminConnectionString))
+            {
+                adminConnection.Open();
+                using (SqlCommand selectCommand = new SqlCommand("SELECT SERVERPROPERTY('IsIntegratedSecurityOnly')", adminConnection))
+                {
+                    int isIntegratedSecurityOnly = (int)selectCommand.ExecuteScalar();
+                    return isIntegratedSecurityOnly > 0;
+                }
+            }
+        }
+
         private bool ValidateEncryptionKey(ref string message)
         {
             if (!EncryptionKeyEnabled)
@@ -366,8 +380,13 @@ namespace CprBroker.Installers
                     }
                     else
                     {
+                        if (IsIntegratedSecurityOnly())
+                        {
+                            message = Messages.SqlAuthenticationNotAllowedOnServer;
+                            return false;
+                        }
                         // ensure that either app login either does not exist or has correct info
-                        if (AppLoginExists())
+                        else if (AppLoginExists())
                         {
                             if (
                                 !TryOpenConnection(CreateConnectionString(false, false))
