@@ -84,6 +84,7 @@ namespace CprBroker.Providers.DPR
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Keep Subscription" , Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Always return CprBorgerType", Required=false, Confidential=false}
                     
                 };
             }
@@ -159,15 +160,15 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public bool ReturnForeignersAsCprBorgerType
+        public bool AlwaysReturnCprBorgerType
         {
             get
             {
-                return Convert.ToBoolean(ConfigurationProperties["Return Foreigners As CprBorgerType"]);
+                return Convert.ToBoolean(ConfigurationProperties["Always return CprBorgerType"]);
             }
             set
             {
-                ConfigurationProperties["Return Foreigners As CprBorgerType"] = value.ToString();
+                ConfigurationProperties["Always return CprBorgerType"] = value.ToString();
             }
         }
 
