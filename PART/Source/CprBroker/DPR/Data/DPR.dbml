@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="DPR" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DPR" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=DPR;Persist Security Info=True;User ID=sa" SettingsObjectName="CprBroker.Providers.DPR.Properties.Settings" SettingsPropertyName="DPRConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.DTNAVNE" Member="PersonNames">
     <Type Name="PersonName">
@@ -93,17 +92,6 @@
       <Association Name="PersonTotal_PersonName" Member="PersonNames" ThisKey="PNR" OtherKey="PNR" Type="PersonName" />
       <Association Name="PersonTotal_PersonAddress" Member="PersonAddresses" ThisKey="PNR" OtherKey="PNR" Type="PersonAddress" />
       <Association Name="PersonTotal_Nationality" Member="Nationalities" ThisKey="PNR" OtherKey="PNR" Type="Nationality" />
-      <Association Name="Street_PersonTotal" Member="Street" ThisKey="MunicipalityCode,StreetCode" OtherKey="MunicipalityCode,StreetCode" Type="Street" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DTBESKYT" Member="Protections">
-    <Type Name="Protection">
-      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
-      <Column Name="BESKYT_TYP" Member="ProtectionType" Storage="_BESKYT_TYP" Type="System.Decimal" DbType="Decimal(4,0) NOT NULL" CanBeNull="false" />
-      <Column Name="AJFDTO" Member="CprUpdateDate" Storage="_AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
-      <Column Name="STARTDATE" Member="StartDate" Storage="_STARTDATE" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
-      <Column Name="SLETDATE" Member="EndDate" Storage="_SLETDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="INDRAP" Member="ReportingMarker" Storage="_INDRAP" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">
@@ -122,15 +110,6 @@
       <Column Name="MYNTXT" Member="MaritalStatusAuthorityText" Storage="_MYNTXT" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="AEGTENVN" Member="SpouseName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="SEP_HENVIS_TS" Member="SeparationReferralTimestamp" Storage="_SEP_HENVIS_TS" Type="System.String" DbType="VarChar(26)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DTAKTVEJ" Member="Streets">
-    <Type Name="Street">
-      <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="VEJKOD" Member="StreetCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="VEJADNVN" Member="StreetAddressingName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="SVEJADRNVN" Member="SeekStreetAddressingName" Type="System.String" DbType="Char(20)" CanBeNull="true" />
-      <Association Name="Street_PersonTotal" Member="PersonTotals" ThisKey="MunicipalityCode,StreetCode" OtherKey="MunicipalityCode,StreetCode" Type="PersonTotal" />
     </Type>
   </Table>
   <Table Name="dbo.DTKADR" Member="ContactAddresses">

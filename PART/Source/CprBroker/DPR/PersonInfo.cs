@@ -64,7 +64,6 @@ namespace CprBroker.Providers.DPR
         public PersonName PersonName { get; set; }
         public PersonTotal PersonTotal { get; set; }
         public Nationality Nationality { get; set; }
-        public Street Street { get; set; }
         public PersonAddress Address { get; set; }
 
         /// <summary>
@@ -75,12 +74,10 @@ namespace CprBroker.Providers.DPR
             join pNationality in dataContext.Nationalities on personTotal.PNR equals pNationality.PNR into personNationalities
             join pAddr in dataContext.PersonAddresses on personTotal.PNR equals pAddr.PNR into personAddresses
             join pName in dataContext.PersonNames on personTotal.PNR equals pName.PNR into personNames
-            join strt in dataContext.Streets on new { personTotal.MunicipalityCode, personTotal.StreetCode } equals new { strt.MunicipalityCode, strt.StreetCode } into streets
 
             from personNationality in personNationalities.DefaultIfEmpty()
             from personAddress in personAddresses.OrderByDescending(pa => pa.AddressStartDate).DefaultIfEmpty()
             from personName in personNames.DefaultIfEmpty()
-            from street in streets.DefaultIfEmpty()
 
             where
                 // Active nationality only
@@ -96,7 +93,6 @@ namespace CprBroker.Providers.DPR
                 Nationality = personNationality,
                 Address = personAddress,
                 PersonName = personName,
-                Street = street,
             };
 
         public static PersonInfo GetPersonInfo(DPRDataContext dataContext, decimal pnr)
@@ -110,7 +106,6 @@ namespace CprBroker.Providers.DPR
                     Nationality = personTotal.Nationalities.Where(pn => pn.CorrectionMarker == null && pn.NationalityEndDate == null).OrderByDescending(pn => pn.NationalityStartDate).FirstOrDefault(),
                     Address = personTotal.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
                     PersonName = personTotal.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),
-                    Street = personTotal.Street
                 };
             }
             return null;

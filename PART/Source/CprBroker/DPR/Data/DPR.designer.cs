@@ -36,9 +36,6 @@ namespace CprBroker.Providers.DPR
     partial void InsertPersonTotal(PersonTotal instance);
     partial void UpdatePersonTotal(PersonTotal instance);
     partial void DeletePersonTotal(PersonTotal instance);
-    partial void InsertStreet(Street instance);
-    partial void UpdateStreet(Street instance);
-    partial void DeleteStreet(Street instance);
     partial void InsertPersonAddress(PersonAddress instance);
     partial void UpdatePersonAddress(PersonAddress instance);
     partial void DeletePersonAddress(PersonAddress instance);
@@ -101,27 +98,11 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		public System.Data.Linq.Table<Protection> Protections
-		{
-			get
-			{
-				return this.GetTable<Protection>();
-			}
-		}
-		
 		public System.Data.Linq.Table<CivilStatus> CivilStatus
 		{
 			get
 			{
 				return this.GetTable<CivilStatus>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Street> Streets
-		{
-			get
-			{
-				return this.GetTable<Street>();
 			}
 		}
 		
@@ -872,8 +853,6 @@ namespace CprBroker.Providers.DPR
 		
 		private EntitySet<Nationality> _Nationalities;
 		
-		private EntityRef<Street> _Street;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -997,7 +976,6 @@ namespace CprBroker.Providers.DPR
 			this._PersonNames = new EntitySet<PersonName>(new Action<PersonName>(this.attach_PersonNames), new Action<PersonName>(this.detach_PersonNames));
 			this._PersonAddresses = new EntitySet<PersonAddress>(new Action<PersonAddress>(this.attach_PersonAddresses), new Action<PersonAddress>(this.detach_PersonAddresses));
 			this._Nationalities = new EntitySet<Nationality>(new Action<Nationality>(this.attach_Nationalities), new Action<Nationality>(this.detach_Nationalities));
-			this._Street = default(EntityRef<Street>);
 			OnCreated();
 		}
 		
@@ -2160,42 +2138,6 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Street_PersonTotal", Storage="_Street", ThisKey="MunicipalityCode,StreetCode", OtherKey="MunicipalityCode,StreetCode", IsForeignKey=true)]
-		public Street Street
-		{
-			get
-			{
-				return this._Street.Entity;
-			}
-			set
-			{
-				Street previousValue = this._Street.Entity;
-				if (((previousValue != value) 
-							|| (this._Street.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Street.Entity = null;
-						previousValue.PersonTotals.Remove(this);
-					}
-					this._Street.Entity = value;
-					if ((value != null))
-					{
-						value.PersonTotals.Add(this);
-						this._KOMKOD = value.MunicipalityCode;
-						this._VEJKOD = value.StreetCode;
-					}
-					else
-					{
-						this._KOMKOD = default(decimal);
-						this._VEJKOD = default(decimal);
-					}
-					this.SendPropertyChanged("Street");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2250,123 +2192,6 @@ namespace CprBroker.Providers.DPR
 		{
 			this.SendPropertyChanging();
 			entity.PersonTotal = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBESKYT")]
-	public partial class Protection
-	{
-		
-		private decimal _PNR;
-		
-		private decimal _BESKYT_TYP;
-		
-		private decimal _AJFDTO;
-		
-		private System.DateTime _STARTDATE;
-		
-		private System.Nullable<System.DateTime> _SLETDATE;
-		
-		private string _INDRAP;
-		
-		public Protection()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
-		public decimal PNR
-		{
-			get
-			{
-				return this._PNR;
-			}
-			set
-			{
-				if ((this._PNR != value))
-				{
-					this._PNR = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="BESKYT_TYP", Storage="_BESKYT_TYP", DbType="Decimal(4,0) NOT NULL")]
-		public decimal ProtectionType
-		{
-			get
-			{
-				return this._BESKYT_TYP;
-			}
-			set
-			{
-				if ((this._BESKYT_TYP != value))
-				{
-					this._BESKYT_TYP = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
-		public decimal CprUpdateDate
-		{
-			get
-			{
-				return this._AJFDTO;
-			}
-			set
-			{
-				if ((this._AJFDTO != value))
-				{
-					this._AJFDTO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_STARTDATE", DbType="SmallDateTime NOT NULL")]
-		public System.DateTime StartDate
-		{
-			get
-			{
-				return this._STARTDATE;
-			}
-			set
-			{
-				if ((this._STARTDATE != value))
-				{
-					this._STARTDATE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLETDATE", Storage="_SLETDATE", DbType="DateTime")]
-		public System.Nullable<System.DateTime> EndDate
-		{
-			get
-			{
-				return this._SLETDATE;
-			}
-			set
-			{
-				if ((this._SLETDATE != value))
-				{
-					this._SLETDATE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="INDRAP", Storage="_INDRAP", DbType="VarChar(3)")]
-		public string ReportingMarker
-		{
-			get
-			{
-				return this._INDRAP;
-			}
-			set
-			{
-				if ((this._INDRAP != value))
-				{
-					this._INDRAP = value;
-				}
-			}
 		}
 	}
 	
@@ -2628,168 +2453,6 @@ namespace CprBroker.Providers.DPR
 					this._SEP_HENVIS_TS = value;
 				}
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTAKTVEJ")]
-	public partial class Street : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private decimal _MunicipalityCode;
-		
-		private decimal _StreetCode;
-		
-		private string _StreetAddressingName;
-		
-		private string _SeekStreetAddressingName;
-		
-		private EntitySet<PersonTotal> _PersonTotals;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMunicipalityCodeChanging(decimal value);
-    partial void OnMunicipalityCodeChanged();
-    partial void OnStreetCodeChanging(decimal value);
-    partial void OnStreetCodeChanged();
-    partial void OnStreetAddressingNameChanging(string value);
-    partial void OnStreetAddressingNameChanged();
-    partial void OnSeekStreetAddressingNameChanging(string value);
-    partial void OnSeekStreetAddressingNameChanged();
-    #endregion
-		
-		public Street()
-		{
-			this._PersonTotals = new EntitySet<PersonTotal>(new Action<PersonTotal>(this.attach_PersonTotals), new Action<PersonTotal>(this.detach_PersonTotals));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="KOMKOD", Storage="_MunicipalityCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
-		public decimal MunicipalityCode
-		{
-			get
-			{
-				return this._MunicipalityCode;
-			}
-			set
-			{
-				if ((this._MunicipalityCode != value))
-				{
-					this.OnMunicipalityCodeChanging(value);
-					this.SendPropertyChanging();
-					this._MunicipalityCode = value;
-					this.SendPropertyChanged("MunicipalityCode");
-					this.OnMunicipalityCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="VEJKOD", Storage="_StreetCode", DbType="Decimal(5,0) NOT NULL", IsPrimaryKey=true)]
-		public decimal StreetCode
-		{
-			get
-			{
-				return this._StreetCode;
-			}
-			set
-			{
-				if ((this._StreetCode != value))
-				{
-					this.OnStreetCodeChanging(value);
-					this.SendPropertyChanging();
-					this._StreetCode = value;
-					this.SendPropertyChanged("StreetCode");
-					this.OnStreetCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="VEJADNVN", Storage="_StreetAddressingName", DbType="VarChar(20)")]
-		public string StreetAddressingName
-		{
-			get
-			{
-				return this._StreetAddressingName;
-			}
-			set
-			{
-				if ((this._StreetAddressingName != value))
-				{
-					this.OnStreetAddressingNameChanging(value);
-					this.SendPropertyChanging();
-					this._StreetAddressingName = value;
-					this.SendPropertyChanged("StreetAddressingName");
-					this.OnStreetAddressingNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SVEJADRNVN", Storage="_SeekStreetAddressingName", DbType="Char(20)")]
-		public string SeekStreetAddressingName
-		{
-			get
-			{
-				return this._SeekStreetAddressingName;
-			}
-			set
-			{
-				if ((this._SeekStreetAddressingName != value))
-				{
-					this.OnSeekStreetAddressingNameChanging(value);
-					this.SendPropertyChanging();
-					this._SeekStreetAddressingName = value;
-					this.SendPropertyChanged("SeekStreetAddressingName");
-					this.OnSeekStreetAddressingNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Street_PersonTotal", Storage="_PersonTotals", ThisKey="MunicipalityCode,StreetCode", OtherKey="MunicipalityCode,StreetCode")]
-		public EntitySet<PersonTotal> PersonTotals
-		{
-			get
-			{
-				return this._PersonTotals;
-			}
-			set
-			{
-				this._PersonTotals.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PersonTotals(PersonTotal entity)
-		{
-			this.SendPropertyChanging();
-			entity.Street = this;
-		}
-		
-		private void detach_PersonTotals(PersonTotal entity)
-		{
-			this.SendPropertyChanging();
-			entity.Street = null;
 		}
 	}
 	
