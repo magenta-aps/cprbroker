@@ -325,7 +325,7 @@ namespace CprBroker.Providers.DPR
                     (pt) => cpr2uuidFunc(pt.PNR)
                 ));
 
-            // TODO : Fill adult children
+            // TODO : Fill custody children
             ret.Foraeldremyndighedsboern = null;
 
             ret.Aegtefaelle =
