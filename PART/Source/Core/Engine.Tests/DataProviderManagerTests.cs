@@ -9,38 +9,8 @@ using CprBroker.Engine;
 namespace CprBroker.Tests.Engine
 {
     [TestFixture]
-    class DataProviderManagerTests
+    partial class DataProviderManagerTests
     {
-        [Test]
-        [ExpectedException]
-        public void CreateDataProvider_Null_ThrowsException()
-        {
-            DataProviderManager.CreateDataProvider(null);
-        }
-
-        [Test]
-        public void CreateDataProvider_FakeType_ReturnsNull()
-        {
-            var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = "kaaklsdflksah" });
-            Assert.Null(result);
-        }
-
-        [Test]
-        public void CreateDataProvider_RealInvalidType_ReturnsNull(
-            [Values(typeof(object), typeof(LocalDataProviderStub))]Type type)
-        {
-            var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
-            Assert.Null(result);
-        }
-
-        [Test]
-        public void CreateDataProvider_RealCorrectType_ReturnsNotNull(
-            [Values(typeof(CustomExternalDataProviderStub))]Type type)
-        {
-            var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
-            Assert.NotNull(result);
-        }
-
         [Test]
         public void GetAvailableDataProviderTypes_NullSection_ReturnsNotNull(
             [Values(true, false)] bool isExternal)

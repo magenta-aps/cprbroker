@@ -83,7 +83,7 @@ namespace CprBroker.Data.DataProviders
             get
             {
                 var prop = GetDataProviderProperty(key);
-                if (key != null)
+                if (prop != null)
                 {
                     return prop.Value;
                 }
