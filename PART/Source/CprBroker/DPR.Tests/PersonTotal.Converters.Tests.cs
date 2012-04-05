@@ -116,7 +116,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             }
 
             [Test]
-            public void ToCivilStatusCodeType_GNoSeparation_Married(
+            public void ToCivilStatusCodeType_G_NoSeparation_Married(
                 [Values('g', 'G')]char maritalStatus)
             {
                 var personTotal = new PersonTotalStub() { MaritalStatus = maritalStatus };
@@ -125,7 +125,7 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             }
 
             [Test]
-            public void ToCivilStatusCodeType_GInActiveSeparation_Married(
+            public void ToCivilStatusCodeType_G_InActiveSeparation_Married(
                 [Values('g', 'G')]char maritalStatus)
             {
                 var personTotal = new PersonTotalStub() { MaritalStatus = maritalStatus };
@@ -165,13 +165,32 @@ namespace CprBroker.Tests.DPR.PersonTotalTests
             }
 
             [Test]
-            public void ToCivilStatusCodeType_P_RegPartner(
-                [Values('p', 'P')]char maritalStatus,
-                [Values(true, false)] bool hasSeparation)
+            public void ToCivilStatusCodeType_P_NoSeparation_RegPartner(
+                [Values('p', 'P')]char maritalStatus)
             {
                 var personTotal = new PersonTotalStub() { MaritalStatus = maritalStatus };
-                var result = personTotal.ToCivilStatusCodeType(CreateSeparation(hasSeparation));
+                var result = personTotal.ToCivilStatusCodeType(null);
                 Assert.AreEqual(CivilStatusKodeType.RegistreretPartner, result);
+            }
+
+            [Test]
+            public void ToCivilStatusCodeType_P_InActiveSeparation_RegPartner(
+                [Values('p', 'P')]char maritalStatus)
+            {
+                var personTotal = new PersonTotalStub() { MaritalStatus = maritalStatus };
+                var separation = new Separation() { EndDate = DateTime.Today };
+                var result = personTotal.ToCivilStatusCodeType(separation);
+                Assert.AreEqual(CivilStatusKodeType.RegistreretPartner, result);
+            }
+
+            [Test]
+            public void ToCivilStatusCodeType_P_ActiveSeparation_RegPartner(
+                [Values('p', 'P')]char maritalStatus)
+            {
+                var personTotal = new PersonTotalStub() { MaritalStatus = maritalStatus };
+                var separation = new Separation() { EndDate = null };
+                var result = personTotal.ToCivilStatusCodeType(separation);
+                Assert.AreEqual(CivilStatusKodeType.Separeret, result);
             }
 
             [Test]

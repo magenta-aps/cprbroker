@@ -85,7 +85,14 @@ namespace CprBroker.Providers.DPR
                     case Constants.MaritalStatus.Widow:
                         return CivilStatusKodeType.Enke;
                     case Constants.MaritalStatus.RegisteredPartnership:
-                        return CivilStatusKodeType.RegistreretPartner;
+                        if (latestSeparation != null && !latestSeparation.EndDate.HasValue)
+                        {
+                            return CivilStatusKodeType.Separeret;
+                        }
+                        else
+                        {
+                            return CivilStatusKodeType.RegistreretPartner;
+                        }
                     case Constants.MaritalStatus.AbolitionOfRegisteredPartnership:
                         return CivilStatusKodeType.OphaevetPartnerskab;
                     case Constants.MaritalStatus.LongestLivingPartner:
