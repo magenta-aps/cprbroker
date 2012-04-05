@@ -44,12 +44,6 @@ namespace CprBroker.Providers.DPR
     partial void DeleteNationality(Nationality instance);
     #endregion
 		
-		public DPRDataContext() : 
-				base(global::CprBroker.Providers.DPR.Properties.Settings.Default.DPRConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public DPRDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -119,6 +113,14 @@ namespace CprBroker.Providers.DPR
 			get
 			{
 				return this.GetTable<Nationality>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Separation> Separations
+		{
+			get
+			{
+				return this.GetTable<Separation>();
 			}
 		}
 	}
@@ -3514,6 +3516,195 @@ namespace CprBroker.Providers.DPR
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSEPARATION")]
+	public partial class Separation
+	{
+		
+		private decimal _PNR;
+		
+		private decimal _CprUpdateDate;
+		
+		private string _SeparationReferalTimestamp;
+		
+		private System.Nullable<char> _CorrectionMarker;
+		
+		private decimal _StartAuthorityCode;
+		
+		private System.DateTime _StartDate;
+		
+		private System.Nullable<char> _StartDateMarker;
+		
+		private System.Nullable<decimal> _EndAuthorityCode;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+		private System.Nullable<char> _EndDateMarker;
+		
+		public Separation()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		public decimal PNR
+		{
+			get
+			{
+				return this._PNR;
+			}
+			set
+			{
+				if ((this._PNR != value))
+				{
+					this._PNR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		public decimal CprUpdateDate
+		{
+			get
+			{
+				return this._CprUpdateDate;
+			}
+			set
+			{
+				if ((this._CprUpdateDate != value))
+				{
+					this._CprUpdateDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SEP_HENVIS_TS", Storage="_SeparationReferalTimestamp", DbType="VarChar(26) NOT NULL", CanBeNull=false)]
+		public string SeparationReferalTimestamp
+		{
+			get
+			{
+				return this._SeparationReferalTimestamp;
+			}
+			set
+			{
+				if ((this._SeparationReferalTimestamp != value))
+				{
+					this._SeparationReferalTimestamp = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ANNKOR", Storage="_CorrectionMarker", DbType="Char(1)")]
+		public System.Nullable<char> CorrectionMarker
+		{
+			get
+			{
+				return this._CorrectionMarker;
+			}
+			set
+			{
+				if ((this._CorrectionMarker != value))
+				{
+					this._CorrectionMarker = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="START_MYNKOD", Storage="_StartAuthorityCode", DbType="Decimal(5,0) NOT NULL")]
+		public decimal StartAuthorityCode
+		{
+			get
+			{
+				return this._StartAuthorityCode;
+			}
+			set
+			{
+				if ((this._StartAuthorityCode != value))
+				{
+					this._StartAuthorityCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="DateTime NOT NULL")]
+		public System.DateTime StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this._StartDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE_UMRK", Storage="_StartDateMarker", DbType="Char(1)")]
+		public System.Nullable<char> StartDateMarker
+		{
+			get
+			{
+				return this._StartDateMarker;
+			}
+			set
+			{
+				if ((this._StartDateMarker != value))
+				{
+					this._StartDateMarker = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLUT_MYNKOD", Storage="_EndAuthorityCode", DbType="Decimal(5,0)")]
+		public System.Nullable<decimal> EndAuthorityCode
+		{
+			get
+			{
+				return this._EndAuthorityCode;
+			}
+			set
+			{
+				if ((this._EndAuthorityCode != value))
+				{
+					this._EndAuthorityCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLUTDATE", Storage="_EndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this._EndDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SLUTDATE_UMRK", Storage="_EndDateMarker", DbType="Char(1)")]
+		public System.Nullable<char> EndDateMarker
+		{
+			get
+			{
+				return this._EndDateMarker;
+			}
+			set
+			{
+				if ((this._EndDateMarker != value))
+				{
+					this._EndDateMarker = value;
+				}
 			}
 		}
 	}

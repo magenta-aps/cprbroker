@@ -63,7 +63,7 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public partial class PersonTotal
     {
-        public CivilStatusKodeType ToCivilStatusCodeType()
+        public CivilStatusKodeType ToCivilStatusCodeType(Separation latestSeparation)
         {
             if (this.MaritalStatus.HasValue)
             {
@@ -72,8 +72,14 @@ namespace CprBroker.Providers.DPR
                     case Constants.MaritalStatus.Unmarried:
                         return CivilStatusKodeType.Ugift;
                     case Constants.MaritalStatus.Married:
-                        // TODO: return Separeret if there is record in DTSEPARATION
-                        return CivilStatusKodeType.Gift;
+                        if (latestSeparation != null && !latestSeparation.EndDate.HasValue)
+                        {
+                            return CivilStatusKodeType.Separeret;
+                        }
+                        else
+                        {
+                            return CivilStatusKodeType.Gift;
+                        }
                     case Constants.MaritalStatus.Divorced:
                         return CivilStatusKodeType.Skilt;
                     case Constants.MaritalStatus.Widow:
@@ -84,7 +90,7 @@ namespace CprBroker.Providers.DPR
                         return CivilStatusKodeType.OphaevetPartnerskab;
                     case Constants.MaritalStatus.LongestLivingPartner:
                         return CivilStatusKodeType.Laengstlevende;
-                    // TODO : GetPropertyValuesOfType from latest marital status before this record
+                    // TODO : Get value from latest marital status before this record
                     case Constants.MaritalStatus.Deceased:
                         return CivilStatusKodeType.Ugift;
                 }
@@ -118,6 +124,6 @@ namespace CprBroker.Providers.DPR
             return ChristianMark.ToString().ToUpper() == "F";
         }
 
-        
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DPR" EntityNamespace="CprBroker.Providers.DPR" ContextNamespace="CprBroker.Providers.DPR" Class="DPRDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=10.20.1.20;Initial Catalog=DPR;Persist Security Info=True;User ID=sa" SettingsObjectName="CprBroker.Providers.DPR.Properties.Settings" SettingsPropertyName="DPRConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.DTNAVNE" Member="PersonNames">
     <Type Name="PersonName">
       <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -158,6 +157,20 @@
       <Column Name="HAENSLUT" Member="NationalityEndDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
       <Association Name="PersonTotal_Nationality" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTSEPARATION" Member="Separations">
+    <Type Name="Separation">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="SEP_HENVIS_TS" Member="SeparationReferalTimestamp" Type="System.String" DbType="VarChar(26) NOT NULL" CanBeNull="false" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="START_MYNKOD" Member="StartAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="STARTDATE" Member="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="STARTDATE_UMRK" Member="StartDateMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="SLUT_MYNKOD" Member="EndAuthorityCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
+      <Column Name="SLUTDATE" Member="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SLUTDATE_UMRK" Member="EndDateMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

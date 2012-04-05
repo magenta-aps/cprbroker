@@ -65,6 +65,7 @@ namespace CprBroker.Providers.DPR
         public PersonTotal PersonTotal { get; set; }
         public Nationality Nationality { get; set; }
         public PersonAddress Address { get; set; }
+        public Separation Separation { get; set; }
 
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
@@ -74,10 +75,12 @@ namespace CprBroker.Providers.DPR
             join pNationality in dataContext.Nationalities on personTotal.PNR equals pNationality.PNR into personNationalities
             join pAddr in dataContext.PersonAddresses on personTotal.PNR equals pAddr.PNR into personAddresses
             join pName in dataContext.PersonNames on personTotal.PNR equals pName.PNR into personNames
+            join pSeparation in dataContext.Separations on personTotal.PNR equals pSeparation.PNR into personSeparations
 
             from personNationality in personNationalities.DefaultIfEmpty()
             from personAddress in personAddresses.OrderByDescending(pa => pa.AddressStartDate).DefaultIfEmpty()
             from personName in personNames.DefaultIfEmpty()
+            from personSeparation in personSeparations.OrderByDescending(sep => sep.StartDate).DefaultIfEmpty()
 
             where
                 // Active nationality only
@@ -86,6 +89,8 @@ namespace CprBroker.Providers.DPR
             && (personName == null || (personName.CorrectionMarker == null && personName.NameTerminationDate == null))
                 // Active address only
             && (personAddress == null || personAddress.CorrectionMarker == null)
+                // Active separation only
+            && (personSeparation == null || personSeparation.CorrectionMarker == null)
 
             select new PersonInfo()
             {
@@ -93,6 +98,7 @@ namespace CprBroker.Providers.DPR
                 Nationality = personNationality,
                 Address = personAddress,
                 PersonName = personName,
+                Separation = personSeparation
             };
 
         public static PersonInfo GetPersonInfo(DPRDataContext dataContext, decimal pnr)
@@ -275,7 +281,7 @@ namespace CprBroker.Providers.DPR
                 // TODO: Is it OK to get the full history here?
                 CivilStatus = new CivilStatusType()
                 {
-                    CivilStatusKode = PersonTotal.ToCivilStatusCodeType(),
+                    CivilStatusKode = PersonTotal.ToCivilStatusCodeType(this.Separation),
                     TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate))
                 },
                 LivStatus = new LivStatusType()
@@ -342,7 +348,7 @@ namespace CprBroker.Providers.DPR
                      Virkning = VirkningType.Create(Utilities.DateFromDecimal(civ.MaritalStatusDate), Utilities.DateFromDecimal((civ.MaritalEndDate)))
                  }).ToArray();
 
-            
+
             ret.RegistreretPartner = null;
             //TODO: Fill Legal capacity Legal guardian for person
             ret.RetligHandleevneVaergeForPersonen = null;

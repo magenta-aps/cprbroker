@@ -38,26 +38,32 @@
         <elementListCompartment Id="ea8c750d-dc6e-472a-b9f3-dbde91a9c35d" absoluteBounds="4.3900000000000006, 5.9600000000000009, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.5 : 2.79405843098958); (6.375 : 2.79405843098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 2.79405843098958); (6.375 : 2.79405843098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_PersonName" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="ad4c5d61-dbfb-400a-b829-0da01f27860b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.5 : 4.23151774088542); (10.375 : 4.23151774088542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(9.5 : 4.23151774088542); (10.375 : 4.23151774088542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_PersonAddress" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="417a32f9-d71c-4d19-b114-a7677b90d466" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 6.48159912109375); (6.375 : 6.48159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 6.48159912109375); (6.375 : 6.48159912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Nationality" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
         <classShapeMoniker Id="b8bebd5d-955c-48ad-acac-5526af185947" />
       </nodes>
     </associationConnector>
+    <classShape Id="1e812134-9008-4bd9-b5ee-40547631ee7a" absoluteBounds="0.75, 6.5, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/DPRDataContext/Separation" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a0815e90-f943-4001-93d7-16a79b147fb5" absoluteBounds="0.76500000000000012, 6.9600000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
