@@ -342,9 +342,7 @@ namespace CprBroker.Providers.DPR
                      Virkning = VirkningType.Create(Utilities.DateFromDecimal(civ.MaritalStatusDate), Utilities.DateFromDecimal((civ.MaritalEndDate)))
                  }).ToArray();
 
-            // TODO: Add custody relations
-            ret.Foraeldremyndighedsindehaver = null;
-
+            
             ret.RegistreretPartner = null;
             //TODO: Fill Legal capacity Legal guardian for person
             ret.RetligHandleevneVaergeForPersonen = null;
