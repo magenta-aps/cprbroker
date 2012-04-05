@@ -112,6 +112,7 @@ namespace CprBroker.Providers.DPR
                     Nationality = personTotal.Nationalities.Where(pn => pn.CorrectionMarker == null && pn.NationalityEndDate == null).OrderByDescending(pn => pn.NationalityStartDate).FirstOrDefault(),
                     Address = personTotal.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
                     PersonName = personTotal.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),
+                    Separation = personTotal.Separations.Where(s => s.CorrectionMarker == null && s.EndDate == null).OrderByDescending(s => s.StartDate).FirstOrDefault(),
                 };
             }
             return null;

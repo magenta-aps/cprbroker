@@ -42,6 +42,9 @@ namespace CprBroker.Providers.DPR
     partial void InsertNationality(Nationality instance);
     partial void UpdateNationality(Nationality instance);
     partial void DeleteNationality(Nationality instance);
+    partial void InsertSeparation(Separation instance);
+    partial void UpdateSeparation(Separation instance);
+    partial void DeleteSeparation(Separation instance);
     #endregion
 		
 		public DPRDataContext(string connection) : 
@@ -847,6 +850,8 @@ namespace CprBroker.Providers.DPR
 		
 		private EntitySet<Nationality> _Nationalities;
 		
+		private EntitySet<Separation> _Separations;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -970,6 +975,7 @@ namespace CprBroker.Providers.DPR
 			this._PersonNames = new EntitySet<PersonName>(new Action<PersonName>(this.attach_PersonNames), new Action<PersonName>(this.detach_PersonNames));
 			this._PersonAddresses = new EntitySet<PersonAddress>(new Action<PersonAddress>(this.attach_PersonAddresses), new Action<PersonAddress>(this.detach_PersonAddresses));
 			this._Nationalities = new EntitySet<Nationality>(new Action<Nationality>(this.attach_Nationalities), new Action<Nationality>(this.detach_Nationalities));
+			this._Separations = new EntitySet<Separation>(new Action<Separation>(this.attach_Separations), new Action<Separation>(this.detach_Separations));
 			OnCreated();
 		}
 		
@@ -2132,6 +2138,19 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Separation", Storage="_Separations", ThisKey="PNR", OtherKey="PNR")]
+		public EntitySet<Separation> Separations
+		{
+			get
+			{
+				return this._Separations;
+			}
+			set
+			{
+				this._Separations.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2183,6 +2202,18 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		private void detach_Nationalities(Nationality entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal = null;
+		}
+		
+		private void attach_Separations(Separation entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal = this;
+		}
+		
+		private void detach_Separations(Separation entity)
 		{
 			this.SendPropertyChanging();
 			entity.PersonTotal = null;
@@ -3521,8 +3552,10 @@ namespace CprBroker.Providers.DPR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTSEPARATION")]
-	public partial class Separation
+	public partial class Separation : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -3544,11 +3577,41 @@ namespace CprBroker.Providers.DPR
 		
 		private System.Nullable<char> _EndDateMarker;
 		
+		private EntityRef<PersonTotal> _PersonTotal;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnCprUpdateDateChanging(decimal value);
+    partial void OnCprUpdateDateChanged();
+    partial void OnSeparationReferalTimestampChanging(string value);
+    partial void OnSeparationReferalTimestampChanged();
+    partial void OnCorrectionMarkerChanging(System.Nullable<char> value);
+    partial void OnCorrectionMarkerChanged();
+    partial void OnStartAuthorityCodeChanging(decimal value);
+    partial void OnStartAuthorityCodeChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnStartDateMarkerChanging(System.Nullable<char> value);
+    partial void OnStartDateMarkerChanged();
+    partial void OnEndAuthorityCodeChanging(System.Nullable<decimal> value);
+    partial void OnEndAuthorityCodeChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    partial void OnEndDateMarkerChanging(System.Nullable<char> value);
+    partial void OnEndDateMarkerChanged();
+    #endregion
+		
 		public Separation()
 		{
+			this._PersonTotal = default(EntityRef<PersonTotal>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -3559,12 +3622,20 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					if (this._PersonTotal.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal CprUpdateDate
 		{
 			get
@@ -3575,7 +3646,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CprUpdateDate != value))
 				{
+					this.OnCprUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._CprUpdateDate = value;
+					this.SendPropertyChanged("CprUpdateDate");
+					this.OnCprUpdateDateChanged();
 				}
 			}
 		}
@@ -3591,12 +3666,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._SeparationReferalTimestamp != value))
 				{
+					this.OnSeparationReferalTimestampChanging(value);
+					this.SendPropertyChanging();
 					this._SeparationReferalTimestamp = value;
+					this.SendPropertyChanged("SeparationReferalTimestamp");
+					this.OnSeparationReferalTimestampChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ANNKOR", Storage="_CorrectionMarker", DbType="Char(1)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ANNKOR", Storage="_CorrectionMarker", DbType="Char(1)", IsPrimaryKey=true)]
 		public System.Nullable<char> CorrectionMarker
 		{
 			get
@@ -3607,7 +3686,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CorrectionMarker != value))
 				{
+					this.OnCorrectionMarkerChanging(value);
+					this.SendPropertyChanging();
 					this._CorrectionMarker = value;
+					this.SendPropertyChanged("CorrectionMarker");
+					this.OnCorrectionMarkerChanged();
 				}
 			}
 		}
@@ -3623,7 +3706,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._StartAuthorityCode != value))
 				{
+					this.OnStartAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._StartAuthorityCode = value;
+					this.SendPropertyChanged("StartAuthorityCode");
+					this.OnStartAuthorityCodeChanged();
 				}
 			}
 		}
@@ -3639,7 +3726,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._StartDate != value))
 				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
 					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
 				}
 			}
 		}
@@ -3655,7 +3746,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._StartDateMarker != value))
 				{
+					this.OnStartDateMarkerChanging(value);
+					this.SendPropertyChanging();
 					this._StartDateMarker = value;
+					this.SendPropertyChanged("StartDateMarker");
+					this.OnStartDateMarkerChanged();
 				}
 			}
 		}
@@ -3671,7 +3766,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._EndAuthorityCode != value))
 				{
+					this.OnEndAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._EndAuthorityCode = value;
+					this.SendPropertyChanged("EndAuthorityCode");
+					this.OnEndAuthorityCodeChanged();
 				}
 			}
 		}
@@ -3687,7 +3786,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._EndDate != value))
 				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
 					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
 				}
 			}
 		}
@@ -3703,8 +3806,66 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._EndDateMarker != value))
 				{
+					this.OnEndDateMarkerChanging(value);
+					this.SendPropertyChanging();
 					this._EndDateMarker = value;
+					this.SendPropertyChanged("EndDateMarker");
+					this.OnEndDateMarkerChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Separation", Storage="_PersonTotal", ThisKey="PNR", OtherKey="PNR", IsForeignKey=true)]
+		public PersonTotal PersonTotal
+		{
+			get
+			{
+				return this._PersonTotal.Entity;
+			}
+			set
+			{
+				PersonTotal previousValue = this._PersonTotal.Entity;
+				if (((previousValue != value) 
+							|| (this._PersonTotal.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PersonTotal.Entity = null;
+						previousValue.Separations.Remove(this);
+					}
+					this._PersonTotal.Entity = value;
+					if ((value != null))
+					{
+						value.Separations.Add(this);
+						this._PNR = value.PNR;
+					}
+					else
+					{
+						this._PNR = default(decimal);
+					}
+					this.SendPropertyChanged("PersonTotal");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

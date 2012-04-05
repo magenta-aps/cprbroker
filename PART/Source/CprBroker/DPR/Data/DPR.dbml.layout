@@ -65,5 +65,12 @@
         <elementListCompartment Id="a0815e90-f943-4001-93d7-16a79b147fb5" absoluteBounds="0.76500000000000012, 6.9600000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <associationConnector edgePoints="[(7.5 : 8.37905110677083); (2.75 : 8.37905110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_Separation" />
+      <nodes>
+        <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />
+        <classShapeMoniker Id="1e812134-9008-4bd9-b5ee-40547631ee7a" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
