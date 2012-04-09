@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="BaseProviderTests.cs" />
     <Compile Include="BaseTests.cs" />
+    <Compile Include="CivilStatus.Tests.cs" />
     <Compile Include="PersonTotal.Converters.Tests.cs" />
     <Compile Include="PersonAddress.ToAddressCompleteType.Tests.cs" />
     <Compile Include="PersonAddress.ToAddressPostalType.Tests.cs" />
