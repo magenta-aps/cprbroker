@@ -63,6 +63,30 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public partial class PersonTotal
     {
+        public PersonInfo ToPersonInfo()
+        {
+            return new PersonInfo()
+            {
+                // Main object
+                PersonTotal = this,
+
+                // Get the latest active nationality (if possible)
+                Nationality = this.Nationalities.Where(pn => pn.CorrectionMarker == null && pn.NationalityEndDate == null).OrderByDescending(pn => pn.NationalityStartDate).FirstOrDefault(),
+
+                // Get the latest valid address (if possible)
+                Address = this.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
+
+                // No need to filtrate by null NameTerminationDate because we are sorting by NameStartDate
+                PersonName = this.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),
+
+                // No need to filtrate by null EndDate bacause this is done in PersonTotal.ToCivilStatusCodeType
+                Separation = this.Separations.Where(s => s.CorrectionMarker == null).OrderByDescending(s => s.StartDate).FirstOrDefault(),
+
+                // Get all valid (active and inactive) civil states
+                CivilStates = this.CivilStatus.Where(civ => civ.CorrectionMarker == null).OrderBy(civ => civ.MaritalStatusDate).ToArray()
+            };
+        }
+
         public CprBorgerType ToCprBorgerType(Nationality dbNationality, PersonAddress dbAddress)
         {
             return new CprBorgerType()

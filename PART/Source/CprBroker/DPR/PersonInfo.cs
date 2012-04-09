@@ -109,26 +109,7 @@ namespace CprBroker.Providers.DPR
             var personTotal = dataContext.PersonTotals.Where(pt => pt.PNR == pnr).FirstOrDefault();
             if (personTotal != null)
             {
-                return new PersonInfo()
-                {
-                    // Main object
-                    PersonTotal = personTotal,
-
-                    // Get the latest active nationality (if possible)
-                    Nationality = personTotal.Nationalities.Where(pn => pn.CorrectionMarker == null && pn.NationalityEndDate == null).OrderByDescending(pn => pn.NationalityStartDate).FirstOrDefault(),
-                    
-                    // Get the latest valid address (if possible)
-                    Address = personTotal.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
-                    
-                    // No need to filtrate by null NameTerminationDate because we are sorting by NameStartDate
-                    PersonName = personTotal.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),
-                    
-                    // No need to filtrate by null EndDate bacause this is done in PersonTotal.ToCivilStatusCodeType
-                    Separation = personTotal.Separations.Where(s => s.CorrectionMarker == null).OrderByDescending(s => s.StartDate).FirstOrDefault(),
-
-                    // Get all valid (active and inactive) civil states
-                    CivilStates = personTotal.CivilStatus.Where(civ => civ.CorrectionMarker == null).OrderBy(civ => civ.MaritalStatusDate).ToArray()
-                };
+                return personTotal.ToPersonInfo();
             }
             return null;
         }
