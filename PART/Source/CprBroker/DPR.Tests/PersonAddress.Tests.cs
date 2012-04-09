@@ -67,4 +67,7 @@ namespace CprBroker.Tests.DPR
             Status = 1;
         }
     }
+
+    public class NationalityStub : Nationality
+    { }
 }
