@@ -3820,7 +3820,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_CprUpdateDate", DbType="Decimal(13,0) NOT NULL")]
 		public decimal CprUpdateDate
 		{
 			get
@@ -3900,7 +3900,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="STARTDATE", Storage="_StartDate", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
 		public System.DateTime StartDate
 		{
 			get
