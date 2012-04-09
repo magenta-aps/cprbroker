@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using CprBroker.Providers.DPR;
-using CprBroker.Utilities;
-using CprBroker.Utilities.ConsoleApps;
-using CprBroker.Schemas;
-using CprBroker.Schemas.Part;
-
-namespace CprBroker.Tests.DPR.PersonAddressTests
-{
-    [TestFixture]
-    public class ToAddressAccessType : BaseTests/* ***** BEGIN LICENSE BLOCK *****
+﻿/* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1/GPL 2.0/LGPL 2.1
  *
  * The contents of this file are subject to the Mozilla Public License
@@ -58,7 +44,21 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
  *
  * ***** END LICENSE BLOCK ***** */
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using NUnit.Framework;
+using CprBroker.Providers.DPR;
+using CprBroker.Utilities;
+using CprBroker.Utilities.ConsoleApps;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
+namespace CprBroker.Tests.DPR.PersonAddressTests
+{
+    [TestFixture]
+    public class ToAddressAccessType : BaseTests
     {
         [Test]
         public void ToAddressAccessType_Normal_NotNull()
