@@ -66,6 +66,7 @@ namespace CprBroker.Providers.DPR
         public Nationality Nationality { get; set; }
         public PersonAddress Address { get; set; }
         public Separation Separation { get; set; }
+        public CivilStatus[] CivilStatus { get; set; }
 
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
@@ -113,6 +114,7 @@ namespace CprBroker.Providers.DPR
                     Address = personTotal.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
                     PersonName = personTotal.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),
                     Separation = personTotal.Separations.Where(s => s.CorrectionMarker == null && s.EndDate == null).OrderByDescending(s => s.StartDate).FirstOrDefault(),
+                    CivilStatus = personTotal.CivilStatus.Where(civ => civ.CorrectionMarker == null).OrderBy(civ => civ.MaritalStatusDate).ToArray()
                 };
             }
             return null;
@@ -335,22 +337,27 @@ namespace CprBroker.Providers.DPR
             // TODO : Fill custody children
             ret.Foraeldremyndighedsboern = null;
 
-            ret.Aegtefaelle =
-                (from civ in dataContext.CivilStatus
-                 where civ.PNR == PersonTotal.PNR
-                    && civ.MaritalStatusDate <= effectTimeDecimal.Value
-                    && civ.SpousePNR.HasValue && civ.SpousePNR.Value > 0
-                    && !civ.CorrectionMarker.HasValue
-                 orderby civ.MaritalStatusDate
-                 select new PersonRelationType()
-                 {
-                     ReferenceID = UnikIdType.Create(cpr2uuidFunc(civ.SpousePNR.Value)),
-                     CommentText = "",
-                     Virkning = VirkningType.Create(Utilities.DateFromDecimal(civ.MaritalStatusDate), Utilities.DateFromDecimal((civ.MaritalEndDate)))
-                 }).ToArray();
+            // Normal spouse(s)
+            ret.Aegtefaelle = DPR.CivilStatus.ToToPersonRelationTypeArray(
+                this.CivilStatus,
+                cpr2uuidFunc,
+                new char[]{ 
+                    Constants.MaritalStatus.Married,
+                    Constants.MaritalStatus.Divorced,
+                    Constants.MaritalStatus.Widow
+                }
+            );
 
-
-            ret.RegistreretPartner = null;
+            // Registered partner(s)
+            ret.RegistreretPartner = DPR.CivilStatus.ToToPersonRelationTypeArray(
+                this.CivilStatus,
+                cpr2uuidFunc,
+                new char[]{ 
+                    Constants.MaritalStatus.RegisteredPartnership,
+                    Constants.MaritalStatus.AbolitionOfRegisteredPartnership,
+                    Constants.MaritalStatus.LongestLivingPartner
+                }
+            );
             //TODO: Fill Legal capacity Legal guardian for person
             ret.RetligHandleevneVaergeForPersonen = null;
 
