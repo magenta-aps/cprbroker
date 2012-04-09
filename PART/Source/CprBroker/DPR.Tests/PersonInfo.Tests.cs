@@ -53,7 +53,7 @@ using CprBroker.Providers.DPR;
 using CprBroker.Utilities;
 using CprBroker.Utilities.ConsoleApps;
 
-namespace CprBroker.Tests.DPR
+namespace CprBroker.Tests.DPR.PersonInfoTests
 {
     [TestFixture]
     class PersonInfoTests : ConsoleEnvironment
@@ -141,5 +141,9 @@ namespace CprBroker.Tests.DPR
                 return dataContext.PersonTotals.OrderBy(pt => pt.PNR).Select(pt => pt.PNR.ToString()).ToArray();
             }
         }
+
+
+        
+
     }
 }

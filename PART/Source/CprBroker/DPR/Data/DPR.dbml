@@ -89,10 +89,10 @@
       <Column Name="LOKAL" Member="Location" Storage="_LOKAL" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="KADRMRK" Member="ContactAddressMarker" Storage="_KADRMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Association Name="PersonTotal_PersonName" Member="PersonNames" ThisKey="PNR" OtherKey="PNR" Type="PersonName" />
+      <Association Name="PersonTotal_CivilStatus" Member="CivilStatus" ThisKey="PNR" OtherKey="PNR" Type="CivilStatus" />
       <Association Name="PersonTotal_PersonAddress" Member="PersonAddresses" ThisKey="PNR" OtherKey="PNR" Type="PersonAddress" />
       <Association Name="PersonTotal_Nationality" Member="Nationalities" ThisKey="PNR" OtherKey="PNR" Type="Nationality" />
       <Association Name="PersonTotal_Separation" Member="Separations" ThisKey="PNR" OtherKey="PNR" Type="Separation" />
-      <Association Name="PersonTotal_CivilStatus" Member="CivilStatus" ThisKey="PNR" OtherKey="PNR" Type="CivilStatus" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">
@@ -104,7 +104,7 @@
       <Column Name="AEGTEPNR" Member="SpousePNR" Storage="_AEGTEPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
       <Column Name="AEFODDTO" Member="SpouseBirthdate" Storage="_AEFODDTO" Type="System.Decimal" DbType="Decimal(9,0)" CanBeNull="true" />
       <Column Name="AEGTEDOK" Member="SpouseDocumentation" Storage="_AEGTEDOK" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
-      <Column Name="HAENST" Member="MaritalStatusDate" Storage="_HAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="HAENST" Member="MaritalStatusDate" Storage="_HAENST" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="HAENSLUT" Member="MaritalEndDate" Storage="_HAENSLUT" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="ANNKOR" Member="CorrectionMarker" Storage="_ANNKOR" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="MYTAJDTO" Member="AuthorityTextUpdateDate" Storage="_MYTAJDTO" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />

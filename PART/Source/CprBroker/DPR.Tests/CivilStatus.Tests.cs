@@ -11,13 +11,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
 {
     class CivilStatusStub : CivilStatus
     {
-        static Dictionary<decimal, Guid> UuidMap = new Dictionary<decimal, Guid>();
-        public static Guid CprToUuid(decimal cpr)
-        {
-            if (!UuidMap.ContainsKey(cpr))
-                UuidMap[cpr] = Guid.NewGuid();
-            return UuidMap[cpr];
-        }
+        
     }
    
 }

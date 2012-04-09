@@ -849,13 +849,13 @@ namespace CprBroker.Providers.DPR
 		
 		private EntitySet<PersonName> _PersonNames;
 		
+		private EntitySet<CivilStatus> _CivilStatus;
+		
 		private EntitySet<PersonAddress> _PersonAddresses;
 		
 		private EntitySet<Nationality> _Nationalities;
 		
 		private EntitySet<Separation> _Separations;
-		
-		private EntitySet<CivilStatus> _CivilStatus;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -978,10 +978,10 @@ namespace CprBroker.Providers.DPR
 		public PersonTotal()
 		{
 			this._PersonNames = new EntitySet<PersonName>(new Action<PersonName>(this.attach_PersonNames), new Action<PersonName>(this.detach_PersonNames));
+			this._CivilStatus = new EntitySet<CivilStatus>(new Action<CivilStatus>(this.attach_CivilStatus), new Action<CivilStatus>(this.detach_CivilStatus));
 			this._PersonAddresses = new EntitySet<PersonAddress>(new Action<PersonAddress>(this.attach_PersonAddresses), new Action<PersonAddress>(this.detach_PersonAddresses));
 			this._Nationalities = new EntitySet<Nationality>(new Action<Nationality>(this.attach_Nationalities), new Action<Nationality>(this.detach_Nationalities));
 			this._Separations = new EntitySet<Separation>(new Action<Separation>(this.attach_Separations), new Action<Separation>(this.detach_Separations));
-			this._CivilStatus = new EntitySet<CivilStatus>(new Action<CivilStatus>(this.attach_CivilStatus), new Action<CivilStatus>(this.detach_CivilStatus));
 			OnCreated();
 		}
 		
@@ -2118,6 +2118,19 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_CivilStatus", Storage="_CivilStatus", ThisKey="PNR", OtherKey="PNR")]
+		public EntitySet<CivilStatus> CivilStatus
+		{
+			get
+			{
+				return this._CivilStatus;
+			}
+			set
+			{
+				this._CivilStatus.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_PersonAddress", Storage="_PersonAddresses", ThisKey="PNR", OtherKey="PNR")]
 		public EntitySet<PersonAddress> PersonAddresses
 		{
@@ -2157,19 +2170,6 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_CivilStatus", Storage="_CivilStatus", ThisKey="PNR", OtherKey="PNR")]
-		public EntitySet<CivilStatus> CivilStatus
-		{
-			get
-			{
-				return this._CivilStatus;
-			}
-			set
-			{
-				this._CivilStatus.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2197,6 +2197,18 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		private void detach_PersonNames(PersonName entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal = null;
+		}
+		
+		private void attach_CivilStatus(CivilStatus entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal = this;
+		}
+		
+		private void detach_CivilStatus(CivilStatus entity)
 		{
 			this.SendPropertyChanging();
 			entity.PersonTotal = null;
@@ -2233,18 +2245,6 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		private void detach_Separations(Separation entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonTotal = null;
-		}
-		
-		private void attach_CivilStatus(CivilStatus entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonTotal = this;
-		}
-		
-		private void detach_CivilStatus(CivilStatus entity)
 		{
 			this.SendPropertyChanging();
 			entity.PersonTotal = null;
@@ -2471,7 +2471,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAENST", Storage="_HAENST", DbType="Decimal(13,0)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="HAENST", Storage="_HAENST", DbType="Decimal(13,0)", IsPrimaryKey=true)]
 		public System.Nullable<decimal> MaritalStatusDate
 		{
 			get

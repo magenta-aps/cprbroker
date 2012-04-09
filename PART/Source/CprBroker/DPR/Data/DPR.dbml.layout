@@ -72,7 +72,7 @@
         <classShapeMoniker Id="1e812134-9008-4bd9-b5ee-40547631ee7a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.5 : 5.23155843098958); (2.75 : 5.23155843098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.5 : 5.23155843098958); (2.75 : 5.23155843098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DPRDataContext/PersonTotal/PersonTotal_CivilStatus" />
       <nodes>
         <classShapeMoniker Id="e41857ad-de04-40ac-b603-8b733e41b7d7" />

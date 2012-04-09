@@ -26,8 +26,8 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [ValueSource("RandomCprNumbers5")]decimal spouseCprNumber)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = spouseCprNumber };
-            var result = civilStatus.ToPersonRelationType(CivilStatusStub.CprToUuid);
-            Assert.AreEqual(CivilStatusStub.CprToUuid(spouseCprNumber).ToString(), result.ReferenceID.Item);
+            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
+            Assert.AreEqual(UuidMap.CprToUuid(spouseCprNumber).ToString(), result.ReferenceID.Item);
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [ValueSource("RandomCprNumbers5")]decimal spouseCprNumber)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = spouseCprNumber };
-            var result = civilStatus.ToPersonRelationType(CivilStatusStub.CprToUuid);
+            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
             Assert.IsNullOrEmpty(result.CommentText);
         }
 
@@ -45,7 +45,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [Values('U', 'G', 'F', 'D', 'E', 'P', 'O', 'L', 'u', 'g', 'f', 'd', 'e', 'p', 'o', 'l')]char maritalStatus)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus, MaritalStatusDate = startDate, MaritalEndDate = null };
-            var result = civilStatus.ToPersonRelationType(CivilStatusStub.CprToUuid);
+            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
             Assert.AreEqual(Providers.DPR.Utilities.DateFromDecimal(startDate), result.Virkning.FraTidspunkt.ToDateTime().Value);
         }
         [Test]
@@ -54,7 +54,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [Values('U', 'G', 'F', 'D', 'E', 'P', 'O', 'L', 'u', 'g', 'f', 'd', 'e', 'p', 'o', 'l')]char maritalStatus)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus, MaritalStatusDate = startDate, MaritalEndDate = null };
-            var result = civilStatus.ToPersonRelationType(CivilStatusStub.CprToUuid);
+            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
             Assert.Null(result.Virkning.TilTidspunkt.ToDateTime());
         }
         [Test]
@@ -63,7 +63,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [Values('U', 'G', 'F', 'D', 'E', 'P', 'O', 'L', 'u', 'g', 'f', 'd', 'e', 'p', 'o', 'l')]char maritalStatus)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus, MaritalStatusDate = null, MaritalEndDate = endDate };
-            var result = civilStatus.ToPersonRelationType(CivilStatusStub.CprToUuid);
+            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
             Assert.AreEqual(Providers.DPR.Utilities.DateFromDecimal(endDate), result.Virkning.TilTidspunkt.ToDateTime());
         }
         [Test]
@@ -72,7 +72,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [Values('U', 'G', 'F', 'D', 'E', 'P', 'O', 'L', 'u', 'g', 'f', 'd', 'e', 'p', 'o', 'l')]char maritalStatus)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus, MaritalStatusDate = null, MaritalEndDate = endDate };
-            var result = civilStatus.ToPersonRelationType(CivilStatusStub.CprToUuid);
+            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
             Assert.Null(result.Virkning.FraTidspunkt.ToDateTime());
         }
 
