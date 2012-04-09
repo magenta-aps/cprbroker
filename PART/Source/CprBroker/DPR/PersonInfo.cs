@@ -101,7 +101,7 @@ namespace CprBroker.Providers.DPR
                 Address = personAddress,
                 PersonName = personName,
                 Separation = personSeparation,
-                CivilStates = personCivilStates.ToArray()
+                CivilStates = personCivilStates.Where(civ => civ.CorrectionMarker == null).ToArray()
             };
 
         public static PersonInfo GetPersonInfo(DPRDataContext dataContext, decimal pnr)
