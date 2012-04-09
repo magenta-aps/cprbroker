@@ -66,7 +66,7 @@ namespace CprBroker.Providers.DPR
         public Nationality Nationality { get; set; }
         public PersonAddress Address { get; set; }
         public Separation Separation { get; set; }
-        public CivilStatus[] CivilStatus { get; set; }
+        public CivilStatus[] CivilStates { get; set; }
 
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
@@ -77,6 +77,7 @@ namespace CprBroker.Providers.DPR
             join pAddr in dataContext.PersonAddresses on personTotal.PNR equals pAddr.PNR into personAddresses
             join pName in dataContext.PersonNames on personTotal.PNR equals pName.PNR into personNames
             join pSeparation in dataContext.Separations on personTotal.PNR equals pSeparation.PNR into personSeparations
+            join civSt in dataContext.CivilStatus on personTotal.PNR equals civSt.PNR into personCivilStates
 
             from personNationality in personNationalities.DefaultIfEmpty()
             from personAddress in personAddresses.OrderByDescending(pa => pa.AddressStartDate).DefaultIfEmpty()
@@ -99,7 +100,8 @@ namespace CprBroker.Providers.DPR
                 Nationality = personNationality,
                 Address = personAddress,
                 PersonName = personName,
-                Separation = personSeparation
+                Separation = personSeparation,
+                CivilStates = personCivilStates.ToArray()
             };
 
         public static PersonInfo GetPersonInfo(DPRDataContext dataContext, decimal pnr)
@@ -114,7 +116,7 @@ namespace CprBroker.Providers.DPR
                     Address = personTotal.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
                     PersonName = personTotal.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),
                     Separation = personTotal.Separations.Where(s => s.CorrectionMarker == null && s.EndDate == null).OrderByDescending(s => s.StartDate).FirstOrDefault(),
-                    CivilStatus = personTotal.CivilStatus.Where(civ => civ.CorrectionMarker == null).OrderBy(civ => civ.MaritalStatusDate).ToArray()
+                    CivilStates = personTotal.CivilStatus.Where(civ => civ.CorrectionMarker == null).OrderBy(civ => civ.MaritalStatusDate).ToArray()
                 };
             }
             return null;
@@ -339,7 +341,7 @@ namespace CprBroker.Providers.DPR
 
             // Normal spouse(s)
             ret.Aegtefaelle = DPR.CivilStatus.ToToPersonRelationTypeArray(
-                this.CivilStatus,
+                this.CivilStates,
                 cpr2uuidFunc,
                 new char[]{ 
                     Constants.MaritalStatus.Married,
@@ -350,7 +352,7 @@ namespace CprBroker.Providers.DPR
 
             // Registered partner(s)
             ret.RegistreretPartner = DPR.CivilStatus.ToToPersonRelationTypeArray(
-                this.CivilStatus,
+                this.CivilStates,
                 cpr2uuidFunc,
                 new char[]{ 
                     Constants.MaritalStatus.RegisteredPartnership,
