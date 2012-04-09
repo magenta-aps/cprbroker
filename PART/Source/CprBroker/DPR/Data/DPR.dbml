@@ -92,12 +92,13 @@
       <Association Name="PersonTotal_PersonAddress" Member="PersonAddresses" ThisKey="PNR" OtherKey="PNR" Type="PersonAddress" />
       <Association Name="PersonTotal_Nationality" Member="Nationalities" ThisKey="PNR" OtherKey="PNR" Type="Nationality" />
       <Association Name="PersonTotal_Separation" Member="Separations" ThisKey="PNR" OtherKey="PNR" Type="Separation" />
+      <Association Name="PersonTotal_CivilStatus" Member="CivilStatus" ThisKey="PNR" OtherKey="PNR" Type="CivilStatus" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">
     <Type Name="CivilStatus">
-      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
-      <Column Name="AJFDTO" Member="UpdateDateOfCpr" Storage="_AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="UpdateDateOfCpr" Storage="_AJFDTO" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="CIVST" Member="MaritalStatus" Storage="_CIVST" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="MYNKOD" Member="MaritalStatusAuthorityCode" Storage="_MYNKOD" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
       <Column Name="AEGTEPNR" Member="SpousePNR" Storage="_AEGTEPNR" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
@@ -105,11 +106,12 @@
       <Column Name="AEGTEDOK" Member="SpouseDocumentation" Storage="_AEGTEDOK" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
       <Column Name="HAENST" Member="MaritalStatusDate" Storage="_HAENST" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="HAENSLUT" Member="MaritalEndDate" Storage="_HAENSLUT" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
-      <Column Name="ANNKOR" Member="CorrectionMarker" Storage="_ANNKOR" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Storage="_ANNKOR" Type="System.Char" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="MYTAJDTO" Member="AuthorityTextUpdateDate" Storage="_MYTAJDTO" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="MYNTXT" Member="MaritalStatusAuthorityText" Storage="_MYNTXT" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="AEGTENVN" Member="SpouseName" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="SEP_HENVIS_TS" Member="SeparationReferralTimestamp" Storage="_SEP_HENVIS_TS" Type="System.String" DbType="VarChar(26)" CanBeNull="true" />
+      <Association Name="PersonTotal_CivilStatus" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTPERSBO" Member="PersonAddresses">

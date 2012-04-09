@@ -36,6 +36,9 @@ namespace CprBroker.Providers.DPR
     partial void InsertPersonTotal(PersonTotal instance);
     partial void UpdatePersonTotal(PersonTotal instance);
     partial void DeletePersonTotal(PersonTotal instance);
+    partial void InsertCivilStatus(CivilStatus instance);
+    partial void UpdateCivilStatus(CivilStatus instance);
+    partial void DeleteCivilStatus(CivilStatus instance);
     partial void InsertPersonAddress(PersonAddress instance);
     partial void UpdatePersonAddress(PersonAddress instance);
     partial void DeletePersonAddress(PersonAddress instance);
@@ -852,6 +855,8 @@ namespace CprBroker.Providers.DPR
 		
 		private EntitySet<Separation> _Separations;
 		
+		private EntitySet<CivilStatus> _CivilStatus;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -976,6 +981,7 @@ namespace CprBroker.Providers.DPR
 			this._PersonAddresses = new EntitySet<PersonAddress>(new Action<PersonAddress>(this.attach_PersonAddresses), new Action<PersonAddress>(this.detach_PersonAddresses));
 			this._Nationalities = new EntitySet<Nationality>(new Action<Nationality>(this.attach_Nationalities), new Action<Nationality>(this.detach_Nationalities));
 			this._Separations = new EntitySet<Separation>(new Action<Separation>(this.attach_Separations), new Action<Separation>(this.detach_Separations));
+			this._CivilStatus = new EntitySet<CivilStatus>(new Action<CivilStatus>(this.attach_CivilStatus), new Action<CivilStatus>(this.detach_CivilStatus));
 			OnCreated();
 		}
 		
@@ -2151,6 +2157,19 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_CivilStatus", Storage="_CivilStatus", ThisKey="PNR", OtherKey="PNR")]
+		public EntitySet<CivilStatus> CivilStatus
+		{
+			get
+			{
+				return this._CivilStatus;
+			}
+			set
+			{
+				this._CivilStatus.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2218,11 +2237,25 @@ namespace CprBroker.Providers.DPR
 			this.SendPropertyChanging();
 			entity.PersonTotal = null;
 		}
+		
+		private void attach_CivilStatus(CivilStatus entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal = this;
+		}
+		
+		private void detach_CivilStatus(CivilStatus entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTCIV")]
-	public partial class CivilStatus
+	public partial class CivilStatus : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -2252,11 +2285,49 @@ namespace CprBroker.Providers.DPR
 		
 		private string _SEP_HENVIS_TS;
 		
+		private EntityRef<PersonTotal> _PersonTotal;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPNRChanging(decimal value);
+    partial void OnPNRChanged();
+    partial void OnUpdateDateOfCprChanging(decimal value);
+    partial void OnUpdateDateOfCprChanged();
+    partial void OnMaritalStatusChanging(System.Nullable<char> value);
+    partial void OnMaritalStatusChanged();
+    partial void OnMaritalStatusAuthorityCodeChanging(System.Nullable<decimal> value);
+    partial void OnMaritalStatusAuthorityCodeChanged();
+    partial void OnSpousePNRChanging(System.Nullable<decimal> value);
+    partial void OnSpousePNRChanged();
+    partial void OnSpouseBirthdateChanging(System.Nullable<decimal> value);
+    partial void OnSpouseBirthdateChanged();
+    partial void OnSpouseDocumentationChanging(string value);
+    partial void OnSpouseDocumentationChanged();
+    partial void OnMaritalStatusDateChanging(System.Nullable<decimal> value);
+    partial void OnMaritalStatusDateChanged();
+    partial void OnMaritalEndDateChanging(System.Nullable<decimal> value);
+    partial void OnMaritalEndDateChanged();
+    partial void OnCorrectionMarkerChanging(System.Nullable<char> value);
+    partial void OnCorrectionMarkerChanged();
+    partial void OnAuthorityTextUpdateDateChanging(System.Nullable<decimal> value);
+    partial void OnAuthorityTextUpdateDateChanged();
+    partial void OnMaritalStatusAuthorityTextChanging(string value);
+    partial void OnMaritalStatusAuthorityTextChanged();
+    partial void OnSpouseNameChanging(string value);
+    partial void OnSpouseNameChanged();
+    partial void OnSeparationReferralTimestampChanging(string value);
+    partial void OnSeparationReferralTimestampChanged();
+    #endregion
+		
 		public CivilStatus()
 		{
+			this._PersonTotal = default(EntityRef<PersonTotal>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal PNR
 		{
 			get
@@ -2267,12 +2338,20 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					if (this._PersonTotal.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal UpdateDateOfCpr
 		{
 			get
@@ -2283,7 +2362,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AJFDTO != value))
 				{
+					this.OnUpdateDateOfCprChanging(value);
+					this.SendPropertyChanging();
 					this._AJFDTO = value;
+					this.SendPropertyChanged("UpdateDateOfCpr");
+					this.OnUpdateDateOfCprChanged();
 				}
 			}
 		}
@@ -2299,7 +2382,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._CIVST != value))
 				{
+					this.OnMaritalStatusChanging(value);
+					this.SendPropertyChanging();
 					this._CIVST = value;
+					this.SendPropertyChanged("MaritalStatus");
+					this.OnMaritalStatusChanged();
 				}
 			}
 		}
@@ -2315,7 +2402,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MYNKOD != value))
 				{
+					this.OnMaritalStatusAuthorityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._MYNKOD = value;
+					this.SendPropertyChanged("MaritalStatusAuthorityCode");
+					this.OnMaritalStatusAuthorityCodeChanged();
 				}
 			}
 		}
@@ -2331,7 +2422,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AEGTEPNR != value))
 				{
+					this.OnSpousePNRChanging(value);
+					this.SendPropertyChanging();
 					this._AEGTEPNR = value;
+					this.SendPropertyChanged("SpousePNR");
+					this.OnSpousePNRChanged();
 				}
 			}
 		}
@@ -2347,7 +2442,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AEFODDTO != value))
 				{
+					this.OnSpouseBirthdateChanging(value);
+					this.SendPropertyChanging();
 					this._AEFODDTO = value;
+					this.SendPropertyChanged("SpouseBirthdate");
+					this.OnSpouseBirthdateChanged();
 				}
 			}
 		}
@@ -2363,7 +2462,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._AEGTEDOK != value))
 				{
+					this.OnSpouseDocumentationChanging(value);
+					this.SendPropertyChanging();
 					this._AEGTEDOK = value;
+					this.SendPropertyChanged("SpouseDocumentation");
+					this.OnSpouseDocumentationChanged();
 				}
 			}
 		}
@@ -2379,7 +2482,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HAENST != value))
 				{
+					this.OnMaritalStatusDateChanging(value);
+					this.SendPropertyChanging();
 					this._HAENST = value;
+					this.SendPropertyChanged("MaritalStatusDate");
+					this.OnMaritalStatusDateChanged();
 				}
 			}
 		}
@@ -2395,12 +2502,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._HAENSLUT != value))
 				{
+					this.OnMaritalEndDateChanging(value);
+					this.SendPropertyChanging();
 					this._HAENSLUT = value;
+					this.SendPropertyChanged("MaritalEndDate");
+					this.OnMaritalEndDateChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ANNKOR", Storage="_ANNKOR", DbType="VarChar(1)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ANNKOR", Storage="_ANNKOR", DbType="VarChar(1)", IsPrimaryKey=true)]
 		public System.Nullable<char> CorrectionMarker
 		{
 			get
@@ -2411,7 +2522,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._ANNKOR != value))
 				{
+					this.OnCorrectionMarkerChanging(value);
+					this.SendPropertyChanging();
 					this._ANNKOR = value;
+					this.SendPropertyChanged("CorrectionMarker");
+					this.OnCorrectionMarkerChanged();
 				}
 			}
 		}
@@ -2427,7 +2542,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MYTAJDTO != value))
 				{
+					this.OnAuthorityTextUpdateDateChanging(value);
+					this.SendPropertyChanging();
 					this._MYTAJDTO = value;
+					this.SendPropertyChanged("AuthorityTextUpdateDate");
+					this.OnAuthorityTextUpdateDateChanged();
 				}
 			}
 		}
@@ -2443,7 +2562,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._MYNTXT != value))
 				{
+					this.OnMaritalStatusAuthorityTextChanging(value);
+					this.SendPropertyChanging();
 					this._MYNTXT = value;
+					this.SendPropertyChanged("MaritalStatusAuthorityText");
+					this.OnMaritalStatusAuthorityTextChanged();
 				}
 			}
 		}
@@ -2459,7 +2582,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._SpouseName != value))
 				{
+					this.OnSpouseNameChanging(value);
+					this.SendPropertyChanging();
 					this._SpouseName = value;
+					this.SendPropertyChanged("SpouseName");
+					this.OnSpouseNameChanged();
 				}
 			}
 		}
@@ -2475,8 +2602,66 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._SEP_HENVIS_TS != value))
 				{
+					this.OnSeparationReferralTimestampChanging(value);
+					this.SendPropertyChanging();
 					this._SEP_HENVIS_TS = value;
+					this.SendPropertyChanged("SeparationReferralTimestamp");
+					this.OnSeparationReferralTimestampChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_CivilStatus", Storage="_PersonTotal", ThisKey="PNR", OtherKey="PNR", IsForeignKey=true)]
+		public PersonTotal PersonTotal
+		{
+			get
+			{
+				return this._PersonTotal.Entity;
+			}
+			set
+			{
+				PersonTotal previousValue = this._PersonTotal.Entity;
+				if (((previousValue != value) 
+							|| (this._PersonTotal.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PersonTotal.Entity = null;
+						previousValue.CivilStatus.Remove(this);
+					}
+					this._PersonTotal.Entity = value;
+					if ((value != null))
+					{
+						value.CivilStatus.Add(this);
+						this._PNR = value.PNR;
+					}
+					else
+					{
+						this._PNR = default(decimal);
+					}
+					this.SendPropertyChanged("PersonTotal");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
