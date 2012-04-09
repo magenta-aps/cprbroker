@@ -2351,7 +2351,7 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AJFDTO", Storage="_AJFDTO", DbType="Decimal(13,0) NOT NULL")]
 		public decimal UpdateDateOfCpr
 		{
 			get
