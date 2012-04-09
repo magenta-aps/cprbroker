@@ -19,17 +19,29 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public static PersonRelationType[] ToToPersonRelationTypeArray(ICollection<CivilStatus> dbCivilStates, decimal? effectTimeDecimal, Func<decimal, Guid> cpr2uuidFunc, params char[] maritalStates)
+        public static PersonRelationType[] ToToPersonRelationTypeArray(ICollection<CivilStatus> dbCivilStates, Func<decimal, Guid> cpr2uuidFunc, params char[] maritalStates)
         {
             return dbCivilStates
                 .Where(civ =>
-                    maritalStates.Contains(civ.MaritalStatus.Value)
-                    && civ.MaritalStatusDate <= effectTimeDecimal.Value
+                    maritalStates.Contains(civ.MaritalStatus.Value, new CaseInvariantCharComparer())
                     && civ.SpousePNR.HasValue
                     && civ.SpousePNR.Value > 0)
                 .OrderBy(civ => civ.MaritalStatusDate)
                 .Select(civ => civ.ToPersonRelationType(cpr2uuidFunc))
                 .ToArray();
+        }
+
+        class CaseInvariantCharComparer : IEqualityComparer<char>
+        {
+            public bool Equals(char x, char y)
+            {
+                return x.ToString().ToLower().Equals(y.ToString().ToLower());
+            }
+
+            public int GetHashCode(char obj)
+            {
+                return obj.GetHashCode();
+            }
         }
     }
 }
