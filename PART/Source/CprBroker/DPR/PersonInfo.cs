@@ -166,13 +166,11 @@ namespace CprBroker.Providers.DPR
         {
             Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToPnrDecimalString());
 
-            var effectTimeDecimal = Utilities.DecimalFromDate(effectTime);
-
             RegistreringType1 ret = new RegistreringType1()
             {
                 AttributListe = ToAttributListeType(dataProvider),
                 TilstandListe = ToTilstandListeType(),
-                RelationListe = ToRelationListeType(cpr2uuidFunc, effectTimeDecimal, dataContext),
+                RelationListe = ToRelationListeType(cpr2uuidFunc, dataContext),
 
                 AktoerRef = Constants.Actor,
                 CommentText = Constants.CommentText,
@@ -291,7 +289,7 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public RelationListeType ToRelationListeType(Func<decimal, Guid> cpr2uuidFunc, decimal? effectTimeDecimal, DPRDataContext dataContext)
+        public RelationListeType ToRelationListeType(Func<decimal, Guid> cpr2uuidFunc, DPRDataContext dataContext)
         {
             var ret = new RelationListeType();
             // Now fill the relations
@@ -324,7 +322,7 @@ namespace CprBroker.Providers.DPR
             ret.Boern = PersonFlerRelationType.CreateList(
                 Array.ConvertAll<PersonTotal, Guid>
                 (
-                    Child.PersonChildrenExpression.Compile()(effectTimeDecimal.Value, PersonTotal.PNR, dataContext).ToArray(),
+                    Child.PersonChildrenExpression.Compile()(PersonTotal.PNR, dataContext).ToArray(),
                     (pt) => cpr2uuidFunc(pt.PNR)
                 ));
 

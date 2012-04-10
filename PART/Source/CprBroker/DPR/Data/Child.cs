@@ -58,10 +58,10 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public partial class Child
     {
-        internal static readonly Expression<Func<decimal, decimal, DPRDataContext, IQueryable<PersonTotal>>> PersonChildrenExpression = (effectTime, pnr, dataContext) =>
+        internal static readonly Expression<Func<decimal, DPRDataContext, IQueryable<PersonTotal>>> PersonChildrenExpression = (pnr, dataContext) =>
             from child in dataContext.Childs
             join personTotal in dataContext.PersonTotals on child.ChildPNR equals personTotal.PNR
-            where child.ParentPNR == pnr && personTotal.DateOfBirth >= effectTime
+            where child.ParentPNR == pnr
             select personTotal;
     }
 }

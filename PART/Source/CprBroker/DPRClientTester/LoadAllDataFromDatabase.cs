@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+
 using CprBroker.Utilities;
 using CprBroker.Utilities.ConsoleApps;
 using CprBroker.Providers.DPR;
@@ -46,7 +48,9 @@ namespace DPRClientTester
                     }
                     return map[cpr];
                 };
-                var xmlObj = expressionPersonInfo.ToRegisteringType1(effectDate, func, dataContext, new DprDatabaseDataProvider() { ConfigurationProperties = new Dictionary<string, string>(), AlwaysReturnCprBorgerType = true });
+                var prov = new DprDatabaseDataProvider() { ConfigurationProperties = new Dictionary<string, string>() };
+                prov.AlwaysReturnCprBorgerType = true;
+                var xmlObj = expressionPersonInfo.ToRegisteringType1(effectDate, func, dataContext, prov);
                 WriteObject(pnr, xmlObj);
 
             }
