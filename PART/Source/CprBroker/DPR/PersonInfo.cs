@@ -352,10 +352,10 @@ namespace CprBroker.Providers.DPR
                     Constants.MaritalStatus.LongestLivingPartner
                 }
             );
-            //TODO: Fill Legal capacity Legal guardian for person
+            //TODO: Has legal authority on
             ret.RetligHandleevneVaergeForPersonen = null;
 
-            //TODO: Fill Legal capacity Guardianship Proprietor
+            //TODO: People who have legal authority on this person
             ret.Foraeldremyndighedsindehaver = null;
 
             return ret;
