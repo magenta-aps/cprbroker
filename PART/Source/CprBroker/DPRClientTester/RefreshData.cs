@@ -48,22 +48,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using CprBroker.Providers.DPR;
 using System.IO;
+using CprBroker.Providers.DPR;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+
 
 namespace DPRClientTester
 {
-    class Program
+    class RefreshData
     {
         static void Main(string[] args)
         {
-            //CallRead();
-            RefreshData(args);
+            RefreshPersonData(args);
         }
 
         static string[] ReadCprNumbers(string[] args)
         {
-            string fileName;            
+            string fileName;
             fileName = args[0];
 
             string[] allCprNumbers = File.ReadAllLines(fileName);
@@ -84,14 +86,14 @@ namespace DPRClientTester
             return allCprNumbers;
         }
 
-        static void SetStartNumber(string [] args, ref bool runOnAllNumbers, ref string startCprNumber)
+        static void SetStartNumber(string[] args, ref bool runOnAllNumbers, ref string startCprNumber)
         {
             runOnAllNumbers = true;
-            if(args.Length >1)
+            if (args.Length > 1)
             {
                 string cprNumber = args[1];
-                Console.WriteLine(string.Format("Found PNR argument {0}",cprNumber));
-                
+                Console.WriteLine(string.Format("Found PNR argument {0}", cprNumber));
+
                 if (System.Text.RegularExpressions.Regex.Match(cprNumber, "\\A\\d{10}\\Z").Success)
                 {
                     Console.WriteLine("Will ignore previous numbers");
@@ -101,7 +103,7 @@ namespace DPRClientTester
             }
         }
 
-        static void RefreshData(string[] args)
+        static void RefreshPersonData(string[] args)
         {
             var partService = new DPRClientTester.Part.Part();
             partService.Url = "http://localhost/CprBroker/Services/Part.asmx";
@@ -134,7 +136,7 @@ namespace DPRClientTester
                 {
                     var uuid = getUuidResult.UUID;
                     var request = new DPRClientTester.Part.LaesInputType()
-                    {                        
+                    {
                         UUID = uuid
                     };
                     var readResult = partService.RefreshRead(request);
@@ -162,33 +164,6 @@ namespace DPRClientTester
                 return false;
             }
         }
-
-        /*
-        static void CallRead()
-        {
-            string cprNumber = "1006510015";
-            var prov = new DprDatabaseDataProvider();
-            //var ret = prov.Read2(cprNumber);
-
-             public RegistreringType1 Read2(string cprNumber)
-            {
-                RegistreringType1 ret = null;
-                using (var dataContext = new DPRDataContext("Data source=10.20.1.20; database=dpr; user id=sa; password=Dlph10t"))
-                {
-                    System.IO.StreamWriter w = new System.IO.StreamWriter(string.Format("C:\\Logs\\{0}{1}.sql",cprNumber,DateTime.Now.ToString("YYYY-MM-DD HH-mm-ss")));
-                    w.AutoFlush = true;
-                    dataContext.Log = w;
-                    var db =
-                    (
-                        from personInfo in PersonInfo.PersonInfoExpression.Compile()(dataContext)
-                        where personInfo.PersonTotal.PNR == Decimal.Parse(cprNumber)
-                        select personInfo
-                    ).FirstOrDefault();
-                }
-                    
-                return ret;
-            }
-        }
-        */
+        
     }
 }
