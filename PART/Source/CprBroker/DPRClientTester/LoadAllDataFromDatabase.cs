@@ -14,7 +14,6 @@ namespace DPRClientTester
     {
         public static void Main(string[] args)
         {
-            System.Diagnostics.Debugger.Launch();
             var test = new LoadAllDataFromDatabase(args);
             test.Run();
         }
