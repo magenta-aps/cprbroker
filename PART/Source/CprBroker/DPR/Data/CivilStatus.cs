@@ -9,26 +9,58 @@ namespace CprBroker.Providers.DPR
 {
     public partial class CivilStatus
     {
-        public PersonRelationType ToPersonRelationType(Func<decimal, Guid> cpr2uuidFunc)
+        public PersonRelationType ToPersonRelationType(Func<decimal, Guid> cpr2uuidFunc, bool forPreviousInterval = false)
         {
             return new PersonRelationType()
             {
                 ReferenceID = UnikIdType.Create(cpr2uuidFunc(SpousePNR.Value)),
                 CommentText = "",
-                Virkning = VirkningType.Create(Utilities.DateFromDecimal(MaritalStatusDate), Utilities.DateFromDecimal((MaritalEndDate)))
+                Virkning = VirkningType.Create(
+                    Utilities.DateFromDecimal(forPreviousInterval ? null : MaritalStatusDate),
+                    Utilities.DateFromDecimal(forPreviousInterval ? MaritalStatusDate : MaritalEndDate)
+                )
             };
         }
 
-        public static PersonRelationType[] ToToPersonRelationTypeArray(ICollection<CivilStatus> dbCivilStates, Func<decimal, Guid> cpr2uuidFunc, params char[] maritalStates)
+        public static PersonRelationType[] ToToPersonRelationTypeArray(CivilStatus[] dbCivilStates, Func<decimal, Guid> cpr2uuidFunc, char marriedStatus, char divorcedStatus, char widowStatus)
         {
-            return dbCivilStates
+            char[] maritalStates = new char[] { marriedStatus, divorcedStatus, widowStatus };
+
+            // Filter the correct records
+            dbCivilStates = dbCivilStates
                 .Where(civ =>
                     maritalStates.Contains(civ.MaritalStatus.Value, new CaseInvariantCharComparer())
                     && civ.SpousePNR.HasValue
-                    && civ.SpousePNR.Value > 0)
+                    && civ.SpousePNR.Value > 0
+                )
                 .OrderBy(civ => civ.MaritalStatusDate)
-                .Select(civ => civ.ToPersonRelationType(cpr2uuidFunc))
                 .ToArray();
+
+            var ret = new List<PersonRelationType>();
+            for (int i = 0; i < dbCivilStates.Length; i++)
+            {
+                var dbCivilStatus = dbCivilStates[i];
+                var previousDbCivilStatus =
+                    (i > 0) && (dbCivilStates[i - 1].MaritalEndDate == dbCivilStatus.MaritalStatusDate) ?
+                    dbCivilStates[i - 1] : null;
+
+                if (dbCivilStatus.MaritalStatus == marriedStatus)
+                {
+                    ret.Add(dbCivilStatus.ToPersonRelationType(cpr2uuidFunc));
+                }
+                else if (
+                    dbCivilStatus.MaritalStatus == divorcedStatus || dbCivilStatus.MaritalStatus == widowStatus)
+                {
+                    // Statistics show that if previous row exists, it will be always 'married'
+                    if (previousDbCivilStatus == null)
+                    {
+                        // Only add a relation if the previous row (married) does not exist
+                        // Reverse times because we need the 'marriage' interval, not the 'divorce/widow'
+                        ret.Add(dbCivilStatus.ToPersonRelationType(cpr2uuidFunc, true));
+                    }
+                }
+            }
+            return ret.ToArray();
         }
 
         class CaseInvariantCharComparer : IEqualityComparer<char>

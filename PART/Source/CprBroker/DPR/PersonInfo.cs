@@ -282,6 +282,7 @@ namespace CprBroker.Providers.DPR
                 LivStatus = new LivStatusType()
                 {
                     LivStatusKode = PersonTotal.ToLivStatusKodeType(),
+                    // TODO: Shall we use other dates? StatusDate is sometimes null
                     TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromFirstDecimal(PersonTotal.StatusDate)),
                 },
                 // No extensions now
@@ -333,22 +334,18 @@ namespace CprBroker.Providers.DPR
             ret.Aegtefaelle = DPR.CivilStatus.ToToPersonRelationTypeArray(
                 this.CivilStates,
                 cpr2uuidFunc,
-                new char[]{ 
-                    Constants.MaritalStatus.Married,
-                    Constants.MaritalStatus.Divorced,
-                    Constants.MaritalStatus.Widow
-                }
+                Constants.MaritalStatus.Married,
+                Constants.MaritalStatus.Divorced,
+                Constants.MaritalStatus.Widow
             );
 
             // Registered partner(s)
             ret.RegistreretPartner = DPR.CivilStatus.ToToPersonRelationTypeArray(
                 this.CivilStates,
                 cpr2uuidFunc,
-                new char[]{ 
-                    Constants.MaritalStatus.RegisteredPartnership,
-                    Constants.MaritalStatus.AbolitionOfRegisteredPartnership,
-                    Constants.MaritalStatus.LongestLivingPartner
-                }
+                Constants.MaritalStatus.RegisteredPartnership,
+                Constants.MaritalStatus.AbolitionOfRegisteredPartnership,
+                Constants.MaritalStatus.LongestLivingPartner
             );
             //TODO: Has legal authority on
             ret.RetligHandleevneVaergeForPersonen = null;
