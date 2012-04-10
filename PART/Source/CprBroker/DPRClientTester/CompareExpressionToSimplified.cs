@@ -77,7 +77,6 @@ namespace DPRClientTester
 
         public void GetPersonInfo_Normal_EqualsPersonInfoExpression(decimal pnr)
         {
-            DateTime start = DateTime.Now;
             LogText("sarted");
             using (var dataContext = new DPRDataContext(OtherConnectionString))
             {
