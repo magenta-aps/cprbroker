@@ -93,8 +93,7 @@ namespace CprBroker.Tests.DPR.PersonInfoTests
         {
             var prov = new DprDatabaseDataProviderStub();
             var dataContext = new DPRDataContext(ConnectionString());
-            dataContext.Log = new System.IO.StreamWriter(string.Format("c:\\Log\\DPRDataContext {0} {1}.log", DateTime.Now.ToString("YYYY-MM-DD HH-mm"), dataContext.GetHashCode())) { AutoFlush = true };
-
+            
             DateTime effectDate = DateTime.Today;
 
             var expressionDb =
