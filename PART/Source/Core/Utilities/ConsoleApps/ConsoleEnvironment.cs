@@ -91,15 +91,14 @@ namespace CprBroker.Utilities.ConsoleApps
             var envTypeArg = new CommandArgumentSpec() { Switch = "/envType", ValueRequirement = ValueRequirement.Required, MaxOccurs = 1 };
             var startPnrArg = new CommandArgumentSpec() { Switch = "/startPnr", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var sourceArg = new CommandArgumentSpec() { Switch = "/source", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
-            var urlArg = new CommandArgumentSpec() { Switch = "/url", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
-            var tokenArg = new CommandArgumentSpec() { Switch = "/appToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var urlArg = new CommandArgumentSpec() { Switch = "/partUrl", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var brokerArg = new CommandArgumentSpec() { Switch = "/brokerDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var otherDbArg = new CommandArgumentSpec() { Switch = "/otherDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var appTokenArg = new CommandArgumentSpec() { Switch = "/appToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var userTokenArg = new CommandArgumentSpec() { Switch = "/userToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
 
             var arguments = CommandlineParser.SplitCommandArguments(args);
-            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, urlArg, tokenArg, brokerArg, otherDbArg, appTokenArg,userTokenArg });
+            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, urlArg, brokerArg, otherDbArg, appTokenArg,userTokenArg });
 
             string envTypeName = envTypeArg.FoundArguments[0].Value;
             var ret = Reflection.CreateInstance<ConsoleEnvironment>(envTypeName);
@@ -108,7 +107,6 @@ namespace CprBroker.Utilities.ConsoleApps
                 ret.PartServiceUrl = urlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.StartCprNumber = startPnrArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.SourceFile = sourceArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
-                ret.ApplicationToken = tokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.BrokerConnectionString = brokerArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.OtherConnectionString = otherDbArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.ApplicationToken = appTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
