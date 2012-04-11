@@ -72,7 +72,16 @@ namespace DPRClientTester
         {
             using (DPRDataContext dataContext = new DPRDataContext(OtherConnectionString))
             {
-                return dataContext.PersonTotals.Select(t => t.PNR).ToArray().Select(p => p.ToPnrDecimalString()).ToArray();
+                var all = dataContext.PersonTotals.Select(t => t.PNR).ToArray().Select(p => p.ToPnrDecimalString()).ToList();
+                var ret = new List<string>(all.Count);
+                Random r = new Random();
+                while (all.Count > 0)
+                {
+                    var index = r.Next(0, all.Count);
+                    ret.Add(all[index]);
+                    all.RemoveAt(index);
+                }
+                return ret.ToArray();
             }
         }
 
@@ -81,7 +90,7 @@ namespace DPRClientTester
             var decimalPnr = decimal.Parse(pnr);
             using (DPRDataContext dataContext = new DPRDataContext(OtherConnectionString))
             {
-                var expressionPersonInfo = PersonInfo.PersonInfoExpression.Compile()(dataContext).Where(pi => pi.PersonTotal.PNR == decimalPnr).FirstOrDefault();
+                var expressionPersonInfo = PersonInfo.GetPersonInfo(dataContext, decimalPnr);
                 DateTime effectDate = DateTime.Now;
                 // UUID mapping
                 var map = new Dictionary<string, Guid>();
