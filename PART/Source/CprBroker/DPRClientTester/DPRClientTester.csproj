@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompareDatabasePerformance.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
     <Compile Include="LoadAllDataFromDatabase.cs" />
     <Compile Include="RefreshData.cs" />

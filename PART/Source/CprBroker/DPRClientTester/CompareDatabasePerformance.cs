@@ -56,49 +56,62 @@ using CprBroker.Providers.DPR;
 
 namespace DPRClientTester
 {
-    class LoadAllDataFromDatabase : ConsoleEnvironment
+    class CompareDatabasePerformance : ConsoleEnvironment
     {
         public static void Main(string[] args)
         {
-            var test = new LoadAllDataFromDatabase(args);
+            var test = new CompareDatabasePerformance(args);
             test.Run();
+            Console.WriteLine(string.Format("Expression: {0}", test.ExpressionTime));
+            Console.WriteLine(string.Format("Simple: {0}", test.SimpleTime));
         }
 
-        public LoadAllDataFromDatabase(string[] args)
+        public CompareDatabasePerformance(string[] args)
             : base(args)
         { }
+
+        TimeSpan ExpressionTime = TimeSpan.Zero;
+        TimeSpan SimpleTime = TimeSpan.Zero;
+        bool lastIsSimple = false;
 
         public override string[] LoadCprNumbers()
         {
             using (DPRDataContext dataContext = new DPRDataContext(OtherConnectionString))
             {
-                return dataContext.PersonTotals.Select(t => t.PNR).ToArray().Select(p => p.ToPnrDecimalString()).ToArray();
+                var all = dataContext.PersonTotals.Select(t => t.PNR).ToArray().Select(p => p.ToPnrDecimalString()).ToList();
+                Random r = new Random();
+                var ret = new List<string>();
+                for (int i = 0; i < 100; i++)
+                {
+                    int index = r.Next(0, all.Count);
+                    ret.Add(all[index]);
+                    all.RemoveAt(index);
+                }
+                return ret.ToArray();
             }
         }
 
         public override void ProcessPerson(string pnr)
         {
-            var decimalPnr = decimal.Parse(pnr);
+            DateTime startTime = DateTime.Now;
+            decimal decimalPnr = decimal.Parse(pnr);
             using (DPRDataContext dataContext = new DPRDataContext(OtherConnectionString))
             {
-                var expressionPersonInfo = PersonInfo.PersonInfoExpression.Compile()(dataContext).Where(pi => pi.PersonTotal.PNR == decimalPnr).FirstOrDefault();
-                DateTime effectDate = DateTime.Now;
-                // UUID mapping
-                var map = new Dictionary<string, Guid>();
-                Func<string, Guid> func = (string cpr) =>
+                PersonInfo personInfo = null;
+                if (lastIsSimple)
                 {
-                    if (!map.ContainsKey(cpr))
-                    {
-                        map[cpr] = Guid.NewGuid();
-                    }
-                    return map[cpr];
-                };
-                var prov = new DprDatabaseDataProvider() { ConfigurationProperties = new Dictionary<string, string>() };
-                prov.AlwaysReturnCprBorgerType = true;
-                var xmlObj = expressionPersonInfo.ToRegisteringType1(effectDate, func, dataContext, prov);
-                WriteObject(pnr, xmlObj);
+                    personInfo = PersonInfo.PersonInfoExpression.Compile()(dataContext).Where(pi => pi.PersonTotal.PNR == decimalPnr).FirstOrDefault();
+                    ExpressionTime += DateTime.Now - startTime;
 
+                }
+                else
+                {
+                    personInfo = PersonInfo.GetPersonInfo(dataContext, decimalPnr);
+                    SimpleTime += DateTime.Now - startTime;
+                }
             }
+            lastIsSimple = !lastIsSimple;
+
         }
     }
 }
