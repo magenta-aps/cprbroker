@@ -84,21 +84,16 @@ namespace DPRClientTester
             partService.ApplicationHeaderValue = new DPRClientTester.Part.ApplicationHeader() { ApplicationToken = this.ApplicationToken, UserToken = this.UserToken };
 
             var getUuidResult = partService.GetUuid(cprNumber);
+            ValidateResult(cprNumber, "GetUuid", getUuidResult.StandardRetur);
 
-            if (ValidateResult(cprNumber, "GetUuid", getUuidResult.StandardRetur))
+            var uuid = getUuidResult.UUID;
+            var request = new DPRClientTester.Part.LaesInputType()
             {
-                var uuid = getUuidResult.UUID;
-                var request = new DPRClientTester.Part.LaesInputType()
-                {
-                    UUID = uuid
-                };
-                var readResult = partService.RefreshRead(request);
-                if (ValidateResult(cprNumber, "Read", readResult.StandardRetur))
-                {
-                    Console.WriteLine(string.Format("{0} Succeeded", cprNumber));
-                    File.AppendAllText("Success.txt", string.Format("{0}{1}", cprNumber, Environment.NewLine));
-                }
-            }
+                UUID = uuid
+            };
+            var readResult = partService.RefreshRead(request);
+            ValidateResult(cprNumber, "Read", readResult.StandardRetur);
+            WriteObject(cprNumber, readResult.LaesResultat.Item);
         }
 
         private bool ValidateResult(string cprNumber, string methodName, DPRClientTester.Part.StandardReturType standardRetur)
@@ -110,10 +105,7 @@ namespace DPRClientTester
             }
             else
             {
-                string error = string.Format("{0} {1} {2} {3}", cprNumber, methodName, standardRetur.StatusKode, standardRetur.FejlbeskedTekst);
-                Console.WriteLine(error);
-                File.AppendAllText("Errors.txt", error + Environment.NewLine);
-                return false;
+                throw new Exception(string.Format("{0} {1} {2} {3}", cprNumber, methodName, standardRetur.StatusKode, standardRetur.FejlbeskedTekst));
             }
         }
 
