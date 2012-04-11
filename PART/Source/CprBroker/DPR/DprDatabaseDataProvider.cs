@@ -69,24 +69,12 @@ namespace CprBroker.Providers.DPR
             CprBroker.Schemas.Part.RegistreringType1 ret = null;
             EnsurePersonDataExists(uuid.CprNumber);
 
-            //TODO: GetPropertyValuesOfType values fromDate Input
-            DateTime? effectDate = null;
-            if (!effectDate.HasValue)
-            {
-                effectDate = DateTime.Today;
-            }
             using (var dataContext = new DPRDataContext(this.ConnectionString))
             {
-                var db =
-                (
-                    from personInfo in PersonInfo.PersonInfoExpression.Compile()(dataContext)
-                    where personInfo.PersonTotal.PNR == Decimal.Parse(uuid.CprNumber)
-                    select personInfo
-                ).FirstOrDefault();
-
+                var db = PersonInfo.GetPersonInfo(dataContext, decimal.Parse(uuid.CprNumber));
                 if (db != null)
                 {
-                    ret = db.ToRegisteringType1(effectDate, cpr2uuidFunc, dataContext, this);
+                    ret = db.ToRegisteringType1(cpr2uuidFunc, dataContext, this);
                 }
             }
             ql = QualityLevel.DataProvider;

@@ -163,7 +163,7 @@ namespace CprBroker.Providers.DPR
             }
         }
 
-        public RegistreringType1 ToRegisteringType1(DateTime? effectTime, Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext, DprDatabaseDataProvider dataProvider)
+        public RegistreringType1 ToRegisteringType1(Func<string, Guid> cpr2uuidConverter, DPRDataContext dataContext, DprDatabaseDataProvider dataProvider)
         {
             Func<decimal, Guid> cpr2uuidFunc = (cpr) => cpr2uuidConverter(cpr.ToPnrDecimalString());
 
