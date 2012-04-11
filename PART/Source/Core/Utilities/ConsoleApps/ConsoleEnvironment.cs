@@ -123,7 +123,7 @@ namespace CprBroker.Utilities.ConsoleApps
             {
                 try
                 {
-                    Log(string.Format("Starting citizen <{0}>", cprNumber));
+                    Start(cprNumber);
                     ProcessPerson(cprNumber);
                     Pass(cprNumber);
                 }
@@ -154,6 +154,12 @@ namespace CprBroker.Utilities.ConsoleApps
         {
             Console.WriteLine(text);
             logFileWriter.WriteLine(text);
+        }
+
+        public void Start(string cprNumber)
+        {
+            Log(string.Format("Starting citizen <{0}> of <{1}>", processed + 1, count));
+            Log(string.Format("CPR = <{0}>", cprNumber));
         }
 
         public void Pass(string cprNumber)
