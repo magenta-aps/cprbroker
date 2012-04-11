@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>DPRClientTester.LoadAllDataFromDatabase</StartupObject>
+    <StartupObject>DPRClientTester.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CprBroker.Engine">
@@ -85,6 +85,7 @@
     <Compile Include="CompareDatabasePerformance.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
     <Compile Include="LoadAllDataFromDatabase.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="RefreshData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

@@ -102,11 +102,11 @@ namespace CprBroker.Tests.DPR.PersonInfoTests
                     where personInfo.PersonTotal.PNR == cprNumber
                     select personInfo
                 ).First();
-            var expressionObj = expressionDb.ToRegisteringType1(effectDate, UuidMap.CprStringToUuid, dataContext, prov);
+            var expressionObj = expressionDb.ToRegisteringType1(UuidMap.CprStringToUuid, dataContext, prov);
             var expressionXml = CprBroker.Utilities.Strings.SerializeObject(expressionObj);
 
             var methodDb = PersonInfo.GetPersonInfo(dataContext, cprNumber);
-            var methodObj = methodDb.ToRegisteringType1(effectDate, UuidMap.CprStringToUuid, dataContext, prov);
+            var methodObj = methodDb.ToRegisteringType1(UuidMap.CprStringToUuid, dataContext, prov);
             var methodXml = CprBroker.Utilities.Strings.SerializeObject(methodObj);
 
             Assert.AreEqual(expressionXml, methodXml);

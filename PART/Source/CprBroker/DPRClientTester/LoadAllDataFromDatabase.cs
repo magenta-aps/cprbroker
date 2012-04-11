@@ -58,16 +58,6 @@ namespace DPRClientTester
 {
     class LoadAllDataFromDatabase : ConsoleEnvironment
     {
-        public static void Main(string[] args)
-        {
-            var test = new LoadAllDataFromDatabase(args);
-            test.Run();
-        }
-
-        public LoadAllDataFromDatabase(string[] args)
-            : base(args)
-        { }
-
         public override string[] LoadCprNumbers()
         {
             using (DPRDataContext dataContext = new DPRDataContext(OtherConnectionString))

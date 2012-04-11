@@ -58,17 +58,11 @@ namespace DPRClientTester
 {
     class CompareDatabasePerformance : ConsoleEnvironment
     {
-        public static void Main(string[] args)
+        public override void EndAll()
         {
-            var test = new CompareDatabasePerformance(args);
-            test.Run();
-            Console.WriteLine(string.Format("Expression: {0}", test.ExpressionTime));
-            Console.WriteLine(string.Format("Simple: {0}", test.SimpleTime));
+            Console.WriteLine(string.Format("Expression: {0}", ExpressionTime));
+            Console.WriteLine(string.Format("Simple: {0}", SimpleTime));
         }
-
-        public CompareDatabasePerformance(string[] args)
-            : base(args)
-        { }
 
         TimeSpan ExpressionTime = TimeSpan.Zero;
         TimeSpan SimpleTime = TimeSpan.Zero;

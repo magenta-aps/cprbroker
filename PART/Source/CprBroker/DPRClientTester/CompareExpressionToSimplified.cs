@@ -57,16 +57,6 @@ namespace DPRClientTester
 {
     class CompareExpressionToSimplified : ConsoleEnvironment
     {
-        public CompareExpressionToSimplified(string[] args)
-            : base(args)
-        { }
-
-        public static void Main(string[] args)
-        {
-            var test = new CompareExpressionToSimplified(args);
-            test.Run();
-        }
-
         DateTime lastLog = DateTime.Now;
         void LogText(string text)
         {
