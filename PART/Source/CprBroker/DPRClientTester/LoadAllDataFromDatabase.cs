@@ -91,7 +91,6 @@ namespace DPRClientTester
             using (DPRDataContext dataContext = new DPRDataContext(OtherConnectionString))
             {
                 var expressionPersonInfo = PersonInfo.GetPersonInfo(dataContext, decimalPnr);
-                DateTime effectDate = DateTime.Now;
                 // UUID mapping
                 var map = new Dictionary<string, Guid>();
                 Func<string, Guid> func = (string cpr) =>
@@ -104,7 +103,7 @@ namespace DPRClientTester
                 };
                 var prov = new DprDatabaseDataProvider() { ConfigurationProperties = new Dictionary<string, string>() };
                 prov.AlwaysReturnCprBorgerType = true;
-                var xmlObj = expressionPersonInfo.ToRegisteringType1(effectDate, func, dataContext, prov);
+                var xmlObj = expressionPersonInfo.ToRegisteringType1(func, dataContext, prov);
                 WriteObject(pnr, xmlObj);
 
             }

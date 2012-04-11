@@ -80,7 +80,6 @@ namespace DPRClientTester
             LogText("sarted");
             using (var dataContext = new DPRDataContext(OtherConnectionString))
             {
-                DateTime effectDate = DateTime.Now;
                 // UUID mapping
                 var map = new Dictionary<string, Guid>();
                 Func<string, Guid> func = (string cpr) =>
@@ -96,7 +95,7 @@ namespace DPRClientTester
                 LogText("GetPersonInfo()");
                 Assert.NotNull(simplifiedPersonInfo, "simplifiedPersonInfo");
                 LogText("Assert");
-                var simplifiedPersonRegistration = simplifiedPersonInfo.ToRegisteringType1(effectDate, func, dataContext, new DprDatabaseDataProvider());
+                var simplifiedPersonRegistration = simplifiedPersonInfo.ToRegisteringType1(func, dataContext, new DprDatabaseDataProvider());
                 LogText("Converted");
                 Assert.NotNull(simplifiedPersonRegistration, "simplifiedPersonRegistration");
                 LogText("Assert");
@@ -109,7 +108,7 @@ namespace DPRClientTester
                 LogText("Expression retrieval");
                 if (expressionPersonInfo != null)
                 {
-                    var expressionPersonRegistration = expressionPersonInfo.ToRegisteringType1(effectDate, func, dataContext, new DprDatabaseDataProvider());
+                    var expressionPersonRegistration = expressionPersonInfo.ToRegisteringType1(func, dataContext, new DprDatabaseDataProvider());
                     LogText("Conversion");
                     Assert.NotNull(expressionPersonRegistration, "expressionPersonRegistration");
                     LogText("Assert");
