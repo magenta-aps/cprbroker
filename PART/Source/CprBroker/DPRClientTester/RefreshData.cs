@@ -52,23 +52,15 @@ using System.IO;
 using CprBroker.Providers.DPR;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
-
+using CprBroker.Utilities.ConsoleApps;
 
 namespace DPRClientTester
 {
-    class RefreshData
+    class RefreshData : ConsoleEnvironment
     {
-        static void Main(string[] args)
+        public override string[] LoadCprNumbers()
         {
-            RefreshPersonData(args);
-        }
-
-        static string[] ReadCprNumbers(string[] args)
-        {
-            string fileName;
-            fileName = args[0];
-
-            string[] allCprNumbers = File.ReadAllLines(fileName);
+            string[] allCprNumbers = File.ReadAllLines(SourceFile);
             for (int i = 0; i < allCprNumbers.Length; i++)
             {
                 string cprNumber = allCprNumbers[i];
@@ -82,74 +74,34 @@ namespace DPRClientTester
                 }
                 allCprNumbers[i] = cprNumber;
             }
-            Console.WriteLine(string.Format("Found {0} Persons", allCprNumbers.Length));
             return allCprNumbers;
         }
 
-        static void SetStartNumber(string[] args, ref bool runOnAllNumbers, ref string startCprNumber)
-        {
-            runOnAllNumbers = true;
-            if (args.Length > 1)
-            {
-                string cprNumber = args[1];
-                Console.WriteLine(string.Format("Found PNR argument {0}", cprNumber));
-
-                if (System.Text.RegularExpressions.Regex.Match(cprNumber, "\\A\\d{10}\\Z").Success)
-                {
-                    Console.WriteLine("Will ignore previous numbers");
-                    startCprNumber = cprNumber;
-                    runOnAllNumbers = false;
-                }
-            }
-        }
-
-        static void RefreshPersonData(string[] args)
+        public override void ProcessPerson(string cprNumber)
         {
             var partService = new DPRClientTester.Part.Part();
-            partService.Url = "http://localhost/CprBroker/Services/Part.asmx";
-            partService.ApplicationHeaderValue = new DPRClientTester.Part.ApplicationHeader() { ApplicationToken = "824fd432-b76e-4607-88e9-1cf8c71468aa", UserToken = "Beemen" };
+            partService.Url = this.PartServiceUrl;
+            partService.ApplicationHeaderValue = new DPRClientTester.Part.ApplicationHeader() { ApplicationToken = this.ApplicationToken, UserToken = this.UserToken };
 
-            // TODO: If you need to run on only a part of the list, set 'startCprNumer' to a number to start with, and set 'runAllCprNumbers' = false
-            string startCprNumer = "";
-            bool runAllCprNumbers = true;
+            var getUuidResult = partService.GetUuid(cprNumber);
 
-            string[] allCprNumbers = ReadCprNumbers(args);
-            SetStartNumber(args, ref runAllCprNumbers, ref startCprNumer);
-
-            for (int i = 0; i < allCprNumbers.Length; i++)
+            if (ValidateResult(cprNumber, "GetUuid", getUuidResult.StandardRetur))
             {
-                string cprNumber = allCprNumbers[i];
-
-                if (!runAllCprNumbers)
+                var uuid = getUuidResult.UUID;
+                var request = new DPRClientTester.Part.LaesInputType()
                 {
-                    runAllCprNumbers = cprNumber == startCprNumer;
-                }
-                if (!runAllCprNumbers)
+                    UUID = uuid
+                };
+                var readResult = partService.RefreshRead(request);
+                if (ValidateResult(cprNumber, "Read", readResult.StandardRetur))
                 {
-                    Console.WriteLine(string.Format("{0} Ignoring", cprNumber));
-                    continue;
-                }
-
-                var getUuidResult = partService.GetUuid(cprNumber);
-
-                if (ValidateResult(cprNumber, "GetUuid", getUuidResult.StandardRetur))
-                {
-                    var uuid = getUuidResult.UUID;
-                    var request = new DPRClientTester.Part.LaesInputType()
-                    {
-                        UUID = uuid
-                    };
-                    var readResult = partService.RefreshRead(request);
-                    if (ValidateResult(cprNumber, "Read", readResult.StandardRetur))
-                    {
-                        Console.WriteLine(string.Format("{0} Succeeded", cprNumber));
-                        File.AppendAllText("Success.txt", string.Format("{0}{1}", cprNumber, Environment.NewLine));
-                    }
+                    Console.WriteLine(string.Format("{0} Succeeded", cprNumber));
+                    File.AppendAllText("Success.txt", string.Format("{0}{1}", cprNumber, Environment.NewLine));
                 }
             }
         }
 
-        static bool ValidateResult(string cprNumber, string methodName, DPRClientTester.Part.StandardReturType standardRetur)
+        private bool ValidateResult(string cprNumber, string methodName, DPRClientTester.Part.StandardReturType standardRetur)
         {
             int statusCode;
             if (int.TryParse(standardRetur.StatusKode, out statusCode) && statusCode == 200)
@@ -164,6 +116,6 @@ namespace DPRClientTester
                 return false;
             }
         }
-        
+
     }
 }
