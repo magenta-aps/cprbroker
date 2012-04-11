@@ -54,10 +54,16 @@ namespace CprBroker.Utilities.ConsoleApps
 {
     public class ConsoleEnvironment
     {
-        public ConsoleEnvironment(string[] args)
+        public ConsoleEnvironment()
         {
-            ParseArguments(args);
-            InitializeIO();
+
+        }
+
+        public static ConsoleEnvironment Create(string[] args)
+        {
+            var ret = ParseArguments(args);
+            ret.InitializeIO();
+            return ret;
         }
 
 
@@ -73,19 +79,31 @@ namespace CprBroker.Utilities.ConsoleApps
         int count;
         int processed;
 
-        public void ParseArguments(string[] args)
+        public static ConsoleEnvironment ParseArguments(string[] args)
         {
+            var envTypeArg = new CommandArgumentSpec() { Switch = "/envType", ValueRequirement = ValueRequirement.Required, MaxOccurs = 1 };
             var urlArg = new CommandArgumentSpec() { Switch = "/url", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var tokenArg = new CommandArgumentSpec() { Switch = "/appToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var brokerArg = new CommandArgumentSpec() { Switch = "/brokerDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var otherDbArg = new CommandArgumentSpec() { Switch = "/otherDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
 
             var arguments = CommandlineParser.SplitCommandArguments(args);
-            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { urlArg, tokenArg, brokerArg, otherDbArg });
-            PartServiceUrl = urlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
-            ApplicationToken = tokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
-            BrokerConnectionString = brokerArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
-            OtherConnectionString = otherDbArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, urlArg, tokenArg, brokerArg, otherDbArg });
+
+            string envTypeName = envTypeArg.FoundArguments[0].Value;
+            var ret = Reflection.CreateInstance<ConsoleEnvironment>(envTypeName);
+            if (ret != null)
+            {
+                ret.PartServiceUrl = urlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.ApplicationToken = tokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.BrokerConnectionString = brokerArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.OtherConnectionString = otherDbArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                return ret;
+            }
+            else
+            {
+                throw new Exception(string.Format("Invalid environment type <{0}>", envTypeName));
+            }
         }
 
         public void InitializeIO()
@@ -136,6 +154,7 @@ namespace CprBroker.Utilities.ConsoleApps
                     End(cprNumber);
                 }
             }
+            EndAll();
         }
 
         public virtual void ProcessPerson(string pnr)
@@ -181,5 +200,9 @@ namespace CprBroker.Utilities.ConsoleApps
             Log(string.Format("Processed <{0}> of <{1}> - <{2}%>", processed, count, percent));
         }
 
+        public virtual void EndAll()
+        {
+            Log("All Done !!");
+        }
     }
 }
