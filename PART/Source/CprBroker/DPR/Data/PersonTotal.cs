@@ -83,7 +83,10 @@ namespace CprBroker.Providers.DPR
                 Separation = this.Separations.Where(s => s.CorrectionMarker == null).OrderByDescending(s => s.StartDate).FirstOrDefault(),
 
                 // Get all valid (active and inactive) civil states
-                CivilStates = this.CivilStatus.Where(civ => civ.CorrectionMarker == null).OrderBy(civ => civ.MaritalStatusDate).ToArray()
+                CivilStates = this.CivilStatus.Where(civ => civ.CorrectionMarker == null).OrderBy(civ => civ.MaritalStatusDate).ToArray(),
+
+                // Get All Children
+                Children = this.Children.ToArray()
             };
         }
 

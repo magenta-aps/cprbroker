@@ -33,6 +33,9 @@ namespace CprBroker.Providers.DPR
     partial void InsertPersonName(PersonName instance);
     partial void UpdatePersonName(PersonName instance);
     partial void DeletePersonName(PersonName instance);
+    partial void InsertChild(Child instance);
+    partial void UpdateChild(Child instance);
+    partial void DeleteChild(Child instance);
     partial void InsertPersonTotal(PersonTotal instance);
     partial void UpdatePersonTotal(PersonTotal instance);
     partial void DeletePersonTotal(PersonTotal instance);
@@ -667,8 +670,10 @@ namespace CprBroker.Providers.DPR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DTBOERN")]
-	public partial class Child
+	public partial class Child : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private decimal _PNR;
 		
@@ -676,11 +681,27 @@ namespace CprBroker.Providers.DPR
 		
 		private string _DOK;
 		
+		private EntityRef<PersonTotal> _PersonTotal;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnParentPNRChanging(decimal value);
+    partial void OnParentPNRChanged();
+    partial void OnChildPNRChanging(System.Nullable<decimal> value);
+    partial void OnChildPNRChanged();
+    partial void OnMotherOrFatherDocumentationChanging(string value);
+    partial void OnMotherOrFatherDocumentationChanged();
+    #endregion
+		
 		public Child()
 		{
+			this._PersonTotal = default(EntityRef<PersonTotal>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNR", Storage="_PNR", DbType="Decimal(11,0) NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNR", Storage="_PNR", DbType="Decimal(11,0) NOT NULL", IsPrimaryKey=true)]
 		public decimal ParentPNR
 		{
 			get
@@ -691,12 +712,16 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNR != value))
 				{
+					this.OnParentPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNR = value;
+					this.SendPropertyChanged("ParentPNR");
+					this.OnParentPNRChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNRBARN", Storage="_PNRBARN", DbType="Decimal(11,0)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PNRBARN", Storage="_PNRBARN", DbType="Decimal(11,0)", IsPrimaryKey=true)]
 		public System.Nullable<decimal> ChildPNR
 		{
 			get
@@ -707,7 +732,11 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._PNRBARN != value))
 				{
+					this.OnChildPNRChanging(value);
+					this.SendPropertyChanging();
 					this._PNRBARN = value;
+					this.SendPropertyChanged("ChildPNR");
+					this.OnChildPNRChanged();
 				}
 			}
 		}
@@ -723,8 +752,66 @@ namespace CprBroker.Providers.DPR
 			{
 				if ((this._DOK != value))
 				{
+					this.OnMotherOrFatherDocumentationChanging(value);
+					this.SendPropertyChanging();
 					this._DOK = value;
+					this.SendPropertyChanged("MotherOrFatherDocumentation");
+					this.OnMotherOrFatherDocumentationChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Child", Storage="_PersonTotal", ThisKey="ParentPNR", OtherKey="PNR", IsForeignKey=true)]
+		public PersonTotal PersonTotal
+		{
+			get
+			{
+				return this._PersonTotal.Entity;
+			}
+			set
+			{
+				PersonTotal previousValue = this._PersonTotal.Entity;
+				if (((previousValue != value) 
+							|| (this._PersonTotal.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PersonTotal.Entity = null;
+						previousValue.Children.Remove(this);
+					}
+					this._PersonTotal.Entity = value;
+					if ((value != null))
+					{
+						value.Children.Add(this);
+						this._PNR = value.PNR;
+					}
+					else
+					{
+						this._PNR = default(decimal);
+					}
+					this.SendPropertyChanged("PersonTotal");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -857,6 +944,8 @@ namespace CprBroker.Providers.DPR
 		
 		private EntitySet<Separation> _Separations;
 		
+		private EntitySet<Child> _Children;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -982,6 +1071,7 @@ namespace CprBroker.Providers.DPR
 			this._PersonAddresses = new EntitySet<PersonAddress>(new Action<PersonAddress>(this.attach_PersonAddresses), new Action<PersonAddress>(this.detach_PersonAddresses));
 			this._Nationalities = new EntitySet<Nationality>(new Action<Nationality>(this.attach_Nationalities), new Action<Nationality>(this.detach_Nationalities));
 			this._Separations = new EntitySet<Separation>(new Action<Separation>(this.attach_Separations), new Action<Separation>(this.detach_Separations));
+			this._Children = new EntitySet<Child>(new Action<Child>(this.attach_Children), new Action<Child>(this.detach_Children));
 			OnCreated();
 		}
 		
@@ -2170,6 +2260,19 @@ namespace CprBroker.Providers.DPR
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonTotal_Child", Storage="_Children", ThisKey="PNR", OtherKey="ParentPNR")]
+		public EntitySet<Child> Children
+		{
+			get
+			{
+				return this._Children;
+			}
+			set
+			{
+				this._Children.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2245,6 +2348,18 @@ namespace CprBroker.Providers.DPR
 		}
 		
 		private void detach_Separations(Separation entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal = null;
+		}
+		
+		private void attach_Children(Child entity)
+		{
+			this.SendPropertyChanging();
+			entity.PersonTotal = this;
+		}
+		
+		private void detach_Children(Child entity)
 		{
 			this.SendPropertyChanging();
 			entity.PersonTotal = null;

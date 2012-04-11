@@ -67,6 +67,7 @@ namespace CprBroker.Providers.DPR
         public PersonAddress Address { get; set; }
         public Separation Separation { get; set; }
         public CivilStatus[] CivilStates { get; set; }
+        public Child[] Children { get; set; }
 
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
@@ -321,12 +322,8 @@ namespace CprBroker.Providers.DPR
                 };
             }
 
-            ret.Boern = PersonFlerRelationType.CreateList(
-                Array.ConvertAll<PersonTotal, Guid>
-                (
-                    Child.PersonChildrenExpression.Compile()(PersonTotal.PNR, dataContext).ToArray(),
-                    (pt) => cpr2uuidFunc(pt.PNR)
-                ));
+            // Fill children (including adults)
+            ret.Boern = Child.ToPersonFlerRelationTypeArray(Children, cpr2uuidFunc);
 
             // TODO : Fill custody children
             ret.Foraeldremyndighedsboern = null;

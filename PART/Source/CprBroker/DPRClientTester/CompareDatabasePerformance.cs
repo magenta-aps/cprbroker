@@ -72,7 +72,7 @@ namespace DPRClientTester
 
         TimeSpan ExpressionTime = TimeSpan.Zero;
         TimeSpan SimpleTime = TimeSpan.Zero;
-        bool lastIsSimple = false;
+        bool UseSimple = false;
 
         public override string[] LoadCprNumbers()
         {
@@ -81,7 +81,7 @@ namespace DPRClientTester
                 var all = dataContext.PersonTotals.Select(t => t.PNR).ToArray().Select(p => p.ToPnrDecimalString()).ToList();
                 Random r = new Random();
                 var ret = new List<string>();
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 50; i++)
                 {
                     int index = r.Next(0, all.Count);
                     ret.Add(all[index]);
@@ -98,19 +98,20 @@ namespace DPRClientTester
             using (DPRDataContext dataContext = new DPRDataContext(OtherConnectionString))
             {
                 PersonInfo personInfo = null;
-                if (lastIsSimple)
+                if (UseSimple)
                 {
-                    personInfo = PersonInfo.PersonInfoExpression.Compile()(dataContext).Where(pi => pi.PersonTotal.PNR == decimalPnr).FirstOrDefault();
-                    ExpressionTime += DateTime.Now - startTime;
-
-                }
-                else
-                {
+                    Log("Simple");
                     personInfo = PersonInfo.GetPersonInfo(dataContext, decimalPnr);
                     SimpleTime += DateTime.Now - startTime;
                 }
+                else
+                {
+                    Log("Expression");
+                    personInfo = PersonInfo.PersonInfoExpression.Compile()(dataContext).Where(pi => pi.PersonTotal.PNR == decimalPnr).FirstOrDefault();
+                    ExpressionTime += DateTime.Now - startTime; 
+                }
             }
-            lastIsSimple = !lastIsSimple;
+            UseSimple = !UseSimple;
 
         }
     }

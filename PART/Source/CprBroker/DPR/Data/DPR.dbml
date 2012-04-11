@@ -25,9 +25,10 @@
   </Table>
   <Table Name="dbo.DTBOERN" Member="Childs">
     <Type Name="Child">
-      <Column Name="PNR" Member="ParentPNR" Storage="_PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" CanBeNull="false" />
-      <Column Name="PNRBARN" Member="ChildPNR" Storage="_PNRBARN" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
+      <Column Name="PNR" Member="ParentPNR" Storage="_PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PNRBARN" Member="ChildPNR" Storage="_PNRBARN" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="DOK" Member="MotherOrFatherDocumentation" Storage="_DOK" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Association Name="PersonTotal_Child" Member="PersonTotal" ThisKey="ParentPNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DTTOTAL" Member="PersonTotals">
@@ -93,6 +94,7 @@
       <Association Name="PersonTotal_PersonAddress" Member="PersonAddresses" ThisKey="PNR" OtherKey="PNR" Type="PersonAddress" />
       <Association Name="PersonTotal_Nationality" Member="Nationalities" ThisKey="PNR" OtherKey="PNR" Type="Nationality" />
       <Association Name="PersonTotal_Separation" Member="Separations" ThisKey="PNR" OtherKey="PNR" Type="Separation" />
+      <Association Name="PersonTotal_Child" Member="Children" ThisKey="PNR" OtherKey="ParentPNR" Type="Child" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">

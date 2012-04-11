@@ -50,6 +50,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.DPR
 {
@@ -58,10 +59,17 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public partial class Child
     {
-        internal static readonly Expression<Func<decimal, DPRDataContext, IQueryable<PersonTotal>>> PersonChildrenExpression = (pnr, dataContext) =>
-            from child in dataContext.Childs
-            join personTotal in dataContext.PersonTotals on child.ChildPNR equals personTotal.PNR
-            where child.ParentPNR == pnr
-            select personTotal;
+        public PersonFlerRelationType ToPersonFlerRelationType(Func<decimal, Guid> cpr2uuidFunc)
+        {
+            return PersonFlerRelationType.Create(cpr2uuidFunc(this.ChildPNR.Value), null, null);
+        }
+
+        public static PersonFlerRelationType[] ToPersonFlerRelationTypeArray(Child[] children, Func<decimal, Guid> cpr2uuidFunc)
+        {
+            return children
+                .Where(child => child.ChildPNR > 0)
+                .Select(child => child.ToPersonFlerRelationType(cpr2uuidFunc))
+                .ToArray();
+        }
     }
 }
