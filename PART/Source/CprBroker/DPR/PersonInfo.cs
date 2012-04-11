@@ -277,6 +277,7 @@ namespace CprBroker.Providers.DPR
                 CivilStatus = new CivilStatusType()
                 {
                     CivilStatusKode = PersonTotal.ToCivilStatusCodeType(this.Separation),
+                    // TODO: Shall we use birthdate is status is Single ('U')?
                     TilstandVirkning = TilstandVirkningType.Create(Utilities.DateFromDecimal(PersonTotal.MaritalStatusDate))
                 },
                 LivStatus = new LivStatusType()
