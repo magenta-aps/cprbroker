@@ -72,6 +72,12 @@ namespace CprBroker.Utilities.ConsoleApps
         public string BrokerConnectionString = "";
         public string OtherConnectionString = "";
         public string SourceFile = "";
+        public string StartCprNumber = "";
+        public string AppToken = "";
+        public string UserToken = "";
+
+
+
 
         string outDir;
         StreamWriter logFileWriter;
@@ -89,20 +95,24 @@ namespace CprBroker.Utilities.ConsoleApps
             var tokenArg = new CommandArgumentSpec() { Switch = "/appToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var brokerArg = new CommandArgumentSpec() { Switch = "/brokerDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var otherDbArg = new CommandArgumentSpec() { Switch = "/otherDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var appTokenArg = new CommandArgumentSpec() { Switch = "/appToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var userTokenArg = new CommandArgumentSpec() { Switch = "/userToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
 
             var arguments = CommandlineParser.SplitCommandArguments(args);
-            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, urlArg, tokenArg, brokerArg, otherDbArg });
+            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, urlArg, tokenArg, brokerArg, otherDbArg, appTokenArg,userTokenArg });
 
             string envTypeName = envTypeArg.FoundArguments[0].Value;
             var ret = Reflection.CreateInstance<ConsoleEnvironment>(envTypeName);
             if (ret != null)
             {
                 ret.PartServiceUrl = urlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
-                ret.startCprNumber = startPnrArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.StartCprNumber = startPnrArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.SourceFile = sourceArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.ApplicationToken = tokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.BrokerConnectionString = brokerArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.OtherConnectionString = otherDbArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.ApplicationToken = appTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.UserToken= userTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 return ret;
             }
             else
@@ -135,7 +145,6 @@ namespace CprBroker.Utilities.ConsoleApps
             return new string[0];
         }
 
-        string startCprNumber = "";
 
         public void Run()
         {
@@ -144,9 +153,9 @@ namespace CprBroker.Utilities.ConsoleApps
             Console.WriteLine(string.Format("Found <{0}> citizens", count));
             processed = 0;
 
-            if (!string.IsNullOrEmpty(startCprNumber))
+            if (!string.IsNullOrEmpty(StartCprNumber))
             {
-                var index = Array.IndexOf<string>(cprNumbers, startCprNumber);
+                var index = Array.IndexOf<string>(cprNumbers, StartCprNumber);
 
 
                 if (index != -1)
@@ -159,7 +168,7 @@ namespace CprBroker.Utilities.ConsoleApps
                 }
                 else
                 {
-                    Log(string.Format("Start PNR <{0}> not found, all persons skipped", startCprNumber));
+                    Log(string.Format("Start PNR <{0}> not found, all persons skipped", StartCprNumber));
                     cprNumbers = new string[] { };
                 }
                 count = cprNumbers.Length;
