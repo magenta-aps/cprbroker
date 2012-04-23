@@ -112,7 +112,10 @@ namespace CprBroker.Engine.Part
             {
                 return new Guid(uuid.UUID);
             }
-            return Guid.Empty;
+            else
+            {
+                throw new Exception(string.Format("Could not find UUID of person <{0}>", cprNumber));
+            }
         }
 
         protected virtual PersonIdentifier UuidToPersonIdentifier(string uuidString)
