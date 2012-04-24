@@ -615,7 +615,7 @@ namespace CprBroker.Providers.KMD
             }
             #endregion
 
-            #region Converters           
+            #region Converters
 
             public AttributListeType ToAttributListeType(WS_AS78205.EnglishAS78205Response addressResponse)
             {
@@ -720,14 +720,11 @@ namespace CprBroker.Providers.KMD
             {
                 return new TilstandListeType()
                 {
-                    //TODO: Fill with orgfaelles:Gyldighed as soon as knowing what that is???
-                    //Gyldighed = null,
-
                     CivilStatus = new CivilStatusType()
-                   {
-                       CivilStatusKode = Utilities.ToPartMaritalStatus(MaritallStatusCode[0]),
-                       TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(MaritalStatusDate)),
-                   },
+                    {
+                        CivilStatusKode = Utilities.ToPartMaritalStatus(MaritallStatusCode[0]),
+                        TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(MaritalStatusDate)),
+                    },
                     LivStatus = new LivStatusType
                     {
                         //TODO: Status date may not be the correct field (for example, the status may have changed fromDate 01 to  07 at the date, but the life status is still alive)
