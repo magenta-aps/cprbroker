@@ -99,7 +99,6 @@ namespace CprBroker.Providers.DPR
         {
             if (!this.DisableDiversion)
             {
-                // TODO: include BirthDate in the search
                 decimal cprNum = Convert.ToDecimal(cprNumber);
                 using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
                 {
