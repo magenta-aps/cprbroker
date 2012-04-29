@@ -727,7 +727,7 @@ namespace CprBroker.Providers.KMD
                     },
                     LivStatus = new LivStatusType
                     {
-                        //TODO: Status date may not be the correct field (for example, the status may have changed fromDate 01 to  07 at the date, but the life status is still alive)
+                        //TODO: Status date may not be the correct field (for example, the status may have changed from 01 to  07 at the date, but the life status is still alive)
                         LivStatusKode = Schemas.Util.Enums.ToLifeStatus(Utilities.GetCivilRegistrationStatus(StatusKmd, StatusCpr), Utilities.ToDateTime(BirthDate)),
                         TilstandVirkning = TilstandVirkningType.Create(Utilities.ToDateTime(StatusDate)),
                     },
