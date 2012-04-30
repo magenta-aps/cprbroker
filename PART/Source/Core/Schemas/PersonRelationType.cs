@@ -48,28 +48,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace CprBroker.Schemas.Part
 {
-    public partial class PersonRelationType
+    public partial class PersonRelationType : IPersonRelationType
     {
+        [XmlIgnore]
+        public string CprNumber { get; set; }
+
         public static PersonRelationType Create(Guid targetUuid, DateTime? fromDate, DateTime? toDate)
         {
-            if (targetUuid != Guid.Empty)
-            {
-                return new PersonRelationType()
-                    {
-                        CommentText = null,
-                        ReferenceID = UnikIdType.Create(targetUuid),
-                        Virkning = VirkningType.Create(fromDate, toDate)
-                    };
-            }
-            else
-            {
-                throw new ArgumentNullException("targetUuid");
-            }
+            return PersonRelationTypeHelper.Create<PersonRelationType>(targetUuid, fromDate, toDate);
         }
-        
+
+        public static PersonRelationType Create(string cprNumber, DateTime? fromDate, DateTime? toDate)
+        {
+            return PersonRelationTypeHelper.Create<PersonRelationType>(cprNumber, fromDate, toDate);
+        }
+
         public static PersonRelationType[] CreateList(Guid targetUuid, DateTime? fromDate, DateTime? toDate)
         {
             return new PersonRelationType[] 
@@ -77,15 +74,23 @@ namespace CprBroker.Schemas.Part
                 Create(targetUuid, fromDate, toDate) 
             };
         }
-        
-        //TODO: Add fromDate and to parameters
-        public static PersonRelationType[]CreateList(params Guid[] targetUuids)
+
+        public static PersonRelationType[] CreateList(string cprNumber, DateTime? fromDate, DateTime? toDate)
         {
-            return Array.ConvertAll<Guid, PersonRelationType>
-            (
-                targetUuids,
-                (uuid) => Create(uuid,null,null)
-            );
+            return new PersonRelationType[] 
+            { 
+                Create(cprNumber, fromDate, toDate) 
+            };
+        }
+
+        public static PersonRelationType[] CreateList(params Guid[] targetUuids)
+        {
+            return PersonRelationTypeHelper.CreateList<PersonRelationType>(targetUuids);
+        }
+
+        public static PersonRelationType[] CreateList(params string[] cprNumbers)
+        {
+            return PersonRelationTypeHelper.CreateList<PersonRelationType>(cprNumbers);
         }
     }
 }

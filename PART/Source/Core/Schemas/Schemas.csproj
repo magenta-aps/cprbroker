@@ -65,6 +65,7 @@
     <Compile Include="Events\DataChangeEventInfo.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="IBasicOutput.cs" />
+    <Compile Include="IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="PersonCivilRegistrationStatusCode.cs" />
     <Compile Include="PersonNameStructureType.cs" />
@@ -79,7 +80,9 @@
     <Compile Include="Part\Events\ExtensionStructureType.cs" />
     <Compile Include="PersonFlerRelationType.cs" />
     <Compile Include="PersonRelationType.cs" />
+    <Compile Include="PersonRelationTypeHelper.cs" />
     <Compile Include="RegistreringType1.cs" />
+    <Compile Include="RelationListeType.cs" />
     <Compile Include="ServiceDescription\Admin.cs" />
     <Compile Include="ServiceDescription\Events.cs" />
     <Compile Include="ServiceDescription\Notification.cs" />

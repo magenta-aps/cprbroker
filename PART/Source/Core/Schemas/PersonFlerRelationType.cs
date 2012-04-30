@@ -48,31 +48,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace CprBroker.Schemas.Part
 {
-    public partial class PersonFlerRelationType
+    public partial class PersonFlerRelationType : IPersonRelationType
     {
-        public static PersonFlerRelationType Create(Guid uuid, DateTime? fromDate, DateTime? toDate)
+        [XmlIgnore]
+        public string CprNumber { get; set; }
+
+        public static PersonFlerRelationType Create(Guid targetUuid, DateTime? fromDate, DateTime? toDate)
         {
-            return new PersonFlerRelationType()
-            {
-                //TODO: Add comment text
-                CommentText = null,
-                ReferenceID = UnikIdType.Create(uuid),
-                // TODO: Fill virkning object fromDate parameters
-                Virkning = VirkningType.Create(fromDate, toDate)
-            };
+            return PersonRelationTypeHelper.Create<PersonFlerRelationType>(targetUuid, fromDate, toDate);
         }
 
-        //TODO: add parameters for fromDate and to dates
+        public static PersonFlerRelationType Create(string cprNumber, DateTime? fromDate, DateTime? toDate)
+        {
+            return PersonRelationTypeHelper.Create<PersonFlerRelationType>(cprNumber, fromDate, toDate);
+        }
+
         public static PersonFlerRelationType[] CreateList(params Guid[] targetUuids)
         {
-            return Array.ConvertAll<Guid, PersonFlerRelationType>
-            (
-                targetUuids,
-                (uuid) => Create(uuid, null, null)
-            );
+            return PersonRelationTypeHelper.CreateList<PersonFlerRelationType>(targetUuids);
+        }
+
+        public static PersonFlerRelationType[] CreateList(params string[] cprNumbers)
+        {
+            return PersonRelationTypeHelper.CreateList<PersonFlerRelationType>(cprNumbers);
         }
     }
 }
