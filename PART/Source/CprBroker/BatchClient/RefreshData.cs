@@ -103,7 +103,7 @@ namespace BatchClient
             };
             var readResult = partService.RefreshRead(request);
             ValidateResult(cprNumber, "Read", readResult.StandardRetur);
-            WriteObject(cprNumber, readResult.LaesResultat.Item);
+            //WriteObject(cprNumber, readResult.LaesResultat.Item);
         }
 
         private bool ValidateResult(string cprNumber, string methodName, BatchClient.Part.StandardReturType standardRetur)

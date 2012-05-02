@@ -1,4 +1,14 @@
-﻿===============
+﻿=============
+Description
+=============
+This application loops through a set of CPR numbers, and does various actions for each, depending on the parameters
+Each attempt to run the program will create a folder "Runs\yyyy MM dd HH_mm" that contains
+- Registrations folder	: Usually contains the PersonRegistration objects of people in XML format. Be sure to delete this folder as soon as you are done, or it will cause a security hole
+- Succeeded.txt			: CPR numbers that succeeded
+- Failed.txt			: CPR numbers that failed
+- Log.txt				: program log, contains progress and exceptions
+
+===============
 All Parameters
 ===============
 BatchClient.exe param1 param1Value param2 param2Value
@@ -12,10 +22,6 @@ BatchClient.exe param1 param1Value param2 param2Value
 /appToken	: Application token passed to CPR broker
 /userToken	: User token passed to CPR broker
 
-Example
-----------
-DPRClientTester.exe AllCprNumbers.txt
-
 ============
 RefreshData
 ============
@@ -26,4 +32,4 @@ Needed parameters:
 
 Example
 --------
-BatchClient.exe /envType "BatchClient.RefreshData, BatchClient" /source "data1.txt;data2.txt" /partUrl "http://localhost:1551/Services/Part.asmx" /appToken "c6c62a70-88d9-486f-b33c-99f39637d186" /userToken Beemen 
+BatchClient.exe /envType "BatchClient.RefreshData, BatchClient" /source "data1.txt;data2.txt" /partUrl "http://cprbroker/Services/Part.asmx" /appToken "11111111-2222-3333-4444-555555555555" /userToken MyUser 
