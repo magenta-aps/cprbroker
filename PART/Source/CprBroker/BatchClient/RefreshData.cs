@@ -64,7 +64,7 @@ namespace BatchClient
             var fileNames = SourceFile.Split(';');
             foreach (var fileName in fileNames)
             {
-                string[] fileCprNumbers = File.ReadAllLines(SourceFile);
+                string[] fileCprNumbers = File.ReadAllLines(fileName);
                 for (int i = 0; i < fileCprNumbers.Length; i++)
                 {
                     string cprNumber = fileCprNumbers[i];
