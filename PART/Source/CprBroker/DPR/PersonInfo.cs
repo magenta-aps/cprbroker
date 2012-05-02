@@ -248,7 +248,11 @@ namespace CprBroker.Providers.DPR
             };
 
             // Now create the appropriate object based on nationality
-            if (dataProvider.AlwaysReturnCprBorgerType || string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode))
+            if (
+                dataProvider.AlwaysReturnCprBorgerType
+                || (
+                    this.Nationality != null
+                    && string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode)))
             {
                 ret.Item = PersonTotal.ToCprBorgerType(Nationality, Address);
                 ret.Virkning = PersonTotal.ToCprBorgerTypeVirkning(Nationality, Address);
