@@ -8,8 +8,8 @@
     <ProjectGuid>{895FDF74-8A3F-475B-B28D-B88BAB9C941E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DPRClientTester</RootNamespace>
-    <AssemblyName>DPRClientTester</AssemblyName>
+    <RootNamespace>BatchClient</RootNamespace>
+    <AssemblyName>BatchClient</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -50,7 +50,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>DPRClientTester.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CprBroker.Engine">
@@ -106,13 +107,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\Part\GetUuidOutputType.datasource">
+    <None Include="Web References\Part\GetUuidOutputType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\Part\LaesOutputType.datasource">
+    <None Include="Web References\Part\LaesOutputType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\Part\ListOutputType1.datasource">
+    <None Include="Web References\Part\ListOutputType11.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Part\Part.disco" />
@@ -121,7 +122,7 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\Part\SoegOutputType.datasource">
+    <None Include="Web References\Part\SoegOutputType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>

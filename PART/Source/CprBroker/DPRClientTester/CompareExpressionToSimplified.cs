@@ -53,7 +53,7 @@ using CprBroker.Providers.DPR;
 using CprBroker.Utilities;
 using CprBroker.Utilities.ConsoleApps;
 
-namespace DPRClientTester
+namespace BatchClient
 {
     class CompareExpressionToSimplified : ConsoleEnvironment
     {

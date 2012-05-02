@@ -54,7 +54,7 @@ using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities.ConsoleApps;
 
-namespace DPRClientTester
+namespace BatchClient
 {
     class RefreshData : ConsoleEnvironment
     {
@@ -79,15 +79,15 @@ namespace DPRClientTester
 
         public override void ProcessPerson(string cprNumber)
         {
-            var partService = new DPRClientTester.Part.Part();
+            var partService = new BatchClient.Part.Part();
             partService.Url = this.PartServiceUrl;
-            partService.ApplicationHeaderValue = new DPRClientTester.Part.ApplicationHeader() { ApplicationToken = this.ApplicationToken, UserToken = this.UserToken };
+            partService.ApplicationHeaderValue = new BatchClient.Part.ApplicationHeader() { ApplicationToken = this.ApplicationToken, UserToken = this.UserToken };
 
             var getUuidResult = partService.GetUuid(cprNumber);
             ValidateResult(cprNumber, "GetUuid", getUuidResult.StandardRetur);
 
             var uuid = getUuidResult.UUID;
-            var request = new DPRClientTester.Part.LaesInputType()
+            var request = new BatchClient.Part.LaesInputType()
             {
                 UUID = uuid
             };
@@ -96,7 +96,7 @@ namespace DPRClientTester
             WriteObject(cprNumber, readResult.LaesResultat.Item);
         }
 
-        private bool ValidateResult(string cprNumber, string methodName, DPRClientTester.Part.StandardReturType standardRetur)
+        private bool ValidateResult(string cprNumber, string methodName, BatchClient.Part.StandardReturType standardRetur)
         {
             int statusCode;
             if (int.TryParse(standardRetur.StatusKode, out statusCode) && statusCode == 200)

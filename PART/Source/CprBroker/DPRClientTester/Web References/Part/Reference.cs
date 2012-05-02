@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace DPRClientTester.Part {
+namespace BatchClient.Part {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -59,7 +59,7 @@ namespace DPRClientTester.Part {
         /// <remarks/>
         public Part() {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
-            this.Url = global::DPRClientTester.Properties.Settings.Default.DPRClientTester_Part_Part;
+            this.Url = global::BatchClient.Properties.Settings.Default.DPRClientTester_Part_Part;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

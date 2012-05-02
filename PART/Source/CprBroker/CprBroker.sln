@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CprBrokerWixInstallers", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_M", "E_M\E_M.csproj", "{24E1E816-D9CD-47B8-96B6-619EAF3379C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPRClientTester", "DPRClientTester\DPRClientTester.csproj", "{895FDF74-8A3F-475B-B28D-B88BAB9C941E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchClient", "DPRClientTester\BatchClient.csproj", "{895FDF74-8A3F-475B-B28D-B88BAB9C941E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_M.Tests", "E_M.Tests\E_M.Tests.csproj", "{37B2453E-5D68-4920-98D3-476BA76DF900}"
 EndProject

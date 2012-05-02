@@ -54,7 +54,7 @@ using CprBroker.Utilities;
 using CprBroker.Utilities.ConsoleApps;
 using CprBroker.Providers.DPR;
 
-namespace DPRClientTester
+namespace BatchClient
 {
     class LoadAllDataFromDatabase : ConsoleEnvironment
     {

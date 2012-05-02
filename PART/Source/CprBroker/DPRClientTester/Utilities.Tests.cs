@@ -51,7 +51,7 @@ using System.Text;
 using CprBroker.Providers.DPR;
 using NUnit.Framework;
 
-namespace DPRClientTester
+namespace BatchClient
 {
     [TestFixture]
     class UtilitiesTests
