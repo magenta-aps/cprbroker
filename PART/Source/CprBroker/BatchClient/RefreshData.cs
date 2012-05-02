@@ -60,21 +60,31 @@ namespace BatchClient
     {
         public override string[] LoadCprNumbers()
         {
-            string[] allCprNumbers = File.ReadAllLines(SourceFile);
-            for (int i = 0; i < allCprNumbers.Length; i++)
+            var ret = new List<string>();
+            var fileNames = SourceFile.Split(';');
+            foreach (var fileName in fileNames)
             {
-                string cprNumber = allCprNumbers[i];
-                cprNumber = cprNumber.Substring(0, Math.Min(10, cprNumber.Length));
-
-                while (cprNumber.Length < 10)
-                    cprNumber = "0" + cprNumber;
-                if (!System.Text.RegularExpressions.Regex.Match(cprNumber, "\\A\\d{10}\\Z").Success)
+                string[] fileCprNumbers = File.ReadAllLines(SourceFile);
+                for (int i = 0; i < fileCprNumbers.Length; i++)
                 {
-                    throw new Exception("Invalid CPR number: " + cprNumber);
+                    string cprNumber = fileCprNumbers[i];
+                    cprNumber = cprNumber.Substring(0, Math.Min(10, cprNumber.Length));
+
+                    while (cprNumber.Length < 10)
+                    {
+                        cprNumber = "0" + cprNumber;
+                    }
+                    if (!System.Text.RegularExpressions.Regex.Match(cprNumber, "\\A\\d{10}\\Z").Success)
+                    {
+                        throw new Exception("Invalid CPR number: " + cprNumber);
+                    }
+                    if (!ret.Contains(cprNumber))
+                    {
+                        ret.Add(cprNumber);
+                    }
                 }
-                allCprNumbers[i] = cprNumber;
             }
-            return allCprNumbers;
+            return ret.ToArray();
         }
 
         public override void ProcessPerson(string cprNumber)
