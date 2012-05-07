@@ -675,11 +675,13 @@ namespace CprBroker.Providers.KMD
                         ForskerBeskyttelseIndikator = Protection.Equals(Constants.ResearchProtection),
                         // Name and address protection
                         NavneAdresseBeskyttelseIndikator = Protection.Equals(Constants.AddressProtection),
-                        // Church membership                        
+                        // Church membership
+                        // TODO: Shall this be ChurchRelationship = 'F'?
                         FolkekirkeMedlemIndikator = ChurchRelationship.Length > 0,
-                        // No address not
+                        // No address note
                         AdresseNoteTekst = null,
-                        //PNR validity status,                        
+                        //PNR validity status
+                        // TODO: Shall this be set as other providers, false if status is 30,50,60 ?
                         PersonNummerGyldighedStatusIndikator = int.Parse(ReturnCode) < 10,
 
                         // TODO: Check if this is correct

@@ -383,10 +383,12 @@ namespace CprBroker.Providers.KMD
                         AddressPoint = null,
                         NoteTekst = null,
                         PolitiDistriktTekst = null,
+                        // TODO: Get from PostDistrict
                         PostDistriktTekst = null,
                         SkoleDistriktTekst = null,
                         SocialDistriktTekst = null,
                         SogneDistriktTekst = null,
+                        // TODO: True if StreetCode > 9900
                         SpecielVejkodeIndikator = false,
                         SpecielVejkodeIndikatorSpecified = false,
                         UkendtAdresseIndikator = false,

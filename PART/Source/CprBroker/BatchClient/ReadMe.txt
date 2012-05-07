@@ -33,3 +33,19 @@ Needed parameters:
 Example
 --------
 BatchClient.exe /envType "BatchClient.RefreshData, BatchClient" /source "data1.txt;data2.txt" /partUrl "http://cprbroker/Services/Part.asmx" /appToken "11111111-2222-3333-4444-555555555555" /userToken MyUser 
+
+========================
+Creating the data file
+======================
+
+DPR with foreign nationalities :
+--------------------------------
+select PNR from DTTOTAL T where 
+(
+  NOT EXISTS(select * from DTSTAT S where S.PNR=T.PNR and s.ANNKOR is null and HAENSLUT is null)
+)
+OR
+(
+  EXISTS (select * from DTSTAT S where S.PNR=T.PNR and s.ANNKOR is null and HAENSLUT is null and S.MYNKOD <> 5100) 
+)
+
