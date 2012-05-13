@@ -96,7 +96,7 @@ namespace CprBroker.Providers.KMD
                 //"00",//	Everything ok
                 "07",//	Person is unknown in the municipality
                 "08",//	Person is unknown in the region
-                "10",//	The person is inactive -- moved fromDate region
+                "10",//	The person is inactive -- moved from region
                 //"15",//	Person number is invalid - former double issue
                 //"16",//	Person number is invalid - the person is nynummereret
                 //"17",//	The person is inactive - disappeared
