@@ -6,7 +6,7 @@
                 exclude-result-prefixes="msxsl"
 >
     <xsl:output method="text" indent="yes"/>
-    <xsl:template match="/">
+    <xsl:template match="/d:Layer">
 using System;
 
 namespace CprBroker.Providers.CPRDirect
@@ -49,9 +49,9 @@ namespace CprBroker.Providers.CPRDirect
         }
             </xsl:for-each>
     }
-}
           
         </xsl:for-each>
+}
     </xsl:template>
 </xsl:stylesheet>
 

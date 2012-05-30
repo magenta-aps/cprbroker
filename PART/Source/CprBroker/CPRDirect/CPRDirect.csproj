@@ -59,17 +59,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="XML\DefinitionSchema.xsd">
+    <Content Include="XML\CodeGeneration.txt" />
+    <Content Include="XML\DefinitionSchema.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="XML\Definitions.xml" />
+    <None Include="XML\Definitions.xml" />
     <Content Include="XML\ClassTransform.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"
+    <PreBuildEvent>
 </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

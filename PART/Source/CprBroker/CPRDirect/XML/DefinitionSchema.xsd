@@ -41,4 +41,11 @@
   </xs:complexType>
 
   <xs:element type="ObjectElementType" name="Object"></xs:element>
+  <xs:element name="Layer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Object" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
