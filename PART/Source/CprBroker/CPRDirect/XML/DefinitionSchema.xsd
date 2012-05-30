@@ -20,17 +20,6 @@
     <xs:attribute name="description" type="xs:string" use="optional"/>
   </xs:complexType>
 
-  <xs:complexType name="ObjectElementType">
-    <xs:complexContent>
-      <xs:extension base="BaseElementType">
-        <xs:choice minOccurs="1" maxOccurs="unbounded">
-          <xs:element name="ObjectElement" type="ObjectElementType"></xs:element>
-          <xs:element name="Attribute" type="AttributeElementType"></xs:element>
-        </xs:choice>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="AttributeElementType">
     <xs:complexContent>
       <xs:extension base="BaseElementType">
@@ -39,7 +28,28 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  
+  <xs:complexType name="ObjectElementType">
+    <xs:complexContent>
+      <xs:extension base="BaseElementType">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+          <xs:element name="Object" type="ChildObjectType"></xs:element>
+          <xs:element name="Attribute" type="AttributeElementType"></xs:element>
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 
+  <xs:complexType name="ChildObjectType">
+    <xs:complexContent>
+      <xs:extension base="ObjectElementType">
+        <xs:attribute name="position" type="xs:int" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+    
+  </xs:complexType>
+
+  
   <xs:element type="ObjectElementType" name="Object"></xs:element>
   <xs:element name="Layer">
     <xs:complexType>

@@ -20,7 +20,12 @@
     <Attribute name="Token" danishName="TOKEN" format="Alpha" position="7" length="8" description="Taken from the logon"/>
     <Attribute name="UserId" danishName="BRUGER-ID" format="Alpha" position="15" length="8" description="The CPR Unit assigned system user code"/>
     <Attribute name="ErrorNumber" danishName="FEJLNR" format="Numeric" position="23" length="2" description="Indicator of the communication process"/>
-    <Attribute name="Length" format="Numeric" position="25" length="4" description="Length of structure 28 + data MAX 2880"/>
+    <Attribute name="DataLength" format="Numeric" position="25" length="4" description="Length of structure 28 + data MAX 2880"/>
     <Attribute name="Data" danishName="DATA" format="Alpha" position="29" length="2880" description="Personal data from the CPR (format and amount depends on DATA_TYPE"/>
+
+    <Object name="StartRecord" danishName="P12170-000" position="1" length="35" description="The Start Record. Always 1 item">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+    </Object>
+    
   </Object>
 </Layer>
