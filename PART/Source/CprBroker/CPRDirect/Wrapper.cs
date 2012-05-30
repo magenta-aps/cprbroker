@@ -28,5 +28,13 @@ namespace CprBroker.Providers.CPRDirect
 
         public abstract int Length { get; }
 
+        public string this[int pos, int length]
+        {
+            get
+            {
+                return Contents.Substring(pos - 1, length);
+            }
+        }
+
     }
 }

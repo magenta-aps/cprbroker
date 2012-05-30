@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="ClassTransform.xslt"?>
+<Object xmlns="http://itst.dk/CPRDirect" name="IndividualRequest" length="39">
+  <Attribute name="CPRTRANS" format="Alpha" position="1" length="4" description="CPR's transaction code" />
+  <Attribute name="Comma" danishName="KOMMA" format="Alpha" position="5" length="1" description="Comma character used as separator"/>
+  <Attribute name="CustomerNumber" danishName="KUNDENR" format="Numeric" position="6" length="4" description="Identification of the customer"/>
+  <Attribute name="SubscriptionType" danishName="ABON_TYPE" format="Numeric" position="10" length="1" description="Subscription phrase / delete or not"/>  
+  <Attribute name="DataType" danishName="DATA_TYPE" format="Numeric" position="11" length="1" description="Desired output - 0 in LOGONINDIVID"/>
+  <Attribute name="Token" danishName="TOKEN" format="Alpha" position="12" length="8"/>
+  <Attribute name="UserId" danishName="BRUGER_ID" format="Alpha" position="20" length="8" description="The CPR Unit assigned system user code"/>
+  <Attribute name="ErrorNumber" danishName="FEJLNR" format="Numeric" position="28" length="2" description="Indicator of the communication process"/>
+  <Attribute name="PNR" danishName="PNR" format="Numeric" position="30" length="10" description="Request PNR"/>
+</Object>
