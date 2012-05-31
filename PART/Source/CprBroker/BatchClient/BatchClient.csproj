@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="CompareDatabasePerformance.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
+    <Compile Include="GetUuids.cs" />
     <Compile Include="LoadAllDataFromDatabase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RefreshData.cs" />
