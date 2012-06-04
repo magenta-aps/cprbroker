@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="CPRDirectDataProvider.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,8 +68,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

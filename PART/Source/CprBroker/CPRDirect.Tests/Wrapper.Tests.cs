@@ -19,6 +19,8 @@ namespace CprBroker.Tests.CPRDirect
             }
         }
 
+        #region Contents
+
         [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Contents_InvalidLength_ThrowsException(
@@ -38,5 +40,50 @@ namespace CprBroker.Tests.CPRDirect
             w.Contents = val;
             Assert.AreEqual(val, w.Contents);
         }
+
+        #endregion
+
+        #region Parse
+
+        class WrapperStub1 : Wrapper
+        {
+            public override int Length
+            {
+                get { return 6; }
+            }
+        }
+        class WrapperStub2 : Wrapper
+        {
+            public override int Length
+            {
+                get { return 6; }
+            }
+        }
+        class ParentWrapperStub : Wrapper
+        {
+            public override int Length
+            {
+                get { return 12; }
+            }
+            public WrapperStub1 WrapperStub1 = null;
+            public List<WrapperStub2> WrapperStub2 = new List<WrapperStub2>();
+        }
+
+        [Test]
+        public void Parse_Correct_CorrectObjects()
+        {
+            string data = "001AAA002BBB";
+            var map = new Dictionary<string, Type>();
+            map["001"] = typeof(WrapperStub1);
+            map["002"] = typeof(WrapperStub2);
+            var par = new ParentWrapperStub();
+            System.Diagnostics.Debugger.Launch();
+            par.Fill(data, map);
+            Assert.NotNull(par.WrapperStub1);
+            Assert.AreEqual(1, par.WrapperStub2.Count);
+            Assert.NotNull(par.WrapperStub2[0]);
+        }
+
+        #endregion
     }
 }

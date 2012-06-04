@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -33,6 +34,72 @@ namespace CprBroker.Providers.CPRDirect
             get
             {
                 return Contents.Substring(pos - 1, length);
+            }
+        }
+
+
+        private string Read(TextReader rd, int count)
+        {
+            char[] ret = new char[count];
+            int read = rd.Read(ret, 0, count);
+            if (read != count)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            return new string(ret);
+        }
+
+        public List<Wrapper> Parse(string data, Dictionary<string, Type> typeMap)
+        {
+            var ret = new List<Wrapper>();
+            StringReader rd = new StringReader(data);
+            while (rd.Peek() > 0)
+            {
+                string typeCode = Read(rd, 3);
+                Type type = typeMap[typeCode];
+                var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
+                var subData = Read(rd, wrapper.Length - typeCode.Length);
+                wrapper.Contents = typeCode + subData;
+                ret.Add(wrapper);
+            }
+            return ret;
+        }
+
+        public void Fill(string data, Dictionary<string, Type> typeMap)
+        {
+            var all = Parse(data, typeMap);
+
+            Type myType = GetType();
+            var fields = myType.GetFields();
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                if (typeof(System.Collections.IList).IsAssignableFrom(field.FieldType) && field.FieldType.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    var args = field.FieldType.GetGenericArguments();
+                    if (args.Length == 1)
+                    {
+                        var innerType = args[0];
+                        if (typeof(Wrapper).IsAssignableFrom(innerType))
+                        {
+                            var arrayVal = all.Where(obj => obj.GetType() == innerType).ToArray();
+                            foreach (var singleVal in arrayVal)
+                            {
+                                var fieldValue = field.GetValue(this);
+                                field.FieldType.InvokeMember(
+                                    "Add",
+                                    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Instance,
+                                    null,
+                                    fieldValue,
+                                    new object[] { singleVal });
+                            }
+                        }
+                    }
+                }
+                else if (typeof(Wrapper).IsAssignableFrom(field.FieldType))
+                {
+                    var val = all.Where(obj => obj.GetType() == field.FieldType).SingleOrDefault();
+                    field.SetValue(this, val);
+                }
             }
         }
 
