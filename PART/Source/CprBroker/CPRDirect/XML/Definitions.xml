@@ -22,245 +22,246 @@
     <Attribute name="ErrorNumber" danishName="FEJLNR" format="Numeric" position="23" length="2" description="Indicator of the communication process"/>
     <Attribute name="DataLength" format="Numeric" position="25" length="4" description="Length of structure 28 + data MAX 2880"/>
     <Attribute name="Data" danishName="DATA" format="Alpha" position="29" length="2880" description="Personal data from the CPR (format and amount depends on DATA_TYPE"/>
-  </Object>
 
-  <Object name="StartRecord" danishName="P12170-000" length="35" description="The Start Record. Always 1 item">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="BlackBox10" danishName="SORTFELT-10" format="Alpha" length="10" position="4" description="BLACK BOX-10"/>
-    <Attribute name="TaskNumber" danishName="OPGAVENR" format="Numeric" length="6" position="14" />
-    <Attribute name="ProductionDate" danishName="PRODDTO" format="Numeric" length="8" position="20" description="Production date YYYYMMDD" dateFormat="YYYYMMDD"/>
-    <Attribute name="PreviousProductionDate" danishName="PRODDTOFORRIG" format="Numeric" length="8" position="28" description="Previous production date YYYYMMDD" dateFormat="YYYYMMDD"/>
-  </Object>
+    <Object name="StartRecord" danishName="P12170-000" length="35" description="The Start Record. Always 1 item">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="BlackBox10" danishName="SORTFELT-10" format="Alpha" length="10" position="4" description="BLACK BOX-10"/>
+      <Attribute name="TaskNumber" danishName="OPGAVENR" format="Numeric" length="6" position="14" />
+      <Attribute name="ProductionDate" danishName="PRODDTO" format="Numeric" length="8" position="20" description="Production date YYYYMMDD" dateFormat="YYYYMMDD"/>
+      <Attribute name="PreviousProductionDate" danishName="PRODDTOFORRIG" format="Numeric" length="8" position="28" description="Previous production date YYYYMMDD" dateFormat="YYYYMMDD"/>
+    </Object>
 
-  <Object name="PersonInformation" danishName="P12170-001" length="106" description="Person information">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="CurrentCprNumber" danishName="PNRGAELD" format="Alpha" length="10" position="14" description="Current CPR Number"/>
-    <Attribute name="Status" danishName="STATUS" format="Numeric" length="2" position="24" description="Status"/>
-    <Attribute name="StatusStartDate" danishName="STATUSHAENSTART" format="Numeric" length="12" position="26" description="Status date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="StatusDateUncertainty" danishName="STATUSDTO_UMRK" format="Alpha" length="1" position="38" description="Status date uncertainty marker"/>
-    <Attribute name="Gender" danishName="KOEN" format="Alpha" length="1" position="39" description="CPR Number"/>
-    <Attribute name="Birthdate" danishName="FOED_DT" format="Alpha" length="10" position="40" description="Birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="BirthdateUncertainty" danishName="FOED_DT_UMRK" format="Alpha" length="1" position="50" description="Birth date uncertainty marker"/>
-    <Attribute name="PersonStartDate" danishName="START_DT-PERSON" format="Alpha" length="10" position="51" description="Person start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="PersonStartDateUncertainty" danishName="START_DT_UMRK-PERSON" format="Alpha" length="1" position="61" description="Start date uncertainty marker"/>
-    <Attribute name="PersonEndDate " danishName="SLUT_DT-PERSON" format="Alpha" length="10" position="62" description="Person end date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="EndDateUncertainty" danishName="PNR" format="Alpha" length="1" position="72" description="End date uncertainty marker"/>
-    <Attribute name="Job" danishName="STILLING" format="Alpha" length="34" position="73" description="Job"/>
-  </Object>
+    <Object name="PersonInformation" danishName="P12170-001" length="106" description="Person information">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="CurrentCprNumber" danishName="PNRGAELD" format="Alpha" length="10" position="14" description="Current CPR Number"/>
+      <Attribute name="Status" danishName="STATUS" format="Numeric" length="2" position="24" description="Status"/>
+      <Attribute name="StatusStartDate" danishName="STATUSHAENSTART" format="Numeric" length="12" position="26" description="Status date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="StatusDateUncertainty" danishName="STATUSDTO_UMRK" format="Alpha" length="1" position="38" description="Status date uncertainty marker"/>
+      <Attribute name="Gender" danishName="KOEN" format="Alpha" length="1" position="39" description="CPR Number"/>
+      <Attribute name="Birthdate" danishName="FOED_DT" format="Alpha" length="10" position="40" description="Birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="BirthdateUncertainty" danishName="FOED_DT_UMRK" format="Alpha" length="1" position="50" description="Birth date uncertainty marker"/>
+      <Attribute name="PersonStartDate" danishName="START_DT-PERSON" format="Alpha" length="10" position="51" description="Person start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="PersonStartDateUncertainty" danishName="START_DT_UMRK-PERSON" format="Alpha" length="1" position="61" description="Start date uncertainty marker"/>
+      <Attribute name="PersonEndDate " danishName="SLUT_DT-PERSON" format="Alpha" length="10" position="62" description="Person end date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="EndDateUncertainty" danishName="PNR" format="Alpha" length="1" position="72" description="End date uncertainty marker"/>
+      <Attribute name="Job" danishName="STILLING" format="Alpha" length="34" position="73" description="Job"/>
+    </Object>
 
-  <Object name="CurrentAddressInformation" danishName="P12170-002" length="306" description="Current address information">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="14" description="Municipality"/>
-    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="18" description="Street"/>
-    <Attribute name="HouseNumber" danishName="HUSNR" format="Alpha" length="4" position="22" description="House"/>
-    <Attribute name="Floor" danishName="ETAGE" format="Alpha" length="2" position="26" description="Floor"/>
-    <Attribute name="Door" danishName="SIDEDOER" format="Alpha" length="4" position="28" description="Door"/>
-    <Attribute name="BuildingNumber" danishName="BNR" format="Alpha" length="4" position="32" description="Building number"/>
-    <Attribute name="CareOfName" danishName="CONVN" format="Alpha" length="34" position="36" description="C/O name"/>
-    <Attribute name="RelocationDate" danishName="TILFLYDTO" format="Numeric" length="12" position="70" description="Relocation date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="RelocationDateUncertainty" danishName="TILFLYDT_UMRK" format="Alpha" length="1" position="82" description="Relocation date uncertainty marker"/>
-    <Attribute name="MunicipalityArrivalDate" danishName="TILFLYKOMDTO" format="Numeric" length="12" position="83" description="Municipality arrival date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="MunicipalityArrivalDateUncertainty" danishName="TILFLYKOMDT_UMRK" format="Alpha" length="1" position="95" description="Municipality arrival date uncertainty marker"/>
-    <Attribute name="LeavingMunicipalityCode" danishName="FRAFLYKOMKOD" format="Numeric" length="4" position="96" description="Leaving municipality code"/>
-    <Attribute name="MunicipalityDepartureDate" danishName="FRAFLYKOMDTO" format="Numeric" length="12" position="100" description="Municipality departure date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="MunicipalityDepartureDateUncertainty" danishName="FRAFLYKOMDT_UMRK" format="Alpha" length="1" position="112" description="Municipality departure date uncertainty"/>
-    <Attribute name="HomeAuthority" danishName="START_MYNKOD-ADRTXT" format="Numeric" length="4" position="113" description="HomeAuthority"/>
-    <Attribute name="SupplementaryAddress1" danishName="ADR1-SUPLADR" format="Alpha" length="34" position="117" description="First line of supplementary address"/>
-    <Attribute name="SupplementaryAddress2" danishName="ADR2-SUPLADR" format="Alpha" length="34" position="151" description="Second line of supplementary address"/>
-    <Attribute name="SupplementaryAddress3" danishName="ADR3-SUPLADR" format="Alpha" length="34" position="185" description="Third line of supplementary address"/>
-    <Attribute name="SupplementaryAddress4" danishName="ADR4-SUPLADR" format="Alpha" length="34" position="219" description="Fourth line of supplementary address"/>
-    <Attribute name="SupplementaryAddress5" danishName="ADR5-SUPLADR" format="Alpha" length="34" position="253" description="Fifth line of supplementary address"/>
-    <Attribute name="StartDate" danishName="START_DT-ADRTXT" format="Alpha" length="10" position="287" description="Start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="EndDate" danishName="SLET_DT-ADRTXT" format="Alpha" length="10" position="297" description="End date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-  </Object>
+    <Object name="CurrentAddressInformation" danishName="P12170-002" length="306" description="Current address information">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="14" description="Municipality"/>
+      <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="18" description="Street"/>
+      <Attribute name="HouseNumber" danishName="HUSNR" format="Alpha" length="4" position="22" description="House"/>
+      <Attribute name="Floor" danishName="ETAGE" format="Alpha" length="2" position="26" description="Floor"/>
+      <Attribute name="Door" danishName="SIDEDOER" format="Alpha" length="4" position="28" description="Door"/>
+      <Attribute name="BuildingNumber" danishName="BNR" format="Alpha" length="4" position="32" description="Building number"/>
+      <Attribute name="CareOfName" danishName="CONVN" format="Alpha" length="34" position="36" description="C/O name"/>
+      <Attribute name="RelocationDate" danishName="TILFLYDTO" format="Numeric" length="12" position="70" description="Relocation date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="RelocationDateUncertainty" danishName="TILFLYDT_UMRK" format="Alpha" length="1" position="82" description="Relocation date uncertainty marker"/>
+      <Attribute name="MunicipalityArrivalDate" danishName="TILFLYKOMDTO" format="Numeric" length="12" position="83" description="Municipality arrival date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="MunicipalityArrivalDateUncertainty" danishName="TILFLYKOMDT_UMRK" format="Alpha" length="1" position="95" description="Municipality arrival date uncertainty marker"/>
+      <Attribute name="LeavingMunicipalityCode" danishName="FRAFLYKOMKOD" format="Numeric" length="4" position="96" description="Leaving municipality code"/>
+      <Attribute name="MunicipalityDepartureDate" danishName="FRAFLYKOMDTO" format="Numeric" length="12" position="100" description="Municipality departure date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="MunicipalityDepartureDateUncertainty" danishName="FRAFLYKOMDT_UMRK" format="Alpha" length="1" position="112" description="Municipality departure date uncertainty"/>
+      <Attribute name="HomeAuthority" danishName="START_MYNKOD-ADRTXT" format="Numeric" length="4" position="113" description="HomeAuthority"/>
+      <Attribute name="SupplementaryAddress1" danishName="ADR1-SUPLADR" format="Alpha" length="34" position="117" description="First line of supplementary address"/>
+      <Attribute name="SupplementaryAddress2" danishName="ADR2-SUPLADR" format="Alpha" length="34" position="151" description="Second line of supplementary address"/>
+      <Attribute name="SupplementaryAddress3" danishName="ADR3-SUPLADR" format="Alpha" length="34" position="185" description="Third line of supplementary address"/>
+      <Attribute name="SupplementaryAddress4" danishName="ADR4-SUPLADR" format="Alpha" length="34" position="219" description="Fourth line of supplementary address"/>
+      <Attribute name="SupplementaryAddress5" danishName="ADR5-SUPLADR" format="Alpha" length="34" position="253" description="Fifth line of supplementary address"/>
+      <Attribute name="StartDate" danishName="START_DT-ADRTXT" format="Alpha" length="10" position="287" description="Start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="EndDate" danishName="SLET_DT-ADRTXT" format="Alpha" length="10" position="297" description="End date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+    </Object>
 
-  <Object name="ClearWrittenAddress" danishName="P12170-003" length="249" description="Clear Written Address">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="AddressingName" danishName="ADRNVN" format="Alpha" length="34" position="14" description="Addressing name"/>
-    <Attribute name="CareOfName" danishName="CONVN" format="Alpha" length="34" position="48" description="C/O name"/>
-    <Attribute name="Location" danishName="LOKALITET" format="Alpha" length="34" position="82" description="Location"/>
-    <Attribute name="LabelledAddress" danishName="STANDARDADR" format="Alpha" length="34" position="116" description="Road addressing name, house number, floor, side doors BNR. Labelled Address"/>
-    <Attribute name="CityName" danishName="BYNVN" format="Alpha" length="34" position="150" description="City name"/>
-    <Attribute name="PostCode" danishName="POSTNR" format="Numeric" length="4" position="184" description="Post code"/>
-    <Attribute name="PostDistrictText" danishName="POSTDISTTXT" format="Alpha" length="20" position="188" description="Post district text"/>
-    <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="208" description="Municipality code"/>
-    <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="212" description="Street code"/>
-    <Attribute name="HouseNumber" danishName="HUSNR" format="Alpha" length="4" position="216" description="House number"/>
-    <Attribute name="Floor" danishName="ETAGE" format="Alpha" length="2" position="220" description="Floor"/>
-    <Attribute name="Door" danishName="SIDEDOER" format="Alpha" length="4" position="222" description="Door"/>
-    <Attribute name="BuildingNumber" danishName="BNR" format="Alpha" length="4" position="226" description="Building number"/>
-    <Attribute name="StreetAddressingName" danishName="VEJADRNVN" format="Alpha" length="20" position="230" description="Street addressing name"/>
-  </Object>
+    <Object name="ClearWrittenAddress" danishName="P12170-003" length="249" description="Clear Written Address">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="AddressingName" danishName="ADRNVN" format="Alpha" length="34" position="14" description="Addressing name"/>
+      <Attribute name="CareOfName" danishName="CONVN" format="Alpha" length="34" position="48" description="C/O name"/>
+      <Attribute name="Location" danishName="LOKALITET" format="Alpha" length="34" position="82" description="Location"/>
+      <Attribute name="LabelledAddress" danishName="STANDARDADR" format="Alpha" length="34" position="116" description="Road addressing name, house number, floor, side doors BNR. Labelled Address"/>
+      <Attribute name="CityName" danishName="BYNVN" format="Alpha" length="34" position="150" description="City name"/>
+      <Attribute name="PostCode" danishName="POSTNR" format="Numeric" length="4" position="184" description="Post code"/>
+      <Attribute name="PostDistrictText" danishName="POSTDISTTXT" format="Alpha" length="20" position="188" description="Post district text"/>
+      <Attribute name="MunicipalityCode" danishName="KOMKOD" format="Numeric" length="4" position="208" description="Municipality code"/>
+      <Attribute name="StreetCode" danishName="VEJKOD" format="Numeric" length="4" position="212" description="Street code"/>
+      <Attribute name="HouseNumber" danishName="HUSNR" format="Alpha" length="4" position="216" description="House number"/>
+      <Attribute name="Floor" danishName="ETAGE" format="Alpha" length="2" position="220" description="Floor"/>
+      <Attribute name="Door" danishName="SIDEDOER" format="Alpha" length="4" position="222" description="Door"/>
+      <Attribute name="BuildingNumber" danishName="BNR" format="Alpha" length="4" position="226" description="Building number"/>
+      <Attribute name="StreetAddressingName" danishName="VEJADRNVN" format="Alpha" length="20" position="230" description="Street addressing name"/>
+    </Object>
 
-  <Object name="Protection" danishName="P12170-004" length="37" description="Protection">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="ProtectionType_" danishName="BESKYTTYPE" format="Numeric" length="4" position="14" description="Protection type"/>
-    <Attribute name="StartDate" danishName="START_DT-BESKYTTELSE" format="Alpha" length="10" position="18" description="Start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="EndDate" danishName="SLET_DT-BESKYTTELSE" format="Alpha" length="10" position="28" description="End date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-  </Object>
+    <Object name="Protection" danishName="P12170-004" length="37" description="Protection">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="ProtectionType_" danishName="BESKYTTYPE" format="Numeric" length="4" position="14" description="Protection type"/>
+      <Attribute name="StartDate" danishName="START_DT-BESKYTTELSE" format="Alpha" length="10" position="18" description="Start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="EndDate" danishName="SLET_DT-BESKYTTELSE" format="Alpha" length="10" position="28" description="End date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+    </Object>
 
-  <Object name="CurrentDepartureData" danishName="P12170-005" length="200" description="Current exit/departure data">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="ExitCountryCode" danishName="UDR_LANDEKOD" format="Numeric" length="4" position="14" description="Exit country code"/>
-    <Attribute name="ExitDate" danishName="UDRDTO" format="Numeric" length="12" position="18" description="Exit date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="ExitDateUncertainty" danishName="UDRDTO_UMRK" format="Alpha" length="1" position="30" description="Exit date uncertainty marker"/>
-    <Attribute name="ForeignAddress1" danishName="UDLANDADR1" format="Alpha" length="34" position="31" description="Foreign Address 1"/>
-    <Attribute name="ForeignAddress2" danishName="UDLANDADR2" format="Alpha" length="34" position="65" description="Foreign Address 2"/>
-    <Attribute name="ForeignAddress3" danishName="UDLANDADR3" format="Alpha" length="34" position="99" description="Foreign Address 3"/>
-    <Attribute name="ForeignAddress4" danishName="UDLANDADR4" format="Alpha" length="34" position="133" description="Foreign Address 4"/>
-    <Attribute name="ForeignAddress5" danishName="UDLANDADR5" format="Alpha" length="34" position="167" description="Foreign Address 5"/>
-  </Object>
+    <Object name="CurrentDepartureData" danishName="P12170-005" length="200" description="Current exit/departure data">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="ExitCountryCode" danishName="UDR_LANDEKOD" format="Numeric" length="4" position="14" description="Exit country code"/>
+      <Attribute name="ExitDate" danishName="UDRDTO" format="Numeric" length="12" position="18" description="Exit date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="ExitDateUncertainty" danishName="UDRDTO_UMRK" format="Alpha" length="1" position="30" description="Exit date uncertainty marker"/>
+      <Attribute name="ForeignAddress1" danishName="UDLANDADR1" format="Alpha" length="34" position="31" description="Foreign Address 1"/>
+      <Attribute name="ForeignAddress2" danishName="UDLANDADR2" format="Alpha" length="34" position="65" description="Foreign Address 2"/>
+      <Attribute name="ForeignAddress3" danishName="UDLANDADR3" format="Alpha" length="34" position="99" description="Foreign Address 3"/>
+      <Attribute name="ForeignAddress4" danishName="UDLANDADR4" format="Alpha" length="34" position="133" description="Foreign Address 4"/>
+      <Attribute name="ForeignAddress5" danishName="UDLANDADR5" format="Alpha" length="34" position="167" description="Foreign Address 5"/>
+    </Object>
 
-  <Object name="ContactAddress" danishName="P12170-006" length="203" description="Contact address">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="Line1" danishName="ADR1-KONTAKTADR" format="Alpha" length="34" position="14" description="Contact address line 1"/>
-    <Attribute name="Line2" danishName="ADR2-KONTAKTADR" format="Alpha" length="34" position="48" description="Contact address line 2"/>
-    <Attribute name="Line3" danishName="ADR3-KONTAKTADR" format="Alpha" length="34" position="82" description="Contact address line 3"/>
-    <Attribute name="Line4" danishName="ADR4-KONTAKTADR" format="Alpha" length="34" position="116" description="Contact address line 4"/>
-    <Attribute name="Line5" danishName="ADR5-KONTAKTADR" format="Alpha" length="34" position="150" description="Contact address line 5"/>
-    <Attribute name="StartDate" danishName="START_DT-ADRTXT" format="Alpha" length="10" position="184" description="Start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="EndDate" danishName="SLET_DT-ADRTXT" format="Alpha" length="10" position="194" description="End date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-  </Object>
+    <Object name="ContactAddress" danishName="P12170-006" length="203" description="Contact address">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="Line1" danishName="ADR1-KONTAKTADR" format="Alpha" length="34" position="14" description="Contact address line 1"/>
+      <Attribute name="Line2" danishName="ADR2-KONTAKTADR" format="Alpha" length="34" position="48" description="Contact address line 2"/>
+      <Attribute name="Line3" danishName="ADR3-KONTAKTADR" format="Alpha" length="34" position="82" description="Contact address line 3"/>
+      <Attribute name="Line4" danishName="ADR4-KONTAKTADR" format="Alpha" length="34" position="116" description="Contact address line 4"/>
+      <Attribute name="Line5" danishName="ADR5-KONTAKTADR" format="Alpha" length="34" position="150" description="Contact address line 5"/>
+      <Attribute name="StartDate" danishName="START_DT-ADRTXT" format="Alpha" length="10" position="184" description="Start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="EndDate" danishName="SLET_DT-ADRTXT" format="Alpha" length="10" position="194" description="End date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+    </Object>
 
-  <Object name="CurrentDisappearanceInformation" danishName="P12170-007" length="26" description="Current disappearance information">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="DisappearanceDate" danishName="FORSVINDDTO" format="Numeric" length="12" position="14" description="Disappearance date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="DisappearanceDateUncertainty" danishName="FORSVINDDTO_UMRK" format="Alpha" length="1" position="26" description="Disappearance date uncertainty marker"/>
-  </Object>
+    <Object name="CurrentDisappearanceInformation" danishName="P12170-007" length="26" description="Current disappearance information">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="DisappearanceDate" danishName="FORSVINDDTO" format="Numeric" length="12" position="14" description="Disappearance date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="DisappearanceDateUncertainty" danishName="FORSVINDDTO_UMRK" format="Alpha" length="1" position="26" description="Disappearance date uncertainty marker"/>
+    </Object>
 
-  <Object name="CurrentNameInformation" danishName="P12170-008" length="193" description="Current name information">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="FirstName_s" danishName="FORNVN" format="Alpha" length="50" position="14" description="First name (s)"/>
-    <Attribute name="FirstNameMarker" danishName="FORNVN_MRK" format="Alpha" length="1" position="64" description="First name marker"/>
-    <Attribute name="MiddleName" danishName="MELNVN" format="Alpha" length="40" position="65" description="Middle name"/>
-    <Attribute name="MiddleNameMarker" danishName="MELNVN_MRK" format="Alpha" length="1" position="105" description="Middle name marker"/>
-    <Attribute name="LastName" danishName="EFTERNVN" format="Alpha" length="40" position="106" description="Last name"/>
-    <Attribute name="LastNameMarker" danishName="EFTERNVN_MRK" format="Alpha" length="1" position="146" description="Last name marker"/>
-    <Attribute name="NameStartDate" danishName="NVNHAENSTART" format="Numeric" length="12" position="147" description="Name start date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="NameStartDateUncertainty" danishName="HAENSTART_UMRK-NAVNE" format="Alpha" length="1" position="159" description="Name start date uncertainty marker"/>
-    <Attribute name="AddressingName" danishName="ADRNVN" format="Alpha" length="34" position="160" description="AddressingName"/>
-  </Object>
+    <Object name="CurrentNameInformation" danishName="P12170-008" length="193" description="Current name information">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="FirstName_s" danishName="FORNVN" format="Alpha" length="50" position="14" description="First name (s)"/>
+      <Attribute name="FirstNameMarker" danishName="FORNVN_MRK" format="Alpha" length="1" position="64" description="First name marker"/>
+      <Attribute name="MiddleName" danishName="MELNVN" format="Alpha" length="40" position="65" description="Middle name"/>
+      <Attribute name="MiddleNameMarker" danishName="MELNVN_MRK" format="Alpha" length="1" position="105" description="Middle name marker"/>
+      <Attribute name="LastName" danishName="EFTERNVN" format="Alpha" length="40" position="106" description="Last name"/>
+      <Attribute name="LastNameMarker" danishName="EFTERNVN_MRK" format="Alpha" length="1" position="146" description="Last name marker"/>
+      <Attribute name="NameStartDate" danishName="NVNHAENSTART" format="Numeric" length="12" position="147" description="Name start date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="NameStartDateUncertainty" danishName="HAENSTART_UMRK-NAVNE" format="Alpha" length="1" position="159" description="Name start date uncertainty marker"/>
+      <Attribute name="AddressingName" danishName="ADRNVN" format="Alpha" length="34" position="160" description="AddressingName"/>
+    </Object>
 
-  <Object name="BirthRegistrationInformation" danishName="P12170-009" length="37" description="Birth Registration Information">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="BirthRegistrationAuthorityCode" danishName="START_MYNKOD-FØDESTED" format="Numeric" length="4" position="14" description="Birth registration authority code"/>
-    <Attribute name="AdditionalBirthRegistrationText" danishName="MYNTXT-FØDESTED" format="Alpha" length="20" position="18" description="Additional birth registration text"/>
-  </Object>
+    <Object name="BirthRegistrationInformation" danishName="P12170-009" length="37" description="Birth Registration Information">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="BirthRegistrationAuthorityCode" danishName="START_MYNKOD-FØDESTED" format="Numeric" length="4" position="14" description="Birth registration authority code"/>
+      <Attribute name="AdditionalBirthRegistrationText" danishName="MYNTXT-FØDESTED" format="Alpha" length="20" position="18" description="Additional birth registration text"/>
+    </Object>
 
-  <Object name="CurrentCitizenship" danishName="P12170-010" length="30" description="Current citizenship">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="CountryCode" danishName="LANDEKOD" format="Numeric" length="4" position="14" description="Country code"/>
-    <Attribute name="CitizenshipStartDate" danishName="HAENSTART-STATSBORGERSKAB" format="Numeric" length="12" position="18" description="Citizenship start date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="CitizenshipStartDateUncertainty" danishName="HAENSTART_UMRK-STATSBORGERSKAB" format="Alpha" length="1" position="30" description="Citizenship start date uncertainty marker"/>
-  </Object>
+    <Object name="CurrentCitizenship" danishName="P12170-010" length="30" description="Current citizenship">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="CountryCode" danishName="LANDEKOD" format="Numeric" length="4" position="14" description="Country code"/>
+      <Attribute name="CitizenshipStartDate" danishName="HAENSTART-STATSBORGERSKAB" format="Numeric" length="12" position="18" description="Citizenship start date YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="CitizenshipStartDateUncertainty" danishName="HAENSTART_UMRK-STATSBORGERSKAB" format="Alpha" length="1" position="30" description="Citizenship start date uncertainty marker"/>
+    </Object>
 
-  <Object name="ChurchInformation" danishName="P12170-011" length="25" description="Church information">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="ChurchRelationship" danishName="FKIRK" format="Alpha" length="1" position="14" description="church Relationship"/>
-    <Attribute name="StartDate" danishName="START_DT-FOLKEKIRKE" format="Alpha" length="10" position="15" description="Start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="StartDateUncertainty" danishName="START_DT_UMRK-FOLKEKIRKE" format="Alpha" length="1" position="25" description="Start date uncertainty marker"/>
-  </Object>
+    <Object name="ChurchInformation" danishName="P12170-011" length="25" description="Church information">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="ChurchRelationship" danishName="FKIRK" format="Alpha" length="1" position="14" description="church Relationship"/>
+      <Attribute name="StartDate" danishName="START_DT-FOLKEKIRKE" format="Alpha" length="10" position="15" description="Start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="StartDateUncertainty" danishName="START_DT_UMRK-FOLKEKIRKE" format="Alpha" length="1" position="25" description="Start date uncertainty marker"/>
+    </Object>
 
-  <Object name="CurrentCivilStatus" danishName="P12170-012" length="95" description="Current civil status">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="CivilStatus" danishName="CIVST" format="Alpha" length="1" position="14" description="Civil status"/>
-    <Attribute name="SpousePNR" danishName="AEGTEPNR" format="Alpha" length="10" position="15" description="Spouse PNR"/>
-    <Attribute name="SpouseBirthDate" danishName="AEGTEFOED_DT" format="Alpha" length="10" position="25" description="Spouse birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="SpouseBirthDateUncertainty" danishName="AEGTEFOEDDT_UMRK" format="Alpha" length="1" position="35" description="Spouse birth date uncertainty"/>
-    <Attribute name="SpouseName" danishName="AEGTENVN" format="Alpha" length="34" position="36" description="Spouse name"/>
-    <Attribute name="SpouseNameMarker" danishName="AEGTENVN_MRK" format="Alpha" length="1" position="70" description="Spouse name marker"/>
-    <Attribute name="CivilStatusStartDate" danishName="HAENSTART-CIVILSTAND" format="Numeric" length="12" position="71" description="Civil status start date" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="CivilStatusStartDateUncertainty" danishName="HAENSTART_UMRK-CIVILSTAND" format="Alpha" length="1" position="83" description="Civil status start date uncertainty marker"/>
-    <Attribute name="ReferenceToAnySeparation" danishName="SEP_HENVIS-CIVILSTAND" format="Alpha" length="12" position="84" description="Reference to any. separation YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-  </Object>
+    <Object name="CurrentCivilStatus" danishName="P12170-012" length="95" description="Current civil status">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="CivilStatus" danishName="CIVST" format="Alpha" length="1" position="14" description="Civil status"/>
+      <Attribute name="SpousePNR" danishName="AEGTEPNR" format="Alpha" length="10" position="15" description="Spouse PNR"/>
+      <Attribute name="SpouseBirthDate" danishName="AEGTEFOED_DT" format="Alpha" length="10" position="25" description="Spouse birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="SpouseBirthDateUncertainty" danishName="AEGTEFOEDDT_UMRK" format="Alpha" length="1" position="35" description="Spouse birth date uncertainty"/>
+      <Attribute name="SpouseName" danishName="AEGTENVN" format="Alpha" length="34" position="36" description="Spouse name"/>
+      <Attribute name="SpouseNameMarker" danishName="AEGTENVN_MRK" format="Alpha" length="1" position="70" description="Spouse name marker"/>
+      <Attribute name="CivilStatusStartDate" danishName="HAENSTART-CIVILSTAND" format="Numeric" length="12" position="71" description="Civil status start date" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="CivilStatusStartDateUncertainty" danishName="HAENSTART_UMRK-CIVILSTAND" format="Alpha" length="1" position="83" description="Civil status start date uncertainty marker"/>
+      <Attribute name="ReferenceToAnySeparation" danishName="SEP_HENVIS-CIVILSTAND" format="Alpha" length="12" position="84" description="Reference to any. separation YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+    </Object>
 
-  <Object name="CurrentSeparation" danishName="P12170-013" length="36" description="Current separation">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="ReferenceToAnyMaritalStatus" danishName="SEP_HENVIS-SEPARATION" format="Alpha" length="12" position="14" description="Reference to any. marital status YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
-    <Attribute name="SeparationStartDate" danishName="START_DT-SEPARATION" format="Alpha" length="10" position="26" description="Separation start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="SeparationStartDateUncertainty" danishName="START_DT_UMRK-SEPARATION" format="Alpha" length="1" position="36" description="Separation start date uncertainty marker"/>
-  </Object>
+    <Object name="CurrentSeparation" danishName="P12170-013" length="36" description="Current separation">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="ReferenceToAnyMaritalStatus" danishName="SEP_HENVIS-SEPARATION" format="Alpha" length="12" position="14" description="Reference to any. marital status YYYYMMDDTTMM" dateFormat="YYYYMMDDHHmm"/>
+      <Attribute name="SeparationStartDate" danishName="START_DT-SEPARATION" format="Alpha" length="10" position="26" description="Separation start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="SeparationStartDateUncertainty" danishName="START_DT_UMRK-SEPARATION" format="Alpha" length="1" position="36" description="Separation start date uncertainty marker"/>
+    </Object>
 
-  <Object name="Child" danishName="P12170-014" length="23" description="Child">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="ChildPNR" danishName="PNR" format="Alpha" length="10" position="14" description="Child PNR"/>
-  </Object>
+    <Object name="Child" danishName="P12170-014" length="23" description="Child" multiple="true">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="ChildPNR" danishName="PNR" format="Alpha" length="10" position="14" description="Child PNR"/>
+    </Object>
 
-  <Object name="ParentsInformation" danishName="P12170-015" length="147" description="Mother and father information">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="MotherDate" danishName="MOR_DT" format="Alpha" length="10" position="14" description="Mother date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="MotherDateUncertaintyMarker" danishName="MOR_DT_UMRK" format="Alpha" length="1" position="24" description="Mother date uncertainty marker"/>
-    <Attribute name="MotherPNR" danishName="PNRMOR" format="Alpha" length="10" position="25" description="Mother PNR"/>
-    <Attribute name="MotherBirthDate" danishName="MOR_FOED_DT" format="Alpha" length="10" position="35" description="Mother birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="MotherBirthDateUncertainty" danishName="MOR_FOED_DT_UMRK" format="Alpha" length="1" position="45" description="Mother birth date uncertainty marker"/>
-    <Attribute name="MotherName" danishName="MORNVN" format="Alpha" length="34" position="46" description="Mother name"/>
-    <Attribute name="MotherNameUncertainty" danishName="MORNVN_MRK" format="Alpha" length="1" position="80" description="Mother name marker"/>
-    <Attribute name="FatherDate" danishName="FAR_DT" format="Alpha" length="10" position="81" description="Father date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="FatherDateUncertainty" danishName="FAR_DT_UMRK" format="Alpha" length="1" position="91" description="Father date uncertainty marker"/>
-    <Attribute name="FatherPNR" danishName="PNRFAR" format="Alpha" length="10" position="92" description="Father PNR"/>
-    <Attribute name="FatherBirthDate" danishName="FAR_FOED_DT" format="Alpha" length="10" position="102" description="Father birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="FatherBirthDateUncertainty" danishName="FAR_FOED_DT_UMRK" format="Alpha" length="1" position="112" description="Father birth date uncertainty marker"/>
-    <Attribute name="FatherName" danishName="FARNVN" format="Alpha" length="34" position="113" description="Father name"/>
-    <Attribute name="FatherNameUncertainty" danishName="FARNVN_MRK" format="Alpha" length="1" position="147" description="Father name marker"/>
-  </Object>
+    <Object name="ParentsInformation" danishName="P12170-015" length="147" description="Mother and father information">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="MotherDate" danishName="MOR_DT" format="Alpha" length="10" position="14" description="Mother date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="MotherDateUncertaintyMarker" danishName="MOR_DT_UMRK" format="Alpha" length="1" position="24" description="Mother date uncertainty marker"/>
+      <Attribute name="MotherPNR" danishName="PNRMOR" format="Alpha" length="10" position="25" description="Mother PNR"/>
+      <Attribute name="MotherBirthDate" danishName="MOR_FOED_DT" format="Alpha" length="10" position="35" description="Mother birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="MotherBirthDateUncertainty" danishName="MOR_FOED_DT_UMRK" format="Alpha" length="1" position="45" description="Mother birth date uncertainty marker"/>
+      <Attribute name="MotherName" danishName="MORNVN" format="Alpha" length="34" position="46" description="Mother name"/>
+      <Attribute name="MotherNameUncertainty" danishName="MORNVN_MRK" format="Alpha" length="1" position="80" description="Mother name marker"/>
+      <Attribute name="FatherDate" danishName="FAR_DT" format="Alpha" length="10" position="81" description="Father date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="FatherDateUncertainty" danishName="FAR_DT_UMRK" format="Alpha" length="1" position="91" description="Father date uncertainty marker"/>
+      <Attribute name="FatherPNR" danishName="PNRFAR" format="Alpha" length="10" position="92" description="Father PNR"/>
+      <Attribute name="FatherBirthDate" danishName="FAR_FOED_DT" format="Alpha" length="10" position="102" description="Father birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="FatherBirthDateUncertainty" danishName="FAR_FOED_DT_UMRK" format="Alpha" length="1" position="112" description="Father birth date uncertainty marker"/>
+      <Attribute name="FatherName" danishName="FARNVN" format="Alpha" length="34" position="113" description="Father name"/>
+      <Attribute name="FatherNameUncertainty" danishName="FARNVN_MRK" format="Alpha" length="1" position="147" description="Father name marker"/>
+    </Object>
 
-  <Object name="ParentalAuthority" danishName="P12170-016" length="58" description="Parental authority">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="RelationshipType" danishName="RELTYP-FORÆLDREMYN" format="Numeric" length="4" position="14" description="Relationship type"/>
-    <Attribute name="CustodyStartDate" danishName="START_DT-FORÆLDREMYN" format="Alpha" length="10" position="18" description="Custody start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="CustodyStartDateUncertainty" danishName="START_DT_UMRK-FORÆLDREMYN" format="Alpha" length="1" position="28" description="Custody start date uncertainty marker"/>
-    <Attribute name="CustodyEndDate" danishName="SLET_DT-FORÆLDREMYN" format="Alpha" length="10" position="29" description="Custody end date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="RelationPNR" danishName="RELPNR" format="Alpha" length="10" position="39" description="Relation PNR"/>
-    <Attribute name="RelationPNRStartDate" danishName="START_DT-RELPNR_PNR" format="Alpha" length="10" position="49" description="Relation PNR start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-  </Object>
+    <Object name="ParentalAuthority" danishName="P12170-016" length="58" description="Parental authority">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="RelationshipType" danishName="RELTYP-FORÆLDREMYN" format="Numeric" length="4" position="14" description="Relationship type"/>
+      <Attribute name="CustodyStartDate" danishName="START_DT-FORÆLDREMYN" format="Alpha" length="10" position="18" description="Custody start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="CustodyStartDateUncertainty" danishName="START_DT_UMRK-FORÆLDREMYN" format="Alpha" length="1" position="28" description="Custody start date uncertainty marker"/>
+      <Attribute name="CustodyEndDate" danishName="SLET_DT-FORÆLDREMYN" format="Alpha" length="10" position="29" description="Custody end date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="RelationPNR" danishName="RELPNR" format="Alpha" length="10" position="39" description="Relation PNR"/>
+      <Attribute name="RelationPNRStartDate" danishName="START_DT-RELPNR_PNR" format="Alpha" length="10" position="49" description="Relation PNR start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+    </Object>
 
-  <Object name="Disempowerment" danishName="P12170-017" length="272" description="Disempowerment + guardian">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="DisempowermentStartDate" danishName="START_DT-UMYNDIG" format="Alpha" length="10" position="14" description="Disempowerment start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="DisempowermentStartDateUncertainty" danishName="PNR" format="Alpha" length="1" position="24" description="Disempowerment start date uncertainty marker"/>
-    <Attribute name="DisempowermentEndDate" danishName="SLET_DT-UMYNDIG" format="Alpha" length="10" position="25" description="Disempowerment end date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="GuardianRelationType" danishName="UMYN_RELTYP" format="Numeric" length="4" position="35" description="Guardian relation type"/>
-    <Attribute name="RelationPNR" danishName="RELPNR" format="Alpha" length="10" position="39" description="Relation PNR"/>
-    <Attribute name="RelationPNRStartDate" danishName="START_DT-RELPNR_PNR" format="Alpha" length="10" position="49" description="Relation PNR start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="GuardianName" danishName="RELADRSAT_RELPNR_TXT" format="Alpha" length="34" position="59" description="Guardian's name"/>
-    <Attribute name="GuardianAddressStartDate" danishName="START_DT-RELPNR_TXT" format="Alpha" length="10" position="93" description="Guardian's address start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="RelationText1" danishName="RELTXT1" format="Alpha" length="34" position="103" description="Relation text 1"/>
-    <Attribute name="RelationText2" danishName="RELTXT2" format="Alpha" length="34" position="137" description="Relation text 2"/>
-    <Attribute name="RelationText3" danishName="RELTXT3" format="Alpha" length="34" position="171" description="Relation text 3"/>
-    <Attribute name="RelationText4" danishName="RELTXT4" format="Alpha" length="34" position="205" description="Relation text 4"/>
-    <Attribute name="RelationText5" danishName="RELTXT5" format="Alpha" length="34" position="239" description="Relation text 5"/>
-  </Object>
+    <Object name="Disempowerment" danishName="P12170-017" length="272" description="Disempowerment + guardian">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="DisempowermentStartDate" danishName="START_DT-UMYNDIG" format="Alpha" length="10" position="14" description="Disempowerment start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="DisempowermentStartDateUncertainty" danishName="PNR" format="Alpha" length="1" position="24" description="Disempowerment start date uncertainty marker"/>
+      <Attribute name="DisempowermentEndDate" danishName="SLET_DT-UMYNDIG" format="Alpha" length="10" position="25" description="Disempowerment end date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="GuardianRelationType" danishName="UMYN_RELTYP" format="Numeric" length="4" position="35" description="Guardian relation type"/>
+      <Attribute name="RelationPNR" danishName="RELPNR" format="Alpha" length="10" position="39" description="Relation PNR"/>
+      <Attribute name="RelationPNRStartDate" danishName="START_DT-RELPNR_PNR" format="Alpha" length="10" position="49" description="Relation PNR start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="GuardianName" danishName="RELADRSAT_RELPNR_TXT" format="Alpha" length="34" position="59" description="Guardian's name"/>
+      <Attribute name="GuardianAddressStartDate" danishName="START_DT-RELPNR_TXT" format="Alpha" length="10" position="93" description="Guardian's address start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="RelationText1" danishName="RELTXT1" format="Alpha" length="34" position="103" description="Relation text 1"/>
+      <Attribute name="RelationText2" danishName="RELTXT2" format="Alpha" length="34" position="137" description="Relation text 2"/>
+      <Attribute name="RelationText3" danishName="RELTXT3" format="Alpha" length="34" position="171" description="Relation text 3"/>
+      <Attribute name="RelationText4" danishName="RELTXT4" format="Alpha" length="34" position="205" description="Relation text 4"/>
+      <Attribute name="RelationText5" danishName="RELTXT5" format="Alpha" length="34" position="239" description="Relation text 5"/>
+    </Object>
 
-  <Object name="MunicipalConditions" danishName="P12170-018" length="60" description="Municipal conditions">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-    <Attribute name="MunicipalConditionType" danishName="KOMFORHTYP" format="Numeric" length="1" position="14" description="Municipal condition type"/>
-    <Attribute name="MunicipalConditionCode" danishName="KOMFORHKOD" format="Alpha" length="5" position="15" description="Municipal condition code"/>
-    <Attribute name="MunicipalConditionStartDate" danishName="START_DT-KOMMUNALE-FORHOLD" format="Alpha" length="10" position="20" description="Municipal condition start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-    <Attribute name="MunicipalConditionStartDateUncertaintyMarker" danishName="START_DT_UMRK-KOMMUNALE-FORHOL" format="Alpha" length="1" position="30" description="Start date uncertainty marker"/>
-    <Attribute name="MunicipalConditionComment" danishName="BEMAERK-KOMMUNALE-FORHOLD" format="Alpha" length="30" position="31" description="Municipal condition comment"/>
-  </Object>
+    <Object name="MunicipalConditions" danishName="P12170-018" length="60" description="Municipal conditions">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="MunicipalConditionType" danishName="KOMFORHTYP" format="Numeric" length="1" position="14" description="Municipal condition type"/>
+      <Attribute name="MunicipalConditionCode" danishName="KOMFORHKOD" format="Alpha" length="5" position="15" description="Municipal condition code"/>
+      <Attribute name="MunicipalConditionStartDate" danishName="START_DT-KOMMUNALE-FORHOLD" format="Alpha" length="10" position="20" description="Municipal condition start date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="MunicipalConditionStartDateUncertaintyMarker" danishName="START_DT_UMRK-KOMMUNALE-FORHOL" format="Alpha" length="1" position="30" description="Start date uncertainty marker"/>
+      <Attribute name="MunicipalConditionComment" danishName="BEMAERK-KOMMUNALE-FORHOLD" format="Alpha" length="30" position="31" description="Municipal condition comment"/>
+    </Object>
 
-  <Object name="EndRecord" danishName="P12170-999" length="21" description="End record">
-    <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
-    <Attribute name="BlackBox10" danishName="TAELLER" format="Alpha" length="10" position="4" description="BLACK BOX 10"/>    
-    <Attribute name="Counter" danishName="TAELLER" format="Alpha" length="8" position="14" description="Counter"/>
+    <Object name="EndRecord" danishName="P12170-999" length="21" description="End record">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="BlackBox10" danishName="TAELLER" format="Alpha" length="10" position="4" description="BLACK BOX 10"/>
+      <Attribute name="Counter" danishName="TAELLER" format="Alpha" length="8" position="14" description="Counter"/>
+    </Object>
+    
   </Object>
 </Layer>

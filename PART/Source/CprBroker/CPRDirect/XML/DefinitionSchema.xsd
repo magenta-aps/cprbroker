@@ -44,7 +44,7 @@
   <xs:complexType name="ChildObjectType">
     <xs:complexContent>
       <xs:extension base="ObjectElementType">
-        <xs:attribute name="position" type="xs:int" use="required"/>
+        <xs:attribute name="multiple" type="xs:boolean" use="optional" default="false" />
       </xs:extension>
     </xs:complexContent>
     
