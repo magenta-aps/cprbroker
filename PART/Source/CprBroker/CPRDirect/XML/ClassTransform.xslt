@@ -21,22 +21,22 @@ ___________Attribute template _____________________________
 -->
   <xsl:template match="d:Attribute">
     <xsl:if test="@description != '' or @danishName!=''">
-      ///  &lt;summary&gt;<xsl:if test="@danishName != ''">
+        ///  &lt;summary&gt;<xsl:if test="@danishName != ''">
         <xsl:text>&#xa;</xsl:text>        /// Danish: <xsl:value-of select="@danishName"/>
       </xsl:if>
       <xsl:if test="@description != ''">
         <xsl:text>&#xa;</xsl:text>        /// <xsl:value-of select="@description"/>
       </xsl:if>
-      ///  &lt;/summary&gt;
+        ///  &lt;/summary&gt;
     </xsl:if>
-    <xsl:text>  public </xsl:text><xsl:choose>
+    <xsl:text>    public </xsl:text><xsl:choose>
       <xsl:when test="@format = 'Alpha'">string</xsl:when>
       <xsl:otherwise>decimal</xsl:otherwise>
     </xsl:choose>
     <xsl:text> </xsl:text>
     <xsl:value-of select="@name"/>
-    {
-    get { <xsl:choose>
+        {
+            get { <xsl:choose>
       <xsl:when test="@format = 'Alpha'">
         <xsl:text>return this[</xsl:text>
         <xsl:value-of select="@position"/>
@@ -48,25 +48,28 @@ ___________Attribute template _____________________________
         <xsl:text>return decimal.Parse(this[</xsl:text><xsl:value-of select="@position"/>,<xsl:value-of select="@length"/><xsl:text>]); }</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
-    }
+        }
   </xsl:template>
 
   <xsl:template match="//d:Object">
     class <xsl:value-of select="@name"/>Type: Wrapper
     {
-    public override int Length
-    {
-    get { return <xsl:value-of select="sum(d:Attribute/@length)"/>; }
-    }
-
-    #region Sub objects
+        #region Common
+        public override int Length
+        {
+            get { return <xsl:value-of select="sum(d:Attribute/@length)"/>; }
+        }
+        #endregion
+        
+        #region Properties
     <xsl:apply-templates select="d:Attribute" />
-    #endregion
-
-    #region Sub objects
-    
+        #endregion
+<xsl:if test="d:Object">
+        #region Sub objects
+        
+</xsl:if>
 <xsl:for-each select="d:Object">
-  <xsl:text>    public </xsl:text>
+  <xsl:text>        public </xsl:text>
   <xsl:if test="@multiple = 'true'">List&lt;</xsl:if>
   <xsl:value-of select="@name"/>Type<xsl:if test="@multiple = 'true'">&gt;</xsl:if>
   <xsl:text> </xsl:text>
@@ -84,7 +87,9 @@ ___________Attribute template _____________________________
   </xsl:choose>
   <xsl:text>;&#10;&#10;</xsl:text>
 </xsl:for-each>
-    #endregion
+<xsl:if test="d:Object">
+        #endregion
+</xsl:if>
     }
 
   </xsl:template>
