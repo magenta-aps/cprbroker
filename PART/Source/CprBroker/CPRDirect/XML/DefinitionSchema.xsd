@@ -29,7 +29,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
+
   <xs:complexType name="ObjectElementType">
     <xs:complexContent>
       <xs:extension base="BaseElementType">
@@ -41,16 +41,23 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:simpleType  name="minMaxOccurs">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="25"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:complexType name="ChildObjectType">
     <xs:complexContent>
       <xs:extension base="ObjectElementType">
-        <xs:attribute name="multiple" type="xs:boolean" use="optional" default="false" />
+        <xs:attribute name="minOccurs" type="minMaxOccurs" use="optional" default="1"/>
+        <xs:attribute name="maxOccurs" type="minMaxOccurs" use="optional" default="1" />        
       </xs:extension>
     </xs:complexContent>
-    
   </xs:complexType>
 
-  
+
   <xs:element type="ObjectElementType" name="Object"></xs:element>
   <xs:element name="Layer">
     <xs:complexType>

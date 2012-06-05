@@ -70,13 +70,13 @@ ___________Attribute template _____________________________
 </xsl:if>
 <xsl:for-each select="d:Object">
   <xsl:text>        public </xsl:text>
-  <xsl:if test="@multiple = 'true'">List&lt;</xsl:if>
-  <xsl:value-of select="@name"/>Type<xsl:if test="@multiple = 'true'">&gt;</xsl:if>
+  <xsl:if test="@maxOccurs > 1">List&lt;</xsl:if>
+  <xsl:value-of select="@name"/>Type<xsl:if test="@maxOccurs > 1">&gt;</xsl:if>
   <xsl:text> </xsl:text>
   <xsl:value-of select="@name"/>
   <xsl:text> = </xsl:text>
   <xsl:choose>
-    <xsl:when test="@multiple = 'true'">
+    <xsl:when test="@maxOccurs > 1">
       <xsl:text>new List&lt;</xsl:text>
       <xsl:value-of select="@name"/>
       <xsl:text>Type&gt;()</xsl:text>
