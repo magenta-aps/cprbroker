@@ -64,7 +64,10 @@ namespace CprBroker.Tests.CPRDirect
             {
                 get { return 12; }
             }
+            [MinMaxOccurs(0, 1)]
             public WrapperStub1 WrapperStub1 = null;
+
+            [MinMaxOccurs(0, 1000)]
             public List<WrapperStub2> WrapperStub2 = new List<WrapperStub2>();
         }
 
