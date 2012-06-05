@@ -7,7 +7,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     public static class Constants
     {
-        public static Dictionary<string, Type> ChildMap
+        public static Dictionary<string, Type> DataObjectMap
         {
             get
             {
@@ -35,5 +35,7 @@ namespace CprBroker.Providers.CPRDirect
                 return ret;
             }
         }
+
+        public const int DataObjectCodeLength = 3;
     }
 }

@@ -38,7 +38,7 @@ namespace CprBroker.Providers.CPRDirect
         }
 
 
-        private string Read(TextReader rd, int count)
+        private static string Read(TextReader rd, int count)
         {
             char[] ret = new char[count];
             int read = rd.Read(ret, 0, count);
@@ -49,13 +49,13 @@ namespace CprBroker.Providers.CPRDirect
             return new string(ret);
         }
 
-        public List<Wrapper> Parse(string data, Dictionary<string, Type> typeMap)
+        public static List<Wrapper> Parse(string data, Dictionary<string, Type> typeMap)
         {
             var ret = new List<Wrapper>();
             StringReader rd = new StringReader(data);
             while (rd.Peek() > 0)
             {
-                string typeCode = Read(rd, 3);
+                string typeCode = Read(rd, Constants.DataObjectCodeLength);
                 Type type = typeMap[typeCode];
                 var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
                 var subData = Read(rd, wrapper.Length - typeCode.Length);
@@ -65,10 +65,8 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        public void Fill(string data, Dictionary<string, Type> typeMap)
+        public void FillFrom(IList<Wrapper> wrappers)
         {
-            var all = Parse(data, typeMap);
-
             Type myType = GetType();
             var fields = myType.GetFields();
             foreach (System.Reflection.FieldInfo field in fields)
@@ -81,7 +79,7 @@ namespace CprBroker.Providers.CPRDirect
                         var innerType = args[0];
                         if (typeof(Wrapper).IsAssignableFrom(innerType))
                         {
-                            var arrayVal = all.Where(obj => obj.GetType() == innerType).ToArray();
+                            var arrayVal = wrappers.Where(obj => obj.GetType() == innerType).ToArray();
                             foreach (var singleVal in arrayVal)
                             {
                                 var fieldValue = field.GetValue(this);
@@ -97,10 +95,16 @@ namespace CprBroker.Providers.CPRDirect
                 }
                 else if (typeof(Wrapper).IsAssignableFrom(field.FieldType))
                 {
-                    var val = all.Where(obj => obj.GetType() == field.FieldType).SingleOrDefault();
+                    var val = wrappers.Where(obj => obj.GetType() == field.FieldType).SingleOrDefault();
                     field.SetValue(this, val);
                 }
             }
+        }
+
+        public void FillFrom(string data, Dictionary<string, Type> typeMap)
+        {
+            var all = Parse(data, typeMap);
+            FillFrom(all);
         }
 
     }
