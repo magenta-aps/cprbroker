@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using CprBroker.Providers.CPRDirect;
 using NUnit.Framework;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Threading;
 
 namespace CprBroker.Tests.CPRDirect
 {
     [TestFixture]
     public class WrapperTests
     {
-        class WrapperStub : Wrapper
+        public class WrapperStub : Wrapper
         {
             public int _Length;
             public override int Length
@@ -178,6 +181,72 @@ namespace CprBroker.Tests.CPRDirect
                 Assert.NotNull(par.WrapperStub1);
                 Assert.AreEqual(w2Count, par.WrapperStub2.Count);
                 Assert.AreEqual(w2Count, par.WrapperStub2.Where(w => w is WrapperStub2).Count());
+            }
+
+
+            private Wrapper CreateParentWrapper(int minOccurs, int maxOccurs)
+            {
+                AssemblyBuilder asmBuilder;
+                ModuleBuilder modBuilder;
+                AssemblyName assemblyName = new AssemblyName();
+                assemblyName.Name = "DynamicORMapper";
+                AppDomain thisDomain = Thread.GetDomain();
+                asmBuilder = thisDomain.DefineDynamicAssembly(assemblyName,
+                             AssemblyBuilderAccess.Run);
+
+                modBuilder = asmBuilder.DefineDynamicModule(
+                             asmBuilder.GetName().Name, false);
+
+                TypeBuilder typeBuilder = modBuilder.DefineType("ParentWrapperRuntimeType",
+                    TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.AutoClass | TypeAttributes.AnsiClass | TypeAttributes.BeforeFieldInit | TypeAttributes.AutoLayout,
+                    typeof(WrapperStub),
+                    Type.EmptyTypes
+                    );
+
+                var fieldBuilder = typeBuilder.DefineField("ChildWrapper", typeof(List<WrapperStub1>), FieldAttributes.Public);
+
+                var attrCon = typeof(MinMaxOccurs).GetConstructor(new Type[] { typeof(int), typeof(int) });
+                var attr = new CustomAttributeBuilder(attrCon, new object[] { minOccurs, maxOccurs });
+                fieldBuilder.SetCustomAttribute(attr);
+
+                var parentWrapperType = typeBuilder.CreateType();
+                var parentWrapper = parentWrapperType.GetConstructor(Type.EmptyTypes).Invoke(new object[0]);
+                parentWrapperType.InvokeMember("ChildWrapper", BindingFlags.SetField | BindingFlags.Public | BindingFlags.Instance, null, parentWrapper, new object[] { new List<WrapperStub1>() });
+                return parentWrapper as Wrapper;
+            }
+
+
+            private List<Wrapper> CreateWrapperArray(Type t, int count)
+            {
+                var ret = new List<Wrapper>();
+                for (int i = 0; i < count; i++)
+                {
+                    ret.Add(t.GetConstructor(Type.EmptyTypes).Invoke(new object[0]) as Wrapper);
+                }
+                return ret;
+            }
+
+
+            [Test]
+            [ExpectedException(typeof(ArgumentOutOfRangeException))]
+            public void Fillfrom_LessThanMinOccurs_Exception(
+                [Random(1, 100, 5)] int minOccurs,
+                [Random(0, 100, 5)] int maxOccursDiff)
+            {
+                var parentWrapper = CreateParentWrapper(minOccurs, minOccurs + maxOccursDiff);
+                var childWrappers = CreateWrapperArray(typeof(WrapperStub1), minOccurs - 1);
+                parentWrapper.FillFrom(childWrappers);
+            }
+
+            [Test]
+            [ExpectedException(typeof(ArgumentOutOfRangeException))]
+            public void Fillfrom_GreaterThanMaxOccurs_Exception(
+                [Random(1, 100, 5)] int minOccurs,
+                [Random(0, 100, 5)] int maxOccursDiff)
+            {
+                var parentWrapper = CreateParentWrapper(minOccurs, minOccurs + maxOccursDiff);
+                var childWrappers = CreateWrapperArray(typeof(WrapperStub1), minOccurs + maxOccursDiff + 1);
+                parentWrapper.FillFrom(childWrappers);
             }
         }
     }
