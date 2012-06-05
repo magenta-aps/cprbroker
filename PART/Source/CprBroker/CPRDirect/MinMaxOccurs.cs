@@ -13,6 +13,10 @@ namespace CprBroker.Providers.CPRDirect
         { }
         public MinMaxOccurs(int min, int max)
         {
+            if (min > max)
+            {
+                throw new ArgumentException(string.Format("Parameter min <{0}> must be less than or equal to max <{1}>"));
+            }
             MinOccurs = min;
             MaxOccurs = max;
         }
