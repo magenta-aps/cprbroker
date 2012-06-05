@@ -69,6 +69,19 @@ ___________Attribute template _____________________________
         
 </xsl:if>
 <xsl:for-each select="d:Object">
+  <xsl:text>        [MinMaxOccurs(MinOccurs = </xsl:text>
+  <xsl:choose>
+    <xsl:when test="@minOccurs">
+      <xsl:value-of select="@minOccurs"/>
+    </xsl:when>
+    <xsl:otherwise>1</xsl:otherwise>
+  </xsl:choose>
+  <xsl:text>, MaxOccurs = </xsl:text>
+  <xsl:choose>
+    <xsl:when test="@maxOccurs"><xsl:value-of select="@maxOccurs"/></xsl:when>
+    <xsl:otherwise>1</xsl:otherwise>
+  </xsl:choose>
+  <xsl:text>)]&#10;</xsl:text>
   <xsl:text>        public </xsl:text>
   <xsl:if test="@maxOccurs > 1">List&lt;</xsl:if>
   <xsl:value-of select="@name"/>Type<xsl:if test="@maxOccurs > 1">&gt;</xsl:if>
