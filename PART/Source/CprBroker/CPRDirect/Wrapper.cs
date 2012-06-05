@@ -37,6 +37,16 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public decimal GetDecimal(int pos, int length)
+        {
+            return decimal.Parse(this[pos, length]);
+        }
+
+        public DateTime GetDateTime(int pos, int length, string format)
+        {
+            return DateTime.ParseExact(this[pos, length], format, null);
+        }
+
 
         private static string Read(TextReader rd, int count)
         {

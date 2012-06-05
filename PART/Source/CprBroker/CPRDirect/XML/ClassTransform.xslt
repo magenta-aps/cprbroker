@@ -29,28 +29,50 @@ ___________Attribute template _____________________________
       </xsl:if>
         ///  &lt;/summary&gt;
     </xsl:if>
-    <xsl:text>    public </xsl:text><xsl:choose>
-      <xsl:when test="@format = 'Alpha'">string</xsl:when>
-      <xsl:otherwise>decimal</xsl:otherwise>
+    <xsl:text>    public </xsl:text>
+    <xsl:choose>
+      <xsl:when test="@dateFormat != ''">
+        <xsl:text>DateTime</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="@format = 'Alpha'">
+            <xsl:text>string</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>decimal</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
     </xsl:choose>
     <xsl:text> </xsl:text>
     <xsl:value-of select="@name"/>
         {
             get { <xsl:choose>
-      <xsl:when test="@format = 'Alpha'">
-        <xsl:text>return this[</xsl:text>
-        <xsl:value-of select="@position"/>
-        <xsl:text>,</xsl:text>
-        <xsl:value-of select="@length"/>
-        <xsl:text>]; }</xsl:text>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:text>return decimal.Parse(this[</xsl:text><xsl:value-of select="@position"/>,<xsl:value-of select="@length"/><xsl:text>]); }</xsl:text>
-      </xsl:otherwise>
+              <xsl:when test="@dateFormat != ''">
+                <xsl:text>return this.GetDateTime(</xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:choose>
+                  <xsl:when test="@format = 'Alpha'">
+                    <xsl:text>return this[</xsl:text>
+                    <xsl:value-of select="@position"/>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="@length"/>
+                    <xsl:text>]; }</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>return this.GetDecimal(</xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:otherwise>
     </xsl:choose>
         }
   </xsl:template>
-
+  
+  <!-- 
+_____________________________ Object template _____________________________
+-->
   <xsl:template match="//d:Object">
     class <xsl:value-of select="@name"/>Type: Wrapper
     {
