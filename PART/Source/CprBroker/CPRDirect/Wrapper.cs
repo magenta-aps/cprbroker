@@ -71,6 +71,11 @@ namespace CprBroker.Providers.CPRDirect
             var fields = myType.GetFields();
             foreach (System.Reflection.FieldInfo field in fields)
             {
+                var minMaxAttr = field.GetCustomAttributes(typeof(MinMaxOccurs), true).SingleOrDefault() as MinMaxOccurs;
+                if (minMaxAttr == null)
+                {
+                    minMaxAttr = new MinMaxOccurs() { MinOccurs = 1, MaxOccurs = 1 };
+                }
                 if (typeof(System.Collections.IList).IsAssignableFrom(field.FieldType) && field.FieldType.GetGenericTypeDefinition() == typeof(List<>))
                 {
                     var args = field.FieldType.GetGenericArguments();
@@ -90,13 +95,16 @@ namespace CprBroker.Providers.CPRDirect
                                     fieldValue,
                                     new object[] { singleVal });
                             }
+                            minMaxAttr.ValidateList(arrayVal);
                         }
+
                     }
                 }
                 else if (typeof(Wrapper).IsAssignableFrom(field.FieldType))
                 {
                     var val = wrappers.Where(obj => obj.GetType() == field.FieldType).SingleOrDefault();
                     field.SetValue(this, val);
+                    minMaxAttr.ValidateSingleObject(val);
                 }
             }
         }
