@@ -15,7 +15,7 @@ namespace CprBroker.Providers.CPRDirect
             set
             {
                 int len = string.Format("{0}", value).Length;
-                if (len != Length)
+                if (len > 0 && len != Length)
                 {
                     throw new ArgumentOutOfRangeException(
                         "Contents",

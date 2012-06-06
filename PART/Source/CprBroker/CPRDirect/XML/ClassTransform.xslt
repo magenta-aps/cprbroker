@@ -79,7 +79,7 @@ _____________________________ Object template _____________________________
         #region Common
         public override int Length
         {
-            get { return <xsl:value-of select="sum(d:Attribute/@length)"/>; }
+            get { return <xsl:value-of select="sum(@length)"/>; }
         }
         #endregion
         
