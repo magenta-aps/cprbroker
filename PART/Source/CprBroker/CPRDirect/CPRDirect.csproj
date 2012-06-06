@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters.cs" />
+    <Compile Include="CPRDirectDataProvider.Tcp.cs" />
     <Compile Include="CPRDirectDataProvider.cs" />
     <Compile Include="MinMaxOccurs.cs" />
     <Compile Include="Wrapper.cs" />

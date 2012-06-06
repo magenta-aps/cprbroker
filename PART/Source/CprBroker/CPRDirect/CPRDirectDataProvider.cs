@@ -9,7 +9,7 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public class CPRDirectDataProvider : IPartReadDataProvider, IExternalDataProvider
+    public partial class CPRDirectDataProvider : IPartReadDataProvider, IExternalDataProvider
     {
         #region IPartReadDataProvider members
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)

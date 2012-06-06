@@ -67,8 +67,27 @@ ___________Attribute template _____________________________
                 </xsl:choose>
               </xsl:otherwise>
     </xsl:choose>
-        }
-  </xsl:template>
+
+            set { <xsl:choose>
+              <xsl:when test="@dateFormat != ''">
+                <xsl:text>this.SetDateTime(value, </xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/>, "<xsl:value-of select="@dateFormat"/><xsl:text>"); }</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:choose>
+                  <xsl:when test="@format = 'Alpha'">
+                    <xsl:text>this[</xsl:text>
+                    <xsl:value-of select="@position"/>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="@length"/>                    
+                    <xsl:text>] = value; }</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>this.SetDecimal(value, </xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:otherwise>
+    </xsl:choose>
+        }  </xsl:template>
   
   <!-- 
 _____________________________ Object template _____________________________
