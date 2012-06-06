@@ -10,7 +10,18 @@ namespace CprBroker.Providers.CPRDirect
     {
         public RegistreringType1 ToRegistreringType1()
         {
-            return null;
+            return new RegistreringType1()
+            {
+                AktoerRef = ToAktoerRefType(),
+                AttributListe = ToAttributListeType(),
+                CommentText = ToCommentText(),
+                LivscyklusKode = ToLivscyklusKodeType(),
+                RelationListe = ToRelationListeType(),
+                SourceObject = ToSourceObject(),
+                Tidspunkt = ToTidspunktType(),
+                TilstandListe = ToTilstandListeType(),
+                Virkning = ToVirkningType()
+            };
         }
     }
 }
