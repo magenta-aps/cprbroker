@@ -93,7 +93,7 @@ ___________Attribute template _____________________________
 _____________________________ Object template _____________________________
 -->
   <xsl:template match="//d:Object">
-    class <xsl:value-of select="@name"/>Type: Wrapper
+    public partial class <xsl:value-of select="@name"/>Type: Wrapper
     {
         #region Common
         public override int Length

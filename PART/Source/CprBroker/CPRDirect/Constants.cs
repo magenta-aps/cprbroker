@@ -7,6 +7,32 @@ namespace CprBroker.Providers.CPRDirect
 {
     public static class Constants
     {
+        static Constants()
+        {
+            _ErrorCodes = new Dictionary<string, string>();
+            _ErrorCodes["01"] = "Incorrect user ID / remote server)";
+            _ErrorCodes["02"] = "Remote server expired, new remote server required";
+            _ErrorCodes["03"] = "New remote server does not meet the format (8 characters, at least 2 numbers and 2 letters and not previously used)";
+            _ErrorCodes["04"] = "No access to CPR";
+            _ErrorCodes["05"] = "PNR unknown in CPR";
+            _ErrorCodes["06"] = "Unknown Customer Number";
+            _ErrorCodes["07"] = "Timeout - new LOGON required";
+            _ErrorCodes["08"] = "'DEAD-LOCK' while reading the CPR system";
+            _ErrorCodes["09"] = "Serious problem. Meaning: There is no connection between the client and CPR system; contact CSC Service Center by phone 36146192";
+            _ErrorCodes["10"] = "ABON_TYPE unknown";
+            _ErrorCodes["11"] = "DATA_TYPE unknown";
+            _ErrorCodes["12"] = "(reserved error number)";
+            _ErrorCodes["13"] = "(reserved error number)";
+            _ErrorCodes["14"] = "(reserved error number)";
+            _ErrorCodes["15"] = "(reserved error number)";
+            _ErrorCodes["16"] = "IP address is incorrect";
+
+            for (int err = 19; err < 100; err++)
+            {
+                _ErrorCodes[err.ToString()] = "(reserved error number)";
+            }
+        }
+
         public static Dictionary<string, Type> DataObjectMap
         {
             get
@@ -37,5 +63,16 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         public const int DataObjectCodeLength = 3;
+
+        public static Encoding DefaultEncoding
+        {
+            get { return Encoding.UTF7; }
+        }
+
+        private static Dictionary<string, string> _ErrorCodes;
+        public static Dictionary<string, string> ErrorCodes
+        {
+            get { return new Dictionary<string, string>(_ErrorCodes); }
+        }
     }
 }

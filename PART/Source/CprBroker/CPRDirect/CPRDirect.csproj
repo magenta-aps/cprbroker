@@ -53,10 +53,11 @@
     <Compile Include="Converters.cs" />
     <Compile Include="CPRDirectDataProvider.Tcp.cs" />
     <Compile Include="CPRDirectDataProvider.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="IndividualRequest.cs" />
     <Compile Include="MinMaxOccurs.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TcpClient.cs" />
     <Compile Include="XML\Definitions.cs">
       <DependentUpon>Definitions.xml</DependentUpon>
     </Compile>
