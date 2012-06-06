@@ -12,10 +12,8 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class CPRDirectDataProvider
     {
-        public IndividualResponseType GetResponse(bool putSubscription, decimal pnr)
+        public IndividualResponseType GetResponse(IndividualRequestType request)
         {
-            IndividualRequestType request = new IndividualRequestType(putSubscription, pnr);
-
             string response;
             string error;
             if (Send(request.Contents, out response, out error))
