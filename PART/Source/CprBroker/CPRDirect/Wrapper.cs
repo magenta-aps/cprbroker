@@ -46,6 +46,19 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     throw new ArgumentOutOfRangeException("value", string.Format("Should be exactly <{0}> characters", length));
                 }
+                if (this.Length > 0 && pos + length - 1 > this.Length)
+                {
+                    throw new ArgumentOutOfRangeException("pos,length", string.Format("Should sum to less than or equal to <{0}>", Length));
+                }
+                int startIndex = pos - 1;
+                var charArr =
+                    Contents.Take(startIndex)
+                    .Concat(value)
+                    .Concat(
+                        _Contents.Skip(startIndex + length)
+                    )
+                    .ToArray();
+                _Contents = new string(charArr);
             }
         }
 
