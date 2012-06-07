@@ -203,7 +203,7 @@
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="MotherDate" danishName="MOR_DT" format="Alpha" length="10" position="14" description="Mother date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
-      <Attribute name="MotherDateUncertaintyMarker" danishName="MOR_DT_UMRK" format="Alpha" length="1" position="24" description="Mother date uncertainty marker"/>
+      <Attribute name="MotherDateUncertainty" danishName="MOR_DT_UMRK" format="Alpha" length="1" position="24" description="Mother date uncertainty marker"/>
       <Attribute name="MotherPNR" danishName="PNRMOR" format="Alpha" length="10" position="25" description="Mother PNR"/>
       <Attribute name="MotherBirthDate" danishName="MOR_FOED_DT" format="Alpha" length="10" position="35" description="Mother birth date YYYY-MM-DD" dateFormat="YYYY-MM-DD"/>
       <Attribute name="MotherBirthDateUncertainty" danishName="MOR_FOED_DT_UMRK" format="Alpha" length="1" position="45" description="Mother birth date uncertainty marker"/>
