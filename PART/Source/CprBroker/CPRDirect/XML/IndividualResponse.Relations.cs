@@ -13,7 +13,7 @@ namespace CprBroker.Providers.CPRDirect
             return new RelationListeType()
             {
                 Aegtefaelle = ToSpouses(),
-                Boern = ToChildren(),
+                Boern = ToChildren(cpr2uuidFunc),
                 Bopaelssamling = ToBopaelssamling(),
                 ErstatningAf = ToErstatningAf(),
                 ErstatningFor = ToErstatningFor(),
@@ -38,12 +38,12 @@ namespace CprBroker.Providers.CPRDirect
             return this.ParentsInformation.ToMather(cpr2uuidFunc);
         }
 
-        private PersonRelationType[] ToRegisteredPartners()
+        public PersonFlerRelationType[] ToChildren(Func<string, Guid> cpr2uuidFunc)
         {
-            throw new NotImplementedException();
+            return ChildType.ToPersonFlerRelationType(this.Child, cpr2uuidFunc);
         }
 
-        private PersonFlerRelationType[] ToChildren()
+        private PersonRelationType[] ToRegisteredPartners()
         {
             throw new NotImplementedException();
         }
