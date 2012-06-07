@@ -8,7 +8,6 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class CurrentCivilStatusType
     {
-        // TODO: Addd unit tests
         public CivilStatusType ToCivilStatusType(CurrentSeparationType currentSeparation)
         {
             if (currentSeparation != null)
