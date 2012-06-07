@@ -83,7 +83,7 @@
     <Compile Include="E_MDataProvider.Helpers..cs" />
     <Compile Include="E_MDataProvider.cs" />
     <Compile Include="Citizen.Relations.cs" />
-    <Compile Include="LookupMap.cs" />
+    <Compile Include="CivilStatusCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
