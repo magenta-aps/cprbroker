@@ -8,11 +8,6 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
-        private RelationListeType ToRelationListeType()
-        {
-            throw new NotImplementedException();
-        }
-
         private TidspunktType ToTidspunktType()
         {
             throw new NotImplementedException();
