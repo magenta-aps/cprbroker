@@ -281,7 +281,7 @@ namespace CprBroker.Installers
             }
         }
 
-        private bool ValidateEncryptionKey(ref string message)
+        protected virtual bool ValidateEncryptionKey(ref string message)
         {
             if (!EncryptionKeyEnabled)
             {
