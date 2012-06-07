@@ -12,6 +12,7 @@ namespace CprBroker.Tests.CPRDirect
         [TestFixture]
         public class ToCivilStatusType
         {
+            [Test]
             public void ToCivilStatusType_NoSeparation_StatusDate(
                 [Values('D', 'E', 'F', 'G', 'L', 'O', 'P', 'U')]char maritalStatus)
             {
@@ -20,12 +21,13 @@ namespace CprBroker.Tests.CPRDirect
                 Assert.AreEqual(DateTime.Today, ret.TilstandVirkning.FraTidspunkt.ToDateTime());
             }
 
+            [Test]
             public void ToCivilStatusType_WithSeparation_StatusDate(
                 [Values('D', 'E', 'F', 'G', 'L', 'O', 'P', 'U')]char maritalStatus)
             {
                 var status = new CurrentCivilStatusType() { CivilStatusStartDate = DateTime.Today.AddDays(-1), CivilStatusStartDateUncertainty = ' ', CivilStatus = maritalStatus };
                 var sep = new CurrentSeparationType() { SeparationStartDate = DateTime.Today, SeparationStartDateUncertainty = ' ' };
-                var ret = status.ToCivilStatusType(null);
+                var ret = status.ToCivilStatusType(sep);
                 Assert.AreEqual(sep.ToSeparationStartDate(), ret.TilstandVirkning.FraTidspunkt.ToDateTime());
             }
         }
