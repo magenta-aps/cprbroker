@@ -14,8 +14,13 @@ namespace CprBroker.Providers.CPRDirect
             return new CivilStatusType()
             {
                 CivilStatusKode = CivilStatusKodeType.Separeret,
-                TilstandVirkning = TilstandVirkningType.Create(Converters.ToDateTime(this.SeparationStartDate, this.SeparationStartDateUncertainty)),
+                TilstandVirkning = TilstandVirkningType.Create(ToSeparationStartDate()),
             };
+        }
+
+        public DateTime? ToSeparationStartDate()
+        {
+            return Converters.ToDateTime(this.SeparationStartDate, this.SeparationStartDateUncertainty);
         }
     }
 }
