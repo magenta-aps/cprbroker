@@ -37,7 +37,14 @@ ___________Attribute template _____________________________
       <xsl:otherwise>
         <xsl:choose>
           <xsl:when test="@format = 'Alpha'">
-            <xsl:text>string</xsl:text>
+            <xsl:choose>
+              <xsl:when test="@length = 1">
+                <xsl:text>char</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>string</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:when>
           <xsl:otherwise>
             <xsl:text>decimal</xsl:text>
@@ -55,11 +62,18 @@ ___________Attribute template _____________________________
               <xsl:otherwise>
                 <xsl:choose>
                   <xsl:when test="@format = 'Alpha'">
-                    <xsl:text>return this[</xsl:text>
-                    <xsl:value-of select="@position"/>
-                    <xsl:text>, </xsl:text>
-                    <xsl:value-of select="@length"/>
-                    <xsl:text>]; }</xsl:text>
+                    <xsl:choose>
+                      <xsl:when test="@length = 1">
+                        <xsl:text>return this.GetChar(</xsl:text><xsl:value-of select="@position"/><xsl:text>); }</xsl:text>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:text>return this[</xsl:text>
+                        <xsl:value-of select="@position"/>
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="@length"/>
+                        <xsl:text>]; }</xsl:text>
+                      </xsl:otherwise>
+                    </xsl:choose>
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:text>return this.GetDecimal(</xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>
@@ -75,11 +89,18 @@ ___________Attribute template _____________________________
               <xsl:otherwise>
                 <xsl:choose>
                   <xsl:when test="@format = 'Alpha'">
-                    <xsl:text>this[</xsl:text>
-                    <xsl:value-of select="@position"/>
-                    <xsl:text>, </xsl:text>
-                    <xsl:value-of select="@length"/>                    
-                    <xsl:text>] = value; }</xsl:text>
+                    <xsl:choose>
+                      <xsl:when test="@length = 1">
+                        <xsl:text>this.SetChar(value, </xsl:text><xsl:value-of select="@position"/><xsl:text>); }</xsl:text>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:text>this[</xsl:text>
+                        <xsl:value-of select="@position"/>
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="@length"/>
+                        <xsl:text>] = value; }</xsl:text>
+                      </xsl:otherwise>
+                    </xsl:choose>
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:text>this.SetDecimal(value, </xsl:text><xsl:value-of select="@position"/>, <xsl:value-of select="@length"/><xsl:text>); }</xsl:text>

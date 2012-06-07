@@ -21,13 +21,13 @@ namespace CprBroker.Providers.CPRDirect
         // TODO: Addd unit tests
         public DateTime? ToBirthdate()
         {
-            return Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty[0]);
+            return Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty);
         }
 
         // TODO: Addd unit tests
         public DateTime? ToStatusDate()
         {
-            return Converters.ToDateTime(this.StatusStartDate, this.StatusDateUncertainty[0]);
+            return Converters.ToDateTime(this.StatusStartDate, this.StatusDateUncertainty);
         }
     }
 }

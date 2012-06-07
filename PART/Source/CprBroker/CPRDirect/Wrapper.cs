@@ -49,6 +49,16 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public char GetChar(int pos)
+        {
+            return this[pos, 1][0];
+        }
+
+        public void SetChar(char value, int pos)
+        {
+            this[pos, 1] = value.ToString();
+        }
+
         public decimal GetDecimal(int pos, int length)
         {
             return decimal.Parse(this[pos, length]);
