@@ -49,11 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CivilStatusLookupMap.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="CPRDirectDataProvider.Tcp.cs" />
     <Compile Include="CPRDirectDataProvider.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="XML\CurrentCivilStatus.cs" />
+    <Compile Include="XML\CurrentSeparation.cs" />
     <Compile Include="XML\IndividualResponse.States.cs" />
     <Compile Include="XML\IndividualResponse.Attributes.cs" />
     <Compile Include="XML\IndividualResponse.Relations.cs" />
@@ -66,6 +69,7 @@
       <DependentUpon>Definitions.xml</DependentUpon>
     </Compile>
     <Compile Include="XML\IndividualResponse.cs" />
+    <Compile Include="XML\PersonInformation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="XML\CodeGeneration.txt" />

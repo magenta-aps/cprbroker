@@ -13,11 +13,6 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
-        private TilstandListeType ToTilstandListeType()
-        {
-            throw new NotImplementedException();
-        }
-
         private TidspunktType ToTidspunktType()
         {
             throw new NotImplementedException();
@@ -52,5 +47,11 @@ namespace CprBroker.Providers.CPRDirect
         {
             throw new NotImplementedException();
         }
+
+        private LokalUdvidelseType ToLokalUdvidelseType()
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }
