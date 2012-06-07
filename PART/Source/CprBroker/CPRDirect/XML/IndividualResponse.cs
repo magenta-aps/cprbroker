@@ -8,7 +8,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
-        public RegistreringType1 ToRegistreringType1()
+        public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
         {
             return new RegistreringType1()
             {
@@ -16,7 +16,7 @@ namespace CprBroker.Providers.CPRDirect
                 AttributListe = ToAttributListeType(),
                 CommentText = ToCommentText(),
                 LivscyklusKode = ToLivscyklusKodeType(),
-                RelationListe = ToRelationListeType(),
+                RelationListe = ToRelationListeType(cpr2uuidFunc),
                 SourceObject = ToSourceObject(),
                 Tidspunkt = ToTidspunktType(),
                 TilstandListe = ToTilstandListeType(),

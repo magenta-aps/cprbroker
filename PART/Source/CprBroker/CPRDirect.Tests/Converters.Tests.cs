@@ -61,5 +61,25 @@ namespace CprBroker.Tests.CPRDirect
             }
         }
 
+        [TestFixture]
+        public class ToPnrStringOrNull
+        {
+            [Test]
+            public void ToPnrStringOrNull_InvalidPnr_Null(
+                [Values(null, "kjkjkl", "987889789999", "123456789011", "123456", "0012345678", "  12345678")]string pnr)
+            {
+                var ret = Converters.ToPnrStringOrNull(pnr);
+                Assert.Null(ret);
+            }
+
+            [Test]
+            public void ToPnrStringOrNull_Valid_Correct(
+                [Values("1234567890", "0123456789", "123456789")]string pnr)
+            {
+                var ret = Converters.ToPnrStringOrNull(pnr);
+                Assert.AreEqual(decimal.Parse(pnr), decimal.Parse(ret));
+            }
+        }
+
     }
 }

@@ -24,5 +24,19 @@ namespace CprBroker.Providers.CPRDirect
             else
                 return null;
         }
+
+        public static string ToPnrStringOrNull(string pnr)
+        {
+            decimal decimalPnr;
+            if (decimal.TryParse(pnr, out decimalPnr))
+            {
+                if (decimalPnr.ToString().Length == 9 || decimalPnr.ToString().Length == 10)
+                {
+                    return DecimalToString(decimalPnr, 10);
+                }
+            }
+            return null;
+        }
+
     }
 }

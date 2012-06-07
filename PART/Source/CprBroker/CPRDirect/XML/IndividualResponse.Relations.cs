@@ -8,7 +8,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
-        public RelationListeType ToRelationListeType()
+        public RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidFunc)
         {
             return new RelationListeType()
             {
@@ -17,15 +17,25 @@ namespace CprBroker.Providers.CPRDirect
                 Bopaelssamling = ToBopaelssamling(),
                 ErstatningAf = ToErstatningAf(),
                 ErstatningFor = ToErstatningFor(),
-                Fader = ToFather(),
+                Fader = ToFather(cpr2uuidFunc),
                 Foraeldremyndighedsboern = ToForaeldremyndighedsboern(),
                 Foraeldremyndighedsindehaver = ToForaeldremyndighedsindehaver(),
                 LokalUdvidelse = ToLokalUdvidelseType(),
-                Moder = ToMother(),
+                Moder = ToMother(cpr2uuidFunc),
                 RegistreretPartner = ToRegisteredPartners(),
                 RetligHandleevneVaergeForPersonen = ToRetligHandleevneVaergeForPersonen(),
                 RetligHandleevneVaergemaalsindehaver = ToRetligHandleevneVaergemaalsindehaver()
             };
+        }
+
+        public PersonRelationType[] ToFather(Func<string, Guid> cpr2uuidFunc)
+        {
+            return this.ParentsInformation.ToFather(cpr2uuidFunc);
+        }
+
+        public PersonRelationType[] ToMother(Func<string, Guid> cpr2uuidFunc)
+        {
+            return this.ParentsInformation.ToMather(cpr2uuidFunc);
         }
 
         private PersonRelationType[] ToRegisteredPartners()
@@ -39,16 +49,6 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         private PersonRelationType[] ToSpouses()
-        {
-            throw new NotImplementedException();
-        }
-
-        private PersonRelationType[] ToMother()
-        {
-            throw new NotImplementedException();
-        }
-
-        private PersonRelationType[] ToFather()
         {
             throw new NotImplementedException();
         }

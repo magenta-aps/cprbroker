@@ -69,6 +69,7 @@
       <DependentUpon>Definitions.xml</DependentUpon>
     </Compile>
     <Compile Include="XML\IndividualResponse.cs" />
+    <Compile Include="XML\ParentsInformation.cs" />
     <Compile Include="XML\PersonInformation.cs" />
   </ItemGroup>
   <ItemGroup>

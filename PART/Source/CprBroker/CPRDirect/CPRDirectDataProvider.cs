@@ -17,7 +17,7 @@ namespace CprBroker.Providers.CPRDirect
             IndividualRequestType request = new IndividualRequestType(PutSubscription, decimal.Parse(uuid.CprNumber));
             var response = this.GetResponse(request);
             ql = QualityLevel.Cpr;
-            return response.ToRegistreringType1();
+            return response.ToRegistreringType1(cpr2uuidFunc);
         }
         #endregion
 
