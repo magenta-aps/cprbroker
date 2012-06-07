@@ -17,7 +17,6 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        // TODO: Add unit tests for Converters.ToDateTime()
         public static DateTime? ToDateTime(DateTime value, char uncertainty)
         {
             if (uncertainty == ' ')
