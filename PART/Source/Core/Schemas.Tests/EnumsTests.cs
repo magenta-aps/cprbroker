@@ -49,60 +49,83 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Util;
+using CprBroker.Schemas.Part;
 using NUnit.Framework;
 
 namespace CprBroker.Tests.Schemas
 {
-    [TestFixture]
-    class EnumsTests
+    namespace EnumsTests
     {
-        #region
-
-        [Test]
-        public void IsValidCivilRegistrationStatus_Valid_ReturnsTrue(
-            [Values(1, 3, 5, 7, 20, 30, 50, 60, 70, 80, 90)]decimal status)
+        [TestFixture]
+        public class IsValidCivilRegistrationStatus
         {
-            var result = Enums.IsValidCivilRegistrationStatus(status);
-            Assert.True(result);
+            [Test]
+            public void IsValidCivilRegistrationStatus_Valid_ReturnsTrue(
+                [Values(1, 3, 5, 7, 20, 30, 50, 60, 70, 80, 90)]decimal status)
+            {
+                var result = Enums.IsValidCivilRegistrationStatus(status);
+                Assert.True(result);
+            }
+
+            [Test]
+            public void IsValidCivilRegistrationStatus_Invalid_ReturnsFalse(
+                [Values(0, 15, -2, 17, 99, 103, 2007, -43)]decimal status)
+            {
+                var result = Enums.IsValidCivilRegistrationStatus(status);
+                Assert.False(result);
+            }
+
         }
 
-        [Test]
-        public void IsValidCivilRegistrationStatus_Invalid_ReturnsFalse(
-            [Values(0, 15, -2, 17, 99, 103, 2007, -43)]decimal status)
+        [TestFixture]
+        public class IsActiveCivilRegistrationStatus
         {
-            var result = Enums.IsValidCivilRegistrationStatus(status);
-            Assert.False(result);
+
+            [Test]
+            public void IsActiveCivilRegistrationStatus_Inactive_ReturnsFalse(
+                [Values(30, 50, 60)]decimal status)
+            {
+                var result = Enums.IsActiveCivilRegistrationStatus(status);
+                Assert.False(result);
+            }
+
+            [Test]
+            public void IsActiveCivilRegistrationStatus_Active_ReturnsTrue(
+                [Values(1, 3, 5, 7, 20, 70, 80, 90)]decimal status)
+            {
+                var result = Enums.IsActiveCivilRegistrationStatus(status);
+                Assert.True(result);
+            }
+
+            [Test]
+            [ExpectedException(typeof(ArgumentException))]
+            public void IsActiveCivilRegistrationStatus_InvalidNumber_ThrowsException(
+                [Values(0, 15, -2, 17, 99, 103, 2007, -43)]decimal status)
+            {
+                var result = Enums.IsActiveCivilRegistrationStatus(status);
+                Assert.True(result);
+            }
+
         }
 
-        #endregion
-
-        #region IsActiveCivilRegistrationStatus
-
-        [Test]
-        public void IsActiveCivilRegistrationStatus_Inactive_ReturnsFalse(
-            [Values(30, 50, 60)]decimal status)
+        [TestFixture]
+        public class PersonNumberToGender
         {
-            var result = Enums.IsActiveCivilRegistrationStatus(status);
-            Assert.False(result);
-        }
+            [Test]
+            public void PersonNumberToGender_Odd_Male(
+                [Values("1234567891", "9999999999")]string pnr)
+            {
+                var ret = Enums.PersonNumberToGender(pnr);
+                Assert.AreEqual(ret, PersonGenderCodeType.male);
+            }
 
-        [Test]
-        public void IsActiveCivilRegistrationStatus_Active_ReturnsTrue(
-            [Values(1, 3, 5, 7, 20, 70, 80, 90)]decimal status)
-        {
-            var result = Enums.IsActiveCivilRegistrationStatus(status);
-            Assert.True(result);
+            [Test]
+            public void PersonNumberToGender_Even_Female(
+                [Values("1234567890", "9999999998")]string pnr)
+            {
+                var ret = Enums.PersonNumberToGender(pnr);
+                Assert.AreEqual(ret, PersonGenderCodeType.female);
+            }
         }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void IsActiveCivilRegistrationStatus_InvalidNumber_ThrowsException(
-            [Values(0, 15, -2, 17, 99, 103, 2007, -43)]decimal status)
-        {
-            var result = Enums.IsActiveCivilRegistrationStatus(status);
-            Assert.True(result);
-        }
-
-        #endregion
     }
 }
