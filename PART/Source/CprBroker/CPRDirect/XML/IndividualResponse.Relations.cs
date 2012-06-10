@@ -55,6 +55,7 @@ namespace CprBroker.Providers.CPRDirect
 
         private PersonFlerRelationType[] ToRetligHandleevneVaergemaalsindehaver()
         {
+            // Legal authority owver
             throw new NotImplementedException();
         }
 
@@ -65,28 +66,23 @@ namespace CprBroker.Providers.CPRDirect
 
         private PersonRelationType[] ToForaeldremyndighedsindehaver()
         {
+            // Parental authority owner
             throw new NotImplementedException();
         }
 
         private PersonFlerRelationType[] ToForaeldremyndighedsboern()
         {
+            // Parental authority children
             throw new NotImplementedException();
         }
 
         private PersonFlerRelationType[] ToBopaelssamling()
         {
+            // residence session ???
             throw new NotImplementedException();
         }
 
-        private PersonRelationType[] ToErstatningAf()
-        {
-            throw new NotImplementedException();
-        }
-
-        private PersonFlerRelationType[] ToErstatningFor()
-        {
-            throw new NotImplementedException();
-        }
+        
 
     }
 }

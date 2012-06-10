@@ -47,6 +47,16 @@ namespace CprBroker.Providers.CPRDirect
         {
             throw new NotImplementedException();
         }
+
+        private PersonRelationType[] ToErstatningAf()
+        {
+            throw new NotImplementedException();
+        }
+
+        private PersonFlerRelationType[] ToErstatningFor()
+        {
+            throw new NotImplementedException();
+        }
         
     }
 }
