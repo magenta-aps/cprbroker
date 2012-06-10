@@ -47,7 +47,7 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     return PersonRelationType.CreateList(cpr2uuidFunc(this.SpousePNR), null, this.ToCivilStatusDate());
                 }
-                else if (this.CivilStatus == 'D')
+                else if (this.CivilStatus == deadStatus)
                 {
                     // TODO: Will there be a spouse PNR in this case?
                     if (
