@@ -135,5 +135,12 @@ namespace CprBroker.Schemas.Util
                 (decimal)PersonCivilRegistrationStatusCode.DeletedCivilRegistrationNumbers };
             return !inactiveStates.Contains(civilRegistrationStatus);
         }
+
+        public static PersonGenderCodeType PersonNumberToGender(string cprNumber)
+        {
+            return (long.Parse(cprNumber) % 2 == 1) ? PersonGenderCodeType.male : PersonGenderCodeType.female;
+        }
+
+        
     }
 }
