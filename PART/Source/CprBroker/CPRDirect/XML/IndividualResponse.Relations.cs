@@ -12,7 +12,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new RelationListeType()
             {
-                Aegtefaelle = ToSpouses(),
+                Aegtefaelle = ToSpouses(cpr2uuidFunc),
                 Boern = ToChildren(cpr2uuidFunc),
                 Bopaelssamling = ToBopaelssamling(),
                 ErstatningAf = ToErstatningAf(),
@@ -22,7 +22,7 @@ namespace CprBroker.Providers.CPRDirect
                 Foraeldremyndighedsindehaver = ToForaeldremyndighedsindehaver(),
                 LokalUdvidelse = ToLokalUdvidelseType(),
                 Moder = ToMother(cpr2uuidFunc),
-                RegistreretPartner = ToRegisteredPartners(),
+                RegistreretPartner = ToRegisteredPartners(cpr2uuidFunc),
                 RetligHandleevneVaergeForPersonen = ToRetligHandleevneVaergeForPersonen(),
                 RetligHandleevneVaergemaalsindehaver = ToRetligHandleevneVaergemaalsindehaver()
             };
@@ -43,14 +43,14 @@ namespace CprBroker.Providers.CPRDirect
             return ChildType.ToPersonFlerRelationType(this.Child, cpr2uuidFunc);
         }
 
-        private PersonRelationType[] ToRegisteredPartners()
+        private PersonRelationType[] ToRegisteredPartners(Func<string, Guid> cpr2uuidFunc)
         {
-            throw new NotImplementedException();
+            return this.CurrentCivilStatus.ToRegisteredPartners(cpr2uuidFunc);
         }
 
-        private PersonRelationType[] ToSpouses()
+        private PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
         {
-            throw new NotImplementedException();
+            return this.CurrentCivilStatus.ToSpouses(cpr2uuidFunc);
         }
 
         private PersonFlerRelationType[] ToRetligHandleevneVaergemaalsindehaver()
