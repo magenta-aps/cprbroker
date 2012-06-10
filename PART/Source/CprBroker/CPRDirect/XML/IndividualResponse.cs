@@ -17,7 +17,6 @@ namespace CprBroker.Providers.CPRDirect
                 CommentText = ToCommentText(),
                 LivscyklusKode = ToLivscyklusKodeType(),
                 RelationListe = ToRelationListeType(cpr2uuidFunc),
-                SourceObject = ToSourceObject(),
                 Tidspunkt = ToTidspunktType(),
                 TilstandListe = ToTilstandListeType(),
                 Virkning = ToVirkningType()
