@@ -58,6 +58,7 @@
     <Compile Include="XML\Child.cs" />
     <Compile Include="XML\CurrentCivilStatus.cs" />
     <Compile Include="XML\CurrentSeparation.cs" />
+    <Compile Include="XML\Disempowerment.cs" />
     <Compile Include="XML\IndividualResponse.States.cs" />
     <Compile Include="XML\IndividualResponse.Attributes.cs" />
     <Compile Include="XML\IndividualResponse.Relations.cs" />

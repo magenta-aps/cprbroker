@@ -57,6 +57,25 @@ namespace CprBroker.Providers.CPRDirect
         {
             throw new NotImplementedException();
         }
-        
+
+        private PersonFlerRelationType[] ToForaeldremyndighedsboern()
+        {
+            // Parental authority children
+            throw new NotImplementedException();
+        }
+
+        private PersonRelationType[] ToRetligHandleevneVaergeForPersonen()
+        {
+            // Persons for whom this person is a guardian
+            throw new NotImplementedException();
+        }
+
+        private PersonFlerRelationType[] ToBopaelssamling()
+        {
+            // residence collection ???
+            throw new NotImplementedException();
+        }
+
+
     }
 }

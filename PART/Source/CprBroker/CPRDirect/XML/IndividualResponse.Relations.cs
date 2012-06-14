@@ -19,12 +19,12 @@ namespace CprBroker.Providers.CPRDirect
                 ErstatningFor = ToErstatningFor(),
                 Fader = ToFather(cpr2uuidFunc),
                 Foraeldremyndighedsboern = ToForaeldremyndighedsboern(),
-                Foraeldremyndighedsindehaver = ToForaeldremyndighedsindehaver(),
+                Foraeldremyndighedsindehaver = ToForaeldremyndighedsindehaver(cpr2uuidFunc),
                 LokalUdvidelse = ToLokalUdvidelseType(),
                 Moder = ToMother(cpr2uuidFunc),
                 RegistreretPartner = ToRegisteredPartners(cpr2uuidFunc),
                 RetligHandleevneVaergeForPersonen = ToRetligHandleevneVaergeForPersonen(),
-                RetligHandleevneVaergemaalsindehaver = ToRetligHandleevneVaergemaalsindehaver()
+                RetligHandleevneVaergemaalsindehaver = ToRetligHandleevneVaergemaalsindehaver(cpr2uuidFunc)
             };
         }
 
@@ -43,46 +43,30 @@ namespace CprBroker.Providers.CPRDirect
             return ChildType.ToPersonFlerRelationType(this.Child, cpr2uuidFunc);
         }
 
-        private PersonRelationType[] ToRegisteredPartners(Func<string, Guid> cpr2uuidFunc)
+        public PersonRelationType[] ToRegisteredPartners(Func<string, Guid> cpr2uuidFunc)
         {
             return this.CurrentCivilStatus.ToRegisteredPartners(cpr2uuidFunc);
         }
 
-        private PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
+        public PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
         {
             return this.CurrentCivilStatus.ToSpouses(cpr2uuidFunc);
         }
 
-        private PersonFlerRelationType[] ToRetligHandleevneVaergemaalsindehaver()
+        public PersonFlerRelationType[] ToRetligHandleevneVaergemaalsindehaver(Func<string, Guid> cpr2uuidFunc)
         {
-            // Legal authority owver
-            throw new NotImplementedException();
+            return DisempowermentType.ToPersonRelationType(this.Disempowerment, cpr2uuidFunc);
         }
 
-        private PersonRelationType[] ToRetligHandleevneVaergeForPersonen()
-        {
-            throw new NotImplementedException();
-        }
-
-        private PersonRelationType[] ToForaeldremyndighedsindehaver()
+        public PersonRelationType[] ToForaeldremyndighedsindehaver(Func<string, Guid> cpr2uuidFunc)
         {
             // Parental authority owner
-            throw new NotImplementedException();
+            return ParentalAuthorityType.ToPersonRelationType(this.ParentalAuthority, cpr2uuidFunc);
         }
 
-        private PersonFlerRelationType[] ToForaeldremyndighedsboern()
-        {
-            // Parental authority children
-            throw new NotImplementedException();
-        }
 
-        private PersonFlerRelationType[] ToBopaelssamling()
-        {
-            // residence session ???
-            throw new NotImplementedException();
-        }
 
-        
+
 
     }
 }
