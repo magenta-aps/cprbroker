@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Util;
 using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
@@ -51,7 +52,7 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     // TODO: Will there be a spouse PNR in this case?
                     if (
-                        (Utilities.Strings.PersonNumberToGender(this.PNR) == Utilities.Strings.PersonNumberToGender(this.ToSpousePnr()))
+                        (Enums.PersonNumberToGender(this.PNR) == Enums.PersonNumberToGender(this.ToSpousePnr()))
                         ==
                         sameGenderForDead
                         )
