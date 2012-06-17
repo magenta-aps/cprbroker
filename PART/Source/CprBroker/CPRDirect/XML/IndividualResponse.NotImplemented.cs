@@ -33,11 +33,6 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
-        private AttributListeType ToAttributListeType()
-        {
-            throw new NotImplementedException();
-        }
-
         private UnikIdType ToAktoerRefType()
         {
             throw new NotImplementedException();
@@ -75,7 +70,13 @@ namespace CprBroker.Providers.CPRDirect
             // residence collection ???
             throw new NotImplementedException();
         }
+        
+        private SundhedOplysningType[] ToSundhedOplysningType()
+        {
+            throw new NotImplementedException();
+        }
 
+        
 
     }
 }

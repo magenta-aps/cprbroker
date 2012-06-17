@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Converters.Tests.cs" />
     <Compile Include="CurrentCivilStatus.Tests.cs" />
+    <Compile Include="IndividualResponse.Attributes.Tests.cs" />
     <Compile Include="MinMaxOccurs.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

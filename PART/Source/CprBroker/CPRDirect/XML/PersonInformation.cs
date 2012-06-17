@@ -27,5 +27,11 @@ namespace CprBroker.Providers.CPRDirect
         {
             return Converters.ToDateTime(this.StatusStartDate, this.StatusDateUncertainty);
         }
+
+        public string ToPnr()
+        {
+            return Converters.ToPnrStringOrNull(this.PNR);
+        }
+
     }
 }
