@@ -32,7 +32,7 @@ ___________Attribute template _____________________________
     <xsl:text>    public </xsl:text>
     <xsl:choose>
       <xsl:when test="@dateFormat != ''">
-        <xsl:text>DateTime</xsl:text>
+        <xsl:text>DateTime?</xsl:text>
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>

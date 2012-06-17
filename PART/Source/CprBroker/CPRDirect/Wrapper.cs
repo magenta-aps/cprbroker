@@ -13,6 +13,11 @@ namespace CprBroker.Providers.CPRDirect
             _Contents = new string(' ', Length);
         }
 
+        public Wrapper(int length)
+        {
+            _Contents = new string(' ', length);
+        }
+
         private string _Contents;
         public string Contents
         {
@@ -82,14 +87,29 @@ namespace CprBroker.Providers.CPRDirect
             this[pos, length] = Converters.DecimalToString(value, length);
         }
 
-        public DateTime GetDateTime(int pos, int length, string format)
+        public DateTime? GetDateTime(int pos, int length, string format)
         {
-            return DateTime.ParseExact(this[pos, length], format, null);
+            DateTime ret;
+            if (DateTime.TryParseExact(this[pos, length], format, null, System.Globalization.DateTimeStyles.None, out ret))
+            {
+                return ret;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public void SetDateTime(DateTime value, int pos, int length, string format)
+        public void SetDateTime(DateTime? value, int pos, int length, string format)
         {
-            this[pos, length] = value.ToString(format);
+            if (value.HasValue)
+            {
+                this[pos, length] = value.Value.ToString(format);
+            }
+            else
+            {
+                this[pos, length] = new string(' ', length);
+            }
         }
 
 

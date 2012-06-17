@@ -17,7 +17,7 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        public static DateTime? ToDateTime(DateTime value, char uncertainty)
+        public static DateTime? ToDateTime(DateTime? value, char uncertainty)
         {
             if (uncertainty == ' ')
                 return value;

@@ -54,9 +54,16 @@ namespace CprBroker.Tests.CPRDirect
 
             [Test]
             public void ToDateTime_EmptyDate_MiscUncertainty_Null(
-                [Values(' ', 'w', '-', ',', '1', 'u', 'M')]char uncertainty)
+                [Values('w', '-', ',', '1', 'u', 'M')]char uncertainty)
             {
                 var ret = Converters.ToDateTime(new DateTime(), uncertainty);
+                Assert.Null(ret);
+            }
+            [Test]
+            public void ToDateTime_TodayDate_MiscUncertainty_Null(
+                [Values('w', '-', ',', '1', 'u', 'M')]char uncertainty)
+            {
+                var ret = Converters.ToDateTime(DateTime.Today, uncertainty);
                 Assert.Null(ret);
             }
         }

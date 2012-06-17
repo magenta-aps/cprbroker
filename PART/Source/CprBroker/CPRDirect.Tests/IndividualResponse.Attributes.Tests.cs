@@ -35,7 +35,7 @@ namespace CprBroker.Tests.CPRDirect
                 { 
                     PersonInformation = new PersonInformationType() 
                     { 
-                      PNR = DateTime.Today.ToString("ddMMyy1111")
+                      PNR = DateTime.Today.ToString("ddMMyy4111")
                     } 
                 };
                 var ret = info.ToBirthDate();

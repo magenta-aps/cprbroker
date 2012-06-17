@@ -10,8 +10,7 @@ using System.Threading;
 
 namespace CprBroker.Tests.CPRDirect
 {
-    [TestFixture]
-    public class WrapperTests
+    namespace WrapperTests
     {
         public class WrapperStub : Wrapper
         {
@@ -20,31 +19,39 @@ namespace CprBroker.Tests.CPRDirect
             {
                 get { return _Length; }
             }
+
+            public WrapperStub()
+            {
+            }
+            public WrapperStub(int len)
+                : base(len)
+            {
+            }
         }
 
-        #region Contents
-
-        [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Contents_InvalidLength_ThrowsException(
-            [Random(0, 10000, 5)]int len,
-            [Values(1, 30, -12)]int diff)
+        [TestFixture]
+        public class Contents
         {
-            var w = new WrapperStub() { _Length = len };
-            w.Contents = new string('s', len + diff);
-        }
+            [Test]
+            [ExpectedException(typeof(ArgumentOutOfRangeException))]
+            public void Contents_InvalidLength_ThrowsException(
+                [Random(0, 10000, 5)]int len,
+                [Values(1, 30, -12)]int diff)
+            {
+                var w = new WrapperStub() { _Length = len };
+                w.Contents = new string('s', len + diff);
+            }
 
-        [Test]
-        public void Contents_InvalidLength_ThrowsException(
-            [Random(0, 10000, 5)]int len)
-        {
-            var w = new WrapperStub() { _Length = len };
-            var val = new string('s', len);
-            w.Contents = val;
-            Assert.AreEqual(val, w.Contents);
+            [Test]
+            public void Contents_InvalidLength_ThrowsException(
+                [Random(0, 10000, 5)]int len)
+            {
+                var w = new WrapperStub() { _Length = len };
+                var val = new string('s', len);
+                w.Contents = val;
+                Assert.AreEqual(val, w.Contents);
+            }
         }
-
-        #endregion
 
         class WrapperStub1 : Wrapper
         {
@@ -247,6 +254,29 @@ namespace CprBroker.Tests.CPRDirect
                 var parentWrapper = CreateParentWrapper(minOccurs, minOccurs + maxOccursDiff);
                 var childWrappers = CreateWrapperArray(typeof(WrapperStub1), minOccurs + maxOccursDiff + 1);
                 parentWrapper.FillFrom(childWrappers);
+            }
+        }
+
+        [TestFixture]
+        public class GetDateTime
+        {
+            [Test]
+            public void GetDateTime_Normal_OK()
+            {
+                var format = "yyyyMMdd";
+                var s = DateTime.Today.ToString(format);
+                var w = new WrapperStub { _Length = 8 };
+                w.Contents = s;
+                var ret = w.GetDateTime(1, 8, format);
+                Assert.AreEqual(DateTime.Today, ret);
+            }
+            [Test]
+            public void GetDateTime_EmptyDate_Null()
+            {
+                var format = "yyyyMMdd";
+                var w = new WrapperStub(8);
+                var ret = w.GetDateTime(1, 8, format);
+                Assert.Null(ret);
             }
         }
     }
