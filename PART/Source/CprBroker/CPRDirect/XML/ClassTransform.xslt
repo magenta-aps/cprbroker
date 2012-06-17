@@ -67,11 +67,11 @@ ___________Attribute template _____________________________
                         <xsl:text>return this.GetChar(</xsl:text><xsl:value-of select="@position"/><xsl:text>); }</xsl:text>
                       </xsl:when>
                       <xsl:otherwise>
-                        <xsl:text>return this[</xsl:text>
+                        <xsl:text>return this.GetString(</xsl:text>
                         <xsl:value-of select="@position"/>
                         <xsl:text>, </xsl:text>
                         <xsl:value-of select="@length"/>
-                        <xsl:text>]; }</xsl:text>
+                        <xsl:text>); }</xsl:text>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:when>
@@ -94,11 +94,11 @@ ___________Attribute template _____________________________
                         <xsl:text>this.SetChar(value, </xsl:text><xsl:value-of select="@position"/><xsl:text>); }</xsl:text>
                       </xsl:when>
                       <xsl:otherwise>
-                        <xsl:text>this[</xsl:text>
+                        <xsl:text>this.SetString(value, </xsl:text>
                         <xsl:value-of select="@position"/>
                         <xsl:text>, </xsl:text>
                         <xsl:value-of select="@length"/>
-                        <xsl:text>] = value; }</xsl:text>
+                        <xsl:text>); }</xsl:text>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:when>

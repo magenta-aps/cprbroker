@@ -39,7 +39,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public abstract int Length { get; }
 
-        public string this[int pos, int length]
+        private string this[int pos, int length]
         {
             get
             {
@@ -65,6 +65,21 @@ namespace CprBroker.Providers.CPRDirect
                     .ToArray();
                 _Contents = new string(charArr);
             }
+        }
+
+        public string GetString(int pos, int len)
+        {
+            var ret = this[pos, len];
+            return ret.Trim();
+        }
+
+        public void SetString(string value, int pos, int len)
+        {
+            if (value.Length < len)
+            {
+                value = value + new string(' ', len - value.Length);
+            }
+            this[pos, len] = value;
         }
 
         public char GetChar(int pos)
