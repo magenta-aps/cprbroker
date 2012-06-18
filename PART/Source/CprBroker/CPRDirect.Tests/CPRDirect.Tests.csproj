@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChildTests.cs" />
     <Compile Include="Converters.Tests.cs" />
     <Compile Include="CurrentCivilStatus.Tests.cs" />
     <Compile Include="Disempowerment.Tests.cs" />
