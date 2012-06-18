@@ -75,6 +75,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public void SetString(string value, int pos, int len)
         {
+            value = string.Format("{0}", value);
             if (value.Length < len)
             {
                 value = value + new string(' ', len - value.Length);
