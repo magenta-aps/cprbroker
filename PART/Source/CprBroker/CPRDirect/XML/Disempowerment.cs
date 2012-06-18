@@ -12,13 +12,18 @@ namespace CprBroker.Providers.CPRDirect
         {
             // TODO: Is it correct to use RelationPNRStartDate as start date? Shall we use DisempowermentStartDate/DisempowermentStartDateUncertainty instead?
             // TODO: Is it correct to use DisempowermentEndDate as end date?
-            return PersonFlerRelationType.Create(cpr2uuidFunc(this.ToRelationPNR()), this.RelationPNRStartDate, this.DisempowermentEndDate);
+            return PersonFlerRelationType.Create(
+                cpr2uuidFunc(this.ToRelationPNR()),
+                this.RelationPNRStartDate,
+                this.DisempowermentEndDate
+                );
         }
 
         public static PersonFlerRelationType[] ToPersonRelationType(DisempowermentType disempowerment, Func<string, Guid> cpr2uuidFunc)
         {
             return new DisempowermentType[] { disempowerment }
                 .Where(d => d != null)
+                .Where(d => !string.IsNullOrEmpty(d.ToRelationPNR()))
                 .Select(d => d.ToPersonFlerRelationType(cpr2uuidFunc))
                 .ToArray();
         }

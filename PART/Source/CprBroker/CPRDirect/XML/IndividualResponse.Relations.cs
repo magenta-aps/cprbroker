@@ -55,6 +55,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public PersonFlerRelationType[] ToRetligHandleevneVaergemaalsindehaver(Func<string, Guid> cpr2uuidFunc)
         {
+            // Persons who have legal authority on current person
             return DisempowermentType.ToPersonRelationType(this.Disempowerment, cpr2uuidFunc);
         }
 

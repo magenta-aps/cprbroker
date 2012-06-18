@@ -47,7 +47,8 @@
   <ItemGroup>
     <Compile Include="Converters.Tests.cs" />
     <Compile Include="CurrentCivilStatus.Tests.cs" />
-    <Compile Include="IndividualRequestTests.cs" />
+    <Compile Include="Disempowerment.Tests.cs" />
+    <Compile Include="IndividualRequest.Tests.cs" />
     <Compile Include="IndividualResponse.Attributes.Tests.cs" />
     <Compile Include="MinMaxOccurs.Tests.cs" />
     <Compile Include="ParentalAuthority.Tests.cs" />
