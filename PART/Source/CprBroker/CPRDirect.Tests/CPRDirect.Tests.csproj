@@ -49,6 +49,7 @@
     <Compile Include="CurrentCivilStatus.Tests.cs" />
     <Compile Include="IndividualResponse.Attributes.Tests.cs" />
     <Compile Include="MinMaxOccurs.Tests.cs" />
+    <Compile Include="PersonInformation.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
