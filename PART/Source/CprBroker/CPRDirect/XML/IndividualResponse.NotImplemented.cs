@@ -33,11 +33,6 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
-        private UnikIdType ToAktoerRefType()
-        {
-            throw new NotImplementedException();
-        }
-
         private LokalUdvidelseType ToLokalUdvidelseType()
         {
             throw new NotImplementedException();
