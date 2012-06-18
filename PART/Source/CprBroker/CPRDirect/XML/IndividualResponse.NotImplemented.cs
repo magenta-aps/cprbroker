@@ -23,11 +23,6 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
-        private string ToCommentText()
-        {
-            throw new NotImplementedException();
-        }
-
         private VirkningType[] ToVirkningType()
         {
             throw new NotImplementedException();
@@ -65,13 +60,13 @@ namespace CprBroker.Providers.CPRDirect
             // residence collection ???
             throw new NotImplementedException();
         }
-        
+
         private SundhedOplysningType[] ToSundhedOplysningType()
         {
             throw new NotImplementedException();
         }
 
-        
+
 
     }
 }

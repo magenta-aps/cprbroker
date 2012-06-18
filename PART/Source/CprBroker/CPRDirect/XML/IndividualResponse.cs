@@ -28,5 +28,10 @@ namespace CprBroker.Providers.CPRDirect
             return UnikIdType.Create(Constants.ActorId);
         }
 
+        public string ToCommentText()
+        {
+            return Constants.CommentText;
+        }
+
     }
 }

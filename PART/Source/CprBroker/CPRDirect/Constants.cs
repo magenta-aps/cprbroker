@@ -76,5 +76,6 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         public static readonly Guid ActorId = new Guid("{2B2C1518-F466-491F-8149-57AFEF48CC01}");
+        public static readonly string CommentText = "";
     }
 }
