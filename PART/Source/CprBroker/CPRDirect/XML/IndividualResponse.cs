@@ -22,5 +22,11 @@ namespace CprBroker.Providers.CPRDirect
                 Virkning = ToVirkningType()
             };
         }
+
+        public UnikIdType ToAktoerRefType()
+        {
+            return UnikIdType.Create(Constants.ActorId);
+        }
+
     }
 }
