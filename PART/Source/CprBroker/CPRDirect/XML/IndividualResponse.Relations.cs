@@ -35,7 +35,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public PersonRelationType[] ToMother(Func<string, Guid> cpr2uuidFunc)
         {
-            return this.ParentsInformation.ToMather(cpr2uuidFunc);
+            return this.ParentsInformation.ToMother(cpr2uuidFunc);
         }
 
         public PersonFlerRelationType[] ToChildren(Func<string, Guid> cpr2uuidFunc)

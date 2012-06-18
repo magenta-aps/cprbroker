@@ -13,12 +13,12 @@ namespace CprBroker.Providers.CPRDirect
             return ToFatherOrMother(cpr2uuidFunc, this.ToFatherPnr(), this.ToFatherDate());
         }
 
-        public PersonRelationType[] ToMather(Func<string, Guid> cpr2uuidFunc)
+        public PersonRelationType[] ToMother(Func<string, Guid> cpr2uuidFunc)
         {
             return ToFatherOrMother(cpr2uuidFunc, this.ToMotherPnr(), this.ToMotherDate());
         }
 
-        public PersonRelationType[] ToFatherOrMother(Func<string, Guid> cpr2uuidFunc, string parentPnr, DateTime? parentDate)
+        public static PersonRelationType[] ToFatherOrMother(Func<string, Guid> cpr2uuidFunc, string parentPnr, DateTime? parentDate)
         {
             if (!string.IsNullOrEmpty(parentPnr))
             {
