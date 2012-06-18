@@ -20,6 +20,15 @@ namespace CprBroker.Tests.CPRDirect
                 var req = new IndividualRequestType(subscription, pnr);
                 Assert.AreEqual(pnr, req.PNR);
             }
+
+            [Test]
+            public void IndividualRequestType_Pnr_IdentifiedByTask(
+                [Values(0, 1, 12, 56, 123456789)]decimal pnr,
+                [Values(true, false)] bool subscription)
+            {
+                var req = new IndividualRequestType(subscription, pnr);
+                Assert.AreEqual(DataType.DefinedByTask, (DataType)req.DataType);
+            }
         }
     }
 }
