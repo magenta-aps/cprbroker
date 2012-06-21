@@ -69,15 +69,7 @@ namespace CprBroker.Providers.KMD
             var detailsResponse = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
             var addressResponse = CallAS78205(uuid.CprNumber);
             EnglishAN08010Response relationsResponse = null;
-            try
-            {
-                CallAN08010(uuid.CprNumber);
-            }
-            catch (Exception ex)
-            {
-                CprBroker.Engine.Local.Admin.LogException(ex);
-            }
-
+            
             ret = new RegistreringType1()
             {
                 AttributListe = detailsResponse.ToAttributListeType(addressResponse),

@@ -60,7 +60,7 @@ namespace CprBroker.Providers.KMD
         /// </summary>
         /// <param name="cprNumber"></param>
         /// <returns></returns>
-        private EnglishAS78205Response CallAS78205(string cprNumber)
+        public EnglishAS78205Response CallAS78205(string cprNumber)
         {
             WS_AS78205.WS_AS78205 service = new CprBroker.Providers.KMD.WS_AS78205.WS_AS78205();
 
@@ -76,7 +76,7 @@ namespace CprBroker.Providers.KMD
                 {
                     CBESTIL = "0",
                     COMRAADE = "C",  // Municipal: K   Regional:  R   National: C
-                    CREDIG = "",
+                    CREDIG = "O",  // Address line format: Fixed line position: F Organized (move empty lines to the end): O
                     CSTATUS = "1",
                     EKOM = "000",
                     EPNR = cprNumber,
@@ -95,7 +95,7 @@ namespace CprBroker.Providers.KMD
     {
         public class EnglishAS78205Response
         {
-            private AS78205Response InnerResponse;
+            public AS78205Response InnerResponse;
 
             public EnglishAS78205Response(AS78205Response innerResponse)
             {

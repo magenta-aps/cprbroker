@@ -62,7 +62,7 @@ namespace CprBroker.Providers.KMD
         /// </summary>
         /// <param name="cprNumber"></param>
         /// <returns></returns>
-        private AS78207Response CallAS78207(string cprNumber)
+        public AS78207Response CallAS78207(string cprNumber)
         {
             WS_AS78207.WS_AS78207 service = new CprBroker.Providers.KMD.WS_AS78207.WS_AS78207();
             SetServiceUrl(service, ServiceTypes.AS78207);
@@ -94,7 +94,7 @@ namespace CprBroker.Providers.KMD
         public class EnglishAS78207Response
         {
 
-            private AS78207Response InnerResponse;
+            public AS78207Response InnerResponse;
 
             public EnglishAS78207Response(AS78207Response innerResponse)
             {
