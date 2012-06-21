@@ -350,6 +350,21 @@ namespace CprBroker.Providers.KMD
                 }
             }
 
+            public bool ToSpecielVejkodeIndikator()
+            {
+                int code;
+                if (int.TryParse(this.StreetCode, out code))
+                {
+                    return code > 9900;
+                }
+                return false;
+            }
+
+            public bool ToSpecielVejkodeIndikatorSpecified()
+            {
+                int code;
+                return int.TryParse(this.StreetCode, out code);
+            }
 
             public AdresseType ToAdresseType()
             {
@@ -383,18 +398,18 @@ namespace CprBroker.Providers.KMD
                         AddressPoint = null,
                         NoteTekst = null,
                         PolitiDistriktTekst = null,
-                        // TODO: Get from PostDistrict
-                        PostDistriktTekst = null,
+                        PostDistriktTekst = PostDistrict,
                         SkoleDistriktTekst = null,
                         SocialDistriktTekst = null,
                         SogneDistriktTekst = null,
                         // TODO: True if StreetCode > 9900
-                        SpecielVejkodeIndikator = false,
-                        SpecielVejkodeIndikatorSpecified = false,
+                        SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(),
+                        SpecielVejkodeIndikatorSpecified = ToSpecielVejkodeIndikatorSpecified(),
                         UkendtAdresseIndikator = false,
                         ValgkredsDistriktTekst = null
                     },
                 };
+
             }
 
         }
