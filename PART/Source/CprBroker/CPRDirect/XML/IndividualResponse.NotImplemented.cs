@@ -66,7 +66,15 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
+        public KontaktKanalType ToKontaktKanalType()
+        {
+            return null;
+        }
 
+        public KontaktKanalType ToNaermestePaaroerende()
+        {
+            return null;
+        }
 
     }
 }

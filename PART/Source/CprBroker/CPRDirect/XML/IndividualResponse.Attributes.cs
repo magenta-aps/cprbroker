@@ -51,29 +51,22 @@ namespace CprBroker.Providers.CPRDirect
                 return Utilities.Strings.PersonNumberToDate(this.PersonInformation.ToPnr()).Value;
         }
 
-        private string ToFoedestedNavn()
+        public string ToFoedestedNavn()
         {
-            throw new NotImplementedException();
+            // Birth name not implemented
+            // TODO: See if can be found
+            return null;
         }
 
-        private string ToFoedselsregistreringMyndighedNavn()
+        public string ToFoedselsregistreringMyndighedNavn()
         {
-            throw new NotImplementedException();
+            return this.BirthRegistrationInformation.AdditionalBirthRegistrationText;
         }
 
-        private KontaktKanalType ToKontaktKanalType()
+        public NavnStrukturType ToNavnStrukturType()
         {
-            throw new NotImplementedException();
-        }
-
-        private KontaktKanalType ToNaermestePaaroerende()
-        {
-            throw new NotImplementedException();
-        }
-
-        private NavnStrukturType ToNavnStrukturType()
-        {
-            throw new NotImplementedException();
+            // TODO: See how to use corresponding 3 name flags
+            return NavnStrukturType.Create(this.CurrentNameInformation.FirstName_s, this.CurrentNameInformation.MiddleName, this.CurrentNameInformation.LastName);
         }
 
         private PersonGenderCodeType PersonGenderCodeType()
