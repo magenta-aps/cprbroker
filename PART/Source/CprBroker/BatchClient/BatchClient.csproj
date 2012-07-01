@@ -72,6 +72,9 @@
     </Reference>
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -86,6 +89,7 @@
     <Compile Include="CompareDatabasePerformance.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
     <Compile Include="GetUuids.cs" />
+    <Compile Include="GetUuidsFromPersonMaster.cs" />
     <Compile Include="LoadAllDataFromDatabase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RefreshData.cs" />
@@ -94,6 +98,11 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PersonMaster\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Utilities.Tests.cs" />
     <Compile Include="Web References\Part\Reference.cs">
@@ -107,6 +116,20 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\PersonMaster\BasicOp.wsdl" />
+    <None Include="Service References\PersonMaster\personmaster.wsdl" />
+    <None Include="Service References\PersonMaster\personmaster.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PersonMaster\personmaster1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PersonMaster\personmaster2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PersonMaster\personmaster3.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web References\Part\GetUuidOutputType1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -151,11 +174,22 @@
       <Project>{F98E5179-88E3-404E-83BE-54F0A3E7DBC0}</Project>
       <Name>DPR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PersonMaster\PersonMaster.csproj">
+      <Project>{51186183-BEEA-4B6D-8865-B7070EFCA126}</Project>
+      <Name>PersonMaster</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Service References\PersonMaster\personmaster.disco" />
+    <None Include="Service References\PersonMaster\configuration91.svcinfo" />
+    <None Include="Service References\PersonMaster\configuration.svcinfo" />
+    <None Include="Service References\PersonMaster\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="TestDates.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +208,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\PersonMaster\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
