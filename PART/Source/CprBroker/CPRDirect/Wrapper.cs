@@ -25,7 +25,7 @@ namespace CprBroker.Providers.CPRDirect
             set
             {
                 int len = string.Format("{0}", value).Length;
-                if (len > 0 && len != Length)
+                if (Length > 0 && len != Length)
                 {
                     throw new ArgumentOutOfRangeException(
                         "Contents",
@@ -144,7 +144,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             var ret = new List<Wrapper>();
             StringReader rd = new StringReader(data);
-            while (rd.Peek() > 0)
+            while (rd.Peek() > -1)
             {
                 string typeCode = Read(rd, Constants.DataObjectCodeLength);
                 Type type = typeMap[typeCode];

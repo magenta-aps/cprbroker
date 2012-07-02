@@ -64,6 +64,9 @@ namespace CprBroker.Providers.CPRDirect
 
         public const int DataObjectCodeLength = 3;
 
+        public const int StartRecordCode = 0;
+        public const int EndRecordCode = 999;
+
         public static Encoding DefaultEncoding
         {
             get { return Encoding.UTF7; }
