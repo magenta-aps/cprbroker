@@ -39,6 +39,16 @@ namespace CprBroker.Providers.CPRDirect
 
         public abstract int Length { get; }
 
+        public string Code
+        {
+            get { return Contents.Substring(0, 3); }
+        }
+
+        public int IntCode
+        {
+            get { return int.Parse(Code); }
+        }
+
         private string this[int pos, int length]
         {
             get
@@ -156,8 +166,21 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        public void FillFrom(IList<Wrapper> wrappers)
+        public static List<Wrapper> ParseBatch(string[] dataLines, Dictionary<string, Type> typeMap)
         {
+            var ret = dataLines
+                .Where(line => line.Length >= Constants.DataObjectCodeLength)
+                .Select(dataLine => new LineWrapper(dataLine).ToWrapper(typeMap))
+                .Where(w => w != null);
+
+            return ret.ToList();
+        }
+
+        public void FillFrom(IList<Wrapper> wrappersIList, params Wrapper[] extraWrappers)
+        {
+            var wrappers = new List<Wrapper>(wrappersIList);
+            wrappers.AddRange(extraWrappers.Where(w => w != null));
+
             Type myType = GetType();
             var fields = myType.GetFields();
             foreach (System.Reflection.FieldInfo field in fields)

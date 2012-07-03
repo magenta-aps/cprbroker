@@ -255,6 +255,27 @@ namespace CprBroker.Tests.CPRDirect
                 var childWrappers = CreateWrapperArray(typeof(WrapperStub1), minOccurs + maxOccursDiff + 1);
                 parentWrapper.FillFrom(childWrappers);
             }
+
+            public class StartRecordWrapperStub : Wrapper
+            {
+                [MinMaxOccurs(1, 1)]
+                public StartRecordType StartRecord;
+
+                public override int Length
+                {
+                    get { return 0; }
+                }
+                public StartRecordWrapperStub()
+                { }
+            }
+
+            [Test]
+            [ExpectedException(typeof(InvalidOperationException))]
+            public void FillFrom_MultipleStartRecords_Exception()
+            {
+                var w = new StartRecordWrapperStub();
+                w.FillFrom(new Wrapper[] { new StartRecordType() }, new StartRecordType(), null);
+            }
         }
 
         [TestFixture]
