@@ -51,6 +51,7 @@
     <Compile Include="Disempowerment.Tests.cs" />
     <Compile Include="IndividualRequest.Tests.cs" />
     <Compile Include="IndividualResponse.Attributes.Tests.cs" />
+    <Compile Include="LineWrapper.Tests.cs" />
     <Compile Include="MinMaxOccurs.Tests.cs" />
     <Compile Include="ParentalAuthority.Tests.cs" />
     <Compile Include="ParentsInformation.Tests.cs" />
@@ -66,6 +67,9 @@
   <ItemGroup>
     <Compile Include="Utilities.cs" />
     <Compile Include="Wrapper.Tests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IndividualResponse.Tests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
