@@ -56,6 +56,7 @@
     <Compile Include="CPRDirectDataProvider.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="XML\Child.cs" />
+    <Compile Include="XML\IndividualResponse.Parser.cs" />
     <Compile Include="XML\CurrentCivilStatus.cs" />
     <Compile Include="XML\CurrentSeparation.cs" />
     <Compile Include="XML\Disempowerment.cs" />

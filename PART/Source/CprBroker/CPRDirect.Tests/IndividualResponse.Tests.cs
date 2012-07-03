@@ -22,10 +22,17 @@ namespace CprBroker.Tests.CPRDirect
 
             [Test]
             public void ParseBatch_ChangeExtract_AllHasStartRecord(
-                [Range(0,79)]int index)
+                [Range(0, 79)]int index)
             {
                 var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                Assert.NotNull(result[index].StartRecord);                
+                Assert.NotNull(result[index].StartRecord);
+            }
+
+            [Test]
+            public void ParseBatch_ChangeExtract_AllShareStartRecord()
+            {
+                var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                Assert.AreEqual(1, result.Select(ind => ind.StartRecord).Distinct().Count());
             }
 
             [Test]
@@ -34,6 +41,13 @@ namespace CprBroker.Tests.CPRDirect
             {
                 var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
                 Assert.NotNull(result[index].EndRecord);
+            }
+
+            [Test]
+            public void ParseBatch_ChangeExtract_AllShareEndRecord()
+            {
+                var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                Assert.AreEqual(1, result.Select(ind => ind.EndRecord).Distinct().Count());
             }
         }
     }
