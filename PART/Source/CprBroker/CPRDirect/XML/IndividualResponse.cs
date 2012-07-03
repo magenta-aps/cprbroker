@@ -33,44 +33,35 @@ namespace CprBroker.Providers.CPRDirect
             return Constants.CommentText;
         }
 
-        public static IList<IndividualResponseType> ParseBatch(string[] dataLines, Dictionary<string, Type> typeMap)
+        public static IList<IndividualResponseType> ParseBatch(string batchFileText)
         {
-            var allLineWrappers = dataLines
-                .Where(line => line.Length >= Constants.DataObjectCodeLength)
-                .Select(dataLine => new LineWrapper(dataLine));
+            var rd = new System.IO.StringReader(batchFileText);
+            var lines = rd.ReadToEnd().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            return ParseBatch(lines, Constants.DataObjectMap);
+        }
 
-            var startRecord = allLineWrappers.Where(w => w.IntCode == Constants.StartRecordCode).First();
-            var endRecord = allLineWrappers.Where(w => w.IntCode == Constants.EndRecordCode).First();
+        public static new IList<IndividualResponseType> ParseBatch(string[] dataLines, Dictionary<string, Type> typeMap)
+        {
+            var allLineWrappers = Wrapper.ParseBatch(dataLines, typeMap);
+
+            var startRecord = allLineWrappers.Where(w => w is StartRecordType).FirstOrDefault() as StartRecordType;
+            var endRecord = allLineWrappers.Where(w => w is EndRecordType).FirstOrDefault() as EndRecordType;
 
             var relevantLines = allLineWrappers
-                .Where(lineWrapper => lineWrapper.IntCode != 0 && lineWrapper.IntCode != 999);
+                .Where(lineWrapper => !new Wrapper[] { startRecord, endRecord }.Contains(lineWrapper));
 
-            var ret = relevantLines
-                .GroupBy(lineWrapper => lineWrapper.PNR)
-                .Select(
-                individualLineGrouping =>
-                {
-                    var individualLines = individualLineGrouping.ToList();
-                    individualLines.Insert(0, startRecord);
-                    individualLines.Add(endRecord);
-                    var individualWrappers = new List<Wrapper>();
-                    foreach (var lineWrapper in individualLines)
+            var groupedWrapers = relevantLines
+                .GroupBy(w => new LineWrapper(w.Contents).PNR);
+
+            var ret = groupedWrapers
+                .Select(individualWrappersGrouping =>
                     {
-                        if (typeMap.ContainsKey(lineWrapper.Code))
-                        {
-                            Type type = typeMap[lineWrapper.Code];
-                            var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
-                            lineWrapper.Contents = lineWrapper.Contents.PadRight(wrapper.Length);
-                            wrapper.Contents = lineWrapper.Contents;
-                            individualWrappers.Add(wrapper);
-                        }
+                        var individualLines = individualWrappersGrouping.ToList();
+                        var individual = new IndividualResponseType();
+                        individual.FillFrom(individualLines, startRecord, endRecord);
+                        return individual;
                     }
-
-                    var individual = new IndividualResponseType();
-                    individual.FillFrom(individualWrappers);
-                    return individual;
-                }
-                );
+            );
             return ret.ToList();
         }
 
