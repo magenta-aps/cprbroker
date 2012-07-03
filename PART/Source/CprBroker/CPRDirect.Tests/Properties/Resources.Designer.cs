@@ -70,6 +70,22 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         ///0110101965058U1997-09-09
         ///0120101965058E00000 [rest of string was truncated]&quot;;.
         /// </summary>
+        internal static string PNR_0101965058 {
+            get {
+                return ResourceManager.GetString("PNR_0101965058", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 00000000000001109012001111920011116
+        ///0010101965058          01000000000000 K1896-01-01 1997-09-09            Pensionist
+        ///002010196505808518511016                                             199709090924 199709090924 0000000000000000 0000
+        ///0080101965058Ude Ulrike                                                                                  Udtzen                                   191005220924 Ude Ulrike Udtzen
+        ///00901019650585180
+        ///01001019650585180192001220924
+        ///0110101965058U1997-09-09
+        ///0120101965058E00000 [rest of string was truncated]&quot;;.
+        /// </summary>
         internal static string U12170_P_opgavenr_110901_ADRNVN_FE {
             get {
                 return ResourceManager.GetString("U12170_P_opgavenr_110901_ADRNVN_FE", resourceCulture);

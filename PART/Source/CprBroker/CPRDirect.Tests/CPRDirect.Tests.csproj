@@ -74,7 +74,7 @@
     <Compile Include="Wrapper.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndividualResponse.Tests.cs" />
+    <Compile Include="IndividualResponse.Parser.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -84,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0101965058.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
