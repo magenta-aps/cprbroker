@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="CompareDatabasePerformance.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
+    <Compile Include="DoNothing.cs" />
     <Compile Include="GetUuids.cs" />
     <Compile Include="GetUuidsFromPersonMaster.cs" />
     <Compile Include="LoadAllDataFromDatabase.cs" />

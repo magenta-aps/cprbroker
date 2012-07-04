@@ -23,6 +23,7 @@ BatchClient.exe param1 param1Value param2 param2Value
 /userToken	: User token passed to CPR broker
 /pmUrl		: URL to PersonmasterServiceLibrary.BasicOp.svc
 /pmSpn		: SpnName to be used with person master
+/maxThreads	: Number of concurrent threads to execute
 
 ============
 RefreshData
