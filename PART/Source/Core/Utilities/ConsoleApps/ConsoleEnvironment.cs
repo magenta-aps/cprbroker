@@ -75,6 +75,8 @@ namespace CprBroker.Utilities.ConsoleApps
         public string StartCprNumber = "";
         public string AppToken = "";
         public string UserToken = "";
+        public string PersonMasterUrl = "";
+        public string PersonMasterSpnName = "";
 
 
 
@@ -91,26 +93,30 @@ namespace CprBroker.Utilities.ConsoleApps
             var envTypeArg = new CommandArgumentSpec() { Switch = "/envType", ValueRequirement = ValueRequirement.Required, MaxOccurs = 1 };
             var startPnrArg = new CommandArgumentSpec() { Switch = "/startPnr", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var sourceArg = new CommandArgumentSpec() { Switch = "/source", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
-            var urlArg = new CommandArgumentSpec() { Switch = "/partUrl", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var partUrlArg = new CommandArgumentSpec() { Switch = "/partUrl", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var brokerArg = new CommandArgumentSpec() { Switch = "/brokerDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var otherDbArg = new CommandArgumentSpec() { Switch = "/otherDb", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var appTokenArg = new CommandArgumentSpec() { Switch = "/appToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var userTokenArg = new CommandArgumentSpec() { Switch = "/userToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var pmUrlArg = new CommandArgumentSpec() { Switch = "/pmUrl", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var pmSpnArg = new CommandArgumentSpec() { Switch = "/pmSpn", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
 
             var arguments = CommandlineParser.SplitCommandArguments(args);
-            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, urlArg, brokerArg, otherDbArg, appTokenArg,userTokenArg });
+            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, partUrlArg, brokerArg, otherDbArg, appTokenArg, userTokenArg, pmUrlArg, pmSpnArg });
 
             string envTypeName = envTypeArg.FoundArguments[0].Value;
             var ret = Reflection.CreateInstance<ConsoleEnvironment>(envTypeName);
             if (ret != null)
             {
-                ret.PartServiceUrl = urlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.PartServiceUrl = partUrlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.StartCprNumber = startPnrArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.SourceFile = sourceArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.BrokerConnectionString = brokerArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.OtherConnectionString = otherDbArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.ApplicationToken = appTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
-                ret.UserToken= userTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.UserToken = userTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.PersonMasterUrl = pmUrlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                ret.PersonMasterSpnName = pmSpnArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 return ret;
             }
             else
