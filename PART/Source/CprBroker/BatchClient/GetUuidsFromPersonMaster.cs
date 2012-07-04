@@ -6,7 +6,7 @@ using System.ServiceModel;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities.ConsoleApps;
-//using CprBroker.Providers.PersonMaster.PersonMasterService;
+
 namespace BatchClient
 {
     class GetUuidsFromPersonMaster : GetUuids
@@ -32,21 +32,19 @@ namespace BatchClient
         int Succeeded = 0;
         int Failed = 0;
 
-        string PersonMasterUrl = "";
-        string SpnName = "";
 
         public override void ProcessPerson(string joinedPnrBatch)
         {
             WSHttpBinding binding = new WSHttpBinding();
 
-            var identity = new SpnEndpointIdentity(SpnName);
-            EndpointAddress endPointAddress = new EndpointAddress(new Uri(PersonMasterUrl), identity);
+            var identity = new SpnEndpointIdentity(PersonMasterSpnName);
+            EndpointAddress endPointAddress = new EndpointAddress(new Uri(PersonMasterUrl + "/PersonMasterService12"), identity);
             PersonMaster.BasicOpClient client = new PersonMaster.BasicOpClient(binding, endPointAddress);
             string[] pnrs = joinedPnrBatch.Split(',');
             string aux = "";
             var result = client.GetObjectIDsFromCprArray("BacthClient", pnrs, ref aux);
             Succeeded += result.Where(res => res.HasValue).Count();
-            Succeeded += result.Where(res => !res.HasValue).Count();
+            Failed += result.Where(res => !res.HasValue).Count();
             Console.WriteLine(string.Format("Batch finished: Size={0}, Succeeded So far={1}; Failed So far={2}", pnrs.Length, Succeeded, Failed));
         }
     }

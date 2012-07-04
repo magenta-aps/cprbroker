@@ -21,6 +21,8 @@ BatchClient.exe param1 param1Value param2 param2Value
 /otherDb	: Connection string to any other database (depends on actual task)
 /appToken	: Application token passed to CPR broker
 /userToken	: User token passed to CPR broker
+/pmUrl		: URL to PersonmasterServiceLibrary.BasicOp.svc
+/pmSpn		: SpnName to be used with person master
 
 ============
 RefreshData
