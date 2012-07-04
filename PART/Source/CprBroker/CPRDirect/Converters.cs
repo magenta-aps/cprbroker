@@ -25,6 +25,14 @@ namespace CprBroker.Providers.CPRDirect
                 return null;
         }
 
+        public static String ToString(string value, char uncertainty)
+        {
+            if (uncertainty == ' ')
+                return value;
+            else
+                return string.Empty;
+        }
+
         public static string ToPnrStringOrNull(string pnr)
         {
             decimal decimalPnr;

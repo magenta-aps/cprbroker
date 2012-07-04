@@ -65,8 +65,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public NavnStrukturType ToNavnStrukturType()
         {
-            // TODO: See how to use corresponding 3 name flags
-            return NavnStrukturType.Create(this.CurrentNameInformation.FirstName_s, this.CurrentNameInformation.MiddleName, this.CurrentNameInformation.LastName);
+            return this.CurrentNameInformation.ToNavnStrukturType();
         }
 
         private PersonGenderCodeType PersonGenderCodeType()

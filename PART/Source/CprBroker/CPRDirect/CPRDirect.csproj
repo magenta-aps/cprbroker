@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="XML\IndividualResponse.cs" />
     <Compile Include="XML\LineWrapper.cs" />
+    <Compile Include="XML\CurrentNameInformation.cs" />
     <Compile Include="XML\ParentalAuthority.cs" />
     <Compile Include="XML\ParentsInformation.cs" />
     <Compile Include="XML\PersonInformation.cs" />
