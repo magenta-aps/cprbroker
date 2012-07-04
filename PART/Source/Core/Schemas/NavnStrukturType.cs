@@ -55,12 +55,17 @@ namespace CprBroker.Schemas.Part
     {
         public static NavnStrukturType Create(params string[] names)
         {
+            return Create(names, null);
+        }
+
+        public static NavnStrukturType Create(string[] names, string addressingName)
+        {
             // TODO: Fill the rest of this object
-            return new NavnStrukturType() 
+            return new NavnStrukturType()
             {
                 KaldenavnTekst = null,
-                NoteTekst=null,
-                PersonNameForAddressingName=null,
+                NoteTekst = null,
+                PersonNameForAddressingName = addressingName,
                 PersonNameStructure = new PersonNameStructureType(names),
             };
         }
