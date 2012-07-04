@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Threading;
 
 namespace CprBroker.Utilities.ConsoleApps
 {
@@ -77,7 +78,7 @@ namespace CprBroker.Utilities.ConsoleApps
         public string UserToken = "";
         public string PersonMasterUrl = "";
         public string PersonMasterSpnName = "";
-
+        public int MaxThreads = 1;
 
 
 
@@ -86,7 +87,7 @@ namespace CprBroker.Utilities.ConsoleApps
         StreamWriter succeededFileWriter;
         StreamWriter failedFileWriter;
         int count;
-        int processed;
+        long processed;
 
         public static ConsoleEnvironment ParseArguments(string[] args)
         {
@@ -100,9 +101,10 @@ namespace CprBroker.Utilities.ConsoleApps
             var userTokenArg = new CommandArgumentSpec() { Switch = "/userToken", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var pmUrlArg = new CommandArgumentSpec() { Switch = "/pmUrl", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
             var pmSpnArg = new CommandArgumentSpec() { Switch = "/pmSpn", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
+            var maxThreadsArg = new CommandArgumentSpec() { Switch = "/maxThreads", ValueRequirement = ValueRequirement.NotRequired, MaxOccurs = 1 };
 
             var arguments = CommandlineParser.SplitCommandArguments(args);
-            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, partUrlArg, brokerArg, otherDbArg, appTokenArg, userTokenArg, pmUrlArg, pmSpnArg });
+            CommandlineParser.ValidateCommandline(arguments, new CommandArgumentSpec[] { envTypeArg, startPnrArg, sourceArg, partUrlArg, brokerArg, otherDbArg, appTokenArg, userTokenArg, pmUrlArg, pmSpnArg, maxThreadsArg });
 
             string envTypeName = envTypeArg.FoundArguments[0].Value;
             var ret = Reflection.CreateInstance<ConsoleEnvironment>(envTypeName);
@@ -117,6 +119,12 @@ namespace CprBroker.Utilities.ConsoleApps
                 ret.UserToken = userTokenArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.PersonMasterUrl = pmUrlArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
                 ret.PersonMasterSpnName = pmSpnArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                var threads = maxThreadsArg.FoundArguments.Select(a => a.Value).FirstOrDefault();
+                var intThreads = 0;
+                if (int.TryParse(threads, out intThreads))
+                    ret.MaxThreads = intThreads;
+                else
+                    ret.MaxThreads = 1;
                 return ret;
             }
             else
@@ -161,7 +169,6 @@ namespace CprBroker.Utilities.ConsoleApps
             {
                 var index = Array.IndexOf<string>(cprNumbers, StartCprNumber);
 
-
                 if (index != -1)
                 {
                     for (int i = 0; i < index; i++)
@@ -179,22 +186,61 @@ namespace CprBroker.Utilities.ConsoleApps
                 Console.WriteLine(string.Format("Filtered to <{0}> citizens", count));
             }
 
+            var actions = new Action[cprNumbers.Length];
 
-            foreach (var cprNumber in cprNumbers)
+            for (int iCprNumber = 0; iCprNumber < cprNumbers.Length; iCprNumber++)
             {
-                try
+                var cprNumber = cprNumbers[iCprNumber];
+                actions[iCprNumber] = () =>
+                    {
+                        try
+                        {
+                            Start(cprNumber);
+                            ProcessPerson(cprNumber);
+                            Pass(cprNumber);
+                        }
+                        catch (Exception ex)
+                        {
+                            Fail(cprNumber, ex.ToString());
+                        }
+                        finally
+                        {
+                            End(cprNumber);
+                        }
+                    };
+            }
+            if (actions.Length == 1)
+            {
+                actions[0]();
+            }
+            else
+            {
+                var threads = new Thread[MaxThreads];
+                long started = -1;
+
+                for (int iThread = 0; iThread < MaxThreads; iThread++)
                 {
-                    Start(cprNumber);
-                    ProcessPerson(cprNumber);
-                    Pass(cprNumber);
+                    threads[iThread] = new Thread(
+                        () =>
+                        {
+                            while (true)
+                            {
+                                Interlocked.Increment(ref started);
+                                if (started < cprNumbers.Length)
+                                {
+                                    actions[started]();
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        });
+                    threads[iThread].Start();
                 }
-                catch (Exception ex)
+                while (Interlocked.Read(ref processed) < cprNumbers.Length)
                 {
-                    Fail(cprNumber, ex.ToString());
-                }
-                finally
-                {
-                    End(cprNumber);
+                    Thread.Sleep(100);
                 }
             }
             EndAll();
@@ -207,40 +253,58 @@ namespace CprBroker.Utilities.ConsoleApps
 
         public void WriteObject(string cprNumber, object obj)
         {
-            string registrationXml = obj is string ? obj as string : CprBroker.Utilities.Strings.SerializeObject(obj);
-            string registrationFileName = string.Format("{0}{1}.xml", outDir, cprNumber);
-            File.WriteAllText(registrationFileName, registrationXml);
+            lock (this)
+            {
+                string registrationXml = obj is string ? obj as string : CprBroker.Utilities.Strings.SerializeObject(obj);
+                string registrationFileName = string.Format("{0}{1}.xml", outDir, cprNumber);
+                File.WriteAllText(registrationFileName, registrationXml);
+            }
         }
 
         public void Log(string text)
         {
-            Console.WriteLine(text);
-            logFileWriter.WriteLine(text);
+            lock (this)
+            {
+                Console.WriteLine(text);
+                logFileWriter.WriteLine(text);
+            }
         }
 
         public void Start(string cprNumber)
         {
-            Log(string.Format("Starting citizen <{0}> of <{1}>", processed + 1, count));
-            Log(string.Format("CPR = <{0}>", cprNumber));
+            lock (this)
+            {
+                Log(string.Format("Starting citizen <{0}> of <{1}>", processed + 1, count));
+                Log(string.Format("CPR = <{0}>", cprNumber));
+            }
         }
 
         public void Pass(string cprNumber)
         {
-            succeededFileWriter.WriteLine(cprNumber);
-            Log("Succeeded !!");
+            lock (this)
+            {
+                succeededFileWriter.WriteLine(cprNumber);
+                Log("Succeeded !!");
+            }
         }
 
         public void Fail(string cprNumber, string message)
         {
-            failedFileWriter.WriteLine(cprNumber);
-            Log(message);
+            lock (this)
+            {
+                failedFileWriter.WriteLine(cprNumber);
+                Log(message);
+            }
         }
 
         public void End(string cprNumber)
         {
-            processed++;
-            var percent = (100 * processed / count).ToString();
-            Log(string.Format("Processed <{0}> of <{1}> - <{2}%>", processed, count, percent));
+            lock (this)
+            {
+                processed++;
+                var percent = (100 * processed / count).ToString();
+                Log(string.Format("Processed <{0}> of <{1}> - <{2}%>", processed, count, percent));
+            }
         }
 
         public virtual void EndAll()
