@@ -79,7 +79,7 @@ namespace CprBroker.Providers.CPRDirect
         public string ToFoedestedNavn()
         {
             // Birth name not implemented
-            // TODO: See if can be found
+            // TODO: See if can be found in historical names
             return null;
         }
 
