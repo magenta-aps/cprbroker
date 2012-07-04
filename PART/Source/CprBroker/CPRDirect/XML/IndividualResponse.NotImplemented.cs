@@ -33,14 +33,14 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        private PersonRelationType[] ToErstatningAf()
+        public PersonRelationType[] ToErstatningAf()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        private PersonFlerRelationType[] ToErstatningFor()
+        public PersonFlerRelationType[] ToErstatningFor()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         private PersonFlerRelationType[] ToForaeldremyndighedsboern()
