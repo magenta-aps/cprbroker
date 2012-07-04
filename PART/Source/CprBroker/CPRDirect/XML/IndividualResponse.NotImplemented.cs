@@ -76,5 +76,12 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
+        public string ToFoedestedNavn()
+        {
+            // Birth name not implemented
+            // TODO: See if can be found
+            return null;
+        }
+
     }
 }

@@ -51,13 +51,6 @@ namespace CprBroker.Providers.CPRDirect
                 return Utilities.Strings.PersonNumberToDate(this.PersonInformation.ToPnr()).Value;
         }
 
-        public string ToFoedestedNavn()
-        {
-            // Birth name not implemented
-            // TODO: See if can be found
-            return null;
-        }
-
         public string ToFoedselsregistreringMyndighedNavn()
         {
             return this.BirthRegistrationInformation.AdditionalBirthRegistrationText;
