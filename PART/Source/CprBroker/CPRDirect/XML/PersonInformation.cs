@@ -33,5 +33,10 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPnrStringOrNull(this.PNR);
         }
 
+        public PersonGenderCodeType ToPersonGenderCodeType()
+        {
+            return Converters.ToPersonGenderCodeType(this.Gender);
+        }
+
     }
 }

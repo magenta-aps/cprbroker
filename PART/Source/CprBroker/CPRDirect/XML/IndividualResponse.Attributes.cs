@@ -31,7 +31,7 @@ namespace CprBroker.Providers.CPRDirect
                     KontaktKanal = ToKontaktKanalType(),
                     NaermestePaaroerende = ToNaermestePaaroerende(),
                     NavnStruktur = ToNavnStrukturType(),
-                    PersonGenderCode = PersonGenderCodeType(),
+                    PersonGenderCode = ToPersonGenderCodeType(),
                     Virkning = ToEgenskabVirkning()
                 }
             };
@@ -53,7 +53,8 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToFoedselsregistreringMyndighedNavn()
         {
-            return this.BirthRegistrationInformation.AdditionalBirthRegistrationText;
+            // TODO: Map this.BirthRegistrationInformation.Code to authority name
+            return null;
         }
 
         public NavnStrukturType ToNavnStrukturType()
@@ -61,9 +62,9 @@ namespace CprBroker.Providers.CPRDirect
             return this.CurrentNameInformation.ToNavnStrukturType();
         }
 
-        private PersonGenderCodeType PersonGenderCodeType()
+        public PersonGenderCodeType ToPersonGenderCodeType()
         {
-            throw new NotImplementedException();
+            return this.PersonInformation.ToPersonGenderCodeType();
         }
 
         private VirkningType ToEgenskabVirkning()

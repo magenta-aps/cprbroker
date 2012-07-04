@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -44,6 +45,23 @@ namespace CprBroker.Providers.CPRDirect
                 }
             }
             return null;
+        }
+
+        public static PersonGenderCodeType ToPersonGenderCodeType(char gender)
+        {
+            switch (gender.ToString().ToUpper()[0])
+            {
+                case 'M':
+                    return PersonGenderCodeType.male;
+                    break;
+                case 'K':
+                    return PersonGenderCodeType.female;
+                    break;
+                default:
+                    throw new ArgumentException(
+                        string.Format("Invalied value <{0}>, must be either 'M' or 'K'", gender),
+                        "gender");
+            }
         }
 
     }

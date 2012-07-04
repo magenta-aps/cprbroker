@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
-
+using CprBroker.Schemas.Part;
 namespace CprBroker.Tests.CPRDirect
 {
     namespace PersonInformationTests
@@ -86,6 +86,37 @@ namespace CprBroker.Tests.CPRDirect
                 var inf = new PersonInformationType() { PNR = pnr };
                 var ret = inf.ToPnr();
                 Assert.IsNullOrEmpty(ret);
+            }
+        }
+
+        [TestFixture]
+        public class ToPersonGenderCodeType
+        {
+            [Test]
+            public void PersonGenderCodeType_M_Male(
+                [Values('M','m')]char gender)
+            {
+                var info = new PersonInformationType() { Gender = gender };
+                var ret = info.ToPersonGenderCodeType();
+                Assert.AreEqual(PersonGenderCodeType.male, ret);
+            }
+
+            [Test]
+            public void PersonGenderCodeType_K_Female(
+                [Values('K', 'k')]char gender)
+            {
+                var info = new PersonInformationType() { Gender = gender };
+                var ret = info.ToPersonGenderCodeType();
+                Assert.AreEqual(PersonGenderCodeType.female, ret);
+            }
+
+            [Test]
+            [ExpectedException]
+            public void PersonGenderCodeType_Other_Exception(
+                [Values('s', ' ','2')]char gender)
+            {
+                var info = new PersonInformationType() { Gender = gender };
+                var ret = info.ToPersonGenderCodeType();
             }
         }
 
