@@ -28,9 +28,9 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
-        private LokalUdvidelseType ToLokalUdvidelseType()
+        public LokalUdvidelseType ToLokalUdvidelseType()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         private PersonRelationType[] ToErstatningAf()
