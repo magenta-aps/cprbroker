@@ -64,5 +64,31 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public static bool ToFolkekirkeMedlemIndikator(char churchRelation)
+        {
+            switch (churchRelation.ToString().ToUpper()[0])
+            {
+                case 'F':
+                    return true;
+                    break;
+                case 'M':
+                    return true;
+                    break;
+                case 'S':
+                    return false;
+                    break;
+                case 'A':
+                    return false;
+                    break;
+                case 'D':
+                    return false;
+                    break;
+                default:
+                    throw new ArgumentException(
+                        string.Format("Invalied value <{0}>, must be 'A', 'M', 'F', 'S' or 'D'", churchRelation),
+                        "churchRelation");
+            }
+        }
+
     }
 }

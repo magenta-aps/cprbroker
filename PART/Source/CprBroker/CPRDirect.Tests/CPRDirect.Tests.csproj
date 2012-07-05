@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BirthRegistrationInformation.Tests.cs" />
     <Compile Include="ChildTests.cs" />
+    <Compile Include="ChurchInformationTests.cs" />
     <Compile Include="Converters.Tests.cs" />
     <Compile Include="CurrentCivilStatus.Tests.cs" />
     <Compile Include="CurrentNameInformationTests.cs" />

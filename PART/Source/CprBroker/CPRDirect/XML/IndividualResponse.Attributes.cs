@@ -131,16 +131,19 @@ namespace CprBroker.Providers.CPRDirect
 
         private bool ToFolkekirkeMedlemIndikator()
         {
-            throw new NotImplementedException();
+            return this.ChurchInformation.ToFolkekirkeMedlemIndikator();
         }
 
-        private string ToAdresseNoteTekst()
+        public string ToAdresseNoteTekst()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public VirkningType ToCprBorgerTypeVirkning()
         {
+            var dates = new DateTime?[] { 
+                this.ChurchInformation.ToChurchRelationshipDate()
+            };
             throw new NotImplementedException();
         }
 
