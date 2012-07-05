@@ -104,9 +104,9 @@ namespace CprBroker.Providers.CPRDirect
             return this.CurrentCitizenship.ToPersonNationalityCode();
         }
 
-        private string ToPersonCivilRegistrationIdentifier()
+        public string ToPersonCivilRegistrationIdentifier()
         {
-            throw new NotImplementedException();
+            return this.PersonInformation.ToPnr();
         }
 
         public bool ToNavneAdresseBeskyttelseIndikator(DateTime effectDate)
@@ -144,7 +144,7 @@ namespace CprBroker.Providers.CPRDirect
 
             var effects = new List<VirkningType>();
             effects.AddRange(ProtectionType.ToVirkningTypeArray(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.NameAndAddress, ProtectionType.ProtectionCategoryCodes.Research));
-
+            effects.Add(this.PersonInformation.ToVirkningType());
             throw new NotImplementedException();
         }
 

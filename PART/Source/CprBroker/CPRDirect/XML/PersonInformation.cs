@@ -30,7 +30,16 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToPnr()
         {
+            // TODO: Shall we use CurrentCprNumber instead - as that is the new CPR number? I guess answer is no !!
             return Converters.ToPnrStringOrNull(this.PNR);
+        }
+
+        public VirkningType ToVirkningType()
+        {
+            return VirkningType.Create(
+                Converters.ToDateTime(this.PersonStartDate, this.PersonStartDateUncertainty),
+                Converters.ToDateTime(this.PersonEndDate, this.PersonEndDateUncertainty)
+                );
         }
 
         public PersonGenderCodeType ToPersonGenderCodeType()

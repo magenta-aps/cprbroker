@@ -44,7 +44,7 @@
       <Attribute name="PersonStartDate" danishName="START_DT-PERSON" format="Alpha" length="10" position="51" description="Person start date yyyy-MM-dd" dateFormat="yyyy-MM-dd"/>
       <Attribute name="PersonStartDateUncertainty" danishName="START_DT_UMRK-PERSON" format="Alpha" length="1" position="61" description="Start date uncertainty marker"/>
       <Attribute name="PersonEndDate " danishName="SLUT_DT-PERSON" format="Alpha" length="10" position="62" description="Person end date yyyy-MM-dd" dateFormat="yyyy-MM-dd"/>
-      <Attribute name="EndDateUncertainty" danishName="PNR" format="Alpha" length="1" position="72" description="End date uncertainty marker"/>
+      <Attribute name="PersonEndDateUncertainty" danishName="PNR" format="Alpha" length="1" position="72" description="End date uncertainty marker"/>
       <Attribute name="Job" danishName="STILLING" format="Alpha" length="34" position="73" description="Job"/>
     </Object>
 
