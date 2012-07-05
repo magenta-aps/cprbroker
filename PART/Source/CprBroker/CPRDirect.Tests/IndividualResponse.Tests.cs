@@ -16,7 +16,7 @@ namespace CprBroker.Tests.CPRDirect
             public void ToRegistreringType1_()
             {
                 var individual = IndividualResponseType.ParseBatch(Properties.Resources.PNR_0101965058).First();
-                var registration = individual.ToRegistreringType1(pnr => Guid.NewGuid());
+                var registration = individual.ToRegistreringType1(pnr => Guid.NewGuid(), DateTime.Today);
                 Assert.NotNull(registration);
             }
         }

@@ -8,6 +8,10 @@ namespace CprBroker.Providers.CPRDirect
 {
     public static class Converters
     {
+        public static string DecimalToString(decimal value)
+        {
+            return value.ToString("G");
+        }
         public static string DecimalToString(decimal value, int length)
         {
             var ret = value.ToString(new string('0', length));

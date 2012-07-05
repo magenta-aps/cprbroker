@@ -94,14 +94,14 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
-        private bool ToPersonNummerGyldighedStatusIndikator()
+        public bool ToPersonNummerGyldighedStatusIndikator()
         {
-            throw new NotImplementedException();
+            return this.PersonInformation.ToPersonNummerGyldighedStatusIndikator();
         }
 
-        private CountryIdentificationCodeType ToPersonNationalityCode()
+        public CountryIdentificationCodeType ToPersonNationalityCode()
         {
-            throw new NotImplementedException();
+            return this.CurrentCitizenship.ToPersonNationalityCode();
         }
 
         private string ToPersonCivilRegistrationIdentifier()
@@ -137,7 +137,9 @@ namespace CprBroker.Providers.CPRDirect
         public VirkningType ToCprBorgerTypeVirkning(DateTime effectDate)
         {
             var dates = new DateTime?[] { 
-                this.ChurchInformation.ToChurchRelationshipDate()
+                this.PersonInformation.ToStatusDate(),
+                this.ChurchInformation.ToChurchRelationshipDate(),
+                this.CurrentCitizenship.ToCitizenshipStartDate(),
             };
 
             var effects = new List<VirkningType>();

@@ -38,5 +38,10 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPersonGenderCodeType(this.Gender);
         }
 
+        public bool ToPersonNummerGyldighedStatusIndikator()
+        {
+            return Enums.IsActiveCivilRegistrationStatus(this.Status);
+        }
+
     }
 }
