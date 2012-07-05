@@ -8,13 +8,13 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
-        public AttributListeType ToAttributListeType()
+        public AttributListeType ToAttributListeType(DateTime effectDate)
         {
             return new AttributListeType()
             {
                 Egenskab = ToEgenskabType(),
                 LokalUdvidelse = ToLokalUdvidelseType(),
-                RegisterOplysning = ToRegisterOplysningType(),
+                RegisterOplysning = ToRegisterOplysningType(effectDate),
                 SundhedOplysning = ToSundhedOplysningType()
             };
         }
@@ -67,36 +67,31 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
-        public RegisterOplysningType[] ToRegisterOplysningType()
+        public RegisterOplysningType[] ToRegisterOplysningType(DateTime effectDate)
         {
             return new RegisterOplysningType[]{
                 new RegisterOplysningType()
                 {
-                    Item = ToCprBorgerType(),
-                    Virkning = ToCprBorgerTypeVirkning()
+                    Item = ToCprBorgerType(effectDate),
+                    Virkning = ToCprBorgerTypeVirkning(effectDate)
                 }
             };
         }
 
-        public CprBorgerType ToCprBorgerType()
+        public CprBorgerType ToCprBorgerType(DateTime effectDate)
         {
             return new CprBorgerType()
             {
                 AdresseNoteTekst = ToAdresseNoteTekst(),
                 FolkekirkeMedlemIndikator = ToFolkekirkeMedlemIndikator(),
                 FolkeregisterAdresse = ToFolkeregisterAdresse(),
-                ForskerBeskyttelseIndikator = ToForskerBeskyttelseIndikator(),
-                NavneAdresseBeskyttelseIndikator = ToNavneAdresseBeskyttelseIndikator(),
+                ForskerBeskyttelseIndikator = ToForskerBeskyttelseIndikator(effectDate),
+                NavneAdresseBeskyttelseIndikator = ToNavneAdresseBeskyttelseIndikator(effectDate),
                 PersonCivilRegistrationIdentifier = ToPersonCivilRegistrationIdentifier(),
                 PersonNationalityCode = ToPersonNationalityCode(),
                 PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
                 TelefonNummerBeskyttelseIndikator = ToTelefonNummerBeskyttelseIndikator(),
             };
-        }
-
-        private bool ToTelefonNummerBeskyttelseIndikator()
-        {
-            throw new NotImplementedException();
         }
 
         private bool ToPersonNummerGyldighedStatusIndikator()
@@ -114,14 +109,14 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
-        private bool ToNavneAdresseBeskyttelseIndikator()
+        public bool ToNavneAdresseBeskyttelseIndikator(DateTime effectDate)
         {
-            throw new NotImplementedException();
+            return ProtectionType.HasProtection(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.NameAndAddress);
         }
 
-        private bool ToForskerBeskyttelseIndikator()
+        public bool ToForskerBeskyttelseIndikator(DateTime effectDate)
         {
-            throw new NotImplementedException();
+            return ProtectionType.HasProtection(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.Research);
         }
 
         private AdresseType ToFolkeregisterAdresse()
@@ -139,11 +134,15 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        public VirkningType ToCprBorgerTypeVirkning()
+        public VirkningType ToCprBorgerTypeVirkning(DateTime effectDate)
         {
             var dates = new DateTime?[] { 
                 this.ChurchInformation.ToChurchRelationshipDate()
             };
+
+            var effects = new List<VirkningType>();
+            effects.AddRange(ProtectionType.ToVirkningTypeArray(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.NameAndAddress, ProtectionType.ProtectionCategoryCodes.Research));
+
             throw new NotImplementedException();
         }
 

@@ -88,5 +88,13 @@ namespace CprBroker.Providers.CPRDirect
             // TODO: See if it is possible to get another address in CPR Direct
             return null;
         }
+
+        public bool ToTelefonNummerBeskyttelseIndikator()
+        {
+            // No phone protection
+            // TODO: Can we somehow get phone protection from CPR Direct?
+            return false;
+        }
+
     }
 }

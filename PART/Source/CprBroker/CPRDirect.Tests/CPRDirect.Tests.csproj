@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="BirthRegistrationInformation.Tests.cs" />
     <Compile Include="ChildTests.cs" />
-    <Compile Include="ChurchInformationTests.cs" />
+    <Compile Include="ChurchInformation.Tests.cs" />
     <Compile Include="Converters.Tests.cs" />
     <Compile Include="CurrentCivilStatus.Tests.cs" />
     <Compile Include="CurrentNameInformationTests.cs" />
@@ -74,6 +74,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ProtectionType.Tests.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Wrapper.Tests.cs" />
   </ItemGroup>

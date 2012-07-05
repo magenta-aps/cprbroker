@@ -78,6 +78,7 @@
     <Compile Include="XML\ParentalAuthority.cs" />
     <Compile Include="XML\ParentsInformation.cs" />
     <Compile Include="XML\PersonInformation.cs" />
+    <Compile Include="XML\ProtectionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="XML\CodeGeneration.txt" />
