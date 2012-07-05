@@ -37,11 +37,6 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
-        private AdresseType ToAndreAdresser()
-        {
-            throw new NotImplementedException();
-        }
-
         public DateTime ToBirthDate()
         {
             var val = this.PersonInformation.ToBirthdate();
@@ -73,6 +68,78 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         public RegisterOplysningType[] ToRegisterOplysningType()
+        {
+            return new RegisterOplysningType[]{
+                new RegisterOplysningType()
+                {
+                    Item = ToCprBorgerType(),
+                    Virkning = ToCprBorgerTypeVirkning()
+                }
+            };
+        }
+
+        public CprBorgerType ToCprBorgerType()
+        {
+            return new CprBorgerType()
+            {
+                AdresseNoteTekst = ToAdresseNoteTekst(),
+                FolkekirkeMedlemIndikator = ToFolkekirkeMedlemIndikator(),
+                FolkeregisterAdresse = ToFolkeregisterAdresse(),
+                ForskerBeskyttelseIndikator = ToForskerBeskyttelseIndikator(),
+                NavneAdresseBeskyttelseIndikator = ToNavneAdresseBeskyttelseIndikator(),
+                PersonCivilRegistrationIdentifier = ToPersonCivilRegistrationIdentifier(),
+                PersonNationalityCode = ToPersonNationalityCode(),
+                PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
+                TelefonNummerBeskyttelseIndikator = ToTelefonNummerBeskyttelseIndikator(),
+            };
+        }
+
+        private bool ToTelefonNummerBeskyttelseIndikator()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool ToPersonNummerGyldighedStatusIndikator()
+        {
+            throw new NotImplementedException();
+        }
+
+        private CountryIdentificationCodeType ToPersonNationalityCode()
+        {
+            throw new NotImplementedException();
+        }
+
+        private string ToPersonCivilRegistrationIdentifier()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool ToNavneAdresseBeskyttelseIndikator()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool ToForskerBeskyttelseIndikator()
+        {
+            throw new NotImplementedException();
+        }
+
+        private AdresseType ToFolkeregisterAdresse()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool ToFolkekirkeMedlemIndikator()
+        {
+            throw new NotImplementedException();
+        }
+
+        private string ToAdresseNoteTekst()
+        {
+            throw new NotImplementedException();
+        }
+
+        public VirkningType ToCprBorgerTypeVirkning()
         {
             throw new NotImplementedException();
         }

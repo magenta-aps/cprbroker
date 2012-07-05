@@ -83,5 +83,10 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
+        public AdresseType ToAndreAdresser()
+        {
+            // TODO: See if it is possible to get another address in CPR Direct
+            return null;
+        }
     }
 }
