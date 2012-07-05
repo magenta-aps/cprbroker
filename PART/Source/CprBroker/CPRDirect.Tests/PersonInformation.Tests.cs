@@ -34,7 +34,7 @@ namespace CprBroker.Tests.CPRDirect
             {
                 var inf = new PersonInformationType() { Birthdate = DateTime.Today };
                 var ret = inf.ToBirthdate();
-                Assert.AreEqual(DateTime.Today, ret.Value);
+                Assert.AreEqual(DateTime.Today, ret);
             }
         }
 

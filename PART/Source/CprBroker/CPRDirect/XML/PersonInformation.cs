@@ -18,9 +18,21 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
-        public DateTime? ToBirthdate()
+        public DateTime? ToBirthdate(bool tryPnr = false)
         {
-            return Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty);
+            // First, look at birthdate field
+            var val = Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty);
+            if (val.HasValue || !tryPnr)
+                return val;
+
+            // Now try the current CPR number - it should be more recent than PNR
+            val = Utilities.Strings.PersonNumberToDate(this.CurrentCprNumber);
+            if (val.HasValue)
+                return val;
+
+            // Finally, use PNR
+            val = Utilities.Strings.PersonNumberToDate(this.ToPnr());
+            return val;
         }
 
         public DateTime? ToStatusDate()

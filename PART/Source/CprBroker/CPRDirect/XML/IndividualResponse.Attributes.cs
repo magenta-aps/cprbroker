@@ -39,11 +39,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime ToBirthDate()
         {
-            var val = this.PersonInformation.ToBirthdate();
-            if (val.HasValue)
-                return val.Value;
-            else
-                return Utilities.Strings.PersonNumberToDate(this.PersonInformation.ToPnr()).Value;
+            return this.PersonInformation.ToBirthdate(true).Value;
         }
 
         public string ToFoedselsregistreringMyndighedNavn()
