@@ -115,19 +115,19 @@ namespace CprBroker.Providers.CPRDirect
             return ProtectionType.HasProtection(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.Research);
         }
 
-        private AdresseType ToFolkeregisterAdresse()
+        public AdresseType ToFolkeregisterAdresse()
         {
-            throw new NotImplementedException();
+            return this.ClearWrittenAddress.ToAdresseType();
+        }
+
+        public string ToAdresseNoteTekst()
+        {
+            return this.ClearWrittenAddress.ToAddressNoteTekste();
         }
 
         private bool ToFolkekirkeMedlemIndikator()
         {
             return this.ChurchInformation.ToFolkekirkeMedlemIndikator();
-        }
-
-        public string ToAdresseNoteTekst()
-        {
-            return null;
         }
 
         public VirkningType ToCprBorgerTypeVirkning(DateTime effectDate)
