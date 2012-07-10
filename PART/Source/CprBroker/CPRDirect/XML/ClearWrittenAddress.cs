@@ -24,12 +24,14 @@ namespace CprBroker.Providers.CPRDirect
 
                 // No address point for persons
                 AddressPoint = this.ToAddressPointType(),
-                
-                NoteTekst = ToAddressNoteTekste(),
-                
+
+                // No address note
+                // I do not think it is the same as RelocationOrder.BEMAERK-FLYTTEPÅBUD
+                NoteTekst = null,
+
                 // No political districts
                 PolitiDistriktTekst = null,
-                
+
                 PostDistriktTekst = this.PostDistrictText,
 
                 // No school district
@@ -38,19 +40,20 @@ namespace CprBroker.Providers.CPRDirect
                 // No social disrict
                 SocialDistriktTekst = null,
 
-                // No church district
+                // No church district - checked
                 SogneDistriktTekst = null,
 
-                // Assuming this is the same as high road code
+                // Assuming this is the same as high road code - verified
                 SpecielVejkodeIndikator = this.ToSpecielVejkodeIndikator(),
 
                 // Always true because SpecielVejkodeIndikator is always set                
                 SpecielVejkodeIndikatorSpecified = true,
 
                 // Always false
+                // TODO: Shall we return true here is the address is empty or not found?
                 UkendtAdresseIndikator = false,
 
-                // No election district
+                // No election district - checked
                 ValgkredsDistriktTekst = null
             };
             return ret;
@@ -66,15 +69,8 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         public AddressPointType ToAddressPointType()
-        {            
-            // Not implemented
-            return null;
-        }
-
-        public string ToAddressNoteTekste()
         {
-            // No address note
-            // TODO: See if Address note can be found in CPR Direct
+            // Not implemented
             return null;
         }
 
@@ -103,34 +99,34 @@ namespace CprBroker.Providers.CPRDirect
             {
                 // Set country code
                 CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-                
-                // DistrictSubdivisionIdentifier is not supported
+
+                // DistrictSubdivisionIdentifier is not supported - checked
                 DistrictSubdivisionIdentifier = null,
-                
+
                 // Set floor
                 FloorIdentifier = this.Floor,
-                
-                // MailDeliverySublocationIdentifier is not supported
+
+                // MailDeliverySublocationIdentifier is not supported - checked
                 MailDeliverySublocationIdentifier = null,
-                
+
                 // Set post code
                 PostCodeIdentifier = Converters.DecimalToString(this.PostCode),
-                
+
                 // Set post district
                 DistrictName = this.PostDistrictText,
-                
+
                 // PostOfficeBoxIdentifier is not supported
                 PostOfficeBoxIdentifier = null,
-                
+
                 // Set building identifier
                 StreetBuildingIdentifier = this.HouseNumber,
-                
+
                 // Set street name
                 StreetName = this.StreetAddressingName,
-                
+
                 // Set street addressing name
                 StreetNameForAddressingName = this.StreetAddressingName,
-                
+
                 // Set suite identifier
                 SuiteIdentifier = this.Door,
             };
