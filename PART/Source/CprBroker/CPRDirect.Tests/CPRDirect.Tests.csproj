@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CprBroker.Tests.CPRDirect</RootNamespace>
     <AssemblyName>CprBroker.Tests.CPRDirect</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -84,15 +85,253 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\0101965058.txt" />
+    <None Include="Resources\PNR_0101005038.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0101429059.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0101520013.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0101965058.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0101980014.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0107529039.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0108610018.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0108610069.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0307610078.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0701614011.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0701614038.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0701614089.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0702614074.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0702614082.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0702614147.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0702614155.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0703614167.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0706614184.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0706614818.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0707614218.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0707614226.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0707614234.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0707614285.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0707614293.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0708610038.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0708610089.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0708614246.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0708614319.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0708614327.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0708614335.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0708614866.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709610015.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709610058.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614037.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614045.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614096.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614118.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614126.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614169.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614215.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614231.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614258.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614304.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614347.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614398.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614401.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614428.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614452.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614495.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614568.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614592.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614673.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614738.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614754.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0709614762.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0710614326.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0711614354.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0712614382.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0712614455.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0901414025.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0901414084.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0904414131.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0905414143.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0909610028.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0909610036.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0909970016.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_0912414426.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_1303814074.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_1306814172.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_1306814180.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_1307610015.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_1312814362.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_2802363039.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_2802980011.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_2906980013.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_3006980014.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_3012995007.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_3112000010.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_3112420028.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PNR_3112970079.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
