@@ -182,17 +182,17 @@ namespace CprBroker.Providers.CPRDirect
             wrappers.AddRange(extraWrappers.Where(w => w != null));
 
             Type myType = GetType();
-            var fields = myType.GetFields();
-            foreach (System.Reflection.FieldInfo field in fields)
+            var fields = myType.GetProperties();
+            foreach (System.Reflection.PropertyInfo property in fields)
             {
-                var minMaxAttr = field.GetCustomAttributes(typeof(MinMaxOccurs), true).SingleOrDefault() as MinMaxOccurs;
+                var minMaxAttr = property.GetCustomAttributes(typeof(MinMaxOccurs), true).SingleOrDefault() as MinMaxOccurs;
                 if (minMaxAttr == null)
                 {
-                    minMaxAttr = new MinMaxOccurs() { MinOccurs = 1, MaxOccurs = 1 };
+                    continue;
                 }
-                if (typeof(System.Collections.IList).IsAssignableFrom(field.FieldType) && field.FieldType.GetGenericTypeDefinition() == typeof(List<>))
+                if (typeof(System.Collections.IList).IsAssignableFrom(property.PropertyType) && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
                 {
-                    var args = field.FieldType.GetGenericArguments();
+                    var args = property.PropertyType.GetGenericArguments();
                     if (args.Length == 1)
                     {
                         var innerType = args[0];
@@ -201,8 +201,8 @@ namespace CprBroker.Providers.CPRDirect
                             var arrayVal = wrappers.Where(obj => obj.GetType() == innerType).ToArray();
                             foreach (var singleVal in arrayVal)
                             {
-                                var fieldValue = field.GetValue(this);
-                                field.FieldType.InvokeMember(
+                                var fieldValue = property.GetValue(this, null);
+                                property.PropertyType.InvokeMember(
                                     "Add",
                                     System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Instance,
                                     null,
@@ -214,10 +214,10 @@ namespace CprBroker.Providers.CPRDirect
 
                     }
                 }
-                else if (typeof(Wrapper).IsAssignableFrom(field.FieldType))
+                else if (typeof(Wrapper).IsAssignableFrom(property.PropertyType))
                 {
-                    var val = wrappers.Where(obj => obj.GetType() == field.FieldType).SingleOrDefault();
-                    field.SetValue(this, val);
+                    var val = wrappers.Where(obj => obj.GetType() == property.PropertyType).SingleOrDefault();
+                    property.SetValue(this, val, null);
                     minMaxAttr.ValidateSingleObject(val);
                 }
             }
