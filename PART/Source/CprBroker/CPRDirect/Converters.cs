@@ -84,7 +84,7 @@ namespace CprBroker.Providers.CPRDirect
                 case 'A':
                     return false;
                     break;
-                case 'D':
+                case 'U':
                     return false;
                     break;
                 default:

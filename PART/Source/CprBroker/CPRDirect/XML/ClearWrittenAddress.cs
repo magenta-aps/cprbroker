@@ -76,7 +76,6 @@ namespace CprBroker.Providers.CPRDirect
             // No address note
             // TODO: See if Address note can be found in CPR Direct
             return null;
-
         }
 
         public bool ToSpecielVejkodeIndikator()

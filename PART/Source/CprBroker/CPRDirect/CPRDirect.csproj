@@ -87,7 +87,9 @@
     <Content Include="XML\DefinitionSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="XML\Definitions.xml" />
+    <None Include="XML\Definitions.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="XML\ClassTransform.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -23,7 +23,7 @@ namespace CprBroker.Tests.CPRDirect
 
             [Test]
             public void ToFolkekirkeMedlemIndikator_ASD_False(
-                [Values('A', 'S', 'D', 'a', 's', 'd')]char churchRelation)
+                [Values('A', 'S', 'U', 'a', 's', 'u')]char churchRelation)
             {
                 var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
                 var ret = info.ToFolkekirkeMedlemIndikator();
