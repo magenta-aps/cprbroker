@@ -25,9 +25,7 @@ namespace CprBroker.Providers.CPRDirect
                 // No address point for persons
                 AddressPoint = this.ToAddressPointType(),
 
-                // No address note
-                // I do not think it is the same as RelocationOrder.BEMAERK-FLYTTEPÅBUD
-                NoteTekst = null,
+                NoteTekst = ToAddressNoteTekste(),
 
                 // No political districts
                 PolitiDistriktTekst = null,
@@ -66,6 +64,13 @@ namespace CprBroker.Providers.CPRDirect
                 AddressAccess = this.ToAddressAccessType(),
                 AddressPostal = this.ToAddressPostalType()
             };
+        }
+
+        public string ToAddressNoteTekste()
+        {
+            // No address note
+            // I do not think it is the same as RelocationOrder.BEMAERK-FLYTTEPÅBUD                
+            return null;
         }
 
         public AddressPointType ToAddressPointType()
@@ -132,5 +137,6 @@ namespace CprBroker.Providers.CPRDirect
             };
             return ret;
         }
+       
     }
 }
