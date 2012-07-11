@@ -117,9 +117,10 @@ namespace CprBroker.Providers.CPRDirect
 
         public AdresseType ToFolkeregisterAdresse()
         {
-            if (!this.ClearWrittenAddress.IsEmpty)
+            if (this.CurrentAddressInformation != null && !this.ClearWrittenAddress.IsEmpty) // Both conditions are technically the same
             {
                 return this.ClearWrittenAddress.ToAdresseType();
+
             }
             else if (this.CurrentDepartureData != null && !this.CurrentDepartureData.IsEmpty)
             {
@@ -128,6 +129,24 @@ namespace CprBroker.Providers.CPRDirect
             else
             {
                 return null;
+            }
+        }
+
+        public VirkningType[] ToFolkeregisterAdresseVirknning()
+        {
+            if (this.CurrentAddressInformation != null && !this.ClearWrittenAddress.IsEmpty) // Both conditions are technically the same
+            {
+                return this.CurrentAddressInformation.ToVirkningTypeArray();
+
+
+            }
+            else if (this.CurrentDepartureData != null && !this.CurrentDepartureData.IsEmpty)
+            {
+                return new VirkningType[] { this.CurrentDepartureData.ToExitVIrkning() };
+            }
+            else
+            {
+                return new VirkningType[0];
             }
         }
 
@@ -143,15 +162,20 @@ namespace CprBroker.Providers.CPRDirect
 
         public VirkningType ToCprBorgerTypeVirkning(DateTime effectDate)
         {
-            var dates = new DateTime?[] { 
-                this.PersonInformation.ToStatusDate(),
-                this.ChurchInformation.ToChurchRelationshipDate(),
-                this.CurrentCitizenship.ToCitizenshipStartDate(),
-            };
+            var dates = new List<DateTime?>(
+                new DateTime?[] { 
+                    this.PersonInformation.ToStatusDate(),
+                    this.ChurchInformation.ToChurchRelationshipDate(),
+                    this.CurrentCitizenship.ToCitizenshipStartDate(),
+            });
+
 
             var effects = new List<VirkningType>();
             effects.AddRange(ProtectionType.ToVirkningTypeArray(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.NameAndAddress, ProtectionType.ProtectionCategoryCodes.Research));
+
             effects.Add(this.PersonInformation.ToVirkningType());
+
+            effects.AddRange(this.ToFolkeregisterAdresseVirknning());
             throw new NotImplementedException();
         }
 

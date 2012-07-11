@@ -28,7 +28,7 @@ namespace CprBroker.Tests.CPRDirect
                         ValidForeignAddress = person.CurrentDepartureData != null && !person.CurrentDepartureData.IsEmpty,
                         Status = person.PersonInformation.Status
                     })
-                    .Where(person => !person.Key.ValidClearAddress && !person.Key.ValidForeignAddress)
+                    //.Where(person => !person.Key.ValidClearAddress && !person.Key.ValidForeignAddress)
                     .OrderBy(g => g.Key.Status)
                     .Select(g => new { Key = g.Key, Value = g.ToArray() })
                     .ToArray();

@@ -57,6 +57,13 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public VirkningType ToExitVIrkning()
+        {
+            return VirkningType.Create(
+                Converters.ToDateTime(this.ExitDate, this.ExitDateUncertainty),
+                null);
+        }
+
         public CountryIdentificationCodeType ToCountryIdentificationCode()
         {
             return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Converters.DecimalToString(this.ExitCountryCode));
