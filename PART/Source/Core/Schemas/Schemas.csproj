@@ -99,6 +99,7 @@
     <Compile Include="TidspunktType.cs" />
     <Compile Include="TilstandVirkningType.cs" />
     <Compile Include="UnikIdType.cs" />
+    <Compile Include="Util\Converters.cs" />
     <Compile Include="Util\Enums.cs" />
     <Compile Include="VirkningType.cs" />
   </ItemGroup>
