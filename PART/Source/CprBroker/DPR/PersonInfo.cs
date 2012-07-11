@@ -216,11 +216,12 @@ namespace CprBroker.Providers.DPR
                 FoedselsregistreringMyndighedNavn = PersonTotal.BirthPlaceOfRegistration,
 
                 // Place of birth
+                // Shall this be null? Is it birthplace or name at birth - I think it should be null
                 FoedestedNavn = PersonTotal.BirthplaceText,
 
                 PersonGenderCode = Utilities.PersonGenderCodeTypeFromChar(PersonTotal.Sex),
 
-                NavnStruktur = PersonName != null ? NavnStrukturType.Create(PersonName.FirstName, PersonName.LastName) : null,
+                NavnStruktur = PersonName != null ? PersonName.ToNavnStrukturType() : null,
 
                 AndreAdresser = Address != null ? Address.ToForeignAddressFromSupplementary() : null,
                 //No contact channels implemented
