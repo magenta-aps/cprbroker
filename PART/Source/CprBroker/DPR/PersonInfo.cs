@@ -233,7 +233,11 @@ namespace CprBroker.Providers.DPR
             };
             if (PersonName != null)
             {
-                ret.Virkning = VirkningType.Compose(ret.Virkning, VirkningType.Create(Utilities.DateFromDecimal(PersonName.NameStartDate), null));
+                ret.Virkning = VirkningType.Compose(
+                    ret.Virkning,
+                    VirkningType.Create(Utilities.DateFromDecimal(PersonName.NameStartDate), null),
+                    VirkningType.Create(Utilities.DateFromDecimal(PersonName.AddressingNameDate), null)
+                    );
             }
             // TODO: More effect date fields here
             ret.Virkning.FraTidspunkt = TidspunktType.Create(Utilities.GetMaxDate(PersonTotal.DateOfBirth));
