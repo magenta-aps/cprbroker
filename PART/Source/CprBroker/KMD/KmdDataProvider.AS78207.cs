@@ -649,12 +649,17 @@ namespace CprBroker.Providers.KMD
                     NaermestePaaroerende = null,
                     //TODO: Change this
                     PersonGenderCode = Utilities.ToPartGender(this.PNR),
-                    NavnStruktur = NavnStrukturType.Create(FirstName, LastName),
+                    NavnStruktur = ToNavnStrukturType(),
                     Virkning = VirkningType.Create(
                         Utilities.GetMaxDate(BirthDate, AbroadDate, NameDate),
                         null)
                 };
                 return ret;
+            }
+
+            public NavnStrukturType ToNavnStrukturType()
+            {
+                return NavnStrukturType.Create(new string[] { this.FirstName, this.LastName }, this.AddressingName);
             }
 
             public RegisterOplysningType ToRegisterOplysningType(WS_AS78205.EnglishAS78205Response addressResponse)
