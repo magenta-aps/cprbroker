@@ -59,6 +59,7 @@
     <Compile Include="XML\ChurchInformation.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />
     <Compile Include="XML\CurrentCitizenship.cs" />
+    <Compile Include="XML\CurrentDepartureDataType.cs" />
     <Compile Include="XML\IndividualResponse.Parser.cs" />
     <Compile Include="XML\CurrentCivilStatus.cs" />
     <Compile Include="XML\CurrentSeparation.cs" />

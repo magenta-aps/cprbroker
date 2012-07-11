@@ -16,6 +16,21 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
+        public bool IsEmpty
+        {
+            get
+            {
+                // this.AddressingName is ignored
+                object[] parts = new object[] { this.BuildingNumber, this.CareOfName, this.CityName, this.Door, this.Floor, this.HouseNumber, this.LabelledAddress, this.Location, this.MunicipalityCode, this.PostCode, this.PostDistrictText, this.StreetAddressingName, this.StreetCode };
+                var strArr = parts
+                    .Select(o => o.ToString().Replace("0", "").Trim())
+                    .ToArray();
+
+                return string.IsNullOrEmpty(
+                    string.Join("", strArr)
+                    );
+            }
+        }
         public DanskAdresseType ToDanskAdresseType()
         {
             var ret = new DanskAdresseType()
@@ -137,6 +152,6 @@ namespace CprBroker.Providers.CPRDirect
             };
             return ret;
         }
-       
+
     }
 }

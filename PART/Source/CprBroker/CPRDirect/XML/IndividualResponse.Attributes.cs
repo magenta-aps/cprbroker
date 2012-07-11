@@ -117,7 +117,18 @@ namespace CprBroker.Providers.CPRDirect
 
         public AdresseType ToFolkeregisterAdresse()
         {
-            return this.ClearWrittenAddress.ToAdresseType();
+            if (!this.ClearWrittenAddress.IsEmpty)
+            {
+                return this.ClearWrittenAddress.ToAdresseType();
+            }
+            else if (this.CurrentDepartureData != null && !this.CurrentDepartureData.IsEmpty)
+            {
+                return CurrentDepartureData.ToAdresseType();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public string ToAdresseNoteTekst()

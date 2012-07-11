@@ -49,6 +49,7 @@
     <Compile Include="BirthRegistrationInformation.Tests.cs" />
     <Compile Include="ChildTests.cs" />
     <Compile Include="ChurchInformation.Tests.cs" />
+    <Compile Include="ClearWrittenAddress.Tests.cs" />
     <Compile Include="Converters.Tests.cs" />
     <Compile Include="CurrentCitizenship.Tests.cs" />
     <Compile Include="CurrentCivilStatus.Tests.cs" />

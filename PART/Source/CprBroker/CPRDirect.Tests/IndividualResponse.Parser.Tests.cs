@@ -37,9 +37,6 @@ namespace CprBroker.Tests.CPRDirect
 
                     var pnrLines = list.Select(w => w.Contents).ToArray();
                     var data = string.Join("\r\n", pnrLines.ToArray());
-                    System.IO.File.WriteAllLines(
-                        string.Format(@"..\..\Resources\PNR_{0}.txt", new LineWrapper(pnrLines[2]).PNR),
-                        pnrLines);
                 }
             }
 
