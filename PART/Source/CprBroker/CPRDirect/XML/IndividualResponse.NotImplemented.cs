@@ -41,13 +41,15 @@ namespace CprBroker.Providers.CPRDirect
         private PersonFlerRelationType[] ToForaeldremyndighedsboern()
         {
             // Parental authority children
-            throw new NotImplementedException();
+            // TODO: Can we perform a reverse parental authority lookup here?
+            return null;
         }
 
         private PersonRelationType[] ToRetligHandleevneVaergeForPersonen()
         {
             // Persons for whom this person is a guardian
-            throw new NotImplementedException();
+            // TODO: Can we perform a reverse guardian/disempoerment lookup here?
+            return null;
         }
 
         private PersonFlerRelationType[] ToBopaelssamling()
