@@ -53,6 +53,7 @@
     <Compile Include="Converters.Tests.cs" />
     <Compile Include="CurrentCitizenship.Tests.cs" />
     <Compile Include="CurrentCivilStatus.Tests.cs" />
+    <Compile Include="CurrentDepartureData.Tests.cs" />
     <Compile Include="CurrentNameInformationTests.cs" />
     <Compile Include="Disempowerment.Tests.cs" />
     <Compile Include="IndividualRequest.Tests.cs" />

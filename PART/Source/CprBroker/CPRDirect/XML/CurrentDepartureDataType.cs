@@ -20,10 +20,14 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new VerdenAdresseType()
             {
+                // Addres details
                 ForeignAddressStructure = this.ToForeignAddressStructureType(),
+
+                // Note - not implemented
                 NoteTekst = this.ToAddressNoteTekste(),
-                // Address is always known
-                UkendtAdresseIndikator = false
+                
+                // Address is known if it has value !
+                UkendtAdresseIndikator = this.IsEmpty
             };
         }
 
@@ -31,9 +35,13 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new ForeignAddressStructureType()
             {
+                // Country
                 CountryIdentificationCode = ToCountryIdentificationCode(),
+                
                 // No location
                 LocationDescriptionText = null,
+                
+                // Address lines
                 PostalAddressFirstLineText = this.ForeignAddress1,
                 PostalAddressSecondLineText = this.ForeignAddress2,
                 PostalAddressThirdLineText = this.ForeignAddress3,
@@ -64,8 +72,6 @@ namespace CprBroker.Providers.CPRDirect
         {
             return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Converters.DecimalToString(this.ExitCountryCode));
         }
-
-
 
         public string ToAddressNoteTekste()
         {
