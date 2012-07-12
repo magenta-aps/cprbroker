@@ -51,6 +51,7 @@
     <Compile Include="ChurchInformation.Tests.cs" />
     <Compile Include="ClearWrittenAddress.Tests.cs" />
     <Compile Include="Converters.Tests.cs" />
+    <Compile Include="CurrentAddressInformation.Tests.cs" />
     <Compile Include="CurrentCitizenship.Tests.cs" />
     <Compile Include="CurrentCivilStatus.Tests.cs" />
     <Compile Include="CurrentDepartureData.Tests.cs" />
