@@ -31,16 +31,69 @@ namespace CprBroker.Tests.CPRDirect
             [Test]
             public void ToBirthDate_NoBirthdate_FromPnr()
             {
-                var info = new IndividualResponseType() 
-                { 
-                    PersonInformation = new PersonInformationType() 
-                    { 
-                      PNR = DateTime.Today.ToString("ddMMyy4111")
-                    } 
+                var info = new IndividualResponseType()
+                {
+                    PersonInformation = new PersonInformationType()
+                    {
+                        PNR = DateTime.Today.ToString("ddMMyy4111")
+                    }
                 };
                 var ret = info.ToBirthDate();
                 Assert.AreEqual(DateTime.Today, ret);
             }
+        }
+
+        [TestFixture]
+        public class GetFolkeregisterAdresseSource
+        {
+            [Test]
+            public void GetFolkeregisterAdresseSource_Empty_Dummy()
+            {
+                var db = new IndividualResponseType();
+                var ret = db.GetFolkeregisterAdresseSource();
+                Assert.IsInstanceOf<DummyAddressSource>(ret);
+            }
+
+            [Test]
+            public void GetFolkeregisterAdresseSource_ClearAddress_Dummy()
+            {
+                var db = new IndividualResponseType() { ClearWrittenAddress = new ClearWrittenAddressType() { MunicipalityCode = 0, PostCode = 0, StreetCode = 0 } };
+                var ret = db.GetFolkeregisterAdresseSource();
+                Assert.IsInstanceOf<DummyAddressSource>(ret);
+            }
+
+            [Test]
+            public void GetFolkeregisterAdresseSource_ClearAddressAndAddress_Dummy()
+            {
+                var db = new IndividualResponseType() { ClearWrittenAddress = new ClearWrittenAddressType() { MunicipalityCode = 0, PostCode = 0, StreetCode = 0 }, CurrentAddressInformation = new CurrentAddressInformationType() };
+                var ret = db.GetFolkeregisterAdresseSource();
+                Assert.IsInstanceOf<DummyAddressSource>(ret);
+            }
+
+            [Test]
+            public void GetFolkeregisterAdresseSource_ClearAddressWithAndAddress_AddressWrapper()
+            {
+                var db = new IndividualResponseType() { ClearWrittenAddress = new ClearWrittenAddressType() { MunicipalityCode = 0, PostCode = 12, StreetCode = 0 }, CurrentAddressInformation = new CurrentAddressInformationType() }; ;
+                var ret = db.GetFolkeregisterAdresseSource();
+                Assert.IsInstanceOf<CurrentAddressWrapper>(ret);
+            }
+
+            [Test]
+            public void GetFolkeregisterAdresseSource_ClearAddressWithEmptyDeparture_Dummy()
+            {
+                var db = new IndividualResponseType() { ClearWrittenAddress = new ClearWrittenAddressType() { MunicipalityCode = 0, PostCode = 12, StreetCode = 0 }, CurrentDepartureData = new CurrentDepartureDataType() }; ;
+                var ret = db.GetFolkeregisterAdresseSource();
+                Assert.IsInstanceOf<DummyAddressSource>(ret);
+            }
+
+            [Test]
+            public void GetFolkeregisterAdresseSource_ClearAddressWithDeparture_Departure()
+            {
+                var db = new IndividualResponseType() { ClearWrittenAddress = new ClearWrittenAddressType() { MunicipalityCode = 0, PostCode = 12, StreetCode = 0 }, CurrentDepartureData = new CurrentDepartureDataType() { ForeignAddress1 = "DDD" } };
+                var ret = db.GetFolkeregisterAdresseSource();
+                Assert.IsInstanceOf<CurrentDepartureDataType>(ret);
+            }
+
         }
     }
 }

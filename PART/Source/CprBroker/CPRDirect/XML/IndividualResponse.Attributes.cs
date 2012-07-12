@@ -127,7 +127,7 @@ namespace CprBroker.Providers.CPRDirect
             }
             else
             {
-                return null;
+                return new DummyAddressSource();
             }
         }
 

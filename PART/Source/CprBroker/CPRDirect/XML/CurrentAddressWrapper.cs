@@ -6,10 +6,17 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    class CurrentAddressWrapper : IAddressSource
+    /// <summary>
+    /// A wrapper that gathers ClearWrittenAddress and CurrentAddressInformation
+    /// Reason is that ClearWrittenAddress has more address details
+    /// But CurrentAddressInformation has the address dates
+    /// The test data suggest that ClearWrittenAddress is empty when CurrentAddressInformation is null
+    /// </summary>
+    public class CurrentAddressWrapper : IAddressSource
     {
         private CurrentAddressWrapper()
-        { }
+        {
+        }
 
         public CurrentAddressWrapper(CurrentAddressInformationType currentAddress, ClearWrittenAddressType clearAddress)
         {
@@ -17,8 +24,8 @@ namespace CprBroker.Providers.CPRDirect
             this.CurrentAddressInformation = currentAddress;
         }
 
-        public ClearWrittenAddressType ClearWrittenAddress;
-        public CurrentAddressInformationType CurrentAddressInformation;
+        public ClearWrittenAddressType ClearWrittenAddress { get; private set; }
+        public CurrentAddressInformationType CurrentAddressInformation { get; private set; }
 
         public AdresseType ToAdresseType()
         {
@@ -29,7 +36,6 @@ namespace CprBroker.Providers.CPRDirect
         {
             return this.CurrentAddressInformation.ToVirkningTypeArray();
         }
-
 
         public string ToAddressNoteTekste()
         {
