@@ -31,6 +31,7 @@ namespace CprBroker.Providers.CPRDirect
                     );
             }
         }
+
         public DanskAdresseType ToDanskAdresseType()
         {
             var ret = new DanskAdresseType()
@@ -62,9 +63,8 @@ namespace CprBroker.Providers.CPRDirect
                 // Always true because SpecielVejkodeIndikator is always set                
                 SpecielVejkodeIndikatorSpecified = true,
 
-                // Always false
-                // TODO: Shall we return true here is the address is empty or not found?
-                UkendtAdresseIndikator = false,
+                // Address is unknown if it is empty :)
+                UkendtAdresseIndikator = IsEmpty,
 
                 // No election district - checked
                 ValgkredsDistriktTekst = null
