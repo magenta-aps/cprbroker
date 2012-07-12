@@ -10,7 +10,7 @@ namespace CprBroker.Providers.CPRDirect
     {
         public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc, DateTime effectDate)
         {
-            return new RegistreringType1()
+            var ret = new RegistreringType1()
             {
                 AktoerRef = ToAktoerRefType(),
                 AttributListe = ToAttributListeType(effectDate),
@@ -19,8 +19,10 @@ namespace CprBroker.Providers.CPRDirect
                 RelationListe = ToRelationListeType(cpr2uuidFunc),
                 Tidspunkt = ToTidspunktType(),
                 TilstandListe = ToTilstandListeType(),
-                Virkning = ToVirkningType()
+                Virkning = null
             };
+            ret.CalculateVirkning();
+            return ret;
         }
 
         public UnikIdType ToAktoerRefType()

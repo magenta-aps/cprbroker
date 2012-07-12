@@ -23,11 +23,6 @@ namespace CprBroker.Providers.CPRDirect
             throw new NotImplementedException();
         }
 
-        private VirkningType[] ToVirkningType()
-        {
-            throw new NotImplementedException();
-        }
-
         public LokalUdvidelseType ToLokalUdvidelseType()
         {
             return null;
