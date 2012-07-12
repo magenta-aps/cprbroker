@@ -6,7 +6,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CurrentDepartureDataType
+    public partial class CurrentDepartureDataType : IAddressSource
     {
         public AdresseType ToAdresseType()
         {
@@ -20,16 +20,11 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new VerdenAdresseType()
             {
-                ForeignAddressStructure = ToForeignAddressStructureType(),
-                NoteTekst = ToNoteTekste(),
+                ForeignAddressStructure = this.ToForeignAddressStructureType(),
+                NoteTekst = this.ToAddressNoteTekste(),
                 // Address is always known
                 UkendtAdresseIndikator = false
             };
-        }
-
-        public string ToNoteTekste()
-        {
-            return null;
         }
 
         public ForeignAddressStructureType ToForeignAddressStructureType()
@@ -57,11 +52,12 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public VirkningType ToExitVIrkning()
+        public VirkningType[] ToVirkningTypeArray()
         {
-            return VirkningType.Create(
+            return new VirkningType[]{
+                VirkningType.Create(
                 Converters.ToDateTime(this.ExitDate, this.ExitDateUncertainty),
-                null);
+                null)};
         }
 
         public CountryIdentificationCodeType ToCountryIdentificationCode()
@@ -70,5 +66,10 @@ namespace CprBroker.Providers.CPRDirect
         }
 
 
+
+        public string ToAddressNoteTekste()
+        {
+            return null;
+        }
     }
 }

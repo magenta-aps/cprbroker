@@ -35,6 +35,13 @@ namespace CprBroker.Tests.CPRDirect
 
 
                 object o = "";
+
+                /* Findings
+                 * If ClearWrittenAddress is empty, then CurrentAddressInformation is null (and vice versa)
+                 * CurrentDepartureData can only contain value if CurrentAddressInformation is null
+                 * Both CurrentAddressInformation and CurrentDepartureData is null if Status is 50,60,70 0r 90
+                 * CurrentDepartureData (if not null) never contains empty values
+                 */
             }
         }
     }

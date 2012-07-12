@@ -115,16 +115,15 @@ namespace CprBroker.Providers.CPRDirect
             return ProtectionType.HasProtection(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.Research);
         }
 
-        public AdresseType ToFolkeregisterAdresse()
+        public IAddressSource GetFolkeregisterAdresseSource()
         {
             if (this.CurrentAddressInformation != null && !this.ClearWrittenAddress.IsEmpty) // Both conditions are technically the same
             {
-                return this.ClearWrittenAddress.ToAdresseType();
-
+                return new CurrentAddressWrapper(this.CurrentAddressInformation, this.ClearWrittenAddress);
             }
             else if (this.CurrentDepartureData != null && !this.CurrentDepartureData.IsEmpty)
             {
-                return CurrentDepartureData.ToAdresseType();
+                return CurrentDepartureData;
             }
             else
             {
@@ -132,27 +131,19 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public AdresseType ToFolkeregisterAdresse()
+        {
+            return this.GetFolkeregisterAdresseSource().ToAdresseType();
+        }
+
         public VirkningType[] ToFolkeregisterAdresseVirknning()
         {
-            if (this.CurrentAddressInformation != null && !this.ClearWrittenAddress.IsEmpty) // Both conditions are technically the same
-            {
-                return this.CurrentAddressInformation.ToVirkningTypeArray();
-
-
-            }
-            else if (this.CurrentDepartureData != null && !this.CurrentDepartureData.IsEmpty)
-            {
-                return new VirkningType[] { this.CurrentDepartureData.ToExitVIrkning() };
-            }
-            else
-            {
-                return new VirkningType[0];
-            }
+            return this.GetFolkeregisterAdresseSource().ToVirkningTypeArray();
         }
 
         public string ToAdresseNoteTekst()
         {
-            return this.ClearWrittenAddress.ToAddressNoteTekste();
+            return this.GetFolkeregisterAdresseSource().ToAddressNoteTekste();
         }
 
         private bool ToFolkekirkeMedlemIndikator()
@@ -178,7 +169,6 @@ namespace CprBroker.Providers.CPRDirect
             effects.AddRange(this.ToFolkeregisterAdresseVirknning());
             throw new NotImplementedException();
         }
-
-
     }
+
 }
