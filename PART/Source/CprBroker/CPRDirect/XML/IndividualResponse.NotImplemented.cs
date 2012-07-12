@@ -58,7 +58,8 @@ namespace CprBroker.Providers.CPRDirect
 
         private SundhedOplysningType[] ToSundhedOplysningType()
         {
-            throw new NotImplementedException();
+            // Not implemented
+            return null;
         }
 
         public KontaktKanalType ToKontaktKanalType()
@@ -87,7 +88,7 @@ namespace CprBroker.Providers.CPRDirect
         public bool ToTelefonNummerBeskyttelseIndikator()
         {
             // No phone protection
-            // TODO: Can we somehow get phone protection from CPR Direct?
+            // TODO: Is phone protection the same as directory protection? If yes, fix this and other data providers too
             return false;
         }
 
