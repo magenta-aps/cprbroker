@@ -60,7 +60,26 @@ namespace CprBroker.Providers.CPRDirect
 
         private VirkningType ToEgenskabVirkning()
         {
-            throw new NotImplementedException();
+            var effects = new List<VirkningType>();
+
+            // TODO: Fill other address date
+            // other address
+            // Not implemented
+
+            // birthdate
+            // birthname
+            // birth authority
+            // gender
+            effects.Add(VirkningType.Create(this.PersonInformation.ToBirthdate(), null));
+
+            // contact channel
+            // nearest relative
+            // Not implemented
+
+            // name
+            effects.Add(VirkningType.Create(this.CurrentNameInformation.ToNameStartDate(), null));
+
+            return VirkningType.Compose(effects.ToArray());
         }
 
         public RegisterOplysningType[] ToRegisterOplysningType(DateTime effectDate)

@@ -33,5 +33,10 @@ namespace CprBroker.Providers.CPRDirect
         {
             return Converters.ToString(this.LastName, this.LastNameMarker);
         }
+
+        public DateTime? ToNameStartDate()
+        {
+            return Converters.ToDateTime(this.NameStartDate, this.NameStartDateUncertainty);
+        }
     }
 }
