@@ -12,7 +12,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             return VirkningType.Create(
                 Converters.ToDateTime(this.MunicipalityArrivalDate, this.MunicipalityArrivalDateUncertainty),
-                Converters.ToDateTime(this.MunicipalityDepartureDate, this.MunicipalityDepartureDateUncertainty)
+                null
                 );
         }
 
