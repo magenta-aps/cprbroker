@@ -153,6 +153,8 @@ namespace CprBroker.Providers.CPRDirect
 
         public VirkningType ToCprBorgerTypeVirkning(DateTime effectDate)
         {
+            var effects = new List<VirkningType>();
+
             var dates = new List<DateTime?>(
                 new DateTime?[] { 
                     this.PersonInformation.ToStatusDate(),
@@ -160,14 +162,17 @@ namespace CprBroker.Providers.CPRDirect
                     this.CurrentCitizenship.ToCitizenshipStartDate(),
             });
 
+            effects.AddRange(dates.Select(d => VirkningType.Create(d, null)));
 
-            var effects = new List<VirkningType>();
-            effects.AddRange(ProtectionType.ToVirkningTypeArray(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.NameAndAddress, ProtectionType.ProtectionCategoryCodes.Research));
+            effects.AddRange(
+                ProtectionType.ToVirkningTypeArray(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.NameAndAddress, ProtectionType.ProtectionCategoryCodes.Research)
+                );
 
             effects.Add(this.PersonInformation.ToVirkningType());
 
             effects.AddRange(this.ToFolkeregisterAdresseVirknning());
-            throw new NotImplementedException();
+
+            return VirkningType.Compose(effects.ToArray());
         }
     }
 
