@@ -19,6 +19,15 @@ namespace CprBroker.Tests.CPRDirect
                 var registration = individual.ToRegistreringType1(pnr => Guid.NewGuid(), DateTime.Today);
                 Assert.NotNull(registration);
             }
+
+            [Test]
+            public void ToRegistreringType1_Parsed_Passes(
+                [Range(0, 79)]int index)
+            {
+                var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var ret = result[index].ToRegistreringType1(cpr => Guid.NewGuid(), DateTime.Today);
+            }
+
         }
     }
 }
