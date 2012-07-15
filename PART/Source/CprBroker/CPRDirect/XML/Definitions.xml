@@ -63,8 +63,8 @@
       <Attribute name="MunicipalityArrivalDate" danishName="TILFLYKOMDTO" format="Numeric" length="12" position="83" description="Municipality arrival date yyyyMMddTTMM" dateFormat="yyyyMMddHHmm"/>
       <Attribute name="MunicipalityArrivalDateUncertainty" danishName="TILFLYKOMDT_UMRK" format="Alpha" length="1" position="95" description="Municipality arrival date uncertainty marker"/>
       <Attribute name="LeavingMunicipalityCode" danishName="FRAFLYKOMKOD" format="Numeric" length="4" position="96" description="Leaving municipality code"/>
-      <Attribute name="MunicipalityDepartureDate" danishName="FRAFLYKOMDTO" format="Numeric" length="12" position="100" description="Municipality departure date yyyyMMddTTMM" dateFormat="yyyyMMddHHmm"/>
-      <Attribute name="MunicipalityDepartureDateUncertainty" danishName="FRAFLYKOMDT_UMRK" format="Alpha" length="1" position="112" description="Municipality departure date uncertainty"/>
+      <Attribute name="LeavingMunicipalityDepartureDate" danishName="FRAFLYKOMDTO" format="Numeric" length="12" position="100" description="Leaving previous municipality departure date yyyyMMddTTMM" dateFormat="yyyyMMddHHmm"/>
+      <Attribute name="LeavingMunicipalityDepartureDateUncertainty" danishName="FRAFLYKOMDT_UMRK" format="Alpha" length="1" position="112" description="Leaving previous municipality departure date uncertainty"/>
       <Attribute name="HomeAuthority" danishName="START_MYNKOD-ADRTXT" format="Numeric" length="4" position="113" description="HomeAuthority"/>
       <Attribute name="SupplementaryAddress1" danishName="ADR1-SUPLADR" format="Alpha" length="34" position="117" description="First line of supplementary address"/>
       <Attribute name="SupplementaryAddress2" danishName="ADR2-SUPLADR" format="Alpha" length="34" position="151" description="Second line of supplementary address"/>
