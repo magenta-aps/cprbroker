@@ -7,7 +7,7 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.Tests.CPRDirect
 {
-    namespace IndividualResponse
+    namespace IndividualResponseTests
     {
         [TestFixture]
         public class ParseBatch
