@@ -55,9 +55,21 @@ namespace CprBroker.Schemas.Part
     {
         public static VirkningType Create(DateTime? fromDate, DateTime? toDate)
         {
-            if (fromDate.HasValue && toDate.HasValue && toDate < fromDate)
+            if (fromDate.HasValue && toDate.HasValue)
             {
-                throw new ArgumentException(string.Format("fromDate ({0}) should be less than or equal to toDate ({1})", fromDate, toDate));
+                var effectiveToDate = toDate;
+
+                // If date range boundaries contain no time componenbt
+                if (toDate.Value.TimeOfDay.TotalMilliseconds == 0)                    
+                {
+                    // Set toDate to end of day
+                    effectiveToDate = toDate.Value.AddDays(1).AddMilliseconds(-1);
+                }
+
+                if (effectiveToDate < fromDate)
+                {
+                    throw new ArgumentException(string.Format("fromDate ({0}) should be less than or equal to toDate ({1})", fromDate, toDate));
+                }
             }
             return new VirkningType()
             {
@@ -80,7 +92,7 @@ namespace CprBroker.Schemas.Part
             var fromDate =
                 partialEffects
                 .Where(pe => pe.FraTidspunkt.ToDateTime().HasValue)
-                .Select(pe => pe.FraTidspunkt.ToDateTime())                
+                .Select(pe => pe.FraTidspunkt.ToDateTime())
                 .OrderBy(d => d.Value)
                 .FirstOrDefault();
 

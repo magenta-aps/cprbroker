@@ -50,7 +50,6 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Utilities;
-using CprBroker.Schemas.Part;
 
 namespace CprBroker.Tests.Utilities
 {
