@@ -35,6 +35,12 @@ namespace CprBroker.Providers.CPRDirect
             return Constants.CommentText;
         }
 
+        public TidspunktType ToTidspunktType()
+        {
+            return this.StartRecord.ToTidspunktType();
+        }
+
+
     }
 }
 

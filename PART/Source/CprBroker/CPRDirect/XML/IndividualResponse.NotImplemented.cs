@@ -8,19 +8,16 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
-        private TidspunktType ToTidspunktType()
-        {
-            throw new NotImplementedException();
-        }
-
         private object ToSourceObject()
         {
-            throw new NotImplementedException();
+            // TODO: Implement source objects in CPR Direct
+            return null;
         }
 
         private LivscyklusKodeType ToLivscyklusKodeType()
         {
-            throw new NotImplementedException();
+            // TODO: Implemet further lifecycle status codes in CPR Direct (from history change extractes)
+            return LivscyklusKodeType.Rettet;
         }
 
         public LokalUdvidelseType ToLokalUdvidelseType()
@@ -30,11 +27,13 @@ namespace CprBroker.Providers.CPRDirect
 
         public PersonRelationType[] ToErstatningAf()
         {
+            // TODO: Implement replaced by
             return null;
         }
 
         public PersonFlerRelationType[] ToErstatningFor()
         {
+            // TOTO: Implemenet replacement for
             return null;
         }
 
@@ -54,8 +53,8 @@ namespace CprBroker.Providers.CPRDirect
 
         private PersonFlerRelationType[] ToBopaelssamling()
         {
-            // residence collection ???
-            throw new NotImplementedException();
+            // TODO: Implement persons who live at the same address
+            return null;
         }
 
         private SundhedOplysningType[] ToSundhedOplysningType()
