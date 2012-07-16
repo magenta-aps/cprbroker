@@ -48,7 +48,7 @@
   <xs:simpleType  name="minMaxOccurs">
     <xs:restriction base="xs:integer">
       <xs:minInclusive value="0"/>
-      <xs:maxInclusive value="25"/>
+      <xs:maxInclusive value="1000"/>
     </xs:restriction>
   </xs:simpleType>
 

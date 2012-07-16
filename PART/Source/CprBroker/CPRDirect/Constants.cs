@@ -57,6 +57,7 @@ namespace CprBroker.Providers.CPRDirect
                 ret["016"] = typeof(ParentalAuthorityType);
                 ret["017"] = typeof(DisempowermentType);
                 ret["018"] = typeof(MunicipalConditionsType);
+                ret["029"] = typeof(HistoricalCivilStatusType);
                 ret["999"] = typeof(EndRecordType);
                 return ret;
             }
@@ -81,5 +82,13 @@ namespace CprBroker.Providers.CPRDirect
         public static readonly Guid ActorId = new Guid("{2B2C1518-F466-491F-8149-57AFEF48CC01}");
         public static readonly string CommentText = "";
         public static readonly short DenmarkCountryCode = 5100;
+
+        public static class CorrectionMarker
+        {
+            public const char Edit = 'K';
+            public const char Undo = 'A';
+            public const char TechnicalChange = 'Æ';
+        }
+
     }
 }

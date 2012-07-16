@@ -257,11 +257,28 @@
       <Attribute name="MunicipalConditionComment" danishName="BEMAERK-KOMMUNALE-FORHOLD" format="Alpha" length="30" position="31" description="Municipal condition comment"/>
     </Object>
 
+    <Object name="HistoricalCivilStatus" danishName="P12170-029" description="Historical civil status" length="109" minOccurs="0" maxOccurs="1000">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
+      <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Edit / Undo marker"/>
+      <Attribute name="CivilStatus" danishName="CIVST" format="Alpha" length="1" position="15" description="Civil status"/>
+      <Attribute name="SpousePNR" danishName="AEGTEPNR" format="Alpha" length="10" position="16" description="Spouse PNR"/>
+      <Attribute name="SpouseBirthdate" danishName="AEGTEFOED_DT" format="Alpha" length="10" position="26" description="Spouse Birth date ÅÅÅÅ-MM-DD" dateFormat="yyyy-MM-dd"/>
+      <Attribute name="SpouseBirthdateUncertainty" danishName="AEGTEFOEDDT_UMRK" format="Alpha" length="1" position="36" description="Spouse birthdate uncertainty"/>
+      <Attribute name="SpouseName" danishName="AEGTENVN" format="Alpha" length="34" position="37" description="Spouse name"/>
+      <Attribute name="SpouseNameMarker" danishName="AEGTENVN_MRK" format="Alpha" length="1" position="71" description="Spouse name marker"/>
+      <Attribute name="CivilStatusStartDate" danishName="HAENSTART-CIVILSTAND" format="Numeric" length="12" position="72" description="Civil status start date ÅÅÅÅMMDDTTMM" dateFormat="yyyyMMddHHmm"/>
+      <Attribute name="CivilStatusStartDateUncertainty" danishName="HAENSTART_UMRK-CIVILSTAND" format="Alpha" length="1" position="84" description="Civil status start date uncertainty"/>
+      <Attribute name="CivilStatusEndDate" danishName="HAENSLUT-CIVILSTAND" format="Numeric" length="12" position="85" description="Civil status end date ÅÅÅÅMMDDTTMM" dateFormat="yyyyMMddHHmm"/>
+      <Attribute name="CivilStatusEndDateUncertainty" danishName="HAENSLUT_UMRK-CIVILSTAND" format="Alpha" length="1" position="97" description="Civil status end date uncertainty"/>
+      <Attribute name="ReferenceToAnySeparation" danishName="SEP_HENVIS-CIVILSTAND" format="Alpha" length="12" position="98" description="Reference to any separation ÅÅÅÅMMDDTTMM" dateFormat="yyyyMMddHHmm"/>
+    </Object>
+
     <Object name="EndRecord" danishName="P12170-999" length="21" description="End record">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="BlackBox10" danishName="TAELLER" format="Alpha" length="10" position="4" description="BLACK BOX 10"/>
       <Attribute name="Counter" danishName="TAELLER" format="Alpha" length="8" position="14" description="Counter"/>
     </Object>
-    
+
   </Object>
 </Layer>

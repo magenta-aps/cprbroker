@@ -94,5 +94,10 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public static bool IsValidCorrectionMarker(char correctionMarker)
+        {
+            return correctionMarker == Constants.CorrectionMarker.Edit;
+        }
+
     }
 }

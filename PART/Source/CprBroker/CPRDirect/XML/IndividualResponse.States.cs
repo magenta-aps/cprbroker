@@ -25,7 +25,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public CivilStatusType ToCivilStatusType()
         {
-            return this.CurrentCivilStatus.ToCivilStatusType(this.CurrentSeparation);            
+            return new CivilStatusWrapper(this.CurrentCivilStatus).ToCivilStatusType(this.CurrentSeparation);
         }
 
     }

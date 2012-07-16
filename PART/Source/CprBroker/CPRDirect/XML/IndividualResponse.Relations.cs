@@ -45,12 +45,12 @@ namespace CprBroker.Providers.CPRDirect
 
         public PersonRelationType[] ToRegisteredPartners(Func<string, Guid> cpr2uuidFunc)
         {
-            return this.CurrentCivilStatus.ToRegisteredPartners(cpr2uuidFunc);
+            return CivilStatusWrapper.ToRegisteredPartners(this.CurrentCivilStatus, this.HistoricalCivilStatus, cpr2uuidFunc);
         }
 
         public PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
         {
-            return this.CurrentCivilStatus.ToSpouses(cpr2uuidFunc);
+            return CivilStatusWrapper.ToSpouses(this.CurrentCivilStatus, this.HistoricalCivilStatus, cpr2uuidFunc);
         }
 
         public PersonFlerRelationType[] ToRetligHandleevneVaergemaalsindehaver(Func<string, Guid> cpr2uuidFunc)
