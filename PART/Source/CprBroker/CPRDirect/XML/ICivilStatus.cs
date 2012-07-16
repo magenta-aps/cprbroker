@@ -14,14 +14,26 @@ namespace CprBroker.Providers.CPRDirect
     {
         string PNR { get; }
         string SpousePNR { get; }
+        char CivilStatus { get; }
+
         char CivilStatusStartDateUncertainty { get; }
         DateTime? CivilStatusStartDate { get; }
-        char CivilStatus { get; }
+        char CivilStatusEndDateUncertainty { get; }
+        DateTime? CivilStatusEndDate { get; }
+
     }
 
     public partial class CurrentCivilStatusType : ICivilStatus
     {
+        DateTime? ICivilStatus.CivilStatusEndDate
+        {
+            get { return null; }
+        }
 
+        char ICivilStatus.CivilStatusEndDateUncertainty
+        {
+            get { return '*'; }
+        }
     }
 
     public partial class HistoricalCivilStatusType : ICivilStatus

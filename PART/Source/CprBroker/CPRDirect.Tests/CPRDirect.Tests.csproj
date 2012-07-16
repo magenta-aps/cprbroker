@@ -57,6 +57,7 @@
     <Compile Include="CurrentDepartureData.Tests.cs" />
     <Compile Include="CurrentNameInformationTests.cs" />
     <Compile Include="Disempowerment.Tests.cs" />
+    <Compile Include="HistoricalCivilStatusTests.cs" />
     <Compile Include="IndividualRequest.Tests.cs" />
     <Compile Include="IndividualResponse.Attributes.Tests.cs" />
     <Compile Include="IndividualResponse.Tests.cs" />

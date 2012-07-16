@@ -59,9 +59,10 @@ namespace CprBroker.Providers.CPRDirect
                 .Where(h => Converters.IsValidCorrectionMarker(h.CorrectionMarker))
                 .Select(h => h as ICivilStatus));
 
-            // Convert to PART format
+            all = all.OrderBy(civil => civil.CivilStatusStartDate).ToList();
+            
+                // Convert to PART format
             var ret = all
-                .OrderBy(civil => civil.CivilStatusStartDate)
                 .Select(
                 civil =>
                 {

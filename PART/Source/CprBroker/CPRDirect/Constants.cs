@@ -85,9 +85,10 @@ namespace CprBroker.Providers.CPRDirect
 
         public static class CorrectionMarker
         {
-            public const char Edit = 'K';
+            public const char Edit_Overwritten = 'K';
             public const char Undo = 'A';
             public const char TechnicalChange = 'Æ';
+            public const char OK = ' ';
         }
 
     }

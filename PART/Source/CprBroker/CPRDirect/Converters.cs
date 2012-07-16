@@ -96,7 +96,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static bool IsValidCorrectionMarker(char correctionMarker)
         {
-            return correctionMarker == Constants.CorrectionMarker.Edit;
+            return correctionMarker == Constants.CorrectionMarker.OK;
         }
 
     }
