@@ -174,7 +174,7 @@
     <Object name="CurrentCivilStatus" danishName="P12170-012" length="95" description="Current civil status">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-      <Attribute name="CivilStatus" danishName="CIVST" format="Alpha" length="1" position="14" description="Civil status"/>
+      <Attribute name="CivilStatusCode" danishName="CIVST" format="Alpha" length="1" position="14" description="Civil status"/>
       <Attribute name="SpousePNR" danishName="AEGTEPNR" format="Alpha" length="10" position="15" description="Spouse PNR"/>
       <Attribute name="SpouseBirthDate" danishName="AEGTEFOED_DT" format="Alpha" length="10" position="25" description="Spouse birth date yyyy-MM-dd" dateFormat="yyyy-MM-dd"/>
       <Attribute name="SpouseBirthDateUncertainty" danishName="AEGTEFOEddT_UMRK" format="Alpha" length="1" position="35" description="Spouse birth date uncertainty"/>
@@ -261,7 +261,7 @@
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Edit / Undo marker"/>
-      <Attribute name="CivilStatus" danishName="CIVST" format="Alpha" length="1" position="15" description="Civil status"/>
+      <Attribute name="CivilStatusCode" danishName="CIVST" format="Alpha" length="1" position="15" description="Civil status"/>
       <Attribute name="SpousePNR" danishName="AEGTEPNR" format="Alpha" length="10" position="16" description="Spouse PNR"/>
       <Attribute name="SpouseBirthdate" danishName="AEGTEFOED_DT" format="Alpha" length="10" position="26" description="Spouse Birth date ÅÅÅÅ-MM-DD" dateFormat="yyyy-MM-dd"/>
       <Attribute name="SpouseBirthdateUncertainty" danishName="AEGTEFOEDDT_UMRK" format="Alpha" length="1" position="36" description="Spouse birthdate uncertainty"/>

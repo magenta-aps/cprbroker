@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class CivilStatus
+    public partial class CivilStatus : ICivilStatus
     {
         public PersonRelationType ToPersonRelationType(Func<decimal, Guid> cpr2uuidFunc, bool forPreviousInterval = false)
         {
@@ -63,17 +64,37 @@ namespace CprBroker.Providers.DPR
             return ret.ToArray();
         }
 
-        class CaseInvariantCharComparer : IEqualityComparer<char>
+        public bool IsValid()
         {
-            public bool Equals(char x, char y)
-            {
-                return x.ToString().ToLower().Equals(y.ToString().ToLower());
-            }
-
-            public int GetHashCode(char obj)
-            {
-                return obj.GetHashCode();
-            }
+            return CorrectionMarker == null;
         }
+
+        string ICivilStatus.PNR
+        {
+            get { return this.PNR.ToPnrDecimalString(); }
+        }
+
+        public DateTime? ToCivilStatusStartDate()
+        {
+            return Utilities.DateFromDecimal(this.MaritalStatusDate);
+        }
+
+        public DateTime? ToCivilStatusEndDate()
+        {
+            return Utilities.DateFromDecimal(this.MaritalEndDate);
+        }
+
+        public string ToSpousePnr()
+        {
+            return this.SpousePNR.HasValue ?
+                this.SpousePNR.Value.ToPnrDecimalString()
+                : null;
+        }
+
+        public char CivilStatusCode
+        {
+            get { return this.MaritalStatus.Value; }
+        }
+        
     }
 }

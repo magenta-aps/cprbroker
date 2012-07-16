@@ -28,7 +28,7 @@ namespace CprBroker.Schemas.Part
             {
                 return new CivilStatusType()
                 {
-                    CivilStatusKode = new CivilStatusLookupMap().Map(this._CivilStatus.CivilStatus),
+                    CivilStatusKode = new CivilStatusLookupMap().Map(this._CivilStatus.CivilStatusCode),
                     TilstandVirkning = TilstandVirkningType.Create(this._CivilStatus.ToCivilStatusStartDate()),
                 };
             }
@@ -70,15 +70,15 @@ namespace CprBroker.Schemas.Part
                     // TODO: Make sure that it is correct to return null if SpousePNR is empty
                     if (civilWrapper.ToSpousePnr() != null)
                     {
-                        if (civilWrapper._CivilStatus.CivilStatus == marriedStatus)
+                        if (civilWrapper._CivilStatus.CivilStatusCode == marriedStatus)
                         {
-                            return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.SpousePNR), civilWrapper.ToCivilStatusDate(), null);
+                            return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.ToSpousePnr()), civilWrapper.ToCivilStatusDate(), null);
                         }
-                        else if (terminatedStates.Contains(civilWrapper._CivilStatus.CivilStatus))
+                        else if (terminatedStates.Contains(civilWrapper._CivilStatus.CivilStatusCode))
                         {
-                            return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.SpousePNR), null, civilWrapper.ToCivilStatusDate());
+                            return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.ToSpousePnr()), null, civilWrapper.ToCivilStatusDate());
                         }
-                        else if (civilWrapper._CivilStatus.CivilStatus == deadStatus)
+                        else if (civilWrapper._CivilStatus.CivilStatusCode == deadStatus)
                         {
                             // TODO: Will there be a spouse PNR in this case?
                             if (
@@ -87,7 +87,7 @@ namespace CprBroker.Schemas.Part
                                 sameGenderForDead
                                 )
                             {
-                                return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.SpousePNR), null, civilWrapper.ToCivilStatusDate());
+                                return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.ToSpousePnr()), null, civilWrapper.ToCivilStatusDate());
                             }
                         }
                     }

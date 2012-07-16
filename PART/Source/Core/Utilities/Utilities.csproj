@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaseInvariantCharComparer.cs" />
     <Compile Include="ConsoleApps\CommandArgument.cs" />
     <Compile Include="ConsoleApps\CommandlineParser.cs" />
     <Compile Include="Config.cs" />

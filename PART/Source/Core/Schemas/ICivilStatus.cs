@@ -12,8 +12,7 @@ namespace CprBroker.Schemas.Part
     public interface ICivilStatus
     {
         string PNR { get; }
-        string SpousePNR { get; }
-        char CivilStatus { get; }
+        char CivilStatusCode { get; }
 
         DateTime? ToCivilStatusStartDate();
         DateTime? ToCivilStatusEndDate();
