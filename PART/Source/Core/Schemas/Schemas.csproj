@@ -61,10 +61,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationHeader.cs" />
+    <Compile Include="CivilStatusLookupMap.cs" />
+    <Compile Include="CivilStatusWrapper.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
     <Compile Include="Events\DataChangeEventInfo.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="IBasicOutput.cs" />
+    <Compile Include="ICivilStatus.cs" />
     <Compile Include="IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="PersonCivilRegistrationStatusCode.cs" />
@@ -222,6 +225,12 @@
   <ItemGroup>
     <Content Include="OIOXSD\XSD.txt" />
     <Content Include="Part\Events\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{E0D551C1-574F-4B69-8981-CF5F44391E5E}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

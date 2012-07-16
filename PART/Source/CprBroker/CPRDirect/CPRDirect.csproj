@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CivilStatusLookupMap.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="CPRDirectDataProvider.Tcp.cs" />
@@ -57,15 +56,14 @@
     <Compile Include="Enums.cs" />
     <Compile Include="XML\Child.cs" />
     <Compile Include="XML\ChurchInformation.cs" />
-    <Compile Include="XML\ICivilStatus.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />
     <Compile Include="XML\CurrentAddressInformation.cs" />
     <Compile Include="XML\CurrentAddressWrapper.cs" />
     <Compile Include="XML\CurrentCitizenship.cs" />
+    <Compile Include="XML\CurrentCivilStatus.cs" />
     <Compile Include="XML\CurrentDepartureDataType.cs" />
     <Compile Include="XML\IAddressSource.cs" />
     <Compile Include="XML\IndividualResponse.Parser.cs" />
-    <Compile Include="XML\CivilStatusWrapper.cs" />
     <Compile Include="XML\CurrentSeparation.cs" />
     <Compile Include="XML\Disempowerment.cs" />
     <Compile Include="XML\IndividualResponse.States.cs" />

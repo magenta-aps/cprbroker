@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Util;
-using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CPRDirect
+namespace CprBroker.Schemas.Part
 {
     /// <summary>
     /// Contains common functions for civil status
@@ -19,7 +18,7 @@ namespace CprBroker.Providers.CPRDirect
             _CivilStatus = civil;
         }
 
-        public CivilStatusType ToCivilStatusType(CurrentSeparationType currentSeparation)
+        public CivilStatusType ToCivilStatusType(ISeparation currentSeparation)
         {
             if (currentSeparation != null)
             {
@@ -30,22 +29,22 @@ namespace CprBroker.Providers.CPRDirect
                 return new CivilStatusType()
                 {
                     CivilStatusKode = new CivilStatusLookupMap().Map(this._CivilStatus.CivilStatus),
-                    TilstandVirkning = TilstandVirkningType.Create(this.ToCivilStatusDate()),
+                    TilstandVirkning = TilstandVirkningType.Create(this._CivilStatus.ToCivilStatusDate()),
                 };
             }
         }
 
-        public static PersonRelationType[] ToSpouses(ICivilStatus current, List<HistoricalCivilStatusType> history, Func<string, Guid> cpr2uuidFunc)
+        public static PersonRelationType[] ToSpouses(ICivilStatus current, List<ICivilStatus> history, Func<string, Guid> cpr2uuidFunc)
         {
             return ToSpouses(current, history, 'G', new char[] { 'F', 'E' }, 'D', false, cpr2uuidFunc);
         }
 
-        public static PersonRelationType[] ToRegisteredPartners(ICivilStatus current, List<HistoricalCivilStatusType> history, Func<string, Guid> cpr2uuidFunc)
+        public static PersonRelationType[] ToRegisteredPartners(ICivilStatus current, List<ICivilStatus> history, Func<string, Guid> cpr2uuidFunc)
         {
             return ToSpouses(current, history, 'P', new char[] { 'O', 'L' }, 'D', true, cpr2uuidFunc);
         }
 
-        public static PersonRelationType[] ToSpouses(ICivilStatus current, List<HistoricalCivilStatusType> history, char marriedStatus, char[] terminatedStates, char deadStatus, bool sameGenderForDead, Func<string, Guid> cpr2uuidFunc)
+        public static PersonRelationType[] ToSpouses(ICivilStatus current, List<ICivilStatus> history, char marriedStatus, char[] terminatedStates, char deadStatus, bool sameGenderForDead, Func<string, Guid> cpr2uuidFunc)
         {
             var all = new List<ICivilStatus>();
 
@@ -53,15 +52,15 @@ namespace CprBroker.Providers.CPRDirect
             all.Add(current);
 
             // Add historical states
-            history = history == null ? new List<HistoricalCivilStatusType>() : history;
+            history = history == null ? new List<ICivilStatus>() : history;
             all.AddRange(
                 history
-                .Where(h => Converters.IsValidCorrectionMarker(h.CorrectionMarker))
+                .Where(h => h.IsValid())
                 .Select(h => h as ICivilStatus));
 
             all = all.OrderBy(civil => civil.CivilStatusStartDate).ToList();
-            
-                // Convert to PART format
+
+            // Convert to PART format
             var ret = all
                 .Select(
                 civil =>
@@ -103,13 +102,12 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToSpousePnr()
         {
-            return Converters.ToPnrStringOrNull(this._CivilStatus.SpousePNR);
+            return _CivilStatus.ToSpousePnr();
         }
 
         public DateTime? ToCivilStatusDate()
         {
-            return Converters.ToDateTime(this._CivilStatus.CivilStatusStartDate, this._CivilStatus.CivilStatusStartDateUncertainty);
+            return _CivilStatus.ToCivilStatusDate();
         }
-
     }
 }

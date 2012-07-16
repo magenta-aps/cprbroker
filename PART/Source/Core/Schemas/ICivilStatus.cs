@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Schemas.Part;
 using CprBroker.Schemas.Util;
 
-namespace CprBroker.Providers.CPRDirect
+namespace CprBroker.Schemas.Part
 {
     /// <summary>
     /// Common interface for CurrentCivilStatus and HistoricalCivilStatus
@@ -21,23 +20,16 @@ namespace CprBroker.Providers.CPRDirect
         char CivilStatusEndDateUncertainty { get; }
         DateTime? CivilStatusEndDate { get; }
 
+        DateTime? ToCivilStatusDate();
+        string ToSpousePnr();
+
+        bool IsValid();
     }
 
-    public partial class CurrentCivilStatusType : ICivilStatus
+    public interface ISeparation
     {
-        DateTime? ICivilStatus.CivilStatusEndDate
-        {
-            get { return null; }
-        }
-
-        char ICivilStatus.CivilStatusEndDateUncertainty
-        {
-            get { return '*'; }
-        }
+        CivilStatusType ToCivilStatusType();
     }
 
-    public partial class HistoricalCivilStatusType : ICivilStatus
-    {
-
-    }
+    
 }

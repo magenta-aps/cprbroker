@@ -43,14 +43,19 @@ namespace CprBroker.Providers.CPRDirect
             return ChildType.ToPersonFlerRelationType(this.Child, cpr2uuidFunc);
         }
 
+        private List<ICivilStatus> HistoricalCivilStatusAsInterface
+        {
+            get { return this.HistoricalCivilStatus.Select(h => h as ICivilStatus).ToList(); }
+        }
+
         public PersonRelationType[] ToRegisteredPartners(Func<string, Guid> cpr2uuidFunc)
         {
-            return CivilStatusWrapper.ToRegisteredPartners(this.CurrentCivilStatus, this.HistoricalCivilStatus, cpr2uuidFunc);
+            return CivilStatusWrapper.ToRegisteredPartners(this.CurrentCivilStatus, this.HistoricalCivilStatusAsInterface, cpr2uuidFunc);
         }
 
         public PersonRelationType[] ToSpouses(Func<string, Guid> cpr2uuidFunc)
         {
-            return CivilStatusWrapper.ToSpouses(this.CurrentCivilStatus, this.HistoricalCivilStatus, cpr2uuidFunc);
+            return CivilStatusWrapper.ToSpouses(this.CurrentCivilStatus, this.HistoricalCivilStatusAsInterface, cpr2uuidFunc);
         }
 
         public PersonFlerRelationType[] ToRetligHandleevneVaergemaalsindehaver(Func<string, Guid> cpr2uuidFunc)
