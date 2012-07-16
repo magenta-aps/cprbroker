@@ -75,10 +75,16 @@ namespace CprBroker.Tests.CPRDirect
                 get { return 12; }
             }
             [MinMaxOccurs(0, 1)]
-            public WrapperStub1 WrapperStub1 = null;
+            public WrapperStub1 WrapperStub1 { get; set; }
 
+
+            private List<WrapperStub2> _WrapperStub2 = new List<WrapperStub2>();
             [MinMaxOccurs(0, 1000)]
-            public List<WrapperStub2> WrapperStub2 = new List<WrapperStub2>();
+            public List<WrapperStub2> WrapperStub2
+            {
+                get { return _WrapperStub2; }
+                set { _WrapperStub2 = value; }
+            }
         }
 
         [TestFixture]
@@ -209,16 +215,44 @@ namespace CprBroker.Tests.CPRDirect
                     typeof(WrapperStub),
                     Type.EmptyTypes
                     );
+                
+                FieldBuilder fieldBuilder = typeBuilder.DefineField("_ChildWrapper", typeof(List<WrapperStub1>),FieldAttributes.Private);
 
-                var fieldBuilder = typeBuilder.DefineField("ChildWrapper", typeof(List<WrapperStub1>), FieldAttributes.Public);
+                var propertyBuilder = typeBuilder.DefineProperty("ChildWrapper", PropertyAttributes.None, typeof(List<WrapperStub1>), new Type[] { });
+                
+                MethodAttributes getSetAttr = MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig;
+
+                // Define the "get" accessor method for ChildWrapper.
+                MethodBuilder custNameGetPropMthdBldr = typeBuilder.DefineMethod("get_ChildWrapper", getSetAttr, typeof(List<WrapperStub1>),Type.EmptyTypes);
+                ILGenerator childWrapperGetIL = custNameGetPropMthdBldr.GetILGenerator();
+
+                childWrapperGetIL.Emit(OpCodes.Ldarg_0);
+                childWrapperGetIL.Emit(OpCodes.Ldfld, fieldBuilder);
+                childWrapperGetIL.Emit(OpCodes.Ret);
+
+                // Define the "set" accessor method for ChildWrapper.
+                MethodBuilder custNameSetPropMthdBldr = typeBuilder.DefineMethod("set_ChildWrapper",getSetAttr,null,new Type[] { typeof(List<WrapperStub1>) });
+
+                ILGenerator childWrapperSetIL = custNameSetPropMthdBldr.GetILGenerator();
+
+                childWrapperSetIL.Emit(OpCodes.Ldarg_0);
+                childWrapperSetIL.Emit(OpCodes.Ldarg_1);
+                childWrapperSetIL.Emit(OpCodes.Stfld, fieldBuilder);
+                childWrapperSetIL.Emit(OpCodes.Ret);
+
+                // Last, we must map the two methods created above to our PropertyBuilder to 
+                // their corresponding behaviors, "get" and "set" respectively. 
+                propertyBuilder.SetGetMethod(custNameGetPropMthdBldr);
+                propertyBuilder.SetSetMethod(custNameSetPropMthdBldr);
+
 
                 var attrCon = typeof(MinMaxOccurs).GetConstructor(new Type[] { typeof(int), typeof(int) });
                 var attr = new CustomAttributeBuilder(attrCon, new object[] { minOccurs, maxOccurs });
-                fieldBuilder.SetCustomAttribute(attr);
+                propertyBuilder.SetCustomAttribute(attr);
 
                 var parentWrapperType = typeBuilder.CreateType();
                 var parentWrapper = parentWrapperType.GetConstructor(Type.EmptyTypes).Invoke(new object[0]);
-                parentWrapperType.InvokeMember("ChildWrapper", BindingFlags.SetField | BindingFlags.Public | BindingFlags.Instance, null, parentWrapper, new object[] { new List<WrapperStub1>() });
+                parentWrapperType.InvokeMember("ChildWrapper", BindingFlags.SetProperty | BindingFlags.Public | BindingFlags.Instance, null, parentWrapper, new object[] { new List<WrapperStub1>() });
                 return parentWrapper as Wrapper;
             }
 
@@ -259,7 +293,7 @@ namespace CprBroker.Tests.CPRDirect
             public class StartRecordWrapperStub : Wrapper
             {
                 [MinMaxOccurs(1, 1)]
-                public StartRecordType StartRecord;
+                public StartRecordType StartRecord { get; set; }
 
                 public override int Length
                 {
