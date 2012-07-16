@@ -29,7 +29,7 @@ namespace CprBroker.Schemas.Part
                 return new CivilStatusType()
                 {
                     CivilStatusKode = new CivilStatusLookupMap().Map(this._CivilStatus.CivilStatus),
-                    TilstandVirkning = TilstandVirkningType.Create(this._CivilStatus.ToCivilStatusDate()),
+                    TilstandVirkning = TilstandVirkningType.Create(this._CivilStatus.ToCivilStatusStartDate()),
                 };
             }
         }
@@ -58,7 +58,7 @@ namespace CprBroker.Schemas.Part
                 .Where(h => h.IsValid())
                 .Select(h => h as ICivilStatus));
 
-            all = all.OrderBy(civil => civil.CivilStatusStartDate).ToList();
+            all = all.OrderBy(civil => civil.ToCivilStatusStartDate()).ToList();
 
             // Convert to PART format
             var ret = all
@@ -107,7 +107,7 @@ namespace CprBroker.Schemas.Part
 
         public DateTime? ToCivilStatusDate()
         {
-            return _CivilStatus.ToCivilStatusDate();
+            return _CivilStatus.ToCivilStatusStartDate();
         }
     }
 }

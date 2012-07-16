@@ -15,12 +15,8 @@ namespace CprBroker.Schemas.Part
         string SpousePNR { get; }
         char CivilStatus { get; }
 
-        char CivilStatusStartDateUncertainty { get; }
-        DateTime? CivilStatusStartDate { get; }
-        char CivilStatusEndDateUncertainty { get; }
-        DateTime? CivilStatusEndDate { get; }
-
-        DateTime? ToCivilStatusDate();
+        DateTime? ToCivilStatusStartDate();
+        DateTime? ToCivilStatusEndDate();
         string ToSpousePnr();
 
         bool IsValid();
