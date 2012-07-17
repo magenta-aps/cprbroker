@@ -26,5 +26,5 @@ namespace CprBroker.Schemas.Part
         CivilStatusType ToCivilStatusType();
     }
 
-    
+
 }
