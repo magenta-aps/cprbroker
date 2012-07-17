@@ -18,7 +18,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
         public void ToPersonRelationType_NullInput_Exception()
         {
             var civilStatus = new CivilStatusStub();
-            civilStatus.ToPersonRelationType(null);
+            new CivilStatusWrapper(civilStatus).ToPersonRelationType(null);
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [ValueSource("RandomCprNumbers5")]decimal spouseCprNumber)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = spouseCprNumber };
-            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
+            var result = new CivilStatusWrapper(civilStatus).ToPersonRelationType(UuidMap.CprStringToUuid);
             Assert.AreEqual(UuidMap.CprToUuid(spouseCprNumber).ToString(), result.ReferenceID.Item);
         }
 
@@ -35,7 +35,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [ValueSource("RandomCprNumbers5")]decimal spouseCprNumber)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = spouseCprNumber };
-            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
+            var result = new CivilStatusWrapper(civilStatus).ToPersonRelationType(UuidMap.CprStringToUuid);
             Assert.IsNullOrEmpty(result.CommentText);
         }
 
@@ -45,7 +45,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [Values('U', 'G', 'F', 'D', 'E', 'P', 'O', 'L', 'u', 'g', 'f', 'd', 'e', 'p', 'o', 'l')]char maritalStatus)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus, MaritalStatusDate = startDate, MaritalEndDate = null };
-            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
+            var result = new CivilStatusWrapper(civilStatus).ToPersonRelationType(UuidMap.CprStringToUuid);
             Assert.AreEqual(Providers.DPR.Utilities.DateFromDecimal(startDate), result.Virkning.FraTidspunkt.ToDateTime().Value);
         }
         [Test]
@@ -54,7 +54,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [Values('U', 'G', 'F', 'D', 'E', 'P', 'O', 'L', 'u', 'g', 'f', 'd', 'e', 'p', 'o', 'l')]char maritalStatus)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus, MaritalStatusDate = startDate, MaritalEndDate = null };
-            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
+            var result = new CivilStatusWrapper(civilStatus).ToPersonRelationType(UuidMap.CprStringToUuid);
             Assert.Null(result.Virkning.TilTidspunkt.ToDateTime());
         }
         [Test]
@@ -63,7 +63,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [Values('U', 'G', 'F', 'D', 'E', 'P', 'O', 'L', 'u', 'g', 'f', 'd', 'e', 'p', 'o', 'l')]char maritalStatus)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus, MaritalStatusDate = null, MaritalEndDate = endDate };
-            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
+            var result = new CivilStatusWrapper(civilStatus).ToPersonRelationType(UuidMap.CprStringToUuid);
             Assert.AreEqual(Providers.DPR.Utilities.DateFromDecimal(endDate), result.Virkning.TilTidspunkt.ToDateTime());
         }
         [Test]
@@ -72,7 +72,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [Values('U', 'G', 'F', 'D', 'E', 'P', 'O', 'L', 'u', 'g', 'f', 'd', 'e', 'p', 'o', 'l')]char maritalStatus)
         {
             var civilStatus = new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = maritalStatus, MaritalStatusDate = null, MaritalEndDate = endDate };
-            var result = civilStatus.ToPersonRelationType(UuidMap.CprToUuid);
+            var result = new CivilStatusWrapper(civilStatus).ToPersonRelationType(UuidMap.CprStringToUuid);
             Assert.Null(result.Virkning.FraTidspunkt.ToDateTime());
         }
 
