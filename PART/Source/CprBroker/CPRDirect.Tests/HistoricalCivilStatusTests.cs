@@ -36,7 +36,7 @@ namespace CprBroker.Tests.CPRDirect
                             .ToArray()
                         })
                     .ToArray();
-                System.Diagnostics.Debugger.Launch();
+                
                 object o = "";
             }
         }

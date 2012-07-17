@@ -69,6 +69,11 @@ namespace CprBroker.Providers.DPR
         public CivilStatus[] CivilStates { get; set; }
         public Child[] Children { get; set; }
 
+        public List<ICivilStatus> CivilStatesAsInterface
+        {
+            get { return CivilStates.Select(c => c as ICivilStatus).ToList(); }
+        }
+
         /// <summary>
         /// LINQ expression that is able to create a IQueryable&lt;PersonInfo;gt; object based on a given date
         /// </summary>
@@ -171,7 +176,7 @@ namespace CprBroker.Providers.DPR
             {
                 AttributListe = ToAttributListeType(dataProvider),
                 TilstandListe = ToTilstandListeType(),
-                RelationListe = ToRelationListeType(cpr2uuidFunc, dataContext),
+                RelationListe = ToRelationListeType(cpr2uuidConverter, cpr2uuidFunc, dataContext),
 
                 AktoerRef = Constants.Actor,
                 CommentText = Constants.CommentText,
@@ -301,7 +306,7 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public RelationListeType ToRelationListeType(Func<decimal, Guid> cpr2uuidFunc, DPRDataContext dataContext)
+        public RelationListeType ToRelationListeType(Func<string, Guid> cpr2uuidConverter, Func<decimal, Guid> cpr2uuidFunc, DPRDataContext dataContext)
         {
             var ret = new RelationListeType();
             // Now fill the relations
@@ -338,22 +343,11 @@ namespace CprBroker.Providers.DPR
             ret.Foraeldremyndighedsboern = null;
 
             // Normal spouse(s)
-            ret.Aegtefaelle = DPR.CivilStatus.ToToPersonRelationTypeArray(
-                this.CivilStates,
-                cpr2uuidFunc,
-                Constants.MaritalStatus.Married,
-                Constants.MaritalStatus.Divorced,
-                Constants.MaritalStatus.Widow
-            );
+            ret.Aegtefaelle = CivilStatusWrapper.ToSpouses(null, this.CivilStatesAsInterface, cpr2uuidConverter);
 
             // Registered partner(s)
-            ret.RegistreretPartner = DPR.CivilStatus.ToToPersonRelationTypeArray(
-                this.CivilStates,
-                cpr2uuidFunc,
-                Constants.MaritalStatus.RegisteredPartnership,
-                Constants.MaritalStatus.AbolitionOfRegisteredPartnership,
-                Constants.MaritalStatus.LongestLivingPartner
-            );
+            ret.RegistreretPartner = CivilStatusWrapper.ToRegisteredPartners(null, this.CivilStatesAsInterface, cpr2uuidConverter);
+
             //TODO: Has legal authority on
             ret.RetligHandleevneVaergeForPersonen = null;
 
