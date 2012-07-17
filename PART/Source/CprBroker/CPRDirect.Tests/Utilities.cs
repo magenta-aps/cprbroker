@@ -16,6 +16,12 @@ namespace CprBroker.Tests.CPRDirect
         {
             return RandomElement<char>(arr, count, exclude);
         }
+
+        public static char RandomSingleChar(char[] arr, params char[] exclude)
+        {
+            return RandomChar(arr, 1, exclude).First();
+        }
+
         public static T[] RandomElement<T>(T[] arr, int count, params T[] exclude)
         {
             var ret = new List<T>();
