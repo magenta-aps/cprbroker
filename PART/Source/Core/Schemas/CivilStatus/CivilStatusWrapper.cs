@@ -21,6 +21,7 @@ namespace CprBroker.Schemas.Part
 
         public CivilStatusType ToCivilStatusType(ISeparation currentSeparation)
         {
+            // TODO: Copy from DPR
             if (currentSeparation != null)
             {
                 return currentSeparation.ToCivilStatusType();
