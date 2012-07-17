@@ -61,16 +61,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationHeader.cs" />
-    <Compile Include="CivilStatusLookupMap.cs" />
-    <Compile Include="CivilStatusWrapper.cs" />
+    <Compile Include="CivilStatus\CivilStatusLookupMap.cs" />
+    <Compile Include="CivilStatus\CivilStatusWrapper.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
     <Compile Include="Events\DataChangeEventInfo.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="IBasicOutput.cs" />
-    <Compile Include="ICivilStatus.cs" />
+    <Compile Include="CivilStatus\ICivilStatus.cs" />
     <Compile Include="IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
-    <Compile Include="MaritalStatus.cs" />
+    <Compile Include="CivilStatus\MaritalStatus.cs" />
     <Compile Include="PersonCivilRegistrationStatusCode.cs" />
     <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="NavnStrukturType.cs" />
@@ -233,9 +233,7 @@
       <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CivilStatus\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

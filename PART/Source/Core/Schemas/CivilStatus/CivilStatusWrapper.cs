@@ -50,12 +50,12 @@ namespace CprBroker.Schemas.Part
 
         public static PersonRelationType[] ToSpouses(ICivilStatus current, List<ICivilStatus> history, Func<string, Guid> cpr2uuidFunc)
         {
-            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, 'G', 'F', 'E');
+            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, MaritalStatus.Married, MaritalStatus.Divorced, MaritalStatus.Widow);
         }
 
         public static PersonRelationType[] ToRegisteredPartners(ICivilStatus current, List<ICivilStatus> history, Func<string, Guid> cpr2uuidFunc)
         {
-            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, 'P', 'O', 'L');
+            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, MaritalStatus.RegisteredPartnership, MaritalStatus.AbolitionOfRegisteredPartnership, MaritalStatus.LongestLivingPartner);
         }
 
         public static PersonRelationType[] ToPersonRelationTypeArray(ICivilStatus currentStatus, IList<ICivilStatus> historyCivilStates, Func<string, Guid> cpr2uuidFunc, char marriedStatus, char divorcedStatus, char widowStatus)
