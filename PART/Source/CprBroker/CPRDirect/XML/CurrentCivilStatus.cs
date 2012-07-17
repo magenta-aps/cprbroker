@@ -25,7 +25,7 @@ namespace CprBroker.Providers.CPRDirect
 
         bool ICivilStatus.IsValid()
         {
-            return true;
+            return !string.IsNullOrEmpty((this as ICivilStatus).ToSpousePnr());
         }
     }
 
@@ -54,6 +54,6 @@ namespace CprBroker.Providers.CPRDirect
 
     public partial class CurrentSeparationType : ISeparation
     {
- 
+
     }
 }
