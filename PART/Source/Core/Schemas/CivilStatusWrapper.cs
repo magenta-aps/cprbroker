@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Util;
+using CprBroker.Utilities;
 
 namespace CprBroker.Schemas.Part
 {
@@ -34,70 +35,79 @@ namespace CprBroker.Schemas.Part
             }
         }
 
+        public PersonRelationType ToPersonRelationType(Func<string, Guid> cpr2uuidFunc, bool forPreviousInterval = false)
+        {
+            return new PersonRelationType()
+            {
+                ReferenceID = UnikIdType.Create(cpr2uuidFunc(ToSpousePnr())),
+                CommentText = "",
+                Virkning = VirkningType.Create(
+                    forPreviousInterval ? null : _CivilStatus.ToCivilStatusStartDate(),
+                    forPreviousInterval ? _CivilStatus.ToCivilStatusStartDate() : _CivilStatus.ToCivilStatusEndDate()
+                )
+            };
+        }
+
         public static PersonRelationType[] ToSpouses(ICivilStatus current, List<ICivilStatus> history, Func<string, Guid> cpr2uuidFunc)
         {
-            return ToSpouses(current, history, 'G', new char[] { 'F', 'E' }, 'D', false, cpr2uuidFunc);
+            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, 'G', 'F', 'E');
         }
 
         public static PersonRelationType[] ToRegisteredPartners(ICivilStatus current, List<ICivilStatus> history, Func<string, Guid> cpr2uuidFunc)
         {
-            return ToSpouses(current, history, 'P', new char[] { 'O', 'L' }, 'D', true, cpr2uuidFunc);
+            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, 'P', 'O', 'L');
         }
 
-        public static PersonRelationType[] ToSpouses(ICivilStatus current, List<ICivilStatus> history, char marriedStatus, char[] terminatedStates, char deadStatus, bool sameGenderForDead, Func<string, Guid> cpr2uuidFunc)
+        public static PersonRelationType[] ToPersonRelationTypeArray(ICivilStatus currentStatus, IList<ICivilStatus> historyCivilStates, Func<string, Guid> cpr2uuidFunc, char marriedStatus, char divorcedStatus, char widowStatus)
         {
-            var all = new List<ICivilStatus>();
+            char[] maritalStates = new char[] { marriedStatus, divorcedStatus, widowStatus };
+
+            var allCivilStates = new List<ICivilStatus>();
 
             // Add current status
-            all.Add(current);
+            allCivilStates.Add(currentStatus);
 
             // Add historical states
-            history = history == null ? new List<ICivilStatus>() : history;
-            all.AddRange(
-                history
-                .Where(h => h.IsValid())
-                .Select(h => h as ICivilStatus));
+            historyCivilStates = historyCivilStates == null ? new List<ICivilStatus>() : historyCivilStates;
+            allCivilStates.AddRange(historyCivilStates);
 
-            all = all.OrderBy(civil => civil.ToCivilStatusStartDate()).ToList();
+            // Filter the correct records
+            allCivilStates = allCivilStates
+                .Where(h =>
+                    h != null
+                    && maritalStates.Contains(h.CivilStatusCode, new CaseInvariantCharComparer())
+                    && h.IsValid()
+                )
+                .OrderBy(civ => civ.ToCivilStatusStartDate())
+                .ToList();
 
-            // Convert to PART format
-            var ret = all
-                .Select(
-                civil =>
+            var ret = new List<PersonRelationType>();
+            for (int i = 0; i < allCivilStates.Count; i++)
+            {
+                var dbCivilStatus = allCivilStates[i];
+                var dbCivilStatusWrapper = new CivilStatusWrapper(dbCivilStatus);
+
+                var previousDbCivilStatus =
+                    (i > 0) && (allCivilStates[i - 1].ToCivilStatusEndDate() == dbCivilStatus.ToCivilStatusStartDate()) ?
+                    allCivilStates[i - 1] : null;
+
+                if (dbCivilStatus.CivilStatusCode == marriedStatus)
                 {
-                    var civilWrapper = new CivilStatusWrapper(civil);
-
-                    // TODO: Make sure that it is correct to return null if SpousePNR is empty
-                    if (civilWrapper.ToSpousePnr() != null)
-                    {
-                        if (civilWrapper._CivilStatus.CivilStatusCode == marriedStatus)
-                        {
-                            return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.ToSpousePnr()), civilWrapper.ToCivilStatusDate(), null);
-                        }
-                        else if (terminatedStates.Contains(civilWrapper._CivilStatus.CivilStatusCode))
-                        {
-                            return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.ToSpousePnr()), null, civilWrapper.ToCivilStatusDate());
-                        }
-                        else if (civilWrapper._CivilStatus.CivilStatusCode == deadStatus)
-                        {
-                            // TODO: Will there be a spouse PNR in this case?
-                            if (
-                                (Enums.PersonNumberToGender(civilWrapper._CivilStatus.PNR) == Enums.PersonNumberToGender(civilWrapper.ToSpousePnr()))
-                                ==
-                                sameGenderForDead
-                                )
-                            {
-                                return PersonRelationType.Create(cpr2uuidFunc(civilWrapper._CivilStatus.ToSpousePnr()), null, civilWrapper.ToCivilStatusDate());
-                            }
-                        }
-                    }
-                    return null;
+                    ret.Add(dbCivilStatusWrapper.ToPersonRelationType(cpr2uuidFunc));
                 }
-            )
-            .Where(r => r != null)
-            .ToArray();
-
-            return ret;
+                else if (
+                    dbCivilStatus.CivilStatusCode == divorcedStatus || dbCivilStatus.CivilStatusCode == widowStatus)
+                {
+                    // Statistics show that if previous row exists, it will be always 'married'
+                    if (previousDbCivilStatus == null)
+                    {
+                        // Only add a relation if the previous row (married) does not exist
+                        // Reverse times because we need the 'marriage' interval, not the 'divorce/widow'
+                        ret.Add(dbCivilStatusWrapper.ToPersonRelationType(cpr2uuidFunc, true));
+                    }
+                }
+            }
+            return ret.ToArray();
         }
 
         public string ToSpousePnr()
