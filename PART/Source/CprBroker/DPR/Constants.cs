@@ -57,18 +57,6 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public class Constants
     {
-        public class MaritalStatus
-        {
-            public const char Unmarried = 'U';
-            public const char Married = 'G';
-            public const char Divorced = 'F';
-            public const char Deceased = 'D';
-            public const char Widow = 'E';
-            public const char RegisteredPartnership = 'P';
-            public const char AbolitionOfRegisteredPartnership = 'O';
-            public const char LongestLivingPartner = 'L';
-        }
-
         public static UnikIdType Actor
         {
             get

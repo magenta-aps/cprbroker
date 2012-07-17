@@ -70,6 +70,7 @@
     <Compile Include="ICivilStatus.cs" />
     <Compile Include="IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
+    <Compile Include="MaritalStatus.cs" />
     <Compile Include="PersonCivilRegistrationStatusCode.cs" />
     <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="NavnStrukturType.cs" />
@@ -231,6 +232,9 @@
       <Project>{E0D551C1-574F-4B69-8981-CF5F44391E5E}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CivilStatus\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
