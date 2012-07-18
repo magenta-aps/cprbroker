@@ -66,6 +66,11 @@
     <Compile Include="ParentalAuthority.Tests.cs" />
     <Compile Include="ParentsInformation.Tests.cs" />
     <Compile Include="PersonInformation.Tests.cs" />
+    <Compile Include="Persons\Person.cs" />
+    <Compile Include="Persons\P_0702614147.cs" />
+    <Compile Include="Persons\P_0707614218.cs" />
+    <Compile Include="Persons\P_0709614045.cs" />
+    <Compile Include="Persons\P_0909610036.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +342,7 @@
   <ItemGroup>
     <None Include="Resources\PNR_3112970079.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
