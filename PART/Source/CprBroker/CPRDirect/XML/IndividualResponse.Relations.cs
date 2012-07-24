@@ -69,10 +69,5 @@ namespace CprBroker.Providers.CPRDirect
             // Parental authority owner
             return ParentalAuthorityType.ToPersonRelationType(this.ParentalAuthority, cpr2uuidFunc);
         }
-
-
-
-
-
     }
 }
