@@ -10,6 +10,7 @@ namespace CprBroker.Providers.CPRDirect
     {
         public TidspunktType ToTidspunktType()
         {
+            // TODO: Is this the correct registration date?
             return TidspunktType.Create(this.ProductionDate);
         }
     }
