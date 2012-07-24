@@ -94,7 +94,7 @@ namespace CprBroker.Tests.CPRDirect
         {
             [Test]
             public void PersonGenderCodeType_M_Male(
-                [Values('M','m')]char gender)
+                [Values('M', 'm')]char gender)
             {
                 var info = new PersonInformationType() { Gender = gender };
                 var ret = info.ToPersonGenderCodeType();
@@ -113,12 +113,44 @@ namespace CprBroker.Tests.CPRDirect
             [Test]
             [ExpectedException]
             public void PersonGenderCodeType_Other_Exception(
-                [Values('s', ' ','2')]char gender)
+                [Values('s', ' ', '2')]char gender)
             {
                 var info = new PersonInformationType() { Gender = gender };
                 var ret = info.ToPersonGenderCodeType();
             }
         }
 
+        [TestFixture]
+        public class ToLivStatusType
+        {
+            [Test]
+            public void ToLivStatusType_Status_CorrectStatus(
+                [Values(1, 3, 5, 50, 60)]decimal status)
+            {
+                var inf = new PersonInformationType() { Status = status };
+                var res = inf.ToLivStatusType();
+                Assert.AreEqual(LivStatusKodeType.Foedt, res.LivStatusKode);
+            }
+
+            [Test]
+            public void ToLivStatusType_Status_HasVirkning(
+                [Values(1, 3, 5, 50, 60)]decimal status)
+            {
+                var inf = new PersonInformationType() { Status = status };
+                var res = inf.ToLivStatusType();
+                Assert.NotNull(res.TilstandVirkning);
+            }
+
+            [Test]
+            public void ToLivStatusType_Status_EmptyDate(
+                [Values(1, 3, 5, 50, 60)]decimal status)
+            {
+                var inf = new PersonInformationType() { Status = status };
+                var res = inf.ToLivStatusType();
+                Assert.Null(res.TilstandVirkning.FraTidspunkt.ToDateTime());
+            }
+
+
+        }
     }
 }

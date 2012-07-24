@@ -8,7 +8,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
-        private TilstandListeType ToTilstandListeType()
+        public TilstandListeType ToTilstandListeType()
         {
             return new TilstandListeType()
             {

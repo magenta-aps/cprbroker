@@ -13,7 +13,9 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new LivStatusType()
             {
-                LivStatusKode = Enums.ToLifeStatus(this.Status, this.ToBirthdate()),
+                // Passing true in order to prevent people with unknown/uncertain birthdates from being Prenatal
+                // TODO: Check how to detect prenatal in CPR Direct
+                LivStatusKode = Enums.ToLifeStatus(this.Status, true),
                 TilstandVirkning = TilstandVirkningType.Create(this.ToStatusDate())
             };
         }
