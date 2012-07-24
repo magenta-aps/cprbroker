@@ -82,7 +82,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public AdresseType ToAndreAdresser()
         {
-            // TODO: See if it is possible to get another address in CPR Direct
+            // TODO: Fill Supplementary address after seeing real data (CurrentAddressInformation.SupplementaryAddressLine 1 - 5
             return null;
         }
 
