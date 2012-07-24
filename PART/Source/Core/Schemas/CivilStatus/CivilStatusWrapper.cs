@@ -21,8 +21,10 @@ namespace CprBroker.Schemas.Part
 
         public CivilStatusType ToCivilStatusType(ISeparation currentSeparation)
         {
+            var statusCode = new CivilStatusLookupMap().Map(this._CivilStatus.CivilStatusCode);
+
             // TODO: Copy from DPR
-            if (currentSeparation != null)
+            if (currentSeparation != null && (statusCode == CivilStatusKodeType.Gift || statusCode == CivilStatusKodeType.RegistreretPartner))
             {
                 return currentSeparation.ToCivilStatusType();
             }
@@ -30,7 +32,7 @@ namespace CprBroker.Schemas.Part
             {
                 return new CivilStatusType()
                 {
-                    CivilStatusKode = new CivilStatusLookupMap().Map(this._CivilStatus.CivilStatusCode),
+                    CivilStatusKode = statusCode,
                     TilstandVirkning = TilstandVirkningType.Create(this._CivilStatus.ToCivilStatusStartDate()),
                 };
             }

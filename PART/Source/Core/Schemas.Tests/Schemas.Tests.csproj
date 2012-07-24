@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CivilStatusWrapperTests.cs" />
     <Compile Include="EnumsTests.cs" />
     <Compile Include="PersonNameStructureType.Tests.cs" />
     <Compile Include="PersonRelationTypeHelperTests.cs" />
