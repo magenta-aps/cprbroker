@@ -59,5 +59,21 @@ namespace CprBroker.Tests.CPRDirect
             }
             return cprNumbers.ToArray();
         }
+
+        public static string[] RandomCprNumberStrings(int count)
+        {
+            var cprNumbers = new List<string>();
+
+            for (int i = 0; i < count; i++)
+            {
+                cprNumbers.Add(RandomCprNumberString());
+            }
+            return cprNumbers.ToArray();
+        }
+
+        public static string[] RandomCprNumberStrings5()
+        {
+            return RandomCprNumberStrings(5);
+        }
     }
 }

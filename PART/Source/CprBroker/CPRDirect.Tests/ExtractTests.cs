@@ -59,7 +59,8 @@ namespace CprBroker.Tests.CPRDirect
         public class GetPerson
         {
             [Test]
-            public void GetPerson_PersonExists_Correct()
+            public void GetPerson_PersonExists_Correct(
+                [Range(1, 1098, 20)]int lineNumber)
             {
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
                 var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
@@ -68,6 +69,17 @@ namespace CprBroker.Tests.CPRDirect
                 var person = Extract.GetPerson(pnr, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                 Assert.NotNull(person);
                 Assert.AreEqual(pnr, person.PersonInformation.PNR);
+            }
+
+            [Test]
+            public void GetPerson_PersonNotExists_Null(
+                [ValueSource(typeof(Utilities), "RandomCprNumberStrings5")]string cprNumber)
+            {
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
+
+                var person = Extract.GetPerson(cprNumber, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                Assert.Null(person);
             }
         }
     }
