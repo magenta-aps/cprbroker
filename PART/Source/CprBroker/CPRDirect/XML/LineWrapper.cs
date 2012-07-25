@@ -41,5 +41,15 @@ namespace CprBroker.Providers.CPRDirect
             }
             return null;
         }
+
+        public ExtractItem ToExtractItem()
+        {
+            return new ExtractItem()
+            {
+                CprNumber = this.PNR,
+                Contents = this.Contents,
+                DataTypeCode = this.Code
+            };
+        }
     }
 }

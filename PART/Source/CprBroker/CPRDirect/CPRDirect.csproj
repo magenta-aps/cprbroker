@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -54,6 +55,17 @@
     <Compile Include="CPRDirectDataProvider.Tcp.cs" />
     <Compile Include="CPRDirectDataProvider.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Extract\Extract.cs" />
+    <Compile Include="Extract\ExtractDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExtractDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="XML\Child.cs" />
     <Compile Include="XML\ChurchInformation.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />
@@ -91,10 +103,28 @@
     <Content Include="XML\DefinitionSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Extract\ExtractDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ExtractDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="XML\Definitions.xml">
       <SubType>Designer</SubType>
     </None>
     <Content Include="XML\ClassTransform.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Extract\ExtractDataContext.dbml.layout">
+      <DependentUpon>ExtractDataContext.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
