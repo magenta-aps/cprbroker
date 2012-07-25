@@ -51,7 +51,6 @@ using System.Text;
 using System.Xml;
 using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AS78207;
-using CprBroker.Providers.KMD.WS_AN08010;
 using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.KMD
