@@ -29,6 +29,15 @@ namespace CprBroker.Providers.CPRDirect
             get { return Contents.Substring(3, 10); }
         }
 
+        public bool IsValid
+        {
+            get
+            {
+                return Contents.Trim().Length > 0
+                    && Contents.Length >= Constants.DataObjectCodeLength;
+            }
+        }
+
         public Wrapper ToWrapper(Dictionary<string, Type> typeMap)
         {
             if (typeMap.ContainsKey(this.Code))
@@ -50,6 +59,18 @@ namespace CprBroker.Providers.CPRDirect
                 Contents = this.Contents,
                 DataTypeCode = this.Code
             };
+        }
+
+        public static LineWrapper[] ParseBatch(string batchFileText)
+        {
+            var rd = new System.IO.StringReader(batchFileText);
+            var dataLines = rd
+                .ReadToEnd()
+                .Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(l => new LineWrapper(l))
+                .Where(w => w.IsValid)
+                .ToArray();
+            return dataLines;
         }
     }
 }

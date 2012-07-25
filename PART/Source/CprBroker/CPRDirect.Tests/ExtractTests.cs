@@ -15,7 +15,7 @@ namespace CprBroker.Tests.CPRDirect
             [Test]
             public void Constructor_Parse_CorrectCount()
             {
-                var lines = Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
 
                 var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
                 Assert.AreEqual(lines.Length - 2, extract.ExtractItems.Count);
@@ -24,25 +24,25 @@ namespace CprBroker.Tests.CPRDirect
             [Test]
             public void Constructor_Parse_CorrectStart()
             {
-                var lines = Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
 
                 var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
-                Assert.AreEqual(lines[0], extract.StartRecord);
+                Assert.AreEqual(lines.First().Contents, extract.StartRecord);
             }
 
             [Test]
             public void Constructor_Parse_CorrectEnd()
             {
-                var lines = Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
 
                 var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
-                Assert.AreEqual(lines.Last(), extract.EndRecord);
+                Assert.AreEqual(lines.Last().Contents, extract.EndRecord);
             }
 
             [Test]
             public void Constructor_Parse_CorrectReconstruction()
             {
-                var lines = Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
 
                 var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
                 var result = extract.ExtractItems.Select(i => i.Contents).ToList();
@@ -50,8 +50,24 @@ namespace CprBroker.Tests.CPRDirect
                 result.Add(extract.EndRecord);
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    Assert.AreEqual(lines[i], result[i]);
+                    Assert.AreEqual(lines[i].Contents, result[i]);
                 }
+            }
+        }
+
+        [TestFixture]
+        public class GetPerson
+        {
+            [Test]
+            public void GetPerson_PersonExists_Correct()
+            {
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
+
+                var pnr = lines[2].PNR;
+                var person = Extract.GetPerson(pnr, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                Assert.NotNull(person);
+                Assert.AreEqual(pnr, person.PersonInformation.PNR);
             }
         }
     }

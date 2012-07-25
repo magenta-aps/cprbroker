@@ -166,20 +166,12 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        public static List<Wrapper> ParseBatch(string[] dataLines, Dictionary<string, Type> typeMap)
-        {
-            var ret = dataLines
-                .Where(line => line.Length >= Constants.DataObjectCodeLength)
-                .Select(dataLine => new LineWrapper(dataLine).ToWrapper(typeMap))
-                .Where(w => w != null);
-
-            return ret.ToList();
-        }
-
         public void FillFrom(IList<Wrapper> wrappersIList, params Wrapper[] extraWrappers)
         {
             var wrappers = new List<Wrapper>(wrappersIList);
             wrappers.AddRange(extraWrappers.Where(w => w != null));
+            
+            wrappers.RemoveAll(w => w == null);
 
             Type myType = GetType();
             var fields = myType.GetProperties();

@@ -10,23 +10,24 @@ namespace CprBroker.Providers.CPRDirect
     {
         public static IList<IndividualResponseType> ParseBatch(string batchFileText)
         {
-            var rd = new System.IO.StringReader(batchFileText);
-            var lines = rd.ReadToEnd().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var lines = LineWrapper.ParseBatch(batchFileText);
             return ParseBatch(lines, Constants.DataObjectMap);
         }
 
-        public static new IList<IndividualResponseType> ParseBatch(string[] dataLines, Dictionary<string, Type> typeMap)
+        public static IList<IndividualResponseType> ParseBatch(LineWrapper[] dataLines, Dictionary<string, Type> typeMap)
         {
-            var allLineWrappers = Wrapper.ParseBatch(dataLines, typeMap);
+            var allWrappers = dataLines.Select(lw => lw.ToWrapper(typeMap)).ToList();
 
-            var startRecord = allLineWrappers.Where(w => w is StartRecordType).FirstOrDefault() as StartRecordType;
-            var endRecord = allLineWrappers.Where(w => w is EndRecordType).FirstOrDefault() as EndRecordType;
+            var startRecord = allWrappers.First() as StartRecordType;
+            var endRecord = allWrappers.Last() as EndRecordType;
 
-            var relevantLines = allLineWrappers
-                .Where(lineWrapper => !new Wrapper[] { startRecord, endRecord }.Contains(lineWrapper));
+            allWrappers.Remove(startRecord);
+            allWrappers.Remove(endRecord);
 
-            var groupedWrapers = relevantLines
-                .GroupBy(w => new LineWrapper(w.Contents).PNR);
+            var groupedWrapers = allWrappers
+                .Where(w => w != null)
+                .GroupBy(w => new LineWrapper(w.Contents).PNR)
+                .ToList();
 
             var ret = groupedWrapers
                 .Select(individualWrappersGrouping =>
@@ -35,12 +36,12 @@ namespace CprBroker.Providers.CPRDirect
                         var individual = new IndividualResponseType();
                         individual.FillFrom(individualLines, startRecord, endRecord);
                         return individual;
-                    }
-            );
-            return ret.ToList();
+                    })
+                .ToList();
+            return ret;
         }
 
-        
+
 
     }
 }

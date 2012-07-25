@@ -15,8 +15,8 @@ namespace CprBroker.Tests.CPRDirect
             [Test]
             public void TestLines()
             {
-                var lines = Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                var wrappers = Wrapper.ParseBatch(lines, Constants.DataObjectMap);
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var wrappers = lines.Select(w => w.ToWrapper(Constants.DataObjectMap));
                 var myWrappers = wrappers.Where(w => w is CurrentNameInformationType).Select(w => w as CurrentNameInformationType);
                 var first = myWrappers.Select(w => w.FirstNameMarker).Distinct().ToArray();
                 var middle = myWrappers.Select(w => w.MiddleNameMarker).Distinct().ToArray();

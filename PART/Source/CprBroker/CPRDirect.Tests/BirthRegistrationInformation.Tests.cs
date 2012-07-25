@@ -15,8 +15,8 @@ namespace CprBroker.Tests.CPRDirect
             [Test]
             public void SSSTTT()
             {
-                var lines = Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                var wrappers = Wrapper.ParseBatch(lines, Constants.DataObjectMap);
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var wrappers = lines.Select(w => w.ToWrapper(Constants.DataObjectMap));
                 var myWrappers = wrappers.Where(w => w is BirthRegistrationInformationType).Select(w => w as BirthRegistrationInformationType).ToArray();
                 var withText = myWrappers.Where(w => !string.IsNullOrEmpty(w.AdditionalBirthRegistrationText)).ToArray();
                 var noText = myWrappers.Where(w => string.IsNullOrEmpty(w.AdditionalBirthRegistrationText)).ToArray();
