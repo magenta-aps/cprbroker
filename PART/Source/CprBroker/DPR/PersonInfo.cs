@@ -289,6 +289,7 @@ namespace CprBroker.Providers.DPR
             return new TilstandListeType()
             {
                 // TODO: Is it OK to get the full history here?
+                // TODO: Use CivilStatusWrapper
                 CivilStatus = new CivilStatusType()
                 {
                     CivilStatusKode = PersonTotal.ToCivilStatusCodeType(this.Separation),
