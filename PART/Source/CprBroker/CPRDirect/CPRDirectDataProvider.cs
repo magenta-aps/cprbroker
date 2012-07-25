@@ -14,8 +14,16 @@ namespace CprBroker.Providers.CPRDirect
         #region IPartReadDataProvider members
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
-            IndividualRequestType request = new IndividualRequestType(PutSubscription, decimal.Parse(uuid.CprNumber));
-            var response = this.GetResponse(request);
+            IndividualResponseType response = null;
+
+            response = ExtractManager.GetPerson(uuid.CprNumber);
+
+            if (response == null)
+            {
+                IndividualRequestType request = new IndividualRequestType(PutSubscription, decimal.Parse(uuid.CprNumber));
+                response = this.GetResponse(request);
+            }
+
             ql = QualityLevel.Cpr;
             DateTime effectDate = DateTime.Today;
             return response.ToRegistreringType1(cpr2uuidFunc, effectDate);

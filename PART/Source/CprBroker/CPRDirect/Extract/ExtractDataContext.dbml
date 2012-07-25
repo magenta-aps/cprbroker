@@ -1,8 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CPRDirect" EntityNamespace="CprBroker.Providers.CPRDirect" ContextNamespace="CprBroker.Providers.CPRDirect" Class="ExtractDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=CPRDirect;Integrated Security=True" SettingsObjectName="CprBroker.Providers.CPRDirect.Properties.Settings" SettingsPropertyName="CPRDirectConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PART" EntityNamespace="CprBroker.Providers.CPRDirect" ContextNamespace="CprBroker.Providers.CPRDirect" Class="ExtractDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.Extract" Member="Extracts">
     <Type Name="Extract">
-      <Column Name="ExtractId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ExtractDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="StartRecord" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="EndRecord" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
@@ -12,7 +11,7 @@
   <Table Name="dbo.ExtractItem" Member="ExtractItems">
     <Type Name="ExtractItem">
       <Column Name="ExtractItemId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ExtractId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="CprNumber" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="DataTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="Contents" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />

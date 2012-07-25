@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Config, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Config.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Engine">
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
     </Reference>
@@ -56,11 +60,15 @@
     <Compile Include="CPRDirectDataProvider.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Extract\Extract.cs" />
+    <Compile Include="Extract\ExtractDataContext.cs">
+      <DependentUpon>ExtractDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Extract\ExtractDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExtractDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Extract\ExtractManager.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -103,7 +111,6 @@
     <Content Include="XML\DefinitionSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Extract\ExtractDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>ExtractDataContext.designer.cs</LastGenOutput>

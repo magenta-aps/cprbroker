@@ -22,7 +22,7 @@ namespace CprBroker.Providers.CPRDirect
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CPRDirect")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PART")]
 	public partial class ExtractDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -37,12 +37,6 @@ namespace CprBroker.Providers.CPRDirect
     partial void UpdateExtractItem(ExtractItem instance);
     partial void DeleteExtractItem(ExtractItem instance);
     #endregion
-		
-		public ExtractDataContext() : 
-				base(global::CprBroker.Providers.CPRDirect.Properties.Settings.Default.CPRDirectConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
 		
 		public ExtractDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -91,7 +85,7 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _ExtractId;
+		private System.Guid _ExtractId;
 		
 		private System.DateTime _ExtractDate;
 		
@@ -105,7 +99,7 @@ namespace CprBroker.Providers.CPRDirect
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnExtractIdChanging(int value);
+    partial void OnExtractIdChanging(System.Guid value);
     partial void OnExtractIdChanged();
     partial void OnExtractDateChanging(System.DateTime value);
     partial void OnExtractDateChanged();
@@ -121,8 +115,8 @@ namespace CprBroker.Providers.CPRDirect
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ExtractId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ExtractId
 		{
 			get
 			{
@@ -255,7 +249,7 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private System.Guid _ExtractItemId;
 		
-		private int _ExtractId;
+		private System.Guid _ExtractId;
 		
 		private string _CprNumber;
 		
@@ -271,7 +265,7 @@ namespace CprBroker.Providers.CPRDirect
     partial void OnCreated();
     partial void OnExtractItemIdChanging(System.Guid value);
     partial void OnExtractItemIdChanged();
-    partial void OnExtractIdChanging(int value);
+    partial void OnExtractIdChanging(System.Guid value);
     partial void OnExtractIdChanged();
     partial void OnCprNumberChanging(string value);
     partial void OnCprNumberChanged();
@@ -307,8 +301,8 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractId", DbType="Int NOT NULL")]
-		public int ExtractId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid ExtractId
 		{
 			get
 			{
@@ -418,7 +412,7 @@ namespace CprBroker.Providers.CPRDirect
 					}
 					else
 					{
-						this._ExtractId = default(int);
+						this._ExtractId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Extract");
 				}
