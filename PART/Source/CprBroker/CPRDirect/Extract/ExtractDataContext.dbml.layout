@@ -14,7 +14,7 @@
         <elementListCompartment Id="bd12edbf-099c-42c0-aa9d-aa06ccfbecc5" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 1.78929768880208); (3.5 : 1.78929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 1.78929768880208); (3.5 : 1.78929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ExtractDataContext/Extract/Extract_ExtractItem" />
       <nodes>
         <classShapeMoniker Id="9e1ed048-bdf0-4554-82f1-d8ec71e949a2" />
