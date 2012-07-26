@@ -65,24 +65,23 @@ namespace BatchClient
             foreach (var fileName in fileNames)
             {
                 string[] fileCprNumbers = File.ReadAllLines(fileName);
-                for (int i = 0; i < fileCprNumbers.Length; i++)
-                {
-                    string cprNumber = fileCprNumbers[i];
-                    cprNumber = cprNumber.Substring(0, Math.Min(10, cprNumber.Length));
 
-                    while (cprNumber.Length < 10)
+                ret = fileCprNumbers
+                    .Select(cprNumber =>
                     {
-                        cprNumber = "0" + cprNumber;
-                    }
-                    if (!System.Text.RegularExpressions.Regex.Match(cprNumber, "\\A\\d{10}\\Z").Success)
-                    {
-                        throw new Exception("Invalid CPR number: " + cprNumber);
-                    }
-                    if (!ret.Contains(cprNumber))
-                    {
-                        ret.Add(cprNumber);
-                    }
-                }
+                        cprNumber = cprNumber.Substring(0, Math.Min(10, cprNumber.Length));
+                        while (cprNumber.Length < 10)
+                        {
+                            cprNumber = "0" + cprNumber;
+                        }
+                        if (!System.Text.RegularExpressions.Regex.Match(cprNumber, "\\A\\d{10}\\Z").Success)
+                        {
+                            throw new Exception("Invalid CPR number: " + cprNumber);
+                        }
+                        return cprNumber;
+                    })
+                    .Distinct()
+                    .ToList();
             }
             return ret.ToArray();
         }
