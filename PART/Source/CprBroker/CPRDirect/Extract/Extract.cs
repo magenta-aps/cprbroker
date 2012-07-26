@@ -18,14 +18,20 @@ namespace CprBroker.Providers.CPRDirect
             dataLines.Remove(startLine);
             dataLines.Remove(endLine);
 
+            this.ExtractId = Guid.NewGuid();
             this.ExtractDate = (startLine.ToWrapper(typeMap) as StartRecordType).ProductionDate.Value;
             this.StartRecord = startLine.Contents;
             this.EndRecord = endLine.Contents;
 
             this.ExtractItems.AddRange(
                 dataLines
-                .Select(line => line.ToExtractItem())
-                );
+                .Select(line =>
+                    {
+                        var ret = line.ToExtractItem();
+                        ret.ExtractId = this.ExtractId;
+                        return ret;
+                    }
+                ));
         }
 
         public static IndividualResponseType GetPerson(string pnr, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)

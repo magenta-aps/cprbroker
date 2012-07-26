@@ -8,7 +8,8 @@ namespace CprBroker.Tests.CPRDirect
 {
     public static class Utilities
     {
-        private static Random Random = new Random();
+        public static readonly Random Random = new Random();
+
         public const string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         public static readonly char[] AlphabetChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToArray();
 

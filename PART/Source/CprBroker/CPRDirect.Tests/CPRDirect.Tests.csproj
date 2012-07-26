@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F9F2357B-981F-4048-96C5-315EE3872276}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CprBroker.Tests.CPRDirect</RootNamespace>
     <AssemblyName>CprBroker.Tests.CPRDirect</AssemblyName>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CprBroker.Schemas, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -73,6 +76,7 @@
     <Compile Include="Persons\P_0707614218.cs" />
     <Compile Include="Persons\P_0709614045.cs" />
     <Compile Include="Persons\P_0909610036.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -16,11 +17,13 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportText(string text)
         {
-            using (var dataContext = new ExtractDataContext())
+            using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
             {
+                conn.Open();
+
                 var extract = new Extract(text, Constants.DataObjectMap);
-                dataContext.Extracts.InsertOnSubmit(extract);
-                dataContext.SubmitChanges();
+                conn.BulkInsertAll<Extract>(new Extract[] { extract });
+                conn.BulkInsertAll<ExtractItem>(extract.ExtractItems);
             }
         }
 

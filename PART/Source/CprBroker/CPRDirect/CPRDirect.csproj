@@ -59,6 +59,7 @@
     <Compile Include="CPRDirectDataProvider.Tcp.cs" />
     <Compile Include="CPRDirectDataProvider.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Extract\Extensions.cs" />
     <Compile Include="Extract\Extract.cs" />
     <Compile Include="Extract\ExtractDataContext.cs">
       <DependentUpon>ExtractDataContext.dbml</DependentUpon>
