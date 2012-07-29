@@ -11,7 +11,9 @@ namespace CprBroker.Tests.CPRDirect
         public static void Main()
         {
             //BulkImport();
-            GetPersons();
+            //GetPersons();
+            CprBroker.Engine.BrokerContext.Initialize("fd56ff6b-35bc-4b67-8ae4-bdc4485dc429", "");
+            ExtractManager.ImportDataProviderFolders();
         }
 
         public static void BulkImport()

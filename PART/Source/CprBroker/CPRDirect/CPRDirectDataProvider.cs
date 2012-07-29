@@ -66,6 +66,7 @@ namespace CprBroker.Providers.CPRDirect
                     new DataProviderConfigPropertyInfo(){ Name="Address", Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name="Port", Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name="Put subscription", Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name="Extracts folder", Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name="Always return CprBorgerType", Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
                 };
             }
@@ -99,6 +100,12 @@ namespace CprBroker.Providers.CPRDirect
         {
             get
             { return Convert.ToBoolean(ConfigurationProperties["Always return CprBorgerType"]); }
+        }
+
+        public string ExtractsFolder
+        {
+            get
+            { return ConfigurationProperties["Extracts folder"]; }
         }
         #endregion
     }
