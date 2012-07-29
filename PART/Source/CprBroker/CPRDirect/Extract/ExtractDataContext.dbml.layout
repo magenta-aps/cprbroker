@@ -2,23 +2,23 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ExtractDataContext">
   <DataContextMoniker Name="/ExtractDataContext" />
   <nestedChildShapes>
-    <classShape Id="9e1ed048-bdf0-4554-82f1-d8ec71e949a2" absoluteBounds="0.75, 1, 2, 1.5785953776041664">
+    <classShape Id="bc033d64-c43d-4e86-ba29-71ccc476920e" absoluteBounds="0.75, 0.875, 2, 1.7708968098958331">
       <DataClassMoniker Name="/ExtractDataContext/Extract" />
       <nestedChildShapes>
-        <elementListCompartment Id="d78cee7a-c145-4439-89ed-984bbd7a834a" absoluteBounds="0.765, 1.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5f938a3b-7ca6-40db-b0a8-efe419efaf1b" absoluteBounds="0.765, 1.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d5eca6ae-17e6-459a-8504-ac617a3f2143" absoluteBounds="3.5, 0.875, 2, 1.7708968098958329">
+    <classShape Id="2a0260c0-3fd9-4c20-8694-d21ef4fdf170" absoluteBounds="3.5, 0.875, 2, 1.7708968098958331">
       <DataClassMoniker Name="/ExtractDataContext/ExtractItem" />
       <nestedChildShapes>
-        <elementListCompartment Id="bd12edbf-099c-42c0-aa9d-aa06ccfbecc5" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="602a71e4-35a7-4153-afa5-cccc737ff11b" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 1.78929768880208); (3.5 : 1.78929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 1.76044840494792); (3.5 : 1.76044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ExtractDataContext/Extract/Extract_ExtractItem" />
       <nodes>
-        <classShapeMoniker Id="9e1ed048-bdf0-4554-82f1-d8ec71e949a2" />
-        <classShapeMoniker Id="d5eca6ae-17e6-459a-8504-ac617a3f2143" />
+        <classShapeMoniker Id="bc033d64-c43d-4e86-ba29-71ccc476920e" />
+        <classShapeMoniker Id="2a0260c0-3fd9-4c20-8694-d21ef4fdf170" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

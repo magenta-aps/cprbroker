@@ -20,6 +20,7 @@ namespace CprBroker.Providers.CPRDirect
 
             this.ExtractId = Guid.NewGuid();
             this.ExtractDate = (startLine.ToWrapper(typeMap) as StartRecordType).ProductionDate.Value;
+            this.ImportDate = DateTime.Now;
             this.StartRecord = startLine.Contents;
             this.EndRecord = endLine.Contents;
 

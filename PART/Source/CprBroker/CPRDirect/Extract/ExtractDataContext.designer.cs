@@ -89,6 +89,8 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private System.DateTime _ExtractDate;
 		
+		private System.DateTime _ImportDate;
+		
 		private string _StartRecord;
 		
 		private string _EndRecord;
@@ -103,6 +105,8 @@ namespace CprBroker.Providers.CPRDirect
     partial void OnExtractIdChanged();
     partial void OnExtractDateChanging(System.DateTime value);
     partial void OnExtractDateChanged();
+    partial void OnImportDateChanging(System.DateTime value);
+    partial void OnImportDateChanged();
     partial void OnStartRecordChanging(string value);
     partial void OnStartRecordChanged();
     partial void OnEndRecordChanging(string value);
@@ -115,7 +119,7 @@ namespace CprBroker.Providers.CPRDirect
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid ExtractId
 		{
 			get
@@ -135,7 +139,7 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractDate", DbType="Date NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractDate", DbType="DateTime NOT NULL")]
 		public System.DateTime ExtractDate
 		{
 			get
@@ -151,6 +155,26 @@ namespace CprBroker.Providers.CPRDirect
 					this._ExtractDate = value;
 					this.SendPropertyChanged("ExtractDate");
 					this.OnExtractDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImportDate", DbType="DateTime NOT NULL")]
+		public System.DateTime ImportDate
+		{
+			get
+			{
+				return this._ImportDate;
+			}
+			set
+			{
+				if ((this._ImportDate != value))
+				{
+					this.OnImportDateChanging(value);
+					this.SendPropertyChanging();
+					this._ImportDate = value;
+					this.SendPropertyChanged("ImportDate");
+					this.OnImportDateChanged();
 				}
 			}
 		}
@@ -281,7 +305,7 @@ namespace CprBroker.Providers.CPRDirect
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractItemId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExtractItemId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
 		public System.Guid ExtractItemId
 		{
 			get
@@ -385,7 +409,7 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Extract_ExtractItem", Storage="_Extract", ThisKey="ExtractId", OtherKey="ExtractId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Extract_ExtractItem", Storage="_Extract", ThisKey="ExtractId", OtherKey="ExtractId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Extract Extract
 		{
 			get
