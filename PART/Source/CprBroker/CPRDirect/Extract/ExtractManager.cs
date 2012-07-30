@@ -80,7 +80,7 @@ namespace CprBroker.Providers.CPRDirect
 
                                 while (File.Exists(targetFilePath))
                                 {
-                                    processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed\\"+ Utilities.Strings.NewRandomString(5) + "\\";
+                                    processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed\\" + Utilities.Strings.NewRandomString(5) + "\\";
                                     targetFilePath = processedFolderPath + "\\" + new FileInfo(file).Name;
                                 }
 
@@ -88,7 +88,7 @@ namespace CprBroker.Providers.CPRDirect
                                 {
                                     Directory.CreateDirectory(processedFolderPath);
                                 }
-                                
+
                                 File.Move(file, targetFilePath);
                                 Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder", file);
 
