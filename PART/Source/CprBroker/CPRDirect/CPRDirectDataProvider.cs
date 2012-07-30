@@ -63,11 +63,10 @@ namespace CprBroker.Providers.CPRDirect
             get
             {
                 return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){ Name="Address", Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name="Port", Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name="Put subscription", Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name="Extracts folder", Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name="Always return CprBorgerType", Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Address, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Port, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.PutSubscription, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.ExtractsFolder, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                 };
             }
         }
@@ -82,30 +81,24 @@ namespace CprBroker.Providers.CPRDirect
         #region Specific members
         public string Address
         {
-            get { return ConfigurationProperties["Address"]; }
+            get { return ConfigurationProperties[Constants.PropertyNames.Address]; }
         }
 
         public int Port
         {
-            get { return Convert.ToInt32(ConfigurationProperties["Port"]); }
+            get { return Convert.ToInt32(ConfigurationProperties[Constants.PropertyNames.Port]); }
         }
 
         public bool PutSubscription
         {
             get
-            { return Convert.ToBoolean(ConfigurationProperties["Put subscription"]); }
-        }
-
-        public bool AlwaysReturnCprBorgerType
-        {
-            get
-            { return Convert.ToBoolean(ConfigurationProperties["Always return CprBorgerType"]); }
+            { return Convert.ToBoolean(ConfigurationProperties[Constants.PropertyNames.PutSubscription]); }
         }
 
         public string ExtractsFolder
         {
             get
-            { return ConfigurationProperties["Extracts folder"]; }
+            { return ConfigurationProperties[Constants.PropertyNames.ExtractsFolder]; }
         }
         #endregion
     }

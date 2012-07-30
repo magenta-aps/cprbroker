@@ -91,5 +91,12 @@ namespace CprBroker.Providers.CPRDirect
             public const char OK = ' ';
         }
 
+        public static class PropertyNames
+        {
+            public static readonly string Address = "Address";
+            public static readonly string Port = "Port";
+            public static readonly string PutSubscription = "Put subscription";
+            public static readonly string ExtractsFolder = "Extracts folder";
+        }
     }
 }
