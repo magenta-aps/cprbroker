@@ -42,53 +42,74 @@ namespace CprBroker.Providers.CPRDirect
         {
             Admin.LogSuccess("Loading CPR Direct data providers");
 
-            DataProvider[] dbProviders = DataProviderManager.ReadDatabaseDataProviders();
+            // TODO: Handle eading of encrypted config section (dataProviders)
 
-            var providers = DataProviderManager
-                .LoadExternalDataProviders(dbProviders, typeof(CPRDirectDataProvider))
-                .Select(p => p as CPRDirectDataProvider)
+            var result = CprBroker.Engine.Manager.Admin.GetDataProviderList(BrokerContext.Current.UserName, BrokerContext.Current.ApplicationToken);
+
+            if (Schemas.Part.StandardReturType.IsSucceeded(result.StandardRetur))
+            {
+                var folders = result
+                .Item
+                .Select(p => p.Attributes.Where(atr => atr.Name == Constants.PropertyNames.ExtractsFolder).FirstOrDefault())
+                .Where(attr => attr != null)
+                .Select(attr => attr.Value)
                 .ToArray();
 
-            Admin.LogSuccess(string.Format("Found {0} CPR Direct providers", providers.Length));
+                Admin.LogSuccess(string.Format("Found {0} CPR Direct providers", folders.Length));
 
-            foreach (var dataProvider in providers)
-            {
-                var folder = dataProvider.ExtractsFolder;
-                Admin.LogFormattedSuccess("Checking folder {0}", folder);
-
-                if (Directory.Exists(folder))
+                foreach (var folder in folders)
                 {
-                    var files = Directory.GetFiles(folder);
-                    Admin.LogFormattedSuccess("Found <{0}> files", files.Length);
+                    Admin.LogFormattedSuccess("Checking folder {0}", folder);
 
-                    foreach (var file in files)
+                    if (Directory.Exists(folder))
                     {
-                        try
-                        {
-                            Admin.LogFormattedSuccess("Reading file <{0}> ", file);
-                            ExtractManager.ImportFile(file);
-                            Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
+                        var files = Directory.GetFiles(folder);
+                        Admin.LogFormattedSuccess("Found <{0}> files", files.Length);
 
-                            var processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed";
-                            if (!Directory.Exists(processedFolderPath))
+                        foreach (var file in files)
+                        {
+                            try
                             {
-                                Directory.CreateDirectory(processedFolderPath);
-                            }
-                            File.Move(file, processedFolderPath + "\\" + new FileInfo(file).Name);
-                            Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder", file);
+                                Admin.LogFormattedSuccess("Reading file <{0}> ", file);
+                                ExtractManager.ImportFile(file);
+                                Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
 
-                        }
-                        catch (Exception ex)
-                        {
-                            Admin.LogException(ex);
+                                // Now move the file to Processed sub folder
+                                var processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed";
+                                var targetFilePath = processedFolderPath + "\\" + new FileInfo(file).Name;
+
+                                while (File.Exists(targetFilePath))
+                                {
+                                    processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed\\"+ Utilities.Strings.NewRandomString(5) + "\\";
+                                    targetFilePath = processedFolderPath + "\\" + new FileInfo(file).Name;
+                                }
+
+                                if (!Directory.Exists(processedFolderPath))
+                                {
+                                    Directory.CreateDirectory(processedFolderPath);
+                                }
+                                
+                                File.Move(file, targetFilePath);
+                                Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder", file);
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Admin.LogException(ex);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    Admin.LogFormattedError("Folder <{0}> not found", folder);
+                    else
+                    {
+                        Admin.LogFormattedError("Folder <{0}> not found", folder);
+                    }
                 }
             }
+            else
+            {
+                Admin.LogFormattedError("Unable to load data providers: Code={0}; Text={1}", result.StandardRetur.StatusKode, result.StandardRetur.FejlbeskedTekst);
+            }
+
         }
     }
 }
