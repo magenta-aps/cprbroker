@@ -9,20 +9,13 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectDataProvider : IPartReadDataProvider, IExternalDataProvider
+    public partial class CPRDirectClientDataProvider : IPartReadDataProvider, IExternalDataProvider
     {
         #region IPartReadDataProvider members
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
-            IndividualResponseType response = null;
-
-            response = ExtractManager.GetPerson(uuid.CprNumber);
-
-            if (response == null)
-            {
-                IndividualRequestType request = new IndividualRequestType(PutSubscription, decimal.Parse(uuid.CprNumber));
-                response = this.GetResponse(request);
-            }
+            IndividualRequestType request = new IndividualRequestType(PutSubscription, decimal.Parse(uuid.CprNumber));
+            IndividualResponseType response = this.GetResponse(request);
 
             ql = QualityLevel.Cpr;
             DateTime effectDate = DateTime.Today;
@@ -65,8 +58,7 @@ namespace CprBroker.Providers.CPRDirect
                 return new DataProviderConfigPropertyInfo[] { 
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Address, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.Port, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.PutSubscription, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.ExtractsFolder, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.PutSubscription, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}
                 };
             }
         }
@@ -95,11 +87,6 @@ namespace CprBroker.Providers.CPRDirect
             { return Convert.ToBoolean(ConfigurationProperties[Constants.PropertyNames.PutSubscription]); }
         }
 
-        public string ExtractsFolder
-        {
-            get
-            { return ConfigurationProperties[Constants.PropertyNames.ExtractsFolder]; }
-        }
         #endregion
     }
 }

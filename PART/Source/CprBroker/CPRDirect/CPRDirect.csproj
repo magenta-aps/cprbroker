@@ -60,8 +60,9 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Converters.cs" />
-    <Compile Include="CPRDirectDataProvider.Tcp.cs" />
-    <Compile Include="CPRDirectDataProvider.cs" />
+    <Compile Include="CPRDirectExtractDataProvider.cs" />
+    <Compile Include="CPRDirectClientDataProvider.Tcp.cs" />
+    <Compile Include="CPRDirectClientDataProvider.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Extract\Extensions.cs" />
     <Compile Include="Extract\Extract.cs" />

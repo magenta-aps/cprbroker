@@ -10,7 +10,7 @@ using System.Net.Sockets;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectDataProvider
+    public partial class CPRDirectClientDataProvider
     {
         public IndividualResponseType GetResponse(IndividualRequestType request)
         {
