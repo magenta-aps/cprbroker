@@ -10,8 +10,6 @@ namespace CprBroker.Providers.CPRDirect
     {
         public PersonRelationType ToPersonRelationType(Func<string, Guid> cpr2uuidFunc)
         {
-            // TODO: Is RelationPNRStartDate the correct start date? shall we use CustodyStartDate/CustodyStartDateUncertainty instead?
-            // TODO: Is CustodyEndDate the correct end date?
             return PersonRelationType.Create(
                 cpr2uuidFunc(ToCustodyOwnerPnr()),
                 this.RelationPNRStartDate,

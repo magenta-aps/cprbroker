@@ -13,6 +13,17 @@ namespace CprBroker.Tests.CPRDirect
         public class ToPersonRelationType
         {
             [Test]
+            public void LoadAll()
+            {
+                var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var ss = all
+                    .Where(p => p.ParentalAuthority.Count() > 0)
+                    .Select(p => p.ParentalAuthority.ToArray())
+                    .ToArray();
+                object o = "";
+            }
+
+            [Test]
             public void ToPersonRelationType_NoPnr_Empty(
             [Values(null, "")]string pnr)
             {
@@ -47,7 +58,6 @@ namespace CprBroker.Tests.CPRDirect
                 var ret = auth.ToPersonRelationType(cpr => Guid.NewGuid());
                 Assert.AreEqual(DateTime.Today, ret.Virkning.TilTidspunkt.ToDateTime());
             }
-
 
         }
     }
