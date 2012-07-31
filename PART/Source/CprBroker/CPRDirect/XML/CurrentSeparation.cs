@@ -8,7 +8,6 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class CurrentSeparationType
     {
-        // TODO: Addd unit tests
         public CivilStatusType ToCivilStatusType()
         {
             return new CivilStatusType()
