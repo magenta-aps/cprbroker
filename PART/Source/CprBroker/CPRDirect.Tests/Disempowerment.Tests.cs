@@ -13,6 +13,19 @@ namespace CprBroker.Tests.CPRDirect
         public class ToPersonFlerRelationType
         {
             [Test]
+            public void LoadAll()
+            {
+                var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var ss = all
+                    .Where(p => p.Disempowerment != null)
+                    .Select(p => p.Disempowerment)
+                    .GroupBy(p => new { Type = p.GuardianRelationType, PNR = !string.IsNullOrEmpty(p.ToRelationPNR()) })
+                    .Select(g => new { Type = g.Key.Type, PNR = g.Key.PNR, Data = g.ToArray() })
+                    .ToArray();
+                object o = "";
+            }
+
+            [Test]
             public void ToPersonFlerRelationType_Null_Empty()
             {
                 var ret = DisempowermentType.ToPersonRelationType(null, pnr => Guid.NewGuid());
