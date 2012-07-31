@@ -38,7 +38,7 @@ namespace CprBroker.Providers.CPRDirect
         public static IndividualResponseType GetPerson(string pnr, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)
         {
             var found = extractItems
-                .Where(item => item.CprNumber == pnr)
+                .Where(item => item.PNR == pnr)
                 .GroupBy(item => item.Extract)
                 .OrderByDescending(g => g.Key.ExtractDate)
                 .FirstOrDefault();

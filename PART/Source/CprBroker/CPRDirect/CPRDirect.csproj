@@ -104,6 +104,7 @@
       <DependentUpon>Definitions.xml</DependentUpon>
     </Compile>
     <Compile Include="XML\IndividualResponse.cs" />
+    <Compile Include="XML\IReversibleRelationship.cs" />
     <Compile Include="XML\LineWrapper.cs" />
     <Compile Include="XML\CurrentNameInformation.cs" />
     <Compile Include="XML\ParentalAuthority.cs" />

@@ -13,7 +13,8 @@
     <Type Name="ExtractItem">
       <Column Name="ExtractItemId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="CprNumber" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="PNR" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RelationPNR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="DataTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="Contents" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Association Name="Extract_ExtractItem" Member="Extract" ThisKey="ExtractId" OtherKey="ExtractId" Type="Extract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />

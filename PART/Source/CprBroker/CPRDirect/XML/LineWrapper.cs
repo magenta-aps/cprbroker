@@ -56,7 +56,7 @@ namespace CprBroker.Providers.CPRDirect
             return new ExtractItem()
             {
                 ExtractItemId = Guid.NewGuid(),
-                CprNumber = this.PNR,
+                PNR = this.PNR,
                 Contents = this.Contents,
                 DataTypeCode = this.Code
             };

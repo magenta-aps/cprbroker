@@ -275,7 +275,9 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private System.Guid _ExtractId;
 		
-		private string _CprNumber;
+		private string _PNR;
+		
+		private string _RelationPNR;
 		
 		private string _DataTypeCode;
 		
@@ -291,8 +293,10 @@ namespace CprBroker.Providers.CPRDirect
     partial void OnExtractItemIdChanged();
     partial void OnExtractIdChanging(System.Guid value);
     partial void OnExtractIdChanged();
-    partial void OnCprNumberChanging(string value);
-    partial void OnCprNumberChanged();
+    partial void OnPNRChanging(string value);
+    partial void OnPNRChanged();
+    partial void OnRelationPNRChanging(string value);
+    partial void OnRelationPNRChanged();
     partial void OnDataTypeCodeChanging(string value);
     partial void OnDataTypeCodeChanged();
     partial void OnContentsChanging(string value);
@@ -349,22 +353,42 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CprNumber", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-		public string CprNumber
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PNR", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string PNR
 		{
 			get
 			{
-				return this._CprNumber;
+				return this._PNR;
 			}
 			set
 			{
-				if ((this._CprNumber != value))
+				if ((this._PNR != value))
 				{
-					this.OnCprNumberChanging(value);
+					this.OnPNRChanging(value);
 					this.SendPropertyChanging();
-					this._CprNumber = value;
-					this.SendPropertyChanged("CprNumber");
-					this.OnCprNumberChanged();
+					this._PNR = value;
+					this.SendPropertyChanged("PNR");
+					this.OnPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RelationPNR", DbType="VarChar(10)")]
+		public string RelationPNR
+		{
+			get
+			{
+				return this._RelationPNR;
+			}
+			set
+			{
+				if ((this._RelationPNR != value))
+				{
+					this.OnRelationPNRChanging(value);
+					this.SendPropertyChanging();
+					this._RelationPNR = value;
+					this.SendPropertyChanged("RelationPNR");
+					this.OnRelationPNRChanged();
 				}
 			}
 		}

@@ -31,36 +31,50 @@ namespace CprBroker.Providers.CPRDirect
             {
                 _ErrorCodes[err.ToString()] = "(reserved error number)";
             }
+
+
+            _DataObjectMap = new Dictionary<string, Type>();
+            _DataObjectMap["000"] = typeof(StartRecordType);
+            _DataObjectMap["001"] = typeof(PersonInformationType);
+            _DataObjectMap["002"] = typeof(CurrentAddressInformationType);
+            _DataObjectMap["003"] = typeof(ClearWrittenAddressType);
+            _DataObjectMap["004"] = typeof(ProtectionType);
+            _DataObjectMap["005"] = typeof(CurrentDepartureDataType);
+            _DataObjectMap["006"] = typeof(ContactAddressType);
+            _DataObjectMap["007"] = typeof(CurrentDisappearanceInformationType);
+            _DataObjectMap["008"] = typeof(CurrentNameInformationType);
+            _DataObjectMap["009"] = typeof(BirthRegistrationInformationType);
+            _DataObjectMap["010"] = typeof(CurrentCitizenshipType);
+            _DataObjectMap["011"] = typeof(ChurchInformationType);
+            _DataObjectMap["012"] = typeof(CurrentCivilStatusType);
+            _DataObjectMap["013"] = typeof(CurrentSeparationType);
+            _DataObjectMap["014"] = typeof(ChildType);
+            _DataObjectMap["015"] = typeof(ParentsInformationType);
+            _DataObjectMap["016"] = typeof(ParentalAuthorityType);
+            _DataObjectMap["017"] = typeof(DisempowermentType);
+            _DataObjectMap["018"] = typeof(MunicipalConditionsType);
+            _DataObjectMap["029"] = typeof(HistoricalCivilStatusType);
+            _DataObjectMap["999"] = typeof(EndRecordType);
+
+            _ReversibleRelationshipMap = new Dictionary<string, bool>();
+            foreach (var kvp in _DataObjectMap)
+            {
+                var type = kvp.Value;
+                _ReversibleRelationshipMap[kvp.Key] = typeof(IReversibleRelationship).IsAssignableFrom(type);
+            }
         }
 
+        private static Dictionary<string, Type> _DataObjectMap;
         public static Dictionary<string, Type> DataObjectMap
         {
-            get
-            {
-                var ret = new Dictionary<string, Type>();
-                ret["000"] = typeof(StartRecordType);
-                ret["001"] = typeof(PersonInformationType);
-                ret["002"] = typeof(CurrentAddressInformationType);
-                ret["003"] = typeof(ClearWrittenAddressType);
-                ret["004"] = typeof(ProtectionType);
-                ret["005"] = typeof(CurrentDepartureDataType);
-                ret["006"] = typeof(ContactAddressType);
-                ret["007"] = typeof(CurrentDisappearanceInformationType);
-                ret["008"] = typeof(CurrentNameInformationType);
-                ret["009"] = typeof(BirthRegistrationInformationType);
-                ret["010"] = typeof(CurrentCitizenshipType);
-                ret["011"] = typeof(ChurchInformationType);
-                ret["012"] = typeof(CurrentCivilStatusType);
-                ret["013"] = typeof(CurrentSeparationType);
-                ret["014"] = typeof(ChildType);
-                ret["015"] = typeof(ParentsInformationType);
-                ret["016"] = typeof(ParentalAuthorityType);
-                ret["017"] = typeof(DisempowermentType);
-                ret["018"] = typeof(MunicipalConditionsType);
-                ret["029"] = typeof(HistoricalCivilStatusType);
-                ret["999"] = typeof(EndRecordType);
-                return ret;
-            }
+            get { return _DataObjectMap.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
+        }
+
+
+        private static Dictionary<string, bool> _ReversibleRelationshipMap;
+        public static Dictionary<string, bool> ReversibleRelationshipMap
+        {
+            get { return _ReversibleRelationshipMap.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
         }
 
         public const int DataObjectCodeLength = 3;

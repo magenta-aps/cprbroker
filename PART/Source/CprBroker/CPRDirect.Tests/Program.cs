@@ -70,7 +70,7 @@ namespace CprBroker.Tests.CPRDirect
             var pnrs = new List<string>();
             using (ExtractDataContext dataContext = new ExtractDataContext())
             {
-                pnrs = dataContext.ExtractItems.Select(item => item.CprNumber).Distinct().ToList();
+                pnrs = dataContext.ExtractItems.Select(item => item.PNR).Distinct().ToList();
             }
             DateTime start = DateTime.Now;
             for (int i = 0; i < count; i++)
