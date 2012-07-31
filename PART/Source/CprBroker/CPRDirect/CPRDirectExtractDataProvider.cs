@@ -32,11 +32,21 @@ namespace CprBroker.Providers.CPRDirect
         #region IDataProvider members
         public bool IsAlive()
         {
-            if (Directory.Exists(this.ExtractsFolder))
+            try
             {
-                // TODO: Check for permissions
-                return true;
+                if (Directory.Exists(this.ExtractsFolder))
+                {
+                    // Try to create and move file
+                    var filePath = CprBroker.Utilities.Strings.NewUniquePath(this.ExtractsFolder, "txt");
+                    File.WriteAllText(filePath, "ABC");
+                    string ss = File.ReadAllText(filePath);
+                    var tmpFile = ExtractManager.MoveToProcessed(this.ExtractsFolder, filePath);
+                    File.Delete(tmpFile);
+                    // Now we are sure the folder is accessible with read and write permissions
+                    return true;
+                }
             }
+            catch { }
             return false;
         }
 

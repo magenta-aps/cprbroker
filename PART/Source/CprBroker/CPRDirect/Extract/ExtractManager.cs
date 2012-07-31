@@ -74,22 +74,7 @@ namespace CprBroker.Providers.CPRDirect
                                 ExtractManager.ImportFile(file);
                                 Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
 
-                                // Now move the file to Processed sub folder
-                                var processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed";
-                                var targetFilePath = processedFolderPath + "\\" + new FileInfo(file).Name;
-
-                                while (File.Exists(targetFilePath))
-                                {
-                                    processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed\\" + Utilities.Strings.NewRandomString(5) + "\\";
-                                    targetFilePath = processedFolderPath + "\\" + new FileInfo(file).Name;
-                                }
-
-                                if (!Directory.Exists(processedFolderPath))
-                                {
-                                    Directory.CreateDirectory(processedFolderPath);
-                                }
-
-                                File.Move(file, targetFilePath);
+                                MoveToProcessed(folder, file);
                                 Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder", file);
 
                             }
@@ -109,7 +94,27 @@ namespace CprBroker.Providers.CPRDirect
             {
                 Admin.LogFormattedError("Unable to load data providers: Code={0}; Text={1}", result.StandardRetur.StatusKode, result.StandardRetur.FejlbeskedTekst);
             }
-
         }
+
+        public static string MoveToProcessed(string folder, string fileFullPath)
+        {
+            var processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed";
+            var targetFilePath = processedFolderPath + "\\" + new FileInfo(fileFullPath).Name;
+
+            while (File.Exists(targetFilePath))
+            {
+                processedFolderPath = new DirectoryInfo(folder).FullName + "\\Processed\\" + Utilities.Strings.NewRandomString(5) + "\\";
+                targetFilePath = processedFolderPath + "\\" + new FileInfo(fileFullPath).Name;
+            }
+
+            if (!Directory.Exists(processedFolderPath))
+            {
+                Directory.CreateDirectory(processedFolderPath);
+            }
+
+            File.Move(fileFullPath, targetFilePath);
+            return targetFilePath;
+        }
+
     }
 }
