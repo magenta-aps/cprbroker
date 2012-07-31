@@ -10,6 +10,23 @@ namespace CprBroker.Tests.CPRDirect
     namespace PersonInformationTests
     {
         [TestFixture]
+        public class LoadAll_
+        {
+            [Test]
+            public void LoadAll()
+            {
+                var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                System.Diagnostics.Debugger.Launch();
+                var ss = all
+                    .AsQueryable()
+                    .GroupBy(p => new { Value = p.PersonInformation.Birthdate.HasValue, Certain = p.PersonInformation.BirthdateUncertainty })
+                    .Select(g => new { Value = g.Key.Value, Certainty = g.Key.Certain, Data = g.ToArray() })
+                    .ToArray();
+                object dd = "";
+            }
+        }
+
+        [TestFixture]
         public class ToBirthdate
         {
             [Test]

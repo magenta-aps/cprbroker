@@ -13,10 +13,8 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new LivStatusType()
             {
-                // Passing true in order to prevent people with unknown/uncertain birthdates from being Prenatal
-                // TODO: Check how to detect prenatal in CPR Direct
-                // Asked Leif
-                LivStatusKode = Enums.ToLifeStatus(this.Status, true),
+                // We are not using the uncertainty flag here because an uncertain birthdate still means the person is already born
+                LivStatusKode = Enums.ToLifeStatus(this.Status, this.Birthdate.HasValue),
                 TilstandVirkning = TilstandVirkningType.Create(this.ToStatusDate())
             };
         }
