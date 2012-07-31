@@ -67,6 +67,7 @@
     <Compile Include="CurrentCivilStatus.Tests.cs" />
     <Compile Include="CurrentDepartureData.Tests.cs" />
     <Compile Include="CurrentNameInformationTests.cs" />
+    <Compile Include="CurrentSeparation.Tests.cs" />
     <Compile Include="Disempowerment.Tests.cs" />
     <Compile Include="ExtractTests.cs" />
     <Compile Include="HistoricalCivilStatusTests.cs" />
