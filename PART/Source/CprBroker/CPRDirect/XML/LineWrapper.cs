@@ -51,12 +51,17 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        public ExtractItem ToExtractItem()
+        public ExtractItem ToExtractItem(Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap)
         {
+            string relationPNR = null;
+            if (reverseRelationMap.ContainsKey(this.Code) && reverseRelationMap[this.Code])
+                relationPNR = (this.ToWrapper(typeMap) as IReversibleRelationship).RelationPNR;
+
             return new ExtractItem()
             {
                 ExtractItemId = Guid.NewGuid(),
                 PNR = this.PNR,
+                RelationPNR = relationPNR,
                 Contents = this.Contents,
                 DataTypeCode = this.Code
             };

@@ -24,7 +24,7 @@ namespace CprBroker.Providers.CPRDirect
             {
                 conn.Open();
 
-                var extract = new Extract(text, Constants.DataObjectMap);
+                var extract = new Extract(text, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
                 conn.BulkInsertAll<Extract>(new Extract[] { extract });
                 conn.BulkInsertAll<ExtractItem>(extract.ExtractItems);
             }

@@ -6,7 +6,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class ParentalAuthorityType
+    public partial class ParentalAuthorityType : IReversibleRelationship
     {
         public PersonRelationType ToPersonRelationType(Func<string, Guid> cpr2uuidFunc)
         {

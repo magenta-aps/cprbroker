@@ -7,7 +7,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     partial class Extract
     {
-        public Extract(string batchFileText, Dictionary<string, Type> typeMap)
+        public Extract(string batchFileText, Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap)
             : this()
         {
             var dataLines = new List<LineWrapper>(LineWrapper.ParseBatch(batchFileText));
@@ -28,7 +28,7 @@ namespace CprBroker.Providers.CPRDirect
                 dataLines
                 .Select(line =>
                     {
-                        var ret = line.ToExtractItem();
+                        var ret = line.ToExtractItem(typeMap, reverseRelationMap);
                         ret.ExtractId = this.ExtractId;
                         return ret;
                     }
