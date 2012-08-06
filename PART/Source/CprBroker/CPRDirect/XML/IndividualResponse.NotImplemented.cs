@@ -40,20 +40,20 @@ namespace CprBroker.Providers.CPRDirect
         private PersonFlerRelationType[] ToForaeldremyndighedsboern()
         {
             // Parental authority children
-            // TODO: Can we perform a reverse parental authority lookup here?
+            // TODO: (Reverse relation) Can we perform a reverse parental authority lookup here?
             return null;
         }
 
         private PersonRelationType[] ToRetligHandleevneVaergeForPersonen()
         {
             // Persons for whom this person is a guardian
-            // TODO: Can we perform a reverse guardian/disempoerment lookup here?
+            // TODO: (Reverse relation) Can we perform a reverse guardian/disempoerment lookup here?
             return null;
         }
 
         private PersonFlerRelationType[] ToBopaelssamling()
         {
-            // TODO: Implement persons who live at the same address
+            // TODO: (Reverse relation) Implement persons who live at the same address
             return null;
         }
 

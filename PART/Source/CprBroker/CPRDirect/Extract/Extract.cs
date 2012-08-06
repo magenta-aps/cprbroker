@@ -51,7 +51,7 @@ namespace CprBroker.Providers.CPRDirect
                     .Select(item => new LineWrapper(item.Contents).ToWrapper(typeMap))
                     .ToArray();
 
-                // TODO: Add reversible relationship support after finding a good indexing solution
+                // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
 
                 var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap);
                 var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap);
