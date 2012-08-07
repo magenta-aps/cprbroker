@@ -42,6 +42,27 @@ namespace CprBroker.Providers.CPRDirect
             return this.PersonInformation.ToBirthdate(true).Value;
         }
 
+        public string ToFoedestedNavn()
+        {
+            var oldestName = HistoricalNameType.GetOldestName(this.HistoricalName) as INameSource;
+            if (oldestName == null)
+            {
+                oldestName = this.CurrentNameInformation;
+            }
+            var nameStartDate = Converters.ToDateTime(oldestName.NameStartDate, oldestName.NameStartDateUncertainty);
+            var birthDate = this.ToBirthDate();
+
+            if (nameStartDate.HasValue
+                && (nameStartDate.Value - birthDate).TotalDays <= 14)
+            {
+                return oldestName.ToNavnStrukturType().PersonNameStructure.ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public string ToFoedselsregistreringMyndighedNavn()
         {
             // TODO: Map this.BirthRegistrationInformation.Code to authority name

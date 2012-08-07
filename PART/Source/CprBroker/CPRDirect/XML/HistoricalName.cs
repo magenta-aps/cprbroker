@@ -6,7 +6,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CurrentNameInformationType : INameSource
+    public partial class HistoricalNameType : INameSource
     {
         public NavnStrukturType ToNavnStrukturType()
         {
@@ -15,8 +15,7 @@ namespace CprBroker.Providers.CPRDirect
                     this.ToFirstName(), 
                     this.ToMiddleName(), 
                     this.ToLastName()
-                },
-                this.AddressingName);
+                });
         }
 
         public string ToFirstName()
@@ -34,9 +33,12 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToString(this.LastName, this.LastNameMarker);
         }
 
-        public DateTime? ToNameStartDate()
+        public static HistoricalNameType GetOldestName(IEnumerable<HistoricalNameType> historicalNames)
         {
-            return Converters.ToDateTime(this.NameStartDate, this.NameStartDateUncertainty);
+            return historicalNames
+                .Where(n => Converters.IsValidCorrectionMarker(n.CorrectionMarker))
+                .OrderBy(n => n.NameStartDate)
+                .FirstOrDefault();
         }
     }
 }

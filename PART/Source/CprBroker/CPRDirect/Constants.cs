@@ -53,6 +53,7 @@ namespace CprBroker.Providers.CPRDirect
             _DataObjectMap["016"] = typeof(ParentalAuthorityType);
             _DataObjectMap["017"] = typeof(DisempowermentType);
             _DataObjectMap["018"] = typeof(MunicipalConditionsType);
+            _DataObjectMap["026"] = typeof(HistoricalNameType);
             _DataObjectMap["029"] = typeof(HistoricalCivilStatusType);
             _DataObjectMap["999"] = typeof(EndRecordType);
 

@@ -88,7 +88,9 @@
     <Compile Include="XML\CurrentCitizenship.cs" />
     <Compile Include="XML\CurrentCivilStatus.cs" />
     <Compile Include="XML\CurrentDepartureDataType.cs" />
+    <Compile Include="XML\HistoricalName.cs" />
     <Compile Include="XML\IAddressSource.cs" />
+    <Compile Include="XML\INameSource.cs" />
     <Compile Include="XML\IndividualResponse.Parser.cs" />
     <Compile Include="XML\CurrentSeparation.cs" />
     <Compile Include="XML\Disempowerment.cs" />

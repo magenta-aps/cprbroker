@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.Utilities, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dll\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
@@ -71,6 +75,7 @@
     <Compile Include="Disempowerment.Tests.cs" />
     <Compile Include="ExtractTests.cs" />
     <Compile Include="HistoricalCivilStatusTests.cs" />
+    <Compile Include="HistoricalName.Tests.cs" />
     <Compile Include="IndividualRequest.Tests.cs" />
     <Compile Include="IndividualResponse.Attributes.Tests.cs" />
     <Compile Include="IndividualResponse.States.Tests.cs" />

@@ -73,13 +73,6 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        public string ToFoedestedNavn()
-        {
-            // Birth name not implemented
-            // TODO: See if can be found in historical names
-            return null;
-        }
-
         public AdresseType ToAndreAdresser()
         {
             // TODO: Fill Supplementary address after seeing real data (CurrentAddressInformation.SupplementaryAddressLine 1 - 5
