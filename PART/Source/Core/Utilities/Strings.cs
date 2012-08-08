@@ -79,6 +79,18 @@ namespace CprBroker.Utilities
             );
         }
 
+        private static readonly Random Random = new Random();
+        
+        public static string NewRandomString(int length)
+        {
+            var ret = "";
+            for (int i = 0; i < length; i++)
+            {
+                ret += Random.Next(0, 10).ToString();
+            }
+            return ret;
+        }
+
         public static string EnsureDirectoryEndSlash(string directory)
         {
             return EnsureDirectoryEndSlash(directory, true);
