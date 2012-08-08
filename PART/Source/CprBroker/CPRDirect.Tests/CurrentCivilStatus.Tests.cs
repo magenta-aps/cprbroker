@@ -23,13 +23,23 @@ namespace CprBroker.Tests.CPRDirect
             }
 
             [Test]
-            public void ToCivilStatusType_WithSeparation_StatusDate(
-                [Values('D', 'E', 'F', 'G', 'L', 'O', 'P', 'U')]char maritalStatus)
+            public void ToCivilStatusType_MarriedWithSeparation_StatusDate(
+                [Values('G', 'P')]char maritalStatus)
             {
                 var status = new CivilStatusWrapper(new CurrentCivilStatusType() { CivilStatusStartDate = DateTime.Today.AddDays(-1), CivilStatusStartDateUncertainty = ' ', CivilStatusCode = maritalStatus });
                 var sep = new CurrentSeparationType() { SeparationStartDate = DateTime.Today, SeparationStartDateUncertainty = ' ' };
                 var ret = status.ToCivilStatusType(sep);
                 Assert.AreEqual(sep.ToSeparationStartDate(), ret.TilstandVirkning.FraTidspunkt.ToDateTime());
+            }
+
+            [Test]
+            public void ToCivilStatusType_OtherThanMarriedWithSeparation_StatusDate(
+                [Values('D', 'E', 'F', 'L', 'O', 'U')]char maritalStatus)
+            {
+                var status = new CivilStatusWrapper(new CurrentCivilStatusType() { CivilStatusStartDate = DateTime.Today.AddDays(-1), CivilStatusStartDateUncertainty = ' ', CivilStatusCode = maritalStatus });
+                var sep = new CurrentSeparationType() { SeparationStartDate = DateTime.Today, SeparationStartDateUncertainty = ' ' };
+                var ret = status.ToCivilStatusType(sep);
+                Assert.AreEqual(status.ToCivilStatusDate(), ret.TilstandVirkning.FraTidspunkt.ToDateTime());
             }
         }
 

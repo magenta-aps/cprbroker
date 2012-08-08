@@ -7,8 +7,7 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.Tests.CPRDirect
 {
-    [TestFixture]
-    class HistoricalNameTests
+    namespace HistoricalNameTests
     {
         public class LoadAll
         {

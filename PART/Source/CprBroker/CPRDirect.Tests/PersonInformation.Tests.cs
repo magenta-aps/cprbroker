@@ -16,7 +16,6 @@ namespace CprBroker.Tests.CPRDirect
             public void LoadAll()
             {
                 var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                System.Diagnostics.Debugger.Launch();
                 var ss = all
                     .AsQueryable()
                     .GroupBy(p => new { Value = p.PersonInformation.Birthdate.HasValue, Certain = p.PersonInformation.BirthdateUncertainty })
@@ -141,12 +140,21 @@ namespace CprBroker.Tests.CPRDirect
         public class ToLivStatusType
         {
             [Test]
-            public void ToLivStatusType_Status_CorrectStatus(
+            public void ToLivStatusType_StatusWDate_Born(
+                [Values(1, 3, 5, 50, 60)]decimal status)
+            {
+                var inf = new PersonInformationType() { Status = status, Birthdate = DateTime.Today };
+                var res = inf.ToLivStatusType();
+                Assert.AreEqual(LivStatusKodeType.Foedt, res.LivStatusKode);
+            }
+
+            [Test]
+            public void ToLivStatusType_StatusWithoutDate_Prenatal(
                 [Values(1, 3, 5, 50, 60)]decimal status)
             {
                 var inf = new PersonInformationType() { Status = status };
                 var res = inf.ToLivStatusType();
-                Assert.AreEqual(LivStatusKodeType.Foedt, res.LivStatusKode);
+                Assert.AreEqual(LivStatusKodeType.Prenatal, res.LivStatusKode);
             }
 
             [Test]

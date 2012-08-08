@@ -50,7 +50,7 @@ namespace CprBroker.Tests.CPRDirect
                 result.Add(extract.EndRecord);
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    Assert.AreEqual(lines[i].Contents, result[i]);
+                    Assert.AreEqual(lines[i].Contents, result[i].TrimEnd());
                 }
             }
         }
