@@ -94,7 +94,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static Encoding DefaultEncoding
         {
-            get { return Encoding.UTF7; }
+            get { return Encoding.GetEncoding(1252); }
         }
 
         private static Dictionary<string, string> _ErrorCodes;

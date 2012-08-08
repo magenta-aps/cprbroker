@@ -76,7 +76,7 @@
     </Compile>
     <Compile Include="Extract\ExtractManager.cs" />
     <Compile Include="Lookup\Authority.designer.cs">
-      <DependentUpon>Authority.cs</DependentUpon>
+      <DependentUpon>Authority.xml</DependentUpon>
     </Compile>
     <Compile Include="Lookup\AuthorityType.cs" />
     <Compile Include="Lookup\LookupDataContext.cs">
@@ -93,6 +93,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Lookup\Authority.cs" />
+    <Compile Include="XML\BirthRegistrationInformation.cs" />
     <Compile Include="XML\Child.cs" />
     <Compile Include="XML\ChurchInformation.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />

@@ -151,7 +151,7 @@
     <Object name="BirthRegistrationInformation" danishName="P12170-009" length="37" description="Birth Registration Information">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
-      <Attribute name="BirthRegistrationAuthorityCode" danishName="START_MYNKOD-FØDESTED" format="Numeric" length="4" position="14" description="Birth registration authority code"/>
+      <Attribute name="BirthRegistrationAuthorityCode" danishName="START_MYNKOD-FØDESTED" format="Alpha" length="4" position="14" description="Birth registration authority code"/>
       <Attribute name="AdditionalBirthRegistrationText" danishName="MYNTXT-FØDESTED" format="Alpha" length="20" position="18" description="Additional birth registration text"/>
     </Object>
 

@@ -65,9 +65,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToFoedselsregistreringMyndighedNavn()
         {
-            // TODO: Map this.BirthRegistrationInformation.Code to authority name
-            // Asked to CPR
-            return null;
+            return this.BirthRegistrationInformation.ToFoedselsregistreringMyndighedNavn();
         }
 
         public NavnStrukturType ToNavnStrukturType()
