@@ -67,6 +67,21 @@ namespace CprBroker.Engine.Local
             AddNewLog(TraceEventType.Information, null, text, null, null);
         }
 
+        public static void LogFormattedSuccess(string text, params object[] args)
+        {
+            AddNewLog(TraceEventType.Information, null, string.Format(text, args), null, null);
+        }
+
+        public static void LogError(string text)
+        {
+            AddNewLog(TraceEventType.Error, null, text, null, null);
+        }
+
+        public static void LogFormattedError(string format, params object[] args)
+        {
+            AddNewLog(TraceEventType.Error, null, string.Format(format, args), null, null);
+        }
+
         /// <summary>
         /// Writes an exception to the log
         /// </summary>
