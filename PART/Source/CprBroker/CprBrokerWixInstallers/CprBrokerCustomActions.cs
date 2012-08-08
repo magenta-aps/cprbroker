@@ -387,5 +387,21 @@ namespace CprBrokerWixInstallers
             }
         }
 
+        [CustomAction]
+        public static ActionResult SplitWebConfig(Session session)
+        {
+            try
+            {
+                // TODO: Implement custom action SplitWebConfig
+                // The point is to isolate dataProviders and dataProviderKeys sections in existing web.config into separate files
+                return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
     }
 }
