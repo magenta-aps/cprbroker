@@ -127,6 +127,7 @@ namespace CprBroker.Installers
             session.SetPropertyValue("RollbackDatabase", aggregatedProps);
             session.SetPropertyValue("DeployDatabase", aggregatedProps);
             session.SetPropertyValue("RemoveDatabase", aggregatedProps);
+            session.SetPropertyValue("PatchDatabase", aggregatedProps);
             return ActionResult.Success;
         }
 
@@ -176,8 +177,10 @@ namespace CprBroker.Installers
             }
         }
 
-        public static ActionResult DeployDatabase(Session session, Dictionary<string, string> createDatabaseObjectsSql, Dictionary<string, KeyValuePair<string, string>[]> lookupDataArray)
+        public static ActionResult DeployDatabase(Session session, Dictionary<string, string> createDatabaseObjectsSql, Dictionary<string, KeyValuePair<string, string>[]> lookupDataArray, Dictionary<string, Action<SqlConnection>> customMethods = null)
         {
+            customMethods = customMethods != null ? customMethods : new Dictionary<string, Action<SqlConnection>>();
+
             RunDatabaseAction(
                 session,
                 (featureName) =>
@@ -187,6 +190,10 @@ namespace CprBroker.Installers
                     {
                         ExecuteDDL(createDatabaseObjectsSql[featureName], databaseSetupInfo);
                         InsertLookups(lookupDataArray[featureName], databaseSetupInfo);
+                        if (customMethods.ContainsKey(featureName))
+                        {
+                            RunCustomMethod(customMethods[featureName], databaseSetupInfo);
+                        }
                     }
                     CreateDatabaseUser(databaseSetupInfo, null);
                 }
@@ -219,25 +226,37 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult PatchDatabase(Session session, Dictionary<string, string> featurePatchSql)
+        public static ActionResult PatchDatabase(Session session, Dictionary<string, string> featurePatchSql, Dictionary<string, Action<SqlConnection>> customMethods = null)
         {
+            customMethods = customMethods != null ? customMethods : new Dictionary<string, Action<SqlConnection>>();
+
             RunDatabaseAction(
                 session,
                 (featureName) =>
                 {
-                    DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
-                    string sql = featurePatchSql[featureName];
-                    PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
-                    patchDatabaseForm.SetupInfo = setupInfo;
+                    if (featurePatchSql.ContainsKey(featureName) || customMethods.ContainsKey(featureName))
+                    {
+                        DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
+                        PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
+                        patchDatabaseForm.SetupInfo = setupInfo;
 
-                    var dialogResult = BaseForm.ShowAsDialog(patchDatabaseForm, session.InstallerWindowWrapper());
-                    if (dialogResult == DialogResult.Cancel)
-                    {
-                        throw new Exception("Cancelled");
-                    }
-                    else
-                    {
-                        ExecuteDDL(sql, patchDatabaseForm.SetupInfo);
+                        var dialogResult = BaseForm.ShowAsDialog(patchDatabaseForm, session.InstallerWindowWrapper());
+                        if (dialogResult == DialogResult.Cancel)
+                        {
+                            throw new Exception("Cancelled");
+                        }
+                        else
+                        {
+                            if (featurePatchSql.ContainsKey(featureName))
+                            {
+                                string sql = featurePatchSql[featureName];
+                                ExecuteDDL(sql, patchDatabaseForm.SetupInfo);
+                            }
+                            if (customMethods.ContainsKey(featureName))
+                            {
+                                RunCustomMethod(customMethods[featureName], patchDatabaseForm.SetupInfo);
+                            }
+                        }
                     }
                 }
             );

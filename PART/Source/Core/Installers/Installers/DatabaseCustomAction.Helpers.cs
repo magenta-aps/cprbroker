@@ -224,6 +224,15 @@ namespace CprBroker.Installers
             }
         }
 
+        private static void RunCustomMethod(Action<SqlConnection> method, DatabaseSetupInfo databaseSetupInfo)
+        {
+            using (SqlConnection conn = new SqlConnection(databaseSetupInfo.CreateConnectionString(true, true)))
+            {
+                conn.Open();
+                method(conn);
+            }
+        }
+
         private static void DropDatabase(DatabaseSetupInfo setupInfo)
         {
             if (!string.IsNullOrEmpty(setupInfo.DatabaseName) && setupInfo.DatabaseExists())
