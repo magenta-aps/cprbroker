@@ -90,6 +90,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +105,16 @@
     <None Include="Resources\LifeStatusCodeType.csv" />
     <None Include="Resources\LogType.csv" />
     <None Include="Resources\RelationshipType.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Authority_4357.txt" />
+    <Content Include="Resources\PatchDatabase_1_3.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
+      <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
+      <Name>CPRDirect</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />

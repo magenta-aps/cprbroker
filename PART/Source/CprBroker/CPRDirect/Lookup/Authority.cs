@@ -23,21 +23,23 @@ namespace CprBroker.Providers.CPRDirect
         {
             using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
             {
+                conn.Open();
+                ImportText(text, conn);
+            }
+        }
 
-                var authorities = LineWrapper.ParseBatch(text)
+        public static void ImportText(string text, SqlConnection conn)
+        {
+            var authorities = LineWrapper.ParseBatch(text)
                     .Select(line => line.ToWrapper(Constants.DataObjectMap_P02680))
                     .Where(w => w != null)
                     .Select(w => (w as AuthorityType).ToAuthority());
 
-                conn.Open();
-
-                using (var trans = conn.BeginTransaction())
-                {
-                    conn.DeleteAll<Authority>(trans);
-                    conn.BulkInsertAll<Authority>(authorities, trans);
-                    trans.Commit();
-                }
-
+            using (var trans = conn.BeginTransaction())
+            {
+                conn.DeleteAll<Authority>(trans);
+                conn.BulkInsertAll<Authority>(authorities, trans);
+                trans.Commit();
             }
         }
 

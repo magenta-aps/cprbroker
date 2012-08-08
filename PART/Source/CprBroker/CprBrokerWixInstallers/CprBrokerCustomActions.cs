@@ -56,6 +56,7 @@ using CprBroker.Utilities;
 using CprBroker.Engine;
 using CprBroker.EventBroker.Data;
 using CprBroker.Installers.EventBrokerInstallers;
+using System.Data.SqlClient;
 
 namespace CprBrokerWixInstallers
 {
@@ -64,7 +65,7 @@ namespace CprBrokerWixInstallers
         [CustomAction]
         public static ActionResult CalculateExecutionElevated(Session session)
         {
-            return ProductCustomActions.CalculateExecutionElevated(session);            
+            return ProductCustomActions.CalculateExecutionElevated(session);
         }
 
         [CustomAction]
@@ -156,7 +157,16 @@ namespace CprBrokerWixInstallers
         {
             try
             {
+                // Prepare SQL scripts
                 var createDatabaseObjectsSql = new Dictionary<string, string>();
+
+                createDatabaseObjectsSql["CPR"] =
+                    Properties.Resources.CreatePartDatabaseObjects
+                    + Properties.Resources.PatchDatabase_1_3;
+
+                createDatabaseObjectsSql["EVENT"] = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.CreateEventBrokerDatabaseObjects;
+
+                // Prepare lookups
                 var lookupDataArray = new Dictionary<string, KeyValuePair<string, string>[]>();
 
                 List<KeyValuePair<string, string>> cprLookups = new List<KeyValuePair<string, string>>();
@@ -172,7 +182,6 @@ namespace CprBrokerWixInstallers
                 cprLookups.Add(new KeyValuePair<string, string>(typeof(RelationshipType).Name, Properties.Resources.RelationshipType));
 
                 lookupDataArray["CPR"] = cprLookups.ToArray();
-                createDatabaseObjectsSql["CPR"] = Properties.Resources.CreatePartDatabaseObjects;
 
                 List<KeyValuePair<string, string>> eventLookups = new List<KeyValuePair<string, string>>();
 
@@ -180,9 +189,13 @@ namespace CprBrokerWixInstallers
                 eventLookups.Add(new KeyValuePair<string, string>(typeof(SubscriptionType).Name, CprBroker.Installers.EventBrokerInstallers.Properties.Resources.SubscriptionType));
 
                 lookupDataArray["EVENT"] = eventLookups.ToArray();
-                createDatabaseObjectsSql["EVENT"] = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.CreateEventBrokerDatabaseObjects;
 
-                return DatabaseCustomAction.DeployDatabase(session, createDatabaseObjectsSql, lookupDataArray);
+                // Custom methods
+                var customMethods = new Dictionary<string, Action<SqlConnection>>();
+                customMethods["CPR"] =
+                    conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+
+                return DatabaseCustomAction.DeployDatabase(session, createDatabaseObjectsSql, lookupDataArray, customMethods);
             }
             catch (Exception ex)
             {
@@ -211,6 +224,30 @@ namespace CprBrokerWixInstallers
             try
             {
                 return DatabaseCustomAction.RemoveDatabase(session, false);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult PatchDatabase(Session session)
+        {
+            try
+            {
+                System.Diagnostics.Debugger.Launch();
+                var patchSql = new Dictionary<string, string>();
+                patchSql["CPR"] = Properties.Resources.PatchDatabase_1_3;
+
+                var customMethods = new Dictionary<string, Action<SqlConnection>>();
+                customMethods["CPR"] =
+                    conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+
+                var result = DatabaseCustomAction.PatchDatabase(session, patchSql, customMethods);
+
+                return ActionResult.Success;
             }
             catch (Exception ex)
             {
