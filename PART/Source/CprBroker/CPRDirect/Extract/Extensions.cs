@@ -11,14 +11,14 @@ namespace CprBroker.Providers.CPRDirect
 {
     public static class Extensions
     {
-        public static void BulkInsertAll<T>(this SqlConnection conn, IEnumerable<T> entities)
+        public static void BulkInsertAll<T>(this SqlConnection conn, IEnumerable<T> entities, SqlTransaction trans)
         {
             entities = entities.ToArray();
 
             Type t = typeof(T);
 
             var tableAttribute = (TableAttribute)t.GetCustomAttributes(typeof(TableAttribute), false).Single();
-            var bulkCopy = new SqlBulkCopy(conn)
+            var bulkCopy = new SqlBulkCopy(conn, SqlBulkCopyOptions.Default, trans)
             {
                 DestinationTableName = tableAttribute.Name,
                 BatchSize = 100
@@ -61,6 +61,15 @@ namespace CprBroker.Providers.CPRDirect
             if (o == null)
                 return DBNull.Value;
             return o;
+        }
+
+        public static void DeleteAll<T>(this SqlConnection conn, SqlTransaction transaction)
+        {
+            Type t = typeof(T);
+            var tableAttribute = (TableAttribute)t.GetCustomAttributes(typeof(TableAttribute), false).Single();
+            var command = new SqlCommand(string.Format("DELETE [{0}]", tableAttribute.Name.Replace(".", "].[")), conn, transaction);
+
+            int ret = command.ExecuteNonQuery();
         }
     }
 }

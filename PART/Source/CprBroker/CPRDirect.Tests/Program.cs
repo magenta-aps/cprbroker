@@ -11,14 +11,14 @@ namespace CprBroker.Tests.CPRDirect
         public static void Main()
         {
             //BulkImport();
-            //GetPersons();
-            CprBroker.Engine.BrokerContext.Initialize("fd56ff6b-35bc-4b67-8ae4-bdc4485dc429", "");
-            ExtractManager.ImportDataProviderFolders();
+            GetPersons();
+            //CprBroker.Engine.BrokerContext.Initialize("fd56ff6b-35bc-4b67-8ae4-bdc4485dc429", "");
+            //ExtractManager.ImportDataProviderFolders();
         }
 
         public static void BulkImport()
         {
-            int batchCount = 100;
+            int batchCount = 1000;
             var personRepeates = 2;
 
             var data = Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE;
@@ -76,7 +76,7 @@ namespace CprBroker.Tests.CPRDirect
             for (int i = 0; i < count; i++)
             {
                 var index = Utilities.Random.Next(0, pnrs.Count);
-                Console.WriteLine(string.Format("Loading <{0}> of <{1}> batches", i + 1, count));
+                Console.WriteLine(string.Format("Loading <{0}> of <{1}> persons", i + 1, count));
                 string pnr = pnrs[index];
                 var db = ExtractManager.GetPerson(pnr);
                 //var oio = db.ToRegistreringType1(cpr => Guid.NewGuid(), DateTime.Today);

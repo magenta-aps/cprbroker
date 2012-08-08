@@ -75,11 +75,24 @@
       <DependentUpon>ExtractDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Extract\ExtractManager.cs" />
+    <Compile Include="Lookup\Authority.designer.cs">
+      <DependentUpon>Authority.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookup\AuthorityType.cs" />
+    <Compile Include="Lookup\LookupDataContext.cs">
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Lookup\LookupDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Lookup\Authority.cs" />
     <Compile Include="XML\Child.cs" />
     <Compile Include="XML\ChurchInformation.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />
@@ -116,6 +129,7 @@
     <Compile Include="XML\StartRecordType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Lookup\Authority.xml" />
     <Content Include="XML\CodeGeneration.txt" />
     <Content Include="XML\DefinitionSchema.xsd" />
   </ItemGroup>
@@ -123,6 +137,11 @@
     <None Include="Extract\ExtractDataContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>ExtractDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Lookup\LookupDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>LookupDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
@@ -142,9 +161,15 @@
       <DependentUpon>ExtractDataContext.dbml</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Lookup\LookupDataContext.dbml.layout">
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"</PreBuildEvent>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>

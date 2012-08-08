@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authority.Tests.cs" />
     <Compile Include="BirthRegistrationInformation.Tests.cs" />
     <Compile Include="ChildTests.cs" />
     <Compile Include="ChurchInformation.Tests.cs" />
@@ -123,6 +124,7 @@
     <Content Include="loggingConfiguration.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\4357.txt" />
     <None Include="App.config" />
     <None Include="Resources\U12170-P opgavenr 110901 ADRNVN FE" />
   </ItemGroup>

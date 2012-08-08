@@ -63,12 +63,21 @@ namespace CprBroker.Providers.CPRDirect
                 var type = kvp.Value;
                 _ReversibleRelationshipMap[kvp.Key] = typeof(IReversibleRelationship).IsAssignableFrom(type);
             }
+
+            _DataObjectMap_P02680 = new Dictionary<string, Type>();
+            _DataObjectMap_P02680["001"] = typeof(AuthorityType);
         }
 
         private static Dictionary<string, Type> _DataObjectMap;
         public static Dictionary<string, Type> DataObjectMap
         {
             get { return _DataObjectMap.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
+        }
+
+        private static Dictionary<string, Type> _DataObjectMap_P02680;
+        public static Dictionary<string, Type> DataObjectMap_P02680
+        {
+            get { return _DataObjectMap_P02680.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
         }
 
 
