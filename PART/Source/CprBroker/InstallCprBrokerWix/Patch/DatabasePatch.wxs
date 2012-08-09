@@ -11,7 +11,7 @@
     </InstallExecuteSequence>
 
     <UI>
-      <ProgressText Action="CustomAction">Patching database</ProgressText>
+      <ProgressText Action="PatchDatabase">Patching database</ProgressText>
     </UI>
   </Fragment>
 </Wix>

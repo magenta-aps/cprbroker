@@ -62,6 +62,12 @@ namespace CprBrokerWixInstallers
 {
     public class CprBrokerCustomActions
     {
+        public class PathConstants
+        {
+            public const string CprBrokerWebsiteDirectoryRelativePath = "CprBroker\\Website\\";
+            public const string EventBrokerWebsiteDirectoryRelativePath = "EventBroker\\Website\\";
+        }
+
         [CustomAction]
         public static ActionResult CalculateExecutionElevated(Session session)
         {
@@ -237,7 +243,6 @@ namespace CprBrokerWixInstallers
         {
             try
             {
-                System.Diagnostics.Debugger.Launch();
                 var patchSql = new Dictionary<string, string>();
                 patchSql["CPR"] = Properties.Resources.PatchDatabase_1_3;
 
@@ -349,7 +354,7 @@ namespace CprBrokerWixInstallers
                     EncryptConnectionStrings = true,
                     ConnectionStrings = new Dictionary<string, string>(connectionStrings),
                     InitializeFlatFileLogging = true,
-                    WebsiteDirectoryRelativePath = "CprBroker\\Website\\",
+                    WebsiteDirectoryRelativePath = PathConstants.CprBrokerWebsiteDirectoryRelativePath,
                     ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()
@@ -371,7 +376,7 @@ namespace CprBrokerWixInstallers
                     EncryptConnectionStrings = false,
                     ConnectionStrings = connectionStrings,
                     InitializeFlatFileLogging = true,
-                    WebsiteDirectoryRelativePath = "EventBroker\\Website\\",
+                    WebsiteDirectoryRelativePath = PathConstants.EventBrokerWebsiteDirectoryRelativePath,
                     ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()
@@ -425,12 +430,27 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
-        public static ActionResult SplitWebConfig(Session session)
+        public static ActionResult PatchWebsite(Session session)
         {
             try
             {
-                // TODO: Implement custom action SplitWebConfig
-                // The point is to isolate dataProviders and dataProviderKeys sections in existing web.config into separate files
+                var types = new Type[]{ 
+                    typeof(CprBroker.Providers.CPRDirect.CPRDirectClientDataProvider), 
+                    typeof(CprBroker.Providers.CPRDirect.CPRDirectExtractDataProvider)
+                };
+                var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+                var configFilePath = webInstallationInfo.GetWebConfigFilePath(PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+
+                // Add new node(s) for data providers
+                Array.ForEach<Type>(
+                    types,
+                    type =>
+                    {
+                        var dic = new Dictionary<string, string>();
+                        dic["type"] = type.FullName;
+                        CprBroker.Installers.Installation.AddSectionNode("add", dic, configFilePath, "dataProviders/knownTypes");
+                        object o = "";
+                    });
                 return ActionResult.Success;
             }
             catch (Exception ex)

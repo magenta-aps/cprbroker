@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CprBroker\CprBroker.wxs" />
+    <Compile Include="Patch\WebsitePatch.wxs" />
     <Compile Include="Patch\DatabasePatch.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>

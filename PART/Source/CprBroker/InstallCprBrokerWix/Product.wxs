@@ -8,6 +8,7 @@
     <PropertyRef Id="Dummy_EventBrokerFragmentRefProp"/>
     <PropertyRef Id="Dummy_StandardActionTextFragmentRefProp"/>
     <PropertyRef Id="Dummy_DatabasePatchFragmentRefProp"/>
+    <PropertyRef Id="Dummy_WebPatchFragmentRefProp"/>
 
     <DirectoryRef Id="TARGETDIR"/>
 
