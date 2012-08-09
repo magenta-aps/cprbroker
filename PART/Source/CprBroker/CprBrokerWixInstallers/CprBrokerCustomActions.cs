@@ -57,17 +57,12 @@ using CprBroker.Engine;
 using CprBroker.EventBroker.Data;
 using CprBroker.Installers.EventBrokerInstallers;
 using System.Data.SqlClient;
+using CprBroker.Installers.EventBrokerInstallers;
 
 namespace CprBrokerWixInstallers
 {
     public class CprBrokerCustomActions
     {
-        public class PathConstants
-        {
-            public const string CprBrokerWebsiteDirectoryRelativePath = "CprBroker\\Website\\";
-            public const string EventBrokerWebsiteDirectoryRelativePath = "EventBroker\\Website\\";
-        }
-
         [CustomAction]
         public static ActionResult CalculateExecutionElevated(Session session)
         {
@@ -328,7 +323,8 @@ namespace CprBrokerWixInstallers
                     "InstallBackendService",
                     "RollbackBackendService",
                     "UnInstallBackendService",
-                    "SetCprBrokerUrl"
+                    "SetCprBrokerUrl",
+                    "CloneDataProviderSectionsToBackendService"
                 };
                 return WebsiteCustomAction.AfterInstallInitialize_WEB(session, extraCustomActionNames);
             }
@@ -354,7 +350,7 @@ namespace CprBrokerWixInstallers
                     EncryptConnectionStrings = true,
                     ConnectionStrings = new Dictionary<string, string>(connectionStrings),
                     InitializeFlatFileLogging = true,
-                    WebsiteDirectoryRelativePath = PathConstants.CprBrokerWebsiteDirectoryRelativePath,
+                    WebsiteDirectoryRelativePath = EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath,
                     ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()
@@ -376,7 +372,7 @@ namespace CprBrokerWixInstallers
                     EncryptConnectionStrings = false,
                     ConnectionStrings = connectionStrings,
                     InitializeFlatFileLogging = true,
-                    WebsiteDirectoryRelativePath = PathConstants.EventBrokerWebsiteDirectoryRelativePath,
+                    WebsiteDirectoryRelativePath = EventBrokerCustomActions.PathConstants.EventBrokerWebsiteDirectoryRelativePath,
                     ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[]
                 {
                     new ConfigSectionGroupEncryptionOptions()
@@ -439,7 +435,7 @@ namespace CprBrokerWixInstallers
                     typeof(CprBroker.Providers.CPRDirect.CPRDirectExtractDataProvider)
                 };
                 var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
-                var configFilePath = webInstallationInfo.GetWebConfigFilePath(PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+                var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
 
                 // Add new node(s) for data providers
                 Array.ForEach<Type>(
