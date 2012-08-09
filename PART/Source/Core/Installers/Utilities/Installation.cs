@@ -230,7 +230,7 @@ namespace CprBroker.Installers
             doc.Load(configFilePath);
             XmlNode node = doc.SelectSingleNode(nodePath);
 
-            if (node.Attributes["configSource"] != null)
+            if (node != null && node.Attributes["configSource"] != null)
             {
                 string filePath = node.Attributes["configSource"].Value;
                 var configDir = Path.GetDirectoryName(configFilePath);
@@ -264,22 +264,68 @@ namespace CprBroker.Installers
             access.ResetAccessRule(rule);
             File.SetAccessControl(fileName, access);
         }
-
-        public static void CopyConfigNode(string nodePath, string fromConfigFile, string toConfigFile)
+        public enum MergeOption
         {
+            Overwrite,
+            Ignore
+        }
+
+        public static bool CopyConfigNode(string parentNodePath, string nodeName, string fromConfigFile, string toConfigFile, MergeOption mergeOption)
+        {
+            string nodePath = string.Format("{0}/{1}", parentNodePath, nodeName);
+
             XmlNode sourceNode = GetConfigNode(nodePath, ref fromConfigFile);
             XmlNode targetNode = GetConfigNode(nodePath, ref toConfigFile);
 
-            targetNode.Attributes.RemoveAll();
+            if (targetNode == null)
+            {
+                var targetNodeParent = GetConfigNode(parentNodePath, ref toConfigFile);
+                if (targetNodeParent == null)
+                    return false;
+
+                targetNode = targetNodeParent.OwnerDocument.CreateNode(XmlNodeType.Element, nodeName, "");
+                targetNodeParent.AppendChild(targetNode);
+            }
+            else if (mergeOption == MergeOption.Ignore)
+            {
+                return false;
+            }
+
+            // Now start working on Inner XML
+            if (mergeOption == MergeOption.Overwrite)
+            {
+                targetNode.InnerXml = sourceNode.InnerXml;
+            }
+            else
+            {
+                foreach (XmlNode sourceChildNode in sourceNode.ChildNodes)
+                {
+                    CopyConfigNode(nodePath, sourceChildNode.Name, fromConfigFile, toConfigFile, mergeOption);
+                }
+            }
+
+            // Now work on attrinutes
             foreach (XmlAttribute sourceAttribute in sourceNode.Attributes)
             {
-                var targetAttribute = targetNode.OwnerDocument.CreateAttribute(sourceAttribute.Name);
+                var targetAttribute = targetNode.Attributes[sourceAttribute.Name];
+                if (targetAttribute == null)
+                {
+                    targetAttribute = targetNode.OwnerDocument.CreateAttribute(sourceAttribute.Name);
+                }
+                else if (mergeOption == MergeOption.Ignore)
+                {
+                    continue;
+                }
+                else
+                {
+                    targetNode.Attributes.Append(targetAttribute);
+                }
                 targetAttribute.Value = sourceAttribute.Value;
-                targetNode.Attributes.Append(targetAttribute);
             }
-            targetNode.InnerXml = sourceNode.InnerXml;
+
 
             targetNode.OwnerDocument.Save(toConfigFile);
+            return true;
         }
 
         public static string GetNetFrameworkDirectory(Version frameworkVersion)
