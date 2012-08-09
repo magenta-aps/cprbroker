@@ -193,6 +193,7 @@ namespace CprBroker.Installers
             session.SetPropertyValue("RollbackWebsite", aggregatedProps);
             session.SetPropertyValue("CreateWebsite", aggregatedProps);
             session.SetPropertyValue("RemoveWebsite", aggregatedProps);
+            session.SetPropertyValue("PatchWebsite", aggregatedProps);
             foreach (var customActionName in extraCustomActionNames)
             {
                 session.SetPropertyValue(customActionName, aggregatedProps);
