@@ -187,8 +187,8 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 var sourcePath = cprBrokerWebInstallationInfo.GetWebConfigFilePath(PathConstants.CprBrokerWebsiteDirectoryRelativePath);
                 var targetPath = GetServiceExeConfigFullFileName(session);
 
-                Installation.CopyConfigNode("//dataProvidersGroup", sourcePath, targetPath);
-                Installation.CopyConfigNode("//configSections/sectionGroup[@name='dataProvidersGroup']", sourcePath, targetPath);
+                Installation.CopyConfigNode("//configuration", "configSections", sourcePath, targetPath, Installation.MergeOption.Overwrite);
+                Installation.CopyConfigNode("//configuration", "dataProvidersGroup", sourcePath, targetPath, Installation.MergeOption.Overwrite);
 
                 return ActionResult.Success;
             }

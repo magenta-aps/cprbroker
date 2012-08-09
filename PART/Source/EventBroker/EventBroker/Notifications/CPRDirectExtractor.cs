@@ -10,7 +10,7 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return TimeSpan.FromDays(1);
+            return TimeSpan.FromMinutes(1);
         }
 
         protected override void PerformTimerAction()
