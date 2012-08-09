@@ -57,12 +57,22 @@ namespace CprBroker.Installers.EventBrokerInstallers
 {
     public static class EventBrokerCustomActions
     {
-        static readonly string WebsiteDirectoryRelativePath = "EventBroker\\Website\\";
+        public class PathConstants
+        {
+            public const string CprBrokerWebsiteDirectoryRelativePath = "CprBroker\\Website\\";
+            public const string EventBrokerWebsiteDirectoryRelativePath = "EventBroker\\Website\\";
+        }
+
         public static readonly string ServiceName = "CPR broker backend service";
 
         private static string GetServiceExeFullFileName(Session session)
         {
-            return string.Format("{0}{1}bin\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), WebsiteDirectoryRelativePath);
+            return string.Format("{0}{1}bin\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), PathConstants.EventBrokerWebsiteDirectoryRelativePath);
+        }
+
+        private static string GetServiceExeConfigFullFileName(Session session)
+        {
+            return GetServiceExeFullFileName(session) + ".config";
         }
 
         [CustomAction]
@@ -70,8 +80,8 @@ namespace CprBroker.Installers.EventBrokerInstallers
         {
             try
             {
-                Installation.SetConnectionStringInConfigFile(GetServiceExeFullFileName(session) + ".config", "CprBroker.Config.Properties.Settings.CprBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "CPR").CreateConnectionString(false, true));
-                Installation.SetConnectionStringInConfigFile(GetServiceExeFullFileName(session) + ".config", "CprBroker.Config.Properties.Settings.EventBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "EVENT").CreateConnectionString(false, true));
+                Installation.SetConnectionStringInConfigFile(GetServiceExeConfigFullFileName(session), "CprBroker.Config.Properties.Settings.CprBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "CPR").CreateConnectionString(false, true));
+                Installation.SetConnectionStringInConfigFile(GetServiceExeConfigFullFileName(session), "CprBroker.Config.Properties.Settings.EventBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "EVENT").CreateConnectionString(false, true));
 
                 CprBroker.Installers.Installation.RunCommand(
                     string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(2, 0))),
@@ -153,11 +163,33 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 }
 
                 Installation.SetApplicationSettingInConfigFile(
-                    GetServiceExeFullFileName(session) + ".config",
+                    GetServiceExeConfigFullFileName(session),
                     typeof(CprBroker.Config.Properties.Settings),
                     "EventsServiceUrl",
                     bestUrl
                     );
+                return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult CloneDataProviderSectionsToBackendService(Session session)
+        {
+            try
+            {
+                System.Diagnostics.Debugger.Launch();
+                WebInstallationInfo cprBrokerWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+                var sourcePath = cprBrokerWebInstallationInfo.GetWebConfigFilePath(PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+                var targetPath = GetServiceExeConfigFullFileName(session);
+
+                Installation.CopyConfigNode("//dataProvidersGroup", sourcePath, targetPath);
+                Installation.CopyConfigNode("//configSections/sectionGroup[@name='dataProvidersGroup']", sourcePath, targetPath);
+
                 return ActionResult.Success;
             }
             catch (Exception ex)
