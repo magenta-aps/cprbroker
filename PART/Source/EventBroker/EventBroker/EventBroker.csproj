@@ -39,9 +39,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Config.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.Data, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Providers.CPRDirect">
+      <HintPath>..\..\CprBroker\Output\CprBroker.Providers.CPRDirect.dll</HintPath>
     </Reference>
     <Reference Include="CprBroker.Schemas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -96,6 +103,9 @@
     </Compile>
     <Compile Include="Notifications\CprBrokerEventEnqueuer.Designer.cs">
       <DependentUpon>CprBrokerEventEnqueuer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications\CPRDirectExtractor.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Subscriptions\GetActiveSubscriptionsListFacadeMethod.cs" />
     <Compile Include="Subscriptions\SubscribeOnBirthdateFacadeMethod.cs" />

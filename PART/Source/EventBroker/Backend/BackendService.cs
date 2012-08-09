@@ -69,6 +69,7 @@ namespace CprBroker.EventBroker.Backend
             this.BirthdateEventEnqueuer.EventLog = this.EventLog;
             this.DataChangeEventEnqueuer.EventLog = this.EventLog;
             this.NotificationSender.EventLog = this.EventLog;
+            this.CprDirectExtractor.EventLog = this.EventLog;
         }
 
         private void StartQueues()
@@ -76,6 +77,7 @@ namespace CprBroker.EventBroker.Backend
             this.BirthdateEventEnqueuer.Start();
             this.DataChangeEventEnqueuer.Start();
             this.NotificationSender.Start();
+            this.CprDirectExtractor.Start();
         }
 
         private void StopQueues()
@@ -83,6 +85,7 @@ namespace CprBroker.EventBroker.Backend
             this.BirthdateEventEnqueuer.Stop();
             this.DataChangeEventEnqueuer.Stop();
             this.NotificationSender.Stop();
+            this.CprDirectExtractor.Stop();
         }
 
         protected override void OnStart(string[] args)
