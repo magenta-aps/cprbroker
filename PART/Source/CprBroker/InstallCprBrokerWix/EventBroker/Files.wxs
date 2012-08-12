@@ -42,6 +42,9 @@
       <Component Id="CMP_EVENT_bin_CprBroker.Utilities.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_CprBroker.Utilities.dll" Source="$(var.EventSitePath)bin\CprBroker.Utilities.dll" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_EVENT_bin_CprBroker.Providers.CPRDirect.dll" Directory="EVENT_bin">
+        <File Id="FILE_EVENT_bin_CprBroker.Providers.CPRDirect.dll" Source="$(var.SitePath)bin\CprBroker.Providers.CPRDirect.dll" KeyPath="yes"/>
+      </Component>
       <Component Id="CMP_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Directory="EVENT_bin">
         <File Id="FILE_EVENT_bin_Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.EventSitePath)bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" KeyPath="yes"/>
       </Component>
