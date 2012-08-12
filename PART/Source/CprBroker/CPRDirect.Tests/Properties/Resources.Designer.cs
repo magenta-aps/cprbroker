@@ -89,7 +89,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010101429059          01000000000000 M1942-01-01 1997-12-31            Cirkusdirektّr
+        ///0010101429059          01000000000000 M1942-01-01 1997-12-31            Cirkusdirektør
         ///002010142905908518512004 01  tv                                      199712311405 199712311405 0000000000000000 0000
         ///0080101429059Ulf                                                                                         Ulling                                   194203231405 Ulf Ulling
         ///00901014290595120
@@ -105,7 +105,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010101520013010752903950200111071450 M1952-01-01 1997-09-09 2001-11-07 Translatّr
+        ///0010101520013010752903950200111071450 M1952-01-01 1997-09-09 2001-11-07 Translatør
         ///0080101520013Arne Efraim Udtzon                                                                          Jensen                                   195209040825 Arne Efraim Udtzon Jensen
         ///00901015200138333
         ///01001015200135100195209050825
@@ -153,7 +153,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010107529039          01000000000000 M1952-07-01 1997-09-09            Translatّr
+        ///0010107529039          01000000000000 M1952-07-01 1997-09-09            Translatør
         ///002010752903908518512048                                             199801010907 199801010907 0573199801010907 0000
         ///004010752903900011998-01-011998-06-30
         ///004010752903900021998-01-011998-06-30
@@ -184,7 +184,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010108610069070961001560200111130859 M1961-08-01 2001-10-22 2001-11-13 Forlوgger
+        ///0010108610069070961001560200111130859 M1961-08-01 2001-10-22 2001-11-13 Forlægger
         ///0080108610069Robert                                             Udtzon                                   Ullersen                                 196110151206*Robert Udtzon Ullersen
         ///00901086100690851
         ///01001086100695180196109301206*
@@ -344,7 +344,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010706614184          01000000000000 K1961-06-07 1961-06-07*           Socialrهdg.
+        ///0010706614184          01000000000000 K1961-06-07 1961-06-07*           Socialrådg.
         ///002070661418408518512002 st  tv                                      198010102000 198010101200 0571000000000000*0000
         ///0080706614184Anne                                                                                        Mortensen                                198010012000 Anne Mortensen
         ///00907066141848126
@@ -390,7 +390,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
         ///0010707614226          01000000000000 K1961-07-07 1961-07-07*           Studerende
         ///002070761422608518512004 st  tv                                      198101012000 198101011200 0000000000000000 0000
-        ///0080707614226Erna                                                                                        Mّller-Madsen                            196109012000 Erna Mّller-Madsen
+        ///0080707614226Erna                                                                                        Møller-Madsen                            196109012000 Erna Møller-Madsen
         ///00907076142268329
         ///01007076142265100199103201299*
         ///0110707614226F1961-07-07*
@@ -404,7 +404,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010707614234          01000000000000 K1961-07-07 1961-07-07*1980-09-10 Pوdagog
+        ///0010707614234          01000000000000 K1961-07-07 1961-07-07*1980-09-10 Pædagog
         ///002070761423408518512004 st  th                                      198009102000 196107071200 0000000000000000 0000
         ///0080707614234Bodil                                                                                       Mikkelsen                                196109012000 Bodil Mikkelsen
         ///00907076142348318
@@ -420,7 +420,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010707614285          01000000000000 M1961-07-07 1961-07-07*           Socialrهdg.
+        ///0010707614285          01000000000000 M1961-07-07 1961-07-07*           Socialrådg.
         ///002070761428508518512095 01  mf    c/o Christiansen                  199709090828 199709090828 0573199709090828 0000
         ///0080707614285Jens                                                                                        Mortensen                                196107072000 Jens Mortensen
         ///00907076142858126
@@ -517,7 +517,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
         ///0010708614327          90200006301004 M1961-08-07 1961-08-07*           Blikkensl.
-        ///0080708614327Poul-Erik                                                                                   Mّller-Madsen                            196109012000 Poul-Erik Mّller-Madsen
+        ///0080708614327Poul-Erik                                                                                   Møller-Madsen                            196109012000 Poul-Erik Møller-Madsen
         ///00907086143278329
         ///01007086143275100199103201299*
         ///0110708614327F1961-08-07*
@@ -564,7 +564,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010709610015          01000000000000 M1961-09-07*2001-11-13            Forlوgger
+        ///0010709610015          01000000000000 M1961-09-07*2001-11-13            Forlægger
         ///002070961001508518512025                                             200103051345 200006021206 0000000000000000 0000
         ///004070961001500011961-08-012002-10-22
         ///004070961001500021961-08-012002-10-22
@@ -672,7 +672,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010709614169          01000000000000 M1961-09-07 1961-09-07*           Ejend.mوgler
+        ///0010709614169          01000000000000 M1961-09-07 1961-09-07*           Ejend.mægler
         ///002070961416908518520002           c/o Brammer                       200002281612 200002281612 0000000000000000 0000
         ///004070961416900022001-11-062101-11-06
         ///0080709614169Henrik                                                                                      Mortensen                                196109072000 Henrik Mortensen
@@ -690,7 +690,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
         ///0010709614215          01000000000000 M1961-09-07 1961-09-07*
         ///002070961421508518511012 st  mf                                      198009182000 196109071200 0000000000000000 0000
-        ///0080709614215Peter Hyldegهrd                                                                             Madsen                                   196109072000 Peter Hyldegهrd Madsen
+        ///0080709614215Peter Hyldegård                                                                             Madsen                                   196109072000 Peter Hyldegård Madsen
         ///00907096142158331
         ///01007096142155100199103201299*
         ///0110709614215F1961-09-07*
@@ -706,7 +706,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
         ///0010709614231          01000000000000 M1961-09-07 1961-09-07*
         ///002070961423108518513002 01  mf                                      198403282000 196109071200 0000000000000000 0000
-        ///0080709614231Jّrgen                                                                                      Folmersen                                196109072000 Jّrgen Folmersen
+        ///0080709614231Jørgen                                                                                      Folmersen                                196109072000 Jørgen Folmersen
         ///00907096142318329
         ///01007096142315100199103201299*
         ///0110709614231F1961-09-07*
@@ -766,7 +766,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010709614398090961003660200111071559 K1961-09-07 1961-09-07*2001-11-07 Sygehjوlper
+        ///0010709614398090961003660200111071559 K1961-09-07 1961-09-07*2001-11-07 Sygehjælper
         ///0080709614398Gerda                                                                                       Holmstad                                 196109072000 Gerda Holmstad
         ///00907096143988126
         ///01007096143985110199802281036
@@ -860,7 +860,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
         ///0010709614592          01000000000000 K1961-09-07 1961-09-07*
         ///002070961459208518513038 01  th                                      198011012000 196109071200 0000000000000000 0000
-        ///0080709614592Jane طsterholm                                                                              Fichte                                   199801010957 Jane طsterholm Fichte
+        ///0080709614592Jane Østerholm                                                                              Fichte                                   199801010957 Jane Østerholm Fichte
         ///00907096145928329
         ///01007096145925100199103201299*
         ///0110709614592F1961-09-07*
@@ -874,7 +874,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010709614673          01000000000000 M1961-09-07 1961-09-07*           Togfّrer
+        ///0010709614673          01000000000000 M1961-09-07 1961-09-07*           Togfører
         ///002070961467308518512092 01  tv                                      199706301104 199706301104 0751199706301104 0000
         ///0080709614673Bo                                                                                          Dahl-Eriksen                             198009012000 Bo Dahl-Eriksen
         ///00907096146738329
@@ -1080,7 +1080,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0010909610036          01000000000000 K1961-09-09 2001-11-07            Sygehjوlper
+        ///0010909610036          01000000000000 K1961-09-09 2001-11-07            Sygehjælper
         ///002090961003608518512002 02  th                                      199802281033 199802281033 0925199802281033 0000
         ///0080909610036Gerda                                                                                       Holmstad                                 196109091559 Gerda Holmstad
         ///00909096100368126
@@ -1305,7 +1305,7 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
-        ///0013112420028          01000000000000 K1942-12-31 1997-09-09            Sygehjوlper
+        ///0013112420028          01000000000000 K1942-12-31 1997-09-09            Sygehjælper
         ///002311242002808518512002 02  mf                                      199709091140 199709091140 0000000000000000 0000
         ///004311242002800022001-11-072101-11-07
         ///004311242002800032001-11-072101-11-07

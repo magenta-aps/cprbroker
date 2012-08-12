@@ -10,5 +10,5 @@
 0230701614089 07517512073                                             198212052000 199709091324
 0250701614089 199709091324 200101011601
 0990701614089200111061601A03
-0030701614089Hans Flauenskjold                                                                                     IndustrivÙˆnget 16,1 tv            Hasseris                          9000Aalborg             08518512016 01  tv    IndustrivÙˆnget
+0030701614089Hans Flauenskjold                                                                                     Industrivænget 16,1 tv            Hasseris                          9000Aalborg             08518512016 01  tv    Industrivænget
 999999999999900001098

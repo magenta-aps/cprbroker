@@ -12,5 +12,5 @@
 0241307610015 0000000000000000 5110196107131629*
 0991307610015200111021510A01
 0991307610015200111021511P32
-0031307610015Poul Junkersen                                                      Solhavehjemmet                    IndustrivÙˆnget 2,st th            Hasseris                          9000Aalborg             08518512002 st  th    IndustrivÙˆnget
+0031307610015Poul Junkersen                                                      Solhavehjemmet                    Industrivænget 2,st th            Hasseris                          9000Aalborg             08518512002 st  th    Industrivænget
 999999999999900001098

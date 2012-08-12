@@ -10,5 +10,5 @@
 01507106143261961-10-07*0000000000                                              1961-10-07*0000000000
 0260710614326 Jytte                                                                                       Nielsen                                  196112101200 198002272000
 0990710614326200111121420A33
-0030710614326Jytte Langvig                                                       BrÙ‘ndgravergÙ‡rden                 IndustrivÙˆnget 25                                                   9000Aalborg             08518512025           IndustrivÙˆnget
+0030710614326Jytte Langvig                                                       Brøndgravergården                 Industrivænget 25                                                   9000Aalborg             08518512025           Industrivænget
 999999999999900001098

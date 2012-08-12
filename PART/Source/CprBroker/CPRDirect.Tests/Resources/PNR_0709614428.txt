@@ -13,5 +13,5 @@
 0240709614428 5180199906011628 5180199909091632 Brummerstrasse 12                 D 76543 Minden                    Tyskland                          Udlandsadresse linje 4 4 4 4 4 4 4Udlandsadresse linje 5 5 5 5 5 5 5
 0250709614428 199806011623 199901011624
 0990709614428            K74
-0030709614428Lisbeth Fischer                                                                                       SÙ‘gade 16                         Vodskov                           9000Aalborg             08518511016           SÙ‘gade
+0030709614428Lisbeth Fischer                                                                                       Søgade 16                         Vodskov                           9000Aalborg             08518511016           Søgade
 999999999999900001098

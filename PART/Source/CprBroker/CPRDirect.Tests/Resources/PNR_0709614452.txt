@@ -13,5 +13,5 @@
 0260709614452 Vibeke                                                                                      Olsen                                    196100001299*198001102000
 0290709614452 G0702614147                                              198001102000 199709091720
 0990709614452            A74
-0030709614452Vibeke Sejersen                                                                                       SÙ‘gade 16                         Vodskov                           9000Aalborg             08518511016           SÙ‘gade
+0030709614452Vibeke Sejersen                                                                                       Søgade 16                         Vodskov                           9000Aalborg             08518511016           Søgade
 999999999999900001098

@@ -10,5 +10,5 @@
 0230708610089A00110071001                                             200110241527 200110241527
 0240708610089 0000000000000000 5150200111110000 Via di Sole 49                    I 13589 Bari                      Italien
 0990708610089200111121452P31
-0030708610089Kurt Bang Christensen                                                                                 SÙ‘gade 33,2 tv                                                      9000Aalborg             08518511033 02  tv    SÙ‘gade
+0030708610089Kurt Bang Christensen                                                                                 Søgade 33,2 tv                                                      9000Aalborg             08518511033 02  tv    Søgade
 999999999999900001098

@@ -13,5 +13,5 @@
 0230912414426 05735732077A                                            196005052000 199712311140
 0260912414426 Lisbeth                                                                                     Olsen                                    194100001299*196010012000
 0990912414426200111151403P10
-0030912414426Lisbeth Henriksen                                                                                     ToregÙ‡rdsvej 9,5 tv                                                 9000Aalborg             08511188009 05  tv    ToregÙ‡rdsvej
+0030912414426Lisbeth Henriksen                                                                                     Toregårdsvej 9,5 tv                                                 9000Aalborg             08511188009 05  tv    Toregårdsvej
 999999999999900001098

@@ -90,6 +90,7 @@
     <Compile Include="Persons\P_0702614147.cs" />
     <Compile Include="Persons\P_0707614218.cs" />
     <Compile Include="Persons\P_0709614045.cs" />
+    <Compile Include="Persons\P_0909610028.cs" />
     <Compile Include="Persons\P_0909610036.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

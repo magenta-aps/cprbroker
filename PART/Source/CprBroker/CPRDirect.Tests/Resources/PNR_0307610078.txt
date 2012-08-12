@@ -15,5 +15,5 @@
 0240307610078 5150199712310950 5150199802280957 Via Pericoloso                    I 23432 Bergamo                   Italien                           Udlandsadresse linje 44 4 4 4 4 44Udlandsadresse linje 555 5 5 5 555
 0260307610078 Monika                                                                                      Eliasen                                  196110052000 199802281002
 0990307610078200111071551P03PN
-0030307610078Monika Togliatti Eliasen                                                                              IndustrivÙˆnget 4,1 tv             Hasseris                          9000Aalborg             08518512004 01  tv    IndustrivÙˆnget
+0030307610078Monika Togliatti Eliasen                                                                              Industrivænget 4,1 tv             Hasseris                          9000Aalborg             08518512004 01  tv    Industrivænget
 999999999999900001098
