@@ -55,16 +55,8 @@ using CprBroker.EventBroker.Data;
 
 namespace CprBroker.Installers.EventBrokerInstallers
 {
-    public static class EventBrokerCustomActions
+    public static partial class EventBrokerCustomActions
     {
-        public class PathConstants
-        {
-            public const string CprBrokerWebsiteDirectoryRelativePath = "CprBroker\\Website\\";
-            public const string EventBrokerWebsiteDirectoryRelativePath = "EventBroker\\Website\\";
-        }
-
-        public static readonly string ServiceName = "CPR broker backend service";
-
         private static string GetServiceExeFullFileName(Session session)
         {
             return string.Format("{0}{1}bin\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), PathConstants.EventBrokerWebsiteDirectoryRelativePath);
@@ -88,8 +80,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
                     string.Format("/i \"{0}\"", GetServiceExeFullFileName(session))
                 );
 
-                System.ServiceProcess.ServiceController controller = new System.ServiceProcess.ServiceController(new CprBroker.EventBroker.Backend.BackendService().ServiceName);
-                controller.Start();
+                StartService(ServiceName);
                 return ActionResult.Success;
             }
             catch (Exception ex)
@@ -118,10 +109,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
         {
             try
             {
-                var controller = new System.ServiceProcess.ServiceController(ServiceName);
-                if (controller.CanStop)
-                    controller.Stop();
-
+                StopService(ServiceName);
                 CprBroker.Installers.Installation.RunCommand(
                     string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(2, 0))),
                     string.Format("/u \"{0}\"", GetServiceExeFullFileName(session))
@@ -182,7 +170,8 @@ namespace CprBroker.Installers.EventBrokerInstallers
         {
             try
             {
-                System.Diagnostics.Debugger.Launch();
+                try { StopService(ServiceName); }
+                catch { }
                 WebInstallationInfo cprBrokerWebInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
                 var sourcePath = cprBrokerWebInstallationInfo.GetWebConfigFilePath(PathConstants.CprBrokerWebsiteDirectoryRelativePath);
                 var targetPath = GetServiceExeConfigFullFileName(session);
@@ -190,6 +179,8 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 Installation.CopyConfigNode("//configuration", "configSections", sourcePath, targetPath, Installation.MergeOption.Overwrite);
                 Installation.CopyConfigNode("//configuration", "dataProvidersGroup", sourcePath, targetPath, Installation.MergeOption.Overwrite);
 
+                try { StartService(ServiceName); }
+                catch { }
                 return ActionResult.Success;
             }
             catch (Exception ex)
