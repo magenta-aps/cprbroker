@@ -238,15 +238,18 @@ namespace CprBrokerWixInstallers
         {
             try
             {
-                var patchSql = new Dictionary<string, string>();
-                patchSql["CPR"] = Properties.Resources.PatchDatabase_1_3;
+                var version = session.GetDetectedOlderVersion();
+                if (version != null && version < new Version(1, 3))
+                {
+                    var patchSql = new Dictionary<string, string>();
+                    patchSql["CPR"] = Properties.Resources.PatchDatabase_1_3;
 
-                var customMethods = new Dictionary<string, Action<SqlConnection>>();
-                customMethods["CPR"] =
-                    conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
+                    var customMethods = new Dictionary<string, Action<SqlConnection>>();
+                    customMethods["CPR"] =
+                        conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
 
-                var result = DatabaseCustomAction.PatchDatabase(session, patchSql, customMethods);
-
+                    var result = DatabaseCustomAction.PatchDatabase(session, patchSql, customMethods);
+                }
                 return ActionResult.Success;
             }
             catch (Exception ex)
@@ -443,7 +446,7 @@ namespace CprBrokerWixInstallers
                     type =>
                     {
                         var dic = new Dictionary<string, string>();
-                        dic["type"] = type.FullName;
+                        dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
                         CprBroker.Installers.Installation.AddSectionNode("add", dic, configFilePath, "dataProviders/knownTypes");
                         object o = "";
                     });
