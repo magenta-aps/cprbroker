@@ -65,7 +65,6 @@ namespace CprBroker.Tests.CPRDirect.Persons
             var lines = LineWrapper.ParseBatch(txt);
 
             var line = lines.Where(l => l.Code == "017" && l.PNR == this.GetPNR()).First();
-            System.Diagnostics.Debugger.Launch();
             var w = line.ToWrapper(Constants.DataObjectMap);
             var ss = "";
         }
