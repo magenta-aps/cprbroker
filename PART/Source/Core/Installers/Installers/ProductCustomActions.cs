@@ -77,7 +77,7 @@ namespace CprBroker.Installers
         [CustomAction]
         public static ActionResult ForgetOlderVersions(Session session)
         {
-            string olderVersionDetected = session.GetPropertyValue("OLDER_VERSION_DETECTED");
+            string olderVersionDetected = session.GetPropertyValue(PropertyNames.OlderVersionDetected);
             string path = session.GetInstallDirProperty() + "MsiZap.exe";
             if (!string.IsNullOrEmpty(olderVersionDetected))
             {

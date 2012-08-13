@@ -60,7 +60,7 @@ namespace CprBroker.Installers
 
             public const string WebsiteName = "WEB_SITENAME";
             public const string VirtualDirectorySitePath = "WEB_VIRTUALDIRECTORYSITEPATH";
-            public const string InstallDir = "INSTALLDIR";
+            
             public const string VirtualDirectoryName = "WEB_VIRTUALDIRECTORYNAME";
         }
     }

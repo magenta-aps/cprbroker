@@ -361,7 +361,7 @@ namespace CprBroker.Installers
 
         public static WindowHandleWrapper InstallerWindowWrapper(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            var title = session.GetPropertyValue("ProductName");
+            var title = session.GetPropertyValue(PropertyNames.ProductName);
             var ret = new WindowHandleWrapper(title + " Setup");
             if (ret.Handle == IntPtr.Zero)
             {
@@ -377,17 +377,17 @@ namespace CprBroker.Installers
 
         public static bool IsRemoving(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            return !string.IsNullOrEmpty(session.GetPropertyValue("REMOVE"));
+            return !string.IsNullOrEmpty(session.GetPropertyValue(PropertyNames.Remove));
         }
 
         public static bool IsPatching(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            return !string.IsNullOrEmpty(session.GetPropertyValue("PATCH"));
+            return !string.IsNullOrEmpty(session.GetPropertyValue(PropertyNames.Patch));
         }
 
         public static bool IsOlderVersionDetected(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            return !string.IsNullOrEmpty(session.GetPropertyValue("OLDER_VERSION_DETECTED"));
+            return !string.IsNullOrEmpty(session.GetPropertyValue(PropertyNames.OlderVersionDetected));
         }
 
         public static string GetPropertyValue(this Microsoft.Deployment.WindowsInstaller.Session session, string propName)
@@ -463,7 +463,7 @@ namespace CprBroker.Installers
 
         public static string GetInstallDirProperty(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
-            return CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(session.GetPropertyValue("INSTALLDIR"));
+            return CprBroker.Utilities.Strings.EnsureDirectoryEndSlash(session.GetPropertyValue(PropertyNames.InstallDir));
         }
 
         public static void ShowErrorMessage(this Microsoft.Deployment.WindowsInstaller.Session session, Exception ex)
@@ -478,6 +478,23 @@ namespace CprBroker.Installers
         public static InstallUILevel UiLevel(this Microsoft.Deployment.WindowsInstaller.Session session)
         {
             return (InstallUILevel)int.Parse(session.GetPropertyValue("UILevel"));
+        }
+
+        public static Version GetDetectedOlderVersion(this Microsoft.Deployment.WindowsInstaller.Session session)
+        {
+            var olderVersionProductCode = session.GetPropertyValue(PropertyNames.OlderVersionDetected);
+            if (!string.IsNullOrEmpty(olderVersionProductCode))
+            {
+                var product = Microsoft.Deployment.WindowsInstaller.ProductInstallation
+                    .AllProducts
+                    .Where(p => p.ProductCode == olderVersionProductCode)
+                    .FirstOrDefault();
+                if (product != null)
+                {
+                    return product.ProductVersion;
+                }
+            }
+            return null;
         }
 
         public static void RunCommand(string fileName, string args)

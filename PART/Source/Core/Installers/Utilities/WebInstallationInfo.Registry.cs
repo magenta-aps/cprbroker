@@ -62,7 +62,7 @@ namespace CprBroker.Installers
                 ret.Add(Constants.CreateWebsite, "CreateAsWebsite");
                 ret.Add(Constants.WebsiteName, "SiteName");
                 ret.Add(Constants.VirtualDirectoryName, "VirtualDirectoryName");
-                ret.Add(Constants.InstallDir, "InstallDir");
+                ret.Add(PropertyNames.InstallDir, "InstallDir");
                 return ret;
             }
         }

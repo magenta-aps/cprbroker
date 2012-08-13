@@ -58,5 +58,16 @@ namespace CprBroker.Installers
         Reduced = 4,
         Full = 5,
     }
+
+    public class PropertyNames
+    {
+        public static readonly string InstallDir = "INSTALLDIR";
+        public static readonly string Manufacturer = "Manufacturer";
+        public static readonly string ProductName = "ProductName";
+        public static readonly string Remove = "REMOVE";
+        public static readonly string Patch = "PATCH";
+        public static readonly string OlderVersionDetected = "OLDER_VERSION_DETECTED";
+    }
+
 }
 

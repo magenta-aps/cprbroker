@@ -56,7 +56,7 @@ namespace CprBroker.Installers
     {
         public static string GetRegistryProductRoot(Session session, bool includeLocalMachine)
         {
-            var ret = string.Format(@"Software\{0}\{1}", session.GetPropertyValue("Manufacturer"), session.GetPropertyValue("ProductName"));
+            var ret = string.Format(@"Software\{0}\{1}", session.GetPropertyValue(PropertyNames.Manufacturer), session.GetPropertyValue(PropertyNames.ProductName));
             if (includeLocalMachine)
                 ret = @"HKEY_LOCAL_MACHINE\" + ret;
             return ret;
@@ -109,12 +109,12 @@ namespace CprBroker.Installers
         public static CustomActionData GetCustomActionData(Session session)
         {
             var ret = new CustomActionData();
-            ret["INSTALLDIR"] = session.GetPropertyValue("INSTALLDIR");
-            ret["Manufacturer"] = session.GetPropertyValue("Manufacturer");
-            ret["ProductName"] = session.GetPropertyValue("ProductName");
-            ret["REMOVE"] = session.GetPropertyValue("REMOVE");
-            ret["PATCH"] = session.GetPropertyValue("PATCH");
-            ret["OLDER_VERSION_DETECTED"] = session.GetPropertyValue("OLDER_VERSION_DETECTED");
+            ret[PropertyNames.InstallDir] = session.GetPropertyValue(PropertyNames.InstallDir);
+            ret[PropertyNames.Manufacturer] = session.GetPropertyValue(PropertyNames.Manufacturer);
+            ret[PropertyNames.ProductName] = session.GetPropertyValue(PropertyNames.ProductName);
+            ret[PropertyNames.Remove] = session.GetPropertyValue(PropertyNames.Remove);
+            ret[PropertyNames.Patch] = session.GetPropertyValue(PropertyNames.Patch);
+            ret[PropertyNames.OlderVersionDetected] = session.GetPropertyValue(PropertyNames.OlderVersionDetected);
             return ret;
         }
 
