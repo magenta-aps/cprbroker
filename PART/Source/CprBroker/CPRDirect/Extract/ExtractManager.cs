@@ -29,6 +29,7 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
                     conn.BulkInsertAll<ExtractItem>(extract.ExtractItems, trans);
+                    trans.Commit();
                 }
             }
         }
