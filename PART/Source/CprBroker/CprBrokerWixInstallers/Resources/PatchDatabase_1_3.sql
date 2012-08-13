@@ -13,6 +13,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ex
 BEGIN
 CREATE TABLE [dbo].[Extract](
 	[ExtractId] [uniqueidentifier] NOT NULL,
+	[Filename] [nvarchar](max) NOT NULL,
 	[ExtractDate] [datetime] NOT NULL,
 	[ImportDate] [datetime] NOT NULL,
 	[StartRecord] [nvarchar](max) NOT NULL,

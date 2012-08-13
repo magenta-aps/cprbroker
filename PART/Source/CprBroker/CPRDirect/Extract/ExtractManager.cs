@@ -15,16 +15,16 @@ namespace CprBroker.Providers.CPRDirect
         public static void ImportFile(string path)
         {
             var text = File.ReadAllText(path, Constants.DefaultEncoding);
-            ImportText(text);
+            ImportText(text, path);
         }
 
-        public static void ImportText(string text)
+        public static void ImportText(string text, string sourceFileName = "")
         {
             using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
             {
                 conn.Open();
 
-                var extract = new Extract(text, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extract = new Extract(text, Constants.DataObjectMap, Constants.ReversibleRelationshipMap, sourceFileName);
                 using (var trans = conn.BeginTransaction())
                 {
                     conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);

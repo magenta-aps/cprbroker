@@ -87,6 +87,8 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private System.Guid _ExtractId;
 		
+		private string _Filename;
+		
 		private System.DateTime _ExtractDate;
 		
 		private System.DateTime _ImportDate;
@@ -103,6 +105,8 @@ namespace CprBroker.Providers.CPRDirect
     partial void OnCreated();
     partial void OnExtractIdChanging(System.Guid value);
     partial void OnExtractIdChanged();
+    partial void OnFilenameChanging(string value);
+    partial void OnFilenameChanged();
     partial void OnExtractDateChanging(System.DateTime value);
     partial void OnExtractDateChanged();
     partial void OnImportDateChanging(System.DateTime value);
@@ -135,6 +139,26 @@ namespace CprBroker.Providers.CPRDirect
 					this._ExtractId = value;
 					this.SendPropertyChanged("ExtractId");
 					this.OnExtractIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Filename", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Filename
+		{
+			get
+			{
+				return this._Filename;
+			}
+			set
+			{
+				if ((this._Filename != value))
+				{
+					this.OnFilenameChanging(value);
+					this.SendPropertyChanging();
+					this._Filename = value;
+					this.SendPropertyChanged("Filename");
+					this.OnFilenameChanged();
 				}
 			}
 		}

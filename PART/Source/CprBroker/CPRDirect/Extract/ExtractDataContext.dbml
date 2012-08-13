@@ -2,6 +2,7 @@
   <Table Name="dbo.Extract" Member="Extracts">
     <Type Name="Extract">
       <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Filename" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="ExtractDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ImportDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="StartRecord" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />

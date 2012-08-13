@@ -7,7 +7,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     partial class Extract
     {
-        public Extract(string batchFileText, Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap)
+        public Extract(string batchFileText, Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap, string sourceFileName = "")
             : this()
         {
             var dataLines = new List<LineWrapper>(LineWrapper.ParseBatch(batchFileText));
@@ -19,6 +19,7 @@ namespace CprBroker.Providers.CPRDirect
             dataLines.Remove(endLine);
 
             this.ExtractId = Guid.NewGuid();
+            this.Filename = sourceFileName;
             this.ExtractDate = (startLine.ToWrapper(typeMap) as StartRecordType).ProductionDate.Value;
             this.ImportDate = DateTime.Now;
             this.StartRecord = startLine.Contents;
