@@ -188,6 +188,7 @@ namespace CprBroker.Providers.CPRDirect
                 StreetBuildingIdentifier = this.HouseNumber,
 
                 // Set street name
+                // TODO: Get Street name by looking up street code
                 StreetName = this.StreetAddressingName,
 
                 // Set street addressing name
