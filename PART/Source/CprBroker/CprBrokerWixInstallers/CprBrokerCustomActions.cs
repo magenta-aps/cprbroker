@@ -162,8 +162,7 @@ namespace CprBrokerWixInstallers
                 var createDatabaseObjectsSql = new Dictionary<string, string>();
 
                 createDatabaseObjectsSql["CPR"] =
-                    Properties.Resources.CreatePartDatabaseObjects
-                    + Properties.Resources.PatchDatabase_1_3;
+                    Properties.Resources.CreatePartDatabaseObjects;
 
                 createDatabaseObjectsSql["EVENT"] = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.CreateEventBrokerDatabaseObjects;
 
