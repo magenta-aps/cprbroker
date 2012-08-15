@@ -58,7 +58,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new AdresseType()
             {
-                Item = new VerdenAdresseType()
+                Item = this.ToVerdenAdresseType()
             };
         }
 
