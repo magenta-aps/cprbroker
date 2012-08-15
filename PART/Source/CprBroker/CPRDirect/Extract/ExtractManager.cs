@@ -66,11 +66,12 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportText(string text, string sourceFileName = "")
         {
+            var extract = new Extract(text, Constants.DataObjectMap, Constants.ReversibleRelationshipMap, sourceFileName);
+
             using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
             {
                 conn.Open();
 
-                var extract = new Extract(text, Constants.DataObjectMap, Constants.ReversibleRelationshipMap, sourceFileName);
                 using (var trans = conn.BeginTransaction())
                 {
                     conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
@@ -78,6 +79,8 @@ namespace CprBroker.Providers.CPRDirect
                     trans.Commit();
                 }
             }
+
+            extract.RefreshPersons();
         }
 
         public static IndividualResponseType GetPerson(string pnr)
