@@ -105,7 +105,7 @@ namespace CprBroker.Engine.Part
             return false;
         }
 
-        private Guid CprToUuid(string cprNumber)
+        public static Guid CprToUuid(string cprNumber)
         {
             var uuid = Manager.Part.GetUuid(BrokerContext.Current.UserToken, BrokerContext.Current.ApplicationToken, cprNumber);
             if (StandardReturType.IsSucceeded(uuid.StandardRetur))
