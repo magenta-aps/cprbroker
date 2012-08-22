@@ -100,6 +100,14 @@
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
       <Name>CPRDirect</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Local\Local.csproj">
+      <Project>{74212D20-BB98-401F-A5F7-03669B2CD07A}</Project>
+      <Name>Local</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PersonMaster\PersonMaster.csproj">
+      <Project>{51186183-BEEA-4B6D-8865-B7070EFCA126}</Project>
+      <Name>PersonMaster</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Resources.Designer.cs">

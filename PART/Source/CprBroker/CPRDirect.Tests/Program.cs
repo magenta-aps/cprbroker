@@ -56,14 +56,15 @@ namespace CprBroker.Tests.CPRDirect
     {
         public static void Main()
         {
-            //BulkImport();
+            BulkImport();
             //GetPersons();
             //CprBroker.Engine.BrokerContext.Initialize("fd56ff6b-35bc-4b67-8ae4-bdc4485dc429", "");
-            ExtractManager.ImportDataProviderFolders();
+            //ExtractManager.ImportDataProviderFolders();
         }
 
         public static void BulkImport()
         {
+            CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
             int batchCount = 1000;
             var personRepeates = 2;
 
