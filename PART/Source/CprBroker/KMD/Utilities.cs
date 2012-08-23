@@ -107,7 +107,7 @@ namespace CprBroker.Providers.KMD
                     return CivilStatusKodeType.Skilt;
                 case 'D':
                     // TODO: No deceased status id PART standard
-                    throw new Exception("Unhandled civil status");
+                    return CivilStatusKodeType.Ugift;
                 case 'E':
                     return CivilStatusKodeType.Enke;
                 case 'P':

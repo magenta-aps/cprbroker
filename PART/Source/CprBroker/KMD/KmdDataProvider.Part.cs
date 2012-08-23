@@ -53,6 +53,7 @@ using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AS78207;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
+using CprBroker.Engine.Local;
 
 namespace CprBroker.Providers.KMD
 {
@@ -66,9 +67,14 @@ namespace CprBroker.Providers.KMD
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out CprBroker.Schemas.QualityLevel? ql)
         {
             RegistreringType1 ret = null;
+
+            Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78205 with PNR <{0}>", uuid.CprNumber), null, null);
             var detailsResponse = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
+
+            Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78205 with PNR <{0}>", uuid.CprNumber), null, null);
             var addressResponse = CallAS78205(uuid.CprNumber);
 
+            Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Converting PNR <{0}>", uuid.CprNumber), null, null);
             ret = new RegistreringType1()
             {
                 AttributListe = detailsResponse.ToAttributListeType(addressResponse),
@@ -80,7 +86,7 @@ namespace CprBroker.Providers.KMD
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 Tidspunkt = TidspunktType.Create(detailsResponse.GetRegistrationDate()),
                 Virkning = null,
-                SourceObjectsXml = Strings.SerializeObject(new object[] { detailsResponse.InnerResponse, addressResponse.InnerResponse })
+                SourceObjectsXml = Strings.SerializeObject(new KmdResponse { AS78205Response = addressResponse.InnerResponse, AS78207Response = detailsResponse.InnerResponse })
             };
 
             ql = CprBroker.Schemas.QualityLevel.Cpr;

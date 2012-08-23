@@ -69,6 +69,7 @@
     <Compile Include="KmdDataProvider.Part.cs" />
     <Compile Include="KmdDataProvider.AS78207.cs" />
     <Compile Include="KmdDataProvider.cs" />
+    <Compile Include="KmdResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Web References\WS_AS78207\Reference.cs">
