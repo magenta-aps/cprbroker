@@ -130,10 +130,108 @@ namespace CprBroker.Tests.Engine
                     var ret = CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
                     Assert.True(ret);
 
-                    var dbPerson = dataContext.PersonRegistrations.Where(pr => pr.UUID == pId.UUID).First();
-                    var tmpElement = System.Xml.Linq.XElement.Parse(oio.SourceObjectsXml);
+                    var dbPerson = dataContext.PersonRegistrations.Where(pr => pr.UUID == pId.UUID).FirstOrDefault();
+                    Assert.NotNull(dbPerson);
 
+                    var tmpElement = System.Xml.Linq.XElement.Parse(oio.SourceObjectsXml);
                     Assert.AreEqual(tmpElement.ToString(), dbPerson.SourceObjects.ToString());
+                }
+            }
+
+            [Test]
+            public void MergePersonRegistration_ExistsWithDifferentSource_NewRecordAdded(
+                [Range(1, 10)] int dummy)
+            {
+                using (var dataContext = new PartDataContext())
+                {
+                    // Insert old record
+                    var oio = Utilities.CreateFakePerson(true);
+                    var pId = new PersonIdentifier() { UUID = Guid.NewGuid(), CprNumber = Utilities.RandomCprNumber() };
+                    CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
+
+
+                    // Set new XML source
+                    oio.SourceObjectsXml = Utilities.CreateFakePerson(true).SourceObjectsXml;
+                    var newRet = CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
+                    Assert.True(newRet);
+                    
+                    var dbPersons = dataContext.PersonRegistrations.Where(pr => pr.UUID == pId.UUID).OrderBy(p=>p.BrokerUpdateDate).ToArray();
+                    Assert.AreEqual(2, dbPersons.Length);
+
+                    var tmpElement = System.Xml.Linq.XElement.Parse(oio.SourceObjectsXml);
+                    Assert.AreEqual(tmpElement.ToString(), dbPersons[1].SourceObjects.ToString());
+                }
+            }
+
+            [Test]
+            public void MergePersonRegistration_ExistsWithoutSource_SourceUpdated(
+                [Range(1, 10)] int dummy)
+            {
+                using (var dataContext = new PartDataContext())
+                {
+                    // Insert old record
+                    var oio = Utilities.CreateFakePerson(false);
+                    var pId = new PersonIdentifier() { UUID = Guid.NewGuid(), CprNumber = Utilities.RandomCprNumber() };
+                    CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
+
+
+                    // Set new XML source
+                    oio.SourceObjectsXml = Utilities.CreateFakePerson(true).SourceObjectsXml;
+                    var newRet = CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
+                    Assert.True(newRet);
+
+                    var dbPersons = dataContext.PersonRegistrations.Where(pr => pr.UUID == pId.UUID).OrderBy(p => p.BrokerUpdateDate).ToArray();
+                    Assert.AreEqual(1, dbPersons.Length);
+
+                    var tmpElement = System.Xml.Linq.XElement.Parse(oio.SourceObjectsXml);
+                    Assert.AreEqual(tmpElement.ToString(), dbPersons[0].SourceObjects.ToString());
+                }
+            }
+
+            [Test]
+            public void MergePersonRegistration_ExistsWithSameSource_NoUpdate(
+                [Range(1, 10)] int dummy)
+            {
+                using (var dataContext = new PartDataContext())
+                {
+                    // Insert old record
+                    var oio = Utilities.CreateFakePerson(true);
+                    var pId = new PersonIdentifier() { UUID = Guid.NewGuid(), CprNumber = Utilities.RandomCprNumber() };
+                    CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
+
+
+                    var newRet = CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
+                    Assert.False(newRet);
+
+                    var dbPersons = dataContext.PersonRegistrations.Where(pr => pr.UUID == pId.UUID).OrderBy(p => p.BrokerUpdateDate).ToArray();
+                    Assert.AreEqual(1, dbPersons.Length);
+
+                    var tmpElement = System.Xml.Linq.XElement.Parse(oio.SourceObjectsXml);
+                    Assert.AreEqual(tmpElement.ToString(), dbPersons[0].SourceObjects.ToString());
+                }
+            }
+
+            [Test]
+            public void MergePersonRegistration_ExistsWithSource_NewWithouSource_NoUpdate(
+                [Range(1, 10)] int dummy)
+            {
+                using (var dataContext = new PartDataContext())
+                {
+                    // Insert old record
+                    var oio = Utilities.CreateFakePerson(true);
+                    var pId = new PersonIdentifier() { UUID = Guid.NewGuid(), CprNumber = Utilities.RandomCprNumber() };
+                    CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
+
+                    var xml = oio.SourceObjectsXml;
+                    oio.SourceObjectsXml = null;
+                    var newRet = CprBroker.Engine.Local.UpdateDatabase.MergePersonRegistration(pId, oio);
+                    Assert.False(newRet);
+
+                    var dbPersons = dataContext.PersonRegistrations.Where(pr => pr.UUID == pId.UUID).OrderBy(p => p.BrokerUpdateDate).ToArray();
+                    Assert.AreEqual(1, dbPersons.Length);
+
+                    var tmpElement = System.Xml.Linq.XElement.Parse(xml);
+                    Assert.AreEqual(tmpElement.ToString(), dbPersons[0].SourceObjects.ToString());
                 }
             }
 
