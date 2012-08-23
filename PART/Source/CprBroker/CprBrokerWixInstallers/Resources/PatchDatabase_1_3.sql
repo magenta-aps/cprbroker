@@ -4,6 +4,14 @@
 	SQL 9.xxx (2005) is a minimum because it makes use of INCLUDE in index for ExtractItem
 */
 
+/****** Object:  Column [dbo].[PersonRegistration].[Table]    Script Date: 23/08/2012 18:36:34 ******/
+IF NOT EXISTS(SELECT * FROM sys.columns WHERE object_id= object_id('PersonRegistration') AND name = 'SourceObjects')
+BEGIN
+	ALTER TABLE [dbo].[PersonRegistration] ADD [SourceObjects] [xml] NULL
+END
+
+GO
+
 /****** Object:  Table [dbo].[Extract]    Script Date: 08/08/2012 16:36:34 ******/
 SET ANSI_NULLS ON
 GO
