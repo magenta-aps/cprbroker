@@ -114,7 +114,7 @@ namespace CprBroker.Data.Part
                     RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 
                     PersonAttributes = PersonAttributes.FromXmlType(partRegistration.AttributListe),
-                    PersonState = PersonState.FromXmlType(partRegistration.TilstandListe),
+                    PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
                 };
                 if (partRegistration.RelationListe != null)
                 {
@@ -123,6 +123,12 @@ namespace CprBroker.Data.Part
 
                 var xml = Strings.SerializeObject(partRegistration);
                 ret.Contents = System.Xml.Linq.XElement.Load(new StringReader(xml));
+
+                if (partRegistration.SourceObjects != null)
+                {
+                    xml = Strings.SerializeObject(partRegistration.SourceObjects);
+                    ret.Contents = System.Xml.Linq.XElement.Load(new StringReader(xml));
+                }
             }
             return ret;
         }

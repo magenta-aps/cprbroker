@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="PART" Class="PartDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PART" Class="PartDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.PersonMapping" Member="PersonMappings">
     <Type Name="PersonMapping">
       <Column Name="UUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -380,6 +379,7 @@
       <Column Name="CommentText" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="LifecycleStatusId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Contents" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="SourceObjects" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="PersonRegistration_PersonRelationship" Member="PersonRelationships" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonRelationship" />
       <Association Name="PersonRegistration_PersonAttributes" Member="PersonAttributes" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonAttributes" Cardinality="One" />
       <Association Name="PersonRegistration_PersonState" Member="PersonState" ThisKey="PersonRegistrationId" OtherKey="PersonRegistrationId" Type="PersonState" Cardinality="One" />
