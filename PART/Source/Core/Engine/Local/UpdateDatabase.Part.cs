@@ -128,28 +128,40 @@ namespace CprBroker.Engine.Local
                 // If there are really no matches, update the database
                 if (!duplicateExists)
                 {
-                    var dbPerson = (from dbPers in dataContext.Persons
-                                    where dbPers.UUID == personIdentifier.UUID
-                                    select dbPers).FirstOrDefault();
-                    if (dbPerson == null)
-                    {
-                        dbPerson = new CprBroker.Data.Part.Person()
-                        {
-                            UUID = personIdentifier.UUID.Value,
-                            UserInterfaceKeyText = personIdentifier.CprNumber
-                        };
-                        dataContext.Persons.InsertOnSubmit(dbPerson);
-                    }
-                    var dbReg = Data.Part.PersonRegistration.FromXmlType(oioRegistration);
-                    dbReg.Person = dbPerson;
-                    dbReg.BrokerUpdateDate = DateTime.Now;
-                    dataContext.PersonRegistrations.InsertOnSubmit(dbReg);
+                    var dbPerson = EnsurePersonExists(dataContext, personIdentifier);
+                    var dbReg = InsertPerson(dataContext, dbPerson, oioRegistration);
                     dataContext.SubmitChanges();
                     return true;
                 }
 
             }
             return false;
+        }
+
+        private static Person EnsurePersonExists(PartDataContext dataContext, PersonIdentifier personIdentifier)
+        {
+            var dbPerson = (from dbPers in dataContext.Persons
+                            where dbPers.UUID == personIdentifier.UUID
+                            select dbPers).FirstOrDefault();
+            if (dbPerson == null)
+            {
+                dbPerson = new CprBroker.Data.Part.Person()
+                {
+                    UUID = personIdentifier.UUID.Value,
+                    UserInterfaceKeyText = personIdentifier.CprNumber
+                };
+                dataContext.Persons.InsertOnSubmit(dbPerson);
+            }
+            return dbPerson;
+        }
+
+        private static PersonRegistration InsertPerson(PartDataContext dataContext, Person dbPerson, RegistreringType1 oioRegistration)
+        {
+            var dbReg = Data.Part.PersonRegistration.FromXmlType(oioRegistration);
+            dbReg.Person = dbPerson;
+            dbReg.BrokerUpdateDate = DateTime.Now;
+            dataContext.PersonRegistrations.InsertOnSubmit(dbReg);
+            return dbReg;
         }
 
         public static void UpdatePersonUuid(string cprNumber, Guid uuid)
