@@ -68,7 +68,7 @@ namespace CprBroker.Providers.KMD
         {
             RegistreringType1 ret = null;
 
-            Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78205 with PNR <{0}>", uuid.CprNumber), null, null);
+            Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78207 with PNR <{0}>", uuid.CprNumber), null, null);
             var detailsResponse = new EnglishAS78207Response(CallAS78207(uuid.CprNumber));
 
             Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "KMD.Read", string.Format("Calling AS78205 with PNR <{0}>", uuid.CprNumber), null, null);
