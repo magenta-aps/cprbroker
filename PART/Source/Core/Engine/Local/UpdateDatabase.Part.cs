@@ -185,7 +185,7 @@ namespace CprBroker.Engine.Local
         }
 
 
-        private static Person EnsurePersonExists(PartDataContext dataContext, PersonIdentifier personIdentifier)
+        public static Person EnsurePersonExists(PartDataContext dataContext, PersonIdentifier personIdentifier)
         {
             var dbPerson = (from dbPers in dataContext.Persons
                             where dbPers.UUID == personIdentifier.UUID
@@ -202,7 +202,7 @@ namespace CprBroker.Engine.Local
             return dbPerson;
         }
 
-        private static PersonRegistration InsertPerson(PartDataContext dataContext, Person dbPerson, RegistreringType1 oioRegistration)
+        public static PersonRegistration InsertPerson(PartDataContext dataContext, Person dbPerson, RegistreringType1 oioRegistration)
         {
             var dbReg = Data.Part.PersonRegistration.FromXmlType(oioRegistration);
             dbReg.Person = dbPerson;
