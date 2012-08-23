@@ -78,7 +78,8 @@ namespace CprBroker.Providers.KMD
                 CommentText = Constants.CommentText,
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 Tidspunkt = TidspunktType.Create(detailsResponse.GetRegistrationDate()),
-                Virkning = null
+                Virkning = null,
+                SourceObjects = new object[] { detailsResponse.InnerResponse, addressResponse.InnerResponse }
             };
 
             ql = CprBroker.Schemas.QualityLevel.Cpr;
