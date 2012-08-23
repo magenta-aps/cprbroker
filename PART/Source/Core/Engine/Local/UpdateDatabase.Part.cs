@@ -70,6 +70,7 @@ namespace CprBroker.Engine.Local
         /// <param name="personRegistraion"></param>
         public static void UpdatePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 personRegistraion)
         {
+            // TODO: differentiate the 'true' returned between cases when new data is inserted or just SourceObjects is updated
             if (MergePersonRegistration(personIdentifier, personRegistraion))
             {
                 // TODO: move this call to a separate phase in request processing
@@ -92,7 +93,7 @@ namespace CprBroker.Engine.Local
             }
         }
 
-        private static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 oioRegistration)
+        public static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 oioRegistration)
         {
             using (var dataContext = new PartDataContext())
             {
@@ -129,7 +130,13 @@ namespace CprBroker.Engine.Local
                         }
                         else
                         {
-                            var existinginDbWithEqualSource = existingInDb.Where(db => db.SourceObjects != null && db.SourceObjects.Equals(oioRegistration.SourceObjectsXml)).ToArray();
+                            var xml = XElement.Parse(oioRegistration.SourceObjectsXml).ToString();
+                            var existinginDbWithEqualSource = existingInDb
+                                .Where(db =>
+                                    db.SourceObjects != null
+                                    && !db.SourceObjects.IsEmpty
+                                    && db.SourceObjects.ToString().Equals(xml))
+                                .ToArray();
 
                             // If existing registration has exactly same keys and contents and SourceObjects, return without doing anything - no need to update
                             if (existinginDbWithEqualSource.Count() > 0)

@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Tests.Engine
 {
@@ -93,5 +94,34 @@ namespace CprBroker.Tests.Engine
             var part1 = Random.Next(1000, 9999).ToString();
             return day + month + year + part1;
         }
+
+        public static RegistreringType1 CreateFakePerson(bool addSourceObject = false)
+        {
+            var ret = new RegistreringType1()
+            {
+                AttributListe = new AttributListeType()
+                {
+                    Egenskab = new EgenskabType[] { },
+                    LokalUdvidelse = null,
+                    RegisterOplysning = new RegisterOplysningType[] { },
+                    SundhedOplysning = null,
+                },
+                RelationListe = new RelationListeType(),
+                TilstandListe = new TilstandListeType(),
+                AktoerRef = UnikIdType.Create(Guid.NewGuid()),
+                LivscyklusKode = LivscyklusKodeType.Rettet,
+                CommentText = "",
+                Virkning = new VirkningType[] { },
+                SourceObjectsXml = null,
+                Tidspunkt = TidspunktType.Create(DateTime.Today)
+            };
+            if (addSourceObject)
+            {
+                var o = new object[] { Guid.NewGuid(), Guid.NewGuid() };
+                ret.SourceObjectsXml = CprBroker.Utilities.Strings.SerializeObject(o);
+            }
+            return ret;
+        }
+
     }
 }
