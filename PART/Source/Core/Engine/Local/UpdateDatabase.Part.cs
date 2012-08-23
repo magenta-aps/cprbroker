@@ -54,6 +54,7 @@ using CprBroker.Schemas.Part;
 using CprBroker.Data;
 using CprBroker.Data.Events;
 using CprBroker.Data.Part;
+using System.Xml.Linq;
 
 namespace CprBroker.Engine.Local
 {
@@ -93,50 +94,96 @@ namespace CprBroker.Engine.Local
 
         private static bool MergePersonRegistration(PersonIdentifier personIdentifier, Schemas.Part.RegistreringType1 oioRegistration)
         {
-            //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
             using (var dataContext = new PartDataContext())
             {
-                // Match db registrations by UUID, ActorId and registration date
-                var existingInDb = (
-                        from dbReg in dataContext.PersonRegistrations
-                        where dbReg.UUID == personIdentifier.UUID
-                        && dbReg.RegistrationDate == TidspunktType.ToDateTime(oioRegistration.Tidspunkt)
-                        &&
-                        (
-                            (
-                                oioRegistration.AktoerRef == null
-                                && dbReg.ActorRef == null
-                            )
-                            ||
-                            (
-                                oioRegistration.AktoerRef != null
-                                && dbReg.ActorRef != null
-                                && oioRegistration.AktoerRef.Item == dbReg.ActorRef.Value
-                                && (int)oioRegistration.AktoerRef.ItemElementName == dbReg.ActorRef.Type
-                            )
-                        )
-                        select dbReg
-                    ).ToArray();
+                // Load possible equal registrations
+                var existingInDb = MatchPersonRegistration(personIdentifier, oioRegistration, dataContext);
 
-                // Perform a content match if key match is found
-                existingInDb = existingInDb
-                    .Where(db => db.Equals(oioRegistration))
-                    .ToArray();
-
-                var duplicateExists = existingInDb.Length > 0;
-
-                // If there are really no matches, update the database
-                if (!duplicateExists)
+                // If key & contents match was not found
+                if (existingInDb.Length == 0)
                 {
                     var dbPerson = EnsurePersonExists(dataContext, personIdentifier);
                     var dbReg = InsertPerson(dataContext, dbPerson, oioRegistration);
                     dataContext.SubmitChanges();
                     return true;
                 }
+                else // key & content match found
+                {
+                    if (string.IsNullOrEmpty(oioRegistration.SourceObjectsXml))
+                    {
+                        // No need to update anything - do nothing
+                        return false;
+                    }
+                    else
+                    {
+                        var existinginDbWithoutSource = existingInDb.Where(db => db.SourceObjects == null || db.SourceObjects.IsEmpty).ToArray();
 
+                        // If existing registration(s) has exactly same keys and contents , with empty SourceObjects, update source objects
+                        if (existinginDbWithoutSource.Length > 0)
+                        {
+                            Array.ForEach<PersonRegistration>(
+                                existinginDbWithoutSource,
+                                db => db.SourceObjects = XElement.Parse(oioRegistration.SourceObjectsXml));
+                            dataContext.SubmitChanges();
+                            return true;
+                        }
+                        else
+                        {
+                            var existinginDbWithEqualSource = existingInDb.Where(db => db.SourceObjects != null && db.SourceObjects.Equals(oioRegistration.SourceObjectsXml)).ToArray();
+
+                            // If existing registration has exactly same keys and contents and SourceObjects, return without doing anything - no need to update
+                            if (existinginDbWithEqualSource.Count() > 0)
+                            {
+                                // Already up to data - Do nothing
+                                return false;
+                            }
+                            else
+                            {
+                                // Otherwise : insert new registration
+                                var dbPerson = EnsurePersonExists(dataContext, personIdentifier);
+                                var dbReg = InsertPerson(dataContext, dbPerson, oioRegistration);
+                                dataContext.SubmitChanges();
+                                return true;
+                            }
+                        }
+                    }
+                }
             }
-            return false;
         }
+
+        private static PersonRegistration[] MatchPersonRegistration(PersonIdentifier personIdentifier, RegistreringType1 oioRegistration, PartDataContext dataContext)
+        {
+            //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
+
+            // Match db registrations by UUID, ActorId and registration date
+            var existingInDb = (
+                from dbReg in dataContext.PersonRegistrations
+                where dbReg.UUID == personIdentifier.UUID
+                && dbReg.RegistrationDate == TidspunktType.ToDateTime(oioRegistration.Tidspunkt)
+                &&
+                (
+                    (
+                        oioRegistration.AktoerRef == null
+                        && dbReg.ActorRef == null
+                    )
+                    ||
+                    (
+                        oioRegistration.AktoerRef != null
+                        && dbReg.ActorRef != null
+                        && oioRegistration.AktoerRef.Item == dbReg.ActorRef.Value
+                        && (int)oioRegistration.AktoerRef.ItemElementName == dbReg.ActorRef.Type
+                    )
+                )
+                select dbReg
+            ).ToArray();
+
+            // Perform a content match if key match is found
+            existingInDb = existingInDb
+                .Where(db => db.Equals(oioRegistration))
+                .ToArray();
+            return existingInDb;
+        }
+
 
         private static Person EnsurePersonExists(PartDataContext dataContext, PersonIdentifier personIdentifier)
         {

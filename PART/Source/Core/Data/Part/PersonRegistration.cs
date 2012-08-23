@@ -124,11 +124,11 @@ namespace CprBroker.Data.Part
                 var xml = Strings.SerializeObject(partRegistration);
                 ret.Contents = System.Xml.Linq.XElement.Load(new StringReader(xml));
 
-                if (partRegistration.SourceObjects != null)
+                if (!string.IsNullOrEmpty(partRegistration.SourceObjectsXml))
                 {
-                    xml = Strings.SerializeObject(partRegistration.SourceObjects);
-                    ret.SourceObjects = System.Xml.Linq.XElement.Load(new StringReader(xml));
+                    ret.SourceObjects = System.Xml.Linq.XElement.Parse(partRegistration.SourceObjectsXml);
                 }
+
             }
             return ret;
         }

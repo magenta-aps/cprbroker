@@ -55,7 +55,7 @@ namespace CprBroker.Schemas.Part
     public partial class RegistreringType1
     {
         [System.Xml.Serialization.XmlIgnore]
-        public object[] SourceObjects { get; set; }
+        public string SourceObjectsXml { get; set; }
 
         public void CalculateVirkning()
         {
