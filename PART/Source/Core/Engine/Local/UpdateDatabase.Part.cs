@@ -118,13 +118,12 @@ namespace CprBroker.Engine.Local
                         select dbReg
                     ).ToArray();
 
-                var duplicateExists = existingInDb.Length > 0;
-
                 // Perform a content match if key match is found
-                if (duplicateExists)
-                {
-                    duplicateExists = Array.Exists<PersonRegistration>(existingInDb, db => db.Equals(oioRegistration));
-                }
+                existingInDb = existingInDb
+                    .Where(db => db.Equals(oioRegistration))
+                    .ToArray();
+
+                var duplicateExists = existingInDb.Length > 0;
 
                 // If there are really no matches, update the database
                 if (!duplicateExists)
