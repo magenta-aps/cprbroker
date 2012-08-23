@@ -52,6 +52,7 @@ using System.Xml;
 using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AS78207;
 using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
 namespace CprBroker.Providers.KMD
 {
@@ -79,7 +80,7 @@ namespace CprBroker.Providers.KMD
                 LivscyklusKode = LivscyklusKodeType.Rettet,
                 Tidspunkt = TidspunktType.Create(detailsResponse.GetRegistrationDate()),
                 Virkning = null,
-                SourceObjects = new object[] { detailsResponse.InnerResponse, addressResponse.InnerResponse }
+                SourceObjectsXml = Strings.SerializeObject(new object[] { detailsResponse.InnerResponse, addressResponse.InnerResponse })
             };
 
             ql = CprBroker.Schemas.QualityLevel.Cpr;
