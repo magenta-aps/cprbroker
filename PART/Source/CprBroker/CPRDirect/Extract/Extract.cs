@@ -119,16 +119,18 @@ namespace CprBroker.Providers.CPRDirect
             Admin.LogSuccess("Person refresh started");
 
             Func<string, Guid> uuidGetter = ReadSubMethodInfo.CprToUuid;
-            var pnrs = this.ExtractItems.Select(item => item.PNR).Distinct().ToArray();
-            Admin.LogSuccess(string.Format("Found <{0}> persons", pnrs.Length));
+            var linesByPnr = this.ExtractItems.GroupBy(item => item.PNR).ToArray();
+            Admin.LogSuccess(string.Format("Found <{0}> persons", linesByPnr.Length));
             int success = 0;
-            foreach (var pnr in pnrs)
+            foreach (var pnrLines in linesByPnr)
             {
+                var pnr = pnrLines.Key;
+                var lines = pnrLines.ToArray();
                 Admin.LogSuccess(string.Format("Converting PNR <{0}> started", pnr));
                 try
                 {
                     var uuid = uuidGetter(pnr);
-                    var person = GetPerson(pnr, ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                    var person = GetPerson(pnr, lines.AsQueryable(), Constants.DataObjectMap);
                     var oioPerson = person.ToRegistreringType1(uuidGetter, DateTime.Now);
                     var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = uuid };
                     UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
@@ -140,7 +142,7 @@ namespace CprBroker.Providers.CPRDirect
                     Admin.LogException(ex, string.Format("PNR = <{0}>", pnr));
                 }
             }
-            Admin.LogSuccess(string.Format("Person conversion : <{0}> Succeeded, <{1}> Failed", success, pnrs.Length - success));
+            Admin.LogSuccess(string.Format("Person conversion : <{0}> Succeeded, <{1}> Failed", success, linesByPnr.Length - success));
         }
     }
 }
