@@ -77,6 +77,7 @@
     <Compile Include="ExtractTests.cs" />
     <Compile Include="HistoricalCivilStatusTests.cs" />
     <Compile Include="HistoricalName.Tests.cs" />
+    <Compile Include="HistoricalRecords.Tests.cs" />
     <Compile Include="IndividualRequest.Tests.cs" />
     <Compile Include="IndividualResponse.Attributes.Tests.cs" />
     <Compile Include="IndividualResponse.States.Tests.cs" />

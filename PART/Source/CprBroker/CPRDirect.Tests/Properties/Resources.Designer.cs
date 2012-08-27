@@ -1335,6 +1335,15 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 999999999999900001098.
+        /// </summary>
+        public static string U12170_End {
+            get {
+                return ResourceManager.GetString("U12170_End", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 00000000000001109012001111920011116
         ///0010101965058          01000000000000 K1896-01-01 1997-09-09            Pensionist
         ///002010196505808518511016                                             199709090924 199709090924 0000000000000000 0000
@@ -1347,6 +1356,15 @@ namespace CprBroker.Tests.CPRDirect.Properties {
         public static string U12170_P_opgavenr_110901_ADRNVN_FE {
             get {
                 return ResourceManager.GetString("U12170_P_opgavenr_110901_ADRNVN_FE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 00000000000001109012001111920011116.
+        /// </summary>
+        public static string U12170_Start {
+            get {
+                return ResourceManager.GetString("U12170_Start", resourceCulture);
             }
         }
     }
