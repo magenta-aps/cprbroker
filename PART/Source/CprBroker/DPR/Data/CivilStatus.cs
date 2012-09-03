@@ -33,7 +33,7 @@ namespace CprBroker.Providers.DPR
 
         public string ToSpousePnr()
         {
-            return this.SpousePNR.HasValue ?
+            return this.SpousePNR.HasValue && this.SpousePNR > 0 ?
                 this.SpousePNR.Value.ToPnrDecimalString()
                 : null;
         }
