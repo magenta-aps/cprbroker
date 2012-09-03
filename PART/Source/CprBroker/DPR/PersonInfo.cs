@@ -214,7 +214,7 @@ namespace CprBroker.Providers.DPR
         {
             var ret = new EgenskabType()
             {
-                BirthDate = Utilities.DateFromDecimal(PersonTotal.DateOfBirth).Value,
+                BirthDate = this.PersonTotal.ToBirthdate().Value,
 
                 // Birth registration authority
                 //TODO: Is this assignment correct?

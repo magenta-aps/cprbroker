@@ -63,6 +63,18 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public partial class PersonTotal
     {
+        public DateTime? ToBirthdate()
+        {
+            // Attempt birthdate field
+            var ret = Utilities.DateFromDecimal(this.DateOfBirth);
+
+            // If failed, get it from PNR
+            if (!ret.HasValue)
+                ret = CprBroker.Utilities.Strings.PersonNumberToDate(this.PNR.ToPnrDecimalString());
+
+            return ret;
+        }
+
         public PersonInfo ToPersonInfo()
         {
             return new PersonInfo()

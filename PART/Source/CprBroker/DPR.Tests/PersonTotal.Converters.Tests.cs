@@ -58,6 +58,37 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Tests.DPR.PersonTotalTests.Converters
 {
     [TestFixture]
+    public class ToBirthdate
+    {
+        [Test]
+        public void ToBirthdate_Date_Correct()
+        {
+            var date = DateTime.Today.AddDays(1);
+            var total = new PersonTotal() { PNR = Utilities.RandomCprNumber(), DateOfBirth = decimal.Parse(date.ToString("yyyyMMdd")) };
+            var result = total.ToBirthdate();
+            Assert.AreEqual(date, result);
+        }
+
+        [Test]
+        public void ToBirthdate_NoDate_FromPNR()
+        {
+            var date = DateTime.Today.AddDays(-100);
+            var total = new PersonTotal() { PNR = decimal.Parse(date.ToString("ddMMyy4234")), DateOfBirth = 0 };
+            var result = total.ToBirthdate();
+            Assert.AreEqual(date, result);
+        }
+
+        [Test]
+        public void ToBirthdate_NoDateOrPNR_Null(
+            [Values(121208, 0)] decimal pnr)
+        {
+            var total = new PersonTotal() { PNR = pnr, DateOfBirth = 0 };
+            var result = total.ToBirthdate();
+            Assert.Null(result);
+        }
+    }
+
+    [TestFixture]
     public class ToChurchMembershipIndicator
     {
         [Test]
