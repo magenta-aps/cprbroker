@@ -245,6 +245,7 @@ namespace CprBroker.Engine
                 }
                 else
                 {
+                    // TODO: Is it possible to put details why each item has failed?
                     return new TOutput() { StandardRetur = StandardReturType.Create(HttpErrorCode.DATASOURCE_UNAVAILABLE) };
                 }
                 #endregion
