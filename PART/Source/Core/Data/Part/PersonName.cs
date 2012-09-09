@@ -66,6 +66,42 @@ namespace CprBroker.Data.Part
             return null;
         }
 
+        public static PersonName FromXmlType(NavnStrukturType oio)
+        {
+            if (oio != null)
+            {
+                return FromXmlType(oio.PersonNameStructure);
+            }
+            return null;
+        }
+
+        public static string GetNickName(NavnStrukturType oio)
+        {
+            if (oio != null)
+            {
+                return oio.KaldenavnTekst;
+            }
+            return null;
+        }
+
+        public static string GetNameNoteText(NavnStrukturType oio)
+        {
+            if (oio != null)
+            {
+                return oio.NoteTekst;
+            }
+            return null;
+        }
+
+        public static string GeAddressingName(NavnStrukturType oio)
+        {
+            if (oio != null)
+            {
+                return oio.PersonNameForAddressingName;
+            }
+            return null;
+        }
+
         public static PersonName FromXmlType(PersonNameStructureType oio)
         {
             if (oio != null)

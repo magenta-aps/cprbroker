@@ -99,11 +99,11 @@ namespace CprBroker.Data.Part
                     BirthPlace = oio[0].FoedestedNavn,
                     BirthRegistrationAuthority = oio[0].FoedselsregistreringMyndighedNavn,
 
-                    PersonName = PersonName.FromXmlType(oio[0].NavnStruktur.PersonNameStructure),
+                    PersonName = PersonName.FromXmlType(oio[0].NavnStruktur),
 
-                    NickName = oio[0].NavnStruktur.KaldenavnTekst,
-                    NameNoteText = oio[0].NavnStruktur.NoteTekst,
-                    AddressingName = oio[0].NavnStruktur.PersonNameForAddressingName,
+                    NickName = PersonName.GetNickName(oio[0].NavnStruktur),
+                    NameNoteText = PersonName.GetNameNoteText(oio[0].NavnStruktur),
+                    AddressingName = PersonName.GeAddressingName(oio[0].NavnStruktur),
 
                     ContactChannel = ContactChannel.FromXmlType(oio[0].KontaktKanal),
                     NextOfKinContactChannel = ContactChannel.FromXmlType(oio[0].NaermestePaaroerende),
