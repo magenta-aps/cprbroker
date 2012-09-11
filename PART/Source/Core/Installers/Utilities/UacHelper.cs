@@ -70,7 +70,7 @@ namespace CprBroker.Installers
             get
             {
                 RegistryKey uacKey = Registry.LocalMachine.OpenSubKey(uacRegistryKey, false);
-                bool result = uacKey.GetValue(uacRegistryValue).Equals(1);
+                bool result = object.Equals(uacKey.GetValue(uacRegistryValue), 1);
                 return result;
             }
         }
