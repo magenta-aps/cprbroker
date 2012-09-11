@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Fragment Id="ElevationFragment">
+  <Fragment Id="ElevationFragment">
     <Property Id="Dummy_ElevationFragmentRefProp" Value="-"/>
     <WixVariable Id="ElevationRequired" Value="0" Overridable="yes"/>
 
-    <CustomAction Id="CalculateExecutionElevated" BinaryKey="InstallersDll" DllEntry="CalculateExecutionElevated" Execute="immediate" Return="ignore"/>
-    
+    <CustomAction Id="CalculateExecutionElevated" BinaryKey="InstallersDll" DllEntry="CalculateExecutionElevated" Execute="immediate"/>
+
     <InstallUISequence>
       <Custom Action="CalculateExecutionElevated" Before="LaunchConditions">!(wix.ElevationRequired)</Custom>
     </InstallUISequence>
@@ -21,6 +21,6 @@
     <Condition Message="This package requires elevated privileges. Please restart the installation with administrative rights">
       NOT !(wix.ElevationRequired) OR ExecutionElevated
     </Condition>
-    
-	</Fragment>
+
+  </Fragment>
 </Wix>
