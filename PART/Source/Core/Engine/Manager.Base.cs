@@ -121,6 +121,7 @@ namespace CprBroker.Engine
                 #region creation of sub results in threads
                 // Catch the current broker context in a local variable
                 var currentBrokerContext = BrokerContext.Current;
+                var currentHttpContext = System.Web.HttpContext.Current;
                 long finishedThreads = 0;
                 // Now create the sub results
                 for (int iSubMethod = 0; iSubMethod < subMethodRunStates.Length; iSubMethod++)
@@ -130,7 +131,7 @@ namespace CprBroker.Engine
                         {
                             // Copy the broker context to this new thread
                             BrokerContext.Current = currentBrokerContext;
-
+                            System.Web.HttpContext.Current = currentHttpContext;
                             SubMethodRunState subMethodInfo = subMethodRunStates[(int)o];
                             // Loop over clearData providers until one succeeds
                             foreach (IDataProvider prov in subMethodInfo.DataProviders)
