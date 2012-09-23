@@ -68,13 +68,13 @@ namespace PerformanceTests.Properties {
         ///F35FD4E5-D423-439B-9188-0041D384503F
         ///1AA67D50-A2E5-4BAC-94E4-00CB5B991E07
         ///77917995-E099-4E42-9128-00FDCEE90DC0
-        ///C005AC0A-DE6C-4159-8F0C-00FF2ABA5D8A
         ///A1041291-A84D-4257-913E-01421FE0334A
         ///B540CDBE-4132-4F8F-8418-015A93F0FA72
         ///34020AA1-56F5-4B32-ABC3-017017449C2E
         ///C06CE3C5-D3C7-4B31-A498-017477AEEDF9
-        ///8CD4D302-542F-4DF7-B2E2-0192FB592893
-        ///A84956D9-2B67-4A55 [rest of string was truncated]&quot;;.
+        ///A84956D9-2B67-4A55-A0A8-019EDB7F9851
+        ///D46CB00E-E066-40EE-A366-01B829520C09
+        ///FCFCB280-02E3-4E0A [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string All_UUIDs {
             get {
@@ -155,6 +155,28 @@ namespace PerformanceTests.Properties {
         internal static string DPR_UUIDs {
             get {
                 return ResourceManager.GetString("DPR_UUIDs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A12CEA33-6B69-40F9-BD13-00333157DE7C
+        ///03BC77D2-8309-4C04-81BA-0035858679EA
+        ///1AA67D50-A2E5-4BAC-94E4-00CB5B991E07
+        ///B540CDBE-4132-4F8F-8418-015A93F0FA72
+        ///C06CE3C5-D3C7-4B31-A498-017477AEEDF9
+        ///33C1C0C5-D547-488B-A38B-023FDE5D892B
+        ///EDA0449A-5B4D-46FF-98D0-02B9D4C051A8
+        ///589E809F-5360-4414-8568-02C6E8909C25
+        ///E0964661-2C06-47BC-A1B3-02CE5E5125C2
+        ///F37779C4-358A-4C89-87E4-03A235A87F5F
+        ///D03C57D6-9F6C-46FD-8BF2-0400407E7D19
+        ///628567F8-64A2-4034-A371-05210F891B0A
+        ///D371F3B3-2872-4BCC-9D89-058F5AFFBC77
+        ///532DD2D7-FFBB-46BE [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Successful_DPR_UUIDs {
+            get {
+                return ResourceManager.GetString("Successful_DPR_UUIDs", resourceCulture);
             }
         }
     }

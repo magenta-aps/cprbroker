@@ -15,8 +15,8 @@ namespace PerformanceTests
         {
             var service = new Part.Part() { ApplicationHeaderValue = new ApplicationHeader() { ApplicationToken = "07059250-E448-4040-B695-9C03F9E59E38", UserToken = "" } };
 
-            var input = new ListInputType() { UUID = Properties.Resources.DPR_UUIDs.Split(Environment.NewLine.ToArray(), StringSplitOptions.RemoveEmptyEntries) };
-            //input.UUID = new string[] { "B1D39AB4-5557-4C90-8DD4-D49E2EF0F785" }; // "0101531538"
+            var input = new ListInputType() { UUID = Properties.Resources.Successful_DPR_UUIDs.Split(Environment.NewLine.ToArray(), StringSplitOptions.RemoveEmptyEntries).Take(100).ToArray() };
+            //input.UUID = new string[] { "{f37779c4-358a-4c89-87e4-03a235a87f5f}" }; // "0101531538"
             var start = DateTime.Now;
             var output = service.List(input);
             var end = DateTime.Now;
