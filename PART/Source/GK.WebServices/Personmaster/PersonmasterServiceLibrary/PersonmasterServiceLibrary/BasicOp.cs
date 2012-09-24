@@ -126,7 +126,7 @@ namespace PersonmasterServiceLibrary
         // ================================================================================
         public String[] GetCPRsFromObjectIDArray(string context, string[] objectIDArr, ref string aux)
         {
-            return this.GetCPRsFromObjectIDArrayImpl(context, objectIDArr, Guid.Empty, ref aux);
+            return this.GetCPRsFromObjectIDArrayImpl(context, objectIDArr, ref aux);
         }
 
         // ================================================================================
@@ -530,7 +530,7 @@ namespace PersonmasterServiceLibrary
         }
 
         // ================================================================================
-        private String[] GetCPRsFromObjectIDArrayImpl(string context, string[] objectIDArr, Guid objectOwnerID, ref string aux)
+        private String[] GetCPRsFromObjectIDArrayImpl(string context, string[] objectIDArr, ref string aux)
         {
             /*
              *  CREATE PROCEDURE [dbo].[spGK_PM_GetCPRsFromObjectIDArray]
