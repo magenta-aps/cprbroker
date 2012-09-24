@@ -125,6 +125,17 @@ namespace PersonmasterServiceLibrary
         Guid GetObjectIDFromCprWithOwner(string context, string cprNo, Guid objectOwnerID, ref string aux);
 
         /// <summary>
+        /// Retrieve the CPR numbers attached to specific unique object IDs. Empty strings will be
+        /// returned where no matches are found and this will also be reported in <param name="aux">.
+        /// </summary>
+        /// <param name="context">Not used atm.</param>
+        /// <param name="cprNoArr">Object IDs of the persons to be found</param>
+        /// <param name="aux">Standard auxiliary input/output.</param>
+        /// <returns>The an array of strings representing CPR numbers for the persons in question.</returns>
+        [OperationContract]
+        String[] GetCPRsFromObjectIDArray(string context, string[] objectIDArr, ref string aux);
+
+        /// <summary>
         /// Retrieve the current CPR number attached to the specified objectID (iff one exists).
         /// Note that not all persons with a objectID might have a CPR number, ie. non-danish citizens etc.
         /// </summary>

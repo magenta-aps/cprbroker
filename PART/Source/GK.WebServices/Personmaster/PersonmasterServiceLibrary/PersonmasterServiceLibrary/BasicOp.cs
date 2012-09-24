@@ -124,6 +124,12 @@ namespace PersonmasterServiceLibrary
         }
 
         // ================================================================================
+        public String[] GetCPRsFromObjectIDArray(string context, string[] objectIDArr, ref string aux)
+        {
+            return this.GetCPRsFromObjectIDArrayImpl(context, objectIDArr, Guid.Empty, ref aux);
+        }
+
+        // ================================================================================
         public Guid GetObjectIDFromCprWithOwner(string context, string cprNo, Guid objectOwnerID, ref string aux)
         {
             var ret = this.GetObjectIDsFromCprArrayImpl(context, new string[] { cprNo }, objectOwnerID, ref aux)[0];
@@ -514,6 +520,54 @@ namespace PersonmasterServiceLibrary
                 else
                 {
                     ret[iRow] = (Guid)row["ObjectID"];
+                }
+            }
+            aux = string.Join(
+                Environment.NewLine,
+                errors.Select(e => string.Format("{0}: {1}", e.Key, string.Join(", ", e.Value)))
+                );
+            return ret;
+        }
+
+        // ================================================================================
+        private String[] GetCPRsFromObjectIDArrayImpl(string context, string[] objectIDArr, Guid objectOwnerID, ref string aux)
+        {
+            /*
+             *  CREATE PROCEDURE [dbo].[spGK_PM_GetCPRsFromObjectIDArray]
+             *      @context            VARCHAR(1020),
+             *      @objectIDArray      VARCHAR(MAX),
+	         *      @aux                VARCHAR(1020)       OUTPUT	
+             */
+
+
+            // Init params
+            StoredProcedureCallContext.ClearStandardParams(ref context, ref aux);
+
+            StoredProcedureCallContext spContext = new StoredProcedureCallContext("CPRMapperDB", "spGK_PM_GetCPRsFromObjectIDArray");
+
+            var objectIDArrComma = Array.ConvertAll<string, string>(objectIDArr, s => string.Format("{0}", s).Trim().Replace(",", "") + ",");
+            spContext.AddInParameter("objectIDArray", DbType.String, string.Join("", objectIDArrComma));
+
+            Dictionary<string, List<string>> errors = new Dictionary<string, List<string>>();
+            var dataSet = spContext.ExecuteDataSet();
+            var returnTable = dataSet.Tables[0];
+            var ret = new String[returnTable.Rows.Count];
+            for (int iRow = 0; iRow < returnTable.Rows.Count; iRow++)
+            {
+                var row = returnTable.Rows[iRow];
+                if (row.IsNull("CprNo"))
+                {
+                    string error = row["Aux"] as string;
+                    string objectID = row["ObjectID"] as string;
+                    if (!errors.ContainsKey(error))
+                    {
+                        errors.Add(error, new List<string>());
+                    }
+                    errors[error].Add(objectID);
+                }
+                else
+                {
+                    ret[iRow] = (String)row["CprNo"];
                 }
             }
             aux = string.Join(
