@@ -129,7 +129,7 @@ namespace PersonMasterTestClient
             [ValueSource("CprCounts")] int count)
         {
             var cprNumbers = RandomCprNumbers(count);
-            personmaster.BasicOpClient client = new personmaster.BasicOpClient();
+            PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();
             string aux = null;
 
             var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
@@ -141,7 +141,7 @@ namespace PersonMasterTestClient
             [ValueSource("CprCounts")] int count)
         {
             var cprNumbers = SerialCprNumbers(count);
-            personmaster.BasicOpClient client = new personmaster.BasicOpClient();
+            PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();
             string aux = null;
 
             var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
@@ -154,7 +154,7 @@ namespace PersonMasterTestClient
         {
             var cprNumbers = InvalidCprNumbers(count);
 
-            personmaster.BasicOpClient client = new personmaster.BasicOpClient();
+            PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();
             string aux = null;
             var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
             Assert.NotNull(aux, "Aux is null");
@@ -173,7 +173,7 @@ namespace PersonMasterTestClient
             [ValueSource("CprCounts")] int count)
         {
             string[] cprNumbers=new string[count];
-            personmaster.BasicOpClient client = new personmaster.BasicOpClient();
+            PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();
             string aux = null;
             var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
             Assert.NotNull(ret, "Output array is null");

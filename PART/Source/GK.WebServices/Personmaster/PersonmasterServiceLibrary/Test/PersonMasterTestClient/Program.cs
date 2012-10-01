@@ -51,7 +51,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.ServiceModel;
-using PersonMasterTestClient.personmaster;
+using PersonMasterTestClient.PersonMasterServiceLibrary;
 
 namespace PersonMasterTestClient
 {

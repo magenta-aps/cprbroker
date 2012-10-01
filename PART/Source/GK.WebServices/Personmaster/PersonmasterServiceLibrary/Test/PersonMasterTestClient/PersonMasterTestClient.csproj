@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\personmaster\Reference.cs">
+    <Compile Include="Service References\PersonMasterServiceLibrary\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -83,17 +83,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\personmaster\BasicOp.wsdl">
+    <None Include="Service References\PersonMasterServiceLibrary\BasicOp.wsdl" />
+    <None Include="Service References\PersonMasterServiceLibrary\personmaster.wsdl" />
+    <None Include="Service References\PersonMasterServiceLibrary\personmaster.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\personmaster\personmaster.wsdl" />
-    <None Include="Service References\personmaster\personmaster.xsd">
+    <None Include="Service References\PersonMasterServiceLibrary\personmaster1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\personmaster\personmaster1.xsd">
+    <None Include="Service References\PersonMasterServiceLibrary\personmaster2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\personmaster\personmaster2.xsd">
+    <None Include="Service References\PersonMasterServiceLibrary\personmaster3.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -101,22 +102,19 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\personmaster\" />
+    <WCFMetadataStorage Include="Service References\PersonMasterServiceLibrary\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\personmaster\personmaster.disco" />
+    <None Include="Service References\PersonMasterServiceLibrary\personmaster.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\personmaster\configuration91.svcinfo" />
+    <None Include="Service References\PersonMasterServiceLibrary\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\personmaster\configuration.svcinfo" />
+    <None Include="Service References\PersonMasterServiceLibrary\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\personmaster\personmaster3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\personmaster\Reference.svcmap">
+    <None Include="Service References\PersonMasterServiceLibrary\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
