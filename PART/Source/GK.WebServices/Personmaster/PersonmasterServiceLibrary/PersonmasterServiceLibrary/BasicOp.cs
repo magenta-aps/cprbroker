@@ -55,6 +55,9 @@ using System.Threading;
 using GKApp2010.DB;
 using GKApp2010.RTE;
 
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+
 namespace PersonmasterServiceLibrary
 {
     /// <summary>
@@ -127,6 +130,13 @@ namespace PersonmasterServiceLibrary
         public String[] GetCPRsFromObjectIDArray(string context, string[] objectIDArr, ref string aux)
         {
             return this.GetCPRsFromObjectIDArrayImpl(context, objectIDArr, ref aux);
+        }
+
+        // ================================================================================
+        // This method is mainly meant for testing GetCPRsFromObjectIDArray with a commaseparated String
+        public String[] GetCPRsFromObjectIDList(string context, string objectIDArr, ref string aux)
+        {
+            return this.GetCPRsFromObjectIDArray(context, objectIDArr.Split(','), ref aux);
         }
 
         // ================================================================================
@@ -545,9 +555,22 @@ namespace PersonmasterServiceLibrary
 
             StoredProcedureCallContext spContext = new StoredProcedureCallContext("CPRMapperDB", "spGK_PM_GetCPRsFromObjectIDArray");
 
+            // We check if all Strings are indead Guids. In opposite situations we set an empty String at the given position(s)
+            Regex isGuid = new Regex(@"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$", RegexOptions.Compiled);
+            for (int i = 0; i < objectIDArr.Length; i++) {
+                if (objectIDArr[i] != null) {
+                    if (objectIDArr[i].Length != 36)
+                        objectIDArr[i] = "";
+                    else if (!isGuid.IsMatch(objectIDArr[i]))
+                        objectIDArr[i] = "";
+                } else
+                    objectIDArr[i] = "";
+            }
             var objectIDArrComma = Array.ConvertAll<string, string>(objectIDArr, s => string.Format("{0}", s).Trim().Replace(",", "") + ",");
+            String commSepString = string.Join("", objectIDArrComma);
+            // Checking output:
+            Debug.WriteLine("Debug objectID array: " + commSepString);
             spContext.AddInParameter("objectIDArray", DbType.String, string.Join("", objectIDArrComma));
-
             Dictionary<string, List<string>> errors = new Dictionary<string, List<string>>();
             var dataSet = spContext.ExecuteDataSet();
             var returnTable = dataSet.Tables[0];

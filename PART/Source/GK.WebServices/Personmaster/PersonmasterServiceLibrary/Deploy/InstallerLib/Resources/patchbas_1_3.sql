@@ -78,8 +78,8 @@ BEGIN TRY
     DECLARE @objectID           uniqueidentifier
 	
     -- Open key to be used for encrypting CPR
-	SET @RetVal = -2
-	OPEN SYMMETRIC KEY CprNoEncryptKey DECRYPTION BY CERTIFICATE CertForEncryptOfCprNoKey;
+	-- SET @RetVal = -2
+	-- OPEN SYMMETRIC KEY CprNoEncryptKey DECRYPTION BY CERTIFICATE CertForEncryptOfCprNoKey;
 	
 	-- If object owner ID is NULL (unspecified) - get the owner ID for the self namespace configured for this installation
 	IF @objectOwnerID IS NULL
@@ -189,7 +189,7 @@ END CATCH
 
 GO
 
-	-- Implementation of a procedure to get CPR numbers from an array of UUIDs.
+-- Implementation of a procedure to get CPR numbers from an array of UUIDs.
 if exists (select 1
           from sysobjects
           where  id = object_id('spGK_PM_GetCPRsFromObjectIDArray')
@@ -214,6 +214,8 @@ BEGIN TRY
     
     DECLARE @RetVal                     INTEGER
     SELECT  @RetVal                     = -1
+
+	DECLARE @cprNo						varchar(max)
     
     DECLARE @ErrorSeverity              INTEGER
     SELECT  @ErrorSeverity              = 16
@@ -221,7 +223,11 @@ BEGIN TRY
     
 	DECLARE @objectID                   VARCHAR(38)
 	DECLARE @index			            INT
-	DECLARE @ReturnTable                TABLE  (ID INT IDENTITY, CprNo VARCHAR(10), ObjectID UNIQUEIDENTIFIER, Aux VARCHAR(1020))
+										-- In the return table we declare the UUID as a string and not a uniqueidentifier.
+										-- The reason is that there is a risk that an exception could be thrown if an
+										-- objectID is malformed - this is tested for in the the calling method, but
+										-- just in case.
+	DECLARE @ReturnTable                TABLE  (ID INT IDENTITY, CprNo VARCHAR(10), ObjectID VARCHAR(38), Aux VARCHAR(1020))
         
 	-- ---
     
@@ -250,15 +256,35 @@ BEGIN TRY
 				END
 		
 			-- Get the CPR number that corresponds to the current objectID. @cprNo is NULL if no match is found.
-			SET @RetVal = -5
-			SELECT  @cprNo = DecryptByKey(cpr.encryptedCprNo)
-			FROM    T_PM_CPR cpr, T_PM_PersonMaster pm
-			WHERE   cpr.personMasterID = pm.objectID
-			AND     pm.objectID = @objectID
+
+			IF LEN(@objectID) > 0 -- We abandon null values
+				BEGIN
+					SET @RetVal = -5
+					SELECT  @cprNo = cpr.encryptedCprNo
+					FROM    T_PM_CPR cpr, T_PM_PersonMaster pm
+					WHERE   cpr.personMasterID = pm.objectID
+					AND     pm.objectID = @objectID
     
-			SET @RetVal = -6
-			INSERT INTO @ReturnTable (CprNo, ObjectID, Aux) VALUES (@cprNo, @objectID, @aux)
+					SET @RetVal = -6
+					IF @cprNo IS NULL
+						BEGIN
+							SET @RetVal = -7
+							INSERT INTO @ReturnTable (CprNo, ObjectID, Aux) VALUES ('', @objectID, 'Retrieval of object ID FROM CPR failed!')
+						END
+					ELSE
+						BEGIN
+							SET @RetVal = -8
+							INSERT INTO @ReturnTable (CprNo, ObjectID, Aux) VALUES (DecryptByKey(@cprNo), @objectID, @aux)
+						END
+				END
+			ELSE -- We treat null values as errors
+				BEGIN
+					SET @RetVal = -9
+					INSERT INTO @ReturnTable (CprNo, ObjectID, Aux) VALUES (NULL, @objectID, 'Retrieval of object ID FROM CPR failed!\nReason: a null value was given as object ID.')
+				END
 		END
+
+		-- update @ReturnTable set aux  = "..."	
 
 	LifeIsGood:
 		SELECT  @aux = '',
