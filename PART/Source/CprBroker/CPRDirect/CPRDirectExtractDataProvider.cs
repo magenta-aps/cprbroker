@@ -136,20 +136,20 @@ namespace CprBroker.Providers.CPRDirect
         #region Specific members
         public string ExtractsFolder
         {
-            get
-            { return ConfigurationProperties[Constants.PropertyNames.ExtractsFolder]; }
+            get { return ConfigurationProperties[Constants.PropertyNames.ExtractsFolder]; }
+            set { ConfigurationProperties[Constants.PropertyNames.ExtractsFolder] = value; }
         }
 
         public bool HasFtpSource
         {
-            get
-            { return bool.Parse(ConfigurationProperties[Constants.PropertyNames.HasFtpSource]); }
+            get { return bool.Parse(ConfigurationProperties[Constants.PropertyNames.HasFtpSource]); }
+            set { ConfigurationProperties[Constants.PropertyNames.HasFtpSource] = value.ToString(); }
         }
 
         public string FtpAddress
         {
-            get
-            { return ConfigurationProperties[Constants.PropertyNames.FtpAddress]; }
+            get { return ConfigurationProperties[Constants.PropertyNames.FtpAddress]; }
+            set { ConfigurationProperties[Constants.PropertyNames.FtpAddress] = value.ToString(); }
         }
 
         public int? FtpPort
@@ -161,18 +161,19 @@ namespace CprBroker.Providers.CPRDirect
                     return ret;
                 return null;
             }
+            set { ConfigurationProperties[Constants.PropertyNames.FtpPort] = string.Format("{0}", value); }
         }
 
         public string FtpUser
         {
-            get
-            { return ConfigurationProperties[Constants.PropertyNames.FtpUser]; }
+            get { return ConfigurationProperties[Constants.PropertyNames.FtpUser]; }
+            set { ConfigurationProperties[Constants.PropertyNames.FtpUser] = value.ToString(); }
         }
 
         public string FtpPassword
         {
-            get
-            { return ConfigurationProperties[Constants.PropertyNames.FtpPassword]; }
+            get { return ConfigurationProperties[Constants.PropertyNames.FtpPassword]; }
+            set { ConfigurationProperties[Constants.PropertyNames.FtpPassword] = value.ToString(); }
         }
 
         #endregion
