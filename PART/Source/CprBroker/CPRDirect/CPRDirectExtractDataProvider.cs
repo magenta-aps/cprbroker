@@ -53,6 +53,7 @@ using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using System.IO;
+using System.Net;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -88,7 +89,14 @@ namespace CprBroker.Providers.CPRDirect
                     string ss = File.ReadAllText(filePath);
                     var tmpFile = ExtractManager.MoveToProcessed(this.ExtractsFolder, filePath);
                     File.Delete(tmpFile);
-                    // Now we are sure the folder is accessible with read and write permissions
+
+                    if (this.HasFtpSource)
+                    {
+                        var request = CreateFtpRequest();
+                        var files = ListContents(request);
+                        var file = PutTempFile();
+                        DeleteTempFile(file);
+                    }
                     return true;
                 }
             }
@@ -108,7 +116,12 @@ namespace CprBroker.Providers.CPRDirect
             get
             {
                 return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.ExtractsFolder, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false}
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.ExtractsFolder, Type= DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.HasFtpSource, Type= DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPort, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpUser, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPassword, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=true}
                 };
             }
         }
@@ -126,6 +139,42 @@ namespace CprBroker.Providers.CPRDirect
             get
             { return ConfigurationProperties[Constants.PropertyNames.ExtractsFolder]; }
         }
+
+        public bool HasFtpSource
+        {
+            get
+            { return bool.Parse(ConfigurationProperties[Constants.PropertyNames.HasFtpSource]); }
+        }
+
+        public string FtpAddress
+        {
+            get
+            { return ConfigurationProperties[Constants.PropertyNames.FtpAddress]; }
+        }
+
+        public int? FtpPort
+        {
+            get
+            {
+                int ret;
+                if (int.TryParse(ConfigurationProperties[Constants.PropertyNames.FtpPort], out ret))
+                    return ret;
+                return null;
+            }
+        }
+
+        public string FtpUser
+        {
+            get
+            { return ConfigurationProperties[Constants.PropertyNames.FtpUser]; }
+        }
+
+        public string FtpPassword
+        {
+            get
+            { return ConfigurationProperties[Constants.PropertyNames.FtpPassword]; }
+        }
+
         #endregion
     }
 }

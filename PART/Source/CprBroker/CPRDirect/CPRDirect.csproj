@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Converters.cs" />
+    <Compile Include="CPRDirectExtractDataProvider.Ftp.cs" />
     <Compile Include="CPRDirectExtractDataProvider.cs" />
     <Compile Include="CPRDirectClientDataProvider.Tcp.cs" />
     <Compile Include="CPRDirectClientDataProvider.cs" />
