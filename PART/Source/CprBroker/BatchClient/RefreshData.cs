@@ -56,34 +56,11 @@ using CprBroker.Utilities.ConsoleApps;
 
 namespace BatchClient
 {
-    class RefreshData : ConsoleEnvironment
+    class RefreshData : PartClient
     {
         public override string[] LoadCprNumbers()
         {
-            var ret = new List<string>();
-            var fileNames = SourceFile.Split(';');
-            foreach (var fileName in fileNames)
-            {
-                string[] fileCprNumbers = File.ReadAllLines(fileName);
-
-                ret = fileCprNumbers
-                    .Select(cprNumber =>
-                    {
-                        cprNumber = cprNumber.Substring(0, Math.Min(10, cprNumber.Length));
-                        while (cprNumber.Length < 10)
-                        {
-                            cprNumber = "0" + cprNumber;
-                        }
-                        if (!System.Text.RegularExpressions.Regex.Match(cprNumber, "\\A\\d{10}\\Z").Success)
-                        {
-                            throw new Exception("Invalid CPR number: " + cprNumber);
-                        }
-                        return cprNumber;
-                    })
-                    .Distinct()
-                    .ToList();
-            }
-            return ret.ToArray();
+            return LoadCprNumbersOneByOne();
         }
 
         public override void ProcessPerson(string cprNumber)
@@ -105,7 +82,7 @@ namespace BatchClient
             //WriteObject(cprNumber, readResult.LaesResultat.Item);
         }
 
-        private bool ValidateResult(string cprNumber, string methodName, BatchClient.Part.StandardReturType standardRetur)
+        public bool ValidateResult(string cprNumber, string methodName, BatchClient.Part.StandardReturType standardRetur)
         {
             int statusCode;
             if (int.TryParse(standardRetur.StatusKode, out statusCode) && statusCode == 200)

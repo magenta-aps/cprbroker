@@ -88,10 +88,12 @@
   <ItemGroup>
     <Compile Include="CompareDatabasePerformance.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
+    <Compile Include="List.cs" />
     <Compile Include="DoNothing.cs" />
     <Compile Include="GetUuids.cs" />
     <Compile Include="GetUuidsFromPersonMaster.cs" />
     <Compile Include="LoadAllDataFromDatabase.cs" />
+    <Compile Include="Part.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RefreshData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
