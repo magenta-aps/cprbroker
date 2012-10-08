@@ -53,6 +53,7 @@ using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using System.Net.Sockets;
+using CprBroker.Engine.Local;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -62,9 +63,11 @@ namespace CprBroker.Providers.CPRDirect
         {
             string response;
             string error;
-            if (Send(request.Contents, out response, out error))
+            if (Send(request.PNR, request.Contents, out response, out error))
             {
-                return new IndividualResponseType() { Contents = response };
+                var ret = new IndividualResponseType() { Contents = response };
+                ret.FillFrom(ret.Data, Constants.DataObjectMap);
+                return ret;
             }
             else
             {
@@ -72,7 +75,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        protected bool Send(string message, out string response, out string error)
+        protected bool Send(decimal pnr, string message, out string response, out string error)
         {
             error = null;
             NetworkStream stream = null;
@@ -83,13 +86,14 @@ namespace CprBroker.Providers.CPRDirect
             stream = client.GetStream();
             stream.Write(data, 0, data.Length);
 
-            data = new Byte[3500];
+            data = new Byte[Constants.ResponseLengths.MaxResponseLength];
 
             int bytes = stream.Read(data, 0, data.Length);
             response = Constants.DefaultEncoding.GetString(data, 0, bytes);
 
+            string errorCode = response.Substring(Constants.ResponseLengths.ErrorCodeIndex, Constants.ResponseLengths.ErrorCodeLength);
+            Admin.LogFormattedSuccess("CPR client: PNR <{0}>, status code <{1}>", pnr.ToPnrDecimalString(), errorCode);
 
-            string errorCode = response.Substring(2, 2);
             if (Constants.ErrorCodes.ContainsKey(errorCode))
             {
                 error = Constants.ErrorCodes[errorCode];

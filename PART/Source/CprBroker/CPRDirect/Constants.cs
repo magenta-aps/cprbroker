@@ -173,5 +173,13 @@ namespace CprBroker.Providers.CPRDirect
             public static readonly string FtpUser = "FTP User";
             public static readonly string FtpPassword = "FTP Password";
         }
+
+        public static class ResponseLengths
+        {
+            // TODO: Could this be 3500?
+            public static readonly int MaxResponseLength = 2880 + 28;
+            public static readonly int ErrorCodeIndex = 22;
+            public static readonly int ErrorCodeLength = 2;
+        }
     }
 }

@@ -99,7 +99,12 @@ namespace CprBroker.Providers.CPRDirect
         {
             get
             {
-                return Contents.Substring(pos - 1, length);
+                int index = pos - 1;
+
+                if (this.Length == 0)
+                    length = Math.Min(length, Contents.Length - index);
+
+                return Contents.Substring(index, length);
             }
             set
             {
@@ -216,7 +221,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             var wrappers = new List<Wrapper>(wrappersIList);
             wrappers.AddRange(extraWrappers.Where(w => w != null));
-            
+
             wrappers.RemoveAll(w => w == null);
 
             Type myType = GetType();
