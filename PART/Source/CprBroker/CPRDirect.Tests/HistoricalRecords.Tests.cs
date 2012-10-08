@@ -28,7 +28,6 @@ namespace CprBroker.Tests.CPRDirect
                 .OrderByDescending(p => p.History)                
                 .ToArray();
 
-            System.Diagnostics.Debugger.Launch();
             var mostHistory = allLines.First();
             var o = "";
         }
