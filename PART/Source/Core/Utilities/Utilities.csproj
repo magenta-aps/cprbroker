@@ -64,6 +64,7 @@
     <Compile Include="DataLinq.cs" />
     <Compile Include="DataProviderKeysSection.cs" />
     <Compile Include="Dates.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="LookupMap.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="PredicateBuilder.cs" />
