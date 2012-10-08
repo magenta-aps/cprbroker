@@ -95,57 +95,88 @@ namespace CprBroker.Providers.CPRDirect
         {
             Admin.LogSuccess("Loading CPR Direct data providers");
 
-            // TODO: Handle eading of encrypted config section (dataProviders)
-
-            var result = CprBroker.Engine.Manager.Admin.GetDataProviderList(BrokerContext.Current.UserName, BrokerContext.Current.ApplicationToken);
-
-            if (Schemas.Part.StandardReturType.IsSucceeded(result.StandardRetur))
+            try
             {
-                var folders = result
-                .Item
-                .Select(p => p.Attributes.Where(atr => atr.Name == Constants.PropertyNames.ExtractsFolder).FirstOrDefault())
-                .Where(attr => attr != null)
-                .Select(attr => attr.Value)
-                .ToArray();
+                var dbProv = CprBroker.Engine.DataProviderManager.ReadDatabaseDataProviders();
+                var result = CprBroker.Engine.DataProviderManager.LoadExternalDataProviders(dbProv, typeof(CPRDirectExtractDataProvider)).Select(p => p as CPRDirectExtractDataProvider).ToArray();
 
-                Admin.LogSuccess(string.Format("Found {0} CPR Direct providers", folders.Length));
+                Admin.LogFormattedSuccess("Found {0} CPR Direct providers", result.Length);
 
-                foreach (var folder in folders)
+                foreach (var prov in result)
                 {
-                    Admin.LogFormattedSuccess("Checking folder {0}", folder);
-
-                    if (Directory.Exists(folder))
+                    try
                     {
-                        var files = Directory.GetFiles(folder);
-                        Admin.LogFormattedSuccess("Found <{0}> files", files.Length);
-
-                        foreach (var file in files)
+                        Admin.LogFormattedSuccess("Checking folder {0}", prov.ExtractsFolder);
+                        if (Directory.Exists(prov.ExtractsFolder))
                         {
-                            try
-                            {
-                                Admin.LogFormattedSuccess("Reading file <{0}> ", file);
-                                ExtractManager.ImportFile(file);
-                                Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
+                            // Download the files -
+                            DownloadFtpFiles(prov);
 
-                                MoveToProcessed(folder, file);
-                                Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder", file);
-
-                            }
-                            catch (Exception ex)
-                            {
-                                Admin.LogException(ex);
-                            }
+                            // Now process the files
+                            ExtractLocalFiles(prov);
+                        }
+                        else
+                        {
+                            Admin.LogFormattedError("Folder <{0}> not found", prov.ExtractsFolder);
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Admin.LogFormattedError("Folder <{0}> not found", folder);
+                        Admin.LogException(ex);
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Admin.LogFormattedError("Unable to load data providers: Code={0}; Text={1}", result.StandardRetur.StatusKode, result.StandardRetur.FejlbeskedTekst);
+                Admin.LogException(ex);
+            }
+        }
+
+        public static void DownloadFtpFiles(CPRDirectExtractDataProvider prov)
+        {
+            if (prov.HasFtpSource)
+            {
+                Admin.LogFormattedSuccess("Listing FTP contents at <{0}> ", prov.FtpAddress);
+                var ftpFiles = prov.ListFtpContents();
+
+                foreach (var ftpFile in ftpFiles)
+                {
+                    try
+                    {
+                        Admin.LogFormattedSuccess("Downloading FTP file <{0}> ", ftpFile);
+                        prov.DownloadFile(ftpFile);
+                        Admin.LogFormattedSuccess("Deleting FTP file <{0}> ", ftpFile);
+                        prov.DeleteFile(ftpFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        Admin.LogException(ex);
+                    }
+                }
+            }
+        }
+
+        public static void ExtractLocalFiles(CPRDirectExtractDataProvider prov)
+        {
+            var files = Directory.GetFiles(prov.ExtractsFolder);
+            Admin.LogFormattedSuccess("Found <{0}> files", files.Length);
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    Admin.LogFormattedSuccess("Reading file <{0}> ", file);
+                    ExtractManager.ImportFile(file);
+                    Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
+
+                    MoveToProcessed(prov.ExtractsFolder, file);
+                    Admin.LogFormattedSuccess("File <{0}> moved to \\Processed folder", file);
+
+                }
+                catch (Exception ex)
+                {
+                    Admin.LogException(ex);
+                }
             }
         }
 

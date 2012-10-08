@@ -52,6 +52,7 @@ using CprBroker.Engine;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
+using CprBroker.Engine.Local;
 using System.IO;
 using System.Net;
 
@@ -73,8 +74,13 @@ namespace CprBroker.Providers.CPRDirect
                 url = string.Format("{0}:{1}@{2}", FtpUser, FtpPassword, url);
             }
             url = "ftp://" + url;
-            if (!string.IsNullOrEmpty(subPath))
+            if (url.EndsWith("/"))
+                url = url.Substring(0, url.Length - 1);
+
+            if (!string.IsNullOrEmpty(subPath) && subPath != "/")
             {
+                if (!subPath.StartsWith("/"))
+                    subPath = "/" + subPath.Substring(0);
                 url += subPath;
             }
             return url;
@@ -83,12 +89,12 @@ namespace CprBroker.Providers.CPRDirect
         public FtpWebRequest CreateFtpRequest()
         {
             FtpWebRequest ftpRequest = WebRequest.Create(GetFtpUrl()) as FtpWebRequest;
-            //ftpRequest.EnableSsl = true;
             return ftpRequest;
         }
 
-        public string[] ListContents(FtpWebRequest request)
+        public string[] ListFtpContents()
         {
+            var request = CreateFtpRequest();
             request.Method = WebRequestMethods.Ftp.ListDirectory;
             var res = request.GetResponse() as FtpWebResponse;
             var reader = new StreamReader(res.GetResponseStream());
@@ -109,11 +115,33 @@ namespace CprBroker.Providers.CPRDirect
             return fileName;
         }
 
-        public void DeleteTempFile(string subPath)
+        public void DeleteFile(string subPath)
         {
             FtpWebRequest request = WebRequest.Create(GetFtpUrl(subPath)) as FtpWebRequest;
             request.Method = WebRequestMethods.Ftp.DeleteFile;
             var reqponse = request.GetResponse();
+        }
+
+        public void DownloadFile(string subPath)
+        {
+            string localFileName = ExtractsFolder + "\\" + subPath;
+            using (var localFile = new FileStream(localFileName, FileMode.CreateNew))
+            {
+                FtpWebRequest request = WebRequest.Create(GetFtpUrl(subPath)) as FtpWebRequest;
+                request.Method = WebRequestMethods.Ftp.DownloadFile;
+                using (var response = request.GetResponse())
+                {
+                    using (var responseStream = response.GetResponseStream())
+                    {
+                        var buffer = new byte[1024 * 32];
+                        int read = 0;
+                        while ((read = responseStream.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            localFile.Write(buffer, 0, read);
+                        }
+                    }
+                }
+            }
         }
 
     }

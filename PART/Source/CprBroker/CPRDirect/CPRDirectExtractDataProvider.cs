@@ -92,10 +92,9 @@ namespace CprBroker.Providers.CPRDirect
 
                     if (this.HasFtpSource)
                     {
-                        var request = CreateFtpRequest();
-                        var files = ListContents(request);
+                        var files = ListFtpContents();
                         var file = PutTempFile();
-                        DeleteTempFile(file);
+                        DeleteFile(file);
                     }
                     return true;
                 }
