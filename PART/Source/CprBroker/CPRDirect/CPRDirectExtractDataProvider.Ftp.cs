@@ -55,6 +55,8 @@ using CprBroker.Utilities;
 using CprBroker.Engine.Local;
 using System.IO;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -64,31 +66,44 @@ namespace CprBroker.Providers.CPRDirect
         public string GetFtpUrl(string subPath = null)
         {
             string url = FtpAddress;
-            if (url.ToLower().StartsWith("ftp://"))
-                url = url.Substring(6);
+            url = Strings.EnsureStartString(url, "ftp://", false, StringComparison.CurrentCultureIgnoreCase);
 
             if (FtpPort.HasValue)
                 url += ":" + FtpPort;
+
             if (!string.IsNullOrEmpty(FtpUser) || !string.IsNullOrEmpty(FtpPassword))
             {
+                //Admin.LogFormattedSuccess("Adding credentials");
                 url = string.Format("{0}:{1}@{2}", FtpUser, FtpPassword, url);
+                //ftpRequest.Credentials = new NetworkCredential(FtpUser, FtpPassword);
             }
-            url = "ftp://" + url;
-            if (url.EndsWith("/"))
-                url = url.Substring(0, url.Length - 1);
 
-            if (!string.IsNullOrEmpty(subPath) && subPath != "/")
+            url = Strings.EnsureStartString(url, "ftp://", true, StringComparison.CurrentCultureIgnoreCase);
+
+            url = Utilities.Strings.EnsureEndString(url, "/", false);
+
+            subPath = string.Format("{0}", subPath);
+            subPath = Utilities.Strings.EnsureStartString(subPath, "/", false);
+            subPath = Utilities.Strings.EnsureEndString(subPath, "/", false);
+
+            if (!string.IsNullOrEmpty(subPath))
             {
-                if (!subPath.StartsWith("/"))
-                    subPath = "/" + subPath.Substring(0);
-                url += subPath;
+                url += "/" + subPath;
             }
+            Admin.LogFormattedSuccess("URL <{0}>", url);
             return url;
         }
 
         public FtpWebRequest CreateFtpRequest()
         {
+            //ServicePointManager.ServerCertificateValidationCallback =
+             //   (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) =>
+               //     true;
+
             FtpWebRequest ftpRequest = WebRequest.Create(GetFtpUrl()) as FtpWebRequest;
+            //ftpRequest.EnableSsl = true;
+            //ftpRequest.KeepAlive = false;                        
+            //ftpRequest.UsePassive = false;
             return ftpRequest;
         }
 
@@ -104,7 +119,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public string PutTempFile()
         {
-            string fileName = string.Format("/{0}.txt", Guid.NewGuid());
+            string fileName = string.Format("{0}.txt", Guid.NewGuid());
             FtpWebRequest request = WebRequest.Create(GetFtpUrl(fileName)) as FtpWebRequest;
             request.Method = WebRequestMethods.Ftp.UploadFile;
             var w = new StreamWriter(request.GetRequestStream());

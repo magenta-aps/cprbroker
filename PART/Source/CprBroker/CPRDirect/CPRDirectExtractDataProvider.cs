@@ -54,6 +54,7 @@ using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using System.IO;
 using System.Net;
+using CprBroker.Engine.Local;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -99,7 +100,15 @@ namespace CprBroker.Providers.CPRDirect
                     return true;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Admin.LogException(ex);
+                while (ex.InnerException != null)
+                {
+                    Admin.LogException(ex.InnerException);
+                    ex = ex.InnerException;
+                }
+            }
             return false;
         }
 
@@ -120,7 +129,7 @@ namespace CprBroker.Providers.CPRDirect
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPort, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpUser, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPassword, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=true}
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPassword, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false}
                 };
             }
         }
