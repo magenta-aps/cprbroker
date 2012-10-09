@@ -80,7 +80,7 @@ namespace CprBroker.Utilities
         }
 
         private static readonly Random Random = new Random();
-        
+
         public static string NewRandomString(int length)
         {
             var ret = "";
@@ -104,16 +104,49 @@ namespace CprBroker.Utilities
         /// <returns></returns>
         public static string EnsureDirectoryEndSlash(string directory, bool shouldHaveSlash)
         {
-            bool containsSlash = directory.EndsWith(Path.DirectorySeparatorChar.ToString());
-            if (shouldHaveSlash && !containsSlash)
+            return EnsureEndString(directory, Path.DirectorySeparatorChar.ToString(), shouldHaveSlash);
+        }
+
+        /// <summary>
+        /// Ensures that a folder's path ends (or does not end) with a backslash
+        /// </summary>
+        /// <param name="str">String to check</param>
+        /// <param name="endString">The character that should/should not be at the end</param>
+        /// <param name="shouldHaveSlash">Whether to put or remove a slash</param>
+        /// <returns></returns>
+        public static string EnsureEndString(string str, string endString, bool shouldHaveSlash, StringComparison comparison = StringComparison.CurrentCulture)
+        {
+            bool containsEndChar = str.EndsWith(endString.ToString(), comparison);
+            if (shouldHaveSlash && !containsEndChar)
             {
-                directory += Path.DirectorySeparatorChar;
+                str += endString;
             }
-            else if (!shouldHaveSlash && containsSlash)
+            else if (!shouldHaveSlash && containsEndChar)
             {
-                directory = directory.Substring(0, directory.Length - Path.DirectorySeparatorChar.ToString().Length);
+                str = str.Substring(0, str.Length - endString.Length);
             }
-            return directory;
+            return str;
+        }
+
+        /// <summary>
+        /// Ensures that a folder's path ends (or does not end) with a backslash
+        /// </summary>
+        /// <param name="str">String to check</param>
+        /// <param name="startString">The character that should/should not be at the end</param>
+        /// <param name="shouldHaveChar">Whether to put or remove a slash</param>
+        /// <returns></returns>
+        public static string EnsureStartString(string str, string startString, bool shouldHaveChar, StringComparison comparison = StringComparison.CurrentCulture)
+        {
+            bool containsStartChar = str.StartsWith(startString, comparison);
+            if (shouldHaveChar && !containsStartChar)
+            {
+                str = startString + str;
+            }
+            else if (!shouldHaveChar && containsStartChar)
+            {
+                str = str.Substring(startString.Length);
+            }
+            return str;
         }
 
 
@@ -294,13 +327,13 @@ namespace CprBroker.Utilities
                 return false;
 
             // eliminate empty labels
-            if(labels.Where(l => string.IsNullOrEmpty(l)).Count() > 0)
+            if (labels.Where(l => string.IsNullOrEmpty(l)).Count() > 0)
                 return false;
-            
+
             // eliminate hosts that look like IP addresses 
-            if(labels.Where(l => Regex.Match(l, @"\A[0-9]*\z").Success).Count() == labels.Length)
+            if (labels.Where(l => Regex.Match(l, @"\A[0-9]*\z").Success).Count() == labels.Length)
                 return false;
-            
+
             foreach (var label in labels)
             {
                 // label length

@@ -78,6 +78,26 @@ namespace CprBroker.Tests.Utilities
             }
         }
 
+        [TestFixture]
+        public class EnsureStartString
+        {
+            [Test]
+            [ExpectedException]
+            public void EnsureStartString_NullStart_Exception()
+            {
+                var ss = "ssss";
+                Strings.EnsureStartString(ss, null, true);
+            }
+
+            [Test]
+            [ExpectedException]
+            public void EnsureStartString_Null_Exception()
+            {
+                var ss = "ssss";
+                Strings.EnsureStartString(null, ss, true);
+            }
+        }
+
        
     }
 }
