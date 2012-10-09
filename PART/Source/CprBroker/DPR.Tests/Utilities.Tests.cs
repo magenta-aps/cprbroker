@@ -52,6 +52,7 @@ using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using NUnit.Framework;
 using CprBroker.Providers.DPR;
+using CprBroker.Utilities;
 
 namespace CprBroker.Tests.DPR.UtilitiesTests
 {
