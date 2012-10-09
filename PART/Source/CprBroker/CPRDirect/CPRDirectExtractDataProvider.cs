@@ -94,8 +94,6 @@ namespace CprBroker.Providers.CPRDirect
                     if (this.HasFtpSource)
                     {
                         var files = ListFtpContents();
-                        var file = PutTempFile();
-                        DeleteFile(file);
                     }
                     return true;
                 }
@@ -129,7 +127,7 @@ namespace CprBroker.Providers.CPRDirect
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpAddress, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPort, Type= DataProviderConfigPropertyInfoTypes.Integer, Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpUser, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPassword, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false}
+                    new DataProviderConfigPropertyInfo(){ Name=Constants.PropertyNames.FtpPassword, Type= DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=true}
                 };
             }
         }

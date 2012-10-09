@@ -143,10 +143,10 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     try
                     {
-                        Admin.LogFormattedSuccess("Downloading FTP file <{0}> ", ftpFile);
-                        prov.DownloadFile(ftpFile);
+                        Admin.LogFormattedSuccess("Downloading FTP file <{0}> ", ftpFile.Name);
+                        prov.DownloadFile(ftpFile.Name);
                         Admin.LogFormattedSuccess("Deleting FTP file <{0}> ", ftpFile);
-                        prov.DeleteFile(ftpFile);
+                        prov.DeleteFile(ftpFile.Name);
                     }
                     catch (Exception ex)
                     {

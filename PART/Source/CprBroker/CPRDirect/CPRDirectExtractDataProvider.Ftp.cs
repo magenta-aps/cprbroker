@@ -54,9 +54,7 @@ using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 using CprBroker.Engine.Local;
 using System.IO;
-using System.Net;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
+using FtpLib;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -94,68 +92,51 @@ namespace CprBroker.Providers.CPRDirect
             return url;
         }
 
-        public FtpWebRequest CreateFtpRequest()
+        public FtpConnection CreateFtpConnection(bool open = false)
         {
-            //ServicePointManager.ServerCertificateValidationCallback =
-             //   (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) =>
-               //     true;
-
-            FtpWebRequest ftpRequest = WebRequest.Create(GetFtpUrl()) as FtpWebRequest;
-            //ftpRequest.EnableSsl = true;
-            //ftpRequest.KeepAlive = false;                        
-            //ftpRequest.UsePassive = false;
-            return ftpRequest;
+            var ret = new FtpConnection(FtpAddress, FtpUser, FtpPassword);
+            if (open)
+            {
+                ret.Open();
+                ret.Login();
+            }
+            return ret;
         }
 
-        public string[] ListFtpContents()
+        public FtpFileInfo[] ListFtpContents(string mask = "")
         {
-            var request = CreateFtpRequest();
-            request.Method = WebRequestMethods.Ftp.ListDirectory;
-            var res = request.GetResponse() as FtpWebResponse;
-            var reader = new StreamReader(res.GetResponseStream());
-            var txt = reader.ReadToEnd();
-            return txt.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            using (var request = CreateFtpConnection(true))
+            {
+                return request.GetFiles(mask);
+            }
         }
 
-        public string PutTempFile()
+        public string PutTempFileOnFtp()
         {
-            string fileName = string.Format("{0}.txt", Guid.NewGuid());
-            FtpWebRequest request = WebRequest.Create(GetFtpUrl(fileName)) as FtpWebRequest;
-            request.Method = WebRequestMethods.Ftp.UploadFile;
-            var w = new StreamWriter(request.GetRequestStream());
-            w.Write("sss");
-            w.Close();
-            var rd = new StreamReader(request.GetResponse().GetResponseStream());
-            var sss = rd.ReadToEnd();
-            return fileName;
+            using (var request = CreateFtpConnection(true))
+            {
+                var filePath = CprBroker.Utilities.Strings.NewUniquePath(this.ExtractsFolder, "txt");
+                File.WriteAllText(filePath, "ABC");
+                request.PutFile(filePath);
+                File.Delete(filePath);
+                return new FileInfo(filePath).Name;
+            }
         }
 
         public void DeleteFile(string subPath)
         {
-            FtpWebRequest request = WebRequest.Create(GetFtpUrl(subPath)) as FtpWebRequest;
-            request.Method = WebRequestMethods.Ftp.DeleteFile;
-            var reqponse = request.GetResponse();
+            using (var request = CreateFtpConnection(true))
+            {
+                request.RemoveFile(subPath);
+            }
         }
 
         public void DownloadFile(string subPath)
         {
             string localFileName = ExtractsFolder + "\\" + subPath;
-            using (var localFile = new FileStream(localFileName, FileMode.CreateNew))
+            using (var request = CreateFtpConnection(true))
             {
-                FtpWebRequest request = WebRequest.Create(GetFtpUrl(subPath)) as FtpWebRequest;
-                request.Method = WebRequestMethods.Ftp.DownloadFile;
-                using (var response = request.GetResponse())
-                {
-                    using (var responseStream = response.GetResponseStream())
-                    {
-                        var buffer = new byte[1024 * 32];
-                        int read = 0;
-                        while ((read = responseStream.Read(buffer, 0, buffer.Length)) > 0)
-                        {
-                            localFile.Write(buffer, 0, read);
-                        }
-                    }
-                }
+                request.GetFile(subPath, localFileName, true);
             }
         }
 
