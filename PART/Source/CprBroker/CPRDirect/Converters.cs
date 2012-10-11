@@ -60,7 +60,11 @@ namespace CprBroker.Providers.CPRDirect
         }
         public static string DecimalToString(decimal value, int length)
         {
-            var ret = value.ToString(new string('0', length));
+            int myLength = length;
+            if (value < 0)
+                myLength--;
+
+            var ret = value.ToString(new string('0', myLength));
             if (ret.Length > length)
             {
                 throw new ArgumentOutOfRangeException("value", string.Format("Value <{0}> cannot be fit in <{1}> characters", value, length));

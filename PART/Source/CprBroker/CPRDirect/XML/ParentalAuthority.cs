@@ -54,19 +54,58 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class ParentalAuthorityType : IReversibleRelationship
     {
-        public PersonRelationType ToPersonRelationType(Func<string, Guid> cpr2uuidFunc)
+        public enum CustodyTypes
         {
-            return PersonRelationType.Create(
-                cpr2uuidFunc(ToCustodyOwnerPnr()),
-                this.RelationPNRStartDate,
-                this.CustodyEndDate);
+            Mother = 3,
+            Father = 4,
+            OtherHolder1 = 5,
+            OtherHolder2 = 6
         }
 
-        public static PersonRelationType[] ToPersonRelationType(IList<ParentalAuthorityType> parents, Func<string, Guid> cpr2uuidFunc)
+        public PersonRelationType ToPersonRelationType(ParentsInformationType parents, Func<string, Guid> cpr2uuidFunc)
         {
-            return parents
-                .Where(p => !string.IsNullOrEmpty(p.ToCustodyOwnerPnr()))
-                .Select(p => p.ToPersonRelationType(cpr2uuidFunc))
+            // TODO: Check real data for the case when a person has relType 3 or 4 but no father/mother PNR, If found, then we have a problem
+            var type = (CustodyTypes)(int)this.RelationshipType;
+            switch (type)
+            {
+                case CustodyTypes.Mother:
+                    return parents.ToMother(cpr2uuidFunc).FirstOrDefault();
+
+                case CustodyTypes.Father:
+                    return parents.ToFather(cpr2uuidFunc).FirstOrDefault();
+
+                default:
+                    if (type == CustodyTypes.OtherHolder1 || type == CustodyTypes.OtherHolder2)
+                    {
+                        var relPnr = ToCustodyOwnerPnr();
+                        if (!string.IsNullOrEmpty(relPnr))
+                        {
+                            return PersonRelationType.Create(
+                                cpr2uuidFunc(relPnr),
+                                this.RelationPNRStartDate,
+                                this.CustodyEndDate);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        throw new ArgumentException(
+                            string.Format("Invalied value <{0}>, must be between 0003 and 0006", this.RelationshipType),
+                            "RelationshipType"
+                        );
+                    }
+            }
+
+        }
+
+        public static PersonRelationType[] ToPersonRelationType(IList<ParentalAuthorityType> parentalAuthorities, ParentsInformationType parents, Func<string, Guid> cpr2uuidFunc)
+        {
+            return parentalAuthorities
+                .Select(p => p.ToPersonRelationType(parents, cpr2uuidFunc))
+                .Where(rel => rel != null)
                 .ToArray();
         }
 
