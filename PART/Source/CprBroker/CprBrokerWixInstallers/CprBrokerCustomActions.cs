@@ -237,18 +237,16 @@ namespace CprBrokerWixInstallers
         {
             try
             {
-                var version = session.GetDetectedOlderVersion();
-                if (version != null && version < new Version(1, 3))
-                {
-                    var patchSql = new Dictionary<string, string>();
-                    patchSql["CPR"] = Properties.Resources.PatchDatabase_1_3;
+                var patchInfos = new Dictionary<string, DatabasePatchInfo[]>();
+                patchInfos["CPR"] = new DatabasePatchInfo[]{
+                    new DatabasePatchInfo(){ 
+                        Version = new Version(1,3), 
+                        SqlScript = Properties.Resources.PatchDatabase_1_3, 
+                        PatchAction = conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn)
+                    }
+                };
 
-                    var customMethods = new Dictionary<string, Action<SqlConnection>>();
-                    customMethods["CPR"] =
-                        conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn);
-
-                    var result = DatabaseCustomAction.PatchDatabase(session, patchSql, customMethods);
-                }
+                var result = DatabaseCustomAction.PatchDatabase(session, patchInfos);
                 return ActionResult.Success;
             }
             catch (Exception ex)
@@ -439,16 +437,10 @@ namespace CprBrokerWixInstallers
                 var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
                 var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
 
-                // Add new node(s) for data providers
-                Array.ForEach<Type>(
-                    types,
-                    type =>
-                    {
-                        var dic = new Dictionary<string, string>();
-                        dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
-                        CprBroker.Installers.Installation.AddSectionNode("add", dic, configFilePath, "dataProviders/knownTypes");
-                        object o = "";
-                    });
+                var dic = new Dictionary<string, string>();
+                dic["multipleSiteBindingsEnabled"] = "true";
+                CprBroker.Installers.Installation.AddSectionNode("serviceHostingEnvironment", dic, configFilePath, "dataProviders/knownTypes");
+
                 return ActionResult.Success;
             }
             catch (Exception ex)
