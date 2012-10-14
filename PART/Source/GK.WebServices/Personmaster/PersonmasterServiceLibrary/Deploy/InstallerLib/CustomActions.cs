@@ -298,11 +298,15 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult PatchDatabase(Session session)
         {
-            try
+            try                
             {
-                var patchSql = new Dictionary<string, string>();
-                patchSql["PM"] = Properties.Resources.patchbas_1_2;
-                return DatabaseCustomAction.PatchDatabase(session, patchSql);
+                System.Diagnostics.Debugger.Launch();
+                var patchInfos = new Dictionary<string, DatabasePatchInfo[]>();
+                patchInfos["PM"] = new DatabasePatchInfo[]{
+                    new DatabasePatchInfo(new Version(1,2), Properties.Resources.patchbas_1_2, null),
+                    new DatabasePatchInfo(new Version(1,99), Properties.Resources.patchbas_1_3, null)
+                };
+                return DatabaseCustomAction.PatchDatabase(session, patchInfos);
             }
             catch (Exception ex)
             {
