@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bitmaps" />
-    <Folder Include="Patch" />
     <Folder Include="Resources" />
   </ItemGroup>
   <ItemGroup>
