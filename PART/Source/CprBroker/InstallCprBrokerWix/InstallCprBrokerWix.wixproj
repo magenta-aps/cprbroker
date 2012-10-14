@@ -96,7 +96,6 @@
     <Folder Include="CprBroker\Resources" />
     <Folder Include="Dialogs" />
     <Folder Include="EventBroker\" />
-    <Folder Include="Patch" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="en-us.wxl" />
