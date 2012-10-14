@@ -240,25 +240,32 @@ namespace PersonMasterInstallers
             }
         }
 
+        private static Dictionary<string, WebInstallationOptions> GetWebInstallationOptions(Session session)
+        {
+            DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "PM");
+            Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
+            connectionStrings["CPRMapperDB"] = databaseSetupInfo.CreateConnectionString(false, true);
+
+            WebInstallationOptions options = new WebInstallationOptions()
+            {
+                ConnectionStrings = connectionStrings,
+                ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[0],
+                EncryptConnectionStrings = false,
+                InitializeFlatFileLogging = false,
+                FrameworkVersion = new Version("4.0")
+            };
+            var allOptions = new Dictionary<string, WebInstallationOptions>();
+            allOptions["PM"] = options;
+            return allOptions;
+        }
+
         [CustomAction]
         public static ActionResult CreateWebsite(Session session)
         {
             try
             {
-                DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, "PM");
-                Dictionary<string, string> connectionStrings = new Dictionary<string, string>();
-                connectionStrings["CPRMapperDB"] = databaseSetupInfo.CreateConnectionString(false, true);
-                WebInstallationOptions options = new WebInstallationOptions()
-                {
-                    ConnectionStrings = connectionStrings,
-                    ConfigSectionGroupEncryptionOptions = new ConfigSectionGroupEncryptionOptions[0],
-                    EncryptConnectionStrings = false,
-                    InitializeFlatFileLogging = false,
-                    FrameworkVersion = new Version("4.0")
-                };
-                var allOptions = new Dictionary<string, WebInstallationOptions>();
-                allOptions["PM"] = options;
-                return WebsiteCustomAction.DeployWebsite(session, allOptions);
+                var webInstallationOptions = GetWebInstallationOptions(session);
+                return WebsiteCustomAction.DeployWebsite(session, webInstallationOptions);
             }
             catch (Exception ex)
             {
@@ -298,7 +305,7 @@ namespace PersonMasterInstallers
         [CustomAction]
         public static ActionResult PatchDatabase(Session session)
         {
-            try                
+            try
             {
                 System.Diagnostics.Debugger.Launch();
                 var patchInfos = new Dictionary<string, DatabasePatchInfo[]>();
@@ -307,6 +314,29 @@ namespace PersonMasterInstallers
                     new DatabasePatchInfo(new Version(1,99), Properties.Resources.patchbas_1_3, null)
                 };
                 return DatabaseCustomAction.PatchDatabase(session, patchInfos);
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult PatchWebsite(Session session)
+        {
+            try
+            {
+                System.Diagnostics.Debugger.Launch();
+                var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "PM");
+                var webInstallationOptions = GetWebInstallationOptions(session);
+                var configFilePath = webInstallationInfo.GetWebConfigFilePath(webInstallationOptions["PM"]);
+
+                var dic = new Dictionary<string, string>();
+                dic["multipleSiteBindingsEnabled"] = "true";
+                CprBroker.Installers.Installation.AddSectionNode("serviceHostingEnvironment", dic, configFilePath, "system.serviceModel");
+
+                return ActionResult.Success;
             }
             catch (Exception ex)
             {

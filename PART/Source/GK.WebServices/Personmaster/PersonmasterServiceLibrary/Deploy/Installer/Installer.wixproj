@@ -27,7 +27,6 @@
     <Compile Include="Directories.wxs" />
     <Compile Include="Files.wxs" />
     <None Include="Patch_Wix.wxs" />
-    <Compile Include="Patch\DatabasePatch.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
