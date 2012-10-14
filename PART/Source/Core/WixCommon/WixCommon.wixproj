@@ -25,6 +25,7 @@
     <Compile Include="Database.wxs" />
     <Compile Include="DatabaseDialog.wxs" />
     <Compile Include="CommonProductProperties.wxs" />
+    <Compile Include="DatabasePatch.wxs" />
     <Compile Include="Elevation.wxs" />
     <Compile Include="ForgetOlderVersions.wxs" />
     <Compile Include="StandardActionText.wxs" />
@@ -32,6 +33,7 @@
     <Compile Include="Website.wxs" />
     <Compile Include="WebsiteDialog.wxs" />
     <Compile Include="WebSiteOrDirectoryDialog.wxs" />
+    <Compile Include="WebsitePatch.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SQL" />
