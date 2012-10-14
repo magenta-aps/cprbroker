@@ -226,10 +226,13 @@ namespace CprBroker.Installers
 
         private static void RunCustomMethod(Action<SqlConnection> method, DatabaseSetupInfo databaseSetupInfo)
         {
-            using (SqlConnection conn = new SqlConnection(databaseSetupInfo.CreateConnectionString(true, true)))
+            if (method != null)
             {
-                conn.Open();
-                method(conn);
+                using (SqlConnection conn = new SqlConnection(databaseSetupInfo.CreateConnectionString(true, true)))
+                {
+                    conn.Open();
+                    method(conn);
+                }
             }
         }
 

@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="Utilities\BaseSetupInfo.cs" />
     <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\DatabasePatchInfo.cs" />
     <Compile Include="Utilities\DatabaseSetupInfo.Constants.cs" />
     <Compile Include="Utilities\Installation.cs" />
     <Compile Include="Installers\ConnectionStringsInstaller.cs">

@@ -226,16 +226,18 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
-        public static ActionResult PatchDatabase(Session session, Dictionary<string, string> featurePatchSql, Dictionary<string, Action<SqlConnection>> customMethods = null)
+        public static ActionResult PatchDatabase(Session session, Dictionary<string, DatabasePatchInfo[]> featurePatchInfos)
         {
-            customMethods = customMethods != null ? customMethods : new Dictionary<string, Action<SqlConnection>>();
+            var version = session.GetDetectedOlderVersion();
 
             RunDatabaseAction(
                 session,
                 (featureName) =>
                 {
-                    if (featurePatchSql.ContainsKey(featureName) || customMethods.ContainsKey(featureName))
+                    if (featurePatchInfos.ContainsKey(featureName))
                     {
+                        var featurePatchInfo = DatabasePatchInfo.Merge(featurePatchInfos[featureName], version);
+
                         DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
                         PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
                         patchDatabaseForm.SetupInfo = setupInfo;
@@ -247,15 +249,8 @@ namespace CprBroker.Installers
                         }
                         else
                         {
-                            if (featurePatchSql.ContainsKey(featureName))
-                            {
-                                string sql = featurePatchSql[featureName];
-                                ExecuteDDL(sql, patchDatabaseForm.SetupInfo);
-                            }
-                            if (customMethods.ContainsKey(featureName))
-                            {
-                                RunCustomMethod(customMethods[featureName], patchDatabaseForm.SetupInfo);
-                            }
+                            ExecuteDDL(featurePatchInfo.SqlScript, patchDatabaseForm.SetupInfo);
+                            RunCustomMethod(featurePatchInfo.PatchAction, patchDatabaseForm.SetupInfo);
                         }
                     }
                 }
