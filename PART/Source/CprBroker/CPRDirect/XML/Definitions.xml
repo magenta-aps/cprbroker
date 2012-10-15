@@ -257,6 +257,41 @@
       <Attribute name="MunicipalConditionComment" danishName="BEMAERK-KOMMUNALE-FORHOLD" format="Alpha" length="30" position="31" description="Municipal condition comment"/>
     </Object>
 
+    <Object name="Notes" danishName="P12170-019" length="75" description="Notes" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+
+    <Object name="ElectionInformation" danishName="P12170-020" length="47" description="Election information" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+
+    <Object name="RelocationOrder" danishName="P12170-021" length="63" description="Relocation order" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+
+    <Object name="HistoricalPNR" danishName="P12170-022" length="45" description="Historical PNR" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+
+    <Object name="HistoricalAddress" danishName="P12170-023" length="96" description="Historical Address" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+
+    <Object name="HistoricalEntryExit" danishName="P12170-024" length="218" description="Historical exit-entry information / foreign addresses" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+
+    <Object name="HistoricalDisappearance" danishName="P12170-025" length="40" description="Historical Disappearance retrieval information" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+
     <Object name="HistoricalName" danishName="P12170-026" length="173" description="Historical name" minOccurs="0" maxOccurs="100" >
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
@@ -271,6 +306,16 @@
       <Attribute name="NameStartDateUncertainty" danishName="HAENSTART_UMRK-NAVNE" format="Alpha" length="1" position="160" description="Name start date uncertainty marker"/>
       <Attribute name="NameEndDate" danishName="NVNHAENSLUT" format="Numeric" length="12" position="161" description="Name end date ÅÅÅÅMMDDTTMM" dateFormat="yyyyMMddHHmm"/>
       <Attribute name="NameEndDateUncertainty" danishName="HAENSLUT_UMRK-NAVNE" format="Alpha" length="1" position="173" description="Name end date uncertainty marker"/>
+    </Object>
+
+    <Object name="HistoricalCitizenship" danishName="P12170-027" length="44" description="Historical citizenship" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+
+    <Object name="HistoricalChurchInformation" danishName="P12170-028" length="36" description="Historical church information" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
     </Object>
 
     <Object name="HistoricalCivilStatus" danishName="P12170-029" description="Historical civil status" length="109" minOccurs="0" maxOccurs="1000">
@@ -288,6 +333,11 @@
       <Attribute name="CivilStatusEndDate" danishName="HAENSLUT-CIVILSTAND" format="Numeric" length="12" position="85" description="Civil status end date ÅÅÅÅMMDDTTMM" dateFormat="yyyyMMddHHmm"/>
       <Attribute name="CivilStatusEndDateUncertainty" danishName="HAENSLUT_UMRK-CIVILSTAND" format="Alpha" length="1" position="97" description="Civil status end date uncertainty"/>
       <Attribute name="ReferenceToAnySeparation" danishName="SEP_HENVIS-CIVILSTAND" format="Alpha" length="12" position="98" description="Reference to any separation ÅÅÅÅMMDDTTMM" dateFormat="yyyyMMddHHmm"/>
+    </Object>
+
+    <Object name="HistoricalSeparation" danishName="P12170-030" length="48" description="Historical separation" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
     </Object>
 
     <Object name="EndRecord" danishName="P12170-999" length="21" description="End record">
