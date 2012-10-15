@@ -150,7 +150,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static Encoding DefaultEncoding
         {
-            get { return Encoding.GetEncoding(1252); }
+            get { return Encoding.GetEncoding(1142); }
         }
 
         private static Dictionary<string, string> _ErrorCodes;

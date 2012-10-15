@@ -60,7 +60,8 @@ namespace CprBroker.Providers.CPRDirect
         public Extract(string batchFileText, Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap, string sourceFileName = "")
             : this()
         {
-            var dataLines = new List<LineWrapper>(LineWrapper.ParseBatch(batchFileText));
+            var wrappers = Wrapper.Parse(batchFileText, Constants.DataObjectMap);
+            var dataLines = wrappers.Select(w => new LineWrapper(w.Contents)).ToList();
 
             var startLine = dataLines.First();
             var endLine = dataLines.Last();
