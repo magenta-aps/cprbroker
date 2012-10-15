@@ -136,15 +136,19 @@ namespace CprBroker.Providers.CPRDirect
             {
                 Admin.LogFormattedSuccess("Listing FTP contents at <{0}> ", prov.FtpAddress);
                 var ftpFiles = prov.ListFtpContents();
-
+                Admin.LogFormattedSuccess("Found <{0}> files at FTP <{1}> ", ftpFiles.Count(), prov.FtpAddress);
                 foreach (var ftpFile in ftpFiles)
                 {
                     try
                     {
-                        Admin.LogFormattedSuccess("Downloading FTP file <{0}> ", ftpFile.Name);
-                        prov.DownloadFile(ftpFile.Name);
-                        Admin.LogFormattedSuccess("Deleting FTP file <{0}> ", ftpFile);
-                        prov.DeleteFile(ftpFile.Name);
+                        string name = ftpFile.Name;
+                        Admin.LogFormattedSuccess("Found FTP file <{0}>", name);
+                        name = name.Substring(name.LastIndexOf('D'));
+
+                        Admin.LogFormattedSuccess("Downloading FTP file <{0}>", name);
+                        prov.DownloadFile(name);
+                        Admin.LogFormattedSuccess("Deleting FTP file <{0}> ", ftpFile.Name);
+                        prov.DeleteFile(name);
                     }
                     catch (Exception ex)
                     {

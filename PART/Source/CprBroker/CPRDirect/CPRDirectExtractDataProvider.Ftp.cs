@@ -99,6 +99,7 @@ namespace CprBroker.Providers.CPRDirect
             {
                 ret.Open();
                 ret.Login();
+                ret.SetCurrentDirectory(string.Format("'{0}'",this.FtpUser.Substring(1)));
             }
             return ret;
         }
