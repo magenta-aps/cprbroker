@@ -79,8 +79,6 @@ namespace CprBroker.Providers.CPRDirect
                     trans.Commit();
                 }
             }
-
-            extract.RefreshPersons();
         }
 
         public static IndividualResponseType GetPerson(string pnr)

@@ -115,6 +115,7 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
+        [Obsolete("Not used now because it takes too long")]
         public void RefreshPersons()
         {
             Admin.LogSuccess("Person refresh started");
