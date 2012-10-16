@@ -64,7 +64,6 @@ namespace CprBroker.Providers.CPRDirect
 
         public PersonRelationType ToPersonRelationType(ParentsInformationType parents, Func<string, Guid> cpr2uuidFunc)
         {
-            // TODO: Check real data for the case when a person has relType 3 or 4 but no father/mother PNR, If found, then we have a problem
             var type = (CustodyTypes)(int)this.RelationshipType;
             switch (type)
             {
