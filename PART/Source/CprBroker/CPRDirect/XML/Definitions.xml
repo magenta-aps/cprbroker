@@ -340,6 +340,11 @@
       <!--MORE FIELDS-->
     </Object>
 
+    <Object name="Events" danishName="P12170-099" length="45" description="Events" minOccurs="0" >
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <!--MORE FIELDS-->
+    </Object>
+    
     <Object name="EndRecord" danishName="P12170-999" length="21" description="End record">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="BlackBox10" danishName="TAELLER" format="Alpha" length="10" position="4" description="BLACK BOX 10"/>

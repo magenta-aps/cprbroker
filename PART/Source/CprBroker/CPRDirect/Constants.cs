@@ -111,6 +111,7 @@ namespace CprBroker.Providers.CPRDirect
             _DataObjectMap["028"] = typeof(HistoricalChurchInformationType);
             _DataObjectMap["029"] = typeof(HistoricalCivilStatusType);
             _DataObjectMap["030"] = typeof(HistoricalSeparationType);
+            _DataObjectMap["099"] = typeof(EventsType);
             _DataObjectMap["999"] = typeof(EndRecordType);
 
             _ReversibleRelationshipMap = new Dictionary<string, bool>();
