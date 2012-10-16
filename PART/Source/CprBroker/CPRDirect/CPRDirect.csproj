@@ -79,6 +79,7 @@
       <DependentUpon>ExtractDataContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Extract\ExtractManager.cs" />
+    <Compile Include="Extract\ExtractParseResult.cs" />
     <Compile Include="Lookup\Authority.designer.cs">
       <DependentUpon>Authority.xml</DependentUpon>
     </Compile>

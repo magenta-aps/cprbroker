@@ -66,17 +66,26 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportText(string text, string sourceFileName = "")
         {
-            var extract = new Extract(text, Constants.DataObjectMap, Constants.ReversibleRelationshipMap, sourceFileName);
-
+            var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
+            var extract = parseResult.ToExtract(sourceFileName);
+            var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
             using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
             {
                 conn.Open();
 
-                using (var trans = conn.BeginTransaction())
+                using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
                 {
                     conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
-                    conn.BulkInsertAll<ExtractItem>(extract.ExtractItems, trans);
+                    conn.BulkInsertAll<ExtractItem>(extractItems, trans);
+
                     trans.Commit();
+                }
+
+                using (var dataContext = new ExtractDataContext())
+                {
+                    extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
+                    extract.Ready = true;
+                    dataContext.SubmitChanges();
                 }
             }
         }

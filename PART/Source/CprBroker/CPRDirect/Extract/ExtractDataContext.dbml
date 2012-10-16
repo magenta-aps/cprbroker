@@ -7,6 +7,7 @@
       <Column Name="ImportDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="StartRecord" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="EndRecord" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Ready" Type="System.Boolean" DbType="BIT" CanBeNull="false" />
       <Association Name="Extract_ExtractItem" Member="ExtractItems" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractItem" />
     </Type>
   </Table>

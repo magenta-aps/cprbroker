@@ -97,7 +97,7 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        public ExtractItem ToExtractItem(Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap)
+        public ExtractItem ToExtractItem(Guid extractId, Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap)
         {
             string relationPNR = null;
             if (reverseRelationMap.ContainsKey(this.Code) && reverseRelationMap[this.Code])
@@ -106,6 +106,7 @@ namespace CprBroker.Providers.CPRDirect
             return new ExtractItem()
             {
                 ExtractItemId = Guid.NewGuid(),
+                ExtractId = extractId,
                 PNR = this.PNR,
                 RelationPNR = relationPNR,
                 Contents = this.Contents,

@@ -97,6 +97,8 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private string _EndRecord;
 		
+		private bool _Ready;
+		
 		private EntitySet<ExtractItem> _ExtractItems;
 		
     #region Extensibility Method Definitions
@@ -115,6 +117,8 @@ namespace CprBroker.Providers.CPRDirect
     partial void OnStartRecordChanged();
     partial void OnEndRecordChanging(string value);
     partial void OnEndRecordChanged();
+    partial void OnReadyChanging(bool value);
+    partial void OnReadyChanged();
     #endregion
 		
 		public Extract()
@@ -239,6 +243,26 @@ namespace CprBroker.Providers.CPRDirect
 					this._EndRecord = value;
 					this.SendPropertyChanged("EndRecord");
 					this.OnEndRecordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ready", DbType="BIT")]
+		public bool Ready
+		{
+			get
+			{
+				return this._Ready;
+			}
+			set
+			{
+				if ((this._Ready != value))
+				{
+					this.OnReadyChanging(value);
+					this.SendPropertyChanging();
+					this._Ready = value;
+					this.SendPropertyChanged("Ready");
+					this.OnReadyChanged();
 				}
 			}
 		}
