@@ -62,17 +62,18 @@ namespace CprBroker.Tests.CPRDirect
             public void Constructor_Parse_CorrectCount()
             {
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-
-                var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
-                Assert.AreEqual(lines.Length - 2, extract.ExtractItems.Count);
+                var parseResult = new ExtractParseResult(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
+                var extract = parseResult.ToExtract();
+                var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                Assert.AreEqual(lines.Length - 2, extractItems.Count);
             }
 
             [Test]
             public void Constructor_Parse_CorrectStart()
             {
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-
-                var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var parseResult = new ExtractParseResult(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
+                var extract = parseResult.ToExtract();
                 Assert.AreEqual(lines.First().Contents, extract.StartRecord);
             }
 
@@ -80,8 +81,8 @@ namespace CprBroker.Tests.CPRDirect
             public void Constructor_Parse_CorrectEnd()
             {
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-
-                var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var parseResult = new ExtractParseResult(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
+                var extract = parseResult.ToExtract();
                 Assert.AreEqual(lines.Last().Contents, extract.EndRecord);
             }
 
@@ -90,8 +91,10 @@ namespace CprBroker.Tests.CPRDirect
             {
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
 
-                var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
-                var result = extract.ExtractItems.Select(i => i.Contents).ToList();
+                var parseResult = new ExtractParseResult(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
+                var extract = parseResult.ToExtract();
+                var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var result = extractItems.Select(i => i.Contents).ToList();
                 result.Insert(0, extract.StartRecord);
                 result.Add(extract.EndRecord);
                 for (int i = 0; i < lines.Length; i++)
@@ -109,7 +112,10 @@ namespace CprBroker.Tests.CPRDirect
                 [Range(1, 1098, 20)]int lineNumber)
             {
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var parseResult = new ExtractParseResult(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
+
+                var extract = parseResult.ToExtract();
+                var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
 
                 var pnr = lines[2].PNR;
                 var person = Extract.GetPerson(pnr, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
@@ -122,7 +128,11 @@ namespace CprBroker.Tests.CPRDirect
                 [ValueSource(typeof(Utilities), "RandomCprNumberStrings5")]string cprNumber)
             {
                 var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                var extract = new Extract(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var parseResult = new ExtractParseResult(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE, Constants.DataObjectMap);
+
+                var extract = parseResult.ToExtract();
+                var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                extract.ExtractItems.AddRange(extractItems);
 
                 var person = Extract.GetPerson(cprNumber, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                 Assert.Null(person);
