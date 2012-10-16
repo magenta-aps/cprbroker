@@ -68,7 +68,7 @@ namespace CprBroker.Tests.CPRDirect
 
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
                 var extract = parseResult.ToExtract();
-                var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
                 Assert.AreEqual(lines.Length - 2, extractItems.Count);
             }
 
@@ -105,7 +105,7 @@ namespace CprBroker.Tests.CPRDirect
 
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
                 var extract = parseResult.ToExtract();
-                var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
                 var result = extractItems.Select(i => i.Contents).ToList();
                 result.Insert(0, extract.StartRecord);
                 result.Add(extract.EndRecord);
@@ -128,11 +128,10 @@ namespace CprBroker.Tests.CPRDirect
                 var newText = string.Join("", wrappers);
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
 
-                var extract = parseResult.ToExtract();
-                extract.Ready = true;
-                var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extract = parseResult.ToExtract(ready: true);
+                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
                 extract.ExtractItems.AddRange(extractItems);
-                
+
                 var pnr = lines[2].PNR;
                 var person = Extract.GetPerson(pnr, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                 Assert.NotNull(person);
@@ -148,9 +147,8 @@ namespace CprBroker.Tests.CPRDirect
                 var newText = string.Join("", wrappers);
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
 
-                var extract = parseResult.ToExtract();
-                extract.Ready = true; 
-                var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extract = parseResult.ToExtract(ready: true);
+                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
                 extract.ExtractItems.AddRange(extractItems);
 
                 var person = Extract.GetPerson(cprNumber, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);

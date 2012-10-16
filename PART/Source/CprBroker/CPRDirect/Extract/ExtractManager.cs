@@ -68,7 +68,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
-            var extractItems = parseResult.ToExtractItems(extract, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+            var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
             using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
             {
                 conn.Open();

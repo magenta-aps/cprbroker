@@ -72,7 +72,7 @@ namespace CprBroker.Providers.CPRDirect
             this.Lines.Remove(this.EndLine);
         }
 
-        public Extract ToExtract(string sourceFileName = "")
+        public Extract ToExtract(string sourceFileName = "", bool ready = false)
         {
             return new Extract()
             {
@@ -82,15 +82,15 @@ namespace CprBroker.Providers.CPRDirect
                 ImportDate = DateTime.Now,
                 StartRecord = this.StartLine.Contents,
                 EndRecord = this.EndLine.Contents,
-                Ready = false
+                Ready = ready
             };
         }
 
-        public List<ExtractItem> ToExtractItems(Extract extract, Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap)
+        public List<ExtractItem> ToExtractItems(Guid extractId, Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap)
         {
             return this.Lines
                .Select(
-                   line => line.ToExtractItem(extract.ExtractId, typeMap, reverseRelationMap))
+                   line => line.ToExtractItem(extractId, typeMap, reverseRelationMap))
                .ToList();
         }
     }
