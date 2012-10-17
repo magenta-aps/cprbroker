@@ -52,17 +52,18 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public class CPRDirectExtractor : PeriodicTaskExecuter
+    public class CPRDirectPersonConverter : PeriodicTaskExecuter
     {
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
             return TimeSpan.FromMinutes(1);
         }
 
+        public const int BatchSize = 100;
+
         protected override void PerformTimerAction()
         {
-            ExtractManager.ImportDataProviderFolders();
+            ExtractManager.ConvertPersons(BatchSize); 
         }
-
     }
 }
