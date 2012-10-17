@@ -93,5 +93,19 @@ namespace CprBroker.Providers.CPRDirect
                    line => line.ToExtractItem(extractId, typeMap, reverseRelationMap))
                .ToList();
         }
+
+        public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId)
+        {
+            return this.Lines
+                .GroupBy(line => line.PNR)
+               .Select(
+                   g => new ExtractPersonStaging()
+                   {
+                       ExtractPersonStagingId = Guid.NewGuid(),
+                       ExtractId = extractId,
+                       PNR = g.Key
+                   })
+               .ToList();
+        }
     }
 }

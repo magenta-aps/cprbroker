@@ -247,7 +247,7 @@
       <Attribute name="RelationText5" danishName="RELTXT5" format="Alpha" length="34" position="239" description="Relation text 5"/>
     </Object>
 
-    <Object name="MunicipalConditions" danishName="P12170-018" length="60" description="Municipal conditions" minOccurs="0" >
+    <Object name="MunicipalConditions" danishName="P12170-018" length="60" description="Municipal conditions" minOccurs="0" maxOccurs="100" >
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="MunicipalConditionType" danishName="KOMFORHTYP" format="Numeric" length="1" position="14" description="Municipal condition type"/>
@@ -257,7 +257,7 @@
       <Attribute name="MunicipalConditionComment" danishName="BEMAERK-KOMMUNALE-FORHOLD" format="Alpha" length="30" position="31" description="Municipal condition comment"/>
     </Object>
 
-    <Object name="Notes" danishName="P12170-019" length="75" description="Notes" minOccurs="0" >
+    <Object name="Notes" danishName="P12170-019" length="75" description="Notes" minOccurs="0" maxOccurs="100" >
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <!--MORE FIELDS-->
     </Object>
@@ -344,7 +344,7 @@
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <!--MORE FIELDS-->
     </Object>
-    
+
     <Object name="EndRecord" danishName="P12170-999" length="21" description="End record">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="BlackBox10" danishName="TAELLER" format="Alpha" length="10" position="4" description="BLACK BOX 10"/>

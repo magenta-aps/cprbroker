@@ -52,6 +52,7 @@ using System.IO;
 using System.Data.SqlClient;
 using CprBroker.Engine;
 using CprBroker.Engine.Local;
+using CprBroker.Engine.Part;
 using CprBroker.Data.DataProviders;
 
 namespace CprBroker.Providers.CPRDirect
@@ -69,6 +70,8 @@ namespace CprBroker.Providers.CPRDirect
             var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
             var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+            var extractStaging = parseResult.ToExtractPersonStagings(extract.ExtractId);
+
             using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
             {
                 conn.Open();
@@ -77,7 +80,7 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
                     conn.BulkInsertAll<ExtractItem>(extractItems, trans);
-
+                    conn.BulkInsertAll<ExtractPersonStaging>(extractStaging, trans);
                     trans.Commit();
                 }
 
@@ -210,6 +213,51 @@ namespace CprBroker.Providers.CPRDirect
             File.Move(fileFullPath, targetFilePath);
             return targetFilePath;
         }
+
+        public static void ConvertPersons(int batchSize = 1)
+        {
+            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() started, batch size <{0}>", batchSize);
+            Func<string, Guid> uuidGetter = ReadSubMethodInfo.CprToUuid;
+            List<Guid> succeeded = new List<Guid>(), failed = new List<Guid>();
+
+            using (var dataContext = new ExtractDataContext())
+            {
+                var persons = dataContext.ExtractPersonStagings
+                    .OrderBy(ep => ep.Extract.ExtractDate)
+                    .Take(batchSize)
+                    .ToArray();
+                Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - <{0}> persons found", persons.Length);
+                for (int i = 0; i < persons.Length; i++)
+                {
+                    var person = persons[i];
+                    try
+                    {
+                        Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
+                        var uuid = uuidGetter(person.PNR);
+                        var response = Extract.GetPerson(person.PNR, person.Extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                        var oioPerson = response.ToRegistreringType1(uuidGetter, DateTime.Now);
+                        var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
+                        UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
+                        succeeded.Add(person.ExtractPersonStagingId);
+                        Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
+                    }
+                    catch (Exception ex)
+                    {
+                        failed.Add(person.ExtractPersonStagingId);
+                        Admin.LogException(ex);
+                    }
+                }
+            }
+            // Delete the staging tables from a new data context to maximize performance
+            using (var dataContext = new ExtractDataContext())
+            {
+                var persons = dataContext.ExtractPersonStagings.Where(ep => succeeded.Contains(ep.ExtractPersonStagingId));
+                dataContext.ExtractPersonStagings.DeleteAllOnSubmit(persons);
+                dataContext.SubmitChanges();
+            }
+            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() ending, batch size: <{0}>, succeeded: <{1}>, failed: <{2}>", batchSize, succeeded.Count, failed.Count);
+        }
+
 
     }
 }

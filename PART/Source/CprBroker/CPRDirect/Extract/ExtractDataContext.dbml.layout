@@ -14,11 +14,24 @@
         <elementListCompartment Id="8ad7e4c2-becb-454e-83de-29d5efd03dda" absoluteBounds="5.64, 2.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.625 : 2.91909912109375); (5.625 : 2.91909912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.625 : 2.91909912109375); (5.625 : 2.91909912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ExtractDataContext/Extract/Extract_ExtractItem" />
       <nodes>
         <classShapeMoniker Id="eb4f6c94-8774-4ee2-91fa-6b5b0d96f26f" />
         <classShapeMoniker Id="51c8d617-5d59-428c-b878-622a6dee6179" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="0a1fd235-e8e6-45bc-ac87-32c6e5ae71b9" absoluteBounds="4.875, 5.375, 2, 1.3862939453125">
+      <DataClassMoniker Name="/ExtractDataContext/ExtractPersonStaging" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1f71e5bc-9816-4150-9b94-533bd62fcad3" absoluteBounds="4.89, 5.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.625 : 4.15549967447917); (2.625 : 6.06814697265625); (4.875 : 6.06814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ExtractDataContext/Extract/Extract_ExtractPersonStaging" />
+      <nodes>
+        <classShapeMoniker Id="eb4f6c94-8774-4ee2-91fa-6b5b0d96f26f" />
+        <classShapeMoniker Id="0a1fd235-e8e6-45bc-ac87-32c6e5ae71b9" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
