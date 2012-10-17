@@ -66,6 +66,7 @@ namespace CprBroker.Providers.CPRDirect
         public static PersonFlerRelationType[] ToPersonRelationType(DisempowermentType disempowerment, Func<string, Guid> cpr2uuidFunc)
         {
             // TODO: (Reverse relation) Shall we also implement unknown persons from their addresses?
+            // There seems 2 records with relation PNR and 11 without it
             return new DisempowermentType[] { disempowerment }
                 .Where(d => d != null)
                 .Where(d => !string.IsNullOrEmpty(d.ToRelationPNR()))
