@@ -64,6 +64,8 @@ namespace CprBroker.Providers.CPRDirect
 
         public PersonRelationType ToPersonRelationType(ParentsInformationType parents, Func<string, Guid> cpr2uuidFunc)
         {
+            // TODO: A few persons have custody with father/mother but there is no father(45)/mother(6) PNR
+            // Is it possible to get a UUID from a person name for a person not in CPR?
             var type = (CustodyTypes)(int)this.RelationshipType;
             switch (type)
             {
