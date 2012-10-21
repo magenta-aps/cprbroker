@@ -59,12 +59,6 @@ namespace CprBroker.Providers.CPRDirect
     public partial class Authority
     {
 
-        public static void ImportFile(string path)
-        {
-            var text = File.ReadAllText(path, Constants.DefaultEncoding);
-            ImportText(text);
-        }
-
         public static void ImportText(string text)
         {
             using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
