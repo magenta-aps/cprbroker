@@ -33,6 +33,7 @@
             this.BirthdateEventEnqueuer = new CprBroker.EventBroker.Notifications.BirthdateEventEnqueuer(this.components);
             this.NotificationSender = new CprBroker.EventBroker.Notifications.NotificationSender(this.components);
             this.CprDirectExtractor = new CprBroker.EventBroker.Notifications.CPRDirectExtractor();
+            this.CprDirectPersonConverter = new CprBroker.EventBroker.Notifications.CPRDirectPersonConverter();
             // 
             // BackendService
             // 
@@ -46,5 +47,6 @@
         private CprBroker.EventBroker.Notifications.BirthdateEventEnqueuer BirthdateEventEnqueuer;
         private CprBroker.EventBroker.Notifications.NotificationSender NotificationSender;
         private Notifications.CPRDirectExtractor CprDirectExtractor;
+        private Notifications.CPRDirectPersonConverter CprDirectPersonConverter;
     }
 }

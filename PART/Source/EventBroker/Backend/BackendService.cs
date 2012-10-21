@@ -54,6 +54,7 @@ using System.ServiceProcess;
 using System.Text;
 using CprBroker.Engine;
 using CprBroker.Utilities;
+using CprBroker.EventBroker.Notifications;
 
 namespace CprBroker.EventBroker.Backend
 {
@@ -65,31 +66,38 @@ namespace CprBroker.EventBroker.Backend
         public BackendService()
         {
             InitializeComponent();
+            foreach (var queue in this.InstalledQueues)
+                queue.EventLog = this.EventLog;
+        }
 
-            this.BirthdateEventEnqueuer.EventLog = this.EventLog;
-            this.DataChangeEventEnqueuer.EventLog = this.EventLog;
-            this.NotificationSender.EventLog = this.EventLog;
-            this.CprDirectExtractor.EventLog = this.EventLog;
+        PeriodicTaskExecuter[] InstalledQueues
+        {
+            get
+            {
+                return new PeriodicTaskExecuter[]{
+                    this.BirthdateEventEnqueuer,
+                    this.DataChangeEventEnqueuer,
+                    this.NotificationSender,
+                    this.CprDirectExtractor,
+                    this.CprDirectPersonConverter
+                };
+            }
         }
 
         private void StartQueues()
         {
-            this.BirthdateEventEnqueuer.Start();
-            this.DataChangeEventEnqueuer.Start();
-            this.NotificationSender.Start();
-            this.CprDirectExtractor.Start();
+            foreach (var queue in this.InstalledQueues)
+                queue.Start();
         }
 
         private void StopQueues()
         {
-            this.BirthdateEventEnqueuer.Stop();
-            this.DataChangeEventEnqueuer.Stop();
-            this.NotificationSender.Stop();
-            this.CprDirectExtractor.Stop();
+            foreach (var queue in this.InstalledQueues)
+                queue.Stop();
         }
 
         protected override void OnStart(string[] args)
-        {            
+        {
             BrokerContext.Initialize(Constants.EventBrokerApplicationToken.ToString(), Constants.UserToken);
             CprBroker.Engine.Local.Admin.LogSuccess(TextMessages.BackendServiceStarting);
             StartQueues();
