@@ -79,6 +79,7 @@ namespace CprBroker.Providers.CPRDirect
                 var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap);
                 var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap);
                 individualResponse.FillFrom(linewWappers, startWrapper, endWrapper);
+                individualResponse.SourceObject = found.Key.ExtractId;
 
                 return individualResponse;
             }

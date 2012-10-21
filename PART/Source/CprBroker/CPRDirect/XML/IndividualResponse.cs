@@ -54,6 +54,8 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
+        public object SourceObject { get; set; }
+
         public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc, DateTime effectDate)
         {
             var ret = new RegistreringType1()
@@ -65,7 +67,8 @@ namespace CprBroker.Providers.CPRDirect
                 RelationListe = ToRelationListeType(cpr2uuidFunc),
                 Tidspunkt = ToTidspunktType(),
                 TilstandListe = ToTilstandListeType(),
-                Virkning = null
+                SourceObjectsXml = this.ToSourceObjectsXml(),
+                Virkning = null,
             };
             ret.CalculateVirkning();
             return ret;
@@ -86,6 +89,14 @@ namespace CprBroker.Providers.CPRDirect
             return this.StartRecord.ToTidspunktType();
         }
 
+        public string ToSourceObjectsXml()
+        {
+            if (this.SourceObject != null)
+            {
+                return CprBroker.Utilities.Strings.SerializeObject(this.SourceObject);
+            }
+            return null;
+        }
 
     }
 }
