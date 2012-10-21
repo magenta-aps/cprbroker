@@ -383,5 +383,23 @@ namespace CprBroker.Installers
             return ActionResult.Success;
         }
 
+        [CustomAction]
+        public static ActionResult PatchWebsite(Session session, Dictionary<string, WebPatchInfo[]> featurePatchInfos)
+        {
+            var version = session.GetDetectedOlderVersion();
+            RunWebAction(
+                session,
+                (featureName) =>
+                {
+                    if (featurePatchInfos.ContainsKey(featureName))
+                    {
+                        var featurePatchInfo = WebPatchInfo.Merge(featurePatchInfos[featureName], version);
+                        featurePatchInfo.PatchAction();
+                    }
+                }
+            );
+            return ActionResult.Success;
+        }
+
     }
 }

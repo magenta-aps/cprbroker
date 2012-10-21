@@ -53,12 +53,11 @@ using System.Data.SqlClient;
 
 namespace CprBroker.Installers
 {
-    public class DatabasePatchInfo
+    public class DatabasePatchInfo : PatchInfo
     {
-        public Version Version;
         public string SqlScript;
         public Action<SqlConnection> PatchAction;
-        
+
         public DatabasePatchInfo()
         { }
         public DatabasePatchInfo(Version version, string sql, Action<SqlConnection> action)
@@ -70,10 +69,7 @@ namespace CprBroker.Installers
 
         public static DatabasePatchInfo Merge(DatabasePatchInfo[] info, Version oldVersion)
         {
-            var relevant = info
-                .Where(inf => oldVersion == null || inf.Version >= oldVersion)
-                .OrderBy(inf => inf.Version)
-                .ToArray();
+            var relevant = Filter<DatabasePatchInfo>(info, oldVersion);
 
             var actions = relevant.Where(inf => inf.PatchAction != null)
                 .Select(inf => inf.PatchAction)
