@@ -141,12 +141,23 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /****** Object:  ForeignKey [FK_AddressPoint_DanishAddress]    Script Date: 02/27/2011 22:16:41 ******/
-        ///IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&apos;[dbo].[FK_AddressPoint_DanishAddress]&apos;) AND parent_object_id = OBJECT_ID(N&apos;[dbo].[AddressPoint]&apos;))
-        ///ALTER TABLE [dbo].[AddressPoint] DROP CONSTRAINT [FK_AddressPoint_DanishAddress]
+        ///   Looks up a localized string similar to SET ANSI_PADDING ON
         ///GO
-        ////****** Object:  ForeignKey [FK_AddressPointStatus_AddressCoordinateQualityType]    Script Date: 02/27/2011 22:16:41 ******/
-        ///IF  EXISTS (SELECT * F [rest of string was truncated]&quot;;.
+        ///
+        ////****** Object:  Table [dbo].[PersonMapping]    Script Date: 08/14/2012 17:47:37 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[PersonMapping]&apos;) AND type in (N&apos;U&apos;))
+        ///BEGIN
+        ///CREATE TABLE [dbo].[PersonMapping](
+        ///	[UUID] [uniqueidentifier] NOT NULL,
+        ///	[CprNumber] [varchar](10) NOT NULL,
+        /// CONSTRAINT [PK_PersonMapping] PRIMARY KEY CLUSTERED 
+        ///(
+        ///	[UUID] ASC
+        ///)WITH (PAD_INDEX  = OFF, STATISTICS [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreatePartDatabaseObjects {
             get {
@@ -223,19 +234,45 @@ namespace CprBrokerWixInstallers.Properties {
         ///	SQL 9.xxx (2005) is a minimum because it makes use of INCLUDE in index for ExtractItem
         ///*/
         ///
-        ////****** Object:  Table [dbo].[Extract]    Script Date: 08/08/2012 16:36:34 ******/
-        ///SET ANSI_NULLS ON
-        ///GO
-        ///SET QUOTED_IDENTIFIER ON
-        ///GO
-        ///IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N&apos;[dbo].[Extract]&apos;) AND type in (N&apos;U&apos;))
+        ////****** Object:  Column [dbo].[PersonRegistration].[Table]    Script Date: 23/08/2012 18:36:34 ******/
+        ///IF NOT EXISTS(SELECT * FROM sys.columns WHERE object_id= object_id(&apos;PersonRegistration&apos;) AND name = &apos;SourceObjects&apos;)
         ///BEGIN
-        ///CREATE TABLE [dbo].[Extract](
-        ///	[ExtractId] [uni [rest of string was truncated]&quot;;.
+        ///	ALTER TABLE [dbo].[PersonRegistration] ADD [SourceObjects] [xml] NULL
+        ///E [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PatchDatabase_1_3 {
             get {
                 return ResourceManager.GetString("PatchDatabase_1_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /****** Object:  Table [dbo].[Extract].[Ready]     ******/
+        ///IF NOT EXISTS(SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N&apos;[dbo].[Extract]&apos;) AND name = &apos;Ready&apos;)
+        ///BEGIN
+        ///	ALTER TABLE dbo.Extract ADD
+        ///		Ready bit NOT NULL CONSTRAINT DF_Extract_Ready DEFAULT 0 
+        ///END
+        ///GO
+        ///
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///
+        ///SET ANSI_PADDING ON
+        ///GO
+        ///
+        ////****** Object:  Table [dbo].[ExtractPersonStaging]    Script Date: 10/17/2012 19:15:13 ******/
+        ///SET ANSI_NULLS ON
+        ///GO
+        ///SET QUOTED_IDENTIFIER ON
+        ///GO
+        ///SET ANSI_PADDING ON
+        ///GO
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PatchDatabase_1_3_2 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_1_3_2", resourceCulture);
             }
         }
         

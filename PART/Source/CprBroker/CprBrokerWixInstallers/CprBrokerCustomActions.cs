@@ -243,7 +243,12 @@ namespace CprBrokerWixInstallers
                         Version = new Version(1,3), 
                         SqlScript = Properties.Resources.PatchDatabase_1_3, 
                         PatchAction = conn => CprBroker.Providers.CPRDirect.Authority.ImportText(Properties.Resources.Authority_4357, conn)
-                    }
+                    },
+                    new DatabasePatchInfo(){ 
+                        Version = new Version(1,3,2), 
+                        SqlScript = Properties.Resources.PatchDatabase_1_3_2, 
+                        PatchAction = null
+                    },
                 };
 
                 var result = DatabaseCustomAction.PatchDatabase(session, patchInfos);
@@ -430,18 +435,39 @@ namespace CprBrokerWixInstallers
         {
             try
             {
-                var types = new Type[]{ 
-                    typeof(CprBroker.Providers.CPRDirect.CPRDirectClientDataProvider), 
-                    typeof(CprBroker.Providers.CPRDirect.CPRDirectExtractDataProvider)
+                var featurePatchInfos = new Dictionary<string, WebPatchInfo[]>();
+
+                Action patch_1_3 = () =>
+                {
+                    var types = new Type[]
+                    {
+                        typeof(CprBroker.Providers.CPRDirect.CPRDirectClientDataProvider), 
+                        typeof(CprBroker.Providers.CPRDirect.CPRDirectExtractDataProvider)
+                    };
+                    var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
+                    var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
+
+                    // Add new node(s) for data providers
+                    Array.ForEach<Type>(
+                        types,
+                        type =>
+                        {
+                            var dic = new Dictionary<string, string>();
+                            dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
+                            CprBroker.Installers.Installation.AddSectionNode("add", dic, configFilePath, "dataProviders/knownTypes");
+                        }
+                    );
                 };
-                var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
-                var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
 
-                var dic = new Dictionary<string, string>();
-                dic["multipleSiteBindingsEnabled"] = "true";
-                CprBroker.Installers.Installation.AddSectionNode("serviceHostingEnvironment", dic, configFilePath, "dataProviders/knownTypes");
+                featurePatchInfos["CPR"] = new WebPatchInfo[] { 
+                    new WebPatchInfo()
+                    { 
+                        Version = new Version(1,3),
+                        PatchAction = patch_1_3
+                    }
+                };
 
-                return ActionResult.Success;
+                return WebsiteCustomAction.PatchWebsite(session, featurePatchInfos);
             }
             catch (Exception ex)
             {

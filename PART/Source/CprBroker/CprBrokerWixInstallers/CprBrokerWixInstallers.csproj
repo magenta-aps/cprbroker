@@ -107,6 +107,7 @@
     <None Include="Resources\RelationshipType.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\PatchDatabase_1_3_2.sql" />
     <None Include="Resources\Authority_4357.txt" />
     <Content Include="Resources\PatchDatabase_1_3.sql" />
   </ItemGroup>
