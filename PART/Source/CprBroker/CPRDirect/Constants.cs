@@ -149,7 +149,13 @@ namespace CprBroker.Providers.CPRDirect
         public const int StartRecordCode = 0;
         public const int EndRecordCode = 999;
 
-        public static Encoding DefaultEncoding
+
+        public static Encoding TcpClientEncoding
+        {
+            get { return Encoding.GetEncoding(1252); }
+        }
+
+        public static Encoding ExtractEncoding
         {
             get { return Encoding.GetEncoding(1142); }
         }

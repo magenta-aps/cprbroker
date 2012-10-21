@@ -81,7 +81,7 @@ namespace CprBroker.Providers.CPRDirect
             NetworkStream stream = null;
 
             TcpClient client = new TcpClient(Address, Port);
-            Byte[] data = Constants.DefaultEncoding.GetBytes(message);
+            Byte[] data = Constants.TcpClientEncoding.GetBytes(message);
 
             stream = client.GetStream();
             stream.Write(data, 0, data.Length);
@@ -89,7 +89,7 @@ namespace CprBroker.Providers.CPRDirect
             data = new Byte[Constants.ResponseLengths.MaxResponseLength];
 
             int bytes = stream.Read(data, 0, data.Length);
-            response = Constants.DefaultEncoding.GetString(data, 0, bytes);
+            response = Constants.TcpClientEncoding.GetString(data, 0, bytes);
 
             string errorCode = response.Substring(Constants.ResponseLengths.ErrorCodeIndex, Constants.ResponseLengths.ErrorCodeLength);
             Admin.LogFormattedSuccess("CPR client: PNR <{0}>, status code <{1}>", pnr.ToPnrDecimalString(), errorCode);

@@ -61,7 +61,7 @@ namespace CprBroker.Providers.CPRDirect
     {
         public static void ImportFile(string path)
         {
-            var text = File.ReadAllText(path, Constants.DefaultEncoding);
+            var text = File.ReadAllText(path, Constants.ExtractEncoding);
             ImportText(text, path);
         }
 
