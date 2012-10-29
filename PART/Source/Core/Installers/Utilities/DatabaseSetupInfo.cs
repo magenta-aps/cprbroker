@@ -69,6 +69,10 @@ namespace CprBroker.Installers
             public bool IntegratedSecurity = true;
             public string UserName = "";
             public string Password = "";
+
+            public string EffectiveUserName { 
+                get { return IntegratedSecurity? @"NT AUTHORITY\NETWORK SERVICE" : UserName;} 
+            }
         }
 
         public string FeatureName = "";
@@ -367,6 +371,20 @@ namespace CprBroker.Installers
             {
                 if (!AdminConnectionHasAdminRights())
                 {
+                    var appConnectionWithDB = CreateConnectionString(false, true);
+                    if (TryOpenConnection(appConnectionWithDB))
+                    {
+                        if (!ApplicationAuthenticationInfo.IntegratedSecurity)
+                        {
+                            var connection = new SqlConnection(appConnectionWithDB);
+                            if (IsDatabaseRoleMember("db_owner", ApplicationAuthenticationInfo.EffectiveUserName, connection))
+                            {
+                                // A special case when the databse exists with a db_owner user and a sysadmin login cannot be used (but not needed)
+                                return true;
+                            }
+                        }
+                    }
+
                     // Insufficient rights
                     message = Messages.AdminConnectionHasInsufficientRights;
                     return false;
