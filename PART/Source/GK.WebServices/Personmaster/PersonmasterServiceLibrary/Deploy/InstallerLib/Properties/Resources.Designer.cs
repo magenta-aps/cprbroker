@@ -122,9 +122,9 @@ namespace PersonMasterInstallers.Properties {
         ///BEGIN TRY
         ///    SET NO [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string patchbas_1_3 {
+        internal static string patchbas_2_0 {
             get {
-                return ResourceManager.GetString("patchbas_1_3", resourceCulture);
+                return ResourceManager.GetString("patchbas_2_0", resourceCulture);
             }
         }
     }

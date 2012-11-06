@@ -135,7 +135,7 @@ namespace PersonMasterTestClient
             ValidateOutput(cprNumbers, ret);
         }
 
-        public String[] uuIDs = new[] {"",""};
+        public String[] uuIDs = new[] { "", "" };
 
         [Test]
         public void TestGetUuidArrayOfCprSequence(
@@ -159,6 +159,7 @@ namespace PersonMasterTestClient
             string aux = null;
             var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
             Assert.NotNull(aux, "Aux is null");
+            Console.WriteLine(aux);
             if (count > 0)
             {
                 Assert.Greater(aux.Length, 0, "Aux is empty");
@@ -173,7 +174,7 @@ namespace PersonMasterTestClient
         public void TestNullValues(
             [ValueSource("CprCounts")] int count)
         {
-            string[] cprNumbers=new string[count];
+            string[] cprNumbers = new string[count];
             PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();
             string aux = null;
             var ret = client.GetObjectIDsFromCprArray("", cprNumbers.ToArray(), ref aux);
@@ -192,7 +193,8 @@ namespace PersonMasterTestClient
             }
         }
 
-        public static string[] RandomObjectIDs(int count) {
+        public static string[] RandomObjectIDs(int count)
+        {
             /*
              * Creating 512 fake object IDs  will be a quite difficult task, so instead I have put 512 of our fake UUIDs in a string an use that as the ID pool.
              */
@@ -231,7 +233,8 @@ namespace PersonMasterTestClient
         }
 
         [Test]
-        public void TestGetCPRsFromArrayOfobjectIDsWithRandomIDs([ValueSource("CprCounts")] int count) {
+        public void TestGetCPRsFromArrayOfobjectIDsWithRandomIDs([ValueSource("CprCounts")] int count)
+        {
             var objectIDs = RandomObjectIDs(count);
             System.Diagnostics.Debug.WriteLine("TEST random, #: " + count);
             PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();
@@ -243,7 +246,26 @@ namespace PersonMasterTestClient
         }
 
         [Test]
-        public void TestGetCPRsFromArrayOfobjectIDsWithInvalidIDs([ValueSource("CprCounts")] int count) {
+        public void GetCPRsFromObjectIDArrays_RandomPNR_SmePNRs([ValueSource("CprCounts")] int count)
+        {
+            var cprNumbers = RandomCprNumbers(count);
+            PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();
+            string aux = null;
+
+            System.Diagnostics.Debug.WriteLine("TEST random, #: " + count);
+            var objectIDs = client.GetObjectIDsFromCprArray("", cprNumbers, ref aux);
+
+            var ret = client.GetCPRsFromObjectIDArray("", objectIDs.Select(id => id.ToString()).ToArray(), ref aux);
+
+            for (int i = 0; i < count; i++)
+            {
+                Assert.AreEqual(cprNumbers[i], ret[i], "Different CPR number at index " + i);
+            }
+        }
+
+        [Test]
+        public void TestGetCPRsFromArrayOfobjectIDsWithInvalidIDs([ValueSource("CprCounts")] int count)
+        {
             var cprNumbers = InvalidObjectIDs(count);
             System.Diagnostics.Debug.WriteLine("TEST invalid, #: " + count);
             PersonMasterServiceLibrary.BasicOpClient client = new PersonMasterServiceLibrary.BasicOpClient();

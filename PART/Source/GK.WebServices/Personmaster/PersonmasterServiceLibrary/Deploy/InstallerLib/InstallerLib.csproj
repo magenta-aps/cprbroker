@@ -75,7 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\patchbas_1_2.sql" />
-    <Content Include="Resources\patchbas_1_3.sql" />
+    <Content Include="Resources\patchbas_2_0.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />

@@ -307,11 +307,10 @@ namespace PersonMasterInstallers
         {
             try
             {
-                System.Diagnostics.Debugger.Launch();
                 var patchInfos = new Dictionary<string, DatabasePatchInfo[]>();
                 patchInfos["PM"] = new DatabasePatchInfo[]{
                     new DatabasePatchInfo(new Version(1,2), Properties.Resources.patchbas_1_2, null),
-                    new DatabasePatchInfo(new Version(1,99), Properties.Resources.patchbas_1_3, null)
+                    new DatabasePatchInfo(new Version(2,0), Properties.Resources.patchbas_2_0, null)
                 };
                 return DatabaseCustomAction.PatchDatabase(session, patchInfos);
             }
@@ -327,16 +326,22 @@ namespace PersonMasterInstallers
         {
             try
             {
-                System.Diagnostics.Debugger.Launch();
-                var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "PM");
-                var webInstallationOptions = GetWebInstallationOptions(session);
-                var configFilePath = webInstallationInfo.GetWebConfigFilePath(webInstallationOptions["PM"]);
+                Action patch_2_0 = () =>
+                {
+                    var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "PM");
+                    var webInstallationOptions = GetWebInstallationOptions(session);
+                    var configFilePath = webInstallationInfo.GetWebConfigFilePath(webInstallationOptions["PM"]);
+                    var dic = new Dictionary<string, string>();
+                    dic["multipleSiteBindingsEnabled"] = "true";
+                    CprBroker.Installers.Installation.AddSectionNode("serviceHostingEnvironment", dic, configFilePath, "system.serviceModel");
+                };
 
-                var dic = new Dictionary<string, string>();
-                dic["multipleSiteBindingsEnabled"] = "true";
-                CprBroker.Installers.Installation.AddSectionNode("serviceHostingEnvironment", dic, configFilePath, "system.serviceModel");
+                var infos = new Dictionary<string, WebPatchInfo[]>();
+                infos["PM"] = new WebPatchInfo[]{
+                    new WebPatchInfo() { Version = new Version(2, 0), PatchAction = patch_2_0 }
+                };
 
-                return ActionResult.Success;
+                return WebsiteCustomAction.PatchWebsite(session, infos);
             }
             catch (Exception ex)
             {

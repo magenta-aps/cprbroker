@@ -237,4 +237,5 @@ BEGIN CATCH
     --SELECT @RetVal
     RETURN @RetVal
 END CATCH
-go
+
+GO
