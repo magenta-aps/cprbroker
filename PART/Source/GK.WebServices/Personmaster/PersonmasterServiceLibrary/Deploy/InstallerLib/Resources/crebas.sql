@@ -1240,7 +1240,7 @@ go
 
 
 CREATE PROCEDURE spGK_CORE_ValidateCPR
-    @cprNo      VARCHAR(10),
+    @cprNo      VARCHAR(MAX),
     @birthdate  datetime        OUTPUT,
     @gender     INTEGER         OUTPUT,
     @aux        VARCHAR(1020)   OUTPUT

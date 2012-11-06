@@ -123,4 +123,118 @@ END CATCH
 GO
 
 
+if exists (select 1
+          from sysobjects
+          where  id = object_id('spGK_CORE_ValidateCPR')
+          and type in ('P','PC'))
+   drop procedure spGK_CORE_ValidateCPR
 
+GO
+
+CREATE PROCEDURE spGK_CORE_ValidateCPR
+    @cprNo      VARCHAR(MAX),
+    @birthdate  datetime        OUTPUT,
+    @gender     INTEGER         OUTPUT,
+    @aux        VARCHAR(1020)   OUTPUT
+AS
+BEGIN TRY
+    SET NOCOUNT ON
+    SET XACT_ABORT ON
+    
+    DECLARE @RowCnt                     INTEGER
+    DECLARE @ErrNo                      INTEGER
+    DECLARE @RetVal                     INTEGER
+    SELECT  @RetVal         = -1
+    
+    DECLARE @ErrorSeverity              INTEGER
+    SELECT  @ErrorSeverity  = 16
+    DECLARE @ErrorState                 INTEGER    
+    
+    DECLARE @idx                    INTEGER
+    SELECT  @idx = 0
+    DECLARE @digit                  VARCHAR(1)
+    
+    -- ---
+
+    -- Init parameters
+    IF @cprNo IS NULL SET @cprNo = ''
+    
+    SELECT  @cprNo = LTRIM( RTRIM(@cprNo) ),
+            @birthdate = GETDATE(),
+            @gender = -1,
+            @aux = ''
+    
+    -- Validate CPR number length
+    IF LEN(@cprNo) <> 10
+    BEGIN
+        SET @aux = 'CPR number must be exactly 10 digits in length.'
+        GOTO ErrExit
+    END
+
+    SET @RetVal = -2
+    WHILE @idx < 10
+    BEGIN
+        SET @digit = SUBSTRING(@cprNo, @idx + 1, 1)
+        
+        IF @digit < '0' OR @digit > '9' BREAK
+        
+        SET @idx = @idx + 1
+    END
+    
+    IF @idx < 10
+    BEGIN
+        SET @aux = 'CPR number must contain digits only.'
+        GOTO ErrExit
+    END
+    
+    -- Validate/extract birthdate ...
+    SET @RetVal = -3
+    DECLARE @day    VARCHAR(2)
+    SELECT  @day = SUBSTRING(@cprNo, 1, 2)
+    
+    DECLARE @month  VARCHAR(2)
+    SELECT  @month = SUBSTRING(@cprNo, 3, 2)
+    
+    DECLARE @year   VARCHAR(2)
+    SELECT  @year = SUBSTRING(@cprNo, 5, 2)
+    
+    DECLARE @date2  VARCHAR(10)
+    SELECT  @date2 = @day + '-' + @month + '-' + @year
+    
+    SET @birthdate = CONVERT(datetime, @date2, 5)
+    
+    -- ... and gender
+    SET @RetVal = -4
+    DECLARE @gender2 VARCHAR(1)
+    SELECT  @gender2 = SUBSTRING(@cprNo, 10, 1)
+    
+    DECLARE @gender3 INTEGER
+    SELECT  @gender3 = CAST(@gender2 AS INTEGER)
+
+    SET @gender = @gender3 % 2
+
+LifeIsGood:
+    SELECT  @aux = '',
+            @RetVal = 0
+    
+ErrExit:
+    IF @RetVal < 0
+    BEGIN
+        SELECT  @aux = 'Invalid CPR number! ' + @aux,
+                @ErrorState = @RetVal * -1
+        RAISERROR (@aux, @ErrorSeverity, @ErrorState)
+    END
+
+    --SELECT @RetVal
+    RETURN @RetVal
+END TRY
+
+BEGIN CATCH
+    IF @@trancount > 0 ROLLBACK TRANSACTION
+    
+    --EXEC spGK_ErrorHandler
+    
+    --SELECT @RetVal
+    RETURN @RetVal
+END CATCH
+go
