@@ -157,6 +157,25 @@ namespace CprBroker.Installers
             return node;
         }
 
+        public static XmlNode AppendChildNodeIfNotExists(string nodeName, XmlNode parentNode)
+        {
+            XmlNode newNode = null;
+            foreach (XmlNode childNode in parentNode.ChildNodes)
+            {
+                if (childNode.Name == nodeName)
+                {
+                    newNode = childNode;
+                    break;
+                }
+            }
+            if (newNode == null)
+            {
+                newNode = parentNode.OwnerDocument.CreateElement(nodeName);
+                parentNode.AppendChild(newNode);
+            }
+            return newNode;
+        }
+
         public static bool AddSectionNode(string nodeName, Dictionary<string, string> attributes, string configFileName, string parentNodeName)
         {
             XmlDocument doc = new XmlDocument();
@@ -164,20 +183,7 @@ namespace CprBroker.Installers
             XmlNode parentNode = doc.SelectSingleNode("//" + parentNodeName);
             if (parentNode != null)
             {
-                XmlNode newNode = null;
-                foreach (XmlNode childNode in parentNode.ChildNodes)
-                {
-                    if (childNode.Name == nodeName)
-                    {
-                        newNode = childNode;
-                        break;
-                    }
-                }
-                if (newNode == null)
-                {
-                    newNode = parentNode.OwnerDocument.CreateElement(nodeName);
-                }
-
+                var newNode = AppendChildNodeIfNotExists(nodeName, parentNode);
                 foreach (var attr in attributes)
                 {
                     var at = newNode.Attributes[attr.Key];
@@ -186,14 +192,14 @@ namespace CprBroker.Installers
                         at = doc.CreateAttribute(attr.Key);
                         newNode.Attributes.Append(at);
                     }
-                    at.Value = attr.Value;                    
+                    at.Value = attr.Value;
                 }
-                parentNode.AppendChild(newNode);
                 doc.Save(configFileName);
                 return true;
             }
             return false;
         }
+
         public static bool AddSectionNode(XmlNode node, string configFileName, string parentNodeName)
         {
             XmlDocument doc = new XmlDocument();
@@ -201,9 +207,8 @@ namespace CprBroker.Installers
             XmlNode parentNode = doc.SelectSingleNode("//" + parentNodeName);
             if (parentNode != null)
             {
-                var newNode = doc.CreateElement(node.Name);
+                var newNode = AppendChildNodeIfNotExists(node.Name, parentNode);
                 newNode.InnerXml = node.InnerXml;
-                parentNode.AppendChild(newNode);
                 doc.Save(configFileName);
                 return true;
             }
