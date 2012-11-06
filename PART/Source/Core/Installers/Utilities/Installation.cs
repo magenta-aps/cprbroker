@@ -164,12 +164,29 @@ namespace CprBroker.Installers
             XmlNode parentNode = doc.SelectSingleNode("//" + parentNodeName);
             if (parentNode != null)
             {
-                var newNode = doc.CreateElement(nodeName);
+                XmlNode newNode = null;
+                foreach (XmlNode childNode in parentNode.ChildNodes)
+                {
+                    if (childNode.Name == nodeName)
+                    {
+                        newNode = childNode;
+                        break;
+                    }
+                }
+                if (newNode == null)
+                {
+                    newNode = parentNode.OwnerDocument.CreateElement(nodeName);
+                }
+
                 foreach (var attr in attributes)
                 {
-                    var at = doc.CreateAttribute(attr.Key);
-                    at.Value = attr.Value;
-                    newNode.Attributes.Append(at);
+                    var at = newNode.Attributes[attr.Key];
+                    if (at == null)
+                    {
+                        at = doc.CreateAttribute(attr.Key);
+                        newNode.Attributes.Append(at);
+                    }
+                    at.Value = attr.Value;                    
                 }
                 parentNode.AppendChild(newNode);
                 doc.Save(configFileName);
