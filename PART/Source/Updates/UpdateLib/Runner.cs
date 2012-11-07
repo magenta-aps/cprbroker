@@ -325,20 +325,32 @@ namespace UpdateLib
 
                 client.UseDefaultCredentials = true;
 
-                //Guid g = client.GetPersonUuid(cprNo);
                 CPRBroker.Part.GetUuidOutputType uuidOutput = client.GetUuid(cprNo);
-                Guid g = new Guid(uuidOutput.UUID);
+                if (uuidOutput.StandardRetur.StatusKode == "200")
+                {
+                    Guid g = new Guid(uuidOutput.UUID);
 
-                CPRBroker.Part.LaesInputType input = new CPRBroker.Part.LaesInputType();
-                input.UUID = g.ToString();
+                    CPRBroker.Part.LaesInputType input = new CPRBroker.Part.LaesInputType();
+                    input.UUID = g.ToString();
 
-                CPRBroker.Part.LaesOutputType outputType = client.RefreshRead(input);
-                CPRBroker.Part.StandardReturType stdRetur = outputType.StandardRetur;
+                    CPRBroker.Part.LaesOutputType outputType = client.RefreshRead(input);
+                    CPRBroker.Part.StandardReturType stdRetur = outputType.StandardRetur;
 
-                // Do some error handling with StandardReturType ...
-                // TODO above ...
-
-                success = true;
+                    if (outputType.StandardRetur.StatusKode == "200")
+                    {
+                        success = true;
+                    }
+                    else
+                    {
+                        string msg = string.Format("RefreshRead failed. {0} - {1}", outputType.StandardRetur.StatusKode, outputType.StandardRetur.FejlbeskedTekst);
+                        throw new BrokerRequestException(msg);
+                    }
+                }
+                else
+                {
+                    string msg = string.Format("GetUuid failed. {0} - {1}", uuidOutput.StandardRetur.StatusKode, uuidOutput.StandardRetur.FejlbeskedTekst);
+                    throw new BrokerRequestException(msg);
+                }
             }
             catch (Exception ex)
             {
