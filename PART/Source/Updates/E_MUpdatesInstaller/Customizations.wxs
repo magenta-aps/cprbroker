@@ -4,6 +4,7 @@
     <Property Id="Dummy_CustomizationsFragmentRefProp" Value="-"/>
 
     <PropertyRef Id="Dummy_DatabaseFragmentRefProperty"/>
+    <PropertyRef Id="Dummy_DatabasePatchFragmentRefProp"/>
     <PropertyRef Id="Dummy_ForgetOlderVersionFragmentRefProp"/>
 
     <Binary Id="InstallersDll" SourceFile="$(var.OutputPath)E_MUpdatesNotificationService.CA.exe"/>
