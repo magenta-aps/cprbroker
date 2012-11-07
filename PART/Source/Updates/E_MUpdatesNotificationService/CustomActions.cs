@@ -94,6 +94,18 @@ namespace E_MUpdatesNotification
         }
 
         [CustomAction]
+        public static ActionResult PatchDatabase(Session session)
+        {
+            var drpTrgDdl = _UpdateDetectionVariables.SubstituteDDL(UpdateLib.Properties.Resources.drp_trg);
+
+            var dic = new Dictionary<string, CprBroker.Installers.DatabasePatchInfo[]>();
+            dic[_UpdateDetectionVariables.DatabaseFeatureName] = new CprBroker.Installers.DatabasePatchInfo[] { 
+                new CprBroker.Installers.DatabasePatchInfo(new Version(1,1), drpTrgDdl,null)
+            };
+            return UpdateLib.CustomActions.PatchDatabase(session, dic);
+        }
+
+        [CustomAction]
         public static ActionResult ValidateCprBrokerServicesUrl(Session session)
         {
             return UpdateLib.CustomActions.ValidateCprBrokerServicesUrl(session);

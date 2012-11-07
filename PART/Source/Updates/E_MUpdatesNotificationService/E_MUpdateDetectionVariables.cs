@@ -142,5 +142,12 @@ namespace E_MUpdatesNotification
         {
             get { return "E_M"; }
         }
+
+        // Control parameters
+        public override bool TriggersEnabled
+        {
+            get { return false; }
+        }
+
     }
 }
