@@ -25,7 +25,7 @@
     <Compile Include="CprBrokerDialog.wxs" />
     <Compile Include="Dialogs.wxs" />
     <Compile Include="Directories.wxs" />
-    <Compile Include="DprUpdateService.wxs" />
+    <Compile Include="UpdateService.wxs" />
     <Compile Include="Files.wxs" />
     <Compile Include="UpdateLibVariables.wxs" />
   </ItemGroup>

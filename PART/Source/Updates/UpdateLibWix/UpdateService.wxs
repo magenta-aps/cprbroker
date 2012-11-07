@@ -56,5 +56,12 @@
       <Custom Action="RemoveUpdatesService" Before="RemoveFiles"><![CDATA[REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
 
     </InstallExecuteSequence>
+
+    <UI>
+      <ProgressText Action="Set_AllUpdateProperties">Initializing properties</ProgressText>
+      <ProgressText Action="RollbackUpdatesService">Rolling back updates service</ProgressText>
+      <ProgressText Action="InstallUpdatesService">Installing updates service</ProgressText>
+      <ProgressText Action="RemoveUpdatesService">Removing updates service</ProgressText>
+    </UI>
   </Fragment>
 </Wix>
