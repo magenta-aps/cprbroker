@@ -91,6 +91,9 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToSourceObjectsXml()
         {
+            // TODO: Shall we exclude the start record from SourceObjects?
+            // Reason is that 2 calls to CPR direct for a person can return exactly the same data but with a different extraction date
+            // Also, investigate how this affects registration date
             if (this.SourceObject != null)
             {
                 return CprBroker.Utilities.Strings.SerializeObject(this.SourceObject);
