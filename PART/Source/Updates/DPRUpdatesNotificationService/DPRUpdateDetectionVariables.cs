@@ -142,5 +142,11 @@ namespace DPRUpdatesNotification
         {
             get { return "DPR"; }
         }
+
+        // Control parameters
+        public override bool TriggersEnabled
+        {
+            get { return true; }
+        }
     }
 }
