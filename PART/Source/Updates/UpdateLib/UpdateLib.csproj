@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CprBroker.Installers">
-      <HintPath>..\Output\CprBroker.Installers.dll</HintPath>
+      <HintPath>..\..\Core\Output\CprBroker.Installers.dll</HintPath>
     </Reference>
     <Reference Include="CprBroker.Utilities">
       <HintPath>..\Output\CprBroker.Utilities.dll</HintPath>
@@ -180,7 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdatesProjectInstaller.resx">
@@ -188,13 +189,19 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\crebas.sql" />
+    <None Include="Resources\cre_tbl.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\drpbas.sql" />
+    <None Include="Resources\drp_tbl.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\AdminService\Admin.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cre_trg.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\drp_trg.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

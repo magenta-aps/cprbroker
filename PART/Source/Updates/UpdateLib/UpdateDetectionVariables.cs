@@ -83,6 +83,9 @@ namespace UpdateLib
         public abstract string TablesTableName { get; }
         public abstract string SystemName { get; }
 
+        // Control parameters
+        public abstract bool TriggersEnabled { get; }
+
         public string SubstituteDDL(string ddl)
         {
             ddl = ddl.Replace(

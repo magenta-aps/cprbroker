@@ -106,7 +106,11 @@ namespace UpdateLib
             try
             {
                 DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
-                var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.crebas);
+                var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.cre_tbl);
+                if (updateDetectionVariables.TriggersEnabled)
+                {
+                    ddl += updateDetectionVariables.SubstituteDDL(Properties.Resources.cre_trg);
+                }
                 DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
                 DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { updateDetectionVariables.StagingTableName });
                 return ActionResult.Success;
@@ -119,12 +123,17 @@ namespace UpdateLib
         }
 
         [CustomAction]
-        public static ActionResult RollbackDatabase(Session session, UpdateDetectionVariables udateDetectionVariables)
+        public static ActionResult RollbackDatabase(Session session, UpdateDetectionVariables updateDetectionVariables)
         {
             try
             {
-                DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, udateDetectionVariables.DatabaseFeatureName);
-                DatabaseCustomAction.ExecuteDDL(Properties.Resources.drpbas, databaseSetupInfo);
+                DatabaseSetupInfo databaseSetupInfo = DatabaseSetupInfo.CreateFromFeature(session, updateDetectionVariables.DatabaseFeatureName);
+                var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.drp_tbl);
+                if (updateDetectionVariables.TriggersEnabled)
+                {
+                    ddl += updateDetectionVariables.SubstituteDDL(Properties.Resources.drp_trg);
+                }
+                DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
                 DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
                 return ActionResult.Success;
             }
@@ -153,11 +162,30 @@ namespace UpdateLib
 
                 if (BaseForm.ShowAsDialog(dropDatabaseForm, session.InstallerWindowWrapper()) == DialogResult.Yes)
                 {
-                    var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.drpbas);
+                    var ddl = updateDetectionVariables.SubstituteDDL(Properties.Resources.drp_tbl);
+                    if (updateDetectionVariables.TriggersEnabled)
+                    {
+                        ddl += updateDetectionVariables.SubstituteDDL(Properties.Resources.drp_trg);
+                    }
+
                     DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
                     DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
                 }
                 return ActionResult.Success;
+            }
+            catch (Exception ex)
+            {
+                session.ShowErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        [CustomAction]
+        public static ActionResult PatchDatabase(Session session, Dictionary<string, DatabasePatchInfo[]> featurePatchInfos)
+        {
+            try
+            {
+                return DatabaseCustomAction.PatchDatabase(session, featurePatchInfos);
             }
             catch (Exception ex)
             {

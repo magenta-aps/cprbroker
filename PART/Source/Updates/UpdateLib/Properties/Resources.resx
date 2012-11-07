@@ -118,10 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="crebas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\crebas.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+  <data name="cre_tbl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cre_tbl.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
-  <data name="drpbas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\drpbas.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+  <data name="cre_trg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cre_trg.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+  </data>
+  <data name="drp_tbl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\drp_tbl.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
+  </data>
+  <data name="drp_trg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\drp_trg.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1256</value>
   </data>
 </root>
