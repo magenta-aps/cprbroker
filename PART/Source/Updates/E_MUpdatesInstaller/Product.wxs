@@ -11,6 +11,7 @@
     <PropertyRef Id="Dummy_CprBrokerDialogFragmentRefProp"/>
     <PropertyRef Id="Dummy_FilesFragmentRefProperty"/>
     <PropertyRef Id="Dummy_UpdateServiceFragmentRefProp"/>
+    <PropertyRef Id="Dummy_StandardActionTextFragmentRefProp"/>
     
     <Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
