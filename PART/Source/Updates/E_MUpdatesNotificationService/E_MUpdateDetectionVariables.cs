@@ -148,6 +148,19 @@ namespace E_MUpdatesNotification
         {
             get { return false; }
         }
-
+        public override string ExtraDatabaseCreateDDL
+        {
+            get
+            {
+                return Properties.Resources.create_EM_objects;
+            }
+        }
+        public override string ExtraDatabaseDropDDL
+        {
+            get
+            {
+                return Properties.Resources.drop_EM_objects;
+            }
+        }
     }
 }

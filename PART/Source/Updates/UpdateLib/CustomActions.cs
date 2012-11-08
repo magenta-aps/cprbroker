@@ -111,6 +111,10 @@ namespace UpdateLib
                 {
                     ddl += updateDetectionVariables.SubstituteDDL(Properties.Resources.cre_trg);
                 }
+                if (!string.IsNullOrEmpty(updateDetectionVariables.ExtraDatabaseCreateDDL))
+                {
+                    ddl += updateDetectionVariables.ExtraDatabaseCreateDDL;
+                }
                 DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
                 DatabaseCustomAction.CreateDatabaseUser(databaseSetupInfo, new string[] { updateDetectionVariables.StagingTableName });
                 return ActionResult.Success;
@@ -132,6 +136,10 @@ namespace UpdateLib
                 if (updateDetectionVariables.TriggersEnabled)
                 {
                     ddl += updateDetectionVariables.SubstituteDDL(Properties.Resources.drp_trg);
+                }
+                if (!string.IsNullOrEmpty(updateDetectionVariables.ExtraDatabaseDropDDL))
+                {
+                    ddl += updateDetectionVariables.ExtraDatabaseDropDDL;
                 }
                 DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);
                 DatabaseCustomAction.DropDatabaseUser(databaseSetupInfo);
@@ -166,6 +174,10 @@ namespace UpdateLib
                     if (updateDetectionVariables.TriggersEnabled)
                     {
                         ddl += updateDetectionVariables.SubstituteDDL(Properties.Resources.drp_trg);
+                    }
+                    if (!string.IsNullOrEmpty(updateDetectionVariables.ExtraDatabaseDropDDL))
+                    {
+                        ddl += updateDetectionVariables.ExtraDatabaseDropDDL;
                     }
 
                     DatabaseCustomAction.ExecuteDDL(ddl, databaseSetupInfo);

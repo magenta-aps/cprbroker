@@ -96,11 +96,12 @@ namespace E_MUpdatesNotification
         [CustomAction]
         public static ActionResult PatchDatabase(Session session)
         {
-            var drpTrgDdl = _UpdateDetectionVariables.SubstituteDDL(UpdateLib.Properties.Resources.drp_trg);
+            var patchDDL_1_1 = _UpdateDetectionVariables.SubstituteDDL(UpdateLib.Properties.Resources.drp_trg);
+            patchDDL_1_1 += Properties.Resources.create_EM_objects;
 
             var dic = new Dictionary<string, CprBroker.Installers.DatabasePatchInfo[]>();
             dic[_UpdateDetectionVariables.DatabaseFeatureName] = new CprBroker.Installers.DatabasePatchInfo[] { 
-                new CprBroker.Installers.DatabasePatchInfo(new Version(1,1), drpTrgDdl,null)
+                new CprBroker.Installers.DatabasePatchInfo(new Version(1,1), patchDDL_1_1,null)
             };
             return UpdateLib.CustomActions.PatchDatabase(session, dic);
         }

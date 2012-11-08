@@ -85,6 +85,8 @@ namespace UpdateLib
 
         // Control parameters
         public abstract bool TriggersEnabled { get; }
+        public virtual string ExtraDatabaseCreateDDL { get { return null; } }
+        public virtual string ExtraDatabaseDropDDL { get { return null; } }
 
         public string SubstituteDDL(string ddl)
         {
