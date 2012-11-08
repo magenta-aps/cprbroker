@@ -53,7 +53,15 @@
       <RefTargetDir>INSTALLLOCATION</RefTargetDir>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="E&amp;M Updates-jobs.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(ProjectDir)E&amp;M Updates-jobs.txt" "$(TargetDir)en-US\"</PostBuildEvent>
+  </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
