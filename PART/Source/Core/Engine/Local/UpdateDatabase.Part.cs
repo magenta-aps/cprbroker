@@ -184,11 +184,30 @@ namespace CprBroker.Engine.Local
                 select dbReg
             ).ToArray();
 
+            var ret = new List<PersonRegistration>(existingInDb.Length);
+            
             // Perform a content match if key match is found
-            existingInDb = existingInDb
-                .Where(db => db.Equals(oioRegistration))
-                .ToArray();
-            return existingInDb;
+            foreach (var dbReg in existingInDb)
+            {
+                if (dbReg.Equals(oioRegistration))
+                {
+                    // Exact content match
+                    ret.Add(dbReg);
+                }
+                else
+                {
+                    // Content match due to bug fix
+                    var oioInDbReg = PersonRegistration.ToXmlType(dbReg);
+                    if (UpdateRules.MatchRule.Overwrites(oioInDbReg, oioRegistration))
+                    {
+                        // TODO: Update existing dbReg
+                        dbReg.fro
+                        ret.Add(dbReg);
+                    }
+                }
+            }
+            
+            return ret.ToArray();
         }
 
 

@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CityNameMatchRuleTests.cs" />
     <Compile Include="DataProviderManager.CreateDataProvider.Tests.cs" />
     <Compile Include="DataProviderManagerTests.cs" />
     <Compile Include="FacadeMethodInfoTests.cs" />
