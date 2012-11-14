@@ -74,6 +74,7 @@
     <Compile Include="Local\Admin.Log.cs" />
     <Compile Include="IDataProvider.cs" />
     <Compile Include="UpdateRules\CityNameMatchRule.cs" />
+    <Compile Include="UpdateRules\MatchRule%28Of T%29.cs" />
     <Compile Include="UpdateRules\MatchRule.cs" />
     <Compile Include="Manager.Admin.cs" />
     <Compile Include="Manager.Base.cs" />

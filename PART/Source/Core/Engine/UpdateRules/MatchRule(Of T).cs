@@ -10,7 +10,7 @@ namespace CprBroker.Engine.UpdateRules
 {
     public abstract class MatchRule<TOio> : MatchRule
     {
-        public override sealed bool UpdateOioFromXmlIfPossible(RegistreringType1 existingReg, RegistreringType1 newReg)
+        public override sealed bool UpdateXmlTypeIfPossible(RegistreringType1 existingReg, RegistreringType1 newReg)
         {
             var existingObj = GetObject(existingReg);
             var newObj = GetObject(newReg);
