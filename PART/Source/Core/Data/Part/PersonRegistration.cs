@@ -121,8 +121,7 @@ namespace CprBroker.Data.Part
                     ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));
                 }
 
-                var xml = Strings.SerializeObject(partRegistration);
-                ret.Contents = System.Xml.Linq.XElement.Load(new StringReader(xml));
+                ret.SetContents(partRegistration);
 
                 if (!string.IsNullOrEmpty(partRegistration.SourceObjectsXml))
                 {
@@ -131,6 +130,12 @@ namespace CprBroker.Data.Part
 
             }
             return ret;
+        }
+
+        public void SetContents(RegistreringType1 partRegistration)
+        {
+            var xml = Strings.SerializeObject(partRegistration);
+            this.Contents = System.Xml.Linq.XElement.Load(new StringReader(xml));
         }
 
         public bool Equals(RegistreringType1 oio)
