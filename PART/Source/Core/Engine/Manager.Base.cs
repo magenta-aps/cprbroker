@@ -168,7 +168,8 @@ namespace CprBroker.Engine
 
                             if (!subMethodInfo.Succeeded)
                             {
-                                Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, TextMessages.AllDataProvidersFailed + subMethodInfo.SubMethodInfo, null, null);
+                                // TODO: Add something here to identify the input for which all data providers have failed
+                                Local.Admin.AddNewLog(TraceEventType.Information, BrokerContext.Current.WebMethodMessageName, string.Format("{0}: {1}", TextMessages.AllDataProvidersFailed, subMethodInfo.SubMethodInfo.InputToString()), null, null);
                             }
 
                             // Signal the end of processing
