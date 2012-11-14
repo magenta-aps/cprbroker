@@ -98,7 +98,8 @@ namespace CprBroker.Engine.Local
             using (var dataContext = new PartDataContext())
             {
                 // Load possible equal registrations
-                var existingInDb = MatchPersonRegistration(personIdentifier, oioRegistration, dataContext);
+                bool dataChanged;
+                var existingInDb = MatchPersonRegistration(personIdentifier, oioRegistration, dataContext, out dataChanged);
 
                 // If key & contents match was not found
                 if (existingInDb.Length == 0)
@@ -112,8 +113,10 @@ namespace CprBroker.Engine.Local
                 {
                     if (string.IsNullOrEmpty(oioRegistration.SourceObjectsXml))
                     {
-                        // No need to update anything - do nothing
-                        return false;
+                        // No need to update anything - just commit if needed
+                        if (dataChanged)
+                            dataContext.SubmitChanges();
+                        return dataChanged;
                     }
                     else
                     {
@@ -141,8 +144,10 @@ namespace CprBroker.Engine.Local
                             // If existing registration has exactly same keys and contents and SourceObjects, return without doing anything - no need to update
                             if (existinginDbWithEqualSource.Count() > 0)
                             {
-                                // Already up to data - Do nothing
-                                return false;
+                                // Already up to date - just save updated records if needed
+                                if (dataChanged)
+                                    dataContext.SubmitChanges();
+                                return dataChanged;
                             }
                             else
                             {
@@ -158,10 +163,11 @@ namespace CprBroker.Engine.Local
             }
         }
 
-        private static PersonRegistration[] MatchPersonRegistration(PersonIdentifier personIdentifier, RegistreringType1 oioRegistration, PartDataContext dataContext)
+        private static PersonRegistration[] MatchPersonRegistration(PersonIdentifier personIdentifier, RegistreringType1 oioRegistration, PartDataContext dataContext, out bool dataChanged)
         {
             //TODO: Modify this method to allow searching for registrations that have a fake date of Today, these should be matched by content rather than registration date
 
+            dataChanged = false;
             // Match db registrations by UUID, ActorId and registration date
             var existingInDb = (
                 from dbReg in dataContext.PersonRegistrations
@@ -185,7 +191,7 @@ namespace CprBroker.Engine.Local
             ).ToArray();
 
             var ret = new List<PersonRegistration>(existingInDb.Length);
-            
+
             // Perform a content match if key match is found
             foreach (var dbReg in existingInDb)
             {
@@ -197,16 +203,13 @@ namespace CprBroker.Engine.Local
                 else
                 {
                     // Content match due to bug fix
-                    var oioInDbReg = PersonRegistration.ToXmlType(dbReg);
-                    if (UpdateRules.MatchRule.Overwrites(oioInDbReg, oioRegistration))
+                    if (UpdateRules.MatchRule.ApplyRules(dbReg, oioRegistration))
                     {
-                        // TODO: Update existing dbReg
-                        dbReg.fro
+                        dataChanged = true;
                         ret.Add(dbReg);
                     }
                 }
             }
-            
             return ret.ToArray();
         }
 

@@ -32,11 +32,18 @@ namespace CprBroker.Tests.Engine
                 return _AreCandidates;
             }
 
-            public Action<PersonRegistration, T, T> _UpdateFromXmlType;
-            public override void UpdateFromXmlType(PersonRegistration dbReg, T existingObj, T newObj)
+            public Action<T, T> _UpdateOioFromXmlType;
+            public override void UpdateOioFromXmlType(T existingObj, T newObj)
             {
-                if (_UpdateFromXmlType != null)
-                    _UpdateFromXmlType(dbReg, existingObj, newObj);
+                if (_UpdateOioFromXmlType != null)
+                    _UpdateOioFromXmlType(existingObj, newObj);
+            }
+
+            public Action<PersonRegistration, T> _UpdateDbFromXmlType;
+            public override void UpdateDbFromXmlType(PersonRegistration dbReg, T newObj)
+            {
+                if (_UpdateDbFromXmlType != null)
+                    _UpdateDbFromXmlType(dbReg, newObj);
             }
         }
 
@@ -105,125 +112,132 @@ namespace CprBroker.Tests.Engine
         }
 
         [TestFixture]
-        public class UpdateFromXmlIfPossible
+        public class UpdateOioFromXmlIfPossible
         {
             [Test]
-            public void UpdateFromXmlIfPossible_NoCandidates_False()
+            public void UpdateOioFromXmlIfPossible_NoCandidates_False()
             {
-                var oioReg = new RegistreringType1();
-                var dbReg = new PersonRegistration();
-                dbReg.SetContents(oioReg);
+                var oioReg0 = new RegistreringType1();
+                var oioReg1 = new RegistreringType1();
 
-                var rule = new DummyRule<object> { _AreCandidates = false, _GetObject = "", _UpdateFromXmlType = (db, r1, r2) => db.PersonAttributes = new PersonAttributes() { } };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg);
+                var rule = new DummyRule<RegistreringType1> { _AreCandidates = false, _GetObject = null, _UpdateOioFromXmlType = (r1, r2) => r1.AttributListe = new AttributListeType() { } };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg0, oioReg1);
                 Assert.False(ret);
             }
 
             [Test]
-            public void UpdateFromXmlIfPossible_NoCandidates_NoChanges()
+            public void UpdateOioFromXmlIfPossible_NoCandidates_NoChanges()
             {
                 var oioReg = new RegistreringType1();
                 var dbReg = new PersonRegistration();
                 dbReg.SetContents(oioReg);
                 var xml1 = Strings.SerializeObject(dbReg);
 
-                var rule = new DummyRule<object> { _AreCandidates = false, _GetObject = "", _UpdateFromXmlType = (db, r1, r2) => db.PersonAttributes = new PersonAttributes() { } };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg);
+                var rule = new DummyRule<RegistreringType1> { _AreCandidates = false, _GetObject = null, _UpdateOioFromXmlType = (r1, r2) => r1.AttributListe = new AttributListeType() { } };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg, oioReg);
                 var xml2 = Strings.SerializeObject(dbReg);
                 Assert.AreEqual(xml1, xml2);
             }
 
             [Test]
-            public void UpdateFromXmlIfPossible_Candidates_True()
+            public void UpdateOioFromXmlIfPossible_Candidates_True()
             {
                 var oioReg = new RegistreringType1();
-                var dbReg = new PersonRegistration();
-                dbReg.SetContents(oioReg);
 
-                var rule = new DummyRule<object> { _AreCandidates = true, _GetObject = "", _UpdateFromXmlType = (db, r1, r2) => db.PersonAttributes = new PersonAttributes() { } };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg);
+                var rule = new DummyRule<RegistreringType1> { _AreCandidates = true, _GetObject = oioReg, _UpdateOioFromXmlType = (r1, r2) => r1.AttributListe = new AttributListeType() { } };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg, oioReg);
                 Assert.True(ret);
             }
 
             [Test]
-            public void UpdateFromXmlIfPossible_Candidates_MethodCall()
+            public void UpdateOioFromXmlIfPossible_Candidates_MethodCall()
             {
                 var oioReg = new RegistreringType1();
                 var dbReg = new PersonRegistration();
                 dbReg.SetContents(oioReg);
                 bool ff = false;
-                var rule = new DummyRule<object> { _AreCandidates = true, _GetObject = "", _UpdateFromXmlType = (db, r1, r2) => ff = true };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg);
+                var rule = new DummyRule<object> { _AreCandidates = true, _GetObject = "", _UpdateOioFromXmlType = (r1, r2) => ff = true };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg, oioReg);
                 Assert.True(ff);
             }
 
             [Test]
-            public void UpdateFromXmlIfPossible_Candidates_DataChanged()
+            public void UpdateOioFromXmlIfPossible_Candidates_DataChanged()
             {
-                var oioReg = new RegistreringType1();
-                var dbReg = new PersonRegistration();
-                dbReg.SetContents(oioReg);
-                var xml1 = Strings.SerializeObject(dbReg);
+                var oioReg0 = new RegistreringType1();
+                var oioReg1 = new RegistreringType1();
 
-                var rule = new DummyRule<object> { _AreCandidates = true, _GetObject = "", _UpdateFromXmlType = (db, r1, r2) => db.UUID = Guid.NewGuid() };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg);
-                var xml2 = Strings.SerializeObject(dbReg);
+                var xml1 = Strings.SerializeObject(oioReg0);
+
+                var rule = new DummyRule<RegistreringType1> { _AreCandidates = true, _GetObjectM = o => o, _UpdateOioFromXmlType = (r1, r2) => r1.AttributListe = new AttributListeType() { } };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg0, oioReg1);
+                var xml2 = Strings.SerializeObject(oioReg0);
                 Assert.AreNotEqual(xml1, xml2);
             }
 
             [Test]
-            public void UpdateFromXmlIfPossible_CandidatesWithNullObjects_False()
+            public void UpdateOioFromXmlIfPossible_CandidatesWithNullObjects_False()
             {
                 var oioReg = new RegistreringType1();
                 var dbReg = new PersonRegistration();
                 dbReg.SetContents(oioReg);
 
-                var rule = new DummyRule<object> { _AreCandidates = true, _GetObject = null, _UpdateFromXmlType = (db, r1, r2) => db.UUID = Guid.NewGuid() };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg);
+                var rule = new DummyRule<RegistreringType1> { _AreCandidates = true, _GetObject = null, _UpdateOioFromXmlType = (r1, r2) => r1.AttributListe = new AttributListeType() { } };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg, oioReg);
                 Assert.False(ret);
             }
 
             [Test]
-            public void UpdateFromXmlIfPossible_CandidatesWithNullObjects_SameData()
+            public void UpdateOioFromXmlIfPossible_CandidatesWithNullObjects_SameData()
             {
-                var oioReg = new RegistreringType1();
-                var dbReg = new PersonRegistration();
-                dbReg.SetContents(oioReg);
-                var xml1 = Strings.SerializeObject(dbReg);
+                var oioReg0 = new RegistreringType1();
+                var oioReg1 = new RegistreringType1();
+                var xml1 = Strings.SerializeObject(oioReg0);
 
-                var rule = new DummyRule<object> { _AreCandidates = true, _GetObject = null, _UpdateFromXmlType = (db, r1, r2) => db.UUID = Guid.NewGuid() };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg);
-                var xml2 = Strings.SerializeObject(dbReg);
+                var rule = new DummyRule<RegistreringType1> { _AreCandidates = true, _GetObject = null, _UpdateOioFromXmlType = (r1, r2) => r1.AttributListe = new AttributListeType() { } };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg0, oioReg1);
+                var xml2 = Strings.SerializeObject(oioReg0);
                 Assert.AreEqual(xml1, xml2);
             }
 
-            [Test]            
-            public void UpdateFromXmlIfPossible_CandidatesWithOneNullObject_False([Values(0,1)]int callNumber)
-            {
-                var oioReg = new RegistreringType1();
-                var oioReg2 = new RegistreringType1();
-                var oioRegs = new RegistreringType1[]{ oioReg,oioReg2};
-                var dbReg = new PersonRegistration();
-                dbReg.SetContents(oioReg);
-                var rule = new DummyRule<object> { _AreCandidates = true, _GetObjectM = (o) => o == oioRegs[callNumber] ? null : new object(), _UpdateFromXmlType = (db, r1, r2) => db.UUID = Guid.NewGuid() };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg2);
-                Assert.False(ret);
-            }
-
             [Test]
-            public void UpdateFromXmlIfPossible_CandidatesWithOneNullObject_FalseAndSameData([Values(0, 1)]int callNumber)
+            public void UpdateOioFromXmlIfPossible_CandidatesWithOneNullObject_False([Values(0, 1)]int callNumber)
             {
                 var oioReg = new RegistreringType1();
                 var oioReg2 = new RegistreringType1();
                 var oioRegs = new RegistreringType1[] { oioReg, oioReg2 };
-                var dbReg = new PersonRegistration();
-                dbReg.SetContents(oioReg);
-                var xml1 = Strings.SerializeObject(dbReg);
-                var rule = new DummyRule<object> { _AreCandidates = true, _GetObjectM = (o) => o == oioRegs[callNumber] ? null : new object(), _UpdateFromXmlType = (db, r1, r2) => db.UUID = Guid.NewGuid() };
-                var ret = rule.UpdateFromXmlIfPossible(dbReg, oioReg, oioReg2);
-                
-                var xml2 = Strings.SerializeObject(dbReg);
+
+                var rule = new DummyRule<RegistreringType1> { _AreCandidates = true, _GetObjectM = (o) => o == oioRegs[callNumber] ? null : o, _UpdateOioFromXmlType = (r1, r2) => r1.AttributListe = new AttributListeType() { } };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg, oioReg2);
+                Assert.False(ret);
+            }
+
+            [Test]
+            public void UpdateOioFromXmlIfPossible_CandidatesWithOneNullObject_FalseAndSameData([Values(0, 1)]int callNumber)
+            {
+                var oioReg = new RegistreringType1();
+                var oioReg2 = new RegistreringType1();
+                var oioRegs = new RegistreringType1[] { oioReg, oioReg2 };
+
+                var xml1 = Strings.SerializeObject(oioReg);
+                var rule = new DummyRule<RegistreringType1> { _AreCandidates = true, _GetObjectM = (o) => o == oioRegs[callNumber] ? null : o, _UpdateOioFromXmlType = (r1, r2) => r1.AttributListe = new AttributListeType() { } };
+                var ret = rule.UpdateOioFromXmlIfPossible(oioReg, oioReg2);
+
+                var xml2 = Strings.SerializeObject(oioReg);
                 Assert.AreEqual(xml1, xml2);
+            }
+        }
+
+        [TestFixture]
+        public class UpdateDbFromXmlType
+        {
+            [Test]
+            public void UpdateDbFromXmlType_Normal_CallsLowerFunc()
+            {
+                bool called = false;
+                var rule = new DummyRule<RegistreringType1>() { _UpdateDbFromXmlType = (db, oio) => called = true };
+                rule.UpdateDbFromXmlType(new PersonRegistration(), new RegistreringType1());
+                Assert.True(called);
             }
         }
     }

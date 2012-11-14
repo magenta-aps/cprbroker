@@ -38,9 +38,13 @@ namespace CprBroker.Engine.UpdateRules
                 && !string.Equals(existingObj.AddressComplete.AddressPostal.DistrictName, newObj.AddressComplete.AddressPostal.DistrictName);
         }
 
-        public override void UpdateFromXmlType(PersonRegistration dbReg, DanskAdresseType existingObj, DanskAdresseType newObj)
+        public override void UpdateOioFromXmlType(DanskAdresseType existingObj, DanskAdresseType newObj)
         {
-            existingObj.AddressComplete.AddressPostal.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
+            existingObj.AddressComplete.AddressPostal.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;            
+        }
+
+        public override void UpdateDbFromXmlType(PersonRegistration dbReg, DanskAdresseType newObj)
+        {
             dbReg.PersonAttributes.CprData.Address.DenmarkAddress.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
         }
     }
