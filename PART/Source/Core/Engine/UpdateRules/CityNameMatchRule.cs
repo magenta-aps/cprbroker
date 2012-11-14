@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using CprBroker.Data.Part;
 
 namespace CprBroker.Engine.UpdateRules
 {
@@ -26,7 +27,9 @@ namespace CprBroker.Engine.UpdateRules
 
         public override bool AreCandidates(DanskAdresseType existingObj, DanskAdresseType newObj)
         {
-            return string.Equals(existingObj.PostDistriktTekst, newObj.PostDistriktTekst)
+            return
+
+                string.Equals(existingObj.PostDistriktTekst, newObj.PostDistriktTekst)
 
                 && existingObj.AddressComplete != null && existingObj.AddressComplete.AddressPostal != null
                 && newObj.AddressComplete != null && newObj.AddressComplete.AddressPostal != null
@@ -35,9 +38,10 @@ namespace CprBroker.Engine.UpdateRules
                 && !string.Equals(existingObj.AddressComplete.AddressPostal.DistrictName, newObj.AddressComplete.AddressPostal.DistrictName);
         }
 
-        public override void Neutralize(DanskAdresseType existingObj, DanskAdresseType newObj)
+        public override void UpdateFromXmlType(PersonRegistration dbReg, DanskAdresseType existingObj, DanskAdresseType newObj)
         {
             existingObj.AddressComplete.AddressPostal.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
+            dbReg.PersonAttributes.CprData.Address.DenmarkAddress.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
         }
     }
 }
