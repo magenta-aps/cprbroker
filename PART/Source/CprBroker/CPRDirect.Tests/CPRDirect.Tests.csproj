@@ -35,6 +35,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CprBroker.Data, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Engine, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
@@ -98,6 +102,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CprBrokerWixInstallers\CprBrokerWixInstallers.csproj">
+      <Project>{EBE4DA5E-1E87-4071-B8A3-EC6096B35B31}</Project>
+      <Name>CprBrokerWixInstallers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
       <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
       <Name>CPRDirect</Name>
