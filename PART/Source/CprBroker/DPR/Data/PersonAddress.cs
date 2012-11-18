@@ -61,7 +61,7 @@ namespace CprBroker.Providers.DPR
             {
                 Item = new DanskAdresseType()
                 {
-                    AddressComplete = ToAddressCompleteType(personTotal.PostDistrictName),
+                    AddressComplete = ToAddressCompleteType(),
                     // No address point
                     AddressPoint = null,
                     NoteTekst = null,
@@ -70,21 +70,20 @@ namespace CprBroker.Providers.DPR
                     SkoleDistriktTekst = null,
                     SocialDistriktTekst = null,
                     SogneDistriktTekst = null,
-                    // TODO: set to RoadCode>9900
-                    SpecielVejkodeIndikator = false,
-                    SpecielVejkodeIndikatorSpecified = false,
+                    SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(),
+                    SpecielVejkodeIndikatorSpecified = true,
                     UkendtAdresseIndikator = false,
                     ValgkredsDistriktTekst = null
                 }
             };
         }
 
-        public AddressCompleteType ToAddressCompleteType(string postDistrictName)
+        public AddressCompleteType ToAddressCompleteType()
         {
             return new CprBroker.Schemas.Part.AddressCompleteType()
             {
                 AddressAccess = ToAddressAccessType(),
-                AddressPostal = ToAddressPostalType(postDistrictName),
+                AddressPostal = ToAddressPostalType(),
             };
         }
 
@@ -98,12 +97,12 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public AddressPostalType ToAddressPostalType(string postDistrictName)
+        public AddressPostalType ToAddressPostalType()
         {
             return new CprBroker.Schemas.Part.AddressPostalType()
             {
                 CountryIdentificationCode = ToCountryIdentificationCodeType(),
-                DistrictName = postDistrictName,
+                DistrictName = Town,
                 DistrictSubdivisionIdentifier = null,
                 FloorIdentifier = Floor,
                 MailDeliverySublocationIdentifier = null,
@@ -142,6 +141,11 @@ namespace CprBroker.Providers.DPR
                     UkendtAdresseIndikator = false
                 }
             };
+        }
+
+        public bool ToSpecielVejkodeIndikator()
+        {
+            return Schemas.Util.Converters.ToSpecielVejkodeIndikator(this.StreetCode);
         }
 
     }
