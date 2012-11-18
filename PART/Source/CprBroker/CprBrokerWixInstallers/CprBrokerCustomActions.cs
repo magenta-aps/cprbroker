@@ -249,6 +249,11 @@ namespace CprBrokerWixInstallers
                         SqlScript = Properties.Resources.PatchDatabase_1_3_2, 
                         PatchAction = null
                     },
+                    new DatabasePatchInfo(){ 
+                        Version = new Version(1,4), 
+                        SqlScript = Properties.Resources.PatchDatabase_1_4, 
+                        PatchAction = null
+                    },
                 };
 
                 var result = DatabaseCustomAction.PatchDatabase(session, patchInfos);
