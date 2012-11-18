@@ -178,8 +178,8 @@ namespace CprBroker.Providers.CPRDirect
                 // Set post code
                 PostCodeIdentifier = Converters.DecimalToString(this.PostCode),
 
-                // Set post district
-                DistrictName = this.PostDistrictText,
+                // Set city name
+                DistrictName = this.CityName,
 
                 // PostOfficeBoxIdentifier is not supported
                 PostOfficeBoxIdentifier = null,
