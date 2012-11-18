@@ -64,24 +64,24 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
         public void ToAddressPostalType_Normal_NotNull()
         {
             var personAddress = new PersonAddressStub();
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.NotNull(result);
         }
 
         [Test]
-        public void ToAddressPostalType_Normal_CorrectPostDistrict(
-            [ValueSource("RandomStrings5")]string postDistrictName)
+        public void ToAddressPostalType_Normal_CorrectCity(
+            [ValueSource("RandomStrings5")]string cityName)
         {
-            var personAddress = new PersonAddressStub();
-            var result = personAddress.ToAddressPostalType(postDistrictName);
-            Assert.AreEqual(postDistrictName, result.DistrictName);
+            var personAddress = new PersonAddressStub() { Town = cityName };
+            var result = personAddress.ToAddressPostalType();
+            Assert.AreEqual(cityName, result.DistrictName);
         }
 
         [Test]
         public void ToAddressPostalType_Normal_DistrictSubdivisionIdentifierNull()
         {
             var personAddress = new PersonAddressStub();
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.Null(result.DistrictSubdivisionIdentifier);
         }
 
@@ -90,7 +90,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
             [ValueSource("RandomStrings5")]string floor)
         {
             var personAddress = new PersonAddressStub() { Floor = floor };
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.AreEqual(floor, result.FloorIdentifier);
         }
 
@@ -98,7 +98,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
         public void ToAddressPostalType_Normal_MailDeliverySublocationIdentifierNull()
         {
             var personAddress = new PersonAddressStub();
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.Null(result.MailDeliverySublocationIdentifier);
         }
 
@@ -107,7 +107,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
             [ValueSource("RandomDecimals5")]decimal postCode)
         {
             var personAddress = new PersonAddressStub() { PostCode = postCode };
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.AreEqual(postCode, decimal.Parse(result.PostCodeIdentifier));
         }
 
@@ -115,7 +115,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
         public void ToAddressPostalType_Normal_PostOfficeBoxIdentifierNull()
         {
             var personAddress = new PersonAddressStub();
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.Null(result.PostOfficeBoxIdentifier);
         }
 
@@ -124,7 +124,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
             [ValueSource("RandomHouseNumbers5")]string houseNumber)
         {
             var personAddress = new PersonAddressStub() { HouseNumber = houseNumber };
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.AreEqual(houseNumber, result.StreetBuildingIdentifier);
         }
 
@@ -133,7 +133,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
             [ValueSource("RandomStrings5")]string streetName)
         {
             var personAddress = new PersonAddressStub() { StreetAddressingName = streetName };
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.AreEqual(streetName, result.StreetName);
         }
 
@@ -142,7 +142,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
             [ValueSource("RandomStrings5")]string streetName)
         {
             var personAddress = new PersonAddressStub() { StreetAddressingName = streetName };
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.AreEqual(streetName, result.StreetNameForAddressingName);
         }
 
@@ -151,7 +151,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
             [ValueSource("RandomStrings5")]string door)
         {
             var personAddress = new PersonAddressStub() { DoorNumber = door };
-            var result = personAddress.ToAddressPostalType(null);
+            var result = personAddress.ToAddressPostalType();
             Assert.AreEqual(door, result.SuiteIdentifier);
         }
     }

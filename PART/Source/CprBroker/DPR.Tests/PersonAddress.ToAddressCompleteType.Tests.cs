@@ -64,7 +64,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
         public void ToAddressCompleteType_Normal_NotNull()
         {
             var personAddress = new PersonAddressStub();
-            var result = personAddress.ToAddressCompleteType(null);
+            var result = personAddress.ToAddressCompleteType();
             Assert.NotNull(result);
         }
 
@@ -72,7 +72,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
         public void ToAddressCompleteType_Normal_AddressAccessNotNull()
         {
             var personAddress = new PersonAddressStub();
-            var result = personAddress.ToAddressCompleteType(null);
+            var result = personAddress.ToAddressCompleteType();
             Assert.NotNull(result.AddressAccess);
         }
 
@@ -80,7 +80,7 @@ namespace CprBroker.Tests.DPR.PersonAddressTests
         public void ToAddressCompleteType_Normal_NotAddressPostalNull()
         {
             var personAddress = new PersonAddressStub();
-            var result = personAddress.ToAddressCompleteType(null);
+            var result = personAddress.ToAddressCompleteType();
             Assert.NotNull(result.AddressPostal);
         }
 
