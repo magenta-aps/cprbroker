@@ -123,6 +123,24 @@ namespace CprBroker.Tests.Engine
                 var ret = new CityNameMatchRule().AreCandidates(o0, o1);
                 Assert.False(ret);
             }
+
+            [Test]
+            public void AreCandidates_AllNulls_False()
+            {
+                var o0 = new DanskAdresseType() { PostDistriktTekst = null, AddressComplete = new AddressCompleteType { AddressPostal = new AddressPostalType { DistrictName = null } } };
+                var o1 = new DanskAdresseType() { PostDistriktTekst = null, AddressComplete = new AddressCompleteType { AddressPostal = new AddressPostalType { DistrictName = null } } };
+                var ret = new CityNameMatchRule().AreCandidates(o0, o1);
+                Assert.False(ret);
+            }
+
+            [Test]
+            public void AreCandidates_NewCity_True([Values(null, "CCC")] string cityName)
+            {
+                var o0 = new DanskAdresseType() { PostDistriktTekst = "DDD", AddressComplete = new AddressCompleteType { AddressPostal = new AddressPostalType { DistrictName = "DDD" } } };
+                var o1 = new DanskAdresseType() { PostDistriktTekst = "DDD", AddressComplete = new AddressCompleteType { AddressPostal = new AddressPostalType { DistrictName = cityName } } };
+                var ret = new CityNameMatchRule().AreCandidates(o0, o1);
+                Assert.True(ret);
+            }
         }
 
         [TestFixture]
