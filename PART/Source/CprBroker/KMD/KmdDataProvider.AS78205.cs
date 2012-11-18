@@ -383,7 +383,7 @@ namespace CprBroker.Providers.KMD
                             AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
                             {
                                 CountryIdentificationCode = null,
-                                DistrictName = PostDistrict,
+                                DistrictName = CityName34,
                                 DistrictSubdivisionIdentifier = null,
                                 FloorIdentifier = Floor,
                                 MailDeliverySublocationIdentifier = null,
@@ -402,7 +402,6 @@ namespace CprBroker.Providers.KMD
                         SkoleDistriktTekst = null,
                         SocialDistriktTekst = null,
                         SogneDistriktTekst = null,
-                        // TODO: True if StreetCode > 9900
                         SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(),
                         SpecielVejkodeIndikatorSpecified = ToSpecielVejkodeIndikatorSpecified(),
                         UkendtAdresseIndikator = false,
