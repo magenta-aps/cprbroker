@@ -70,14 +70,14 @@ namespace CprBroker.Providers.E_M
 
             var ret = new DanskAdresseType()
             {
-                AddressComplete = this.ToAddressCompleteType(postCode, postDistrict),
+                AddressComplete = this.ToAddressCompleteType(postCode),
                 // No address point for persons
                 AddressPoint = null,
                 // No address note
                 NoteTekst = null,
                 // No political districts
                 PolitiDistriktTekst = null,
-                // Will be set later in this method
+                // Set post district
                 PostDistriktTekst = postDistrict,
                 // No school district
                 SkoleDistriktTekst = null,
@@ -109,12 +109,12 @@ namespace CprBroker.Providers.E_M
             }
         }
 
-        public AddressCompleteType ToAddressCompleteType(string postCode, string postDistrict)
+        public AddressCompleteType ToAddressCompleteType(string postCode)
         {
             return new CprBroker.Schemas.Part.AddressCompleteType()
            {
                AddressAccess = this.ToAddressAccessType(),
-               AddressPostal = this.ToAddressPostalType(postCode, postDistrict)
+               AddressPostal = this.ToAddressPostalType(postCode)
            };
         }
 
@@ -135,7 +135,7 @@ namespace CprBroker.Providers.E_M
         /// <param name="postCode"></param>
         /// <param name="postDistrict"></param>
         /// <returns></returns>
-        public AddressPostalType ToAddressPostalType(string postCode, string postDistrict)
+        public AddressPostalType ToAddressPostalType(string postCode)
         {
             Road activeRoad = GetActiveRoad();
 
@@ -151,8 +151,8 @@ namespace CprBroker.Providers.E_M
                MailDeliverySublocationIdentifier = null,
                // Set post code
                PostCodeIdentifier = postCode,
-               // Set post district
-               DistrictName = postDistrict,
+               // City/Town not supported in E&M
+               DistrictName = null,
                // PostOfficeBoxIdentifier is not supported
                PostOfficeBoxIdentifier = null,
                // Set building identifier
