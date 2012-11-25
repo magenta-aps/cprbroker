@@ -57,11 +57,11 @@ namespace CprBroker.Engine.Part
     /// <summary>
     /// Facade method for GetUuid
     /// </summary>    
-    public class GerUuidFacadeMethodInfo : FacadeMethodInfo<GetUuidOutputType, string>
+    public class GetUuidFacadeMethodInfo : FacadeMethodInfo<GetUuidOutputType, string>
     {
         public string Input;
 
-        public GerUuidFacadeMethodInfo(string input, string appToken, string userToken)
+        public GetUuidFacadeMethodInfo(string input, string appToken, string userToken)
             : base(appToken, userToken)
         {
             Input = input;

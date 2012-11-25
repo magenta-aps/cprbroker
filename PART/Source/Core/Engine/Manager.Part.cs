@@ -103,7 +103,7 @@ namespace CprBroker.Engine
 
             public static GetUuidOutputType GetUuid(string userToken, string appToken, string cprNumber)
             {
-                var facadeMethod = new GerUuidFacadeMethodInfo(cprNumber, appToken, userToken);
+                var facadeMethod = new GetUuidFacadeMethodInfo(cprNumber, appToken, userToken);
                 var ret = GetMethodOutput<GetUuidOutputType, string>(facadeMethod);
                 return ret;
             }
