@@ -227,6 +227,27 @@ namespace CprBroker.Utilities
             return guidReg.IsMatch(stringValue);
         }
 
+        public static bool IsValidPersonNumber(string cprNumber)
+        {
+            var pattern = @"\A\d{10}\Z";
+            if (!System.Text.RegularExpressions.Regex.Match(cprNumber, pattern).Success)
+            {
+                return false;
+            }
+
+            long val;
+            if (!long.TryParse(cprNumber, out val))
+            {
+                return false;
+            }
+
+            if (!Strings.PersonNumberToDate(cprNumber).HasValue)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public static DateTime? PersonNumberToDate(string cprNumber)
         {
             int day;

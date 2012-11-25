@@ -74,19 +74,7 @@ namespace CprBroker.Engine.Part
                 return StandardReturType.NullInput();
             }
 
-            var pattern = @"\A\d{10}\Z";
-            if (!System.Text.RegularExpressions.Regex.Match(Input, pattern).Success)
-            {
-                return StandardReturType.InvalidCprNumber(Input);
-            }
-
-            long val;
-            if (!long.TryParse(Input, out val))
-            {
-                return StandardReturType.InvalidCprNumber(Input);
-            }
-
-            if (!Strings.PersonNumberToDate(Input).HasValue)
+            if (!Strings.IsValidPersonNumber(Input))
             {
                 return StandardReturType.InvalidCprNumber(Input);
             }
