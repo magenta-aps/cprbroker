@@ -27,8 +27,8 @@ namespace CprBroker.Engine.UpdateRules
         public abstract void UpdateDbFromXmlType(PersonRegistration dbReg, RegistreringType1 newObj);
 
 
-        private readonly static MatchRule[] _AllRules = new MatchRule[] { new CityNameMatchRule() };
-        
+        private readonly static MatchRule[] _AllRules = new MatchRule[] { new CityNameMatchRule(), new AddressingNameMatchRule(), new SpecielVejkodeIndikatorMatchRule() };
+
         public static MatchRule[] AllRules()
         {
             return new List<MatchRule>(_AllRules).ToArray();
@@ -64,6 +64,7 @@ namespace CprBroker.Engine.UpdateRules
                     {
                         appliedRule.UpdateDbFromXmlType(dbReg, newReg);
                     }
+                    dbReg.BrokerUpdateDate = DateTime.Now;
                     dbReg.SetContents(newReg);
                     return true;
                 }
