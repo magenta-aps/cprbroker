@@ -141,7 +141,7 @@
     <Compile Include="Ping\PingDataProvider.cs" />
     <Compile Include="Ping\PingFacadeMethod.cs" />
     <Compile Include="Manager.Events.cs" />
-    <Compile Include="Part\GerUuidFacadeMethodInfo.cs" />
+    <Compile Include="Part\GetUuidFacadeMethodInfo.cs" />
     <Compile Include="SchemaSoapExtension.cs" />
   </ItemGroup>
   <ItemGroup>
