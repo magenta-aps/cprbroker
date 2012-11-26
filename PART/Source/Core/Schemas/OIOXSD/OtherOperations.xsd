@@ -25,4 +25,15 @@
       </extension>
     </complexContent>
   </complexType>
+
+  <complexType name="GetUuidArrayOutputType" oio:definition="urn:oio:sagdok:persongetpersonuuidoutput:ADD:1.0.0">
+    <complexContent>
+      <extension base="sd:BasicOutputType">
+        <sequence>
+          <element ref="oio1:UUID" minOccurs="0" oio:content="id" maxOccurs="unbounded" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
 </schema>
