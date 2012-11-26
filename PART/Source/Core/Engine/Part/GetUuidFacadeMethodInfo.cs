@@ -87,15 +87,20 @@ namespace CprBroker.Engine.Part
 
             SubMethodInfos = new SubMethodInfo[]
             {
-                new SubMethodInfo<IPartPersonMappingDataProvider,Guid?>()
-                {
-                    Method = (prov)=>prov.GetPersonUuid(Input),
-                    LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst,
-                    FailOnDefaultOutput=true,
-                    FailIfNoDataProvider=true,
-                    UpdateMethod=uuid=>Local.UpdateDatabase.UpdatePersonUuid(Input,uuid.Value),
-                }
+                CreateSubMethodInfo(Input)
             };
+        }
+
+        public static SubMethodInfo<IPartPersonMappingDataProvider, Guid?> CreateSubMethodInfo(string pnr)
+        {
+            return new SubMethodInfo<IPartPersonMappingDataProvider, Guid?>()
+                {
+                    Method = (prov) => prov.GetPersonUuid(pnr),
+                    LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst,
+                    FailOnDefaultOutput = true,
+                    FailIfNoDataProvider = true,
+                    UpdateMethod = uuid => Local.UpdateDatabase.UpdatePersonUuid(pnr, uuid.Value),
+                };
         }
 
         public override string Aggregate(object[] results)

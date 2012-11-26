@@ -99,6 +99,7 @@ namespace CprBroker.Schemas.Part
                 public const string Search = "Search";
 
                 public const string GetUuid = "GetUuid";
+                public const string GetUuidArray = "GetUuidArray";
             }
         }
 

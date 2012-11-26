@@ -141,6 +141,22 @@ namespace CprBroker.Schemas.ServiceDescription
 </table>
 <br>==============================
 ";
+
+            public const string GetUuidArray =
+@"Gets persons' UUIDs from their CPR numbers. If no mapping is found locally, it calls the UUID assignment authority (PersonMaster service).
+<br><br><b><u>Signature:</u></b>
+<br>GetUuidOutputType GetUuid(string[] cprNumberArray)
+<br><br><b><u>Parameter Description:</u></b>
+<br>cprNumberArray: CPR numbers of persons needed.
+<br><br><b><u>Return value copmponents:</u></b>
+<br>StandardRetur: Detailed status code and text.
+<br>UUID: The persons' UUIDs.
+<br><br><b><u>Review:</u></b>
+<table>
+<tr><td width='30%'>2012-11-25, CPR Broker </td><td width='10%'></td><td width='60%'>Part release.</td></tr>
+</table>
+<br>==============================
+";
         }
     }
 }

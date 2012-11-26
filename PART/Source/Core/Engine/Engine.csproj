@@ -73,6 +73,7 @@
     <Compile Include="Local\AdminDataProvider.cs" />
     <Compile Include="Local\Admin.Log.cs" />
     <Compile Include="IDataProvider.cs" />
+    <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
     <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />
     <Compile Include="UpdateRules\CityNameMatchRule.cs" />
     <Compile Include="UpdateRules\MatchRule%28Of T%29.cs" />

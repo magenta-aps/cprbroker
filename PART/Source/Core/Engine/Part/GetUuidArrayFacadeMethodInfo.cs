@@ -48,83 +48,71 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
+using CprBroker.Schemas.Part;
+using CprBroker.Utilities;
 
-namespace CprBroker.Schemas.Part
+namespace CprBroker.Engine.Part
 {
     /// <summary>
-    /// Represents an interface that all web method outputs should implement
-    /// This is used to ensure that a StandardReturType is always returned from a web method
+    /// Facade method for List
     /// </summary>
-    public interface IBasicOutput
+    public class GetUuidArrayFacadeMethodInfo : FacadeMethodInfo<GetUuidArrayOutputType, string[]>
     {
-        StandardReturType StandardRetur { get; set; }
-    }
+        public string[] input;
 
-    public interface IBasicOutput<T> : IBasicOutput
-    {
-        void SetMainItem(T mainItem);
-    }
+        private GetUuidArrayFacadeMethodInfo()
+        { }
 
-    public class BasicOutputType<T> : BasicOutputType, IBasicOutput<T>
-    {
-        public T Item { get; set; }
-        public static BasicOutputType<T> CreateAsOK(T item)
+        public GetUuidArrayFacadeMethodInfo(string[] inp, string appToken, string userToken)
+            : base(appToken, userToken)
         {
-            return new BasicOutputType<T>()
+            input = inp;
+            this.InitializationMethod = new Action(InitializationMethod);
+            this.AggregationFailOption = AggregationFailOption.FailOnAll;
+        }
+
+        public override StandardReturType ValidateInput()
+        {
+            if (input == null || input.Length == 0)
             {
-                Item = item,
-                StandardRetur = StandardReturType.OK()
-            };
+                return StandardReturType.NullInput();
+            }
+
+            foreach (var pnr in input)
+            {
+                if (string.IsNullOrEmpty(pnr))
+                {
+                    return StandardReturType.NullInput();
+                }
+            }
+
+            var invalidPnrs = (from pnr in input where !Strings.IsValidPersonNumber(pnr) select pnr).ToArray();
+            if (invalidPnrs.Length > 0)
+            {
+                return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidPnrs));
+            }
+
+            return StandardReturType.OK();
         }
 
-        public static BasicOutputType<T> CreateAsOKFromFirstResult(object[] result)
+        public override void Initialize()
         {
-            return CreateAsOK((T)result[0]);
+            SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
+            (
+                input,
+                (pnr) => GetUuidFacadeMethodInfo.CreateSubMethodInfo(pnr)
+           );
         }
 
-        public void SetMainItem(T mainItem)
+        public override string[] Aggregate(object[] results)
         {
-            Item = mainItem;
+            return Array.ConvertAll<object, string>
+                (
+                    results,
+                    (s) => s.ToString()
+                );
         }
-    }
 
-    public partial class SoegOutputType : IBasicOutput<string[]>
-    {
-        public void SetMainItem(string[] mainItem)
-        {
-            Idliste = mainItem;
-        }
-    }
-
-    public partial class ListOutputType1 : IBasicOutput<LaesResultatType[]>
-    {
-        public void SetMainItem(LaesResultatType[] mainItem)
-        {
-            LaesResultat = mainItem;
-        }
-    }
-
-    public partial class GetUuidOutputType : IBasicOutput<string>
-    {
-        public void SetMainItem(string mainItem)
-        {
-            UUID = mainItem;
-        }
-    }
-
-    public partial class GetUuidArrayOutputType : IBasicOutput<string[]>
-    {
-        public void SetMainItem(string[] mainItem)
-        {
-            UUID = mainItem;
-        }
-    }
-
-    public partial class LaesOutputType : IBasicOutput<LaesResultatType>
-    {
-        public void SetMainItem(LaesResultatType mainItem)
-        {
-            LaesResultat = mainItem;
-        }
     }
 }

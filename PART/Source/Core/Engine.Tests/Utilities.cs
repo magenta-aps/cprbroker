@@ -95,6 +95,16 @@ namespace CprBroker.Tests.Engine
             return day + month + year + part1;
         }
 
+        public static string[] RandomCprNumbers(int count)
+        {
+            var ret = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                ret[i] = RandomCprNumber();
+            }
+            return ret;
+        }
+
         public static RegistreringType1 CreateFakePerson(bool addSourceObject = false)
         {
             var ret = new RegistreringType1()

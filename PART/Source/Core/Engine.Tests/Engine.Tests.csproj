@@ -59,6 +59,7 @@
     <Compile Include="DataProviderManager.CreateDataProvider.Tests.cs" />
     <Compile Include="DataProviderManagerTests.cs" />
     <Compile Include="FacadeMethodInfoTests.cs" />
+    <Compile Include="GetUuidArrayFacadeMethodInfo.Tests.cs" />
     <Compile Include="ListFacadeMethodInfoTests.cs" />
     <Compile Include="Manager.Base.Tests.cs" />
     <Compile Include="MatchRule.Tests.cs" />
