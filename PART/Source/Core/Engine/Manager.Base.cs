@@ -261,14 +261,4 @@ namespace CprBroker.Engine
         }
     }
 
-    public class SubMethodRunState
-    {
-        public SubMethodInfo SubMethodInfo;
-        public IEnumerable<IDataProvider> DataProviders;
-        public object Result = null;
-        public ParameterizedThreadStart ThreadStart;
-        public Thread Thread;
-        public bool Succeeded = false;
-    }
-
 }
