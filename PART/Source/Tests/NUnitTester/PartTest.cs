@@ -150,6 +150,27 @@ namespace CprBroker.NUnitTester
         }
 
         [Test]
+        public void T220_GetUuidArray()
+        {
+            string[] cprNumberArray = TestData.cprNumbers;
+            var uuids = new string[cprNumberArray.Length];
+            for (int i = 0; i < cprNumberArray.Length; i++)
+            {
+                uuids[i] = TestRunner.PartService.GetUuid(cprNumberArray[i]).UUID;
+            }
+
+
+            var uuidBatch = TestRunner.PartService.GetUuidArray(cprNumberArray);
+            Validate(uuidBatch.StandardRetur);
+            Assert.AreEqual(uuids.Length, uuidBatch.UUID.Length);
+            for (int i = 0; i < cprNumberArray.Length; i++)
+            {
+                Assert.AreEqual(uuids[i], uuidBatch.UUID[i]);
+            }
+        }
+
+
+        [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
         public void T300_Read(string cprNumber)
         {
@@ -255,7 +276,7 @@ namespace CprBroker.NUnitTester
             };
 
             var persons = TestRunner.PartService.List(input);
-            Assert.IsNotNull(persons, "List response is null");            
+            Assert.IsNotNull(persons, "List response is null");
             Assert.AreEqual("206", persons.StandardRetur.StatusKode);
             Assert.IsNotNull(persons.LaesResultat, "Persons array is null");
             for (int i = 0; i < cprNumbers.Length; i++)
