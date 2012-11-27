@@ -209,6 +209,7 @@ namespace CprBroker.Engine
     public interface IPartPersonMappingDataProvider : IDataProvider
     {
         Guid? GetPersonUuid(string cprNumber);
+        Guid?[] GetPersonUuidArray(string[] cprNumberArray);
     }
 
     /// <summary>
