@@ -254,6 +254,26 @@ namespace CprBroker.Engine.Local
             }
         }
 
+        public static void UpdatePersonUuidArray(string[] cprNumbers, Guid?[] uuids)
+        {
+            using (var dataContext = new PartDataContext())
+            {
+                var all = new List<PersonMapping>(cprNumbers.Length);
+                for (int i = 0; i < cprNumbers.Length; i++)
+                {
+                    PersonMapping map = new PersonMapping()
+                    {
+                        CprNumber = cprNumbers[i],
+                        UUID = uuids[i].HasValue ? uuids[i].Value : Guid.Empty
+                    };
+                }
+                all = all.Where(map => map.UUID != Guid.Empty).ToList();
+
+                dataContext.PersonMappings.InsertAllOnSubmit(all);
+                dataContext.SubmitChanges();
+            }
+        }
+
         public static void ImportPersonRegistrationFromXmlFile(string path)
         {
             var xml = System.IO.File.ReadAllText(path);
