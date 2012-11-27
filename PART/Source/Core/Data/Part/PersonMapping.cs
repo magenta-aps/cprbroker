@@ -71,14 +71,8 @@ namespace CprBroker.Data.Part
             using (PartDataContext dataContext = new PartDataContext())
             {
                 var foundPersons = dataContext.PersonMappings.AsQueryable();
-                var pred = PredicateBuilder.False<PersonMapping>();
-
-                foreach (var cprNumber in cprNumbers)
-                {
-                    pred = pred.Or((d) => d.CprNumber == cprNumber);
-                }
-
-                foundPersons = foundPersons.Where(pred);
+                
+                foundPersons = foundPersons.Where(p => cprNumbers.Contains(p.CprNumber));
 
                 var foundPersonsArray = foundPersons.ToArray();
 
@@ -93,7 +87,6 @@ namespace CprBroker.Data.Part
                     }
 
                 }
-                dataContext.SubmitChanges();
             }
             return ret;
         }
