@@ -72,11 +72,20 @@ namespace CprBroker.Engine
         {
             try
             {
-                TOutput returnObject = null;
-                SubMethodRunState[] subMethodRunStates = ValidateAndInitialize<TOutput, TItem>(facade, out returnObject);
-                if (returnObject != null)
+                StandardReturType standardRetur;
+                SubMethodRunState[] subMethodRunStates;
+
+                standardRetur = Validate<TOutput, TItem>(facade);
+                if (!StandardReturType.IsSucceeded(standardRetur))
                 {
-                    return returnObject;
+                    return new TOutput() { StandardRetur = standardRetur };
+                }
+
+
+                standardRetur = Initialize<TOutput, TItem>(facade, out subMethodRunStates);
+                if (!StandardReturType.IsSucceeded(standardRetur))
+                {
+                    return new TOutput() { StandardRetur = standardRetur };
                 }
 
                 RunThreads<TOutput, TItem>(facade, subMethodRunStates);
@@ -89,9 +98,8 @@ namespace CprBroker.Engine
             }
         }
 
-        public static SubMethodRunState[] ValidateAndInitialize<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, out TOutput output) where TOutput : class, IBasicOutput<TItem>, new()
+        public static StandardReturType Validate<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade) where TOutput : class, IBasicOutput<TItem>, new()
         {
-            #region Initialization and loading of data providers
             // Initialize context
             try
             {
@@ -99,11 +107,7 @@ namespace CprBroker.Engine
             }
             catch (Exception ex)
             {
-                output = new TOutput()
-                {
-                    StandardRetur = StandardReturType.InvalidApplicationToken(facade.ApplicationToken)
-                };
-                return null;
+                return StandardReturType.InvalidApplicationToken(facade.ApplicationToken);
             }
 
             // Validate
@@ -115,33 +119,26 @@ namespace CprBroker.Engine
                 {
                     validationRet = StandardReturType.UnspecifiedError("Validation failed");
                 }
-                output = new TOutput()
-                {
-                    StandardRetur = validationRet
-                };
-                return null;
+                return validationRet;
             }
+            return StandardReturType.OK();
+        }
 
+        public static StandardReturType Initialize<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, out SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
+        {
             // Initialize facade method
             facade.Initialize();
 
             // have a list of data provider types and corresponding methods to call
             bool missingDataProvidersExist;
-            var subMethodRunStates = facade.CreateSubMethodRunStates(out missingDataProvidersExist);
+            subMethodRunStates = facade.CreateSubMethodRunStates(out missingDataProvidersExist);
 
             if (missingDataProvidersExist)
             {
                 Local.Admin.AddNewLog(TraceEventType.Warning, BrokerContext.Current.WebMethodMessageName, TextMessages.NoDataProvidersFound, null, null);
-                output = new TOutput()
-                {
-                    StandardRetur = StandardReturType.Create(HttpErrorCode.DATASOURCE_UNAVAILABLE)
-                };
-                return null;
+                return StandardReturType.Create(HttpErrorCode.DATASOURCE_UNAVAILABLE);
             }
-            #endregion
-
-            output = null;
-            return subMethodRunStates;
+            return StandardReturType.OK();
         }
 
         public static void RunThreads<TOutput, TItem>(FacadeMethodInfo<TOutput, TItem> facade, SubMethodRunState[] subMethodRunStates) where TOutput : class, IBasicOutput<TItem>, new()
