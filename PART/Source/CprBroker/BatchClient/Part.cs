@@ -18,18 +18,25 @@ namespace BatchClient
                 string[] fileCprNumbers = File.ReadAllLines(fileName);
 
                 ret = fileCprNumbers
-                    .Select(cprNumber =>
+                    .Select(cprNumberOrUuid =>
                     {
-                        cprNumber = cprNumber.Substring(0, Math.Min(10, cprNumber.Length));
-                        while (cprNumber.Length < 10)
+                        if (CprBroker.Utilities.Strings.IsGuid(cprNumberOrUuid))
                         {
-                            cprNumber = "0" + cprNumber;
+                            return cprNumberOrUuid;
                         }
-                        if (!System.Text.RegularExpressions.Regex.Match(cprNumber, "\\A\\d{10}\\Z").Success)
+                        else
                         {
-                            throw new Exception("Invalid CPR number: " + cprNumber);
+                            cprNumberOrUuid = cprNumberOrUuid.Substring(0, Math.Min(10, cprNumberOrUuid.Length));
+                            while (cprNumberOrUuid.Length < 10)
+                            {
+                                cprNumberOrUuid = "0" + cprNumberOrUuid;
+                            }
+                            if (!System.Text.RegularExpressions.Regex.Match(cprNumberOrUuid, "\\A\\d{10}\\Z").Success)
+                            {
+                                throw new Exception("Invalid CPR number: " + cprNumberOrUuid);
+                            }
+                            return cprNumberOrUuid;
                         }
-                        return cprNumber;
                     })
                     .Distinct()
                     .ToList();

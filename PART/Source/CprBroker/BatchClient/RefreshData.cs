@@ -63,22 +63,29 @@ namespace BatchClient
             return LoadCprNumbersOneByOne();
         }
 
-        public override void ProcessPerson(string cprNumber)
+        public override void ProcessPerson(string cprNumberOrUuid)
         {
             var partService = new BatchClient.Part.Part();
             partService.Url = this.PartServiceUrl;
             partService.ApplicationHeaderValue = new BatchClient.Part.ApplicationHeader() { ApplicationToken = this.ApplicationToken, UserToken = this.UserToken };
 
-            var getUuidResult = partService.GetUuid(cprNumber);
-            ValidateResult(cprNumber, "GetUuid", getUuidResult.StandardRetur);
-
-            var uuid = getUuidResult.UUID;
+            string uuid;
+            if (CprBroker.Utilities.Strings.IsGuid(cprNumberOrUuid))
+            {
+                uuid = cprNumberOrUuid;
+            }
+            else
+            {
+                var getUuidResult = partService.GetUuid(cprNumberOrUuid);
+                ValidateResult(cprNumberOrUuid, "GetUuid", getUuidResult.StandardRetur);
+                uuid = getUuidResult.UUID;
+            }
             var request = new BatchClient.Part.LaesInputType()
             {
                 UUID = uuid
             };
             var readResult = partService.RefreshRead(request);
-            ValidateResult(cprNumber, "Read", readResult.StandardRetur);
+            ValidateResult(cprNumberOrUuid, "Read", readResult.StandardRetur);
             //WriteObject(cprNumber, readResult.LaesResultat.Item);
         }
 
