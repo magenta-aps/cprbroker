@@ -57,19 +57,15 @@ namespace CprBroker.Engine.Part
     /// <summary>
     /// Facade method for List
     /// </summary>
-    public class GetUuidArrayFacadeMethodInfo : FacadeMethodInfo<GetUuidArrayOutputType, string[]>
+    public class GetUuidArrayFacadeMethodInfo : BatchFacadeMethodInfo<GetUuidArrayOutputType, string>
     {
         public string[] input;
-
-        private GetUuidArrayFacadeMethodInfo()
-        { }
 
         public GetUuidArrayFacadeMethodInfo(string[] inp, string appToken, string userToken)
             : base(appToken, userToken)
         {
             input = inp;
             this.InitializationMethod = new Action(InitializationMethod);
-            this.AggregationFailOption = AggregationFailOption.FailOnAll;
         }
 
         public override StandardReturType ValidateInput()
@@ -98,21 +94,47 @@ namespace CprBroker.Engine.Part
 
         public override void Initialize()
         {
-            SubMethodInfos = Array.ConvertAll<string, SubMethodInfo>
-            (
-                input,
-                (pnr) => GetUuidFacadeMethodInfo.CreateSubMethodInfo(pnr)
-           );
+            SubMethodInfos = new SubMethodInfo[] { 
+                new GetUuidArraySubMethodInfo(input)
+            };
         }
 
         public override string[] Aggregate(object[] results)
         {
-            return Array.ConvertAll<object, string>
-                (
-                    results,
-                    (s) => s.ToString()
-                );
+            return (this.SubMethodInfos[0] as GetUuidArraySubMethodInfo)
+                .States.Select(s => s.Output.HasValue ? s.Output.ToString() : null).ToArray();
         }
 
+    }
+
+
+    public class GetUuidArraySubMethodInfo : BatchSubMethodInfo<CprBroker.Engine.IPartPersonMappingDataProvider, string, Guid?>
+    {
+
+        public GetUuidArraySubMethodInfo(string[] inp)
+            : base(inp)
+        {
+        }
+
+        public override Guid?[] RunMainMethod(IPartPersonMappingDataProvider prov)
+        {
+            // Only call if UUID is null
+            return prov.GetPersonUuidArray(_CandidateInput);
+        }
+
+        public override void InvokeUpdateMethod(object result)
+        {
+            Local.UpdateDatabase.UpdatePersonUuidArray(_CandidateInput, _CandidateOutput);
+        }
+
+        public override bool IsUpdatableResult(Guid?[] result)
+        {
+            return true;
+        }
+
+        public override bool IsValidResult(Guid?[] result)
+        {
+            return States.Where(s => s.Output.HasValue).FirstOrDefault() == null;
+        }
     }
 }

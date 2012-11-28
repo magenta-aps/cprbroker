@@ -111,8 +111,8 @@ namespace CprBroker.Engine
             public static GetUuidArrayOutputType GetUuidArray(string userToken, string appToken, string[] cprNumberArray)
             {
                 var facadeMethod = new GetUuidArrayFacadeMethodInfo(cprNumberArray, appToken, userToken);
-                var ret = GetMethodOutput<GetUuidArrayOutputType, string[]>(facadeMethod);
-                return ret;
+                //var ret = GetArrayMethodOutput<GetUuidArrayOutputType, string>(facadeMethod);
+                return new GetUuidArrayOutputType(); ;
             }
 
         }
