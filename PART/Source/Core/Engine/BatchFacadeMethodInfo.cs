@@ -6,24 +6,41 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
 {
-    public class BatchFacadeMethodInfo<TOutput, TSingleItem> : FacadeMethodInfo<TOutput, TSingleItem[]> where TOutput : class, IBasicOutput<TSingleItem[]>, new()
+    public class BatchFacadeMethodInfo<TInterface, TOutput, TSingleInputItem, TSingleOutputItem> : FacadeMethodInfo<TOutput, TSingleOutputItem[]>
+        where TInterface : class, IDataProvider
+        where TOutput : class, IBasicOutput<TSingleOutputItem[]>, new()
     {
+        public TSingleInputItem[] input;
+
         public BatchFacadeMethodInfo(string appToken, string userToken)
             : base(appToken, userToken)
         {
             this.AggregationFailOption = AggregationFailOption.FailOnAll;
         }
 
-        public override void Initialize()
+        public override sealed void Initialize()
         {
-            base.Initialize();
+            this.MainSubMethod = CreateMainSubMethod();
+            this.SubMethodInfos = new SubMethodInfo[] { MainSubMethod };
         }
 
-        public override bool IsValidResult(TSingleItem[] output)
+        public BatchSubMethodInfo<TInterface, TSingleInputItem, TSingleOutputItem> MainSubMethod { get; private set; }
+
+        protected virtual BatchSubMethodInfo<TInterface, TSingleInputItem, TSingleOutputItem> CreateMainSubMethod()
+        {
+            return null;
+        }
+
+        public override bool IsValidResult(TSingleOutputItem[] output)
         {
             return base.IsValidResult(output);
         }
 
+        public TOutput Run(SubMethodRunState[] subMethodRunStates)
+        {
+            var mainsubMethodRunState = subMethodRunStates[0];
+            return MainSubMethod.Run<TOutput>(mainsubMethodRunState.DataProviders.Select(p => p as TInterface));
+        }
     }
 
     public class BatchSubMethodInfo<TInterface, TSingleInputItem, TSingleOutputItem> : SubMethodInfo<TInterface, TSingleOutputItem[]>
@@ -43,9 +60,6 @@ namespace CprBroker.Engine
             return !object.Equals(s.Output, default(TSingleOutputItem));
         }
 
-        public TSingleInputItem[] _CandidateInput;
-        public TSingleOutputItem[] _CandidateOutput;
-
 
         public BatchSubMethodInfo(TSingleInputItem[] inp)
         {
@@ -56,31 +70,44 @@ namespace CprBroker.Engine
             this.FailIfNoDataProvider = true;
         }
 
+        public virtual TSingleOutputItem[] Run(TInterface prov, TSingleInputItem[] input)
+        {
+            return default(TSingleOutputItem[]);
+        }
+
         public TOutput Run<TOutput>(IEnumerable<TInterface> providers) where TOutput : IBasicOutput<TSingleOutputItem[]>, new()
         {
             foreach (var prov in providers)
             {
-                var candidateStates = States
+                var currentStates = States
                         .Where(s => !IsSucceededStatus(s)).ToArray();
 
-                if (candidateStates.Length == 0)
+                if (currentStates.Length == 0)
                 {
                     break;
                 }
 
-                this._CandidateInput = candidateStates
+                var currentInput = currentStates
                     .Select(kvp => kvp.Input).ToArray();
 
                 try
                 {
-                    _CandidateOutput = RunMainMethod(prov);
-
-                    for (int i = 0; i < candidateStates.Length; i++)
+                    var currentOutput = Run(prov, currentInput);
+                    var currentSucceededStates = new List<Status>();
+                    for (int i = 0; i < currentStates.Length; i++)
                     {
-                        candidateStates[i].Output = _CandidateOutput[i];
+                        currentStates[i].Output = currentOutput[i];
+                        if (IsSucceededStatus(currentStates[i]))
+                            currentSucceededStates.Add(currentStates[i]);
                     }
 
-                    InvokeUpdateMethod(null);
+                    if (prov is IExternalDataProvider)
+                    {
+                        InvokeUpdateMethod(
+                            currentSucceededStates.Select(s => s.Input).ToArray(),
+                            currentSucceededStates.Select(s => s.Output).ToArray()
+                            );
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -116,6 +143,17 @@ namespace CprBroker.Engine
                 ret.StandardRetur = StandardReturType.OK();
             }
             return ret;
+        }
+
+        public override sealed void InvokeUpdateMethod(object result)
+        {
+            // TODO: Remove from inheritance
+            base.InvokeUpdateMethod(result);
+        }
+
+        public virtual void InvokeUpdateMethod(TSingleInputItem[] input, TSingleOutputItem[] output)
+        {
+
         }
     }
 }

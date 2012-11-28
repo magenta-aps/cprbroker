@@ -282,36 +282,34 @@ namespace CprBroker.Engine
         }
 
 
-        public static TOutput GetBatchMethodOutput<TOutput, TSingleItem>(BatchFacadeMethodInfo<TOutput, TSingleItem> facade) where TOutput : class, IBasicOutput<TSingleItem[]>, new()
+        public static TOutput GetBatchMethodOutput<TInterface, TOutput, TSingleInputItem, TSingleOutputItem>(BatchFacadeMethodInfo<TInterface, TOutput, TSingleInputItem, TSingleOutputItem> facade)
+            where TInterface : class,IDataProvider
+            where TOutput : class, IBasicOutput<TSingleOutputItem[]>, new()
         {
             try
             {
                 StandardReturType standardRetur;
                 SubMethodRunState[] subMethodRunStates;
 
-                standardRetur = Validate<TOutput, TSingleItem[]>(facade);
+                standardRetur = Validate<TOutput, TSingleOutputItem[]>(facade);
                 if (!StandardReturType.IsSucceeded(standardRetur))
                 {
                     return new TOutput() { StandardRetur = standardRetur };
                 }
 
-                standardRetur = Initialize<TOutput, TSingleItem[]>(facade, out subMethodRunStates);
+                standardRetur = Initialize<TOutput, TSingleOutputItem[]>(facade, out subMethodRunStates);
                 if (!StandardReturType.IsSucceeded(standardRetur))
                 {
                     return new TOutput() { StandardRetur = standardRetur };
                 }
 
-                foreach (var subMethodInfo in facade.SubMethodInfos)
-                {
-
-                }
+                return facade.Run(subMethodRunStates);
             }
             catch (Exception ex)
             {
                 Local.Admin.LogException(ex);
                 return new TOutput() { StandardRetur = StandardReturType.UnspecifiedError() };
             }
-            return default(TOutput);
         }
     }
 

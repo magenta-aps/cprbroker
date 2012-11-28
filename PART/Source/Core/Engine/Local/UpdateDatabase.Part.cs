@@ -261,13 +261,16 @@ namespace CprBroker.Engine.Local
                 var all = new List<PersonMapping>(cprNumbers.Length);
                 for (int i = 0; i < cprNumbers.Length; i++)
                 {
-                    PersonMapping map = new PersonMapping()
+                    var uuid = uuids[i];
+                    if (uuid.HasValue)
                     {
-                        CprNumber = cprNumbers[i],
-                        UUID = uuids[i].HasValue ? uuids[i].Value : Guid.Empty
-                    };
+                        all.Add(new PersonMapping()
+                            {
+                                CprNumber = cprNumbers[i],
+                                UUID = uuid.Value
+                            });
+                    }
                 }
-                all = all.Where(map => map.UUID != Guid.Empty).ToList();
 
                 dataContext.PersonMappings.InsertAllOnSubmit(all);
                 dataContext.SubmitChanges();

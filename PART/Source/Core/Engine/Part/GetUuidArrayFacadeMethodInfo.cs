@@ -57,10 +57,8 @@ namespace CprBroker.Engine.Part
     /// <summary>
     /// Facade method for List
     /// </summary>
-    public class GetUuidArrayFacadeMethodInfo : BatchFacadeMethodInfo<GetUuidArrayOutputType, string>
+    public class GetUuidArrayFacadeMethodInfo : BatchFacadeMethodInfo<IPartPersonMappingDataProvider, GetUuidArrayOutputType, string, string>
     {
-        public string[] input;
-
         public GetUuidArrayFacadeMethodInfo(string[] inp, string appToken, string userToken)
             : base(appToken, userToken)
         {
@@ -92,23 +90,22 @@ namespace CprBroker.Engine.Part
             return StandardReturType.OK();
         }
 
-        public override void Initialize()
+        protected override BatchSubMethodInfo<IPartPersonMappingDataProvider, string, string> CreateMainSubMethod()
         {
-            SubMethodInfos = new SubMethodInfo[] { 
-                new GetUuidArraySubMethodInfo(input)
-            };
+            return new GetUuidArraySubMethodInfo(input);
         }
 
         public override string[] Aggregate(object[] results)
         {
+            // TODO: Is this method used?
             return (this.SubMethodInfos[0] as GetUuidArraySubMethodInfo)
-                .States.Select(s => s.Output.HasValue ? s.Output.ToString() : null).ToArray();
+                .States.Select(s => s.Output).ToArray();
         }
 
     }
 
 
-    public class GetUuidArraySubMethodInfo : BatchSubMethodInfo<CprBroker.Engine.IPartPersonMappingDataProvider, string, Guid?>
+    public class GetUuidArraySubMethodInfo : BatchSubMethodInfo<IPartPersonMappingDataProvider, string, string>
     {
 
         public GetUuidArraySubMethodInfo(string[] inp)
@@ -116,25 +113,40 @@ namespace CprBroker.Engine.Part
         {
         }
 
-        public override Guid?[] RunMainMethod(IPartPersonMappingDataProvider prov)
+        string GuidToString(Guid? uuid)
         {
-            // Only call if UUID is null
-            return prov.GetPersonUuidArray(_CandidateInput);
+            if (uuid.HasValue)
+                return uuid.Value.ToString();
+            return null;
         }
 
-        public override void InvokeUpdateMethod(object result)
+        Guid? StringToGuid(string s)
         {
-            Local.UpdateDatabase.UpdatePersonUuidArray(_CandidateInput, _CandidateOutput);
+            if (!string.IsNullOrEmpty(s))
+                return new Guid(s);
+            return null;
         }
 
-        public override bool IsUpdatableResult(Guid?[] result)
+        public override string[] Run(IPartPersonMappingDataProvider prov, string[] input)
         {
+            return prov.GetPersonUuidArray(input).Select(g => GuidToString(g)).ToArray();
+        }
+
+        public override void InvokeUpdateMethod(string[] input, string[] output)
+        {
+            Local.UpdateDatabase.UpdatePersonUuidArray(input, output.Select(s => StringToGuid(s)).ToArray());
+        }
+
+        public override bool IsUpdatableResult(string[] result)
+        {
+            // TODO: In this used?
             return true;
         }
 
-        public override bool IsValidResult(Guid?[] result)
+        public override bool IsValidResult(string[] result)
         {
-            return States.Where(s => s.Output.HasValue).FirstOrDefault() == null;
+            // TODO: In this used?
+            return States.Where(s => !string.IsNullOrEmpty(s.Output)).FirstOrDefault() == null;
         }
     }
 }
