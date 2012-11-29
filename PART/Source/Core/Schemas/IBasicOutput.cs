@@ -63,6 +63,7 @@ namespace CprBroker.Schemas.Part
     public interface IBasicOutput<T> : IBasicOutput
     {
         void SetMainItem(T mainItem);
+        T Item { get; set; }
     }
 
     public class BasicOutputType<T> : BasicOutputType, IBasicOutput<T>
@@ -90,6 +91,11 @@ namespace CprBroker.Schemas.Part
 
     public partial class SoegOutputType : IBasicOutput<string[]>
     {
+        public string[] Item
+        {
+            get { return Idliste; }
+            set { Idliste = value; }
+        }
         public void SetMainItem(string[] mainItem)
         {
             Idliste = mainItem;
@@ -98,6 +104,11 @@ namespace CprBroker.Schemas.Part
 
     public partial class ListOutputType1 : IBasicOutput<LaesResultatType[]>
     {
+        public LaesResultatType[] Item
+        {
+            get { return LaesResultat; }
+            set { LaesResultat = value; }
+        }
         public void SetMainItem(LaesResultatType[] mainItem)
         {
             LaesResultat = mainItem;
@@ -106,6 +117,11 @@ namespace CprBroker.Schemas.Part
 
     public partial class GetUuidOutputType : IBasicOutput<string>
     {
+        public string Item
+        {
+            get { return UUID; }
+            set { UUID = value; }
+        }
         public void SetMainItem(string mainItem)
         {
             UUID = mainItem;
@@ -114,6 +130,11 @@ namespace CprBroker.Schemas.Part
 
     public partial class GetUuidArrayOutputType : IBasicOutput<string[]>
     {
+        public string[] Item
+        {
+            get { return UUID; }
+            set { UUID = value; }
+        }
         public void SetMainItem(string[] mainItem)
         {
             UUID = mainItem;
@@ -122,6 +143,11 @@ namespace CprBroker.Schemas.Part
 
     public partial class LaesOutputType : IBasicOutput<LaesResultatType>
     {
+        public LaesResultatType Item
+        {
+            get { return LaesResultat; }
+            set { LaesResultat = value; }
+        }
         public void SetMainItem(LaesResultatType mainItem)
         {
             LaesResultat = mainItem;
