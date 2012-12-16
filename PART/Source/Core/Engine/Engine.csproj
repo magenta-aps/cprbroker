@@ -70,12 +70,17 @@
   <ItemGroup>
     <Compile Include="BatchFacadeMethodInfo.cs" />
     <Compile Include="BrokerContext.cs" />
+    <Compile Include="Facades\FacadeMethod.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
+    <Compile Include="Facades\FacadeMethod.Element.cs" />
+    <Compile Include="Facades\IDataProvider.cs" />
+    <Compile Include="Facades\MethodHeader.cs" />
     <Compile Include="Local\AdminDataProvider.cs" />
     <Compile Include="Local\Admin.Log.cs" />
     <Compile Include="IDataProvider.cs" />
     <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
     <Compile Include="SubMethodRunState.cs" />
+    <Compile Include="ThreadRunner.cs" />
     <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />
     <Compile Include="UpdateRules\CityNameMatchRule.cs" />
     <Compile Include="UpdateRules\MatchRule%28Of T%29.cs" />
@@ -156,6 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ping\Manager.Ping.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Facades\FacadeMethod.Overridables.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
