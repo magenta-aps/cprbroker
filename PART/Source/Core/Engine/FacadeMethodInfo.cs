@@ -128,6 +128,7 @@ namespace CprBroker.Engine
         public SubMethodInfo[] SubMethodInfos = new SubMethodInfo[0];
     }
 
+    // TODO: Delete this enumeration because only FailOnAll is used
     public enum AggregationFailOption
     {
         // Fail if any submethod has failed
