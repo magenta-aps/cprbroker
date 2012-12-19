@@ -380,5 +380,93 @@ namespace CprBroker.Tests.Engine.Facades
                 Assert.AreEqual(1, ret.Length);
             }
         }
+
+        [TestFixture]
+        public class CallDataProviders
+        {
+            public class FacadeStub : FacadeMethod<ISingleDataProvider<string, string>, string, string>
+            {
+                public class ProviderStub : IBatchDataProvider<string, string>
+                {
+                    public Func<string[], string[]> _GetBatch = null;
+                    public string[] GetBatch(string[] inputs)
+                    {
+                        if (_GetBatch != null)
+                            return _GetBatch(inputs);
+                        else
+                            return inputs;
+                    }
+
+                    public string GetOne(string input)
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    public bool ImmediateUpdatePreferred
+                    {
+                        get { throw new NotImplementedException(); }
+                    }
+                }
+            }
+
+            [Test]
+            public void CallDataProviders_NoProv_Fail()
+            {
+                var facade = new FacadeStub();
+                var provs = new ISingleDataProvider<string, string>[] { };
+                var ret = facade.CallDataProviders(provs, new string[] { "SSS", "DDD" });
+                Assert.AreEqual(2, ret.Length);
+
+                Assert.AreEqual("SSS", ret[0].Input);
+                Assert.Null(ret[0].Output);
+
+                Assert.AreEqual("DDD", ret[1].Input);
+                Assert.Null(ret[1].Output);
+            }
+
+            [Test]
+            public void CallDataProviders_ProvWithPartial_ProvidersCascaded()
+            {
+                var facade = new FacadeStub();
+                var provs = new ISingleDataProvider<string, string>[] { 
+                    new FacadeStub.ProviderStub() { _GetBatch = (i) => new string[] { "SSS", null }} ,
+                    new FacadeStub.ProviderStub() { _GetBatch = (i) => new string[] { "DDD"}} 
+                };
+
+                var ret = facade.CallDataProviders(provs, new string[] { "SSS", "DDD" });
+
+                Assert.AreEqual(2, ret.Length);
+
+                Assert.AreEqual("SSS", ret[0].Input);
+                Assert.AreEqual("SSS", ret[0].Output);
+
+                Assert.AreEqual("DDD", ret[1].Input);
+                Assert.AreEqual("DDD", ret[1].Output);
+            }
+
+            [Test]
+            public void CallDataProviders_FirstProviderException_ProvidersCascaded()
+            {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                var facade = new FacadeStub();
+                bool called = false;
+                var provs = new ISingleDataProvider<string, string>[] { 
+                    new FacadeStub.ProviderStub() { _GetBatch = (i) => {called=true; throw new Exception();}} ,
+                    new FacadeStub.ProviderStub() { _GetBatch = (i) => new string[] {null, "DDD"}} 
+                };
+
+                Assert.False(called);
+                var ret = facade.CallDataProviders(provs, new string[] { "SSS", "DDD" });
+                Assert.True(called);
+
+                Assert.AreEqual(2, ret.Length);
+
+                Assert.AreEqual("SSS", ret[0].Input);
+                Assert.Null(ret[0].Output);
+
+                Assert.AreEqual("DDD", ret[1].Input);
+                Assert.AreEqual("DDD", ret[1].Output);
+            }
+        }
     }
 }
