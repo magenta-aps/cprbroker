@@ -160,7 +160,7 @@ namespace CprBroker.Tests.Engine.Facades
         [TestFixture]
         public class CallSingle
         {
-            class FacadeStub : FacadeMethod<ISingleDataProvider<string, string>, string, string>
+            public class FacadeStub : FacadeMethod<ISingleDataProvider<string, string>, string, string>
             {
                 public class ElementStub : Element
                 {
@@ -186,7 +186,7 @@ namespace CprBroker.Tests.Engine.Facades
                     updatedOutputs.AddRange(output);
                 }
 
-                public class ProviderStub : ISingleDataProvider<string, string>, IExternalDataProvider
+                public class ProviderStub : ISingleDataProvider<string, string>, IBatchDataProvider<string, string>, IExternalDataProvider
                 {
                     public Func<string, string> _GetOne;
                     public string GetOne(string input)
@@ -232,6 +232,15 @@ namespace CprBroker.Tests.Engine.Facades
                     Version IDataProvider.Version
                     {
                         get { throw new NotImplementedException(); }
+                    }
+
+                    public Func<string[], string[]> _GetBatch = null;
+                    public string[] GetBatch(string[] inputs)
+                    {
+                        if (_GetBatch != null)
+                            return _GetBatch(inputs);
+                        else
+                            return inputs;
                     }
                 }
             }
@@ -314,6 +323,61 @@ namespace CprBroker.Tests.Engine.Facades
 
                 Assert.AreEqual("SSS", elements[1].Input);
                 Assert.Null(elements[1].Output);
+            }
+        }
+
+        [TestFixture]
+        public class CallBatch
+        {
+            [Test]
+            public void CallBatch_NormalSuccess_CorrectOutputUpdate()
+            {
+                var facade = new CallSingle.FacadeStub();
+                CallSingle.FacadeStub.Element[] ret;
+                var prov = new CallSingle.FacadeStub.ProviderStub();
+                var elements = new CallSingle.FacadeStub.ElementStub[] { 
+                    new CallSingle.FacadeStub.ElementStub() { Input = "DDD", Succeeded = true, Updatable = true } ,
+                    new CallSingle.FacadeStub.ElementStub() { Input = "SSS", Succeeded = true, Updatable = true } };
+
+                facade.CallBatch(prov, elements, out ret);
+                Assert.AreEqual(2, ret.Length);
+
+                Assert.AreEqual("DDD", ret[0].Input);
+                Assert.AreEqual("DDD", ret[0].Output);
+
+                Assert.AreEqual("SSS", ret[1].Input);
+                Assert.AreEqual("SSS", ret[1].Output);
+            }
+
+            [Test]
+            public void CallBatch_UnmatchedCount_ExceptionPassedAndEmptyReturn()
+            {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                var facade = new CallSingle.FacadeStub();
+                CallSingle.FacadeStub.Element[] ret;
+                var prov = new CallSingle.FacadeStub.ProviderStub() { _GetBatch = (s) => new string[] { "SSS" } };
+                var elements = new CallSingle.FacadeStub.ElementStub[] { 
+                    new CallSingle.FacadeStub.ElementStub() { Input = "DDD", Succeeded = true, Updatable = true } ,
+                    new CallSingle.FacadeStub.ElementStub() { Input = "SSS", Succeeded = true, Updatable = true } };
+
+                facade.CallBatch(prov, elements, out ret);
+                Assert.NotNull(ret);
+                Assert.IsEmpty(ret);
+            }
+
+            [Test]
+            public void CallBatch_MixedSuccess_Correct()
+            {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                var facade = new CallSingle.FacadeStub();
+                CallSingle.FacadeStub.Element[] ret;
+                var prov = new CallSingle.FacadeStub.ProviderStub();
+                var elements = new CallSingle.FacadeStub.ElementStub[] { 
+                    new CallSingle.FacadeStub.ElementStub() { Input = "DDD", Succeeded = false, Updatable = false } ,
+                    new CallSingle.FacadeStub.ElementStub() { Input = "SSS", Succeeded = true, Updatable = true } };
+
+                facade.CallBatch(prov, elements, out ret);
+                Assert.AreEqual(1, ret.Length);
             }
         }
     }
