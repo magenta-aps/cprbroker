@@ -288,9 +288,11 @@ namespace CprBroker.Engine
         public TOutput Aggregate<TOutput>(Element[] elements)
             where TOutput : IBasicOutput<TOutputElement[]>, new()
         {
-            // Set output item
-            var ret = new TOutput();
-            ret.Item = elements.Select(s => s.Output).ToArray();
+            // Set output item - only copy succeeded elements
+            var ret = new TOutput();            
+            ret.Item = elements.Select(
+                s => this.IsElementSucceeded(s) ? s.Output : default(TOutputElement)
+                ).ToArray();
 
             // Set standard return
             var failed = elements.Where(s => !IsElementSucceeded(s)).ToArray();

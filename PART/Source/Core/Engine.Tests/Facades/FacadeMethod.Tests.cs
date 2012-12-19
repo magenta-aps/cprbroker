@@ -112,12 +112,12 @@ namespace CprBroker.Tests.Engine.Facades
             }
 
             [Test]
-            public void Aggregate_Mixed_ResultPropagated()
+            public void Aggregate_Mixed_ResultPropagatedOnlyForSuccess()
             {
                 var facade = new FacadeStub();
                 var elements = new FacadeStub.Element[] { new FacadeStub.ElementSub() { Output = "0", Succeeded = false }, new FacadeStub.ElementSub() { Output = "1", Succeeded = true } };
                 var ret = facade.Aggregate<BasicOutputType<string[]>>(elements);
-                Assert.AreEqual("0", ret.Item[0]);
+                Assert.Null(ret.Item[0]);
                 Assert.AreEqual("1", ret.Item[1]);
             }
 
@@ -144,14 +144,6 @@ namespace CprBroker.Tests.Engine.Facades
                     inputs = input;
                     outputs = output;
                 }
-            }
-
-            [Test]
-            [ExpectedException]
-            public void BaseUpdateDatabase_Null_Exception()
-            {
-                var facade = new FacadeStub();
-                facade.BaseUpdateDatabase(null);
             }
 
             [Test]
