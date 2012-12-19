@@ -54,7 +54,7 @@ namespace CprBroker.Engine
     public interface ISingleDataProvider<TInput, TOutput>
     {
         TOutput GetOne(TInput input);
-        bool IsExpensive { get; }
+        bool ImmediateUpdatePreferred { get; }
     }
 
     public interface IBatchDataProvider<TInput, TOutput> : ISingleDataProvider<TInput, TOutput>

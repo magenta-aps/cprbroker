@@ -151,10 +151,160 @@ namespace CprBroker.Tests.Engine.Facades
             {
                 var facade = new FacadeStub();
                 facade.BaseUpdateDatabase(new FacadeStub.Element[] { new FacadeStub.Element() { Input = "Inp", Output = "Out" } });
-                Assert.AreEqual("Inp",facade.inputs[0]);
+                Assert.AreEqual("Inp", facade.inputs[0]);
                 Assert.AreEqual("Out", facade.outputs[0]);
             }
 
+        }
+
+        [TestFixture]
+        public class CallSingle
+        {
+            class FacadeStub : FacadeMethod<ISingleDataProvider<string, string>, string, string>
+            {
+                public class ElementStub : Element
+                {
+                    public bool Updatable;
+                    public bool Succeeded;
+                }
+
+                public override bool IsElementSucceeded(FacadeMethod<ISingleDataProvider<string, string>, string, string>.Element element)
+                {
+                    return (element as ElementStub).Succeeded;
+                }
+
+                public override bool IsElementUpdatable(FacadeMethod<ISingleDataProvider<string, string>, string, string>.Element element)
+                {
+                    return (element as ElementStub).Updatable;
+                }
+
+                public List<string> updatedInputs = new List<string>();
+                public List<string> updatedOutputs = new List<string>();
+                public override void UpdateDatabase(string[] input, string[] output)
+                {
+                    updatedInputs.AddRange(input);
+                    updatedOutputs.AddRange(output);
+                }
+
+                public class ProviderStub : ISingleDataProvider<string, string>, IExternalDataProvider
+                {
+                    public Func<string, string> _GetOne;
+                    public string GetOne(string input)
+                    {
+                        if (_GetOne != null)
+                        {
+                            return _GetOne(input);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+
+                    public bool _ImmediateUpdatePreferred = false;
+                    public bool ImmediateUpdatePreferred
+                    {
+                        get { return _ImmediateUpdatePreferred; }
+                    }
+
+                    Dictionary<string, string> IExternalDataProvider.ConfigurationProperties
+                    {
+                        get
+                        {
+                            throw new NotImplementedException();
+                        }
+                        set
+                        {
+                            throw new NotImplementedException();
+                        }
+                    }
+
+                    DataProviderConfigPropertyInfo[] IExternalDataProvider.ConfigurationKeys
+                    {
+                        get { throw new NotImplementedException(); }
+                    }
+
+                    bool IDataProvider.IsAlive()
+                    {
+                        throw new NotImplementedException();
+                    }
+
+                    Version IDataProvider.Version
+                    {
+                        get { throw new NotImplementedException(); }
+                    }
+                }
+            }
+
+            [Test]
+            public void CallSingle_Normal_Success()
+            {
+                var facade = new FacadeStub();
+                var prov = new FacadeStub.ProviderStub() { _GetOne = (s) => "ddd" + s };
+                FacadeStub.Element[] ret;
+                facade.CallSingle(prov, new FacadeStub.ElementStub[] { new FacadeStub.ElementStub() { Input = "DDD", Succeeded = true, Updatable = true } }, out ret);
+                Assert.AreEqual(1, facade.updatedInputs.Count + ret.Length);
+                Assert.AreEqual(1, facade.updatedOutputs.Count + ret.Length);
+            }
+
+            [Test]
+            public void CallSingle_Normal_CorrectOuput()
+            {
+                var facade = new FacadeStub();
+                var prov = new FacadeStub.ProviderStub() { _GetOne = (s) => "ddd" + s, _ImmediateUpdatePreferred = false };
+                FacadeStub.Element[] ret;
+                facade.CallSingle(prov, new FacadeStub.ElementStub[] { new FacadeStub.ElementStub() { Input = "DDD", Succeeded = true, Updatable = true } }, out ret);
+                Assert.AreEqual("dddDDD", ret[0].Output);
+            }
+
+            [Test]
+            public void CallSingle_SucceededImmediateUpdatePreferred_UpdateCalled()
+            {
+                var facade = new FacadeStub();
+                var prov = new FacadeStub.ProviderStub() { _GetOne = (s) => "ddd" + s, _ImmediateUpdatePreferred = true };
+                FacadeStub.Element[] ret;
+                facade.CallSingle(prov, new FacadeStub.ElementStub[] { new FacadeStub.ElementStub() { Input = "DDD", Succeeded = true, Updatable = true } }, out ret);
+                Assert.AreEqual(0, ret.Length);
+                Assert.AreEqual(1, facade.updatedInputs.Count);
+                Assert.AreEqual(1, facade.updatedOutputs.Count);
+            }
+
+            [Test]
+            public void CallSingle_SucceededImmediateUpdateNotPreferred_UpdatePostponed()
+            {
+                var facade = new FacadeStub();
+                var prov = new FacadeStub.ProviderStub() { _GetOne = (s) => "ddd" + s, _ImmediateUpdatePreferred = false };
+                FacadeStub.Element[] ret;
+                facade.CallSingle(prov, new FacadeStub.ElementStub[] { new FacadeStub.ElementStub() { Input = "DDD", Succeeded = true, Updatable = true } }, out ret);
+                Assert.AreEqual(1, ret.Length);
+                Assert.AreEqual(0, facade.updatedInputs.Count);
+                Assert.AreEqual(0, facade.updatedOutputs.Count);
+            }
+
+            [Test]
+            public void CallSingle_Failed_ResultPropagated()
+            {
+                var facade = new FacadeStub();
+                var prov = new FacadeStub.ProviderStub() { _GetOne = (s) => s, _ImmediateUpdatePreferred = false };
+                FacadeStub.Element[] ret;
+                var elements = new FacadeStub.ElementStub[] { new FacadeStub.ElementStub() { Input = "DDD", Succeeded = false, Updatable = false } };
+                facade.CallSingle(prov, elements, out ret);
+                Assert.AreEqual("DDD", elements[0].Output);
+            }
+
+            [Test]
+            public void CallSingle_Exception_Passed()
+            {
+                var facade = new FacadeStub();
+                System.Diagnostics.Debugger.Launch();
+                var prov = new FacadeStub.ProviderStub() { _GetOne = (s) => {
+                    throw new Exception();
+                }};
+                FacadeStub.Element[] ret;
+                var elements = new FacadeStub.ElementStub[] { new FacadeStub.ElementStub() { Input = "DDD", Succeeded = false, Updatable = false } };
+                facade.CallSingle(prov, elements, out ret);
+                Assert.Null(elements[0].Output);
+            }
         }
     }
 }

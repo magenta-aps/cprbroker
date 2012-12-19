@@ -185,11 +185,11 @@ namespace CprBroker.Engine
 
                 if (prov is IBatchDataProvider<TInputElement, TOutputElement>)
                 {
-                    elementsToUpdate = CallBatch(prov as IBatchDataProvider<TInputElement, TOutputElement>, currentElements);
+                    CallBatch(prov as IBatchDataProvider<TInputElement, TOutputElement>, currentElements, out elementsToUpdate);
                 }
                 else
                 {
-                    elementsToUpdate = CallSingle(prov, currentElements);
+                    CallSingle(prov, currentElements, out elementsToUpdate);
                 }
 
                 // Exceptions here are logged separately
@@ -201,9 +201,9 @@ namespace CprBroker.Engine
             return allElements;
         }
 
-        public Element[] CallBatch(IBatchDataProvider<TInputElement, TOutputElement> prov, Element[] currentElements)
+        public void CallBatch(IBatchDataProvider<TInputElement, TOutputElement> prov, Element[] currentElements, out Element[] elementsToUpdate)
         {
-            var elementsToUpdate = new List<Element>();
+            var elementsToUpdateList = new List<Element>();
 
             try
             {
@@ -216,33 +216,35 @@ namespace CprBroker.Engine
                 // Smooth code, no exceptions expected
                 for (int i = 0; i < currentElements.Length; i++)
                 {
-                    currentElements[i].Output = currentOutput[i];
-                    if (IsElementSucceeded(currentElements[i]))
-                        elementsToUpdate.Add(currentElements[i]);
+                    var elm = currentElements[i];
+                    elm.Output = currentOutput[i];
+
+                    if (IsElementUpdatable(elm))
+                    {
+                        elementsToUpdateList.Add(elm);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Local.Admin.LogException(ex);
             }
-
-            return elementsToUpdate.ToArray();
+            elementsToUpdate = elementsToUpdateList.ToArray();
         }
 
-        public Element[] CallSingle(TInterface prov, Element[] currentElements)
+        public void CallSingle(TInterface prov, Element[] currentElements, out Element[] elementsToUpdate)
         {
-            var elementsToUpdate = new List<Element>();
+            var elementsToUpdateList = new List<Element>();
 
             using (var elemnetLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion))
             {
                 var threadStarts = currentElements.Select(elm => new ThreadStart(() =>
                 {
-                    var singleOut = prov.GetOne(elm.Input);
-                    if (IsElementSucceeded(elm))
-                    {
-                        elm.Output = singleOut;
+                    elm.Output = prov.GetOne(elm.Input);
 
-                        if (prov is IExternalDataProvider && prov.IsExpensive)
+                    if (IsElementUpdatable(elm))
+                    {
+                        if (prov is IExternalDataProvider && prov.ImmediateUpdatePreferred)
                         {
                             // TODO: Shall this be removed to avoid thread abortion in data update phase?
                             BaseUpdateDatabase(new Element[] { elm });
@@ -252,7 +254,7 @@ namespace CprBroker.Engine
                             try
                             {
                                 elemnetLock.EnterWriteLock();
-                                elementsToUpdate.Add(elm);
+                                elementsToUpdateList.Add(elm);
                             }
                             finally
                             {
@@ -263,9 +265,8 @@ namespace CprBroker.Engine
                 })).ToArray();
 
                 ThreadRunner.RunThreads(threadStarts, TimeSpan.FromMilliseconds(Config.Properties.Settings.Default.DataProviderMillisecondsTimeout));
-
             }
-            return elementsToUpdate.ToArray();
+            elementsToUpdate = elementsToUpdateList.ToArray();
         }
 
         public void BaseUpdateDatabase(Element[] elementsToUpdate)
@@ -284,12 +285,11 @@ namespace CprBroker.Engine
             }
         }
 
-
         public TOutput Aggregate<TOutput>(Element[] elements)
             where TOutput : IBasicOutput<TOutputElement[]>, new()
         {
             // Set output item - only copy succeeded elements
-            var ret = new TOutput();            
+            var ret = new TOutput();
             ret.Item = elements.Select(
                 s => this.IsElementSucceeded(s) ? s.Output : default(TOutputElement)
                 ).ToArray();

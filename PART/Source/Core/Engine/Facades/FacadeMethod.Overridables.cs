@@ -65,6 +65,11 @@ namespace CprBroker.Engine
             return !Object.Equals(element.Output, default(TOutputElement));
         }
 
+        public virtual bool IsElementUpdatable(Element element)
+        {
+            return !Object.Equals(element.Output, default(TOutputElement));
+        }
+
         public virtual void UpdateDatabase(TInputElement[] input, TOutputElement[] output)
         {
         }
