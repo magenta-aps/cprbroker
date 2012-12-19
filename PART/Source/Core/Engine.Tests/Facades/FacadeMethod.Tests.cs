@@ -293,17 +293,27 @@ namespace CprBroker.Tests.Engine.Facades
             }
 
             [Test]
-            public void CallSingle_Exception_Passed()
+            public void CallSingle_Exception_PassedAndNoOutput()
             {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
                 var facade = new FacadeStub();
-                System.Diagnostics.Debugger.Launch();
-                var prov = new FacadeStub.ProviderStub() { _GetOne = (s) => {
-                    throw new Exception();
-                }};
+                var prov = new FacadeStub.ProviderStub()
+                {
+                    _GetOne = (s) =>
+                    {
+                        throw new Exception();
+                    }
+                };
                 FacadeStub.Element[] ret;
-                var elements = new FacadeStub.ElementStub[] { new FacadeStub.ElementStub() { Input = "DDD", Succeeded = false, Updatable = false } };
+                var elements = new FacadeStub.ElementStub[] { 
+                    new FacadeStub.ElementStub() { Input = "DDD", Succeeded = true, Updatable = true } ,
+                    new FacadeStub.ElementStub() { Input = "SSS", Succeeded = true, Updatable = true } };
                 facade.CallSingle(prov, elements, out ret);
+                Assert.AreEqual("DDD", elements[0].Input);
                 Assert.Null(elements[0].Output);
+
+                Assert.AreEqual("SSS", elements[1].Input);
+                Assert.Null(elements[1].Output);
             }
         }
     }

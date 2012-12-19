@@ -56,12 +56,12 @@ namespace CprBroker.Engine
     {
         public static void RunThreads(ThreadStart[] threadStarts, TimeSpan timeout)
         {
-            //if (threadStarts.Length == 1)
-            //{
-            //    threadStarts[0].Invoke();
-            //}
-            //else
-            //{
+            if (threadStarts.Length == 1)
+            {
+                threadStarts[0].Invoke();
+            }
+            else
+            {
                 long finishedThreads = 0;
                 var currentBrokerContext = BrokerContext.Current;
 
@@ -87,7 +87,7 @@ namespace CprBroker.Engine
 
                 // GAME OVER - kill all threads
                 Array.ForEach<Thread>(threads, th => th.Abort());
-            //}
+            }
         }
     }
 }

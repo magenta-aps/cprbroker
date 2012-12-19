@@ -240,27 +240,34 @@ namespace CprBroker.Engine
             {
                 var threadStarts = currentElements.Select(elm => new ThreadStart(() =>
                 {
-                    elm.Output = prov.GetOne(elm.Input);
-
-                    if (IsElementUpdatable(elm))
+                    try
                     {
-                        if (prov is IExternalDataProvider && prov.ImmediateUpdatePreferred)
+                        elm.Output = prov.GetOne(elm.Input);
+
+                        if (IsElementUpdatable(elm))
                         {
-                            // TODO: Shall this be removed to avoid thread abortion in data update phase?
-                            BaseUpdateDatabase(new Element[] { elm });
-                        }
-                        else
-                        {
-                            try
+                            if (prov is IExternalDataProvider && prov.ImmediateUpdatePreferred)
                             {
-                                elemnetLock.EnterWriteLock();
-                                elementsToUpdateList.Add(elm);
+                                // TODO: Shall this be removed to avoid thread abortion in data update phase?
+                                BaseUpdateDatabase(new Element[] { elm });
                             }
-                            finally
+                            else
                             {
-                                elemnetLock.ExitWriteLock();
+                                try
+                                {
+                                    elemnetLock.EnterWriteLock();
+                                    elementsToUpdateList.Add(elm);
+                                }
+                                finally
+                                {
+                                    elemnetLock.ExitWriteLock();
+                                }
                             }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        Local.Admin.LogException(ex);
                     }
                 })).ToArray();
 
