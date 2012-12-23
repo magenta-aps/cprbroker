@@ -11,21 +11,23 @@
     <CollectionMappings />
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
     <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
     <ReferencedAssemblies />
     <ReferencedDataContractTypes />
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8000/personmaster" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="PersonmasterServiceLibrary.wsdl" MetadataType="Wsdl" ID="e0a630ca-b7ff-4e7c-93c0-c1cbc12c8354" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?wsdl=wsdl0" />
-    <MetadataFile FileName="PersonmasterServiceLibrary.xsd" MetadataType="Schema" ID="e0aac0fc-c977-419f-86d4-f7a4a86edcd1" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd2" />
-    <MetadataFile FileName="PersonmasterServiceLibrary.disco" MetadataType="Disco" ID="1177f93a-0160-4955-970b-886102db6efa" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?disco" />
-    <MetadataFile FileName="PersonmasterServiceLibrary1.xsd" MetadataType="Schema" ID="d317b29e-ec9e-45f4-a685-13c02061467f" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd0" />
-    <MetadataFile FileName="BasicOp.wsdl" MetadataType="Wsdl" ID="fc21d329-3133-42db-bb6b-2c5ac8bf9f8f" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?wsdl" />
-    <MetadataFile FileName="PersonmasterServiceLibrary2.xsd" MetadataType="Schema" ID="c13d4fe1-7c50-459e-8484-ec4f02691311" SourceId="1" SourceUrl="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd1" />
+    <MetadataFile FileName="personmaster.wsdl" MetadataType="Wsdl" ID="75c93199-9f9e-4fa2-a961-2e373f4ff3fa" SourceId="1" SourceUrl="http://localhost:8000/personmaster?wsdl=wsdl0" />
+    <MetadataFile FileName="personmaster.xsd" MetadataType="Schema" ID="893a51a2-c386-4aa6-bf15-57a2a0cd3c4d" SourceId="1" SourceUrl="http://localhost:8000/personmaster?xsd=xsd1" />
+    <MetadataFile FileName="BasicOp1.wsdl" MetadataType="Wsdl" ID="3a0ee36f-7e3f-4022-a2c2-fb9904f970af" SourceId="1" SourceUrl="http://localhost:8000/personmaster?wsdl" />
+    <MetadataFile FileName="personmaster1.xsd" MetadataType="Schema" ID="d35ec2c0-9350-44e2-ac89-99630dd6fdf8" SourceId="1" SourceUrl="http://localhost:8000/personmaster?xsd=xsd3" />
+    <MetadataFile FileName="personmaster2.xsd" MetadataType="Schema" ID="f0321a1b-5513-475e-a114-dc9aacab4840" SourceId="1" SourceUrl="http://localhost:8000/personmaster?xsd=xsd2" />
+    <MetadataFile FileName="personmaster.disco" MetadataType="Disco" ID="ba7d1e15-f60f-494c-abd1-b71b533bede9" SourceId="1" SourceUrl="http://localhost:8000/personmaster?disco" />
+    <MetadataFile FileName="personmaster3.xsd" MetadataType="Schema" ID="7188aa80-dd17-42e0-ab23-0b3df96eda20" SourceId="1" SourceUrl="http://localhost:8000/personmaster?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

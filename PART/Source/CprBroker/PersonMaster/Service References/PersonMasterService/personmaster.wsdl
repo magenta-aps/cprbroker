@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:tns="http://personmaster.gentofte.dk/BasicOp/01" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" targetNamespace="http://personmaster.gentofte.dk/BasicOp/01" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://personmaster.gentofte.dk/BasicOp/01" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://personmaster.gentofte.dk/BasicOp/01" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://personmaster.gentofte.dk/BasicOp/01/Imports">
-      <xsd:import schemaLocation="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd0" namespace="http://personmaster.gentofte.dk/BasicOp/01" />
-      <xsd:import schemaLocation="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://personmaster-service-test-01/PersonmasterServiceLibrary.BasicOp.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd0" namespace="http://personmaster.gentofte.dk/BasicOp/01" />
+      <xsd:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8000/personmaster?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IBasicOp_CreateObjectOwner_InputMessage">
@@ -25,11 +26,29 @@
   <wsdl:message name="IBasicOp_GetObjectIDFromCpr_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetObjectIDFromCprResponse" />
   </wsdl:message>
+  <wsdl:message name="IBasicOp_GetObjectIDsFromCprArray_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetObjectIDsFromCprArray" />
+  </wsdl:message>
+  <wsdl:message name="IBasicOp_GetObjectIDsFromCprArray_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetObjectIDsFromCprArrayResponse" />
+  </wsdl:message>
   <wsdl:message name="IBasicOp_GetObjectIDFromCprWithOwner_InputMessage">
     <wsdl:part name="parameters" element="tns:GetObjectIDFromCprWithOwner" />
   </wsdl:message>
   <wsdl:message name="IBasicOp_GetObjectIDFromCprWithOwner_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetObjectIDFromCprWithOwnerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBasicOp_GetCPRsFromObjectIDArray_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCPRsFromObjectIDArray" />
+  </wsdl:message>
+  <wsdl:message name="IBasicOp_GetCPRsFromObjectIDArray_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCPRsFromObjectIDArrayResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBasicOp_GetCPRsFromObjectIDList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCPRsFromObjectIDList" />
+  </wsdl:message>
+  <wsdl:message name="IBasicOp_GetCPRsFromObjectIDList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCPRsFromObjectIDListResponse" />
   </wsdl:message>
   <wsdl:message name="IBasicOp_GetCprFromObjectID_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCprFromObjectID" />
@@ -128,9 +147,21 @@
       <wsdl:input wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDFromCpr" message="tns:IBasicOp_GetObjectIDFromCpr_InputMessage" />
       <wsdl:output wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDFromCprResponse" message="tns:IBasicOp_GetObjectIDFromCpr_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetObjectIDsFromCprArray">
+      <wsdl:input wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDsFromCprArray" message="tns:IBasicOp_GetObjectIDsFromCprArray_InputMessage" />
+      <wsdl:output wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDsFromCprArrayResponse" message="tns:IBasicOp_GetObjectIDsFromCprArray_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetObjectIDFromCprWithOwner">
       <wsdl:input wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDFromCprWithOwner" message="tns:IBasicOp_GetObjectIDFromCprWithOwner_InputMessage" />
       <wsdl:output wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetObjectIDFromCprWithOwnerResponse" message="tns:IBasicOp_GetObjectIDFromCprWithOwner_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCPRsFromObjectIDArray">
+      <wsdl:input wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetCPRsFromObjectIDArray" message="tns:IBasicOp_GetCPRsFromObjectIDArray_InputMessage" />
+      <wsdl:output wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetCPRsFromObjectIDArrayResponse" message="tns:IBasicOp_GetCPRsFromObjectIDArray_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCPRsFromObjectIDList">
+      <wsdl:input wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetCPRsFromObjectIDList" message="tns:IBasicOp_GetCPRsFromObjectIDList_InputMessage" />
+      <wsdl:output wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetCPRsFromObjectIDListResponse" message="tns:IBasicOp_GetCPRsFromObjectIDList_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCprFromObjectID">
       <wsdl:input wsaw:Action="http://personmaster.gentofte.dk/BasicOp/01/IBasicOp/GetCprFromObjectID" message="tns:IBasicOp_GetCprFromObjectID_InputMessage" />

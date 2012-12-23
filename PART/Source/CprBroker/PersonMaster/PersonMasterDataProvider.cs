@@ -69,7 +69,7 @@ namespace CprBroker.Providers.PersonMaster
 
             var identity = new SpnEndpointIdentity(SpnName);
             EndpointAddress endPointAddress = new EndpointAddress(new Uri(Address + "/PersonMasterService12"), identity);
-            BasicOpClient client=new BasicOpClient(binding, endPointAddress);
+            BasicOpClient client = new BasicOpClient(binding, endPointAddress);
             return client;
 
         }
@@ -81,6 +81,14 @@ namespace CprBroker.Providers.PersonMaster
             BasicOpClient client = CreateClient();
             string aux = null;
             var ret = client.GetObjectIDFromCpr(Context, cprNumber, ref aux);
+            return ret;
+        }
+
+        public Guid?[] GetPersonUuidArray(string[] cprNumberArray)
+        {
+            BasicOpClient client = CreateClient();
+            string aux = null;
+            var ret = client.GetObjectIDsFromCprArray(Context, cprNumberArray, ref aux);
             return ret;
         }
 
@@ -97,7 +105,7 @@ namespace CprBroker.Providers.PersonMaster
                 var res = client.Probe(Context, ref aux);
                 return true; ;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Engine.Local.Admin.LogException(ex);
                 return false;
@@ -157,5 +165,8 @@ namespace CprBroker.Providers.PersonMaster
         }
 
         #endregion
+
+
+
     }
 }

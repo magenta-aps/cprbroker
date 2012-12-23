@@ -78,11 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PersonMaster.wsdl" />
-    <None Include="Service References\PersonMasterService\BasicOp.wsdl" />
-    <None Include="Service References\PersonMasterService\PersonmasterServiceLibrary.wsdl" />
-    <None Include="Service References\PersonMasterService\PersonmasterServiceLibrary.xsd" />
-    <None Include="Service References\PersonMasterService\PersonmasterServiceLibrary1.xsd" />
-    <None Include="Service References\PersonMasterService\PersonmasterServiceLibrary2.xsd" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -91,19 +86,33 @@
     <WCFMetadataStorage Include="Service References\PersonMasterService\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\PersonMasterService\BasicOp1.wsdl" />
     <None Include="Service References\PersonMasterService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\PersonMasterService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\PersonMasterService\personmaster.wsdl" />
+    <None Include="Service References\PersonMasterService\personmaster.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PersonMasterService\personmaster1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PersonMasterService\personmaster2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PersonMasterService\personmaster3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\PersonMasterService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Service References\PersonMasterService\PersonmasterServiceLibrary.disco" />
+    <None Include="Service References\PersonMasterService\personmaster.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

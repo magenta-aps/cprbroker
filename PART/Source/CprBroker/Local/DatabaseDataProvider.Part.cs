@@ -77,7 +77,7 @@ namespace CprBroker.Providers.Local
                 {
                     if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.UUID))
                     {
-                        var personUuid=new Guid(searchCriteria.SoegObjekt.UUID);
+                        var personUuid = new Guid(searchCriteria.SoegObjekt.UUID);
                         pred = pred.And(p => p.UUID == personUuid);
                     }
                     // Search by cpr number
@@ -91,7 +91,7 @@ namespace CprBroker.Providers.Local
                         {
                             foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab)
                             {
-                                if (prop!=null && prop.NavnStruktur != null)
+                                if (prop != null && prop.NavnStruktur != null)
                                 {
                                     if (prop.NavnStruktur.PersonNameStructure != null)
                                     {
@@ -99,7 +99,7 @@ namespace CprBroker.Providers.Local
                                         var name = prop.NavnStruktur.PersonNameStructure;
                                         if (!name.IsEmpty)
                                         {
-                                            var cprNamePred = PredicateBuilder.True<Data.Part.PersonRegistration>();                                            
+                                            var cprNamePred = PredicateBuilder.True<Data.Part.PersonRegistration>();
                                             if (!string.IsNullOrEmpty(name.PersonGivenName))
                                             {
                                                 cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.PersonProperties.PersonName.FirstName == name.PersonGivenName);
@@ -180,10 +180,15 @@ namespace CprBroker.Providers.Local
         #endregion
 
         #region IPartPersonMappingDataProvider Members
-        
+
         public Guid? GetPersonUuid(string cprNumber)
         {
             return Data.Part.PersonMapping.AssignGuids(new string[] { cprNumber })[0];
+        }
+
+        public Guid?[] GetPersonUuidArray(string[] cprNumberArray)
+        {
+            return Data.Part.PersonMapping.AssignGuids(cprNumberArray);
         }
 
         #endregion
