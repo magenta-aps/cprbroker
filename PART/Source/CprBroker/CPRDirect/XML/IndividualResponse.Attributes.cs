@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using CprBroker.Engine;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -76,6 +77,7 @@ namespace CprBroker.Providers.CPRDirect
                     FoedselsregistreringMyndighedNavn = ToFoedselsregistreringMyndighedNavn(),
                     KontaktKanal = ToKontaktKanalType(),
                     NaermestePaaroerende = ToNaermestePaaroerende(),
+                    // Cross Product
                     NavnStruktur = ToNavnStrukturType(),
                     PersonGenderCode = ToPersonGenderCodeType(),
                     Virkning = ToEgenskabVirkning()
@@ -90,6 +92,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToFoedestedNavn()
         {
+            // TODO: birthname could be incorrect if historical data is not available (historical data is 5 years max anyway)
             var oldestName = HistoricalNameType.GetOldestName(this.HistoricalName) as INameSource;
             if (oldestName == null)
             {
@@ -164,12 +167,19 @@ namespace CprBroker.Providers.CPRDirect
             return new CprBorgerType()
             {
                 AdresseNoteTekst = ToAdresseNoteTekst(),
+                // Cross Product
                 FolkekirkeMedlemIndikator = ToFolkekirkeMedlemIndikator(),
+                // Cross Product
                 FolkeregisterAdresse = ToFolkeregisterAdresse(),
+                // Cross Product
                 ForskerBeskyttelseIndikator = ToForskerBeskyttelseIndikator(effectDate),
+                // Cross Product
                 NavneAdresseBeskyttelseIndikator = ToNavneAdresseBeskyttelseIndikator(effectDate),
+                // Cross Product
                 PersonCivilRegistrationIdentifier = ToPersonCivilRegistrationIdentifier(),
+                // Cross Product
                 PersonNationalityCode = ToPersonNationalityCode(),
+                // Cross Product
                 PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
                 TelefonNummerBeskyttelseIndikator = ToTelefonNummerBeskyttelseIndikator(),
             };
