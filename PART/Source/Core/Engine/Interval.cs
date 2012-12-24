@@ -7,8 +7,8 @@ namespace CprBroker.Engine
 {
     public class Interval
     {
-        public DateTime? StartTime { get; private set; }
-        public DateTime? EndTime { get; private set; }
+        public DateTime? StartTS { get; private set; }
+        public DateTime? EndTS { get; private set; }
         public List<ICurrentType> Data = new List<ICurrentType>();
 
         public static Interval[] CreateFromData(params ICurrentType[] dataObjects)
@@ -19,7 +19,7 @@ namespace CprBroker.Engine
         {
             var allTags = dataObjects.Select(d => d.Tag).Distinct().OrderBy(d => d).ToArray();
 
-            var groupedByStartTime = dataObjects.GroupBy(d => d.StartDate).OrderBy(g => g.Key).ToArray();
+            var groupedByStartTime = dataObjects.GroupBy(d => d.StartTS).OrderBy(g => g.Key).ToArray();
             var ret = new List<Interval>();
 
             var previousDataObjects = new List<ICurrentType>();
@@ -28,7 +28,7 @@ namespace CprBroker.Engine
             {
                 // TODO: Handle cases where StartDate is null - are these cases possible!!??
                 var timeGroup = groupedByStartTime[iTimeGroup];
-                var interval = new Interval() { StartTime = timeGroup.Key };
+                var interval = new Interval() { StartTS = timeGroup.Key };
                 interval.Data.AddRange(timeGroup.ToArray());
 
                 var missingTags = allTags.Except(interval.Data.Select(d => d.Tag));
@@ -44,7 +44,7 @@ namespace CprBroker.Engine
                             // Make sure effect has not ended. Not sure if this scenario is possible
                             var o = tagObject as IHistoryType;
                             // TODO: What if interval.StartTime is null?
-                            if (CprBroker.Utilities.Dates.DateRangeIncludes(o.StartDate, o.EndDate, interval.StartTime.Value, true))
+                            if (CprBroker.Utilities.Dates.DateRangeIncludes(o.StartTS, o.EndTS, interval.StartTS.Value, true))
                             {
                                 interval.Data.Add(tagObject);
                             }
@@ -55,15 +55,15 @@ namespace CprBroker.Engine
                         }
                     }
                 }
-                interval.EndTime = interval.Data
+                interval.EndTS = interval.Data
                     .Where(d => d is IHistoryType)
-                    .Select(d => (d as IHistoryType).EndDate)
+                    .Select(d => (d as IHistoryType).EndTS)
                     .OrderBy(d => d as DateTime?)
                     .FirstOrDefault();
                 // TODO: What if interval.StartTime is null?
-                if (ret.LastOrDefault() != null && ret.Last().EndTime.Value > interval.StartTime.Value)
+                if (ret.LastOrDefault() != null && ret.Last().EndTS.Value > interval.StartTS.Value)
                 {
-                    ret.Last().EndTime = interval.StartTime;
+                    ret.Last().EndTS = interval.StartTS;
                 }
 
                 ret.Add(interval);
@@ -75,12 +75,12 @@ namespace CprBroker.Engine
 
     public interface ICurrentType
     {
-        DateTime? StartDate { get; }
+        DateTime? StartTS { get; }
         string Tag { get; }
     }
 
     public interface IHistoryType : ICurrentType
     {
-        DateTime? EndDate { get; }
+        DateTime? EndTS { get; }
     }
 }
