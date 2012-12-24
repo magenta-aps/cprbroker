@@ -60,7 +60,7 @@ namespace CprBroker.Engine
                     .Select(d => (d as IHistoryType).EndDate)
                     .OrderBy(d => d as DateTime?)
                     .FirstOrDefault();
-
+                // TODO: What if interval.StartTime is null?
                 if (ret.LastOrDefault() != null && ret.Last().EndTime.Value > interval.StartTime.Value)
                 {
                     ret.Last().EndTime = interval.StartTime;
