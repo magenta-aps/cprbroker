@@ -468,5 +468,35 @@ namespace CprBroker.Tests.Engine.Facades
                 Assert.AreEqual("DDD", ret[1].Output);
             }
         }
+
+        [TestFixture]
+        public class CreateDataProviders
+        {
+            public class FunkyDataProvider:ISingleDataProvider<string, string>
+            {
+                public string GetOne(string input)
+                {
+                    throw new NotImplementedException();
+                }
+
+                public bool ImmediateUpdatePreferred
+                {
+                    get { throw new NotImplementedException(); }
+                }
+            }
+            class FacadeStub : FacadeMethod<FunkyDataProvider, string, string>
+            { }
+
+            [Test]
+            public void CreateDataProviders_FunkyType_None()
+            {
+                BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+                var facade = new FacadeStub();
+                IEnumerable<FunkyDataProvider> provs;
+                var ret = facade.CreateDataProviders(out provs);
+                Assert.IsEmpty(provs.ToArray());
+                Assert.AreEqual("503",ret.StatusKode);
+            }            
+        }
     }
 }
