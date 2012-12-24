@@ -61,6 +61,11 @@ namespace CprBroker.Engine
                     .OrderBy(d => d as DateTime?)
                     .FirstOrDefault();
 
+                if (ret.LastOrDefault() != null && ret.Last().EndTime.Value > interval.StartTime.Value)
+                {
+                    ret.Last().EndTime = interval.StartTime;
+                }
+
                 ret.Add(interval);
                 previousDataObjects.AddRange(timeGroup.ToArray());
             }

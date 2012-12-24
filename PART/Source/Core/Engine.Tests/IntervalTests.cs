@@ -61,7 +61,7 @@ namespace CprBroker.Tests.Engine
                 var c1 = new CurrentStub1() { StartDate = DateTime.Today };
                 var h1 = new HistoryStub1() { StartDate = DateTime.Today.AddDays(-10), EndDate = DateTime.Today.AddDays(-1) };
                 var intervals = Interval.CreateFromData(c1, h1);
-                
+
                 Assert.AreEqual(2, intervals.Length);
 
                 Assert.AreEqual(h1.StartDate, intervals[0].StartTime);
@@ -79,7 +79,7 @@ namespace CprBroker.Tests.Engine
 
                 var c2 = new CurrentStub2() { StartDate = DateTime.Today.AddDays(-10) };
 
-                var intervals = Interval.CreateFromData(c2,c1, h1);
+                var intervals = Interval.CreateFromData(c2, c1, h1);
 
                 Assert.AreEqual(2, intervals.Length);
 
@@ -88,6 +88,32 @@ namespace CprBroker.Tests.Engine
 
                 Assert.AreEqual(c1.StartDate, intervals[1].StartTime);
                 Assert.Null(intervals[1].EndTime);
+            }
+
+            [Test]
+            public void CreateFromData_2TagsDiffStarts_3Intervals()
+            {
+                var h1 = new HistoryStub1() { StartDate = DateTime.Today.AddDays(-10), EndDate = DateTime.Today.AddDays(-3) };
+                var c1 = new CurrentStub1() { StartDate = DateTime.Today.AddDays(-3) };
+
+                var c2 = new CurrentStub2() { StartDate = DateTime.Today.AddDays(-7) };
+
+
+                var intervals = Interval.CreateFromData(h1, c1, c2);
+
+                Assert.AreEqual(3, intervals.Length);
+
+                Assert.AreEqual(h1.StartDate, intervals[0].StartTime);
+                Assert.AreEqual(c2.StartDate, intervals[0].EndTime);
+                Assert.AreEqual(1, intervals[0].Data.Count);
+
+                Assert.AreEqual(c2.StartDate, intervals[1].StartTime);
+                Assert.AreEqual(c1.StartDate, intervals[1].EndTime);
+                Assert.AreEqual(2, intervals[1].Data.Count);
+
+                Assert.AreEqual(c1.StartDate, intervals[2].StartTime);
+                Assert.Null(intervals[2].EndTime);
+                Assert.AreEqual(2, intervals[2].Data.Count);
             }
         }
 
