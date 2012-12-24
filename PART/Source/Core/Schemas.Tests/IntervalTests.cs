@@ -49,9 +49,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using CprBroker.Engine;
+using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.Engine
+namespace CprBroker.Tests.Schemas
 {
     namespace IntervalTests
     {

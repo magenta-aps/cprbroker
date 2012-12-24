@@ -68,6 +68,8 @@
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="IBasicOutput.cs" />
     <Compile Include="CivilStatus\ICivilStatus.cs" />
+    <Compile Include="Intervals\Interfaces.cs" />
+    <Compile Include="Intervals\Interval.cs" />
     <Compile Include="IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="CivilStatus\MaritalStatus.cs" />

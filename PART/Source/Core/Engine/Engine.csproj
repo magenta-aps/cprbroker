@@ -75,7 +75,6 @@
     <Compile Include="Facades\FacadeMethod.Element.cs" />
     <Compile Include="Facades\IDataProvider.cs" />
     <Compile Include="Facades\MethodHeader.cs" />
-    <Compile Include="Interval.cs" />
     <Compile Include="Local\AdminDataProvider.cs" />
     <Compile Include="Local\Admin.Log.cs" />
     <Compile Include="IDataProvider.cs" />

@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="CivilStatusWrapperTests.cs" />
     <Compile Include="EnumsTests.cs" />
+    <Compile Include="IntervalTests.cs" />
     <Compile Include="PersonNameStructureType.Tests.cs" />
     <Compile Include="PersonRelationTypeHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

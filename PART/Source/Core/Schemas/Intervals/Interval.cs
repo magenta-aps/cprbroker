@@ -49,7 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.Engine
+namespace CprBroker.Schemas.Part
 {
     public class Interval
     {
@@ -118,20 +118,18 @@ namespace CprBroker.Engine
             return ret.ToArray();
         }
 
-        public ICurrentType GetData<T>() where T : ICurrentType
+        public T GetData<T>() where T : class,ICurrentType
         {
-            return Data.Where(d => d is T).FirstOrDefault();
+            return Data.Where(d => d is T).FirstOrDefault() as T;
+        }
+
+        public TCurrent GetData<TCurrent, THistory>()
+            where TCurrent : class,ICurrentType
+            where THistory : class,IHistoryType
+        {
+            return Data.Where(d => d is TCurrent || d is THistory).FirstOrDefault() as TCurrent;
         }
     }
 
-    public interface ICurrentType
-    {
-        DateTime? StartTS { get; }
-        string Tag { get; }
-    }
-
-    public interface IHistoryType : ICurrentType
-    {
-        DateTime? EndTS { get; }
-    }
+    
 }
