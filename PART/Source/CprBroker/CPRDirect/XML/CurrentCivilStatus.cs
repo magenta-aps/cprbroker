@@ -74,9 +74,9 @@ namespace CprBroker.Providers.CPRDirect
             return !string.IsNullOrEmpty((this as ICivilStatus).ToSpousePnr());
         }
 
-        string ITimedType.Tag
+        DataTypeTags ITimedType.Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.CivilStatus; }
+            get { return DataTypeTags.CivilStatus; }
         }
 
     }
@@ -103,9 +103,9 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToDateTime(this.CivilStatusEndDate, this.CivilStatusEndDateUncertainty);
         }
 
-        string ITimedType.Tag
+        DataTypeTags ITimedType.Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.CivilStatus; }
+            get { return DataTypeTags.CivilStatus; }
         }
     }
 

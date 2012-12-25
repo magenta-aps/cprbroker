@@ -59,9 +59,9 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToFolkekirkeMedlemIndikator(this.ChurchRelationship);
         }
 
-        public string Tag
+        public DataTypeTags Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.Church; }
+            get { return DataTypeTags.Church; }
         }
 
         public DateTime? ToEndTS()

@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -59,9 +60,9 @@ namespace CprBroker.Providers.CPRDirect
             return this.OldPNR;
         }
 
-        public string Tag
+        public DataTypeTags Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.PNR; }
+            get { return DataTypeTags.PNR; }
         }
 
         public DateTime? ToEndTS()

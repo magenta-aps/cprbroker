@@ -54,9 +54,9 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class CurrentCitizenshipType : ICitizenship
     {
-        public string Tag
+        public DataTypeTags Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.Citizenship; }
+            get { return DataTypeTags.Citizenship; }
         }
 
         public CountryIdentificationCodeType ToPersonNationalityCode()

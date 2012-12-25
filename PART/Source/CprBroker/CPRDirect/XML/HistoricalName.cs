@@ -97,9 +97,9 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToDateTime(this.NameEndDate, this.NameEndDateUncertainty);
         }
 
-        public string Tag
+        public DataTypeTags Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.Name; }
+            get { return DataTypeTags.Name; }
         }
     }
 }

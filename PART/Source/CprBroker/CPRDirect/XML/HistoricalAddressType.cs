@@ -54,9 +54,9 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class HistoricalAddressType : ITimedType
     {
-        public string Tag
+        public DataTypeTags Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.Address; }
+            get { return DataTypeTags.Address; }
         }
 
         public DateTime? ToStartTS()

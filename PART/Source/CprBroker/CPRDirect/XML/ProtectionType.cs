@@ -99,9 +99,9 @@ namespace CprBroker.Providers.CPRDirect
                 .ToArray();
         }
 
-        public string Tag
+        public DataTypeTags Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.Protection; }
+            get { return DataTypeTags.Protection; }
         }
 
         public DateTime? ToStartTS()

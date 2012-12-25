@@ -66,9 +66,9 @@ namespace CprBroker.Providers.CPRDirect
             return this.PersonInformation.PNR;
         }
 
-        public string Tag
+        public DataTypeTags Tag
         {
-            get { return CprBroker.Utilities.Constants.DataTypeTags.PNR; }
+            get { return DataTypeTags.PNR; }
         }
 
         public DateTime? ToEndTS()
