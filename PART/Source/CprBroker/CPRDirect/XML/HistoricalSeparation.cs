@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CurrentSeparationType : ISeparation
+    public partial class HistoricalSeparationType : ISeparation
     {
         public CivilStatusType ToCivilStatusType()
         {
@@ -75,8 +75,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime? ToEndTS()
         {
-            return null;
+            return Converters.ToDateTime(this.SeparationEndDate, this.SeparationEndDateUncertainty);
         }
-
     }
 }

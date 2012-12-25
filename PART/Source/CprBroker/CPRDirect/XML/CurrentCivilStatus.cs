@@ -81,36 +81,4 @@ namespace CprBroker.Providers.CPRDirect
 
     }
 
-    public partial class HistoricalCivilStatusType : ICivilStatus
-    {
-        bool ICivilStatus.IsValid()
-        {
-            return Converters.IsValidCorrectionMarker(this.CorrectionMarker);
-        }
-
-        string ICivilStatus.ToSpousePnr()
-        {
-            return Converters.ToPnrStringOrNull(this.SpousePNR);
-        }
-
-        DateTime? ITimedType.ToStartTS()
-        {
-            return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
-        }
-
-        DateTime? ITimedType.ToEndTS()
-        {
-            return Converters.ToDateTime(this.CivilStatusEndDate, this.CivilStatusEndDateUncertainty);
-        }
-
-        DataTypeTags ITimedType.Tag
-        {
-            get { return DataTypeTags.CivilStatus; }
-        }
-    }
-
-    public partial class CurrentSeparationType : ISeparation
-    {
-
-    }
 }

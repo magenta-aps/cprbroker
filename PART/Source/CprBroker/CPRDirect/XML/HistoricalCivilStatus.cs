@@ -52,31 +52,31 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CurrentSeparationType : ISeparation
+    public partial class HistoricalCivilStatusType : ICivilStatus
     {
-        public CivilStatusType ToCivilStatusType()
+        bool ICivilStatus.IsValid()
         {
-            return new CivilStatusType()
-            {
-                CivilStatusKode = CivilStatusKodeType.Separeret,
-                TilstandVirkning = TilstandVirkningType.Create(ToStartTS()),
-            };
+            return Converters.IsValidCorrectionMarker(this.CorrectionMarker);
         }
 
-        public DataTypeTags Tag
+        string ICivilStatus.ToSpousePnr()
         {
-            get { return DataTypeTags.Separation; }
+            return Converters.ToPnrStringOrNull(this.SpousePNR);
         }
 
-        public DateTime? ToStartTS()
+        DateTime? ITimedType.ToStartTS()
         {
-            return Converters.ToDateTime(this.SeparationStartDate, this.SeparationStartDateUncertainty);
+            return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
         }
 
-        public DateTime? ToEndTS()
+        DateTime? ITimedType.ToEndTS()
         {
-            return null;
+            return Converters.ToDateTime(this.CivilStatusEndDate, this.CivilStatusEndDateUncertainty);
         }
 
+        DataTypeTags ITimedType.Tag
+        {
+            get { return DataTypeTags.CivilStatus; }
+        }
     }
 }

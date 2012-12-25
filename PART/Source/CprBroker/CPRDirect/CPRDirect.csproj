@@ -112,8 +112,10 @@
     <Compile Include="XML\HistoricalAddressType.cs" />
     <Compile Include="XML\HistoricalChurchInformation.cs" />
     <Compile Include="XML\HistoricalCitizenship.cs" />
+    <Compile Include="XML\HistoricalCivilStatus.cs" />
     <Compile Include="XML\HistoricalName.cs" />
     <Compile Include="XML\HistoricalPNR.cs" />
+    <Compile Include="XML\HistoricalSeparation.cs" />
     <Compile Include="XML\IAddressSource.cs" />
     <Compile Include="XML\IChurchInformation.cs" />
     <Compile Include="XML\ICitizenship.cs" />
