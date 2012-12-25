@@ -38,7 +38,7 @@ namespace CprBroker.Tests.Schemas
                 return Valid;
             }
 
-            public string Tag { get; set; }
+            public DataTypeTags Tag { get; set; }
         }
 
         class SeparationStub : ISeparation

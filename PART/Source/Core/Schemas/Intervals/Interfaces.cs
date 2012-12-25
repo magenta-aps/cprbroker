@@ -55,8 +55,6 @@ namespace CprBroker.Schemas.Part
     {
         DateTime? ToStartTS();
         DateTime? ToEndTS();
-        string Tag { get; }
+        DataTypeTags Tag { get; }
     }
-
-    
 }

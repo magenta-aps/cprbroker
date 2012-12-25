@@ -123,13 +123,7 @@ namespace CprBroker.Schemas.Part
         {
             return Data.Where(d => d is T).FirstOrDefault() as T;
         }
-
-        public TCurrent GetData<TCurrent, THistory>()
-            where TCurrent : class,ITimedType
-            where THistory : class,ITimedType
-        {
-            return Data.Where(d => d is TCurrent || d is THistory).FirstOrDefault() as TCurrent;
-        }
+        
     }
 
     

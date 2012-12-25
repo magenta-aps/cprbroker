@@ -59,51 +59,51 @@ namespace CprBroker.Tests.Schemas
         {
             public CurrentStub1()
             {
-                Tag = "1";
+                Tag = (DataTypeTags)1;
             }
 
             public DateTime? _StartTS;
             public DateTime? ToStartTS() { return _StartTS; }
             public DateTime? ToEndTS() { return null; }
-            public string Tag { get; set; }
+            public DataTypeTags Tag { get; set; }
         }
 
         class HistoryStub1 : ITimedType
         {
             public HistoryStub1()
             {
-                Tag = "1";
+                Tag = (DataTypeTags)1;
             }
             public DateTime? _EndTS;
             public DateTime? ToEndTS() { return _EndTS; }
             public DateTime? _StartTS;
             public DateTime? ToStartTS() { return _StartTS; }
-            public string Tag { get; set; }
+            public DataTypeTags Tag { get; set; }
         }
 
         class CurrentStub2 : ITimedType
         {
             public CurrentStub2()
             {
-                Tag = "2";
+                Tag = (DataTypeTags)2;
             }
             public DateTime? _StartTS;
             public DateTime? ToStartTS() { return _StartTS; }
             public DateTime? ToEndTS() { return null; }
-            public string Tag { get; set; }
+            public DataTypeTags Tag { get; set; }
         }
 
         class HistoryStub2 : ITimedType
         {
             public HistoryStub2()
             {
-                Tag = "2";
+                Tag = (DataTypeTags)2;
             }
             public DateTime? _EndTS;
             public DateTime? ToEndTS() { return _EndTS; }
             public DateTime? _StartTS;
             public DateTime? ToStartTS() { return _StartTS; }
-            public string Tag { get; set; }
+            public DataTypeTags Tag { get; set; }
         }
 
         [TestFixture]

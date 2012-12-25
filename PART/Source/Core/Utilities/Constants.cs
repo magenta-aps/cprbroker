@@ -55,7 +55,7 @@ namespace CprBroker.Utilities
     /// Contains all the constants used by the broker
     /// </summary>
     public static class Constants
-    {       
+    {
 
         public static readonly DateTime MinSqlDate = new DateTime(1753, 1, 1);
         public static readonly DateTime MaxSqlDate = new DateTime(9999, 12, 31);
@@ -91,12 +91,5 @@ namespace CprBroker.Utilities
 
         public const string DataProvidersSectionGroupName = "dataProvidersGroup";
 
-        public static class DataTypeTags
-        {
-            public static readonly string CivilStatus = "CivilStatus";
-            public static readonly string Separation = "Separation";
-            public static readonly string Name = "Name";
-        }
-        
     }
 }
