@@ -193,20 +193,5 @@ namespace CprBroker.Providers.Local
 
         #endregion
 
-
-string[] IBatchDataProvider<string, string>.GetBatch(string[] inputs)
-        {
-            throw new NotImplementedException();
-        }
-
-        string ISingleDataProvider<string, string>.GetOne(string input)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool ISingleDataProvider<string, string>.ImmediateUpdatePreferred
-        {
-            get { throw new NotImplementedException(); }
-        }
     }
 }

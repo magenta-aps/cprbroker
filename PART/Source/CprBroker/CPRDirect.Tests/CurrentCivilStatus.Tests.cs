@@ -75,7 +75,7 @@ namespace CprBroker.Tests.CPRDirect
                 var status = new CivilStatusWrapper(new CurrentCivilStatusType() { CivilStatusStartDate = DateTime.Today.AddDays(-1), CivilStatusStartDateUncertainty = ' ', CivilStatusCode = maritalStatus });
                 var sep = new CurrentSeparationType() { SeparationStartDate = DateTime.Today, SeparationStartDateUncertainty = ' ' };
                 var ret = status.ToCivilStatusType(sep);
-                Assert.AreEqual(sep.ToSeparationStartDate(), ret.TilstandVirkning.FraTidspunkt.ToDateTime());
+                Assert.AreEqual(sep.ToStartTS(), ret.TilstandVirkning.FraTidspunkt.ToDateTime());
             }
 
             [Test]
