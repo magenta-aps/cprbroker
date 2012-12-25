@@ -72,7 +72,6 @@ namespace CprBroker.Providers.CPRDirect
 
         public VirkningType ToRelocationVirkning()
         {
-
             return VirkningType.Create(
                 Converters.ToDateTime(this.RelocationDate, this.RelocationDateUncertainty),
                 null
