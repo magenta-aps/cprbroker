@@ -16,12 +16,12 @@ namespace CprBroker.Tests.Schemas
             public char CivilStatusCode { get; set; }
 
             public DateTime? CivilStatusStartDate { get; set; }
-            public DateTime? ToCivilStatusStartDate()
+            public DateTime? ToStartTS()
             {
                 return CivilStatusStartDate;
             }
             public DateTime? CivilStatusEndDate { get; set; }
-            public DateTime? ToCivilStatusEndDate()
+            public DateTime? ToEndTS()
             {
                 return CivilStatusEndDate;
             }
@@ -37,6 +37,8 @@ namespace CprBroker.Tests.Schemas
             {
                 return Valid;
             }
+
+            public string Tag { get; set; }
         }
 
         class SeparationStub : ISeparation

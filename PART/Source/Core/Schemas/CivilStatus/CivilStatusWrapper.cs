@@ -33,7 +33,7 @@ namespace CprBroker.Schemas.Part
                 return new CivilStatusType()
                 {
                     CivilStatusKode = statusCode,
-                    TilstandVirkning = TilstandVirkningType.Create(this._CivilStatus.ToCivilStatusStartDate()),
+                    TilstandVirkning = TilstandVirkningType.Create(this._CivilStatus.ToStartTS()),
                 };
             }
         }
@@ -45,8 +45,8 @@ namespace CprBroker.Schemas.Part
                 ReferenceID = UnikIdType.Create(cpr2uuidFunc(ToSpousePnr())),
                 CommentText = "",
                 Virkning = VirkningType.Create(
-                    forPreviousInterval ? null : _CivilStatus.ToCivilStatusStartDate(),
-                    forPreviousInterval ? _CivilStatus.ToCivilStatusStartDate() : _CivilStatus.ToCivilStatusEndDate()
+                    forPreviousInterval ? null : _CivilStatus.ToStartTS(),
+                    forPreviousInterval ? _CivilStatus.ToStartTS() : _CivilStatus.ToEndTS()
                 )
             };
         }
@@ -81,7 +81,7 @@ namespace CprBroker.Schemas.Part
                     && maritalStates.Contains(h.CivilStatusCode, new CaseInvariantCharComparer())
                     && h.IsValid()
                 )
-                .OrderBy(civ => civ.ToCivilStatusStartDate())
+                .OrderBy(civ => civ.ToStartTS())
                 .ToList();
 
             var ret = new List<PersonRelationType>();
@@ -91,7 +91,7 @@ namespace CprBroker.Schemas.Part
                 var dbCivilStatusWrapper = new CivilStatusWrapper(dbCivilStatus);
 
                 var previousDbCivilStatus =
-                    (i > 0) && (allCivilStates[i - 1].ToCivilStatusEndDate() == dbCivilStatus.ToCivilStatusStartDate()) ?
+                    (i > 0) && (allCivilStates[i - 1].ToEndTS() == dbCivilStatus.ToStartTS()) ?
                     allCivilStates[i - 1] : null;
 
                 if (dbCivilStatus.CivilStatusCode == marriedStatus)
@@ -120,7 +120,7 @@ namespace CprBroker.Schemas.Part
 
         public DateTime? ToCivilStatusDate()
         {
-            return _CivilStatus.ToCivilStatusStartDate();
+            return _CivilStatus.ToStartTS();
         }
     }
 }

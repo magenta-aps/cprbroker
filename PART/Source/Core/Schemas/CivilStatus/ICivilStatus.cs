@@ -9,13 +9,13 @@ namespace CprBroker.Schemas.Part
     /// <summary>
     /// Common interface for CurrentCivilStatus and HistoricalCivilStatus
     /// </summary>
-    public interface ICivilStatus
+    public interface ICivilStatus : IHistoryType
     {
         string PNR { get; }
         char CivilStatusCode { get; }
 
-        DateTime? ToCivilStatusStartDate();
-        DateTime? ToCivilStatusEndDate();
+        //DateTime? ToStartTS();
+        //DateTime? ToEndTS();
         string ToSpousePnr();
 
         bool IsValid();

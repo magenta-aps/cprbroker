@@ -53,12 +53,12 @@ namespace CprBroker.Schemas.Part
 {
     public interface ICurrentType
     {
-        DateTime? StartTS { get; }
+        DateTime? ToStartTS();
         string Tag { get; }
     }
 
     public interface IHistoryType : ICurrentType
     {
-        DateTime? EndTS { get; }
+        DateTime? ToEndTS();
     }
 }

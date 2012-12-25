@@ -61,11 +61,12 @@ namespace CprBroker.Schemas.Part
         {
             return CreateFromData(dataObjects.AsQueryable());
         }
+
         public static Interval[] CreateFromData(IQueryable<ICurrentType> dataObjects)
         {
             var allTags = dataObjects.Select(d => d.Tag).Distinct().OrderBy(d => d).ToArray();
 
-            var groupedByStartTime = dataObjects.GroupBy(d => d.StartTS).OrderBy(g => g.Key).ToArray();
+            var groupedByStartTime = dataObjects.GroupBy(d => d.ToStartTS()).OrderBy(g => g.Key).ToArray();
             var ret = new List<Interval>();
 
             var previousDataObjects = new List<ICurrentType>();
@@ -90,7 +91,7 @@ namespace CprBroker.Schemas.Part
                             // Make sure effect has not ended. Not sure if this scenario is possible
                             var o = tagObject as IHistoryType;
                             // TODO: What if interval.StartTime is null?
-                            if (CprBroker.Utilities.Dates.DateRangeIncludes(o.StartTS, o.EndTS, interval.StartTS.Value, true))
+                            if (CprBroker.Utilities.Dates.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), interval.StartTS.Value, true))
                             {
                                 interval.Data.Add(tagObject);
                             }
@@ -103,7 +104,7 @@ namespace CprBroker.Schemas.Part
                 }
                 interval.EndTS = interval.Data
                     .Where(d => d is IHistoryType)
-                    .Select(d => (d as IHistoryType).EndTS)
+                    .Select(d => (d as IHistoryType).ToEndTS())
                     .OrderBy(d => d as DateTime?)
                     .FirstOrDefault();
                 // TODO: What if interval.StartTime is null?
