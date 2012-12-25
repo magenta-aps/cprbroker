@@ -299,7 +299,7 @@
       <Attribute name="LeavingDateUncertainty" danishName="FRAFLYDTO_UMRK" format="Alpha" length="1" position="96" description="Leaving date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalExitEntry" danishName="P12170-024" length="218" description="Historical exit-entry information / foreign addresses" minOccurs="0" >
+    <Object name="HistoricalDeparture" danishName="P12170-024" length="218" description="Historical exit-entry information / foreign addresses" minOccurs="0" >
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>

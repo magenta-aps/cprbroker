@@ -104,7 +104,7 @@ namespace CprBroker.Providers.CPRDirect
             _DataObjectMap["021"] = typeof(RelocationOrderType);
             _DataObjectMap["022"] = typeof(HistoricalPNRType);
             _DataObjectMap["023"] = typeof(HistoricalAddressType);
-            _DataObjectMap["024"] = typeof(HistoricalExitEntryType);
+            _DataObjectMap["024"] = typeof(HistoricalDepartureType);
             _DataObjectMap["025"] = typeof(HistoricalDisappearanceType);
             _DataObjectMap["026"] = typeof(HistoricalNameType);
             _DataObjectMap["027"] = typeof(HistoricalCitizenshipType);

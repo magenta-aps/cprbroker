@@ -107,12 +107,13 @@
     <Compile Include="XML\CurrentAddressWrapper.cs" />
     <Compile Include="XML\CurrentCitizenship.cs" />
     <Compile Include="XML\CurrentCivilStatus.cs" />
-    <Compile Include="XML\CurrentDepartureDataType.cs" />
+    <Compile Include="XML\CurrentDepartureData.cs" />
     <Compile Include="XML\CurrentPnrTypeAdaptor.cs" />
     <Compile Include="XML\HistoricalAddressType.cs" />
     <Compile Include="XML\HistoricalChurchInformation.cs" />
     <Compile Include="XML\HistoricalCitizenship.cs" />
     <Compile Include="XML\HistoricalCivilStatus.cs" />
+    <Compile Include="XML\HistoricalDeparture.cs" />
     <Compile Include="XML\HistoricalName.cs" />
     <Compile Include="XML\HistoricalPNR.cs" />
     <Compile Include="XML\HistoricalSeparation.cs" />
