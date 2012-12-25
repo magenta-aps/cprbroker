@@ -49,10 +49,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
+using CprBroker.Engine;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public interface INameSource
+    public interface INameSource : IHistoryType
     {
         string FirstName_s { get; }
         string MiddleName { get; }

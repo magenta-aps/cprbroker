@@ -146,7 +146,7 @@ namespace CprBroker.Providers.CPRDirect
             // Not implemented
 
             // name
-            effects.Add(VirkningType.Create(this.CurrentNameInformation.ToNameStartDate(), null));
+            effects.Add(VirkningType.Create(this.CurrentNameInformation.ToStartTS(), null));
 
             return VirkningType.Compose(effects.ToArray());
         }

@@ -59,12 +59,12 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPnrStringOrNull(this.SpousePNR);
         }
 
-        DateTime? ICivilStatus.ToCivilStatusStartDate()
+        DateTime? ICurrentType.ToStartTS()
         {
             return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
         }
 
-        DateTime? ICivilStatus.ToCivilStatusEndDate()
+        DateTime? IHistoryType.ToEndTS()
         {
             return null;
         }
@@ -73,6 +73,12 @@ namespace CprBroker.Providers.CPRDirect
         {
             return !string.IsNullOrEmpty((this as ICivilStatus).ToSpousePnr());
         }
+
+        string ICurrentType.Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.CivilStatus; }
+        }
+
     }
 
     public partial class HistoricalCivilStatusType : ICivilStatus
@@ -87,14 +93,19 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPnrStringOrNull(this.SpousePNR);
         }
 
-        DateTime? ICivilStatus.ToCivilStatusStartDate()
+        DateTime? ICurrentType.ToStartTS()
         {
             return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
         }
 
-        DateTime? ICivilStatus.ToCivilStatusEndDate()
+        DateTime? IHistoryType.ToEndTS()
         {
             return Converters.ToDateTime(this.CivilStatusEndDate, this.CivilStatusEndDateUncertainty);
+        }
+
+        string ICurrentType.Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.CivilStatus; }
         }
     }
 

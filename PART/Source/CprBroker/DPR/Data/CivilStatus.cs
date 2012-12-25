@@ -21,14 +21,19 @@ namespace CprBroker.Providers.DPR
             get { return this.PNR.ToPnrDecimalString(); }
         }
 
-        public DateTime? ToCivilStatusStartDate()
+        public DateTime? ToStartTS()
         {
             return Utilities.DateFromDecimal(this.MaritalStatusDate);
         }
 
-        public DateTime? ToCivilStatusEndDate()
+        public DateTime? ToEndTS()
         {
             return Utilities.DateFromDecimal(this.MaritalEndDate);
+        }
+
+        string ICurrentType.Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.CivilStatus; }
         }
 
         public string ToSpousePnr()

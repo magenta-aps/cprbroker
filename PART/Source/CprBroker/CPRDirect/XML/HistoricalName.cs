@@ -86,5 +86,20 @@ namespace CprBroker.Providers.CPRDirect
                 .OrderBy(n => n.NameStartDate)
                 .FirstOrDefault();
         }
+
+        public DateTime? ToStartTS()
+        {
+            return Converters.ToDateTime(this.NameStartDate, this.NameStartDateUncertainty);
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return Converters.ToDateTime(this.NameEndDate, this.NameEndDateUncertainty);
+        }
+
+        public string Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.Name; }
+        }
     }
 }

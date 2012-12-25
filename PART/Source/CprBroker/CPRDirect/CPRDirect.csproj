@@ -102,6 +102,7 @@
     <Compile Include="XML\Child.cs" />
     <Compile Include="XML\ChurchInformation.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />
+    <Compile Include="XML\CPRDirectInterval.cs" />
     <Compile Include="XML\CurrentAddressInformation.cs" />
     <Compile Include="XML\CurrentAddressWrapper.cs" />
     <Compile Include="XML\CurrentCitizenship.cs" />
