@@ -59,12 +59,12 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPnrStringOrNull(this.SpousePNR);
         }
 
-        DateTime? ICurrentType.ToStartTS()
+        DateTime? ITimedType.ToStartTS()
         {
             return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
         }
 
-        DateTime? IHistoryType.ToEndTS()
+        DateTime? ITimedType.ToEndTS()
         {
             return null;
         }
@@ -74,7 +74,7 @@ namespace CprBroker.Providers.CPRDirect
             return !string.IsNullOrEmpty((this as ICivilStatus).ToSpousePnr());
         }
 
-        string ICurrentType.Tag
+        string ITimedType.Tag
         {
             get { return CprBroker.Utilities.Constants.DataTypeTags.CivilStatus; }
         }
@@ -93,17 +93,17 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPnrStringOrNull(this.SpousePNR);
         }
 
-        DateTime? ICurrentType.ToStartTS()
+        DateTime? ITimedType.ToStartTS()
         {
             return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
         }
 
-        DateTime? IHistoryType.ToEndTS()
+        DateTime? ITimedType.ToEndTS()
         {
             return Converters.ToDateTime(this.CivilStatusEndDate, this.CivilStatusEndDateUncertainty);
         }
 
-        string ICurrentType.Tag
+        string ITimedType.Tag
         {
             get { return CprBroker.Utilities.Constants.DataTypeTags.CivilStatus; }
         }

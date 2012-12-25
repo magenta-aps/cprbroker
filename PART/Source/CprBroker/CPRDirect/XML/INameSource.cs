@@ -53,7 +53,7 @@ using CprBroker.Engine;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public interface INameSource : IHistoryType
+    public interface INameSource : ITimedType
     {
         string FirstName_s { get; }
         string MiddleName { get; }

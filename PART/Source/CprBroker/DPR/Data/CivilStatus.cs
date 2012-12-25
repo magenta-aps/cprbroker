@@ -31,7 +31,7 @@ namespace CprBroker.Providers.DPR
             return Utilities.DateFromDecimal(this.MaritalEndDate);
         }
 
-        string ICurrentType.Tag
+        string ITimedType.Tag
         {
             get { return CprBroker.Utilities.Constants.DataTypeTags.CivilStatus; }
         }
