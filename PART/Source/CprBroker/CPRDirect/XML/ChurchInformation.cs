@@ -48,19 +48,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class ChurchInformationType
+    public partial class ChurchInformationType : IChurchInformation
     {
         public bool ToFolkekirkeMedlemIndikator()
         {
             return Converters.ToFolkekirkeMedlemIndikator(this.ChurchRelationship);
         }
 
-        public DateTime? ToChurchRelationshipDate()
+        public string Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.Church; }
+        }
+
+        public DateTime? ToStartTS()
         {
             return Converters.ToDateTime(this.StartDate, this.StartDateUncertainty);
         }
+
+        public DateTime? ToEndTS()
+        {
+            return null;
+        }
+
     }
 }

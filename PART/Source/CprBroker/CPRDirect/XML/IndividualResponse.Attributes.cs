@@ -253,7 +253,7 @@ namespace CprBroker.Providers.CPRDirect
             var dates = new List<DateTime?>(
                 new DateTime?[] { 
                     this.PersonInformation.ToStatusDate(),
-                    this.ChurchInformation.ToChurchRelationshipDate(),
+                    this.ChurchInformation.ToStartTS(),
                     this.CurrentCitizenship.ToCitizenshipStartDate(),
             });
 
