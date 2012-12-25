@@ -48,36 +48,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Engine;
-using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CPRDirect.XML
+namespace CprBroker.Providers.CPRDirect
 {
-    public class CPRDirectInterval : Interval
+    public partial class HistoricalPNRType : IPnr
     {
-        public INameSource Name
+
+        public string ToPnr()
         {
-            get { return this.GetData<INameSource>(); }
+            return this.OldPNR;
         }
 
-        public ICivilStatus CivilStatus
+        public string Tag
         {
-            get { return this.GetData<ICivilStatus>(); }
+            get { return CprBroker.Utilities.Constants.DataTypeTags.PNR; }
         }
 
-        public IAddressSource Address
+        public DateTime? ToEndTS()
         {
-            get { return this.GetData<IAddressSource>(); }
+            return Converters.ToDateTime(this.OldPNRStartDate, this.OldPNRStartDateUncertainty);
         }
 
-        public IChurchInformation Church
+        public DateTime? ToStartTS()
         {
-            get { return this.GetData<IChurchInformation>(); }
-        }
-
-        public IPnr Pnr
-        {
-            get { return this.GetData<IPnr>(); }
+            return Converters.ToDateTime(this.OldPNREndDate, this.OldPNREndDateUncertainty);
         }
     }
 }
