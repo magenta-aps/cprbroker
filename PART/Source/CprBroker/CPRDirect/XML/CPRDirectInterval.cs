@@ -64,5 +64,10 @@ namespace CprBroker.Providers.CPRDirect.XML
         {
             get { return this.GetData<ICivilStatus>(); }
         }
+
+        public IAddressSource Address
+        {
+            get { return this.GetData<IAddressSource>(); }
+        }
     }
 }

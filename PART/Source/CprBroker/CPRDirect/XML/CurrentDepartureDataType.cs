@@ -71,7 +71,7 @@ namespace CprBroker.Providers.CPRDirect
 
                 // Note - not implemented
                 NoteTekst = this.ToAddressNoteTekste(),
-                
+
                 // Address is known if it has value !
                 UkendtAdresseIndikator = this.IsEmpty
             };
@@ -83,10 +83,10 @@ namespace CprBroker.Providers.CPRDirect
             {
                 // Country
                 CountryIdentificationCode = ToCountryIdentificationCode(),
-                
+
                 // No location
                 LocationDescriptionText = null,
-                
+
                 // Address lines
                 PostalAddressFirstLineText = this.ForeignAddress1,
                 PostalAddressSecondLineText = this.ForeignAddress2,
@@ -110,8 +110,8 @@ namespace CprBroker.Providers.CPRDirect
         {
             return new VirkningType[]{
                 VirkningType.Create(
-                Converters.ToDateTime(this.ExitDate, this.ExitDateUncertainty),
-                null)};
+                ToStartTS(),
+                ToEndTS())};
         }
 
         public CountryIdentificationCodeType ToCountryIdentificationCode()
@@ -123,5 +123,22 @@ namespace CprBroker.Providers.CPRDirect
         {
             return null;
         }
+
+        public string Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.Address; }
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return Converters.ToDateTime(this.ExitDate, this.ExitDateUncertainty);
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return null;
+        }
+
+
     }
 }

@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public interface IAddressSource
+    public interface IAddressSource : ITimedType
     {
         AdresseType ToAdresseType();
         VirkningType[] ToVirkningTypeArray();
@@ -73,6 +73,21 @@ namespace CprBroker.Providers.CPRDirect
 
 
         public string ToAddressNoteTekste()
+        {
+            return null;
+        }
+
+        public string Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.Address; }
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return null;
+        }
+
+        public DateTime? ToStartTS()
         {
             return null;
         }

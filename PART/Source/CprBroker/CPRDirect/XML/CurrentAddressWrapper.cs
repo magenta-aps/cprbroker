@@ -78,6 +78,7 @@ namespace CprBroker.Providers.CPRDirect
             return ClearWrittenAddress.ToAdresseType();
         }
 
+        // TODO: Replace this method with interval dates
         public VirkningType[] ToVirkningTypeArray()
         {
             return this.CurrentAddressInformation.ToVirkningTypeArray();
@@ -86,6 +87,21 @@ namespace CprBroker.Providers.CPRDirect
         public string ToAddressNoteTekste()
         {
             return this.ClearWrittenAddress.ToAddressNoteTekste();
+        }
+
+        public string Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.Address; }
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return Converters.ToDateTime(this.CurrentAddressInformation.RelocationDate, this.CurrentAddressInformation.RelocationDateUncertainty);
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return null;
         }
     }
 }
