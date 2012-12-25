@@ -48,41 +48,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Engine;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CPRDirect.XML
+namespace CprBroker.Providers.CPRDirect
 {
-    public class CPRDirectInterval : Interval
+    public partial class HistoricalCitizenshipType : ICitizenship
     {
-        public INameSource Name
+        public string Tag
         {
-            get { return this.GetData<INameSource>(); }
+            get { return CprBroker.Utilities.Constants.DataTypeTags.Citizenship; }
         }
 
-        public ICivilStatus CivilStatus
+        public CountryIdentificationCodeType ToPersonNationalityCode()
         {
-            get { return this.GetData<ICivilStatus>(); }
+            return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, this.StringCountryCode);
         }
 
-        public IAddressSource Address
+        public string StringCountryCode
         {
-            get { return this.GetData<IAddressSource>(); }
+            get { return Converters.DecimalToString(this.CountryCode); }
         }
 
-        public IChurchInformation Church
+        public DateTime? ToStartTS()
         {
-            get { return this.GetData<IChurchInformation>(); }
+            return Converters.ToDateTime(this.CitizenshipStartDate, this.CitizenshipStartDateUncertainty);
         }
 
-        public IPnr Pnr
+        public DateTime? ToEndTS()
         {
-            get { return this.GetData<IPnr>(); }
-        }
-
-        public ICitizenship Citizenship
-        {
-            get { return this.GetData<ICitizenship>(); }
+            return Converters.ToDateTime(this.CitizenshipEndDate, this.CitizenshipEndDateUncertainty);
         }
     }
 }

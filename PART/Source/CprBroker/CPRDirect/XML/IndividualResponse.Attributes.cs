@@ -254,7 +254,7 @@ namespace CprBroker.Providers.CPRDirect
                 new DateTime?[] { 
                     this.PersonInformation.ToStatusDate(),
                     this.ChurchInformation.ToStartTS(),
-                    this.CurrentCitizenship.ToCitizenshipStartDate(),
+                    this.CurrentCitizenship.ToStartTS(),
             });
 
             effects.AddRange(dates.Select(d => VirkningType.Create(d, null)));

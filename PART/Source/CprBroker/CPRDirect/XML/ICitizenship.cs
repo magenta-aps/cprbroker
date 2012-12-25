@@ -48,41 +48,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Engine;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CPRDirect.XML
+namespace CprBroker.Providers.CPRDirect
 {
-    public class CPRDirectInterval : Interval
+    public interface ICitizenship : ITimedType
     {
-        public INameSource Name
-        {
-            get { return this.GetData<INameSource>(); }
-        }
-
-        public ICivilStatus CivilStatus
-        {
-            get { return this.GetData<ICivilStatus>(); }
-        }
-
-        public IAddressSource Address
-        {
-            get { return this.GetData<IAddressSource>(); }
-        }
-
-        public IChurchInformation Church
-        {
-            get { return this.GetData<IChurchInformation>(); }
-        }
-
-        public IPnr Pnr
-        {
-            get { return this.GetData<IPnr>(); }
-        }
-
-        public ICitizenship Citizenship
-        {
-            get { return this.GetData<ICitizenship>(); }
-        }
+        CountryIdentificationCodeType ToPersonNationalityCode();
     }
 }

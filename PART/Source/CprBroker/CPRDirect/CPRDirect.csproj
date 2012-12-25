@@ -111,10 +111,12 @@
     <Compile Include="XML\CurrentPnrTypeAdaptor.cs" />
     <Compile Include="XML\HistoricalAddressType.cs" />
     <Compile Include="XML\HistoricalChurchInformation.cs" />
+    <Compile Include="XML\HistoricalCitizenship.cs" />
     <Compile Include="XML\HistoricalName.cs" />
     <Compile Include="XML\HistoricalPNR.cs" />
     <Compile Include="XML\IAddressSource.cs" />
     <Compile Include="XML\IChurchInformation.cs" />
+    <Compile Include="XML\ICitizenship.cs" />
     <Compile Include="XML\ICprNumber.cs" />
     <Compile Include="XML\INameSource.cs" />
     <Compile Include="XML\IndividualResponse.Parser.cs" />

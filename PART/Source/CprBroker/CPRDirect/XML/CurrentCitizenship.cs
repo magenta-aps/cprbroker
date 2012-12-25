@@ -52,8 +52,13 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CurrentCitizenshipType
+    public partial class CurrentCitizenshipType : ICitizenship
     {
+        public string Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.Citizenship; }
+        }
+
         public CountryIdentificationCodeType ToPersonNationalityCode()
         {
             return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, this.StringCountryCode);
@@ -64,9 +69,14 @@ namespace CprBroker.Providers.CPRDirect
             get { return Converters.DecimalToString(this.CountryCode); }
         }
 
-        public DateTime? ToCitizenshipStartDate()
+        public DateTime? ToStartTS()
         {
             return Converters.ToDateTime(this.CitizenshipStartDate, this.CitizenshipStartDateUncertainty);
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return null;
         }
     }
 }
