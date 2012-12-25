@@ -53,7 +53,7 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Providers.CPRDirect
 {
 
-    public partial class ProtectionType
+    public partial class ProtectionType : ITimedType
     {
         public enum ProtectionCategoryCodes
         {
@@ -75,7 +75,7 @@ namespace CprBroker.Providers.CPRDirect
             effectDate = effectDate.Date;
             return
                 categories.Contains(this.ProtectionCategoryCode)
-                && Utilities.Dates.DateRangeIncludes(this.StartDate, this.EndDate, effectDate, true);
+                && Utilities.Dates.DateRangeIncludes(this.ToStartTS(), this.ToEndTS(), effectDate, true);
         }
 
         public VirkningType ToVirkningType()
@@ -98,5 +98,22 @@ namespace CprBroker.Providers.CPRDirect
                 .Select(p => p.ToVirkningType())
                 .ToArray();
         }
+
+        public string Tag
+        {
+            get { return CprBroker.Utilities.Constants.DataTypeTags.Protection; }
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return this.StartDate;
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return this.EndDate;
+        }
+
+
     }
 }
