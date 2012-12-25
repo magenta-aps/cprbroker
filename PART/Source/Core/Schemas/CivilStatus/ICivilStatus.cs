@@ -14,8 +14,6 @@ namespace CprBroker.Schemas.Part
         string PNR { get; }
         char CivilStatusCode { get; }
 
-        //DateTime? ToStartTS();
-        //DateTime? ToEndTS();
         string ToSpousePnr();
 
         bool IsValid();
