@@ -51,14 +51,12 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public interface ICurrentType
+    public interface ITimedType
     {
         DateTime? ToStartTS();
+        DateTime? ToEndTS();
         string Tag { get; }
     }
 
-    public interface IHistoryType : ICurrentType
-    {
-        DateTime? ToEndTS();
-    }
+    
 }

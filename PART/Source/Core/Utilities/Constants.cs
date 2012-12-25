@@ -90,6 +90,13 @@ namespace CprBroker.Utilities
         public static readonly Guid EventBrokerApplicationToken = new Guid("{FCD568A0-8F18-4b6f-8691-C09239F158F3}");
 
         public const string DataProvidersSectionGroupName = "dataProvidersGroup";
+
+        public static class DataTypeTags
+        {
+            public static readonly string CivilStatus = "CivilStatus";
+            public static readonly string Separation = "Separation";
+            public static readonly string Name = "Name";
+        }
         
     }
 }

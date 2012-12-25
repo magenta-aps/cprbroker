@@ -9,7 +9,7 @@ namespace CprBroker.Schemas.Part
     /// <summary>
     /// Common interface for CurrentCivilStatus and HistoricalCivilStatus
     /// </summary>
-    public interface ICivilStatus : IHistoryType
+    public interface ICivilStatus : ITimedType
     {
         string PNR { get; }
         char CivilStatusCode { get; }

@@ -55,7 +55,7 @@ namespace CprBroker.Tests.Schemas
 {
     namespace IntervalTests
     {
-        class CurrentStub1 : ICurrentType
+        class CurrentStub1 : ITimedType
         {
             public CurrentStub1()
             {
@@ -64,10 +64,11 @@ namespace CprBroker.Tests.Schemas
 
             public DateTime? _StartTS;
             public DateTime? ToStartTS() { return _StartTS; }
+            public DateTime? ToEndTS() { return null; }
             public string Tag { get; set; }
         }
 
-        class HistoryStub1 : IHistoryType
+        class HistoryStub1 : ITimedType
         {
             public HistoryStub1()
             {
@@ -80,7 +81,7 @@ namespace CprBroker.Tests.Schemas
             public string Tag { get; set; }
         }
 
-        class CurrentStub2 : ICurrentType
+        class CurrentStub2 : ITimedType
         {
             public CurrentStub2()
             {
@@ -88,10 +89,11 @@ namespace CprBroker.Tests.Schemas
             }
             public DateTime? _StartTS;
             public DateTime? ToStartTS() { return _StartTS; }
+            public DateTime? ToEndTS() { return null; }
             public string Tag { get; set; }
         }
 
-        class HistoryStub2 : IHistoryType
+        class HistoryStub2 : ITimedType
         {
             public HistoryStub2()
             {

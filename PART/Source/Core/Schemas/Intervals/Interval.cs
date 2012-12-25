@@ -55,21 +55,21 @@ namespace CprBroker.Schemas.Part
     {
         public DateTime? StartTS { get; private set; }
         public DateTime? EndTS { get; private set; }
-        public List<ICurrentType> Data = new List<ICurrentType>();
+        public List<ITimedType> Data = new List<ITimedType>();
 
-        public static Interval[] CreateFromData(params ICurrentType[] dataObjects)
+        public static Interval[] CreateFromData(params ITimedType[] dataObjects)
         {
             return CreateFromData(dataObjects.AsQueryable());
         }
 
-        public static Interval[] CreateFromData(IQueryable<ICurrentType> dataObjects)
+        public static Interval[] CreateFromData(IQueryable<ITimedType> dataObjects)
         {
             var allTags = dataObjects.Select(d => d.Tag).Distinct().OrderBy(d => d).ToArray();
 
             var groupedByStartTime = dataObjects.GroupBy(d => d.ToStartTS()).OrderBy(g => g.Key).ToArray();
             var ret = new List<Interval>();
 
-            var previousDataObjects = new List<ICurrentType>();
+            var previousDataObjects = new List<ITimedType>();
 
             for (int iTimeGroup = 0; iTimeGroup < groupedByStartTime.Count(); iTimeGroup++)
             {
@@ -86,10 +86,10 @@ namespace CprBroker.Schemas.Part
 
                     if (tagObject != null)
                     {
-                        if (tagObject is IHistoryType)
+                        if (tagObject is ITimedType)
                         {
                             // Make sure effect has not ended. Not sure if this scenario is possible
-                            var o = tagObject as IHistoryType;
+                            var o = tagObject as ITimedType;
                             // TODO: What if interval.StartTime is null?
                             if (CprBroker.Utilities.Dates.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), interval.StartTS.Value, true))
                             {
@@ -103,8 +103,8 @@ namespace CprBroker.Schemas.Part
                     }
                 }
                 interval.EndTS = interval.Data
-                    .Where(d => d is IHistoryType)
-                    .Select(d => (d as IHistoryType).ToEndTS())
+                    .Where(d => d is ITimedType)
+                    .Select(d => (d as ITimedType).ToEndTS())
                     .OrderBy(d => d as DateTime?)
                     .FirstOrDefault();
                 // TODO: What if interval.StartTime is null?
@@ -119,14 +119,14 @@ namespace CprBroker.Schemas.Part
             return ret.ToArray();
         }
 
-        public T GetData<T>() where T : class,ICurrentType
+        public T GetData<T>() where T : class,ITimedType
         {
             return Data.Where(d => d is T).FirstOrDefault() as T;
         }
 
         public TCurrent GetData<TCurrent, THistory>()
-            where TCurrent : class,ICurrentType
-            where THistory : class,IHistoryType
+            where TCurrent : class,ITimedType
+            where THistory : class,ITimedType
         {
             return Data.Where(d => d is TCurrent || d is THistory).FirstOrDefault() as TCurrent;
         }
