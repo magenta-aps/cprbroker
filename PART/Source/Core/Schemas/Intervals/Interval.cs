@@ -59,15 +59,16 @@ namespace CprBroker.Schemas.Part
 
         public static Interval[] CreateFromData(params ITimedType[] dataObjects)
         {
-            return CreateFromData(dataObjects.AsQueryable());
+            return CreateFromData<Interval>(dataObjects.AsQueryable());
         }
 
-        public static Interval[] CreateFromData(IQueryable<ITimedType> dataObjects)
+        public static TInterval[] CreateFromData<TInterval>(IQueryable<ITimedType> dataObjects)
+            where TInterval : Interval, new()
         {
             var allTags = dataObjects.Select(d => d.Tag).Distinct().OrderBy(d => d).ToArray();
 
             var groupedByStartTime = dataObjects.GroupBy(d => d.ToStartTS()).OrderBy(g => g.Key).ToArray();
-            var ret = new List<Interval>();
+            var ret = new List<TInterval>();
 
             var previousDataObjects = new List<ITimedType>();
 
@@ -75,10 +76,11 @@ namespace CprBroker.Schemas.Part
             {
                 // TODO: Handle cases where StartDate is null - are these cases possible!!??
                 var timeGroup = groupedByStartTime[iTimeGroup];
-                var interval = new Interval() { StartTS = timeGroup.Key };
+                var interval = new TInterval() { StartTS = timeGroup.Key };
                 interval.Data.AddRange(timeGroup.ToArray());
 
                 var missingTags = allTags.Except(interval.Data.Select(d => d.Tag));
+                TInterval previousInterval = null;
 
                 foreach (var missingTag in missingTags)
                 {
@@ -86,35 +88,37 @@ namespace CprBroker.Schemas.Part
 
                     if (tagObject != null)
                     {
-                        if (tagObject is ITimedType)
-                        {
-                            // Make sure effect has not ended. Not sure if this scenario is possible
-                            var o = tagObject as ITimedType;
-                            // TODO: What if interval.StartTime is null?
-                            if (CprBroker.Utilities.Dates.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), interval.StartTS.Value, true))
-                            {
-                                interval.Data.Add(tagObject);
-                            }
-                        }
-                        else
+                        // Make sure effect has not ended. Not sure if this scenario is possible
+                        var o = tagObject as ITimedType;
+                        if (CprBroker.Utilities.Dates.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), interval.StartTS))
                         {
                             interval.Data.Add(tagObject);
                         }
                     }
                 }
                 interval.EndTS = interval.Data
-                    .Where(d => d is ITimedType)
-                    .Select(d => (d as ITimedType).ToEndTS())
-                    .OrderBy(d => d as DateTime?)
-                    .FirstOrDefault();
-                // TODO: What if interval.StartTime is null?
-                if (ret.LastOrDefault() != null && ret.Last().EndTS.Value > interval.StartTS.Value)
+                    .Select(d =>
+                    {
+                        var e = d.ToEndTS();
+                        return e.HasValue ? e : DateTime.MaxValue;
+                    })
+                    .Min();
+                if (interval.EndTS == DateTime.MaxValue)
                 {
-                    ret.Last().EndTS = interval.StartTS;
+                    interval.EndTS = null;
+                }
+                if (previousInterval != null)
+                {
+                    // interval.StartTime cannot be null here because the only possible null is in first interval
+                    if (!previousInterval.EndTS.HasValue || previousInterval.EndTS.Value > interval.StartTS.Value)
+                    {
+                        previousInterval.EndTS = interval.StartTS;
+                    }
                 }
 
                 ret.Add(interval);
                 previousDataObjects.AddRange(timeGroup.ToArray());
+                previousInterval = interval;
             }
             return ret.ToArray();
         }
@@ -123,8 +127,17 @@ namespace CprBroker.Schemas.Part
         {
             return Data.Where(d => d is T).FirstOrDefault() as T;
         }
-        
+
+        public T GetData<T>(DataTypeTags tag) where T : class,ITimedType
+        {
+            return Data.Where(d => d is T && d.Tag == tag).FirstOrDefault() as T;
+        }
+
+        public VirkningType ToVirkningType()
+        {
+            return VirkningType.Create(this.StartTS, this.EndTS);
+        }
     }
 
-    
+
 }
