@@ -52,38 +52,15 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public class CurrentPnrTypeAdaptor : IPnr
+    public partial class RegisterOplysningInterval
     {
-        public PersonInformationType PersonInformation { get; private set; }
-
-        public CurrentPnrTypeAdaptor(PersonInformationType info)
+        
+        public bool ToTelefonNummerBeskyttelseIndikator()
         {
-            PersonInformation = info;
+            // No phone protection
+            // TODO: Is phone protection the same as directory protection? If yes, fix this and other data providers too
+            return false;
         }
 
-        public string ToPnr()
-        {
-            return this.PersonInformation.PNR;
-        }
-
-        public DataTypeTags Tag
-        {
-            get { return DataTypeTags.PNR; }
-        }
-
-        public DateTime? ToEndTS()
-        {
-            return Converters.ToDateTime(this.PersonInformation.PersonEndDate, this.PersonInformation.PersonEndDateUncertainty);
-        }
-
-        public DateTime? ToStartTS()
-        {
-            return Converters.ToDateTime(this.PersonInformation.PersonStartDate, this.PersonInformation.PersonStartDateUncertainty);
-        }
-
-        public bool ToPersonNummerGyldighedStatusIndikator()
-        {
-            return true;
-        }
     }
 }

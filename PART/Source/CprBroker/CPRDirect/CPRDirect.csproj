@@ -102,6 +102,8 @@
     <Compile Include="XML\Child.cs" />
     <Compile Include="XML\ChurchInformation.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />
+    <Compile Include="XML\RegisterOplysningInterval.NotImplemented.cs" />
+    <Compile Include="XML\RegisterOplysningInterval.XML.cs" />
     <Compile Include="XML\RegisterOplysningInterval.cs" />
     <Compile Include="XML\CurrentAddressInformation.cs" />
     <Compile Include="XML\CurrentAddressWrapper.cs" />
@@ -120,7 +122,7 @@
     <Compile Include="XML\IAddressSource.cs" />
     <Compile Include="XML\IChurchInformation.cs" />
     <Compile Include="XML\ICitizenship.cs" />
-    <Compile Include="XML\ICprNumber.cs" />
+    <Compile Include="XML\IPnr.cs" />
     <Compile Include="XML\INameSource.cs" />
     <Compile Include="XML\IndividualResponse.Parser.cs" />
     <Compile Include="XML\CurrentSeparation.cs" />

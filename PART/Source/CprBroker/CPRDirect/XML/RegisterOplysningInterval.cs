@@ -53,7 +53,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public class RegisterOplysningInterval : Interval
+    public partial class RegisterOplysningInterval : Interval
     {
         public INameSource Name
         {

@@ -55,5 +55,7 @@ namespace CprBroker.Providers.CPRDirect
     public interface IPnr : ITimedType
     {
         string ToPnr();
+        // TODO: Revise implementations of this method
+        bool ToPersonNummerGyldighedStatusIndikator();
     }
 }
