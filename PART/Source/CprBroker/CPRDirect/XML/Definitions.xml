@@ -276,9 +276,9 @@
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNRGÆLD" format="Alpha" length="10" position="4" description="Current CPR Number"/>
       <Attribute name="OldPNR" danishName="PNR" format="Alpha" length="10" position="14" description="Old CPR Number"/>
-      <Attribute name="OldPNRStartDate" danishName="START_DT-PERSON" format="Alpha" length="10" position="24" description="Old CPR Number" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="OldPNRStartDate" danishName="START_DT-PERSON" format="Alpha" length="10" position="24" description="Start date" dateFormat="yyyy-MM-dd"/>
       <Attribute name="OldPNRStartDateUncertainty" danishName="START_DT_UMRK-PERSON" format="Alpha" length="1" position="34" description="Start date uncertainty"/>
-      <Attribute name="OldPNREndDate" danishName="SLUT_DT-PERSON" format="Alpha" length="10" position="35" description="Old CPR Number" dateFormat="YYYY-MM-DD"/>
+      <Attribute name="OldPNREndDate" danishName="SLUT_DT-PERSON" format="Alpha" length="10" position="35" description="End date" dateFormat="yyyy-MM-dd"/>
       <Attribute name="OldPNREndDateUncertainty" danishName="SLUT_DT_UMRK-PERSON" format="Alpha" length="1" position="45" description="Start date uncertainty"/>
     </Object>
 

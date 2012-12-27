@@ -154,16 +154,16 @@ namespace CprBroker.Providers.CPRDirect
         public RegisterOplysningInterval[] ToRegisterOplysningIntervalArray()
         {
             var dataObjects = new List<ITimedType>();
-            
+
             dataObjects.Add(this.CurrentNameInformation);
             dataObjects.AddRange(this.HistoricalName.ToArray());
 
             dataObjects.Add(this.CurrentCivilStatus);
             dataObjects.AddRange(this.HistoricalCivilStatus.ToArray());
 
-            dataObjects.Add(new CurrentAddressWrapper(this.CurrentAddressInformation,this.ClearWrittenAddress));
+            dataObjects.Add(new CurrentAddressWrapper(this.CurrentAddressInformation, this.ClearWrittenAddress));
             dataObjects.AddRange(this.HistoricalAddress.ToArray());
-            
+
             dataObjects.Add(this.CurrentDepartureData);
             dataObjects.AddRange(this.HistoricalDeparture.ToArray());
 
@@ -176,7 +176,7 @@ namespace CprBroker.Providers.CPRDirect
             dataObjects.Add(this.CurrentCitizenship);
             dataObjects.AddRange(this.HistoricalCitizenship.ToArray());
 
-            return Interval.CreateFromData<RegisterOplysningInterval>(dataObjects.AsQueryable());
+            return Interval.CreateFromData<RegisterOplysningInterval>(dataObjects.Where(o => o != null).AsQueryable());
         }
 
         public RegisterOplysningType[] ToRegisterOplysningType(DateTime effectDate)

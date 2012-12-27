@@ -65,12 +65,12 @@ namespace CprBroker.Providers.CPRDirect
             get { return DataTypeTags.PNR; }
         }
 
-        public DateTime? ToEndTS()
+        public DateTime? ToStartTS()
         {
             return Converters.ToDateTime(this.OldPNRStartDate, this.OldPNRStartDateUncertainty);
         }
 
-        public DateTime? ToStartTS()
+        public DateTime? ToEndTS()
         {
             return Converters.ToDateTime(this.OldPNREndDate, this.OldPNREndDateUncertainty);
         }

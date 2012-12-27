@@ -143,7 +143,10 @@ namespace CprBroker.Providers.CPRDirect
 
         private bool ToFolkekirkeMedlemIndikator()
         {
-            return this.Church.ToFolkekirkeMedlemIndikator();
+            return this.Church != null ?
+                this.Church.ToFolkekirkeMedlemIndikator()
+                :
+                false;
         }
 
     }
