@@ -7,12 +7,16 @@ namespace CprBroker.Schemas.Part
 {
     public enum DataTypeTags
     {
+        None,
         CivilStatus,
         Separation,
         Name,
         Address,
         Church,
-        Protection,
+        NameAndAddressProtection,
+        ResearchProtection,
+        LocalDirectoryProtection,
+        MarketingProtection,
         PNR,
         Citizenship
     }
