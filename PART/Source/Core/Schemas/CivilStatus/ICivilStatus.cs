@@ -19,10 +19,9 @@ namespace CprBroker.Schemas.Part
         bool IsValid();
     }
 
-    public interface ISeparation
+    public interface ISeparation : ITimedType
     {
         CivilStatusType ToCivilStatusType();
     }
-
 
 }
