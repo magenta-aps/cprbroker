@@ -48,10 +48,17 @@ namespace CprBroker.Tests.Schemas
                 return new CivilStatusType()
                 {
                     CivilStatusKode = CivilStatusKodeType.Separeret,
-                    TilstandVirkning = TilstandVirkningType.Create(StartDate)
+                    TilstandVirkning = TilstandVirkningType.Create(ToStartTS())
                 };
             }
-            DateTime? StartDate { get; set; }
+            
+            public DateTime? ToStartTS()
+            { return null; }
+
+            public DateTime? ToEndTS()
+            { return null; }
+
+            public DataTypeTags Tag { get; set; }
         }
 
         [TestFixture]
