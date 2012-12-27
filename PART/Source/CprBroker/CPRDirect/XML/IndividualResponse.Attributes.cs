@@ -151,6 +151,34 @@ namespace CprBroker.Providers.CPRDirect
             return VirkningType.Compose(effects.ToArray());
         }
 
+        public RegisterOplysningInterval[] ToRegisterOplysningIntervalArray()
+        {
+            var dataObjects = new List<ITimedType>();
+            
+            dataObjects.Add(this.CurrentNameInformation);
+            dataObjects.AddRange(this.HistoricalName.ToArray());
+
+            dataObjects.Add(this.CurrentCivilStatus);
+            dataObjects.AddRange(this.HistoricalCivilStatus.ToArray());
+
+            dataObjects.Add(new CurrentAddressWrapper(this.CurrentAddressInformation,this.ClearWrittenAddress));
+            dataObjects.AddRange(this.HistoricalAddress.ToArray());
+            
+            dataObjects.Add(this.CurrentDepartureData);
+            dataObjects.AddRange(this.HistoricalDeparture.ToArray());
+
+            dataObjects.Add(this.ChurchInformation);
+            dataObjects.AddRange(this.HistoricalChurchInformation.ToArray());
+
+            dataObjects.Add(new CurrentPnrTypeAdaptor(this.PersonInformation));
+            dataObjects.AddRange(this.HistoricalPNR.ToArray());
+
+            dataObjects.Add(this.CurrentCitizenship);
+            dataObjects.AddRange(this.HistoricalCitizenship.ToArray());
+
+            return Interval.CreateFromData<RegisterOplysningInterval>(dataObjects.AsQueryable());
+        }
+
         public RegisterOplysningType[] ToRegisterOplysningType(DateTime effectDate)
         {
             return new RegisterOplysningType[]{

@@ -272,7 +272,7 @@
       <!--MORE FIELDS-->
     </Object>
 
-    <Object name="HistoricalPNR" danishName="P12170-022" length="45" description="Historical PNR" minOccurs="0" >
+    <Object name="HistoricalPNR" danishName="P12170-022" length="45" description="Historical PNR" minOccurs="0" maxOccurs="100">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNRGÆLD" format="Alpha" length="10" position="4" description="Current CPR Number"/>
       <Attribute name="OldPNR" danishName="PNR" format="Alpha" length="10" position="14" description="Old CPR Number"/>
@@ -282,7 +282,7 @@
       <Attribute name="OldPNREndDateUncertainty" danishName="SLUT_DT_UMRK-PERSON" format="Alpha" length="1" position="45" description="Start date uncertainty"/>
     </Object>
 
-    <Object name="HistoricalAddress" danishName="P12170-023" length="96" description="Historical Address" minOccurs="0" >
+    <Object name="HistoricalAddress" danishName="P12170-023" length="96" description="Historical Address" minOccurs="0" maxOccurs="1000" >
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>
@@ -299,7 +299,7 @@
       <Attribute name="LeavingDateUncertainty" danishName="FRAFLYDTO_UMRK" format="Alpha" length="1" position="96" description="Leaving date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalDeparture" danishName="P12170-024" length="218" description="Historical exit-entry information / foreign addresses" minOccurs="0" >
+    <Object name="HistoricalDeparture" danishName="P12170-024" length="218" description="Historical exit-entry information / foreign addresses" minOccurs="0" maxOccurs="100" >
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>
@@ -316,7 +316,7 @@
       <Attribute name="ForeignAddress5" danishName="UDLANDADR5" format="Alpha" length="34" position="185" description="Foreign Address 5"/>
     </Object>
 
-    <Object name="HistoricalDisappearance" danishName="P12170-025" length="40" description="Historical Disappearance retrieval information" minOccurs="0" >
+    <Object name="HistoricalDisappearance" danishName="P12170-025" length="40" description="Historical Disappearance retrieval information" minOccurs="0" maxOccurs="100">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>
@@ -342,7 +342,7 @@
       <Attribute name="NameEndDateUncertainty" danishName="HAENSLUT_UMRK-NAVNE" format="Alpha" length="1" position="173" description="Name end date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalCitizenship" danishName="P12170-027" length="44" description="Historical citizenship" minOccurs="0" >
+    <Object name="HistoricalCitizenship" danishName="P12170-027" length="44" description="Historical citizenship" minOccurs="0" maxOccurs="100">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>
@@ -353,7 +353,7 @@
       <Attribute name="CitizenshipEndDateUncertainty" danishName="HAENSLUT_UMRK-STATSBORGERSKAB" format="Alpha" length="1" position="44" description="Citizenship end date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalChurchInformation" danishName="P12170-028" length="36" description="Historical church information" minOccurs="0" >
+    <Object name="HistoricalChurchInformation" danishName="P12170-028" length="36" description="Historical church information" minOccurs="0" maxOccurs="100">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="ChurchRelationship" danishName="FKIRK" format="Alpha" length="1" position="14" description="church Relationship"/>
@@ -380,7 +380,7 @@
       <Attribute name="ReferenceToAnySeparation" danishName="SEP_HENVIS-CIVILSTAND" format="Alpha" length="12" position="98" description="Reference to any separation ÅÅÅÅMMDDTTMM" dateFormat="yyyyMMddHHmm"/>
     </Object>
 
-    <Object name="HistoricalSeparation" danishName="P12170-030" length="48" description="Historical separation" minOccurs="0" >
+    <Object name="HistoricalSeparation" danishName="P12170-030" length="48" description="Historical separation" minOccurs="0" maxOccurs="100">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Edit / Undo marker"/>

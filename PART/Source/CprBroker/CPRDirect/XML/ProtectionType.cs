@@ -101,7 +101,22 @@ namespace CprBroker.Providers.CPRDirect
 
         public DataTypeTags Tag
         {
-            get { return DataTypeTags.Protection; }
+            get
+            {
+                switch (this.ProtectionCategoryCode)
+                {
+                    case ProtectionCategoryCodes.LocalDirectory:
+                        return DataTypeTags.LocalDirectoryProtection;
+                    case ProtectionCategoryCodes.Marketing:
+                        return DataTypeTags.MarketingProtection;
+                    case ProtectionCategoryCodes.NameAndAddress:
+                        return DataTypeTags.NameAndAddressProtection;
+                    case ProtectionCategoryCodes.Research:
+                        return DataTypeTags.ResearchProtection;
+                    default:
+                        return DataTypeTags.None;
+                }
+            }
         }
 
         public DateTime? ToStartTS()

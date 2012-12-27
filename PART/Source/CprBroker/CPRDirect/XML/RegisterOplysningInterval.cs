@@ -51,9 +51,9 @@ using System.Text;
 using CprBroker.Engine;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CPRDirect.XML
+namespace CprBroker.Providers.CPRDirect
 {
-    public class CPRDirectInterval : Interval
+    public class RegisterOplysningInterval : Interval
     {
         public INameSource Name
         {
@@ -83,6 +83,16 @@ namespace CprBroker.Providers.CPRDirect.XML
         public ICitizenship Citizenship
         {
             get { return this.GetData<ICitizenship>(); }
+        }
+
+        public ProtectionType NameAndAddressProtection
+        {
+            get { return this.GetData<ProtectionType>(DataTypeTags.NameAndAddressProtection); }
+        }
+
+        public ProtectionType ResearchProtection
+        {
+            get { return this.GetData<ProtectionType>(DataTypeTags.ResearchProtection); }
         }
     }
 }
