@@ -170,7 +170,7 @@ namespace CprBroker.Providers.CPRDirect
             dataObjects.Add(this.ChurchInformation);
             dataObjects.AddRange(this.HistoricalChurchInformation.ToArray());
 
-            dataObjects.Add(new CurrentPnrTypeAdaptor(this.PersonInformation));
+            dataObjects.Add(new CurrentPnrTypeAdaptor(this.PersonInformation, this.HistoricalPNR));
             dataObjects.AddRange(this.HistoricalPNR.ToArray());
 
             dataObjects.Add(this.CurrentCitizenship);

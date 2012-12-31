@@ -55,10 +55,15 @@ namespace CprBroker.Providers.CPRDirect
     public class CurrentPnrTypeAdaptor : IPnr
     {
         public PersonInformationType PersonInformation { get; private set; }
+        public List<HistoricalPNRType> HistoricalPnrs { get; private set; }
 
-        public CurrentPnrTypeAdaptor(PersonInformationType info)
+        private CurrentPnrTypeAdaptor()
+        { }
+
+        public CurrentPnrTypeAdaptor(PersonInformationType info, List<HistoricalPNRType> historicalPnrs)
         {
             PersonInformation = info;
+            HistoricalPnrs = historicalPnrs;
         }
 
         public string ToPnr()
@@ -78,7 +83,14 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime? ToStartTS()
         {
-            return Converters.ToDateTime(this.PersonInformation.PersonStartDate, this.PersonInformation.PersonStartDateUncertainty);
+            if (HistoricalPnrs.Count > 0)
+            {
+                return HistoricalPnrs.OrderByDescending(p => p.ToEndTS()).Select(p => p.ToEndTS()).FirstOrDefault();
+            }
+            else
+            {
+                return Converters.ToDateTime(this.PersonInformation.PersonStartDate, this.PersonInformation.PersonStartDateUncertainty);
+            }
         }
 
         public bool ToPersonNummerGyldighedStatusIndikator()
