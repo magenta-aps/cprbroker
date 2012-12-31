@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class HistoricalAddressType : ITimedType
+    public partial class HistoricalAddressType : IAddressSource
     {
         public DataTypeTags Tag
         {
@@ -68,6 +68,147 @@ namespace CprBroker.Providers.CPRDirect
         {
             return Converters.ToDateTime(this.LeavingDate, this.LeavingDateUncertainty);
         }
+
+
+        public AdresseType ToAdresseType()
+        {
+            return new AdresseType()
+            {
+                Item = ToDanskAdresseType()
+            };
+        }
+
+        public DanskAdresseType ToDanskAdresseType()
+        {
+            var ret = new DanskAdresseType()
+            {
+                AddressComplete = this.ToAddressCompleteType(),
+
+                // No address point for persons
+                AddressPoint = this.ToAddressPointType(),
+
+                NoteTekst = ToAddressNoteTekste(),
+
+                // No political districts
+                PolitiDistriktTekst = null,
+
+                // TODO: Lookup post district
+                PostDistriktTekst = null,
+
+                // No school district
+                SkoleDistriktTekst = null,
+
+                // No social disrict
+                SocialDistriktTekst = null,
+
+                // No church district - checked
+                SogneDistriktTekst = null,
+
+                // Assuming this is the same as high road code - verified
+                SpecielVejkodeIndikator = this.ToSpecielVejkodeIndikator(),
+
+                // Always true because SpecielVejkodeIndikator is always set                
+                SpecielVejkodeIndikatorSpecified = true,
+
+                // Address is unknown if it is empty :)
+                // TODO: Make sure that a historical address is never empty
+                UkendtAdresseIndikator = false,
+
+                // No election district - checked
+                ValgkredsDistriktTekst = null
+            };
+            return ret;
+        }
+
+        public AddressCompleteType ToAddressCompleteType()
+        {
+            return new CprBroker.Schemas.Part.AddressCompleteType()
+            {
+                AddressAccess = this.ToAddressAccessType(),
+                AddressPostal = this.ToAddressPostalType()
+            };
+        }
+
+        public string ToAddressNoteTekste()
+        {
+            return null;
+        }
+
+        public AddressPointType ToAddressPointType()
+        {
+            // Not implemented
+            return null;
+        }
+
+        public bool ToSpecielVejkodeIndikator()
+        {
+            return Schemas.Util.Converters.ToSpecielVejkodeIndikator(this.StreetCode);
+        }
+
+        public AddressAccessType ToAddressAccessType()
+        {
+            return new CprBroker.Schemas.Part.AddressAccessType()
+            {
+                MunicipalityCode = Converters.DecimalToString(this.MunicipalityCode),
+                StreetBuildingIdentifier = this.HouseNumber,
+                StreetCode = Converters.DecimalToString(this.StreetCode)
+            };
+        }
+
+        /// <summary>
+        /// Converts the current object to AddressPostalType object
+        /// </summary>
+        /// <returns></returns>
+        public AddressPostalType ToAddressPostalType()
+        {
+            var ret = new CprBroker.Schemas.Part.AddressPostalType()
+            {
+                // Set country code
+                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
+
+                // DistrictSubdivisionIdentifier is not supported - checked
+                DistrictSubdivisionIdentifier = null,
+
+                // Set floor
+                FloorIdentifier = this.Floor,
+
+                // MailDeliverySublocationIdentifier is not supported - checked
+                MailDeliverySublocationIdentifier = null,
+
+                // Set post code
+                // TODO: Get historical post code
+                PostCodeIdentifier = null,
+
+                // Set city name
+                // TODO: Get historical dictrict/city name
+                DistrictName = null,
+
+                // PostOfficeBoxIdentifier is not supported
+                PostOfficeBoxIdentifier = null,
+
+                // Set building identifier
+                StreetBuildingIdentifier = this.HouseNumber,
+
+                // Set street name
+                // TODO: Get Street name by looking up street code
+                StreetName = null,
+
+                // Set street addressing name
+                // TODO: Get Street addressing name by looking up street code
+                StreetNameForAddressingName = null,
+
+                // Set suite identifier
+                // TODO: Sometimes the suite is '  th'. Shall we set this as empty string in this case?
+                SuiteIdentifier = this.Door,
+            };
+            return ret;
+        }
+
+        VirkningType[] IAddressSource.ToVirkningTypeArray()
+        {
+            return new VirkningType[] { VirkningType.Create(this.ToStartTS(), this.ToEndTS()) };
+        }
+
 
     }
 }
