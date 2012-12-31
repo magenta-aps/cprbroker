@@ -55,41 +55,51 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class RegisterOplysningInterval : Interval
     {
+        // Name intervals are OK
         public INameSource Name
         {
             get { return this.GetData<INameSource>(); }
         }
-
+        // Population added
         public ICivilStatus CivilStatus
         {
             get { return this.GetData<ICivilStatus>(); }
         }
 
+        // Address intervals are OK
+        // TODO: Shall we skip intervals with no address?
         public IAddressSource Address
         {
             get { return this.GetData<IAddressSource>(); }
         }
 
+        // TODO: Only example with history (2906980013) has same date for current start and historical start/end
+        // Assume OK interval until further notice
+        // TODO: Shall we exclude intervals without this type?
         public IChurchInformation Church
         {
             get { return this.GetData<IChurchInformation>(); }
         }
 
+        // Custom intervals added to get start date of current interval
         public IPnr Pnr
         {
             get { return this.GetData<IPnr>(); }
         }
 
+        // Citizenship intervals are OK
         public ICitizenship Citizenship
         {
             get { return this.GetData<ICitizenship>(); }
         }
 
+        // Citizenship intervals are OK by nature
         public ProtectionType NameAndAddressProtection
         {
             get { return this.GetData<ProtectionType>(DataTypeTags.NameAndAddressProtection); }
         }
 
+        // Citizenship intervals are OK by nature
         public ProtectionType ResearchProtection
         {
             get { return this.GetData<ProtectionType>(DataTypeTags.ResearchProtection); }
