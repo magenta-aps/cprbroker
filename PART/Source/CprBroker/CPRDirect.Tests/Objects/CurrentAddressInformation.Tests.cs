@@ -53,7 +53,7 @@ using CprBroker.Schemas.Part;
 using CprBroker.Providers.CPRDirect;
 
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
     namespace CurrentAddressInformationTests
     {

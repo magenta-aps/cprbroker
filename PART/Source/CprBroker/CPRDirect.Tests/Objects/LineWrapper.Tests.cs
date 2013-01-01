@@ -50,38 +50,53 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
-using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    namespace CurrentSeparationTests
+    namespace LineWrapperTests
     {
         [TestFixture]
-        public class ToCivilStatusType
+        public class ToWrapper
         {
             [Test]
-            public void ToCivilStatusType_Today_NotNull()
+            public void ToWrapper_EmptyMap_Null()
             {
-                var sep = new CurrentSeparationType() { SeparationStartDate = DateTime.Today };
-                var ret = sep.ToCivilStatusType();
-                Assert.NotNull(sep);
+                var ret = new LineWrapper("2221234567890").ToWrapper(new Dictionary<string, Type>());
+                Assert.Null(ret);
             }
 
             [Test]
-            public void ToCivilStatusType_Today_CorrectStatus()
+            public void ToWrapper_KeyOnly_Null()
             {
-                var sep = new CurrentSeparationType() { SeparationStartDate = DateTime.Today };
-                var ret = sep.ToCivilStatusType();
-                Assert.AreEqual(CivilStatusKodeType.Separeret, ret.CivilStatusKode);
+                var ret = new LineWrapper("222").ToWrapper(new Dictionary<string, Type>());
+                Assert.Null(ret);
+            }
+
+            class MyLengthWrapper : Wrapper
+            {
+                public static int Len = -1;
+                public override int Length
+                {
+                    get { return Len; }
+                }
+
+
+                public static Dictionary<string, Type> GetMyLengthWrapperMap(string key)
+                {
+                    var ret = new Dictionary<string, Type>();
+                    ret[key] = typeof(MyLengthWrapper);
+                    return ret;
+                }
             }
 
             [Test]
-            public void ToCivilStatusType_Today_CorrectDate()
+            public void ToWrapper_ShortString_PaddedCorrectly(
+                [Values(10, 20, 87)]int length)
             {
-                var dt = DateTime.Today;
-                var sep = new CurrentSeparationType() { SeparationStartDate = dt };
-                var ret = sep.ToCivilStatusType();
-                Assert.AreEqual(dt, ret.TilstandVirkning.FraTidspunkt.ToDateTime());
+                var line = new LineWrapper("222dok;o");
+                MyLengthWrapper.Len = length;
+                var ret = line.ToWrapper(MyLengthWrapper.GetMyLengthWrapperMap("222"));
+                Assert.AreEqual(length, ret.Contents.Length);
             }
         }
     }

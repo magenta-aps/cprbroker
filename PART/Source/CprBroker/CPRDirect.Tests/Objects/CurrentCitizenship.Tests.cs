@@ -51,22 +51,22 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    namespace BirthRegistrationInformationTests
+    namespace CurrentCitizenship
     {
         [TestFixture]
-        public class SSS
+        public class StringContryCode
         {
             [Test]
-            public void SSSTTT()
+            [Sequential]
+            public void StringContryCode_Code_Expected(
+                [Values(1,5100,22.0)]decimal code,
+                [Values("1","5100","22")]string expected)
             {
-                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                var wrappers = lines.Select(w => w.ToWrapper(Constants.DataObjectMap));
-                var myWrappers = wrappers.Where(w => w is BirthRegistrationInformationType).Select(w => w as BirthRegistrationInformationType).ToArray();
-                var withText = myWrappers.Where(w => !string.IsNullOrEmpty(w.AdditionalBirthRegistrationText)).ToArray();
-                var noText = myWrappers.Where(w => string.IsNullOrEmpty(w.AdditionalBirthRegistrationText)).ToArray();
-                object o = "";
+                var cit = new CurrentCitizenshipType() { CountryCode = code };
+                var ret = cit.StringCountryCode;
+                Assert.AreEqual(expected, ret);
             }
         }
     }

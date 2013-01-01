@@ -54,7 +54,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
     namespace WrapperTests
     {

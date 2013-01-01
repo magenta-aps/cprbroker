@@ -50,39 +50,22 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
-using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    namespace HistoricalCivilStatusTests
+    namespace BirthRegistrationInformationTests
     {
         [TestFixture]
-        public class LoadAll
+        public class SSS
         {
             [Test]
-            public void LoadAll____()
+            public void SSSTTT()
             {
-                var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                var groupings = result
-                    .Where(p=>p.PersonInformation.PNR == "0708614319")
-                    .GroupBy(res => res.HistoricalCivilStatus.Count)
-                    .Select(g =>
-                        new
-                        {
-                            Count = g.Key,
-                            Persons = g
-                            .Select(p => new
-                            {
-                                PNR = p.PersonInformation.PNR,
-                                Current = p.CurrentCivilStatus,
-                                History = p.HistoricalCivilStatus,
-                                Spouses = p.ToSpouses(cpr => Guid.NewGuid()),
-                                Partners = p.ToRegisteredPartners(cpr => Guid.NewGuid())
-                            })
-                            .ToArray()
-                        })
-                    .ToArray();
-                
+                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var wrappers = lines.Select(w => w.ToWrapper(Constants.DataObjectMap));
+                var myWrappers = wrappers.Where(w => w is BirthRegistrationInformationType).Select(w => w as BirthRegistrationInformationType).ToArray();
+                var withText = myWrappers.Where(w => !string.IsNullOrEmpty(w.AdditionalBirthRegistrationText)).ToArray();
+                var noText = myWrappers.Where(w => string.IsNullOrEmpty(w.AdditionalBirthRegistrationText)).ToArray();
                 object o = "";
             }
         }

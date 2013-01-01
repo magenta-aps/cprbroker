@@ -50,30 +50,39 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
+using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    namespace IndividualResponseTests
+    namespace CurrentSeparationTests
     {
         [TestFixture]
-        public class ToRegistreringType1
+        public class ToCivilStatusType
         {
             [Test]
-            public void ToRegistreringType1_()
+            public void ToCivilStatusType_Today_NotNull()
             {
-                var individual = IndividualResponseType.ParseBatch(Properties.Resources.PNR_0101965058).First();
-                var registration = individual.ToRegistreringType1(pnr => Guid.NewGuid(), DateTime.Today);
-                Assert.NotNull(registration);
+                var sep = new CurrentSeparationType() { SeparationStartDate = DateTime.Today };
+                var ret = sep.ToCivilStatusType();
+                Assert.NotNull(sep);
             }
 
             [Test]
-            public void ToRegistreringType1_Parsed_Passes(
-                [Range(0, 79)]int index)
+            public void ToCivilStatusType_Today_CorrectStatus()
             {
-                var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                var ret = result[index].ToRegistreringType1(cpr => Guid.NewGuid(), DateTime.Today);
+                var sep = new CurrentSeparationType() { SeparationStartDate = DateTime.Today };
+                var ret = sep.ToCivilStatusType();
+                Assert.AreEqual(CivilStatusKodeType.Separeret, ret.CivilStatusKode);
             }
 
+            [Test]
+            public void ToCivilStatusType_Today_CorrectDate()
+            {
+                var dt = DateTime.Today;
+                var sep = new CurrentSeparationType() { SeparationStartDate = dt };
+                var ret = sep.ToCivilStatusType();
+                Assert.AreEqual(dt, ret.TilstandVirkning.FraTidspunkt.ToDateTime());
+            }
         }
     }
 }

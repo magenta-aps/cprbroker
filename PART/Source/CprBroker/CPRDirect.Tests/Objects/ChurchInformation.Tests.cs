@@ -51,54 +51,38 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    namespace CurrentNameInformationTests
+    class ChurchInformationTests
     {
         [TestFixture]
-        public class TestFlags
+        public class ToFolkekirkeMedlemIndikator
         {
             [Test]
-            public void TestLines()
+            public void ToFolkekirkeMedlemIndikator_FM_True(
+                [Values('F', 'M', 'f', 'm')]char churchRelation)
             {
-                var lines = LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                var wrappers = lines.Select(w => w.ToWrapper(Constants.DataObjectMap));
-                var myWrappers = wrappers.Where(w => w is CurrentNameInformationType).Select(w => w as CurrentNameInformationType);
-                var first = myWrappers.Select(w => w.FirstNameMarker).Distinct().ToArray();
-                var middle = myWrappers.Select(w => w.MiddleNameMarker).Distinct().ToArray();
-                var last = myWrappers.Select(w => w.LastNameMarker).Distinct().ToArray();
-                var allText = myWrappers.Select(w => w.Contents).ToArray();
-                var found = myWrappers.Where(w => w.MiddleNameMarker == '*').First();
-            }
-        }
-
-        [TestFixture]
-        public class ToNavnStrukturType
-        {
-            [Test]
-            public void ToNavnStrukturType_FirstNameValueNoFlag_EmptyFirstName()
-            {
-                var name = new CurrentNameInformationType() { FirstName_s = "klasjlkdfakl", FirstNameMarker = '*' };
-                var partName = name.ToNavnStrukturType();
-                Assert.IsNullOrEmpty(partName.PersonNameStructure.PersonGivenName);
+                var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
+                var ret = info.ToFolkekirkeMedlemIndikator();
+                Assert.True( ret);
             }
 
             [Test]
-            public void ToNavnStrukturType_FirstNameValueWFlag_CorrectEmptyFirstName(
-                [Values("klasdjkl", "iqiiii")]string firstName)
+            public void ToFolkekirkeMedlemIndikator_ASD_False(
+                [Values('A', 'S', 'U', 'a', 's', 'u')]char churchRelation)
             {
-                var name = new CurrentNameInformationType() { FirstName_s = firstName, FirstNameMarker = ' ' };
-                var partName = name.ToNavnStrukturType();
-                Assert.AreEqual(firstName, partName.PersonNameStructure.PersonGivenName);
+                var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
+                var ret = info.ToFolkekirkeMedlemIndikator();
+                Assert.False(ret);
             }
 
             [Test]
-            public void ToNavnStrukturType_AddressingName_Correct()
+            [ExpectedException]
+            public void ToFolkekirkeMedlemIndikator_Other_Exception(
+                [Values('p', ' ', '2')]char churchRelation)
             {
-                string strName = Guid.NewGuid().ToString().Substring(0, 34);
-                var name = new CurrentNameInformationType() { AddressingName = strName };
-                var partName = name.ToNavnStrukturType();
-                Assert.AreEqual(strName, partName.PersonNameForAddressingName);
+                var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
+                var ret = info.ToFolkekirkeMedlemIndikator();
             }
         }
     }

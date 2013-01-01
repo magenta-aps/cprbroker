@@ -51,7 +51,8 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
 using CprBroker.Schemas.Part;
-namespace CprBroker.Tests.CPRDirect
+
+namespace CprBroker.Tests.CPRDirect.Objects
 {
     namespace PersonInformationTests
     {

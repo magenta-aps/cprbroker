@@ -51,79 +51,76 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    namespace DisempowermentTests
+    namespace ParentalAuthorityTests
     {
         [TestFixture]
-        public class ToPersonFlerRelationType
+        public class ToPersonRelationType
         {
             [Test]
             public void LoadAll()
             {
                 var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
                 var ss = all
-                    .Where(p => p.Disempowerment != null)
-                    .Select(p => p.Disempowerment)
-                    .GroupBy(p => new { Type = p.GuardianRelationType, PNR = !string.IsNullOrEmpty(p.ToRelationPNR()) })
-                    .Select(g => new { Type = g.Key.Type, PNR = g.Key.PNR, Data = g.ToArray() })
+                    .Where(p => p.ParentalAuthority.Count() > 0)
+                    .Select(p => p.ParentalAuthority.ToArray())
                     .ToArray();
                 object o = "";
             }
 
             [Test]
-            public void ToPersonFlerRelationType_Null_Empty()
+            [ExpectedException]
+            public void ToPersonRelationType_NoTypeOrParents_Exception()
             {
-                var ret = DisempowermentType.ToPersonRelationType(null, pnr => Guid.NewGuid());
+                var auth = new ParentalAuthorityType();
+                auth.ToPersonRelationType(null, cpr => Guid.NewGuid());
+            }
+
+            [Test]
+            [ExpectedException(typeof(ArgumentException))]
+            public void ToPersonRelationType_InvalidType_Exception(
+                [Values(0, 1, -2, 7)]decimal relType)
+            {
+                var auth = new ParentalAuthorityType() { RelationshipType = relType };
+                var par = new ParentsInformationType();
+                auth.ToPersonRelationType(par, cpr => Guid.NewGuid());
+            }
+
+            [Test]
+            public void ToPersonRelationType_NoPnr_Empty(
+            [Values(null, "")]string pnr)
+            {
+                var auth = new ParentalAuthorityType() { RelationPNR = pnr, RelationshipType = 5 };
+                var ret = ParentalAuthorityType.ToPersonRelationType(new ParentalAuthorityType[] { auth }, new ParentsInformationType(), cpr => Guid.NewGuid());
                 Assert.AreEqual(0, ret.Length);
             }
 
             [Test]
-            public void ToPersonFlerRelationType_InvalidPnr_Empty(
-                [Values(null, "1234")]string pnr)
+            public void ToPersonRelationType_PnrWithStartDate_CorrectStartDate(
+            [Values("1234567890", "0123456789")]string pnr)
             {
-                var ret = DisempowermentType.ToPersonRelationType(new DisempowermentType() { PNR = pnr }, cpr => Guid.NewGuid());
-                Assert.AreEqual(0, ret.Length);
-            }
-
-            [Test]
-            public void ToPersonFlerRelationType_Pnr_OneItem(
-                [Values("123456789", "1234567890")]string pnr)
-            {
-                var ret = DisempowermentType.ToPersonRelationType(new DisempowermentType() { RelationPNR = pnr }, cpr => Guid.NewGuid());
-                Assert.AreEqual(1, ret.Length);
-            }
-
-            [Test]
-            public void ToPersonFlerRelationType_StartDate_CorrectStartDate()
-            {
-                var disemp = new DisempowermentType() { RelationPNRStartDate = DateTime.Today };
-                var ret = disemp.ToPersonFlerRelationType(pnr => Guid.NewGuid());
+                var auth = new ParentalAuthorityType() { RelationPNR = pnr, RelationPNRStartDate = DateTime.Today, RelationshipType = 5 };
+                var ret = auth.ToPersonRelationType(new ParentsInformationType(), cpr => Guid.NewGuid());
                 Assert.AreEqual(DateTime.Today, ret.Virkning.FraTidspunkt.ToDateTime());
             }
 
             [Test]
-            public void ToPersonFlerRelationType_StartDate_NullEnd()
+            public void ToPersonRelationType_PnrWithStartDate_NullEndDate(
+            [Values("1234567890", "0123456789")]string pnr)
             {
-                var disemp = new DisempowermentType() { RelationPNRStartDate = DateTime.Today };
-                var ret = disemp.ToPersonFlerRelationType(pnr => Guid.NewGuid());
+                var auth = new ParentalAuthorityType() { RelationPNR = pnr, RelationPNRStartDate = DateTime.Today, RelationshipType = 5 };
+                var ret = auth.ToPersonRelationType(new ParentsInformationType(), cpr => Guid.NewGuid());
                 Assert.Null(ret.Virkning.TilTidspunkt.ToDateTime());
             }
 
             [Test]
-            public void ToPersonFlerRelationType_EndDateDate_CorrectEndDate()
+            public void ToPersonRelationType_PnrWithEndDate_CorrectEndDate(
+            [Values("1234567890", "0123456789")]string pnr)
             {
-                var disemp = new DisempowermentType() { DisempowermentEndDate = DateTime.Today };
-                var ret = disemp.ToPersonFlerRelationType(pnr => Guid.NewGuid());
+                var auth = new ParentalAuthorityType() { RelationPNR = pnr, CustodyEndDate = DateTime.Today, RelationshipType = 5 };
+                var ret = auth.ToPersonRelationType(new ParentsInformationType(), cpr => Guid.NewGuid());
                 Assert.AreEqual(DateTime.Today, ret.Virkning.TilTidspunkt.ToDateTime());
-            }
-
-            [Test]
-            public void ToPersonFlerRelationType_EndDate_NullStartDate()
-            {
-                var disemp = new DisempowermentType() { DisempowermentEndDate = DateTime.Today };
-                var ret = disemp.ToPersonFlerRelationType(pnr => Guid.NewGuid());
-                Assert.Null(ret.Virkning.FraTidspunkt.ToDateTime());
             }
 
         }

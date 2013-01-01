@@ -50,39 +50,40 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
+using CprBroker.Schemas.Part;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    class ChurchInformationTests
+    namespace HistoricalCivilStatusTests
     {
         [TestFixture]
-        public class ToFolkekirkeMedlemIndikator
+        public class LoadAll
         {
             [Test]
-            public void ToFolkekirkeMedlemIndikator_FM_True(
-                [Values('F', 'M', 'f', 'm')]char churchRelation)
+            public void LoadAll____()
             {
-                var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
-                var ret = info.ToFolkekirkeMedlemIndikator();
-                Assert.True( ret);
-            }
-
-            [Test]
-            public void ToFolkekirkeMedlemIndikator_ASD_False(
-                [Values('A', 'S', 'U', 'a', 's', 'u')]char churchRelation)
-            {
-                var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
-                var ret = info.ToFolkekirkeMedlemIndikator();
-                Assert.False(ret);
-            }
-
-            [Test]
-            [ExpectedException]
-            public void ToFolkekirkeMedlemIndikator_Other_Exception(
-                [Values('p', ' ', '2')]char churchRelation)
-            {
-                var info = new ChurchInformationType() { ChurchRelationship = churchRelation };
-                var ret = info.ToFolkekirkeMedlemIndikator();
+                var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+                var groupings = result
+                    .Where(p=>p.PersonInformation.PNR == "0708614319")
+                    .GroupBy(res => res.HistoricalCivilStatus.Count)
+                    .Select(g =>
+                        new
+                        {
+                            Count = g.Key,
+                            Persons = g
+                            .Select(p => new
+                            {
+                                PNR = p.PersonInformation.PNR,
+                                Current = p.CurrentCivilStatus,
+                                History = p.HistoricalCivilStatus,
+                                Spouses = p.ToSpouses(cpr => Guid.NewGuid()),
+                                Partners = p.ToRegisteredPartners(cpr => Guid.NewGuid())
+                            })
+                            .ToArray()
+                        })
+                    .ToArray();
+                
+                object o = "";
             }
         }
     }

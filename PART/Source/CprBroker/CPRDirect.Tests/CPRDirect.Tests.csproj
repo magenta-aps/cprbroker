@@ -65,33 +65,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authority.Tests.cs" />
-    <Compile Include="BirthRegistrationInformation.Tests.cs" />
-    <Compile Include="ChildTests.cs" />
-    <Compile Include="ChurchInformation.Tests.cs" />
-    <Compile Include="ClearWrittenAddress.Tests.cs" />
-    <Compile Include="Converters.Tests.cs" />
-    <Compile Include="CPRDirectExtractDataProvider.Ftp.Tests.cs" />
-    <Compile Include="CurrentAddressInformation.Tests.cs" />
-    <Compile Include="CurrentCitizenship.Tests.cs" />
-    <Compile Include="CurrentCivilStatus.Tests.cs" />
-    <Compile Include="CurrentDepartureData.Tests.cs" />
-    <Compile Include="CurrentNameInformationTests.cs" />
-    <Compile Include="CurrentSeparation.Tests.cs" />
-    <Compile Include="Disempowerment.Tests.cs" />
-    <Compile Include="ExtractTests.cs" />
-    <Compile Include="HistoricalCivilStatusTests.cs" />
-    <Compile Include="HistoricalName.Tests.cs" />
-    <Compile Include="HistoricalRecords.Tests.cs" />
-    <Compile Include="IndividualRequest.Tests.cs" />
-    <Compile Include="IndividualResponse.Attributes.Tests.cs" />
-    <Compile Include="IndividualResponse.States.Tests.cs" />
-    <Compile Include="IndividualResponse.Tests.cs" />
-    <Compile Include="LineWrapper.Tests.cs" />
-    <Compile Include="MinMaxOccurs.Tests.cs" />
-    <Compile Include="ParentalAuthority.Tests.cs" />
-    <Compile Include="ParentsInformation.Tests.cs" />
-    <Compile Include="PersonInformation.Tests.cs" />
+    <Compile Include="Objects\Authority.Tests.cs" />
+    <Compile Include="Objects\BirthRegistrationInformation.Tests.cs" />
+    <Compile Include="Objects\ChildTests.cs" />
+    <Compile Include="Objects\ChurchInformation.Tests.cs" />
+    <Compile Include="Objects\ClearWrittenAddress.Tests.cs" />
+    <Compile Include="Tools\Converters.Tests.cs" />
+    <Compile Include="Tools\CPRDirectExtractDataProvider.Ftp.Tests.cs" />
+    <Compile Include="Objects\CurrentAddressInformation.Tests.cs" />
+    <Compile Include="Objects\CurrentCitizenship.Tests.cs" />
+    <Compile Include="Objects\CurrentCivilStatus.Tests.cs" />
+    <Compile Include="Objects\CurrentDepartureData.Tests.cs" />
+    <Compile Include="Objects\CurrentNameInformationTests.cs" />
+    <Compile Include="Objects\CurrentSeparation.Tests.cs" />
+    <Compile Include="Objects\Disempowerment.Tests.cs" />
+    <Compile Include="Tools\ExtractTests.cs" />
+    <Compile Include="Objects\HistoricalCivilStatusTests.cs" />
+    <Compile Include="Objects\HistoricalName.Tests.cs" />
+    <Compile Include="Objects\HistoricalRecords.Tests.cs" />
+    <Compile Include="Objects\IndividualRequest.Tests.cs" />
+    <Compile Include="Objects\IndividualResponse.Attributes.Tests.cs" />
+    <Compile Include="Objects\IndividualResponse.States.Tests.cs" />
+    <Compile Include="Objects\IndividualResponse.Tests.cs" />
+    <Compile Include="Objects\LineWrapper.Tests.cs" />
+    <Compile Include="Tools\MinMaxOccurs.Tests.cs" />
+    <Compile Include="Objects\ParentalAuthority.Tests.cs" />
+    <Compile Include="Objects\ParentsInformation.Tests.cs" />
+    <Compile Include="Objects\PersonInformation.Tests.cs" />
     <Compile Include="Persons\Person.cs" />
     <Compile Include="Persons\P_0107529039.cs" />
     <Compile Include="Persons\P_0708614327.cs" />
@@ -130,12 +130,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ProtectionType.Tests.cs" />
+    <Compile Include="Objects\ProtectionType.Tests.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="Wrapper.Tests.cs" />
+    <Compile Include="Objects\Wrapper.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndividualResponse.Parser.Tests.cs" />
+    <Compile Include="Objects\IndividualResponse.Parser.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

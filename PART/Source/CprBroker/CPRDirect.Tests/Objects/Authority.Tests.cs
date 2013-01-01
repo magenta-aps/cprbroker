@@ -48,71 +48,39 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Providers.CPRDirect;
 using NUnit.Framework;
+using CprBroker.Providers.CPRDirect;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    namespace CPRDirectExtractDataProviderFtp
+    namespace AuthorityTests
     {
         [TestFixture]
-        public class FtpUrl
+        public class ImportText
         {
-            CPRDirectExtractDataProvider CreateDataProvider()
+            [Test]
+            public void ImportAll()
             {
-                var ret = new CPRDirectExtractDataProvider();
-                ret.ConfigurationProperties = new Dictionary<string, string>();
-                foreach (var key in ret.ConfigurationKeys)
-                    ret.ConfigurationProperties[key.Name] = null;
-                
-                return ret;
+                Authority.ImportText(Properties.Resources._4357);
+            }
+        }
+
+        [TestFixture]
+        public class GetNameByCode
+        {
+            [Test]
+            public void GetNameByCode_Denmark_Denmark()
+            {
+                var name = Authority.GetNameByCode("5100");
+                Assert.AreEqual("Danmark", name);
             }
 
             [Test]
-            [Sequential]
-            public void FtpUrl_Simple_OK(
-                [Values("localhost", "127.0.0.1", "ftp://localhost", "FTP://127.0.0.1/")]string address,
-                [Values("ftp://localhost", "ftp://127.0.0.1", "ftp://localhost", "ftp://127.0.0.1")]string expected)
+            public void GetNameByCode_Invalid_Null(
+                [Values("jhjk", null, "-111")]string code)
             {
-                var dp = CreateDataProvider();                
-                dp.FtpAddress = address;
-                var adr = dp.GetFtpUrl();
-                Assert.AreEqual(expected, adr);
-            }
-
-            [Test]
-            [Sequential]
-            public void FtpUrl_Port_OK(
-                [Values("localhost", "127.0.0.1")]string address,
-                [Values(22, 23)] int port,
-                [Values("ftp://localhost:22", "ftp://127.0.0.1:23")]string expected)
-            {
-                var dp = CreateDataProvider();
-                dp.FtpAddress = address;
-                dp.FtpPort = port;
-                var adr = dp.GetFtpUrl();
-                Assert.AreEqual(expected, adr);
-            }
-
-            [Test]
-            public void FtpUrl_Slash_OK(
-                [Values("file1","/file1","/file1/")]string file)
-            {
-                var dp = CreateDataProvider();
-                dp.FtpAddress = "localhost";
-                
-                var adr = dp.GetFtpUrl(file);
-                Assert.AreEqual("ftp://localhost/file1", adr);
-            }
-
-            [Test]
-            public void FtpUrl_NullSubPath_OK()
-            {
-                var dp = CreateDataProvider();
-                dp.FtpAddress = "localhost";
-
-                var adr = dp.GetFtpUrl(null);
-                Assert.AreEqual("ftp://localhost", adr);
+                var name = Authority.GetNameByCode(code);
+                Assert.IsNullOrEmpty(name);
             }
         }
     }

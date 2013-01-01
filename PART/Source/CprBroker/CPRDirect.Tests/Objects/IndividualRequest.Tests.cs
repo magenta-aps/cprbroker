@@ -51,36 +51,29 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
 
-namespace CprBroker.Tests.CPRDirect
+namespace CprBroker.Tests.CPRDirect.Objects
 {
-    namespace AuthorityTests
+    namespace IndividualRequestTests
     {
         [TestFixture]
-        public class ImportText
+        public class IndividualRequestType_
         {
             [Test]
-            public void ImportAll()
+            public void IndividualRequestType_Pnr_CorrectPnr(
+                [Values(0, 1, 12, 56, 123456789)]decimal pnr,
+                [Values(true, false)] bool subscription)
             {
-                Authority.ImportText(Properties.Resources._4357);
-            }
-        }
-
-        [TestFixture]
-        public class GetNameByCode
-        {
-            [Test]
-            public void GetNameByCode_Denmark_Denmark()
-            {
-                var name = Authority.GetNameByCode("5100");
-                Assert.AreEqual("Danmark", name);
+                var req = new IndividualRequestType(subscription, pnr);
+                Assert.AreEqual(pnr, req.PNR);
             }
 
             [Test]
-            public void GetNameByCode_Invalid_Null(
-                [Values("jhjk", null, "-111")]string code)
+            public void IndividualRequestType_Pnr_IdentifiedByTask(
+                [Values(0, 1, 12, 56, 123456789)]decimal pnr,
+                [Values(true, false)] bool subscription)
             {
-                var name = Authority.GetNameByCode(code);
-                Assert.IsNullOrEmpty(name);
+                var req = new IndividualRequestType(subscription, pnr);
+                Assert.AreEqual(DataType.DefinedByTask, (DataType)req.DataType);
             }
         }
     }
