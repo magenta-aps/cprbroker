@@ -93,11 +93,16 @@
     <Compile Include="ParentsInformation.Tests.cs" />
     <Compile Include="PersonInformation.Tests.cs" />
     <Compile Include="Persons\Person.cs" />
+    <Compile Include="Persons\P_0107529039.cs" />
+    <Compile Include="Persons\P_0708614327.cs" />
+    <Compile Include="Persons\P_0708614866.cs" />
+    <Compile Include="Persons\P_0709614096.cs" />
     <Compile Include="Persons\P_0702614147.cs" />
     <Compile Include="Persons\P_0707614218.cs" />
     <Compile Include="Persons\P_0709614045.cs" />
     <Compile Include="Persons\P_0909610028.cs" />
     <Compile Include="Persons\P_0909610036.cs" />
+    <Compile Include="Persons\P_2906980013.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
