@@ -60,10 +60,9 @@ namespace CprBroker.Tests.CPRDirect.Persons
         public void GetIntervals()
         {
             var person = GetPerson();
-            System.Diagnostics.Debugger.Launch();
             var intervals = person.ToRegisterOplysningIntervalArray();
             var registerOplysning = intervals.Select(i => i.ToRegisterOplysningType()).ToArray();
-            System.IO.File.WriteAllText(this.GetPNR() + ".txt", CprBroker.Utilities.Strings.SerializeObject(registerOplysning));
+            System.IO.File.WriteAllText(this.GetPNR() + ".xml", CprBroker.Utilities.Strings.SerializeObject(registerOplysning));
             // TODO: registerOplysning[1] effect has end date null !!!
             object o = "";
         }
