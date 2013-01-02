@@ -66,7 +66,9 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime? ToStartTS()
         {
-            return Converters.ToDateTime(this.StartDate, this.StartDateUncertainty);
+            return this.StartDate;
+            // TODO: How to pass uncertainty?
+            //return Converters.ToDateTime(this.StartDate, this.StartDateUncertainty);
         }
 
         public DateTime? ToEndTS()

@@ -87,14 +87,22 @@ namespace CprBroker.Providers.CPRDirect
                 .FirstOrDefault();
         }
 
-        public DateTime? ToStartTS()
+        DateTime? ITimedType.ToStartTS()
         {
-            return Converters.ToDateTime(this.NameStartDate, this.NameStartDateUncertainty);
+            return this.NameStartDate.HasValue ?
+                this.NameStartDate
+                :
+                // This handles cases of first historical name (test citizen 0708614327)
+                Utilities.Strings.PersonNumberToDate(this.PNR);
+            // TODO: How to propagate date uncertainty
+            //return Converters.ToDateTime(this.NameStartDate, this.NameStartDateUncertainty);
         }
 
-        public DateTime? ToEndTS()
+        DateTime? ITimedType.ToEndTS()
         {
-            return Converters.ToDateTime(this.NameEndDate, this.NameEndDateUncertainty);
+            return this.NameEndDate;
+            // TODO: How to propagate date uncertainty
+            //return Converters.ToDateTime(this.NameEndDate, this.NameEndDateUncertainty);
         }
 
         public DataTypeTags Tag

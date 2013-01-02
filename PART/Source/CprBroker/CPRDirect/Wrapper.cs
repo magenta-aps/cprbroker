@@ -167,7 +167,14 @@ namespace CprBroker.Providers.CPRDirect
         public DateTime? GetDateTime(int pos, int length, string format)
         {
             DateTime ret;
-            if (DateTime.TryParseExact(this[pos, length], format, null, System.Globalization.DateTimeStyles.None, out ret))
+            List<string> formats = new List<string>();
+            formats.Add(format);
+            if (format.Contains("mm"))
+            {
+                formats.Add(format.Replace("mm", "99"));
+            }
+
+            if (DateTime.TryParseExact(this[pos, length], formats.ToArray(), null, System.Globalization.DateTimeStyles.None, out ret))
             {
                 return ret;
             }
