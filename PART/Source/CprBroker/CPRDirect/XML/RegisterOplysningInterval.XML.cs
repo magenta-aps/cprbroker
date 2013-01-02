@@ -55,14 +55,12 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class RegisterOplysningInterval : Interval
     {
-        public RegisterOplysningType[] ToRegisterOplysningType()
+        public RegisterOplysningType ToRegisterOplysningType()
         {
-            return new RegisterOplysningType[]{
-                new RegisterOplysningType()
-                {
-                    Item = this.ToCprBorgerType(),
-                    Virkning = this.ToVirkningType()
-                }
+            return new RegisterOplysningType()
+            {
+                Item = this.ToCprBorgerType(),
+                Virkning = this.ToVirkningType()
             };
         }
 
@@ -96,7 +94,10 @@ namespace CprBroker.Providers.CPRDirect
 
         public CountryIdentificationCodeType ToPersonNationalityCode()
         {
-            return this.Citizenship.ToPersonNationalityCode();
+            return this.Citizenship != null ?
+                this.Citizenship.ToPersonNationalityCode()
+                :
+                null;
         }
 
         public string ToPersonCivilRegistrationIdentifier()

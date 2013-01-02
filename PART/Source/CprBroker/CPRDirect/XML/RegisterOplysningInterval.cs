@@ -56,15 +56,15 @@ namespace CprBroker.Providers.CPRDirect
     public partial class RegisterOplysningInterval : Interval
     {
         // Name intervals are OK
-        public INameSource Name
-        {
-            get { return this.GetData<INameSource>(); }
-        }
+        //public INameSource Name
+        //{
+        //    get { return this.GetData<INameSource>(); }
+        //}
         // Population added
-        public ICivilStatus CivilStatus
-        {
-            get { return this.GetData<ICivilStatus>(); }
-        }
+        //public ICivilStatus CivilStatus
+        //{
+        //    get { return this.GetData<ICivilStatus>(); }
+        //}
 
         // Address intervals are OK
         // TODO: Shall we skip intervals with no address?

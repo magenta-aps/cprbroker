@@ -155,13 +155,13 @@ namespace CprBroker.Providers.CPRDirect
         {
             var dataObjects = new List<ITimedType>();
 
-            dataObjects.Add(this.CurrentNameInformation);
-            dataObjects.AddRange(this.HistoricalName.ToArray());
+            //dataObjects.Add(this.CurrentNameInformation);
+            //dataObjects.AddRange(this.HistoricalName.ToArray());
 
-            dataObjects.Add(this.CurrentCivilStatus);
-            dataObjects.AddRange(this.HistoricalCivilStatus.ToArray());
+            //dataObjects.Add(this.CurrentCivilStatus);
+            //dataObjects.AddRange(this.HistoricalCivilStatus.ToArray());
 
-            dataObjects.Add(new CurrentAddressWrapper(this.CurrentAddressInformation, this.ClearWrittenAddress));
+            dataObjects.Add(this.GetFolkeregisterAdresseSource(false));
             dataObjects.AddRange(this.HistoricalAddress.ToArray());
 
             dataObjects.Add(this.CurrentDepartureData);
@@ -238,7 +238,7 @@ namespace CprBroker.Providers.CPRDirect
             return ProtectionType.HasProtection(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.Research);
         }
 
-        public IAddressSource GetFolkeregisterAdresseSource()
+        public IAddressSource GetFolkeregisterAdresseSource(bool putDummy)
         {
             if (this.CurrentAddressInformation != null && !this.ClearWrittenAddress.IsEmpty) // Both conditions are technically the same
             {
@@ -248,25 +248,29 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return CurrentDepartureData;
             }
-            else
+            else if (putDummy)
             {
                 return new DummyAddressSource();
+            }
+            else
+            {
+                return null;
             }
         }
 
         public AdresseType ToFolkeregisterAdresse()
         {
-            return this.GetFolkeregisterAdresseSource().ToAdresseType();
+            return this.GetFolkeregisterAdresseSource(true).ToAdresseType();
         }
 
         public VirkningType[] ToFolkeregisterAdresseVirknning()
         {
-            return this.GetFolkeregisterAdresseSource().ToVirkningTypeArray();
+            return this.GetFolkeregisterAdresseSource(true).ToVirkningTypeArray();
         }
 
         public string ToAdresseNoteTekst()
         {
-            return this.GetFolkeregisterAdresseSource().ToAddressNoteTekste();
+            return this.GetFolkeregisterAdresseSource(true).ToAddressNoteTekste();
         }
 
         private bool ToFolkekirkeMedlemIndikator()
