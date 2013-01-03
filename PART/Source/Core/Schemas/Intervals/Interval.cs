@@ -71,6 +71,7 @@ namespace CprBroker.Schemas.Part
             var ret = new List<TInterval>();
 
             var previousDataObjects = new List<ITimedType>();
+            TInterval previousInterval = null;
 
             for (int iTimeGroup = 0; iTimeGroup < groupedByStartTime.Count(); iTimeGroup++)
             {
@@ -80,7 +81,6 @@ namespace CprBroker.Schemas.Part
                 interval.Data.AddRange(timeGroup.ToArray());
 
                 var missingTags = allTags.Except(interval.Data.Select(d => d.Tag));
-                TInterval previousInterval = null;
 
                 foreach (var missingTag in missingTags)
                 {
