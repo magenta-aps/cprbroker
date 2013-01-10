@@ -53,7 +53,7 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.Tests.CPRDirect.Persons
 {
-    [TestFixture]    
+    [TestFixture]
     class P_0708614327 : Person
     {
         [Test]
