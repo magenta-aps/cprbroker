@@ -66,6 +66,22 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
+        public EgenskabInterval[] ToEgenskabIntervals()
+        {
+            var dataObjects = new List<ITimedType>();
+            dataObjects.Add(this.CurrentNameInformation);
+            dataObjects.AddRange(this.HistoricalName.ToArray());
+
+            var ret = Interval.CreateFromData<EgenskabInterval>(dataObjects.Where(o => o != null).AsQueryable());
+            Array.ForEach<EgenskabInterval>(ret, interval =>
+                {
+                    interval.HistoricalNames = this.HistoricalName.ToArray();
+                    interval.BirthRegistrationInformation = this.BirthRegistrationInformation;
+                    interval.PersonInformation = this.PersonInformation;
+                });
+            return ret.ToArray();
+        }
+
         public EgenskabType[] ToEgenskabType()
         {
             return new EgenskabType[] {
@@ -93,7 +109,7 @@ namespace CprBroker.Providers.CPRDirect
         public string ToFoedestedNavn()
         {
             // TODO: birthname could be incorrect if historical data is not available (historical data is 5 years max anyway)
-            var oldestName = HistoricalNameType.GetOldestName(this.HistoricalName.Select(n=> n as INameSource).AsEnumerable()) as INameSource;
+            var oldestName = HistoricalNameType.GetOldestName(this.HistoricalName.Select(n => n as INameSource).AsEnumerable()) as INameSource;
             if (oldestName == null)
             {
                 oldestName = this.CurrentNameInformation;

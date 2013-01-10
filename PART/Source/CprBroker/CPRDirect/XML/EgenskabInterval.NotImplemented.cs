@@ -48,68 +48,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Engine;
 using CprBroker.Schemas.Part;
-using CprBroker.Schemas.Util;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class PersonInformationType : IBasicInformation
+    public partial class EgenskabInterval : Interval
     {
-        public LivStatusType ToLivStatusType()
+        public AdresseType ToAndreAdresser()
         {
-            return new LivStatusType()
-            {
-                // We are not using the uncertainty flag here because an uncertain birthdate still means the person is already born
-                LivStatusKode = Enums.ToLifeStatus(this.Status, this.Birthdate.HasValue),
-                TilstandVirkning = TilstandVirkningType.Create(this.ToStatusDate())
-            };
+            // TODO: Fill Supplementary address after seeing real data (CurrentAddressInformation.SupplementaryAddressLine 1 - 5
+            // Asked to CPR
+            return null;
         }
 
-        public DateTime? ToBirthdate(bool tryPnr = false)
+        public KontaktKanalType ToKontaktKanalType()
         {
-            // First, look at birthdate field
-            var val = Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty);
-            if (val.HasValue || !tryPnr)
-                return val;
-
-            // Now try the current CPR number - it should be more recent than PNR
-            val = Utilities.Strings.PersonNumberToDate(this.CurrentCprNumber);
-            if (val.HasValue)
-                return val;
-
-            // Finally, use PNR
-            val = Utilities.Strings.PersonNumberToDate(this.ToPnr());
-            return val;
+            return null;
         }
 
-        public DateTime? ToStatusDate()
+        public KontaktKanalType ToNaermestePaaroerende()
         {
-            return Converters.ToDateTime(this.StatusStartDate, this.StatusDateUncertainty);
+            return null;
         }
-
-        public string ToPnr()
-        {
-            // TODO: What is the differentce between PNR and CurrentPNR?
-            return Converters.ToPnrStringOrNull(this.PNR);
-        }
-
-        public VirkningType ToVirkningType()
-        {
-            return VirkningType.Create(
-                Converters.ToDateTime(this.PersonStartDate, this.PersonStartDateUncertainty),
-                Converters.ToDateTime(this.PersonEndDate, this.PersonEndDateUncertainty)
-                );
-        }
-
-        public PersonGenderCodeType ToPersonGenderCodeType()
-        {
-            return Converters.ToPersonGenderCodeType(this.Gender);
-        }
-
-        public bool ToPersonNummerGyldighedStatusIndikator()
-        {
-            return Enums.IsActiveCivilRegistrationStatus(this.Status);
-        }
-
     }
 }

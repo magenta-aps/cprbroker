@@ -102,6 +102,8 @@
     <Compile Include="XML\Child.cs" />
     <Compile Include="XML\ChurchInformation.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />
+    <Compile Include="XML\EgenskabInterval.NotImplemented.cs" />
+    <Compile Include="XML\IBasicInformation.cs" />
     <Compile Include="XML\RegisterOplysningInterval.NotImplemented.cs" />
     <Compile Include="XML\RegisterOplysningInterval.XML.cs" />
     <Compile Include="XML\RegisterOplysningInterval.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="XML\ParentsInformation.cs" />
     <Compile Include="XML\PersonInformation.cs" />
     <Compile Include="XML\ProtectionType.cs" />
+    <Compile Include="XML\EgenskabInterval.cs" />
     <Compile Include="XML\StartRecordType.cs" />
   </ItemGroup>
   <ItemGroup>
