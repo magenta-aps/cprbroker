@@ -81,7 +81,12 @@ namespace CprBroker.Tests.CPRDirect.Persons
         {
             var person = GetPerson();
             var registerOplysningIntervals = person.ToRegisterOplysningIntervalArray();
-            var registerOplysning = registerOplysningIntervals.Select(interval => interval.ToRegisterOplysningType()).ToArray();
+            var registerOplysning = registerOplysningIntervals
+                .Select(
+                    interval => 
+                        interval.ToRegisterOplysningType()
+                )
+                .ToArray();
             Assert.GreaterOrEqual(registerOplysning.Length, 0);
         }
     }
