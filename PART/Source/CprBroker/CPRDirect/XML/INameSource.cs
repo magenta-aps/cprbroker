@@ -58,10 +58,12 @@ namespace CprBroker.Providers.CPRDirect
         string FirstName_s { get; }
         string MiddleName { get; }
         string LastName { get; }
+
+        // TODO: Remove these 2 properties
         DateTime? NameStartDate { get; }
         char NameStartDateUncertainty { get; }
-        bool IsValid();
 
+        bool IsValid();
         NavnStrukturType ToNavnStrukturType();
     }
 }
