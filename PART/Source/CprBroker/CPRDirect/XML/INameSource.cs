@@ -60,6 +60,7 @@ namespace CprBroker.Providers.CPRDirect
         string LastName { get; }
         DateTime? NameStartDate { get; }
         char NameStartDateUncertainty { get; }
+        bool IsValid();
 
         NavnStrukturType ToNavnStrukturType();
     }

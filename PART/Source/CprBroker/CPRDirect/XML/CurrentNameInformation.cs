@@ -94,5 +94,10 @@ namespace CprBroker.Providers.CPRDirect
         {
             get { return DataTypeTags.Name; }
         }
+
+        public bool IsValid()
+        {
+            return true;
+        }
     }
 }

@@ -79,10 +79,10 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToString(this.LastName, this.LastNameMarker);
         }
 
-        public static HistoricalNameType GetOldestName(IEnumerable<HistoricalNameType> historicalNames)
+        public static INameSource GetOldestName(IEnumerable<INameSource> historicalNames)
         {
             return historicalNames
-                .Where(n => Converters.IsValidCorrectionMarker(n.CorrectionMarker))
+                .Where(n => n.IsValid())
                 .OrderBy(n => n.NameStartDate)
                 .FirstOrDefault();
         }
@@ -108,6 +108,12 @@ namespace CprBroker.Providers.CPRDirect
         public DataTypeTags Tag
         {
             get { return DataTypeTags.Name; }
+        }
+
+
+        public bool IsValid()
+        {
+            return Converters.IsValidCorrectionMarker(CorrectionMarker);
         }
     }
 }
