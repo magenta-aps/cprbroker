@@ -55,11 +55,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class RegisterOplysningInterval : Interval
     {
-        // Name intervals are OK
-        //public INameSource Name
-        //{
-        //    get { return this.GetData<INameSource>(); }
-        //}
+        
         // Population added
         //public ICivilStatus CivilStatus
         //{
