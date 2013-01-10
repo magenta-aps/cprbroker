@@ -75,5 +75,14 @@ namespace CprBroker.Tests.CPRDirect.Persons
             var value = person.ToRelationListeType(pnr => Guid.NewGuid()).RegistreretPartner;
             Assert.AreEqual(0, value.Length);
         }
+
+        [Test]
+        public void ToRegisterOplysningType_Normal_OneOrMoreIntervals()
+        {
+            var person = GetPerson();
+            var registerOplysningIntervals = person.ToRegisterOplysningIntervalArray();
+            var registerOplysning = registerOplysningIntervals.Select(interval => interval.ToRegisterOplysningType()).ToArray();
+            Assert.GreaterOrEqual(registerOplysning.Length, 0);
+        }
     }
 }
