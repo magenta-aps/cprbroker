@@ -93,12 +93,12 @@ namespace CprBroker.Providers.CPRDirect
         public string ToFoedestedNavn()
         {
             // TODO: birthname could be incorrect if historical data is not available (historical data is 5 years max anyway)
-            var oldestName = HistoricalNameType.GetOldestName(this.HistoricalName) as INameSource;
+            var oldestName = HistoricalNameType.GetOldestName(this.HistoricalName.Select(n=> n as INameSource).AsEnumerable()) as INameSource;
             if (oldestName == null)
             {
                 oldestName = this.CurrentNameInformation;
             }
-            var nameStartDate = Converters.ToDateTime(oldestName.NameStartDate, oldestName.NameStartDateUncertainty);
+            var nameStartDate = oldestName.ToStartTS();
             var birthDate = this.ToBirthDate();
 
             if (nameStartDate.HasValue
@@ -151,7 +151,7 @@ namespace CprBroker.Providers.CPRDirect
             return VirkningType.Compose(effects.ToArray());
         }
 
-        public RegisterOplysningInterval[] ToRegisterOplysningIntervalArray()
+        public ITimedType[] ToRegisterOplysningIntervalObjects()
         {
             var dataObjects = new List<ITimedType>();
 
@@ -176,7 +176,13 @@ namespace CprBroker.Providers.CPRDirect
             dataObjects.Add(this.CurrentCitizenship);
             dataObjects.AddRange(this.HistoricalCitizenship.ToArray());
 
-            return Interval.CreateFromData<RegisterOplysningInterval>(dataObjects.Where(o => o != null).AsQueryable());
+            return dataObjects.Where(o => o != null).ToArray();
+        }
+
+        public RegisterOplysningInterval[] ToRegisterOplysningIntervalArray()
+        {
+            var dataObjects = ToRegisterOplysningIntervalObjects();
+            return Interval.CreateFromData<RegisterOplysningInterval>(dataObjects.AsQueryable());
         }
 
         public RegisterOplysningType[] ToRegisterOplysningType(DateTime effectDate)
