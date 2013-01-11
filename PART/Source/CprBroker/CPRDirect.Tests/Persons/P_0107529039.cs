@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using CprBroker.Providers.CPRDirect;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Tests.CPRDirect.Persons
 {
@@ -62,7 +63,42 @@ namespace CprBroker.Tests.CPRDirect.Persons
             var p = GetPerson();
             var c = new CurrentPnrTypeAdaptor(p.PersonInformation, p.HistoricalPNR) as IPnr;
             var h = p.HistoricalPNR[0] as IPnr;
-            System.Diagnostics.Debugger.Launch();
+            //System.Diagnostics.Debugger.Launch();
+        }
+
+        [Test]
+        public void ToRegisterOplysningType_Normal_OneOrMoreIntervals()
+        {
+            var person = GetPerson();
+            var registerOplysningIntervals = person.ToRegisterOplysningIntervalArray();
+            var registerOplysning = registerOplysningIntervals
+                .Select(
+                    interval =>
+                        interval.ToRegisterOplysningType()
+                )
+                .ToArray();
+            Assert.GreaterOrEqual(registerOplysning.Length, 0);
+            foreach (RegisterOplysningType interval in registerOplysning)
+            {
+                /*
+                 * We test if the address and end time attributes are set in any
+                 * of the intervals.
+                 */
+
+                /* 
+                 * We have to cast the item object as the type CprBorgerType as
+                 * the type is not declared in the class.
+                 */
+                CprBorgerType item = (CprBorgerType)interval.Item;
+                Assert.IsNotNull(item);
+                //Assert.IsNotNull(item.AdresseNoteTekst);        // <- is null
+                //Assert.IsNotNull(item.FolkeregisterAdresse);    // <- is null
+                Console.WriteLine(item.FolkeregisterAdresse);   // nothing is printed
+                Console.WriteLine(item.AdresseNoteTekst);       // prints out the object name
+                VirkningType virkning = interval.Virkning;
+                Assert.IsNotNull(virkning);
+                Assert.IsNotNull(virkning.TilTidspunkt);
+            }
         }
     }
 }

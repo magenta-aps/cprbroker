@@ -55,28 +55,8 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Tests.CPRDirect.Persons
 {
     [TestFixture]
-    public class P_0702614147 : Person
+    public class P_0101980014 : Person
     {
-        [Test]
-        public void ToSpouses_OK()
-        {
-            var data = GetData();
-            var person = GetPerson();
-            var value = person.ToRelationListeType(pnr => Guid.NewGuid()).Aegtefaelle;
-            Assert.AreEqual(1, value.Length);
-            Assert.AreEqual(person.HistoricalCivilStatus[0].CivilStatusStartDate.Value, value[0].Virkning.FraTidspunkt.ToDateTime());
-            Assert.AreEqual(person.HistoricalCivilStatus[0].CivilStatusEndDate.Value, value[0].Virkning.TilTidspunkt.ToDateTime());
-        }
-
-        [Test]
-        public void ToRegisteredPartners_Zero()
-        {
-            var data = GetData();
-            var person = GetPerson();
-            var value = person.ToRelationListeType(pnr => Guid.NewGuid()).RegistreretPartner;
-            Assert.AreEqual(0, value.Length);
-        }
-
         [Test]
         public void ToRegisterOplysningType_Normal_OneOrMoreIntervals()
         {
@@ -84,7 +64,7 @@ namespace CprBroker.Tests.CPRDirect.Persons
             var registerOplysningIntervals = person.ToRegisterOplysningIntervalArray();
             var registerOplysning = registerOplysningIntervals
                 .Select(
-                    interval => 
+                    interval =>
                         interval.ToRegisterOplysningType()
                 )
                 .ToArray();
