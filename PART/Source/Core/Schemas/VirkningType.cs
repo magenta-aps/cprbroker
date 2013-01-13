@@ -60,7 +60,7 @@ namespace CprBroker.Schemas.Part
                 var effectiveToDate = toDate;
 
                 // If date range boundaries contain no time componenbt
-                if (toDate.Value.TimeOfDay.TotalMilliseconds == 0)                    
+                if (toDate.Value.TimeOfDay.TotalMilliseconds == 0)
                 {
                     // Set toDate to end of day
                     effectiveToDate = toDate.Value.AddDays(1).AddMilliseconds(-1);
@@ -112,6 +112,11 @@ namespace CprBroker.Schemas.Part
             if (!TidspunktType.ToDateTime(v.FraTidspunkt).HasValue && !TidspunktType.ToDateTime(v.TilTidspunkt).HasValue)
                 return true;
             return false;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} - {1}", FraTidspunkt, TilTidspunkt);
         }
     }
 }

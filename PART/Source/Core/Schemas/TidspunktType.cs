@@ -91,5 +91,10 @@ namespace CprBroker.Schemas.Part
             }
         }
 
+        public override string ToString()
+        {
+            return this.ToDateTime().ToString();
+        }
+
     }
 }
