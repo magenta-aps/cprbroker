@@ -70,6 +70,10 @@
     <Compile Include="Objects\ChildTests.cs" />
     <Compile Include="Objects\ChurchInformation.Tests.cs" />
     <Compile Include="Objects\ClearWrittenAddress.Tests.cs" />
+    <Compile Include="Persons\P_0101520013.cs" />
+    <Compile Include="Persons\P_0101980014.cs" />
+    <Compile Include="Persons\P_0108610069.cs" />
+    <Compile Include="Persons\P_0307610078.cs" />
     <Compile Include="Tools\Converters.Tests.cs" />
     <Compile Include="Tools\CPRDirectExtractDataProvider.Ftp.Tests.cs" />
     <Compile Include="Objects\CurrentAddressInformation.Tests.cs" />

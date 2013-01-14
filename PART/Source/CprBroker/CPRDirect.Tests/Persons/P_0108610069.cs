@@ -92,8 +92,10 @@ namespace CprBroker.Tests.CPRDirect.Persons
                  */
                 CprBorgerType item = (CprBorgerType)interval.Item;
                 Assert.IsNotNull(item);
-                Assert.IsNotNull(item.AdresseNoteTekst);
-                Assert.IsNotNull(item.FolkeregisterAdresse);
+                // This is always null
+                //Assert.IsNotNull(item.AdresseNoteTekst);
+                // Address is not necessary to be not null
+                //Assert.IsNotNull(item.FolkeregisterAdresse);
                 VirkningType virkning = interval.Virkning;
                 Assert.IsNotNull(virkning);
                 Assert.IsNotNull(virkning.TilTidspunkt);
