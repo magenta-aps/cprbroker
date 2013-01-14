@@ -89,8 +89,8 @@ namespace CprBroker.Providers.CPRDirect
             }
             else
             {
-                return this.PersonInformation.PersonStartDate;
-                // TODO: How to pass uncertainty?
+                // Rely on other objects to get interval start date
+                return null;                
                 //return Converters.ToDateTime(this.PersonInformation.PersonStartDate, this.PersonInformation.PersonStartDateUncertainty);
             }
         }
