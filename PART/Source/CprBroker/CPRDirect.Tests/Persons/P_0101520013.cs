@@ -58,46 +58,9 @@ namespace CprBroker.Tests.CPRDirect.Persons
     class P_0101520013 : Person
     {
         [Test]
-        public void ToRegisterOplysningType_Normal_OneOrMoreIntervals()
+        public void Check_correlation_between_historical_data()
         {
-            var person = GetPerson();
-            var registerOplysningIntervals = person.ToRegisterOplysningIntervalArray();
-            Assert.IsNotNull(registerOplysningIntervals);
-            Assert.GreaterOrEqual(registerOplysningIntervals.Length, 0);    // <- passes
-            Console.WriteLine(registerOplysningIntervals.Length);           // prints 5
-            // Tests to investigate objects in the array.
-            foreach (RegisterOplysningInterval regInterval in registerOplysningIntervals)
-            {
-                //Console.WriteLine(regInterval.ToCprBorgerType());         // crashes with NullReferenceException
-                Console.WriteLine(regInterval.ToVirkningType());
-                Assert.IsNotNull(regInterval);
-            }
-            var registerOplysning = registerOplysningIntervals
-                .Select(
-                    interval => 
-                        interval.ToRegisterOplysningType()
-                )
-                .ToArray();
-            Assert.GreaterOrEqual(registerOplysning.Length, 0);
-            foreach (RegisterOplysningType interval in registerOplysning)
-            {
-                /*
-                 * We test if the address and end time attributes are set in any
-                 * of the intervals.
-                 */
-
-                /* 
-                 * We have to cast the item object as the type CprBorgerType as
-                 * the type is not declared in the class.
-                 */
-                CprBorgerType item = (CprBorgerType)interval.Item;
-                Assert.IsNotNull(item);
-                Assert.IsNotNull(item.AdresseNoteTekst);
-                Assert.IsNotNull(item.FolkeregisterAdresse);
-                VirkningType virkning = interval.Virkning;
-                Assert.IsNotNull(virkning);
-                Assert.IsNotNull(virkning.TilTidspunkt);
-            }
+            Helpers.Check_correlation_between_historical_data(GetPerson());
         }
     }
 }
