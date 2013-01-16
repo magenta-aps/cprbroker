@@ -84,11 +84,20 @@ namespace CprBroker.Data.Part
             loadOptions.LoadWith<CprData>(cpr => cpr.Address);
         }
 
-        public static CprData FromXmlType(RegisterOplysningType[] oio)
+        public static PersonAttributes[] FromXmlType(RegisterOplysningType[] oio)
         {
-            if (oio != null && oio.Length > 0 && oio[0] != null)
+            if (oio != null)
             {
-                return FromXmlType(oio[0].Item as CprBorgerType);
+                return oio
+                    .Where(o => o != null)
+                    .Where(o => o.Item is CprBorgerType)
+                    .Select(o => new PersonAttributes()
+                    {
+                        PersonAttributesId = Guid.NewGuid(),
+                        Effect = Effect.FromVirkningType(o.Virkning),
+                        CprData = FromXmlType(o.Item as CprBorgerType)
+                    })
+                    .ToArray();
             }
             return null;
         }

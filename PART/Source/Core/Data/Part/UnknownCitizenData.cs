@@ -69,11 +69,20 @@ namespace CprBroker.Data.Part
             return null;
         }
 
-        public static UnknownCitizenData FromXmlType(RegisterOplysningType[] oio)
+        public static PersonAttributes[] FromXmlType(RegisterOplysningType[] oio)
         {
-            if (oio != null && oio.Length > 0 && oio[0] != null)
+            if (oio != null)
             {
-                return FromXmlType(oio[0].Item as UkendtBorgerType);
+                return oio
+                    .Where(o => o != null)
+                    .Where(o => o.Item is UkendtBorgerType)
+                    .Select(o => new PersonAttributes()
+                    {
+                        PersonAttributesId = Guid.NewGuid(),
+                        Effect = Effect.FromVirkningType(o.Virkning),
+                        UnknownCitizenData = FromXmlType(o.Item as UkendtBorgerType)
+                    })
+                    .ToArray();
             }
             return null;
         }

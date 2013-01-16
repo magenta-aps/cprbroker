@@ -94,7 +94,7 @@ namespace CprBroker.Data.Part
             Effect.SetChildLoadOptions(loadOptions);
             CountryRef.SetChildLoadOptions(loadOptions);
 
-            PersonAttributes.SetChildLoadOptions(loadOptions);
+            CprBroker.Data.Part.PersonAttributes.SetChildLoadOptions(loadOptions);
             PersonRelationship.SetChildLoadOptions(loadOptions);
             PersonState.SetChildLoadOptions(loadOptions);
         }
@@ -113,9 +113,14 @@ namespace CprBroker.Data.Part
                     LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
                     RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 
-                    PersonAttributes = PersonAttributes.FromXmlType(partRegistration.AttributListe),
                     PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
                 };
+
+                if (partRegistration.AttributListe != null)
+                {
+                    ret.PersonAttributes.AddRange(CprBroker.Data.Part.PersonAttributes.FromXmlType(partRegistration.AttributListe));
+                }
+
                 if (partRegistration.RelationListe != null)
                 {
                     ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));

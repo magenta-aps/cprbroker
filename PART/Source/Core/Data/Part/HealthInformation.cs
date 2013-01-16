@@ -69,31 +69,33 @@ namespace CprBroker.Data.Part
                         PraktiserendeLaegeNavn = db.PhysicianName,
                         PraktiserendeLaegeYderNummerIdentifikator = db.PhysicianProviderNumber,
                         SygesikringsgruppeKode = db.HealthInsuranceGroupCode,
-                        Virkning = Effect.ToVirkningType(db.Effect),
+                        Virkning = Effect.ToVirkningType(db.PersonAttributes.Effect),
                     }
                 };
             }
             return null;
         }
 
-        public static HealthInformation FromXmlType(SundhedOplysningType[] oio)
+        public static PersonAttributes[] FromXmlType(SundhedOplysningType[] oio)
         {
-            if (oio != null && oio.Length > 0 && oio[0] != null)
+            if (oio != null)
             {
-                return new HealthInformation()
-                {
-                    PhysicianName = oio[0].PraktiserendeLaegeNavn,
-                    PhysicianProviderNumber = oio[0].PraktiserendeLaegeYderNummerIdentifikator,
-                    HealthInsuranceGroupCode = oio[0].SygesikringsgruppeKode,
-                    Effect = Effect.FromVirkningType(oio[0].Virkning)
-                };
+                return oio
+                    .Where(o => o != null)
+                    .Select(o => new PersonAttributes()
+                    {
+                        PersonAttributesId = Guid.NewGuid(),
+                        Effect = Effect.FromVirkningType(o.Virkning),
+                        HealthInformation = new HealthInformation()
+                        {
+                            PhysicianName = o.PraktiserendeLaegeNavn,
+                            PhysicianProviderNumber = o.PraktiserendeLaegeYderNummerIdentifikator,
+                            HealthInsuranceGroupCode = o.SygesikringsgruppeKode,
+                        }
+                    })
+                    .ToArray();
             }
             return null;
-        }
-
-        public static void SetChildLoadOptions(DataLoadOptions loadOptions)
-        {
-            loadOptions.LoadWith<HealthInformation>(hi => hi.Effect);
         }
     }
 }

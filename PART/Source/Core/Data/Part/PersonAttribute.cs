@@ -65,6 +65,7 @@ namespace CprBroker.Data.Part
                 return new AttributListeType()
                 {
                     Egenskab = PersonProperties.ToXmlType(db.PersonProperties),
+                    // TODO: Take care of different record types (HealthInformation / other??)
                     RegisterOplysning = ToRegisterOplysningType(db),
                     LokalUdvidelse = null,
                     SundhedOplysning = HealthInformation.ToXmlType(db.HealthInformation),
@@ -105,20 +106,18 @@ namespace CprBroker.Data.Part
 
         }
 
-        public static PersonAttributes FromXmlType(Schemas.Part.AttributListeType oio)
+        public static PersonAttributes[] FromXmlType(Schemas.Part.AttributListeType oio)
         {
+            var ret = new List<PersonAttributes>();
             if (oio != null)
             {
-                return new PersonAttributes()
-                {
-                    PersonProperties = PersonProperties.FromXmlType(oio.Egenskab),
-                    CprData = CprData.FromXmlType(oio.RegisterOplysning),
-                    ForeignCitizenData = ForeignCitizenData.FromXmlType(oio.RegisterOplysning),
-                    UnknownCitizenData = UnknownCitizenData.FromXmlType(oio.RegisterOplysning),
-                    HealthInformation = HealthInformation.FromXmlType(oio.SundhedOplysning),
-                };
+                ret.AddRange(PersonProperties.FromXmlType(oio.Egenskab));
+                ret.AddRange(CprData.FromXmlType(oio.RegisterOplysning));
+                ret.AddRange(ForeignCitizenData.FromXmlType(oio.RegisterOplysning));
+                ret.AddRange(UnknownCitizenData.FromXmlType(oio.RegisterOplysning));
+                ret.AddRange(HealthInformation.FromXmlType(oio.SundhedOplysning));
             }
-            return null;
+            return ret.ToArray();
         }
 
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
@@ -133,7 +132,6 @@ namespace CprBroker.Data.Part
             PersonProperties.SetChildLoadOptions(loadOptions);
             CprData.SetChildLoadOptions(loadOptions);
             ForeignCitizenData.SetChildLoadOptions(loadOptions);
-            HealthInformation.SetChildLoadOptions(loadOptions);
         }
 
     }

@@ -2425,10 +2425,6 @@ namespace CprBroker.Data.Part
 		
 		private EntitySet<PersonAttributes> _PersonAttributes;
 		
-		private EntitySet<HealthInformation> _HealthInformations;
-		
-		private EntitySet<PersonProperties> _PersonProperties;
-		
 		private EntityRef<ActorRef> _ActorRef;
 		
     #region Extensibility Method Definitions
@@ -2453,8 +2449,6 @@ namespace CprBroker.Data.Part
 			this._PersonLifeStates = new EntitySet<PersonLifeState>(new Action<PersonLifeState>(this.attach_PersonLifeStates), new Action<PersonLifeState>(this.detach_PersonLifeStates));
 			this._PersonCivilStates = new EntitySet<PersonCivilState>(new Action<PersonCivilState>(this.attach_PersonCivilStates), new Action<PersonCivilState>(this.detach_PersonCivilStates));
 			this._PersonAttributes = new EntitySet<PersonAttributes>(new Action<PersonAttributes>(this.attach_PersonAttributes), new Action<PersonAttributes>(this.detach_PersonAttributes));
-			this._HealthInformations = new EntitySet<HealthInformation>(new Action<HealthInformation>(this.attach_HealthInformations), new Action<HealthInformation>(this.detach_HealthInformations));
-			this._PersonProperties = new EntitySet<PersonProperties>(new Action<PersonProperties>(this.attach_PersonProperties), new Action<PersonProperties>(this.detach_PersonProperties));
 			this._ActorRef = default(EntityRef<ActorRef>);
 			OnCreated();
 		}
@@ -2615,32 +2609,6 @@ namespace CprBroker.Data.Part
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Effect_HealthInformation", Storage="_HealthInformations", ThisKey="EffectId", OtherKey="EffectId")]
-		public EntitySet<HealthInformation> HealthInformations
-		{
-			get
-			{
-				return this._HealthInformations;
-			}
-			set
-			{
-				this._HealthInformations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Effect_PersonProperties", Storage="_PersonProperties", ThisKey="EffectId", OtherKey="EffectId")]
-		public EntitySet<PersonProperties> PersonProperties
-		{
-			get
-			{
-				return this._PersonProperties;
-			}
-			set
-			{
-				this._PersonProperties.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ActorRef_Effect", Storage="_ActorRef", ThisKey="ActorRefId", OtherKey="ActorRefId", IsForeignKey=true)]
 		public ActorRef ActorRef
 		{
@@ -2738,30 +2706,6 @@ namespace CprBroker.Data.Part
 		}
 		
 		private void detach_PersonAttributes(PersonAttributes entity)
-		{
-			this.SendPropertyChanging();
-			entity.Effect = null;
-		}
-		
-		private void attach_HealthInformations(HealthInformation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Effect = this;
-		}
-		
-		private void detach_HealthInformations(HealthInformation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Effect = null;
-		}
-		
-		private void attach_PersonProperties(PersonProperties entity)
-		{
-			this.SendPropertyChanging();
-			entity.Effect = this;
-		}
-		
-		private void detach_PersonProperties(PersonProperties entity)
 		{
 			this.SendPropertyChanging();
 			entity.Effect = null;
@@ -7754,10 +7698,6 @@ namespace CprBroker.Data.Part
 		
 		private string _HealthInsuranceGroupCode;
 		
-		private System.Nullable<System.Guid> _EffectId;
-		
-		private EntityRef<Effect> _Effect;
-		
 		private EntityRef<PersonAttributes> _PersonAttribute;
 		
     #region Extensibility Method Definitions
@@ -7772,13 +7712,10 @@ namespace CprBroker.Data.Part
     partial void OnPhysicianProviderNumberChanged();
     partial void OnHealthInsuranceGroupCodeChanging(string value);
     partial void OnHealthInsuranceGroupCodeChanged();
-    partial void OnEffectIdChanging(System.Nullable<System.Guid> value);
-    partial void OnEffectIdChanged();
     #endregion
 		
 		public HealthInformation()
 		{
-			this._Effect = default(EntityRef<Effect>);
 			this._PersonAttribute = default(EntityRef<PersonAttributes>);
 			OnCreated();
 		}
@@ -7863,64 +7800,6 @@ namespace CprBroker.Data.Part
 					this._HealthInsuranceGroupCode = value;
 					this.SendPropertyChanged("HealthInsuranceGroupCode");
 					this.OnHealthInsuranceGroupCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffectId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> EffectId
-		{
-			get
-			{
-				return this._EffectId;
-			}
-			set
-			{
-				if ((this._EffectId != value))
-				{
-					if (this._Effect.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnEffectIdChanging(value);
-					this.SendPropertyChanging();
-					this._EffectId = value;
-					this.SendPropertyChanged("EffectId");
-					this.OnEffectIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Effect_HealthInformation", Storage="_Effect", ThisKey="EffectId", OtherKey="EffectId", IsForeignKey=true)]
-		public Effect Effect
-		{
-			get
-			{
-				return this._Effect.Entity;
-			}
-			set
-			{
-				Effect previousValue = this._Effect.Entity;
-				if (((previousValue != value) 
-							|| (this._Effect.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Effect.Entity = null;
-						previousValue.HealthInformations.Remove(this);
-					}
-					this._Effect.Entity = value;
-					if ((value != null))
-					{
-						value.HealthInformations.Add(this);
-						this._EffectId = value.EffectId;
-					}
-					else
-					{
-						this._EffectId = default(Nullable<System.Guid>);
-					}
-					this.SendPropertyChanged("Effect");
 				}
 			}
 		}
@@ -8177,8 +8056,6 @@ namespace CprBroker.Data.Part
 		
 		private string _BirthRegistrationAuthority;
 		
-		private System.Nullable<System.Guid> _EffectId;
-		
 		private System.Nullable<System.Guid> _ContactChannelId;
 		
 		private System.Nullable<System.Guid> _NextOfKinContactChannelId;
@@ -8196,8 +8073,6 @@ namespace CprBroker.Data.Part
 		private EntityRef<ContactChannel> _ContactChannel1;
 		
 		private EntityRef<Gender> _Gender;
-		
-		private EntityRef<Effect> _Effect;
 		
 		private EntityRef<PersonAttributes> _PersonAttributes;
 		
@@ -8221,8 +8096,6 @@ namespace CprBroker.Data.Part
     partial void OnBirthPlaceChanged();
     partial void OnBirthRegistrationAuthorityChanging(string value);
     partial void OnBirthRegistrationAuthorityChanged();
-    partial void OnEffectIdChanging(System.Nullable<System.Guid> value);
-    partial void OnEffectIdChanged();
     partial void OnContactChannelIdChanging(System.Nullable<System.Guid> value);
     partial void OnContactChannelIdChanged();
     partial void OnNextOfKinContactChannelIdChanging(System.Nullable<System.Guid> value);
@@ -8240,7 +8113,6 @@ namespace CprBroker.Data.Part
 			this._ContactChannel = default(EntityRef<ContactChannel>);
 			this._ContactChannel1 = default(EntityRef<ContactChannel>);
 			this._Gender = default(EntityRef<Gender>);
-			this._Effect = default(EntityRef<Effect>);
 			this._PersonAttributes = default(EntityRef<PersonAttributes>);
 			OnCreated();
 		}
@@ -8409,30 +8281,6 @@ namespace CprBroker.Data.Part
 					this._BirthRegistrationAuthority = value;
 					this.SendPropertyChanged("BirthRegistrationAuthority");
 					this.OnBirthRegistrationAuthorityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffectId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> EffectId
-		{
-			get
-			{
-				return this._EffectId;
-			}
-			set
-			{
-				if ((this._EffectId != value))
-				{
-					if (this._Effect.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnEffectIdChanging(value);
-					this.SendPropertyChanging();
-					this._EffectId = value;
-					this.SendPropertyChanged("EffectId");
-					this.OnEffectIdChanged();
 				}
 			}
 		}
@@ -8690,40 +8538,6 @@ namespace CprBroker.Data.Part
 						this._GenderId = default(int);
 					}
 					this.SendPropertyChanged("Gender");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Effect_PersonProperties", Storage="_Effect", ThisKey="EffectId", OtherKey="EffectId", IsForeignKey=true)]
-		public Effect Effect
-		{
-			get
-			{
-				return this._Effect.Entity;
-			}
-			set
-			{
-				Effect previousValue = this._Effect.Entity;
-				if (((previousValue != value) 
-							|| (this._Effect.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Effect.Entity = null;
-						previousValue.PersonProperties.Remove(this);
-					}
-					this._Effect.Entity = value;
-					if ((value != null))
-					{
-						value.PersonProperties.Add(this);
-						this._EffectId = value.EffectId;
-					}
-					else
-					{
-						this._EffectId = default(Nullable<System.Guid>);
-					}
-					this.SendPropertyChanged("Effect");
 				}
 			}
 		}

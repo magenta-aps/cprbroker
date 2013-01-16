@@ -74,11 +74,20 @@ namespace CprBroker.Data.Part
             return null;
         }
 
-        public static ForeignCitizenData FromXmlType(RegisterOplysningType[] oio)
+        public static PersonAttributes[] FromXmlType(RegisterOplysningType[] oio)
         {
-            if (oio != null && oio.Length > 0 && oio[0] != null)
+            if (oio != null)
             {
-                return FromXmlType(oio[0].Item as UdenlandskBorgerType);
+                return oio
+                    .Where(o => o != null)
+                    .Where(o => o.Item is UdenlandskBorgerType)
+                    .Select(o => new PersonAttributes()
+                    {
+                        PersonAttributesId = Guid.NewGuid(),
+                        Effect = Effect.FromVirkningType(o.Virkning),
+                        ForeignCitizenData = FromXmlType(o.Item as UdenlandskBorgerType)
+                    })
+                    .ToArray();
             }
             return null;
         }

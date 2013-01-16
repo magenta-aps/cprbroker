@@ -80,37 +80,45 @@ namespace CprBroker.Data.Part
                         KontaktKanal = ContactChannel.ToXmlType(db.ContactChannel),
                         NaermestePaaroerende = ContactChannel.ToXmlType(db.NextOfKinContactChannel),
                         AndreAdresser = Address.ToXmlType(db.OtherAddress),
-                        Virkning = Effect.ToVirkningType(db.Effect)
+                        Virkning = Effect.ToVirkningType(db.PersonAttributes.Effect)
                     }
                 };
             }
             return null;
         }
 
-        public static PersonProperties FromXmlType(EgenskabType[] oio)
+        public static PersonAttributes[] FromXmlType(EgenskabType[] oio)
         {
-            if (oio != null && oio.Length > 0 && oio[0] != null)
+            if (oio != null)
             {
-                return new PersonProperties()
-                {
-                    BirthDate = oio[0].BirthDate,
+                return oio
+                    .Where(o => o != null)
+                    .Select(o =>
+                        new PersonAttributes()
+                        {
+                            PersonAttributesId = Guid.NewGuid(),
+                            Effect = Effect.FromVirkningType(o.Virkning),
+                            PersonProperties = new PersonProperties()
+                            {
+                                BirthDate = o.BirthDate,
 
-                    GenderId = Data.Part.Gender.GetPartCode(oio[0].PersonGenderCode),
-                    BirthPlace = oio[0].FoedestedNavn,
-                    BirthRegistrationAuthority = oio[0].FoedselsregistreringMyndighedNavn,
+                                GenderId = Data.Part.Gender.GetPartCode(o.PersonGenderCode),
+                                BirthPlace = o.FoedestedNavn,
+                                BirthRegistrationAuthority = o.FoedselsregistreringMyndighedNavn,
 
-                    PersonName = PersonName.FromXmlType(oio[0].NavnStruktur),
+                                PersonName = PersonName.FromXmlType(o.NavnStruktur),
 
-                    NickName = PersonName.GetNickName(oio[0].NavnStruktur),
-                    NameNoteText = PersonName.GetNameNoteText(oio[0].NavnStruktur),
-                    AddressingName = PersonName.GeAddressingName(oio[0].NavnStruktur),
+                                NickName = PersonName.GetNickName(o.NavnStruktur),
+                                NameNoteText = PersonName.GetNameNoteText(o.NavnStruktur),
+                                AddressingName = PersonName.GeAddressingName(o.NavnStruktur),
 
-                    ContactChannel = ContactChannel.FromXmlType(oio[0].KontaktKanal),
-                    NextOfKinContactChannel = ContactChannel.FromXmlType(oio[0].NaermestePaaroerende),
-                    OtherAddress = Address.FromXmlType(oio[0].AndreAdresser),
-
-                    Effect = Effect.FromVirkningType(oio[0].Virkning),
-                };
+                                ContactChannel = ContactChannel.FromXmlType(o.KontaktKanal),
+                                NextOfKinContactChannel = ContactChannel.FromXmlType(o.NaermestePaaroerende),
+                                OtherAddress = Address.FromXmlType(o.AndreAdresser),
+                            }
+                        }
+                        )
+                    .ToArray();
             }
             return null;
         }
@@ -120,7 +128,6 @@ namespace CprBroker.Data.Part
             loadOptions.LoadWith<PersonProperties>(pp => pp.ContactChannel);
             loadOptions.LoadWith<PersonProperties>(pp => pp.NextOfKinContactChannel);
             loadOptions.LoadWith<PersonProperties>(pp => pp.OtherAddress);
-            loadOptions.LoadWith<PersonProperties>(pp => pp.Effect);
             loadOptions.LoadWith<PersonProperties>(pp => pp.Gender);
             loadOptions.LoadWith<PersonProperties>(pp => pp.PersonName);
 
