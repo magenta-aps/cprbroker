@@ -289,6 +289,25 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -----------------------------------------------------------------
+        ///-----  Allow multiple attributes in a single registration  ------
+        ///-----------------------------------------------------------------
+        ///
+        ///sp_rename &apos;dbo.PersonAttributes.PersonRegistrationId&apos;, &apos;PersonAttributesId&apos;, &apos;COLUMN&apos;
+        ///GO
+        ///ALTER TABLE dbo.PersonAttributes ADD PersonRegistrationId UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
+        ///GO
+        ///UPDATE dbo.PersonAttributes SET PersonRegistrationId = PersonAttributesId
+        ///GO
+        ///ALTER Table dbo.PersonAttributes D [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PatchDatabase_2_0 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RelationshipTypeId;ForwardName
         ///0;Mother
         ///1;Father
