@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers.cs" />
     <Compile Include="Objects\Authority.Tests.cs" />
     <Compile Include="Objects\BirthRegistrationInformation.Tests.cs" />
     <Compile Include="Objects\ChildTests.cs" />
