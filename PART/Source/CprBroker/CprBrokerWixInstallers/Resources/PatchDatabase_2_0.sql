@@ -28,3 +28,47 @@ sp_rename 'dbo.PersonProperties.PersonRegistrationId', 'PersonAttributesId', 'CO
 GO
 sp_rename 'dbo.PersonName.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
 GO
+
+
+
+-----------------------------------------------------------------------------------------
+-----  Create new records in PersonAttributes to match records in PersonProperties  -----
+-----------------------------------------------------------------------------------------
+
+ALTER TABLE PersonProperties ADD PersonAttributesId_Tmp UNIQUEIDENTIFIER NOT NULL 
+CONSTRAINT DF_PersonAttributesId_Tmp DEFAULT(NewID())
+GO
+
+INSERT INTO PersonAttributes (PersonAttributesId, PersonRegistrationId, EffectId)
+SELECT PersonAttributesId_Tmp, PersonAttributesId, EffectId
+FROM PersonProperties
+GO
+
+UPDATE PersonProperties SET PersonAttributesId = PersonAttributesId_Tmp
+GO
+
+ALTER TABLE PersonProperties DROP 
+CONSTRAINT DF_PersonAttributesId_Tmp,FK_PersonProperties_Effect,
+COLUMN PersonAttributesId_Tmp, EffectId
+GO
+
+------------------------------------------------------------------------------------------
+-----  Create new records in PersonAttributes to match records in HealthInformation  -----
+------------------------------------------------------------------------------------------
+
+ALTER TABLE HealthInformation ADD PersonAttributesId_Tmp UNIQUEIDENTIFIER NOT NULL 
+CONSTRAINT DF_PersonAttributesId_Tmp DEFAULT(NewID())
+GO
+
+INSERT INTO PersonAttributes (PersonAttributesId, PersonRegistrationId, EffectId)
+SELECT PersonAttributesId_Tmp, PersonAttributesId, EffectId
+FROM HealthInformation
+GO
+
+UPDATE HealthInformation SET PersonAttributesId = PersonAttributesId_Tmp
+GO
+
+ALTER TABLE HealthInformation DROP 
+CONSTRAINT DF_PersonAttributesId_Tmp,FK_HealthInformation_Effect,
+COLUMN PersonAttributesId_Tmp, EffectId
+GO
