@@ -58,31 +58,47 @@ namespace CprBroker.Data.Part
     /// </summary>
     public partial class PersonAttributes
     {
-        public static Schemas.Part.AttributListeType ToXmlType(PersonAttributes db)
+        public static Schemas.Part.AttributListeType ToXmlType(EntitySet<PersonAttributes> allDb)
         {
-            if (db != null)
+            if (allDb != null)
             {
                 return new AttributListeType()
                 {
-                    Egenskab = PersonProperties.ToXmlType(db.PersonProperties),
-                    // TODO: Take care of different record types (HealthInformation / other??)
-                    RegisterOplysning = ToRegisterOplysningType(db),
-                    LokalUdvidelse = null,
-                    SundhedOplysning = HealthInformation.ToXmlType(db.HealthInformation),
+                    Egenskab = allDb
+                        .Select(db => ToEgenskabType(db))
+                        .Where(o => o != null)
+                        .ToArray(),
+
+                    RegisterOplysning = allDb
+                        .Select(db => ToRegisterOplysningType(db))
+                        .Where(o => o != null)
+                        .ToArray(),
+
+                    SundhedOplysning = allDb
+                        .Select(db => ToSundhedOplysningType(db))
+                        .Where(o => o != null)
+                        .ToArray(),
+
+                    LokalUdvidelse = null
                 };
             }
             return null;
         }
 
-        public static RegisterOplysningType[] ToRegisterOplysningType(PersonAttributes db)
+        public static EgenskabType ToEgenskabType(PersonAttributes db)
+        {
+            if (db != null && db.PersonProperties != null)
+            {
+                return PersonProperties.ToXmlType(db.PersonProperties);
+            }
+            return null;
+        }
+
+        public static RegisterOplysningType ToRegisterOplysningType(PersonAttributes db)
         {
             if (db != null)
             {
-                var ret = new RegisterOplysningType()
-                {
-                    Virkning = Effect.ToVirkningType(db.Effect),
-                    Item = null
-                };
+                var ret = new RegisterOplysningType();
 
                 if (db.CprData != null)
                 {
@@ -99,11 +115,20 @@ namespace CprBroker.Data.Part
 
                 if (ret.Item != null)
                 {
-                    return new RegisterOplysningType[] { ret };
+                    ret.Virkning = Effect.ToVirkningType(db.Effect);
+                    return ret;
                 }
             }
-            return new RegisterOplysningType[0];
+            return null;
+        }
 
+        public static SundhedOplysningType ToSundhedOplysningType(PersonAttributes db)
+        {
+            if (db != null && db.HealthInformation != null)
+            {
+                return HealthInformation.ToXmlType(db.HealthInformation);
+            }
+            return null;
         }
 
         public static PersonAttributes[] FromXmlType(Schemas.Part.AttributListeType oio)

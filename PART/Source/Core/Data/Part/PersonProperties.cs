@@ -58,30 +58,27 @@ namespace CprBroker.Data.Part
     /// </summary>
     public partial class PersonProperties
     {
-        public static EgenskabType[] ToXmlType(PersonProperties db)
+        public static EgenskabType ToXmlType(PersonProperties db)
         {
             if (db != null)
             {
-                return new EgenskabType[]
+                new EgenskabType()
                 {
-                    new EgenskabType()
+                    BirthDate = db.BirthDate,
+                    PersonGenderCode = Data.Part.Gender.GetPartGender(db.GenderId),
+                    NavnStruktur = new NavnStrukturType()
                     {
-                        BirthDate = db.BirthDate,
-                        PersonGenderCode = Data.Part.Gender.GetPartGender(db.GenderId),
-                        NavnStruktur = new NavnStrukturType()
-                        {
-                            KaldenavnTekst = db.NickName,
-                            NoteTekst = db.NameNoteText,
-                            PersonNameForAddressingName = db.AddressingName,
-                            PersonNameStructure = PersonName.ToXmlType(db.PersonName),
-                        },
-                        FoedestedNavn = db.BirthPlace,
-                        FoedselsregistreringMyndighedNavn = db.BirthRegistrationAuthority,
-                        KontaktKanal = ContactChannel.ToXmlType(db.ContactChannel),
-                        NaermestePaaroerende = ContactChannel.ToXmlType(db.NextOfKinContactChannel),
-                        AndreAdresser = Address.ToXmlType(db.OtherAddress),
-                        Virkning = Effect.ToVirkningType(db.PersonAttributes.Effect)
-                    }
+                        KaldenavnTekst = db.NickName,
+                        NoteTekst = db.NameNoteText,
+                        PersonNameForAddressingName = db.AddressingName,
+                        PersonNameStructure = PersonName.ToXmlType(db.PersonName),
+                    },
+                    FoedestedNavn = db.BirthPlace,
+                    FoedselsregistreringMyndighedNavn = db.BirthRegistrationAuthority,
+                    KontaktKanal = ContactChannel.ToXmlType(db.ContactChannel),
+                    NaermestePaaroerende = ContactChannel.ToXmlType(db.NextOfKinContactChannel),
+                    AndreAdresser = Address.ToXmlType(db.OtherAddress),
+                    Virkning = Effect.ToVirkningType(db.PersonAttributes.Effect)
                 };
             }
             return null;

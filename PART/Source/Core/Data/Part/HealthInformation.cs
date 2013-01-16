@@ -58,19 +58,16 @@ namespace CprBroker.Data.Part
     /// </summary>
     public partial class HealthInformation
     {
-        public static SundhedOplysningType[] ToXmlType(HealthInformation db)
+        public static SundhedOplysningType ToXmlType(HealthInformation db)
         {
             if (db != null)
             {
-                return new SundhedOplysningType[]
+                new SundhedOplysningType()
                 {
-                    new SundhedOplysningType()
-                    {
-                        PraktiserendeLaegeNavn = db.PhysicianName,
-                        PraktiserendeLaegeYderNummerIdentifikator = db.PhysicianProviderNumber,
-                        SygesikringsgruppeKode = db.HealthInsuranceGroupCode,
-                        Virkning = Effect.ToVirkningType(db.PersonAttributes.Effect),
-                    }
+                    PraktiserendeLaegeNavn = db.PhysicianName,
+                    PraktiserendeLaegeYderNummerIdentifikator = db.PhysicianProviderNumber,
+                    SygesikringsgruppeKode = db.HealthInsuranceGroupCode,
+                    Virkning = Effect.ToVirkningType(db.PersonAttributes.Effect),
                 };
             }
             return null;
