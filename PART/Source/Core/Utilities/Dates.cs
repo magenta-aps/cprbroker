@@ -51,6 +51,7 @@ using System.Text;
 
 namespace CprBroker.Utilities
 {
+    // TODO: Move this into Schemas\VirkningType
     public static class Dates
     {
         public static bool DateRangeIncludes(DateTime? startDate, DateTime? endDate, DateTime effectDate, bool nullStartDateOK)

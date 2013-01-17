@@ -118,5 +118,25 @@ namespace CprBroker.Schemas.Part
         {
             return string.Format("{0} - {1}", FraTidspunkt, TilTidspunkt);
         }
+
+        public bool Intersects(VirkningType otherEffect)
+        {
+            var v1 = VirkningType.Create(this.FraTidspunkt.ToDateTime(), this.TilTidspunkt.ToDateTime());
+            var v2 = VirkningType.Create(otherEffect.FraTidspunkt.ToDateTime(), otherEffect.TilTidspunkt.ToDateTime());
+
+            foreach (var v in new VirkningType[] { v1, v2 })
+            {
+                if (!v.FraTidspunkt.ToDateTime().HasValue)
+                {
+                    v.FraTidspunkt = TidspunktType.Create(DateTime.MinValue);
+                }
+                if (!v.TilTidspunkt.ToDateTime().HasValue)
+                {
+                    v.TilTidspunkt = TidspunktType.Create(DateTime.MaxValue);
+                }
+            }
+            return v1.FraTidspunkt.ToDateTime().Value < v2.TilTidspunkt.ToDateTime().Value
+                && v2.FraTidspunkt.ToDateTime().Value < v1.TilTidspunkt.ToDateTime().Value;
+        }
     }
 }
