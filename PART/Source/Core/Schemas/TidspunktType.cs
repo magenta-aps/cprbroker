@@ -58,7 +58,7 @@ namespace CprBroker.Schemas.Part
             var ret = new TidspunktType();
 
             //TODO : Xml element called either Tidsstempel:datetime or GraenseIndikator:bool
-            if (value.HasValue && value.Value != DateTime.MinValue && value != DateTime.MaxValue )
+            if (value.HasValue)
             {
                 ret.Item = value.Value;
             }
