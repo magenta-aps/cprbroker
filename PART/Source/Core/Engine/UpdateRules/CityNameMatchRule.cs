@@ -16,6 +16,8 @@ namespace CprBroker.Engine.UpdateRules
                 && oio.AttributListe.RegisterOplysning != null
                 && oio.AttributListe.RegisterOplysning.Length > 0
                 && oio.AttributListe.RegisterOplysning[0] != null
+                && oio.AttributListe.RegisterOplysning[0].Item is CprBorgerType
+                && (oio.AttributListe.RegisterOplysning[0].Item as CprBorgerType).FolkeregisterAdresse != null
                 )
             {
                 var cprBorger = oio.AttributListe.RegisterOplysning[0].Item as CprBorgerType;
@@ -40,12 +42,12 @@ namespace CprBroker.Engine.UpdateRules
 
         public override void UpdateOioFromXmlType(DanskAdresseType existingObj, DanskAdresseType newObj)
         {
-            existingObj.AddressComplete.AddressPostal.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;            
+            existingObj.AddressComplete.AddressPostal.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
         }
 
         public override void UpdateDbFromXmlType(PersonRegistration dbReg, DanskAdresseType newObj)
         {
-            dbReg.PersonAttributes.CprData.Address.DenmarkAddress.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
+            dbReg.PersonAttributes.Where(pa => pa.CprData != null).First().CprData.Address.DenmarkAddress.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace CprBroker.Engine.UpdateRules
 
         public override void UpdateDbFromXmlType(PersonRegistration dbReg, DanskAdresseType newObj)
         {
-            dbReg.PersonAttributes.CprData.Address.DenmarkAddress.SpecialRoadCode = newObj.SpecielVejkodeIndikator;
+            dbReg.PersonAttributes.Where(pa => pa.CprData != null).First().CprData.Address.DenmarkAddress.SpecialRoadCode = newObj.SpecielVejkodeIndikator;
         }
     }
 }
