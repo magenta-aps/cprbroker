@@ -58,7 +58,7 @@ namespace CprBroker.Data.Part
     /// </summary>
     public partial class PersonAttributes
     {
-        public static Schemas.Part.AttributListeType ToXmlType(EntitySet<PersonAttributes> allDb)
+        public static Schemas.Part.AttributListeType ToXmlType(IQueryable<PersonAttributes> allDb)
         {
             if (allDb != null)
             {
