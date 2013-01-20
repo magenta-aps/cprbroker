@@ -99,18 +99,19 @@ namespace CprBroker.Providers.Local
                                         var name = prop.NavnStruktur.PersonNameStructure;
                                         if (!name.IsEmpty)
                                         {
+                                            // TODO: Test name lookup after new struture (multiple attribuutes)
                                             var cprNamePred = PredicateBuilder.True<Data.Part.PersonRegistration>();
                                             if (!string.IsNullOrEmpty(name.PersonGivenName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.PersonProperties.PersonName.FirstName == name.PersonGivenName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.FirstName == name.PersonGivenName).FirstOrDefault() != null);
                                             }
                                             if (!string.IsNullOrEmpty(name.PersonMiddleName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.PersonProperties.PersonName.MiddleName == name.PersonMiddleName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.MiddleName == name.PersonMiddleName).FirstOrDefault() != null);
                                             }
                                             if (!string.IsNullOrEmpty(name.PersonSurnameName))
                                             {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.PersonProperties.PersonName.LastName == name.PersonSurnameName);
+                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.LastName == name.PersonSurnameName).FirstOrDefault() != null);
                                             }
                                             pred = pred.And(cprNamePred);
                                         }
@@ -177,6 +178,79 @@ namespace CprBroker.Providers.Local
             ql = QualityLevel.LocalCache;
             return ret;
         }
+
+        public FiltreretOejebliksbilledeType ReadFiltered(PersonIdentifier uuid, CprBroker.Schemas.Part.LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
+        {
+            FiltreretOejebliksbilledeType ret;
+
+            var fromRegistrationDate = TidspunktType.ToDateTime(input.RegistreringFraFilter);
+            var toRegistrationDate = TidspunktType.ToDateTime(input.RegistreringTilFilter);
+
+            var effect = VirkningType.Create(input.VirkningFraFilter.ToDateTime(), input.VirkningTilFilter.ToDateTime());
+
+            using (var dataContext = new PartDataContext())
+            {
+                // Filter registrations
+                // TODO: Shall we put a filter on ActorId?
+                var registrations = dataContext.PersonRegistrations
+                    .Where(
+                        personReg =>
+                            // Filter By UUID
+                            personReg.UUID == uuid.UUID
+                            // Filter by registration date
+                            && (!fromRegistrationDate.HasValue || personReg.RegistrationDate >= fromRegistrationDate)
+                            && (!toRegistrationDate.HasValue || personReg.RegistrationDate <= toRegistrationDate)
+                        )
+                    .OrderByDescending(personReg => personReg.RegistrationDate)
+                    .OrderByDescending(personReg => personReg.BrokerUpdateDate);
+
+                // Filter attributes to those that match effect date(s)
+                var attribs = registrations
+                    .SelectMany(reg =>
+                        reg
+                        .PersonAttributes
+                        .Where(attr =>
+                            effect.Intersects(VirkningType.Create(attr.Effect.FromDate, attr.Effect.ToDate))
+                        )
+                        .OrderBy(attr => attr.Effect.FromDate)
+                    );
+
+                // Get states from latest registration
+                // TODO: What states to return if no registrations were found
+                TilstandListeType states = null;
+                if (registrations.Count() > 0)
+                {
+                    states = PersonState.ToXmlType(registrations.Last().PersonState);
+                }
+
+                // Filter relationships to those that match effect date(s)
+                // TODO: relations in newer registrations should cancel out those from older registrations
+                var relations = registrations
+                    .SelectMany(reg =>
+                        reg
+                        .PersonRelationships
+                        .Where(rel =>
+                            effect.Intersects(VirkningType.Create(rel.Effect.FromDate, rel.Effect.ToDate))
+                        )
+                        .OrderBy(attr => attr.Effect.FromDate)
+                    );
+
+                // Now create return object
+                // TODO: Shall we return null if no registrations are found?
+                ret = new FiltreretOejebliksbilledeType()
+                {
+                    UUID = uuid.UUID.ToString(),
+                    BrugervendtNoegleTekst = uuid.CprNumber,
+                    AttributListe = PersonAttributes.ToXmlType(attribs),
+                    TilstandListe = states,
+                    RelationListe = PersonRelationship.ToXmlType(relations)
+                };
+            }
+
+            ql = QualityLevel.LocalCache;
+            return ret;
+        }
+
         #endregion
 
         #region IPartPersonMappingDataProvider Members
