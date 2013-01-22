@@ -70,5 +70,25 @@ namespace CprBroker.Schemas.Part
             }
             return null;
         }
+
+        public override bool Equals(object obj)
+        {
+            var uid = obj as UnikIdType;
+
+            if (uid != null
+                && this.ItemElementName == uid.ItemElementName)
+            {
+                switch (this.ItemElementName)
+                {
+                    case ItemChoiceType.UUID:
+                        // Convert to Guid to avoid problems coming from curly braces({}) and case (upper/lower) differences
+                        return Guid.Equals(new Guid(this.Item), new Guid(uid.Item));
+
+                    case ItemChoiceType.URNIdentifikator:
+                        return string.Equals(this.Item, uid.Item);
+                }
+            }
+            return false;
+        }
     }
 }

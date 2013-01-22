@@ -92,5 +92,12 @@ namespace CprBroker.Schemas.Part
         {
             return PersonRelationTypeHelper.CreateList<PersonRelationType>(cprNumbers);
         }
+
+        public bool Overwrites(PersonRelationType olderRelation)
+        {
+            return DateTime.Equals(this.Virkning.FraTidspunkt.ToDateTime(), olderRelation.Virkning.FraTidspunkt.ToDateTime())
+                && UnikIdType.Equals(this.ReferenceID, olderRelation.ReferenceID)
+                && !olderRelation.Virkning.TilTidspunkt.ToDateTime().HasValue;
+        }
     }
 }
