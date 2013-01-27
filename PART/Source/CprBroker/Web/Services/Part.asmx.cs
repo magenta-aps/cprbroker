@@ -70,12 +70,17 @@ namespace CprBroker.Web.Services
         public QualityHeader qualityHeader = new QualityHeader();
         private const string QualityHeaderName = "qualityHeader";
 
+        public SourceUsageOrderHeader sourceUsageOrderHeader = new SourceUsageOrderHeader();
+        private const string SourceUsageOrderHeaderName = "sourceUsageOrderHeader";
+
         [SoapHeader(ApplicationHeaderName)]
+        [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.Read, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.Read)]
         public LaesOutputType Read(LaesInputType input)
         {
-            return Manager.Part.Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
+            var localAction = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
+            return Manager.Part.Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, localAction, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
@@ -83,15 +88,17 @@ namespace CprBroker.Web.Services
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.RefreshRead, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.RefreshRead)]
         public LaesOutputType RefreshRead(LaesInputType input)
         {
-            return Manager.Part.RefreshRead(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
+            return Manager.Part.Read(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, SourceUsageOrder.ExternalOnly, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
+        [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
         [SoapHeader(QualityHeaderName, Direction = SoapHeaderDirection.Out)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.List, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.List)]
         public ListOutputType1 List(ListInputType input)
         {
-            return Manager.Part.List(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, out qualityHeader.QualityLevel);
+            var localAction = SourceUsageOrderHeader.GetLocalDataProviderUsageOption(this.sourceUsageOrderHeader);
+            return Manager.Part.List(applicationHeader.UserToken, applicationHeader.ApplicationToken, input, localAction, out qualityHeader.QualityLevel);
         }
 
         [SoapHeader(ApplicationHeaderName)]
@@ -109,8 +116,8 @@ namespace CprBroker.Web.Services
             return Manager.Part.GetUuid(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumber);
         }
 
-        [SoapHeader(ApplicationHeaderName)]
-        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuidArray, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.GetUuidArray)]
+        //[SoapHeader(ApplicationHeaderName)]
+        //[WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Part.Methods.GetUuidArray, Description = CprBroker.Schemas.ServiceDescription.Part.Methods.GetUuidArray)]
         public GetUuidArrayOutputType GetUuidArray(string[] cprNumberArray)
         {
             return Manager.Part.GetUuidArray(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumberArray);
