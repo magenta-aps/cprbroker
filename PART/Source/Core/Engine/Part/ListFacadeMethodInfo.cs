@@ -60,16 +60,18 @@ namespace CprBroker.Engine.Part
     public class ListFacadeMethodInfo : FacadeMethodInfo<ListOutputType1, LaesResultatType[]>
     {
         public ListInputType input;
+        public SourceUsageOrder sourceUsageOrder = SourceUsageOrder.LocalThenExternal;
 
         private ListFacadeMethodInfo()
         { }
 
-        public ListFacadeMethodInfo(ListInputType inp, string appToken, string userToken)
+        public ListFacadeMethodInfo(ListInputType inp, SourceUsageOrder sourceUsage, string appToken, string userToken)
             : base(appToken, userToken)
         {
             input = inp;
             this.InitializationMethod = new Action(InitializationMethod);
             this.AggregationFailOption = AggregationFailOption.FailOnAll;
+            this.sourceUsageOrder = sourceUsage;
         }
 
         public override StandardReturType ValidateInput()
@@ -103,7 +105,7 @@ namespace CprBroker.Engine.Part
                 input.UUID.ToArray(),
                 (pUUID) => new ReadSubMethodInfo(
                     LaesInputType.Create(pUUID, input),
-                    SourceUsageOrder.LocalThenExternal)
+                    sourceUsageOrder)
            );
         }
 

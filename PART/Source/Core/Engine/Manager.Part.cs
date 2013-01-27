@@ -74,7 +74,7 @@ namespace CprBroker.Engine
                 ListOutputType1 ret = null;
 
                 ret = GetMethodOutput<ListOutputType1, LaesResultatType[]>(
-                    new ListFacadeMethodInfo(input, appToken, userToken)
+                    new ListFacadeMethodInfo(input, localAction, appToken, userToken)
                     );
 
                 //TODO: remove quality level because it applies to individual elements rather than the whole result
