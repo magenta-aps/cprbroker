@@ -127,6 +127,28 @@ namespace CprBroker.NUnitTester
                 return string.Join(",", data);
         }
 
+        public static readonly Random Random = new Random();
+        public static string RandomCprNumber()
+        {
+            var day = Random.Next(1, 29).ToString("00");
+            var month = Random.Next(1, 13).ToString("00");
+            var year = Random.Next(1, 100).ToString("00");
+            var part1 = Random.Next(1000, 9999).ToString();
+            return day + month + year + part1;
+        }
+
+        public static string[] RandomCprNumbers(int count)
+        {
+            var ret = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                ret[i] = RandomCprNumber();
+            }
+            return ret;
+        }
+
+
+
 
     }
 }

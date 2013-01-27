@@ -150,9 +150,9 @@ namespace CprBroker.NUnitTester
         }
 
         [Test]
-        public void T220_GetUuidArray()
+        public void T220_GetUuidArray([Values(1, 10, 100, 200, 300, 400, 500)]int count)
         {
-            string[] cprNumberArray = TestData.cprNumbers;
+            string[] cprNumberArray = Utilities.RandomCprNumbers(count);
             var uuids = new string[cprNumberArray.Length];
             for (int i = 0; i < cprNumberArray.Length; i++)
             {
@@ -169,6 +169,17 @@ namespace CprBroker.NUnitTester
             }
         }
 
+        [Test]
+        public void T220_GetUuidArray_MixedExistingAndNew_AllFound([Values(1, 10, 100, 200, 300, 400, 500)]int newCount)
+        {
+            List<string> cprNumberArray = new List<string>();
+            cprNumberArray.AddRange(TestData.cprNumbers);
+            cprNumberArray.AddRange(Utilities.RandomCprNumbers(newCount));
+
+            var uuidBatch = TestRunner.PartService.GetUuidArray(cprNumberArray.ToArray());
+            Validate(uuidBatch.StandardRetur);
+            Assert.AreEqual(cprNumberArray.Count, uuidBatch.UUID.Length);
+        }
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
