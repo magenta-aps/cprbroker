@@ -109,7 +109,7 @@ namespace CprBroker.Engine.DataProviders
                     Method=prov=>prov.SetDataProviderList(Input),
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=true,
-                    LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption = SourceUsageOrder.LocalThenExternal,
                     UpdateMethod=null
                 }
             };

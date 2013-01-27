@@ -61,17 +61,7 @@ namespace CprBroker.Engine
     {
         public static class Part
         {
-            public static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel)
-            {
-                return Read(userToken, appToken, input, out qualityLevel, LocalDataProviderUsageOption.UseFirst);
-            }
-
-            public static LaesOutputType RefreshRead(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel)
-            {
-                return Read(userToken, appToken, input, out qualityLevel, LocalDataProviderUsageOption.Forbidden);
-            }
-
-            private static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel, LocalDataProviderUsageOption localAction)
+            public static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel, SourceUsageOrder localAction)
             {
                 ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken);
                 var ret = GetMethodOutput<LaesOutputType, LaesResultatType>(facadeMethod);

@@ -51,6 +51,7 @@ using System.Text;
 using CprBroker.Schemas.Part;
 using System.Threading;
 using CprBroker.Utilities;
+using CprBroker.Schemas;
 using CprBroker.Data.DataProviders;
 using System.Diagnostics;
 
@@ -61,7 +62,7 @@ namespace CprBroker.Engine
         where TInterface : class,ISingleDataProvider<TInputElement, TOutputElement>
     {
 
-        public LocalDataProviderUsageOption LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst;
+        public SourceUsageOrder LocalDataProviderOption = SourceUsageOrder.LocalThenExternal;
 
         /// <summary>
         /// Gets result for a single input element.

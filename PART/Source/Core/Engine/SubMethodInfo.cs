@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using CprBroker.Schemas;
 using CprBroker.Data.DataProviders;
 
 namespace CprBroker.Engine
@@ -61,7 +62,7 @@ namespace CprBroker.Engine
     {
         public abstract IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders);
         public bool FailOnDefaultOutput;
-        public LocalDataProviderUsageOption LocalDataProviderOption;
+        public SourceUsageOrder LocalDataProviderOption;
         public bool FailIfNoDataProvider;
         public abstract object Invoke(IDataProvider prov);
         public abstract void InvokeUpdateMethod(object result);

@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 
@@ -96,7 +97,7 @@ namespace CprBroker.Engine.Part
             return new SubMethodInfo<IPartPersonMappingDataProvider, Guid?>()
                 {
                     Method = (prov) => prov.GetPersonUuid(pnr),
-                    LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption = SourceUsageOrder.LocalThenExternal,
                     FailOnDefaultOutput = true,
                     FailIfNoDataProvider = true,
                     UpdateMethod = uuid => Local.UpdateDatabase.UpdatePersonUuid(pnr, uuid.Value),

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 using CprBroker.Engine;
 
 namespace CprBroker.Tests.Engine.Stubs
@@ -11,7 +12,7 @@ namespace CprBroker.Tests.Engine.Stubs
         public Guid Input;
         public GuidMethodInfo()
         {
-            this.LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst;
+            this.LocalDataProviderOption = SourceUsageOrder.LocalThenExternal;
         }
 
         public override Guid RunMainMethod(GuidDataProvider prov)

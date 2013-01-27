@@ -68,7 +68,7 @@ namespace CprBroker.Engine.Part
         {
             searchCriteria = input;
 
-            LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst;
+            LocalDataProviderOption = SourceUsageOrder.LocalThenExternal;
             FailIfNoDataProvider = true;
             FailOnDefaultOutput = true;
         }

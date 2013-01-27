@@ -60,13 +60,13 @@ namespace CprBroker.Engine.Part
     public class ReadFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
     {
         protected LaesInputType Input = null;
-        LocalDataProviderUsageOption LocalAction;
+        SourceUsageOrder LocalAction;
         public QualityLevel? QualityLevel;
 
         private ReadFacadeMethodInfo()
         { }
 
-        public ReadFacadeMethodInfo(LaesInputType input, LocalDataProviderUsageOption localAction, string appToken, string userToken)
+        public ReadFacadeMethodInfo(LaesInputType input, SourceUsageOrder localAction, string appToken, string userToken)
             : base(appToken, userToken)
         {
             this.Input = input;

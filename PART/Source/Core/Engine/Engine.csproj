@@ -116,7 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataProviderManager.cs" />
-    <Compile Include="LocalDataProviderUsageOption.cs" />
     <Compile Include="FacadeMethodInfo.cs" />
     <Compile Include="Local\ApplicationDataProvider.cs" />
     <Compile Include="Local\UpdateDatabase.Part.cs" />

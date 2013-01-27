@@ -103,7 +103,7 @@ namespace CprBroker.Engine.Part
                 input.UUID.ToArray(),
                 (pUUID) => new ReadSubMethodInfo(
                     LaesInputType.Create(pUUID, input),
-                    LocalDataProviderUsageOption.UseFirst)
+                    SourceUsageOrder.LocalThenExternal)
            );
         }
 

@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
@@ -73,7 +74,7 @@ namespace CprBroker.Engine
                 {
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=true,
-                    LocalDataProviderOption= LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption= SourceUsageOrder.LocalThenExternal,
                     Method= (prov)=>prov.Log(Text),
                     UpdateMethod=null
                 }

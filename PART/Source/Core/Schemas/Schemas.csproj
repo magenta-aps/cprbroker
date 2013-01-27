@@ -74,6 +74,7 @@
     <Compile Include="IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="CivilStatus\MaritalStatus.cs" />
+    <Compile Include="DataProviderSequenceOptionHeader.cs" />
     <Compile Include="PersonCivilRegistrationStatusCode.cs" />
     <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="NavnStrukturType.cs" />

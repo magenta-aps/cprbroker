@@ -49,15 +49,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CprBroker.Engine
+namespace CprBroker.Schemas
 {
     /// <summary>
     /// Possible ways of using local data providers
     /// </summary>
-    public enum LocalDataProviderUsageOption
+    public enum SourceUsageOrder
     {
-        UseFirst,
-        UseLast,
-        Forbidden
+        LocalOnly,
+        LocalThenExternal,
+        ExternalOnly
+    }
+
+    public class SourceUsageOrderHeader : System.Web.Services.Protocols.SoapHeader
+    {
+        public SourceUsageOrder? SourceUsageOrder = CprBroker.Schemas.SourceUsageOrder.LocalThenExternal;
+
+        public static SourceUsageOrder GetLocalDataProviderUsageOption(SourceUsageOrderHeader header)
+        {
+            return
+                (header != null && header.SourceUsageOrder.HasValue) ?
+                    header.SourceUsageOrder.Value
+                :
+                    CprBroker.Schemas.SourceUsageOrder.LocalThenExternal;
+        }
     }
 }

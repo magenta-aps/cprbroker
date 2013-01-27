@@ -76,7 +76,7 @@ namespace CprBroker.Engine
                 {
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=false,
-                    LocalDataProviderOption= LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption= SourceUsageOrder.LocalThenExternal,
                     Method= (prov)=>prov.IsImplementing(MethodName,Version),
                     UpdateMethod=null
                 }

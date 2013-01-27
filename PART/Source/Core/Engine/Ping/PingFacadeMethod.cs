@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 
 namespace CprBroker.Engine.Ping
 {
@@ -66,7 +67,7 @@ namespace CprBroker.Engine.Ping
                 {
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=false,
-                    LocalDataProviderOption= LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption= SourceUsageOrder.LocalThenExternal,
                     Method= (prov)=>prov.Ping(),
                     UpdateMethod=null
                 }

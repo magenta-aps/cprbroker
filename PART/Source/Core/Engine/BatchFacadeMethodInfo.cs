@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 
 namespace CprBroker.Engine
@@ -65,7 +66,7 @@ namespace CprBroker.Engine
         {
             States = inp.Select(s => new Status() { Input = s, Output = default(TSingleOutputItem) }).ToArray();
 
-            this.LocalDataProviderOption = LocalDataProviderUsageOption.UseFirst;
+            this.LocalDataProviderOption = SourceUsageOrder.LocalThenExternal;
             this.FailOnDefaultOutput = true;
             this.FailIfNoDataProvider = true;
         }

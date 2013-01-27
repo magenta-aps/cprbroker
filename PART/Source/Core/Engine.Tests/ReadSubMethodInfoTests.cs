@@ -86,7 +86,7 @@ namespace CprBroker.Tests.Engine
         class ReadSubMethodInfoStub : ReadSubMethodInfo
         {
             public ReadSubMethodInfoStub()
-                : base(new LaesInputType() { UUID = Guid.NewGuid().ToString() }, LocalDataProviderUsageOption.UseFirst)
+                : base(new LaesInputType() { UUID = Guid.NewGuid().ToString() }, SourceUsageOrder.LocalThenExternal)
             { }
 
             public RegistreringType1 RunMainMethod_ = new RegistreringType1();

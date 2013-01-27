@@ -51,6 +51,7 @@ using System.Text;
 using NUnit.Framework;
 using CprBroker.Engine;
 using CprBroker.Engine.Part;
+using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.DataProviders;
 
@@ -64,7 +65,7 @@ namespace CprBroker.Tests.Engine
         class ReadFacadeMethodInfoStub : ReadFacadeMethodInfo
         {
             public ReadFacadeMethodInfoStub(string uuid)
-                : base(new LaesInputType() { UUID = uuid }, LocalDataProviderUsageOption.UseFirst, Utilities.AppToken, "")
+                : base(new LaesInputType() { UUID = uuid }, SourceUsageOrder.LocalThenExternal, Utilities.AppToken, "")
             { }
 
             public ReadFacadeMethodInfoStub()
@@ -130,7 +131,7 @@ namespace CprBroker.Tests.Engine
             public static Dictionary<string, string> knownUuids = new Dictionary<string, string>();
 
             public ReadSubMethodInfoStub(string uuid)
-                : base(new LaesInputType() { UUID = uuid }, LocalDataProviderUsageOption.UseFirst)
+                : base(new LaesInputType() { UUID = uuid }, SourceUsageOrder.LocalThenExternal)
             {
             }
 

@@ -54,6 +54,7 @@ using System.Data.Linq;
 using System.IO;
 using CprBroker.Data.DataProviders;
 using CprBroker.Utilities;
+using CprBroker.Schemas;
 
 namespace CprBroker.Engine
 {
@@ -206,28 +207,24 @@ namespace CprBroker.Engine
         #region Filtration by type
 
 
-        public static IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders, Type interfaceType, LocalDataProviderUsageOption localOption)
+        public static IEnumerable<IDataProvider> GetDataProviderList(DataProvidersConfigurationSection section, DataProvider[] dbProviders, Type interfaceType, SourceUsageOrder localOption)
         {
-            // External
-            var availableExternalProviders = LoadExternalDataProviders(dbProviders, interfaceType);
-
-            // Now add the local clearData providers if needed
-            if (localOption != LocalDataProviderUsageOption.Forbidden)
+            switch (localOption)
             {
-                var availableLocalProviders = LoadLocalDataProviders(section, interfaceType);
+                case SourceUsageOrder.ExternalOnly:
+                    return LoadExternalDataProviders(dbProviders, interfaceType);
 
-                if (localOption == LocalDataProviderUsageOption.UseFirst)
-                {
-                    return availableLocalProviders.Concat(availableExternalProviders);
-                }
-                else
-                {
-                    return availableExternalProviders.Concat(availableLocalProviders);
-                }
-            }
-            else
-            {
-                return availableExternalProviders;
+                case SourceUsageOrder.LocalOnly:
+                    return LoadLocalDataProviders(section, interfaceType);
+
+                case SourceUsageOrder.LocalThenExternal:
+                    return LoadLocalDataProviders(section, interfaceType)
+                        .Concat(
+                            LoadExternalDataProviders(dbProviders, interfaceType)
+                        );
+
+                default:
+                    return new IDataProvider[0];
             }
         }
 

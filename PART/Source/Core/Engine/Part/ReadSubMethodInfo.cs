@@ -68,7 +68,7 @@ namespace CprBroker.Engine.Part
             FailOnDefaultOutput = true;
         }
 
-        public ReadSubMethodInfo(LaesInputType input, LocalDataProviderUsageOption localAction)
+        public ReadSubMethodInfo(LaesInputType input, SourceUsageOrder localAction)
             : this()
         {
             this.Input = input;
