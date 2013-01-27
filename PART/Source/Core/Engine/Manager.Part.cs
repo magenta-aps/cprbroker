@@ -61,7 +61,7 @@ namespace CprBroker.Engine
     {
         public static class Part
         {
-            public static LaesOutputType Read(string userToken, string appToken, LaesInputType input, out QualityLevel? qualityLevel, SourceUsageOrder localAction)
+            public static LaesOutputType Read(string userToken, string appToken, LaesInputType input, SourceUsageOrder localAction, out QualityLevel? qualityLevel)
             {
                 ReadFacadeMethodInfo facadeMethod = new ReadFacadeMethodInfo(input, localAction, appToken, userToken);
                 var ret = GetMethodOutput<LaesOutputType, LaesResultatType>(facadeMethod);
@@ -69,7 +69,7 @@ namespace CprBroker.Engine
                 return ret;
             }
 
-            public static ListOutputType1 List(string userToken, string appToken, ListInputType input, out QualityLevel? qualityLevel)
+            public static ListOutputType1 List(string userToken, string appToken, ListInputType input, SourceUsageOrder localAction, out QualityLevel? qualityLevel)
             {
                 ListOutputType1 ret = null;
 
