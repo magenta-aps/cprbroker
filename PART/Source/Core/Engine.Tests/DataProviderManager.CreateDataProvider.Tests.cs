@@ -8,39 +8,54 @@ using CprBroker.Engine;
 
 namespace CprBroker.Tests.Engine
 {
-    [TestFixture]
-    partial class DataProviderManagerTests
+    namespace DataProviderManagerTests
     {
-        [Test]
-        [ExpectedException]
-        public void CreateDataProvider_Null_ThrowsException()
+        [TestFixture]
+        public class CreateDataProvider : Base
         {
-            DataProviderManager.CreateDataProvider(null);
-        }
+            [Test]
+            [ExpectedException]
+            public void CreateDataProvider_Null_ThrowsException()
+            {
+                DataProviderManager.CreateDataProvider(null);
+            }
 
-        [Test]
-        public void CreateDataProvider_FakeType_ReturnsNull()
-        {
-            var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = "kaaklsdflksah" });
-            Assert.Null(result);
-        }
+            [Test]
+            public void CreateDataProvider_FakeType_ReturnsNull()
+            {
+                var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = "kaaklsdflksah" });
+                Assert.Null(result);
+            }
 
-        [Test]
-        public void CreateDataProvider_RealInvalidType_ReturnsNull(
-            [Values(typeof(object), typeof(LocalDataProviderStub))]Type type)
-        {
-            var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
-            Assert.Null(result);
-        }
+            [Test]
+            public void CreateDataProvider_RealInvalidType_ReturnsNull(
+                [Values(typeof(object), typeof(LocalDataProviderStub))]Type type)
+            {
+                var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
+                Assert.Null(result);
+            }
 
-        [Test]
-        public void CreateDataProvider_RealCorrectType_ReturnsNotNull(
-            [Values(typeof(CustomExternalDataProviderStub))]Type type)
-        {
-            var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
-            Assert.NotNull(result);
-        }
+            [Test]
+            public void CreateDataProvider_RealCorrectType_ReturnsNotNull(
+                [Values(typeof(CustomExternalDataProviderStub))]Type type)
+            {
+                var result = DataProviderManager.CreateDataProvider(new DataProvider() { TypeName = type.AssemblyQualifiedName });
+                Assert.NotNull(result);
+            }
 
+            [Test]
+            public void CreateDataProvider_NewProperty_NoException()
+            {
+                var dbProvider = new Data.DataProviders.DataProvider()
+                {
+                    TypeName = typeof(DataProviderWithNewConfigProperty).AssemblyQualifiedName
+                };
+                var createdProvider = DataProviderManager.CreateDataProvider(dbProvider) as DataProviderWithNewConfigProperty;
+                createdProvider.PropertyType = DataProviderConfigPropertyInfoTypes.Boolean;
+                var result = createdProvider.BooleanPropertyValue;
+
+            }
+        }
 
         public class DataProviderWithNewConfigProperty : IExternalDataProvider
         {
@@ -75,19 +90,6 @@ namespace CprBroker.Tests.Engine
                     return Convert.ToBoolean(ConfigurationProperties[PropertyName]);
                 }
             }
-
-        }
-
-        [Test]
-        public void CreateDataProvider_NewProperty_NoException()
-        {
-            var dbProvider = new Data.DataProviders.DataProvider()
-            {
-                TypeName = typeof(DataProviderWithNewConfigProperty).AssemblyQualifiedName
-            };
-            var createdProvider = DataProviderManager.CreateDataProvider(dbProvider) as DataProviderWithNewConfigProperty;
-            createdProvider.PropertyType = DataProviderConfigPropertyInfoTypes.Boolean;
-            var result = createdProvider.BooleanPropertyValue;
 
         }
 
