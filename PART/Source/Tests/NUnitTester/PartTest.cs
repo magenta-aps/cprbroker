@@ -149,7 +149,7 @@ namespace CprBroker.NUnitTester
             ValidateInvalid(uuid);
         }
 
-        [Test]
+        /*[Test]
         public void T220_GetUuidArray([Values(1, 10, 100, 200, 300, 400, 500)]int count)
         {
             string[] cprNumberArray = Utilities.RandomCprNumbers(count);
@@ -167,9 +167,9 @@ namespace CprBroker.NUnitTester
             {
                 Assert.AreEqual(uuids[i], uuidBatch.UUID[i]);
             }
-        }
+        }*/
 
-        [Test]
+        /*[Test]
         public void T220_GetUuidArray_MixedExistingAndNew_AllFound([Values(1, 10, 100, 200, 300, 400, 500)]int newCount)
         {
             List<string> cprNumberArray = new List<string>();
@@ -179,7 +179,7 @@ namespace CprBroker.NUnitTester
             var uuidBatch = TestRunner.PartService.GetUuidArray(cprNumberArray.ToArray());
             Validate(uuidBatch.StandardRetur);
             Assert.AreEqual(cprNumberArray.Count, uuidBatch.UUID.Length);
-        }
+        }*/
 
         [Test]
         [TestCaseSource(typeof(TestData), TestData.CprNumbersFieldName)]
@@ -215,6 +215,7 @@ namespace CprBroker.NUnitTester
             {
                 UUID = uuid,
             };
+            TestRunner.PartService.SourceUsageOrderHeaderValue = new SourceUsageOrderHeader() { SourceUsageOrder = SourceUsageOrder.LocalThenExternal };
             var person = TestRunner.PartService.Read(input);
             Assert.IsNotNull(person);
             ValidateInvalid(person.StandardRetur);
