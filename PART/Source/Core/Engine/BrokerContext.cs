@@ -113,7 +113,7 @@ namespace CprBroker.Engine
                 Current.UserToken = userToken;
                 Current.UserName = Security.CurrentUser;
 
-                Application currentApplication = dataContext.Applications.SingleOrDefault(app => app.Token.ToString() == appToken && app.IsApproved == true);
+                Application currentApplication = dataContext.Applications.SingleOrDefault(app => app.Token == appToken && app.IsApproved == true);
                 if (currentApplication != null)
                 {
                     Current.ApplicationId = currentApplication.ApplicationId;
