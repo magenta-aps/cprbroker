@@ -163,7 +163,7 @@ namespace CprBroker.Engine
             using (var dataContext = new CprBroker.Data.DataProviders.DataProvidersDataContext())
             {
                 var dbProviders = (from prov in dataContext.DataProviders
-                                   where prov.IsEnabled
+                                   where prov.IsEnabled == true
                                    orderby prov.Ordinal
                                    select prov).ToArray();
                 return dbProviders;
