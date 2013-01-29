@@ -338,7 +338,7 @@ namespace CprBroker.Web.Pages
 
         protected DataProvider[] LoadDataProviders(DataProvidersDataContext dataContext)
         {
-            return dataContext.DataProviders.Where(dp => dp.IsExternal).OrderBy(dp => dp.Ordinal).ToArray();
+            return dataContext.DataProviders.Where(dp => dp.IsExternal == true).OrderBy(dp => dp.Ordinal).ToArray();
         }
         #endregion
     }
