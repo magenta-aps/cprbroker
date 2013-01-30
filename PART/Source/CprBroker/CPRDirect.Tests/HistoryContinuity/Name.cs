@@ -63,27 +63,36 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
 
         protected override List<INameSource> GetHistorical(IndividualResponseType pers)
         {
-            return pers.HistoricalName.Select(n => n as INameSource).ToList();
+            return pers.HistoricalName.Where(n => n.CorrectionMarker == ' ').Select(n => n as INameSource).ToList();
         }
 
 
         // It is now clear that historical records come in the order from older to newer
         // Those with a correction marker seem OK to drop
 
-        // TODO: Start date for first name is uncertain and unconvertible to date time, what do we do
-        /*            
-        026 0709614118 Gitte    Nielsen   19610000 1299 * 19611107 1200
-        026 0709614118 Gitte    Jensen    19611107 1200   19790501 2000
-        008 0709614118 Gitte    Sander    19790501 2000
-        */
+        [Test]
+        [TestCaseSource("PNRs")]        
+        public override void HistoryContinues(string pnr)
+        {
+            base.HistoryContinues(pnr);
+            
+            // Invalid data. Second row in historical data has start date > end date !!!!!!!!!!
+            /*
+             * 026 0709614096 Bettina    Kristensen      1961-11-07 12:00   1961-10-07 20:00
+             * 026 0709614096 Bettina    Christiansen    1961-10-07 20:00   2000-12-31 10:20
+             * 008 0709614096 Bettina    Folmersen       2000-12-31 10:20
+            */
 
-        // Invalid data. Second row in historical data has start date > end date !!!!!!!!!!
-        /*
-        026 0709614096 Bettina    Kristensen      1961-11-07 12:00   1961-10-07 20:00
-        026 0709614096 Bettina    Christiansen    1961-10-07 20:00   2000-12-31 10:20
-        008 0709614096 Bettina    Folmersen       2000-12-31 10:20
-        */
+            
+            // TODO: Start date for first name is uncertain and unconvertible to date time, what do we do
+            // No problem here, but needs to be thought of
+            /*            
+             * 026 0709614118 Gitte    Nielsen   19610000 1299 * 19611107 1200
+             * 026 0709614118 Gitte    Jensen    19611107 1200   19790501 2000
+             * 008 0709614118 Gitte    Sander    19790501 2000
+            */
 
+        }
 
 
 

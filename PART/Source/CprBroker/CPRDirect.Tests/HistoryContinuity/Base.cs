@@ -54,40 +54,48 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.Tests.CPRDirect.HistoryContinuity
 {
-    public abstract class Base<T> where T : ITimedType
+    public abstract class Base<TInterface> where TInterface : ITimedType
     {
         public string[] PNRs = null;
 
         public Base()
         {
             var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-            PNRs = all.Select(p => p.PersonInformation.PNR).ToArray();
+            PNRs = all.Select(p => p.PersonInformation.PNR).OrderBy(p=>p).ToArray();
         }
 
-        protected abstract T GetCurrent(IndividualResponseType pers);
-        protected abstract List<T> GetHistorical(IndividualResponseType pers);
+        protected abstract TInterface GetCurrent(IndividualResponseType pers);
+        protected abstract List<TInterface> GetHistorical(IndividualResponseType pers);
 
-        public List<T> GetObjects(IndividualResponseType pers)
+        public IndividualResponseType GetPerson(string pnr)
         {
-            var names = new List<T>();
+            var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+            return all.Where(p => p.PersonInformation.PNR == pnr).First();
+        }
+
+        public List<TInterface> GetObjects(IndividualResponseType pers)
+        {
+            var names = new List<TInterface>();
             names.AddRange(
                 GetHistorical(pers)
                 .OrderBy(n => n.ToStartTS())
                 .ToArray());
 
-            names.Add(GetCurrent(pers));
+            var current = GetCurrent(pers);
+            if (current != null)
+                names.Add(current);
+
             return names;
         }
 
         [Test]
         [TestCaseSource("PNRs")]
-        public void HistoryContinues(string pnr)
+        public virtual void HistoryContinues(string pnr)
         {
-            var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-            var pers = all.Where(p => p.PersonInformation.PNR == pnr).First();
+            var pers = GetPerson(pnr);
 
             var objects = GetObjects(pers);
-
+            //System.Diagnostics.Debugger.Launch();
             for (int i = 0; i < objects.Count - 1; i++)
             {
                 var current = objects[i];
@@ -98,14 +106,22 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
 
         [Test]
         [TestCaseSource("PNRs")]
+        public virtual void Current_NotNull(string pnr)
+        {
+            var pers = GetPerson(pnr);
+            var obj = GetCurrent(pers);
+            Assert.NotNull(obj);
+        }
+
+        //[Test]
+        //[TestCaseSource("PNRs")]
         public void HistoryStartsAtBirth(string pnr)
         {
-            var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-            var pers = all.Where(p => p.PersonInformation.PNR == pnr).First();
+            var pers = GetPerson(pnr);
 
-            var names = GetObjects(pers);
+            var objects = GetObjects(pers);
 
-            Assert.AreEqual(names.First().ToStartTS(), pers.PersonInformation.Birthdate.Value);
+            Assert.AreEqual(objects.First().ToStartTS(), pers.PersonInformation.Birthdate.Value);
         }
     }
 }
