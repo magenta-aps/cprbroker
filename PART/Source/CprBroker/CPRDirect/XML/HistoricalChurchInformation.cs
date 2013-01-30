@@ -64,14 +64,17 @@ namespace CprBroker.Providers.CPRDirect
             get { return DataTypeTags.Church; }
         }
 
-        public DateTime? ToEndTS()
-        {
-            return Converters.ToDateTime(this.EndDate, this.EndDateUncertainty);
-        }
-
         public DateTime? ToStartTS()
         {
-            return Converters.ToDateTime(this.StartDate, this.StartDateUncertainty);
+            return this.StartDate;
+            //return Converters.ToDateTime(this.StartDate, this.StartDateUncertainty);
         }
+
+        public DateTime? ToEndTS()
+        {
+            return this.EndDate;
+            //return Converters.ToDateTime(this.EndDate, this.EndDateUncertainty);
+        }
+
     }
 }
