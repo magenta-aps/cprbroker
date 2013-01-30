@@ -69,8 +69,13 @@ namespace CprBroker.Providers.CPRDirect
         public EgenskabInterval[] ToEgenskabIntervals()
         {
             var dataObjects = new List<ITimedType>();
+
             dataObjects.Add(this.CurrentNameInformation);
-            dataObjects.AddRange(this.HistoricalName.ToArray());
+            dataObjects.AddRange(
+                this.HistoricalName
+                .Where(n => n.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .ToArray()
+                );
 
             var ret = Interval.CreateFromData<EgenskabInterval>(dataObjects.Where(o => o != null).AsQueryable());
             Array.ForEach<EgenskabInterval>(ret, interval =>
@@ -175,22 +180,40 @@ namespace CprBroker.Providers.CPRDirect
             //dataObjects.AddRange(this.HistoricalCivilStatus.ToArray());
 
             dataObjects.Add(this.GetFolkeregisterAdresseSource(false));
-            dataObjects.AddRange(this.HistoricalAddress.ToArray());
+            dataObjects.AddRange(
+                this.HistoricalAddress
+                .Where(a => a.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .ToArray());
 
             dataObjects.Add(this.CurrentDepartureData);
-            dataObjects.AddRange(this.HistoricalDeparture.ToArray());
+            dataObjects.AddRange(
+                this.HistoricalDeparture
+                .Where(d => d.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .ToArray()
+                );
 
             dataObjects.Add(this.CurrentDisappearanceInformation);
-            dataObjects.AddRange(this.HistoricalDisappearance.ToArray());
+            dataObjects.AddRange(
+                this.HistoricalDisappearance
+                .Where(d => d.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .ToArray()
+                );
 
             dataObjects.Add(this.ChurchInformation);
-            dataObjects.AddRange(this.HistoricalChurchInformation.ToArray());
+            dataObjects.AddRange(
+                this.HistoricalChurchInformation
+                .ToArray());
 
             dataObjects.Add(new CurrentPnrTypeAdaptor(this.PersonInformation, this.HistoricalPNR));
-            dataObjects.AddRange(this.HistoricalPNR.ToArray());
+            dataObjects.AddRange(
+                this.HistoricalPNR
+                .ToArray());
 
             dataObjects.Add(this.CurrentCitizenship);
-            dataObjects.AddRange(this.HistoricalCitizenship.ToArray());
+            dataObjects.AddRange(
+                this.HistoricalCitizenship
+                .Where(c => c.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .ToArray());
 
             return dataObjects.Where(o => o != null).ToArray();
         }
