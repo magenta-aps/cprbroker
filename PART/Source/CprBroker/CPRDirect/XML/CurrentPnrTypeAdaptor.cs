@@ -76,11 +76,6 @@ namespace CprBroker.Providers.CPRDirect
             get { return DataTypeTags.PNR; }
         }
 
-        public DateTime? ToEndTS()
-        {
-            return Converters.ToDateTime(this.PersonInformation.PersonEndDate, this.PersonInformation.PersonEndDateUncertainty);
-        }
-
         public DateTime? ToStartTS()
         {
             if (HistoricalPnrs.Count > 0)
@@ -93,6 +88,11 @@ namespace CprBroker.Providers.CPRDirect
                 return null;                
                 //return Converters.ToDateTime(this.PersonInformation.PersonStartDate, this.PersonInformation.PersonStartDateUncertainty);
             }
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return Converters.ToDateTime(this.PersonInformation.PersonEndDate, this.PersonInformation.PersonEndDateUncertainty);
         }
 
         public bool ToPersonNummerGyldighedStatusIndikator()
