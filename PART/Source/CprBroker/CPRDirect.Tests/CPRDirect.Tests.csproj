@@ -69,7 +69,9 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="HistoryContinuity\Base.cs" />
     <Compile Include="HistoryContinuity\Church.cs" />
+    <Compile Include="HistoryContinuity\Citizenship.cs" />
     <Compile Include="HistoryContinuity\Name.cs" />
+    <Compile Include="HistoryContinuity\Pnr.cs" />
     <Compile Include="Objects\Authority.Tests.cs" />
     <Compile Include="Objects\BirthRegistrationInformation.Tests.cs" />
     <Compile Include="Objects\ChildTests.cs" />
