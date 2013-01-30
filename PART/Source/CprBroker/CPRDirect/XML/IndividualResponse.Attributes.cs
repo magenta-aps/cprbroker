@@ -171,9 +171,6 @@ namespace CprBroker.Providers.CPRDirect
         {
             var dataObjects = new List<ITimedType>();
 
-            //dataObjects.Add(this.CurrentNameInformation);
-            //dataObjects.AddRange(this.HistoricalName.ToArray());
-
             //dataObjects.Add(this.CurrentCivilStatus);
             //dataObjects.AddRange(this.HistoricalCivilStatus.ToArray());
 
@@ -182,6 +179,9 @@ namespace CprBroker.Providers.CPRDirect
 
             dataObjects.Add(this.CurrentDepartureData);
             dataObjects.AddRange(this.HistoricalDeparture.ToArray());
+
+            dataObjects.Add(this.CurrentDisappearanceInformation);
+            dataObjects.AddRange(this.HistoricalDisappearance.ToArray());
 
             dataObjects.Add(this.ChurchInformation);
             dataObjects.AddRange(this.HistoricalChurchInformation.ToArray());
@@ -269,6 +269,10 @@ namespace CprBroker.Providers.CPRDirect
             else if (this.CurrentDepartureData != null && !this.CurrentDepartureData.IsEmpty)
             {
                 return CurrentDepartureData;
+            }
+            else if (this.CurrentDisappearanceInformation != null)
+            {
+                return CurrentDisappearanceInformation;
             }
             else if (putDummy)
             {

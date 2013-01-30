@@ -61,12 +61,14 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime? ToStartTS()
         {
-            return Converters.ToDateTime(this.ExitDate, this.ExitDateUncertainty);
+            return this.ExitDate;
+            //return Converters.ToDateTime(this.ExitDate, this.ExitDateUncertainty);
         }
 
         public DateTime? ToEndTS()
         {
-            return Converters.ToDateTime(this.EntryDate, this.EntryDateUncertainty);
+            return this.EntryDate;
+            //return Converters.ToDateTime(this.EntryDate, this.EntryDateUncertainty);
         }
 
         public string ToAddressNoteTekste()
