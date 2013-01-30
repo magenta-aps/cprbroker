@@ -77,7 +77,6 @@ namespace CprBroker.Providers.CPRDirect
             //return Converters.ToDateTime(this.OldPNREndDate, this.OldPNREndDateUncertainty);
         }
 
-
         public bool ToPersonNummerGyldighedStatusIndikator()
         {
             return false;
