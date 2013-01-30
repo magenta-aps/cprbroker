@@ -82,7 +82,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime? ToStartTS()
         {
-            return Converters.ToDateTime(this.NameStartDate, this.NameStartDateUncertainty);
+            return this.NameStartDate;
         }
 
         public DateTime? ToEndTS()

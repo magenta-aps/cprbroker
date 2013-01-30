@@ -89,11 +89,10 @@ namespace CprBroker.Providers.CPRDirect
 
         DateTime? ITimedType.ToStartTS()
         {
-            return this.NameStartDate.HasValue ?
-                this.NameStartDate
-                :
-                // This handles cases of first historical name (test citizen 0708614327)
-                Utilities.Strings.PersonNumberToDate(this.PNR);
+            return this.NameStartDate;
+
+            // This handles cases of first historical name (test citizen 0708614327)
+            //Utilities.Strings.PersonNumberToDate(this.PNR);
             // TODO: How to propagate date uncertainty
             //return Converters.ToDateTime(this.NameStartDate, this.NameStartDateUncertainty);
         }
