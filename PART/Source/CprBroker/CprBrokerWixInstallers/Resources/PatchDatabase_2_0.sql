@@ -1,4 +1,26 @@
-﻿-----------------------------------------------------------------
+﻿---------------------------------------
+-----  Table for extract errors  ------
+---------------------------------------
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name='ExtractError')
+CREATE TABLE dbo.ExtractError(
+    ExtractErrorId uniqueidentifier NOT NULL DEFAULT(newid()),
+    ExtractId uniqueidentifier NOT NULL,
+    Contents nvarchar(157) NOT NULL,
+
+    CONSTRAINT PK_ExtractError PRIMARY KEY CLUSTERED 
+    (	ExtractErrorId ASC
+    ) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON),
+
+    CONSTRAINT	FK_ExtractError_Extract FOREIGN KEY
+    (	ExtractId
+    ) REFERENCES dbo.Extract(ExtractId) ON UPDATE  CASCADE ON DELETE CASCADE 	
+)
+
+GO
+
+
+-----------------------------------------------------------------
 -----  Allow multiple attributes in a single registration  ------
 -----------------------------------------------------------------
 
