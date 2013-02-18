@@ -58,11 +58,16 @@ namespace CprBroker.Providers.CPRDirect
         public StartRecordType StartWrapper { get; private set; }
         public LineWrapper StartLine { get; private set; }
         public LineWrapper EndLine { get; private set; }
+        public LineWrapper[] ErrorLines { get; private set; }
 
         public ExtractParseResult(string batchFileText, Dictionary<string, Type> dataObjectMap)
         {
             this.Wrappers = Wrapper.Parse(batchFileText, dataObjectMap);
-            this.Lines = this.Wrappers.Select(w => new LineWrapper(w.Contents)).ToList();
+            var wrappersAndLines = this.Wrappers.Select(w => new { Wrapper = w, Line = new LineWrapper(w.Contents) }).ToArray();
+
+            // Isolate error lines
+            this.ErrorLines = wrappersAndLines.Where(wl => wl.Wrapper is ErrorRecordType).Select(wl => wl.Line).ToArray();
+            this.Lines = wrappersAndLines.Where(wl => !(wl.Wrapper is ErrorRecordType)).Select(wl => wl.Line).ToList();
 
             this.StartWrapper = this.Wrappers.First() as StartRecordType;
             this.StartLine = this.Lines.First();
@@ -107,5 +112,16 @@ namespace CprBroker.Providers.CPRDirect
                    })
                .ToList();
         }
+
+        public List<ExtractError> ToExtractErrors(Guid extractId)
+        {
+            return this.ErrorLines.Select(el => new ExtractError
+            {
+                ExtractErrorId = Guid.NewGuid(),
+                ExtractId = extractId,
+                Contents = el.Contents
+            }).ToList();
+        }
+
     }
 }

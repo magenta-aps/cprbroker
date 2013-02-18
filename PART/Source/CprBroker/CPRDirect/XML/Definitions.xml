@@ -396,6 +396,14 @@
       <!--MORE FIELDS-->
     </Object>
 
+    <Object name="ErrorRecord" danishName="P12170-910" length="157" description="Error record" minOccurs="0" maxOccurs="100">
+      <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
+      <Attribute name="ErrorField" danishName="SORTFELT-10" format="Alpha" length="10" position="4" description="Can such. be PNR, FOEDDTO, KOEN (SEX) KOMKOD, VEJKOD"/>
+      <Attribute name="Input" danishName="INDDATA" format="Alpha" length="75" position="14" description="Input"/>
+      <Attribute name="ErrorNumber" danishName="FEJLNR" format="Numeric" length="4" position="89" description="Error number"/>
+      <Attribute name="ErrorText" danishName="FEJLTXT-UDTRÆK" format="Alpha" length="65" position="93" description="Error text"/>
+    </Object>
+
     <Object name="EndRecord" danishName="P12170-999" length="21" description="End record">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="BlackBox10" danishName="TAELLER" format="Alpha" length="10" position="4" description="BLACK BOX 10"/>

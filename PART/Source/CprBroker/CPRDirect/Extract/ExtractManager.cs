@@ -71,6 +71,7 @@ namespace CprBroker.Providers.CPRDirect
             var extract = parseResult.ToExtract(sourceFileName);
             var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
             var extractStaging = parseResult.ToExtractPersonStagings(extract.ExtractId);
+            var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
             using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
             {
@@ -81,6 +82,7 @@ namespace CprBroker.Providers.CPRDirect
                     conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
                     conn.BulkInsertAll<ExtractItem>(extractItems, trans);
                     conn.BulkInsertAll<ExtractPersonStaging>(extractStaging, trans);
+                    conn.BulkInsertAll<ExtractError>(extractErrors, trans);
                     trans.Commit();
                 }
 
@@ -257,7 +259,6 @@ namespace CprBroker.Providers.CPRDirect
             }
             Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() ending, batch size: <{0}>, succeeded: <{1}>, failed: <{2}>", batchSize, succeeded.Count, failed.Count);
         }
-
 
     }
 }

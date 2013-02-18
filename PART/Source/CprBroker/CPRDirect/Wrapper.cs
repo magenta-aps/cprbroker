@@ -232,17 +232,17 @@ namespace CprBroker.Providers.CPRDirect
             wrappers.RemoveAll(w => w == null);
 
             Type myType = GetType();
-            var fields = myType.GetProperties();
-            foreach (System.Reflection.PropertyInfo field in fields)
+            var properties = myType.GetProperties();
+            foreach (System.Reflection.PropertyInfo property in properties)
             {
-                var minMaxAttr = field.GetCustomAttributes(typeof(MinMaxOccurs), true).SingleOrDefault() as MinMaxOccurs;
+                var minMaxAttr = property.GetCustomAttributes(typeof(MinMaxOccurs), true).SingleOrDefault() as MinMaxOccurs;
                 if (minMaxAttr == null)
                 {
                     continue;
                 }
-                if (typeof(System.Collections.IList).IsAssignableFrom(field.PropertyType) && field.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+                if (typeof(System.Collections.IList).IsAssignableFrom(property.PropertyType) && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
                 {
-                    var args = field.PropertyType.GetGenericArguments();
+                    var args = property.PropertyType.GetGenericArguments();
                     if (args.Length == 1)
                     {
                         var innerType = args[0];
@@ -251,8 +251,8 @@ namespace CprBroker.Providers.CPRDirect
                             var arrayVal = wrappers.Where(obj => obj.GetType() == innerType).ToArray();
                             foreach (var singleVal in arrayVal)
                             {
-                                var fieldValue = field.GetValue(this, null);
-                                field.PropertyType.InvokeMember(
+                                var fieldValue = property.GetValue(this, null);
+                                property.PropertyType.InvokeMember(
                                     "Add",
                                     System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Instance,
                                     null,
@@ -264,10 +264,10 @@ namespace CprBroker.Providers.CPRDirect
 
                     }
                 }
-                else if (typeof(Wrapper).IsAssignableFrom(field.PropertyType))
+                else if (typeof(Wrapper).IsAssignableFrom(property.PropertyType))
                 {
-                    var val = wrappers.Where(obj => obj.GetType() == field.PropertyType).SingleOrDefault();
-                    field.SetValue(this, val, null);
+                    var val = wrappers.Where(obj => obj.GetType() == property.PropertyType).SingleOrDefault();
+                    property.SetValue(this, val, null);
                     minMaxAttr.ValidateSingleObject(val);
                 }
             }

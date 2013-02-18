@@ -10,6 +10,7 @@
       <Column Name="Ready" Type="System.Boolean" DbType="BIT" CanBeNull="false" />
       <Association Name="Extract_ExtractItem" Member="ExtractItems" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractItem" />
       <Association Name="Extract_ExtractPersonStaging" Member="ExtractPersonStagings" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractPersonStaging" />
+      <Association Name="Extract_ExtractError" Member="ExtractErrors" ThisKey="ExtractId" OtherKey="ExtractId" Type="ExtractError" />
     </Type>
   </Table>
   <Table Name="dbo.ExtractItem" Member="ExtractItems">
@@ -29,6 +30,14 @@
       <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="PNR" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Association Name="Extract_ExtractPersonStaging" Member="Extract" ThisKey="ExtractId" OtherKey="ExtractId" Type="Extract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExtractError" Member="ExtractErrors">
+    <Type Name="ExtractError">
+      <Column Name="ExtractErrorId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Contents" Type="System.String" DbType="NVarChar(157) NOT NULL" CanBeNull="false" />
+      <Association Name="Extract_ExtractError" Member="Extract" ThisKey="ExtractId" OtherKey="ExtractId" Type="Extract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>
