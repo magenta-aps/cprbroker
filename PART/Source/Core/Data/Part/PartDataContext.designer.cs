@@ -8245,7 +8245,7 @@ namespace CprBroker.Data.Part
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BirthPlace", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BirthPlace", DbType="VarChar(132)")]
 		public string BirthPlace
 		{
 			get
@@ -8265,7 +8265,7 @@ namespace CprBroker.Data.Part
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BirthRegistrationAuthority", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BirthRegistrationAuthority", DbType="VarChar(60)")]
 		public string BirthRegistrationAuthority
 		{
 			get

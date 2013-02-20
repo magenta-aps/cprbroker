@@ -370,8 +370,8 @@
       <Column Name="AddressingName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="GenderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="BirthPlace" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="BirthRegistrationAuthority" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BirthPlace" Type="System.String" DbType="VarChar(132)" CanBeNull="true" />
+      <Column Name="BirthRegistrationAuthority" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
       <Column Name="ContactChannelId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="NextOfKinContactChannelId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="OtherAddressId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
