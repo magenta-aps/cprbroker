@@ -7,7 +7,7 @@ using CprBroker.Utilities.ConsoleApps;
 
 namespace BatchClient
 {
-    class PartClient : ConsoleEnvironment
+    public class PartClient : ConsoleEnvironment
     {
         public string[] LoadCprNumbersOneByOne()
         {
@@ -60,6 +60,19 @@ namespace BatchClient
                 }
             }
             return ret.ToArray();
+        }
+
+        public bool ValidateResult(string cprNumber, string methodName, BatchClient.Part.StandardReturType standardRetur)
+        {
+            int statusCode;
+            if (int.TryParse(standardRetur.StatusKode, out statusCode) && statusCode == 200)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception(string.Format("{0} {1} {2} {3}", cprNumber, methodName, standardRetur.StatusKode, standardRetur.FejlbeskedTekst));
+            }
         }
     }
 }

@@ -89,18 +89,6 @@ namespace BatchClient
             //WriteObject(cprNumber, readResult.LaesResultat.Item);
         }
 
-        public bool ValidateResult(string cprNumber, string methodName, BatchClient.Part.StandardReturType standardRetur)
-        {
-            int statusCode;
-            if (int.TryParse(standardRetur.StatusKode, out statusCode) && statusCode == 200)
-            {
-                return true;
-            }
-            else
-            {
-                throw new Exception(string.Format("{0} {1} {2} {3}", cprNumber, methodName, standardRetur.StatusKode, standardRetur.FejlbeskedTekst));
-            }
-        }
 
     }
 }
