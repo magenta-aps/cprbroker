@@ -71,8 +71,17 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         [TestCaseSource("PNRs")]
         public override void HistoryContinues(string pnr)
         {
-            // TODO: Shall we use PersonInformation.PersonStartDate as the start TS instead of current code?
-            throw new NotImplementedException();
+            base.HistoryContinues(pnr);
+
+            /*
+             * Persons who have PersonInformation.PersonEndDate not null, but with Status = 1
+             * Is this case possible in real data? 
+             * If yes, why?
+             * 
+             * 0707614234
+             * 0710614326
+             */
         }
+
     }
 }
