@@ -56,7 +56,7 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return TimeSpan.FromSeconds(BatchSize);
+            return TimeSpan.FromSeconds(BatchSize * 1.25);
         }
 
         public const int BatchSize = 100;
