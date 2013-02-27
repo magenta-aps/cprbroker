@@ -62,7 +62,6 @@ namespace CprBroker.Tests.CPRDirect.Persons
             var p = this.GetPerson();
             var n = p.CurrentNameInformation;
             var his = p.HistoricalName.Select(h => new { S = h.NameStartDate, E = h.NameEndDate,MR=h.CorrectionMarker,F = h.FirstName_s, M = h.MiddleName, L = h.LastName }).ToArray();
-            System.Diagnostics.Debugger.Launch();
         }
 
         [Test]
@@ -71,7 +70,6 @@ namespace CprBroker.Tests.CPRDirect.Persons
             var p = GetPerson();
             var c = p.CurrentCitizenship;
             var h = p.HistoricalCitizenship.First();
-            System.Diagnostics.Debugger.Launch();
         }
     }
 }

@@ -141,9 +141,9 @@ namespace CprBroker.Tests.CPRDirect.Objects
         public class ToAdresseType
         {
             [Test]
-            public void ToAdresseType_Empty_VerdenAdress()
+            public void ToAdresseType_Country_VerdenAdress()
             {
-                var db = new CurrentDepartureDataType();
+                var db = new CurrentDepartureDataType() { ExitCountryCode = 22 };
                 var ret = db.ToAdresseType();
                 Assert.IsInstanceOf<VerdenAdresseType>(ret.Item);
             }
