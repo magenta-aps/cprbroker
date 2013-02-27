@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.E_M
 {
-    public partial class Citizen
+    public partial class CitizenReadyAddress
     {
         public virtual AdresseType ToAdresseType()
         {
@@ -64,13 +64,9 @@ namespace CprBroker.Providers.E_M
 
         public DanskAdresseType ToDanskAdresseType()
         {
-            string postCode;
-            string postDistrict;
-            GetPostCodeAndDistrict(out postCode, out postDistrict);
-
             var ret = new DanskAdresseType()
             {
-                AddressComplete = this.ToAddressCompleteType(postCode),
+                AddressComplete = this.ToAddressCompleteType(),
                 // No address point for persons
                 AddressPoint = null,
                 // No address note
@@ -78,7 +74,7 @@ namespace CprBroker.Providers.E_M
                 // No political districts
                 PolitiDistriktTekst = null,
                 // Set post district
-                PostDistriktTekst = postDistrict,
+                PostDistriktTekst = this.PostDistrict,
                 // No school district
                 SkoleDistriktTekst = null,
                 // No social disrict
@@ -109,12 +105,12 @@ namespace CprBroker.Providers.E_M
             }
         }
 
-        public AddressCompleteType ToAddressCompleteType(string postCode)
+        public AddressCompleteType ToAddressCompleteType()
         {
             return new CprBroker.Schemas.Part.AddressCompleteType()
            {
                AddressAccess = this.ToAddressAccessType(),
-               AddressPostal = this.ToAddressPostalType(postCode)
+               AddressPostal = this.ToAddressPostalType()
            };
         }
 
@@ -135,32 +131,40 @@ namespace CprBroker.Providers.E_M
         /// <param name="postCode"></param>
         /// <param name="postDistrict"></param>
         /// <returns></returns>
-        public AddressPostalType ToAddressPostalType(string postCode)
+        public AddressPostalType ToAddressPostalType()
         {
-            Road activeRoad = GetActiveRoad();
-
             var ret = new CprBroker.Schemas.Part.AddressPostalType()
            {
                // Set country code
                CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
-               // DistrictSubdivisionIdentifier is not supported
-               DistrictSubdivisionIdentifier = null,
+               
+               // Equals city name
+               DistrictSubdivisionIdentifier = this.CityName,
+               
                // Set floor
                FloorIdentifier = Converters.ToNeutralString(this.Floor),
+               
                // MailDeliverySublocationIdentifier is not supported
                MailDeliverySublocationIdentifier = null,
+               
                // Set post code
-               PostCodeIdentifier = postCode,
-               // City/Town not supported in E&M
-               DistrictName = null,
+               PostCodeIdentifier = this.PostCode.ToString(),
+               
+               // Set to post district
+               DistrictName = this.PostDistrict,
+               
                // PostOfficeBoxIdentifier is not supported
                PostOfficeBoxIdentifier = null,
+               
                // Set building identifier
                StreetBuildingIdentifier = Converters.ToNeutralString(this.HouseNumber),
+               
                // Set street name
-               StreetName = Converters.ToNeutralString(activeRoad.RoadName),
+               StreetName = Converters.ToNeutralString(this.RoadName),
+               
                // Set street addressing name
-               StreetNameForAddressingName = Converters.ToNeutralString(activeRoad.RoadAddressingName),
+               StreetNameForAddressingName = Converters.ToNeutralString(this.GetActiveRoad().RoadAddressingName),
+               
                // Set suite identifier
                SuiteIdentifier = Converters.ToNeutralString(this.Door),
            };
@@ -174,58 +178,6 @@ namespace CprBroker.Providers.E_M
                 throw new ArgumentException(string.Format("Road property cannot be null"));
             }
             return this.Roads.OrderByDescending(rd => rd.RoadEndDate).First();
-        }
-
-        /// <summary>
-        /// Tries to extract the post code and postal district name for a citizen, and fill the out parameters
-        /// First, looks for a matching record in HousePostCode, by municiplity, road and house numbers
-        /// If not found, checks is the municipality and road codes map to a single postal code (and district), and gets them
-        /// If not found (or more than one post code is found), tries to match the house with a house number range in HouseRangePostCodes (with the same municipality and road codes and road side)
-        /// If found, returns the found post code (this view does not have a post district)
-        /// Otherwise returns null for both fields
-        /// </summary>
-        /// <param name="postCode">The found post code, or null if not found</param>
-        /// <param name="postDistrict">The found post district, or null if not found</param>
-        public void GetPostCodeAndDistrict(out string postCode, out string postDistrict)
-        {
-            postCode = null;
-            postDistrict = null;
-
-            short postCodeInt = -1;
-            if (this.HousePostCode != null)
-            {
-                postCodeInt = this.HousePostCode.PostCode;
-                postDistrict = this.HousePostCode.PostDistrict;
-            }
-            else // try to find if the whole street belongs to a single Post district
-            {
-                var roadPostCodes = this.RoadPostCodes.Select(rps => new { rps.PostCode, rps.PostDistrict }).Distinct().ToArray();
-                if (roadPostCodes.Length == 1)
-                {
-                    postCodeInt = roadPostCodes[0].PostCode;
-                    postDistrict = roadPostCodes[0].PostDistrict;
-                }
-                else // Try to see if the house number falls in a specific house range with post code
-                {
-                    var houseRangePostCodes = this.HouseRangePostCodes.ToArray();
-                    var houseNumber = Converters.ToNeutralHouseNumber(this.HouseNumber);
-                    var houseRangePostCode = houseRangePostCodes
-                        .Where(
-                            hrpc => houseNumber >= Converters.ToNeutralHouseNumber(hrpc.FromHouseNumber)
-                                && houseNumber <= Converters.ToNeutralHouseNumber(hrpc.ToHouseNumber)
-                                ).FirstOrDefault();
-                    if (houseRangePostCode != null)
-                    {
-                        postCodeInt = houseRangePostCode.PostCode;
-                        postDistrict = null;
-                    }
-                }
-            }
-            if (postCodeInt > -1)
-            {
-                postCode = Converters.ShortToString(postCodeInt);
-            }
-            postDistrict = Converters.ToNeutralString(postDistrict);
         }
     }
 }

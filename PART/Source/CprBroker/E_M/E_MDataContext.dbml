@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="E&amp;M" Class="E_MDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="E_M" Class="E_MDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.JY64000V" Member="Citizens">
     <Type Name="Citizen">
       <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0)" IsPrimaryKey="true" CanBeNull="false" />
@@ -23,13 +22,13 @@
       <Column Name="ANTAL_BORN" Member="NumberOfChildren" Type="System.Int16" DbType="SmallInt" CanBeNull="false" />
       <Column Name="CPR_FOLKEKIRKE_TS" Member="CprChurchTimestamp" Storage="_CpcNationalChurchTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
       <Column Name="CPR_PERSON_TS" Member="CprPersonTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
-      <Column Name="ADR_TILFLYT_TS" Member="RelocationTimestamp" Storage="_ArrivalTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
+      <Column Name="ADR_TILFLYT_TS" Member="AddtessStartTS" Storage="_ArrivalTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
       <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt" CanBeNull="false" />
       <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4)" CanBeNull="false" />
       <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="Char(2)" CanBeNull="false" />
       <Column Name="SIDE_DORNR" Member="Door" Type="System.String" DbType="Char(4)" CanBeNull="false" />
       <Column Name="BYGNING_NUMMER" Member="BuildingNumber" Type="System.String" DbType="Char(4)" CanBeNull="false" />
-      <Column Name="ADR_FRAFLYT_TS" Member="DepartureTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
+      <Column Name="ADR_FRAFLYT_TS" Member="AddressEndTS" Storage="_DepartureTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
       <Column Name="CO_NAVN" Member="CareOfName" Type="System.String" DbType="Char(34)" CanBeNull="false" />
       <Column Name="VEJSIDE_F_LIG_ULIG" Member="OddEvenRoadSide" Type="System.Char" DbType="Char(1)" CanBeNull="false" />
       <Column Name="KOM_TILFLYTDATO" Member="MunicipalityArrivalDate" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
@@ -73,7 +72,7 @@
       <Association Name="Citizen_Child1" Member="ChildrenAsFather" ThisKey="PNR" OtherKey="FatherPNR" Type="Child" />
       <Association Name="Citizen_HousePostCode" Member="RoadPostCodes" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="HousePostCode" />
       <Association Name="Citizen_HouseRangePostCode" Member="HouseRangePostCodes" ThisKey="MunicipalityCode,RoadCode,OddEvenRoadSide" OtherKey="MunicipalityCode,RoadCode,OddEvenRoadSide" Type="HouseRangePostCode" />
-      <Association Name="Citizen_Road" Member="Roads" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Road" />
+      <Association Name="Citizen_CitizenReadyAddress" Member="CitizenReadyAddress" ThisKey="PNR" OtherKey="PNR" Type="CitizenReadyAddress" Cardinality="One" />
       <Association Name="HousePostCode_Citizen" Member="HousePostCode" ThisKey="MunicipalityCode,RoadCode,HouseNumber" OtherKey="MunicipalityCode,RoadCode,HouseNumber" Type="HousePostCode" IsForeignKey="true" />
       <Association Name="Authority_Citizen" Member="BirthRegistrationAuthority" ThisKey="BirthRegistrationAuthorityCode" OtherKey="AuthorityCode" Type="Authority" IsForeignKey="true" />
       <Association Name="Citizen_Citizen" Member="Spouse" ThisKey="SpousePNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
@@ -160,7 +159,25 @@
       <Column Name="VEJ_OPHOR_UM" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="VEJ_NAVN_SOGE" Member="RoadSearchName" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
       <Column Name="VEJ_NAVN_FONETIK" Member="RoadPhoneticName" Type="System.String" DbType="Char(7) NOT NULL" CanBeNull="false" />
-      <Association Name="Citizen_Road" Member="Citizen" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Citizen" IsForeignKey="true" />
+      <Association Name="CitizenReadyAddress_Road" Member="CitizenReadyAddress" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="CitizenReadyAddress" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JY67800V" Member="CitizenReadyAddresses">
+    <Type Name="CitizenReadyAddress">
+      <Column Name="EKOMNR" Member="MunicipalityCode" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PERSONNUMMER" Member="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ADRESSERINGSNAVN" Member="AddressingName" Type="System.String" DbType="Char(34) NOT NULL" CanBeNull="false" />
+      <Column Name="CO_NAVN" Member="CareOfName" Type="System.String" DbType="Char(34) NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_KODE" Member="RoadCode" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="VEJ_NAVN" Member="RoadName" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="HUS_NUMMER" Member="HouseNumber" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="ETAGE" Member="Floor" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="SIDE_DORNR" Member="Door" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="BYNAVN" Member="CityName" Type="System.String" DbType="Char(34) NOT NULL" CanBeNull="false" />
+      <Column Name="POSTNR" Member="PostCode" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="POSTDISTRIKT" Member="PostDistrict" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Association Name="CitizenReadyAddress_Road" Member="Roads" ThisKey="MunicipalityCode,RoadCode" OtherKey="MunicipalityCode,RoadCode" Type="Road" />
+      <Association Name="Citizen_CitizenReadyAddress" Member="Citizen" ThisKey="PNR" OtherKey="PNR" Type="Citizen" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

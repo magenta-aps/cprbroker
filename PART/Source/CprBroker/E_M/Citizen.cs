@@ -155,7 +155,7 @@ namespace CprBroker.Providers.E_M
                 // Set church membership
                 FolkekirkeMedlemIndikator = this.ToChurchMembershipIndicator(),
                 // Set address
-                FolkeregisterAdresse = this.ToAdresseType(),
+                FolkeregisterAdresse = ToAdresseType(),
                 // Set address indicator
                 ForskerBeskyttelseIndikator = this.ToDirectoryProtectionIndicator(effectDate),
                 // Set ddress protection indicator
@@ -171,14 +171,26 @@ namespace CprBroker.Providers.E_M
             };
         }
 
+        public virtual AdresseType ToAdresseType()
+        {
+            if (this.CitizenReadyAddress != null)
+            {
+                return this.CitizenReadyAddress.ToAdresseType();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public VirkningType ToCprBorgerTypeVirkning()
         {
             return VirkningType.Create(
                Converters.GetMaxDate(
                     Converters.ToDateTime(this.ChurchMarkerDate, this.ChurchMarkerDateUncertainty),
                     Converters.ToDateTime(this.MunicipalityArrivalDate, this.MunicipalityArrivalDateUncertainty),
-                    Converters.ToDateTime(this.DepartureTimestamp, this.DepartureTimestampUncertainty),
-                    Converters.ToDateTime(this.RelocationTimestamp, this.RelocationTimestampUncertainty),
+                    Converters.ToDateTime(this.AddressEndTS, this.DepartureTimestampUncertainty),
+                    Converters.ToDateTime(this.AddtessStartTS, this.RelocationTimestampUncertainty),
                     Converters.ToDateTime(this.DirectoryProtectionDate, this.DirectoryProtectionDateUncertainty),
                     Converters.ToDateTime(this.DirectoryProtectionEndDate, this.DirectoryProtectionEndDateUncertainty),
                     Converters.ToDateTime(this.AddressProtectionDate, this.AddressProtectionDateUncertainty),

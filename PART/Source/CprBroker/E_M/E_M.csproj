@@ -73,7 +73,7 @@
     <Compile Include="Citizen.NotImplemented.cs" />
     <Compile Include="Citizen.Converters.cs" />
     <Compile Include="Converters.cs" />
-    <Compile Include="Citizen.Address.cs" />
+    <Compile Include="CitizenReadyAddress.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="E_MDataContext.designer.cs">
       <AutoGen>True</AutoGen>
