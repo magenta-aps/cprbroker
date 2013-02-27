@@ -168,7 +168,8 @@ namespace CprBroker.Providers.CPRDirect
                 // Set country code
                 CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkCountryCode.ToString()),
 
-                // DistrictSubdivisionIdentifier is not supported - checked
+                // city name
+                // TODO: Lookup historical city name
                 DistrictSubdivisionIdentifier = null,
 
                 // Set floor
@@ -181,8 +182,8 @@ namespace CprBroker.Providers.CPRDirect
                 // TODO: Get historical post code
                 PostCodeIdentifier = null,
 
-                // Set city name
-                // TODO: Get historical dictrict/city name
+                // Set district name
+                // TODO: Lookup historical DistrictName
                 DistrictName = null,
 
                 // PostOfficeBoxIdentifier is not supported
