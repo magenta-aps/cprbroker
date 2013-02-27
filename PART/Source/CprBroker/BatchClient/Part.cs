@@ -47,7 +47,7 @@ namespace BatchClient
         public string[] LoadCprNumbersBatch()
         {
             var baseRet = LoadCprNumbersOneByOne();
-            int batchSize = 500;
+            int batchSize = 200;
             var ret = new List<string>();
             var myRet = new List<string>(batchSize);
             for (int i = 0; i < baseRet.Length; i++)
