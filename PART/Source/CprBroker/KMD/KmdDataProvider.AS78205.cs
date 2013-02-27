@@ -383,8 +383,8 @@ namespace CprBroker.Providers.KMD
                             AddressPostal = new CprBroker.Schemas.Part.AddressPostalType()
                             {
                                 CountryIdentificationCode = null,
-                                DistrictName = CityName34,
-                                DistrictSubdivisionIdentifier = null,
+                                DistrictName = PostDistrict20,
+                                DistrictSubdivisionIdentifier = CityName34,
                                 FloorIdentifier = Floor,
                                 MailDeliverySublocationIdentifier = null,
                                 PostCodeIdentifier = PostCode,
