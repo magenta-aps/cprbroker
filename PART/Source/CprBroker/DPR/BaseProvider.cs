@@ -84,6 +84,7 @@ namespace CprBroker.Providers.DPR
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Keep Subscription" , Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Always return CprBorgerType", Required=false, Confidential=false}
                     
                 };
@@ -152,6 +153,14 @@ namespace CprBroker.Providers.DPR
             }
         }
 
+        public int TcpReadTimeout
+        {
+            get
+            {
+                return Convert.ToInt32(ConfigurationProperties["TCP Read Timeout (ms)"]);
+            }
+        }
+
         public bool DisableDiversion
         {
             get
@@ -214,20 +223,22 @@ namespace CprBroker.Providers.DPR
         /// <returns>True if no error, false otherwise</returns>
         protected bool Send(string message, out string response, out string error)
         {
+            int bytes = 0;
             error = null;
-            NetworkStream stream = null;
 
-            TcpClient client = new TcpClient(Address, Port);
-            Byte[] data = System.Text.Encoding.UTF7.GetBytes(message);
+            using (TcpClient client = new TcpClient(Address, Port))
+            {
+                Byte[] data = System.Text.Encoding.UTF7.GetBytes(message);
 
-            stream = client.GetStream();
-            stream.Write(data, 0, data.Length);
-
-            data = new Byte[3500];
-
-            int bytes = stream.Read(data, 0, data.Length);
-            response = System.Text.Encoding.UTF7.GetString(data, 0, bytes);
-
+                using (NetworkStream stream = client.GetStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                    stream.ReadTimeout = this.TcpReadTimeout;
+                    data = new Byte[3500];
+                    bytes = stream.Read(data, 0, data.Length);
+                }
+                response = System.Text.Encoding.UTF7.GetString(data, 0, bytes);
+            }
 
             string errorCode = response.Substring(2, 2);
             if (ErrorCodes.ContainsKey(errorCode))
