@@ -134,6 +134,7 @@ namespace CprBroker.Providers.DPR
                 if (!DisableDiversion)
                 {
                     // Try to open a socket on the server
+                    // TODO: Do more complex testing for Write() and Read()
                     client.Connect(this.Address, this.Port);
                     client.GetStream().Close();
                 }
