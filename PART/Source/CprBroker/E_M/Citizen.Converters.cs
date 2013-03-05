@@ -62,6 +62,7 @@ namespace CprBroker.Providers.E_M
             }
             else
             {
+                // TODO: Remove this exception
                 throw new ArgumentException(string.Format("Invalid country code <{0}>", this.CountryCode));
             }
         }

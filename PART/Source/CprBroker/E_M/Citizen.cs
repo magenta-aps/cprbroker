@@ -122,28 +122,11 @@ namespace CprBroker.Providers.E_M
 
         public virtual RegisterOplysningType ToRegisterOplysningType(DateTime effectDate)
         {
-            var ret = new RegisterOplysningType()
+            return new RegisterOplysningType()
             {
-                Item = null,
-                Virkning = null,
+                Item = this.ToCprBorgerType(effectDate),
+                Virkning = this.ToCprBorgerTypeVirkning(),
             };
-
-            if (Constants.UnknownCountryCodes.Contains(this.CountryCode))
-            {
-                ret.Item = this.ToUkendtBorgerType();
-                ret.Virkning = this.ToUkendtBorgerTypeVirkning();
-            }
-            else if (this.CountryCode == Constants.DenmarkCountryCode)
-            {
-                ret.Item = this.ToCprBorgerType(effectDate);
-                ret.Virkning = this.ToCprBorgerTypeVirkning();
-            }
-            else
-            {
-                ret.Item = this.ToUdenlandskBorgerType();
-                ret.Virkning = this.ToUdenlandskBorgerTypeVirkning();
-            }
-            return ret;
         }
 
         public CprBorgerType ToCprBorgerType(DateTime effectDate)
@@ -201,54 +184,6 @@ namespace CprBroker.Providers.E_M
                ),
                null
            );
-        }
-
-        public UdenlandskBorgerType ToUdenlandskBorgerType()
-        {
-            return new UdenlandskBorgerType()
-            {
-                // Birth nationality cannot be retrieved
-                FoedselslandKode = null,
-                // Set to PNR
-                PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(this.PNR),
-                // Not supported
-                PersonIdentifikator = null,
-                // Set to current nationality
-                PersonNationalityCode = new CountryIdentificationCodeType[] { this.ToCountryIdentificationCodeType() },
-                // Languages are not supported
-                SprogKode = null
-            };
-        }
-
-        public VirkningType ToUdenlandskBorgerTypeVirkning()
-        {
-            return VirkningType.Create(
-                Converters.GetMaxDate(
-                    Converters.ToDateTime(this.PNRCreationDate, this.PNRCreationdateUncertainty),
-                    Converters.ToDateTime(this.NationalityChangeTimestamp, this.NationalityChangeTimestampUncertainty),
-                    Converters.ToDateTime(this.NationalityTerminationTimestamp, this.NationalityTerminationTimestampUncertainty)
-                ),
-                null
-            );
-        }
-
-        public UkendtBorgerType ToUkendtBorgerType()
-        {
-            return new UkendtBorgerType()
-            {
-                // Set to PNR
-                PersonCivilRegistrationReplacementIdentifier = Converters.ToCprNumber(this.PNR)
-            };
-        }
-
-        public VirkningType ToUkendtBorgerTypeVirkning()
-        {
-            return VirkningType.Create(
-                Converters.GetMaxDate(
-                    Converters.ToDateTime(this.PNRCreationDate, this.PNRCreationdateUncertainty)
-                ),
-                null
-            );
         }
 
         public virtual TidspunktType ToTidspunktType()
