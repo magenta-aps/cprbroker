@@ -57,16 +57,17 @@ namespace CprBroker.Providers.DPR
     {
         public AdresseType ToAdresseType(PersonTotal personTotal)
         {
+            string postDistrict = personTotal.PostDistrictName;
             return new AdresseType()
             {
                 Item = new DanskAdresseType()
                 {
-                    AddressComplete = ToAddressCompleteType(),
+                    AddressComplete = ToAddressCompleteType(postDistrict),
                     // No address point
                     AddressPoint = null,
                     NoteTekst = null,
                     PolitiDistriktTekst = null,
-                    PostDistriktTekst = personTotal.PostDistrictName,
+                    PostDistriktTekst = postDistrict,
                     SkoleDistriktTekst = null,
                     SocialDistriktTekst = null,
                     SogneDistriktTekst = null,
@@ -78,12 +79,12 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public AddressCompleteType ToAddressCompleteType()
+        public AddressCompleteType ToAddressCompleteType(string postDistrict)
         {
             return new CprBroker.Schemas.Part.AddressCompleteType()
             {
                 AddressAccess = ToAddressAccessType(),
-                AddressPostal = ToAddressPostalType(),
+                AddressPostal = ToAddressPostalType(postDistrict),
             };
         }
 
@@ -97,13 +98,13 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public AddressPostalType ToAddressPostalType()
+        public AddressPostalType ToAddressPostalType(string postDistrict)
         {
             return new CprBroker.Schemas.Part.AddressPostalType()
             {
                 CountryIdentificationCode = ToCountryIdentificationCodeType(),
-                DistrictName = Town,
-                DistrictSubdivisionIdentifier = null,
+                DistrictName = postDistrict,
+                DistrictSubdivisionIdentifier = Town,
                 FloorIdentifier = Floor,
                 MailDeliverySublocationIdentifier = null,
                 PostCodeIdentifier = PostCode.ToDecimalString(),
