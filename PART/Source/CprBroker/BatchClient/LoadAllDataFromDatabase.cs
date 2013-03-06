@@ -92,7 +92,7 @@ namespace BatchClient
                     return map[cpr];
                 };
                 var prov = new DprDatabaseDataProvider() { ConfigurationProperties = new Dictionary<string, string>() };
-                prov.AlwaysReturnCprBorgerType = true;
+                
                 var xmlObj = expressionPersonInfo.ToRegisteringType1(func, dataContext, prov);
                 WriteObject(pnr, xmlObj);
 
