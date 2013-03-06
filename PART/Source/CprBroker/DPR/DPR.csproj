@@ -99,7 +99,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Data\DPR.dbml.layout">
       <DependentUpon>DPR.dbml</DependentUpon>
     </None>

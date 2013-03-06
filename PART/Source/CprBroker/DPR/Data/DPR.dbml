@@ -90,11 +90,13 @@
       <Column Name="LOKAL" Member="Location" Storage="_LOKAL" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
       <Column Name="KADRMRK" Member="ContactAddressMarker" Storage="_KADRMRK" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Association Name="PersonTotal_PersonName" Member="PersonNames" ThisKey="PNR" OtherKey="PNR" Type="PersonName" />
+      <Association Name="PersonTotal_Child" Member="Children" ThisKey="PNR" OtherKey="ParentPNR" Type="Child" />
       <Association Name="PersonTotal_CivilStatus" Member="CivilStatus" ThisKey="PNR" OtherKey="PNR" Type="CivilStatus" />
       <Association Name="PersonTotal_PersonAddress" Member="PersonAddresses" ThisKey="PNR" OtherKey="PNR" Type="PersonAddress" />
       <Association Name="PersonTotal_Nationality" Member="Nationalities" ThisKey="PNR" OtherKey="PNR" Type="Nationality" />
       <Association Name="PersonTotal_Separation" Member="Separations" ThisKey="PNR" OtherKey="PNR" Type="Separation" />
-      <Association Name="PersonTotal_Child" Member="Children" ThisKey="PNR" OtherKey="ParentPNR" Type="Child" />
+      <Association Name="PersonTotal_Departure" Member="Departures" ThisKey="PNR" OtherKey="PNR" Type="Departure" />
+      <Association Name="PersonTotal_ContactAddress" Member="ContactAddress" ThisKey="PNR" OtherKey="PNR" Type="ContactAddress" Cardinality="One" />
     </Type>
   </Table>
   <Table Name="dbo.DTCIV" Member="CivilStatus">
@@ -177,6 +179,41 @@
       <Column Name="SLUTDATE" Member="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="SLUTDATE_UMRK" Member="EndDateMarker" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
       <Association Name="PersonTotal_Separation" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTUDRIND" Member="Departures">
+    <Type Name="Departure">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="UDRMYKOD" Member="ExitCountryCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
+      <Column Name="UDRDTO" Member="ExitDate" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="UDRAJDTO" Member="ExitUpdateDate" Type="System.Decimal" DbType="Decimal(13,0)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="ULADRDTO" Member="ForeignAddressDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="VALGRDTO" Member="VotingDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="INDMYKOD" Member="EntryCountryCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
+      <Column Name="INDRDTO" Member="EntryDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="INDAJDTO" Member="EntryUpdateDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
+      <Column Name="ANNKOR" Member="CorrectionMarker" Type="System.String" DbType="VarChar(1)" IsPrimaryKey="true" CanBeNull="true" />
+      <Column Name="UADR1" Member="ForeignAddressLine1" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="UADR2" Member="ForeignAddressLine2" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="UADR3" Member="ForeignAddressLine3" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="UADR4" Member="ForeignAddressLine4" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="UADR5" Member="ForeignAddressLine5" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Association Name="PersonTotal_Departure" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DTKADR" Member="ContactAddresses">
+    <Type Name="ContactAddress">
+      <Column Name="PNR" Type="System.Decimal" DbType="Decimal(11,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AJFDTO" Member="CprUpdateDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="KOMKOD" Member="MunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HAENST" Member="AddressDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" CanBeNull="false" />
+      <Column Name="KADR1" Member="ContactAddressLine1" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="KADR2" Member="ContactAddressLine2" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="KADR3" Member="ContactAddressLine3" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="KADR4" Member="ContactAddressLine4" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Column Name="KADR5" Member="ContactAddressLine5" Type="System.String" DbType="VarChar(34)" CanBeNull="true" />
+      <Association Name="PersonTotal_ContactAddress" Member="PersonTotal" ThisKey="PNR" OtherKey="PNR" Type="PersonTotal" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
