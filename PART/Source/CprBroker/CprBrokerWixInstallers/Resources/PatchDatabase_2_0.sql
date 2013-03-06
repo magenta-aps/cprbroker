@@ -101,3 +101,16 @@ ALTER TABLE HealthInformation DROP
 CONSTRAINT DF_PersonAttributesId_Tmp,FK_HealthInformation_Effect,
 COLUMN PersonAttributesId_Tmp, EffectId
 GO
+
+-----------------------------------------------------
+-----  UnknownCitizen_PersonAttributes cascade ------
+-----------------------------------------------------
+
+ALTER TABLE [dbo].[UnknownCitizenData]  DROP CONSTRAINT [FK_UnknownCitizenData_PersonAttributes] 
+GO
+
+ALTER TABLE [dbo].[UnknownCitizenData]  WITH CHECK ADD  CONSTRAINT [FK_UnknownCitizenData_PersonAttributes] FOREIGN KEY([PersonAttributesId])
+REFERENCES [dbo].[PersonAttributes] ([PersonAttributesId])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
