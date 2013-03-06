@@ -60,14 +60,14 @@ namespace CprBroker.Providers.DPR
     /// </summary>
     public abstract class ClientDataProvider : BaseProvider
     {
-        enum InquiryType
+        public enum InquiryType
         {
             DataNotUpdatedAutomatically = 0,
             DataUpdatedAutomaticallyFromCpr = 1,
             DeleteAutomaticDataUpdateFromCpr = 3
         }
 
-        enum DetailType
+        public enum DetailType
         {
             MasterData = 0,
             ExtendedData = 1
@@ -174,7 +174,7 @@ namespace CprBroker.Providers.DPR
             return IsDiversionAlive() && IsDatabaseAlive();
         }
 
-        private string CreateMessage(InquiryType inquiryType, DetailType detailType, string cprNumber)
+        public string CreateMessage(InquiryType inquiryType, DetailType detailType, string cprNumber)
         {
             return string.Format("{0}{1}{2}",
                  (int)inquiryType,
@@ -183,7 +183,7 @@ namespace CprBroker.Providers.DPR
              );
         }
 
-        private string CallDiversion(InquiryType inquiryType, DetailType detailType, string cprNumber)
+        public string CallDiversion(InquiryType inquiryType, DetailType detailType, string cprNumber)
         {
             string message = CreateMessage(inquiryType, detailType, cprNumber);
             return Send(message);
