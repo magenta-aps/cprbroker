@@ -85,7 +85,6 @@ namespace CprBroker.Providers.DPR
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Keep Subscription" , Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Always return CprBorgerType", Required=false, Confidential=false}
                     
                 };
             }
@@ -166,18 +165,6 @@ namespace CprBroker.Providers.DPR
             get
             {
                 return Convert.ToBoolean(ConfigurationProperties["Disable Diversion"]);
-            }
-        }
-
-        public bool AlwaysReturnCprBorgerType
-        {
-            get
-            {
-                return Convert.ToBoolean(ConfigurationProperties["Always return CprBorgerType"]);
-            }
-            set
-            {
-                ConfigurationProperties["Always return CprBorgerType"] = value.ToString();
             }
         }
 
