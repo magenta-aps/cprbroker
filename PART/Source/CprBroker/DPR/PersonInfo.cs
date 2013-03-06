@@ -252,37 +252,11 @@ namespace CprBroker.Providers.DPR
 
         public RegisterOplysningType ToRegisterOplysningType(DprDatabaseDataProvider dataProvider)
         {
-            var ret = new RegisterOplysningType()
+            return new RegisterOplysningType()
             {
-                Item = null,
-                Virkning = VirkningType.Create(null, null)
+                Item = PersonTotal.ToCprBorgerType(Nationality, Address),
+                Virkning = PersonTotal.ToCprBorgerTypeVirkning(Nationality, Address)
             };
-
-            // Now create the appropriate object based on nationality
-            if (
-                dataProvider.AlwaysReturnCprBorgerType
-                || (
-                    this.Nationality != null
-                    && string.Equals(this.Nationality.CountryCode.ToDecimalString(), Constants.DenmarkKmdCode)))
-            {
-                ret.Item = PersonTotal.ToCprBorgerType(Nationality, Address);
-                ret.Virkning = PersonTotal.ToCprBorgerTypeVirkning(Nationality, Address);
-            }
-            else if (
-                Nationality == null
-                || Nationality.CountryCode.ToDecimalString().Equals(Constants.CprNationalityKmdCode)
-                || Nationality.CountryCode.ToDecimalString().Equals(Constants.StatelessKmdCode))
-            {
-                ret.Item = PersonTotal.ToUkendtBorgerType();
-                ret.Virkning = PersonTotal.ToUkendtBorgerTypeVirkning();
-            }
-            else
-            {
-                ret.Item = PersonTotal.ToUdenlandskBorgerType(this.Nationality);
-                ret.Virkning = PersonTotal.ToUdenlandskBorgerTypeVirkning();
-            }
-
-            return ret;
         }
 
         public TilstandListeType ToTilstandListeType()
