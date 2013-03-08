@@ -41,9 +41,11 @@ GO
 
 CREATE PROCEDURE [dbo].[usp_CPR_Broker_Prepare] AS
 	BEGIN
+        EXEC xp_logevent 60000, 'usp_CPR_Broker_Prepare is starting...', informational
 		SET NOCOUNT ON
 		INSERT INTO AA70000T_TMP1 SELECT * FROM AA70000T;
 		INSERT INTO AA70300T_TMP1 SELECT * FROM AA70300T;
+        EXEC xp_logevent 60000, '... usp_CPR_Broker_Prepare finished', informational
 	END
 GO
 
@@ -59,8 +61,10 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 		SET NOCOUNT ON
 		INSERT INTO AA70000T_TMP2 SELECT * FROM AA70000T;
 		INSERT INTO AA70300T_TMP2 SELECT * FROM AA70300T;
+        EXEC xp_logevent 70000, 'usp_CPR_Broker_Compare is starting...', informational
 
 		IF (EXISTS (SELECT PERSONNUMMER FROM AA70000T_TMP1) AND EXISTS (SELECT PERSONNUMMER FROM AA70000T_TMP2))
+            EXEC xp_logevent 70000, '... both AA70000 tables contain data...', informational
 			-- We check if the temp tables actually contains data to avoid mistakedly updates --
 			BEGIN
 				-- We look for updates in already existing records --
@@ -75,14 +79,17 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 						GROUP BY PERSONNUMMER
 					) AS Counts 
 					WHERE PNR_COUNT > 1
+                EXEC xp_logevent 70000, '... checked for differences...', informational
 				-- We look for new records --
 				INSERT INTO T_E_MUpdateStaging (PERSONNUMMER, E_MTable, CreateTS) 
 					SELECT t2.PERSONNUMMER, 'AA70000T', current_timestamp 
 					FROM AA70000T_TMP2 t2 LEFT OUTER JOIN AA70000T_TMP1 t1
 					ON t2.PERSONNUMMER = t1.PERSONNUMMER
 					WHERE t1.PERSONNUMMER is null
+                EXEC xp_logevent 70000, '... checked for new records...', informational
 			END
 		IF (EXISTS (SELECT PERSONNUMMER FROM AA70300T_TMP1) AND EXISTS (SELECT PERSONNUMMER FROM AA70300T_TMP2))
+            EXEC xp_logevent 70000, '... both AA70300 tables contain data...', informational
 			-- Only if both temp tables contains data we carry out the comparison --
 			BEGIN
 				-- We look for updates in already existing records --
@@ -97,17 +104,20 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 						GROUP BY PERSONNUMMER
 					) AS Counts 
 					WHERE PNR_COUNT > 1
+                EXEC xp_logevent 70000, '... checked for differences...', informational
 				-- We look for new records --
 				INSERT INTO T_E_MUpdateStaging (PERSONNUMMER, E_MTable, CreateTS) 
 					SELECT t2.PERSONNUMMER, 'AA70300T', current_timestamp 
 					FROM AA70300T_TMP2 t2 LEFT OUTER JOIN AA70300T_TMP1 t1
 					ON t2.PERSONNUMMER = t1.PERSONNUMMER
 					WHERE t1.PERSONNUMMER is null
+                EXEC xp_logevent 70000, '... checked for new records...', informational
 			END
 		-- Finally we truncate all the temp tables --
 		TRUNCATE TABLE AA70000T_TMP1;
 		TRUNCATE TABLE AA70300T_TMP1;
 		TRUNCATE TABLE AA70000T_TMP2;
 		TRUNCATE TABLE AA70300T_TMP2;
+        EXEC xp_logevent 70000, '... usp_CPR_Broker_Compare finished.', informational
 	END
 GO
