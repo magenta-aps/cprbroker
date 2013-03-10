@@ -111,11 +111,16 @@ namespace CprBroker.Engine.Part
 
         public override LaesResultatType[] Aggregate(object[] results)
         {
-            return Array.ConvertAll<object, LaesResultatType>
+            var ret = Array.ConvertAll<object, LaesResultatType>
                 (
                     results,
                     (s) => new LaesResultatType() { Item = s as RegistreringType1 }
                 );
+            foreach (var laesResultat in ret)
+            {
+                CityNameMapping.ApplyIfNeeded(laesResultat);
+            }
+            return ret;
         }
 
     }

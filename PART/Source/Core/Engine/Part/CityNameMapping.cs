@@ -48,65 +48,42 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Schemas;
+using CprBroker.Config;
 using CprBroker.Schemas.Part;
-using CprBroker.Utilities;
 
 namespace CprBroker.Engine.Part
 {
-    /// <summary>
-    /// Facade method for Read and RefreshRead
-    /// </summary>
-    public class ReadFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
+    public class CityNameMapping
     {
-        protected LaesInputType Input = null;
-        SourceUsageOrder LocalAction;
-        public QualityLevel? QualityLevel;
-
-        private ReadFacadeMethodInfo()
-        { }
-
-        public ReadFacadeMethodInfo(LaesInputType input, SourceUsageOrder localAction, string appToken, string userToken)
-            : base(appToken, userToken)
+        public static void ApplyIfNeeded(LaesResultatType result)
         {
-            this.Input = input;
-            this.LocalAction = localAction;
-        }
-
-        public override StandardReturType ValidateInput()
-        {
-            if (Input == null)
+            if (Config.Properties.Settings.Default.ReturnCityNameInDistrictName)
             {
-                return StandardReturType.NullInput();
+                if (result != null)
+                {
+                    RegistreringType1 oioReg = result.Item as RegistreringType1;
+                    if (oioReg != null && oioReg.AttributListe != null && oioReg.AttributListe.RegisterOplysning != null && oioReg.AttributListe.RegisterOplysning.Length > 0)
+                    {
+                        foreach (var opl in oioReg.AttributListe.RegisterOplysning)
+                        {
+                            var cpr = opl.Item as CprBorgerType;
+                            if (cpr != null && cpr.FolkeregisterAdresse != null && cpr.FolkeregisterAdresse.Item is DanskAdresseType)
+                            {
+                                var dansk = cpr.FolkeregisterAdresse.Item as DanskAdresseType;
+                                if (dansk.AddressComplete != null && dansk.AddressComplete.AddressPostal != null)
+                                {
+                                    var postal = dansk.AddressComplete.AddressPostal;
+                                    if (string.IsNullOrEmpty(postal.DistrictSubdivisionIdentifier) && string.Equals(postal.DistrictName, dansk.PostDistriktTekst))
+                                    {
+                                        postal.DistrictName = postal.DistrictSubdivisionIdentifier;
+                                        postal.DistrictSubdivisionIdentifier = null;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
-            if (!Strings.IsGuid(Input.UUID))
-            {
-                return StandardReturType.InvalidUuid(Input.UUID);
-            }
-
-            return StandardReturType.OK();
-        }
-
-        public override void Initialize()
-        {
-            SubMethodInfos = new SubMethodInfo[] 
-            {
-                new ReadSubMethodInfo(Input, LocalAction)
-            };
-        }
-
-        public override LaesResultatType Aggregate(object[] results)
-        {
-            var laesResultat = new LaesResultatType()
-            {
-                Item = results[0]
-            };
-
-            CityNameMapping.ApplyIfNeeded(laesResultat);
-
-            QualityLevel = (SubMethodInfos[0] as ReadSubMethodInfo).QualityLevel;
-            return LaesResultat;
         }
     }
 }

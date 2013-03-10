@@ -78,6 +78,7 @@
     <Compile Include="Local\AdminDataProvider.cs" />
     <Compile Include="Local\Admin.Log.cs" />
     <Compile Include="IDataProvider.cs" />
+    <Compile Include="Part\CityNameMapping.cs" />
     <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="ThreadRunner.cs" />
