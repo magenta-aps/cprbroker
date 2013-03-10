@@ -83,7 +83,6 @@ namespace CprBroker.Tests.DPR.PersonInfoTests
             public DprDatabaseDataProviderStub()
             {
                 this.ConfigurationProperties = new Dictionary<string, string>();
-                this.AlwaysReturnCprBorgerType = true;
             }
         }
 

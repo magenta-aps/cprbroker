@@ -90,9 +90,7 @@
     <Compile Include="PersonAddress.ToCountryIdentificationCodeType.Tests.cs" />
     <Compile Include="PersonAddress.ToAddressAccessType.Tests.cs" />
     <Compile Include="PersonTotal.CprBorgerType.Tests.cs" />
-    <Compile Include="PersonTotal.UdenlandskBorgerType.Tests.cs" />
     <Compile Include="PersonInfo ToRegisterOplysningType.Tests.cs" />
-    <Compile Include="PersonTotal.UkendtBorgerType.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Utilities.Tests.cs" />

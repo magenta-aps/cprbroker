@@ -60,13 +60,6 @@ namespace CprBroker.Tests.DPR
     [TestFixture]
     class BaseProviderTests
     {
-        [Test]
-        public void AlwaysReturnCprBorgerType_NotPreviouslySet_ReturnsFalse()
-        {
-            var dbProvider = new DataProvider() { TypeName = typeof(DprDatabaseDataProvider).AssemblyQualifiedName };
-            var createdProvider = DataProviderManager.CreateDataProvider(dbProvider) as DprDatabaseDataProvider;
-            var result = createdProvider.AlwaysReturnCprBorgerType;
-            Assert.False(result);
-        }
+        
     }
 }
