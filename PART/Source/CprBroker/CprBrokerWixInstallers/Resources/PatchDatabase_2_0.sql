@@ -41,13 +41,6 @@ IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonRegistrationId' a
 
 GO
 
-UPDATE PA
-SET PersonRegistrationId = PersonAttributesId 
-FROM dbo.PersonAttributes PA
-INNER JOIN dbo.PersonRegistration PR 
-ON PR.PersonRegistrationId = PA.PersonAttributesId 
-
-GO
 
 IF EXISTS (SELECT * FROM sys.sysconstraints WHERE constid= object_id('FK_PersonAttributes_PersonRegistration'))
 	ALTER Table dbo.PersonAttributes DROP CONSTRAINT FK_PersonAttributes_PersonRegistration
@@ -88,33 +81,14 @@ IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and
 	EXEC sp_rename 'dbo.PersonName.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
 GO
 
-
-
------------------------------------------------------------------------------------------
------  Create new records in PersonAttributes to match records in PersonProperties  -----
------------------------------------------------------------------------------------------
-
-
-IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId_Tmp' and object_id=object_id('PersonProperties'))
-	ALTER TABLE PersonProperties ADD PersonAttributesId_Tmp UNIQUEIDENTIFIER NOT NULL 
-	CONSTRAINT DF_PersonAttributesId_Tmp DEFAULT(NewID())
+IF EXISTS (SELECT * FROM sys.sysconstraints WHERE constid= object_id('FK_PersonProperties_Effect'))
+	ALTER TABLE PersonProperties DROP CONSTRAINT FK_PersonProperties_Effect
 GO
 
-INSERT INTO PersonAttributes (PersonAttributesId, PersonRegistrationId, EffectId)
-SELECT PP.PersonAttributesId_Tmp, PP.PersonAttributesId, PP.EffectId
-FROM PersonProperties PP
-LEFT OUTER JOIN PersonAttributes PA ON PP.PersonAttributesId = PP.PersoNAttributesId
-WHERE PP.PersoNAttributesId IS NULL
-
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'EffectId' and object_id=object_id('PersonProperties'))
+	ALTER TABLE PersonProperties DROP COLUMN EffectId
 GO
 
-UPDATE PersonProperties SET PersonAttributesId = PersonAttributesId_Tmp
-GO
-
-ALTER TABLE PersonProperties DROP 
-CONSTRAINT DF_PersonAttributesId_Tmp,FK_PersonProperties_Effect,
-COLUMN PersonAttributesId_Tmp, EffectId
-GO
 
 
 -----------------------------------------------------
