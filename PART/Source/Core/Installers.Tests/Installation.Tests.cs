@@ -42,7 +42,6 @@ namespace CprBroker.Tests.Installers
             public void RunCommandWithResult_C_NotNullOrEmpty()
             {
                 string error;
-                System.Diagnostics.Debugger.Launch();
                 var sitesDataStr = RunCommandWithResult(
                         @"C:\Magenta Workspace\PART\Source\Core\Installers\bin\Debug\ElevatedDllRunner.exe",
                         string.Format("\"{0}\" PopulateWebSites", typeof(WebInstallationInfo).AssemblyQualifiedName),
@@ -116,7 +115,6 @@ namespace CprBroker.Tests.Installers
             [Test]
             public void CopyConfigNode_Overwrite_OK()
             {
-                System.Diagnostics.Debugger.Launch();
                 var sourceName = "Src" + Strings.NewRandomString(5);
                 var targetName = "Target" + Strings.NewRandomString(5);
 
