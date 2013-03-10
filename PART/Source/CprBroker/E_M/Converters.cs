@@ -105,9 +105,17 @@ namespace CprBroker.Providers.E_M
             return Schemas.Util.Enums.ToLifeStatus(decimalStatus, birthdateHasValue);
         }
 
+        public static DateTime? ToDateTime(DateTime value)
+        {
+            return ToDateTime(value, ' ');
+        }
+
         public static DateTime? ToDateTime(DateTime value, char uncertainty)
         {
-            if (uncertainty == ' ')
+            if (uncertainty == ' '
+                && value.Year != DateTime.MinValue.Year
+                && value.Year != DateTime.MaxValue.Year
+                && value != Constants.MaxEMDate)
             {
                 return value;
             }

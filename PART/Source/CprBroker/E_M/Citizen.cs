@@ -191,8 +191,8 @@ namespace CprBroker.Providers.E_M
             return TidspunktType.Create(
                 Converters.GetMaxDate(
                     Converters.ToDateTime(this.BirthRegistrationDate, this.BirthRegistrationDateUncertainty),
-                    this.CprChurchTimestamp,
-                    this.CprPersonTimestamp,
+                    Converters.ToDateTime(this.CprChurchTimestamp),
+                    Converters.ToDateTime(this.CprPersonTimestamp),
                     Converters.ToDateTime(this.PNRMarkingDate, this.PNRMarkingDateUncertainty),
                     Converters.ToDateTime(this.MunicipalityArrivalDate, MunicipalityArrivalDateUncertainty)
                 )

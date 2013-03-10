@@ -69,5 +69,7 @@ namespace CprBroker.Providers.E_M
             AbroadCountryCode,
             ReservedCountryCode
         };
+
+        public static readonly DateTime MaxEMDate = new DateTime(4713, 12, 31);
     }
 }

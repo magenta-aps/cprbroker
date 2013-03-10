@@ -167,7 +167,9 @@ namespace CprBroker.Tests.E_M
         #endregion
 
         #region ToDateTime
-        DateTime[] SampleDates = new DateTime[] { new DateTime(2011, 10, 10), new DateTime(2000, 8, 22), DateTime.MinValue, DateTime.MaxValue };
+        DateTime[] SampleDates = new DateTime[] { new DateTime(2011, 10, 10), new DateTime(2000, 8, 22) };
+
+        DateTime[] InvalidDates = new DateTime[] { DateTime.MinValue, DateTime.MaxValue };
 
         [Test]
         [Combinatorial]
@@ -180,11 +182,19 @@ namespace CprBroker.Tests.E_M
         }
 
         [Test]
-        public void ToDateTime_InvalidDate_ReturnsDateValue(
+        public void ToDateTime_ValidDate_ReturnsDateValue(
             [ValueSource("SampleDates")] DateTime dateValue)
         {
             var result = Converters.ToDateTime(dateValue, ' ');
             Assert.AreEqual(dateValue, result.Value);
+        }
+
+        [Test]
+        public void ToDateTime_InvalidDate_ReturnsNull(
+            [ValueSource("InvalidDates")] DateTime dateValue)
+        {
+            var result = Converters.ToDateTime(dateValue, ' ');
+            Assert.Null(result);
         }
         #endregion
 

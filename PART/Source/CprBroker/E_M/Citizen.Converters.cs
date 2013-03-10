@@ -56,15 +56,8 @@ namespace CprBroker.Providers.E_M
     {
         public virtual CountryIdentificationCodeType ToCountryIdentificationCodeType()
         {
-            if (this.CountryCode > 0 && !Constants.UnknownCountryCodes.Contains(this.CountryCode))
-            {
-                return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, this.CountryCode.ToString());
-            }
-            else
-            {
-                // TODO: Remove this exception
-                throw new ArgumentException(string.Format("Invalid country code <{0}>", this.CountryCode));
-            }
+            return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, this.CountryCode.ToString());
+            // TODO: What do we do if Constants.UnknownCountryCodes contains CountryCode?
         }
 
         public virtual DateTime ToBirthdate()

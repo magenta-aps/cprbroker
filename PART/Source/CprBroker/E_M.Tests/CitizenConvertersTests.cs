@@ -58,8 +58,7 @@ namespace CprBroker.Tests.E_M
     public class CitizenConvertersTests
     {
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ToCountryIdentificationCodeType_InvalidCountryCode_ThrowsException(
+        public void ToCountryIdentificationCodeType_InvalidCountryCode_OK(
              [Values(-66, -1, 0, 5999, 5103, 5102, 5001)]              
             short countryCode)
         {
