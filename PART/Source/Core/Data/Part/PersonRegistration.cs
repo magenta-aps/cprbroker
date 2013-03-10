@@ -67,7 +67,12 @@ namespace CprBroker.Data.Part
             {
                 var xml = db.Contents.ToString();
                 // Deserialize the stored XML for maximum performance
-                return Strings.Deserialize<RegistreringType1>(xml);
+                var ret = Strings.Deserialize<RegistreringType1>(xml);
+                if (db.SourceObjects != null)
+                {
+                    ret.SourceObjectsXml = db.SourceObjects.ToString();
+                }
+                return ret;
             }
             return null;
         }
