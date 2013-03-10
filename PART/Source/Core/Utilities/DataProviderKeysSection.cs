@@ -174,15 +174,15 @@ namespace CprBroker.Utilities
                 configFile.SectionGroups.Add(Constants.DataProvidersSectionGroupName, group);
             }
 
-            group.Sections.Clear();
-            DataProviderKeysSection section = group.Sections[SectionName] as DataProviderKeysSection;
-            if (section == null)
-            {
-                section = new DataProviderKeysSection();
-            }
+            try { group.Sections.Remove(SectionName); }
+            catch { }
+
+            DataProviderKeysSection section = new DataProviderKeysSection();
+
             section.IVString = Strings.SerializeObject(rm.IV);
             section.KeyString = Strings.SerializeObject(rm.Key);
-            group.Sections.Add(SectionName, section);            
+
+            group.Sections.Add(SectionName, section);
 
             configFile.Save();
         }

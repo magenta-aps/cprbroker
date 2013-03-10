@@ -205,12 +205,6 @@ namespace CprBroker.Installers
                     CopyTypeAssemblyFileToNetFramework(section.SectionType, frameworkVersion);
                 }
 
-                // Remove nodes
-                foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
-                {
-                    section.SectionNode = Installation.RemoveSectionNode(configFilePath, section.SectionName);
-                }
-
                 // Create section with custom method
                 foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
                 {
@@ -231,11 +225,11 @@ namespace CprBroker.Installers
                 }
 
                 // Restore sections and delete files
+                // TODO: Seems no longer needed
                 foreach (var section in sectionGroup.ConfigSectionEncryptionOptions)
                 {
                     if (section.CustomMethod == null && section.SectionNode != null)
                     {
-                        Installation.AddSectionNode(section.SectionNode, configFilePath, sectionGroup.ConfigSectionGroupName);
                         Dictionary<string, string> dic = new Dictionary<string, string>();
                         dic["name"] = section.SectionName;
                         dic["type"] = section.SectionType.AssemblyQualifiedName;
