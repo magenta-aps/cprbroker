@@ -48,12 +48,88 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Utilities;
+using CprBroker.Schemas.Part;
+using CprBroker.Providers.KMD.WS_AS78205;
+using CprBroker.Providers.KMD.WS_AS78207;
+
 
 namespace CprBroker.Providers.KMD
 {
     public class KmdResponse
     {
-        public WS_AS78205.AS78205Response AS78205Response { get; set; }
+        public AS78205Response AS78205Response { get; set; }
         public WS_AS78207.AS78207Response AS78207Response { get; set; }
+
+        
+        public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
+        {
+            var addressResponse = new WS_AS78205.EnglishAS78205Response(AS78205Response);
+            var detailsResponse = new WS_AS78207.EnglishAS78207Response(AS78207Response);
+
+            var ret = new RegistreringType1()
+            {
+                AttributListe = detailsResponse.ToAttributListeType(addressResponse),
+                TilstandListe = detailsResponse.ToTilstandListeType(),
+                RelationListe = ToRelationListeType(detailsResponse, cpr2uuidFunc),
+
+                AktoerRef = Constants.Actor,
+                CommentText = Constants.CommentText,
+                LivscyklusKode = LivscyklusKodeType.Rettet,
+                Tidspunkt = TidspunktType.Create(detailsResponse.GetRegistrationDate()),
+                Virkning = null,
+                SourceObjectsXml = Strings.SerializeObject(this)
+            };
+            ret.CalculateVirkning();
+            return ret;
+        }
+
+        public RelationListeType ToRelationListeType(EnglishAS78207Response details, Func<string, Guid> cpr2uuidFunc)
+        {
+            var ret = new RelationListeType();
+
+            //Children
+            if (details.ChildrenPNRs != null)
+            {
+                var childPnrs = (from pnr in details.ChildrenPNRs where pnr.Replace("-", "").Length > 0 select pnr.Replace("-", "")).ToArray();
+                var uuids = Array.ConvertAll<string, Guid>(childPnrs, (cpr) => cpr2uuidFunc(cpr));
+                ret.Boern = Array.ConvertAll<Guid, PersonFlerRelationType>
+                (
+                    uuids,
+                    (pId) => PersonFlerRelationType.Create(pId, null, null)
+                );
+            }
+
+            //Father
+            if (Convert.ToDecimal(details.FatherPNR) > 0)
+            {
+                ret.Fader = new PersonRelationType[] { PersonRelationType.Create(cpr2uuidFunc(details.FatherPNR), null, null) };
+            }
+            //Mother
+            if (Convert.ToDecimal(details.MotherPNR) > 0)
+            {
+                ret.Fader = new PersonRelationType[] { PersonRelationType.Create(cpr2uuidFunc(details.MotherPNR), null, null) };
+            }
+
+            // Spouse
+            if (Convert.ToDecimal(details.SpousePNR) > 0)
+            {
+                var maritalStatus = Utilities.ToPartMaritalStatus(details.MaritallStatusCode[0]);
+                var maritalStatusDate = Utilities.ToDateTime(details.MaritalStatusDate);
+                bool isMarried = maritalStatus == CivilStatusKodeType.Gift || maritalStatus == CivilStatusKodeType.RegistreretPartner;
+                var spouseUuid = cpr2uuidFunc(details.SpousePNR);
+                ret.Aegtefaelle = new PersonRelationType[]
+                    {
+                        PersonRelationType.Create
+                        (
+                            spouseUuid,
+                            isMarried? maritalStatusDate : null,
+                            isMarried? null : maritalStatusDate
+                       )
+                    };
+            }
+            // TODO: Fill other relationships such as custody
+            return ret;
+        }
     }
 }
