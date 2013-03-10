@@ -107,6 +107,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RegenerateContents.cs" />
+    <Compile Include="RegenerateCprDirect.cs" />
     <Compile Include="RegenerateKMD.cs" />
     <Compile Include="Service References\PersonMaster\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -179,6 +181,10 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CPRDirect\CPRDirect.csproj">
+      <Project>{EDDB494D-782D-4D45-8599-633057B9B203}</Project>
+      <Name>CPRDirect</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DPR\DPR.csproj">
       <Project>{F98E5179-88E3-404E-83BE-54F0A3E7DBC0}</Project>
       <Name>DPR</Name>

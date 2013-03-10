@@ -51,25 +51,42 @@ using System.Text;
 using CprBroker.Utilities.ConsoleApps;
 using CprBroker.Data.Part;
 using CprBroker.Utilities;
-using CprBroker.Providers.KMD;
+using CprBroker.Schemas.Part;
 
 namespace BatchClient
 {
-    public class RegenerateKMD : RegenerateContents
+    public abstract class RegenerateContents : ConsoleEnvironment
     {
-        public override Guid ActorId
+        public abstract Guid ActorId { get; }
+
+        public override string[] LoadCprNumbers()
         {
-            get
+            using (var dataContext = new PartDataContext(this.BrokerConnectionString))
             {
-                return new Guid(CprBroker.Providers.KMD.Constants.Actor.Item);
+                return dataContext.PersonRegistrations
+                    .Where(pr => pr.SourceObjects != null && pr.ActorRef.Value == ActorId.ToString())
+                    .OrderBy(pr => pr.PersonRegistrationId)
+                    .Select(pr => pr.PersonRegistrationId.ToString())
+                    .ToArray();
             }
         }
 
-        public override CprBroker.Schemas.Part.RegistreringType1 CreateXmlType(PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc)
+        public override void ProcessPerson(string personRegId)
         {
-            var kmdResponse = Strings.Deserialize<KmdResponse>(dbReg.SourceObjects.ToString());
-            var oioReg = kmdResponse.ToRegistreringType1(cpr2uuidFunc);
-            return oioReg;
+            var personRegistrationId = new Guid(personRegId);
+
+            using (var dataContext = new PartDataContext(this.BrokerConnectionString))
+            {
+                var dbReg = dataContext.PersonRegistrations.Where(pr => pr.PersonRegistrationId == personRegistrationId).First();
+                var oioReg = CreateXmlType(dbReg, 
+                    pnr => {
+                        pnr = pnr.PadLeft(10, ' ');
+                        return dataContext.PersonMappings.Where(pm => pm.CprNumber == pnr).Select(pm => pm.UUID).First();
+                });
+                dbReg.SetContents(oioReg);
+            }
         }
+
+        public abstract RegistreringType1 CreateXmlType(PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc);
     }
 }

@@ -51,25 +51,29 @@ using System.Text;
 using CprBroker.Utilities.ConsoleApps;
 using CprBroker.Data.Part;
 using CprBroker.Utilities;
-using CprBroker.Providers.KMD;
+using CprBroker.Providers.CPRDirect;
 
 namespace BatchClient
 {
-    public class RegenerateKMD : RegenerateContents
+    public class RegenerateCprDirect : RegenerateContents
     {
         public override Guid ActorId
         {
-            get
-            {
-                return new Guid(CprBroker.Providers.KMD.Constants.Actor.Item);
-            }
+            get { return CprBroker.Providers.CPRDirect.Constants.ActorId; }
         }
 
         public override CprBroker.Schemas.Part.RegistreringType1 CreateXmlType(PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc)
         {
-            var kmdResponse = Strings.Deserialize<KmdResponse>(dbReg.SourceObjects.ToString());
-            var oioReg = kmdResponse.ToRegistreringType1(cpr2uuidFunc);
-            return oioReg;
+            throw new NotImplementedException();
+            var sourceString = dbReg.SourceObjects.ToString();
+            if (sourceString.Length == Strings.SerializeObject(Guid.NewGuid()).Length)
+            {
+                
+            }
+            else
+            {
+ 
+            }
         }
     }
 }
