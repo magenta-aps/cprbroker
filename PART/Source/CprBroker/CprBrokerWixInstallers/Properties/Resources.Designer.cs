@@ -289,21 +289,25 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -----------------------------------------------------------------
-        ///-----  Allow multiple attributes in a single registration  ------
-        ///-----------------------------------------------------------------
+        ///   Looks up a localized string similar to -------------------------------------
+        ///-----  Column width expansion  ------
+        ///-------------------------------------
+        ///ALTER TABLE [dbo].[PersonProperties] ALTER COLUMN [BirthPlace] varchar(132) 
+        ///GO
         ///
-        ///sp_rename &apos;dbo.PersonAttributes.PersonRegistrationId&apos;, &apos;PersonAttributesId&apos;, &apos;COLUMN&apos;
-        ///GO
-        ///ALTER TABLE dbo.PersonAttributes ADD PersonRegistrationId UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
-        ///GO
-        ///UPDATE dbo.PersonAttributes SET PersonRegistrationId = PersonAttributesId
-        ///GO
-        ///ALTER Table dbo.PersonAttributes D [rest of string was truncated]&quot;;.
+        ///
+        ///---------------------------------------
+        ///-----  Table for extract errors  ------
+        ///---------------------------------------
+        ///
+        ///IF NOT EXISTS (SELECT * FROM sys.tables WHERE name=&apos;ExtractError&apos;)
+        ///CREATE TABLE dbo.ExtractError(
+        ///    ExtractErrorId uniqueidentifier NOT NULL DEFAULT(newid()),
+        ///    ExtractId unique [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_2_0 {
+        internal static string PatchDatabase_1_5 {
             get {
-                return ResourceManager.GetString("PatchDatabase_2_0", resourceCulture);
+                return ResourceManager.GetString("PatchDatabase_1_5", resourceCulture);
             }
         }
         
