@@ -75,11 +75,11 @@ namespace CprBroker.EventBroker.Subscriptions
         {
             SubMethodInfos = new SubMethodInfo[]
             {
-                new SubMethodInfo<ISubscriptionDataProvider,bool>()
+                new SubMethodInfo<ISubscriptionDataProvider, bool>()
                 {
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=true,
-                    LocalDataProviderOption= LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption = SourceUsageOrder.LocalThenExternal,
                     Method= prov=>
                         SubscriptionType== CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.Birthdate?
                             prov.RemoveBirthDateSubscription(SubscriptionId)
@@ -110,6 +110,6 @@ namespace CprBroker.EventBroker.Subscriptions
             }
             return StandardReturType.OK();
         }
-       
+
     }
 }

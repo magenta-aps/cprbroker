@@ -80,11 +80,11 @@ namespace CprBroker.EventBroker
         {
             SubMethodInfos = new SubMethodInfo[]
             {
-                new SubMethodInfo<ISubscriptionDataProvider,BirthdateSubscriptionType>()
+                new SubMethodInfo<ISubscriptionDataProvider, BirthdateSubscriptionType>()
                 {
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=true,
-                    LocalDataProviderOption= LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption = SourceUsageOrder.LocalThenExternal,
                     Method= prov=>prov.SubscribeOnBirthdate(NotificationChannel,Years,PriorDays,PersonUuids),
                     UpdateMethod=null,
                 }

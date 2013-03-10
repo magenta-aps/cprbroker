@@ -68,11 +68,11 @@ namespace CprBroker.EventBroker.Subscriptions
         {
             SubMethodInfos = new SubMethodInfo[]
             {
-                new SubMethodInfo<ISubscriptionDataProvider,SubscriptionType[]>()
+                new SubMethodInfo<ISubscriptionDataProvider, SubscriptionType[]>()
                 {
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=true,
-                    LocalDataProviderOption= LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption = SourceUsageOrder.LocalThenExternal,
                     Method= prov=>prov.GetActiveSubscriptionsList(),
                     UpdateMethod=null,
                 }

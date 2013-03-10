@@ -76,11 +76,11 @@ namespace CprBroker.EventBroker
         {
             SubMethodInfos = new SubMethodInfo[]
             {
-                new SubMethodInfo<ISubscriptionDataProvider,ChangeSubscriptionType>()
+                new SubMethodInfo<ISubscriptionDataProvider, ChangeSubscriptionType>()
                 {
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=true,
-                    LocalDataProviderOption= LocalDataProviderUsageOption.UseFirst,
+                    LocalDataProviderOption = SourceUsageOrder.LocalThenExternal,
                     Method= prov=>prov.Subscribe(NotificationChannel,PersonUuids),
                     UpdateMethod=null,
                 }
