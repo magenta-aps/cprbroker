@@ -131,6 +131,7 @@ namespace E_MUpdatesNotification
         {
             get
             {
+                // Should AA70100T be included if we care for historical addresses? probably no necause this will also trigger something in AA70000T.
                 return new string[] { "AA70000T", "AA70300T" };
             }
         }
