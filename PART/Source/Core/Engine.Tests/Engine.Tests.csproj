@@ -59,7 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CityNameMatchRule.Tests.cs" />
     <Compile Include="DataProviderManager.CreateDataProvider.Tests.cs" />
     <Compile Include="DataProviderManagerTests.cs" />
     <Compile Include="FacadeMethodInfoTests.cs" />
