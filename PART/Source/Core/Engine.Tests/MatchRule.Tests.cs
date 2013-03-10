@@ -63,14 +63,7 @@ namespace CprBroker.Tests.Engine
                 var rules = MatchRule.AllRules();
                 var first = rules.FirstOrDefault();
                 Assert.NotNull(first);
-            }
-
-            [Test]
-            public void AllRules_Call_ContainsCityName()
-            {
-                var rules = MatchRule.AllRules().Where(r => r is CityNameMatchRule);
-                Assert.Greater(rules.Count(), 0);
-            }
+            }            
         }
 
         [TestFixture]
