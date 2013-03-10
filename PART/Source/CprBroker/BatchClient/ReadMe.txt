@@ -45,6 +45,10 @@ Get uuids
 ---------
 BatchClient.exe /envType "BatchClient.GetUuids, BatchClient" /source "data1.txt;data2.txt" /partUrl "http://cprbroker/Services/Part.asmx" /appToken "11111111-2222-3333-4444-555555555555" /userToken MyUser 
 
+Regenerate KMD
+--------------
+BatchClient.exe /envType "BatchClient.RegenerateKMD, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;"
+
 ========================
 Creating the data file
 ======================
