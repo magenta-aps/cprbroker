@@ -99,7 +99,7 @@ namespace CprBroker.Data.Part
                     })
                     .ToArray();
             }
-            return null;
+            return new PersonAttributes[0];
         }
 
         public static CprData FromXmlType(CprBorgerType partCprData)

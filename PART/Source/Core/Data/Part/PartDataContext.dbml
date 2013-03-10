@@ -375,7 +375,6 @@
       <Column Name="ContactChannelId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="NextOfKinContactChannelId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="OtherAddressId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="PersonPropertiesId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Association Name="PersonProperties_PersonName" Member="PersonName" ThisKey="PersonAttributesId" OtherKey="PersonAttributesId" Type="PersonName" Cardinality="One" />
       <Association Name="Address_PersonProperties" Member="OtherAddress" Storage="_Address" ThisKey="OtherAddressId" OtherKey="AddressId" Type="Address" IsForeignKey="true" />
       <Association Name="ContactChannel_PersonProperties" Member="ContactChannel" ThisKey="ContactChannelId" OtherKey="ContactChannelId" Type="ContactChannel" IsForeignKey="true" />

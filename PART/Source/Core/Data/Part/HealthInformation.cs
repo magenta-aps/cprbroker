@@ -92,7 +92,7 @@ namespace CprBroker.Data.Part
                     })
                     .ToArray();
             }
-            return null;
+            return new PersonAttributes[0];
         }
     }
 }

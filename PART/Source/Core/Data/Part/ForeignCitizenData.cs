@@ -89,7 +89,7 @@ namespace CprBroker.Data.Part
                     })
                     .ToArray();
             }
-            return null;
+            return new PersonAttributes[0];
         }
 
         public static ForeignCitizenData FromXmlType(UdenlandskBorgerType oio)

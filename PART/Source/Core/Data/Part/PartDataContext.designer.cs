@@ -8062,8 +8062,6 @@ namespace CprBroker.Data.Part
 		
 		private System.Nullable<System.Guid> _OtherAddressId;
 		
-		private System.Guid _PersonPropertiesId;
-		
 		private EntityRef<PersonName> _PersonName;
 		
 		private EntityRef<Address> _Address;
@@ -8102,8 +8100,6 @@ namespace CprBroker.Data.Part
     partial void OnNextOfKinContactChannelIdChanged();
     partial void OnOtherAddressIdChanging(System.Nullable<System.Guid> value);
     partial void OnOtherAddressIdChanged();
-    partial void OnPersonPropertiesIdChanging(System.Guid value);
-    partial void OnPersonPropertiesIdChanged();
     #endregion
 		
 		public PersonProperties()
@@ -8353,26 +8349,6 @@ namespace CprBroker.Data.Part
 					this._OtherAddressId = value;
 					this.SendPropertyChanged("OtherAddressId");
 					this.OnOtherAddressIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonPropertiesId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid PersonPropertiesId
-		{
-			get
-			{
-				return this._PersonPropertiesId;
-			}
-			set
-			{
-				if ((this._PersonPropertiesId != value))
-				{
-					this.OnPersonPropertiesIdChanging(value);
-					this.SendPropertyChanging();
-					this._PersonPropertiesId = value;
-					this.SendPropertyChanged("PersonPropertiesId");
-					this.OnPersonPropertiesIdChanged();
 				}
 			}
 		}
