@@ -31,31 +31,61 @@ GO
 -----  Allow multiple attributes in a single registration  ------
 -----------------------------------------------------------------
 
-sp_rename 'dbo.PersonAttributes.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
-GO
-ALTER TABLE dbo.PersonAttributes ADD PersonRegistrationId UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
-GO
-UPDATE dbo.PersonAttributes SET PersonRegistrationId = PersonAttributesId
-GO
-ALTER Table dbo.PersonAttributes DROP CONSTRAINT FK_PersonAttributes_PersonRegistration
-GO
-ALTER TABLE dbo.PersonAttributes ADD CONSTRAINT FK_PersonAttributes_PersonRegistration FOREIGN KEY(PersonRegistrationId) REFERENCES PersonRegistration(PersonRegistrationId) 
-ON UPDATE CASCADE ON DELETE CASCADE
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('PersonAttributes'))
+	EXEC sp_rename 'dbo.PersonAttributes.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+
 GO
 
-sp_rename 'dbo.CprData.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonRegistrationId' and object_id=object_id('PersonAttributes'))
+	ALTER TABLE dbo.PersonAttributes ADD PersonRegistrationId UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
+
 GO
-sp_rename 'dbo.ForeignCitizenData.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+
+UPDATE PA
+SET PersonRegistrationId = PersonAttributesId 
+FROM dbo.PersonAttributes PA
+INNER JOIN dbo.PersonRegistration PR 
+ON PR.PersonRegistrationId = PA.PersonAttributesId 
+
 GO
-sp_rename 'dbo.ForeignCitizenCountry.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+
+IF EXISTS (SELECT * FROM sys.sysconstraints WHERE constid= object_id('FK_PersonAttributes_PersonRegistration'))
+	ALTER Table dbo.PersonAttributes DROP CONSTRAINT FK_PersonAttributes_PersonRegistration
+
 GO
-sp_rename 'dbo.UnknownCitizenData.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+
+ALTER TABLE dbo.PersonAttributes ADD CONSTRAINT FK_PersonAttributes_PersonRegistration FOREIGN KEY(PersonRegistrationId) REFERENCES PersonRegistration(PersonRegistrationId) 
+ON UPDATE CASCADE 
+ON DELETE CASCADE
+
 GO
-sp_rename 'dbo.HealthInformation.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('CprData'))
+	EXEC sp_rename 'dbo.CprData.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
 GO
-sp_rename 'dbo.PersonProperties.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('ForeignCitizenData'))
+	EXEC sp_rename 'dbo.ForeignCitizenData.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
 GO
-sp_rename 'dbo.PersonName.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('ForeignCitizenCountry'))
+	EXEC sp_rename 'dbo.ForeignCitizenCountry.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('UnknownCitizenData'))
+	EXEC sp_rename 'dbo.UnknownCitizenData.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('HealthInformation'))
+	EXEC sp_rename 'dbo.HealthInformation.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('PersonProperties'))
+	EXEC sp_rename 'dbo.PersonProperties.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('PersonName'))
+	EXEC sp_rename 'dbo.PersonName.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
 GO
 
 
@@ -64,13 +94,18 @@ GO
 -----  Create new records in PersonAttributes to match records in PersonProperties  -----
 -----------------------------------------------------------------------------------------
 
-ALTER TABLE PersonProperties ADD PersonAttributesId_Tmp UNIQUEIDENTIFIER NOT NULL 
-CONSTRAINT DF_PersonAttributesId_Tmp DEFAULT(NewID())
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId_Tmp' and object_id=object_id('PersonProperties'))
+	ALTER TABLE PersonProperties ADD PersonAttributesId_Tmp UNIQUEIDENTIFIER NOT NULL 
+	CONSTRAINT DF_PersonAttributesId_Tmp DEFAULT(NewID())
 GO
 
 INSERT INTO PersonAttributes (PersonAttributesId, PersonRegistrationId, EffectId)
-SELECT PersonAttributesId_Tmp, PersonAttributesId, EffectId
-FROM PersonProperties
+SELECT PP.PersonAttributesId_Tmp, PP.PersonAttributesId, PP.EffectId
+FROM PersonProperties PP
+LEFT OUTER JOIN PersonAttributes PA ON PP.PersonAttributesId = PP.PersoNAttributesId
+WHERE PP.PersoNAttributesId IS NULL
+
 GO
 
 UPDATE PersonProperties SET PersonAttributesId = PersonAttributesId_Tmp
@@ -81,32 +116,13 @@ CONSTRAINT DF_PersonAttributesId_Tmp,FK_PersonProperties_Effect,
 COLUMN PersonAttributesId_Tmp, EffectId
 GO
 
-------------------------------------------------------------------------------------------
------  Create new records in PersonAttributes to match records in HealthInformation  -----
-------------------------------------------------------------------------------------------
-
-ALTER TABLE HealthInformation ADD PersonAttributesId_Tmp UNIQUEIDENTIFIER NOT NULL 
-CONSTRAINT DF_PersonAttributesId_Tmp DEFAULT(NewID())
-GO
-
-INSERT INTO PersonAttributes (PersonAttributesId, PersonRegistrationId, EffectId)
-SELECT PersonAttributesId_Tmp, PersonAttributesId, EffectId
-FROM HealthInformation
-GO
-
-UPDATE HealthInformation SET PersonAttributesId = PersonAttributesId_Tmp
-GO
-
-ALTER TABLE HealthInformation DROP 
-CONSTRAINT DF_PersonAttributesId_Tmp,FK_HealthInformation_Effect,
-COLUMN PersonAttributesId_Tmp, EffectId
-GO
 
 -----------------------------------------------------
 -----  UnknownCitizen_PersonAttributes cascade ------
 -----------------------------------------------------
 
-ALTER TABLE [dbo].[UnknownCitizenData]  DROP CONSTRAINT [FK_UnknownCitizenData_PersonAttributes] 
+IF EXISTS (SELECT * FROM sys.sysconstraints WHERE constid= object_id('FK_UnknownCitizenData_PersonAttributes'))
+	ALTER TABLE [dbo].[UnknownCitizenData]  DROP CONSTRAINT [FK_UnknownCitizenData_PersonAttributes] 
 GO
 
 ALTER TABLE [dbo].[UnknownCitizenData]  WITH CHECK ADD  CONSTRAINT [FK_UnknownCitizenData_PersonAttributes] FOREIGN KEY([PersonAttributesId])
