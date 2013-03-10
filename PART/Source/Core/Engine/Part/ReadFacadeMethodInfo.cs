@@ -106,7 +106,7 @@ namespace CprBroker.Engine.Part
             CityNameMapping.ApplyIfNeeded(laesResultat);
 
             QualityLevel = (SubMethodInfos[0] as ReadSubMethodInfo).QualityLevel;
-            return LaesResultat;
+            return laesResultat;
         }
     }
 }
