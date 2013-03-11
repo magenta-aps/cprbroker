@@ -52,6 +52,8 @@ using CprBroker.Utilities.ConsoleApps;
 using CprBroker.Data.Part;
 using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
+using NUnit.Framework;
+using System.Xml;
 
 namespace BatchClient
 {
@@ -81,15 +83,68 @@ namespace BatchClient
                 var pnr = dataContext.PersonMappings.Where(pm => pm.UUID == dbReg.UUID).Select(pm => pm.CprNumber).First();
                 Func<string, Guid> cpr2uuidFunc = relPnr =>
                 {
-                    Console.WriteLine("Getting UUID for {0}", relPnr);
                     relPnr = relPnr.PadLeft(10, ' ');
                     return dataContext.PersonMappings.Where(pm => pm.CprNumber == relPnr).Select(pm => pm.UUID).First();
                 };
+
+                string oldContentsXml, oldSourceXml, newContentsXml, newSourceXml;
+
+                TakeCopies(dbReg, out oldContentsXml, out oldSourceXml);
+
                 var oioReg = CreateXmlType(pnr, dbReg, cpr2uuidFunc);
+
+                dbReg.SourceObjects = System.Xml.Linq.XElement.Parse(oioReg.SourceObjectsXml);
                 dbReg.SetContents(oioReg);
+
+                TakeCopies(dbReg, out newContentsXml, out newSourceXml);
+
+                CompareContents(oioReg, oldContentsXml, newContentsXml);
+                CompareSource(oldSourceXml, newSourceXml);
             }
         }
 
+        public void TakeCopies(PersonRegistration dbReg, out string contentsXml, out string sourceXml)
+        {
+            var oioReg = PersonRegistration.ToXmlType(dbReg);
+
+            oioReg.AttributListe.Egenskab[0].FoedestedNavn = null;
+            contentsXml = Strings.SerializeObject(oioReg);
+
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            doc.LoadXml(contentsXml);
+            var nsmgr = new XmlNamespaceManager(new NameTable());
+            nsmgr.AddNamespace("ns", "urn:oio:sagdok:2.0.0");
+            var nodes = doc.SelectNodes("//ns:Virkning", nsmgr);
+            Console.WriteLine("Nodes : {0}", nodes.Count);
+            foreach (XmlNode node in nodes)
+            {
+                node.ParentNode.RemoveChild(node);
+            }
+
+            contentsXml = doc.ChildNodes[1].OuterXml;
+            // Repeat serialization to avoid empty text
+            oioReg = Strings.Deserialize<RegistreringType1>(contentsXml);
+            contentsXml = Strings.SerializeObject(oioReg);
+
+            sourceXml = dbReg.SourceObjects.ToString();
+        }
+
+        public void CompareContents(RegistreringType1 oioReg, string oldContentsXml, string newContentsXml)
+        {
+            if ((oioReg.AttributListe.RegisterOplysning[0].Item as CprBorgerType).FolkeregisterAdresse != null && (oioReg.AttributListe.RegisterOplysning[0].Item as CprBorgerType).FolkeregisterAdresse.Item is DanskAdresseType)
+            {
+                NUnit.Framework.Assert.AreNotEqual(oldContentsXml, newContentsXml);
+            }
+            else
+            {
+                NUnit.Framework.Assert.AreEqual(oldContentsXml, newContentsXml);
+            }
+        }
+
+        public void CompareSource(string oldSourceXml, string newSourceXml)
+        {
+            Assert.AreEqual(oldSourceXml, newSourceXml);
+        }
         public abstract RegistreringType1 CreateXmlType(string pnr, PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc);
     }
 }

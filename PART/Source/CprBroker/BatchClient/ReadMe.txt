@@ -49,6 +49,10 @@ Regenerate KMD
 --------------
 BatchClient.exe /envType "BatchClient.RegenerateKMD, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;"
 
+Regenerate CPR Direct
+--------------
+BatchClient.exe /envType "BatchClient.RegenerateCprDirect, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;"
+
 ========================
 Creating the data file
 ======================
