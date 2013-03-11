@@ -282,7 +282,7 @@ namespace CprBroker.Installers
                 File.Create(fileName);
             }
             FileSecurity access = System.IO.File.GetAccessControl(fileName);
-            FileSystemAccessRule rule = new FileSystemAccessRule("NETWORK SERVICE", FileSystemRights.FullControl, AccessControlType.Allow);
+            FileSystemAccessRule rule = new FileSystemAccessRule(@"NT AUTHORITY\NetworkService", FileSystemRights.FullControl, AccessControlType.Allow);
             access.ResetAccessRule(rule);
             File.SetAccessControl(fileName, access);
         }
