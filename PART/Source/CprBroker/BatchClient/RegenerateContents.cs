@@ -54,6 +54,7 @@ using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
 using NUnit.Framework;
 using System.Xml;
+using CprBroker.Engine;
 
 namespace BatchClient
 {
@@ -75,31 +76,46 @@ namespace BatchClient
 
         public override void ProcessPerson(string personRegId)
         {
+            BrokerContext.Initialize(this.ApplicationToken,this.UserToken);
+
             var personRegistrationId = new Guid(personRegId);
 
             using (var dataContext = new PartDataContext(this.BrokerConnectionString))
             {
-                var dbReg = dataContext.PersonRegistrations.Where(pr => pr.PersonRegistrationId == personRegistrationId).First();
-                var pnr = dataContext.PersonMappings.Where(pm => pm.UUID == dbReg.UUID).Select(pm => pm.CprNumber).First();
-                Func<string, Guid> cpr2uuidFunc = relPnr =>
+                CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, GetType().Name, string.Format("Processing registration {0}", personRegId), "", "");
+
+                try
                 {
-                    relPnr = relPnr.PadLeft(10, ' ');
-                    return dataContext.PersonMappings.Where(pm => pm.CprNumber == relPnr).Select(pm => pm.UUID).First();
-                };
+                    var dbReg = dataContext.PersonRegistrations.Where(pr => pr.PersonRegistrationId == personRegistrationId).First();
+                    var pnr = dataContext.PersonMappings.Where(pm => pm.UUID == dbReg.UUID).Select(pm => pm.CprNumber).First();
+                    Func<string, Guid> cpr2uuidFunc = relPnr =>
+                    {
+                        relPnr = relPnr.PadLeft(10, ' ');
+                        return dataContext.PersonMappings.Where(pm => pm.CprNumber == relPnr).Select(pm => pm.UUID).First();
+                    };
 
-                string oldContentsXml, oldSourceXml, newContentsXml, newSourceXml;
+                    //string oldContentsXml, oldSourceXml, newContentsXml, newSourceXml;
 
-                TakeCopies(dbReg, out oldContentsXml, out oldSourceXml);
+                    //TakeCopies(dbReg, out oldContentsXml, out oldSourceXml);
 
-                var oioReg = CreateXmlType(pnr, dbReg, cpr2uuidFunc);
+                    var oioReg = CreateXmlType(pnr, dbReg, cpr2uuidFunc);
 
-                dbReg.SourceObjects = System.Xml.Linq.XElement.Parse(oioReg.SourceObjectsXml);
-                dbReg.SetContents(oioReg);
+                    dbReg.SourceObjects = System.Xml.Linq.XElement.Parse(oioReg.SourceObjectsXml);
+                    dbReg.SetContents(oioReg);
 
-                TakeCopies(dbReg, out newContentsXml, out newSourceXml);
+                    //TakeCopies(dbReg, out newContentsXml, out newSourceXml);
 
-                CompareContents(oioReg, oldContentsXml, newContentsXml);
-                CompareSource(oldSourceXml, newSourceXml);
+                    //CompareContents(oioReg, oldContentsXml, newContentsXml);
+                    //CompareSource(oldSourceXml, newSourceXml);
+
+                    dataContext.SubmitChanges();
+                    CprBroker.Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, GetType().Name, string.Format("Finished registration {0}", personRegId), "", "");
+                }
+                catch (Exception ex)
+                {
+                    CprBroker.Engine.Local.Admin.LogException(ex);
+                    throw ex;
+                }
             }
         }
 
