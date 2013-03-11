@@ -65,7 +65,7 @@ namespace BatchClient
             }
         }
 
-        public override CprBroker.Schemas.Part.RegistreringType1 CreateXmlType(PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc)
+        public override CprBroker.Schemas.Part.RegistreringType1 CreateXmlType(string pnr, PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc)
         {
             var kmdResponse = Strings.Deserialize<KmdResponse>(dbReg.SourceObjects.ToString());
             var oioReg = kmdResponse.ToRegistreringType1(cpr2uuidFunc);

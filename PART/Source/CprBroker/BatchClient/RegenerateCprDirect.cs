@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using CprBroker.Utilities.ConsoleApps;
 using CprBroker.Data.Part;
 using CprBroker.Utilities;
@@ -62,18 +63,65 @@ namespace BatchClient
             get { return CprBroker.Providers.CPRDirect.Constants.ActorId; }
         }
 
-        public override CprBroker.Schemas.Part.RegistreringType1 CreateXmlType(PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc)
+        public override CprBroker.Schemas.Part.RegistreringType1 CreateXmlType(string pnr, PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc)
         {
-            throw new NotImplementedException();
             var sourceString = dbReg.SourceObjects.ToString();
-            if (sourceString.Length == Strings.SerializeObject(Guid.NewGuid()).Length)
+            using (var conn = new System.Data.SqlClient.SqlConnection(this.BrokerConnectionString))
             {
-                
+                conn.Open();
+            }
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
+            Console.WriteLine("Setting connection string to : {0}", this.BrokerConnectionString);
+            if (section == null)
+            {
+                section = new ConnectionStringsSection();
+                config.Sections.Add("connectionString", section);
+                config.Save();
+            }
+            var connStr = section.ConnectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"];
+            if (connStr == null)
+            {
+                connStr = new ConnectionStringSettings("CprBroker.Config.Properties.Settings.CprBrokerConnectionString", this.BrokerConnectionString);
+                section.ConnectionStrings.Add(connStr);
             }
             else
             {
- 
+                connStr.ConnectionString = this.BrokerConnectionString;
             }
+            config.Save();
+            Console.WriteLine("Setting connection saved");
+
+
+            IndividualResponseType individualResponse;
+            if (sourceString.StartsWith("<guid>"))
+            {
+                Console.WriteLine("By Extract: {0}", pnr);
+                var extractId = Strings.Deserialize<Guid>(sourceString);
+                Console.WriteLine("Extract Id: {0}", extractId);
+                using (var extractDataContext = new ExtractDataContext(this.BrokerConnectionString))
+                {
+                    Console.WriteLine("Getting extract items");
+                    var extractItems = extractDataContext.ExtractItems.Where(ei => ei.PNR == pnr && ei.ExtractId == extractId).ToArray();
+                    Console.WriteLine("Getting person");
+                    individualResponse = Extract.GetPerson(pnr, extractItems.AsQueryable(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                    Console.WriteLine("Person retrieved");
+                }
+            }
+            else
+            {
+                Console.WriteLine("By TCP: {0}", pnr);
+                var responseData = Strings.Deserialize<string>(sourceString);
+                individualResponse = new IndividualResponseType() { Data = responseData };
+
+                individualResponse.FillFrom(individualResponse.Data, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                individualResponse.SourceObject = individualResponse.Data;
+            }
+            DateTime effectDate = dbReg.BrokerUpdateDate;
+            Console.WriteLine("Converting person");
+            var reg = individualResponse.ToRegistreringType1(cpr2uuidFunc, effectDate);
+            Console.WriteLine("Person converted");
+            return reg;
         }
     }
 }

@@ -78,15 +78,18 @@ namespace BatchClient
             using (var dataContext = new PartDataContext(this.BrokerConnectionString))
             {
                 var dbReg = dataContext.PersonRegistrations.Where(pr => pr.PersonRegistrationId == personRegistrationId).First();
-                var oioReg = CreateXmlType(dbReg, 
-                    pnr => {
-                        pnr = pnr.PadLeft(10, ' ');
-                        return dataContext.PersonMappings.Where(pm => pm.CprNumber == pnr).Select(pm => pm.UUID).First();
-                });
+                var pnr = dataContext.PersonMappings.Where(pm => pm.UUID == dbReg.UUID).Select(pm => pm.CprNumber).First();
+                Func<string, Guid> cpr2uuidFunc = relPnr =>
+                {
+                    Console.WriteLine("Getting UUID for {0}", relPnr);
+                    relPnr = relPnr.PadLeft(10, ' ');
+                    return dataContext.PersonMappings.Where(pm => pm.CprNumber == relPnr).Select(pm => pm.UUID).First();
+                };
+                var oioReg = CreateXmlType(pnr, dbReg, cpr2uuidFunc);
                 dbReg.SetContents(oioReg);
             }
         }
 
-        public abstract RegistreringType1 CreateXmlType(PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc);
+        public abstract RegistreringType1 CreateXmlType(string pnr, PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc);
     }
 }
