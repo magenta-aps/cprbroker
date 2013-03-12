@@ -33,18 +33,21 @@ GO
 
 IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonAttributesId' and object_id=object_id('PersonAttributes'))
 	EXEC sp_rename 'dbo.PersonAttributes.PersonRegistrationId', 'PersonAttributesId', 'COLUMN'
-
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'PersonRegistrationId' and object_id=object_id('PersonAttributes'))
 	ALTER TABLE dbo.PersonAttributes ADD PersonRegistrationId UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
+GO
+
+UPDATE PA
+SET PersonRegistrationId = PersonAttributesId
+FROM dbo.PersonAttributes PA 
+INNER JOIN dbo.PersonRegistration PR ON PR.PersonRegistrationId = PA.PersonAttributesID AND PR.PersonRegistrationId <> PA.PersonRegistrationId
 
 GO
 
-
 IF EXISTS (SELECT * FROM sys.sysconstraints WHERE constid= object_id('FK_PersonAttributes_PersonRegistration'))
 	ALTER Table dbo.PersonAttributes DROP CONSTRAINT FK_PersonAttributes_PersonRegistration
-
 GO
 
 ALTER TABLE dbo.PersonAttributes ADD CONSTRAINT FK_PersonAttributes_PersonRegistration FOREIGN KEY(PersonRegistrationId) REFERENCES PersonRegistration(PersonRegistrationId) 
