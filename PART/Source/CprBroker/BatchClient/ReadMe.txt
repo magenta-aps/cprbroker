@@ -47,11 +47,15 @@ BatchClient.exe /envType "BatchClient.GetUuids, BatchClient" /source "data1.txt;
 
 Regenerate KMD
 --------------
-BatchClient.exe /envType "BatchClient.RegenerateKMD, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;"
+BatchClient.exe /envType "BatchClient.RegenerateKMD, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;" /appToken "11111111-2222-3333-4444-555555555555" /userToken MyUser
 
 Regenerate CPR Direct
 --------------
-BatchClient.exe /envType "BatchClient.RegenerateCprDirect, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;"
+BatchClient.exe /envType "BatchClient.RegenerateCprDirect, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;" /appToken "11111111-2222-3333-4444-555555555555" /userToken MyUser
+
+Regenerate Children
+-------------------
+BatchClient.exe /envType "BatchClient.RegenerateChildren, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;" /appToken "11111111-2222-3333-4444-555555555555" /userToken MyUser
 
 ========================
 Creating the data file
