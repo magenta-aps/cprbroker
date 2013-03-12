@@ -78,7 +78,7 @@ namespace CprBroker.Installers
             return new DatabasePatchInfo()
             {
                 Version = oldVersion,
-                SqlScript = string.Join("", relevant.Select(inf => inf.SqlScript).ToArray()),
+                SqlScript = string.Join(Environment.NewLine, relevant.Select(inf => inf.SqlScript).ToArray()),
                 PatchAction = actions == null ?
                     null as Action<SqlConnection>
                     :

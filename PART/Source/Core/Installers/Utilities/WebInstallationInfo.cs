@@ -81,7 +81,7 @@ namespace CprBroker.Installers
         public int GetSiteId()
         {
             int siteID = 1;
-            DirectoryEntry machineRoot = new DirectoryEntry("IIS://localhost/W3SVC");
+            DirectoryEntry machineRoot = new DirectoryEntry(ServerRoot);
             foreach (DirectoryEntry e in machineRoot.Children)
             {
                 if (e.SchemaClassName == "IIsWebServer")
