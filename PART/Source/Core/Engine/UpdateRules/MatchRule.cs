@@ -27,7 +27,7 @@ namespace CprBroker.Engine.UpdateRules
         public abstract void UpdateDbFromXmlType(PersonRegistration dbReg, RegistreringType1 newObj);
 
 
-        private readonly static MatchRule[] _AllRules = new MatchRule[] { new AddressingNameMatchRule(), new SpecielVejkodeIndikatorMatchRule() };
+        private readonly static MatchRule[] _AllRules = new MatchRule[] { new AddressingNameMatchRule(), new SpecielVejkodeIndikatorMatchRule(), new CityNameMatchRule() };
 
         public static MatchRule[] AllRules()
         {

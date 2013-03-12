@@ -83,6 +83,7 @@
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />
+    <Compile Include="UpdateRules\CityNameMatchRule.cs" />
     <Compile Include="UpdateRules\MatchRule%28Of T%29.cs" />
     <Compile Include="UpdateRules\MatchRule.cs" />
     <Compile Include="Manager.Admin.cs" />
