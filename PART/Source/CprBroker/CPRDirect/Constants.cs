@@ -158,6 +158,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static Encoding ExtractEncoding
         {
+            // TODO: This encoding works only in production environment, does not work on test data !!!!
             get { return Encoding.GetEncoding(1142); }
         }
 
