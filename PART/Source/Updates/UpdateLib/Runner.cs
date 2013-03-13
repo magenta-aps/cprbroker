@@ -238,6 +238,7 @@ namespace UpdateLib
         // -----------------------------------------------------------------------------
         private int DoOneBatch()
         {
+            // TODO: Always read staging records from database just before calling CPR broker, to avoid calling deleted staging records
             UpdatedStagingBatch batch = null;
             List<string> updatedPersons = null;
 
