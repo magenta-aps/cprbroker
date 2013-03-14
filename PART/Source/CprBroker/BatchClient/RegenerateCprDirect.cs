@@ -48,7 +48,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Configuration;
 using CprBroker.Utilities.ConsoleApps;
 using CprBroker.Data.Part;
 using CprBroker.Utilities;
@@ -63,41 +62,8 @@ namespace BatchClient
             get { return CprBroker.Providers.CPRDirect.Constants.ActorId; }
         }
 
-        private bool _UpdateConnectionString = false;
-
-        private void UpdateConnectionString()
-        {
-            if (_UpdateConnectionString)
-                return;
-
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
-            Console.WriteLine("Setting connection string to : {0}", this.BrokerConnectionString);
-            if (section == null)
-            {
-                section = new ConnectionStringsSection();
-                config.Sections.Add("connectionString", section);
-                config.Save();
-            }
-            var connStr = section.ConnectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"];
-            if (connStr == null)
-            {
-                connStr = new ConnectionStringSettings("CprBroker.Config.Properties.Settings.CprBrokerConnectionString", this.BrokerConnectionString);
-                section.ConnectionStrings.Add(connStr);
-            }
-            else
-            {
-                connStr.ConnectionString = this.BrokerConnectionString;
-            }
-            config.Save();
-            Console.WriteLine("Setting connection saved");
-
-            _UpdateConnectionString = true;
-        }
         public override CprBroker.Schemas.Part.RegistreringType1 CreateXmlType(string pnr, PersonRegistration dbReg, Func<string, Guid> cpr2uuidFunc)
         {
-            UpdateConnectionString();
-
             var sourceString = dbReg.SourceObjects.ToString();
 
             IndividualResponseType individualResponse;
