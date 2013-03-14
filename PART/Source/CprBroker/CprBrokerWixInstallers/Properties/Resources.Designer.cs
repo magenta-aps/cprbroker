@@ -305,9 +305,9 @@ namespace CprBrokerWixInstallers.Properties {
         ///    ExtractErrorId uniqueidentifier NOT NULL DEFAULT(newid()),
         ///    ExtractId unique [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PatchDatabase_1_5 {
+        internal static string PatchDatabase_2_1 {
             get {
-                return ResourceManager.GetString("PatchDatabase_1_5", resourceCulture);
+                return ResourceManager.GetString("PatchDatabase_2_1", resourceCulture);
             }
         }
         

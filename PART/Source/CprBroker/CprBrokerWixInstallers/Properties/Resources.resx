@@ -163,7 +163,7 @@
   <data name="PatchDatabase_1_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PatchDatabase_1_4.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="PatchDatabase_1_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PatchDatabase_1_5.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="PatchDatabase_2_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PatchDatabase_2_1.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>
