@@ -215,7 +215,12 @@ namespace CprBroker.Providers.CPRDirect
             while (rd.Peek() > -1)
             {
                 string typeCode = Read(rd, Constants.DataObjectCodeLength);
-                Type type = typeMap[typeCode];
+                Type type ;
+                try
+                {
+                    type = typeMap[typeCode];
+                }
+                catch { throw; }
                 var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
                 var subData = Read(rd, wrapper.Length - typeCode.Length);
                 wrapper.Contents = typeCode + subData;
