@@ -178,7 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <WebReferenceUrl Include="http://localhost:1551/Services/Part.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
+      <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\Part\</RelPath>
       <UpdateFromURL>http://localhost:1551/Services/Part.asmx</UpdateFromURL>
       <ServiceLocationURL>
