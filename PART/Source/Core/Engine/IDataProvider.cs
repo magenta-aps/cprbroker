@@ -96,6 +96,33 @@ namespace CprBroker.Engine
         {
             Type = DataProviderConfigPropertyInfoTypes.String;
         }
+
+        public static string GetValue(Dictionary<string, string> configuration, string key)
+        {
+            return GetValue(configuration, key, null);
+        }
+
+        public static string GetValue(Dictionary<string, string> configuration, string key, string defaultValue)
+        {
+            if (configuration.ContainsKey(key))
+                return configuration[key];
+            else
+                return defaultValue;
+        }
+
+        public static T GetValue<T>(Dictionary<string, string> configuration, string key, T defaultValue, Func<string, T> converter)
+        {
+            var val = GetValue(configuration, key, null);
+            if (string.IsNullOrEmpty(val))
+                return defaultValue;
+            else
+                return converter(val);
+        }
+
+        public static bool GetBoolean(Dictionary<string, string> configuration, string key)
+        {
+            return GetValue<bool>(configuration, key, false, (s) => Boolean.Parse(s));
+        }
     }
 
 
