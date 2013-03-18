@@ -65,11 +65,30 @@ namespace CprBroker.Providers.PersonMaster
         #region Utility Methods
         private BasicOpClient CreateClient()
         {
-            WSHttpBinding binding = new WSHttpBinding();
+            EndpointAddress endPointAddress;
+            if (string.IsNullOrEmpty(SpnName))
+            {
+                endPointAddress = new EndpointAddress(new Uri(Address));
+            }
+            else
+            {
+                var identity = new SpnEndpointIdentity(SpnName);
+                endPointAddress = new EndpointAddress(new Uri(Address), identity);
+            }
 
-            var identity = new SpnEndpointIdentity(SpnName);
-            EndpointAddress endPointAddress = new EndpointAddress(new Uri(Address + "/PersonMasterService12"), identity);
+            WSHttpBinding binding;
+            if (this.TransportSecurityWithWindow)
+            {
+                binding = new WSHttpBinding(SecurityMode.Transport);
+                binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Windows;
+            }
+            else
+            {
+                binding = new WSHttpBinding();
+            }
+
             BasicOpClient client = new BasicOpClient(binding, endPointAddress);
+
             return client;
 
         }
@@ -78,18 +97,22 @@ namespace CprBroker.Providers.PersonMaster
 
         public Guid? GetPersonUuid(string cprNumber)
         {
-            BasicOpClient client = CreateClient();
-            string aux = null;
-            var ret = client.GetObjectIDFromCpr(Context, cprNumber, ref aux);
-            return ret;
+            using (BasicOpClient client = CreateClient())
+            {
+                string aux = null;
+                var ret = client.GetObjectIDFromCpr(Context, cprNumber, ref aux);
+                return ret;
+            }
         }
 
         public Guid?[] GetPersonUuidArray(string[] cprNumberArray)
         {
-            BasicOpClient client = CreateClient();
-            string aux = null;
-            var ret = client.GetObjectIDsFromCprArray(Context, cprNumberArray, ref aux);
-            return ret;
+            using (BasicOpClient client = CreateClient())
+            {
+                string aux = null;
+                var ret = client.GetObjectIDsFromCprArray(Context, cprNumberArray, ref aux);
+                return ret;
+            }
         }
 
         #endregion
@@ -100,10 +123,12 @@ namespace CprBroker.Providers.PersonMaster
         {
             try
             {
-                BasicOpClient client = CreateClient();
-                string aux = null;
-                var res = client.Probe(Context, ref aux);
-                return true; ;
+                using (BasicOpClient client = CreateClient())
+                {
+                    string aux = null;
+                    var res = client.Probe(Context, ref aux);
+                    return true; ;
+                }
             }
             catch (Exception ex)
             {
@@ -129,9 +154,10 @@ namespace CprBroker.Providers.PersonMaster
             {
                 return new DataProviderConfigPropertyInfo[] 
                 {
-                    new DataProviderConfigPropertyInfo(){Name="Address",Required=true,Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Context",Required=true,Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Spn name",Required=true,Confidential=false}
+                    new DataProviderConfigPropertyInfo(){Name="Address", Type=DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Context", Type=DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Spn name", Type=DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Transport security with windows", Type=DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}
                 };
             }
         }
@@ -161,6 +187,14 @@ namespace CprBroker.Providers.PersonMaster
             get
             {
                 return ConfigurationProperties["Spn name"];
+            }
+        }
+
+        public bool TransportSecurityWithWindow
+        {
+            get
+            {
+                return DataProviderConfigPropertyInfo.GetBoolean(ConfigurationProperties, "Transport security with windows");
             }
         }
 
