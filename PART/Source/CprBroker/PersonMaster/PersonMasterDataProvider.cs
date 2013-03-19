@@ -95,22 +95,18 @@ namespace CprBroker.Providers.PersonMaster
 
         public Guid? GetPersonUuid(string cprNumber)
         {
-            using (BasicOpClient client = CreateClient())
-            {
-                string aux = null;
-                var ret = client.GetObjectIDFromCpr(Context, cprNumber, ref aux);
-                return ret;
-            }
+            BasicOpClient client = CreateClient();
+            string aux = null;
+            var ret = client.GetObjectIDFromCpr(Context, cprNumber, ref aux);
+            return ret;
         }
 
         public Guid?[] GetPersonUuidArray(string[] cprNumberArray)
         {
-            using (BasicOpClient client = CreateClient())
-            {
-                string aux = null;
-                var ret = client.GetObjectIDsFromCprArray(Context, cprNumberArray, ref aux);
-                return ret;
-            }
+            BasicOpClient client = CreateClient();
+            string aux = null;
+            var ret = client.GetObjectIDsFromCprArray(Context, cprNumberArray, ref aux);
+            return ret;
         }
 
         #endregion
@@ -121,12 +117,10 @@ namespace CprBroker.Providers.PersonMaster
         {
             try
             {
-                using (BasicOpClient client = CreateClient())
-                {
-                    string aux = null;
-                    var res = client.Probe(Context, ref aux);
-                    return true; ;
-                }
+                BasicOpClient client = CreateClient();
+                string aux = null;
+                var res = client.Probe(Context, ref aux);
+                return true; ;
             }
             catch (Exception ex)
             {
