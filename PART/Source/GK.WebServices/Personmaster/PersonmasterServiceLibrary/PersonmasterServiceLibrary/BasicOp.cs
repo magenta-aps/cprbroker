@@ -557,13 +557,16 @@ namespace PersonmasterServiceLibrary
 
             // We check if all Strings are indead Guids. In opposite situations we set an empty String at the given position(s)
             Regex isGuid = new Regex(@"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$", RegexOptions.Compiled);
-            for (int i = 0; i < objectIDArr.Length; i++) {
-                if (objectIDArr[i] != null) {
+            for (int i = 0; i < objectIDArr.Length; i++)
+            {
+                if (objectIDArr[i] != null)
+                {
                     if (objectIDArr[i].Length != 36)
                         objectIDArr[i] = "";
                     else if (!isGuid.IsMatch(objectIDArr[i]))
                         objectIDArr[i] = "";
-                } else
+                }
+                else
                     objectIDArr[i] = "";
             }
             var objectIDArrComma = Array.ConvertAll<string, string>(objectIDArr, s => string.Format("{0}", s).Trim().Replace(",", "") + ",");
