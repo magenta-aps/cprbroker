@@ -77,7 +77,7 @@ namespace CprBroker.Providers.PersonMaster
             }
 
             WSHttpBinding binding;
-            if (this.TransportSecurityWithWindow)
+            if (endPointAddress.Uri.Scheme == "https")
             {
                 binding = new WSHttpBinding(SecurityMode.Transport);
                 binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Windows;
@@ -88,9 +88,7 @@ namespace CprBroker.Providers.PersonMaster
             }
 
             BasicOpClient client = new BasicOpClient(binding, endPointAddress);
-
             return client;
-
         }
         #endregion
         #region IPartPersonMappingDataProvider Members
@@ -157,7 +155,6 @@ namespace CprBroker.Providers.PersonMaster
                     new DataProviderConfigPropertyInfo(){Name="Address", Type=DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Context", Type=DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Spn name", Type=DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Transport security with windows", Type=DataProviderConfigPropertyInfoTypes.Boolean, Required=true, Confidential=false}
                 };
             }
         }
@@ -190,13 +187,6 @@ namespace CprBroker.Providers.PersonMaster
             }
         }
 
-        public bool TransportSecurityWithWindow
-        {
-            get
-            {
-                return DataProviderConfigPropertyInfo.GetBoolean(ConfigurationProperties, "Transport security with windows");
-            }
-        }
 
         #endregion
 
