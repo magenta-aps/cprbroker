@@ -68,6 +68,7 @@ namespace BatchClient
             var partService = new BatchClient.Part.Part();
             partService.Url = this.PartServiceUrl;
             partService.ApplicationHeaderValue = new BatchClient.Part.ApplicationHeader() { ApplicationToken = this.ApplicationToken, UserToken = this.UserToken };
+            partService.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
             string uuid;
             if (CprBroker.Utilities.Strings.IsGuid(cprNumberOrUuid))
