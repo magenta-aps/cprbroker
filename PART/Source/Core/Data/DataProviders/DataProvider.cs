@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Utilities;
+using System.Security.Cryptography;
 
 namespace CprBroker.Data.DataProviders
 {
@@ -58,13 +59,24 @@ namespace CprBroker.Data.DataProviders
     /// </summary>
     public partial class DataProvider
     {
+        public static RijndaelManaged EncryptionAlgorithm;
+
         private readonly List<AttributeType> Properties = new List<AttributeType>();
-        
+
         partial void OnLoaded()
         {
             if (Data != null)
             {
-                Properties.AddRange(Encryption.DecryptObject<AttributeType[]>(Data.ToArray()));
+                AttributeType[] attributes;
+                if (EncryptionAlgorithm == null)
+                {
+                    attributes = Encryption.DecryptObject<AttributeType[]>(Data.ToArray());
+                }
+                else
+                {
+                    attributes = Encryption.DecryptObject<AttributeType[]>(Data.ToArray(), EncryptionAlgorithm);
+                }
+                Properties.AddRange(attributes);
             }
         }
 
@@ -107,7 +119,14 @@ namespace CprBroker.Data.DataProviders
                             Value = value,
                         });
                 }
-                Data = Encryption.EncryptObject(Properties.ToArray());
+                if (EncryptionAlgorithm == null)
+                {
+                    Data = Encryption.EncryptObject(Properties.ToArray());
+                }
+                else
+                {
+                    Data = Encryption.EncryptObject(Properties.ToArray(), EncryptionAlgorithm);
+                }
             }
         }
 

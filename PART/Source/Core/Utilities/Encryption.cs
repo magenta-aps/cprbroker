@@ -75,13 +75,15 @@ namespace CprBroker.Utilities
             }
         }
 
-
         public static byte[] EncryptObject(object o)
+        {
+            return EncryptObject(o, DataProviderKeysSection.GetFromConfig());
+        }
+
+        public static byte[] EncryptObject(object o, RijndaelManaged m)
         {
             var ret = new List<byte>();
             var xml = Strings.SerializeObject(o);
-
-            RijndaelManaged m = DataProviderKeysSection.GetFromConfig();
 
             var transform = m.CreateEncryptor();
 
@@ -99,9 +101,14 @@ namespace CprBroker.Utilities
         }
 
         public static T DecryptObject<T>(byte[] encryptedData)
-        {            
+        {
+            return DecryptObject<T>(encryptedData, DataProviderKeysSection.GetFromConfig());
+        }
+
+        public static T DecryptObject<T>(byte[] encryptedData, RijndaelManaged m)
+        {
             string xml = null;
-            RijndaelManaged m = DataProviderKeysSection.GetFromConfig();
+
             var transform = m.CreateDecryptor();
 
             using (MemoryStream msDecrypt = new MemoryStream(encryptedData))
