@@ -57,11 +57,10 @@ using CprBroker.Engine;
 using CprBroker.EventBroker.Data;
 using CprBroker.Installers.EventBrokerInstallers;
 using System.Data.SqlClient;
-using CprBroker.Installers.EventBrokerInstallers;
 
 namespace CprBrokerWixInstallers
 {
-    public class CprBrokerCustomActions
+    public partial class CprBrokerCustomActions
     {
         [CustomAction]
         public static ActionResult CalculateExecutionElevated(Session session)
@@ -258,7 +257,7 @@ namespace CprBrokerWixInstallers
                         Version = new Version(2,1), 
                         SqlScript = Properties.Resources.PatchDatabase_2_1, 
                         PatchAction = null
-                    },
+                    }                    
                 };
 
                 var result = DatabaseCustomAction.PatchDatabase(session, patchInfos);
@@ -447,33 +446,15 @@ namespace CprBrokerWixInstallers
             {
                 var featurePatchInfos = new Dictionary<string, WebPatchInfo[]>();
 
-                Action patch_1_3 = () =>
-                {
-                    var types = new Type[]
-                    {
-                        typeof(CprBroker.Providers.CPRDirect.CPRDirectClientDataProvider), 
-                        typeof(CprBroker.Providers.CPRDirect.CPRDirectExtractDataProvider)
-                    };
-                    var webInstallationInfo = WebInstallationInfo.CreateFromFeature(session, "CPR");
-                    var configFilePath = webInstallationInfo.GetWebConfigFilePath(EventBrokerCustomActions.PathConstants.CprBrokerWebsiteDirectoryRelativePath);
-
-                    // Add new node(s) for data providers
-                    Array.ForEach<Type>(
-                        types,
-                        type =>
-                        {
-                            var dic = new Dictionary<string, string>();
-                            dic["type"] = string.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
-                            CprBroker.Installers.Installation.AddSectionNode("add", dic, configFilePath, "dataProviders/knownTypes");
-                        }
-                    );
-                };
-
                 featurePatchInfos["CPR"] = new WebPatchInfo[] { 
                     new WebPatchInfo()
                     { 
                         Version = new Version(1,3),
-                        PatchAction = patch_1_3
+                        PatchAction = () => PatchWebsite_1_3_0(session)
+                    },
+                    new WebPatchInfo(){
+                        Version = new Version(2,1,1),
+                        PatchAction = () => PatcWebsite_2_1_1(session)
                     }
                 };
 
