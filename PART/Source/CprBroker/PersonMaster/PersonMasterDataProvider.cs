@@ -65,30 +65,36 @@ namespace CprBroker.Providers.PersonMaster
         #region Utility Methods
         private BasicOpClient CreateClient()
         {
-            EndpointAddress endPointAddress;
-            if (string.IsNullOrEmpty(SpnName))
+            if (string.IsNullOrEmpty(this.EndPointConfigurationName))
             {
-                endPointAddress = new EndpointAddress(new Uri(Address));
+                EndpointAddress endPointAddress;
+                if (string.IsNullOrEmpty(SpnName))
+                {
+                    endPointAddress = new EndpointAddress(new Uri(Address));
+                }
+                else
+                {
+                    var identity = new SpnEndpointIdentity(SpnName);
+                    endPointAddress = new EndpointAddress(new Uri(Address), identity);
+                }
+
+                WSHttpBinding binding;
+                if (endPointAddress.Uri.Scheme == "https")
+                {
+                    binding = new WSHttpBinding(SecurityMode.Transport);
+                    binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Windows;
+                }
+                else
+                {
+                    binding = new WSHttpBinding();
+                }
+
+                return new BasicOpClient(binding, endPointAddress);
             }
             else
             {
-                var identity = new SpnEndpointIdentity(SpnName);
-                endPointAddress = new EndpointAddress(new Uri(Address), identity);
+                return new BasicOpClient(EndPointConfigurationName);
             }
-
-            WSHttpBinding binding;
-            if (endPointAddress.Uri.Scheme == "https")
-            {
-                binding = new WSHttpBinding(SecurityMode.Transport);
-                binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Windows;
-            }
-            else
-            {
-                binding = new WSHttpBinding();
-            }
-
-            BasicOpClient client = new BasicOpClient(binding, endPointAddress);
-            return client;
         }
         #endregion
         #region IPartPersonMappingDataProvider Members
@@ -146,9 +152,10 @@ namespace CprBroker.Providers.PersonMaster
             {
                 return new DataProviderConfigPropertyInfo[] 
                 {
-                    new DataProviderConfigPropertyInfo(){Name="Address", Type=DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
-                    new DataProviderConfigPropertyInfo(){Name="Context", Type=DataProviderConfigPropertyInfoTypes.String, Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Address", Type=DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="Context", Type=DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Spn name", Type=DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Name="End point configuration name", Type = DataProviderConfigPropertyInfoTypes.String, Required=false, Confidential=false}
                 };
             }
         }
@@ -181,6 +188,13 @@ namespace CprBroker.Providers.PersonMaster
             }
         }
 
+        public string EndPointConfigurationName
+        {
+            get
+            {
+                return ConfigurationProperties["End point configuration name"];
+            }
+        }
 
         #endregion
 
