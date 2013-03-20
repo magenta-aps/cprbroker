@@ -51,7 +51,6 @@ using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
 using System.Data.SqlClient;
 using CprBroker.Installers;
-using CprBroker.Utilities;
 using Microsoft.Win32;
 using System.ServiceProcess;
 

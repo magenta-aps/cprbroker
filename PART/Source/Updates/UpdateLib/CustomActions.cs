@@ -52,7 +52,6 @@ using System.Windows.Forms;
 using Microsoft.Deployment.WindowsInstaller;
 using System.Data.SqlClient;
 using CprBroker.Installers;
-using CprBroker.Utilities;
 
 namespace UpdateLib
 {
