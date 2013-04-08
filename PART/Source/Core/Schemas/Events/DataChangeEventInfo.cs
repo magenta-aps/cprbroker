@@ -58,6 +58,7 @@ namespace CprBroker.Schemas.Part.Events
     {
         public Guid EventId { get; set; }
         public Guid PersonUuid { get; set; }
+        public Guid PersonRegistrationId { get; set; }
         public DateTime ReceivedDate { get; set; }
     }
 }
