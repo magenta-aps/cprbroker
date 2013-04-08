@@ -2360,6 +2360,8 @@ namespace CprBroker.EventBroker.Data
 		private System.Guid _DataChangeEventId;
 		
 		private System.Guid _PersonUuid;
+
+        private System.Guid _PersonRegistrationId;
 		
 		private System.DateTime _DueDate;
 		
@@ -2423,6 +2425,26 @@ namespace CprBroker.EventBroker.Data
 				}
 			}
 		}
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_PersonRegistrationId", DbType = "UniqueIdentifier NOT NULL")]
+        public System.Guid PersonRegistrationId
+        {
+            get
+            {
+                return this._PersonRegistrationId;
+            }
+            set
+            {
+                if ((this._PersonRegistrationId != value))
+                {
+                    this.OnPersonUuidChanging(value);
+                    this.SendPropertyChanging();
+                    this._PersonRegistrationId = value;
+                    this.SendPropertyChanged("PersonUuid");
+                    this.OnPersonUuidChanged();
+                }
+            }
+        }
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DueDate", DbType="DateTime NOT NULL")]
 		public System.DateTime DueDate

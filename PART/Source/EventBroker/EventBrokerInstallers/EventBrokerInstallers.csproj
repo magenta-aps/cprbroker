@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GenerateScript.txt" />
+    <Content Include="Resources\PatchDatabase_2_2.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ChannelType.csv" />

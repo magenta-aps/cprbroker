@@ -3044,6 +3044,8 @@ namespace CprBroker.EventBroker.EventsService {
         private System.Guid eventIdField;
         
         private System.Guid personUuidField;
+
+        private System.Guid personRegistrationIdField;
         
         private System.DateTime receivedDateField;
         
@@ -3064,6 +3066,19 @@ namespace CprBroker.EventBroker.EventsService {
             }
             set {
                 this.personUuidField = value;
+            }
+        }
+
+        /// <remarks/>
+        public System.Guid PersonRegistrationId
+        {
+            get
+            {
+                return this.PersonRegistrationId;
+            }
+            set
+            {
+                this.personRegistrationIdField = value;
             }
         }
         
