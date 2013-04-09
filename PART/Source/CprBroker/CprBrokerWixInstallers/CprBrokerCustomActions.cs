@@ -254,10 +254,23 @@ namespace CprBrokerWixInstallers
                         PatchAction = null
                     },
                     new DatabasePatchInfo(){ 
-                        Version = new Version(2,1), 
-                        SqlScript = Properties.Resources.PatchDatabase_2_1, 
+                        Version = new Version(2,1),
+                        SqlScript = Properties.Resources.PatchDatabase_2_1,
                         PatchAction = null
-                    }                    
+                    },
+                    new DatabasePatchInfo(){ 
+                        Version = new Version(2,2),
+                        SqlScript = Properties.Resources.PatchDatabase_2_2,
+                        PatchAction = null
+                    }
+                };
+
+                patchInfos["EVENT"] = new DatabasePatchInfo[] { 
+                    new DatabasePatchInfo(){
+                        Version = new Version(2,2),
+                        SqlScript = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.PatchDatabase_2_2,
+                        PatchAction = null
+                    }
                 };
 
                 var result = DatabaseCustomAction.PatchDatabase(session, patchInfos);

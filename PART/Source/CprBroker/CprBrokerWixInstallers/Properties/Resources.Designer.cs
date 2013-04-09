@@ -312,6 +312,21 @@ namespace CprBrokerWixInstallers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -----------------------------------------------------------------
+        ///------------  Enables parameterized subscriptions  -------------
+        ///-----------------------------------------------------------------
+        ///
+        ///IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = &apos;PersonRegistrationId&apos; and object_id=object_id(&apos;DataChangeEvent&apos;))
+        ///	ALTER TABLE dbo.DataChangeEvent ADD PersonRegistrationId UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID()
+        ///GO.
+        /// </summary>
+        internal static string PatchDatabase_2_2 {
+            get {
+                return ResourceManager.GetString("PatchDatabase_2_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RelationshipTypeId;ForwardName
         ///0;Mother
         ///1;Father
