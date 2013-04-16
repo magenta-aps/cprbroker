@@ -48,6 +48,8 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
 
 using System.Security.Principal;
 using System.Threading;
@@ -63,6 +65,7 @@ namespace PersonmasterServiceLibrary
     /// <summary>
     /// BasicOp implements the IBasicOp interface againt the PersonMaster DB model
     /// </summary>
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]    
     public class BasicOp : IBasicOp
     {
         #region GUID-CPR operations
