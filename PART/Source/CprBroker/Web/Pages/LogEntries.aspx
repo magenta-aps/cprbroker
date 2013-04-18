@@ -2,6 +2,56 @@
     MasterPageFile="~/Pages/Site.Master" Title="Log" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
+<table width="100%">
+<tr>
+<td>
+<b style="vertical-align: middle;">During the last</b>
+    <asp:ListView runat="server" ID="lvPeriod" ExtractTemplateColumns="True" OnDataBinding="lvPeriod_DataBinding" >
+        <LayoutTemplate>
+            <table width="35%">
+                <tr>                    
+                    <td runat="server" id="itemPlaceholder"></td>
+                </tr>
+            </table>
+        </LayoutTemplate>
+        <ItemTemplate>
+        <td id="Td1" runat="server">
+            <a href="<%# CreatePeriodLink(Container.DataItem) %>" class='<%# Container.DataItem.ToString().Equals(Enum.GetName(typeof(CprBroker.Web.LogPeriod), this.CurrentPeriod), StringComparison.InvariantCultureIgnoreCase)? "CurrentCriteriaButton": "CriteriaButton" %>' ><%# Container.DataItem %></a>
+            </td>
+        </ItemTemplate>
+    </asp:ListView>
+</td>
+<td>
+<b style="vertical-align: middle;">Type</b>
+    <asp:DataList runat="server" ID="lvType" ExtractTemplateColumns="True" OnDataBinding="lvType_DataBinding"  RepeatDirection="Horizontal" >
+        <HeaderTemplate>
+            <a id="A1" runat="server" href='<%# CreateTypeLink("") %>' class='<%# string.IsNullOrEmpty(Request.Params["Type"])? "CurrentCriteriaButton": "CriteriaButton" %>'>(All)</a>
+        </HeaderTemplate>
+        <ItemTemplate>        
+            <a href="<%# CreateTypeLink(Container.DataItem) %>" class='<%# Container.DataItem.ToString().Equals(Request.Params["Type"], StringComparison.InvariantCultureIgnoreCase)? "CurrentCriteriaButton": "CriteriaButton" %>' ><%# Container.DataItem %></a>            
+        </ItemTemplate>
+    </asp:DataList>
+</td>
+</tr>
+</table>
+    
+
+    <asp:LinqDataSource ID="applicationsLinqDataSource" runat="server" ContextTypeName="CprBroker.Data.Applications.ApplicationDataContext"
+        TableName="Applications" OrderBy="RegistrationDate"
+        EnableUpdate="False" EnableInsert="False" EnableDelete="False" >        
+    </asp:LinqDataSource>
+
+    <b style="vertical-align: middle;">For application</b>
+    <asp:DataList runat="server" ID="lvApplications" DataSourceID="applicationsLinqDataSource" RepeatDirection="Horizontal" RepeatColumns="5" Width="75%">
+        <ItemStyle Width="20%"  Wrap="false"/>
+        <HeaderTemplate>
+            <a href="<%# CreateAppLink("") %>" class='<%# string.IsNullOrEmpty(Request.Params["App"])? "CurrentCriteriaButton": "CriteriaButton" %>' >(All Applications)</a>
+        </HeaderTemplate>
+        <ItemTemplate>        
+            <a href="<%# CreateAppLink(DataBinder.Eval(Container.DataItem,"Name")) %>" class='<%# DataBinder.Eval(Container.DataItem,"Name").ToString().Equals(Request.Params["App"], StringComparison.InvariantCultureIgnoreCase)? "CurrentCriteriaButton": "CriteriaButton" %>' ><%# DataBinder.Eval(Container.DataItem, "Name")%></a>
+        </ItemTemplate>
+    </asp:DataList>
+    <br />
     <asp:LinqDataSource ID="logEntriesLinqDataSource" runat="server" ContextTypeName="CprBroker.Data.Applications.ApplicationDataContext"
         OrderBy="LogDate desc" TableName="LogEntries" AutoPage="False" 
         onselected="logEntriesLinqDataSource_Selected" 

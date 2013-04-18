@@ -13,6 +13,42 @@ namespace CprBroker.Web.Pages {
     public partial class LogEntries {
         
         /// <summary>
+        /// lvPeriod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lvPeriod;
+        
+        /// <summary>
+        /// lvType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList lvType;
+        
+        /// <summary>
+        /// applicationsLinqDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinqDataSource applicationsLinqDataSource;
+        
+        /// <summary>
+        /// lvApplications control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList lvApplications;
+        
+        /// <summary>
         /// logEntriesLinqDataSource control.
         /// </summary>
         /// <remarks>

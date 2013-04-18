@@ -121,6 +121,31 @@ hr
 	font-family: Arial;
 	border: 0;
 }
+.CriteriaButton
+{
+	width: 100%;
+	height: 25px;
+	padding-top: 5px;
+	display: inline-table;
+	visibility: visible;
+	text-align: center;
+	background-color: #42498c;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+}
+.CurrentCriteriaButton
+{
+    width: 100%;
+    height: 25px;
+    padding-top: 5px;
+    display: inline-table;
+    visibility: visible;
+    text-align: center;
+    background-color: #6699FF;    
+    font-weight: bold;
+    text-decoration: none;    
+}
 h3
 {
 	font-size: 18px;

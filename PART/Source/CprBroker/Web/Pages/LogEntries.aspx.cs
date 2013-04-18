@@ -49,6 +49,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -64,7 +65,50 @@ namespace CprBroker.Web.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                lvPeriod.DataBind();
+                lvType.DataBind();
+            }
+        }
 
+        protected void lvPeriod_DataBinding(object sender, EventArgs e)
+        {
+            lvPeriod.DataSource = Enum.GetNames(typeof(LogPeriod));
+        }
+
+        protected void lvType_DataBinding(object sender, EventArgs e)
+        {
+            lvType.DataSource = Enum.GetNames(typeof(LogType));
+        }
+
+        protected string CreatePeriodLink(object period)
+        {
+            return CreateLink("Period", period.ToString());
+        }
+
+        protected string CreateTypeLink(object period)
+        {
+            return CreateLink("Type", period.ToString());
+        }
+
+        protected string CreateAppLink(object appName)
+        {
+            return CreateLink("App", appName.ToString());
+        }
+
+        protected string CreateLink(string name, string value)
+        {
+            var parameters = HttpUtility.ParseQueryString(Request.Url.Query);
+            if (string.IsNullOrEmpty(value))
+                parameters.Remove(name);
+            else
+                parameters[name] = value;
+
+            var full = Request.Url.ToString();
+            var ind = full.IndexOf('?');
+            var urlWithoutQuery = ind >= 0 ? full.Substring(0, ind) : full;
+            return urlWithoutQuery + "?" + parameters.ToString();
         }
 
         protected void logEntriesLinqDataSource_Selected(object sender, LinqDataSourceStatusEventArgs e)
@@ -83,10 +127,69 @@ namespace CprBroker.Web.Pages
             }
         }
 
+        protected LogPeriod CurrentPeriod
+        {
+            get
+            {
+                LogPeriod period = LogPeriod.Day;
+                try
+                {
+                    period = (LogPeriod)Enum.Parse(typeof(LogPeriod), Request.Params["period"]);
+                }
+                catch { }
+                return period;
+            }
+        }
+
+        DateTime CurrentStartDate
+        {
+            get
+            {
+                switch (CurrentPeriod)
+                {
+                    case LogPeriod.Hour:
+                        return DateTime.Now.AddHours(-1);
+
+                    case LogPeriod.Day:
+                        return DateTime.Now.AddDays(-1);
+
+                    case LogPeriod.Week:
+                        return DateTime.Now.AddDays(-7);
+
+                    case LogPeriod.Month:
+                        return DateTime.Now.AddMonths(-1);
+                }
+                return DateTime.Now.AddDays(-1);
+            }
+        }
+
+        TraceEventType? CurrentType
+        {
+            get
+            {
+                TraceEventType? type = null;
+                try
+                {
+                    type = (TraceEventType)Enum.Parse(typeof(TraceEventType), Request.Params["Type"]);
+                }
+                catch { }
+                return type;
+            }
+        }
+
+        string CurrentAppName
+        {
+            get
+            {
+                return Request.Params["App"];
+            }
+        }
+
+
         protected void logEntriesLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             e.Arguments.TotalRowCount = (int)Data.Statistics.stat.CountRowsByStatistics<Data.Applications.LogEntry>(Config.Properties.Settings.Default.CprBrokerConnectionString, TimeSpan.FromMinutes(15));
-            var logs = Data.Applications.LogEntry.LoadByPage(pager.StartRowIndex, pager.PageSize).ToList();
+            var logs = Data.Applications.LogEntry.LoadByPage(CurrentStartDate,CurrentType, CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
             foreach (var log in logs)
             {
                 log.Text = log.Text.Replace("<", "&lt;").Replace(">", "&gt;");
