@@ -49,6 +49,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.Linq;
+using System.Diagnostics;
+using CprBroker.Utilities;
 
 namespace CprBroker.Data.Applications
 {
@@ -61,19 +63,39 @@ namespace CprBroker.Data.Applications
         /// <param name="startRow">Zero based start row number</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>The found LogEntry objects</returns>
-        public static List<LogEntry> LoadByPage(int startRow, int pageSize)
+        public static List<LogEntry> LoadByPage(DateTime fromDate, TraceEventType? type, string appName, int startRow, int pageSize)
         {
             using (ApplicationDataContext dataContext = new ApplicationDataContext())
             {
                 DataLoadOptions options = new DataLoadOptions();
+                var pred = CprBroker.Utilities.PredicateBuilder.True<LogEntry>();
                 
                 dataContext.LoadOptions = options;
+                
+                // By date
+                pred = pred.And(le=>le.LogDate>=fromDate);
 
-                var ret= dataContext.LogEntries
+                // Byte type
+                if (type.HasValue)
+                {
+                    pred = pred.And(le => le.LogTypeId == (int)type.Value);
+                }
+                
+                // By app
+                if (!string.IsNullOrEmpty(appName))
+                {
+                    var appId = dataContext.Applications.Where(app => app.Name == appName).Select(app => app.ApplicationId).FirstOrDefault();
+                    pred = pred.And(le => le.ApplicationId == appId);
+                }
+
+                // Read records
+                var ret = dataContext.LogEntries
+                    .Where(pred)
                     .OrderByDescending(le => le.LogDate)
                     .Skip(startRow)
                     .Take(pageSize)
                     .ToList();
+
                 foreach (var logEntry in ret)
                 {
                     object o = logEntry.Application;
