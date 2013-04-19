@@ -17,8 +17,8 @@
 
     <!--IIS-->
     <PropertyRef Id="IISMAJORVERSION"/>
-    <Condition Message="Install requires IIS 6 or 7.">
-      <![CDATA[Installed OR (IISMAJORVERSION AND (IISMAJORVERSION = "#6" OR IISMAJORVERSION = "#7"))]]>
+    <Condition Message="Install requires IIS 7.">
+      <![CDATA[Installed OR (IISMAJORVERSION AND (IISMAJORVERSION = "#7"))]]>
     </Condition>
     <!--
     <Property Id="IIS7">
