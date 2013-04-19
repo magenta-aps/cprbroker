@@ -280,7 +280,7 @@ namespace CprBroker.Web.Pages
 
         protected void logEntriesLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            e.Arguments.TotalRowCount = (int)Data.Statistics.stat.CountRowsByStatistics<Data.Applications.LogEntry>(Config.Properties.Settings.Default.CprBrokerConnectionString, TimeSpan.FromMinutes(15));
+            e.Arguments.TotalRowCount = Data.Applications.LogEntry.CountRows(CurrentOptions.EffectiveStartDate, CurrentOptions.CurrentToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName);
             var logs = Data.Applications.LogEntry.LoadByPage(CurrentOptions.EffectiveStartDate, CurrentOptions.CurrentToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
             foreach (var log in logs)
             {

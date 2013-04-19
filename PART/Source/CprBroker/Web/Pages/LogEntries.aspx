@@ -88,9 +88,11 @@
                 <asp:DataPager runat="server" ID="pager" QueryStringField="Page" PagedControlID="dlLogEntries"
                     PageSize="20">
                     <Fields>
+                        <asp:NextPreviousPagerField FirstPageText="&lt;&lt;" ShowFirstPageButton="True" ShowPreviousPageButton="false" ShowNextPageButton="false" ButtonType="Link" ButtonCssClass="PagerPage"  RenderDisabledButtonsAsLabels ="false"/>
                         <asp:NumericPagerField ButtonType="Image" CurrentPageLabelCssClass="PagerCurrent"
                             NumericButtonCssClass="PagerPage" NextPreviousButtonCssClass="PagerPage" PreviousPageText="<"
                             NextPageText=">" ButtonCount="10" />
+                        <asp:NextPreviousPagerField LastPageText="&gt;&gt;" ShowLastPageButton="True" ShowPreviousPageButton="false" ShowNextPageButton="false" ButtonType="Link" ButtonCssClass="PagerPage" />
                     </Fields>
                 </asp:DataPager>
             </td>
