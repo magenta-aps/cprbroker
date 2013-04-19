@@ -14,6 +14,11 @@
     </Condition>
 
     <!--IIS-->
+    <PropertyRef Id="IISMAJORVERSION"/>
+    <Condition Message="Install requires IIS 6 or 7.">
+      <![CDATA[Installed OR (IISMAJORVERSION AND (IISMAJORVERSION = "#6" OR IISMAJORVERSION = "#7"))]]>
+    </Condition>
+    <!--
     <Property Id="IIS56" Value="#0">
       <RegistrySearch Id="IIS56InstalledComponents" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OC Manager\Subcomponents" Type="raw" Name="iis_common" />
     </Property>
@@ -23,6 +28,7 @@
     <Condition Message="This application requires IIS. Please install IIS and then run the installer again.">
       <![CDATA[IIS56 OR IIS7]]>
     </Condition>
+    -->
 
     <!--IIS 6 metabase compatibility-->
     <Property Id="IIS_METABASE_COMPAT">
