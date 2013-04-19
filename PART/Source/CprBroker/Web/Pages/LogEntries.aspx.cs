@@ -63,15 +63,127 @@ namespace CprBroker.Web.Pages
 {
     public partial class LogEntries : System.Web.UI.Page
     {
+        public class LogViewOptions
+        {
+            LogEntries Page { get; set; }
+            public LogViewOptions(LogEntries page)
+            {
+                Page = page;
+            }
+
+            public LogPeriod CurrentPeriod
+            {
+                get
+                {
+                    LogPeriod period = LogPeriod.Day;
+                    try
+                    {
+                        period = (LogPeriod)Enum.Parse(typeof(LogPeriod), Page.Request.Params["period"]);
+                    }
+                    catch { }
+                    return period;
+                }
+            }
+
+            public DateTime? CurrentFromDate
+            {
+                get
+                {
+                    DateTime ret;
+                    if (DateTime.TryParse(Page.txtFrom.Text, out ret))
+                        return ret.Date;
+                    else
+                        return null;
+                }
+            }
+
+            public DateTime? CurrentToDate
+            {
+                get
+                {
+                    DateTime ret;
+                    if (DateTime.TryParse(Page.txtTo.Text, out ret))
+                        return ret.Date;
+                    else
+                        return null;
+                }
+            }
+
+            public DateTime EffectiveStartDate
+            {
+                get
+                {
+                    if (this.IsInPeriodMode)
+                    {
+                        switch (CurrentPeriod)
+                        {
+                            case LogPeriod.Hour:
+                                return DateTime.Now.AddHours(-1);
+
+                            case LogPeriod.Day:
+                                return DateTime.Now.AddDays(-1);
+
+                            case LogPeriod.Week:
+                                return DateTime.Now.AddDays(-7);
+
+                            case LogPeriod.Month:
+                                return DateTime.Now.AddMonths(-1);
+                        }
+                        return DateTime.Now.AddDays(-1);
+                    }
+                    else
+                    {
+                        return CurrentFromDate.Value;
+                    }
+                }
+            }
+
+            public bool IsInPeriodMode
+            {
+                get
+                {
+                    return !(CurrentFromDate.HasValue && CurrentToDate.HasValue);
+                }
+            }
+
+            public TraceEventType? CurrentType
+            {
+                get
+                {
+                    TraceEventType? type = null;
+                    try
+                    {
+                        type = (TraceEventType)Enum.Parse(typeof(TraceEventType), Page.Request.Params["Type"]);
+                    }
+                    catch { }
+                    return type;
+                }
+            }
+
+            public string CurrentAppName
+            {
+                get
+                {
+                    return Page.Request.Params["App"];
+                }
+            }
+        }
+
+        public LogViewOptions CurrentOptions
+        {
+            get { return new LogViewOptions(this); }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                txtFrom.Text = Request.Params["From"];
+                txtTo.Text = Request.Params["To"];
+
                 lvPeriod.DataBind();
                 lvType.DataBind();
                 lnkGoDate.HRef = this.Request.Url.ToString();
-                txtFrom.Text = Request.Params["From"];
-                txtTo.Text = Request.Params["To"];
             }
         }
 
@@ -166,100 +278,10 @@ namespace CprBroker.Web.Pages
             }
         }
 
-        protected LogPeriod CurrentPeriod
-        {
-            get
-            {
-                LogPeriod period = LogPeriod.Day;
-                try
-                {
-                    period = (LogPeriod)Enum.Parse(typeof(LogPeriod), Request.Params["period"]);
-                }
-                catch { }
-                return period;
-            }
-        }
-
-        DateTime? CurrentFromDate
-        {
-            get
-            {
-                DateTime ret;
-                if (DateTime.TryParse(txtFrom.Text, out ret))
-                    return ret.Date;
-                else
-                    return null;
-            }
-        }
-
-        DateTime? CurrentToDate
-        {
-            get
-            {
-                DateTime ret;
-                if (DateTime.TryParse(txtTo.Text, out ret))
-                    return ret.Date;
-                else
-                    return null;
-            }
-        }
-
-        DateTime EffectiveStartDate
-        {
-            get
-            {
-                if (this.CurrentFromDate.HasValue)
-                {
-                    return CurrentFromDate.Value;
-                }
-                else
-                {
-                    switch (CurrentPeriod)
-                    {
-                        case LogPeriod.Hour:
-                            return DateTime.Now.AddHours(-1);
-
-                        case LogPeriod.Day:
-                            return DateTime.Now.AddDays(-1);
-
-                        case LogPeriod.Week:
-                            return DateTime.Now.AddDays(-7);
-
-                        case LogPeriod.Month:
-                            return DateTime.Now.AddMonths(-1);
-                    }
-                    return DateTime.Now.AddDays(-1);
-                }
-            }
-        }
-
-        TraceEventType? CurrentType
-        {
-            get
-            {
-                TraceEventType? type = null;
-                try
-                {
-                    type = (TraceEventType)Enum.Parse(typeof(TraceEventType), Request.Params["Type"]);
-                }
-                catch { }
-                return type;
-            }
-        }
-
-        string CurrentAppName
-        {
-            get
-            {
-                return Request.Params["App"];
-            }
-        }
-
-
         protected void logEntriesLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             e.Arguments.TotalRowCount = (int)Data.Statistics.stat.CountRowsByStatistics<Data.Applications.LogEntry>(Config.Properties.Settings.Default.CprBrokerConnectionString, TimeSpan.FromMinutes(15));
-            var logs = Data.Applications.LogEntry.LoadByPage(EffectiveStartDate, CurrentToDate, CurrentType, CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
+            var logs = Data.Applications.LogEntry.LoadByPage(CurrentOptions.EffectiveStartDate, CurrentOptions.CurrentToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
             foreach (var log in logs)
             {
                 log.Text = log.Text.Replace("<", "&lt;").Replace(">", "&gt;");

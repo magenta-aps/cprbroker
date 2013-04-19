@@ -22,7 +22,7 @@
         </LayoutTemplate>
         <ItemTemplate>
         <td id="Td1" runat="server">
-            <a href="<%# CreatePeriodLink(Container.DataItem) %>" class='<%# Container.DataItem.ToString().Equals(Enum.GetName(typeof(CprBroker.Web.LogPeriod), this.CurrentPeriod), StringComparison.InvariantCultureIgnoreCase)? "CurrentCriteriaButton": "CriteriaButton" %>' ><%# Container.DataItem %></a>
+            <a href="<%# CreatePeriodLink(Container.DataItem) %>" class='<%# CurrentOptions.IsInPeriodMode && Container.DataItem.ToString().Equals(Enum.GetName(typeof(CprBroker.Web.LogPeriod), CurrentOptions.CurrentPeriod), StringComparison.InvariantCultureIgnoreCase)? "CurrentCriteriaButton": "CriteriaButton" %>' ><%# Container.DataItem %></a>
             </td>
         </ItemTemplate>
     </asp:ListView>    
