@@ -80,12 +80,6 @@ namespace CprBroker.Web.Pages
         {
             DateTime dt;
             lnkGoDate.Disabled = !DateTime.TryParse(txtFrom.Text, out dt) || !DateTime.TryParse(txtTo.Text, out dt); 
-            return;
-            txtFrom.Attributes["onchange"] = string.Format("SetDateUrl('{0}','From','{1}')", txtFrom.ClientID, lnkGoDate.ClientID);
-            txtTo.Attributes["onchange"] = string.Format("SetDateUrl('{0}','To','{1}')", txtTo.ClientID, lnkGoDate.ClientID);
-            lnkGoDate.HRef = CreatePeriodLink("");
-            lnkGoDate.Attributes["url"] = CreatePeriodLink("");
-            lnkGoDate.Attributes["base"] = UrlWithoutQuery(Request.Url.ToString());
         }
 
         protected void txtFrom_TextChanged(object sender, EventArgs e)

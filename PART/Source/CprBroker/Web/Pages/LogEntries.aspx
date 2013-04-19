@@ -5,21 +5,6 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
-<script type="text/javascript" language="javascript">
-    function SetDateUrl(txtId, paramName, lnkId) {
-        return;        
-        txt = document.getElementById(txtId);
-        lnk = document.getElementById(lnkId);
-        url = lnk.attributes["url"].value;
-        base = lnk.attributes["base"].value;
-        if (url == base)
-            url += "?";
-        else
-            url += "&";
-        url = url + paramName + "=" + txt.value
-        lnk.setAttribute("href", url);
-    }
-</script>
 <table width="100%">
 <tr>
 <td nowrap="nowrap">
