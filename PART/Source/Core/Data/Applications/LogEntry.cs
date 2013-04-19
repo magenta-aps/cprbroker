@@ -51,11 +51,50 @@ using System.Text;
 using System.Data.Linq;
 using System.Diagnostics;
 using CprBroker.Utilities;
+using System.Linq.Expressions;
 
 namespace CprBroker.Data.Applications
 {
     public partial class LogEntry
     {
+        public static System.Linq.Expressions.Expression<Func<LogEntry, bool>> CreatePredicate(ApplicationDataContext dataContext, DateTime fromDate, DateTime? toDate, TraceEventType? type, string appName)
+        {
+            var pred = CprBroker.Utilities.PredicateBuilder.True<LogEntry>();
+
+            // By date
+            pred = pred.And(le => le.LogDate >= fromDate);
+            if (toDate.HasValue)
+            {
+                pred = pred.And(le => le.LogDate < toDate.Value.AddDays(1));
+            }
+
+            // Byte type
+            if (type.HasValue)
+            {
+                pred = pred.And(le => le.LogTypeId == (int)type.Value);
+            }
+
+            // By app
+            if (!string.IsNullOrEmpty(appName))
+            {
+                var appId = dataContext.Applications.Where(app => app.Name == appName).Select(app => app.ApplicationId).FirstOrDefault();
+                pred = pred.And(le => le.ApplicationId == appId);
+            }
+            return pred;
+        }
+
+        public static int CountRows(DateTime fromDate, DateTime? toDate, TraceEventType? type, string appName)
+        {
+            using (ApplicationDataContext dataContext = new ApplicationDataContext())
+            {
+                var pred = CreatePredicate(dataContext, fromDate, toDate, type, appName);
+                return dataContext.LogEntries
+                    .Where(pred)
+                    .Select(le => le.LogDate)
+                    .Count();
+            }
+        }
+
         /// <summary>
         /// Reads the LogEntry objects as requested
         /// Makes dummy calls to Application and LogType properties to allow accessing them without the source data context object
@@ -63,30 +102,12 @@ namespace CprBroker.Data.Applications
         /// <param name="startRow">Zero based start row number</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>The found LogEntry objects</returns>
-        public static List<LogEntry> LoadByPage(DateTime fromDate, TraceEventType? type, string appName, int startRow, int pageSize)
+        public static List<LogEntry> LoadByPage(DateTime fromDate, DateTime? toDate, TraceEventType? type, string appName, int startRow, int pageSize)
         {
             using (ApplicationDataContext dataContext = new ApplicationDataContext())
             {
                 DataLoadOptions options = new DataLoadOptions();
-                var pred = CprBroker.Utilities.PredicateBuilder.True<LogEntry>();
-                
-                dataContext.LoadOptions = options;
-                
-                // By date
-                pred = pred.And(le=>le.LogDate>=fromDate);
-
-                // Byte type
-                if (type.HasValue)
-                {
-                    pred = pred.And(le => le.LogTypeId == (int)type.Value);
-                }
-                
-                // By app
-                if (!string.IsNullOrEmpty(appName))
-                {
-                    var appId = dataContext.Applications.Where(app => app.Name == appName).Select(app => app.ApplicationId).FirstOrDefault();
-                    pred = pred.And(le => le.ApplicationId == appId);
-                }
+                var pred = CreatePredicate(dataContext, fromDate, toDate, type, appName);
 
                 // Read records
                 var ret = dataContext.LogEntries
