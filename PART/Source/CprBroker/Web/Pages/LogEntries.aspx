@@ -32,11 +32,11 @@
             From
     
             <asp:TextBox ID="txtFrom" runat="server" Width="75px" AutoPostBack="true" OnTextChanged="txtFrom_TextChanged"></asp:TextBox>
-            <asp:CalendarExtender   ID="calexFrom" TargetControlID="txtFrom" runat="server" />
+            <asp:CalendarExtender   ID="calexFrom" TargetControlID="txtFrom" runat="server" Format="d/M/yyyy" />
         
             To
             <asp:TextBox ID="txtTo" runat="server" Width="75px" AutoPostBack="true" OnTextChanged="txtTo_TextChanged"></asp:TextBox>
-            <asp:CalendarExtender   ID="calexTo" runat="server" TargetControlID="txtTo" />
+            <asp:CalendarExtender   ID="calexTo" runat="server" TargetControlID="txtTo" Format="d/M/yyyy" />
             <a runat="server" id="lnkGoDate" name="lnkGoDate" class="CommandButton">GO</a>
         </ContentTemplate>
 

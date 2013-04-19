@@ -73,13 +73,6 @@ namespace CprBroker.Web.Pages
                 txtFrom.Text = Request.Params["From"];
                 txtTo.Text = Request.Params["To"];
             }
-            this.PreRender += new EventHandler(LogEntries_PreRender);
-        }
-
-        void LogEntries_PreRender(object sender, EventArgs e)
-        {
-            DateTime dt;
-            lnkGoDate.Disabled = !DateTime.TryParse(txtFrom.Text, out dt) || !DateTime.TryParse(txtTo.Text, out dt); 
         }
 
         protected void txtFrom_TextChanged(object sender, EventArgs e)
@@ -98,6 +91,10 @@ namespace CprBroker.Web.Pages
             if (DateTime.TryParse(txt.Text, out date))
             {
                 lnkGoDate.HRef = CreateLink(name, txt.Text, new Uri(lnkGoDate.HRef), "Period");
+            }
+            else if (string.IsNullOrEmpty(txt.Text.Trim()))
+            {
+                lnkGoDate.HRef = CreateLink(name, "", new Uri(lnkGoDate.HRef), "Period");
             }
         }
 
@@ -183,25 +180,56 @@ namespace CprBroker.Web.Pages
             }
         }
 
-        DateTime CurrentStartDate
+        DateTime? CurrentFromDate
         {
             get
             {
-                switch (CurrentPeriod)
+                DateTime ret;
+                if (DateTime.TryParse(txtFrom.Text, out ret))
+                    return ret.Date;
+                else
+                    return null;
+            }
+        }
+
+        DateTime? CurrentToDate
+        {
+            get
+            {
+                DateTime ret;
+                if (DateTime.TryParse(txtTo.Text, out ret))
+                    return ret.Date;
+                else
+                    return null;
+            }
+        }
+
+        DateTime EffectiveStartDate
+        {
+            get
+            {
+                if (this.CurrentFromDate.HasValue)
                 {
-                    case LogPeriod.Hour:
-                        return DateTime.Now.AddHours(-1);
-
-                    case LogPeriod.Day:
-                        return DateTime.Now.AddDays(-1);
-
-                    case LogPeriod.Week:
-                        return DateTime.Now.AddDays(-7);
-
-                    case LogPeriod.Month:
-                        return DateTime.Now.AddMonths(-1);
+                    return CurrentFromDate.Value;
                 }
-                return DateTime.Now.AddDays(-1);
+                else
+                {
+                    switch (CurrentPeriod)
+                    {
+                        case LogPeriod.Hour:
+                            return DateTime.Now.AddHours(-1);
+
+                        case LogPeriod.Day:
+                            return DateTime.Now.AddDays(-1);
+
+                        case LogPeriod.Week:
+                            return DateTime.Now.AddDays(-7);
+
+                        case LogPeriod.Month:
+                            return DateTime.Now.AddMonths(-1);
+                    }
+                    return DateTime.Now.AddDays(-1);
+                }
             }
         }
 
@@ -231,7 +259,7 @@ namespace CprBroker.Web.Pages
         protected void logEntriesLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             e.Arguments.TotalRowCount = (int)Data.Statistics.stat.CountRowsByStatistics<Data.Applications.LogEntry>(Config.Properties.Settings.Default.CprBrokerConnectionString, TimeSpan.FromMinutes(15));
-            var logs = Data.Applications.LogEntry.LoadByPage(CurrentStartDate, CurrentType, CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
+            var logs = Data.Applications.LogEntry.LoadByPage(EffectiveStartDate, CurrentToDate, CurrentType, CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
             foreach (var log in logs)
             {
                 log.Text = log.Text.Replace("<", "&lt;").Replace(">", "&gt;");
