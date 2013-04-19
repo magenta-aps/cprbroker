@@ -69,6 +69,41 @@ namespace CprBroker.Web.Pages
             {
                 lvPeriod.DataBind();
                 lvType.DataBind();
+                lnkGoDate.HRef = this.Request.Url.ToString();
+                txtFrom.Text = Request.Params["From"];
+                txtTo.Text = Request.Params["To"];
+            }
+            this.PreRender += new EventHandler(LogEntries_PreRender);
+        }
+
+        void LogEntries_PreRender(object sender, EventArgs e)
+        {
+            DateTime dt;
+            lnkGoDate.Disabled = !DateTime.TryParse(txtFrom.Text, out dt) || !DateTime.TryParse(txtTo.Text, out dt); 
+            return;
+            txtFrom.Attributes["onchange"] = string.Format("SetDateUrl('{0}','From','{1}')", txtFrom.ClientID, lnkGoDate.ClientID);
+            txtTo.Attributes["onchange"] = string.Format("SetDateUrl('{0}','To','{1}')", txtTo.ClientID, lnkGoDate.ClientID);
+            lnkGoDate.HRef = CreatePeriodLink("");
+            lnkGoDate.Attributes["url"] = CreatePeriodLink("");
+            lnkGoDate.Attributes["base"] = UrlWithoutQuery(Request.Url.ToString());
+        }
+
+        protected void txtFrom_TextChanged(object sender, EventArgs e)
+        {
+            CreateDateLink(txtFrom, "From");
+        }
+
+        protected void txtTo_TextChanged(object sender, EventArgs e)
+        {
+            CreateDateLink(txtTo, "To");
+        }
+
+        protected void CreateDateLink(TextBox txt, string name)
+        {
+            DateTime date = DateTime.MinValue;
+            if (DateTime.TryParse(txt.Text, out date))
+            {
+                lnkGoDate.HRef = CreateLink(name, txt.Text, new Uri(lnkGoDate.HRef), "Period");
             }
         }
 
@@ -84,31 +119,44 @@ namespace CprBroker.Web.Pages
 
         protected string CreatePeriodLink(object period)
         {
-            return CreateLink("Period", period.ToString());
+            return CreateLink("Period", period.ToString(), Request.Url, "From", "To");
         }
 
-        protected string CreateTypeLink(object period)
+        protected string CreateTypeLink(object type)
         {
-            return CreateLink("Type", period.ToString());
+            return CreateLink("Type", type.ToString(), Request.Url);
         }
 
         protected string CreateAppLink(object appName)
         {
-            return CreateLink("App", appName.ToString());
+            return CreateLink("App", appName.ToString(), Request.Url);
         }
 
-        protected string CreateLink(string name, string value)
+        protected string UrlWithoutQuery(string url)
         {
-            var parameters = HttpUtility.ParseQueryString(Request.Url.Query);
+            var full = url;
+            var ind = full.IndexOf('?');
+            var urlWithoutQuery = ind >= 0 ? full.Substring(0, ind) : full;
+            return urlWithoutQuery;
+        }
+
+        protected string CreateLink(string name, string value, Uri baseUrl, params string[] namesToRemove)
+        {
+            var parameters = HttpUtility.ParseQueryString(baseUrl.Query);
+
             if (string.IsNullOrEmpty(value))
                 parameters.Remove(name);
             else
                 parameters[name] = value;
 
-            var full = Request.Url.ToString();
-            var ind = full.IndexOf('?');
-            var urlWithoutQuery = ind >= 0 ? full.Substring(0, ind) : full;
-            return urlWithoutQuery + "?" + parameters.ToString();
+            foreach (var nameToRemove in namesToRemove)
+                parameters.Remove(nameToRemove);
+
+            var urlWithoutQuery = UrlWithoutQuery(baseUrl.ToString());
+            if (parameters.Count > 0)
+                return urlWithoutQuery + "?" + parameters.ToString();
+            else
+                return urlWithoutQuery;
         }
 
         protected void logEntriesLinqDataSource_Selected(object sender, LinqDataSourceStatusEventArgs e)
@@ -189,7 +237,7 @@ namespace CprBroker.Web.Pages
         protected void logEntriesLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             e.Arguments.TotalRowCount = (int)Data.Statistics.stat.CountRowsByStatistics<Data.Applications.LogEntry>(Config.Properties.Settings.Default.CprBrokerConnectionString, TimeSpan.FromMinutes(15));
-            var logs = Data.Applications.LogEntry.LoadByPage(CurrentStartDate,CurrentType, CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
+            var logs = Data.Applications.LogEntry.LoadByPage(CurrentStartDate, CurrentType, CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
             foreach (var log in logs)
             {
                 log.Text = log.Text.Replace("<", "&lt;").Replace(">", "&gt;");

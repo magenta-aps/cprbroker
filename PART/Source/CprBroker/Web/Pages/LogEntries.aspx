@@ -1,16 +1,37 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LogEntries.aspx.cs" Inherits="CprBroker.Web.Pages.LogEntries"
     MasterPageFile="~/Pages/Site.Master" Title="Log" %>
+<%@ Register Assembly="CprBroker.Web" Namespace="CprBroker.Web.Controls" TagPrefix="cc"%>
+
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="Contents">
+<script type="text/javascript" language="javascript">
+    function SetDateUrl(txtId, paramName, lnkId) {
+        return;        
+        txt = document.getElementById(txtId);
+        lnk = document.getElementById(lnkId);
+        url = lnk.attributes["url"].value;
+        base = lnk.attributes["base"].value;
+        if (url == base)
+            url += "?";
+        else
+            url += "&";
+        url = url + paramName + "=" + txt.value
+        lnk.setAttribute("href", url);
+    }
+</script>
 <table width="100%">
 <tr>
-<td>
-<b style="vertical-align: middle;">During the last</b>
+<td nowrap="nowrap">
+<b style="vertical-align: middle;">During the last</b>    
     <asp:ListView runat="server" ID="lvPeriod" ExtractTemplateColumns="True" OnDataBinding="lvPeriod_DataBinding" >
         <LayoutTemplate>
             <table width="35%">
                 <tr>                    
                     <td runat="server" id="itemPlaceholder"></td>
+                    <td></td>
+                    <td>
+    </td>
                 </tr>
             </table>
         </LayoutTemplate>
@@ -19,7 +40,23 @@
             <a href="<%# CreatePeriodLink(Container.DataItem) %>" class='<%# Container.DataItem.ToString().Equals(Enum.GetName(typeof(CprBroker.Web.LogPeriod), this.CurrentPeriod), StringComparison.InvariantCultureIgnoreCase)? "CurrentCriteriaButton": "CriteriaButton" %>' ><%# Container.DataItem %></a>
             </td>
         </ItemTemplate>
-    </asp:ListView>
+    </asp:ListView>    
+    <asp:UpdatePanel ID="UpdatePanel1" RenderMode="Inline" runat="server">
+        <ContentTemplate>
+            <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" />
+            From
+    
+            <asp:TextBox ID="txtFrom" runat="server" Width="75px" AutoPostBack="true" OnTextChanged="txtFrom_TextChanged"></asp:TextBox>
+            <asp:CalendarExtender   ID="calexFrom" TargetControlID="txtFrom" runat="server" />
+        
+            To
+            <asp:TextBox ID="txtTo" runat="server" Width="75px" AutoPostBack="true" OnTextChanged="txtTo_TextChanged"></asp:TextBox>
+            <asp:CalendarExtender   ID="calexTo" runat="server" TargetControlID="txtTo" />
+            <a runat="server" id="lnkGoDate" name="lnkGoDate" class="CommandButton">GO</a>
+        </ContentTemplate>
+
+    </asp:UpdatePanel>
+    
 </td>
 <td>
 <b style="vertical-align: middle;">Type</b>
