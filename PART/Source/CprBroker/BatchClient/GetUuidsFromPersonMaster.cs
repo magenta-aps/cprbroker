@@ -81,10 +81,29 @@ namespace BatchClient
 
         public override void ProcessPerson(string joinedPnrBatch)
         {
-            WSHttpBinding binding = new WSHttpBinding();
+            EndpointAddress endPointAddress;
+            if (string.IsNullOrEmpty(this.PersonMasterSpnName))
+            {
+                endPointAddress = new EndpointAddress(new Uri(this.PersonMasterUrl));
+            }
+            else
+            {
+                var identity = new SpnEndpointIdentity(this.PersonMasterSpnName);
+                endPointAddress = new EndpointAddress(new Uri(this.PersonMasterUrl), identity);
+            }
 
-            var identity = new SpnEndpointIdentity(PersonMasterSpnName);
-            EndpointAddress endPointAddress = new EndpointAddress(new Uri(PersonMasterUrl + "/PersonMasterService12"), identity);
+            WSHttpBinding binding;
+            if (endPointAddress.Uri.Scheme == "https")
+            {
+                binding = new WSHttpBinding(SecurityMode.Transport);
+                binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Windows;
+            }
+            else
+            {
+                binding = new WSHttpBinding();
+            }            
+
+
             PersonMaster.BasicOpClient client = new PersonMaster.BasicOpClient(binding, endPointAddress);
             string[] pnrs = joinedPnrBatch.Split(',');
             string aux = "";
