@@ -61,6 +61,12 @@ namespace CprBroker.Data.Applications
         {
             var pred = CprBroker.Utilities.PredicateBuilder.True<LogEntry>();
 
+            if (toDate.HasValue && toDate.Value < fromDate)
+            {
+                var tmp = fromDate;
+                fromDate = toDate.Value;
+                toDate = tmp;
+            }
             // By date
             pred = pred.And(le => le.LogDate >= fromDate);
             if (toDate.HasValue)
