@@ -22,6 +22,15 @@ namespace CprBroker.Web.Pages {
         protected global::System.Web.UI.WebControls.ListView lvPeriod;
         
         /// <summary>
+        /// lvType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList lvType;
+        
+        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -83,15 +92,6 @@ namespace CprBroker.Web.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkGoDate;
-        
-        /// <summary>
-        /// lvType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList lvType;
         
         /// <summary>
         /// applicationsLinqDataSource control.

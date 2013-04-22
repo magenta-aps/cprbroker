@@ -109,7 +109,7 @@ namespace CprBroker.Web.Pages
                 }
             }
 
-            public DateTime EffectiveStartDate
+            public DateTime EffectiveFromDate
             {
                 get
                 {
@@ -134,6 +134,21 @@ namespace CprBroker.Web.Pages
                     else
                     {
                         return CurrentFromDate.Value;
+                    }
+                }
+            }
+
+            public DateTime? EffectiveToDate
+            {
+                get
+                {
+                    if (IsInPeriodMode)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return CurrentToDate;
                     }
                 }
             }
@@ -208,6 +223,10 @@ namespace CprBroker.Web.Pages
             {
                 lnkGoDate.HRef = CreateLink(name, "", new Uri(lnkGoDate.HRef), "Period");
             }
+            if (!this.CurrentOptions.IsInPeriodMode)
+            {
+                Response.Redirect(lnkGoDate.HRef);
+            }
         }
 
         protected void lvPeriod_DataBinding(object sender, EventArgs e)
@@ -280,8 +299,8 @@ namespace CprBroker.Web.Pages
 
         protected void logEntriesLinqDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            e.Arguments.TotalRowCount = Data.Applications.LogEntry.CountRows(CurrentOptions.EffectiveStartDate, CurrentOptions.CurrentToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName);
-            var logs = Data.Applications.LogEntry.LoadByPage(CurrentOptions.EffectiveStartDate, CurrentOptions.CurrentToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
+            e.Arguments.TotalRowCount = Data.Applications.LogEntry.CountRows(CurrentOptions.EffectiveFromDate, CurrentOptions.EffectiveToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName);
+            var logs = Data.Applications.LogEntry.LoadByPage(CurrentOptions.EffectiveFromDate, CurrentOptions.CurrentToDate, CurrentOptions.CurrentType, CurrentOptions.CurrentAppName, pager.StartRowIndex, pager.PageSize).ToList();
             foreach (var log in logs)
             {
                 log.Text = log.Text.Replace("<", "&lt;").Replace(">", "&gt;");
