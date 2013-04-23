@@ -66,61 +66,13 @@ namespace CprBroker.Providers.Local
     {
 
         #region IPartSearchDataProvider Members
-
+        
         public Guid[] Search(CprBroker.Schemas.Part.SoegInputType1 searchCriteria)
         {
             Guid[] ret = null;
             using (var dataContext = new PartDataContext())
             {
-                var pred = PredicateBuilder.True<Data.Part.PersonRegistration>();
-                if (searchCriteria.SoegObjekt != null)
-                {
-                    if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.UUID))
-                    {
-                        var personUuid = new Guid(searchCriteria.SoegObjekt.UUID);
-                        pred = pred.And(p => p.UUID == personUuid);
-                    }
-                    // Search by cpr number
-                    if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.BrugervendtNoegleTekst))
-                    {
-                        pred = pred.And(pr => pr.Person.UserInterfaceKeyText == searchCriteria.SoegObjekt.BrugervendtNoegleTekst);
-                    }
-                    if (searchCriteria.SoegObjekt.SoegAttributListe != null)
-                    {
-                        if (searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab != null)
-                        {
-                            foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab)
-                            {
-                                if (prop != null && prop.NavnStruktur != null)
-                                {
-                                    if (prop.NavnStruktur.PersonNameStructure != null)
-                                    {
-                                        // Search by name
-                                        var name = prop.NavnStruktur.PersonNameStructure;
-                                        if (!name.IsEmpty)
-                                        {
-                                            // TODO: Test name lookup after new struture (multiple attribuutes)
-                                            var cprNamePred = PredicateBuilder.True<Data.Part.PersonRegistration>();
-                                            if (!string.IsNullOrEmpty(name.PersonGivenName))
-                                            {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.FirstName == name.PersonGivenName).FirstOrDefault() != null);
-                                            }
-                                            if (!string.IsNullOrEmpty(name.PersonMiddleName))
-                                            {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.MiddleName == name.PersonMiddleName).FirstOrDefault() != null);
-                                            }
-                                            if (!string.IsNullOrEmpty(name.PersonSurnameName))
-                                            {
-                                                cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.LastName == name.PersonSurnameName).FirstOrDefault() != null);
-                                            }
-                                            pred = pred.And(cprNamePred);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                var pred = PersonRegistration.CreateWhereExpression(dataContext, searchCriteria);
                 // TODO: Query Person table to avoid Distinct operation
                 var result = (from pr in dataContext.PersonRegistrations.Where(pred)
                               select pr.UUID)

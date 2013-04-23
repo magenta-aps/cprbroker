@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using CprBroker.Schemas.Part;
 using System.Xml.Linq;
@@ -159,5 +160,60 @@ namespace CprBroker.Data.Part
             var thisXml = Strings.SerializeObject(thisOio);
             return string.Equals(xml, thisXml);
         }
+
+        public static Expression<Func<PersonRegistration, bool>> CreateWhereExpression(PartDataContext dataContext, CprBroker.Schemas.Part.SoegInputType1 searchCriteria)
+        {
+            var pred = PredicateBuilder.True<Data.Part.PersonRegistration>();
+            if (searchCriteria.SoegObjekt != null)
+            {
+                if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.UUID))
+                {
+                    var personUuid = new Guid(searchCriteria.SoegObjekt.UUID);
+                    pred = pred.And(p => p.UUID == personUuid);
+                }
+                // Search by cpr number
+                if (!string.IsNullOrEmpty(searchCriteria.SoegObjekt.BrugervendtNoegleTekst))
+                {
+                    pred = pred.And(pr => pr.Person.UserInterfaceKeyText == searchCriteria.SoegObjekt.BrugervendtNoegleTekst);
+                }
+                if (searchCriteria.SoegObjekt.SoegAttributListe != null)
+                {
+                    if (searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab != null)
+                    {
+                        foreach (var prop in searchCriteria.SoegObjekt.SoegAttributListe.SoegEgenskab)
+                        {
+                            if (prop != null && prop.NavnStruktur != null)
+                            {
+                                if (prop.NavnStruktur.PersonNameStructure != null)
+                                {
+                                    // Search by name
+                                    var name = prop.NavnStruktur.PersonNameStructure;
+                                    if (!name.IsEmpty)
+                                    {
+                                        // TODO: Test name lookup after new struture (multiple attribuutes)
+                                        var cprNamePred = PredicateBuilder.True<Data.Part.PersonRegistration>();
+                                        if (!string.IsNullOrEmpty(name.PersonGivenName))
+                                        {
+                                            cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.FirstName == name.PersonGivenName).FirstOrDefault() != null);
+                                        }
+                                        if (!string.IsNullOrEmpty(name.PersonMiddleName))
+                                        {
+                                            cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.MiddleName == name.PersonMiddleName).FirstOrDefault() != null);
+                                        }
+                                        if (!string.IsNullOrEmpty(name.PersonSurnameName))
+                                        {
+                                            cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.LastName == name.PersonSurnameName).FirstOrDefault() != null);
+                                        }
+                                        pred = pred.And(cprNamePred);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return pred;
+        }
+
     }
 }
