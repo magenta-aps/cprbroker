@@ -215,5 +215,14 @@ namespace CprBroker.Data.Part
             return pred;
         }
 
+        public static XQueryElement[] CreateXQueryElements(SoegObjektType soegObject)
+        {
+            var personRegistration = soegObject.ToRegistreringType1();
+            var xml = CprBroker.Utilities.Strings.SerializeObject(personRegistration);
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            doc.LoadXml(xml);
+            return XQueryElement.CreateXQueryElements(doc.DocumentElement);
+        }
+
     }
 }
