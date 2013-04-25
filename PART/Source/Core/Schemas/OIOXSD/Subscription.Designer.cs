@@ -12,6 +12,7 @@ namespace CprBroker.Schemas {
     using System.Xml.Schema;
     using System.ComponentModel;
     using System.Collections.Generic;
+    using CprBroker.Schemas.Part;
     
     
     public partial class BirthdateSubscriptionType : SubscriptionType {
@@ -38,7 +39,23 @@ namespace CprBroker.Schemas {
             }
         }
     }
-    
+
+    public partial class CriteriaSubscriptionType : SubscriptionType
+    {
+        SoegInputType1 CriteriaField;
+
+        public SoegInputType1 Criteria {
+            get
+            {
+                return CriteriaField;
+            }
+            set
+            {
+                CriteriaField = value;
+            }
+        }
+    }
+
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BirthdateSubscriptionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChangeSubscriptionType))]
     public abstract partial class SubscriptionType {

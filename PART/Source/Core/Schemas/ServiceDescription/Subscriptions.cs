@@ -146,6 +146,50 @@ Removes one extended subscription for a user application.
 </table>
 <br>==============================
 ";
+        public const string SubscribeOnCriteria = @"
+Subscribes to events based on criteria.
+In case a municipality need to subscribe to events in their municipality code they can do that through this method.
+
+<br><br><b><u>Signature:</u></b>
+<br>BasicOutputTypeOfBirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType NotificationChannel, SoegInputType1 criteria)
+
+<br><br><b><u>Parameter Description:</u></b>
+<br><table>
+<tr><td>NotificationChannel:</td><td>Channel to send notification through it (Web service, FileShare...) .</td></tr>
+<tr><td>criteria:</td><td>The criteria to trigger events.</td></tr>
+</table>
+
+<br><b><u>Return value copmponents:</u></b>
+<br>StandardRetur: Detailed status code and text.
+<br>Item: An object of type CriteriaSubscriptionType that represents the created subscription object.
+
+<br><br><b><u>Review:</u></b>
+<table>
+<tr><td width='30%'>2011-03-06, Event Broker </td><td width='10%'></td><td width='60%'>Part release.</td></tr>
+</table>
+<br>==============================
+";
+        public const string RemoveCriteriaSubscriptions = @"
+Removes one extended subscription for a user application.
+
+<br><br><b><u>Signature:</u></b>
+<br>BasicOutputTypeOfBoolean RemoveCriteriaSubscription(Guid SubscriptionId)
+
+<br><br><b><u>Parameter Description:</u></b>
+<br><table>
+<tr><td>SubscriptionId:</td><td>The UUID of the subscription to be removed.</td></tr>
+</table>
+
+<br><b><u>Return value copmponents:</u></b>
+<br>StandardRetur: Detailed status code and text.
+<br>Item: A boolean value that represents whether the operation has succeeded.
+
+<br><br><b><u>Review:</u></b>
+<table>
+<tr><td width='30%'>2011-03-06, Event Broker </td><td width='10%'></td><td width='60%'>Part release.</td></tr>
+</table>
+<br>==============================
+";
         public const string GetActiveSubscriptionsList = @"
 Allows a business application to get a list of all subscriptions
 

@@ -112,11 +112,13 @@ namespace CprBroker.Schemas.Part
                 public const string Subscribe = "Subscribe";
                 public const string Unsubscribe = "Unsubscribe";
                 public const string SubscribeOnBirthdate = "SubscribeOnBirthdate";
+                public const string SubscribeOnCriteria = "SubscribeOnCriteria";
 
                 public const string GetActiveSubscriptionsList = "GetActiveSubsciptionsList";
                 public const string GetLatestNotification = "GetLatestNotification";
 
                 public const string RemoveBirthDateSubscription = "RemoveBirthDateSubscription";
+                public const string RemoveCriteriaSubscription = "RemoveCriteriaSubscription";
 
                 public const string Ping = "Ping";
 
