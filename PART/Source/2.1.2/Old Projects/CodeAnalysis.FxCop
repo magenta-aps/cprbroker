@@ -1,0 +1,2643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="1.36" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">c:\program files\microsoft fxcop 1.36\Xml\FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-US" />
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+  <IgnoreGeneratedCode>False</IgnoreGeneratedCode>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.Config.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.DAL.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.Engine.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.Providers.DPR.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.Providers.KMD.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.Providers.Local.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.Schemas.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.Schemas.Part.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/CprService.dll" Analyze="False" AnalyzeAllChildren="False" />
+  <Target Name="$(ProjectDir)/CPRService/bin/PersonSchemas.dll" Analyze="False" AnalyzeAllChildren="False" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="1.36">
+  <Namespaces>
+   <Namespace Name="CprBroker.Engine.Exceptions">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2011-01-23 12:14:32Z">
+      <Issue>
+       <Item>CprBroker.Engine.Exceptions</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CprBroker.Engine.Local">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2011-01-23 12:14:32Z">
+      <Issue>
+       <Item>CprBroker.Engine.Local</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CprBroker.Engine.NotificationQueueService">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2011-01-23 12:14:32Z">
+      <Issue>
+       <Item>CprBroker.Engine.NotificationQueueService</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CprBroker.Engine.notifyws">
+    <Messages>
+     <Message Id="notifyws" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+      <Issue Name="Namespace">
+       <Item>notifyws</Item>
+       <Item>CprBroker.Engine.notifyws</Item>
+       <Item>Notifyws</Item>
+      </Issue>
+     </Message>
+     <Message Id="notifyws" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+      <Issue Name="Namespace">
+       <Item>notifyws</Item>
+       <Item>CprBroker.Engine.notifyws</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CprBroker.Engine.Tasks">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2011-01-23 12:14:32Z">
+      <Issue>
+       <Item>CprBroker.Engine.Tasks</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CprBroker.Engine.Trace">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2011-01-23 12:14:32Z">
+      <Issue>
+       <Item>CprBroker.Engine.Trace</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CprBroker.Engine.UI">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2011-01-23 12:14:32Z">
+      <Issue>
+       <Item>CprBroker.Engine.UI</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="CprBroker.Engine.Util">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2011-01-23 12:14:32Z">
+      <Issue>
+       <Item>CprBroker.Engine.Util</Item>
+      </Issue>
+     </Message>
+     <Message Id="Util" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+      <Issue Name="Namespace">
+       <Item>Util</Item>
+       <Item>CprBroker.Engine.Util</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/CPRService/bin/CprBroker.Engine.dll">
+    <Modules>
+     <Module Name="cprbroker.engine.dll">
+      <Messages>
+       <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Created="2011-01-23 12:14:32Z">
+        <Issue Name="NoStrongName">
+         <Item>'CprBroker.Engine.dll'</Item>
+        </Issue>
+       </Message>
+       <Message TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014" Created="2011-01-23 12:14:32Z">
+        <Issue>
+         <Item>'CprBroker.Engine.dll'</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="CprBroker.Engine">
+        <Types>
+         <Type Name="BrokerContext">
+          <Members>
+           <Member Name="#Current">
+            <Accessors>
+             <Accessor Name="#get_Current()">
+              <Messages>
+               <Message TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122" Created="2011-01-23 12:14:32Z">
+                <Issue>
+                 <Item>'BrokerContext.Current.get()'</Item>
+                 <Item>'CallContext.GetData(string)'</Item>
+                 <Item>&#xD;&#xA;   -&gt;'BrokerContext.Current.get()'&#xD;&#xA;   -&gt;'BrokerContext.Current.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+             <Accessor Name="#set_Current(CprBroker.Engine.BrokerContext)">
+              <Messages>
+               <Message TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122" Created="2011-01-23 12:14:32Z">
+                <Issue>
+                 <Item>'BrokerContext.Current.set(BrokerContext)'</Item>
+                 <Item>'CallContext.SetData(string, object)'</Item>
+                 <Item>&#xD;&#xA;   -&gt;'BrokerContext.Current.set(BrokerContext)'&#xD;&#xA;   -&gt;'BrokerContext.Current.set(BrokerContext)'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="#Initialize(System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'BrokerContext.Initialize(string, string, bool, bool, bool)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Constants+Logging">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Constants.Logging'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="DataProviderManager">
+          <Members>
+           <Member Name="#.cctor()">
+            <Messages>
+             <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'DataProviderManager'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetDataProviderList(System.Type,System.Boolean)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'DataProviderManager.GetDataProviderList(Type, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#InitializeDataProviders()">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'DataProviderManager.InitializeDataProviders()'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SetDataProviderTimer()">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'DataProviderManager.SetDataProviderTimer()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToIDataProvider(CprBroker.DAL.DataProvider)">
+            <Messages>
+             <Message TypeName="DoNotCastUnnecessarily" Category="Microsoft.Performance" CheckId="CA1800" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Local">
+               <Item>'dataProvider'</Item>
+               <Item>'IExternalDataProvider'</Item>
+               <Item>'DataProviderManager.ToIDataProvider(this DataProvider)'</Item>
+               <Item>isint</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[])" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Type.InvokeMember(string, BindingFlags, Binder, object, object[])'</Item>
+               <Item>'DataProviderManager.ToIDataProvider(this DataProvider)'</Item>
+               <Item>'Type.InvokeMember(string, BindingFlags, Binder, object, object[], CultureInfo)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="FacadeMethodInfo`1">
+          <Members>
+           <Member Name="#AggregationMethod">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'FacadeMethodInfo&lt;TOutput&gt;.AggregationMethod'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ApplicationToken">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'FacadeMethodInfo&lt;TOutput&gt;.ApplicationToken'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ApplicationTokenRequired">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'FacadeMethodInfo&lt;TOutput&gt;.ApplicationTokenRequired'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#InitializationMethod">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'FacadeMethodInfo&lt;TOutput&gt;.InitializationMethod'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsValidInput(!0&amp;)">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2011-01-23 12:14:32Z">
+              <Issue Level="CriticalWarning">
+               <Item>'invaliInputReturnValue'</Item>
+              </Issue>
+             </Message>
+             <Message Id="invali" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'FacadeMethodInfo&lt;TOutput&gt;.IsValidInput(ref TOutput)'</Item>
+               <Item>invali</Item>
+               <Item>'invaliInputReturnValue'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SubMethodInfos">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'FacadeMethodInfo&lt;TOutput&gt;.SubMethodInfos'</Item>
+              </Issue>
+             </Message>
+             <Message Id="Infos" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>Infos</Item>
+               <Item>'FacadeMethodInfo&lt;TOutput&gt;.SubMethodInfos'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UserToken">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'FacadeMethodInfo&lt;TOutput&gt;.UserToken'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IDataProviderManager">
+          <Members>
+           <Member Name="#GetCPRDataProviderList(System.String,System.String)">
+            <Messages>
+             <Message Id="CPR" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>CPR</Item>
+               <Item>'IDataProviderManager.GetCPRDataProviderList(string, string)'</Item>
+               <Item>Cpr</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SetCPRDataProviderList(System.String,System.String,CprBroker.Schemas.DataProviderType[])">
+            <Messages>
+             <Message Id="CPR" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>CPR</Item>
+               <Item>'IDataProviderManager.SetCPRDataProviderList(string, string, DataProviderType[])'</Item>
+               <Item>Cpr</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IPartPersonMappingDataProvider">
+          <Members>
+           <Member Name="#GetPersonUuid(System.String)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>Uuid</Item>
+               <Item>'IPartPersonMappingDataProvider.GetPersonUuid(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IPartReadDataProvider">
+          <Members>
+           <Member Name="#Read(CprBroker.Schemas.PersonIdentifier,CprBroker.Schemas.Part.LaesInputType,System.Func`2&lt;System.String,System.Guid&gt;,System.Nullable`1&lt;CprBroker.Schemas.QualityLevel&gt;&amp;)">
+            <Messages>
+             <Message Id="3#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ql'</Item>
+              </Issue>
+             </Message>
+             <Message Id="uuid" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'IPartReadDataProvider.Read(PersonIdentifier, LaesInputType, Func&lt;string, Guid&gt;, out QualityLevel?)'</Item>
+               <Item>uuid</Item>
+               <Item>'cpr2uuidFunc'</Item>
+               <Item>Uuid</Item>
+              </Issue>
+             </Message>
+             <Message Id="ql" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'IPartReadDataProvider.Read(PersonIdentifier, LaesInputType, Func&lt;string, Guid&gt;, out QualityLevel?)'</Item>
+               <Item>ql</Item>
+               <Item>'ql'</Item>
+              </Issue>
+             </Message>
+             <Message Id="uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'IPartReadDataProvider.Read(PersonIdentifier, LaesInputType, Func&lt;string, Guid&gt;, out QualityLevel?)'</Item>
+               <Item>uuid</Item>
+               <Item>'cpr2uuidFunc'</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'IPartReadDataProvider.Read(PersonIdentifier, LaesInputType, Func&lt;string, Guid&gt;, out QualityLevel?)'</Item>
+               <Item>uuid</Item>
+               <Item>'uuid'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ITestCitizenManager">
+          <Members>
+           <Member Name="#CreateTestCitizen(System.String,System.String,CprBroker.Schemas.PersonFullStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'ITestCitizenManager.CreateTestCitizen(string, string, PersonFullStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Manager">
+          <Members>
+           <Member Name="#CallMethod`2(System.String,System.String,System.Boolean,System.Boolean,System.Func`2&lt;!!0,!!1&gt;,System.Boolean,System.Action`1&lt;!!1&gt;)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Manager.CallMethod&lt;TInterface, TOutput&gt;(string, string, bool, bool, Func&lt;TInterface, TOutput&gt;, bool, Action&lt;TOutput&gt;)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+              <Issue>
+               <Item>'Manager.CallMethod&lt;TInterface, TOutput&gt;(string, string, bool, bool, Func&lt;TInterface, TOutput&gt;, bool, Action&lt;TOutput&gt;)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetMethodOutput`1(CprBroker.Engine.FacadeMethodInfo`1&lt;!!0&gt;)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Manager.GetMethodOutput&lt;TOutput&gt;(FacadeMethodInfo&lt;TOutput&gt;)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Manager+Admin">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Manager.Admin'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Manager.Admin'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#CreateTestCitizen(System.String,System.String,CprBroker.Schemas.PersonFullStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'Manager.Admin.CreateTestCitizen(string, string, PersonFullStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Manager+Events">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Manager.Events'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Manager.Events'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Manager.Events'</Item>
+             <Item>CprBroker.Engine.Events</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#GetPersonBirthdates(System.String,System.String,System.Nullable`1&lt;System.Guid&gt;,System.Int32)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'Manager.Events.GetPersonBirthdates(string, string, Guid?, int)'</Item>
+               <Item>Uuid</Item>
+               <Item>'personUuidToStartAfter'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Manager+Part">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Manager.Part'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Manager.Part'</Item>
+             <Item>CprBroker.Engine.Part</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#GetPersonUuid(System.String,System.String,System.String)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>Uuid</Item>
+               <Item>'Manager.Part.GetPersonUuid(string, string, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#List(System.String,System.String,CprBroker.Schemas.Part.ListInputType,System.Nullable`1&lt;CprBroker.Schemas.QualityLevel&gt;&amp;)">
+            <Messages>
+             <Message Id="3#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'qualityLevel'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Read(System.String,System.String,CprBroker.Schemas.Part.LaesInputType,System.Nullable`1&lt;CprBroker.Schemas.QualityLevel&gt;&amp;)">
+            <Messages>
+             <Message Id="3#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'qualityLevel'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RefreshRead(System.String,System.String,CprBroker.Schemas.Part.LaesInputType,System.Nullable`1&lt;CprBroker.Schemas.QualityLevel&gt;&amp;)">
+            <Messages>
+             <Message Id="3#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'qualityLevel'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Search(System.String,System.String,CprBroker.Schemas.Part.SoegInputType1,System.Nullable`1&lt;CprBroker.Schemas.QualityLevel&gt;&amp;)">
+            <Messages>
+             <Message Id="3#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'qualityLevel'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Manager+SubMethodRunState">
+          <Messages>
+           <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+            <Issue Name="NonBreaking">
+             <Item>'Manager.SubMethodRunState'</Item>
+             <Item>'ManualResetEvent'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.ctor()">
+            <Messages>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Manager.SubMethodRunState.SubMethodRunState()'</Item>
+               <Item>'Manager.SubMethodRunState.Result'</Item>
+               <Item>'object'</Item>
+               <Item>null</Item>
+              </Issue>
+              <Issue>
+               <Item>'Manager.SubMethodRunState.SubMethodRunState()'</Item>
+               <Item>'Manager.SubMethodRunState.Succeeded'</Item>
+               <Item>'bool'</Item>
+               <Item>false</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SubMethodInfo">
+          <Members>
+           <Member Name="#FailIfNoDataProvider">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SubMethodInfo.FailIfNoDataProvider'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FailOnDefaultOutput">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SubMethodInfo.FailOnDefaultOutput'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Invoke(CprBroker.Engine.IDataProvider)">
+            <Messages>
+             <Message Id="prov" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'SubMethodInfo.Invoke(IDataProvider)'</Item>
+               <Item>prov</Item>
+               <Item>'prov'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsSuccessfulOutput(System.Object)">
+            <Messages>
+             <Message Id="o" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'SubMethodInfo.IsSuccessfulOutput(object)'</Item>
+               <Item>'o'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsUpdatableOutput(System.Object)">
+            <Messages>
+             <Message Id="o" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'SubMethodInfo.IsUpdatableOutput(object)'</Item>
+               <Item>'o'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LocalDataProviderOption">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SubMethodInfo.LocalDataProviderOption'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SubMethodInfo`2">
+          <Members>
+           <Member Name="#CurrentResult">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SubMethodInfo&lt;TInterface, TOutput&gt;.CurrentResult'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsNonEmptyResult(!1)">
+            <Messages>
+             <Message Id="NonEmpty" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>NonEmpty</Item>
+               <Item>'SubMethodInfo&lt;TInterface, TOutput&gt;.IsNonEmptyResult(TOutput)'</Item>
+               <Item>Nonempty</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Method">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SubMethodInfo&lt;TInterface, TOutput&gt;.Method'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RunMainMethod(!0)">
+            <Messages>
+             <Message Id="prov" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'SubMethodInfo&lt;TInterface, TOutput&gt;.RunMainMethod(TInterface)'</Item>
+               <Item>prov</Item>
+               <Item>'prov'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdateMethod">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SubMethodInfo&lt;TInterface, TOutput&gt;.UpdateMethod'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TextMessages">
+          <Members>
+           <Member Name="#BackendServiceStarted">
+            <Messages>
+             <Message Id="Backend" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberShouldBeCompoundWord">
+               <Item>Backend</Item>
+               <Item>'TextMessages.BackendServiceStarted'</Item>
+               <Item>BackEnd</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Succeeded">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'TextMessages.Succeeded'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UuidNotFound">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>Uuid</Item>
+               <Item>'TextMessages.UuidNotFound'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Versioning">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'Versioning'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Created="2011-01-23 12:14:32Z">
+            <Issue Name="System">
+             <Item>'Versioning'</Item>
+             <Item>System.Runtime.Versioning</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.cctor()">
+            <Messages>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Versioning.Versioning()'</Item>
+               <Item>'Versioning.Minor'</Item>
+               <Item>'int'</Item>
+               <Item>0</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.Events">
+        <Types>
+         <Type Name="DequeueDataChangeEventsFacadeMethod">
+          <Members>
+           <Member Name="#MaxCount">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'DequeueDataChangeEventsFacadeMethod.MaxCount'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="DequeueDataChangeEventSubMethodInfo">
+          <Members>
+           <Member Name="#MaxCount">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'DequeueDataChangeEventSubMethodInfo.MaxCount'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GetPersonBirthdatesFacadeMethodInfo">
+          <Members>
+           <Member Name="#.ctor(System.Nullable`1&lt;System.Guid&gt;,System.Int32,System.String,System.String,System.Boolean)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'GetPersonBirthdatesFacadeMethodInfo.GetPersonBirthdatesFacadeMethodInfo(Guid?, int, string, string, bool)'</Item>
+               <Item>Uuid</Item>
+               <Item>'personUuidToStartAfter'</Item>
+              </Issue>
+             </Message>
+             <Message Id="maxCount" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2011-01-23 12:14:32Z" FixCategory="DependsOnFix">
+              <Issue>
+               <Item>'maxCount'</Item>
+               <Item>'GetPersonBirthdatesFacadeMethodInfo.GetPersonBirthdatesFacadeMethodInfo(Guid?, int, string, string, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="GetPersonBirthdatesSubmethodInfo">
+          <Messages>
+           <Message Id="Submethod" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+            <Issue Name="Type">
+             <Item>Submethod</Item>
+             <Item>'GetPersonBirthdatesSubmethodInfo'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.ctor(System.Nullable`1&lt;System.Guid&gt;,System.Int32)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'GetPersonBirthdatesSubmethodInfo.GetPersonBirthdatesSubmethodInfo(Guid?, int)'</Item>
+               <Item>Uuid</Item>
+               <Item>'personUuidToStartAfter'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="IDataChangeEventManager">
+          <Members>
+           <Member Name="#GetPersonBirthdates(System.Nullable`1&lt;System.Guid&gt;,System.Int32)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'IDataChangeEventManager.GetPersonBirthdates(Guid?, int)'</Item>
+               <Item>Uuid</Item>
+               <Item>'personUuidToStartAfter'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.Exceptions">
+        <Types>
+         <Type Name="InvalidTokenException">
+          <Messages>
+           <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Created="2011-01-23 12:14:32Z">
+            <Issue Name="MissingConstructor">
+             <Item>'InvalidTokenException'</Item>
+             <Item>protected InvalidTokenException(SerializationInfo, StreamingContext)</Item>
+            </Issue>
+            <Issue Name="MissingConstructor">
+             <Item>'InvalidTokenException'</Item>
+             <Item>public InvalidTokenException()</Item>
+            </Issue>
+            <Issue Name="MissingConstructor">
+             <Item>'InvalidTokenException'</Item>
+             <Item>public InvalidTokenException(String)</Item>
+            </Issue>
+            <Issue Name="MissingConstructor">
+             <Item>'InvalidTokenException'</Item>
+             <Item>public InvalidTokenException(String, Exception)</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Created="2011-01-23 12:14:32Z">
+            <Issue Certainty="95" Level="Error">
+             <Item>'InvalidTokenException'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Message">
+            <Accessors>
+             <Accessor Name="#get_Message()">
+              <Messages>
+               <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+                <Issue>
+                 <Item>'string.Format(string, object, object)'</Item>
+                 <Item>'InvalidTokenException.Message.get()'</Item>
+                 <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.Local">
+        <Types>
+         <Type Name="Admin">
+          <Members>
+           <Member Name="#GetCapabilities(System.String,System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'Admin.GetCapabilities(string, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetMethodNames()">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'Admin.GetMethodNames()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsImplementing(System.String,System.String,System.String,System.String)">
+            <Messages>
+             <Message Id="System.String.ToLower" TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Admin.IsImplementing(string, string, string, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Admin.IsImplementing(string, string, string, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Admin.IsImplementing(string, string, string, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.ToLower()'</Item>
+               <Item>'Admin.IsImplementing(string, string, string, string)'</Item>
+               <Item>'string.ToLower(CultureInfo)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'Admin.IsImplementing(string, string, string, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LogException(System.Exception,System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object, object, object)'</Item>
+               <Item>'Admin.LogException(Exception, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LogNotificationException(System.Exception,System.String,System.Guid,System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'Admin.LogNotificationException(Exception, string, Guid, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'notificationUrl'</Item>
+               <Item>'Admin.LogNotificationException(Exception, string, Guid, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LogNotificationSuccess(System.String,System.Guid,System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'Admin.LogNotificationSuccess(string, Guid, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'notificationUrl'</Item>
+               <Item>'Admin.LogNotificationSuccess(string, Guid, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SetCPRDataProviderList(System.String,System.String,CprBroker.Schemas.DataProviderType[])">
+            <Messages>
+             <Message TypeName="DoNotCastUnnecessarily" Category="Microsoft.Performance" CheckId="CA1800" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Parameter">
+               <Item>'provider'</Item>
+               <Item>'DprDataProviderType'</Item>
+               <Item>'Admin.SetCPRDataProviderList(string, string, DataProviderType[])'</Item>
+               <Item>isint</Item>
+              </Issue>
+              <Issue Name="Parameter">
+               <Item>'provider'</Item>
+               <Item>'KmdDataProviderType'</Item>
+               <Item>'Admin.SetCPRDataProviderList(string, string, DataProviderType[])'</Item>
+               <Item>isint</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="UpdateDatabase">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'UpdateDatabase'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#UpdateAddress(System.Object,CprBroker.Schemas.AddressIdentifierCodeType,CprBroker.DAL.Person)">
+            <Messages>
+             <Message Id="addressIdentifierCode" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'addressIdentifierCode'</Item>
+               <Item>'UpdateDatabase.UpdateAddress(object, AddressIdentifierCodeType, Person)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdateCitizenBasic(CprBroker.Schemas.PersonBasicStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdateCitizenBasic(PersonBasicStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdateCitizenFull(CprBroker.Schemas.PersonFullStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdateCitizenFull(PersonFullStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdateCitizenFull(CprBroker.Schemas.PersonFullStructureType,System.Boolean)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdateCitizenFull(PersonFullStructureType, bool)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdateCitizenNameAndAddress(CprBroker.Schemas.PersonNameAndAddressStructureType)">
+            <Messages>
+             <Message Id="oio" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdateCitizenNameAndAddress(PersonNameAndAddressStructureType)'</Item>
+               <Item>oio</Item>
+               <Item>'oioPerson'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#UpdatePersonRegistration(CprBroker.Schemas.PersonIdentifier,CprBroker.Schemas.Part.RegistreringType1)">
+            <Messages>
+             <Message Id="Registraion" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'UpdateDatabase.UpdatePersonRegistration(PersonIdentifier, RegistreringType1)'</Item>
+               <Item>Registraion</Item>
+               <Item>'personRegistraion'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.NotificationQueueService">
+        <Types>
+         <Type Name="ApplicationHeader">
+          <Members>
+           <Member Name="#AnyAttr">
+            <Messages>
+             <Message Id="Attr" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>Attr</Item>
+               <Item>'ApplicationHeader.AnyAttr'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ApplicationHeader.AnyAttr'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#anyAttrField">
+            <Messages>
+             <Message TypeName="MarkAllNonSerializableFields" Category="Microsoft.Usage" CheckId="CA2235" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ApplicationHeader.anyAttrField'</Item>
+               <Item>'ApplicationHeader'</Item>
+               <Item>'XmlAttribute[]'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="EnqueueCompletedEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'EnqueueCompletedEventHandler'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="NotificationQueue">
+          <Messages>
+           <Message TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711" Created="2011-01-23 12:14:32Z">
+            <Issue Name="TypeNoAlternate">
+             <Item>'NotificationQueue'</Item>
+             <Item>Queue</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Enqueue(System.Guid)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'NotificationQueue.Enqueue(Guid)'</Item>
+               <Item>Uuid</Item>
+               <Item>'personUuid'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#EnqueueAsync(System.Guid)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'NotificationQueue.EnqueueAsync(Guid)'</Item>
+               <Item>Uuid</Item>
+               <Item>'personUuid'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#EnqueueAsync(System.Guid,System.Object)">
+            <Messages>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'NotificationQueue.EnqueueAsync(Guid, object)'</Item>
+               <Item>Uuid</Item>
+               <Item>'personUuid'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsLocalFileSystemWebService(System.String)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'NotificationQueue.IsLocalFileSystemWebService(string)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820" Created="2011-01-23 12:14:32Z">
+              <Issue Name="IsNullOrEmpty">
+               <Item>'string.operator ==(string, string)'</Item>
+               <Item>'NotificationQueue.IsLocalFileSystemWebService(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Url">
+            <Messages>
+             <Message TypeName="UriPropertiesShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1056" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'NotificationQueue.Url'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.notifyws">
+        <Types>
+         <Type Name="notify">
+          <Messages>
+           <Message Id="notify" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+            <Issue Name="Type">
+             <Item>notify</Item>
+             <Item>'notify'</Item>
+             <Item>Notify</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#IsLocalFileSystemWebService(System.String)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'notify.IsLocalFileSystemWebService(string)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820" Created="2011-01-23 12:14:32Z">
+              <Issue Name="IsNullOrEmpty">
+               <Item>'string.operator ==(string, string)'</Item>
+               <Item>'notify.IsLocalFileSystemWebService(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalDocChanged(System.String,System.String,System.String&amp;)">
+            <Messages>
+             <Message Id="2#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2011-01-23 12:14:32Z">
+              <Issue Level="CriticalWarning">
+               <Item>'sAux'</Item>
+              </Issue>
+             </Message>
+             <Message Id="ID" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterAbbreviation">
+               <Item>'notify.SignalDocChanged(string, string, ref string)'</Item>
+               <Item>ID</Item>
+               <Item>'LogicalDocID'</Item>
+               <Item>Id</Item>
+              </Issue>
+             </Message>
+             <Message Id="Logical" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChanged(string, string, ref string)'</Item>
+               <Item>Logical</Item>
+               <Item>'LogicalDocID'</Item>
+               <Item>logical</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChanged(string, string, ref string)'</Item>
+               <Item>Logical</Item>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>logical</Item>
+              </Issue>
+             </Message>
+             <Message Id="URI" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChanged(string, string, ref string)'</Item>
+               <Item>URI</Item>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>Uri</Item>
+              </Issue>
+             </Message>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChanged(string, string, ref string)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>'notify.SignalDocChanged(string, string, ref string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalDocChangedAsync(System.String,System.String,System.String)">
+            <Messages>
+             <Message Id="ID" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterAbbreviation">
+               <Item>'notify.SignalDocChangedAsync(string, string, string)'</Item>
+               <Item>ID</Item>
+               <Item>'LogicalDocID'</Item>
+               <Item>Id</Item>
+              </Issue>
+             </Message>
+             <Message Id="Logical" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string)'</Item>
+               <Item>Logical</Item>
+               <Item>'LogicalDocID'</Item>
+               <Item>logical</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string)'</Item>
+               <Item>Logical</Item>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>logical</Item>
+              </Issue>
+             </Message>
+             <Message Id="URI" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string)'</Item>
+               <Item>URI</Item>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>Uri</Item>
+              </Issue>
+             </Message>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>'notify.SignalDocChangedAsync(string, string, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalDocChangedAsync(System.String,System.String,System.String,System.Object)">
+            <Messages>
+             <Message Id="ID" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterAbbreviation">
+               <Item>'notify.SignalDocChangedAsync(string, string, string, object)'</Item>
+               <Item>ID</Item>
+               <Item>'LogicalDocID'</Item>
+               <Item>Id</Item>
+              </Issue>
+             </Message>
+             <Message Id="Logical" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string, object)'</Item>
+               <Item>Logical</Item>
+               <Item>'LogicalDocID'</Item>
+               <Item>logical</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string, object)'</Item>
+               <Item>Logical</Item>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>logical</Item>
+              </Issue>
+             </Message>
+             <Message Id="URI" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string, object)'</Item>
+               <Item>URI</Item>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>Uri</Item>
+              </Issue>
+             </Message>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalDocChangedAsync(string, string, string, object)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'LogicalSourceURI'</Item>
+               <Item>'notify.SignalDocChangedAsync(string, string, string, object)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalObject(System.String,System.String,System.Int32,System.Int32,System.String&amp;)">
+            <Messages>
+             <Message Id="4#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2011-01-23 12:14:32Z">
+              <Issue Level="CriticalWarning">
+               <Item>'sAux'</Item>
+              </Issue>
+             </Message>
+             <Message Id="ID" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterAbbreviation">
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+               <Item>ID</Item>
+               <Item>'ObjectID'</Item>
+               <Item>Id</Item>
+              </Issue>
+             </Message>
+             <Message Id="Notify" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+               <Item>Notify</Item>
+               <Item>'NotifyType'</Item>
+               <Item>notify</Item>
+              </Issue>
+             </Message>
+             <Message Id="Object" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+               <Item>Object</Item>
+               <Item>'ObjectID'</Item>
+               <Item>object</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+               <Item>Object</Item>
+               <Item>'ObjectType'</Item>
+               <Item>object</Item>
+              </Issue>
+             </Message>
+             <Message Id="Source" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+               <Item>Source</Item>
+               <Item>'SourceURI'</Item>
+               <Item>source</Item>
+              </Issue>
+             </Message>
+             <Message Id="URI" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+               <Item>URI</Item>
+               <Item>'SourceURI'</Item>
+               <Item>Uri</Item>
+              </Issue>
+             </Message>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SourceURI'</Item>
+               <Item>'notify.SignalObject(string, string, int, int, ref string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalObjectAsync(System.String,System.String,System.Int32,System.Int32,System.String)">
+            <Messages>
+             <Message Id="ID" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterAbbreviation">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+               <Item>ID</Item>
+               <Item>'ObjectID'</Item>
+               <Item>Id</Item>
+              </Issue>
+             </Message>
+             <Message Id="Notify" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+               <Item>Notify</Item>
+               <Item>'NotifyType'</Item>
+               <Item>notify</Item>
+              </Issue>
+             </Message>
+             <Message Id="Object" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+               <Item>Object</Item>
+               <Item>'ObjectID'</Item>
+               <Item>object</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+               <Item>Object</Item>
+               <Item>'ObjectType'</Item>
+               <Item>object</Item>
+              </Issue>
+             </Message>
+             <Message Id="Source" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+               <Item>Source</Item>
+               <Item>'SourceURI'</Item>
+               <Item>source</Item>
+              </Issue>
+             </Message>
+             <Message Id="URI" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+               <Item>URI</Item>
+               <Item>'SourceURI'</Item>
+               <Item>Uri</Item>
+              </Issue>
+             </Message>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SourceURI'</Item>
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SignalObjectAsync(System.String,System.String,System.Int32,System.Int32,System.String,System.Object)">
+            <Messages>
+             <Message Id="ID" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterAbbreviation">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+               <Item>ID</Item>
+               <Item>'ObjectID'</Item>
+               <Item>Id</Item>
+              </Issue>
+             </Message>
+             <Message Id="Notify" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+               <Item>Notify</Item>
+               <Item>'NotifyType'</Item>
+               <Item>notify</Item>
+              </Issue>
+             </Message>
+             <Message Id="Object" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+               <Item>Object</Item>
+               <Item>'ObjectID'</Item>
+               <Item>object</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+               <Item>Object</Item>
+               <Item>'ObjectType'</Item>
+               <Item>object</Item>
+              </Issue>
+             </Message>
+             <Message Id="Source" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+               <Item>Source</Item>
+               <Item>'SourceURI'</Item>
+               <Item>source</Item>
+              </Issue>
+             </Message>
+             <Message Id="URI" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+               <Item>URI</Item>
+               <Item>'SourceURI'</Item>
+               <Item>Uri</Item>
+              </Issue>
+             </Message>
+             <Message Id="s" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+               <Item>s</Item>
+               <Item>'sAux'</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'SourceURI'</Item>
+               <Item>'notify.SignalObjectAsync(string, string, int, int, string, object)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Url">
+            <Messages>
+             <Message TypeName="UriPropertiesShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1056" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'notify.Url'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PingCompletedEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'PingCompletedEventHandler'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="SignalDocChangedCompletedEventArgs">
+          <Members>
+           <Member Name="#sAux">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>s</Item>
+               <Item>'SignalDocChangedCompletedEventArgs.sAux'</Item>
+               <Item>S</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SignalDocChangedCompletedEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'SignalDocChangedCompletedEventHandler'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="SignalObjectCompletedEventArgs">
+          <Members>
+           <Member Name="#sAux">
+            <Messages>
+             <Message Id="s" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>s</Item>
+               <Item>'SignalObjectCompletedEventArgs.sAux'</Item>
+               <Item>S</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SignalObjectCompletedEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'SignalObjectCompletedEventHandler'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.Part">
+        <Types>
+         <Type Name="ErrorCode+InvalidUuidErrorCode">
+          <Messages>
+           <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+            <Issue Name="Type">
+             <Item>Uuid</Item>
+             <Item>'ErrorCode.InvalidUuidErrorCode'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'ErrorCode.InvalidUuidErrorCode'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#ToStandardReturn()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'ErrorCode.InvalidUuidErrorCode.ToStandardReturn()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Value">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ErrorCode.InvalidUuidErrorCode.Value'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ErrorCode+NullInputErrorCode">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'ErrorCode.NullInputErrorCode'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="ErrorCode+UnknownUuidErrorCode">
+          <Messages>
+           <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+            <Issue Name="Type">
+             <Item>Uuid</Item>
+             <Item>'ErrorCode.UnknownUuidErrorCode'</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'ErrorCode.UnknownUuidErrorCode'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#ToStandardReturn()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'ErrorCode.UnknownUuidErrorCode.ToStandardReturn()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Value">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ErrorCode.UnknownUuidErrorCode.Value'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ListFacadeMethodInfo">
+          <Members>
+           <Member Name="#.ctor(CprBroker.Schemas.Part.ListInputType,System.String,System.String,System.Boolean)">
+            <Messages>
+             <Message Id="inp" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'ListFacadeMethodInfo.ListFacadeMethodInfo(ListInputType, string, string, bool)'</Item>
+               <Item>inp</Item>
+               <Item>'inp'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Aggregate(System.Object[])">
+            <Messages>
+             <Message TypeName="DoNotCastUnnecessarily" Category="Microsoft.Performance" CheckId="CA1800" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Parameter">
+               <Item>'s'</Item>
+               <Item>'RegistreringType1'</Item>
+               <Item>'ListFacadeMethodInfo.Aggregate(object[])'</Item>
+               <Item>isint</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#input">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ListFacadeMethodInfo.input'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#inputUuidToPersonIdentifierMap">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ListFacadeMethodInfo.inputUuidToPersonIdentifierMap'</Item>
+              </Issue>
+             </Message>
+             <Message Id="Uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>Uuid</Item>
+               <Item>'ListFacadeMethodInfo.inputUuidToPersonIdentifierMap'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ReadFacadeMethodInfo">
+          <Members>
+           <Member Name="#.ctor()">
+            <Messages>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ReadFacadeMethodInfo.ReadFacadeMethodInfo()'</Item>
+               <Item>'ReadFacadeMethodInfo.Input'</Item>
+               <Item>'LaesInputType'</Item>
+               <Item>null</Item>
+              </Issue>
+              <Issue>
+               <Item>'ReadFacadeMethodInfo.ReadFacadeMethodInfo()'</Item>
+               <Item>'ReadFacadeMethodInfo.pId'</Item>
+               <Item>'PersonIdentifier'</Item>
+               <Item>null</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#.ctor(CprBroker.Schemas.Part.LaesInputType,CprBroker.Engine.LocalDataProviderUsageOption,System.String,System.String,System.Boolean)">
+            <Messages>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ReadFacadeMethodInfo.ReadFacadeMethodInfo(LaesInputType, LocalDataProviderUsageOption, string, string, bool)'</Item>
+               <Item>'ReadFacadeMethodInfo.pId'</Item>
+               <Item>'PersonIdentifier'</Item>
+               <Item>null</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#QualityLevel">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'ReadFacadeMethodInfo.QualityLevel'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ReadSubMethodInfo">
+          <Members>
+           <Member Name="#.ctor(CprBroker.Schemas.PersonIdentifier,CprBroker.Schemas.Part.LaesInputType,System.Func`2&lt;System.String,System.Guid&gt;,CprBroker.Engine.LocalDataProviderUsageOption)">
+            <Messages>
+             <Message Id="p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'ReadSubMethodInfo.ReadSubMethodInfo(PersonIdentifier, LaesInputType, Func&lt;string, Guid&gt;, LocalDataProviderUsageOption)'</Item>
+               <Item>p</Item>
+               <Item>'pId'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.Tasks">
+        <Types>
+         <Type Name="RunTaskResult">
+          <Messages>
+           <Message TypeName="EnumsShouldHaveZeroValue" Category="Microsoft.Design" CheckId="CA1008" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+            <Issue Name="NotFlagsNoZeroValue">
+             <Item>'RunTaskResult'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Task">
+          <Members>
+           <Member Name="#.ctor()">
+            <Messages>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.Task()'</Item>
+               <Item>'Task.IsDone'</Item>
+               <Item>'bool'</Item>
+               <Item>false</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#.ctor(CprBroker.Engine.Tasks.Task[])">
+            <Messages>
+             <Message Id="preRequisites" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterShouldBeDiscreteTerm">
+               <Item>'Task.Task(Task[])'</Item>
+               <Item>preRequisites</Item>
+               <Item>'preRequisites'</Item>
+               <Item>prerequisites</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#.ctor(System.Object,CprBroker.Engine.Tasks.Task[])">
+            <Messages>
+             <Message Id="preRequisites" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterShouldBeDiscreteTerm">
+               <Item>'Task.Task(object, Task[])'</Item>
+               <Item>preRequisites</Item>
+               <Item>'preRequisites'</Item>
+               <Item>prerequisites</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#.ctor(System.Object,CprBroker.Engine.Tasks.Task[],System.Int32)">
+            <Messages>
+             <Message Id="preRequisites" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterShouldBeDiscreteTerm">
+               <Item>'Task.Task(object, Task[], int)'</Item>
+               <Item>preRequisites</Item>
+               <Item>'preRequisites'</Item>
+               <Item>prerequisites</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.Task(object, Task[], int)'</Item>
+               <Item>'Task.IsDone'</Item>
+               <Item>'bool'</Item>
+               <Item>false</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#EndTask(CprBroker.Engine.Tasks.RunTaskResult)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'Task.EndTask(RunTaskResult)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Input">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.Input'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsDone">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.IsDone'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PreRequisites">
+            <Messages>
+             <Message Id="PreRequisites" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>PreRequisites</Item>
+               <Item>'Task.PreRequisites'</Item>
+               <Item>Prerequisites</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.PreRequisites'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Priority">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.Priority'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Result">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.Result'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RunTask(CprBroker.Engine.Tasks.Task,CprBroker.Engine.Tasks.TaskQueue)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.RunTask(Task, TaskQueue)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+              <Issue>
+               <Item>'Task.RunTask(Task, TaskQueue)'</Item>
+               <Item>'object'</Item>
+              </Issue>
+             </Message>
+             <Message Id="o" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Task.RunTask(Task, TaskQueue)'</Item>
+               <Item>'o'</Item>
+               <Item>'object'</Item>
+              </Issue>
+             </Message>
+             <Message Id="taskQueue" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'taskQueue'</Item>
+               <Item>'Task.RunTask(Task, TaskQueue)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TaskPriority">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2011-01-23 12:14:32Z">
+            <Issue>
+             <Item>'TaskPriority'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="TaskQueue">
+          <Messages>
+           <Message TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711" Created="2011-01-23 12:14:32Z">
+            <Issue Name="TypeNoAlternate">
+             <Item>'TaskQueue'</Item>
+             <Item>Queue</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Created="2011-01-23 12:14:32Z" FixCategory="DependsOnFix">
+            <Issue Name="DependsOnFix">
+             <Item>'TaskQueue'</Item>
+             <Item>'AutoResetEvent'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.ctor()">
+            <Messages>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'TaskQueue.TaskQueue()'</Item>
+               <Item>'TaskQueue.Finalizer'</Item>
+               <Item>'Task'</Item>
+               <Item>null</Item>
+              </Issue>
+              <Issue>
+               <Item>'TaskQueue.TaskQueue()'</Item>
+               <Item>'TaskQueue.Initializer'</Item>
+               <Item>'Task'</Item>
+               <Item>null</Item>
+              </Issue>
+              <Issue>
+               <Item>'TaskQueue.TaskQueue()'</Item>
+               <Item>'TaskQueue._IsAThreadRunning'</Item>
+               <Item>'bool'</Item>
+               <Item>false</Item>
+              </Issue>
+              <Issue>
+               <Item>'TaskQueue.TaskQueue()'</Item>
+               <Item>'TaskQueue._ThreadCount'</Item>
+               <Item>'int'</Item>
+               <Item>0</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#BeginThreadExecution(System.Threading.Thread)">
+            <Messages>
+             <Message Id="currentThread" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'currentThread'</Item>
+               <Item>'TaskQueue.BeginThreadExecution(Thread)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#EndThreadExecution(System.Threading.Thread)">
+            <Messages>
+             <Message Id="currentThread" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2011-01-23 12:14:32Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'currentThread'</Item>
+               <Item>'TaskQueue.EndThreadExecution(Thread)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Finalizer">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'TaskQueue.Finalizer'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Initializer">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'TaskQueue.Initializer'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Main">
+            <Messages>
+             <Message TypeName="DoNotDeclareReadOnlyMutableReferenceTypes" Category="Microsoft.Security" CheckId="CA2104" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'TaskQueue.Main'</Item>
+               <Item>'TaskQueue'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#MaxThreads">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'TaskQueue.MaxThreads'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RunThread(System.Object)">
+            <Messages>
+             <Message Id="result" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'TaskQueue.RunThread(object)'</Item>
+               <Item>'result'</Item>
+               <Item>'RunTaskResult'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.UI">
+        <Types>
+         <Type Name="WindowHandleWrapper">
+          <Members>
+           <Member Name="#FindWindow(System.String,System.String)">
+            <Messages>
+             <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'WindowHandleWrapper.FindWindow(string, string)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'WindowHandleWrapper.FindWindow(string, string)'</Item>
+              </Issue>
+             </Message>
+             <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Created="2011-01-23 12:14:32Z">
+              <Issue Name="ParameterImplicitAnsi">
+               <Item>'lpClassName'</Item>
+              </Issue>
+             </Message>
+             <Message Id="1" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Created="2011-01-23 12:14:32Z">
+              <Issue Name="ParameterImplicitAnsi">
+               <Item>'lpWindowName'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetWindowHandle(System.String)">
+            <Messages>
+             <Message TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'WindowHandleWrapper.GetWindowHandle(string)'</Item>
+               <Item>'Process.GetProcessesByName(string)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'WindowHandleWrapper.GetWindowHandle(string)'&#xD;&#xA;   -&gt;'WindowHandleWrapper.GetWindowHandle(string)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'WindowHandleWrapper.GetWindowHandle(string)'</Item>
+               <Item>'Process.MainWindowHandle.get()'</Item>
+               <Item>&#xD;&#xA;   -&gt;'WindowHandleWrapper.GetWindowHandle(string)'&#xD;&#xA;   -&gt;'WindowHandleWrapper.GetWindowHandle(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SwitchToThisWindow(System.IntPtr,System.Boolean)">
+            <Messages>
+             <Message Id="Wnd" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'WindowHandleWrapper.SwitchToThisWindow(IntPtr, bool)'</Item>
+               <Item>Wnd</Item>
+               <Item>'hWnd'</Item>
+              </Issue>
+             </Message>
+             <Message Id="f" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'WindowHandleWrapper.SwitchToThisWindow(IntPtr, bool)'</Item>
+               <Item>f</Item>
+               <Item>'fAltTab'</Item>
+              </Issue>
+             </Message>
+             <Message Id="h" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'WindowHandleWrapper.SwitchToThisWindow(IntPtr, bool)'</Item>
+               <Item>h</Item>
+               <Item>'hWnd'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkBooleanPInvokeArgumentsWithMarshalAs" Category="Microsoft.Interoperability" CheckId="CA1414" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'fAltTab'</Item>
+               <Item>'WindowHandleWrapper.SwitchToThisWindow(IntPtr, bool)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'WindowHandleWrapper.SwitchToThisWindow(IntPtr, bool)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'WindowHandleWrapper.SwitchToThisWindow(IntPtr, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="CprBroker.Engine.Util">
+        <Types>
+         <Type Name="Installation">
+          <Members>
+           <Member Name="#GetConnectionStringFromWebConfig(System.Configuration.Install.Installer)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Installation.GetConnectionStringFromWebConfig(this Installer)'</Item>
+               <Item>'Exception'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetCORSystemDirectory(System.Text.StringBuilder,System.Int32,System.Int32&amp;)">
+            <Messages>
+             <Message Id="2#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2011-01-23 12:14:32Z">
+              <Issue Certainty="50">
+               <Item>'cchRequired'</Item>
+              </Issue>
+             </Message>
+             <Message Id="COR" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2011-01-23 12:14:32Z">
+              <Issue Name="Member">
+               <Item>COR</Item>
+               <Item>'Installation.GetCORSystemDirectory(StringBuilder, int, ref int)'</Item>
+               <Item>Cor</Item>
+              </Issue>
+             </Message>
+             <Message Id="Buf" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'Installation.GetCORSystemDirectory(StringBuilder, int, ref int)'</Item>
+               <Item>Buf</Item>
+               <Item>'cchBuf'</Item>
+              </Issue>
+             </Message>
+             <Message Id="buf" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'Installation.GetCORSystemDirectory(StringBuilder, int, ref int)'</Item>
+               <Item>buf</Item>
+               <Item>'buf'</Item>
+              </Issue>
+             </Message>
+             <Message Id="cch" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'Installation.GetCORSystemDirectory(StringBuilder, int, ref int)'</Item>
+               <Item>cch</Item>
+               <Item>'cchBuf'</Item>
+              </Issue>
+              <Issue Name="MemberParameter">
+               <Item>'Installation.GetCORSystemDirectory(StringBuilder, int, ref int)'</Item>
+               <Item>cch</Item>
+               <Item>'cchRequired'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Installation.GetCORSystemDirectory(StringBuilder, int, ref int)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Installation.GetCORSystemDirectory(StringBuilder, int, ref int)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetNetFrameworkDirectory()">
+            <Messages>
+             <Message TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Installation.GetNetFrameworkDirectory()'</Item>
+               <Item>'Marshal.ThrowExceptionForHR(int)'</Item>
+               <Item>&#xD;&#xA;   -&gt;'Installation.GetNetFrameworkDirectory()'&#xD;&#xA;   -&gt;'Installation.GetNetFrameworkDirectory()'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2011-01-23 12:14:32Z">
+              <Issue Certainty="50">
+               <Item>'Installation.GetNetFrameworkDirectory()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SetConnectionStringInConfigFile(System.Configuration.Install.Installer,System.String,System.String)">
+            <Messages>
+             <Message Id="installer" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2011-01-23 12:14:32Z" FixCategory="DependsOnFix">
+              <Issue>
+               <Item>'installer'</Item>
+               <Item>'Installation.SetConnectionStringInConfigFile(this Installer, string, string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Security">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Created="2011-01-23 12:14:32Z">
+            <Issue Name="System">
+             <Item>'Security'</Item>
+             <Item>System.Net.Security</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Sql">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Created="2011-01-23 12:14:32Z">
+            <Issue Name="System">
+             <Item>'Sql'</Item>
+             <Item>System.Data.Sql</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Strings">
+          <Members>
+           <Member Name="#Deserialize`1(System.String)">
+            <Messages>
+             <Message TypeName="GenericMethodsShouldProvideTypeParameter" Category="Microsoft.Design" CheckId="CA1004" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Strings.Deserialize&lt;T&gt;(string)'</Item>
+               <Item>'T'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#EnsureDirectoryEndSlash(System.String,System.Boolean)">
+            <Messages>
+             <Message Id="System.String.EndsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Strings.EnsureDirectoryEndSlash(string, bool)'</Item>
+               <Item>'string.EndsWith(string)'</Item>
+               <Item>'string.EndsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GuidToUri(System.Guid)">
+            <Messages>
+             <Message Id="uuid" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameter">
+               <Item>'Strings.GuidToUri(Guid)'</Item>
+               <Item>uuid</Item>
+               <Item>'uuid'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Strings.GuidToUri(Guid)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsGuid(System.String)">
+            <Messages>
+             <Message Id="string" TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720" Created="2011-01-23 12:14:32Z">
+              <Issue Name="LanguageIndependentMemberParameter">
+               <Item>'Strings.IsGuid(string)'</Item>
+               <Item>string</Item>
+               <Item>'stringValue'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#NewUniquePath(System.String,System.String)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object, object, object)'</Item>
+               <Item>'Strings.NewUniquePath(string, string)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ObjectToString(System.Object)">
+            <Messages>
+             <Message Id="o" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2011-01-23 12:14:32Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Strings.ObjectToString(object)'</Item>
+               <Item>'o'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'Strings.ObjectToString(object)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PersonNumberToDate(System.String)">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'Strings.PersonNumberToDate(string)'</Item>
+               <Item>'object'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SerializeObject(System.Object)">
+            <Messages>
+             <Message Id="obj" TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720" Created="2011-01-23 12:14:32Z">
+              <Issue Name="LanguageIndependentMemberParameter">
+               <Item>'Strings.SerializeObject(object)'</Item>
+               <Item>obj</Item>
+               <Item>'obj'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.IO.StringWriter.#ctor" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2011-01-23 12:14:32Z">
+              <Issue>
+               <Item>'StringWriter.StringWriter()'</Item>
+               <Item>'Strings.SerializeObject(object)'</Item>
+               <Item>'StringWriter.StringWriter(IFormatProvider)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210">
+    <Resolution Name="NoStrongName">Sign {0} with a strong name key.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020">
+    <Resolution Name="Default">Consider merging the types defined in '{0}' with another namespace.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021">
+    <Resolution Name="Default">Consider a design that does not require that {0} be an out parameter.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+    <Resolution Name="Default">{0} appears to have no upstream public or protected callers.</Resolution>
+   </Rule>
+   <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
+    <Resolution Name="MemberParameterShouldBeDiscreteTerm">In member {0}, the compound word '{1}' in parameter name {2} exists as a discrete term. If your usage is intended to be single word, case it as '{3}' or strip the first token entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="MemberShouldBeCompoundWord">The discrete term '{0}' in member name {1} should be expressed as a compound word, '{2}'.</Resolution>
+    <Resolution Name="MemberShouldBeDiscreteTerm">The compound word '{0}' in member name {1} exists as a discrete term. If your usage is intended to be single word, case it as '{2}' or strip the first token entirely if it represents any sort of Hungarian notation.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotCastUnnecessarily" Category="Microsoft.Performance" CheckId="CA1800">
+    <Resolution Name="Local">{0}, a variable, is cast to type {1} multiple times in method {2}. Cache the result of the 'as' operator or direct cast in order to eliminate the redundant {3} instruction.</Resolution>
+    <Resolution Name="Parameter">{0}, a parameter, is cast to type {1} multiple times in method {2}. Cache the result of the 'as' operator or direct cast in order to eliminate the redundant {3} instruction.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031">
+    <Resolution Name="Default">Modify {0} to catch a more specific exception than {1} or rethrow the exception.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareReadOnlyMutableReferenceTypes" Category="Microsoft.Security" CheckId="CA2104">
+    <Resolution Name="Default">Remove the read-only designation from {0} or change the field to one that is an immutable reference type. If the reference type {1} is, in fact, immutable, exclude this message.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
+    <Resolution Name="Default">Because field {0} is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122">
+    <Resolution Name="Default">{0} calls into {1} which has a LinkDemand. By making this call, {1} is indirectly exposed to user code. Review the following call stack that might expose a way to circumvent security protection: {2}</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805">
+    <Resolution Name="Default">{0} initializes field {1} of type {2} to {3}. Remove this initialization because it will be done automatically by the runtime.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045">
+    <Resolution Name="Default">Consider a design that does not require that {0} be a reference parameter.</Resolution>
+   </Rule>
+   <Rule TypeName="EnumsShouldHaveZeroValue" Category="Microsoft.Design" CheckId="CA1008">
+    <Resolution Name="NotFlagsNoZeroValue">Add a member to {0} that has a value of zero with a suggested name of 'None'.</Resolution>
+   </Rule>
+   <Rule TypeName="GenericMethodsShouldProvideTypeParameter" Category="Microsoft.Design" CheckId="CA1004">
+    <Resolution Name="Default">Consider a design where {0} doesn't require explicit type parameter {1} in any call to it.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
+    <Resolution Name="Member">Correct the casing of '{0}' in member name {1} by changing it to '{2}'.</Resolution>
+    <Resolution Name="MemberParameter">In member {0}, correct the casing of '{1}' in parameter name {2} by changing it to '{3}'.</Resolution>
+    <Resolution Name="MemberParameterAbbreviation">In member {0}, correct the casing of '{1}' in parameter name {2} by changing it to '{3}'. '{3}' is an abbreviation and therefore is not subject to acronym casing guidelines.</Resolution>
+    <Resolution Name="Namespace">Correct the casing of '{0}' in namespace name '{1}' by changing it to '{2}'.</Resolution>
+    <Resolution Name="Type">Correct the casing of '{0}' in type name {1} by changing it to '{2}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
+    <Resolution Name="Member">Correct the spelling of '{0}' in member name {1} or remove it entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="MemberParameter">In method {0}, correct the spelling of '{1}' in parameter name {2} or remove it entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="MemberParameterMoreMeaningfulName">In method {0}, consider providing a more meaningful name than parameter name {1}.</Resolution>
+    <Resolution Name="Namespace">Correct the spelling of '{0}' in namespace name '{1}'.</Resolution>
+    <Resolution Name="Type">Correct the spelling of '{0}' in type name {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720">
+    <Resolution Name="LanguageIndependentMemberParameter">In member {0}, consider replacing the data type identifier '{1}' in parameter name {2} with a more generic term, such as 'value'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotHaveIncorrectSuffix" Category="Microsoft.Naming" CheckId="CA1711">
+    <Resolution Name="TypeNoAlternate">Rename type name {0} so that it does not end in '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032">
+    <Resolution Name="MissingConstructor">Add the following constructor to {0}: {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810">
+    <Resolution Name="Default">Initialize all static fields in {0} when those fields are declared and remove the explicit static constructor.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkAllNonSerializableFields" Category="Microsoft.Usage" CheckId="CA2235">
+    <Resolution Name="Default">Field {0} is a member of type {1}, which is serializable, but is of type {2}, which is not serializable. Add the NonSerializedAttribute to {0}.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014">
+    <Resolution Name="Default">Mark {0} with CLSCompliant(true) because it exposes externally visible types.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkBooleanPInvokeArgumentsWithMarshalAs" Category="Microsoft.Interoperability" CheckId="CA1414">
+    <Resolution Name="Default">Add the MarshalAsAttribute to parameter {0} of P/Invoke {1}. If the corresponding unmanaged parameter is a 4-byte Win32 'BOOL', use [MarshalAs(UnmanagedType.Bool)]. For a 1-byte C++ 'bool', use MarshalAs(UnmanagedType.U1).</Resolution>
+   </Rule>
+   <Rule TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237">
+    <Resolution Name="Default">Add [Serializable] to {0} as this type implements ISerializable.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
+    <Resolution Name="Default">The 'this' parameter (or 'Me' in Visual Basic) of {0} is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060">
+    <Resolution Name="Default">Because it is a P/Invoke method, {0} should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Resolution>
+   </Rule>
+   <Rule TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034">
+    <Resolution Name="Default">Do not nest type {0}. Alternatively, change its accessibility so that it is not externally visible.</Resolution>
+   </Rule>
+   <Rule TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211">
+    <Resolution Name="Default">Consider making {0} non-public or a constant.</Resolution>
+   </Rule>
+   <Rule TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401">
+    <Resolution Name="Default">Change the accessibility of P/Invoke {0} so that it is no longer visible from outside its assembly.</Resolution>
+   </Rule>
+   <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
+    <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
+   </Rule>
+   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
+    <Resolution Name="Default">{0} declares a variable, {1}, of type {2}, which is never used or is only assigned to. Use this variable or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
+    <Resolution Name="Default">Parameter {0} of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyCultureInfo" Category="Microsoft.Globalization" CheckId="CA1304">
+    <Resolution Name="Default">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, specify 'CultureInfo.CurrentCulture' as the 'CultureInfo' parameter. Otherwise, if the result will be stored and accessed by software, such as when it is persisted to disk or to a database, specify 'CultureInfo.InvariantCulture'.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305">
+    <Resolution Name="Default">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, specify 'CultureInfo.CurrentCulture' as the 'IFormatProvider' parameter. Otherwise, if the result will be stored and accessed by software, such as when it is persisted to disk or to a database, specify 'CultureInfo.InvariantCulture'.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101">
+    <Resolution Name="ParameterImplicitAnsi">To reduce security risk, marshal parameter {0} as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307">
+    <Resolution Name="Default">{0} makes a call to {1} that does not explicitly provide a StringComparison. This should be replaced with a call to {2}.</Resolution>
+   </Rule>
+   <Rule TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053">
+    <Resolution Name="Default">Remove the public constructors from {0}.</Resolution>
+   </Rule>
+   <Rule TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820">
+    <Resolution Name="IsNullOrEmpty">Replace the call to {0} in {1} with a call to 'String.IsNullOrEmpty'.</Resolution>
+   </Rule>
+   <Rule TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724">
+    <Resolution Name="Default">The type name {0} conflicts in whole or in part with the namespace name '{1}'. Change either name to eliminate the conflict.</Resolution>
+    <Resolution Name="System">The type name {0} conflicts in whole or in part with the namespace name '{1}' defined in the .NET Framework. Rename the type to eliminate the conflict.</Resolution>
+   </Rule>
+   <Rule TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001">
+    <Resolution Name="DependsOnFix">Implement IDisposable on {0} because it creates members of the following IDisposable types: {1}. If {0} has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.</Resolution>
+    <Resolution Name="NonBreaking">Implement IDisposable on {0} because it creates members of the following IDisposable types: {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054">
+    <Resolution Name="Default">Change the type of parameter {0} of method {1} from string to System.Uri, or provide an overload of {1}, that allows {0} to be passed as a System.Uri object.</Resolution>
+   </Rule>
+   <Rule TypeName="UriPropertiesShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1056">
+    <Resolution Name="Default">Change the type of property {0} from string to System.Uri.</Resolution>
+   </Rule>
+   <Rule TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003">
+    <Resolution Name="Default">Remove {0} and replace its usage with EventHandler&lt;T&gt;</Resolution>
+   </Rule>
+   <Rule TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024">
+    <Resolution Name="Default">Change {0} to a property if appropriate.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>

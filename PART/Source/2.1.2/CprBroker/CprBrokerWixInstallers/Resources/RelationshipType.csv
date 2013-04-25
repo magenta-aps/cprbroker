@@ -1,0 +1,13 @@
+RelationshipTypeId;ForwardName
+0;Mother
+1;Father
+2;Children
+3;Spouse
+4;Registered partner
+5;Residence collection
+6;Custody
+7;Parenting adult children
+8;Guardian of person
+9;Guardianship owner
+10;Replacement for
+11;Replaced by

@@ -1,0 +1,19 @@
+# Microsoft Developer Studio Project File - Database Project
+Begin DataProject = "DB"
+   MSDTVersion = "80"
+   DefDBRef = "crs04.PartEventBroker.dbo"
+   Begin Folder = "Create Scripts"
+      Script = "EnqueueBirthdateEventNotifications.sql"
+      Script = "EnqueueDataChangeEventNotifications.sql"
+      Script = "InsertChangeNotificationData.sql"
+      Script = "IsBirthdateEvent.sql"
+      Script = "IsDataChangeEvent.sql"
+   End
+   Begin DBRefFolder = "Database References"
+      Begin DBRefNode = "crs04.PartEventBroker.dbo"
+         ConnectStr = "Data Source=10.20.1.20;Initial Catalog=PartEventBroker;Persist Security Info=True;User ID=sa"
+         Provider = "{91510608-8809-4020-8897-FBA057E22D54}"
+         Colorizer = 6
+      End
+   End
+End

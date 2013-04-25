@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension" xmlns:net="http://schemas.microsoft.com/wix/NetFxExtension">
+	<Fragment Id="PersonMasterWebsiteFragment">
+
+    <iis:WebDirProperties Id="IIS_WebDirProperties"
+                              AnonymousAccess="yes" AuthenticationProviders="" WindowsAuthentication="yes" PassportAuthentication="no"
+                              ClearCustomError="yes" AspDetailedError="no"
+                              DefaultDocuments="Default.aspx"
+                              Execute="no" Read="yes" Write="no" Script="yes"
+                              Index="no" LogVisits="no"
+                              AccessSSL="no" AccessSSL128="no" AccessSSLMapCert="no" AccessSSLNegotiateCert="no" AccessSSLRequireCert="no"
+                              BasicAuthentication="no" CacheControlCustom="" DigestAuthentication="no" IIsControlledPassword="yes" />
+    
+    <Component Id="CMP_PersonMasterWeb">
+      <iis:WebSite Id="IIS_WebSite" AutoStart="yes" ConfigureIfExists="yes" 
+                   Description="[WEB_SITENAME]" Directory="Website" Sequence="1" 
+                   WebApplication="WEB_Application" DirProperties="IIS_WebDirProperties" WebLog="WEB_Log"
+                   StartOnInstall="yes" >
+        <iis:WebAddress Id="IIS_WebSiteAddress" Header="[WEB_SITENAME]" IP="*" Secure="no" Port="80" />
+        <iis:WebAddress Id="IIS_WebSiteAddress" Header="[WEB_SITENAME]" IP="*" Secure="no" Port="80" />
+      </iis:WebSite>
+      <Condition>
+        WEB_CREATEASWEBSITE = "True"
+      </Condition>
+    </Component>
+     
+	</Fragment>
+</Wix>

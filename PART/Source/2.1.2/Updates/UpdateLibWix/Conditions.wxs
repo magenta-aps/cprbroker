@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Fragment Id="ConditionsFragment" >
+    <Property Id="Dummy_ConditionsFragmentRefProp" Value="-"/>
+
+    <!-- Fail on newer versions-->
+    <Condition Message="A newer version of [ProductName] is already installed. Exiting installation.">
+      <![CDATA[Installed OR NOT NEWER_VERSION_DETECTED]]>
+    </Condition>
+    
+    <!--.NET Framework-->
+    <PropertyRef Id="NETFRAMEWORK35"/>
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message="This application requires the full version of .NET Framework 3.5 and 4.0. Please install the .NET Framework(s) then run this installer again.">
+      <![CDATA[Installed OR (NETFRAMEWORK35 AND NETFRAMEWORK40FULL) ]]>
+    </Condition>
+
+    <Condition Message="Invalid part service url">
+      <![CDATA[UILevel = 5 OR CPRBROKERSERVICESURL_VALID = "True" OR REMOVE OR PATCH]]>
+    </Condition>
+  </Fragment>
+</Wix>
