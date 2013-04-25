@@ -260,12 +260,7 @@ namespace CprBrokerWixInstallers
                     },
                 };
 
-                patchInfos["EVENT"] = new DatabasePatchInfo[] { 
-                    new DatabasePatchInfo(){
-                        Version = new Version(2,2),
-                        SqlScript = CprBroker.Installers.EventBrokerInstallers.Properties.Resources.PatchDatabase_2_2,
-                        PatchAction = null
-                    }
+                patchInfos["EVENT"] = new DatabasePatchInfo[] {
                 };
 
                 var result = DatabaseCustomAction.PatchDatabase(session, patchInfos);
