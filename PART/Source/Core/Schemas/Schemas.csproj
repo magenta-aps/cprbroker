@@ -103,6 +103,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QualityHeader.cs" />
     <Compile Include="PersonIdentifier.cs" />
+    <Compile Include="SoegAttributListeType.cs" />
+    <Compile Include="SoegEgenskabType.cs" />
+    <Compile Include="SoegObjektType.cs" />
+    <Compile Include="SoegVirkningType.cs" />
     <Compile Include="StandardReturType.cs" />
     <Compile Include="TidspunktType.cs" />
     <Compile Include="TilstandVirkningType.cs" />
