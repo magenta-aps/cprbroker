@@ -89,7 +89,6 @@ namespace CprBroker.Engine.Events
                         {
                             EventId = ev.DataChangeEventId,
                             PersonUuid = ev.PersonUuid,
-                            PersonRegistrationId = ev.PersonRegistrationId,
                             ReceivedDate = ev.ReceivedDate
                         }
                      );
