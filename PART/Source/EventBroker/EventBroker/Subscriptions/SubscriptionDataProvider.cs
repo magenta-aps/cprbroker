@@ -51,6 +51,10 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.EventBroker.Data;
 using CprBroker.Utilities;
+using CprBroker.Schemas.Part;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CprBroker.EventBroker.Subscriptions
 {
@@ -70,7 +74,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <param name="PersonCivilRegistrationIdentifiers"></param>
         /// <param name="notificationChannel"></param>
         /// <returns></returns>
-        private Subscription AddSubscription(EventBrokerDataContext dataContext, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, Guid[] personUuids, ChannelBaseType notificationChannel)
+        private Subscription AddSubscription(EventBrokerDataContext dataContext, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, ChannelBaseType notificationChannel, Guid[] personUuids, SoegInputType1 criteria)
         {
             List<Guid> listOfPersonsIDs = new List<Guid>();
 
@@ -78,6 +82,19 @@ namespace CprBroker.EventBroker.Subscriptions
             subscription.SubscriptionId = Guid.NewGuid();
             subscription.SubscriptionTypeId = (int)subscriptionType;
             subscription.ApplicationId = applicationId;
+            subscription.Created = DateTime.Today;
+            if (criteria != null)
+            {
+                // We serialize the Criteria object into an XML representation
+                string xmlEncoded = "";
+                using (var stream = new MemoryStream())
+                using (var writer = XmlWriter.Create(stream))
+                {
+                    new XmlSerializer(criteria.GetType()).Serialize(writer, criteria);
+                    xmlEncoded = Encoding.UTF8.GetString(stream.ToArray());
+                }
+                subscription.Criteria = xmlEncoded;
+            }
 
 
             #region Set IsForAllPersons
@@ -99,7 +116,7 @@ namespace CprBroker.EventBroker.Subscriptions
             // Mark the new objects to be inserted later
             dataContext.Subscriptions.InsertOnSubmit(subscription);
 
-            if (!subscription.IsForAllPersons)
+            if (!subscription.IsForAllPersons && personUuids != null)
             {
                 dataContext.SubscriptionPersons.InsertAllOnSubmit(
                     from PersonUuid in personUuids
@@ -133,6 +150,8 @@ namespace CprBroker.EventBroker.Subscriptions
 
                 if (subscription != null)
                 {
+                    subscription.Deactivated = DateTime.Today;
+                    /*
                     switch (subscriptionType)
                     {
                         case CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange:
@@ -146,6 +165,7 @@ namespace CprBroker.EventBroker.Subscriptions
                     dataContext.Channels.DeleteAllOnSubmit(subscription.Channels);
                     dataContext.Subscriptions.DeleteOnSubmit(subscription);
                     dataContext.SubmitChanges();
+                     */
                     return true;
                 }
                 else
@@ -162,7 +182,7 @@ namespace CprBroker.EventBroker.Subscriptions
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.DataChange, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
+                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.DataChange, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, personUuids, null);
                 if (subscription != null)
                 {
                     subscription.DataSubscription = new DataSubscription();
@@ -192,7 +212,7 @@ namespace CprBroker.EventBroker.Subscriptions
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.Birthdate, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, personUuids, notificationChannel);
+                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.Birthdate, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, personUuids, null);
                 if (subscription != null)
                 {
                     subscription.BirthdateSubscription = new BirthdateSubscription();
@@ -216,6 +236,37 @@ namespace CprBroker.EventBroker.Subscriptions
         public bool RemoveBirthDateSubscription(Guid subscriptionId)
         {
             return DeleteSubscription(subscriptionId, Data.SubscriptionType.SubscriptionTypes.Birthdate);
+        }
+
+        /// <summary>
+        /// Interface implementation
+        /// </summary>
+        public CriteriaSubscriptionType SubscribeOnCriteria(ChannelBaseType notificationChannel, SoegInputType1 criteria)
+        {
+            using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
+            {
+                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.Criteria, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, null, criteria);
+                if (subscription != null)
+                {
+                    subscription.BirthdateSubscription = new BirthdateSubscription();
+                }
+
+                dataContext.SubmitChanges();
+                if (subscription != null)
+                {
+                    // Now get the subscription from the database to make sure everything is OK
+                    return GetActiveSubscriptionsList(subscription.SubscriptionId).SingleOrDefault() as CriteriaSubscriptionType;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Interface implementation
+        /// </summary>
+        public bool RemoveCriteriaSubscription(Guid subscriptionId)
+        {
+            return DeleteSubscription(subscriptionId, Data.SubscriptionType.SubscriptionTypes.Criteria);
         }
 
         /// <summary>

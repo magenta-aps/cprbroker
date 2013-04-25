@@ -59,7 +59,8 @@ namespace CprBroker.EventBroker.Data
         public enum SubscriptionTypes
         {
             DataChange = 1,
-            Birthdate = 2
+            Birthdate = 2,
+            Criteria = 3
         }
     }
 }

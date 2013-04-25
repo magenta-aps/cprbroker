@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Engine;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.EventBroker.Subscriptions
 {
@@ -82,6 +83,14 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <param name="PersonCivilRegistrationIdentifiers">CPR Numbers for people to be watched</param>
         /// <returns></returns>
         BirthdateSubscriptionType SubscribeOnBirthdate(ChannelBaseType notificationChannel, Nullable<int> years, int priorDays, Guid[] PersonCivilRegistrationIdentifiers);
+
+        /// <summary>
+        /// Subscribes to a birthdate event
+        /// </summary>
+        /// <param name="notificationChannel">Channel through with the client would like to be notified through</param>
+        /// <param name="criteria">The criterion to be used</param>
+        /// <returns></returns>
+        CriteriaSubscriptionType SubscribeOnCriteria(ChannelBaseType notificationChannel, SoegInputType1 criteria);
 
         /// <summary>
         /// Removes a birthdate subscription

@@ -95,7 +95,7 @@ namespace CprBroker.EventBroker.Notifications
                             DataChangeEventId = p.EventId,
                             DueDate = p.ReceivedDate,
                             PersonUuid = p.PersonUuid,
-                            PersonRegistrationId = p.PersonRegistrationId,
+                            PersonRegistrationId = p.PersonRegistrationId,  
                             ReceivedDate = DateTime.Now
                         }
                     );

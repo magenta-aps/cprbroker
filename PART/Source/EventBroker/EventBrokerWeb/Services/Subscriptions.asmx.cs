@@ -99,6 +99,20 @@ namespace CprBroker.EventBroker.Web.Services
         }
 
         [SoapHeader(ApplicationHeaderName)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.SubscribeOnCriteria, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.SubscribeOnCriteria)]
+        public BasicOutputType<CriteriaSubscriptionType> SubscribeOnCriteria(ChannelBaseType NotificationChannel, SoegInputType1 Criteria)
+        {
+            return SubscriptionManager.SubscribeOnCriteria(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Criteria);
+        }
+
+        [SoapHeader(ApplicationHeaderName)]
+        [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.RemoveCriteriaSubscription, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.RemoveCriteriaSubscriptions)]
+        public BasicOutputType<bool> RemoveCriteriaSubscription(Guid SubscriptionId)
+        {
+            return SubscriptionManager.RemoveCriteriaSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, SubscriptionId);
+        }
+
+        [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.GetActiveSubscriptionsList, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.GetActiveSubscriptionsList)]
         public BasicOutputType<SubscriptionType[]> GetActiveSubscriptionsList()
         {

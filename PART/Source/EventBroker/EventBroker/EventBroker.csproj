@@ -110,6 +110,7 @@
     <Compile Include="Notifications\CPRDirectPersonConverter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Subscriptions\SubscribeOnCriteriaFacadeMethod.cs" />
     <Compile Include="Subscriptions\GetActiveSubscriptionsListFacadeMethod.cs" />
     <Compile Include="Subscriptions\SubscribeOnBirthdateFacadeMethod.cs" />
     <Compile Include="Subscriptions\SubscribeFacadeMethod.cs" />
