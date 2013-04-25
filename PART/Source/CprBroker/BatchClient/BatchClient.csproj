@@ -137,18 +137,18 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Service References\PersonMaster\BasicOp.wsdl" />
-    <None Include="Service References\PersonMaster\personmaster.wsdl" />
-    <None Include="Service References\PersonMaster\personmaster.xsd">
+    <None Include="Service References\PersonMaster\BasicOp1.wsdl" />
+    <None Include="Service References\PersonMaster\PersonmasterServiceLibrary1.wsdl" />
+    <None Include="Service References\PersonMaster\PersonmasterServiceLibrary4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PersonMaster\personmaster1.xsd">
+    <None Include="Service References\PersonMaster\PersonmasterServiceLibrary5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PersonMaster\personmaster2.xsd">
+    <None Include="Service References\PersonMaster\PersonmasterServiceLibrary6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PersonMaster\personmaster3.xsd">
+    <None Include="Service References\PersonMaster\PersonmasterServiceLibrary7.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Web References\Part\GetUuidOutputType1.datasource">
@@ -211,13 +211,13 @@
     <Content Include="ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Service References\PersonMaster\personmaster.disco" />
     <None Include="Service References\PersonMaster\configuration91.svcinfo" />
     <None Include="Service References\PersonMaster\configuration.svcinfo" />
     <None Include="Service References\PersonMaster\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\PersonMaster\PersonmasterServiceLibrary1.disco" />
     <Content Include="TestDates.txt" />
   </ItemGroup>
   <ItemGroup>
