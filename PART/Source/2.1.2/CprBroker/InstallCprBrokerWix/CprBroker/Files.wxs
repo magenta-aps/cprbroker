@@ -110,6 +110,7 @@
         <File Id="FILE_CPR_Pages_DataProviders_ASPX" Source="$(var.SitePath)Pages\DataProviders.aspx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_LogEntries_ASPX" Directory="CPR_Pages">
+        <RemoveFile Id="Remove_CPR_LogEntries_ASPX" Name="LogEntries.aspx" On="install" />
         <File Id="FILE_CPR_Pages_LogEntries_ASPX" Source="$(var.SitePath)Pages\LogEntries.aspx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_Applications_ASPX" Directory="CPR_Pages">
