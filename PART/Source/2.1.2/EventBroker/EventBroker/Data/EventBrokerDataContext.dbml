@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="PartEventBroker" Class="EventBrokerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PartEventBroker" Class="EventBrokerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.SubscriptionType" Member="SubscriptionTypes">
     <Type Name="SubscriptionType">
       <Column Name="SubscriptionTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
