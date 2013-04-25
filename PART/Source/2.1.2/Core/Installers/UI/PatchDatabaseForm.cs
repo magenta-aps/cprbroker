@@ -91,7 +91,14 @@ namespace CprBroker.Installers
             }
             else
             {
-                MessageBox.Show(Messages.AdminConnectionFailed, Messages.Unsuccessful, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                if (SetupInfo.AdminConnectionHasDboRights())
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show(Messages.AdminConnectionFailed, Messages.Unsuccessful, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             return false;
         }

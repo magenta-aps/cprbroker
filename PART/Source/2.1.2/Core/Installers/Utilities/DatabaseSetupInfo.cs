@@ -70,8 +70,9 @@ namespace CprBroker.Installers
             public string UserName = "";
             public string Password = "";
 
-            public string EffectiveUserName { 
-                get { return IntegratedSecurity? @"NT AUTHORITY\NETWORK SERVICE" : UserName;} 
+            public string EffectiveUserName
+            {
+                get { return IntegratedSecurity ? @"NT AUTHORITY\NETWORK SERVICE" : UserName; }
             }
         }
 
@@ -168,6 +169,25 @@ namespace CprBroker.Installers
             catch (Exception)
             {
 
+            }
+            return ret;
+        }
+
+        internal bool AdminConnectionHasDboRights()
+        {
+            bool ret = false;
+            try
+            {
+                string adminConnectionString = CreateConnectionString(true, false);
+                using (SqlConnection adminConnection = new SqlConnection(adminConnectionString))
+                {
+                    adminConnection.Open();
+                    return IsDatabaseRoleMember("db_owner", AdminAuthenticationInfo.EffectiveUserName, adminConnection);
+                }
+            }
+            catch (Exception)
+            {
+                
             }
             return ret;
         }
