@@ -76,6 +76,7 @@
     <Compile Include="Encryption.cs" />
     <Compile Include="TextMessages.cs" />
     <Compile Include="Web.cs" />
+    <Compile Include="XQueryElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
