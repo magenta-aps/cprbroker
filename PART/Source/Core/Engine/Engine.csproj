@@ -80,6 +80,7 @@
     <Compile Include="IDataProvider.cs" />
     <Compile Include="Part\CityNameMapping.cs" />
     <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
+    <Compile Include="Part\PutSubscriptionFacadeMethodInfo.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />

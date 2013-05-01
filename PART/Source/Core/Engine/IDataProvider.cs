@@ -246,4 +246,9 @@ namespace CprBroker.Engine
     {
         bool Ping();
     }
+
+    public interface IPutSubscription : IDataProvider
+    {
+        bool PutSubscription(PersonIdentifier personIdentifier);
+    }
 }
