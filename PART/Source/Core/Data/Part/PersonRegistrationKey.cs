@@ -60,7 +60,8 @@ namespace CprBroker.Data.Part
     {
         public Guid PersonRegistrationId { get; set; }
         public Guid UUID { get; set; }
-
+        
+        // Dennis - please call this method to get the matching uuids
         public static IEnumerable<PersonRegistrationKey> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject)
         {
             var elements = PersonRegistration.CreateXQueryElements(soegObject);
