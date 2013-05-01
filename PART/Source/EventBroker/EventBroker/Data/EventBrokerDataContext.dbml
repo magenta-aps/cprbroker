@@ -67,9 +67,9 @@
       <Column Name="SubscriptionTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="IsForAllPersons" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Criteria" Type="System.String" DbType="XML NULL" CanBeNull="true" />
-      <Column Name="Created" Type="System.Datetime" DbType="Datetime NOT NULL" CanBeNull="false" />
-      <Column Name="Deactivated" Type="System.Datetime" DbType="Datetime NULL" CanBeNull="true" />
+      <Column Name="Criteria" Type="System.Xml.Linq.XElement" DbType="XML" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Deactivated" Type="System.DateTime" DbType="DateTime NULL" CanBeNull="true" />
       <Association Name="Subscription_BirthdateSubscription" Member="BirthdateSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="BirthdateSubscription" Cardinality="One" />
       <Association Name="Subscription_Channel" Member="Channels" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Channel" />
       <Association Name="Subscription_DataSubscription" Member="DataSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="DataSubscription" Cardinality="One" />
@@ -84,8 +84,8 @@
       <Column Name="SubscriptionPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="Created" Type="System.Datetime" DbType="Datetime NOT NULL" CanBeNull="false" />
-      <Column Name="Removed" Type="System.Datetime" DbType="Datetime NULL" CanBeNull="true" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Removed" Type="System.DateTime" DbType="DateTime NULL" CanBeNull="true" />
       <Association Name="Subscription_SubscriptionPerson" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
