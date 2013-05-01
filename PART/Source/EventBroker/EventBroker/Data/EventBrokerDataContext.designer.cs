@@ -2481,6 +2481,8 @@ namespace CprBroker.EventBroker.Data
 		
 		private System.Guid _PersonUuid;
 		
+		private System.Guid _PersonRegistrationId;
+		
 		private System.DateTime _DueDate;
 		
 		private System.DateTime _ReceivedDate;
@@ -2493,6 +2495,8 @@ namespace CprBroker.EventBroker.Data
     partial void OnDataChangeEventIdChanged();
     partial void OnPersonUuidChanging(System.Guid value);
     partial void OnPersonUuidChanged();
+    partial void OnPersonRegistrationIdChanging(System.Guid value);
+    partial void OnPersonRegistrationIdChanged();
     partial void OnDueDateChanging(System.DateTime value);
     partial void OnDueDateChanged();
     partial void OnReceivedDateChanging(System.DateTime value);
@@ -2540,6 +2544,26 @@ namespace CprBroker.EventBroker.Data
 					this._PersonUuid = value;
 					this.SendPropertyChanged("PersonUuid");
 					this.OnPersonUuidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonRegistrationId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid PersonRegistrationId
+		{
+			get
+			{
+				return this._PersonRegistrationId;
+			}
+			set
+			{
+				if ((this._PersonRegistrationId != value))
+				{
+					this.OnPersonRegistrationIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonRegistrationId = value;
+					this.SendPropertyChanged("PersonRegistrationId");
+					this.OnPersonRegistrationIdChanged();
 				}
 			}
 		}
