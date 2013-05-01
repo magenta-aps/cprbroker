@@ -80,7 +80,7 @@ namespace CprBroker.Engine.Part
         {
             this.SubMethodInfos = PersonIdentifiers
                 .Select(
-                pi => new SubMethodInfo<IPutSubscription, bool>()
+                pi => new SubMethodInfo<IPutSubscriptionDataProvider, bool>()
                 {
                     FailIfNoDataProvider = true,
                     FailOnDefaultOutput = true,

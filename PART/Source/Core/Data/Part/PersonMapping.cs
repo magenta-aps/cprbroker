@@ -71,7 +71,7 @@ namespace CprBroker.Data.Part
             using (PartDataContext dataContext = new PartDataContext())
             {
                 var foundPersons = dataContext.PersonMappings.AsQueryable();
-                
+
                 foundPersons = foundPersons.Where(p => cprNumbers.Contains(p.CprNumber));
 
                 var foundPersonsArray = foundPersons.ToArray();
@@ -114,6 +114,28 @@ namespace CprBroker.Data.Part
                 ).FirstOrDefault();
             }
             return ret;
+        }
+
+        public static PersonIdentifier[] GetPersonIdentifiers(Guid[] uuidArray)
+        {
+            using (var dataContext = new PartDataContext())
+            {
+                var dbIdentifiers =
+                (
+                    from pm in dataContext.PersonMappings
+                    where uuidArray.Contains(pm.UUID)
+                    select new PersonIdentifier()
+                    {
+                        CprNumber = pm.CprNumber,
+                        UUID = pm.UUID
+                    }
+                ).ToArray();
+
+                return uuidArray
+                    .Select(uuid => dbIdentifiers.Where(db => db.UUID == uuid).FirstOrDefault())
+                    .ToArray();
+            }
+
         }
     }
 }
