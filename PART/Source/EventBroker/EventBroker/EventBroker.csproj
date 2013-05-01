@@ -90,11 +90,6 @@
     <Compile Include="Data\EventBrokerDataContext.cs">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Data\EventBrokerDataContext.designer.cs">
-      <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="Data\EventNotification.cs" />
     <Compile Include="Data\Subscription.cs" />
     <Compile Include="Data\SubscriptionType.cs" />
@@ -176,9 +171,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Data\EventBrokerDataContext.dbml.layout">
-      <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
-    </None>
     <None Include="Web References\EventsService\Events.wsdl" />
     <None Include="Web References\NotificationService\Notification.wsdl" />
     <None Include="Web References\NotificationService\Reference.map">
