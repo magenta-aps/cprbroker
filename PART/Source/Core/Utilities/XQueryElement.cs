@@ -52,7 +52,7 @@ using System.Xml;
 
 namespace CprBroker.Utilities
 {
-    public class XQueryElement
+    public class XQueryElement : System.Xml.IXmlNamespaceResolver
     {
         public Dictionary<string, string> Namespaces { get; set; }
         public string Path { get; set; }
@@ -114,18 +114,39 @@ namespace CprBroker.Utilities
             }
         }
 
-        public string ToSql(string columnName)
+        public string ToSql(string columnName, System.Data.SqlClient.SqlCommand sqlCommand)
         {
             string namespaces = string.Join(Environment.NewLine, Namespaces.Select(kvp => string.Format("declare namespace {0}=\"{1}\";", kvp.Value, kvp.Key)).ToArray());
+            string parameterName = "@" + Strings.NewRandomString(7);
+            sqlCommand.Parameters.Add(parameterName, System.Data.SqlDbType.VarChar);
 
             return string.Format("{0}.value('{1}{2}({3})[1]','varchar(max)') = '{4}'",
                 columnName,
                 namespaces,
                 Environment.NewLine,
                 Path,
-                Value
+                parameterName
                 );
         }
 
+        public IDictionary<string, string> GetNamespacesInScope(XmlNamespaceScope scope)
+        {
+            var ret = new Dictionary<string, string>(Namespaces.Count);
+            foreach (var kvp in this.Namespaces)
+            {
+                ret[kvp.Value] = kvp.Key;
+            }
+            return ret;
+        }
+
+        public string LookupNamespace(string prefix)
+        {
+            return Namespaces.Where(kvp => kvp.Value == prefix).Select(kvp => kvp.Key).FirstOrDefault();
+        }
+
+        public string LookupPrefix(string namespaceName)
+        {
+            return Namespaces[namespaceName];
+        }
     }
 }
