@@ -22,7 +22,7 @@ namespace CprBroker.EventBroker.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PartEventBroker")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="EventBroker")]
 	public partial class EventBrokerDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -60,6 +60,9 @@ namespace CprBroker.EventBroker.Data
     partial void InsertPersonBirthdate(PersonBirthdate instance);
     partial void UpdatePersonBirthdate(PersonBirthdate instance);
     partial void DeletePersonBirthdate(PersonBirthdate instance);
+    partial void InsertBirthdateEventNotification(BirthdateEventNotification instance);
+    partial void UpdateBirthdateEventNotification(BirthdateEventNotification instance);
+    partial void DeleteBirthdateEventNotification(BirthdateEventNotification instance);
     #endregion
 		
 		public EventBrokerDataContext(string connection) : 
@@ -163,6 +166,14 @@ namespace CprBroker.EventBroker.Data
 			get
 			{
 				return this.GetTable<PersonBirthdate>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BirthdateEventNotification> BirthdateEventNotifications
+		{
+			get
+			{
+				return this.GetTable<BirthdateEventNotification>();
 			}
 		}
 		
@@ -1498,6 +1509,8 @@ namespace CprBroker.EventBroker.Data
 		
 		private System.Nullable<bool> _Succeeded;
 		
+		private EntityRef<BirthdateEventNotification> _BirthdateEventNotification;
+		
 		private EntityRef<Subscription> _Subscription;
 		
     #region Extensibility Method Definitions
@@ -1520,6 +1533,7 @@ namespace CprBroker.EventBroker.Data
 		
 		public EventNotification()
 		{
+			this._BirthdateEventNotification = default(EntityRef<BirthdateEventNotification>);
 			this._Subscription = default(EntityRef<Subscription>);
 			OnCreated();
 		}
@@ -1644,6 +1658,35 @@ namespace CprBroker.EventBroker.Data
 					this._Succeeded = value;
 					this.SendPropertyChanged("Succeeded");
 					this.OnSucceededChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EventNotification_BirthdateEventNotification", Storage="_BirthdateEventNotification", ThisKey="EventNotificationId", OtherKey="EventNotificationId", IsUnique=true, IsForeignKey=false)]
+		public BirthdateEventNotification BirthdateEventNotification
+		{
+			get
+			{
+				return this._BirthdateEventNotification.Entity;
+			}
+			set
+			{
+				BirthdateEventNotification previousValue = this._BirthdateEventNotification.Entity;
+				if (((previousValue != value) 
+							|| (this._BirthdateEventNotification.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BirthdateEventNotification.Entity = null;
+						previousValue.EventNotification = null;
+					}
+					this._BirthdateEventNotification.Entity = value;
+					if ((value != null))
+					{
+						value.EventNotification = this;
+					}
+					this.SendPropertyChanged("BirthdateEventNotification");
 				}
 			}
 		}
@@ -1922,6 +1965,133 @@ namespace CprBroker.EventBroker.Data
 					this._Birthdate = value;
 					this.SendPropertyChanged("Birthdate");
 					this.OnBirthdateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BirthdateEventNotification")]
+	public partial class BirthdateEventNotification : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _EventNotificationId;
+		
+		private int _Age;
+		
+		private EntityRef<EventNotification> _EventNotification;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEventNotificationIdChanging(System.Guid value);
+    partial void OnEventNotificationIdChanged();
+    partial void OnAgeChanging(int value);
+    partial void OnAgeChanged();
+    #endregion
+		
+		public BirthdateEventNotification()
+		{
+			this._EventNotification = default(EntityRef<EventNotification>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventNotificationId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid EventNotificationId
+		{
+			get
+			{
+				return this._EventNotificationId;
+			}
+			set
+			{
+				if ((this._EventNotificationId != value))
+				{
+					if (this._EventNotification.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEventNotificationIdChanging(value);
+					this.SendPropertyChanging();
+					this._EventNotificationId = value;
+					this.SendPropertyChanged("EventNotificationId");
+					this.OnEventNotificationIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Age", DbType="Int NOT NULL")]
+		public int Age
+		{
+			get
+			{
+				return this._Age;
+			}
+			set
+			{
+				if ((this._Age != value))
+				{
+					this.OnAgeChanging(value);
+					this.SendPropertyChanging();
+					this._Age = value;
+					this.SendPropertyChanged("Age");
+					this.OnAgeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EventNotification_BirthdateEventNotification", Storage="_EventNotification", ThisKey="EventNotificationId", OtherKey="EventNotificationId", IsForeignKey=true)]
+		public EventNotification EventNotification
+		{
+			get
+			{
+				return this._EventNotification.Entity;
+			}
+			set
+			{
+				EventNotification previousValue = this._EventNotification.Entity;
+				if (((previousValue != value) 
+							|| (this._EventNotification.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._EventNotification.Entity = null;
+						previousValue.BirthdateEventNotification = null;
+					}
+					this._EventNotification.Entity = value;
+					if ((value != null))
+					{
+						value.BirthdateEventNotification = this;
+						this._EventNotificationId = value.EventNotificationId;
+					}
+					else
+					{
+						this._EventNotificationId = default(System.Guid);
+					}
+					this.SendPropertyChanged("EventNotification");
 				}
 			}
 		}

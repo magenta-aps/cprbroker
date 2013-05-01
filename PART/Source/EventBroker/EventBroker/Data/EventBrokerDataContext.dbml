@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PartEventBroker" Class="EventBrokerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EventBroker" Class="EventBrokerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.SubscriptionType" Member="SubscriptionTypes">
     <Type Name="SubscriptionType">
       <Column Name="SubscriptionTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -72,6 +72,7 @@
       <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="NotificationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Succeeded" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="EventNotification_BirthdateEventNotification" Member="BirthdateEventNotification" ThisKey="EventNotificationId" OtherKey="EventNotificationId" Type="BirthdateEventNotification" Cardinality="One" />
       <Association Name="Subscription_EventNotification" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
@@ -88,6 +89,13 @@
     <Type Name="PersonBirthdate">
       <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Birthdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BirthdateEventNotification" Member="BirthdateEventNotifications">
+    <Type Name="BirthdateEventNotification">
+      <Column Name="EventNotificationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="EventNotification_BirthdateEventNotification" Member="EventNotification" ThisKey="EventNotificationId" OtherKey="EventNotificationId" Type="EventNotification" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.InsertChangeNotificationData" Method="InsertChangeNotificationData">
