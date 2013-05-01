@@ -90,6 +90,11 @@
     <Compile Include="Data\EventBrokerDataContext.cs">
       <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Data\EventBrokerDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Data\EventNotification.cs" />
     <Compile Include="Data\Subscription.cs" />
     <Compile Include="Data\SubscriptionType.cs" />
@@ -206,6 +211,9 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\EventBrokerDataContext.dbml.layout">
+      <DependentUpon>EventBrokerDataContext.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Notifications\BirthdateEventEnqueuer.resx">
       <DependentUpon>BirthdateEventEnqueuer.cs</DependentUpon>
     </EmbeddedResource>
