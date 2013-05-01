@@ -33,9 +33,6 @@ namespace CprBroker.EventBroker.Data
     partial void InsertSubscriptionType(SubscriptionType instance);
     partial void UpdateSubscriptionType(SubscriptionType instance);
     partial void DeleteSubscriptionType(SubscriptionType instance);
-    partial void InsertBirthdateNotification(BirthdateNotification instance);
-    partial void UpdateBirthdateNotification(BirthdateNotification instance);
-    partial void DeleteBirthdateNotification(BirthdateNotification instance);
     partial void InsertBirthdateSubscription(BirthdateSubscription instance);
     partial void UpdateBirthdateSubscription(BirthdateSubscription instance);
     partial void DeleteBirthdateSubscription(BirthdateSubscription instance);
@@ -97,14 +94,6 @@ namespace CprBroker.EventBroker.Data
 			get
 			{
 				return this.GetTable<SubscriptionType>();
-			}
-		}
-		
-		public System.Data.Linq.Table<BirthdateNotification> BirthdateNotifications
-		{
-			get
-			{
-				return this.GetTable<BirthdateNotification>();
 			}
 		}
 		
@@ -321,157 +310,6 @@ namespace CprBroker.EventBroker.Data
 		{
 			this.SendPropertyChanging();
 			entity.SubscriptionType = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BirthdateNotification")]
-	public partial class BirthdateNotification : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _NotificationId;
-		
-		private System.Nullable<int> _AgeYears;
-		
-		private int _PriorDays;
-		
-		private EntityRef<Notification> _Notification;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnNotificationIdChanging(System.Guid value);
-    partial void OnNotificationIdChanged();
-    partial void OnAgeYearsChanging(System.Nullable<int> value);
-    partial void OnAgeYearsChanged();
-    partial void OnPriorDaysChanging(int value);
-    partial void OnPriorDaysChanged();
-    #endregion
-		
-		public BirthdateNotification()
-		{
-			this._Notification = default(EntityRef<Notification>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotificationId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid NotificationId
-		{
-			get
-			{
-				return this._NotificationId;
-			}
-			set
-			{
-				if ((this._NotificationId != value))
-				{
-					if (this._Notification.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnNotificationIdChanging(value);
-					this.SendPropertyChanging();
-					this._NotificationId = value;
-					this.SendPropertyChanged("NotificationId");
-					this.OnNotificationIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AgeYears", DbType="Int")]
-		public System.Nullable<int> AgeYears
-		{
-			get
-			{
-				return this._AgeYears;
-			}
-			set
-			{
-				if ((this._AgeYears != value))
-				{
-					this.OnAgeYearsChanging(value);
-					this.SendPropertyChanging();
-					this._AgeYears = value;
-					this.SendPropertyChanged("AgeYears");
-					this.OnAgeYearsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriorDays", DbType="Int NOT NULL")]
-		public int PriorDays
-		{
-			get
-			{
-				return this._PriorDays;
-			}
-			set
-			{
-				if ((this._PriorDays != value))
-				{
-					this.OnPriorDaysChanging(value);
-					this.SendPropertyChanging();
-					this._PriorDays = value;
-					this.SendPropertyChanged("PriorDays");
-					this.OnPriorDaysChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Notification_BirthdateNotification", Storage="_Notification", ThisKey="NotificationId", OtherKey="NotificationId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Notification Notification
-		{
-			get
-			{
-				return this._Notification.Entity;
-			}
-			set
-			{
-				Notification previousValue = this._Notification.Entity;
-				if (((previousValue != value) 
-							|| (this._Notification.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Notification.Entity = null;
-						previousValue.BirthdateNotification = null;
-					}
-					this._Notification.Entity = value;
-					if ((value != null))
-					{
-						value.BirthdateNotification = this;
-						this._NotificationId = value.NotificationId;
-					}
-					else
-					{
-						this._NotificationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("Notification");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -1695,8 +1533,6 @@ namespace CprBroker.EventBroker.Data
 		
 		private System.DateTime _CreatedDate;
 		
-		private EntityRef<BirthdateNotification> _BirthdateNotification;
-		
 		private EntityRef<Subscription> _Subscription;
 		
     #region Extensibility Method Definitions
@@ -1715,7 +1551,6 @@ namespace CprBroker.EventBroker.Data
 		
 		public Notification()
 		{
-			this._BirthdateNotification = default(EntityRef<BirthdateNotification>);
 			this._Subscription = default(EntityRef<Subscription>);
 			OnCreated();
 		}
@@ -1800,35 +1635,6 @@ namespace CprBroker.EventBroker.Data
 					this._CreatedDate = value;
 					this.SendPropertyChanged("CreatedDate");
 					this.OnCreatedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Notification_BirthdateNotification", Storage="_BirthdateNotification", ThisKey="NotificationId", OtherKey="NotificationId", IsUnique=true, IsForeignKey=false)]
-		public BirthdateNotification BirthdateNotification
-		{
-			get
-			{
-				return this._BirthdateNotification.Entity;
-			}
-			set
-			{
-				BirthdateNotification previousValue = this._BirthdateNotification.Entity;
-				if (((previousValue != value) 
-							|| (this._BirthdateNotification.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BirthdateNotification.Entity = null;
-						previousValue.Notification = null;
-					}
-					this._BirthdateNotification.Entity = value;
-					if ((value != null))
-					{
-						value.Notification = this;
-					}
-					this.SendPropertyChanged("BirthdateNotification");
 				}
 			}
 		}
