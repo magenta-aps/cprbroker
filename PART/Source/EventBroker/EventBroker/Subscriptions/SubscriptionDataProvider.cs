@@ -85,15 +85,8 @@ namespace CprBroker.EventBroker.Subscriptions
             subscription.Created = DateTime.Today;
             if (criteria != null)
             {
-                // We serialize the Criteria object into an XML representation
-                string xmlEncoded = "";
-                using (var stream = new MemoryStream())
-                using (var writer = XmlWriter.Create(stream))
-                {
-                    new XmlSerializer(criteria.GetType()).Serialize(writer, criteria);
-                    xmlEncoded = Encoding.UTF8.GetString(stream.ToArray());
-                }
-                subscription.Criteria = xmlEncoded;
+                var xml = Strings.SerializeObject(criteria);
+                subscription.Criteria = System.Xml.Linq.XElement.Load(new StringReader(xml));
             }
 
 
