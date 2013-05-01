@@ -113,10 +113,6 @@ namespace CprBroker.Providers.DPR
                     {
                         Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "EnsurePersonDataExists", string.Format("Calling DPR Diversion : {0}", cprNumber), null, null);
                         CallDiversion(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.ExtendedData, cprNumber);
-                        if (!KeepSubscription)
-                        {
-                            CallDiversion(InquiryType.DeleteAutomaticDataUpdateFromCpr, DetailType.ExtendedData, cprNumber);
-                        }
                     }
                 }
             }
@@ -149,7 +145,7 @@ namespace CprBroker.Providers.DPR
                 client.Close();
             }
         }
-        
+
         public bool IsDatabaseAlive()
         {
             System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();

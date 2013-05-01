@@ -83,7 +83,6 @@ namespace CprBroker.Providers.DPR
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Disable Diversion", Required=false,Confidential=false},
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.String, Name="Address", Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},                    
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Boolean, Name="Keep Subscription" , Required=false, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
                     
                 };
@@ -141,14 +140,6 @@ namespace CprBroker.Providers.DPR
                 }
 
                 return connectionBuilder.ToString();
-            }
-        }
-
-        public bool KeepSubscription
-        {
-            get
-            {
-                return Convert.ToBoolean(ConfigurationProperties["Keep Subscription"]);
             }
         }
 

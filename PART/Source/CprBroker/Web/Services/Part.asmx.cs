@@ -122,6 +122,12 @@ namespace CprBroker.Web.Services
         {
             return Manager.Part.GetUuidArray(applicationHeader.UserToken, applicationHeader.ApplicationToken, cprNumberArray);
         }
+
+        [SoapHeader(ApplicationHeaderName)]
+        public IBasicOutput<bool> PutSubscription(Guid[] personUuids)
+        {
+            return Manager.Part.PutSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuids);
+        }
     }
 
 }

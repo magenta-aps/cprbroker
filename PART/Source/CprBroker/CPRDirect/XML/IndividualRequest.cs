@@ -53,10 +53,10 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualRequestType
     {
-        public IndividualRequestType(bool putSubscription, decimal pnr)
+        public IndividualRequestType(bool putSubscription, DataType dataType, decimal pnr)
         {
             this.SubscriptionType = (decimal)((putSubscription) ? CPRDirect.SubscriptionType.PutSubscription : CPRDirect.SubscriptionType.LeaveAsIs);
-            this.DataType = (decimal)CPRDirect.DataType.DefinedByTask;
+            this.DataType = (decimal)dataType;
             this.PNR = pnr;
         }
     }

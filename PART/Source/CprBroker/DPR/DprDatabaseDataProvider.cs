@@ -60,9 +60,8 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Implements the Read operation of Part standard
     /// </summary>
-    public partial class DprDatabaseDataProvider : ClientDataProvider, IPartReadDataProvider
+    public partial class DprDatabaseDataProvider : ClientDataProvider, IPutSubscriptionDataProvider, IPartReadDataProvider
     {
-        #region IPartReadDataProvider Members
 
         public RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
         {
@@ -81,6 +80,34 @@ namespace CprBroker.Providers.DPR
             return ret;
         }
 
-        #endregion
+        public bool PutSubscription(PersonIdentifier personIdentifier)
+        {
+            if (!this.DisableDiversion)
+            {
+                decimal cprNum = Convert.ToDecimal(personIdentifier.CprNumber);
+
+                using (DPRDataContext dataContext = new DPRDataContext(ConnectionString))
+                {
+                    var exists = (from personTotal in dataContext.PersonTotals
+                                  select personTotal.PNR).Contains(cprNum);
+
+                    if (exists)
+                    {
+                        Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("PNR {0} Exists in DPR, DPR Diversion not called", personIdentifier.CprNumber), null, null);
+                    }
+                    else
+                    {
+                        Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("Calling DPR Diversion : {0}", personIdentifier.CprNumber), null, null);
+                        CallDiversion(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.MasterData, personIdentifier.CprNumber);
+                    }
+                    return true;
+                }
+            }
+            else
+            {
+                Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("DPR Diversion is disabled: {0}", personIdentifier.CprNumber), null, null);
+                return false;
+            }
+        }
     }
 }
