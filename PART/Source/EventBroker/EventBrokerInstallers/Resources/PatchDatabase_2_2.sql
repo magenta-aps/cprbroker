@@ -16,3 +16,8 @@ IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'Created' and object_id=
 	ALTER TABLE dbo.SubscriptionPerson ADD Created Datetime NOT NULL DEFAULT '1900-01-01 00:00:00'
 	ALTER TABLE dbo.SubscriptionPerson ADD Removed Datetime NULL DEFAULT NULL
 GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id  = OBJECT_ID('BirthdateNotificationPerson'))
+	DROP TABLE BirthdateNotificationPerson
+GO
+

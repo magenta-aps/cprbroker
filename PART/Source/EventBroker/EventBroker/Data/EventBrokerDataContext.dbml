@@ -14,13 +14,6 @@
       <Association Name="Notification_BirthdateNotification" Member="Notification" ThisKey="NotificationId" OtherKey="NotificationId" Type="Notification" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.BirthdateNotificationPerson" Member="BirthdateNotificationPersons">
-    <Type Name="BirthdateNotificationPerson">
-      <Column Name="NotificationPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="NotificationPerson_BirthdateNotificationPerson" Member="NotificationPerson" ThisKey="NotificationPersonId" OtherKey="NotificationPersonId" Type="NotificationPerson" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.BirthdateSubscription" Member="BirthdateSubscriptions">
     <Type Name="BirthdateSubscription">
       <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -57,7 +50,6 @@
       <Column Name="NotificationPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="NotificationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="NotificationPerson_BirthdateNotificationPerson" Member="BirthdateNotificationPerson" ThisKey="NotificationPersonId" OtherKey="NotificationPersonId" Type="BirthdateNotificationPerson" Cardinality="One" />
       <Association Name="Notification_NotificationPerson" Member="Notification" ThisKey="NotificationId" OtherKey="NotificationId" Type="Notification" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
