@@ -118,15 +118,41 @@ namespace CprBroker.Utilities
         {
             string namespaces = string.Join(Environment.NewLine, Namespaces.Select(kvp => string.Format("declare namespace {0}=\"{1}\";", kvp.Value, kvp.Key)).ToArray());
             string parameterName = "@" + Strings.NewRandomString(7);
-            sqlCommand.Parameters.Add(parameterName, System.Data.SqlDbType.VarChar);
+            sqlCommand.Parameters.Add(parameterName, System.Data.SqlDbType.VarChar).Value = Value;
 
-            return string.Format("{0}.value('{1}{2}({3})[1]','varchar(max)') = '{4}'",
+            return string.Format("{0}.value('{1}{2}({3})[1]','varchar(max)') = {4}",
                 columnName,
                 namespaces,
                 Environment.NewLine,
                 Path,
                 parameterName
                 );
+        }
+
+        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContex, IEnumerable<XQueryElement> elements, string tableName, string columnName, string[] columnNames)
+        {
+            var where = new List<string>();
+
+            foreach (var elem in elements)
+            {
+                string namespaces = string.Join(Environment.NewLine, elem.Namespaces.Select(kvp => string.Format("declare namespace {0}=\"{1}\";", kvp.Value, kvp.Key)).ToArray());
+
+                var myWhere = string.Format("{0}.value('{1}{2}({3})[1]','varchar(max)') = {4}",
+                    columnName,
+                    namespaces,
+                    Environment.NewLine,
+                    elem.Path,
+                    string.Format("{{{0}}}", where.Count)
+                    );
+                where.Add(myWhere);
+            }
+
+            string sql = string.Format("SELECT {0} FROM {1} WHERE {2}",
+                string.Join(",", columnNames),
+                tableName,
+                string.Join(" AND ", where.ToArray())
+                );
+            return dataContex.ExecuteQuery<T>(sql, elements.AsQueryable().Select(elem => elem.Value).ToArray());
         }
 
         public IDictionary<string, string> GetNamespacesInScope(XmlNamespaceScope scope)

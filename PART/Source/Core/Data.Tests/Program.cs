@@ -9,7 +9,7 @@ namespace CprBroker.Tests.Data
     {
         public static void Main()
         {
-            new PersonRegistrationTests.CreateWhereExpression().CreateWhereExpression_MunicipalityCode_2("222");
+
         }
     }
 }

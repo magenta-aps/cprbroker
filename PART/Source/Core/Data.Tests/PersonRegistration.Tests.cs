@@ -56,44 +56,14 @@ namespace CprBroker.Tests.Data
 {
     namespace PersonRegistrationTests
     {
+
         [TestFixture]
-        public class CreateWhereExpression
+        public class CreateXQueryElements
         {
             [Test]
-            public void CreateWhereExpression_MunicipalityCode_([Values("851", "217", "905")] string municipalityCode)
+            public void CreateXQueryElements_MunicipalityCode_2([Values("851", "217", "905")] string municipalityCode)
             {
-                var criteria = new SoegInputType1()
-                {
-                    SoegObjekt = new SoegObjektType()
-                    {
-                        SoegAttributListe = new SoegAttributListeType()
-                        {
-                            SoegRegisterOplysning = new RegisterOplysningType[] 
-                            { 
-                                new RegisterOplysningType() { 
-                                    Item = new CprBorgerType() { 
-                                        FolkeregisterAdresse = new AdresseType() { 
-                                            Item = new DanskAdresseType() { 
-                                                AddressComplete = new AddressCompleteType() { 
-                                                    AddressAccess = new AddressAccessType() { 
-                                                        MunicipalityCode = municipalityCode 
-                            } } } } } } }
-                        }
-                    }
-                };
-                using (var dataContext = new PartDataContext())
-                {
-
-                    var pred = PersonRegistration.CreateWhereExpression(dataContext, criteria);
-                    var firstMatch = dataContext.PersonRegistrations.Where(pred).FirstOrDefault();
-                    Assert.NotNull(firstMatch);
-                }
-            }
-
-            [Test]
-            public void CreateWhereExpression_MunicipalityCode_2([Values("851", "217", "905")] string municipalityCode)
-            {
-                var personRegistration = new SoegObjektType()
+                var soegObject = new SoegObjektType()
                 {
                     SoegAttributListe = new SoegAttributListeType()
                     {
@@ -110,10 +80,73 @@ namespace CprBroker.Tests.Data
                         }
                     }
                 };
-                System.Diagnostics.Debugger.Launch(); 
-                var ret = PersonRegistration.CreateXQueryElements(personRegistration);
-                
+                var ret = PersonRegistration.CreateXQueryElements(soegObject);
+            }
+        }
+
+        [TestFixture]
+        public class GetByCriteria
+        {
+            [Test]
+            public void GetByCriteria_MunicipalityCode_NotZero([Values("851", "217", "905")] string municipalityCode)
+            {
+                var soegObject = new SoegObjektType()
+                {
+                    SoegAttributListe = new SoegAttributListeType()
+                    {
+                        SoegRegisterOplysning = new RegisterOplysningType[] 
+                            { 
+                                new RegisterOplysningType() { 
+                                    Item = new CprBorgerType() { 
+                                        FolkeregisterAdresse = new AdresseType() { 
+                                            Item = new DanskAdresseType() { 
+                                                AddressComplete = new AddressCompleteType() { 
+                                                    AddressAccess = new AddressAccessType() { 
+                                                        MunicipalityCode = municipalityCode 
+                            } } } } } } 
+                        }
+                    }
+                };
+                using (var dataContext = new PartDataContext())
+                {
+                    var ret = PersonRegistration.GetByCriteria(dataContext, soegObject);
+                    var first = ret.First();
+                    Assert.NotNull(first);
+                }
+            }
+        }
+
+        [TestFixture]
+        public class GetUuidsByCriteria
+        {
+            [Test]
+            public void GetUuidsByCriteria_MunicipalityCode_NotZero([Values("851", "217", "905")] string municipalityCode)
+            {
+                var soegObject = new SoegObjektType()
+                {
+                    SoegAttributListe = new SoegAttributListeType()
+                    {
+                        SoegRegisterOplysning = new RegisterOplysningType[] 
+                            { 
+                                new RegisterOplysningType() { 
+                                    Item = new CprBorgerType() { 
+                                        FolkeregisterAdresse = new AdresseType() { 
+                                            Item = new DanskAdresseType() { 
+                                                AddressComplete = new AddressCompleteType() { 
+                                                    AddressAccess = new AddressAccessType() { 
+                                                        MunicipalityCode = municipalityCode 
+                            } } } } } } 
+                        }
+                    }
+                };
+                using (var dataContext = new PartDataContext())
+                {
+                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject);
+                    var first = ret.First();
+                    Assert.NotNull(first);
+                }
             }
         }
     }
 }
+
