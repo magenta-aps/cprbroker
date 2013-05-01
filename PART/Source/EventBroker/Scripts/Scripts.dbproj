@@ -143,7 +143,6 @@
     <NotInBuild Include="Create Scripts\EnqueueDataChangeEventNotifications.sql" />
     <NotInBuild Include="Create Scripts\InsertChangeNotificationData.sql" />
     <NotInBuild Include="Create Scripts\IsBirthdateEvent.sql" />
-    <NotInBuild Include="Create Scripts\IsDataChangeEvent.sql" />
   </ItemGroup>
   <ItemGroup>
     <BuildContributorArgument Include="OutDir=$(OutDir)" />
