@@ -48,9 +48,6 @@ namespace CprBroker.EventBroker.Data
     partial void InsertDataSubscription(DataSubscription instance);
     partial void UpdateDataSubscription(DataSubscription instance);
     partial void DeleteDataSubscription(DataSubscription instance);
-    partial void InsertNotificationPerson(NotificationPerson instance);
-    partial void UpdateNotificationPerson(NotificationPerson instance);
-    partial void DeleteNotificationPerson(NotificationPerson instance);
     partial void InsertSubscription(Subscription instance);
     partial void UpdateSubscription(Subscription instance);
     partial void DeleteSubscription(Subscription instance);
@@ -140,14 +137,6 @@ namespace CprBroker.EventBroker.Data
 			get
 			{
 				return this.GetTable<DataSubscription>();
-			}
-		}
-		
-		public System.Data.Linq.Table<NotificationPerson> NotificationPersons
-		{
-			get
-			{
-				return this.GetTable<NotificationPerson>();
 			}
 		}
 		
@@ -1070,157 +1059,6 @@ namespace CprBroker.EventBroker.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NotificationPerson")]
-	public partial class NotificationPerson : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _NotificationPersonId;
-		
-		private System.Guid _NotificationId;
-		
-		private System.Guid _PersonUuid;
-		
-		private EntityRef<Notification> _Notification;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnNotificationPersonIdChanging(System.Guid value);
-    partial void OnNotificationPersonIdChanged();
-    partial void OnNotificationIdChanging(System.Guid value);
-    partial void OnNotificationIdChanged();
-    partial void OnPersonUuidChanging(System.Guid value);
-    partial void OnPersonUuidChanged();
-    #endregion
-		
-		public NotificationPerson()
-		{
-			this._Notification = default(EntityRef<Notification>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotificationPersonId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid NotificationPersonId
-		{
-			get
-			{
-				return this._NotificationPersonId;
-			}
-			set
-			{
-				if ((this._NotificationPersonId != value))
-				{
-					this.OnNotificationPersonIdChanging(value);
-					this.SendPropertyChanging();
-					this._NotificationPersonId = value;
-					this.SendPropertyChanged("NotificationPersonId");
-					this.OnNotificationPersonIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotificationId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid NotificationId
-		{
-			get
-			{
-				return this._NotificationId;
-			}
-			set
-			{
-				if ((this._NotificationId != value))
-				{
-					if (this._Notification.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnNotificationIdChanging(value);
-					this.SendPropertyChanging();
-					this._NotificationId = value;
-					this.SendPropertyChanged("NotificationId");
-					this.OnNotificationIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonUuid", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid PersonUuid
-		{
-			get
-			{
-				return this._PersonUuid;
-			}
-			set
-			{
-				if ((this._PersonUuid != value))
-				{
-					this.OnPersonUuidChanging(value);
-					this.SendPropertyChanging();
-					this._PersonUuid = value;
-					this.SendPropertyChanged("PersonUuid");
-					this.OnPersonUuidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Notification_NotificationPerson", Storage="_Notification", ThisKey="NotificationId", OtherKey="NotificationId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Notification Notification
-		{
-			get
-			{
-				return this._Notification.Entity;
-			}
-			set
-			{
-				Notification previousValue = this._Notification.Entity;
-				if (((previousValue != value) 
-							|| (this._Notification.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Notification.Entity = null;
-						previousValue.NotificationPersons.Remove(this);
-					}
-					this._Notification.Entity = value;
-					if ((value != null))
-					{
-						value.NotificationPersons.Add(this);
-						this._NotificationId = value.NotificationId;
-					}
-					else
-					{
-						this._NotificationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("Notification");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Subscription")]
 	public partial class Subscription : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1859,8 +1697,6 @@ namespace CprBroker.EventBroker.Data
 		
 		private EntityRef<BirthdateNotification> _BirthdateNotification;
 		
-		private EntitySet<NotificationPerson> _NotificationPersons;
-		
 		private EntityRef<Subscription> _Subscription;
 		
     #region Extensibility Method Definitions
@@ -1880,7 +1716,6 @@ namespace CprBroker.EventBroker.Data
 		public Notification()
 		{
 			this._BirthdateNotification = default(EntityRef<BirthdateNotification>);
-			this._NotificationPersons = new EntitySet<NotificationPerson>(new Action<NotificationPerson>(this.attach_NotificationPersons), new Action<NotificationPerson>(this.detach_NotificationPersons));
 			this._Subscription = default(EntityRef<Subscription>);
 			OnCreated();
 		}
@@ -1998,19 +1833,6 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Notification_NotificationPerson", Storage="_NotificationPersons", ThisKey="NotificationId", OtherKey="NotificationId")]
-		public EntitySet<NotificationPerson> NotificationPersons
-		{
-			get
-			{
-				return this._NotificationPersons;
-			}
-			set
-			{
-				this._NotificationPersons.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_Notification", Storage="_Subscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Subscription Subscription
 		{
@@ -2063,18 +1885,6 @@ namespace CprBroker.EventBroker.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_NotificationPersons(NotificationPerson entity)
-		{
-			this.SendPropertyChanging();
-			entity.Notification = this;
-		}
-		
-		private void detach_NotificationPersons(NotificationPerson entity)
-		{
-			this.SendPropertyChanging();
-			entity.Notification = null;
 		}
 	}
 	

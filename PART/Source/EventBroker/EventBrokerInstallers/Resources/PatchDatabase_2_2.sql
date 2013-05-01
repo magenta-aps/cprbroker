@@ -21,3 +21,7 @@ IF EXISTS (SELECT * FROM sys.tables WHERE object_id  = OBJECT_ID('BirthdateNotif
 	DROP TABLE BirthdateNotificationPerson
 GO
 
+IF EXISTS (SELECT * FROM sys.tables WHERE object_id  = OBJECT_ID('NotificationPerson'))
+	DROP TABLE NotificationPerson
+GO
+
