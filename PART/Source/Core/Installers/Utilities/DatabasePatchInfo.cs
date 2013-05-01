@@ -70,20 +70,26 @@ namespace CprBroker.Installers
         public static DatabasePatchInfo Merge(DatabasePatchInfo[] info, Version oldVersion)
         {
             var relevant = Filter<DatabasePatchInfo>(info, oldVersion);
-
-            var actions = relevant.Where(inf => inf.PatchAction != null)
-                .Select(inf => inf.PatchAction)
-                .ToArray();
-
-            return new DatabasePatchInfo()
+            if (relevant.Length > 0)
             {
-                Version = oldVersion,
-                SqlScript = string.Join(Environment.NewLine, relevant.Select(inf => inf.SqlScript).ToArray()),
-                PatchAction = actions == null ?
-                    null as Action<SqlConnection>
-                    :
-                    conn => Array.ForEach<Action<SqlConnection>>(actions, act => act(conn))
-            };
+                var actions = relevant.Where(inf => inf.PatchAction != null)
+                    .Select(inf => inf.PatchAction)
+                    .ToArray();
+
+                return new DatabasePatchInfo()
+                {
+                    Version = oldVersion,
+                    SqlScript = string.Join(Environment.NewLine, relevant.Select(inf => inf.SqlScript).ToArray()),
+                    PatchAction = actions == null ?
+                        null as Action<SqlConnection>
+                        :
+                        conn => Array.ForEach<Action<SqlConnection>>(actions, act => act(conn))
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

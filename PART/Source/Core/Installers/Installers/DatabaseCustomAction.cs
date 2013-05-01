@@ -238,19 +238,22 @@ namespace CprBroker.Installers
                     {
                         var featurePatchInfo = DatabasePatchInfo.Merge(featurePatchInfos[featureName], version);
 
-                        DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
-                        PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
-                        patchDatabaseForm.SetupInfo = setupInfo;
+                        if (featurePatchInfo != null)
+                        {
+                            DatabaseSetupInfo setupInfo = DatabaseSetupInfo.CreateFromFeature(session, featureName);
+                            PatchDatabaseForm patchDatabaseForm = new PatchDatabaseForm();
+                            patchDatabaseForm.SetupInfo = setupInfo;
 
-                        var dialogResult = BaseForm.ShowAsDialog(patchDatabaseForm, session.InstallerWindowWrapper());
-                        if (dialogResult == DialogResult.Cancel)
-                        {
-                            throw new Exception("Cancelled");
-                        }
-                        else
-                        {
-                            ExecuteDDL(featurePatchInfo.SqlScript, patchDatabaseForm.SetupInfo);
-                            RunCustomMethod(featurePatchInfo.PatchAction, patchDatabaseForm.SetupInfo);
+                            var dialogResult = BaseForm.ShowAsDialog(patchDatabaseForm, session.InstallerWindowWrapper());
+                            if (dialogResult == DialogResult.Cancel)
+                            {
+                                throw new Exception("Cancelled");
+                            }
+                            else
+                            {
+                                ExecuteDDL(featurePatchInfo.SqlScript, patchDatabaseForm.SetupInfo);
+                                RunCustomMethod(featurePatchInfo.PatchAction, patchDatabaseForm.SetupInfo);
+                            }
                         }
                     }
                 }
