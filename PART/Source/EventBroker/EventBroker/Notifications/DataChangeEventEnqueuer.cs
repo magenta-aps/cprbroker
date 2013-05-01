@@ -50,6 +50,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using CprBroker.Utilities;
+using CprBroker.Schemas.Part;
+using CprBroker.Data.Part;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -62,7 +65,7 @@ namespace CprBroker.EventBroker.Notifications
 
         public DataChangeEventEnqueuer()
         {
-            
+
         }
 
         public DataChangeEventEnqueuer(IContainer container)
@@ -95,7 +98,7 @@ namespace CprBroker.EventBroker.Notifications
                             DataChangeEventId = p.EventId,
                             DueDate = p.ReceivedDate,
                             PersonUuid = p.PersonUuid,
-                            PersonRegistrationId = p.PersonRegistrationId,  
+                            PersonRegistrationId = p.PersonRegistrationId,
                             ReceivedDate = DateTime.Now
                         }
                     );
@@ -103,13 +106,43 @@ namespace CprBroker.EventBroker.Notifications
                     dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
                     dataContext.SubmitChanges();
 
-                    DateTime startDate = DateTime.Now;
+                    UpdatePersonLists(dataContext, dbObjects);
 
                     dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
                     //TODO: Move this logic to above stored procedure
                     dataContext.DataChangeEvents.DeleteAllOnSubmit(dbObjects);
                     dataContext.SubmitChanges();
+                }
+            }
+        }
+
+        private void UpdatePersonLists(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents)
+        {
+            // Dennis - this will probably cause an exception - please just leave it for now
+            return;
+
+            var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.SubscriptionTypeId == (int)Data.SubscriptionType.SubscriptionTypes.Criteria).ToArray();
+            foreach (var subscription in criteriaSubscriptions)
+            {
+                var xml = subscription.Criteria.ToString();
+
+                var soegObject = Strings.Deserialize<SoegObjektType>(xml);
+                using (var partDataContext = new PartDataContext())
+                {
+                    var allMatchingPersons = CprBroker.Data.Part.PersonRegistrationKey.GetByCriteria(partDataContext, soegObject);
+                    var all = from p in allMatchingPersons
+                              from change in dataChangeEvents
+                              where p.PersonRegistrationId == change.PersonRegistrationId
+                              && subscription.SubscriptionPersons.Where(subPerson => subPerson.PersonUuid == p.UUID).FirstOrDefault() == null
+                              select new Data.SubscriptionPerson()
+                              {
+                                  Created = DateTime.Now,
+                                  PersonUuid = p.UUID,
+                                  Removed = null,
+                                  SubscriptionId = subscription.SubscriptionId,
+                                  SubscriptionPersonId = Guid.NewGuid()
+                              };
                 }
             }
         }

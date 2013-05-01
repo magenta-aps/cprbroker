@@ -74,7 +74,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <param name="PersonCivilRegistrationIdentifiers"></param>
         /// <param name="notificationChannel"></param>
         /// <returns></returns>
-        private Subscription AddSubscription(EventBrokerDataContext dataContext, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, ChannelBaseType notificationChannel, Guid[] personUuids, SoegInputType1 criteria)
+        private Subscription AddSubscription(EventBrokerDataContext dataContext, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes subscriptionType, Guid applicationId, ChannelBaseType notificationChannel, Guid[] personUuids, SoegObjektType soegObject)
         {
             List<Guid> listOfPersonsIDs = new List<Guid>();
 
@@ -83,9 +83,9 @@ namespace CprBroker.EventBroker.Subscriptions
             subscription.SubscriptionTypeId = (int)subscriptionType;
             subscription.ApplicationId = applicationId;
             subscription.Created = DateTime.Today;
-            if (criteria != null)
+            if (soegObject != null)
             {
-                var xml = Strings.SerializeObject(criteria);
+                var xml = Strings.SerializeObject(soegObject);
                 subscription.Criteria = System.Xml.Linq.XElement.Load(new StringReader(xml));
             }
 
@@ -238,11 +238,7 @@ namespace CprBroker.EventBroker.Subscriptions
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.Criteria, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, null, criteria);
-                if (subscription != null)
-                {
-                    subscription.BirthdateSubscription = new BirthdateSubscription();
-                }
+                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.Criteria, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, null, criteria.SoegObjekt);
 
                 dataContext.SubmitChanges();
                 if (subscription != null)
