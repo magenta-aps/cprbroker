@@ -51,9 +51,6 @@ namespace CprBroker.EventBroker.Data
     partial void InsertSubscriptionPerson(SubscriptionPerson instance);
     partial void UpdateSubscriptionPerson(SubscriptionPerson instance);
     partial void DeleteSubscriptionPerson(SubscriptionPerson instance);
-    partial void InsertNotification(Notification instance);
-    partial void UpdateNotification(Notification instance);
-    partial void DeleteNotification(Notification instance);
     partial void InsertEventNotification(EventNotification instance);
     partial void UpdateEventNotification(EventNotification instance);
     partial void DeleteEventNotification(EventNotification instance);
@@ -142,14 +139,6 @@ namespace CprBroker.EventBroker.Data
 			get
 			{
 				return this.GetTable<SubscriptionPerson>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Notification> Notifications
-		{
-			get
-			{
-				return this.GetTable<Notification>();
 			}
 		}
 		
@@ -925,8 +914,6 @@ namespace CprBroker.EventBroker.Data
 		
 		private EntitySet<SubscriptionPerson> _SubscriptionPersons;
 		
-		private EntitySet<Notification> _Notifications;
-		
 		private EntitySet<EventNotification> _EventNotifications;
 		
 		private EntityRef<SubscriptionType> _SubscriptionType;
@@ -957,7 +944,6 @@ namespace CprBroker.EventBroker.Data
 			this._Channels = new EntitySet<Channel>(new Action<Channel>(this.attach_Channels), new Action<Channel>(this.detach_Channels));
 			this._DataSubscription = default(EntityRef<DataSubscription>);
 			this._SubscriptionPersons = new EntitySet<SubscriptionPerson>(new Action<SubscriptionPerson>(this.attach_SubscriptionPersons), new Action<SubscriptionPerson>(this.detach_SubscriptionPersons));
-			this._Notifications = new EntitySet<Notification>(new Action<Notification>(this.attach_Notifications), new Action<Notification>(this.detach_Notifications));
 			this._EventNotifications = new EntitySet<EventNotification>(new Action<EventNotification>(this.attach_EventNotifications), new Action<EventNotification>(this.detach_EventNotifications));
 			this._SubscriptionType = default(EntityRef<SubscriptionType>);
 			OnCreated();
@@ -1191,19 +1177,6 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_Notification", Storage="_Notifications", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
-		public EntitySet<Notification> Notifications
-		{
-			get
-			{
-				return this._Notifications;
-			}
-			set
-			{
-				this._Notifications.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_EventNotification", Storage="_EventNotifications", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
 		public EntitySet<EventNotification> EventNotifications
 		{
@@ -1290,18 +1263,6 @@ namespace CprBroker.EventBroker.Data
 		}
 		
 		private void detach_SubscriptionPersons(SubscriptionPerson entity)
-		{
-			this.SendPropertyChanging();
-			entity.Subscription = null;
-		}
-		
-		private void attach_Notifications(Notification entity)
-		{
-			this.SendPropertyChanging();
-			entity.Subscription = this;
-		}
-		
-		private void detach_Notifications(Notification entity)
 		{
 			this.SendPropertyChanging();
 			entity.Subscription = null;
@@ -1492,181 +1453,6 @@ namespace CprBroker.EventBroker.Data
 					else
 					{
 						this._SubscriptionId = default(Nullable<System.Guid>);
-					}
-					this.SendPropertyChanged("Subscription");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Notification")]
-	public partial class Notification : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _NotificationId;
-		
-		private System.Guid _SubscriptionId;
-		
-		private System.DateTime _NotificationDate;
-		
-		private System.DateTime _CreatedDate;
-		
-		private EntityRef<Subscription> _Subscription;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnNotificationIdChanging(System.Guid value);
-    partial void OnNotificationIdChanged();
-    partial void OnSubscriptionIdChanging(System.Guid value);
-    partial void OnSubscriptionIdChanged();
-    partial void OnNotificationDateChanging(System.DateTime value);
-    partial void OnNotificationDateChanged();
-    partial void OnCreatedDateChanging(System.DateTime value);
-    partial void OnCreatedDateChanged();
-    #endregion
-		
-		public Notification()
-		{
-			this._Subscription = default(EntityRef<Subscription>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotificationId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid NotificationId
-		{
-			get
-			{
-				return this._NotificationId;
-			}
-			set
-			{
-				if ((this._NotificationId != value))
-				{
-					this.OnNotificationIdChanging(value);
-					this.SendPropertyChanging();
-					this._NotificationId = value;
-					this.SendPropertyChanged("NotificationId");
-					this.OnNotificationIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubscriptionId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid SubscriptionId
-		{
-			get
-			{
-				return this._SubscriptionId;
-			}
-			set
-			{
-				if ((this._SubscriptionId != value))
-				{
-					if (this._Subscription.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSubscriptionIdChanging(value);
-					this.SendPropertyChanging();
-					this._SubscriptionId = value;
-					this.SendPropertyChanged("SubscriptionId");
-					this.OnSubscriptionIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotificationDate", DbType="DateTime NOT NULL")]
-		public System.DateTime NotificationDate
-		{
-			get
-			{
-				return this._NotificationDate;
-			}
-			set
-			{
-				if ((this._NotificationDate != value))
-				{
-					this.OnNotificationDateChanging(value);
-					this.SendPropertyChanging();
-					this._NotificationDate = value;
-					this.SendPropertyChanged("NotificationDate");
-					this.OnNotificationDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="DateTime NOT NULL")]
-		public System.DateTime CreatedDate
-		{
-			get
-			{
-				return this._CreatedDate;
-			}
-			set
-			{
-				if ((this._CreatedDate != value))
-				{
-					this.OnCreatedDateChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedDate = value;
-					this.SendPropertyChanged("CreatedDate");
-					this.OnCreatedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_Notification", Storage="_Subscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Subscription Subscription
-		{
-			get
-			{
-				return this._Subscription.Entity;
-			}
-			set
-			{
-				Subscription previousValue = this._Subscription.Entity;
-				if (((previousValue != value) 
-							|| (this._Subscription.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Subscription.Entity = null;
-						previousValue.Notifications.Remove(this);
-					}
-					this._Subscription.Entity = value;
-					if ((value != null))
-					{
-						value.Notifications.Add(this);
-						this._SubscriptionId = value.SubscriptionId;
-					}
-					else
-					{
-						this._SubscriptionId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Subscription");
 				}
