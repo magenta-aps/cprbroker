@@ -238,6 +238,8 @@ namespace CprBroker.EventBroker.NotificationService {
         private EventObjectStructureType eventObjectStructureField;
         
         private ExtensionStructureType extensionStructureField;
+
+        private System.Boolean isLastNotificationField;
         
         /// <remarks/>
         public string EventIdentifier {
@@ -286,6 +288,19 @@ namespace CprBroker.EventBroker.NotificationService {
             }
             set {
                 this.extensionStructureField = value;
+            }
+        }
+
+        /// <remarks/>
+        public System.Boolean IsLastNotification
+        {
+            get
+            {
+                return this.isLastNotificationField;
+            }
+            set
+            {
+                this.isLastNotificationField = value;
             }
         }
     }

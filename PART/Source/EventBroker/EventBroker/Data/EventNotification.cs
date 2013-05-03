@@ -78,6 +78,7 @@ namespace CprBroker.EventBroker.Data
                     },
                     EventProducerReference = null,//new Uri(""),
                     EventRegistrationDateTime = this.CreatedDate,
+                    IsLastNotification = this.IsLastNotification,
                 },
                 EventSubscriptionReference = Strings.GuidToUri(this.SubscriptionId).ToString(),
                 EventTopic = null,//new Uri(""),
@@ -87,7 +88,7 @@ namespace CprBroker.EventBroker.Data
             return ret;
         }
 
-        public NotificationService.CommonEventStructureType ToWsdl()
+        public NotificationService.CommonEventStructureType ToWsdl()    
         {
             //TODO: Fill urls
             var ret = new NotificationService.CommonEventStructureType()
@@ -105,6 +106,7 @@ namespace CprBroker.EventBroker.Data
                     },
                     EventProducerReference = null,//new Uri(""),
                     EventRegistrationDateTime = this.CreatedDate,
+                    IsLastNotification = this.IsLastNotification,
                 },
                 EventSubscriptionReference = Strings.GuidToUri(this.SubscriptionId).ToString(),
                 EventTopic = null,//new Uri(""),

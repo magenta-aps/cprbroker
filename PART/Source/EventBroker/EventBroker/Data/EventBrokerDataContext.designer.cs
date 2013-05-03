@@ -1504,6 +1504,8 @@ namespace CprBroker.EventBroker.Data
 		private System.Guid _PersonUuid;
 		
 		private System.DateTime _CreatedDate;
+
+        private System.Boolean _IsLastNotification;
 		
 		private System.Nullable<System.DateTime> _NotificationDate;
 		
@@ -1525,6 +1527,8 @@ namespace CprBroker.EventBroker.Data
     partial void OnPersonUuidChanged();
     partial void OnCreatedDateChanging(System.DateTime value);
     partial void OnCreatedDateChanged();
+    partial void OnIsLastNotificationChanging(System.Boolean value);
+    partial void OnIsLastNotificationChanged();
     partial void OnNotificationDateChanging(System.Nullable<System.DateTime> value);
     partial void OnNotificationDateChanged();
     partial void OnSucceededChanging(System.Nullable<bool> value);
@@ -1621,6 +1625,26 @@ namespace CprBroker.EventBroker.Data
 				}
 			}
 		}
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_IsLastNotification", DbType = "bit NULL")]
+        public System.Boolean IsLastNotification
+        {
+            get
+            {
+                return this._IsLastNotification;
+            }
+            set
+            {
+                if ((this._IsLastNotification != value))
+                {
+                    this.OnIsLastNotificationChanging(value);
+                    this.SendPropertyChanging();
+                    this._IsLastNotification = value;
+                    this.SendPropertyChanged("IsLastNotification");
+                    this.OnIsLastNotificationChanged();
+                }
+            }
+        }
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NotificationDate", DbType="DateTime")]
 		public System.Nullable<System.DateTime> NotificationDate
