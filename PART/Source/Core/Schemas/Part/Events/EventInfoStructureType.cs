@@ -58,5 +58,6 @@ namespace CprBroker.Schemas.Part.Events
         public DateTime EventRegistrationDateTime { get; set; }
         public EventObjectStructureType EventObjectStructure { get; set; }
         public ExtensionStructureType ExtensionStructure { get; set; }
+        public Boolean IsLastNotification { get; set; }
     }
 }
