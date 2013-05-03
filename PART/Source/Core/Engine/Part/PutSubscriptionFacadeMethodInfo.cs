@@ -23,6 +23,7 @@
  *
  * Contributor(s):
  * Beemen Beshara
+ * Dennis Isaksen
  * Niels Elgaard Larsen
  * Leif Lodahl
  * Steen Deth
@@ -67,11 +68,39 @@ namespace CprBroker.Engine.Part
 
         public override StandardReturType ValidateInput()
         {
-            // Dennis - make sure PersonUuids is not null and all elements are not equal to Guid.Empty
+            if (PersonUuids == null)
+                return StandardReturType.NullInput();
+            else
+            {
+                /*
+                 * I'm not entirely sure if any single element is allowed to be empty, but not the entire set or if no element may be empty.
+                 * Therefore the two different attempts.
+                 */
+                // Not any empty elements are allowed
+                foreach (Guid person in PersonUuids)
+                {
+                    if (person == Guid.Empty || person == null)
+                        return StandardReturType.NullInput();
+                }
+                // Random empty elements are allowed, but not the entire set
+                int count = 0;
+                foreach (Guid person in PersonUuids)
+                {
+                    if (person != null && person != Guid.Empty)
+                        count++;
+                }
+                if (PersonIdentifiers.Length != count)
+                    return StandardReturType.NullInput();
+            }
+
 
             PersonIdentifiers = PersonMapping.GetPersonIdentifiers(PersonUuids);
 
-            // Dennis - make sure there are no null elements in PersonIdentifiers
+            foreach (PersonIdentifier pi in PersonIdentifiers)
+            {
+                if (pi == null)
+                    return StandardReturType.NullInput();
+            }
 
             return StandardReturType.OK();
         }
