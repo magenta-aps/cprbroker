@@ -59,31 +59,41 @@ CREATE Procedure EnqueueDataChangeEventNotifications
 		@SubscriptionTypeId Int
 )
 
-
 AS
-
-	-- Subscriptions for specific persons
-	INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
-	SELECT S.SubscriptionId, DCE.PersonUuid, @Now
-	FROM DataChangeEvent AS DCE
-	INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
-	INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
-	WHERE 
-		--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
-		S.IsForAllPersons = 0
-		AND S.SubscriptionTypeId = @SubscriptionTypeId
+		-- Subscriptions (that ARE NOT deactivated) for specific persons that deactivated
+		INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
+		SELECT S.SubscriptionId, DCE.PersonUuid, @Now
+		FROM DataChangeEvent AS DCE
+		INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
+		INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
+		WHERE 
+			--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
+			S.IsForAllPersons = 0
+			AND S.SubscriptionTypeId = @SubscriptionTypeId
+			-- We test if the subscription has been deactivated
+			AND S.Deactivated IS NULL
 		
-	-- Subscriptions for all persons
-	INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
-	SELECT S.SubscriptionId, DCE.PersonUuid, @Now
-	FROM DataChangeEvent AS DCE,	Subscription AS S	
-	WHERE 
-		--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
-		S.IsForAllPersons = 1
-		AND S.SubscriptionTypeId = @SubscriptionTypeId
+		-- Subscriptions (that ARE deactivated) for specific persons
+		INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate, IsLastNotification)
+		SELECT S.SubscriptionId, DCE.PersonUuid, @Now, 1
+		FROM DataChangeEvent AS DCE
+		INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
+		INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
+		WHERE 
+			--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
+			S.IsForAllPersons = 0
+			AND S.SubscriptionTypeId = @SubscriptionTypeId
+			-- We test if the subscription has been deactivated
+			AND S.Deactivated IS NOT NULL
 		
-	
-
+		-- Subscriptions for all persons
+		INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
+		SELECT S.SubscriptionId, DCE.PersonUuid, @Now
+		FROM DataChangeEvent AS DCE,	Subscription AS S	
+		WHERE 
+			--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
+			S.IsForAllPersons = 1
+			AND S.SubscriptionTypeId = @SubscriptionTypeId
 GO
 
 

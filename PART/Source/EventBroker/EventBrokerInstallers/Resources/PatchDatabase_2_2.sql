@@ -37,4 +37,54 @@ IF EXISTS (SELECT * FROM sys.tables WHERE object_id  = OBJECT_ID('Notification')
 	DROP TABLE [Notification]
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[EnqueueDataChangeEventNotifications]') AND type in (N'P', N'PC'))
+	BEGIN
+		DROP PROCEDURE dbo.EnqueueDataChangeEventNotifications
+		EXEC dbo.sp_executesql @statement = N'
+			CREATE Procedure [dbo].[EnqueueDataChangeEventNotifications]
+			(
+					--@StartDate DateTime,
+					--@EndDate DateTime,
+					@Now DateTime,
+					@SubscriptionTypeId Int
+			)
 
+
+			AS
+					-- Subscriptions (that ARE NOT deactivated) for specific persons that deactivated
+					INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
+					SELECT S.SubscriptionId, DCE.PersonUuid, @Now
+					FROM DataChangeEvent AS DCE
+					INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
+					INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
+					WHERE 
+						--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
+						S.IsForAllPersons = 0
+						AND S.SubscriptionTypeId = @SubscriptionTypeId
+						-- We test if the subscription has been deactivated
+						AND S.Deactivated IS NULL
+		
+					-- Subscriptions (that ARE deactivated) for specific persons
+					INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate, IsLastNotification)
+					SELECT S.SubscriptionId, DCE.PersonUuid, @Now, 1
+					FROM DataChangeEvent AS DCE
+					INNER JOIN SubscriptionPerson AS SP ON SP.PersonUuid = DCE.PersonUuid
+					INNER JOIN Subscription AS S ON S.SubscriptionId = SP.SubscriptionId
+					WHERE 
+						--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
+						S.IsForAllPersons = 0
+						AND S.SubscriptionTypeId = @SubscriptionTypeId
+						-- We test if the subscription has been deactivated
+						AND S.Deactivated IS NOT NULL
+		
+					-- Subscriptions for all persons
+					INSERT INTO EventNotification (SubscriptionId, PersonUUID, CreatedDate)
+					SELECT S.SubscriptionId, DCE.PersonUuid, @Now
+					FROM DataChangeEvent AS DCE,	Subscription AS S	
+					WHERE 
+						--DCE.ReceivedDate BETWEEN @StartDate AND @EndDate
+						S.IsForAllPersons = 1
+						AND S.SubscriptionTypeId = @SubscriptionTypeId
+			' 
+	END
+GO

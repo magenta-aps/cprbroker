@@ -104,10 +104,6 @@ namespace CprBroker.EventBroker.Subscriptions
                 {
                     return StandardReturType.NullInput("SoegObjekt.BrugervendtNoegleTekst");
                 }
-                if (String.IsNullOrEmpty(Criterion.SoegObjekt.BrugervendtNoegleTekst))
-                {
-                    return StandardReturType.NullInput("SoegObjekt.BrugervendtNoegleTekst");
-                }
             }
             if (Criterion.SoegObjekt.SoegVirkning != null)
             {
