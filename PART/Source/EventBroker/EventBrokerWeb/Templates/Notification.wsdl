@@ -27,6 +27,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="EventRegistrationDateTime" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="EventObjectStructure" type="tns:EventObjectStructureType" />
           <s:element minOccurs="0" maxOccurs="1" name="ExtensionStructure" type="tns:ExtensionStructureType" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsLastNotification" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="EventObjectStructureType">
@@ -81,32 +82,32 @@
   </wsdl:message>
   <wsdl:portType name="NotificationSoap12">
     <wsdl:operation name="Notify">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">            
-                                                Called to tell the client system that a notification has been fired
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        Called to tell the client system that a notification has been fired
+        This instance creates a new entry inthe system log.
 
-                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
-                                                &lt;br&gt;void Notify(string appToken, BaseNotificationType notification)
+        &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+        &lt;br&gt;void Notify(Schemas.Part.Events.CommonEventStructureType notification)
 
-                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
-                                                &lt;br&gt;&lt;table&gt;
-                                                &lt;tr&gt;&lt;td&gt;appToken (input):&lt;/td&gt;&lt;td&gt;Token of subscriber application&lt;/td&gt;&lt;/tr&gt;
-                                                &lt;tr&gt;&lt;td&gt;notification (input):&lt;/td&gt;&lt;td&gt;Object that contains the detailed information that is associated with the event&lt;/td&gt;&lt;/tr&gt;
-                                                &lt;/table&gt;
+        &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+        &lt;br&gt;&lt;table&gt;
+        &lt;tr&gt;&lt;td&gt;notification:&lt;/td&gt;&lt;td&gt;The notification object&lt;/td&gt;&lt;/tr&gt;
+        &lt;/table&gt;
 
-                                                &lt;br&gt;==============================
-                                                </wsdl:documentation>
+        &lt;br&gt;==============================
+      </wsdl:documentation>
       <wsdl:input message="tns:NotifySoap12In" />
       <wsdl:output message="tns:NotifySoap12Out" />
     </wsdl:operation>
     <wsdl:operation name="Ping">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">            
-                                                Called to make sure the service is online
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        Called to make sure the service is online
 
-                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
-                                                &lt;br&gt;void Ping()
+        &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+        &lt;br&gt;void Ping()
 
-                                                &lt;br&gt;==============================
-                                                </wsdl:documentation>
+        &lt;br&gt;==============================
+      </wsdl:documentation>
       <wsdl:input message="tns:PingSoap12In" />
       <wsdl:output message="tns:PingSoap12Out" />
     </wsdl:operation>
