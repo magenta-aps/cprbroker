@@ -146,6 +146,46 @@ namespace CprBroker.Tests.Data
                     Assert.NotNull(first);
                 }
             }
+
+            [Test]
+            public void GetUuidsByCriteria_MunicipalityCodeAndRandomPersonRegistratioId_Zero([Values("851", "217", "905")] string municipalityCode)
+            {
+                var soegObject = new SoegObjektType()
+                {
+                    SoegAttributListe = new SoegAttributListeType()
+                    {
+                        SoegRegisterOplysning = new RegisterOplysningType[] 
+                            { 
+                                new RegisterOplysningType() { 
+                                    Item = new CprBorgerType() { 
+                                        FolkeregisterAdresse = new AdresseType() { 
+                                            Item = new DanskAdresseType() { 
+                                                AddressComplete = new AddressCompleteType() { 
+                                                    AddressAccess = new AddressAccessType() { 
+                                                        MunicipalityCode = municipalityCode 
+                            } } } } } } 
+                        }
+                    }
+                };
+                using (var dataContext = new PartDataContext())
+                {
+                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, Guid.NewGuid(), Guid.NewGuid());
+                    Assert.IsEmpty(ret.ToArray());
+                }
+            }
+
+            [Test]
+            public void GetUuidsByCriteria_EmptyCriteriaWithRegistratioId_NonZero()
+            {
+                var soegObject = new SoegObjektType();
+
+                using (var dataContext = new PartDataContext())
+                {
+                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, new Guid("CA7436F1-1D05-476B-BB6A-00005E121624"), new Guid("65D228C1-2F19-43BB-837C-00006CEE3D83"));
+                    Assert.IsNotEmpty(ret.ToArray());
+                }
+
+            }
         }
     }
 }

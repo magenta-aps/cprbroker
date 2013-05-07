@@ -52,18 +52,36 @@ using System.Xml;
 
 namespace CprBroker.Utilities
 {
-    public class XQueryElement : System.Xml.IXmlNamespaceResolver
+    public class WhereCondition
+    {
+        public string ColumnName { get; set; }
+        public string[] Values { get; set; }
+
+        public virtual string ToString(string valueExpression)
+        {
+            return string.Format("{0} = {1}", ColumnName, valueExpression);
+        }
+    }
+
+    public class InWhereCondition : WhereCondition
+    {
+        public override string ToString(string valueExpression)
+        {
+            return string.Format("{0} IN ({1})", ColumnName, valueExpression);
+        }
+    }
+
+    public class XQueryElement : WhereCondition, System.Xml.IXmlNamespaceResolver
     {
         public Dictionary<string, string> Namespaces { get; set; }
         public string Path { get; set; }
-        public string Value { get; set; }
 
-        public static XQueryElement[] CreateXQueryElements(XmlElement element)
+        public static List<WhereCondition> CreateXQueryElements(XmlElement element, string columnName)
         {
-            return CreateXQueryElements(element, new Dictionary<string, string>(), "");
+            return CreateXQueryElements(element, columnName, new Dictionary<string, string>(), "");
         }
 
-        private static XQueryElement[] CreateXQueryElements(XmlElement element, Dictionary<string, string> nsMgr, string basePath)
+        private static List<WhereCondition> CreateXQueryElements(XmlElement element, string columnName, Dictionary<string, string> nsMgr, string basePath)
         {
             nsMgr = new Dictionary<string, string>(nsMgr);
 
@@ -78,81 +96,92 @@ namespace CprBroker.Utilities
 
             string path = string.Format("{0}/{1}:{2}", basePath, nsMgr[element.NamespaceURI], element.Name);
 
+            var arr = new List<WhereCondition>();
+
             if (element.ChildNodes.Count == 1 && element.ChildNodes[0].NodeType == XmlNodeType.Text)
             {
                 var invalidValues = new string[] { string.Empty, bool.FalseString, "0" };
                 if (invalidValues.Where(s => s.Equals(element.InnerText, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault() == null)
                 {
                     path = string.Format("{0}", path);
-                    return new XQueryElement[]
-                    {
+                    arr.Add(
                         new XQueryElement()
                         {
+                            ColumnName = columnName,
                             Namespaces = nsMgr,
                             Path = path,
-                            Value = element.InnerText
+                            Values = new string[] { element.InnerText }
                         }
-                    };
+                    );
                 }
                 else
                 {
-                    return new XQueryElement[0];
+                    // Do nothing
                 }
             }
             else
             {
-                var arr = new List<XQueryElement>();
-
                 foreach (var child in element.ChildNodes)
                 {
                     if (child is XmlElement)
                     {
-                        arr.AddRange(CreateXQueryElements(child as XmlElement, nsMgr, path));
+                        arr.AddRange(CreateXQueryElements(child as XmlElement, columnName, nsMgr, path));
                     }
                 }
-                return arr.ToArray();
             }
+            return arr;
         }
 
-        public string ToSql(string columnName, System.Data.SqlClient.SqlCommand sqlCommand)
+        public string ToSql(System.Data.SqlClient.SqlCommand sqlCommand)
         {
             string namespaces = string.Join(Environment.NewLine, Namespaces.Select(kvp => string.Format("declare namespace {0}=\"{1}\";", kvp.Value, kvp.Key)).ToArray());
-            string parameterName = "@" + Strings.NewRandomString(7);
-            sqlCommand.Parameters.Add(parameterName, System.Data.SqlDbType.VarChar).Value = Value;
 
-            return string.Format("{0}.value('{1}{2}({3})[1]','varchar(max)') = {4}",
-                columnName,
-                namespaces,
-                Environment.NewLine,
-                Path,
-                parameterName
-                );
+            string parameterName = "@" + Strings.NewRandomString(7);
+            sqlCommand.Parameters.Add(parameterName, System.Data.SqlDbType.VarChar).Value = Values[0];
+
+            return ToString(parameterName);
         }
 
-        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContex, IEnumerable<XQueryElement> elements, string tableName, string columnName, string[] columnNames)
+        public override string ToString(string valueExpression)
+        {
+            string namespaces = string.Join(Environment.NewLine, Namespaces.Select(kvp => string.Format("declare namespace {0}=\"{1}\";", kvp.Value, kvp.Key)).ToArray());
+            return string.Format("{0}.value('{1}{2}({3})[1]','varchar(max)') = {4}",
+                           ColumnName,
+                           namespaces,
+                           Environment.NewLine,
+                           Path,
+                           valueExpression
+                           );
+        }
+
+        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, string[] columnNames)
         {
             var where = new List<string>();
 
+            int paramIndex = 0;
             foreach (var elem in elements)
             {
-                string namespaces = string.Join(Environment.NewLine, elem.Namespaces.Select(kvp => string.Format("declare namespace {0}=\"{1}\";", kvp.Value, kvp.Key)).ToArray());
+                var elmStrings = new List<string>();
+                for (int i = 0; i < elem.Values.Length; i++)
+                {
+                    elmStrings.Add(string.Format("{{{0}}}", paramIndex++));
+                }
+                var myWhere = elem.ToString(string.Join(",", elmStrings.ToArray()));
 
-                var myWhere = string.Format("{0}.value('{1}{2}({3})[1]','varchar(max)') = {4}",
-                    columnName,
-                    namespaces,
-                    Environment.NewLine,
-                    elem.Path,
-                    string.Format("{{{0}}}", where.Count)
-                    );
                 where.Add(myWhere);
             }
 
             string sql = string.Format("SELECT {0} FROM {1} WHERE {2}",
                 string.Join(",", columnNames),
                 tableName,
-                string.Join(" AND ", where.ToArray())
+                string.Join(Environment.NewLine + " AND ", where.ToArray())
                 );
-            return dataContex.ExecuteQuery<T>(sql, elements.AsQueryable().Select(elem => elem.Value).ToArray());
+
+            var parameterValues = elements.AsQueryable().SelectMany(elem => elem.Values).ToArray();
+
+
+            return dataContext.ExecuteQuery<T>(sql, parameterValues);
+
         }
 
         public IDictionary<string, string> GetNamespacesInScope(XmlNamespaceScope scope)
