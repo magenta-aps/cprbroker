@@ -50,30 +50,13 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace CprBroker.Utilities
+namespace CprBroker.Utilities.WhereConditions
 {
-    public class WhereCondition
-    {
-        public string ColumnName { get; set; }
-        public string[] Values { get; set; }
 
-        public virtual string ToString(string valueExpression)
-        {
-            return string.Format("{0} = {1}", ColumnName, valueExpression);
-        }
-    }
-
-    public class InWhereCondition : WhereCondition
-    {
-        public override string ToString(string valueExpression)
-        {
-            return string.Format("{0} IN ({1})", ColumnName, valueExpression);
-        }
-    }
-
-    public class XQueryElement : WhereCondition, System.Xml.IXmlNamespaceResolver
+    public class XQueryCondition : WhereCondition, System.Xml.IXmlNamespaceResolver
     {
         public Dictionary<string, string> Namespaces { get; set; }
+
         public string Path { get; set; }
 
         public static List<WhereCondition> CreateXQueryElements(XmlElement element, string columnName)
@@ -105,7 +88,7 @@ namespace CprBroker.Utilities
                 {
                     path = string.Format("{0}", path);
                     arr.Add(
-                        new XQueryElement()
+                        new XQueryCondition()
                         {
                             ColumnName = columnName,
                             Namespaces = nsMgr,
@@ -152,36 +135,6 @@ namespace CprBroker.Utilities
                            Path,
                            valueExpression
                            );
-        }
-
-        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, string[] columnNames)
-        {
-            var where = new List<string>();
-
-            int paramIndex = 0;
-            foreach (var elem in elements)
-            {
-                var elmStrings = new List<string>();
-                for (int i = 0; i < elem.Values.Length; i++)
-                {
-                    elmStrings.Add(string.Format("{{{0}}}", paramIndex++));
-                }
-                var myWhere = elem.ToString(string.Join(",", elmStrings.ToArray()));
-
-                where.Add(myWhere);
-            }
-
-            string sql = string.Format("SELECT {0} FROM {1} WHERE {2}",
-                string.Join(",", columnNames),
-                tableName,
-                string.Join(Environment.NewLine + " AND ", where.ToArray())
-                );
-
-            var parameterValues = elements.AsQueryable().SelectMany(elem => elem.Values).ToArray();
-
-
-            return dataContext.ExecuteQuery<T>(sql, parameterValues);
-
         }
 
         public IDictionary<string, string> GetNamespacesInScope(XmlNamespaceScope scope)

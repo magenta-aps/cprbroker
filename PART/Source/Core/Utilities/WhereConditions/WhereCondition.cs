@@ -48,40 +48,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Utilities;
-using CprBroker.Schemas.Part;
-using CprBroker.Utilities.WhereConditions;
 
-namespace CprBroker.Data.Part
+namespace CprBroker.Utilities.WhereConditions
 {
-    /// <summary>
-    /// Simple class that contains the UUIDs that identify a PersonRegistrationObject
-    /// </summary>
-    public class PersonRegistrationKey
+    public class WhereCondition
     {
-        public Guid PersonRegistrationId { get; set; }
-        public Guid UUID { get; set; }
+        public string ColumnName { get; set; }
+        public string[] Values { get; set; }
 
-        // Dennis - please call this method to get the matching uuids
-        public static IEnumerable<PersonRegistrationKey> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject, params Guid[] personRegistrationIds)
+        public virtual string ToString(string valueExpression)
         {
-            var elements = PersonRegistration.CreateXQueryElements(soegObject);
-            if (personRegistrationIds == null)
-                personRegistrationIds = new Guid[0];
+            return string.Format("{0} = {1}", ColumnName, valueExpression);
+        }
 
-            if (personRegistrationIds != null && personRegistrationIds.Length > 0)
+        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, string[] columnNames)
+        {
+            var where = new List<string>();
+
+            int paramIndex = 0;
+            foreach (var elem in elements)
             {
-                elements.Add(
-                    new InWhereCondition()
-                    {
-                        ColumnName = "PersonRegistrationId",
-                        Values = personRegistrationIds.Select(
-                            id => id.ToString()
-                            ).ToArray()
-                    });
+                var elmStrings = new List<string>();
+                for (int i = 0; i < elem.Values.Length; i++)
+                {
+                    elmStrings.Add(string.Format("{{{0}}}", paramIndex++));
+                }
+                var myWhere = elem.ToString(string.Join(",", elmStrings.ToArray()));
+
+                where.Add(myWhere);
             }
-            var byCriteria = WhereCondition.GetMatchingObjects<PersonRegistrationKey>(dataContext, elements, "PersonRegistration", new string[] { "PersonRegistrationId", "UUID" });
-            return byCriteria;
+
+            string sql = string.Format("SELECT {0} FROM {1} WHERE {2}",
+                string.Join(",", columnNames),
+                tableName,
+                string.Join(Environment.NewLine + " AND ", where.ToArray())
+                );
+
+            var parameterValues = elements.AsQueryable().SelectMany(elem => elem.Values).ToArray();
+            return dataContext.ExecuteQuery<T>(sql, parameterValues);
         }
     }
 }

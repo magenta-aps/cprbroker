@@ -76,7 +76,9 @@
     <Compile Include="Encryption.cs" />
     <Compile Include="TextMessages.cs" />
     <Compile Include="Web.cs" />
-    <Compile Include="XQueryElement.cs" />
+    <Compile Include="WhereConditions\InWhereCondition.cs" />
+    <Compile Include="WhereConditions\WhereCondition.cs" />
+    <Compile Include="WhereConditions\XQueryCondition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

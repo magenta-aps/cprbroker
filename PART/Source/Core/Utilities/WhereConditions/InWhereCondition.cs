@@ -48,40 +48,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CprBroker.Utilities;
-using CprBroker.Schemas.Part;
-using CprBroker.Utilities.WhereConditions;
 
-namespace CprBroker.Data.Part
+namespace CprBroker.Utilities.WhereConditions
 {
-    /// <summary>
-    /// Simple class that contains the UUIDs that identify a PersonRegistrationObject
-    /// </summary>
-    public class PersonRegistrationKey
+    public class InWhereCondition : WhereCondition
     {
-        public Guid PersonRegistrationId { get; set; }
-        public Guid UUID { get; set; }
-
-        // Dennis - please call this method to get the matching uuids
-        public static IEnumerable<PersonRegistrationKey> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject, params Guid[] personRegistrationIds)
+        public override string ToString(string valueExpression)
         {
-            var elements = PersonRegistration.CreateXQueryElements(soegObject);
-            if (personRegistrationIds == null)
-                personRegistrationIds = new Guid[0];
-
-            if (personRegistrationIds != null && personRegistrationIds.Length > 0)
-            {
-                elements.Add(
-                    new InWhereCondition()
-                    {
-                        ColumnName = "PersonRegistrationId",
-                        Values = personRegistrationIds.Select(
-                            id => id.ToString()
-                            ).ToArray()
-                    });
-            }
-            var byCriteria = WhereCondition.GetMatchingObjects<PersonRegistrationKey>(dataContext, elements, "PersonRegistration", new string[] { "PersonRegistrationId", "UUID" });
-            return byCriteria;
+            return string.Format("{0} IN ({1})", ColumnName, valueExpression);
         }
     }
 }

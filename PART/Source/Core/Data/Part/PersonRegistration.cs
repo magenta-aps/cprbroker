@@ -54,6 +54,7 @@ using CprBroker.Schemas.Part;
 using System.Xml.Linq;
 using System.IO;
 using CprBroker.Utilities;
+using CprBroker.Utilities.WhereConditions;
 
 namespace CprBroker.Data.Part
 {
@@ -221,13 +222,13 @@ namespace CprBroker.Data.Part
             var xml = CprBroker.Utilities.Strings.SerializeObject(personRegistration);
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             doc.LoadXml(xml);
-            return XQueryElement.CreateXQueryElements(doc.DocumentElement, "Contents");
+            return XQueryCondition.CreateXQueryElements(doc.DocumentElement, "Contents");
         }
 
         public static IEnumerable<PersonRegistration> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject)
         {
             var elements = CreateXQueryElements(soegObject);
-            return XQueryElement.GetMatchingObjects<PersonRegistration>(dataContext, elements, "PersonRegistration", new string[] { "*" });
+            return XQueryCondition.GetMatchingObjects<PersonRegistration>(dataContext, elements, "PersonRegistration", new string[] { "*" });
         }
 
     }
