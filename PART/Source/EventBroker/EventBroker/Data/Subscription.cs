@@ -71,9 +71,9 @@ namespace CprBroker.EventBroker.Data
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.Channels);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.SubscriptionPersons);
         }
-        public CprBroker.Schemas.SubscriptionType ToOioSubscription(string appToken)
+        public CprBroker.Schemas.Part.SubscriptionType ToOioSubscription(string appToken)
         {
-            CprBroker.Schemas.SubscriptionType ret = null;
+            CprBroker.Schemas.Part.SubscriptionType ret = null;
             if (this.DataSubscription != null)
             {
                 ChangeSubscriptionType dataSubscription = new ChangeSubscriptionType();
@@ -94,21 +94,21 @@ namespace CprBroker.EventBroker.Data
             switch ((ChannelType.ChannelTypes)channel.ChannelTypeId)
             {
                 case ChannelType.ChannelTypes.WebService:
-                    CprBroker.Schemas.WebServiceChannelType webServiceChannel = new WebServiceChannelType();
+                    CprBroker.Schemas.Part.WebServiceChannelType webServiceChannel = new WebServiceChannelType();
                     webServiceChannel.WebServiceUrl = channel.Url;
                     ret.NotificationChannel = webServiceChannel;
                     break;
                 case ChannelType.ChannelTypes.FileShare:
-                    CprBroker.Schemas.FileShareChannelType fileShareChannel = new FileShareChannelType();
+                    CprBroker.Schemas.Part.FileShareChannelType fileShareChannel = new FileShareChannelType();
                     fileShareChannel.Path = channel.Url;
                     ret.NotificationChannel = fileShareChannel;
                     break;
             }
 
-            ret.PersonUuids.AddRange(
-                from subPerson in this.SubscriptionPersons
-                select subPerson.PersonUuid.Value.ToString()
-                );
+            ret.PersonUuids = this.SubscriptionPersons
+                .Select(sp => sp.PersonUuid.Value.ToString())
+                .ToArray();
+
             return ret;
         }
 

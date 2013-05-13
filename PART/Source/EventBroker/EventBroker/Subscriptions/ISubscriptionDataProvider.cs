@@ -103,7 +103,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// Gets the list of active subscriptions
         /// </summary>
         /// <returns></returns>
-        CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList();
+        CprBroker.Schemas.Part.SubscriptionType[] GetActiveSubscriptionsList();
 
         /*
         /// <summary>

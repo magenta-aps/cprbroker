@@ -261,7 +261,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList()
+        public CprBroker.Schemas.Part.SubscriptionType[] GetActiveSubscriptionsList()
         {
             return GetActiveSubscriptionsList(null);
         }
@@ -271,9 +271,9 @@ namespace CprBroker.EventBroker.Subscriptions
         /// </summary>
         /// <param name="subscriptionId"></param>
         /// <returns></returns>
-        private CprBroker.Schemas.SubscriptionType[] GetActiveSubscriptionsList(Nullable<Guid> subscriptionId)
+        private CprBroker.Schemas.Part.SubscriptionType[] GetActiveSubscriptionsList(Nullable<Guid> subscriptionId)
         {
-            List<CprBroker.Schemas.SubscriptionType> listType = new List<CprBroker.Schemas.SubscriptionType>();
+            List<CprBroker.Schemas.Part.SubscriptionType> listType = new List<CprBroker.Schemas.Part.SubscriptionType>();
             using (EventBrokerDataContext context = new EventBrokerDataContext())
             {
                 System.Data.Linq.DataLoadOptions loadOptions = new System.Data.Linq.DataLoadOptions();
@@ -301,7 +301,7 @@ namespace CprBroker.EventBroker.Subscriptions
                 // Now create list of OIO subscriptions
                 foreach (var sub in subscriptions)
                 {
-                    CprBroker.Schemas.SubscriptionType subscriptionType = sub.ToOioSubscription(CprBroker.Engine.BrokerContext.Current.ApplicationToken);
+                    CprBroker.Schemas.Part.SubscriptionType subscriptionType = sub.ToOioSubscription(CprBroker.Engine.BrokerContext.Current.ApplicationToken);
                     listType.Add(subscriptionType);
                 }
                 return listType.ToArray();
