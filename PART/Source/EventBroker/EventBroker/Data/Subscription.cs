@@ -69,7 +69,7 @@ namespace CprBroker.EventBroker.Data
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.DataSubscription);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.BirthdateSubscription);
             loadOptions.LoadWith<Subscription>((Subscription sub) => sub.Channels);
-            loadOptions.LoadWith<Subscription>((Subscription sub) => sub.SubscriptionPersons);            
+            loadOptions.LoadWith<Subscription>((Subscription sub) => sub.SubscriptionPersons);
         }
         public CprBroker.Schemas.SubscriptionType ToOioSubscription(string appToken)
         {
@@ -102,7 +102,7 @@ namespace CprBroker.EventBroker.Data
                     CprBroker.Schemas.FileShareChannelType fileShareChannel = new FileShareChannelType();
                     fileShareChannel.Path = channel.Url;
                     ret.NotificationChannel = fileShareChannel;
-                    break;                
+                    break;
             }
 
             ret.PersonUuids.AddRange(
@@ -112,7 +112,7 @@ namespace CprBroker.EventBroker.Data
             return ret;
         }
 
-        public void UpatePersonList(DataChangeEvent[] dataChangeEvents)
+        public void MatchDataChangeEvents(DataChangeEvent[] dataChangeEvents)
         {
             var personRegistrationIds = dataChangeEvents.Select(dce => dce.PersonRegistrationId).ToArray();
 
@@ -122,7 +122,14 @@ namespace CprBroker.EventBroker.Data
             {
                 // Add new persons                    
                 var matchingPersons = CprBroker.Data.Part.PersonRegistrationKey.GetByCriteria(partDataContext, soegObject, personRegistrationIds).ToArray();
-
+                var temp = matchingPersons.Select(prk => new TempSubscriptionPerson()
+                {
+                    TempSubscriptionPersonId = Guid.NewGuid(),
+                    SubscriptionId = this.SubscriptionId,
+                    DataChangeEventId = dataChangeEvents.Where(dce => dce.PersonRegistrationId == prk.PersonRegistrationId).Select(dce => dce.DataChangeEventId).First(),
+                });
+                this.TempSubscriptionPersons.AddRange(temp);
+                /*
                 var ppp = from dce in dataChangeEvents
                           join sp0 in this.SubscriptionPersons.Where(sp0 => sp0.Removed == null).ToArray() on dce.PersonUuid equals sp0.PersonUuid into subscriptionPersons0
                           join m0 in matchingPersons on dce.PersonRegistrationId equals m0.PersonRegistrationId into matchingPersons0
@@ -162,6 +169,7 @@ namespace CprBroker.EventBroker.Data
                         Succeeded = null,
                     });
                 }
+                */
             }
         }
     }

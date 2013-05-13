@@ -106,7 +106,7 @@ namespace CprBroker.EventBroker.Notifications
                     dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
                     dataContext.SubmitChanges();
 
-                    UpdatePersonsList(dataContext, dbObjects);
+                    MatchChangesWithSubscriptions(dataContext, dbObjects);
 
                     dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
@@ -117,17 +117,12 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
-        private void UpdatePersonsList(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents)
+        private void MatchChangesWithSubscriptions(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents)
         {
-            // Dennis - this will probably cause an exception - please just leave it for now
-            // You can try to run/fix/complete this if everyting else is OK
-            
             var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
-            
-
             foreach (var subscription in criteriaSubscriptions)
             {
-                subscription.UpatePersonList(dataChangeEvents);    
+                subscription.MatchDataChangeEvents(dataChangeEvents);    
             }
             dataContext.SubmitChanges();
         }

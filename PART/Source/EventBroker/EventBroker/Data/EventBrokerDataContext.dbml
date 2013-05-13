@@ -50,6 +50,7 @@
       <Association Name="Subscription_Channel" Member="Channels" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Channel" />
       <Association Name="Subscription_DataSubscription" Member="DataSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="DataSubscription" Cardinality="One" />
       <Association Name="Subscription_SubscriptionPerson" Member="SubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="SubscriptionPerson" />
+      <Association Name="Subscription_TempSubscriptionPerson" Member="TempSubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="TempSubscriptionPerson" />
       <Association Name="Subscription_EventNotification" Member="EventNotifications" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="EventNotification" />
       <Association Name="SubscriptionType_Subscription" Member="SubscriptionType" ThisKey="SubscriptionTypeId" OtherKey="SubscriptionTypeId" Type="SubscriptionType" IsForeignKey="true" />
     </Type>
@@ -64,19 +65,6 @@
       <Association Name="Subscription_SubscriptionPerson" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
-  <Table Name="dbo.EventNotification" Member="EventNotifications">
-    <Type Name="EventNotification">
-      <Column Name="EventNotificationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="NotificationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Succeeded" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsForAllPersons" Member="IsLastNotification" Storage="_IsForAllPersons" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="EventNotification_BirthdateEventNotification" Member="BirthdateEventNotification" ThisKey="EventNotificationId" OtherKey="EventNotificationId" Type="BirthdateEventNotification" Cardinality="One" />
-      <Association Name="Subscription_EventNotification" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DataChangeEvent" Member="DataChangeEvents">
     <Type Name="DataChangeEvent">
       <Column Name="DataChangeEventId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -84,6 +72,7 @@
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ReceivedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="DataChangeEvent_TempSubscriptionPerson" Member="TempSubscriptionPersons" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="TempSubscriptionPerson" />
     </Type>
   </Table>
   <Table Name="dbo.PersonBirthdate" Member="PersonBirthdates">
@@ -97,6 +86,28 @@
       <Column Name="EventNotificationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="EventNotification_BirthdateEventNotification" Member="EventNotification" ThisKey="EventNotificationId" OtherKey="EventNotificationId" Type="EventNotification" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TempSubscriptionPerson" Member="TempSubscriptionPersons">
+    <Type Name="TempSubscriptionPerson">
+      <Column Name="TempSubscriptionPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DataChangeEventId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="DataChangeEvent_TempSubscriptionPerson" Member="DataChangeEvent" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="DataChangeEvent" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Subscription_TempSubscriptionPerson" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventNotification" Member="EventNotifications">
+    <Type Name="EventNotification">
+      <Column Name="EventNotificationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PersonUuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsLastNotification" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NotificationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Succeeded" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="EventNotification_BirthdateEventNotification" Member="BirthdateEventNotification" ThisKey="EventNotificationId" OtherKey="EventNotificationId" Type="BirthdateEventNotification" Cardinality="One" />
+      <Association Name="Subscription_EventNotification" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.InsertChangeNotificationData" Method="InsertChangeNotificationData">
