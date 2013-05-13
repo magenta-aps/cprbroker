@@ -97,6 +97,9 @@
       <Component Id="CMP_CPR_FtpLib__Dll" Directory="CPR_bin">
         <File Id="FILE_CPR_bin_FtpLib__DLL" Source="$(var.SitePath)bin\ftplib.dll" KeyPath="yes"/>
       </Component>
+      <Component Id="CMP_CPR_AjaxControlToolkit__Dll" Directory="CPR_bin">
+        <File Id="FILE_CPR_bin_AjaxControlToolkit__DLL" Source="$(var.SitePath)bin\AjaxControlToolkit.dll" KeyPath="yes"/>
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="CMPGRP_Pages">
@@ -107,6 +110,7 @@
         <File Id="FILE_CPR_Pages_DataProviders_ASPX" Source="$(var.SitePath)Pages\DataProviders.aspx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_LogEntries_ASPX" Directory="CPR_Pages">
+        <RemoveFile Id="Remove_CPR_LogEntries_ASPX" Name="LogEntries.aspx" On="install" />
         <File Id="FILE_CPR_Pages_LogEntries_ASPX" Source="$(var.SitePath)Pages\LogEntries.aspx" KeyPath="yes"/>
       </Component>
       <Component Id="CMP_CPR_Applications_ASPX" Directory="CPR_Pages">
