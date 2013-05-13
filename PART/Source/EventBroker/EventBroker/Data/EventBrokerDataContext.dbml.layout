@@ -105,7 +105,7 @@
       </nestedChildShapes>
     </classShape>
     <classShape Id="7e4dac1b-925e-4bfe-8571-130394d3d404" absoluteBounds="0.875, 4, 2, 1.3862939453125">
-      <DataClassMoniker Name="/EventBrokerDataContext/TempSubscriptionPerson" />
+      <DataClassMoniker Name="/EventBrokerDataContext/SubscriptionCriteriaMatch" />
       <nestedChildShapes>
         <elementListCompartment Id="f42d45e2-b126-4ce5-8644-879a2f029195" absoluteBounds="0.89000000000000012, 4.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>

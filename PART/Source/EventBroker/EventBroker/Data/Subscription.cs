@@ -122,13 +122,13 @@ namespace CprBroker.EventBroker.Data
             {
                 // Add new persons                    
                 var matchingPersons = CprBroker.Data.Part.PersonRegistrationKey.GetByCriteria(partDataContext, soegObject, personRegistrationIds).ToArray();
-                var temp = matchingPersons.Select(prk => new TempSubscriptionPerson()
+                var temp = matchingPersons.Select(prk => new SubscriptionCriteriaMatch()
                 {
-                    TempSubscriptionPersonId = Guid.NewGuid(),
+                    SubscriptionCriteriaMatchId = Guid.NewGuid(),
                     SubscriptionId = this.SubscriptionId,
                     DataChangeEventId = dataChangeEvents.Where(dce => dce.PersonRegistrationId == prk.PersonRegistrationId).Select(dce => dce.DataChangeEventId).First(),
                 });
-                this.TempSubscriptionPersons.AddRange(temp);
+                this.SubscriptionCriteriaMatches.AddRange(temp);
             }
         }
     }

@@ -50,7 +50,7 @@
       <Association Name="Subscription_Channel" Member="Channels" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Channel" />
       <Association Name="Subscription_DataSubscription" Member="DataSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="DataSubscription" Cardinality="One" />
       <Association Name="Subscription_SubscriptionPerson" Member="SubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="SubscriptionPerson" />
-      <Association Name="Subscription_TempSubscriptionPerson" Member="TempSubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="TempSubscriptionPerson" />
+      <Association Name="Subscription_TempSubscriptionPerson" Member="SubscriptionCriteriaMatches" Storage="_TempSubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="SubscriptionCriteriaMatch" />
       <Association Name="Subscription_EventNotification" Member="EventNotifications" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="EventNotification" />
       <Association Name="SubscriptionType_Subscription" Member="SubscriptionType" ThisKey="SubscriptionTypeId" OtherKey="SubscriptionTypeId" Type="SubscriptionType" IsForeignKey="true" />
     </Type>
@@ -72,7 +72,7 @@
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ReceivedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="DataChangeEvent_TempSubscriptionPerson" Member="TempSubscriptionPersons" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="TempSubscriptionPerson" />
+      <Association Name="DataChangeEvent_TempSubscriptionPerson" Member="SubscriptionCriteriaMatches" Storage="_TempSubscriptionPersons" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="SubscriptionCriteriaMatch" />
     </Type>
   </Table>
   <Table Name="dbo.PersonBirthdate" Member="PersonBirthdates">
@@ -88,9 +88,9 @@
       <Association Name="EventNotification_BirthdateEventNotification" Member="EventNotification" ThisKey="EventNotificationId" OtherKey="EventNotificationId" Type="EventNotification" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.TempSubscriptionPerson" Member="TempSubscriptionPersons">
-    <Type Name="TempSubscriptionPerson">
-      <Column Name="TempSubscriptionPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+  <Table Name="dbo.SubscriptionCriteriaMatch" Member="SubscriptionCriteriaMatches">
+    <Type Name="SubscriptionCriteriaMatch">
+      <Column Name="SubscriptionCriteriaMatchId" Storage="_TempSubscriptionPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DataChangeEventId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Association Name="DataChangeEvent_TempSubscriptionPerson" Member="DataChangeEvent" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="DataChangeEvent" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
@@ -126,9 +126,9 @@
     <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.UpdatePersonList" Method="UpdatePersonList">
-    <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
+  <Function Name="dbo.UpdatePersonLists" Method="UpdatePersonLists">
     <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

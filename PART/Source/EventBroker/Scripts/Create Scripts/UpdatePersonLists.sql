@@ -1,5 +1,6 @@
-﻿CREATE PROCEDURE [dbo].[UpdatePersonList]
-	@Now datetime
+﻿CREATE PROCEDURE [dbo].[UpdatePersonLists]
+	@Now datetime,
+	@SubscriptionTypeId Int
 AS
 	DECLARE @EmptyUuid uniqueidentifier;
 	SET @EmptyUuid = '{00000000-0000-0000-0000-000000000000}'
@@ -13,19 +14,19 @@ AS
 		@TMP 
 	SELECT
 		SP.SubscriptionId,
-		DCE.PersonUuid, 
-		DCE.PersonRegistrationId,
+		S_DCE.PersonUuid, 
+		S_DCE.PersonRegistrationId,
 		SP.SubscriptionPersonId,
 		CASE(ISNULL(SCM.SubscriptionCriteriaMatchId, @EmptyUuid)) WHEN @EmptyUuid THEN 0 ELSE 1 END
 	FROM
-		Subscription S,
-		DataChangeEvent DCE		
-	LEFT OUTER JOIN SubscriptionPerson SP			ON S.SubscriptionId = SP.SubscriptionId		AND	DCE.PersonUuid			= SP.PersonUuid
-	LEFT OUTER JOIN SubscriptionCriteriaMatch SCM	ON S.SubscriptionId = SCM.SubscriptionId	AND	DCE.DataChangeEventId	= SCM.DataChangeEventId
+		(
+			SELECT * FROM Subscription S, DataChangeEvent DCE
+			WHERE S.SubscriptionTypeId = @SubscriptionTypeId AND S.Criteria IS NOT NULL AND S.Deactivated IS NULL
+		) AS S_DCE
+	LEFT OUTER JOIN SubscriptionPerson SP			ON S_DCE.SubscriptionId = SP.SubscriptionId		AND	S_DCE.PersonUuid		= SP.PersonUuid
+	LEFT OUTER JOIN SubscriptionCriteriaMatch SCM	ON S_DCE.SubscriptionId = SCM.SubscriptionId	AND	S_DCE.DataChangeEventId	= SCM.DataChangeEventId
 	WHERE
-		S.Criteria IS NOT NULL
-	AND S.Deactivated IS NULL
-	AND SP.Removed IS NULL
+		SP.Removed IS NULL
 
 	---------------------------------------------------------------------------------------------------
 	--- Insert persons that have now changed to be in the criteria

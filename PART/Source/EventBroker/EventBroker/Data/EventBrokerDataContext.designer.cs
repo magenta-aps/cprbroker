@@ -60,9 +60,9 @@ namespace CprBroker.EventBroker.Data
     partial void InsertBirthdateEventNotification(BirthdateEventNotification instance);
     partial void UpdateBirthdateEventNotification(BirthdateEventNotification instance);
     partial void DeleteBirthdateEventNotification(BirthdateEventNotification instance);
-    partial void InsertTempSubscriptionPerson(TempSubscriptionPerson instance);
-    partial void UpdateTempSubscriptionPerson(TempSubscriptionPerson instance);
-    partial void DeleteTempSubscriptionPerson(TempSubscriptionPerson instance);
+    partial void InsertSubscriptionCriteriaMatch(SubscriptionCriteriaMatch instance);
+    partial void UpdateSubscriptionCriteriaMatch(SubscriptionCriteriaMatch instance);
+    partial void DeleteSubscriptionCriteriaMatch(SubscriptionCriteriaMatch instance);
     partial void InsertEventNotification(EventNotification instance);
     partial void UpdateEventNotification(EventNotification instance);
     partial void DeleteEventNotification(EventNotification instance);
@@ -172,11 +172,11 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<TempSubscriptionPerson> TempSubscriptionPersons
+		public System.Data.Linq.Table<SubscriptionCriteriaMatch> SubscriptionCriteriaMatches
 		{
 			get
 			{
-				return this.GetTable<TempSubscriptionPerson>();
+				return this.GetTable<SubscriptionCriteriaMatch>();
 			}
 		}
 		
@@ -209,10 +209,10 @@ namespace CprBroker.EventBroker.Data
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdatePersonList")]
-		public int UpdatePersonList([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdatePersonLists")]
+		public int UpdatePersonLists([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionTypeId", DbType="Int")] System.Nullable<int> subscriptionTypeId)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subscriptionId, now);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, subscriptionTypeId);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -943,7 +943,7 @@ namespace CprBroker.EventBroker.Data
 		
 		private EntitySet<SubscriptionPerson> _SubscriptionPersons;
 		
-		private EntitySet<TempSubscriptionPerson> _TempSubscriptionPersons;
+		private EntitySet<SubscriptionCriteriaMatch> _TempSubscriptionPersons;
 		
 		private EntitySet<EventNotification> _EventNotifications;
 		
@@ -975,7 +975,7 @@ namespace CprBroker.EventBroker.Data
 			this._Channels = new EntitySet<Channel>(new Action<Channel>(this.attach_Channels), new Action<Channel>(this.detach_Channels));
 			this._DataSubscription = default(EntityRef<DataSubscription>);
 			this._SubscriptionPersons = new EntitySet<SubscriptionPerson>(new Action<SubscriptionPerson>(this.attach_SubscriptionPersons), new Action<SubscriptionPerson>(this.detach_SubscriptionPersons));
-			this._TempSubscriptionPersons = new EntitySet<TempSubscriptionPerson>(new Action<TempSubscriptionPerson>(this.attach_TempSubscriptionPersons), new Action<TempSubscriptionPerson>(this.detach_TempSubscriptionPersons));
+			this._TempSubscriptionPersons = new EntitySet<SubscriptionCriteriaMatch>(new Action<SubscriptionCriteriaMatch>(this.attach_TempSubscriptionPersons), new Action<SubscriptionCriteriaMatch>(this.detach_TempSubscriptionPersons));
 			this._EventNotifications = new EntitySet<EventNotification>(new Action<EventNotification>(this.attach_EventNotifications), new Action<EventNotification>(this.detach_EventNotifications));
 			this._SubscriptionType = default(EntityRef<SubscriptionType>);
 			OnCreated();
@@ -1210,7 +1210,7 @@ namespace CprBroker.EventBroker.Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_TempSubscriptionPerson", Storage="_TempSubscriptionPersons", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
-		public EntitySet<TempSubscriptionPerson> TempSubscriptionPersons
+		public EntitySet<SubscriptionCriteriaMatch> SubscriptionCriteriaMatches
 		{
 			get
 			{
@@ -1313,13 +1313,13 @@ namespace CprBroker.EventBroker.Data
 			entity.Subscription = null;
 		}
 		
-		private void attach_TempSubscriptionPersons(TempSubscriptionPerson entity)
+		private void attach_TempSubscriptionPersons(SubscriptionCriteriaMatch entity)
 		{
 			this.SendPropertyChanging();
 			entity.Subscription = this;
 		}
 		
-		private void detach_TempSubscriptionPersons(TempSubscriptionPerson entity)
+		private void detach_TempSubscriptionPersons(SubscriptionCriteriaMatch entity)
 		{
 			this.SendPropertyChanging();
 			entity.Subscription = null;
@@ -1553,7 +1553,7 @@ namespace CprBroker.EventBroker.Data
 		
 		private System.DateTime _ReceivedDate;
 		
-		private EntitySet<TempSubscriptionPerson> _TempSubscriptionPersons;
+		private EntitySet<SubscriptionCriteriaMatch> _TempSubscriptionPersons;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1573,7 +1573,7 @@ namespace CprBroker.EventBroker.Data
 		
 		public DataChangeEvent()
 		{
-			this._TempSubscriptionPersons = new EntitySet<TempSubscriptionPerson>(new Action<TempSubscriptionPerson>(this.attach_TempSubscriptionPersons), new Action<TempSubscriptionPerson>(this.detach_TempSubscriptionPersons));
+			this._TempSubscriptionPersons = new EntitySet<SubscriptionCriteriaMatch>(new Action<SubscriptionCriteriaMatch>(this.attach_TempSubscriptionPersons), new Action<SubscriptionCriteriaMatch>(this.detach_TempSubscriptionPersons));
 			OnCreated();
 		}
 		
@@ -1678,7 +1678,7 @@ namespace CprBroker.EventBroker.Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataChangeEvent_TempSubscriptionPerson", Storage="_TempSubscriptionPersons", ThisKey="DataChangeEventId", OtherKey="DataChangeEventId")]
-		public EntitySet<TempSubscriptionPerson> TempSubscriptionPersons
+		public EntitySet<SubscriptionCriteriaMatch> SubscriptionCriteriaMatches
 		{
 			get
 			{
@@ -1710,13 +1710,13 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		private void attach_TempSubscriptionPersons(TempSubscriptionPerson entity)
+		private void attach_TempSubscriptionPersons(SubscriptionCriteriaMatch entity)
 		{
 			this.SendPropertyChanging();
 			entity.DataChangeEvent = this;
 		}
 		
-		private void detach_TempSubscriptionPersons(TempSubscriptionPerson entity)
+		private void detach_TempSubscriptionPersons(SubscriptionCriteriaMatch entity)
 		{
 			this.SendPropertyChanging();
 			entity.DataChangeEvent = null;
@@ -1936,8 +1936,8 @@ namespace CprBroker.EventBroker.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TempSubscriptionPerson")]
-	public partial class TempSubscriptionPerson : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SubscriptionCriteriaMatch")]
+	public partial class SubscriptionCriteriaMatch : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1956,15 +1956,15 @@ namespace CprBroker.EventBroker.Data
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnTempSubscriptionPersonIdChanging(System.Guid value);
-    partial void OnTempSubscriptionPersonIdChanged();
+    partial void OnSubscriptionCriteriaMatchIdChanging(System.Guid value);
+    partial void OnSubscriptionCriteriaMatchIdChanged();
     partial void OnSubscriptionIdChanging(System.Guid value);
     partial void OnSubscriptionIdChanged();
     partial void OnDataChangeEventIdChanging(System.Guid value);
     partial void OnDataChangeEventIdChanged();
     #endregion
 		
-		public TempSubscriptionPerson()
+		public SubscriptionCriteriaMatch()
 		{
 			this._DataChangeEvent = default(EntityRef<DataChangeEvent>);
 			this._Subscription = default(EntityRef<Subscription>);
@@ -1972,7 +1972,7 @@ namespace CprBroker.EventBroker.Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TempSubscriptionPersonId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid TempSubscriptionPersonId
+		public System.Guid SubscriptionCriteriaMatchId
 		{
 			get
 			{
@@ -1982,11 +1982,11 @@ namespace CprBroker.EventBroker.Data
 			{
 				if ((this._TempSubscriptionPersonId != value))
 				{
-					this.OnTempSubscriptionPersonIdChanging(value);
+					this.OnSubscriptionCriteriaMatchIdChanging(value);
 					this.SendPropertyChanging();
 					this._TempSubscriptionPersonId = value;
-					this.SendPropertyChanged("TempSubscriptionPersonId");
-					this.OnTempSubscriptionPersonIdChanged();
+					this.SendPropertyChanged("SubscriptionCriteriaMatchId");
+					this.OnSubscriptionCriteriaMatchIdChanged();
 				}
 			}
 		}
@@ -2056,12 +2056,12 @@ namespace CprBroker.EventBroker.Data
 					if ((previousValue != null))
 					{
 						this._DataChangeEvent.Entity = null;
-						previousValue.TempSubscriptionPersons.Remove(this);
+						previousValue.SubscriptionCriteriaMatches.Remove(this);
 					}
 					this._DataChangeEvent.Entity = value;
 					if ((value != null))
 					{
-						value.TempSubscriptionPersons.Add(this);
+						value.SubscriptionCriteriaMatches.Add(this);
 						this._DataChangeEventId = value.DataChangeEventId;
 					}
 					else
@@ -2090,12 +2090,12 @@ namespace CprBroker.EventBroker.Data
 					if ((previousValue != null))
 					{
 						this._Subscription.Entity = null;
-						previousValue.TempSubscriptionPersons.Remove(this);
+						previousValue.SubscriptionCriteriaMatches.Remove(this);
 					}
 					this._Subscription.Entity = value;
 					if ((value != null))
 					{
-						value.TempSubscriptionPersons.Add(this);
+						value.SubscriptionCriteriaMatches.Add(this);
 						this._SubscriptionId = value.SubscriptionId;
 					}
 					else

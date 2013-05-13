@@ -107,7 +107,9 @@ namespace CprBroker.EventBroker.Notifications
                     dataContext.SubmitChanges();
 
                     DateTime now = DateTime.Now;
-                    UpdatePersonLists(dataContext, dbObjects, now);
+                    MatchDataChangeEvents(dataContext, dbObjects, now);
+
+                    dataContext.UpdatePersonLists(now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
                     dataContext.EnqueueDataChangeEventNotifications(now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
                     //TODO: Move this logic to above stored procedure
@@ -117,18 +119,14 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
-        private void UpdatePersonLists(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents, DateTime now)
+        private void MatchDataChangeEvents(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents, DateTime now)
         {
             var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
             foreach (var subscription in criteriaSubscriptions)
             {
-                subscription.MatchDataChangeEvents(dataChangeEvents);    
+                subscription.MatchDataChangeEvents(dataChangeEvents);
             }
             dataContext.SubmitChanges();
-            foreach (var subscription in criteriaSubscriptions)
-            {
-                dataContext.UpdatePersonList(subscription.SubscriptionId, now);
-            }
         }
     }
 }
