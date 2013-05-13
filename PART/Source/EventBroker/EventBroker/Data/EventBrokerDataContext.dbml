@@ -126,4 +126,9 @@
     <Parameter Name="SubscriptionTypeId" Parameter="subscriptionTypeId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.UpdatePersonList" Method="UpdatePersonList">
+    <Parameter Name="SubscriptionId" Parameter="subscriptionId" Type="System.Guid" DbType="UniqueIdentifier" />
+    <Parameter Name="Now" Parameter="now" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

@@ -106,9 +106,9 @@ namespace CprBroker.EventBroker.Notifications
                     dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
                     dataContext.SubmitChanges();
 
-                    MatchChangesWithSubscriptions(dataContext, dbObjects);
-
-                    dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
+                    DateTime now = DateTime.Now;
+                    UpdatePersonLists(dataContext, dbObjects, now);
+                    dataContext.EnqueueDataChangeEventNotifications(now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
                     //TODO: Move this logic to above stored procedure
                     dataContext.DataChangeEvents.DeleteAllOnSubmit(dbObjects);
@@ -117,7 +117,7 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
-        private void MatchChangesWithSubscriptions(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents)
+        private void UpdatePersonLists(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents, DateTime now)
         {
             var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
             foreach (var subscription in criteriaSubscriptions)
@@ -125,6 +125,10 @@ namespace CprBroker.EventBroker.Notifications
                 subscription.MatchDataChangeEvents(dataChangeEvents);    
             }
             dataContext.SubmitChanges();
+            foreach (var subscription in criteriaSubscriptions)
+            {
+                dataContext.UpdatePersonList(subscription.SubscriptionId, now);
+            }
         }
     }
 }

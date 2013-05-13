@@ -208,6 +208,13 @@ namespace CprBroker.EventBroker.Data
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), now, subscriptionTypeId);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdatePersonList")]
+		public int UpdatePersonList([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubscriptionId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> subscriptionId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Now", DbType="DateTime")] System.Nullable<System.DateTime> now)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subscriptionId, now);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SubscriptionType")]

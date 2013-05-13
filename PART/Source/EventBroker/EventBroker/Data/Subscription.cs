@@ -129,47 +129,6 @@ namespace CprBroker.EventBroker.Data
                     DataChangeEventId = dataChangeEvents.Where(dce => dce.PersonRegistrationId == prk.PersonRegistrationId).Select(dce => dce.DataChangeEventId).First(),
                 });
                 this.TempSubscriptionPersons.AddRange(temp);
-                /*
-                var ppp = from dce in dataChangeEvents
-                          join sp0 in this.SubscriptionPersons.Where(sp0 => sp0.Removed == null).ToArray() on dce.PersonUuid equals sp0.PersonUuid into subscriptionPersons0
-                          join m0 in matchingPersons on dce.PersonRegistrationId equals m0.PersonRegistrationId into matchingPersons0
-                          from sp in subscriptionPersons0.DefaultIfEmpty()
-                          from m in matchingPersons0.DefaultIfEmpty()
-
-                          select new
-                          {
-                              DataChangeEvent = dce,
-                              InCriteria = m != null,
-                              SubscriptionPerson = sp,
-                          };
-
-                // Insert new persons matching the criteria
-                var newPersons = ppp.Where(p => p.InCriteria && p.SubscriptionPerson == null).Select(p => new Data.SubscriptionPerson()
-                {
-                    Created = DateTime.Now,
-                    PersonUuid = p.DataChangeEvent.PersonUuid,
-                    Removed = null,
-                    SubscriptionId = this.SubscriptionId,
-                    SubscriptionPersonId = Guid.NewGuid()
-                });
-                this.SubscriptionPersons.AddRange(newPersons);
-
-                // Delete persons moving out of criteria, and explicitly enque their last notification
-                var movingOut = ppp.Where(p => !p.InCriteria && p.SubscriptionPerson != null).Select(p => p.SubscriptionPerson);
-                foreach (var sp in movingOut)
-                {
-                    sp.Removed = DateTime.Now;
-                    this.EventNotifications.Add(new Data.EventNotification()
-                    {
-                        CreatedDate = DateTime.Now,
-                        EventNotificationId = Guid.NewGuid(),
-                        IsLastNotification = true,
-                        NotificationDate = null,
-                        PersonUuid = sp.PersonUuid.Value,
-                        Succeeded = null,
-                    });
-                }
-                */
             }
         }
     }

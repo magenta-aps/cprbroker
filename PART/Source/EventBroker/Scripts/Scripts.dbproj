@@ -147,4 +147,9 @@
   <ItemGroup>
     <BuildContributorArgument Include="OutDir=$(OutDir)" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Create Scripts\UpdatePersonList.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+  </ItemGroup>
 </Project>
