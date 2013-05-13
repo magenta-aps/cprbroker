@@ -179,7 +179,9 @@
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Images\unn_bottom.gif" />
     <Content Include="Pages\LogEntries.aspx" />
-    <Content Include="Web.sitemap" />
+    <Content Include="Web.sitemap">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Pages\Site.Master" />
   </ItemGroup>
   <ItemGroup>
