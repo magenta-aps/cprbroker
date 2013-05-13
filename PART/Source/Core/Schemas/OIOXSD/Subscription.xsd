@@ -30,6 +30,13 @@
     </complexContent>
   </complexType>
 
+  <complexType name="CriteriaSubscriptionType" >
+    <complexContent>
+      <extension base="tns:SubscriptionType">
+      </extension>
+    </complexContent>
+  </complexType>
+
   <complexType name="BirthdateSubscriptionType">
     <complexContent>
       <extension base="tns:SubscriptionType">

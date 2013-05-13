@@ -4388,6 +4388,7 @@ namespace CprBroker.Schemas.Part {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BirthdateSubscriptionType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CriteriaSubscriptionType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChangeSubscriptionType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
     [System.SerializableAttribute()]
@@ -4467,6 +4468,15 @@ namespace CprBroker.Schemas.Part {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
     public abstract partial class ChannelBaseType {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
+    public partial class CriteriaSubscriptionType : SubscriptionType {
     }
     
     /// <remarks/>

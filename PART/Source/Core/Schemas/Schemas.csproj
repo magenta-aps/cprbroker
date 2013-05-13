@@ -78,7 +78,6 @@
     <Compile Include="PersonCivilRegistrationStatusCode.cs" />
     <Compile Include="PersonNameStructureType.cs" />
     <Compile Include="NavnStrukturType.cs" />
-    <Compile Include="OIOXSD\Subscription.Designer.cs" />
     <Compile Include="OIOXSD\Version.Designer.cs" />
     <Compile Include="OIOXSD\XSD.cs" />
     <Compile Include="Part\Events\CommonEventStructureType.cs" />
