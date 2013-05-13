@@ -1,5 +1,4 @@
 ﻿CREATE PROCEDURE [dbo].[UpdatePersonList]
-	@SubscriptionId uniqueidentifier,
 	@Now datetime
 AS
 	DECLARE @EmptyUuid uniqueidentifier;
@@ -8,49 +7,70 @@ AS
 	---------------------------------------------------------------------------------------------------
 	--- Create a temp table with the changed persons and their in/out status before and after the change
 	---------------------------------------------------------------------------------------------------
-	DECLARE @TMP TABLE(PersonUuid uniqueidentifier, PersonRegistrationId uniqueidentifier, Old bit, New bit)
+	DECLARE @TMP TABLE(SubscriptionId uniqueidentifier, PersonUuid uniqueidentifier, PersonRegistrationId uniqueidentifier, SubscriptionPersonId uniqueidentifier, New bit)
 	
-	INSERT INTO @TMP SELECT
+	INSERT INTO 
+		@TMP 
+	SELECT
+		SP.SubscriptionId,
 		DCE.PersonUuid, 
-		DCE.PersonRegistrationId, 
-		CASE(ISNULL(SP.SubscriptionId, @EmptyUuid)) WHEN @EmptyUuid THEN 0 ELSE 1 END, 
-		CASE(ISNULL(TSP.DataChangeEventId, @EmptyUuid)) WHEN @EmptyUuid THEN 0 ELSE 1 END			
-	FROM 
-		DataChangeEvent DCE 
-	LEFT OUTER JOIN SubscriptionPerson SP ON DCE.PersonUuid = SP.PersonUuid
-	LEFT OUTER JOIN TempSubscriptionPerson TSP ON DCE.DataChangeEventId = TSP.DataChangeEventId
+		DCE.PersonRegistrationId,
+		SP.SubscriptionPersonId,
+		CASE(ISNULL(SCM.SubscriptionCriteriaMatchId, @EmptyUuid)) WHEN @EmptyUuid THEN 0 ELSE 1 END
+	FROM
+		Subscription S,
+		DataChangeEvent DCE		
+	LEFT OUTER JOIN SubscriptionPerson SP			ON S.SubscriptionId = SP.SubscriptionId		AND	DCE.PersonUuid			= SP.PersonUuid
+	LEFT OUTER JOIN SubscriptionCriteriaMatch SCM	ON S.SubscriptionId = SCM.SubscriptionId	AND	DCE.DataChangeEventId	= SCM.DataChangeEventId
 	WHERE
-		SP.SubscriptionId = @SubscriptionId
-	AND TSP.SubscriptionId = @SubscriptionId
+		S.Criteria IS NOT NULL
+	AND S.Deactivated IS NULL
 	AND SP.Removed IS NULL
 
 	---------------------------------------------------------------------------------------------------
 	--- Insert persons that have now changed to be in the criteria
 	---------------------------------------------------------------------------------------------------
 	INSERT INTO SubscriptionPerson(SubscriptionId, PersonUuid, Created)
-	SELECT @SubscriptionId, PersonUuid, @Now
+	SELECT SubscriptionId, PersonUuid, @Now
 	FROM @TMP T
-	WHERE Old = 0 AND New = 1
+	WHERE 
+			T.SubscriptionPersonId IS NULL 
+		AND New = 1
+
 
 	---------------------------------------------------------------------------------------------------
 	--- Remove persons that no longer match the subscription's criteria
 	---------------------------------------------------------------------------------------------------
-	UPDATE SP
-	SET Removed = 1
-	FROM SubscriptionPerson SP
-	INNER JOIN @TMP T ON T.PersonUuid = SP.PersonUuid
-	WHERE SP.SubscriptionId = @SubscriptionId
-	AND T.Old = 1 AND T.New = 0
+	UPDATE 
+		SP
+	SET 
+		Removed = 1
+	FROM 
+		SubscriptionPerson SP INNER JOIN @TMP T 
+		ON 
+			T.SubscriptionPersonId = SP.SubscriptionPersonId
+	WHERE 
+		-- No need for T.SubscriptionPersonId IS NOT NULL because it is implicitly included in the join condition
+		T.New = 0
 
 	
 	---------------------------------------------------------------------------------------------------
 	--- Explicitly enqueue the last notification for persons that no longer match the criteria
 	---------------------------------------------------------------------------------------------------
-	INSERT INTO EventNotification (SubscriptionId, PersonUuid, CreatedDate, IsLastNotification)
-	SELECT @SubscriptionId, T.PersonUuid, @Now, 1
-	FROM SubscriptionPerson SP
-	INNER JOIN @TMP T ON T.PersonUuid = SP.PersonUuid
-	WHERE SP.SubscriptionId = @SubscriptionId
-	AND T.Old = 1 AND T.New = 0
+	INSERT INTO 
+		EventNotification (SubscriptionId, PersonUuid, CreatedDate, IsLastNotification)
+	SELECT 
+		SubscriptionId, T.PersonUuid, @Now, 1
+	FROM 
+		@TMP T
+	WHERE 
+			T.SubscriptionPersonId IS NOT NULL 
+		AND T.New = 0
+
+
+	---------------------------------------------------------------------------------------------------
+	--- Delete 
+	---------------------------------------------------------------------------------------------------
+	DELETE SubscriptionCriteriaMatch
 
 RETURN 0
