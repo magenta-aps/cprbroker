@@ -106,7 +106,7 @@ namespace CprBroker.EventBroker.Notifications
                     dataContext.DataChangeEvents.InsertAllOnSubmit(dbObjects);
                     dataContext.SubmitChanges();
 
-                    UpdatePersonLists(dataContext, dbObjects);
+                    UpdatePersonsList(dataContext, dbObjects);
 
                     dataContext.EnqueueDataChangeEventNotifications(DateTime.Now, (int)Data.SubscriptionType.SubscriptionTypes.DataChange);
 
@@ -117,44 +117,19 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
-        private void UpdatePersonLists(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents)
+        private void UpdatePersonsList(Data.EventBrokerDataContext dataContext, Data.DataChangeEvent[] dataChangeEvents)
         {
             // Dennis - this will probably cause an exception - please just leave it for now
             // You can try to run/fix/complete this if everyting else is OK
-            return;
+            
+            var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
+            
 
-            var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.SubscriptionTypeId == (int)Data.SubscriptionType.SubscriptionTypes.Criteria).ToArray();
             foreach (var subscription in criteriaSubscriptions)
             {
-                var xml = subscription.Criteria.ToString();
-
-                var soegObject = Strings.Deserialize<SoegObjektType>(xml);
-                using (var partDataContext = new PartDataContext())
-                {
-                    var allMatchingPersons = CprBroker.Data.Part.PersonRegistrationKey.GetByCriteria(partDataContext, soegObject);
-
-                    // Add new persons
-                    var newPersons = from p in allMatchingPersons
-                                     from change in dataChangeEvents
-                                     where p.PersonRegistrationId == change.PersonRegistrationId
-                                     && subscription.SubscriptionPersons.Where(subPerson => subPerson.PersonUuid == p.UUID).FirstOrDefault() == null
-                                     select new Data.SubscriptionPerson()
-                                     {
-                                         Created = DateTime.Now,
-                                         PersonUuid = p.UUID,
-                                         Removed = null,
-                                         SubscriptionId = subscription.SubscriptionId,
-                                         SubscriptionPersonId = Guid.NewGuid()
-                                     };
-                    dataContext.SubscriptionPersons.InsertAllOnSubmit(newPersons);
-
-                    // Remove persons no longer matching the criteria
-                    // ....
-
-                    // Explicitly Enqueue events for persons no longer matching the criteria
-                    // ....
-                }
+                subscription.UpatePersonList(dataChangeEvents);    
             }
+            dataContext.SubmitChanges();
         }
     }
 }
