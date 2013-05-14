@@ -112,7 +112,7 @@ namespace CprBroker.EventBroker.Data
             return ret;
         }
 
-        public void MatchDataChangeEvents(DataChangeEvent[] dataChangeEvents)
+        public IEnumerable<SubscriptionCriteriaMatch> GetDataChangeEventMatches(DataChangeEvent[] dataChangeEvents)
         {
             var personRegistrationIds = dataChangeEvents.Select(dce => dce.PersonRegistrationId).ToArray();
 
@@ -128,8 +128,14 @@ namespace CprBroker.EventBroker.Data
                     SubscriptionId = this.SubscriptionId,
                     DataChangeEventId = dataChangeEvents.Where(dce => dce.PersonRegistrationId == prk.PersonRegistrationId).Select(dce => dce.DataChangeEventId).First(),
                 });
-                this.SubscriptionCriteriaMatches.AddRange(temp);
+                return temp;                
             }
+        }
+
+        public void MatchDataChangeEvents(DataChangeEvent[] dataChangeEvents)
+        {
+            var temp = GetDataChangeEventMatches(dataChangeEvents);
+            this.SubscriptionCriteriaMatches.AddRange(temp);
         }
     }
 }
