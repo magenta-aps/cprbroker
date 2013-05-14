@@ -8,7 +8,7 @@ AS
 	---------------------------------------------------------------------------------------------------
 	--- Create a temp table with the changed persons and their in/out status before and after the change
 	---------------------------------------------------------------------------------------------------
-	DECLARE @TMP TABLE(SubscriptionId uniqueidentifier, PersonUuid uniqueidentifier, PersonRegistrationId uniqueidentifier, SubscriptionPersonId uniqueidentifier, New bit)
+	DECLARE @TMP TABLE(SubscriptionId uniqueidentifier, PersonUuid uniqueidentifier, PersonRegistrationId uniqueidentifier, SubscriptionPersonId uniqueidentifier, SubscriptionCriteriaMatchId uniqueidentifier)
 	
 	INSERT INTO 
 		@TMP 
@@ -17,7 +17,7 @@ AS
 		S_DCE.PersonUuid, 
 		S_DCE.PersonRegistrationId,
 		SP.SubscriptionPersonId,
-		CASE(ISNULL(SCM.SubscriptionCriteriaMatchId, @EmptyUuid)) WHEN @EmptyUuid THEN 0 ELSE 1 END
+		SCM.SubscriptionCriteriaMatchId
 	FROM
 		(
 			SELECT * FROM Subscription S, DataChangeEvent DCE
@@ -36,7 +36,7 @@ AS
 	FROM @TMP T
 	WHERE 
 			T.SubscriptionPersonId IS NULL 
-		AND New = 1
+		AND SubscriptionCriteriaMatchId IS NOT NULL
 
 
 	---------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ AS
 			T.SubscriptionPersonId = SP.SubscriptionPersonId
 	WHERE 
 		-- No need for T.SubscriptionPersonId IS NOT NULL because it is implicitly included in the join condition
-		T.New = 0
+		T.SubscriptionCriteriaMatchId IS NULL
 
 	
 	---------------------------------------------------------------------------------------------------
@@ -61,12 +61,12 @@ AS
 	INSERT INTO 
 		EventNotification (SubscriptionId, PersonUuid, CreatedDate, IsLastNotification)
 	SELECT 
-		SubscriptionId, T.PersonUuid, @Now, 1
+		SubscriptionId, PersonUuid, @Now, 1
 	FROM 
-		@TMP T
+		@TMP
 	WHERE 
-			T.SubscriptionPersonId IS NOT NULL 
-		AND T.New = 0
+			SubscriptionPersonId IS NOT NULL 
+		AND SubscriptionCriteriaMatchId IS NULL
 
 
 	---------------------------------------------------------------------------------------------------
