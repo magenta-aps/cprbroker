@@ -234,17 +234,23 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public CriteriaSubscriptionType SubscribeOnCriteria(ChannelBaseType notificationChannel, SoegInputType1 criteria)
+        public ChangeSubscriptionType SubscribeOnCriteria(ChannelBaseType notificationChannel, SoegInputType1 criteria)
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
-                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.Criteria, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, null, criteria.SoegObjekt);
-
+                /*
+                 * For now we assign this data type as a data change type.
+                 */
+                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.DataChange /* May be changed later */, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, new Guid[0], criteria.SoegObjekt);
+                if (subscription != null)
+                {
+                    subscription.DataSubscription = new DataSubscription();
+                }
                 dataContext.SubmitChanges();
                 if (subscription != null)
                 {
                     // Now get the subscription from the database to make sure everything is OK
-                    return GetActiveSubscriptionsList(subscription.SubscriptionId).SingleOrDefault() as CriteriaSubscriptionType;
+                    return GetActiveSubscriptionsList(subscription.SubscriptionId).SingleOrDefault() as ChangeSubscriptionType;
                 }
             }
             return null;

@@ -90,7 +90,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <param name="notificationChannel">Channel through with the client would like to be notified through</param>
         /// <param name="criteria">The criterion to be used</param>
         /// <returns></returns>
-        CriteriaSubscriptionType SubscribeOnCriteria(ChannelBaseType notificationChannel, SoegInputType1 criteria);
+        ChangeSubscriptionType SubscribeOnCriteria(ChannelBaseType notificationChannel, SoegInputType1 criteria);
 
         /// <summary>
         /// Removes a birthdate subscription

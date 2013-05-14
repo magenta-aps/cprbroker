@@ -58,7 +58,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.EventBroker.Subscriptions
 {
-    class SubscribeOnCriteriaFacadeMethod : GenericFacadeMethodInfo<CriteriaSubscriptionType>
+    class SubscribeOnCriteriaFacadeMethod : GenericFacadeMethodInfo<ChangeSubscriptionType>
     {
         ChannelBaseType NotificationChannel;
         SoegInputType1 Criterion;
@@ -74,7 +74,7 @@ namespace CprBroker.EventBroker.Subscriptions
         {
             SubMethodInfos = new SubMethodInfo[]
             {
-                new SubMethodInfo<ISubscriptionDataProvider, CriteriaSubscriptionType>()
+                new SubMethodInfo<ISubscriptionDataProvider, ChangeSubscriptionType>()
                 {
                     FailIfNoDataProvider=true,
                     FailOnDefaultOutput=true,
@@ -105,10 +105,12 @@ namespace CprBroker.EventBroker.Subscriptions
                     return StandardReturType.NullInput("SoegObjekt.BrugervendtNoegleTekst");
                 }
             }
+            /*
             if (Criterion.SoegObjekt.SoegVirkning != null)
             {
                 return StandardReturType.InvalidValue("SoegObjekt.SoegVirkning", Criterion.SoegObjekt.SoegVirkning.ToString());
             }
+             */
             if (Criterion.SoegObjekt.SoegAttributListe == null)
             {
                 return StandardReturType.NullInput("SoegObjekt.SoegAttributListe");
@@ -124,7 +126,7 @@ namespace CprBroker.EventBroker.Subscriptions
                     int index = 0;
                     foreach (var prop in Criterion.SoegObjekt.SoegAttributListe.SoegEgenskab)
                     {
-                        if (prop != null)
+                        if (prop == null)
                         {
                             return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegEgenskab[" + index + "]");
                         }
