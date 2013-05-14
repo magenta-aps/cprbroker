@@ -2,9 +2,7 @@
 	@Now datetime,
 	@SubscriptionTypeId Int
 AS
-	DECLARE @EmptyUuid uniqueidentifier;
-	SET @EmptyUuid = '{00000000-0000-0000-0000-000000000000}'
-
+	
 	---------------------------------------------------------------------------------------------------
 	--- Create a temp table with the changed persons and their in/out status before and after the change
 	---------------------------------------------------------------------------------------------------
