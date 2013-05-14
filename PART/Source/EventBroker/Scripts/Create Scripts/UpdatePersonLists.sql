@@ -70,8 +70,15 @@ AS
 
 
 	---------------------------------------------------------------------------------------------------
-	--- Delete 
+	--- Delete based on inner join, to only affect the records that have been taken into account
+	--- This way the procedure is thread safe regarding this table
+	--- We still may need to make it thread safe regarding other tables (Subscription, SubscriptionPerson)
 	---------------------------------------------------------------------------------------------------
-	DELETE SubscriptionCriteriaMatch
+	DELETE 
+		SCM
+	FROM 
+		SubscriptionCriteriaMatch SCM INNER JOIN @TMP TMP
+		ON SCM.SubscriptionCriteriaMatchId = TMP.SubscriptionCriteriaMatchId
+
 
 RETURN 0
