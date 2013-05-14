@@ -125,7 +125,6 @@ namespace CprBroker.EventBroker.Data
                 var temp = matchingPersons.Select(prk => new SubscriptionCriteriaMatch()
                 {
                     SubscriptionCriteriaMatchId = Guid.NewGuid(),
-                    SubscriptionId = this.SubscriptionId,
                     DataChangeEventId = dataChangeEvents.Where(dce => dce.PersonRegistrationId == prk.PersonRegistrationId).Select(dce => dce.DataChangeEventId).First(),
                 });
                 return temp;                
