@@ -124,7 +124,7 @@ namespace CprBroker.EventBroker.Notifications
             var criteriaSubscriptions = dataContext.Subscriptions.Where(sub => sub.Criteria != null).ToArray();
             foreach (var subscription in criteriaSubscriptions)
             {
-                subscription.MatchDataChangeEvents(dataChangeEvents);
+                subscription.GetDataChangeEventMatches(dataChangeEvents);
             }
             dataContext.SubmitChanges();
         }

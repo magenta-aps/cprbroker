@@ -13,7 +13,7 @@ AS
 	INSERT INTO 
 		@TMP 
 	SELECT
-		SP.SubscriptionId,
+		S_DCE.SubscriptionId,
 		S_DCE.PersonUuid, 
 		S_DCE.PersonRegistrationId,
 		SP.SubscriptionPersonId,
