@@ -81,6 +81,16 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
+            FinalizeSubscriptionCriteriaLists();
+            PushNotifications();
+        }
+
+        protected void FinalizeSubscriptionCriteriaLists()
+        {
+        }
+
+        protected void PushNotifications()
+        {
             bool moreChangesExist = true;
 
             while (moreChangesExist)
