@@ -4402,11 +4402,7 @@ namespace CprBroker.Schemas.Part {
         
         private ChannelBaseType notificationChannelField;
         
-        private bool forAllPersonsField;
-        
-        private SoegObjektType personCriteriaField;
-        
-        private string[] personUuidsField;
+        private SubscriptionPersonsType personsField;
         
         /// <remarks/>
         public string SubscriptionId {
@@ -4439,33 +4435,12 @@ namespace CprBroker.Schemas.Part {
         }
         
         /// <remarks/>
-        public bool ForAllPersons {
+        public SubscriptionPersonsType Persons {
             get {
-                return this.forAllPersonsField;
+                return this.personsField;
             }
             set {
-                this.forAllPersonsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public SoegObjektType PersonCriteria {
-            get {
-                return this.personCriteriaField;
-            }
-            set {
-                this.personCriteriaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("PersonUuids")]
-        public string[] PersonUuids {
-            get {
-                return this.personUuidsField;
-            }
-            set {
-                this.personUuidsField = value;
+                this.personsField = value;
             }
         }
     }
@@ -4479,6 +4454,52 @@ namespace CprBroker.Schemas.Part {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
     public abstract partial class ChannelBaseType {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
+    public partial class SubscriptionPersonsType {
+        
+        private object itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("Criteria", typeof(SoegObjektType))]
+        [System.Xml.Serialization.XmlElementAttribute("ForAllPersons", typeof(bool))]
+        [System.Xml.Serialization.XmlElementAttribute("PersonUuids", typeof(PersonUuidsType))]
+        public object Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/")]
+    public partial class PersonUuidsType {
+        
+        private string[] uUIDField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("UUID", Namespace="urn:oio:dkal:1.0.0")]
+        public string[] UUID {
+            get {
+                return this.uUIDField;
+            }
+            set {
+                this.uUIDField = value;
+            }
+        }
     }
     
     /// <remarks/>
