@@ -10,6 +10,7 @@
     xmlns:oio1="urn:oio:dkal:1.0.0" 
 >
   <import schemaLocation="CPR_PersonCivilRegistrationIdentifier.xsd" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"></import>
+  <import schemaLocation="Person.xsd" />
   <element name="BirthdateSubscription" type="tns:BirthdateSubscriptionType"/>
   <element name="ChangeSubscription" type="tns:ChangeSubscriptionType"/>
   <element name="WebServiceChannel" type="tns:WebServiceChannelType"/>  
