@@ -53,6 +53,7 @@ using System.Text;
 using CprBroker.Utilities;
 using CprBroker.Schemas.Part;
 using CprBroker.Data.Part;
+using CprBroker.Engine.Local;
 
 namespace CprBroker.EventBroker.Notifications
 {
@@ -61,7 +62,7 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public partial class DataChangeEventEnqueuer : CprBrokerEventEnqueuer
     {
-        public int BatchSize = 10;
+        public static int BatchSize = 10;
 
         public DataChangeEventEnqueuer()
         {
@@ -85,11 +86,28 @@ namespace CprBroker.EventBroker.Notifications
             PushNotifications();
         }
 
-        protected void FinalizeSubscriptionCriteriaLists()
+        public static void FinalizeSubscriptionCriteriaLists()
         {
+            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.FinalizeSubscriptionCriteriaLists() started");
+            using (var eventDataContext = new Data.EventBrokerDataContext())
+            {
+                var subscriptions = eventDataContext.Subscriptions.Where(s => s.Deactivated == null && s.LastCheckedUUID != null).OrderBy(s => s.Created).ToArray();
+                Admin.LogFormattedSuccess("Found <{0}> pending criteria subscriptions", subscriptions.Length);
+                foreach (var sub in subscriptions)
+                {
+                    while (sub.LastCheckedUUID.HasValue)
+                    {
+                        Admin.LogFormattedSuccess("Adding persons to subscription <{0}>, start UUID <{1}>", sub.SubscriptionId, sub.LastCheckedUUID.Value);
+                        var added = sub.AddMatchingSubscriptionPersons(eventDataContext, BatchSize);
+                        eventDataContext.SubmitChanges();
+                        Admin.LogFormattedSuccess("Added <{0}> persons to subscription <{1}>, next start UUID <{2}>", added, sub.SubscriptionId, sub.LastCheckedUUID);
+                    }
+                }
+            }
+            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.FinalizeSubscriptionCriteriaLists() finished");
         }
 
-        protected void PushNotifications()
+        public void PushNotifications()
         {
             bool moreChangesExist = true;
 

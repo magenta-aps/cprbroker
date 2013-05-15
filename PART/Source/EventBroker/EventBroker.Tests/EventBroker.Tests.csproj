@@ -63,6 +63,10 @@
     <Reference Include="CprBroker.Data">
       <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
     </Reference>
+    <Reference Include="CprBroker.Engine, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
     <Reference Include="CprBroker.Schemas">
       <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
     </Reference>
@@ -80,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataChangeEventEnqueuer.Tests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subscription.Tests.cs" />

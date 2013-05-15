@@ -121,12 +121,49 @@ namespace CprBroker.EventBroker.Data
             return ret;
         }
 
+        public int AddMatchingSubscriptionPersons(EventBrokerDataContext eventDataContext, int batchSize)
+        {
+            using (var partDataContext = new PartDataContext())
+            {
+                // Read the next (n) persons withe the latest registration of each
+                var persons = partDataContext.Persons
+                    .Where(p => p.UUID.CompareTo(this.LastCheckedUUID.Value) > 0)
+                    .OrderBy(p => p.UUID)
+                    .Select(p => new
+                    {
+                        UUID = p.UUID,
+                        PersonRegistrationId = p.PersonRegistrations
+                            .Where(pr => pr.BrokerUpdateDate <= this.Created)
+                            .OrderByDescending(pr => pr.BrokerUpdateDate)
+                            .Select(pr => pr.PersonRegistrationId as Guid?)
+                            .FirstOrDefault()
+                    })
+                    .Take(batchSize)
+                    .ToArray();
+
+                // Search for matching criteria
+                var personRegistrationIds = persons.Where(p => p.PersonRegistrationId.HasValue).Select(p => p.PersonRegistrationId.Value).ToArray();
+                var soegObject = Strings.Deserialize<SoegObjektType>(this.Criteria.ToString());
+                var matchingPersons = CprBroker.Data.Part.PersonRegistrationKey.GetByCriteria(partDataContext, soegObject, personRegistrationIds).ToArray();
+
+                this.LastCheckedUUID = (persons.Count() == batchSize) ? persons.Last().UUID : null as Guid?;
+                var subscriptionPersons = matchingPersons.Select(mp => new SubscriptionPerson()
+                    {
+                        Created = DateTime.Now,
+                        PersonUuid = mp.UUID,
+                        Removed = null,
+                        SubscriptionPersonId = Guid.NewGuid()
+                    });
+                this.SubscriptionPersons.AddRange(subscriptionPersons);
+                return subscriptionPersons.Count();
+            }
+        }
+
         public IEnumerable<SubscriptionCriteriaMatch> GetDataChangeEventMatches(DataChangeEvent[] dataChangeEvents)
         {
             var personRegistrationIds = dataChangeEvents.Select(dce => dce.PersonRegistrationId).ToArray();
 
-            var xml = this.Criteria.ToString();
-            var soegObject = Strings.Deserialize<SoegObjektType>(xml);
+            var soegObject = Strings.Deserialize<SoegObjektType>(this.Criteria.ToString());
             using (var partDataContext = new PartDataContext())
             {
                 // Add new persons                    

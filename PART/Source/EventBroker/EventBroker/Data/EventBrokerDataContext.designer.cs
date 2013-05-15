@@ -22,7 +22,7 @@ namespace CprBroker.EventBroker.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="EventBroker")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PartEventBroker")]
 	public partial class EventBrokerDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -931,6 +931,8 @@ namespace CprBroker.EventBroker.Data
 		
 		private System.Xml.Linq.XElement _Criteria;
 		
+		private System.Nullable<System.Guid> _LastCheckedUUID;
+		
 		private System.DateTime _Created;
 		
 		private System.Nullable<System.DateTime> _Deactivated;
@@ -943,7 +945,7 @@ namespace CprBroker.EventBroker.Data
 		
 		private EntitySet<SubscriptionPerson> _SubscriptionPersons;
 		
-		private EntitySet<SubscriptionCriteriaMatch> _TempSubscriptionPersons;
+		private EntitySet<SubscriptionCriteriaMatch> _SubscriptionCriteriaMatches;
 		
 		private EntitySet<EventNotification> _EventNotifications;
 		
@@ -963,6 +965,8 @@ namespace CprBroker.EventBroker.Data
     partial void OnIsForAllPersonsChanged();
     partial void OnCriteriaChanging(System.Xml.Linq.XElement value);
     partial void OnCriteriaChanged();
+    partial void OnLastCheckedUUIDChanging(System.Nullable<System.Guid> value);
+    partial void OnLastCheckedUUIDChanged();
     partial void OnCreatedChanging(System.DateTime value);
     partial void OnCreatedChanged();
     partial void OnDeactivatedChanging(System.Nullable<System.DateTime> value);
@@ -975,7 +979,7 @@ namespace CprBroker.EventBroker.Data
 			this._Channels = new EntitySet<Channel>(new Action<Channel>(this.attach_Channels), new Action<Channel>(this.detach_Channels));
 			this._DataSubscription = default(EntityRef<DataSubscription>);
 			this._SubscriptionPersons = new EntitySet<SubscriptionPerson>(new Action<SubscriptionPerson>(this.attach_SubscriptionPersons), new Action<SubscriptionPerson>(this.detach_SubscriptionPersons));
-			this._TempSubscriptionPersons = new EntitySet<SubscriptionCriteriaMatch>(new Action<SubscriptionCriteriaMatch>(this.attach_TempSubscriptionPersons), new Action<SubscriptionCriteriaMatch>(this.detach_TempSubscriptionPersons));
+			this._SubscriptionCriteriaMatches = new EntitySet<SubscriptionCriteriaMatch>(new Action<SubscriptionCriteriaMatch>(this.attach_SubscriptionCriteriaMatches), new Action<SubscriptionCriteriaMatch>(this.detach_SubscriptionCriteriaMatches));
 			this._EventNotifications = new EntitySet<EventNotification>(new Action<EventNotification>(this.attach_EventNotifications), new Action<EventNotification>(this.detach_EventNotifications));
 			this._SubscriptionType = default(EntityRef<SubscriptionType>);
 			OnCreated();
@@ -1065,7 +1069,7 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Criteria", DbType="XML")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Criteria", DbType="Xml", UpdateCheck=UpdateCheck.Never)]
 		public System.Xml.Linq.XElement Criteria
 		{
 			get
@@ -1081,6 +1085,26 @@ namespace CprBroker.EventBroker.Data
 					this._Criteria = value;
 					this.SendPropertyChanged("Criteria");
 					this.OnCriteriaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastCheckedUUID", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> LastCheckedUUID
+		{
+			get
+			{
+				return this._LastCheckedUUID;
+			}
+			set
+			{
+				if ((this._LastCheckedUUID != value))
+				{
+					this.OnLastCheckedUUIDChanging(value);
+					this.SendPropertyChanging();
+					this._LastCheckedUUID = value;
+					this.SendPropertyChanged("LastCheckedUUID");
+					this.OnLastCheckedUUIDChanged();
 				}
 			}
 		}
@@ -1105,7 +1129,7 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deactivated", DbType="DateTime NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deactivated", DbType="DateTime")]
 		public System.Nullable<System.DateTime> Deactivated
 		{
 			get
@@ -1209,16 +1233,16 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_SubscriptionCriteriaMatch", Storage="_TempSubscriptionPersons", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_SubscriptionCriteriaMatch", Storage="_SubscriptionCriteriaMatches", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
 		public EntitySet<SubscriptionCriteriaMatch> SubscriptionCriteriaMatches
 		{
 			get
 			{
-				return this._TempSubscriptionPersons;
+				return this._SubscriptionCriteriaMatches;
 			}
 			set
 			{
-				this._TempSubscriptionPersons.Assign(value);
+				this._SubscriptionCriteriaMatches.Assign(value);
 			}
 		}
 		
@@ -1313,13 +1337,13 @@ namespace CprBroker.EventBroker.Data
 			entity.Subscription = null;
 		}
 		
-		private void attach_TempSubscriptionPersons(SubscriptionCriteriaMatch entity)
+		private void attach_SubscriptionCriteriaMatches(SubscriptionCriteriaMatch entity)
 		{
 			this.SendPropertyChanging();
 			entity.Subscription = this;
 		}
 		
-		private void detach_TempSubscriptionPersons(SubscriptionCriteriaMatch entity)
+		private void detach_SubscriptionCriteriaMatches(SubscriptionCriteriaMatch entity)
 		{
 			this.SendPropertyChanging();
 			entity.Subscription = null;

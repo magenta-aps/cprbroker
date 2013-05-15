@@ -87,6 +87,7 @@ namespace CprBroker.EventBroker.Subscriptions
             {
                 var xml = Strings.SerializeObject(soegObject);
                 subscription.Criteria = System.Xml.Linq.XElement.Load(new StringReader(xml));
+                subscription.LastCheckedUUID = Guid.Empty;
             }
 
 
