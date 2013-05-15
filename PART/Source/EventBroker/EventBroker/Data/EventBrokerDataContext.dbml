@@ -50,7 +50,7 @@
       <Association Name="Subscription_Channel" Member="Channels" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Channel" />
       <Association Name="Subscription_DataSubscription" Member="DataSubscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="DataSubscription" Cardinality="One" />
       <Association Name="Subscription_SubscriptionPerson" Member="SubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="SubscriptionPerson" />
-      <Association Name="Subscription_TempSubscriptionPerson" Member="SubscriptionCriteriaMatches" Storage="_TempSubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="SubscriptionCriteriaMatch" />
+      <Association Name="Subscription_SubscriptionCriteriaMatch" Member="SubscriptionCriteriaMatches" Storage="_TempSubscriptionPersons" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="SubscriptionCriteriaMatch" />
       <Association Name="Subscription_EventNotification" Member="EventNotifications" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="EventNotification" />
       <Association Name="SubscriptionType_Subscription" Member="SubscriptionType" ThisKey="SubscriptionTypeId" OtherKey="SubscriptionTypeId" Type="SubscriptionType" IsForeignKey="true" />
     </Type>
@@ -72,7 +72,7 @@
       <Column Name="PersonRegistrationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ReceivedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="DataChangeEvent_TempSubscriptionPerson" Member="SubscriptionCriteriaMatches" Storage="_TempSubscriptionPersons" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="SubscriptionCriteriaMatch" />
+      <Association Name="DataChangeEvent_SubscriptionCriteriaMatch" Member="SubscriptionCriteriaMatches" Storage="_TempSubscriptionPersons" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="SubscriptionCriteriaMatch" />
     </Type>
   </Table>
   <Table Name="dbo.PersonBirthdate" Member="PersonBirthdates">
@@ -93,8 +93,8 @@
       <Column Name="SubscriptionCriteriaMatchId" Storage="_TempSubscriptionPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SubscriptionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="DataChangeEventId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="DataChangeEvent_TempSubscriptionPerson" Member="DataChangeEvent" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="DataChangeEvent" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Subscription_TempSubscriptionPerson" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="DataChangeEvent_SubscriptionCriteriaMatch" Member="DataChangeEvent" ThisKey="DataChangeEventId" OtherKey="DataChangeEventId" Type="DataChangeEvent" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Subscription_SubscriptionCriteriaMatch" Member="Subscription" ThisKey="SubscriptionId" OtherKey="SubscriptionId" Type="Subscription" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.EventNotification" Member="EventNotifications">

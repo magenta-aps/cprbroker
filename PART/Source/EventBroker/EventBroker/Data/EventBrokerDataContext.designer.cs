@@ -1209,7 +1209,7 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_TempSubscriptionPerson", Storage="_TempSubscriptionPersons", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_SubscriptionCriteriaMatch", Storage="_TempSubscriptionPersons", ThisKey="SubscriptionId", OtherKey="SubscriptionId")]
 		public EntitySet<SubscriptionCriteriaMatch> SubscriptionCriteriaMatches
 		{
 			get
@@ -1677,7 +1677,7 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataChangeEvent_TempSubscriptionPerson", Storage="_TempSubscriptionPersons", ThisKey="DataChangeEventId", OtherKey="DataChangeEventId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataChangeEvent_SubscriptionCriteriaMatch", Storage="_TempSubscriptionPersons", ThisKey="DataChangeEventId", OtherKey="DataChangeEventId")]
 		public EntitySet<SubscriptionCriteriaMatch> SubscriptionCriteriaMatches
 		{
 			get
@@ -2039,7 +2039,7 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataChangeEvent_TempSubscriptionPerson", Storage="_DataChangeEvent", ThisKey="DataChangeEventId", OtherKey="DataChangeEventId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataChangeEvent_SubscriptionCriteriaMatch", Storage="_DataChangeEvent", ThisKey="DataChangeEventId", OtherKey="DataChangeEventId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public DataChangeEvent DataChangeEvent
 		{
 			get
@@ -2073,7 +2073,7 @@ namespace CprBroker.EventBroker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_TempSubscriptionPerson", Storage="_Subscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subscription_SubscriptionCriteriaMatch", Storage="_Subscription", ThisKey="SubscriptionId", OtherKey="SubscriptionId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Subscription Subscription
 		{
 			get
