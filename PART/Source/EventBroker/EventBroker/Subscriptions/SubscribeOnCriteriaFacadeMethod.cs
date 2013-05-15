@@ -61,9 +61,9 @@ namespace CprBroker.EventBroker.Subscriptions
     class SubscribeOnCriteriaFacadeMethod : GenericFacadeMethodInfo<ChangeSubscriptionType>
     {
         ChannelBaseType NotificationChannel;
-        SoegInputType1 Criterion;
+        SoegObjektType Criterion;
 
-        public SubscribeOnCriteriaFacadeMethod(ChannelBaseType notificationChannel, SoegInputType1 criterion, string appToken, string userToken)
+        public SubscribeOnCriteriaFacadeMethod(ChannelBaseType notificationChannel, SoegObjektType criterion, string appToken, string userToken)
             : base(appToken, userToken)
         {
             NotificationChannel = notificationChannel;
@@ -90,17 +90,17 @@ namespace CprBroker.EventBroker.Subscriptions
             /*
              * Do the validation here
              */
-            if (Criterion.SoegObjekt == null)
+            if (Criterion == null)
             {
                 return StandardReturType.NullInput("SoegObjekt");
             }
             else
             {
-                if (String.IsNullOrEmpty(Criterion.SoegObjekt.UUID))
+                if (String.IsNullOrEmpty(Criterion.UUID))
                 {
                     return StandardReturType.NullInput("SoegObjekt.UUID");
                 }
-                if (String.IsNullOrEmpty(Criterion.SoegObjekt.BrugervendtNoegleTekst))
+                if (String.IsNullOrEmpty(Criterion.BrugervendtNoegleTekst))
                 {
                     return StandardReturType.NullInput("SoegObjekt.BrugervendtNoegleTekst");
                 }
@@ -111,20 +111,20 @@ namespace CprBroker.EventBroker.Subscriptions
                 return StandardReturType.InvalidValue("SoegObjekt.SoegVirkning", Criterion.SoegObjekt.SoegVirkning.ToString());
             }
              */
-            if (Criterion.SoegObjekt.SoegAttributListe == null)
+            if (Criterion.SoegAttributListe == null)
             {
                 return StandardReturType.NullInput("SoegObjekt.SoegAttributListe");
             }
             else
             {
-                if (Criterion.SoegObjekt.SoegAttributListe.SoegEgenskab == null)
+                if (Criterion.SoegAttributListe.SoegEgenskab == null)
                 {
                     return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegEgenskab");
                 }
                 else
                 {
                     int index = 0;
-                    foreach (var prop in Criterion.SoegObjekt.SoegAttributListe.SoegEgenskab)
+                    foreach (var prop in Criterion.SoegAttributListe.SoegEgenskab)
                     {
                         if (prop == null)
                         {

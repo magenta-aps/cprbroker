@@ -100,7 +100,7 @@ namespace CprBroker.EventBroker.Web.Services
 
         [SoapHeader(ApplicationHeaderName)]
         [WebMethod(MessageName = CprBroker.Schemas.Part.ServiceNames.Subscriptions.Methods.SubscribeOnCriteria, Description = CprBroker.Schemas.ServiceDescription.Subscriptions.SubscribeOnCriteria)]
-        public BasicOutputType<CriteriaSubscriptionType> SubscribeOnCriteria(ChannelBaseType NotificationChannel, SoegInputType1 Criteria)
+        public BasicOutputType<ChangeSubscriptionType> SubscribeOnCriteria(ChannelBaseType NotificationChannel, SoegObjektType Criteria)
         {
             return SubscriptionManager.SubscribeOnCriteria(applicationHeader.UserToken, applicationHeader.ApplicationToken, NotificationChannel, Criteria);
         }

@@ -91,7 +91,7 @@ namespace CprBroker.EventBroker.Subscriptions
             return GetMethodOutput<bool>(facade);
         }
 
-        public static BasicOutputType<ChangeSubscriptionType> SubscribeOnCriteria(string userToken, string appToken, ChannelBaseType notificationChannel, SoegInputType1 criteria)
+        public static BasicOutputType<ChangeSubscriptionType> SubscribeOnCriteria(string userToken, string appToken, ChannelBaseType notificationChannel, SoegObjektType criteria)
         {
             SubscribeOnCriteriaFacadeMethod facade = new SubscribeOnCriteriaFacadeMethod(notificationChannel, criteria, appToken, userToken);
             return GetMethodOutput<ChangeSubscriptionType>(facade);
@@ -99,7 +99,7 @@ namespace CprBroker.EventBroker.Subscriptions
 
         public static BasicOutputType<bool> RemoveCriteriaSubscription(string userToken, string appToken, Guid subscriptionId)
         {
-            UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.Criteria, appToken, userToken);
+            UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange, appToken, userToken);
             return GetMethodOutput<bool>(facade);
         }
 

@@ -143,22 +143,7 @@ namespace CprBroker.EventBroker.Subscriptions
 
                 if (subscription != null)
                 {
-                    subscription.Deactivated = DateTime.Today;
-                    /*
-                    switch (subscriptionType)
-                    {
-                        case CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange:
-                            dataContext.DataSubscriptions.DeleteOnSubmit(subscription.DataSubscription);
-                            break;
-                        case CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.Birthdate:
-                            dataContext.BirthdateSubscriptions.DeleteOnSubmit(subscription.BirthdateSubscription);
-                            break;
-                    }
-                    dataContext.SubscriptionPersons.DeleteAllOnSubmit(subscription.SubscriptionPersons);
-                    dataContext.Channels.DeleteAllOnSubmit(subscription.Channels);
-                    dataContext.Subscriptions.DeleteOnSubmit(subscription);
-                    dataContext.SubmitChanges();
-                     */
+                    subscription.Deactivated = DateTime.Now;
                     return true;
                 }
                 else
@@ -234,14 +219,14 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public ChangeSubscriptionType SubscribeOnCriteria(ChannelBaseType notificationChannel, SoegInputType1 criteria)
+        public ChangeSubscriptionType SubscribeOnCriteria(ChannelBaseType notificationChannel, SoegObjektType criteria)
         {
             using (EventBrokerDataContext dataContext = new EventBrokerDataContext())
             {
                 /*
                  * For now we assign this data type as a data change type.
                  */
-                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.DataChange /* May be changed later */, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, new Guid[0], criteria.SoegObjekt);
+                Data.Subscription subscription = AddSubscription(dataContext, Data.SubscriptionType.SubscriptionTypes.DataChange /* May be changed later */, CprBroker.Engine.BrokerContext.Current.ApplicationId.Value, notificationChannel, new Guid[0], criteria);
                 if (subscription != null)
                 {
                     subscription.DataSubscription = new DataSubscription();
@@ -261,7 +246,7 @@ namespace CprBroker.EventBroker.Subscriptions
         /// </summary>
         public bool RemoveCriteriaSubscription(Guid subscriptionId)
         {
-            return DeleteSubscription(subscriptionId, Data.SubscriptionType.SubscriptionTypes.Criteria);
+            return DeleteSubscription(subscriptionId, Data.SubscriptionType.SubscriptionTypes.DataChange);
         }
 
         /// <summary>
