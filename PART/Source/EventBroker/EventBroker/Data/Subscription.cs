@@ -88,7 +88,21 @@ namespace CprBroker.EventBroker.Data
             }
             ret.SubscriptionId = this.SubscriptionId.ToString();
             ret.ApplicationToken = appToken;
-            ret.ForAllPersons = this.IsForAllPersons;
+            ret.Persons = new SubscriptionPersonsType();
+            if (this.IsForAllPersons)
+            {
+                ret.Persons.Item = true;
+            }
+            else if (this.Criteria == null)
+            {
+                ret.Persons.Item = this.SubscriptionPersons
+                    .Select(sp => sp.PersonUuid.Value.ToString())
+                    .ToArray();
+            }
+            else
+            {
+                ret.Persons.Item = Utilities.Strings.Deserialize<SoegObjektType>(this.Criteria.ToString());
+            }
 
             Channel channel = this.Channels.Single();
             switch ((ChannelType.ChannelTypes)channel.ChannelTypeId)
@@ -104,11 +118,6 @@ namespace CprBroker.EventBroker.Data
                     ret.NotificationChannel = fileShareChannel;
                     break;
             }
-
-            ret.PersonUuids = this.SubscriptionPersons
-                .Select(sp => sp.PersonUuid.Value.ToString())
-                .ToArray();
-
             return ret;
         }
 
@@ -127,7 +136,7 @@ namespace CprBroker.EventBroker.Data
                     SubscriptionCriteriaMatchId = Guid.NewGuid(),
                     DataChangeEventId = dataChangeEvents.Where(dce => dce.PersonRegistrationId == prk.PersonRegistrationId).Select(dce => dce.DataChangeEventId).First(),
                 });
-                return temp;                
+                return temp;
             }
         }
 
