@@ -63,7 +63,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 [Values(0, 1, 12, 56, 123456789)]decimal pnr,
                 [Values(true, false)] bool subscription)
             {
-                var req = new IndividualRequestType(subscription, pnr);
+                var req = new IndividualRequestType(subscription, DataType.DefinedByTask, pnr);
                 Assert.AreEqual(pnr, req.PNR);
             }
 
@@ -72,7 +72,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 [Values(0, 1, 12, 56, 123456789)]decimal pnr,
                 [Values(true, false)] bool subscription)
             {
-                var req = new IndividualRequestType(subscription, pnr);
+                var req = new IndividualRequestType(subscription, DataType.DefinedByTask, pnr);
                 Assert.AreEqual(DataType.DefinedByTask, (DataType)req.DataType);
             }
         }
