@@ -95,7 +95,6 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
             var pers = GetPerson(pnr);
 
             var objects = GetObjects(pers);
-            //System.Diagnostics.Debugger.Launch();
             for (int i = 0; i < objects.Count - 1; i++)
             {
                 var current = objects[i];

@@ -92,7 +92,6 @@ namespace CprBroker.Tests.CPRDirect.Objects
                     .GroupBy(r => new { Empty = r.ClearWrittenAddress.IsEmpty })
                     .Select(g => new { Key = g.Key, Values = g.ToArray() })
                     .ToArray();
-                //System.Diagnostics.Debugger.Launch();
                 object o = "";
 
             }

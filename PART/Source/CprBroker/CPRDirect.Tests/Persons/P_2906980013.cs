@@ -62,7 +62,6 @@ namespace CprBroker.Tests.CPRDirect.Persons
             var p = GetPerson();
             var c = p.ChurchInformation;
             var h = p.HistoricalChurchInformation[0];
-            System.Diagnostics.Debugger.Launch();
         }
     }
 }

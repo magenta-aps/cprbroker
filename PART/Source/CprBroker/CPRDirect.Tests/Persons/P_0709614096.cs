@@ -68,7 +68,6 @@ namespace CprBroker.Tests.CPRDirect.Persons
 
             // First historical name (026) has reversed start and end times
             var person = GetPerson();
-            System.Diagnostics.Debugger.Launch();
             var his = person.HistoricalPNR.First();
             var s = his.ToStartTS();
             var e = his.ToEndTS();

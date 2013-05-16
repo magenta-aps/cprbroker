@@ -63,7 +63,6 @@ namespace CprBroker.Tests.CPRDirect.Persons
             var p = GetPerson();
             var c = new CurrentPnrTypeAdaptor(p.PersonInformation, p.HistoricalPNR) as IPnr;
             var h = p.HistoricalPNR[0] as IPnr;
-            //System.Diagnostics.Debugger.Launch();
         }
 
         [Test]
