@@ -67,6 +67,17 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         protected abstract TInterface GetCurrent(IndividualResponseType pers);
         protected abstract List<TInterface> GetHistorical(IndividualResponseType pers);
 
+
+        protected virtual bool ShouldHaveCurrent(IndividualResponseType pers)
+        {
+            return true;
+        }
+
+        protected virtual bool TimeOfDayMatters(IndividualResponseType pers)
+        {
+            return true;
+        }
+
         public IndividualResponseType GetPerson(string pnr)
         {
             var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
@@ -99,7 +110,14 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
             {
                 var current = objects[i];
                 var next = objects[i + 1];
-                Assert.AreEqual(current.ToEndTS().Value, next.ToStartTS().Value);
+                if (this.TimeOfDayMatters(pers))
+                {
+                    Assert.AreEqual(current.ToEndTS().Value, next.ToStartTS().Value);
+                }
+                else
+                {
+                    Assert.AreEqual(current.ToEndTS().Value.Date, next.ToStartTS().Value.Date);
+                }
             }
         }
 
@@ -109,7 +127,14 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         {
             var pers = GetPerson(pnr);
             var obj = GetCurrent(pers);
-            Assert.NotNull(obj);
+            if (this.ShouldHaveCurrent(pers))
+            {
+                Assert.NotNull(obj);
+            }
+            else
+            {
+                Assert.Null(obj);
+            }
         }
 
         //[Test]

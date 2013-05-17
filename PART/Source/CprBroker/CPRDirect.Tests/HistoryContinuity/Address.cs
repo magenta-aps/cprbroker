@@ -57,6 +57,16 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
     [TestFixture]
     public class Address : Base<IAddressSource>
     {
+        protected override bool ShouldHaveCurrent(IndividualResponseType pers)
+        {
+            return CprBroker.Schemas.Util.Enums.IsActiveCivilRegistrationStatus(pers.PersonInformation.Status) && pers.PersonInformation.Status != 90;
+        }
+
+        protected override bool TimeOfDayMatters(IndividualResponseType pers)
+        {
+            return false;
+        }
+
         protected override IAddressSource GetCurrent(IndividualResponseType pers)
         {
             return pers.GetFolkeregisterAdresseSource(false);
@@ -76,7 +86,7 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         public override void HistoryContinues(string pnr)
         {
             base.HistoryContinues(pnr);
-        
+
             /*
              * // Person entry date has no timestamp, current address started on same date but with a timestamp
              * // Historical address(023) has correction marker and is ignored        
