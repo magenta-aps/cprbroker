@@ -89,7 +89,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public bool ToPersonNummerGyldighedStatusIndikator()
         {
-            return this.Pnr.ToPersonNummerGyldighedStatusIndikator();
+            return this.Pnr == null ? false : this.Pnr.ToPersonNummerGyldighedStatusIndikator();
         }
 
         public CountryIdentificationCodeType ToPersonNationalityCode()
@@ -102,7 +102,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToPersonCivilRegistrationIdentifier()
         {
-            return this.Pnr.ToPnr();
+            return this.Pnr == null ? null : this.Pnr.ToPnr();
         }
 
         public bool ToNavneAdresseBeskyttelseIndikator()
