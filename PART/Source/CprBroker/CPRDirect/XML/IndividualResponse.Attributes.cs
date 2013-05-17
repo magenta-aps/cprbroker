@@ -89,21 +89,9 @@ namespace CprBroker.Providers.CPRDirect
 
         public EgenskabType[] ToEgenskabType()
         {
-            return new EgenskabType[] {
-                new EgenskabType()
-                {
-                    AndreAdresser = ToAndreAdresser(),
-                    BirthDate = ToBirthDate(),
-                    FoedestedNavn = ToFoedestedNavn(),
-                    FoedselsregistreringMyndighedNavn = ToFoedselsregistreringMyndighedNavn(),
-                    KontaktKanal = ToKontaktKanalType(),
-                    NaermestePaaroerende = ToNaermestePaaroerende(),
-                    // Cross Product
-                    NavnStruktur = ToNavnStrukturType(),
-                    PersonGenderCode = ToPersonGenderCodeType(),
-                    Virkning = ToEgenskabVirkning()
-                }
-            };
+            return ToEgenskabIntervals()
+                .Select(e => e.ToEgenskabType())
+                .ToArray();
         }
 
         public DateTime ToBirthDate()
@@ -226,13 +214,9 @@ namespace CprBroker.Providers.CPRDirect
 
         public RegisterOplysningType[] ToRegisterOplysningType(DateTime effectDate)
         {
-            return new RegisterOplysningType[]{
-                new RegisterOplysningType()
-                {
-                    Item = ToCprBorgerType(effectDate),
-                    Virkning = ToCprBorgerTypeVirkning(effectDate)
-                }
-            };
+            return ToRegisterOplysningIntervalArray()
+                .Select(ro => ro.ToRegisterOplysningType())
+                .ToArray();
         }
 
         public CprBorgerType ToCprBorgerType(DateTime effectDate)
