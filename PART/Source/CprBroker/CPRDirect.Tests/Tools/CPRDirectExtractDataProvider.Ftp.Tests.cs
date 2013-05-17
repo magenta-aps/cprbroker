@@ -64,8 +64,14 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 ret.ConfigurationProperties = new Dictionary<string, string>();
                 foreach (var key in ret.ConfigurationKeys)
                     ret.ConfigurationProperties[key.Name] = null;
-                
+
                 return ret;
+            }
+
+            [SetUp]
+            public void InitializeContext()
+            {
+                CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
             }
 
             [Test]
@@ -74,7 +80,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 [Values("localhost", "127.0.0.1", "ftp://localhost", "FTP://127.0.0.1/")]string address,
                 [Values("ftp://localhost", "ftp://127.0.0.1", "ftp://localhost", "ftp://127.0.0.1")]string expected)
             {
-                var dp = CreateDataProvider();                
+                var dp = CreateDataProvider();
                 dp.FtpAddress = address;
                 var adr = dp.GetFtpUrl();
                 Assert.AreEqual(expected, adr);
@@ -96,11 +102,11 @@ namespace CprBroker.Tests.CPRDirect.Tools
 
             [Test]
             public void FtpUrl_Slash_OK(
-                [Values("file1","/file1","/file1/")]string file)
+                [Values("file1", "/file1", "/file1/")]string file)
             {
                 var dp = CreateDataProvider();
                 dp.FtpAddress = "localhost";
-                
+
                 var adr = dp.GetFtpUrl(file);
                 Assert.AreEqual("ftp://localhost/file1", adr);
             }
@@ -110,7 +116,6 @@ namespace CprBroker.Tests.CPRDirect.Tools
             {
                 var dp = CreateDataProvider();
                 dp.FtpAddress = "localhost";
-
                 var adr = dp.GetFtpUrl(null);
                 Assert.AreEqual("ftp://localhost", adr);
             }
