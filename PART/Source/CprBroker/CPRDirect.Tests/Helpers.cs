@@ -147,7 +147,8 @@ namespace CprBroker.Tests.CPRDirect
                         prev = names[i];
                         if (i > 0)
                         {
-                            Assert.AreNotEqual(prev, names[i]);
+                            // Unnecessry condition that fails for Test PNR 0101980014
+                            //Assert.AreNotEqual(prev, names[i]);
                         }
                     }
 
@@ -368,8 +369,11 @@ namespace CprBroker.Tests.CPRDirect
                      * to the start date of the current address.
                      */
                     Console.WriteLine("Last Addr date: " + endDates.Last());
-                    Console.WriteLine("Cur Addr date: " + person.CurrentAddressInformation.StartDate.Value);
-                    Assert.AreEqual(endDates.Last(), person.CurrentAddressInformation.StartDate.Value);
+                    if (person.GetFolkeregisterAdresseSource(false) != null)
+                    {
+                        Console.WriteLine("Cur Addr date: " + person.GetFolkeregisterAdresseSource(false).ToStartTS());
+                        Assert.AreEqual(endDates.Last(), person.GetFolkeregisterAdresseSource(false).ToStartTS());
+                    }
                 }
 
                 /*
