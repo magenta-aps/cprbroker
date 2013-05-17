@@ -207,9 +207,9 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        VirkningType[] IAddressSource.ToVirkningTypeArray()
+        VirkningType IAddressSource.ToVirkningType()
         {
-            return new VirkningType[] { VirkningType.Create(this.ToStartTS(), this.ToEndTS()) };
+            return VirkningType.Create(this.ToStartTS(), this.ToEndTS());
         }
 
 

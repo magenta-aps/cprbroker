@@ -79,9 +79,9 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         // TODO: Replace this method with interval dates
-        public VirkningType[] ToVirkningTypeArray()
+        public VirkningType ToVirkningType()
         {
-            return this.CurrentAddressInformation.ToVirkningTypeArray();
+            return this.CurrentAddressInformation.ToVirkningType();
         }
 
         public string ToAddressNoteTekste()

@@ -91,7 +91,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void ToVirkningTypeArray_Empty_Empty()
             {
                 var db = new CurrentDepartureDataType();
-                var ret = db.ToVirkningTypeArray();
+                var ret = db.ToVirkningType();
                 var v = VirkningType.Compose(ret);
                 Assert.True(VirkningType.IsDoubleOpen(v));
             }
@@ -100,7 +100,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void ToVirkningTypeArray_Date_StartNotEmpty()
             {
                 var db = new CurrentDepartureDataType() { ExitDate = DateTime.Today };
-                var ret = db.ToVirkningTypeArray();
+                var ret = db.ToVirkningType();
                 var v = VirkningType.Compose(ret);
                 Assert.True(v.FraTidspunkt.ToDateTime().HasValue);
             }
@@ -109,7 +109,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void ToVirkningTypeArray_Date_EndIsEmpty()
             {
                 var db = new CurrentDepartureDataType() { ExitDate = DateTime.Today };
-                var ret = db.ToVirkningTypeArray();
+                var ret = db.ToVirkningType();
                 var v = VirkningType.Compose(ret);
                 Assert.False(v.TilTidspunkt.ToDateTime().HasValue);
             }

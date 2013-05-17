@@ -106,12 +106,9 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public VirkningType[] ToVirkningTypeArray()
+        public VirkningType ToVirkningType()
         {
-            return new VirkningType[]{
-                VirkningType.Create(
-                ToStartTS(),
-                ToEndTS())};
+            return VirkningType.Create(ToStartTS(), ToEndTS());
         }
 
         public CountryIdentificationCodeType ToCountryIdentificationCode()

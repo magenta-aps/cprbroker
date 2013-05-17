@@ -296,9 +296,9 @@ namespace CprBroker.Providers.CPRDirect
             return this.GetFolkeregisterAdresseSource(true).ToAdresseType();
         }
 
-        public VirkningType[] ToFolkeregisterAdresseVirknning()
+        public VirkningType ToFolkeregisterAdresseVirknning()
         {
-            return this.GetFolkeregisterAdresseSource(true).ToVirkningTypeArray();
+            return this.GetFolkeregisterAdresseSource(true).ToVirkningType();
         }
 
         public string ToAdresseNoteTekst()
@@ -330,7 +330,7 @@ namespace CprBroker.Providers.CPRDirect
 
             effects.Add(this.PersonInformation.ToVirkningType());
 
-            effects.AddRange(this.ToFolkeregisterAdresseVirknning());
+            effects.Add(this.ToFolkeregisterAdresseVirknning());
 
             return VirkningType.Compose(effects.ToArray());
         }

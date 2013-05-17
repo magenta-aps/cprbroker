@@ -55,7 +55,7 @@ namespace CprBroker.Providers.CPRDirect
     public interface IAddressSource : ITimedType
     {
         AdresseType ToAdresseType();
-        VirkningType[] ToVirkningTypeArray();
+        VirkningType ToVirkningType();
         string ToAddressNoteTekste();
     }
 
@@ -66,9 +66,9 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        public VirkningType[] ToVirkningTypeArray()
+        public VirkningType ToVirkningType()
         {
-            return new VirkningType[0];
+            return null;
         }
 
 
