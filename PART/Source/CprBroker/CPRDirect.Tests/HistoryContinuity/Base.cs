@@ -61,7 +61,7 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         public Base()
         {
             var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-            PNRs = all.Select(p => p.PersonInformation.PNR).OrderBy(p=>p).ToArray();
+            PNRs = all.Select(p => p.PersonInformation.PNR).OrderBy(p => p).ToArray();
         }
 
         protected abstract TInterface GetCurrent(IndividualResponseType pers);
@@ -146,6 +146,34 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
             var objects = GetObjects(pers);
 
             Assert.AreEqual(objects.First().ToStartTS(), pers.PersonInformation.Birthdate.Value);
+        }
+
+        [Test]
+        [TestCaseSource("PNRs")]
+        public virtual void HistoryRecordsHaveDifferentStartAndEndDates(string pnr)
+        {
+            var pers = GetPerson(pnr);
+            var his = GetHistorical(pers);
+            var all = new List<TInterface>();            
+            all.AddRange(his);            
+            
+            foreach (var o in all)
+            {
+                if (o.ToStartTS().HasValue && o.ToEndTS().HasValue)
+                {
+                    Assert.AreNotEqual(o.ToStartTS().Value, o.ToEndTS().Value);
+                }
+                else if (o.ToStartTS().HasValue || o.ToEndTS().HasValue)
+                {
+                    Assert.AreNotEqual(o.ToStartTS(), o.ToEndTS());
+                }
+                else
+                {
+                    // Both null
+                    throw new Exception("Both start and end dates cannot be null");
+                }
+                
+            }            
         }
     }
 }
