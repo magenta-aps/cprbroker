@@ -122,5 +122,13 @@ namespace CprBroker.Tests.CPRDirect
         {
             return RandomCprNumberStrings(5);
         }
+
+        public static string[] PNRs = null;
+        
+        static Utilities()
+        {
+            var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
+            PNRs = all.Select(p => p.PersonInformation.PNR).OrderBy(p => p).ToArray();
+        }
     }
 }

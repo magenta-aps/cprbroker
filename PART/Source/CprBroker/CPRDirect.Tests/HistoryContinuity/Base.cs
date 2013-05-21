@@ -56,14 +56,6 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
 {
     public abstract class Base<TInterface> where TInterface : ITimedType
     {
-        public string[] PNRs = null;
-
-        public Base()
-        {
-            var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-            PNRs = all.Select(p => p.PersonInformation.PNR).OrderBy(p => p).ToArray();
-        }
-
         protected abstract TInterface GetCurrent(IndividualResponseType pers);
         protected abstract List<TInterface> GetHistorical(IndividualResponseType pers);
 
@@ -100,7 +92,7 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         }
 
         [Test]
-        [TestCaseSource("PNRs")]
+        [TestCaseSource(typeof(Utilities), "PNRs")]
         public virtual void HistoryContinues(string pnr)
         {
             var pers = GetPerson(pnr);
@@ -122,7 +114,7 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         }
 
         [Test]
-        [TestCaseSource("PNRs")]
+        [TestCaseSource(typeof(Utilities), "PNRs")]
         public virtual void Current_NotNull(string pnr)
         {
             var pers = GetPerson(pnr);
@@ -149,14 +141,14 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         }
 
         [Test]
-        [TestCaseSource("PNRs")]
+        [TestCaseSource(typeof(Utilities), "PNRs")]
         public virtual void HistoryRecordsHaveDifferentStartAndEndDates(string pnr)
         {
             var pers = GetPerson(pnr);
             var his = GetHistorical(pers);
-            var all = new List<TInterface>();            
-            all.AddRange(his);            
-            
+            var all = new List<TInterface>();
+            all.AddRange(his);
+
             foreach (var o in all)
             {
                 if (o.ToStartTS().HasValue && o.ToEndTS().HasValue)
@@ -172,8 +164,8 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
                     // Both null
                     throw new Exception("Both start and end dates cannot be null");
                 }
-                
-            }            
+
+            }
         }
     }
 }
