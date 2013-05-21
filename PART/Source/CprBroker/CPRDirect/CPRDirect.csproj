@@ -109,7 +109,6 @@
     <Compile Include="XML\RegisterOplysningInterval.NotImplemented.cs" />
     <Compile Include="XML\RegisterOplysningInterval.XML.cs" />
     <Compile Include="XML\RegisterOplysningInterval.cs" />
-    <Compile Include="XML\CurrentAddressInformation.cs" />
     <Compile Include="XML\CurrentAddressWrapper.cs" />
     <Compile Include="XML\CurrentCitizenship.cs" />
     <Compile Include="XML\CurrentCivilStatus.cs" />

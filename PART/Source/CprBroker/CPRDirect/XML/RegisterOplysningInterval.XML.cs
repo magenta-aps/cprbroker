@@ -132,11 +132,6 @@ namespace CprBroker.Providers.CPRDirect
             return this.GetFolkeregisterAdresseSource().ToAdresseType();
         }
 
-        public VirkningType ToFolkeregisterAdresseVirknning()
-        {
-            return this.GetFolkeregisterAdresseSource().ToVirkningType();
-        }
-
         public string ToAdresseNoteTekst()
         {
             return this.GetFolkeregisterAdresseSource().ToAddressNoteTekste();

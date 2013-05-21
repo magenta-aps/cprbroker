@@ -83,7 +83,6 @@
     <Compile Include="Persons\P_0307610078.cs" />
     <Compile Include="Tools\Converters.Tests.cs" />
     <Compile Include="Tools\CPRDirectExtractDataProvider.Ftp.Tests.cs" />
-    <Compile Include="Objects\CurrentAddressInformation.Tests.cs" />
     <Compile Include="Objects\CurrentCitizenship.Tests.cs" />
     <Compile Include="Objects\CurrentCivilStatus.Tests.cs" />
     <Compile Include="Objects\CurrentDepartureData.Tests.cs" />

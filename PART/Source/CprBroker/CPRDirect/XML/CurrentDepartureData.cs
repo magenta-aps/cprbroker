@@ -106,11 +106,6 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public VirkningType ToVirkningType()
-        {
-            return VirkningType.Create(ToStartTS(), ToEndTS());
-        }
-
         public CountryIdentificationCodeType ToCountryIdentificationCode()
         {
             return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Converters.DecimalToString(this.ExitCountryCode));

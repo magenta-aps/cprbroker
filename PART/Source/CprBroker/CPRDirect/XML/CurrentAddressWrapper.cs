@@ -78,12 +78,6 @@ namespace CprBroker.Providers.CPRDirect
             return ClearWrittenAddress.ToAdresseType();
         }
 
-        // TODO: Replace this method with interval dates
-        public VirkningType ToVirkningType()
-        {
-            return this.CurrentAddressInformation.ToVirkningType();
-        }
-
         public string ToAddressNoteTekste()
         {
             return this.ClearWrittenAddress.ToAddressNoteTekste();

@@ -59,12 +59,6 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        public VirkningType ToVirkningType()
-        {
-            return VirkningType.Create(this.ToStartTS(), this.ToEndTS());
-        }
-
-
         public string ToAddressNoteTekste()
         {
             return null;

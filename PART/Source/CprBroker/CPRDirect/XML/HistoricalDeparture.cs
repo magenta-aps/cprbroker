@@ -132,9 +132,6 @@ namespace CprBroker.Providers.CPRDirect
                 return string.IsNullOrEmpty(string.Join("", arr));
             }
         }
-        public VirkningType ToVirkningType()
-        {
-            return VirkningType.Create(ToStartTS(), ToEndTS());
-        }
+
     }
 }

@@ -296,11 +296,6 @@ namespace CprBroker.Providers.CPRDirect
             return this.GetFolkeregisterAdresseSource(true).ToAdresseType();
         }
 
-        public VirkningType ToFolkeregisterAdresseVirknning()
-        {
-            return this.GetFolkeregisterAdresseSource(true).ToVirkningType();
-        }
-
         public string ToAdresseNoteTekst()
         {
             return this.GetFolkeregisterAdresseSource(true).ToAddressNoteTekste();
@@ -311,29 +306,6 @@ namespace CprBroker.Providers.CPRDirect
             return this.ChurchInformation.ToFolkekirkeMedlemIndikator();
         }
 
-        public VirkningType ToCprBorgerTypeVirkning(DateTime effectDate)
-        {
-            var effects = new List<VirkningType>();
-
-            var dates = new List<DateTime?>(
-                new DateTime?[] { 
-                    this.PersonInformation.ToStatusDate(),
-                    this.ChurchInformation.ToStartTS(),
-                    this.CurrentCitizenship.ToStartTS(),
-            });
-
-            effects.AddRange(dates.Select(d => VirkningType.Create(d, null)));
-
-            effects.AddRange(
-                ProtectionType.ToVirkningTypeArray(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.NameAndAddress, ProtectionType.ProtectionCategoryCodes.Research)
-                );
-
-            effects.Add(this.PersonInformation.ToVirkningType());
-
-            effects.Add(this.ToFolkeregisterAdresseVirknning());
-
-            return VirkningType.Compose(effects.ToArray());
-        }
     }
 
 }

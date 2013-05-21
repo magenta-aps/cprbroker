@@ -60,11 +60,6 @@ namespace CprBroker.Providers.CPRDirect
             return new DummyAddressSource().ToAdresseType();
         }
 
-        public VirkningType ToVirkningType()
-        {
-            return VirkningType.Create(this.ToStartTS(), this.ToEndTS());
-        }
-
         public string ToAddressNoteTekste()
         {
             return null;

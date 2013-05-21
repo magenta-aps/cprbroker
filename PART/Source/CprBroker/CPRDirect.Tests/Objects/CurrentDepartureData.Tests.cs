@@ -85,37 +85,6 @@ namespace CprBroker.Tests.CPRDirect.Objects
         }
 
         [TestFixture]
-        public class ToVirkningTypeArray
-        {
-            [Test]
-            public void ToVirkningTypeArray_Empty_Empty()
-            {
-                var db = new CurrentDepartureDataType();
-                var ret = db.ToVirkningType();
-                var v = VirkningType.Compose(ret);
-                Assert.True(VirkningType.IsDoubleOpen(v));
-            }
-
-            [Test]
-            public void ToVirkningTypeArray_Date_StartNotEmpty()
-            {
-                var db = new CurrentDepartureDataType() { ExitDate = DateTime.Today };
-                var ret = db.ToVirkningType();
-                var v = VirkningType.Compose(ret);
-                Assert.True(v.FraTidspunkt.ToDateTime().HasValue);
-            }
-
-            [Test]
-            public void ToVirkningTypeArray_Date_EndIsEmpty()
-            {
-                var db = new CurrentDepartureDataType() { ExitDate = DateTime.Today };
-                var ret = db.ToVirkningType();
-                var v = VirkningType.Compose(ret);
-                Assert.False(v.TilTidspunkt.ToDateTime().HasValue);
-            }
-        }
-
-        [TestFixture]
         public class ToCountryIdentificationCodeType
         {
             [Test]
