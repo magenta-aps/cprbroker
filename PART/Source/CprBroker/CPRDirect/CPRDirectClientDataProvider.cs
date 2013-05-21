@@ -64,8 +64,7 @@ namespace CprBroker.Providers.CPRDirect
             IndividualResponseType response = this.GetResponse(request);
 
             ql = QualityLevel.Cpr;
-            DateTime effectDate = DateTime.Today;
-            return response.ToRegistreringType1(cpr2uuidFunc, effectDate);
+            return response.ToRegistreringType1(cpr2uuidFunc);
         }
 
         public bool PutSubscription(PersonIdentifier personIdentifier)

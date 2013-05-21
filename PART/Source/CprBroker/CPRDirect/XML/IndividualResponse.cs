@@ -56,12 +56,12 @@ namespace CprBroker.Providers.CPRDirect
     {
         public object SourceObject { get; set; }
 
-        public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc, DateTime effectDate)
+        public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RegistreringType1()
             {
                 AktoerRef = ToAktoerRefType(),
-                AttributListe = ToAttributListeType(effectDate),
+                AttributListe = ToAttributListeType(),
                 CommentText = ToCommentText(),
                 LivscyklusKode = ToLivscyklusKodeType(),
                 RelationListe = ToRelationListeType(cpr2uuidFunc),

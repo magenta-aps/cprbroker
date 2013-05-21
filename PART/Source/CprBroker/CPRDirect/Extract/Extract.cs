@@ -105,7 +105,7 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     var uuid = uuidGetter(pnr);
                     var person = GetPerson(pnr, lines.AsQueryable(), Constants.DataObjectMap);
-                    var oioPerson = person.ToRegistreringType1(uuidGetter, DateTime.Now);
+                    var oioPerson = person.ToRegistreringType1(uuidGetter);
                     var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = uuid };
                     UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
                     Admin.LogSuccess(string.Format("Converting PNR <{0}> done !!", pnr));

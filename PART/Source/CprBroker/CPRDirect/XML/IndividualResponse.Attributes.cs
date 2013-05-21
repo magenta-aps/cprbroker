@@ -55,13 +55,13 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
-        public AttributListeType ToAttributListeType(DateTime effectDate)
+        public AttributListeType ToAttributListeType()
         {
             return new AttributListeType()
             {
                 Egenskab = ToEgenskabType(),
                 LokalUdvidelse = ToLokalUdvidelseType(),
-                RegisterOplysning = ToRegisterOplysningType(effectDate),
+                RegisterOplysning = ToRegisterOplysningType(),
                 SundhedOplysning = ToSundhedOplysningType()
             };
         }
@@ -212,7 +212,7 @@ namespace CprBroker.Providers.CPRDirect
             return Interval.CreateFromData<RegisterOplysningInterval>(dataObjects.AsQueryable());
         }
 
-        public RegisterOplysningType[] ToRegisterOplysningType(DateTime effectDate)
+        public RegisterOplysningType[] ToRegisterOplysningType()
         {
             return ToRegisterOplysningIntervalArray()
                 .Select(ro => ro.ToRegisterOplysningType())

@@ -70,8 +70,7 @@ namespace CprBroker.Providers.CPRDirect
 
             if (response != null)
             {
-                DateTime effectDate = DateTime.Today;
-                return response.ToRegistreringType1(cpr2uuidFunc, effectDate);
+                return response.ToRegistreringType1(cpr2uuidFunc);
             }
             return null;
         }
