@@ -106,16 +106,6 @@ namespace CprBroker.Tests.Schemas
             public DataTypeTags Tag { get; set; }
         }
 
-        class RegisteredIntervalStub : IRegisteredInterval
-        {
-
-            public DateTime? StartTS { get; set; }
-
-            public DateTime? EndTS { get; set; }
-
-            public DateTime? RegistrationDate { get; set; }
-        }
-
         [TestFixture]
         public class CreateFromData
         {
@@ -179,80 +169,6 @@ namespace CprBroker.Tests.Schemas
                 Assert.Null(intervals[2].EndTS);
                 Assert.AreEqual(2, intervals[2].Data.Count);
             }
-        }
-
-        [TestFixture]
-        public class MergeIntervals
-        {
-            private RegisteredIntervalStub[] CreateArray(bool reverse, params RegisteredIntervalStub[] values)
-            {
-                return reverse ? values.Reverse().ToArray() : values;
-            }
-
-            [Test]
-            public void MergeIntervals_Normal_2Intervals(
-                [Values(true, false)]bool reverse)
-            {
-                var intNow = new RegisteredIntervalStub() { StartTS = DateTime.Today.AddDays(0), EndTS = DateTime.Today.AddDays(1), RegistrationDate = DateTime.Today.AddDays(0) };
-                var intPrv = new RegisteredIntervalStub() { StartTS = DateTime.Today.AddDays(-4), EndTS = DateTime.Today.AddDays(0), RegistrationDate = DateTime.Today.AddDays(-4) };
-
-                var res = Interval.MergeIntervals<RegisteredIntervalStub>(CreateArray(reverse, intNow, intPrv));
-                Assert.AreEqual(intPrv, res.First());
-                Assert.AreEqual(intNow, res.Last());
-            }
-
-            [Test]
-            public void MergeIntervals_2OpenStartAndEnd_OnlyLatestInterval(
-                [Values(true, false)]bool reverse)
-            {
-                var intNow = new RegisteredIntervalStub() { StartTS = null, EndTS = null, RegistrationDate = DateTime.Today.AddDays(0) };
-                var intPrv = new RegisteredIntervalStub() { StartTS = null, EndTS = null, RegistrationDate = DateTime.Today.AddDays(-4) };
-
-                var res = Interval.MergeIntervals<RegisteredIntervalStub>(CreateArray(reverse, intNow, intPrv));
-                Assert.AreEqual(1, res.Length);
-                Assert.AreEqual(intNow, res.First());
-            }
-
-            [Test]
-            public void MergeIntervals_2_ClosedStart_OpenEnd_1PastAnd1Current(
-                [Values(true, false)]bool reverse)
-            {
-                var intNow = new RegisteredIntervalStub() { StartTS = DateTime.Today.AddDays(0), EndTS = null, RegistrationDate = DateTime.Today.AddDays(0) };
-                var intPrv = new RegisteredIntervalStub() { StartTS = DateTime.Today.AddDays(-5), EndTS = null, RegistrationDate = DateTime.Today.AddDays(-4) };
-
-                var res = Interval.MergeIntervals<RegisteredIntervalStub>(CreateArray(reverse, intNow, intPrv));
-                Assert.AreEqual(2, res.Length);
-                Assert.AreEqual(intPrv, res.First());
-                Assert.AreEqual(intNow, res.Last());
-                Assert.AreEqual(intNow.StartTS.Value, intPrv.EndTS.Value);
-            }
-
-            [Test]
-            public void MergeIntervals_2_ClosedIntersectedIntervals_LatestStartDateWins(
-                [Values(true, false)]bool reverse)
-            {
-                var intNow = new RegisteredIntervalStub() { StartTS = DateTime.Today.AddDays(0), EndTS = DateTime.Today.AddDays(5), RegistrationDate = DateTime.Today.AddDays(0) };
-                var intPrv = new RegisteredIntervalStub() { StartTS = DateTime.Today.AddDays(-5), EndTS = DateTime.Today.AddDays(3), RegistrationDate = DateTime.Today.AddDays(-4) };
-
-                var res = Interval.MergeIntervals<RegisteredIntervalStub>(CreateArray(reverse, intNow, intPrv));
-                Assert.AreEqual(2, res.Length);
-                Assert.AreEqual(intPrv, res.First());
-                Assert.AreEqual(intNow, res.Last());
-                Assert.AreEqual(intNow.StartTS.Value, intPrv.EndTS.Value);
-            }
-
-            [Test]
-            public void MergeIntervals_2_ClosedIdenticalIntervals_LatestRegistrationDateWins(
-                [Values(true, false)]bool reverse)
-            {
-                var intNow = new RegisteredIntervalStub() { StartTS = DateTime.Today.AddDays(0), EndTS = DateTime.Today.AddDays(5), RegistrationDate = DateTime.Today.AddDays(0) };
-                var intPrv = new RegisteredIntervalStub() { StartTS = DateTime.Today.AddDays(0), EndTS = DateTime.Today.AddDays(5), RegistrationDate = DateTime.Today.AddDays(-4) };
-
-                var res = Interval.MergeIntervals<RegisteredIntervalStub>(CreateArray(reverse, intNow, intPrv));
-                Assert.AreEqual(1, res.Length);
-                Assert.AreEqual(intNow, res.First());
-            }
-
         }
 
     }

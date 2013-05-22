@@ -64,6 +64,7 @@
     <Compile Include="CivilStatus\CivilStatusLookupMap.cs" />
     <Compile Include="CivilStatus\CivilStatusWrapper.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
+    <Compile Include="Intervals\RegisteredInterval.cs" />
     <Compile Include="Events\DataChangeEventInfo.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />
     <Compile Include="IBasicOutput.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Intervals\DataTypeTags.cs" />
     <Compile Include="Intervals\Interfaces.cs" />
     <Compile Include="Intervals\Interval.cs" />
+    <Compile Include="Intervals\RegisteredIntervalVirkningWrapper.cs" />
     <Compile Include="IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="CivilStatus\MaritalStatus.cs" />
