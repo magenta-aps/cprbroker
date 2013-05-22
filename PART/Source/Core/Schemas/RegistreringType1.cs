@@ -122,5 +122,17 @@ namespace CprBroker.Schemas.Part
             method(root);
             return ret.ToArray();
         }
+
+        public static T[] MergeIntervals<T>(RegistreringType1[] personRegistrations, VirkningType targetInterval, Func<RegistreringType1, IEnumerable<T>> populator)
+            where T : ITypeWithVirkning
+        {
+            return personRegistrations
+                    .SelectMany(oio =>
+                        populator(oio)
+                        .Select(ro => new RegisteredIntervalVirkningWrapper<T>(ro, oio.Tidspunkt.ToDateTime())))
+                    .Where(ro => targetInterval.Intersects(ro.Item.Virkning))
+                    .Select(ro => ro.Item)
+                    .ToArray();
+        }
     }
 }

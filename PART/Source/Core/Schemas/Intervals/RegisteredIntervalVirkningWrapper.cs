@@ -5,10 +5,6 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public interface ITypeWithVirkning
-    {
-        VirkningType Virkning { get; set; }
-    }
 
     public class RegisteredIntervalVirkningWrapper<T> : IRegisteredInterval
         where T : ITypeWithVirkning
@@ -40,5 +36,11 @@ namespace CprBroker.Schemas.Part
         }
 
         public DateTime? RegistrationDate { get; set; }
+
+        public RegisteredIntervalVirkningWrapper(T item, DateTime? registrationDate)
+        {
+            Item = item;
+            RegistrationDate = registrationDate;
+        }
     }
 }
