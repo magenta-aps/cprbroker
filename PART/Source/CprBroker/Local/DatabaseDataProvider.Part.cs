@@ -62,11 +62,11 @@ namespace CprBroker.Providers.Local
     /// <summary>
     /// Handles implementation of data provider using the system's local database
     /// </summary>
-    public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider, IPartPersonMappingDataProvider
+    public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider, IPartPersonMappingDataProvider, IPartPeriodDataProvider
     {
 
         #region IPartSearchDataProvider Members
-        
+
         public Guid[] Search(CprBroker.Schemas.Part.SoegInputType1 searchCriteria)
         {
             Guid[] ret = null;
@@ -219,5 +219,42 @@ namespace CprBroker.Providers.Local
 
         #endregion
 
+        #region IPartPeriodDataProvider members
+        public LaesFiltreretOutputType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId)
+        {
+            var targetVirkning = VirkningType.Create(fromDate, toDate);
+
+            using (var dataContext = new PartDataContext())
+            {
+                var oioRegs = dataContext
+                    .PersonRegistrations
+                    .Where(pr => pr.UUID == pr.UUID)
+                    .OrderBy(pr => pr.RegistrationDate)
+                    .Select(pr => PersonRegistration.ToXmlType(pr))
+                    .ToArray();
+
+                return new FiltreretOejebliksbilledeType()
+                {
+                    AttributListe = new AttributListeType()
+                    {
+                        Egenskab = RegistreringType1.MergeIntervals<EgenskabType>(oioRegs, targetVirkning, oio => oio.AttributListe.Egenskab),
+                        RegisterOplysning = RegistreringType1.MergeIntervals<RegisterOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.RegisterOplysning),
+                        SundhedOplysning = RegistreringType1.MergeIntervals<SundhedOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.SundhedOplysning),
+                        LokalUdvidelse = null
+                    },
+
+                    RelationListe = new RelationListeType()
+                    {
+                        
+                    },
+                    TilstandListe = new TilstandListeType() { },
+
+                    BrugervendtNoegleTekst = pId.CprNumber,
+
+                    UUID = pId.UUID.Value.ToString()
+                };
+            }
+        }
+        #endregion
     }
 }
