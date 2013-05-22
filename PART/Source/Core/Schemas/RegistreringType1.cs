@@ -134,5 +134,29 @@ namespace CprBroker.Schemas.Part
                     .Select(ro => ro.Item)
                     .ToArray();
         }
+
+        public static FiltreretOejebliksbilledeType Merge(PersonIdentifier pId, VirkningType targetVirkning, RegistreringType1[] oioRegs)
+        {
+            return new FiltreretOejebliksbilledeType()
+                {
+                    AttributListe = new AttributListeType()
+                    {
+                        Egenskab = RegistreringType1.MergeIntervals<EgenskabType>(oioRegs, targetVirkning, oio => oio.AttributListe.Egenskab),
+                        RegisterOplysning = RegistreringType1.MergeIntervals<RegisterOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.RegisterOplysning),
+                        SundhedOplysning = RegistreringType1.MergeIntervals<SundhedOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.SundhedOplysning),
+                        LokalUdvidelse = null
+                    },
+
+                    RelationListe = new RelationListeType()
+                    {
+                        
+                    },
+                    TilstandListe = new TilstandListeType() { },
+
+                    BrugervendtNoegleTekst = pId.CprNumber,
+
+                    UUID = pId.UUID.Value.ToString()
+                };
+        }
     }
 }
