@@ -86,9 +86,8 @@ namespace BatchClient
                 individualResponse.FillFrom(individualResponse.Data, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                 individualResponse.SourceObject = individualResponse.Data;
             }
-            DateTime effectDate = dbReg.BrokerUpdateDate;
             Console.WriteLine("Converting person");
-            var reg = individualResponse.ToRegistreringType1(cpr2uuidFunc, effectDate);
+            var reg = individualResponse.ToRegistreringType1(cpr2uuidFunc);
             return reg;
         }
     }
