@@ -59,19 +59,12 @@ namespace CprBroker.Tests.CPRDirect.Objects
         public class ToRegistreringType1
         {
             [Test]
-            public void ToRegistreringType1_()
+            [TestCaseSource(typeof(Utilities), "PNRs")]
+            public void ToRegistreringType1_ConvertsOK(string pnr)
             {
-                var individual = IndividualResponseType.ParseBatch(Properties.Resources.PNR_0101965058).First();
-                var registration = individual.ToRegistreringType1(pnr => Guid.NewGuid());
+                var individual = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE).Where(o => o.PersonInformation.PNR == pnr).First();
+                var registration = individual.ToRegistreringType1(nr => Guid.NewGuid());
                 Assert.NotNull(registration);
-            }
-
-            [Test]
-            public void ToRegistreringType1_Parsed_Passes(
-                [Range(0, 79)]int index)
-            {
-                var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                var ret = result[index].ToRegistreringType1(cpr => Guid.NewGuid());
             }
 
         }
