@@ -222,6 +222,12 @@ namespace CprBroker.Engine
         RegistreringType1 Read(PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql);
     }
 
+    public interface IPartPeriodDataProvider : IDataProvider
+    {
+        LaesFiltreretOutputType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId);
+    }
+
+
     /// <summary>
     /// Contains the Search method of the Part interface
     /// </summary>
