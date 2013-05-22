@@ -138,5 +138,13 @@ namespace CprBroker.Schemas.Part
             return v1.FraTidspunkt.ToDateTime().Value < v2.TilTidspunkt.ToDateTime().Value
                 && v2.FraTidspunkt.ToDateTime().Value < v1.TilTidspunkt.ToDateTime().Value;
         }
+
+        public static DateTime ToStartDateTimeOrMinValue(DateTime? startTS)
+        {
+            if (startTS.HasValue)
+                return startTS.Value;
+            else
+                return DateTime.MinValue;
+        }
     }
 }

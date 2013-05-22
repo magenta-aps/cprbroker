@@ -51,10 +51,23 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public class Interval
+    public interface IInterval
     {
-        public DateTime? StartTS { get; private set; }
-        public DateTime? EndTS { get; private set; }
+        DateTime? StartTS { get; }
+        DateTime? EndTS { get; }
+    }
+
+    public interface IRegisteredInterval : IInterval
+    {
+        DateTime? StartTS { get; set; }
+        DateTime? EndTS { get; set; }
+        DateTime? RegistrationDate { get; }
+    }
+
+    public class Interval : IInterval
+    {
+        public virtual DateTime? StartTS { get; private set; }
+        public virtual DateTime? EndTS { get; private set; }
         public List<ITimedType> Data = new List<ITimedType>();
 
         public static Interval[] CreateFromData(params ITimedType[] dataObjects)
@@ -136,6 +149,38 @@ namespace CprBroker.Schemas.Part
         public VirkningType ToVirkningType()
         {
             return VirkningType.Create(this.StartTS, this.EndTS);
+        }
+
+        public static TInterval[] MergeIntervals<TInterval>(params TInterval[] sourceIntervals)
+            where TInterval : IRegisteredInterval
+        {
+            var sortedIntervals = sourceIntervals
+                     .OrderByDescending(oio => oio.StartTS.HasValue ? oio.StartTS.Value : DateTime.MinValue)
+                     .ThenByDescending(oio => oio.RegistrationDate.Value)
+                     .ToArray();
+
+            var ret = new List<TInterval>();
+            if (sortedIntervals.Length > 0)
+            {
+                ret.Add(sortedIntervals.First());
+            }
+
+            foreach (var interval in sortedIntervals.Skip(1))
+            {
+                if (VirkningType.ToStartDateTimeOrMinValue(interval.StartTS) < VirkningType.ToStartDateTimeOrMinValue(ret.First().StartTS))
+                {
+                    if (!interval.EndTS.HasValue || interval.EndTS.Value > VirkningType.ToStartDateTimeOrMinValue(ret.First().StartTS))
+                        interval.EndTS = VirkningType.ToStartDateTimeOrMinValue(ret.First().StartTS);
+
+                    ret.Insert(0, interval);
+                }
+                else
+                {
+                    // Cannot insert any previous intervals if latest inserted interval has no start date
+                }
+            }
+
+            return ret.ToArray();
         }
     }
 
