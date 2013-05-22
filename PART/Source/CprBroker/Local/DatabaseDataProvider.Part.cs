@@ -228,31 +228,13 @@ namespace CprBroker.Providers.Local
             {
                 var oioRegs = dataContext
                     .PersonRegistrations
+                    // TODO: Shall we also filter by ActorRef.Value to only include CPR Direct?
                     .Where(pr => pr.UUID == pr.UUID)
                     .OrderBy(pr => pr.RegistrationDate)
                     .Select(pr => PersonRegistration.ToXmlType(pr))
                     .ToArray();
 
-                return new FiltreretOejebliksbilledeType()
-                {
-                    AttributListe = new AttributListeType()
-                    {
-                        Egenskab = RegistreringType1.MergeIntervals<EgenskabType>(oioRegs, targetVirkning, oio => oio.AttributListe.Egenskab),
-                        RegisterOplysning = RegistreringType1.MergeIntervals<RegisterOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.RegisterOplysning),
-                        SundhedOplysning = RegistreringType1.MergeIntervals<SundhedOplysningType>(oioRegs, targetVirkning, oio => oio.AttributListe.SundhedOplysning),
-                        LokalUdvidelse = null
-                    },
-
-                    RelationListe = new RelationListeType()
-                    {
-                        
-                    },
-                    TilstandListe = new TilstandListeType() { },
-
-                    BrugervendtNoegleTekst = pId.CprNumber,
-
-                    UUID = pId.UUID.Value.ToString()
-                };
+                return RegistreringType1.Merge(pId, targetVirkning, oioRegs);
             }
         }
         #endregion
