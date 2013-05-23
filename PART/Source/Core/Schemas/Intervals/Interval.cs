@@ -63,6 +63,17 @@ namespace CprBroker.Schemas.Part
         public virtual DateTime? EndTS { get; private set; }
         public List<ITimedType> Data = new List<ITimedType>();
 
+        public DateTime? StartDate
+        {
+            get
+            {
+                if (StartTS.HasValue)
+                    return StartTS.Value.Date;
+                else
+                    return null;
+            }
+        }
+
         public static Interval[] CreateFromData(params ITimedType[] dataObjects)
         {
             return CreateFromData<Interval>(dataObjects.AsQueryable());
@@ -71,60 +82,81 @@ namespace CprBroker.Schemas.Part
         public static TInterval[] CreateFromData<TInterval>(IQueryable<ITimedType> dataObjects)
             where TInterval : Interval, new()
         {
-            var allTags = dataObjects.Select(d => d.Tag).Distinct().OrderBy(d => d).ToArray();
+            var sortedByStartDate = dataObjects
+                .Select(o => new { StartTS = VirkningType.ToStartDateTimeOrMinValue(o.ToStartTS()), Object = o })
+                .OrderBy(o => o.StartTS)
+                .ToArray();
 
-            var groupedByStartTime = dataObjects.GroupBy(d => d.ToStartTS()).OrderBy(g => g.Key).ToArray();
             var ret = new List<TInterval>();
 
-            var previousDataObjects = new List<ITimedType>();
-            TInterval previousInterval = null;
-
-            for (int iTimeGroup = 0; iTimeGroup < groupedByStartTime.Count(); iTimeGroup++)
+            // Group by start date
+            foreach (var dataObject in sortedByStartDate)
             {
-                // TODO: Handle cases where StartDate is null - are these cases possible!!??
-                var timeGroup = groupedByStartTime[iTimeGroup];
-                var interval = new TInterval() { StartTS = timeGroup.Key };
-                interval.Data.AddRange(timeGroup.ToArray());
+                var currentInterval = ret.LastOrDefault();
+                bool sameInterval =
+                        currentInterval != null
+                    &&
+                    (
 
-                var missingTags = allTags.Except(interval.Data.Select(d => d.Tag));
+                        (dataObject.StartTS == currentInterval.StartTS.Value)
+                        ||
+                        (
+                                currentInterval.StartDate.Value == currentInterval.StartTS.Value
+                            && dataObject.StartTS.Date == currentInterval.StartDate
+                        )
+                    );
 
+                if (sameInterval)
+                {
+                    currentInterval.Data.Add(dataObject.Object);
+                    if (currentInterval.StartDate.Value == currentInterval.StartTS.Value)
+                        currentInterval.StartTS = dataObject.StartTS;
+                }
+                else
+                {
+                    currentInterval = new TInterval()
+                    {
+                        StartTS = dataObject.StartTS,
+                        EndTS = null,
+                        Data = new List<ITimedType>(new ITimedType[] { dataObject.Object })
+                    };
+                    ret.Add(currentInterval);
+                }
+            }
+
+            // Filter to only intervals that either have a non null start or that have objects that can mark interval start with null value
+            ret = ret.Where(intvl => intvl.Data.Where(o => o.ToStartTS().HasValue || CreateIntervalIfStartTsIsNullAttribute.GetValue(o.GetType())).FirstOrDefault() != null).ToList();
+
+            // Fill the missing information
+            var allTags = dataObjects.Select(o => o.Tag).Distinct();
+            foreach (var currentInterval in ret)
+            {
+                var missingTags = allTags.Where(tag => currentInterval.Data.Where(o => o.Tag == tag).Count() == 0);
                 foreach (var missingTag in missingTags)
                 {
-                    var tagObject = previousDataObjects.Where(o => string.Equals(o.Tag, missingTag)).LastOrDefault();
+                    var missingTagObject = dataObjects.Where(
+                        o => o.Tag == missingTag
+                            && Utilities.Dates.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), currentInterval.StartTS)
+                            ).FirstOrDefault();
+                    if (missingTagObject != null)
+                        currentInterval.Data.Add(missingTagObject);
+                }
+            }
 
-                    if (tagObject != null)
-                    {
-                        // Make sure effect has not ended. Not sure if this scenario is possible
-                        var o = tagObject as ITimedType;
-                        if (CprBroker.Utilities.Dates.DateRangeIncludes(o.ToStartTS(), o.ToEndTS(), interval.StartTS))
-                        {
-                            interval.Data.Add(tagObject);
-                        }
-                    }
-                }
-                interval.EndTS = interval.Data
-                    .Select(d =>
-                    {
-                        var e = d.ToEndTS();
-                        return e.HasValue ? e : DateTime.MaxValue;
-                    })
-                    .Min();
-                if (interval.EndTS == DateTime.MaxValue)
-                {
-                    interval.EndTS = null;
-                }
-                if (previousInterval != null)
-                {
-                    // interval.StartTime cannot be null here because the only possible null is in first interval
-                    if (!previousInterval.EndTS.HasValue || previousInterval.EndTS.Value > interval.StartTS.Value)
-                    {
-                        previousInterval.EndTS = interval.StartTS;
-                    }
-                }
+            // Now set the end dates
+            for (int i = 0; i < ret.Count; i++)
+            {
+                var currentInterval = ret[i];
+                if (currentInterval.StartTS == DateTime.MinValue)
+                    currentInterval.StartTS = null;
 
-                ret.Add(interval);
-                previousDataObjects.AddRange(timeGroup.ToArray());
-                previousInterval = interval;
+                currentInterval.EndTS = currentInterval.Data.Where(o => o.ToEndTS().HasValue).Select(o => o.ToEndTS()).Min();
+                if (i < ret.Count - 1)
+                {
+                    var nextInterval = ret[i + 1];
+                    if (currentInterval.EndTS == null || currentInterval.EndTS > nextInterval.StartTS)
+                        currentInterval.EndTS = nextInterval.StartTS;
+                }
             }
             return ret.ToArray();
         }
