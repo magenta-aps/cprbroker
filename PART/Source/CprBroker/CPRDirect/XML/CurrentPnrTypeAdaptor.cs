@@ -52,6 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
+    [CreateIntervalIfStartTsIsNull(false)]
     public class CurrentPnrTypeAdaptor : IPnr
     {
         public PersonInformationType PersonInformation { get; private set; }
@@ -85,7 +86,7 @@ namespace CprBroker.Providers.CPRDirect
             else
             {
                 // Rely on other objects to get interval start date
-                return null;                
+                return null;
                 //return Converters.ToDateTime(this.PersonInformation.PersonStartDate, this.PersonInformation.PersonStartDateUncertainty);
             }
         }
