@@ -94,78 +94,9 @@ namespace CprBroker.Providers.CPRDirect
                 .ToArray();
         }
 
-        public DateTime ToBirthDate()
-        {
-            return this.PersonInformation.ToBirthdate(true).Value;
-        }
-
-        public string ToFoedestedNavn()
-        {
-            // TODO: birthname could be incorrect if historical data is not available (historical data is 5 years max anyway)
-            var oldestName = HistoricalNameType.GetOldestName(this.HistoricalName.Select(n => n as INameSource).AsEnumerable()) as INameSource;
-            if (oldestName == null)
-            {
-                oldestName = this.CurrentNameInformation;
-            }
-            var nameStartDate = oldestName.ToStartTS();
-            var birthDate = this.ToBirthDate();
-
-            if (nameStartDate.HasValue
-                && (nameStartDate.Value - birthDate).TotalDays <= 14)
-            {
-                return oldestName.ToNavnStrukturType().PersonNameStructure.ToString();
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public string ToFoedselsregistreringMyndighedNavn()
-        {
-            return this.BirthRegistrationInformation.ToFoedselsregistreringMyndighedNavn();
-        }
-
-        public NavnStrukturType ToNavnStrukturType()
-        {
-            return this.CurrentNameInformation.ToNavnStrukturType();
-        }
-
-        public PersonGenderCodeType ToPersonGenderCodeType()
-        {
-            return this.PersonInformation.ToPersonGenderCodeType();
-        }
-
-        private VirkningType ToEgenskabVirkning()
-        {
-            var effects = new List<VirkningType>();
-
-            // TODO: Fill other address date
-            // other address
-            // Not implemented
-
-            // birthdate
-            // birthname
-            // birth authority
-            // gender
-            effects.Add(VirkningType.Create(this.PersonInformation.ToBirthdate(), null));
-
-            // contact channel
-            // nearest relative
-            // Not implemented
-
-            // name
-            effects.Add(VirkningType.Create(this.CurrentNameInformation.ToStartTS(), null));
-
-            return VirkningType.Compose(effects.ToArray());
-        }
-
         public ITimedType[] ToRegisterOplysningIntervalObjects()
         {
             var dataObjects = new List<ITimedType>();
-
-            //dataObjects.Add(this.CurrentCivilStatus);
-            //dataObjects.AddRange(this.HistoricalCivilStatus.ToArray());
 
             dataObjects.Add(this.GetFolkeregisterAdresseSource(false));
             dataObjects.AddRange(
@@ -219,54 +150,6 @@ namespace CprBroker.Providers.CPRDirect
                 .ToArray();
         }
 
-        public CprBorgerType ToCprBorgerType(DateTime effectDate)
-        {
-            return new CprBorgerType()
-            {
-                AdresseNoteTekst = ToAdresseNoteTekst(),
-                // Cross Product
-                FolkekirkeMedlemIndikator = ToFolkekirkeMedlemIndikator(),
-                // Cross Product
-                FolkeregisterAdresse = ToFolkeregisterAdresse(),
-                // Cross Product
-                ForskerBeskyttelseIndikator = ToForskerBeskyttelseIndikator(effectDate),
-                // Cross Product
-                NavneAdresseBeskyttelseIndikator = ToNavneAdresseBeskyttelseIndikator(effectDate),
-                // Cross Product
-                PersonCivilRegistrationIdentifier = ToPersonCivilRegistrationIdentifier(),
-                // Cross Product
-                PersonNationalityCode = ToPersonNationalityCode(),
-                // Cross Product
-                PersonNummerGyldighedStatusIndikator = ToPersonNummerGyldighedStatusIndikator(),
-                TelefonNummerBeskyttelseIndikator = ToTelefonNummerBeskyttelseIndikator(),
-            };
-        }
-
-        public bool ToPersonNummerGyldighedStatusIndikator()
-        {
-            return this.PersonInformation.ToPersonNummerGyldighedStatusIndikator();
-        }
-
-        public CountryIdentificationCodeType ToPersonNationalityCode()
-        {
-            return this.CurrentCitizenship.ToPersonNationalityCode();
-        }
-
-        public string ToPersonCivilRegistrationIdentifier()
-        {
-            return this.PersonInformation.ToPnr();
-        }
-
-        public bool ToNavneAdresseBeskyttelseIndikator(DateTime effectDate)
-        {
-            return ProtectionType.HasProtection(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.NameAndAddress);
-        }
-
-        public bool ToForskerBeskyttelseIndikator(DateTime effectDate)
-        {
-            return ProtectionType.HasProtection(this.Protection, effectDate, ProtectionType.ProtectionCategoryCodes.Research);
-        }
-
         public IAddressSource GetFolkeregisterAdresseSource(bool putDummy)
         {
             if (this.CurrentAddressInformation != null && !this.ClearWrittenAddress.IsEmpty) // Both conditions are technically the same
@@ -289,21 +172,6 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return null;
             }
-        }
-
-        public AdresseType ToFolkeregisterAdresse()
-        {
-            return this.GetFolkeregisterAdresseSource(true).ToAdresseType();
-        }
-
-        public string ToAdresseNoteTekst()
-        {
-            return this.GetFolkeregisterAdresseSource(true).ToAddressNoteTekste();
-        }
-
-        private bool ToFolkekirkeMedlemIndikator()
-        {
-            return this.ChurchInformation.ToFolkekirkeMedlemIndikator();
         }
 
     }

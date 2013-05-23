@@ -109,29 +109,5 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        public KontaktKanalType ToKontaktKanalType()
-        {
-            return null;
-        }
-
-        public KontaktKanalType ToNaermestePaaroerende()
-        {
-            return null;
-        }
-
-        public AdresseType ToAndreAdresser()
-        {
-            // TODO: Fill Supplementary address after seeing real data (CurrentAddressInformation.SupplementaryAddressLine 1 - 5
-            // Asked to CPR
-            return null;
-        }
-
-        public bool ToTelefonNummerBeskyttelseIndikator()
-        {
-            // No phone protection
-            // TODO: Is phone protection the same as directory protection? If yes, fix this and other data providers too
-            return false;
-        }
-
     }
 }

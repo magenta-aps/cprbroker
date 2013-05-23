@@ -56,40 +56,6 @@ namespace CprBroker.Tests.CPRDirect.Objects
     namespace IndividualResponse.Attributes
     {
         [TestFixture]
-        public class ToBirthDate
-        {
-            [Test]
-            [ExpectedException]
-            public void ToBirthDate_NullInformation_Exception()
-            {
-                var info = new IndividualResponseType();
-                info.ToBirthDate();
-            }
-
-            [Test]
-            public void ToBirthDate_Birthdate_OK()
-            {
-                var info = new IndividualResponseType() { PersonInformation = new PersonInformationType() { Birthdate = DateTime.Today, BirthdateUncertainty = ' ' } };
-                var ret = info.ToBirthDate();
-                Assert.AreEqual(DateTime.Today, ret);
-            }
-
-            [Test]
-            public void ToBirthDate_NoBirthdate_FromPnr()
-            {
-                var info = new IndividualResponseType()
-                {
-                    PersonInformation = new PersonInformationType()
-                    {
-                        PNR = DateTime.Today.ToString("ddMMyy4111")
-                    }
-                };
-                var ret = info.ToBirthDate();
-                Assert.AreEqual(DateTime.Today, ret);
-            }
-        }
-
-        [TestFixture]
         public class GetFolkeregisterAdresseSource
         {
             [Test]
@@ -142,56 +108,5 @@ namespace CprBroker.Tests.CPRDirect.Objects
 
         }
 
-        [TestFixture]
-        public class ToFoedestedNavn
-        {
-            [Test]
-            public void ToFoedestedNavn_NameWithNoDateOrHistory_Null()
-            {
-                var pnr = Utilities.RandomCprNumberString();
-                var res = new IndividualResponseType()
-                {
-                    PersonInformation = new PersonInformationType() { PNR = pnr, Birthdate = CprBroker.Utilities.Strings.PersonNumberToDate(pnr) },
-                    CurrentNameInformation = new CurrentNameInformationType() { PNR = pnr, FirstName_s = "1", LastName = "2" }
-                };
-                var ret = res.ToFoedestedNavn();
-                Assert.IsNullOrEmpty(ret);
-            }
-
-            [Test]
-            public void ToFoedestedNavn_NameWithDate_NotNull(
-                [Values(0, 1, 2, 10, 14)]int dayOffset)
-            {
-                string pnr = Utilities.RandomCprNumberString();
-                DateTime birthDate = CprBroker.Utilities.Strings.PersonNumberToDate(pnr).Value;
-                DateTime nameDate = birthDate.AddDays(dayOffset);
-                var res = new IndividualResponseType()
-                {
-                    PersonInformation = new PersonInformationType() { PNR = pnr, Birthdate = birthDate },
-                    CurrentNameInformation = new CurrentNameInformationType() { PNR = pnr, FirstName_s = "1", LastName = "2", NameStartDate = nameDate }
-                };
-
-                var ret = res.ToFoedestedNavn();
-                Assert.IsNotNullOrEmpty(ret);
-            }
-
-            [Test]
-            public void ToFoedestedNavn_NameWithFarDate_Null(
-                [Values(15, 20, 30)]int dayOffset)
-            {
-                string pnr = Utilities.RandomCprNumberString();
-                DateTime birthDate = CprBroker.Utilities.Strings.PersonNumberToDate(pnr).Value;
-                DateTime nameDate = birthDate.AddDays(dayOffset);
-                var res = new IndividualResponseType()
-                {
-                    PersonInformation = new PersonInformationType() { PNR = pnr, Birthdate = birthDate },
-                    CurrentNameInformation = new CurrentNameInformationType() { PNR = pnr, FirstName_s = "1", LastName = "2", NameStartDate = nameDate }
-                };
-
-                var ret = res.ToFoedestedNavn();
-                Assert.IsNullOrEmpty(ret);
-            }
-
-        }
     }
 }

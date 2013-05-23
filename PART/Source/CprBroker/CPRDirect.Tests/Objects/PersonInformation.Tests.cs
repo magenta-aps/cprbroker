@@ -99,6 +99,17 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 var ret = inf.ToBirthdate();
                 Assert.AreEqual(DateTime.Today, ret);
             }
+
+            [Test]
+            public void ToBirthDate_NoBirthdate_FromPnr()
+            {
+                var info = new PersonInformationType()
+                    {
+                        PNR = DateTime.Today.ToString("ddMMyy4111")
+                    };
+                var ret = info.ToBirthdate(true);
+                Assert.AreEqual(DateTime.Today, ret);
+            }
         }
 
         [TestFixture]
