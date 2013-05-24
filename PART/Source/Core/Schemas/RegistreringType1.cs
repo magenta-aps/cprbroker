@@ -126,13 +126,40 @@ namespace CprBroker.Schemas.Part
         public static T[] MergeIntervals<T>(RegistreringType1[] personRegistrations, VirkningType targetInterval, Func<RegistreringType1, IEnumerable<T>> populator)
             where T : ITypeWithVirkning
         {
-            return personRegistrations
+            var matchesByDate = personRegistrations
                     .SelectMany(oio =>
-                        populator(oio)
-                        .Select(ro => new RegisteredIntervalVirkningWrapper<T>(ro, oio.Tidspunkt.ToDateTime())))
+                    {
+                        var pop = populator(oio);
+                        if (pop == null)
+                            pop = new T[0].AsEnumerable();
+                        return pop.Select(ro => new RegisteredIntervalVirkningWrapper<T>(ro, oio.Tidspunkt.ToDateTime()));
+                    })
                     .Where(ro => targetInterval.Intersects(ro.Item.Virkning))
-                    .Select(ro => ro.Item)
+                    .OrderBy(ro => ro.StartTS)
+                    .ThenBy(ro => ro.RegistrationDate)
                     .ToArray();
+
+            var ret = new List<RegisteredIntervalVirkningWrapper<T>>();
+
+            // Now scan the effect periods from latest to first
+            foreach (var currentInterval in matchesByDate.Reverse())
+            {
+                var nextInterval = ret.FirstOrDefault();
+                if (nextInterval == null)
+                {
+                    ret.Insert(0, currentInterval);
+                }
+                else
+                {
+                    if (nextInterval.StartTS > currentInterval.StartTS)
+                    {
+                        if (!currentInterval.EndTS.HasValue || currentInterval.EndTS > nextInterval.StartTS)
+                            currentInterval.EndTS = nextInterval.StartTS;
+                        ret.Insert(0, currentInterval);
+                    }
+                }
+            }
+            return ret.Select(o => o.Item).ToArray();
         }
 
         public static FiltreretOejebliksbilledeType Merge(PersonIdentifier pId, VirkningType targetVirkning, RegistreringType1[] oioRegs)
@@ -149,7 +176,7 @@ namespace CprBroker.Schemas.Part
 
                     RelationListe = new RelationListeType()
                     {
-                        
+
                     },
                     TilstandListe = new TilstandListeType() { },
 
