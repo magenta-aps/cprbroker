@@ -57,6 +57,9 @@ namespace CprBroker.Schemas.Part
         [System.Xml.Serialization.XmlIgnore]
         public string SourceObjectsXml { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
+        public DateTime BrokerUpdateDate { get; set; }
+
         public void CalculateVirkning()
         {
             this.Virkning = null;
@@ -132,11 +135,12 @@ namespace CprBroker.Schemas.Part
                         var pop = populator(oio);
                         if (pop == null)
                             pop = new T[0].AsEnumerable();
-                        return pop.Select(ro => new RegisteredIntervalVirkningWrapper<T>(ro, oio.Tidspunkt.ToDateTime()));
+                        return pop.Select(ro => new RegisteredIntervalVirkningWrapper<T>(ro, oio.Tidspunkt.ToDateTime(), oio.BrokerUpdateDate));
                     })
                     .Where(ro => targetInterval.Intersects(ro.Item.Virkning))
-                    .OrderBy(ro => ro.StartTS)
+                    .OrderBy(ro => ro.EffectiveStartTS)
                     .ThenBy(ro => ro.RegistrationDate)
+                    .ThenBy(ro => ro.BrokerUpdateDate)
                     .ToArray();
 
             var ret = new List<RegisteredIntervalVirkningWrapper<T>>();
@@ -151,10 +155,10 @@ namespace CprBroker.Schemas.Part
                 }
                 else
                 {
-                    if (nextInterval.StartTS > currentInterval.StartTS)
+                    if (currentInterval.EffectiveStartTS < nextInterval.EffectiveStartTS)
                     {
-                        if (!currentInterval.EndTS.HasValue || currentInterval.EndTS > nextInterval.StartTS)
-                            currentInterval.EndTS = nextInterval.StartTS;
+                        if (currentInterval.EffectiveEndTS > nextInterval.EffectiveStartTS)
+                            currentInterval.EffectiveEndTS = nextInterval.EffectiveStartTS;
                         ret.Insert(0, currentInterval);
                     }
                 }

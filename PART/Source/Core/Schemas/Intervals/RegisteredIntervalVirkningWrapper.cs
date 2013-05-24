@@ -81,12 +81,42 @@ namespace CprBroker.Schemas.Part
             }
         }
 
-        public DateTime? RegistrationDate { get; set; }
+        public DateTime EffectiveStartTS
+        {
+            get
+            {
+                var ret = this.Item.Virkning.FraTidspunkt.ToDateTime();
+                return ret.HasValue ? ret.Value : DateTime.MinValue;
+            }
+            set
+            {
+                DateTime? val = (value == DateTime.MinValue || value == DateTime.MaxValue) ? null as DateTime? : value;
+                this.Item.Virkning.FraTidspunkt = TidspunktType.Create(val);
+            }
+        }
 
-        public RegisteredIntervalVirkningWrapper(T item, DateTime? registrationDate)
+        public DateTime EffectiveEndTS
+        {
+            get
+            {
+                var ret = this.Item.Virkning.TilTidspunkt.ToDateTime();
+                return ret.HasValue ? ret.Value : DateTime.MaxValue;
+            }
+            set
+            {
+                DateTime? val = (value == DateTime.MaxValue || value == DateTime.MinValue) ? null as DateTime? : value;
+                this.Item.Virkning.TilTidspunkt = TidspunktType.Create(val);
+            }
+        }
+
+        public DateTime? RegistrationDate { get; set; }
+        public DateTime BrokerUpdateDate { get; set; }
+
+        public RegisteredIntervalVirkningWrapper(T item, DateTime? registrationDate, DateTime brokerUpdateDate)
         {
             Item = item;
             RegistrationDate = registrationDate;
+            BrokerUpdateDate = brokerUpdateDate;
         }
     }
 }
