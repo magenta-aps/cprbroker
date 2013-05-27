@@ -128,6 +128,25 @@ namespace CprBroker.Web.Services
         {
             return Manager.Part.PutSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuids);
         }
+
+        [WebMethod]
+        [SoapHeader(ApplicationHeaderName)]
+        [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
+        public LaesOutputType DateLookup(string[] UUIDs, DateTime virkningDato)
+        {
+            return Manager.Period.ReadSingle(UUIDs, virkningDato, applicationHeader.ApplicationToken, applicationHeader.UserToken);
+        }
+
+        [WebMethod]
+        [SoapHeader(ApplicationHeaderName)]
+        [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
+        public LaesOutputType PeriodLookup(string[] UUIDs, DateTime fraVirkningDato, DateTime tilVirkningDato)
+        {
+            return Manager.Period.ReadPeriod(UUIDs, fraVirkningDato, tilVirkningDato, applicationHeader.ApplicationToken, applicationHeader.UserToken);
+        }
+
+
+
     }
 
 }
