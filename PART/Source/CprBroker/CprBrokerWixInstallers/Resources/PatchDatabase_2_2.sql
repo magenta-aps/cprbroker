@@ -19,3 +19,40 @@ IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name= 'IX_PersonRegistration_UUID
 	WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
 
+
+------------------------------
+-- Table : ExtractPersonStaging
+------------------------------
+
+CREATE NONCLUSTERED INDEX [IX_ExtractPersonStaging_ExtractId] ON [dbo].[ExtractPersonStaging] 
+(
+	[ExtractId] ASC
+)WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+----------------------------------------------------------
+-- Getting rid of unused tables
+----------------------------------------------------------
+
+drop table dbo.PersonLifeState
+drop table dbo.PersonCivilState
+drop table dbo.PersonState
+drop table dbo.PersonRelationship
+drop table dbo.UnknownCitizenData
+drop table dbo.PersonName
+drop table dbo.PersonProperties
+drop table dbo.HealthInformation
+drop table dbo.ForeignCitizenCountry
+drop table dbo.ForeignCitizenData
+drop table dbo.CprData
+drop table dbo.PersonAttributes
+drop table dbo.ForeignAddress
+drop table dbo.GreenlandicAddress
+drop table dbo.GeographicCoorditaneTuple
+drop table dbo.GeographicPointLocation
+drop table dbo.AddressPointStatus
+drop table dbo.AddressPoint
+drop table dbo.DanishAddress
+drop table dbo.DenmarkAddress
+drop table dbo.Address
+GO
