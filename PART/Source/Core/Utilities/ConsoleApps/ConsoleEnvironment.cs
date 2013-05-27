@@ -82,7 +82,7 @@ namespace CprBroker.Utilities.ConsoleApps
 
 
 
-        string outDir;
+        public string OutDir { get; private set; }
         StreamWriter logFileWriter;
         StreamWriter succeededFileWriter;
         StreamWriter failedFileWriter;
@@ -141,10 +141,10 @@ namespace CprBroker.Utilities.ConsoleApps
             string logFileName = nowDirectoryString + "Log.txt";
             string succeededFileName = nowDirectoryString + "Succeeded.txt";
             string failedFileName = nowDirectoryString + "Failed.txt";
-            outDir = nowDirectoryString + "Registrations\\";
+            OutDir = nowDirectoryString + "Registrations\\";
 
-            if (!Directory.Exists(outDir))
-                Directory.CreateDirectory(outDir);
+            if (!Directory.Exists(OutDir))
+                Directory.CreateDirectory(OutDir);
 
             logFileWriter = new StreamWriter(logFileName, true) { AutoFlush = true };
             succeededFileWriter = new StreamWriter(succeededFileName, true) { AutoFlush = true };
@@ -256,7 +256,7 @@ namespace CprBroker.Utilities.ConsoleApps
             lock (this)
             {
                 string registrationXml = obj is string ? obj as string : CprBroker.Utilities.Strings.SerializeObject(obj);
-                string registrationFileName = string.Format("{0}{1}.xml", outDir, cprNumber);
+                string registrationFileName = string.Format("{0}{1}.xml", OutDir, cprNumber);
                 File.WriteAllText(registrationFileName, registrationXml);
             }
         }
