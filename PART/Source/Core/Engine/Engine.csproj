@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="BatchFacadeMethodInfo.cs" />
     <Compile Include="BrokerContext.cs" />
+    <Compile Include="Manager.Period.cs" />
     <Compile Include="Facades\FacadeMethod.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
     <Compile Include="Facades\FacadeMethod.Element.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="Part\CityNameMapping.cs" />
     <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
     <Compile Include="Part\PutSubscriptionFacadeMethodInfo.cs" />
+    <Compile Include="Period\PeriodLookupFacadeMethodInfo.cs" />
+    <Compile Include="Period\PeriodLookupSubMethodInfo.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="ThreadRunner.cs" />
     <Compile Include="UpdateRules\AddressingNameMatchRule.cs" />
@@ -166,6 +169,7 @@
   <ItemGroup>
     <Compile Include="Facades\FacadeMethod.Overridables.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
