@@ -65,7 +65,7 @@ namespace BatchClient
 
         public override string[] LoadCprNumbers()
         {
-            UpdateConnectionString();
+            UpdateConnectionString(this.BrokerConnectionString);
 
             using (var dataContext = new PartDataContext(this.BrokerConnectionString))
             {
@@ -77,41 +77,9 @@ namespace BatchClient
             }
         }
 
-        private bool _UpdateConnectionString = false;
-
-        private void UpdateConnectionString()
-        {
-            if (_UpdateConnectionString)
-                return;
-
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            ConnectionStringsSection section = config.GetSection("connectionStrings") as ConnectionStringsSection;
-            Console.WriteLine("Setting connection string to : {0}", this.BrokerConnectionString);
-            if (section == null)
-            {
-                section = new ConnectionStringsSection();
-                config.Sections.Add("connectionString", section);
-                config.Save();
-            }
-            var connStr = section.ConnectionStrings["CprBroker.Config.Properties.Settings.CprBrokerConnectionString"];
-            if (connStr == null)
-            {
-                connStr = new ConnectionStringSettings("CprBroker.Config.Properties.Settings.CprBrokerConnectionString", this.BrokerConnectionString);
-                section.ConnectionStrings.Add(connStr);
-            }
-            else
-            {
-                connStr.ConnectionString = this.BrokerConnectionString;
-            }
-            config.Save();
-            Console.WriteLine("Setting connection saved");
-
-            _UpdateConnectionString = true;
-        }
-
         public override void ProcessPerson(string personRegId)
         {
-            BrokerContext.Initialize(this.ApplicationToken,this.UserToken);
+            BrokerContext.Initialize(this.ApplicationToken, this.UserToken);
 
             var personRegistrationId = new Guid(personRegId);
 

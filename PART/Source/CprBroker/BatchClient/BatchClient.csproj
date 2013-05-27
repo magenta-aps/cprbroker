@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="CompareDatabasePerformance.cs" />
     <Compile Include="CompareExpressionToSimplified.cs" />
+    <Compile Include="ConvertCprDirectToFiles.cs" />
     <Compile Include="List.cs" />
     <Compile Include="DoNothing.cs" />
     <Compile Include="GetUuids.cs" />
@@ -121,7 +122,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Utilities.Tests.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="Web References\Part\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
