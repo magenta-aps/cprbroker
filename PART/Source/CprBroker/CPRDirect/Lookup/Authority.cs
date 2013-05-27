@@ -83,15 +83,27 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static string GetNameByCode(string code)
+        private static Dictionary<string, string> _AuthorityMap;
+
+        static Authority()
         {
             using (var dataContext = new LookupDataContext())
             {
-                return dataContext
+                _AuthorityMap = dataContext
                     .Authorities
-                    .Where(auth => auth.AuthorityCode == code)
-                    .Select(auth => auth.FullName)
-                    .FirstOrDefault();
+                    .ToDictionary(au => au.AuthorityCode, au => au.FullName);
+            }
+        }
+
+        public static string GetNameByCode(string code)
+        {
+            if (_AuthorityMap.ContainsKey(code))
+            {
+                return _AuthorityMap[code];
+            }
+            else
+            {
+                return null;
             }
         }
 
