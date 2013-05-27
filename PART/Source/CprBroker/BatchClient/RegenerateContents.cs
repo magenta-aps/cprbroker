@@ -65,7 +65,7 @@ namespace BatchClient
 
         public override string[] LoadCprNumbers()
         {
-            UpdateConnectionString(this.BrokerConnectionString);
+            Utilities.UpdateConnectionString(this.BrokerConnectionString);
 
             using (var dataContext = new PartDataContext(this.BrokerConnectionString))
             {

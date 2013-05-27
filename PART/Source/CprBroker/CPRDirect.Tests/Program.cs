@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Providers.CPRDirect;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Tests.CPRDirect
 {
@@ -56,10 +57,35 @@ namespace CprBroker.Tests.CPRDirect
     {
         public static void Main()
         {
+            var fileNames = new string[] { @"C:\Users\Beemen\Desktop\CPR Data\Beemen1.txt" , @"C:\Users\Beemen\Desktop\CPR Data\Beemen2.txt" 
+            };
+
+            int index = 1;
+            var converted = fileNames.Select(fName =>
+            {
+                var lines = System.IO.File.ReadAllLines(fName);
+                string data = string.Join("", lines);
+                var resp = new IndividualResponseType() { Contents = new string(' ', 28) + data };
+                resp.FillFrom(resp.Data, Constants.DataObjectMap);
+                var ret = resp.ToRegistreringType1(cpr => Guid.NewGuid());
+                var xml = CprBroker.Utilities.Strings.SerializeObject(ret);
+                System.IO.File.WriteAllText(@"C:\Users\Beemen\Desktop\CPR Data\" + (index++) + ".xml", xml);
+                return ret;
+            })
+            .ToArray();
+            var merge = RegistreringType1.Merge(new Schemas.PersonIdentifier() { CprNumber = "", UUID = Guid.Empty }, VirkningType.Create(DateTime.Now.AddYears(-3), DateTime.Now), converted);
+            var xmlMerge = CprBroker.Utilities.Strings.SerializeObject(merge);
+            System.IO.File.WriteAllText(@"C:\Users\Beemen\Desktop\CPR Data\merge.xml", xmlMerge);
+            
+            return;
+
             BulkImport();
             //GetPersons();
             //CprBroker.Engine.BrokerContext.Initialize("fd56ff6b-35bc-4b67-8ae4-bdc4485dc429", "");
             //ExtractManager.ImportDataProviderFolders();
+
+
+
         }
 
         public static void BulkImport()
