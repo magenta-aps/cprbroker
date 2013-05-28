@@ -30,13 +30,13 @@ namespace CprBroker.NUnitTester.Part {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegSagDokObjektType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SoegInputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ListOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FlerRelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RelationType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegisterOplysningBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AdresseBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(KontaktKanalBaseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SagDokObjektType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BasicOutputType))]
     public partial class Part : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
@@ -55,6 +55,14 @@ namespace CprBroker.NUnitTester.Part {
         private System.Threading.SendOrPostCallback SearchOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetUuidOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ReadSnapshotOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ReadPeriodOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ListSnapshotOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ListPeriodOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -136,6 +144,18 @@ namespace CprBroker.NUnitTester.Part {
         
         /// <remarks/>
         public event GetUuidCompletedEventHandler GetUuidCompleted;
+        
+        /// <remarks/>
+        public event ReadSnapshotCompletedEventHandler ReadSnapshotCompleted;
+        
+        /// <remarks/>
+        public event ReadPeriodCompletedEventHandler ReadPeriodCompleted;
+        
+        /// <remarks/>
+        public event ListSnapshotCompletedEventHandler ListSnapshotCompleted;
+        
+        /// <remarks/>
+        public event ListPeriodCompletedEventHandler ListPeriodCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
@@ -295,6 +315,146 @@ namespace CprBroker.NUnitTester.Part {
             if ((this.GetUuidCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetUuidCompleted(this, new GetUuidCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("SourceUsageOrderHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/ReadSnapshot", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("LaesOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
+        public LaesOutputType ReadSnapshot(string UUID, System.DateTime virkningDato) {
+            object[] results = this.Invoke("ReadSnapshot", new object[] {
+                        UUID,
+                        virkningDato});
+            return ((LaesOutputType)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ReadSnapshotAsync(string UUID, System.DateTime virkningDato) {
+            this.ReadSnapshotAsync(UUID, virkningDato, null);
+        }
+        
+        /// <remarks/>
+        public void ReadSnapshotAsync(string UUID, System.DateTime virkningDato, object userState) {
+            if ((this.ReadSnapshotOperationCompleted == null)) {
+                this.ReadSnapshotOperationCompleted = new System.Threading.SendOrPostCallback(this.OnReadSnapshotOperationCompleted);
+            }
+            this.InvokeAsync("ReadSnapshot", new object[] {
+                        UUID,
+                        virkningDato}, this.ReadSnapshotOperationCompleted, userState);
+        }
+        
+        private void OnReadSnapshotOperationCompleted(object arg) {
+            if ((this.ReadSnapshotCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ReadSnapshotCompleted(this, new ReadSnapshotCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("SourceUsageOrderHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/ReadPeriod", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("LaesOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
+        public LaesOutputType ReadPeriod(string UUID, System.DateTime fraVirkningDato, System.DateTime tilVirkningDato) {
+            object[] results = this.Invoke("ReadPeriod", new object[] {
+                        UUID,
+                        fraVirkningDato,
+                        tilVirkningDato});
+            return ((LaesOutputType)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ReadPeriodAsync(string UUID, System.DateTime fraVirkningDato, System.DateTime tilVirkningDato) {
+            this.ReadPeriodAsync(UUID, fraVirkningDato, tilVirkningDato, null);
+        }
+        
+        /// <remarks/>
+        public void ReadPeriodAsync(string UUID, System.DateTime fraVirkningDato, System.DateTime tilVirkningDato, object userState) {
+            if ((this.ReadPeriodOperationCompleted == null)) {
+                this.ReadPeriodOperationCompleted = new System.Threading.SendOrPostCallback(this.OnReadPeriodOperationCompleted);
+            }
+            this.InvokeAsync("ReadPeriod", new object[] {
+                        UUID,
+                        fraVirkningDato,
+                        tilVirkningDato}, this.ReadPeriodOperationCompleted, userState);
+        }
+        
+        private void OnReadPeriodOperationCompleted(object arg) {
+            if ((this.ReadPeriodCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ReadPeriodCompleted(this, new ReadPeriodCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("SourceUsageOrderHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/ListSnapshot", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("ListOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
+        public ListOutputType1 ListSnapshot(string[] UUIDs, System.DateTime virkningDato) {
+            object[] results = this.Invoke("ListSnapshot", new object[] {
+                        UUIDs,
+                        virkningDato});
+            return ((ListOutputType1)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ListSnapshotAsync(string[] UUIDs, System.DateTime virkningDato) {
+            this.ListSnapshotAsync(UUIDs, virkningDato, null);
+        }
+        
+        /// <remarks/>
+        public void ListSnapshotAsync(string[] UUIDs, System.DateTime virkningDato, object userState) {
+            if ((this.ListSnapshotOperationCompleted == null)) {
+                this.ListSnapshotOperationCompleted = new System.Threading.SendOrPostCallback(this.OnListSnapshotOperationCompleted);
+            }
+            this.InvokeAsync("ListSnapshot", new object[] {
+                        UUIDs,
+                        virkningDato}, this.ListSnapshotOperationCompleted, userState);
+        }
+        
+        private void OnListSnapshotOperationCompleted(object arg) {
+            if ((this.ListSnapshotCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ListSnapshotCompleted(this, new ListSnapshotCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("SourceUsageOrderHeaderValue")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("ApplicationHeaderValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dk.itst/ListPeriod", RequestNamespace="http://dk.itst", ResponseNamespace="http://dk.itst", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("ListOutput", Namespace="urn:oio:sagdok:person:1.0.0")]
+        public ListOutputType1 ListPeriod(string[] UUIDs, System.DateTime fraVirkningDato, System.DateTime tilVirkningDato) {
+            object[] results = this.Invoke("ListPeriod", new object[] {
+                        UUIDs,
+                        fraVirkningDato,
+                        tilVirkningDato});
+            return ((ListOutputType1)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ListPeriodAsync(string[] UUIDs, System.DateTime fraVirkningDato, System.DateTime tilVirkningDato) {
+            this.ListPeriodAsync(UUIDs, fraVirkningDato, tilVirkningDato, null);
+        }
+        
+        /// <remarks/>
+        public void ListPeriodAsync(string[] UUIDs, System.DateTime fraVirkningDato, System.DateTime tilVirkningDato, object userState) {
+            if ((this.ListPeriodOperationCompleted == null)) {
+                this.ListPeriodOperationCompleted = new System.Threading.SendOrPostCallback(this.OnListPeriodOperationCompleted);
+            }
+            this.InvokeAsync("ListPeriod", new object[] {
+                        UUIDs,
+                        fraVirkningDato,
+                        tilVirkningDato}, this.ListPeriodOperationCompleted, userState);
+        }
+        
+        private void OnListPeriodOperationCompleted(object arg) {
+            if ((this.ListPeriodCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ListPeriodCompleted(this, new ListPeriodCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2131,9 +2291,9 @@ namespace CprBroker.NUnitTester.Part {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DanskAdresseType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(VerdenAdresseType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroenlandAdresseType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2163,6 +2323,128 @@ namespace CprBroker.NUnitTester.Part {
             }
             set {
                 this.ukendtAdresseIndikatorField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class VerdenAdresseType : AdresseBaseType {
+        
+        private ForeignAddressStructureType foreignAddressStructureField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+        public ForeignAddressStructureType ForeignAddressStructure {
+            get {
+                return this.foreignAddressStructureField;
+            }
+            set {
+                this.foreignAddressStructureField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
+    public partial class ForeignAddressStructureType {
+        
+        private string postalAddressFirstLineTextField;
+        
+        private string postalAddressSecondLineTextField;
+        
+        private string postalAddressThirdLineTextField;
+        
+        private string postalAddressFourthLineTextField;
+        
+        private string postalAddressFifthLineTextField;
+        
+        private CountryIdentificationCodeType countryIdentificationCodeField;
+        
+        private string locationDescriptionTextField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFirstLineText {
+            get {
+                return this.postalAddressFirstLineTextField;
+            }
+            set {
+                this.postalAddressFirstLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressSecondLineText {
+            get {
+                return this.postalAddressSecondLineTextField;
+            }
+            set {
+                this.postalAddressSecondLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressThirdLineText {
+            get {
+                return this.postalAddressThirdLineTextField;
+            }
+            set {
+                this.postalAddressThirdLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFourthLineText {
+            get {
+                return this.postalAddressFourthLineTextField;
+            }
+            set {
+                this.postalAddressFourthLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
+        public string PostalAddressFifthLineText {
+            get {
+                return this.postalAddressFifthLineTextField;
+            }
+            set {
+                this.postalAddressFifthLineTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+        public CountryIdentificationCodeType CountryIdentificationCode {
+            get {
+                return this.countryIdentificationCodeField;
+            }
+            set {
+                this.countryIdentificationCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/")]
+        public string LocationDescriptionText {
+            get {
+                return this.locationDescriptionTextField;
+            }
+            set {
+                this.locationDescriptionTextField = value;
             }
         }
     }
@@ -2387,128 +2669,6 @@ namespace CprBroker.NUnitTester.Part {
             }
             set {
                 this.countryIdentificationCodeField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class VerdenAdresseType : AdresseBaseType {
-        
-        private ForeignAddressStructureType foreignAddressStructureField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-        public ForeignAddressStructureType ForeignAddressStructure {
-            get {
-                return this.foreignAddressStructureField;
-            }
-            set {
-                this.foreignAddressStructureField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/")]
-    public partial class ForeignAddressStructureType {
-        
-        private string postalAddressFirstLineTextField;
-        
-        private string postalAddressSecondLineTextField;
-        
-        private string postalAddressThirdLineTextField;
-        
-        private string postalAddressFourthLineTextField;
-        
-        private string postalAddressFifthLineTextField;
-        
-        private CountryIdentificationCodeType countryIdentificationCodeField;
-        
-        private string locationDescriptionTextField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFirstLineText {
-            get {
-                return this.postalAddressFirstLineTextField;
-            }
-            set {
-                this.postalAddressFirstLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressSecondLineText {
-            get {
-                return this.postalAddressSecondLineTextField;
-            }
-            set {
-                this.postalAddressSecondLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressThirdLineText {
-            get {
-                return this.postalAddressThirdLineTextField;
-            }
-            set {
-                this.postalAddressThirdLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFourthLineText {
-            get {
-                return this.postalAddressFourthLineTextField;
-            }
-            set {
-                this.postalAddressFourthLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/")]
-        public string PostalAddressFifthLineText {
-            get {
-                return this.postalAddressFifthLineTextField;
-            }
-            set {
-                this.postalAddressFifthLineTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
-        public CountryIdentificationCodeType CountryIdentificationCode {
-            get {
-                return this.countryIdentificationCodeField;
-            }
-            set {
-                this.countryIdentificationCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/")]
-        public string LocationDescriptionText {
-            get {
-                return this.locationDescriptionTextField;
-            }
-            set {
-                this.locationDescriptionTextField = value;
             }
         }
     }
@@ -3859,10 +4019,10 @@ namespace CprBroker.NUnitTester.Part {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesFiltreretOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FiltreretOejebliksbilledeType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PartType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PersonType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4117,10 +4277,10 @@ namespace CprBroker.NUnitTester.Part {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidArrayOutputType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RegistreringOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OpretOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidOutputType))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GetUuidArrayOutputType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(LaesOutputType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
     [System.SerializableAttribute()]
@@ -4148,38 +4308,30 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class RegistreringOutputType : BasicOutputType {
+    public partial class GetUuidArrayOutputType : BasicOutputType {
         
-        private RegistreringType1 registreringField;
+        private string[] itemField;
+        
+        private string[] uUIDField;
         
         /// <remarks/>
-        public RegistreringType1 Registrering {
+        public string[] Item {
             get {
-                return this.registreringField;
+                return this.itemField;
             }
             set {
-                this.registreringField = value;
+                this.itemField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class OpretOutputType : BasicOutputType {
-        
-        private PersonType personField;
         
         /// <remarks/>
-        public PersonType Person {
+        [System.Xml.Serialization.XmlElementAttribute("UUID", Namespace="urn:oio:dkal:1.0.0")]
+        public string[] UUID {
             get {
-                return this.personField;
+                return this.uUIDField;
             }
             set {
-                this.personField = value;
+                this.uUIDField = value;
             }
         }
     }
@@ -4224,30 +4376,38 @@ namespace CprBroker.NUnitTester.Part {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
-    public partial class GetUuidArrayOutputType : BasicOutputType {
+    public partial class RegistreringOutputType : BasicOutputType {
         
-        private string[] itemField;
-        
-        private string[] uUIDField;
+        private RegistreringType1 registreringField;
         
         /// <remarks/>
-        public string[] Item {
+        public RegistreringType1 Registrering {
             get {
-                return this.itemField;
+                return this.registreringField;
             }
             set {
-                this.itemField = value;
+                this.registreringField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:oio:sagdok:person:1.0.0")]
+    public partial class OpretOutputType : BasicOutputType {
+        
+        private PersonType personField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("UUID", Namespace="urn:oio:dkal:1.0.0")]
-        public string[] UUID {
+        public PersonType Person {
             get {
-                return this.uUIDField;
+                return this.personField;
             }
             set {
-                this.uUIDField = value;
+                this.personField = value;
             }
         }
     }
@@ -4585,6 +4745,110 @@ namespace CprBroker.NUnitTester.Part {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((GetUuidOutputType)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void ReadSnapshotCompletedEventHandler(object sender, ReadSnapshotCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ReadSnapshotCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ReadSnapshotCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public LaesOutputType Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((LaesOutputType)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void ReadPeriodCompletedEventHandler(object sender, ReadPeriodCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ReadPeriodCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ReadPeriodCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public LaesOutputType Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((LaesOutputType)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void ListSnapshotCompletedEventHandler(object sender, ListSnapshotCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ListSnapshotCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ListSnapshotCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ListOutputType1 Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ListOutputType1)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void ListPeriodCompletedEventHandler(object sender, ListPeriodCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ListPeriodCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ListPeriodCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ListOutputType1 Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ListOutputType1)(this.results[0]));
             }
         }
     }

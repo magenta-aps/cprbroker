@@ -74,4 +74,96 @@ namespace CprBroker.NUnitTester
         }
 
     }
+
+    public abstract class PartBaseTest : BaseTest
+    {
+        #region Utility methods
+
+        protected void Validate(Part.StandardReturType ret)
+        {
+            Assert.IsNotNull(ret);
+            base.Validate(ret.StatusKode, ret.FejlbeskedTekst);
+        }
+
+        protected void ValidateInvalid(Part.StandardReturType ret)
+        {
+            Assert.IsNotNull(ret);
+            base.ValidateInvalid(ret.StatusKode, ret.FejlbeskedTekst);
+        }
+
+        protected void Validate(Guid uuid, Part.LaesOutputType laesOutput, Part.Part service)
+        {
+            Assert.IsNotNull(laesOutput, "Laes output is null{0}", uuid);
+            Validate(laesOutput.StandardRetur);
+            Validate(uuid, laesOutput.LaesResultat, service);
+        }
+
+        protected void Validate(Guid uuid, Part.LaesResultatType laesResultat, Part.Part service)
+        {
+            Assert.IsNotNull(laesResultat, "Person not found : {0}", uuid);
+            if (laesResultat.Item is Part.RegistreringType1)
+            {
+                var reg = laesResultat.Item as Part.RegistreringType1;
+                Assert.NotNull(reg.AktoerRef, "Empty actor");
+                Assert.AreNotEqual("", reg.AktoerRef.Item, "Empty actor text");
+                Assert.AreNotEqual(Guid.Empty.ToString(), reg.AktoerRef.Item, "Empty actor text");
+
+                Assert.NotNull(reg.AttributListe, "Attributes");
+                Assert.NotNull(reg.AttributListe.Egenskab, "Attributes");
+                Assert.Greater(reg.AttributListe.Egenskab.Length, 0, "Attributes");
+
+                Assert.NotNull(reg.AttributListe.Egenskab[0].BirthDate, "Birthdate");
+                Assert.NotNull(reg.AttributListe.Egenskab[0].NavnStruktur, "Name");
+                //Assert.NotNull(reg.AttributListe.Egenskaber[0].RegisterOplysninger, "Birthdate");
+                Assert.NotNull(reg.AttributListe.Egenskab[0].Virkning, "Effect");
+
+                Assert.NotNull(reg.TilstandListe, "States");
+
+                Assert.NotNull(reg.RelationListe, "Relations");
+            }
+            else if (laesResultat.Item is Part.FiltreretOejebliksbilledeType)
+            {
+                var reg = laesResultat.Item as Part.FiltreretOejebliksbilledeType;
+                Assert.NotNull(reg.AttributListe, "Attributes");
+                Assert.NotNull(reg.AttributListe.Egenskab, "Attributes");
+                Assert.Greater(reg.AttributListe.Egenskab.Length, 0, "Attributes");
+
+                Assert.NotNull(reg.AttributListe.Egenskab[0].BirthDate, "Birthdate");
+                Assert.NotNull(reg.AttributListe.Egenskab[0].NavnStruktur, "Name");
+                //Assert.NotNull(reg.AttributListe.Egenskaber[0].RegisterOplysninger, "Birthdate");
+                Assert.NotNull(reg.AttributListe.Egenskab[0].Virkning, "Effect");
+
+                Assert.NotNull(reg.TilstandListe, "States");
+
+                Assert.NotNull(reg.RelationListe, "Relations");
+            }
+            else
+            {
+                Assert.Fail(String.Format("Unknown laesResultat object type:{0}", laesResultat.Item));
+            }
+
+            //Assert.AreNotEqual(String.Empty, laesResultat.LaesResultat..ActorId);
+
+            //Assert.IsNotNull(service.QualityHeaderValue, "Quality header");
+            //Assert.IsNotNull(service.QualityHeaderValue.QualityLevel, "Quality header value");
+        }
+
+        protected void Validate(Part.GetUuidOutputType uuid)
+        {
+            Assert.NotNull(uuid);
+            Validate(uuid.StandardRetur);
+            Assert.NotNull(uuid.UUID);
+            Assert.AreNotEqual(uuid.UUID, Guid.Empty.ToString());
+        }
+
+        protected void ValidateInvalid(Part.GetUuidOutputType uuid)
+        {
+            Assert.NotNull(uuid);
+            ValidateInvalid(uuid.StandardRetur);
+            Assert.IsNullOrEmpty(uuid.UUID);
+        }
+
+        #endregion
+
+    }
 }

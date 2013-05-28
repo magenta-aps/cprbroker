@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:s16="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" xmlns:s3="urn:oio:sagdok:1.0.0" xmlns:s8="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s6="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s13="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s14="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:s15="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s1="urn:oio:sagdok:2.0.0" xmlns:s10="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:s11="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:s12="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" xmlns:s9="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" xmlns:s7="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:s17="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s5="urn:oio:sagdok:part:1.0.0" xmlns:s2="urn:oio:dkal:1.0.0" xmlns:s18="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:s19="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s20="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" xmlns:s21="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" xmlns:s22="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" xmlns:tns="http://dk.itst" xmlns:s4="urn:oio:sagdok:person:1.0.0" targetNamespace="http://dk.itst" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:s16="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:s3="urn:oio:sagdok:1.0.0" xmlns:s8="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s6="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s13="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s14="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:s15="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s1="urn:oio:sagdok:2.0.0" xmlns:s10="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:s11="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:s12="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" xmlns:s9="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" xmlns:s7="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:s17="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s5="urn:oio:sagdok:part:1.0.0" xmlns:s2="urn:oio:dkal:1.0.0" xmlns:s18="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:s19="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s20="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" xmlns:s21="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" xmlns:s22="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" xmlns:tns="http://dk.itst" xmlns:s4="urn:oio:sagdok:person:1.0.0" targetNamespace="http://dk.itst" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This is the main service of CPR Broker. It allows access to CPR data through a standard PART interface.  Methods of this service are executed via local data provider whenever possible (except RefreshRead). Otherwise, an external data provider is used to implement the request.</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://dk.itst">
@@ -111,6 +111,73 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ReadSnapshot">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="virkningDato" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReadSnapshotResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:LaesOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReadPeriod">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fraVirkningDato" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="tilVirkningDato" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReadPeriodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:LaesOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSnapshot">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUIDs" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="virkningDato" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListSnapshotResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:ListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPeriod">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUIDs" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="fraVirkningDato" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="tilVirkningDato" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPeriodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:ListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:2.0.0">
       <s:import namespace="urn:oio:dkal:1.0.0" />
@@ -170,8 +237,8 @@
       <s:complexType name="UnikIdType">
         <s:sequence>
           <s:choice minOccurs="1" maxOccurs="1">
-            <s:element minOccurs="0" maxOccurs="1" ref="s2:UUID" />
             <s:element minOccurs="0" maxOccurs="1" name="URNIdentifikator" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s2:UUID" />
           </s:choice>
         </s:sequence>
       </s:complexType>
@@ -308,7 +375,6 @@
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:person:1.0.0">
       <s:import namespace="urn:oio:sagdok:2.0.0" />
-      <s:import namespace="urn:oio:dkal:1.0.0" />
       <s:import namespace="urn:oio:sagdok:part:1.0.0" />
       <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
       <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" />
@@ -316,13 +382,14 @@
       <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
       <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
       <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
       <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
       <s:import namespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" />
-      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" />
       <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
       <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="urn:oio:dkal:1.0.0" />
       <s:element name="LaesOutput" type="s4:LaesOutputType" />
       <s:complexType name="LaesOutputType">
         <s:complexContent mixed="false">
@@ -330,31 +397,6 @@
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="Item" type="s4:LaesResultatType" />
               <s:element minOccurs="0" maxOccurs="1" name="LaesResultat" type="s4:LaesResultatType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="GetUuidArrayOutputType">
-        <s:complexContent mixed="false">
-          <s:extension base="s1:BasicOutputType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Item" type="s4:ArrayOfString" />
-              <s:element minOccurs="0" maxOccurs="unbounded" ref="s2:UUID" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="GetUuidOutputType">
-        <s:complexContent mixed="false">
-          <s:extension base="s1:BasicOutputType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Item" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" ref="s2:UUID" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -422,9 +464,9 @@
           <s:extension base="s4:KontaktKanalBaseType">
             <s:sequence>
               <s:choice minOccurs="1" maxOccurs="1">
+                <s:element minOccurs="0" maxOccurs="1" name="AndenKontaktKanal" type="s4:AndenKontaktKanalType" />
                 <s:element minOccurs="0" maxOccurs="1" ref="s11:EmailAddressIdentifier" />
                 <s:element minOccurs="0" maxOccurs="1" name="Telefon" type="s4:TelefonType" />
-                <s:element minOccurs="0" maxOccurs="1" name="AndenKontaktKanal" type="s4:AndenKontaktKanalType" />
               </s:choice>
             </s:sequence>
           </s:extension>
@@ -436,32 +478,33 @@
           <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="TelefonType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s12:TelephoneNumberIdentifier" />
-          <s:element minOccurs="1" maxOccurs="1" name="KanBrugesTilSmsIndikator" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="AndenKontaktKanalType">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
           <s:element minOccurs="0" maxOccurs="1" name="KontaktKanalTekst" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:complexType name="TelefonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s12:TelephoneNumberIdentifier" />
+          <s:element minOccurs="1" maxOccurs="1" name="KanBrugesTilSmsIndikator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="AdresseType">
         <s:sequence>
           <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="GroenlandAdresse" type="s4:GroenlandAdresseType" />
             <s:element minOccurs="0" maxOccurs="1" name="VerdenAdresse" type="s4:VerdenAdresseType" />
             <s:element minOccurs="0" maxOccurs="1" name="DanskAdresse" type="s4:DanskAdresseType" />
-            <s:element minOccurs="0" maxOccurs="1" name="GroenlandAdresse" type="s4:GroenlandAdresseType" />
           </s:choice>
         </s:sequence>
       </s:complexType>
-      <s:complexType name="VerdenAdresseType">
+      <s:complexType name="GroenlandAdresseType">
         <s:complexContent mixed="false">
           <s:extension base="s4:AdresseBaseType">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" ref="s17:ForeignAddressStructure" />
+              <s:element minOccurs="0" maxOccurs="1" ref="s13:AddressCompleteGreenland" />
+              <s:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -472,12 +515,21 @@
           <s:element minOccurs="1" maxOccurs="1" name="UkendtAdresseIndikator" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:complexType name="VerdenAdresseType">
+        <s:complexContent mixed="false">
+          <s:extension base="s4:AdresseBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s13:ForeignAddressStructure" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:complexType name="DanskAdresseType">
         <s:complexContent mixed="false">
           <s:extension base="s4:AdresseBaseType">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" ref="s13:AddressComplete" />
-              <s:element minOccurs="0" maxOccurs="1" ref="s16:AddressPoint" />
+              <s:element minOccurs="0" maxOccurs="1" ref="s16:AddressComplete" />
+              <s:element minOccurs="0" maxOccurs="1" ref="s19:AddressPoint" />
               <s:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="SocialDistriktTekst" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SkoleDistriktTekst" type="s:string" />
@@ -485,16 +537,6 @@
               <s:element minOccurs="0" maxOccurs="1" name="SogneDistriktTekst" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ValgkredsDistriktTekst" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="PolitiDistriktTekst" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="GroenlandAdresseType">
-        <s:complexContent mixed="false">
-          <s:extension base="s4:AdresseBaseType">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" ref="s17:AddressCompleteGreenland" />
-              <s:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -519,26 +561,22 @@
       <s:complexType name="RegisterOplysningBaseType">
         <s:sequence>
           <s:choice minOccurs="1" maxOccurs="1">
-            <s:element minOccurs="0" maxOccurs="1" name="UdenlandskBorger" type="s4:UdenlandskBorgerType" />
-            <s:element minOccurs="0" maxOccurs="1" name="CprBorger" type="s4:CprBorgerType" />
             <s:element minOccurs="0" maxOccurs="1" name="UkendtBorger" type="s4:UkendtBorgerType" />
+            <s:element minOccurs="0" maxOccurs="1" name="CprBorger" type="s4:CprBorgerType" />
+            <s:element minOccurs="0" maxOccurs="1" name="UdenlandskBorger" type="s4:UdenlandskBorgerType" />
           </s:choice>
         </s:sequence>
       </s:complexType>
-      <s:complexType name="UdenlandskBorgerType">
+      <s:complexType name="UkendtBorgerType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="PersonIdentifikator" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="unbounded" ref="s21:PersonNationalityCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s22:PersonCivilRegistrationReplacementIdentifier" />
-          <s:element minOccurs="0" maxOccurs="unbounded" name="SprogKode" type="s7:CountryIdentificationCodeType" />
-          <s:element minOccurs="0" maxOccurs="1" name="FoedselslandKode" type="s7:CountryIdentificationCodeType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s21:PersonCivilRegistrationReplacementIdentifier" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="CprBorgerType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s14:PersonCivilRegistrationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:PersonCivilRegistrationIdentifier" />
           <s:element minOccurs="1" maxOccurs="1" name="PersonNummerGyldighedStatusIndikator" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s21:PersonNationalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s22:PersonNationalityCode" />
           <s:element minOccurs="1" maxOccurs="1" name="NavneAdresseBeskyttelseIndikator" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="TelefonNummerBeskyttelseIndikator" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="ForskerBeskyttelseIndikator" type="s:boolean" />
@@ -547,9 +585,13 @@
           <s:element minOccurs="1" maxOccurs="1" name="FolkekirkeMedlemIndikator" type="s:boolean" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="UkendtBorgerType">
+      <s:complexType name="UdenlandskBorgerType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s22:PersonCivilRegistrationReplacementIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonIdentifikator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" ref="s22:PersonNationalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s21:PersonCivilRegistrationReplacementIdentifier" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SprogKode" type="s7:CountryIdentificationCodeType" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedselslandKode" type="s7:CountryIdentificationCodeType" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="TilstandListeType">
@@ -633,11 +675,36 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:complexType name="GetUuidOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Item" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" ref="s2:UUID" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="GetUuidArrayOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Item" type="s4:ArrayOfString" />
+              <s:element minOccurs="0" maxOccurs="unbounded" ref="s2:UUID" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="LaesResultatType">
         <s:sequence>
           <s:choice minOccurs="1" maxOccurs="1">
-            <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s4:RegistreringType" />
             <s:element minOccurs="0" maxOccurs="1" name="FiltreretOejebliksbillede" type="s4:FiltreretOejebliksbilledeType" />
+            <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s4:RegistreringType" />
           </s:choice>
         </s:sequence>
       </s:complexType>
@@ -749,10 +816,6 @@
       <s:element name="PersonGivenName" type="s:string" />
       <s:element name="PersonMiddleName" type="s:string" />
       <s:element name="PersonSurnameName" type="s:string" />
-      <s:element name="StreetBuildingIdentifier" type="s:string" />
-      <s:element name="MailDeliverySublocationIdentifier" type="s:string" />
-      <s:element name="FloorIdentifier" type="s:string" />
-      <s:element name="SuiteIdentifier" type="s:string" />
       <s:element name="CountryIdentificationCode" type="s7:CountryIdentificationCodeType" />
       <s:complexType name="CountryIdentificationCodeType">
         <s:simpleContent>
@@ -769,6 +832,10 @@
           <s:enumeration value="imk" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="StreetBuildingIdentifier" type="s:string" />
+      <s:element name="MailDeliverySublocationIdentifier" type="s:string" />
+      <s:element name="FloorIdentifier" type="s:string" />
+      <s:element name="SuiteIdentifier" type="s:string" />
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/">
       <s:element name="PersonNameForAddressingName" type="s:string" />
@@ -797,8 +864,8 @@
       <s:element name="AddressAccess" type="s11:AddressAccessType" />
       <s:complexType name="AddressAccessType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s14:MunicipalityCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:StreetCode" />
           <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
         </s:sequence>
       </s:complexType>
@@ -806,29 +873,76 @@
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/">
       <s:element name="TelephoneNumberIdentifier" type="s:string" />
     </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:element name="ForeignAddressStructure" type="s13:ForeignAddressStructureType" />
+      <s:complexType name="ForeignAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:PostalAddressFirstLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:PostalAddressSecondLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:PostalAddressThirdLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:PostalAddressFourthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:PostalAddressFifthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:LocationDescriptionText" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddressCompleteGreenland" type="s13:AddressCompleteGreenlandType" />
+      <s:complexType name="AddressCompleteGreenlandType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/">
+      <s:element name="PostalAddressFirstLineText" type="s:string" />
+      <s:element name="PostalAddressSecondLineText" type="s:string" />
+      <s:element name="PostalAddressThirdLineText" type="s:string" />
+      <s:element name="PostalAddressFourthLineText" type="s:string" />
+      <s:element name="PostalAddressFifthLineText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/">
+      <s:element name="LocationDescriptionText" type="s:string" />
+    </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/">
       <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
       <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
       <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
       <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
       <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" />
-      <s:element name="AddressComplete" type="s13:AddressCompleteType" />
+      <s:element name="AddressComplete" type="s16:AddressCompleteType" />
       <s:complexType name="AddressCompleteType">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" ref="s11:AddressAccess" />
-          <s:element minOccurs="0" maxOccurs="1" name="AddressPostal" type="s13:AddressPostalType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPostal" type="s16:AddressPostalType" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="AddressPostalType">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" ref="s7:MailDeliverySublocationIdentifier" />
           <s:element minOccurs="0" maxOccurs="1" ref="s10:StreetName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:StreetNameForAddressingName" />
           <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
           <s:element minOccurs="0" maxOccurs="1" ref="s7:FloorIdentifier" />
           <s:element minOccurs="0" maxOccurs="1" ref="s7:SuiteIdentifier" />
           <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictSubdivisionIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostOfficeBoxIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostOfficeBoxIdentifier" />
           <s:element minOccurs="0" maxOccurs="1" ref="s10:PostCodeIdentifier" />
           <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictName" />
           <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
@@ -845,17 +959,17 @@
       <s:element name="PostOfficeBoxIdentifier" type="s:integer" />
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/">
-      <s:element name="AddressPoint" type="s16:AddressPointType" />
+      <s:element name="AddressPoint" type="s19:AddressPointType" />
       <s:complexType name="AddressPointType">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="AddressPointIdentifier" type="s:anyURI" />
-          <s:element minOccurs="0" maxOccurs="1" name="GeographicPointLocation" type="s16:GeographicPointLocationType" />
-          <s:element minOccurs="0" maxOccurs="1" name="AddressPointStatusStructure" type="s16:AddressPointStatusStructureType" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicPointLocation" type="s19:GeographicPointLocationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointStatusStructure" type="s19:AddressPointStatusStructureType" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="GeographicPointLocationType">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="GeographicCoordinateTuple" type="s16:GeographicCoordinateTupleType" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicCoordinateTuple" type="s19:GeographicCoordinateTupleType" />
         </s:sequence>
         <s:attribute name="crsIdentifier" type="s:string" />
       </s:complexType>
@@ -871,7 +985,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="AddressPointRevisionDateTime" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="AddressPointValidStartDateTime" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="AddressPointValidEndDateTime" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="AddressCoordinateQualityClassCode" type="s16:AddressCoordinateQualityClassCodeType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressCoordinateQualityClassCode" type="s19:AddressCoordinateQualityClassCodeType" />
         </s:sequence>
       </s:complexType>
       <s:simpleType name="AddressCoordinateQualityClassCodeType">
@@ -882,62 +996,15 @@
         </s:restriction>
       </s:simpleType>
     </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
-      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
-      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
-      <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
-      <s:element name="AddressCompleteGreenland" type="s17:AddressCompleteGreenlandType" />
-      <s:complexType name="AddressCompleteGreenlandType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s14:MunicipalityCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:MailDeliverySublocationIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:StreetName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetNameForAddressingName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:SuiteIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:FloorIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictSubdivisionIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostCodeIdentifier" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictName" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="ForeignAddressStructure" type="s17:ForeignAddressStructureType" />
-      <s:complexType name="ForeignAddressStructureType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressFirstLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressSecondLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressThirdLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressFourthLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostalAddressFifthLineText" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
-          <s:element minOccurs="0" maxOccurs="1" ref="s19:LocationDescriptionText" />
-        </s:sequence>
-      </s:complexType>
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/">
-      <s:element name="PostalAddressFirstLineText" type="s:string" />
-      <s:element name="PostalAddressSecondLineText" type="s:string" />
-      <s:element name="PostalAddressThirdLineText" type="s:string" />
-      <s:element name="PostalAddressFourthLineText" type="s:string" />
-      <s:element name="PostalAddressFifthLineText" type="s:string" />
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/">
-      <s:element name="LocationDescriptionText" type="s:string" />
-    </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/">
       <s:element name="CommentText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/">
+      <s:element name="PersonCivilRegistrationReplacementIdentifier" type="s:string" />
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/">
       <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
       <s:element name="PersonNationalityCode" type="s7:CountryIdentificationCodeType" />
-    </s:schema>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/">
-      <s:element name="PersonCivilRegistrationReplacementIdentifier" type="s:string" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="ReadSoap12In">
@@ -1002,6 +1069,54 @@
   </wsdl:message>
   <wsdl:message name="GetUuidApplicationHeader">
     <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReadSnapshotSoap12In">
+    <wsdl:part name="parameters" element="tns:ReadSnapshot" />
+  </wsdl:message>
+  <wsdl:message name="ReadSnapshotSoap12Out">
+    <wsdl:part name="parameters" element="tns:ReadSnapshotResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReadSnapshotApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReadSnapshotSourceUsageOrderHeader">
+    <wsdl:part name="SourceUsageOrderHeader" element="tns:SourceUsageOrderHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReadPeriodSoap12In">
+    <wsdl:part name="parameters" element="tns:ReadPeriod" />
+  </wsdl:message>
+  <wsdl:message name="ReadPeriodSoap12Out">
+    <wsdl:part name="parameters" element="tns:ReadPeriodResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReadPeriodApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReadPeriodSourceUsageOrderHeader">
+    <wsdl:part name="SourceUsageOrderHeader" element="tns:SourceUsageOrderHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListSnapshotSoap12In">
+    <wsdl:part name="parameters" element="tns:ListSnapshot" />
+  </wsdl:message>
+  <wsdl:message name="ListSnapshotSoap12Out">
+    <wsdl:part name="parameters" element="tns:ListSnapshotResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSnapshotApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListSnapshotSourceUsageOrderHeader">
+    <wsdl:part name="SourceUsageOrderHeader" element="tns:SourceUsageOrderHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListPeriodSoap12In">
+    <wsdl:part name="parameters" element="tns:ListPeriod" />
+  </wsdl:message>
+  <wsdl:message name="ListPeriodSoap12Out">
+    <wsdl:part name="parameters" element="tns:ListPeriodResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListPeriodApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListPeriodSourceUsageOrderHeader">
+    <wsdl:part name="SourceUsageOrderHeader" element="tns:SourceUsageOrderHeader" />
   </wsdl:message>
   <wsdl:portType name="PartSoap12">
     <wsdl:operation name="Read">
@@ -1096,6 +1211,26 @@
       <wsdl:input message="tns:GetUuidSoap12In" />
       <wsdl:output message="tns:GetUuidSoap12Out" />
     </wsdl:operation>
+    <wsdl:operation name="ReadSnapshot">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets a single snapshot of one person's CPR data</wsdl:documentation>
+      <wsdl:input message="tns:ReadSnapshotSoap12In" />
+      <wsdl:output message="tns:ReadSnapshotSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadPeriod">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets all snapshots of one person's CPR data that fall between the input effect dates</wsdl:documentation>
+      <wsdl:input message="tns:ReadPeriodSoap12In" />
+      <wsdl:output message="tns:ReadPeriodSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSnapshot">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets a single snapshot of the given persons' CPR data</wsdl:documentation>
+      <wsdl:input message="tns:ListSnapshotSoap12In" />
+      <wsdl:output message="tns:ListSnapshotSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPeriod">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets all snapshots of the given persons' CPR data that fall between the input effect dates</wsdl:documentation>
+      <wsdl:input message="tns:ListPeriodSoap12In" />
+      <wsdl:output message="tns:ListPeriodSoap12Out" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PartSoap12" type="tns:PartSoap12">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -1150,6 +1285,50 @@
       <wsdl:input>
         <soap12:body use="literal" />
         <soap12:header message="tns:GetUuidApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadSnapshot">
+      <soap12:operation soapAction="http://dk.itst/ReadSnapshot" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReadSnapshotApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap12:header message="tns:ReadSnapshotSourceUsageOrderHeader" part="SourceUsageOrderHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadPeriod">
+      <soap12:operation soapAction="http://dk.itst/ReadPeriod" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReadPeriodApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap12:header message="tns:ReadPeriodSourceUsageOrderHeader" part="SourceUsageOrderHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSnapshot">
+      <soap12:operation soapAction="http://dk.itst/ListSnapshot" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListSnapshotApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap12:header message="tns:ListSnapshotSourceUsageOrderHeader" part="SourceUsageOrderHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPeriod">
+      <soap12:operation soapAction="http://dk.itst/ListPeriod" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListPeriodApplicationHeader" part="ApplicationHeader" use="literal" />
+        <soap12:header message="tns:ListPeriodSourceUsageOrderHeader" part="SourceUsageOrderHeader" use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
