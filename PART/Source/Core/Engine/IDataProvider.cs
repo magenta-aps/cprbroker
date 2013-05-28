@@ -224,9 +224,8 @@ namespace CprBroker.Engine
 
     public interface IPartPeriodDataProvider : IDataProvider
     {
-        LaesFiltreretOutputType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId);
-    }
-
+        FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId);
+    }    
 
     /// <summary>
     /// Contains the Search method of the Part interface

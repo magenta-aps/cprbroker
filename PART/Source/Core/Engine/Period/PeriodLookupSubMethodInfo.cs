@@ -55,14 +55,14 @@ using CprBroker.Data.Part;
 
 namespace CprBroker.Engine.Period
 {
-    public class PeriodLookupSubMethodInfo : SubMethodInfo<IPartPeriodDataProvider, LaesFiltreretOutputType>
+    public class PeriodLookupSubMethodInfo : SubMethodInfo<IPartPeriodDataProvider, FiltreretOejebliksbilledeType>
     {
         public DateTime EffectDateFrom;
         public DateTime EffectDateTo;
 
         public PersonIdentifier PersonIdentifier;
 
-        public override LaesFiltreretOutputType RunMainMethod(IPartPeriodDataProvider prov)
+        public override FiltreretOejebliksbilledeType RunMainMethod(IPartPeriodDataProvider prov)
         {
             if (PersonIdentifier != null)
             {

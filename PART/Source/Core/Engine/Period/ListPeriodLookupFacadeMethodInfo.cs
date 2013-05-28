@@ -69,5 +69,15 @@ namespace CprBroker.Engine.Period
         {
             this.SubMethodInfos = this.Input.ToSubMethodInfos();
         }
+
+        public override LaesResultatType[] Aggregate(object[] results)
+        {
+            return results.Select(
+                r => new LaesResultatType()
+                {
+                    Item = r
+                }
+            ).ToArray();
+        }
     }
 }
