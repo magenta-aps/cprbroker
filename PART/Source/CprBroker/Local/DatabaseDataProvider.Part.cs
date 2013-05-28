@@ -220,7 +220,7 @@ namespace CprBroker.Providers.Local
         #endregion
 
         #region IPartPeriodDataProvider members
-        public LaesFiltreretOutputType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId)
+        public FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId)
         {
             var targetVirkning = VirkningType.Create(fromDate, toDate);
 
@@ -229,7 +229,7 @@ namespace CprBroker.Providers.Local
                 var oioRegs = dataContext
                     .PersonRegistrations
                     // TODO: Shall we also filter by ActorRef.Value to only include CPR Direct?
-                    .Where(pr => pr.UUID == pr.UUID)
+                    .Where(pr => pr.UUID == pId.UUID)
                     .OrderBy(pr => pr.RegistrationDate)
                     .Select(pr => PersonRegistration.ToXmlType(pr))
                     .ToArray();
