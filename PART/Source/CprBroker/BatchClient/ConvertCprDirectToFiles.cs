@@ -92,6 +92,7 @@ namespace BatchClient
         {
             /* Sample person in run "2013 05 27 14_12"
              * - First Egenskab has null start and end dates - shall the first start at birthdate?
+             * - Married with unknown spouse PNR
              */
 
             using (var dataContext = new ExtractDataContext())
