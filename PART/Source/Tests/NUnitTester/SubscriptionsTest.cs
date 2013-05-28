@@ -60,6 +60,7 @@ namespace CprBroker.NUnitTester
         public void Validate(Subscriptions.StandardReturType ret)
         {
             Assert.IsNotNull(ret);
+            System.Console.WriteLine("Error message: " + ret.FejlbeskedTekst);
             base.Validate(ret.StatusKode, ret.FejlbeskedTekst);
         }
 
@@ -151,6 +152,46 @@ namespace CprBroker.NUnitTester
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsTrue(res.Item);
+        }
+
+        //[Test, Timeout(5000)]
+        [Test]
+        public void T580_SubscribeOnCriteria()
+        {
+            var SoegObjekt = new Subscriptions.SoegObjektType()
+            {
+                UUID = "12345678",
+                BrugervendtNoegleTekst = "test",
+                SoegAttributListe = new Subscriptions.SoegAttributListeType()
+                {
+                    SoegEgenskab = new Subscriptions.SoegEgenskabType[]
+                    {
+                        new Subscriptions.SoegEgenskabType()
+                        {
+                            AndreAdresser = new Subscriptions.AdresseType()
+                            {
+                                Item = new Subscriptions.DanskAdresseType()
+                                {
+                                    AddressComplete = new Subscriptions.AddressCompleteType()
+                                    {
+                                        AddressAccess = new Subscriptions.AddressAccessType()
+                                        {
+                                            MunicipalityCode = "104"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            Assert.IsNotNull(SoegObjekt);
+            var res = TestRunner.SubscriptionsService.SubscribeOnCriteria(TestData.fileShareChannel, SoegObjekt);
+            Assert.IsNotNull(res);
+            Validate(res.StandardRetur);
+            Assert.IsNotNull(res.Item);
+            Assert.IsInstanceOf<Subscriptions.CriteriaSubscriptionType>(res.Item);
+            TestData.criteriaSubscriptions.Add(res.Item);
         }
     }
 }
