@@ -100,6 +100,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Services\Period.asmx" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,12 @@
     </Compile>
     <Compile Include="Services\Part.asmx.cs">
       <DependentUpon>Part.asmx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\PartService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\Period.asmx.cs">
+      <DependentUpon>Period.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

@@ -56,22 +56,17 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Web.Services
 {
+    
     /// <summary>
     /// Summary description for Part
     /// </summary>
     [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Part.Service, Description = CprBroker.Schemas.ServiceDescription.Part.Service)]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    public class Part : System.Web.Services.WebService
+    public class Part : PartService
     {
-        public ApplicationHeader applicationHeader;
-        private const string ApplicationHeaderName = "applicationHeader";
-
         public QualityHeader qualityHeader = new QualityHeader();
         private const string QualityHeaderName = "qualityHeader";
-
-        public SourceUsageOrderHeader sourceUsageOrderHeader = new SourceUsageOrderHeader();
-        private const string SourceUsageOrderHeaderName = "sourceUsageOrderHeader";
 
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
@@ -128,24 +123,6 @@ namespace CprBroker.Web.Services
         {
             return Manager.Part.PutSubscription(applicationHeader.UserToken, applicationHeader.ApplicationToken, personUuids);
         }
-
-        [WebMethod]
-        [SoapHeader(ApplicationHeaderName)]
-        [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
-        public LaesOutputType DateLookup(string[] UUIDs, DateTime virkningDato)
-        {
-            return Manager.Period.ReadSingle(UUIDs, virkningDato, applicationHeader.ApplicationToken, applicationHeader.UserToken);
-        }
-
-        [WebMethod]
-        [SoapHeader(ApplicationHeaderName)]
-        [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
-        public LaesOutputType PeriodLookup(string[] UUIDs, DateTime fraVirkningDato, DateTime tilVirkningDato)
-        {
-            return Manager.Period.ReadPeriod(UUIDs, fraVirkningDato, tilVirkningDato, applicationHeader.ApplicationToken, applicationHeader.UserToken);
-        }
-
-
 
     }
 
