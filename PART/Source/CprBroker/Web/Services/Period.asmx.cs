@@ -11,16 +11,18 @@ using CprBroker.Engine;
 namespace CprBroker.Web.Services
 {
     /// <summary>
-    /// Summary description for Period
+    /// Allows callers to explicitly request a filtered snapshot(s) of CPR data
     /// </summary>
-    [WebService(Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace, Name = CprBroker.Schemas.Part.ServiceNames.Period.Service
-        //, Description = CprBroker.Schemas.ServiceDescription.Part.Service
+    [WebService(
+        Namespace = CprBroker.Schemas.Part.ServiceNames.Namespace,
+        Name = "Period",
+        Description = "Allows callers to explicitly request a filtered snapshot(s) of CPR data"
         )]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     public class Period : PartService
     {
-        [WebMethod]
+        [WebMethod(Description = "Gets a single snapshot of one person's CPR data")]
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
         public LaesOutputType ReadSnapshot(string UUID, DateTime virkningDato)
@@ -29,7 +31,7 @@ namespace CprBroker.Web.Services
             return Manager.Period.ReadAtTime(UUID, virkningDato, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
         }
 
-        [WebMethod]
+        [WebMethod(Description = "Gets all snapshots of one person's CPR data that fall between the input effect dates")]
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
         public LaesOutputType ReadPeriod(string UUID, DateTime fraVirkningDato, DateTime tilVirkningDato)
@@ -38,7 +40,7 @@ namespace CprBroker.Web.Services
             return Manager.Period.ReadPeriod(UUID, fraVirkningDato, tilVirkningDato, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
         }
 
-        [WebMethod]
+        [WebMethod(Description = "Gets a single snapshot of the given persons' CPR data")]
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
         public ListOutputType1 ListSnapshot(string[] UUIDs, DateTime virkningDato)
@@ -47,7 +49,7 @@ namespace CprBroker.Web.Services
             return Manager.Period.ListAtTime(UUIDs, virkningDato, applicationHeader.ApplicationToken, applicationHeader.UserToken, sourceUsageOrder);
         }
 
-        [WebMethod]
+        [WebMethod(Description = "Gets all snapshots of the given persons' CPR data that fall between the input effect dates")]
         [SoapHeader(ApplicationHeaderName)]
         [SoapHeader(SourceUsageOrderHeaderName, Direction = SoapHeaderDirection.In)]
         public ListOutputType1 ListPeriod(string[] UUIDs, DateTime fraVirkningDato, DateTime tilVirkningDato)
