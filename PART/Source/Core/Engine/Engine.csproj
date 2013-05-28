@@ -82,7 +82,9 @@
     <Compile Include="Part\CityNameMapping.cs" />
     <Compile Include="Part\GetUuidArrayFacadeMethodInfo.cs" />
     <Compile Include="Part\PutSubscriptionFacadeMethodInfo.cs" />
-    <Compile Include="Period\PeriodLookupFacadeMethodInfo.cs" />
+    <Compile Include="Period\ReadPeriodLookupFacadeMethodInfo.cs" />
+    <Compile Include="Period\ListPeriodLookupFacadeMethodInfo.cs" />
+    <Compile Include="Period\PeriodLookupInput.cs" />
     <Compile Include="Period\PeriodLookupSubMethodInfo.cs" />
     <Compile Include="SubMethodRunState.cs" />
     <Compile Include="ThreadRunner.cs" />

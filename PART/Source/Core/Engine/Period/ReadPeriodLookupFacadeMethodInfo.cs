@@ -55,56 +55,19 @@ using CprBroker.Data.Part;
 
 namespace CprBroker.Engine.Period
 {
-    public class PeriodLookupFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
+
+    public class ReadPeriodLookupFacadeMethodInfo : FacadeMethodInfo<LaesOutputType, LaesResultatType>
     {
-        public string[] UUIDs;
-        public DateTime EffectDateFrom;
-        public DateTime EffectDateTo;
-        public SourceUsageOrder SourceUsageOrder;
+        public PeriodLookupInput Input;
 
         public override StandardReturType ValidateInput()
         {
-            if (UUIDs == null || UUIDs.Length == 0)
-            {
-                return StandardReturType.NullInput();
-            }
-
-            foreach (var uuid in UUIDs)
-            {
-                if (string.IsNullOrEmpty(uuid))
-                {
-                    return StandardReturType.NullInput();
-                }
-            }
-
-            var invalidUuids = (from uuid in UUIDs where !Strings.IsGuid(uuid) select uuid).ToArray();
-            if (invalidUuids.Length > 0)
-            {
-                return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidUuids));
-            }
-
-            return StandardReturType.OK();
+            return Input.Validate();
         }
 
         public override void Initialize()
         {
-            var personIdentifiers = PersonMapping.GetPersonIdentifiers(UUIDs.Select(uuid => new Guid(uuid)).ToArray());
-
-            this.SubMethodInfos = personIdentifiers.Select(pId =>
-                new PeriodLookupSubMethodInfo()
-                {
-                    PersonIdentifier = pId,
-                    EffectDateFrom = EffectDateFrom,
-                    EffectDateTo = EffectDateTo,
-                    LocalDataProviderOption = SourceUsageOrder,
-                    CurrentResult = null,
-                    FailIfNoDataProvider = true,
-                    FailOnDefaultOutput = true,
-                    Method = null,
-                    UpdateMethod = null
-                }
-                ).ToArray();
+            this.SubMethodInfos = this.Input.ToSubMethodInfos();
         }
     }
-    
 }

@@ -61,30 +61,72 @@ namespace CprBroker.Engine
     {
         public static class Period
         {
-            public static LaesOutputType ReadSingle(string[] uuids, DateTime effectDate, string appToken, string userToken)
+            public static LaesOutputType ReadAtTime(string uuid, DateTime effectDate, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
             {
-                var facade = new PeriodLookupFacadeMethodInfo()
+                var facade = new ReadPeriodLookupFacadeMethodInfo()
                 {
                     ApplicationToken = appToken,
                     UserToken = userToken,
-                    UUIDs = uuids,
-                    EffectDateFrom = effectDate,
-                    EffectDateTo = effectDate
+                    Input = new PeriodLookupInput()
+                    {
+                        UUIDs = new string[] { uuid },
+                        EffectDateFrom = effectDate,
+                        EffectDateTo = effectDate,
+                        SourceUsageOrder = sourceUsageOrder
+                    }
                 };
                 return GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
             }
 
-            public static LaesOutputType ReadPeriod(string[] uuids, DateTime effectDateFrom, DateTime effectDateTo, string appToken, string userToken)
+            public static LaesOutputType ReadPeriod(string uuid, DateTime effectDateFrom, DateTime effectDateTo, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
             {
-                var facade = new PeriodLookupFacadeMethodInfo()
+                var facade = new ReadPeriodLookupFacadeMethodInfo()
                 {
                     ApplicationToken = appToken,
                     UserToken = userToken,
-                    UUIDs = uuids,
-                    EffectDateFrom = effectDateFrom,
-                    EffectDateTo = effectDateTo
+                    Input = new PeriodLookupInput()
+                    {
+                        UUIDs = new string[] { uuid },
+                        EffectDateFrom = effectDateFrom,
+                        EffectDateTo = effectDateTo,
+                        SourceUsageOrder = sourceUsageOrder
+                    }
                 };
                 return GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
+            }
+
+            public static ListOutputType1 ListAtTime(string[] uuids, DateTime effectDate, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+            {
+                var facade = new ListPeriodLookupFacadeMethodInfo()
+                {
+                    ApplicationToken = appToken,
+                    UserToken = userToken,
+                    Input = new PeriodLookupInput()
+                    {
+                        UUIDs = uuids,
+                        EffectDateFrom = effectDate,
+                        EffectDateTo = effectDate,
+                        SourceUsageOrder = sourceUsageOrder
+                    }
+                };
+                return GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
+            }
+
+            public static ListOutputType1 ListPeriod(string[] uuids, DateTime effectDateFrom, DateTime effectDateTo, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+            {
+                var facade = new ListPeriodLookupFacadeMethodInfo()
+                {
+                    ApplicationToken = appToken,
+                    UserToken = userToken,
+                    Input = new PeriodLookupInput()
+                    {
+                        UUIDs = uuids,
+                        EffectDateFrom = effectDateFrom,
+                        EffectDateTo = effectDateTo,
+                        SourceUsageOrder = sourceUsageOrder
+                    }
+                };
+                return GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
             }
         }
     }
