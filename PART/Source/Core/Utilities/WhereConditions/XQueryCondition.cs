@@ -76,8 +76,8 @@ namespace CprBroker.Utilities.WhereConditions
                     nsMgr[element.NamespaceURI] = "ns" + nsMgr.Count;
                 }
             }
-
-            string path = string.Format("{0}/{1}:{2}", basePath, nsMgr[element.NamespaceURI], element.Name);
+            // TODO: only use [last()] on the elements that have effect periods
+            string path = string.Format("{0}/{1}:{2}[last()]", basePath, nsMgr[element.NamespaceURI], element.Name);
 
             var arr = new List<WhereCondition>();
 
