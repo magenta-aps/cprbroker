@@ -94,23 +94,6 @@ namespace CprBroker.EventBroker.Subscriptions
             {
                 return StandardReturType.NullInput("SoegObjekt");
             }
-            else
-            {
-                if (String.IsNullOrEmpty(Criterion.UUID))
-                {
-                    return StandardReturType.NullInput("SoegObjekt.UUID");
-                }
-                if (String.IsNullOrEmpty(Criterion.BrugervendtNoegleTekst))
-                {
-                    return StandardReturType.NullInput("SoegObjekt.BrugervendtNoegleTekst");
-                }
-            }
-            /*
-            if (Criterion.SoegObjekt.SoegVirkning != null)
-            {
-                return StandardReturType.InvalidValue("SoegObjekt.SoegVirkning", Criterion.SoegObjekt.SoegVirkning.ToString());
-            }
-             */
             if (Criterion.SoegAttributListe == null)
             {
                 return StandardReturType.NullInput("SoegObjekt.SoegAttributListe");
