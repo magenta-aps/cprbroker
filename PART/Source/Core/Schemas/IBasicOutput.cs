@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace CprBroker.Schemas.Part
 {
@@ -91,6 +92,7 @@ namespace CprBroker.Schemas.Part
 
     public partial class SoegOutputType : IBasicOutput<string[]>
     {
+        [XmlIgnore]
         public string[] Item
         {
             get { return Idliste; }
@@ -104,6 +106,7 @@ namespace CprBroker.Schemas.Part
 
     public partial class ListOutputType1 : IBasicOutput<LaesResultatType[]>
     {
+        [XmlIgnore]
         public LaesResultatType[] Item
         {
             get { return LaesResultat; }
@@ -117,6 +120,7 @@ namespace CprBroker.Schemas.Part
 
     public partial class GetUuidOutputType : IBasicOutput<string>
     {
+        [XmlIgnore]
         public string Item
         {
             get { return UUID; }
@@ -130,6 +134,7 @@ namespace CprBroker.Schemas.Part
 
     public partial class GetUuidArrayOutputType : IBasicOutput<string[]>
     {
+        [XmlIgnore]
         public string[] Item
         {
             get { return UUID; }
@@ -143,6 +148,7 @@ namespace CprBroker.Schemas.Part
 
     public partial class LaesOutputType : IBasicOutput<LaesResultatType>
     {
+        [XmlIgnore]
         public LaesResultatType Item
         {
             get { return LaesResultat; }
