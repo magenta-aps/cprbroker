@@ -125,7 +125,7 @@ namespace CprBroker.EventBroker.Data
         {
             using (var partDataContext = new PartDataContext())
             {
-                // Read the next (n) persons withe the latest registration of each
+                // Read the next (n) persons with the latest registration of each
                 var persons = partDataContext.Persons
                     .Where(p => p.UUID.CompareTo(this.LastCheckedUUID.Value) > 0)
                     .OrderBy(p => p.UUID)
@@ -134,7 +134,8 @@ namespace CprBroker.EventBroker.Data
                         UUID = p.UUID,
                         PersonRegistrationId = p.PersonRegistrations
                             .Where(pr => pr.BrokerUpdateDate <= this.Created)
-                            .OrderByDescending(pr => pr.BrokerUpdateDate)
+                            .OrderByDescending(pr => pr.RegistrationDate)
+                            .ThenByDescending(pr => pr.BrokerUpdateDate)
                             .Select(pr => pr.PersonRegistrationId as Guid?)
                             .FirstOrDefault()
                     })
