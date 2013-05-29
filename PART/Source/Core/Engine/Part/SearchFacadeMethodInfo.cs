@@ -120,21 +120,21 @@ namespace CprBroker.Engine.Part
             // Not implemented criteria
             if (Input.SoegObjekt.SoegRegistrering != null)
             {
-                return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegRegistrering");
+                return StandardReturType.NotImplemented("SoegRegistrering");
             }
             if (Input.SoegObjekt.SoegRelationListe != null)
             {
-                return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegRelationListe");
+                return StandardReturType.NotImplemented("SoegRelationListe");
             }
 
             if (Input.SoegObjekt.SoegTilstandListe != null)
             {
-                return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegTilstandListe");
+                return StandardReturType.NotImplemented("SoegTilstandListe");
             }
 
             if (Input.SoegObjekt.SoegVirkning != null)
             {
-                return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegVirkning");
+                return StandardReturType.NotImplemented("SoegVirkning");
             }
 
             // Now validate attribute lists
@@ -142,17 +142,17 @@ namespace CprBroker.Engine.Part
             {
                 if (Input.SoegObjekt.SoegAttributListe.LokalUdvidelse != null)
                 {
-                    return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegAttributListe.LokalUdvidelse");
+                    return StandardReturType.NotImplemented("SoegAttributListe.LokalUdvidelse");
                 }
 
                 if (Input.SoegObjekt.SoegAttributListe.SoegRegisterOplysning != null)
                 {
-                    return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegAttributListe.SoegRegisterOplysning");
+                    return StandardReturType.NotImplemented("SoegAttributListe.SoegRegisterOplysning");
                 }
 
                 if (Input.SoegObjekt.SoegAttributListe.SoegSundhedOplysning != null)
                 {
-                    return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegAttributListe.SoegSundhedOplysning");
+                    return StandardReturType.NotImplemented("SoegAttributListe.SoegSundhedOplysning");
                 }
 
                 if (Input.SoegObjekt.SoegAttributListe.SoegEgenskab != null)
@@ -161,32 +161,32 @@ namespace CprBroker.Engine.Part
                     {
                         if (egen.AndreAdresser != null)
                         {
-                            return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "AndreAdresser");
+                            return StandardReturType.NotImplemented("AndreAdresser");
                         }
                         if (!string.IsNullOrEmpty(egen.FoedestedNavn))
                         {
-                            return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "FoedestedNavn");
+                            return StandardReturType.NotImplemented("FoedestedNavn");
                         }
 
                         if (!string.IsNullOrEmpty(egen.FoedselsregistreringMyndighedNavn))
                         {
-                            return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "FoedselsregistreringMyndighedNavn");
+                            return StandardReturType.NotImplemented("FoedselsregistreringMyndighedNavn");
                         }
                         if (egen.KontaktKanal != null)
                         {
-                            return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "KontaktKanal");
+                            return StandardReturType.NotImplemented("KontaktKanal");
                         }
                         if (egen.NaermestePaaroerende != null)
                         {
-                            return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "NaermestePaaroerende");
+                            return StandardReturType.NotImplemented("NaermestePaaroerende");
                         }
                         if (egen.SoegVirkning != null)
                         {
-                            return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegVirkning");
+                            return StandardReturType.NotImplemented("SoegVirkning");
                         }
                         if (egen.SoegVirkning != null)
                         {
-                            return StandardReturType.Create(HttpErrorCode.NOT_IMPLEMENTED, "SoegVirkning");
+                            return StandardReturType.NotImplemented("SoegVirkning");
                         }
                     }
                 }

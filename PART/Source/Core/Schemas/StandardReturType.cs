@@ -196,5 +196,10 @@ namespace CprBroker.Schemas.Part
         {
             return Create(HttpErrorCode.NOT_FOUND, "NotificationChannel unreachable");
         }
+
+        public static StandardReturType NotImplemented(string feature)
+        {
+            return Create(HttpErrorCode.NOT_IMPLEMENTED, feature);
+        }
     }
 }
