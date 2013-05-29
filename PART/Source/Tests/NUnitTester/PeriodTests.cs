@@ -78,7 +78,7 @@ namespace CprBroker.NUnitTester
         public void ReadSnapshot(string pnr)
         {
             var uuid = GetUuid(pnr);
-            var person = TestRunner.PartService.ReadSnapshot(uuid, DateTime.Today);
+            var person = TestRunner.PartService.ReadSnapshot(new LaesOejebliksbilledeInputType() { UUID = uuid, VirkningDato = DateTime.Today });
             Validate(new Guid(uuid), person, TestRunner.PartService);
             Assert.AreEqual(1, (person.LaesResultat.Item as FiltreretOejebliksbilledeType).AttributListe.Egenskab.Length);
             Assert.AreEqual(1, (person.LaesResultat.Item as FiltreretOejebliksbilledeType).AttributListe.RegisterOplysning.Length);
@@ -89,7 +89,7 @@ namespace CprBroker.NUnitTester
         public void ReadPeriod(string pnr)
         {
             var uuid = GetUuid(pnr);
-            var person = TestRunner.PartService.ReadPeriod(uuid, DateTime.Today.AddYears(-5), DateTime.Today);
+            var person = TestRunner.PartService.ReadPeriod(new LaesPeriodInputType() { UUID = uuid, VirkningFraDato = DateTime.Today.AddYears(-5), VirkningTilDato = DateTime.Today });
             Validate(new Guid(uuid), person, TestRunner.PartService);
         }
 
@@ -98,7 +98,7 @@ namespace CprBroker.NUnitTester
         {
             var uuids = GetUuids(TestData.cprNumbers);
 
-            var person = TestRunner.PartService.ListSnapshot(uuids, DateTime.Today);
+            var person = TestRunner.PartService.ListSnapshot(new ListOejebliksbilledeInputType { UUID = uuids, VirkningDato = DateTime.Today });
             for (int i = 0; i < uuids.Length; i++)
             {
                 var o = person.LaesResultat[i];
@@ -114,7 +114,7 @@ namespace CprBroker.NUnitTester
         {
             var uuids = GetUuids(TestData.cprNumbers);
 
-            var person = TestRunner.PartService.ListPeriod(uuids, DateTime.Today.AddYears(-5), DateTime.Today);
+            var person = TestRunner.PartService.ListPeriod(new ListPeriodInputType { UUID = uuids, VirkningFraDato = DateTime.Today.AddYears(-5), VirkningTilDato = DateTime.Today });
             for (int i = 0; i < uuids.Length; i++)
             {
                 var o = person.LaesResultat[i];

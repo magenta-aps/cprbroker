@@ -89,7 +89,7 @@ namespace CprBroker.NUnitTester
         {
             MapCprNumbers();
             var uuids = GetUuids(cprNumbers);
-            var res = TestRunner.SubscriptionsService.SubscribeOnBirthdate( TestData.fileShareChannel, TestData.birthdateYears, TestData.birthdateDays, uuids);
+            var res = TestRunner.SubscriptionsService.SubscribeOnBirthdate(TestData.fileShareChannel, TestData.birthdateYears, TestData.birthdateDays, uuids);
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsNotNull(res.Item);
@@ -108,7 +108,7 @@ namespace CprBroker.NUnitTester
         {
             MapCprNumbers();
             var uuids = GetUuids(cprNumbers);
-            var res = TestRunner.SubscriptionsService.Subscribe( TestData.fileShareChannel, uuids);
+            var res = TestRunner.SubscriptionsService.Subscribe(TestData.fileShareChannel, uuids);
             Assert.IsNotNull(res);
             Assert.IsNotNull(res.Item);
             Validate(res.StandardRetur);
@@ -137,7 +137,7 @@ namespace CprBroker.NUnitTester
         public void T560_RemoveBirthdateSubscription(Func<Subscriptions.BirthdateSubscriptionType> subscriptionFunc)
         {
             Subscriptions.BirthdateSubscriptionType subscription = subscriptionFunc();
-            var res = TestRunner.SubscriptionsService.RemoveBirthDateSubscription( new Guid(subscription.SubscriptionId));
+            var res = TestRunner.SubscriptionsService.RemoveBirthDateSubscription(new Guid(subscription.SubscriptionId));
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsTrue(res.Item);
@@ -148,7 +148,7 @@ namespace CprBroker.NUnitTester
         public void T570_Unsubscribe(Func<Subscriptions.ChangeSubscriptionType> subscriptionFunc)
         {
             Subscriptions.ChangeSubscriptionType sub = subscriptionFunc();
-            var res = TestRunner.SubscriptionsService.Unsubscribe( new Guid(sub.SubscriptionId));
+            var res = TestRunner.SubscriptionsService.Unsubscribe(new Guid(sub.SubscriptionId));
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsTrue(res.Item);
@@ -190,8 +190,8 @@ namespace CprBroker.NUnitTester
             Assert.IsNotNull(res);
             Validate(res.StandardRetur);
             Assert.IsNotNull(res.Item);
-            Assert.IsInstanceOf<Subscriptions.CriteriaSubscriptionType>(res.Item);
-            TestData.criteriaSubscriptions.Add(res.Item);
+            Assert.IsInstanceOf<Subscriptions.ChangeSubscriptionType>(res.Item);
+            TestData.changeSubscriptions.Add(res.Item);
         }
     }
 }

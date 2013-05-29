@@ -63,7 +63,7 @@ namespace CprBroker.NUnitTester
         public static string AppToken = "";
         public static string AppNamePrefix = "Unit test app";
         public static readonly string[] cprNumbers = new string[] { 
-           
+           "0201354145"
         };
         public const string CprNumbersFieldName = "cprNumbers";
 
