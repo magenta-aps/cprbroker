@@ -61,7 +61,7 @@ namespace CprBroker.Engine
     {
         public static class Period
         {
-            public static LaesOutputType ReadAtTime(string uuid, DateTime effectDate, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+            public static LaesOutputType ReadAtTime(LaesOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
             {
                 var facade = new ReadPeriodLookupFacadeMethodInfo()
                 {
@@ -69,16 +69,16 @@ namespace CprBroker.Engine
                     UserToken = userToken,
                     Input = new PeriodLookupInput()
                     {
-                        UUIDs = new string[] { uuid },
-                        EffectDateFrom = effectDate,
-                        EffectDateTo = effectDate,
+                        UUIDs = new string[] { input.UUID },
+                        EffectDateFrom = input.VirkningDato,
+                        EffectDateTo = input.VirkningDato,
                         SourceUsageOrder = sourceUsageOrder
                     }
                 };
                 return GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
             }
 
-            public static LaesOutputType ReadPeriod(string uuid, DateTime effectDateFrom, DateTime effectDateTo, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+            public static LaesOutputType ReadPeriod(LaesPeriodInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
             {
                 var facade = new ReadPeriodLookupFacadeMethodInfo()
                 {
@@ -86,16 +86,16 @@ namespace CprBroker.Engine
                     UserToken = userToken,
                     Input = new PeriodLookupInput()
                     {
-                        UUIDs = new string[] { uuid },
-                        EffectDateFrom = effectDateFrom,
-                        EffectDateTo = effectDateTo,
+                        UUIDs = new string[] { input.UUID },
+                        EffectDateFrom = input.VirkningFraDato,
+                        EffectDateTo = input.VirkningTilDato,
                         SourceUsageOrder = sourceUsageOrder
                     }
                 };
                 return GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
             }
 
-            public static ListOutputType1 ListAtTime(string[] uuids, DateTime effectDate, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+            public static ListOutputType1 ListAtTime(ListOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
             {
                 var facade = new ListPeriodLookupFacadeMethodInfo()
                 {
@@ -103,16 +103,16 @@ namespace CprBroker.Engine
                     UserToken = userToken,
                     Input = new PeriodLookupInput()
                     {
-                        UUIDs = uuids,
-                        EffectDateFrom = effectDate,
-                        EffectDateTo = effectDate,
+                        UUIDs = input.UUID,
+                        EffectDateFrom = input.VirkningDato,
+                        EffectDateTo = input.VirkningDato,
                         SourceUsageOrder = sourceUsageOrder
                     }
                 };
                 return GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
             }
 
-            public static ListOutputType1 ListPeriod(string[] uuids, DateTime effectDateFrom, DateTime effectDateTo, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
+            public static ListOutputType1 ListPeriod(ListPeriodInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
             {
                 var facade = new ListPeriodLookupFacadeMethodInfo()
                 {
@@ -120,9 +120,9 @@ namespace CprBroker.Engine
                     UserToken = userToken,
                     Input = new PeriodLookupInput()
                     {
-                        UUIDs = uuids,
-                        EffectDateFrom = effectDateFrom,
-                        EffectDateTo = effectDateTo,
+                        UUIDs = input.UUID,
+                        EffectDateFrom = input.VirkningFraDato,
+                        EffectDateTo = input.VirkningTilDato,
                         SourceUsageOrder = sourceUsageOrder
                     }
                 };

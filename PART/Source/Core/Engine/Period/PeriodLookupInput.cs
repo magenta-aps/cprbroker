@@ -58,8 +58,8 @@ namespace CprBroker.Engine.Period
     public class PeriodLookupInput
     {
         public string[] UUIDs;
-        public DateTime EffectDateFrom;
-        public DateTime EffectDateTo;
+        public DateTime? EffectDateFrom;
+        public DateTime? EffectDateTo;
         public SourceUsageOrder SourceUsageOrder;
 
 
@@ -84,7 +84,20 @@ namespace CprBroker.Engine.Period
                 return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, String.Join(",", invalidUuids));
             }
 
-            if (EffectDateTo < EffectDateFrom)
+            // Now validate the dates 
+            if (!EffectDateFrom.HasValue && !EffectDateTo.HasValue) // both null
+            {
+                EffectDateFrom = EffectDateTo = DateTime.Today;
+            }
+            else if (!EffectDateFrom.HasValue ) // null from date
+            {
+                return StandardReturType.NullInput("VirkningFraDato");
+            }
+            else if( !EffectDateTo.HasValue) // null to date
+            {
+                return StandardReturType.NullInput("VirkningTilDato");
+            }
+            else if (EffectDateTo < EffectDateFrom) // both have values
             {
                 return StandardReturType.Create(HttpErrorCode.BAD_CLIENT_REQUEST, string.Format("tilVirkningDato {0} must be >= fraVirkningDato {1}", EffectDateTo, EffectDateFrom));
             }
@@ -100,8 +113,8 @@ namespace CprBroker.Engine.Period
                 new PeriodLookupSubMethodInfo()
                 {
                     PersonIdentifier = pId,
-                    EffectDateFrom = EffectDateFrom,
-                    EffectDateTo = EffectDateTo,
+                    EffectDateFrom = EffectDateFrom.Value,
+                    EffectDateTo = EffectDateTo.Value,
                     LocalDataProviderOption = SourceUsageOrder,
                     CurrentResult = null,
                     FailIfNoDataProvider = true,

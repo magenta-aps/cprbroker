@@ -199,6 +199,9 @@
     <None Include="OIOXSD\Person.xsd" />
     <None Include="OIOXSD\PersonFlerRelation.xsd" />
     <None Include="OIOXSD\PersonOperationer.xsd" />
+    <None Include="OIOXSD\PersonPeriodOperationer.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="OIOXSD\ReferenceID.xsd" />
     <None Include="OIOXSD\Registrering.xsd" />
     <None Include="OIOXSD\RegistreringFraFilter.xsd" />
