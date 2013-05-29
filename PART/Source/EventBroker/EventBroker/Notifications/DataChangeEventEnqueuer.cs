@@ -62,8 +62,6 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public partial class DataChangeEventEnqueuer : CprBrokerEventEnqueuer
     {
-        public static int BatchSize = 10;
-
         public DataChangeEventEnqueuer()
         {
 
@@ -98,7 +96,7 @@ namespace CprBroker.EventBroker.Notifications
                     while (sub.LastCheckedUUID.HasValue)
                     {
                         Admin.LogFormattedSuccess("Adding persons to subscription <{0}>, start UUID <{1}>", sub.SubscriptionId, sub.LastCheckedUUID.Value);
-                        var added = sub.AddMatchingSubscriptionPersons(eventDataContext, BatchSize);
+                        var added = sub.AddMatchingSubscriptionPersons(eventDataContext, CprBroker.Config.Properties.Settings.Default.SubscriptionCriteriaMatchingBatchSize);
                         eventDataContext.SubmitChanges();
                         Admin.LogFormattedSuccess("Added <{0}> persons to subscription <{1}>, next start UUID <{2}>", added, sub.SubscriptionId, sub.LastCheckedUUID);
                     }
@@ -113,9 +111,10 @@ namespace CprBroker.EventBroker.Notifications
 
             while (moreChangesExist)
             {
-                var resp = EventsService.DequeueDataChangeEvents(BatchSize);
+                var batchSize = CprBroker.Config.Properties.Settings.Default.DataChangeDequeueBatchSize;
+                var resp = EventsService.DequeueDataChangeEvents(batchSize);
                 var changedPeople = resp.Item;
-                moreChangesExist = changedPeople.Length == BatchSize;
+                moreChangesExist = changedPeople.Length == batchSize;
 
                 using (var dataContext = new Data.EventBrokerDataContext())
                 {
