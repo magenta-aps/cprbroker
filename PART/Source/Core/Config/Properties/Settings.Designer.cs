@@ -106,5 +106,23 @@ namespace CprBroker.Config.Properties {
                 return ((bool)(this["ReturnCityNameInDistrictName"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int DataChangeDequeueBatchSize {
+            get {
+                return ((int)(this["DataChangeDequeueBatchSize"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int SubscriptionCriteriaMatchingBatchSize {
+            get {
+                return ((int)(this["SubscriptionCriteriaMatchingBatchSize"]));
+            }
+        }
     }
 }
