@@ -180,7 +180,19 @@ namespace CprBroker.Schemas.Part
 
                     RelationListe = new RelationListeType()
                     {
-
+                        Aegtefaelle = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Aegtefaelle),
+                        Boern = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Boern),
+                        Bopaelssamling = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Bopaelssamling),
+                        ErstatningAf = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.ErstatningAf),
+                        ErstatningFor = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.ErstatningFor),
+                        Fader = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Fader),
+                        Foraeldremyndighedsboern = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Foraeldremyndighedsboern),
+                        Foraeldremyndighedsindehaver = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Foraeldremyndighedsindehaver),
+                        LokalUdvidelse = null,
+                        Moder = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.Moder),
+                        RegistreretPartner = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RegistreretPartner),
+                        RetligHandleevneVaergeForPersonen = MergeIntervals<PersonRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RetligHandleevneVaergeForPersonen),
+                        RetligHandleevneVaergemaalsindehaver = MergeIntervals<PersonFlerRelationType>(oioRegs, targetVirkning, oio => oio.RelationListe.RetligHandleevneVaergemaalsindehaver),
                     },
                     TilstandListe = new TilstandListeType() { },
 
