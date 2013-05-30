@@ -68,5 +68,12 @@ namespace CprBroker.Schemas.Part
     {
     }
 
+    public partial class PersonRelationType : ITypeWithVirkning
+    {
+    }
+    public partial class PersonFlerRelationType : ITypeWithVirkning
+    {
+    }
+
 
 }
