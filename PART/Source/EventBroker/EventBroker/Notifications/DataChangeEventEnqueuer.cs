@@ -80,13 +80,16 @@ namespace CprBroker.EventBroker.Notifications
 
         protected override void PerformTimerAction()
         {
-            FinalizeSubscriptionCriteriaLists();
+            UpdateSubscriptionCriteriaLists();
             PushNotifications();
         }
 
-        public static void FinalizeSubscriptionCriteriaLists()
+        public static void UpdateSubscriptionCriteriaLists()
         {
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.FinalizeSubscriptionCriteriaLists() started");
+            int batchSize = CprBroker.Config.Properties.Settings.Default.SubscriptionCriteriaMatchingBatchSize;
+
+            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() started, batch size <{0}>", batchSize);
+
             using (var eventDataContext = new Data.EventBrokerDataContext())
             {
                 var subscriptions = eventDataContext.Subscriptions.Where(s => s.Deactivated == null && s.LastCheckedUUID != null).OrderBy(s => s.Created).ToArray();
@@ -95,26 +98,33 @@ namespace CprBroker.EventBroker.Notifications
                 {
                     while (sub.LastCheckedUUID.HasValue)
                     {
-                        Admin.LogFormattedSuccess("Adding persons to subscription <{0}>, start UUID <{1}>", sub.SubscriptionId, sub.LastCheckedUUID.Value);
-                        var added = sub.AddMatchingSubscriptionPersons(eventDataContext, CprBroker.Config.Properties.Settings.Default.SubscriptionCriteriaMatchingBatchSize);
+                        // TODO: Merge this log entry with the one at the end
+                        Admin.LogFormattedSuccess("Adding persons to subscription <{0}>, start UUID <{1}>, batch size <{2}>", sub.SubscriptionId, sub.LastCheckedUUID.Value, batchSize);
+                        var added = sub.AddMatchingSubscriptionPersons(eventDataContext, batchSize);
                         eventDataContext.SubmitChanges();
                         Admin.LogFormattedSuccess("Added <{0}> persons to subscription <{1}>, next start UUID <{2}>", added, sub.SubscriptionId, sub.LastCheckedUUID);
                     }
                 }
             }
-            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.FinalizeSubscriptionCriteriaLists() finished");
+            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.UpdateSubscriptionCriteriaLists() finished");
         }
 
         public void PushNotifications()
         {
+            var batchSize = CprBroker.Config.Properties.Settings.Default.DataChangeDequeueBatchSize;
+
+            Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications() started, batch size <{0}>", batchSize);
             bool moreChangesExist = true;
 
             while (moreChangesExist)
             {
-                var batchSize = CprBroker.Config.Properties.Settings.Default.DataChangeDequeueBatchSize;
                 var resp = EventsService.DequeueDataChangeEvents(batchSize);
                 var changedPeople = resp.Item;
+                if (changedPeople == null)
+                    changedPeople = new EventBroker.EventsService.DataChangeEventInfo[0];
                 moreChangesExist = changedPeople.Length == batchSize;
+
+                Admin.LogFormattedSuccess("DataChangeEventEnqueuer.PushNotifications(): <{0}> data changes found", changedPeople.Length);
 
                 using (var dataContext = new Data.EventBrokerDataContext())
                 {
