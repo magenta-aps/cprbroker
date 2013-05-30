@@ -59,7 +59,7 @@ namespace BatchClient
     {
         public override string[] LoadCprNumbers()
         {
-            return LoadCprNumbersBatch();
+            return Utilities.LoadCprNumbersBatch(SourceFile);
         }
 
         int Succeeded = 0;

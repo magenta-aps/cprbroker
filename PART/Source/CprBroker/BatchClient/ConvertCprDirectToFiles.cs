@@ -64,9 +64,16 @@ namespace BatchClient
             Utilities.UpdateConnectionString(this.BrokerConnectionString);
             Console.WriteLine(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString);
 
-            using (var dataContext = new ExtractDataContext())
+            if (string.IsNullOrEmpty(SourceFile))
             {
-                return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().OrderBy(pnr => pnr).ToArray();
+                using (var dataContext = new ExtractDataContext())
+                {
+                    return dataContext.ExtractItems.Select(ei => ei.PNR).Distinct().OrderBy(pnr => pnr).ToArray();
+                }
+            }
+            else
+            {
+                return Utilities.LoadCprNumbersOneByOne(SourceFile);
             }
         }
 
@@ -115,7 +122,7 @@ namespace BatchClient
                         );
                 }
                 var merged = RegistreringType1.Merge(new CprBroker.Schemas.PersonIdentifier() { UUID = GetUuid(pnr), CprNumber = pnr }, VirkningType.Create(DateTime.MinValue, DateTime.MaxValue), registrations.ToArray());
-                
+
                 File.WriteAllText(
                     string.Format("{0}{1}.All.xml", myOutDir, pnr),
                     CprBroker.Utilities.Strings.SerializeObject(merged)

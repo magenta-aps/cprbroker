@@ -55,7 +55,7 @@ namespace BatchClient
     {
         public override string[] LoadCprNumbers()
         {
-            return base.LoadCprNumbersOneByOne();
+            return Utilities.LoadCprNumbersOneByOne(SourceFile);
         }
         public override void ProcessPerson(string cprNumberOrUuid)
         {
