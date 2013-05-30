@@ -66,19 +66,24 @@ namespace CprBroker.Data.Part
         public static IEnumerable<PersonRegistrationKey> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject, params Guid[] personRegistrationIds)
         {
             var elements = PersonRegistration.CreateXQueryElements(soegObject);
-            if (personRegistrationIds == null)
-                personRegistrationIds = new Guid[0];
 
-            if (personRegistrationIds != null && personRegistrationIds.Length > 0)
+            if (personRegistrationIds != null)
             {
-                elements.Add(
-                    new InWhereCondition()
-                    {
-                        ColumnName = "PersonRegistrationId",
-                        Values = personRegistrationIds.Select(
-                            id => id.ToString()
-                            ).ToArray()
-                    });
+                if (personRegistrationIds.Length == 0)
+                {
+                    return new PersonRegistrationKey[0];
+                }
+                else
+                {
+                    elements.Add(
+                        new InWhereCondition()
+                        {
+                            ColumnName = "PersonRegistrationId",
+                            Values = personRegistrationIds.Select(
+                                id => id.ToString()
+                                ).ToArray()
+                        });
+                }
             }
             var byCriteria = WhereCondition.GetMatchingObjects<PersonRegistrationKey>(dataContext, elements, "PersonRegistration", new string[] { "PersonRegistrationId", "UUID" });
             return byCriteria;
