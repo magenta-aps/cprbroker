@@ -144,7 +144,7 @@ namespace CprBroker.Schemas.Part
                     .ToArray();
 
             var ret = new List<RegisteredIntervalVirkningWrapper<T>>();
-            var isPersonFlerRelationType = typeof(PersonFlerRelationType).IsAssignableFrom(typeof(T));
+            var isIMultipleInstanceTypeWithVirkning = typeof(IMultipleInstanceTypeWithVirkning).IsAssignableFrom(typeof(T));
             
             // Now scan the effect periods from latest to first
             foreach (var currentInterval in matchesByDate.Reverse())
@@ -152,11 +152,11 @@ namespace CprBroker.Schemas.Part
                 var nextInterval = ret
                     .Where(o =>
                         {
-                            if (isPersonFlerRelationType)
+                            if (isIMultipleInstanceTypeWithVirkning)
                             {
-                                var oRel = o.Item as PersonFlerRelationType;
-                                var currentRel = currentInterval.Item as PersonFlerRelationType;
-                                return oRel.ReferenceID.Equals(currentRel.ReferenceID);
+                                var oT = o.Item as IMultipleInstanceTypeWithVirkning;
+                                var currentT = currentInterval.Item as IMultipleInstanceTypeWithVirkning;
+                                return oT.HasSameIntervalGroup(currentT);
                             }
                             else
                             {
