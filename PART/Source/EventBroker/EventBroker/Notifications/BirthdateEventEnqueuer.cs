@@ -108,14 +108,23 @@ namespace CprBroker.EventBroker.Notifications
 
                 using (var dataContext = new Data.EventBrokerDataContext())
                 {
+                    var personswithoutBirthdates = personBirthdates.Where(p => !p.Birthdate.HasValue).ToArray();
+                    if (personswithoutBirthdates.Length > 0)
+                    {
+                        // TODO: Shall this be a critical error?
+                        CprBroker.Engine.Local.Admin.LogFormattedError("Unable to get birthdates for <{0}> persons, first UUID <{1}>, last UUID <{2}>", personswithoutBirthdates.Length, personswithoutBirthdates.First().PersonUuid, personswithoutBirthdates.Last().PersonUuid);
+                    }
                     var newPersons =
                     (
                         from pb in personBirthdates
-                        where !(from dpb in dataContext.PersonBirthdates select dpb.PersonUuid).Contains(pb.PersonUuid)
+                        where
+                            pb.Birthdate.HasValue
+                            && !(from dpb in dataContext.PersonBirthdates select dpb.PersonUuid).Contains(pb.PersonUuid)
+
                         select new Data.PersonBirthdate()
                         {
                             PersonUuid = pb.PersonUuid,
-                            Birthdate = pb.Birthdate
+                            Birthdate = pb.Birthdate.Value
                         }
                     );
 
