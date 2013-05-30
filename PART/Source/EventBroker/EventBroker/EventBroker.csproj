@@ -225,9 +225,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Web References\EventsService\BasicOutputTypeOfArrayOfDataChangeEventInfo.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
