@@ -57,6 +57,6 @@ namespace CprBroker.Schemas.Part.Events
     public class PersonBirthdate
     {
         public Guid PersonUuid { get; set; }
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
     }
 }
