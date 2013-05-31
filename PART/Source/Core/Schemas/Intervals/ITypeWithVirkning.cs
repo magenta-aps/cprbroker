@@ -55,7 +55,7 @@ namespace CprBroker.Schemas.Part
     {
         VirkningType Virkning { get; set; }
     }
-    
+
     public interface IMultipleInstanceTypeWithVirkning : ITypeWithVirkning
     {
         bool HasSameIntervalGroup(IMultipleInstanceTypeWithVirkning otherObject);
@@ -73,8 +73,12 @@ namespace CprBroker.Schemas.Part
     {
     }
 
-    public partial class PersonRelationType : ITypeWithVirkning
+    public partial class PersonRelationType : IMultipleInstanceTypeWithVirkning
     {
+        public bool HasSameIntervalGroup(IMultipleInstanceTypeWithVirkning otherObject)
+        {
+            return otherObject is PersonRelationType && (otherObject as PersonRelationType).ReferenceID.Equals(this.ReferenceID);
+        }
     }
 
     public partial class PersonFlerRelationType : IMultipleInstanceTypeWithVirkning

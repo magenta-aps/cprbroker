@@ -145,7 +145,7 @@ namespace CprBroker.Schemas.Part
 
             var ret = new List<RegisteredIntervalVirkningWrapper<T>>();
             var isIMultipleInstanceTypeWithVirkning = typeof(IMultipleInstanceTypeWithVirkning).IsAssignableFrom(typeof(T));
-            
+
             // Now scan the effect periods from latest to first
             foreach (var currentInterval in matchesByDate.Reverse())
             {
@@ -162,7 +162,7 @@ namespace CprBroker.Schemas.Part
                             {
                                 return true;
                             }
-                        
+
                         }
                         )
                     .FirstOrDefault();
@@ -174,9 +174,20 @@ namespace CprBroker.Schemas.Part
                 {
                     if (currentInterval.EffectiveStartTS < nextInterval.EffectiveStartTS)
                     {
-                        if (currentInterval.EffectiveEndTS > nextInterval.EffectiveStartTS)
-                            currentInterval.EffectiveEndTS = nextInterval.EffectiveStartTS;
-                        ret.Insert(0, currentInterval);
+                        if ( // Handling of a current married status followed by a dead marital status
+                            isIMultipleInstanceTypeWithVirkning
+                            && !currentInterval.StartTS.HasValue && currentInterval.EndTS.HasValue
+                            && nextInterval.StartTS.HasValue && !nextInterval.EndTS.HasValue
+                            && currentInterval.EndTS.Value > nextInterval.StartTS.Value)
+                        {
+                            nextInterval.EndTS = currentInterval.EndTS;
+                        }
+                        else
+                        {
+                            if (currentInterval.EffectiveEndTS > nextInterval.EffectiveStartTS)
+                                currentInterval.EffectiveEndTS = nextInterval.EffectiveStartTS;
+                            ret.Insert(0, currentInterval);
+                        }
                     }
                 }
             }

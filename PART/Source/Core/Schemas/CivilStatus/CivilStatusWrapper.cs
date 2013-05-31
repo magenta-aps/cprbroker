@@ -99,15 +99,15 @@ namespace CprBroker.Schemas.Part
 
         public static PersonRelationType[] ToSpouses(ICivilStatus current, List<ICivilStatus> history, Func<string, Guid> cpr2uuidFunc)
         {
-            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, MaritalStatus.Married, MaritalStatus.Divorced, MaritalStatus.Widow);
+            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, MaritalStatus.Married, MaritalStatus.Divorced, MaritalStatus.Widow, false);
         }
 
         public static PersonRelationType[] ToRegisteredPartners(ICivilStatus current, List<ICivilStatus> history, Func<string, Guid> cpr2uuidFunc)
         {
-            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, MaritalStatus.RegisteredPartnership, MaritalStatus.AbolitionOfRegisteredPartnership, MaritalStatus.LongestLivingPartner);
+            return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, MaritalStatus.RegisteredPartnership, MaritalStatus.AbolitionOfRegisteredPartnership, MaritalStatus.LongestLivingPartner, true);
         }
 
-        public static PersonRelationType[] ToPersonRelationTypeArray(ICivilStatus currentStatus, IList<ICivilStatus> historyCivilStates, Func<string, Guid> cpr2uuidFunc, char marriedStatus, char divorcedStatus, char widowStatus)
+        public static PersonRelationType[] ToPersonRelationTypeArray(ICivilStatus currentStatus, IList<ICivilStatus> historyCivilStates, Func<string, Guid> cpr2uuidFunc, char marriedStatus, char divorcedStatus, char widowStatus, bool deadAsSameSex)
         {
             char[] maritalStates = new char[] { marriedStatus, divorcedStatus, widowStatus };
 
@@ -124,7 +124,7 @@ namespace CprBroker.Schemas.Part
             allCivilStates = allCivilStates
                 .Where(h =>
                     h != null
-                    && maritalStates.Contains(h.CivilStatusCode, new CaseInvariantCharComparer())
+                    && (maritalStates.Contains(h.CivilStatusCode, new CaseInvariantCharComparer()) || h.CivilStatusCode == MaritalStatus.Deceased)
                     && h.IsValid()
                 )
                 .OrderBy(civ => civ.ToStartTS())
@@ -144,15 +144,22 @@ namespace CprBroker.Schemas.Part
                 {
                     ret.Add(dbCivilStatusWrapper.ToPersonRelationType(cpr2uuidFunc));
                 }
-                else if (
-                    dbCivilStatus.CivilStatusCode == divorcedStatus || dbCivilStatus.CivilStatusCode == widowStatus)
+                else if (previousDbCivilStatus == null) // Statistics show that if previous row exists, it will be always 'married'                    
                 {
-                    // Statistics show that if previous row exists, it will be always 'married'
-                    if (previousDbCivilStatus == null)
+                    if (dbCivilStatus.CivilStatusCode == divorcedStatus || dbCivilStatus.CivilStatusCode == widowStatus)
                     {
                         // Only add a relation if the previous row (married) does not exist
                         // Reverse times because we need the 'marriage' interval, not the 'divorce/widow'
                         ret.Add(dbCivilStatusWrapper.ToPersonRelationType(cpr2uuidFunc, true));
+                    }
+                    else if (dbCivilStatus.CivilStatusCode == MaritalStatus.Deceased)
+                    {
+                        // TODO: Rely on person data to get gender instead of CPR number
+                        bool isSameSex = Util.Enums.PersonNumberToGender(dbCivilStatusWrapper._CivilStatus.PNR) == Util.Enums.PersonNumberToGender(dbCivilStatusWrapper.ToSpousePnr());
+                        if (isSameSex == deadAsSameSex)
+                        {
+                            ret.Add(dbCivilStatusWrapper.ToPersonRelationType(cpr2uuidFunc, true));
+                        }
                     }
                 }
             }
