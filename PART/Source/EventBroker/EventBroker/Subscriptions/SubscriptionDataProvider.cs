@@ -245,14 +245,6 @@ namespace CprBroker.EventBroker.Subscriptions
         /// <summary>
         /// Interface implementation
         /// </summary>
-        public bool RemoveCriteriaSubscription(Guid subscriptionId)
-        {
-            return DeleteSubscription(subscriptionId, Data.SubscriptionType.SubscriptionTypes.DataChange);
-        }
-
-        /// <summary>
-        /// Interface implementation
-        /// </summary>
         public CprBroker.Schemas.Part.SubscriptionType[] GetActiveSubscriptionsList()
         {
             return GetActiveSubscriptionsList(null);

@@ -97,12 +97,6 @@ namespace CprBroker.EventBroker.Subscriptions
             return GetMethodOutput<ChangeSubscriptionType>(facade);
         }
 
-        public static BasicOutputType<bool> RemoveCriteriaSubscription(string userToken, string appToken, Guid subscriptionId)
-        {
-            UnsubscribeFacadeMethod facade = new UnsubscribeFacadeMethod(subscriptionId, CprBroker.EventBroker.Data.SubscriptionType.SubscriptionTypes.DataChange, appToken, userToken);
-            return GetMethodOutput<bool>(facade);
-        }
-
         public static BasicOutputType<SubscriptionType[]> GetActiveSubscriptionsList(string userToken, string appToken)
         {
             GetActiveSubscriptionsListFacadeMethod facade = new GetActiveSubscriptionsListFacadeMethod(appToken, userToken);
