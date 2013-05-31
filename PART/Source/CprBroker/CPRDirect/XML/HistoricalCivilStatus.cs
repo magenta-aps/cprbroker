@@ -66,12 +66,16 @@ namespace CprBroker.Providers.CPRDirect
 
         DateTime? ITimedType.ToStartTS()
         {
-            return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
+            // TODO: How to pass start date uncertainty?
+            return this.CivilStatusStartDate;
+            //return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
         }
 
         DateTime? ITimedType.ToEndTS()
         {
-            return Converters.ToDateTime(this.CivilStatusEndDate, this.CivilStatusEndDateUncertainty);
+            // TODO: How to pass end date uncertainty?
+            return this.CivilStatusEndDate;
+            //return Converters.ToDateTime(this.CivilStatusEndDate, this.CivilStatusEndDateUncertainty);
         }
 
         DataTypeTags ITimedType.Tag
