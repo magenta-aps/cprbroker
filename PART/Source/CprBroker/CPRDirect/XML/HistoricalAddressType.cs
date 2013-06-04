@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class HistoricalAddressType : IAddressSource
+    public partial class HistoricalAddressType : IAddressSource, IHasCorrectionMarker
     {
         public DataTypeTags Tag
         {

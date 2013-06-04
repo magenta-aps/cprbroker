@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class HistoricalCitizenshipType : ICitizenship
+    public partial class HistoricalCitizenshipType : ICitizenship, IHasCorrectionMarker
     {
         public DataTypeTags Tag
         {

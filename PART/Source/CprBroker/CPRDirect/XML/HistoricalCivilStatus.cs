@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class HistoricalCivilStatusType : ICivilStatus
+    public partial class HistoricalCivilStatusType : ICivilStatus, IHasCorrectionMarker
     {
         bool ICivilStatus.IsValid()
         {

@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class HistoricalSeparationType : ISeparation
+    public partial class HistoricalSeparationType : ISeparation, IHasCorrectionMarker
     {
         public CivilStatusType ToCivilStatusType()
         {

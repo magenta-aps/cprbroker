@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class HistoricalNameType : INameSource
+    public partial class HistoricalNameType : INameSource, IHasCorrectionMarker
     {
         public NavnStrukturType ToNavnStrukturType()
         {
