@@ -114,7 +114,16 @@ ___________Attribute template _____________________________
 _____________________________ Object template _____________________________
 -->
   <xsl:template match="//d:Object">
-    public partial class <xsl:value-of select="@name"/>Type: Wrapper
+    public partial class <xsl:value-of select="@name"/>
+    <xsl:text>Type: </xsl:text>
+    <xsl:choose>
+    <xsl:when test="string-length(@base) > 0">
+      <xsl:value-of select="@base"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>Wrapper</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
     {
         #region Common
         public override int Length
