@@ -56,10 +56,16 @@ namespace CprBroker.Schemas.Part
         DateTime? ToStartTS();
         DateTime? ToEndTS();
         DataTypeTags Tag { get; }
+        IRegistrationInfo Registration { get; }
     }
 
     public interface IHasCorrectionMarker : ITimedType
     {
         char CorrectionMarker { get; }
+    }
+
+    public interface IRegistrationInfo
+    {
+        DateTime RegistrationDate { get; }
     }
 }
