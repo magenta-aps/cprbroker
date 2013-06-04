@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -215,7 +216,7 @@ namespace CprBroker.Providers.CPRDirect
             while (rd.Peek() > -1)
             {
                 string typeCode = Read(rd, Constants.DataObjectCodeLength);
-                Type type ;
+                Type type;
                 try
                 {
                     type = typeMap[typeCode];
@@ -284,5 +285,10 @@ namespace CprBroker.Providers.CPRDirect
             FillFrom(all);
         }
 
+    }
+
+    public abstract class PersonRecordWrapper : Wrapper
+    {
+        public IRegistration Registration { get; set; }
     }
 }
