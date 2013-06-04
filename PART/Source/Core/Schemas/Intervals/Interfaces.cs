@@ -57,4 +57,9 @@ namespace CprBroker.Schemas.Part
         DateTime? ToEndTS();
         DataTypeTags Tag { get; }
     }
+
+    public interface IHasCorrectionMarker : ITimedType
+    {
+        char CorrectionMarker { get; }
+    }
 }
