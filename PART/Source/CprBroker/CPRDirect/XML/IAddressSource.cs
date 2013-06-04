@@ -84,6 +84,14 @@ namespace CprBroker.Providers.CPRDirect
         {
             return null;
         }
+
+        public IRegistrationInfo Registration
+        {
+            get
+            {
+                return null;
+            }
+        }
     }
 
 

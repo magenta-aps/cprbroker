@@ -100,5 +100,13 @@ namespace CprBroker.Providers.CPRDirect
         {
             return true;
         }
+
+        public IRegistrationInfo Registration
+        {
+            get
+            {
+                return this.PersonInformation.Registration;
+            }
+        }
     }
 }

@@ -289,6 +289,6 @@ namespace CprBroker.Providers.CPRDirect
 
     public abstract class PersonRecordWrapper : Wrapper
     {
-        public IRegistration Registration { get; set; }
+        public IRegistrationInfo Registration { get; set; }
     }
 }
