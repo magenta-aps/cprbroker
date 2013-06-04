@@ -70,14 +70,13 @@ namespace CprBroker.Providers.CPRDirect
             {
                 var individualResponse = new IndividualResponseType();
 
+				var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap) as StartRecordType;
+                var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap) as EndRecordType;                
                 var linewWappers = found
-                    .Select(item => new LineWrapper(item.Contents).ToWrapper(typeMap))
+                    .Select(item => new LineWrapper(item.Contents).ToPersonRecordWrapper(typeMap, startWrapper))
                     .ToArray();
 
                 // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
-
-                var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap);
-                var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap);
                 individualResponse.FillFrom(linewWappers, startWrapper, endWrapper);
                 individualResponse.SourceObject = found.Key.ExtractId;
 
