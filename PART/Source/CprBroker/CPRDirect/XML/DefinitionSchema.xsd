@@ -15,6 +15,7 @@
 
   <xs:complexType name="BaseElementType">
     <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="base" type="xs:string" use="optional"/>
     <xs:attribute name="danishName" type="xs:string" use="optional"/>
     <xs:attribute name="length" type="xs:int" use="required">
       <xs:annotation>
