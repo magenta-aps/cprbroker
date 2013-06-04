@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -95,6 +96,13 @@ namespace CprBroker.Providers.CPRDirect
                 return wrapper;
             }
             return null;
+        }
+
+        public PersonRecordWrapper ToPersonRecordWrapper(Dictionary<string, Type> typeMap, IRegistrationInfo registration)
+        {
+            var wrapper = ToWrapper(typeMap) as PersonRecordWrapper;
+            wrapper.Registration = registration;
+            return wrapper;
         }
 
         public ExtractItem ToExtractItem(Guid extractId, Dictionary<string, Type> typeMap, Dictionary<string, bool> reverseRelationMap)
