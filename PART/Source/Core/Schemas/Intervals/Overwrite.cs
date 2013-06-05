@@ -51,50 +51,38 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public interface IHasCorrectionMarker : ITimedType
+    public interface IOverwritable
     {
-        char CorrectionMarker { get; }
+        bool IsOverwrittenBy(ITimedType newObject);
     }
 
-    public static class CorrectionMarker
+    public static class Overwrite
     {
-        public const char Edit_Overwritten = 'K';
-        public const char Undo = 'A';
-        public const char TechnicalChange = 'Æ';
-        public const char OK = ' ';
-
-
-        public static IQueryable<ITimedType> Filter(IQueryable<ITimedType> originalDataObjects)
+        public static IQueryable<ITimedType> Filter(IQueryable<ITimedType> dataObjects)
         {
-            var dataObjects = originalDataObjects.ToList();
+            dataObjects = dataObjects.Where(deleteCandidate => !IsOverwritten(deleteCandidate, dataObjects));
 
-            // Filter out undo records            
-            var undoRecords = dataObjects.Where(o => o is IHasCorrectionMarker && (o as IHasCorrectionMarker).CorrectionMarker == Undo).ToArray();
+            return dataObjects;
+        }
 
-            dataObjects.RemoveAll(oldRecord =>
-                !undoRecords.Contains(oldRecord)
-                &&
-                undoRecords.Where(undoRecord =>
-                    undoRecord.Tag == oldRecord.Tag
-                    && undoRecord.Registration.RegistrationDate > oldRecord.Registration.RegistrationDate
-                    && undoRecord.ToStartTS() == oldRecord.ToStartTS()
-                    ).FirstOrDefault() != null
-            );
-            dataObjects = dataObjects.Except(undoRecords).ToList();
+        public static bool IsOverwritten(ITimedType deleteCandidate, IEnumerable<ITimedType> dataOtherObjects)
+        {
+            if (deleteCandidate is IOverwritable)
+            {
+                var deleteCandidateO = deleteCandidate as IOverwritable;
 
-            // Filter out records that have been overwritten, but keep the updated copy
-            var editRecords = dataObjects.Where(o => o is IHasCorrectionMarker && (o as IHasCorrectionMarker).CorrectionMarker == Edit_Overwritten).ToArray();
-
-            dataObjects.RemoveAll(oldRecord =>
-                !editRecords.Contains(oldRecord)
-                &&
-                editRecords.Where(undoRecord =>
-                    undoRecord.Tag == oldRecord.Tag
-                    && undoRecord.Registration.RegistrationDate > oldRecord.Registration.RegistrationDate
-                    && undoRecord.ToStartTS() == oldRecord.ToStartTS()
-                    ).FirstOrDefault() != null
-            );
-            return dataObjects.AsQueryable();
+                return dataOtherObjects
+                    .Except(new ITimedType[] { deleteCandidate })
+                    .Where(o =>
+                        o.Tag == deleteCandidate.Tag
+                        && o.Registration != null
+                        && deleteCandidate.Registration != null
+                        && o.Registration.RegistrationDate > deleteCandidate.Registration.RegistrationDate
+                        && deleteCandidateO.IsOverwrittenBy(o)
+                    )
+                    .FirstOrDefault() != null;
+            }
+            return false;
         }
     }
 }

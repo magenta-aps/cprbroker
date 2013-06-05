@@ -67,6 +67,7 @@
     <Compile Include="Intervals\CorrectionMarker.cs" />
     <Compile Include="Intervals\CreateIntervalIfStartTsIsNullAttribute.cs" />
     <Compile Include="Intervals\ITypeWithVirkning.cs" />
+    <Compile Include="Intervals\Overwrite.cs" />
     <Compile Include="Intervals\RegisteredInterval.cs" />
     <Compile Include="Events\DataChangeEventInfo.cs" />
     <Compile Include="Events\PersonBirthdate.cs" />

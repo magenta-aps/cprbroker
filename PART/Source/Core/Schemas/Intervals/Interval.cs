@@ -86,6 +86,9 @@ namespace CprBroker.Schemas.Part
             // Filter objects based on correction markers
             dataObjects = CorrectionMarker.Filter(dataObjects);
 
+            // In case we have no correction records for history, check for possible overwrites
+            dataObjects = Overwrite.Filter(dataObjects);
+
             // sort by start date
             var sortedByStartDate = dataObjects
                 .Select(o => new { StartTS = VirkningType.ToStartDateTimeOrMinValue(o.ToStartTS()), Object = o })
