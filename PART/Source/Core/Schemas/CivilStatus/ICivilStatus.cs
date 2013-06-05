@@ -103,6 +103,9 @@ namespace CprBroker.Schemas.Part
         {
             get { return DataTypeTags.CivilStatus; }
         }
+
+        public IRegistrationInfo Registration { get { return null; } }
+
     }
 
 }
