@@ -13,7 +13,7 @@
     <Attribute name="PNR" danishName="PNR" format="Numeric" position="30" length="10" description="Request PNR"/>
   </Object>
 
-  <Object name="IndividualResponse" danishName="SVARINDIVID – PERSONOPLYSNINGER" description="Personal data" length="0">
+  <Object name="IndividualResponse" base="CompositeWrapper" danishName="SVARINDIVID – PERSONOPLYSNINGER" description="Personal data" length="0">
     <Attribute name="CustomerNumber" danishName="KUNDENR" format="Numeric" position="1" length="4" description="Identification of the customer"/>
     <Attribute name="SubscriptionType" danishName="ABON_TYPE" format="Numeric" position="5" length="1" description="Subscription phrase / delete or not"/>
     <Attribute name="DataType" danishName="DATA_TYPE" format="Numeric" position="6" length="1" description="0 in LOGONINDIVID (see Annex 2)Desired output" />

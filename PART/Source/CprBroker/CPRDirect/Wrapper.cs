@@ -196,7 +196,16 @@ namespace CprBroker.Providers.CPRDirect
                 this[pos, length] = new string(' ', length);
             }
         }
+    }
 
+    public abstract class CompositeWrapper : Wrapper
+    {
+        public CompositeWrapper()
+        { }
+
+        public CompositeWrapper(int length)
+            : base(length)
+        { }
 
         private static string Read(TextReader rd, int count)
         {
@@ -284,7 +293,6 @@ namespace CprBroker.Providers.CPRDirect
             var all = Parse(data, typeMap);
             FillFrom(all);
         }
-
     }
 
     public abstract class PersonRecordWrapper : Wrapper
