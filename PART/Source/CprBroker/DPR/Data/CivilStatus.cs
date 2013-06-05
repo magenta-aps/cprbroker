@@ -48,5 +48,10 @@ namespace CprBroker.Providers.DPR
             get { return this.MaritalStatus.Value; }
         }
 
+
+        public IRegistrationInfo Registration
+        {
+            get { return null; }
+        }
     }
 }
