@@ -83,7 +83,7 @@ namespace BatchClient
                 var responseData = Strings.Deserialize<string>(sourceString);
                 individualResponse = new IndividualResponseType() { Contents = new string(' ', 28), Data = responseData };
 
-                individualResponse.FillFrom(individualResponse.Data, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                individualResponse.FillFromFixedLengthString(individualResponse.Data, CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                 individualResponse.SourceObject = individualResponse.Data;
             }
             Console.WriteLine("Converting person");

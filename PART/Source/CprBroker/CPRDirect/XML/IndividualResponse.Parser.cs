@@ -88,7 +88,7 @@ namespace CprBroker.Providers.CPRDirect
                     {
                         var individualLines = individualWrappersGrouping.ToList();
                         var individual = new IndividualResponseType();
-                        individual.FillFrom(individualLines.Select(w => w as Wrapper).ToList(), startRecord, endRecord);
+                        individual.FillPropertiesFromWrappers(individualLines.Select(w => w as Wrapper).ToList(), startRecord, endRecord);
                         return individual;
                     })
                 .ToList();

@@ -66,7 +66,7 @@ namespace CprBroker.Tests.CPRDirect
                 var lines = System.IO.File.ReadAllLines(fName);
                 string data = string.Join("", lines);
                 var resp = new IndividualResponseType() { Contents = new string(' ', 28) + data };
-                resp.FillFrom(resp.Data, Constants.DataObjectMap);
+                resp.FillFromFixedLengthString(resp.Data, Constants.DataObjectMap);
                 var ret = resp.ToRegistreringType1(cpr => Guid.NewGuid());
                 var xml = CprBroker.Utilities.Strings.SerializeObject(ret);
                 System.IO.File.WriteAllText(@"C:\Users\Beemen\Desktop\CPR Data\" + (index++) + ".xml", xml);

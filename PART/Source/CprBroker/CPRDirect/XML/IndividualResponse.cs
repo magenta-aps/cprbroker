@@ -56,6 +56,18 @@ namespace CprBroker.Providers.CPRDirect
     {
         public object SourceObject { get; set; }
 
+        public override void FillFromFixedLengthString(string data, Dictionary<string, Type> typeMap)
+        {
+            var all = Parse(data, typeMap);
+            FillPropertiesFromWrappers(all);
+
+            // Set start record as the registration object for each data record
+            all.Select(w => w as PersonRecordWrapper)
+                .Where(w => w != null)
+                .ToList()
+                .ForEach(w => w.Registration = this.StartRecord);
+        }
+
         public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RegistreringType1()

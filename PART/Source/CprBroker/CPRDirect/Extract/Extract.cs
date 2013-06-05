@@ -77,7 +77,7 @@ namespace CprBroker.Providers.CPRDirect
                     .ToArray();
 
                 // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
-                individualResponse.FillFrom(linewWappers, startWrapper, endWrapper);
+                individualResponse.FillPropertiesFromWrappers(linewWappers, startWrapper, endWrapper);
                 individualResponse.SourceObject = found.Key.ExtractId;
 
                 return individualResponse;

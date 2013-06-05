@@ -93,7 +93,7 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        public void FillFrom(IList<Wrapper> wrappersIList, params Wrapper[] extraWrappers)
+        public void FillPropertiesFromWrappers(IList<Wrapper> wrappersIList, params Wrapper[] extraWrappers)
         {
             var wrappers = new List<Wrapper>(wrappersIList);
             wrappers.AddRange(extraWrappers.Where(w => w != null));
@@ -142,10 +142,10 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public void FillFrom(string data, Dictionary<string, Type> typeMap)
+        public virtual void FillFromFixedLengthString(string data, Dictionary<string, Type> typeMap)
         {
             var all = Parse(data, typeMap);
-            FillFrom(all);
+            FillPropertiesFromWrappers(all);
         }
     }
 }

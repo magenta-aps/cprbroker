@@ -66,7 +66,7 @@ namespace CprBroker.Providers.CPRDirect
             if (Send(request.PNR, request.Contents, out response, out error))
             {
                 var ret = new IndividualResponseType() { Contents = response };
-                ret.FillFrom(ret.Data, Constants.DataObjectMap);
+                ret.FillFromFixedLengthString(ret.Data, Constants.DataObjectMap);
                 ret.SourceObject = ret.Data;
                 return ret;
             }

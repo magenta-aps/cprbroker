@@ -215,14 +215,14 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void FillFrom_Zero_OK()
             {
                 var wrappers = new Wrapper[0];
-                new ParentWrapperStub().FillFrom(wrappers);
+                new ParentWrapperStub().FillPropertiesFromWrappers(wrappers);
             }
             [Test]
             [ExpectedException]
             public void FillFrom_TwoForSinglePosition_Exception()
             {
                 var wrappers = new Wrapper[] { new WrapperStub1(), new WrapperStub1() };
-                new ParentWrapperStub().FillFrom(wrappers);
+                new ParentWrapperStub().FillPropertiesFromWrappers(wrappers);
             }
 
             [Test]
@@ -236,7 +236,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                     wrappers.Add(new WrapperStub2());
                 }
                 var par = new ParentWrapperStub();
-                par.FillFrom(wrappers);
+                par.FillPropertiesFromWrappers(wrappers);
                 Assert.NotNull(par.WrapperStub1);
                 Assert.AreEqual(w2Count, par.WrapperStub2.Count);
                 Assert.AreEqual(w2Count, par.WrapperStub2.Where(w => w is WrapperStub2).Count());
@@ -322,7 +322,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             {
                 var parentWrapper = CreateParentWrapper(minOccurs, minOccurs + maxOccursDiff);
                 var childWrappers = CreateWrapperArray(typeof(WrapperStub1), minOccurs - 1);
-                parentWrapper.FillFrom(childWrappers);
+                parentWrapper.FillPropertiesFromWrappers(childWrappers);
             }
 
             [Test]
@@ -333,7 +333,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             {
                 var parentWrapper = CreateParentWrapper(minOccurs, minOccurs + maxOccursDiff);
                 var childWrappers = CreateWrapperArray(typeof(WrapperStub1), minOccurs + maxOccursDiff + 1);
-                parentWrapper.FillFrom(childWrappers);
+                parentWrapper.FillPropertiesFromWrappers(childWrappers);
             }
 
             public class StartRecordWrapperStub : CompositeWrapper
@@ -354,7 +354,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void FillFrom_MultipleStartRecords_Exception()
             {
                 var w = new StartRecordWrapperStub();
-                w.FillFrom(new Wrapper[] { new StartRecordType() }, new StartRecordType(), null);
+                w.FillPropertiesFromWrappers(new Wrapper[] { new StartRecordType() }, new StartRecordType(), null);
             }
         }
 
