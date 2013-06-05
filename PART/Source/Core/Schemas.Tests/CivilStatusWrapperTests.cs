@@ -85,6 +85,7 @@ namespace CprBroker.Tests.Schemas
             }
 
             public DataTypeTags Tag { get; set; }
+            public IRegistrationInfo Registration { get; set; }
         }
 
         class SeparationStub : ISeparation
@@ -105,6 +106,7 @@ namespace CprBroker.Tests.Schemas
             { return null; }
 
             public DataTypeTags Tag { get; set; }
+            public IRegistrationInfo Registration { get; set; }
         }
 
         [TestFixture]
