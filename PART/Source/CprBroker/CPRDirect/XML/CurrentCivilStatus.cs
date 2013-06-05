@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CurrentCivilStatusType : ICivilStatus
+    public partial class CurrentCivilStatusType : ICivilStatus, IOverwritable
     {
         string ICivilStatus.ToSpousePnr()
         {
@@ -81,6 +81,11 @@ namespace CprBroker.Providers.CPRDirect
             get { return DataTypeTags.CivilStatus; }
         }
 
+        public bool IsOverwrittenBy(ITimedType newObject)
+        {
+            var newCivilStatus = newObject as CurrentCivilStatusType;
+            return newCivilStatus != null && newCivilStatus.CivilStatusCode == MaritalStatus.Unmarried;
+        }
     }
 
 }
