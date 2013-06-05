@@ -58,7 +58,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
 {
     namespace WrapperTests
     {
-        public class WrapperStub : Wrapper
+        public class WrapperStub : CompositeWrapper
         {
             public int _Length;
             public override int Length
@@ -114,7 +114,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             }
         }
 
-        class ParentWrapperStub : Wrapper
+        class ParentWrapperStub : CompositeWrapper
         {
             public override int Length
             {
@@ -151,7 +151,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void Parse_RandomCode_Exception()
             {
                 string data = Guid.NewGuid().ToString();
-                var wrappers = Wrapper.Parse(data, new Dictionary<string, Type>());
+                var wrappers = CompositeWrapper.Parse(data, new Dictionary<string, Type>());
                 Assert.IsEmpty(wrappers);
             }
             [Test]
@@ -159,7 +159,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             {
                 string data = "001AAA002BBB";
 
-                var wrappers = Wrapper.Parse(data, WrapperMap);
+                var wrappers = CompositeWrapper.Parse(data, WrapperMap);
                 Assert.AreEqual(2, wrappers.Count);
             }
 
@@ -168,7 +168,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void Parse_TooShortString_Exception()
             {
                 string data = "001";
-                Wrapper.Parse(data, WrapperMap);
+                CompositeWrapper.Parse(data, WrapperMap);
             }
 
             [Test]
@@ -176,7 +176,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             public void Parse_TooLongString_Exception()
             {
                 string data = "001" + Guid.NewGuid().ToString();
-                Wrapper.Parse(data, WrapperMap);
+                CompositeWrapper.Parse(data, WrapperMap);
             }
 
             Random Random = new Random();
@@ -202,7 +202,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                     data += code + Guid.NewGuid().ToString().Substring(0, 3);
                     arr.RemoveAt(index);
                 }
-                var wrappers = Wrapper.Parse(data, WrapperMap);
+                var wrappers = CompositeWrapper.Parse(data, WrapperMap);
                 Assert.AreEqual(w1Count, wrappers.Where(w => w is WrapperStub1).Count());
                 Assert.AreEqual(w2Count, wrappers.Where(w => w is WrapperStub2).Count());
             }
@@ -243,7 +243,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
             }
 
 
-            private Wrapper CreateParentWrapper(int minOccurs, int maxOccurs)
+            private CompositeWrapper CreateParentWrapper(int minOccurs, int maxOccurs)
             {
                 AssemblyBuilder asmBuilder;
                 ModuleBuilder modBuilder;
@@ -299,7 +299,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 var parentWrapperType = typeBuilder.CreateType();
                 var parentWrapper = parentWrapperType.GetConstructor(Type.EmptyTypes).Invoke(new object[0]);
                 parentWrapperType.InvokeMember("ChildWrapper", BindingFlags.SetProperty | BindingFlags.Public | BindingFlags.Instance, null, parentWrapper, new object[] { new List<WrapperStub1>() });
-                return parentWrapper as Wrapper;
+                return parentWrapper as CompositeWrapper;
             }
 
 
@@ -336,7 +336,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 parentWrapper.FillFrom(childWrappers);
             }
 
-            public class StartRecordWrapperStub : Wrapper
+            public class StartRecordWrapperStub : CompositeWrapper
             {
                 [MinMaxOccurs(1, 1)]
                 public StartRecordType StartRecord { get; set; }
