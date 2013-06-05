@@ -54,33 +54,41 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
+        /// <summary>
+        /// This method is only used by unit tests
+        /// </summary>
+        /// <param name="batchFileText"></param>
+        /// <returns></returns>
         public static IList<IndividualResponseType> ParseBatch(string batchFileText)
         {
             var lines = LineWrapper.ParseBatch(batchFileText);
             return ParseBatch(lines, Constants.DataObjectMap);
         }
 
+        /// <summary>
+        /// This method is only used by unit tests
+        /// </summary>
+        /// <param name="batchFileText"></param>
+        /// <returns></returns>
         public static IList<IndividualResponseType> ParseBatch(LineWrapper[] dataLines, Dictionary<string, Type> typeMap)
         {
-            var allWrappers = dataLines.Select(lw => lw.ToWrapper(typeMap)).ToList();
+            var startRecord = dataLines.First().ToWrapper(typeMap) as StartRecordType;
+            var endRecord = dataLines.Last().ToWrapper(typeMap) as EndRecordType;
 
-            var startRecord = allWrappers.First() as StartRecordType;
-            var endRecord = allWrappers.Last() as EndRecordType;
-
-            allWrappers.Remove(startRecord);
-            allWrappers.Remove(endRecord);
+            dataLines = dataLines.Skip(1).Take(dataLines.Length - 2).ToArray();
+            var allWrappers = dataLines.Select(lw => lw.ToPersonRecordWrapper(typeMap, startRecord)).ToList();
 
             var groupedWrapers = allWrappers
-                .Where(w => w != null)
-                .GroupBy(w => new LineWrapper(w.Contents).PNR)
-                .ToList();
+                            .Where(w => w != null)
+                            .GroupBy(w => new LineWrapper(w.Contents).PNR)
+                            .ToList();
 
             var ret = groupedWrapers
                 .Select(individualWrappersGrouping =>
                     {
                         var individualLines = individualWrappersGrouping.ToList();
                         var individual = new IndividualResponseType();
-                        individual.FillFrom(individualLines, startRecord, endRecord);
+                        individual.FillFrom(individualLines.Select(w => w as Wrapper).ToList(), startRecord, endRecord);
                         return individual;
                     })
                 .ToList();
