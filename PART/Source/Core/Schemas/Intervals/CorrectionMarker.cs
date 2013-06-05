@@ -51,16 +51,50 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public interface ITimedType
+    public interface IHasCorrectionMarker : ITimedType
     {
-        DateTime? ToStartTS();
-        DateTime? ToEndTS();
-        DataTypeTags Tag { get; }
-        IRegistrationInfo Registration { get; }
+        char CorrectionMarker { get; }
     }
 
-    public interface IRegistrationInfo
+    public static class CorrectionMarker
     {
-        DateTime RegistrationDate { get; }
+        public const char Edit_Overwritten = 'K';
+        public const char Undo = 'A';
+        public const char TechnicalChange = 'Æ';
+        public const char OK = ' ';
+
+
+        public static IQueryable<ITimedType> Filter(IQueryable<ITimedType> originalDataObjects)
+        {
+            var dataObjects = originalDataObjects.ToList();
+            
+            // Filter out undo records            
+            var undoRecords = dataObjects.Where(o => o is IHasCorrectionMarker && (o as IHasCorrectionMarker).CorrectionMarker == Undo).ToArray();
+
+            dataObjects.RemoveAll(oldRecord =>
+                !undoRecords.Contains(oldRecord)
+                &&
+                undoRecords.Where(undoRecord =>
+                    undoRecord.Tag == oldRecord.Tag
+                    && undoRecord.Registration.RegistrationDate > oldRecord.Registration.RegistrationDate
+                    && undoRecord.ToStartTS() == oldRecord.ToStartTS()
+                    ).FirstOrDefault() != null
+            );
+            dataObjects = dataObjects.Except(undoRecords).ToList();
+            
+            // Filter out records that have been overwritten, but keep the updated copy
+            var editRecords = dataObjects.Where(o => o is IHasCorrectionMarker && (o as IHasCorrectionMarker).CorrectionMarker == Edit_Overwritten).ToArray();
+
+            dataObjects.RemoveAll(oldRecord =>
+                !editRecords.Contains(oldRecord)
+                &&
+                editRecords.Where(undoRecord =>
+                    undoRecord.Tag == oldRecord.Tag
+                    && undoRecord.Registration.RegistrationDate > oldRecord.Registration.RegistrationDate
+                    && undoRecord.ToStartTS() == oldRecord.ToStartTS()
+                    ).FirstOrDefault() != null
+            );
+            return dataObjects.AsQueryable();
+        }
     }
 }

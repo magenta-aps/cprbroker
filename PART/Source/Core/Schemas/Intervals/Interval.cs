@@ -82,6 +82,11 @@ namespace CprBroker.Schemas.Part
         public static TInterval[] CreateFromData<TInterval>(IQueryable<ITimedType> dataObjects)
             where TInterval : Interval, new()
         {
+
+            // Filter objects based on correction markers
+            dataObjects = CorrectionMarker.Filter(dataObjects);
+
+            // sort by start date
             var sortedByStartDate = dataObjects
                 .Select(o => new { StartTS = VirkningType.ToStartDateTimeOrMinValue(o.ToStartTS()), Object = o })
                 .OrderBy(o => o.StartTS)
@@ -97,7 +102,6 @@ namespace CprBroker.Schemas.Part
                         currentInterval != null
                     &&
                     (
-
                         (dataObject.StartTS == currentInterval.StartTS.Value)
                         ||
                         (
