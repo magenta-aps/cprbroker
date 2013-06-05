@@ -62,7 +62,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public ExtractParseResult(string batchFileText, Dictionary<string, Type> dataObjectMap)
         {
-            this.Wrappers = Wrapper.Parse(batchFileText, dataObjectMap);
+            this.Wrappers = CompositeWrapper.Parse(batchFileText, dataObjectMap);
             var wrappersAndLines = this.Wrappers.Select(w => new { Wrapper = w, Line = new LineWrapper(w.Contents) }).ToArray();
 
             // Isolate error lines
