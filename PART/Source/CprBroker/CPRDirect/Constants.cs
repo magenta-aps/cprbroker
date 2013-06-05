@@ -172,14 +172,6 @@ namespace CprBroker.Providers.CPRDirect
         public static readonly string CommentText = "";
         public static readonly short DenmarkCountryCode = 5100;
 
-        public static class CorrectionMarker
-        {
-            public const char Edit_Overwritten = 'K';
-            public const char Undo = 'A';
-            public const char TechnicalChange = 'Æ';
-            public const char OK = ' ';
-        }
-
         public static class PropertyNames
         {
             public static readonly string Address = "Address";
