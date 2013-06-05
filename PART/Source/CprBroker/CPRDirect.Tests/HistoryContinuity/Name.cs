@@ -71,11 +71,11 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         // Those with a correction marker seem OK to drop
 
         [Test]
-        [TestCaseSource("PNRs")]        
+        [TestCaseSource(typeof(Utilities), "PNRs")]
         public override void HistoryContinues(string pnr)
         {
             base.HistoryContinues(pnr);
-            
+
             // Invalid data. Second row in historical data has start date > end date !!!!!!!!!!
             /*
              * 026 0709614096 Bettina    Kristensen      1961-11-07 12:00   1961-10-07 20:00
@@ -83,7 +83,7 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
              * 008 0709614096 Bettina    Folmersen       2000-12-31 10:20
             */
 
-            
+
             // TODO: Start date for first name is uncertain and unconvertible to date time, what do we do
             // No problem here, but needs to be thought of
             /*            

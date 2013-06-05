@@ -68,7 +68,7 @@ namespace CprBroker.Tests.CPRDirect.HistoryContinuity
         }
 
         [Test]
-        [TestCaseSource("PNRs")]
+        [TestCaseSource(typeof(Utilities), "PNRs")]
         public override void HistoryContinues(string pnr)
         {
             base.HistoryContinues(pnr);
