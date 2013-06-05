@@ -70,8 +70,8 @@ namespace CprBroker.Providers.CPRDirect
             {
                 var individualResponse = new IndividualResponseType();
 
-				var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap) as StartRecordType;
-                var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap) as EndRecordType;                
+                var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap) as StartRecordType;
+                var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap) as EndRecordType;
                 var linewWappers = found
                     .Select(item => new LineWrapper(item.Contents).ToPersonRecordWrapper(typeMap, startWrapper))
                     .ToArray();
@@ -82,40 +82,7 @@ namespace CprBroker.Providers.CPRDirect
 
                 return individualResponse;
             }
-
             return null;
-        }
-
-        [Obsolete("Not used now because it takes too long")]
-        public void RefreshPersons()
-        {
-            Admin.LogSuccess("Person refresh started");
-
-            Func<string, Guid> uuidGetter = ReadSubMethodInfo.CprToUuid;
-            var linesByPnr = this.ExtractItems.GroupBy(item => item.PNR).ToArray();
-            Admin.LogSuccess(string.Format("Found <{0}> persons", linesByPnr.Length));
-            int success = 0;
-            foreach (var pnrLines in linesByPnr)
-            {
-                var pnr = pnrLines.Key;
-                var lines = pnrLines.ToArray();
-                Admin.LogSuccess(string.Format("Converting PNR <{0}> started", pnr));
-                try
-                {
-                    var uuid = uuidGetter(pnr);
-                    var person = GetPerson(pnr, lines.AsQueryable(), Constants.DataObjectMap);
-                    var oioPerson = person.ToRegistreringType1(uuidGetter);
-                    var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = pnr, UUID = uuid };
-                    UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
-                    Admin.LogSuccess(string.Format("Converting PNR <{0}> done !!", pnr));
-                    success++;
-                }
-                catch (Exception ex)
-                {
-                    Admin.LogException(ex, string.Format("PNR = <{0}>", pnr));
-                }
-            }
-            Admin.LogSuccess(string.Format("Person conversion : <{0}> Succeeded, <{1}> Failed", success, linesByPnr.Length - success));
         }
     }
 }
