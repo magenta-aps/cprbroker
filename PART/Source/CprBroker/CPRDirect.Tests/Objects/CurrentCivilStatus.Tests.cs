@@ -112,7 +112,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 )
             {
                 var civil = new CurrentCivilStatusType() { CivilStatusCode = civilStatus, CivilStatusStartDate = DateTime.Today, SpousePNR = Utilities.RandomCprNumberString() };
-                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), civilStatus, Utilities.RandomSingleChar(Utilities.AlphabetChars, civilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, civilStatus), false);
+                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), civilStatus, Utilities.RandomSingleChar(Utilities.AlphabetChars, civilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, civilStatus), 'D', false);
                 Assert.AreEqual(DateTime.Today, ret[0].Virkning.FraTidspunkt.ToDateTime());
             }
 
@@ -123,7 +123,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 )
             {
                 var civil = new CurrentCivilStatusType() { CivilStatusCode = civilStatus, CivilStatusStartDate = DateTime.Today, SpousePNR = Utilities.RandomCprNumberString() };
-                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), civilStatus, Utilities.RandomSingleChar(Utilities.AlphabetChars, civilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, civilStatus), sameGenderForDead);
+                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), civilStatus, Utilities.RandomSingleChar(Utilities.AlphabetChars, civilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, civilStatus),'D', sameGenderForDead);
                 Assert.Null(ret[0].Virkning.TilTidspunkt.ToDateTime());
             }
 
@@ -133,7 +133,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 )
             {
                 var civil = new CurrentCivilStatusType() { CivilStatusCode = endedCivilStatus, CivilStatusStartDate = DateTime.Today, SpousePNR = Utilities.RandomCprNumberString() };
-                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), Utilities.RandomSingleChar(Utilities.AlphabetChars, endedCivilStatus), endedCivilStatus, Utilities.RandomSingleChar(Utilities.AlphabetChars, endedCivilStatus), false);
+                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), Utilities.RandomSingleChar(Utilities.AlphabetChars, endedCivilStatus), endedCivilStatus, Utilities.RandomSingleChar(Utilities.AlphabetChars, endedCivilStatus),endedCivilStatus, false);
                 Assert.AreEqual(DateTime.Today, ret[0].Virkning.TilTidspunkt.ToDateTime());
             }
 
@@ -144,7 +144,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 )
             {
                 var civil = new CurrentCivilStatusType() { CivilStatusCode = endedCivilStatus, CivilStatusStartDate = DateTime.Today, SpousePNR = Utilities.RandomCprNumberString() };
-                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), Utilities.RandomSingleChar(Utilities.AlphabetChars, endedCivilStatus), endedCivilStatus, Utilities.RandomSingleChar(Utilities.AlphabetChars, endedCivilStatus),sameGenderForDead);
+                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), Utilities.RandomSingleChar(Utilities.AlphabetChars, endedCivilStatus), endedCivilStatus, Utilities.RandomSingleChar(Utilities.AlphabetChars, endedCivilStatus), endedCivilStatus, sameGenderForDead);
                 Assert.Null(ret[0].Virkning.FraTidspunkt.ToDateTime());
             }
 
@@ -154,7 +154,7 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 )
             {
                 var civil = new CurrentCivilStatusType() { CivilStatusCode = deadCivilStatus, CivilStatusStartDate = DateTime.Today };
-                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus), deadCivilStatus, false);
+                var ret = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus), deadCivilStatus, false);
                 Assert.IsEmpty(ret);
             }
 
@@ -164,16 +164,22 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 )
             {
                 var result = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-                var f = result.Where(r => r.CurrentCivilStatus.CivilStatusCode == 'D' || r.HistoricalCivilStatus.Where(c => c.CivilStatusCode == 'D').Count() > 0).ToArray(); ;
+                var f = result.Where(r => r.CurrentCivilStatus.CivilStatusCode == 'D' || r.HistoricalCivilStatus.Where(c => c.CivilStatusCode == 'D').Count() > 0).ToArray();
                 var civil = new CurrentCivilStatusType() { CivilStatusCode = deadCivilStatus, CivilStatusStartDate = DateTime.Today, PNR = Utilities.RandomCprNumberString(), SpousePNR = Utilities.RandomCprNumberString() };
                 var ret1 = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(),
                     Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus),
                     Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus),
                     Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus),
+                    deadCivilStatus,
                     false
                     );
-                var ret2 = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(), Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus), Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus), false);
-                Assert.AreEqual(0, ret1.Length + ret2.Length);
+                var ret2 = CivilStatusWrapper.ToPersonRelationTypeArray(civil, null, pnr => Guid.NewGuid(),
+                    Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus),
+                    Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus),
+                    Utilities.RandomSingleChar(Utilities.AlphabetChars, deadCivilStatus),
+                    deadCivilStatus,
+                    true);
+                Assert.AreEqual(1, ret1.Length + ret2.Length);
             }
 
         }
