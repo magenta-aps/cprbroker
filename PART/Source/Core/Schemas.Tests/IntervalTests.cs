@@ -66,6 +66,7 @@ namespace CprBroker.Tests.Schemas
             public DateTime? ToStartTS() { return _StartTS; }
             public DateTime? ToEndTS() { return null; }
             public DataTypeTags Tag { get; set; }
+            public IRegistrationInfo Registration { get; set; }
         }
 
         class HistoryStub1 : ITimedType
@@ -79,6 +80,7 @@ namespace CprBroker.Tests.Schemas
             public DateTime? _StartTS;
             public DateTime? ToStartTS() { return _StartTS; }
             public DataTypeTags Tag { get; set; }
+            public IRegistrationInfo Registration { get; set; }
         }
 
         class CurrentStub2 : ITimedType
@@ -91,6 +93,7 @@ namespace CprBroker.Tests.Schemas
             public DateTime? ToStartTS() { return _StartTS; }
             public DateTime? ToEndTS() { return null; }
             public DataTypeTags Tag { get; set; }
+            public IRegistrationInfo Registration { get; set; }
         }
 
         class HistoryStub2 : ITimedType
@@ -104,6 +107,7 @@ namespace CprBroker.Tests.Schemas
             public DateTime? _StartTS;
             public DateTime? ToStartTS() { return _StartTS; }
             public DataTypeTags Tag { get; set; }
+            public IRegistrationInfo Registration { get; set; }
         }
 
         [TestFixture]
