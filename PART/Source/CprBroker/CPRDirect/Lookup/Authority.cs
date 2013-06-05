@@ -97,7 +97,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static string GetNameByCode(string code)
         {
-            if (_AuthorityMap.ContainsKey(code))
+            if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
             {
                 return _AuthorityMap[code];
             }
