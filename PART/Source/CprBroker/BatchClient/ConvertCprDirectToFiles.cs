@@ -113,7 +113,7 @@ namespace BatchClient
                 var registrations = new List<RegistreringType1>();
                 foreach (var extract in extractItems.OrderBy(ex => ex.Key.ExtractDate))
                 {
-                    var resp = Extract.GetPerson(pnr, extract.AsQueryable(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                    var resp = Extract.GetPersonFromLatestExtract(pnr, extract.AsQueryable(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                     var reg = resp.ToRegistreringType1(GetUuid);
                     registrations.Add(reg);
                     File.WriteAllText(

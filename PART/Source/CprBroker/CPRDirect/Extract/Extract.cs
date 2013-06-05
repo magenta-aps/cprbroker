@@ -57,7 +57,7 @@ namespace CprBroker.Providers.CPRDirect
 {
     partial class Extract
     {
-        public static IndividualResponseType GetPerson(string pnr, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)
+        public static IndividualResponseType GetPersonFromLatestExtract(string pnr, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)
         {
             var found = extractItems
                 .Where(item => item.PNR == pnr)

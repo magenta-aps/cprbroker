@@ -74,7 +74,7 @@ namespace BatchClient
                 using (var extractDataContext = new ExtractDataContext(this.BrokerConnectionString))
                 {
                     var extractItems = extractDataContext.ExtractItems.Where(ei => ei.PNR == pnr && ei.ExtractId == extractId).ToArray();
-                    individualResponse = Extract.GetPerson(pnr, extractItems.AsQueryable(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
+                    individualResponse = Extract.GetPersonFromLatestExtract(pnr, extractItems.AsQueryable(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                 }
             }
             else

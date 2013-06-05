@@ -133,7 +133,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 extract.ExtractItems.AddRange(extractItems);
 
                 var pnr = lines[2].PNR;
-                var person = Extract.GetPerson(pnr, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                var person = Extract.GetPersonFromLatestExtract(pnr, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                 Assert.NotNull(person);
                 Assert.AreEqual(pnr, person.PersonInformation.PNR);
             }
@@ -151,7 +151,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
                 extract.ExtractItems.AddRange(extractItems);
 
-                var person = Extract.GetPerson(cprNumber, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                var person = Extract.GetPersonFromLatestExtract(cprNumber, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                 Assert.Null(person);
             }
         }

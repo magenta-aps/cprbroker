@@ -99,7 +99,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             using (var dataContext = new ExtractDataContext())
             {
-                return Extract.GetPerson(pnr, dataContext.ExtractItems, Constants.DataObjectMap);
+                return Extract.GetPersonFromLatestExtract(pnr, dataContext.ExtractItems, Constants.DataObjectMap);
             }
         }
 
@@ -236,7 +236,7 @@ namespace CprBroker.Providers.CPRDirect
                     {
                         Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
                         var uuid = uuidGetter(person.PNR);
-                        var response = Extract.GetPerson(person.PNR, person.Extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
+                        var response = Extract.GetPersonFromLatestExtract(person.PNR, person.Extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
                         var oioPerson = response.ToRegistreringType1(uuidGetter);
                         var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
                         UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
