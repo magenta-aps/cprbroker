@@ -73,7 +73,7 @@ namespace CprBroker.Providers.CPRDirect
             dataObjects.Add(this.CurrentNameInformation);
             dataObjects.AddRange(
                 this.HistoricalName
-                .Where(n => n.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .Where(n => n.CorrectionMarker == CorrectionMarker.OK)
                 .ToArray()
                 );
 
@@ -101,20 +101,20 @@ namespace CprBroker.Providers.CPRDirect
             dataObjects.Add(this.GetFolkeregisterAdresseSource(false));
             dataObjects.AddRange(
                 this.HistoricalAddress
-                .Where(a => a.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .Where(a => a.CorrectionMarker == CorrectionMarker.OK)
                 .ToArray());
 
             dataObjects.Add(this.CurrentDepartureData);
             dataObjects.AddRange(
                 this.HistoricalDeparture
-                .Where(d => d.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .Where(d => d.CorrectionMarker == CorrectionMarker.OK)
                 .ToArray()
                 );
 
             dataObjects.Add(this.CurrentDisappearanceInformation);
             dataObjects.AddRange(
                 this.HistoricalDisappearance
-                .Where(d => d.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .Where(d => d.CorrectionMarker == CorrectionMarker.OK)
                 .ToArray()
                 );
 
@@ -131,7 +131,7 @@ namespace CprBroker.Providers.CPRDirect
             dataObjects.Add(this.CurrentCitizenship);
             dataObjects.AddRange(
                 this.HistoricalCitizenship
-                .Where(c => c.CorrectionMarker == Constants.CorrectionMarker.OK)
+                .Where(c => c.CorrectionMarker == CorrectionMarker.OK)
                 .ToArray());
 
             return dataObjects.Where(o => o != null).ToArray();
