@@ -104,14 +104,14 @@ namespace BatchClient
 
             using (var dataContext = new ExtractDataContext())
             {
-                var extractItems = dataContext.ExtractItems.Where(ei => ei.PNR == pnr)
-                    .GroupBy(ei => ei.Extract);
+                var extractItems = dataContext.ExtractItems.Where(ei => ei.PNR == pnr);
+                var grouped = extractItems.GroupBy(ei => ei.Extract);
 
                 var myOutDir = OutDir + pnr + "\\";
                 Directory.CreateDirectory(myOutDir);
 
                 var registrations = new List<RegistreringType1>();
-                foreach (var extract in extractItems.OrderBy(ex => ex.Key.ExtractDate))
+                foreach (var extract in grouped.OrderBy(ex => ex.Key.ExtractDate))
                 {
                     var resp = Extract.GetPersonFromLatestExtract(pnr, extract.AsQueryable(), CprBroker.Providers.CPRDirect.Constants.DataObjectMap);
                     var reg = resp.ToRegistreringType1(GetUuid);
