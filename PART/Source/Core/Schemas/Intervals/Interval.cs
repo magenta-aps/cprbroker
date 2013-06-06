@@ -74,6 +74,7 @@ namespace CprBroker.Schemas.Part
             }
         }
 
+        // TODO: Remove this method if only used in tests
         public static Interval[] CreateFromData(params ITimedType[] dataObjects)
         {
             return CreateFromData<Interval>(dataObjects.AsQueryable());
@@ -82,6 +83,15 @@ namespace CprBroker.Schemas.Part
         public static TInterval[] CreateFromData<TInterval>(IQueryable<ITimedType> dataObjects)
             where TInterval : Interval, new()
         {
+            var tags = dataObjects.Select(o => o.Tag).Distinct().ToArray();
+            return CreateFromData<TInterval>(dataObjects, tags);
+        }
+
+        public static TInterval[] CreateFromData<TInterval>(IQueryable<ITimedType> dataObjects, DataTypeTags[] allTags)
+            where TInterval : Interval, new()
+        {
+
+            dataObjects = dataObjects.Where(o => allTags.Contains(o.Tag));
 
             // Filter objects based on correction markers
             dataObjects = CorrectionMarker.Filter(dataObjects);
@@ -135,7 +145,6 @@ namespace CprBroker.Schemas.Part
             ret = ret.Where(intvl => intvl.Data.Where(o => o.ToStartTS().HasValue || CreateIntervalIfStartTsIsNullAttribute.GetValue(o.GetType())).FirstOrDefault() != null).ToList();
 
             // Fill the missing information
-            var allTags = dataObjects.Select(o => o.Tag).Distinct();
             foreach (var currentInterval in ret)
             {
                 var missingTags = allTags.Where(tag => currentInterval.Data.Where(o => o.Tag == tag).Count() == 0);
