@@ -64,7 +64,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
         [Ignore]
         public void ToToPersonRelationTypeArray_Null_ThrowsException()
         {
-            CivilStatusWrapper.ToPersonRelationTypeArray(null, null, UuidMap.CprStringToUuid, 'U', 'G', 'W', false);
+            CivilStatusWrapper.ToPersonRelationTypeArray(null, null, UuidMap.CprStringToUuid, 'U', 'G', 'W', 'D', false);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [ValueSource("AllMaritalStates")] char maritalStatus)
         {
             var civilStates = AllMaritalStates.Select(c => new CivilStatusStub() { SpousePNR = Utilities.RandomCprNumber(), MaritalStatus = c } as CivilStatus).ToArray();
-            var result = CivilStatusWrapper.ToPersonRelationTypeArray(null, civilStates, UuidMap.CprStringToUuid, maritalStatus, maritalStatus, maritalStatus, false);
+            var result = CivilStatusWrapper.ToPersonRelationTypeArray(null, civilStates, UuidMap.CprStringToUuid, maritalStatus, maritalStatus, maritalStatus, maritalStatus, false);
             // 2 are expected because of upper and lower cases
             Assert.AreEqual(2, result.Length);
         }
@@ -84,7 +84,7 @@ namespace CprBroker.Tests.DPR.CivilStatusTests
             [ValueSource("AllMaritalStates")] char maritalStatus)
         {
             var civilStates = AllMaritalStates.Select(c => new CivilStatusStub() { SpousePNR = 0, MaritalStatus = c } as CivilStatus).ToArray();
-            var result = CivilStatusWrapper.ToPersonRelationTypeArray(null, civilStates, UuidMap.CprStringToUuid, maritalStatus, maritalStatus, maritalStatus, false);
+            var result = CivilStatusWrapper.ToPersonRelationTypeArray(null, civilStates, UuidMap.CprStringToUuid, maritalStatus, maritalStatus, maritalStatus, maritalStatus, false);
             Assert.AreEqual(0, result.Length);
         }
     }
