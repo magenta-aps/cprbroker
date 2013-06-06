@@ -53,7 +53,7 @@ using CprBroker.Engine;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class RegisterOplysningInterval : Interval
+    public partial class RegisterOplysningInterval
     {
         public RegisterOplysningType ToRegisterOplysningType()
         {
