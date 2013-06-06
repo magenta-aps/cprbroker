@@ -51,7 +51,7 @@ using System.Text;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class BirthRegistrationInformationType
+    public partial class BirthRegistrationInformationType : IBirthRegistrationInformation
     {
 
         public string ToFoedselsregistreringMyndighedNavn()
@@ -64,6 +64,22 @@ namespace CprBroker.Providers.CPRDirect
             {
                 return Authority.GetNameByCode(this.BirthRegistrationAuthorityCode);
             }
+        }
+
+
+        public Schemas.Part.DataTypeTags Tag
+        {
+            get { return Schemas.Part.DataTypeTags.BirthRegistration; }
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return null;
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return null;
         }
     }
 }
