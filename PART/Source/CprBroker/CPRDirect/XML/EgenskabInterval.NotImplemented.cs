@@ -53,7 +53,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class EgenskabInterval : Interval
+    public partial class EgenskabInterval
     {
         public AdresseType ToAndreAdresser()
         {
