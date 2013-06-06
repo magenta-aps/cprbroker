@@ -64,6 +64,7 @@ namespace CprBroker.Schemas.Part
         LocalDirectoryProtection,
         MarketingProtection,
         PNR,
-        Citizenship
+        Citizenship,
+        BirthRegistration
     }
 }
