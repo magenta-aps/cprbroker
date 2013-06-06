@@ -53,7 +53,7 @@ using CprBroker.Schemas.Part;
 namespace CprBroker.Providers.CPRDirect
 {
 
-    public partial class ProtectionType : ITimedType
+    public partial class ProtectionType : IProtection
     {
         public enum ProtectionCategoryCodes
         {
