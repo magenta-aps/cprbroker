@@ -68,7 +68,7 @@ namespace CprBroker.Providers.CPRDirect
         public IBasicInformation PersonInformation { get; set; }
 
         // Does not change by interval
-        public BirthRegistrationInformationType BirthRegistrationInformation { get; set; }
+        public IBirthRegistrationInformation BirthRegistrationInformation { get; set; }
 
         public EgenskabType ToEgenskabType()
         {
