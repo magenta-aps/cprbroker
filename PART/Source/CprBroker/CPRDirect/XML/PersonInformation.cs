@@ -93,14 +93,6 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPnrStringOrNull(this.PNR);
         }
 
-        public VirkningType ToVirkningType()
-        {
-            return VirkningType.Create(
-                Converters.ToDateTime(this.PersonStartDate, this.PersonStartDateUncertainty),
-                Converters.ToDateTime(this.PersonEndDate, this.PersonEndDateUncertainty)
-                );
-        }
-
         public PersonGenderCodeType ToPersonGenderCodeType()
         {
             return Converters.ToPersonGenderCodeType(this.Gender);
@@ -109,6 +101,23 @@ namespace CprBroker.Providers.CPRDirect
         public bool ToPersonNummerGyldighedStatusIndikator()
         {
             return Enums.IsActiveCivilRegistrationStatus(this.Status);
+        }
+
+        public DataTypeTags Tag
+        {
+            get { return DataTypeTags.BasicInformation; }
+        }
+
+        public DateTime? ToStartTS()
+        {
+            // TODO: Shall we return null instead?
+            return PersonStartDate;
+        }
+
+        public DateTime? ToEndTS()
+        {
+            // TODO: Shall we return null instead?
+            return PersonEndDate;
         }
 
     }
