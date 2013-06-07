@@ -57,20 +57,20 @@ namespace CprBroker.Providers.CPRDirect
     {
 
         public PersonIdentifier PersonIdentifier { get; set; }
-        public IQueryable<IndividualResponseType> IndividualResponseObjects { get; private set; }
+        public IndividualResponseType[] IndividualResponseObjects { get; private set; }
 
         public IQueryable<ITimedType> ItemsAsTimedType
         {
             get
             {
-                return IndividualResponseObjects.SelectMany(resp => resp.ToAllIntervalObjects()).Where(i => i != null);
+               return IndividualResponseObjects.SelectMany(resp => resp.GetChildrenAsTimedObjects().Where(i => i != null)).Distinct().AsQueryable();
             }
         }
 
         public IndividualHistoryResponseType(PersonIdentifier pId, IQueryable<IndividualResponseType> individualResponseObjects)
         {
             this.PersonIdentifier = pId;
-            this.IndividualResponseObjects = individualResponseObjects;
+            this.IndividualResponseObjects = individualResponseObjects.ToArray();
         }
 
         public FiltreretOejebliksbilledeType ToFiltreretOejebliksbilledeType()
@@ -98,11 +98,6 @@ namespace CprBroker.Providers.CPRDirect
 
         private RegisterOplysningType[] ToRegisterOplysningType()
         {
-            var sss = this.ItemsAsTimedType;
-            foreach (var s in sss)
-            {
-                Console.WriteLine("Found <{0}>", s);
-            }
             return Interval
                 .CreateFromData<RegisterOplysningInterval>(this.ItemsAsTimedType, RegisterOplysningInterval.Tags)
                 .Select(i => i.ToRegisterOplysningType())
@@ -123,8 +118,6 @@ namespace CprBroker.Providers.CPRDirect
         {
             return null;
         }
-
-
 
     }
 }
