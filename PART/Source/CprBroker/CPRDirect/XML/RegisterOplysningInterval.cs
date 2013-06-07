@@ -83,16 +83,33 @@ namespace CprBroker.Providers.CPRDirect
             get { return this.GetData<ICitizenship>(); }
         }
 
-        // Citizenship intervals are OK by nature
-        public ProtectionType NameAndAddressProtection
+        // Protection intervals are OK by nature
+        public IProtection NameAndAddressProtection
         {
-            get { return this.GetData<ProtectionType>(DataTypeTags.NameAndAddressProtection); }
+            get { return this.GetData<IProtection>(DataTypeTags.NameAndAddressProtection); }
         }
 
-        // Citizenship intervals are OK by nature
-        public ProtectionType ResearchProtection
+        // Protection intervals are OK by nature
+        public IProtection ResearchProtection
         {
-            get { return this.GetData<ProtectionType>(DataTypeTags.ResearchProtection); }
+            get { return this.GetData<IProtection>(DataTypeTags.ResearchProtection); }
         }
+
+        public static DataTypeTags[] Tags
+        {
+            get
+            {
+                return new DataTypeTags[] 
+                { 
+                    DataTypeTags.Address, 
+                    DataTypeTags.Church, 
+                    DataTypeTags.PNR,
+                    DataTypeTags.Citizenship, 
+                    DataTypeTags.NameAndAddressProtection, 
+                    DataTypeTags.ResearchProtection 
+                };
+            }
+        }
+
     }
 }
