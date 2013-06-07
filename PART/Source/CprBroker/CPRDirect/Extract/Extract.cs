@@ -57,6 +57,23 @@ namespace CprBroker.Providers.CPRDirect
 {
     partial class Extract
     {
+        private static IndividualResponseType ToIndividualResponseType(IGrouping<Extract, ExtractItem> found, Dictionary<string, Type> typeMap)
+        {
+            var individualResponse = new IndividualResponseType();
+
+            var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap) as StartRecordType;
+            var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap) as EndRecordType;
+            var linewWappers = found
+                .Select(item => new LineWrapper(item.Contents).ToPersonRecordWrapper(typeMap, startWrapper))
+                .ToArray();
+
+            // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
+            individualResponse.FillPropertiesFromWrappers(linewWappers, startWrapper, endWrapper);
+            individualResponse.SourceObject = found.Key.ExtractId;
+
+            return individualResponse;
+        }
+
         public static IndividualResponseType GetPersonFromLatestExtract(string pnr, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)
         {
             var found = extractItems
@@ -68,21 +85,18 @@ namespace CprBroker.Providers.CPRDirect
 
             if (found != null)
             {
-                var individualResponse = new IndividualResponseType();
-
-                var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap) as StartRecordType;
-                var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap) as EndRecordType;
-                var linewWappers = found
-                    .Select(item => new LineWrapper(item.Contents).ToPersonRecordWrapper(typeMap, startWrapper))
-                    .ToArray();
-
-                // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
-                individualResponse.FillPropertiesFromWrappers(linewWappers, startWrapper, endWrapper);
-                individualResponse.SourceObject = found.Key.ExtractId;
-
-                return individualResponse;
+                return ToIndividualResponseType(found, typeMap);
             }
             return null;
+        }
+
+        public static IQueryable<IndividualResponseType> GetPersonFromAllExtracts(string pnr, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)
+        {
+            return extractItems
+                .Where(item => item.PNR == pnr)
+                .GroupBy(item => item.Extract)
+                .Where(g => g.Key.Ready)
+                .Select(g => ToIndividualResponseType(g, typeMap));
         }
     }
 }
