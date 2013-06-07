@@ -60,7 +60,7 @@ namespace CprBroker.Providers.CPRDirect
             return TidspunktType.Create(this.ProductionDate);
         }
 
-        public DateTime RegistrationDate
+        DateTime IRegistrationInfo.RegistrationDate
         {
             get
             {
