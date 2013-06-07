@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -146,6 +147,39 @@ namespace CprBroker.Providers.CPRDirect
         {
             var all = Parse(data, typeMap);
             FillPropertiesFromWrappers(all);
+        }
+
+        public List<ITimedType> GetChildrenAsTimedObjects()
+        {
+            var ret = new List<ITimedType>();
+
+            Type myType = GetType();
+            var properties = myType.GetProperties();
+            foreach (System.Reflection.PropertyInfo property in properties)
+            {
+                if (typeof(System.Collections.IList).IsAssignableFrom(property.PropertyType) && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    var args = property.PropertyType.GetGenericArguments();
+                    if (args.Length == 1)
+                    {
+                        var innerType = args[0];
+                        if (typeof(ITimedType).IsAssignableFrom(innerType))
+                        {
+                            var fieldValue = property.GetValue(this, null) as System.Collections.IList;
+                            foreach (ITimedType obj in fieldValue)
+                            {
+                                ret.Add(obj);
+                            }
+                        }
+                    }
+                }
+                else if (typeof(ITimedType).IsAssignableFrom(property.PropertyType))
+                {
+                    var val = property.GetValue(this, null) as ITimedType;
+                    ret.Add(val);
+                }
+            }
+            return ret.ToArray().ToList();
         }
     }
 }
