@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IProtection.cs" />
     <Compile Include="Wrappers\CompositeWrapper.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters.cs" />
@@ -109,6 +110,12 @@
     <Compile Include="XML\EgenskabInterval.NotImplemented.cs" />
     <Compile Include="XML\HistoricalDisappearance.cs" />
     <Compile Include="Interfaces\IBasicInformation.cs" />
+    <Compile Include="XML\IndividualHistoryResponseType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XML\IndividualHistoryResponseType.NotImplemented.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="XML\RegisterOplysningInterval.NotImplemented.cs" />
     <Compile Include="XML\RegisterOplysningInterval.XML.cs" />
     <Compile Include="XML\RegisterOplysningInterval.cs" />

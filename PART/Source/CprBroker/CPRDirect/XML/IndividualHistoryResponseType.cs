@@ -48,77 +48,83 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class IndividualResponseType
+    public partial class IndividualHistoryResponseType
     {
-        public object SourceObject { get; set; }
 
-        public override void FillFromFixedLengthString(string data, Dictionary<string, Type> typeMap)
+        public PersonIdentifier PersonIdentifier { get; set; }
+        public IQueryable<IndividualResponseType> IndividualResponseObjects { get; private set; }
+
+        public IQueryable<ITimedType> ItemsAsTimedType
         {
-            var all = Parse(data, typeMap);
-            FillPropertiesFromWrappers(all);
-
-            // Set start record as the registration object for each data record
-            all.Select(w => w as PersonRecordWrapper)
-                .Where(w => w != null)
-                .ToList()
-                .ForEach(w => w.Registration = this.StartRecord);
-        }
-
-        public IQueryable<ITimedType> ToAllIntervalObjects()
-        {
-            return ToRegisterOplysningIntervalObjects()
-                .AsQueryable();
-        }
-
-        public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
-        {
-            var ret = new RegistreringType1()
+            get
             {
-                AktoerRef = ToAktoerRefType(),
-                AttributListe = ToAttributListeType(),
-                CommentText = ToCommentText(),
-                LivscyklusKode = ToLivscyklusKodeType(),
-                RelationListe = ToRelationListeType(cpr2uuidFunc),
-                Tidspunkt = ToTidspunktType(),
-                TilstandListe = ToTilstandListeType(),
-                SourceObjectsXml = this.ToSourceObjectsXml(),
-                Virkning = null,
-            };
-            ret.CalculateVirkning();
-            return ret;
-        }
-
-        public UnikIdType ToAktoerRefType()
-        {
-            return UnikIdType.Create(Constants.ActorId);
-        }
-
-        public string ToCommentText()
-        {
-            return Constants.CommentText;
-        }
-
-        public TidspunktType ToTidspunktType()
-        {
-            return this.StartRecord.ToTidspunktType();
-        }
-
-        public string ToSourceObjectsXml()
-        {
-            // TODO: Shall we exclude the start record from SourceObjects?
-            // Reason is that 2 calls to CPR direct for a person can return exactly the same data but with a different extraction date
-            // Also, investigate how this affects registration date
-            if (this.SourceObject != null)
-            {
-                return CprBroker.Utilities.Strings.SerializeObject(this.SourceObject);
+                return IndividualResponseObjects.SelectMany(resp => resp.ToAllIntervalObjects()).Where(i => i != null);
             }
+        }
+
+        public IndividualHistoryResponseType(PersonIdentifier pId, IQueryable<IndividualResponseType> individualResponseObjects)
+        {
+            this.PersonIdentifier = pId;
+            this.IndividualResponseObjects = individualResponseObjects;
+        }
+
+        public FiltreretOejebliksbilledeType ToFiltreretOejebliksbilledeType()
+        {
+            return new FiltreretOejebliksbilledeType()
+            {
+                AttributListe = ToAttributListeType(),
+                UUID = PersonIdentifier.UUID.ToString(),
+                BrugervendtNoegleTekst = PersonIdentifier.CprNumber,
+                RelationListe = ToRelationListeType(),
+                TilstandListe = ToTilstandListeType()
+            };
+        }
+
+        public AttributListeType ToAttributListeType()
+        {
+            return new AttributListeType()
+            {
+                Egenskab = ToEgenskabType(),
+                LokalUdvidelse = ToLokalUdvidelseType(),
+                RegisterOplysning = ToRegisterOplysningType(),
+                SundhedOplysning = ToSundhedOplysning()
+            };
+        }
+
+        private RegisterOplysningType[] ToRegisterOplysningType()
+        {
+            var sss = this.ItemsAsTimedType;
+            foreach (var s in sss)
+            {
+                Console.WriteLine("Found <{0}>", s);
+            }
+            return Interval
+                .CreateFromData<RegisterOplysningInterval>(this.ItemsAsTimedType, RegisterOplysningInterval.Tags)
+                .Select(i => i.ToRegisterOplysningType())
+                .ToArray();
+        }
+
+        private EgenskabType[] ToEgenskabType()
+        {
             return null;
         }
 
+        public RelationListeType ToRelationListeType()
+        {
+            return null;
+        }
+
+        public TilstandListeType ToTilstandListeType()
+        {
+            return null;
+        }
+
+
+
     }
 }
-

@@ -58,7 +58,7 @@ using CprBroker.Engine.Local;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider
+    public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider, IPartPeriodDataProvider
     {
         #region IPartReadDataProvider members
         public RegistreringType1 Read(CprBroker.Schemas.PersonIdentifier uuid, LaesInputType input, Func<string, Guid> cpr2uuidFunc, out QualityLevel? ql)
@@ -73,6 +73,22 @@ namespace CprBroker.Providers.CPRDirect
                 return response.ToRegistreringType1(cpr2uuidFunc);
             }
             return null;
+        }
+        #endregion
+
+        #region IPartPeriodDataProvider members
+        public FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId)
+        {
+            using (var dataContext = new ExtractDataContext())
+            {
+                var loadOptions = new System.Data.Linq.DataLoadOptions();
+                loadOptions.LoadWith<ExtractItem>(ei => ei.Extract);
+                dataContext.LoadOptions = loadOptions;
+
+                var individualResponses = Extract.GetPersonFromAllExtracts(pId.CprNumber, dataContext.ExtractItems, Constants.DataObjectMap);
+                var fullResp = new IndividualHistoryResponseType(pId, individualResponses);
+                return fullResp.ToFiltreretOejebliksbilledeType();
+            }
         }
         #endregion
 
@@ -182,5 +198,7 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         #endregion
+
+
     }
 }
