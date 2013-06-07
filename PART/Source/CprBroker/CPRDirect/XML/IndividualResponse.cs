@@ -68,12 +68,6 @@ namespace CprBroker.Providers.CPRDirect
                 .ForEach(w => w.Registration = this.StartRecord);
         }
 
-        public IQueryable<ITimedType> ToAllIntervalObjects()
-        {
-            return ToRegisterOplysningIntervalObjects()
-                .AsQueryable();
-        }
-
         public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
         {
             var ret = new RegistreringType1()
