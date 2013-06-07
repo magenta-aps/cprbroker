@@ -121,11 +121,17 @@ namespace BatchClient
                         CprBroker.Utilities.Strings.SerializeObject(reg)
                         );
                 }
-                var merged = RegistreringType1.Merge(new CprBroker.Schemas.PersonIdentifier() { UUID = GetUuid(pnr), CprNumber = pnr }, VirkningType.Create(DateTime.MinValue, DateTime.MaxValue), registrations.ToArray());
+                var merged1 = RegistreringType1.Merge(new CprBroker.Schemas.PersonIdentifier() { UUID = GetUuid(pnr), CprNumber = pnr }, VirkningType.Create(DateTime.MinValue, DateTime.MaxValue), registrations.ToArray());
+                File.WriteAllText(
+                    string.Format("{0}{1}.All.1.xml", myOutDir, pnr),
+                    CprBroker.Utilities.Strings.SerializeObject(merged1)
+                    );
+
+                var merged2 = new CPRDirectExtractDataProvider().ReadPeriod(DateTime.MinValue, DateTime.MaxValue, new CprBroker.Schemas.PersonIdentifier() { CprNumber = pnr, UUID = GetUuid(pnr) });
 
                 File.WriteAllText(
-                    string.Format("{0}{1}.All.xml", myOutDir, pnr),
-                    CprBroker.Utilities.Strings.SerializeObject(merged)
+                    string.Format("{0}{1}.All.2.xml", myOutDir, pnr),
+                    CprBroker.Utilities.Strings.SerializeObject(merged2)
                     );
 
             }

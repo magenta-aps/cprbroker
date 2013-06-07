@@ -65,7 +65,7 @@ namespace CprBroker.Tests.CPRDirect.Persons
         {
             var t = typeof(Properties.Resources);
             var ret = t.InvokeMember(
-                string.Format("PNR_3112970079",GetPNR()),
+                string.Format("PNR_3112970079", GetPNR()),
                  System.Reflection.BindingFlags.GetProperty | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static,
                  null,
                  null,
@@ -76,8 +76,12 @@ namespace CprBroker.Tests.CPRDirect.Persons
 
         public IndividualResponseType GetPerson()
         {
+            return GetPerson(GetPNR());
+        }
+        public static IndividualResponseType GetPerson(string pnr)
+        {
             var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
-            return all.Where(p => p.PersonInformation.PNR == GetPNR()).First();
+            return all.Where(p => p.PersonInformation.PNR == pnr).First();
         }
 
         [Test]
