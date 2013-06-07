@@ -53,7 +53,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public interface IBasicInformation
+    public interface IBasicInformation : ITimedType
     {
         DateTime? ToBirthdate(bool tryPnr = false);
         PersonGenderCodeType ToPersonGenderCodeType();
