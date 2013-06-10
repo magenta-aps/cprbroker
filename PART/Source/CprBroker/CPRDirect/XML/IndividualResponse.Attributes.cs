@@ -82,7 +82,7 @@ namespace CprBroker.Providers.CPRDirect
                 {
                     interval.HistoricalNames = this.HistoricalName.ToArray();
                     interval.BirthRegistrationInformation = this.BirthRegistrationInformation;
-                    interval.PersonInformation = this.PersonInformation;
+                    interval.BasicInformation = this.PersonInformation;
                 });
             return ret.ToArray();
         }

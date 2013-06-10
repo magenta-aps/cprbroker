@@ -65,7 +65,7 @@ namespace CprBroker.Providers.CPRDirect
         public INameSource[] HistoricalNames { get; set; }
 
         // Does not change by interval
-        public IBasicInformation PersonInformation { get; set; }
+        public IBasicInformation BasicInformation { get; set; }
 
         // Does not change by interval
         public IBirthRegistrationInformation BirthRegistrationInformation { get; set; }
@@ -89,7 +89,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime ToBirthDate()
         {
-            return this.PersonInformation.ToBirthdate(true).Value;
+            return this.BasicInformation.ToBirthdate(true).Value;
         }
 
         public string ToFoedestedNavn()
@@ -126,7 +126,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public PersonGenderCodeType ToPersonGenderCodeType()
         {
-            return this.PersonInformation.ToPersonGenderCodeType();
+            return this.BasicInformation.ToPersonGenderCodeType();
         }
     }
 }
