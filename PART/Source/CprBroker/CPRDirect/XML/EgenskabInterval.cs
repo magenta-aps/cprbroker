@@ -94,7 +94,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToFoedestedNavn()
         {
-            // TODO: birthname could be incorrect if historical data is not available (historical data is 5 years max anyway)
+            // TODO: Change this to birthplace
             var oldestName = HistoricalNameType.GetOldestName(this.HistoricalNames.AsEnumerable()) as INameSource;
             if (oldestName == null)
             {
