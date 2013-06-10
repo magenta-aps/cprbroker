@@ -63,7 +63,12 @@ namespace CprBroker.Providers.CPRDirect
         {
             get
             {
-                return IndividualResponseObjects.SelectMany(resp => resp.GetChildrenAsTimedObjects().Where(i => i != null)).Distinct().AsQueryable();
+                var ret = new List<ITimedType>();
+                ret.AddRange(IndividualResponseObjects.SelectMany(resp => resp.GetChildrenAsTimedObjects()));
+                // TODO: Test with historical PNR objects to see if corrections work
+                ret.AddRange(IndividualResponseObjects.Select(resp => new CurrentPnrTypeAdaptor(resp.PersonInformation, resp.HistoricalPNR) as ITimedType));
+                ret.AddRange(IndividualResponseObjects.Select(resp => resp.GetFolkeregisterAdresseSource(false) as ITimedType));
+                return ret.Where(i => i != null).Distinct().AsQueryable();
             }
         }
 
@@ -108,7 +113,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             var intervals = Interval
                 .CreateFromData<EgenskabInterval>(this.ItemsAsTimedType, EgenskabInterval.Tags);
-            
+
             return intervals
                 .Select(i => i.ToEgenskabType())
                 .ToArray();
