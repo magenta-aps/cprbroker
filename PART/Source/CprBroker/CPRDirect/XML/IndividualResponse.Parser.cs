@@ -76,19 +76,20 @@ namespace CprBroker.Providers.CPRDirect
             var endRecord = dataLines.Last().ToWrapper(typeMap) as EndRecordType;
 
             dataLines = dataLines.Skip(1).Take(dataLines.Length - 2).ToArray();
-            var allWrappers = dataLines.Select(lw => lw.ToPersonRecordWrapper(typeMap, startRecord)).ToList();
 
-            var groupedWrapers = allWrappers
-                            .Where(w => w != null)
-                            .GroupBy(w => new LineWrapper(w.Contents).PNR)
+            var groupedWrapers = dataLines
+                            .GroupBy(w => w.PNR)
                             .ToList();
 
             var ret = groupedWrapers
                 .Select(individualWrappersGrouping =>
                     {
-                        var individualLines = individualWrappersGrouping.ToList();
                         var individual = new IndividualResponseType();
-                        individual.FillPropertiesFromWrappers(individualLines.Select(w => w as Wrapper).ToList(), startRecord, endRecord);
+                        var individualLines = individualWrappersGrouping
+                            .Select(il => il.ToPersonRecordWrapper(Constants.DataObjectMap, individual) as Wrapper)
+                            .Where(w => w != null)
+                            .ToList();
+                        individual.FillPropertiesFromWrappers(individualLines, startRecord, endRecord);
                         return individual;
                     })
                 .ToList();

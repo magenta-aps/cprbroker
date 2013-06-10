@@ -63,8 +63,9 @@ namespace CprBroker.Providers.CPRDirect
 
             var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap) as StartRecordType;
             var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap) as EndRecordType;
+
             var linewWappers = found
-                .Select(item => new LineWrapper(item.Contents).ToPersonRecordWrapper(typeMap, startWrapper))
+                .Select(item => new LineWrapper(item.Contents).ToPersonRecordWrapper(typeMap, individualResponse))
                 .ToArray();
 
             // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
