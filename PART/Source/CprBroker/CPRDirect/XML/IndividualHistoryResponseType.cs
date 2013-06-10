@@ -63,7 +63,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             get
             {
-               return IndividualResponseObjects.SelectMany(resp => resp.GetChildrenAsTimedObjects().Where(i => i != null)).Distinct().AsQueryable();
+                return IndividualResponseObjects.SelectMany(resp => resp.GetChildrenAsTimedObjects().Where(i => i != null)).Distinct().AsQueryable();
             }
         }
 
@@ -106,7 +106,12 @@ namespace CprBroker.Providers.CPRDirect
 
         private EgenskabType[] ToEgenskabType()
         {
-            return null;
+            var intervals = Interval
+                .CreateFromData<EgenskabInterval>(this.ItemsAsTimedType, EgenskabInterval.Tags);
+            
+            return intervals
+                .Select(i => i.ToEgenskabType())
+                .ToArray();
         }
 
         public RelationListeType ToRelationListeType()

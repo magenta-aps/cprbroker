@@ -112,5 +112,10 @@ namespace CprBroker.Providers.CPRDirect
         {
             return this.BasicInformation.ToPersonGenderCodeType();
         }
+
+        public static DataTypeTags[] Tags
+        {
+            get { return new DataTypeTags[] { DataTypeTags.Name }; }
+        }
     }
 }
