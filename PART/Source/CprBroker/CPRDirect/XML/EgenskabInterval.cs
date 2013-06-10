@@ -61,9 +61,6 @@ namespace CprBroker.Providers.CPRDirect
             get { return this.GetData<INameSource>(); }
         }
 
-        // Needed to get birth name
-        public INameSource[] HistoricalNames { get; set; }
-
         // Does not change by interval
         public IBasicInformation BasicInformation 
         { 

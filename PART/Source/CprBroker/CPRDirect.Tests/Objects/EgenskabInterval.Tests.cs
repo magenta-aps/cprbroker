@@ -19,8 +19,8 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 var pnr = Utilities.RandomCprNumberString();
                 var res = new EgenskabInterval()
                 {
-                    BasicInformation = new PersonInformationType() { PNR = pnr, Birthdate = CprBroker.Utilities.Strings.PersonNumberToDate(pnr) },
-                    HistoricalNames = new INameSource[0],
+                    //BasicInformation = new PersonInformationType() { PNR = pnr, Birthdate = CprBroker.Utilities.Strings.PersonNumberToDate(pnr) },
+                    //HistoricalNames = new INameSource[0],
                     Data = new List<ITimedType>(new ITimedType[] { new CurrentNameInformationType() { PNR = pnr, FirstName_s = "1", LastName = "2" } })
                 };
                 var ret = res.ToFoedestedNavn();
@@ -36,8 +36,8 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 DateTime nameDate = birthDate.AddDays(dayOffset);
                 var res = new EgenskabInterval()
                 {
-                    BasicInformation = new PersonInformationType() { PNR = pnr, Birthdate = birthDate },
-                    HistoricalNames = new INameSource[0],
+                    //BasicInformation = new PersonInformationType() { PNR = pnr, Birthdate = birthDate },
+                    //HistoricalNames = new INameSource[0],
                     Data = new List<ITimedType>(new ITimedType[] { new CurrentNameInformationType() { PNR = pnr, FirstName_s = "1", LastName = "2", NameStartDate = nameDate } })
                 };
 
@@ -54,8 +54,8 @@ namespace CprBroker.Tests.CPRDirect.Objects
                 DateTime nameDate = birthDate.AddDays(dayOffset);
                 var res = new EgenskabInterval()
                 {
-                    BasicInformation = new PersonInformationType() { PNR = pnr, Birthdate = birthDate },
-                    HistoricalNames = new INameSource[0],
+                    //BasicInformation = new PersonInformationType() { PNR = pnr, Birthdate = birthDate },
+                    //HistoricalNames = new INameSource[0],
                     Data = new List<ITimedType>(new ITimedType[] { new CurrentNameInformationType() { PNR = pnr, FirstName_s = "1", LastName = "2", NameStartDate = nameDate } })
                 };
 

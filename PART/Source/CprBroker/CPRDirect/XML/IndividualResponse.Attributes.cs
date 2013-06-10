@@ -80,8 +80,8 @@ namespace CprBroker.Providers.CPRDirect
             var ret = Interval.CreateFromData<EgenskabInterval>(dataObjects.Where(o => o != null).AsQueryable());
             Array.ForEach<EgenskabInterval>(ret, interval =>
                 {
-                    interval.HistoricalNames = this.HistoricalName.ToArray();
                     // TODO: Remove these commented lines
+                    //interval.HistoricalNames = this.HistoricalName.ToArray();
                     //interval.BirthRegistrationInformation = this.BirthRegistrationInformation;
                     //interval.BasicInformation = this.PersonInformation;
                 });
