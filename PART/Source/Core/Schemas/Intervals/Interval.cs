@@ -166,6 +166,7 @@ namespace CprBroker.Schemas.Part
                 if (currentInterval.StartTS == DateTime.MinValue)
                     currentInterval.StartTS = null;
 
+                // TODO: Do now allow Protection intervals to set end date for the last interval. Does that differ if the end date is in the future?
                 currentInterval.EndTS = currentInterval.Data.Where(o => o.ToEndTS().HasValue).Select(o => o.ToEndTS()).Min();
                 if (i < ret.Count - 1)
                 {
