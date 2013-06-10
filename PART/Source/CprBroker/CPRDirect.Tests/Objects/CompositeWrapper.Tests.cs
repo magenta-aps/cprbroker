@@ -61,7 +61,6 @@ namespace CprBroker.Tests.CPRDirect.Objects
             [TestCaseSource(typeof(Utilities), "PNRs")]
             public void GetChildrenAsTimedObjects_Normal_OK(string pnr)
             {
-                System.Diagnostics.Debugger.Launch();
                 var resp = Persons.Person.GetPerson(pnr);
                 var objects = resp.GetChildrenAsTimedObjects();
             }
