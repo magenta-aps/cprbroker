@@ -52,21 +52,12 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class StartRecordType : IRegistrationInfo
+    public partial class StartRecordType
     {
         public TidspunktType ToTidspunktType()
         {
             // TODO: Is this the correct registration date?
             return TidspunktType.Create(this.ProductionDate);
-        }
-
-        DateTime IRegistrationInfo.RegistrationDate
-        {
-            get
-            {
-                // TODO: Is date always guaranteed?
-                return this.ProductionDate.Value;
-            }
         }
     }
 }

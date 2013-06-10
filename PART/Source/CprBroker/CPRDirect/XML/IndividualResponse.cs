@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class IndividualResponseType
+    public partial class IndividualResponseType : IRegistrationInfo
     {
         public object SourceObject { get; set; }
 
@@ -65,7 +65,7 @@ namespace CprBroker.Providers.CPRDirect
             all.Select(w => w as PersonRecordWrapper)
                 .Where(w => w != null)
                 .ToList()
-                .ForEach(w => w.Registration = this.StartRecord);
+                .ForEach(w => w.Registration = this);
         }
 
         public RegistreringType1 ToRegistreringType1(Func<string, Guid> cpr2uuidFunc)
@@ -113,6 +113,13 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
+        public DateTime RegistrationDate
+        {
+            get
+            { // TODO: Is date always guaranteed?
+                return this.StartRecord.ProductionDate.Value;
+            }
+        }
     }
 }
 
