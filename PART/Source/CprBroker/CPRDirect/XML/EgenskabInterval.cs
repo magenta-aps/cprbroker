@@ -94,24 +94,8 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToFoedestedNavn()
         {
-            // TODO: Change this to birthplace
-            var oldestName = HistoricalNameType.GetOldestName(this.HistoricalNames.AsEnumerable()) as INameSource;
-            if (oldestName == null)
-            {
-                oldestName = this.Name;
-            }
-            var nameStartDate = oldestName.ToStartTS();
-            var birthDate = this.ToBirthDate();
-
-            if (nameStartDate.HasValue
-                && (nameStartDate.Value - birthDate).TotalDays <= 14)
-            {
-                return oldestName.ToNavnStrukturType().PersonNameStructure.ToString();
-            }
-            else
-            {
-                return null;
-            }
+            // TODO: Change this to birthplace            
+            return null;
         }
 
         public string ToFoedselsregistreringMyndighedNavn()
