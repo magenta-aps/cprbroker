@@ -81,8 +81,9 @@ namespace CprBroker.Providers.CPRDirect
             Array.ForEach<EgenskabInterval>(ret, interval =>
                 {
                     interval.HistoricalNames = this.HistoricalName.ToArray();
-                    interval.BirthRegistrationInformation = this.BirthRegistrationInformation;
-                    interval.BasicInformation = this.PersonInformation;
+                    // TODO: Remove these commented lines
+                    //interval.BirthRegistrationInformation = this.BirthRegistrationInformation;
+                    //interval.BasicInformation = this.PersonInformation;
                 });
             return ret.ToArray();
         }

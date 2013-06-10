@@ -65,10 +65,22 @@ namespace CprBroker.Providers.CPRDirect
         public INameSource[] HistoricalNames { get; set; }
 
         // Does not change by interval
-        public IBasicInformation BasicInformation { get; set; }
+        public IBasicInformation BasicInformation 
+        { 
+            get 
+            {
+                return (this.Name.Registration as IndividualResponseType).PersonInformation;
+            }
+        }
 
         // Does not change by interval
-        public IBirthRegistrationInformation BirthRegistrationInformation { get; set; }
+        public IBirthRegistrationInformation BirthRegistrationInformation 
+        {
+            get
+            {
+                return (this.Name.Registration as IndividualResponseType).BirthRegistrationInformation;
+            }
+        }
 
         public EgenskabType ToEgenskabType()
         {

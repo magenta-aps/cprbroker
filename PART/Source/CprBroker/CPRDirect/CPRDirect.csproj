@@ -110,10 +110,10 @@
     <Compile Include="XML\EgenskabInterval.NotImplemented.cs" />
     <Compile Include="XML\HistoricalDisappearance.cs" />
     <Compile Include="Interfaces\IBasicInformation.cs" />
-    <Compile Include="XML\IndividualHistoryResponseType.cs">
+    <Compile Include="XML\IndividualHistoryResponse.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="XML\IndividualHistoryResponseType.NotImplemented.cs">
+    <Compile Include="XML\IndividualHistoryResponse.NotImplemented.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="XML\RegisterOplysningInterval.NotImplemented.cs" />
