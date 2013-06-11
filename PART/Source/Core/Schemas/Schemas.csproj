@@ -78,6 +78,7 @@
     <Compile Include="Intervals\Interfaces.cs" />
     <Compile Include="Intervals\Interval.cs" />
     <Compile Include="Intervals\RegisteredIntervalVirkningWrapper.cs" />
+    <Compile Include="Intervals\TimedTypeWrapper.cs" />
     <Compile Include="IPersonRelationType.cs" />
     <Compile Include="LaesInputType.cs" />
     <Compile Include="CivilStatus\MaritalStatus.cs" />

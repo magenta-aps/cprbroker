@@ -51,40 +51,15 @@ using System.Text;
 
 namespace CprBroker.Schemas.Part
 {
-    public interface IOverwritable
+    public class TimedTypeWrapper<T> : Interval
+        where T : class,ITimedType
     {
-        bool IsOverwrittenBy(ITimedType newObject);
-    }
-
-    public static class Overwrite
-    {
-        public static IQueryable<ITimedType> Filter(IQueryable<ITimedType> dataObjects)
+        public T TimedObject
         {
-            var dataObjectsArray = dataObjects.ToArray();
-
-            dataObjects = dataObjects.Where(deleteCandidate => !IsOverwritten(deleteCandidate, dataObjectsArray));
-
-            return dataObjects;
-        }
-
-        public static bool IsOverwritten(ITimedType deleteCandidate, IEnumerable<ITimedType> dataOtherObjects)
-        {
-            if (deleteCandidate is IOverwritable)
+            get
             {
-                var deleteCandidateO = deleteCandidate as IOverwritable;
-
-                return dataOtherObjects
-                    .Except(new ITimedType[] { deleteCandidate })
-                    .Where(o =>
-                        o.Tag == deleteCandidate.Tag
-                        && o.Registration != null
-                        && deleteCandidate.Registration != null
-                        && o.Registration.RegistrationDate > deleteCandidate.Registration.RegistrationDate
-                        && deleteCandidateO.IsOverwrittenBy(o)
-                    )
-                    .FirstOrDefault() != null;
+                return Data.FirstOrDefault() as T;
             }
-            return false;
         }
     }
 }
