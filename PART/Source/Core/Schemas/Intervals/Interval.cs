@@ -175,6 +175,29 @@ namespace CprBroker.Schemas.Part
                         currentInterval.EndTS = nextInterval.StartTS;
                 }
             }
+
+            // Now extend the last interval if it was closed by a type that cannot close open ends
+            var lastInterval = ret.LastOrDefault();
+            if (lastInterval != null && lastInterval.EndTS.HasValue)
+            {
+                var suggestedData = lastInterval.Data.Where(dataObject => CannotCloseOpenEndIntervalsAttribute.GetValue(dataObject.GetType()) == false).ToList();
+                var suggestedEndDate = suggestedData.Where(d => d.ToEndTS().HasValue).Select(d => d.ToEndTS()).Max();
+                if (
+                        suggestedData.Count < lastInterval.Data.Count
+                    && (!suggestedEndDate.HasValue || suggestedEndDate.Value > lastInterval.EndTS.Value)
+                    )
+                {
+                    var suggestedInterval = new TInterval()
+                    {
+                        Data = suggestedData,
+                        StartTS = lastInterval.EndTS,
+                        EndTS = suggestedEndDate
+                    };
+                    ret.Add(suggestedInterval);
+                }
+
+            }
+
             return ret.ToArray();
         }
 
