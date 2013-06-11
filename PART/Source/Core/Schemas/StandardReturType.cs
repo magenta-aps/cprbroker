@@ -56,6 +56,7 @@ namespace CprBroker.Schemas.Part
     {
         OK = 200,
         PARTIAL_SUCCESS = 206,
+        NO_CONTENT = 204, /* Empty record */
         UNSPECIFIED = 500, /* Server */
         DATASOURCE_UNAVAILABLE = 503, /* Server unavailable*/
         BAD_CLIENT_REQUEST = 400, /* Client */
@@ -111,6 +112,24 @@ namespace CprBroker.Schemas.Part
             var allReasons = failures.Select(ff => string.Format("{0} : {1}", ff.Key, string.Join(",", ff.Value.ToArray()))).ToArray();
             string text = "Partial success. Failed = " + string.Join(";", allReasons);
             return Create(HttpErrorCode.PARTIAL_SUCCESS, text);
+        }
+
+        public static StandardReturType NoContent(string[] failedInputs)
+        {
+            string text = "These records contain no data: " + string.Join(",", failedInputs);
+            return Create(HttpErrorCode.NO_CONTENT, text);
+        }
+
+        public static StandardReturType NoContent(Dictionary<string, IEnumerable<string>> failures)
+        {
+            var allReasons = failures.Select(ff => string.Format("{0} : {1}", ff.Key, string.Join(",", ff.Value.ToArray()))).ToArray();
+            string text = "These records contain no data: " + string.Join(";", allReasons);
+            return Create(HttpErrorCode.NO_CONTENT, text);
+        }
+
+        public static StandardReturType EmptyRecord(string text)
+        {
+            return Create(HttpErrorCode.NOT_FOUND, text);
         }
 
         public static StandardReturType UnspecifiedError()
