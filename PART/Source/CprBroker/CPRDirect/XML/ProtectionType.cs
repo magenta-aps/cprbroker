@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-
+    [CannotCloseOpenEndIntervals]
     public partial class ProtectionType : IProtection
     {
         public enum ProtectionCategoryCodes
