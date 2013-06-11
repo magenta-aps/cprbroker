@@ -110,6 +110,7 @@ namespace CprBroker.Schemas.Part
         
         public static PersonRelationType[] ToPersonRelationTypeArray(ICivilStatus currentStatus, IList<ICivilStatus> historyCivilStates, Func<string, Guid> cpr2uuidFunc, char marriedStatus, char divorcedStatus, char widowStatus, char deadStatus, bool deadAsSameSex)
         {
+            // TODO: Shall we take separation into account?
             char[] maritalStates = new char[] { marriedStatus, divorcedStatus, widowStatus };
 
             var allCivilStates = new List<ICivilStatus>();
