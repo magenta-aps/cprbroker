@@ -51,6 +51,7 @@ using System.Text;
 using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Engine.Period;
+using CprBroker.Engine.Local;
 
 namespace CprBroker.Engine
 {
@@ -61,6 +62,58 @@ namespace CprBroker.Engine
     {
         public static class Period
         {
+            /*
+             * This method traverses the attributes and returns true if
+             * all attributes are empty.
+             */
+            private static Boolean AllAttributesEmpty(AttributListeType attributes)
+            {
+                if (attributes != null)
+                {
+                    if (attributes.Egenskab.Length == 0)
+                    {
+                        if (attributes.LokalUdvidelse == null)
+                        {
+                            if (attributes.RegisterOplysning.Length == 0)
+                            {
+                                if (attributes.SundhedOplysning.Length == 0)
+                                {
+                                    // All attributes are empty
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+            /*
+             * This method tests a list of results for empty records and returns the
+             * UUID's of the empty records in an array.
+             */
+            private static String[] ValidateResults(LaesResultatType[] results) {
+                List<string> records = new List<string>();
+                for (int i = 0; i < results.Length; i++)
+                {
+                    FiltreretOejebliksbilledeType curItem = (FiltreretOejebliksbilledeType)results[i].Item;
+                    if (AllAttributesEmpty(curItem.AttributListe))
+                    {
+                        records.Add(curItem.UUID);
+                    }
+                }
+                return records.ToArray();
+            }
+            /*
+             * This method tests a result is empty and returns a boolean based on that test.
+             */
+            private static Boolean IsValidateResult(LaesResultatType result)
+            {
+                // We check if the object contains data
+                FiltreretOejebliksbilledeType curItem = (FiltreretOejebliksbilledeType)result.Item;
+                if (AllAttributesEmpty(curItem.AttributListe))
+                    return false;
+                return true;
+            }
             public static LaesOutputType ReadAtTime(LaesOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
             {
                 var facade = new ReadPeriodLookupFacadeMethodInfo()
@@ -75,7 +128,12 @@ namespace CprBroker.Engine
                         SourceUsageOrder = sourceUsageOrder
                     }
                 };
-                return GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
+                LaesOutputType result = GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
+                if (IsValidateResult(result.LaesResultat))
+                    result.StandardRetur = StandardReturType.OK();
+                else
+                    result.StandardRetur = StandardReturType.NoContent(new string[] { ((FiltreretOejebliksbilledeType)result.LaesResultat.Item).UUID });
+                return result;
             }
 
             public static LaesOutputType ReadPeriod(LaesPeriodInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
@@ -92,7 +150,12 @@ namespace CprBroker.Engine
                         SourceUsageOrder = sourceUsageOrder
                     }
                 };
-                return GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
+                LaesOutputType result = GetMethodOutput<LaesOutputType, LaesResultatType>(facade);
+                if (IsValidateResult(result.LaesResultat))
+                    result.StandardRetur = StandardReturType.OK();
+                else
+                    result.StandardRetur = StandardReturType.NoContent(new string[] { ((FiltreretOejebliksbilledeType)result.LaesResultat.Item).UUID });
+                return result;
             }
 
             public static ListOutputType1 ListAtTime(ListOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
@@ -109,7 +172,14 @@ namespace CprBroker.Engine
                         SourceUsageOrder = sourceUsageOrder
                     }
                 };
-                return GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
+                ListOutputType1 result = GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
+                String[] emptyRecords = ValidateResults(result.LaesResultat);
+                if (emptyRecords.Length == 0)
+                    result.StandardRetur = StandardReturType.OK();
+                else {
+                    result.StandardRetur = StandardReturType.NoContent(emptyRecords);
+                }
+                return result;
             }
 
             public static ListOutputType1 ListPeriod(ListPeriodInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
@@ -126,7 +196,15 @@ namespace CprBroker.Engine
                         SourceUsageOrder = sourceUsageOrder
                     }
                 };
-                return GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
+                ListOutputType1 result = GetMethodOutput<ListOutputType1, LaesResultatType[]>(facade);
+                string[] emptyRecords = ValidateResults(result.LaesResultat);
+                CprBroker.Engine.Local.Admin.LogFormattedSuccess("# of empty records: {0}", emptyRecords.Length);
+                if (emptyRecords.Length == 0)
+                    result.StandardRetur = StandardReturType.OK();
+                else {
+                    result.StandardRetur = StandardReturType.NoContent(emptyRecords);
+                }
+                return result;
             }
         }
     }
