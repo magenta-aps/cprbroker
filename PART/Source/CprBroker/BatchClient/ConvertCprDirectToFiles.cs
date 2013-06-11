@@ -127,7 +127,7 @@ namespace BatchClient
                     CprBroker.Utilities.Strings.SerializeObject(merged1)
                     );
 
-                var merged2 = new CPRDirectExtractDataProvider().ReadPeriod(DateTime.MinValue, DateTime.MaxValue, new CprBroker.Schemas.PersonIdentifier() { CprNumber = pnr, UUID = GetUuid(pnr) });
+                var merged2 = new CPRDirectExtractDataProvider().ReadPeriod(DateTime.MinValue, DateTime.MaxValue, new CprBroker.Schemas.PersonIdentifier() { CprNumber = pnr, UUID = GetUuid(pnr) }, GetUuid);
 
                 File.WriteAllText(
                     string.Format("{0}{1}.All.2.xml", myOutDir, pnr),

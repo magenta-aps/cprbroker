@@ -78,14 +78,14 @@ namespace CprBroker.Providers.CPRDirect
             this.IndividualResponseObjects = individualResponseObjects.ToArray();
         }
 
-        public FiltreretOejebliksbilledeType ToFiltreretOejebliksbilledeType()
+        public FiltreretOejebliksbilledeType ToFiltreretOejebliksbilledeType(Func<string, Guid> cpr2UuidFunc)
         {
             return new FiltreretOejebliksbilledeType()
             {
                 AttributListe = ToAttributListeType(),
                 UUID = PersonIdentifier.UUID.ToString(),
                 BrugervendtNoegleTekst = PersonIdentifier.CprNumber,
-                RelationListe = ToRelationListeType(),
+                RelationListe = ToRelationListeType(cpr2UuidFunc),
                 TilstandListe = ToTilstandListeType()
             };
         }
@@ -119,9 +119,23 @@ namespace CprBroker.Providers.CPRDirect
                 .ToArray();
         }
 
-        public RelationListeType ToRelationListeType()
+        public RelationListeType ToRelationListeType(Func<string, Guid> cpr2UuidFunc)
         {
-            return null;
+            var timed = this.ItemsAsTimedType;
+
+            var civilStates = Interval
+                .CreateFromData<TimedTypeWrapper<ICivilStatus>>(this.ItemsAsTimedType, new DataTypeTags[] { DataTypeTags.CivilStatus })
+                .Select(w => w.TimedObject)
+                .ToList();
+
+            var spouses = CivilStatusWrapper.ToSpouses(null, civilStates, cpr2UuidFunc);
+            var partners = CivilStatusWrapper.ToRegisteredPartners(null, civilStates, cpr2UuidFunc);
+
+            return new RelationListeType()
+            {
+                Aegtefaelle = spouses,
+                RegistreretPartner = partners,
+            };
         }
 
         public TilstandListeType ToTilstandListeType()

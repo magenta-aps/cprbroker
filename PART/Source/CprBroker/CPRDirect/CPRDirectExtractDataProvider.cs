@@ -77,7 +77,7 @@ namespace CprBroker.Providers.CPRDirect
         #endregion
 
         #region IPartPeriodDataProvider members
-        public FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId)
+        public FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId, Func<string, Guid> cpr2UuidFunc)
         {
             using (var dataContext = new ExtractDataContext())
             {
@@ -87,7 +87,7 @@ namespace CprBroker.Providers.CPRDirect
 
                 var individualResponses = Extract.GetPersonFromAllExtracts(pId.CprNumber, dataContext.ExtractItems, Constants.DataObjectMap);
                 var fullResp = new IndividualHistoryResponseType(pId, individualResponses);
-                return fullResp.ToFiltreretOejebliksbilledeType();
+                return fullResp.ToFiltreretOejebliksbilledeType(cpr2UuidFunc);
             }
         }
         #endregion
