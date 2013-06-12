@@ -70,21 +70,20 @@ namespace CprBroker.Engine
             {
                 if (attributes != null)
                 {
-                    if (attributes.Egenskab.Length == 0)
+                    if (attributes.Egenskab == null || attributes.Egenskab.Length == 0)
                     {
-                        if (attributes.LokalUdvidelse == null)
-                        {
-                            if (attributes.RegisterOplysning.Length == 0)
-                            {
-                                if (attributes.SundhedOplysning.Length == 0)
-                                {
-                                    // All attributes are empty
-                                    return true;
-                                }
-                            }
-                        }
+                        return true;
+                    }
+                    if (attributes.RegisterOplysning == null || attributes.RegisterOplysning.Length == 0)
+                    {
+                        return true;
                     }
                 }
+                else
+                {
+                    return true;
+                }
+                CprBroker.Engine.Local.Admin.LogFormattedSuccess("");
                 return false;
             }
             /*
