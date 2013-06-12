@@ -84,7 +84,13 @@ namespace CprBroker.Providers.CPRDirect
         public bool IsOverwrittenBy(ITimedType newObject)
         {
             var newCivilStatus = newObject as CurrentCivilStatusType;
-            return newCivilStatus != null && newCivilStatus.CivilStatusCode == MaritalStatus.Unmarried;
+            if (newCivilStatus != null)
+            {
+                return
+                       this.CivilStatusCode == MaritalStatus.Deceased
+                    || newCivilStatus.CivilStatusCode == MaritalStatus.Unmarried;
+            }
+            return false;
         }
     }
 
