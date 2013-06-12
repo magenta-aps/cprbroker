@@ -149,6 +149,19 @@ namespace CprBroker.Providers.CPRDirect
             var spouses = CivilStatusWrapper.ToSpouses(null, civilStates, cpr2UuidFunc);
             var partners = CivilStatusWrapper.ToRegisteredPartners(null, civilStates, cpr2UuidFunc);
 
+            var disempowerments = Interval
+                .CreateFromData<TimedTypeWrapper<DisempowermentType>>(this.ItemsAsTimedType)
+                .SelectMany(w => DisempowermentType.ToPersonRelationType(w.TimedObject as DisempowermentType, cpr2UuidFunc))
+                .ToArray();
+
+            
+            var custody = Overwrite.Filter(
+                this
+                .ItemsAsTimedType
+                .Where(i=>i is ParentalAuthorityType)
+                );
+            ParentalAuthorityType.ToPersonRelationType(custody, cpr2UuidFunc);
+
             // Now fill the return object
             return new RelationListeType()
             {
@@ -157,6 +170,8 @@ namespace CprBroker.Providers.CPRDirect
                 Fader = FromLatestRegistration<ParentsInformationType>().ToFather(cpr2UuidFunc),
                 Moder = FromLatestRegistration<ParentsInformationType>().ToMother(cpr2UuidFunc),
                 Boern = ChildType.ToPersonFlerRelationType(LatestRegistration.Child, cpr2UuidFunc),
+                RetligHandleevneVaergemaalsindehaver = disempowerments,
+                
             };
         }
 

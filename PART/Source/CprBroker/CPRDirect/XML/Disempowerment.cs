@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class DisempowermentType : IReversibleRelationship
+    public partial class DisempowermentType : IReversibleRelationship, ITimedType, IOverwritable
     {
         public PersonFlerRelationType ToPersonFlerRelationType(Func<string, Guid> cpr2uuidFunc)
         {
@@ -77,6 +77,34 @@ namespace CprBroker.Providers.CPRDirect
         public string ToRelationPNR()
         {
             return Converters.ToPnrStringOrNull(this.RelationPNR);
+        }
+
+
+        public DataTypeTags Tag
+        {
+            get { return DataTypeTags.Disempowerment; }
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return this.DisempowermentEndDate;
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return this.DisempowermentStartDate;
+        }
+
+        public bool IsOverwrittenBy(ITimedType newObject)
+        {
+            var newDisempowerment = newObject as DisempowermentType;
+            if (newDisempowerment != null)
+            {
+                return this.GuardianRelationType == newDisempowerment.GuardianRelationType
+                    && this.DisempowermentStartDate == newDisempowerment.DisempowermentStartDate;
+            }
+            return false;
+
         }
     }
 }
