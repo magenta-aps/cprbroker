@@ -79,6 +79,7 @@ namespace CprBroker.NUnitTester
         {
             var uuid = GetUuid(pnr);
             var person = TestRunner.PartService.ReadSnapshot(new LaesOejebliksbilledeInputType() { UUID = uuid, VirkningDato = DateTime.Today });
+            ValidateSingleReturn(person);
             Validate(new Guid(uuid), person, TestRunner.PartService);
             Assert.AreEqual(1, (person.LaesResultat.Item as FiltreretOejebliksbilledeType).AttributListe.Egenskab.Length);
             Assert.AreEqual(1, (person.LaesResultat.Item as FiltreretOejebliksbilledeType).AttributListe.RegisterOplysning.Length);
@@ -90,20 +91,22 @@ namespace CprBroker.NUnitTester
         {
             var uuid = GetUuid(pnr);
             var person = TestRunner.PartService.ReadPeriod(new LaesPeriodInputType() { UUID = uuid, VirkningFraDato = DateTime.Today.AddYears(-5), VirkningTilDato = DateTime.Today });
+            ValidateSingleReturn(person);
             Validate(new Guid(uuid), person, TestRunner.PartService);
+            Assert.AreEqual(1, (person.LaesResultat.Item as FiltreretOejebliksbilledeType).AttributListe.Egenskab.Length);
+            Assert.AreEqual(1, (person.LaesResultat.Item as FiltreretOejebliksbilledeType).AttributListe.RegisterOplysning.Length);
         }
 
         [Test]
         public void ListSnapshot()
         {
             var uuids = GetUuids(TestData.cprNumbers);
-
             var person = TestRunner.PartService.ListSnapshot(new ListOejebliksbilledeInputType { UUID = uuids, VirkningDato = DateTime.Today });
+            ValidateListReturn(person);
             for (int i = 0; i < uuids.Length; i++)
             {
                 var o = person.LaesResultat[i];
                 Validate(new Guid(uuids[i]), person.LaesResultat[i], TestRunner.PartService);
-
                 Assert.AreEqual(1, (o.Item as FiltreretOejebliksbilledeType).AttributListe.Egenskab.Length);
                 Assert.AreEqual(1, (o.Item as FiltreretOejebliksbilledeType).AttributListe.RegisterOplysning.Length);
             }
@@ -113,13 +116,29 @@ namespace CprBroker.NUnitTester
         public void ListPeriod()
         {
             var uuids = GetUuids(TestData.cprNumbers);
-
             var person = TestRunner.PartService.ListPeriod(new ListPeriodInputType { UUID = uuids, VirkningFraDato = DateTime.Today.AddYears(-5), VirkningTilDato = DateTime.Today });
+            ValidateListReturn(person);
             for (int i = 0; i < uuids.Length; i++)
             {
                 var o = person.LaesResultat[i];
                 Validate(new Guid(uuids[i]), person.LaesResultat[i], TestRunner.PartService);
+                Assert.AreEqual(1, (o.Item as FiltreretOejebliksbilledeType).AttributListe.Egenskab.Length);
+                Assert.AreEqual(1, (o.Item as FiltreretOejebliksbilledeType).AttributListe.RegisterOplysning.Length);
             }
+        }
+
+        public void ValidateSingleReturn(LaesOutputType ret)
+        {
+            Assert.IsNotNull(ret);
+            System.Console.WriteLine("Error message: " + ret.StandardRetur.FejlbeskedTekst);
+            base.Validate(ret.StandardRetur.StatusKode, ret.StandardRetur.FejlbeskedTekst);
+        }
+
+        public void ValidateListReturn(ListOutputType1 ret)
+        {
+            Assert.IsNotNull(ret);
+            System.Console.WriteLine("Error message: " + ret.StandardRetur.FejlbeskedTekst);
+            base.Validate(ret.StandardRetur.StatusKode, ret.StandardRetur.FejlbeskedTekst);
         }
     }
 }

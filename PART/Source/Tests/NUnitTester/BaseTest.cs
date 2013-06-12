@@ -109,8 +109,8 @@ namespace CprBroker.NUnitTester
                 Assert.AreNotEqual(Guid.Empty.ToString(), reg.AktoerRef.Item, "Empty actor text");
 
                 Assert.NotNull(reg.AttributListe, "Attributes");
-                Assert.NotNull(reg.AttributListe.Egenskab, "Attributes");
-                Assert.Greater(reg.AttributListe.Egenskab.Length, 0, "Attributes");
+                Assert.NotNull(reg.AttributListe.Egenskab, "AttributListe.Egenskab");
+                Assert.Greater(reg.AttributListe.Egenskab.Length, 0, "AttributListe.Egenskab.Length");
 
                 Assert.NotNull(reg.AttributListe.Egenskab[0].BirthDate, "Birthdate");
                 Assert.NotNull(reg.AttributListe.Egenskab[0].NavnStruktur, "Name");
@@ -125,8 +125,8 @@ namespace CprBroker.NUnitTester
             {
                 var reg = laesResultat.Item as Part.FiltreretOejebliksbilledeType;
                 Assert.NotNull(reg.AttributListe, "Attributes");
-                Assert.NotNull(reg.AttributListe.Egenskab, "Attributes");
-                Assert.Greater(reg.AttributListe.Egenskab.Length, 0, "Attributes");
+                Assert.NotNull(reg.AttributListe.Egenskab, "AttributListe.Egenskab");
+                Assert.Greater(reg.AttributListe.Egenskab.Length, 0, "AttributListe.Egenskab.Length");
 
                 Assert.NotNull(reg.AttributListe.Egenskab[0].BirthDate, "Birthdate");
                 Assert.NotNull(reg.AttributListe.Egenskab[0].NavnStruktur, "Name");
