@@ -72,6 +72,24 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public IndividualResponseType LatestRegistration
+        {
+            get
+            {
+                return IndividualResponseObjects.OrderByDescending(resp => resp.RegistrationDate).FirstOrDefault();
+            }
+        }
+
+        public T FromLatestRegistration<T>() where T : class
+        {
+            var latest = LatestRegistration;
+            if (latest != null)
+            {
+                return LatestRegistration.GetChildrenAsType<T>().Where(o => o is T).FirstOrDefault() as T;
+            }
+            return null;
+        }
+
         public IndividualHistoryResponseType(PersonIdentifier pId, IQueryable<IndividualResponseType> individualResponseObjects)
         {
             this.PersonIdentifier = pId;
@@ -121,20 +139,24 @@ namespace CprBroker.Providers.CPRDirect
 
         public RelationListeType ToRelationListeType(Func<string, Guid> cpr2UuidFunc)
         {
+            // Marriages
             var timed = this.ItemsAsTimedType;
 
             var civilStates = Interval
                 .CreateFromData<TimedTypeWrapper<ICivilStatus>>(this.ItemsAsTimedType, new DataTypeTags[] { DataTypeTags.CivilStatus })
                 .Select(w => w.TimedObject)
                 .ToList();
-
             var spouses = CivilStatusWrapper.ToSpouses(null, civilStates, cpr2UuidFunc);
             var partners = CivilStatusWrapper.ToRegisteredPartners(null, civilStates, cpr2UuidFunc);
 
+            // Now fill the return object
             return new RelationListeType()
             {
                 Aegtefaelle = spouses,
                 RegistreretPartner = partners,
+                Fader = FromLatestRegistration<ParentsInformationType>().ToFather(cpr2UuidFunc),
+                Moder = FromLatestRegistration<ParentsInformationType>().ToMother(cpr2UuidFunc),
+                Boern = ChildType.ToPersonFlerRelationType(LatestRegistration.Child, cpr2UuidFunc),
             };
         }
 

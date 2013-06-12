@@ -151,7 +151,13 @@ namespace CprBroker.Providers.CPRDirect
 
         public List<ITimedType> GetChildrenAsTimedObjects()
         {
-            var ret = new List<ITimedType>();
+            return GetChildrenAsType<ITimedType>();
+        }
+
+        public List<T> GetChildrenAsType<T>()
+            where T : class
+        {
+            var ret = new List<T>();
 
             Type myType = GetType();
             var properties = myType.GetProperties();
@@ -163,19 +169,19 @@ namespace CprBroker.Providers.CPRDirect
                     if (args.Length == 1)
                     {
                         var innerType = args[0];
-                        if (typeof(ITimedType).IsAssignableFrom(innerType))
+                        if (typeof(T).IsAssignableFrom(innerType))
                         {
                             var fieldValue = property.GetValue(this, null) as System.Collections.IList;
-                            foreach (ITimedType obj in fieldValue)
+                            foreach (T obj in fieldValue)
                             {
                                 ret.Add(obj);
                             }
                         }
                     }
                 }
-                else if (typeof(ITimedType).IsAssignableFrom(property.PropertyType))
+                else if (typeof(T).IsAssignableFrom(property.PropertyType))
                 {
-                    var val = property.GetValue(this, null) as ITimedType;
+                    var val = property.GetValue(this, null) as T;
                     ret.Add(val);
                 }
             }
