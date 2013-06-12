@@ -155,12 +155,12 @@ namespace CprBroker.Providers.CPRDirect
                 .ToArray();
 
             
-            var custody = Overwrite.Filter(
+            /*var custody = Overwrite.Filter(
                 this
                 .ItemsAsTimedType
                 .Where(i=>i is ParentalAuthorityType)
                 );
-            ParentalAuthorityType.ToPersonRelationType(custody, cpr2UuidFunc);
+            ParentalAuthorityType.ToPersonRelationType(custody, cpr2UuidFunc);*/
 
             // Now fill the return object
             return new RelationListeType()
