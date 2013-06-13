@@ -154,13 +154,11 @@ namespace CprBroker.Providers.CPRDirect
                 .SelectMany(w => DisempowermentType.ToPersonRelationType(w.TimedObject as DisempowermentType, cpr2UuidFunc))
                 .ToArray();
 
-            
-            /*var custody = Overwrite.Filter(
-                this
-                .ItemsAsTimedType
-                .Where(i=>i is ParentalAuthorityType)
-                );
-            ParentalAuthorityType.ToPersonRelationType(custody, cpr2UuidFunc);*/
+
+            var custodyOwners = Overwrite
+                .Filter(ItemsAsTimedType.Where(i => i is ParentalAuthorityType))
+                .Select(auth => (auth as ParentalAuthorityType).ToPersonRelationType(cpr2UuidFunc))
+                .ToArray();
 
             // Now fill the return object
             return new RelationListeType()
@@ -171,7 +169,13 @@ namespace CprBroker.Providers.CPRDirect
                 Moder = FromLatestRegistration<ParentsInformationType>().ToMother(cpr2UuidFunc),
                 Boern = ChildType.ToPersonFlerRelationType(LatestRegistration.Child, cpr2UuidFunc),
                 RetligHandleevneVaergemaalsindehaver = disempowerments,
-                
+                Foraeldremyndighedsindehaver = custodyOwners,
+                Bopaelssamling = null,
+                ErstatningAf = null,
+                ErstatningFor = null,
+                Foraeldremyndighedsboern = null,
+                LokalUdvidelse = null,
+                RetligHandleevneVaergeForPersonen = null
             };
         }
 

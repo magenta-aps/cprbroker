@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class ParentalAuthorityType : IReversibleRelationship
+    public partial class ParentalAuthorityType : IReversibleRelationship, IOverwritable, IParentalAuthority
     {
         public enum CustodyTypes
         {
@@ -83,6 +83,7 @@ namespace CprBroker.Providers.CPRDirect
                         {
                             return PersonRelationType.Create(
                                 cpr2uuidFunc(relPnr),
+                                // TODO: Shall we use CustodyStartDate instead?
                                 this.RelationPNRStartDate,
                                 this.CustodyEndDate);
                         }
@@ -99,7 +100,12 @@ namespace CprBroker.Providers.CPRDirect
                         );
                     }
             }
+        }
 
+        public PersonRelationType ToPersonRelationType(Func<string, Guid> cpr2uuidFunc)
+        {
+            var registration = this.Registration as IndividualResponseType;
+            return ToPersonRelationType(new ParentalAuthorityType[] { this }, registration.ParentsInformation, cpr2uuidFunc).FirstOrDefault();
         }
 
         public static PersonRelationType[] ToPersonRelationType(IList<ParentalAuthorityType> parentalAuthorities, ParentsInformationType parents, Func<string, Guid> cpr2uuidFunc)
@@ -115,5 +121,26 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPnrStringOrNull(this.RelationPNR);
         }
 
+        public bool IsOverwrittenBy(ITimedType newObject)
+        {
+            var newParentalAutority = newObject as ParentalAuthorityType;
+            return this.RelationshipType == newParentalAutority.RelationshipType
+                && this.RelationPNR == newParentalAutority.RelationPNR;
+        }
+
+        public DataTypeTags Tag
+        {
+            get { return DataTypeTags.ParentalAuthority; }
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return this.CustodyStartDate;
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return this.CustodyEndDate;
+        }
     }
 }
