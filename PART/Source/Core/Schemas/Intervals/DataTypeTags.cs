@@ -67,6 +67,7 @@ namespace CprBroker.Schemas.Part
         Citizenship,
         BirthRegistration,
         BasicInformation,
-        Disempowerment
+        Disempowerment,
+        ParentalAuthority
     }
 }
