@@ -87,7 +87,12 @@ namespace CprBroker.Providers.CPRDirect
 
                 var individualResponses = Extract.GetPersonFromAllExtracts(pId.CprNumber, dataContext.ExtractItems, Constants.DataObjectMap);
                 var fullResp = new IndividualHistoryResponseType(pId, individualResponses);
-                return fullResp.ToFiltreretOejebliksbilledeType(cpr2UuidFunc);
+
+                var pnrs = fullResp.AllRelationPNRs;
+                var uuids = CprBroker.Data.Part.PersonMapping.AssignGuids(pnrs);
+                Func<string, Guid> uuidGetter = pnr => uuids[Array.IndexOf<string>(pnrs, pnr)].Value;
+
+                return fullResp.ToFiltreretOejebliksbilledeType(uuidGetter);
             }
         }
         #endregion

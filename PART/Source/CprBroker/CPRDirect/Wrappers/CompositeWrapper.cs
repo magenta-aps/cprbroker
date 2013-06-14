@@ -185,7 +185,7 @@ namespace CprBroker.Providers.CPRDirect
                     ret.Add(val);
                 }
             }
-            return ret.ToArray().ToList();
+            return ret.Where(o => o != null).ToArray().ToList();
         }
     }
 }
