@@ -96,7 +96,10 @@ namespace CprBroker.Providers.CPRDirect
                     return uuid.HasValue ? uuid.Value : cpr2UuidFunc(pnr);
                 };
 
-                return fullResp.ToFiltreretOejebliksbilledeType(uuidGetter);
+                return fullResp
+                    .ToFiltreretOejebliksbilledeType(uuidGetter)
+                    .Filter(VirkningType.Create(fromDate, toDate));
+
             }
         }
         #endregion
