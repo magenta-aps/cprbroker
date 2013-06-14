@@ -64,6 +64,7 @@
     <Compile Include="CivilStatus\CivilStatusLookupMap.cs" />
     <Compile Include="CivilStatus\CivilStatusWrapper.cs" />
     <Compile Include="CountryIdentificationCodeType.cs" />
+    <Compile Include="FiltreretOejebliksbilledeType.cs" />
     <Compile Include="Intervals\CannotCloseOpenEndIntervalsAttribute.cs" />
     <Compile Include="Intervals\CorrectionMarker.cs" />
     <Compile Include="Intervals\CreateIntervalIfStartTsIsNullAttribute.cs" />
