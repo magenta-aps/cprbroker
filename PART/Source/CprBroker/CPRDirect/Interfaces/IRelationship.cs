@@ -52,51 +52,15 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class CurrentCivilStatusType : ICivilStatus, IOverwritable, IRelationship
+    public interface IRelationship
     {
-        string ICivilStatus.ToSpousePnr()
-        {
-            return Converters.ToPnrStringOrNull(this.SpousePNR);
-        }
-
-        DateTime? ITimedType.ToStartTS()
-        {
-            // TODO: How to pass start date uncertainty?
-            //return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
-            return this.CivilStatusStartDate;
-        }
-
-        DateTime? ITimedType.ToEndTS()
-        {
-            return null;
-        }
-
-        bool ICivilStatus.IsValid()
-        {
-            return !string.IsNullOrEmpty((this as ICivilStatus).ToSpousePnr());
-        }
-
-        DataTypeTags ITimedType.Tag
-        {
-            get { return DataTypeTags.CivilStatus; }
-        }
-
-        public bool IsOverwrittenBy(ITimedType newObject)
-        {
-            var newCivilStatus = newObject as CurrentCivilStatusType;
-            if (newCivilStatus != null)
-            {
-                return
-                       this.CivilStatusCode == MaritalStatus.Deceased
-                    || newCivilStatus.CivilStatusCode == MaritalStatus.Unmarried;
-            }
-            return false;
-        }
-
-        public string RelationPNR
-        {
-            get { return Converters.ToPnrStringOrNull(this.SpousePNR); }
-        }
+        string PNR { get; }
+        string RelationPNR { get; }
     }
 
+    public interface IDoubleRelationship
+    {
+        string PNR { get; }
+        string[] RelationPNRs { get; }
+    }
 }

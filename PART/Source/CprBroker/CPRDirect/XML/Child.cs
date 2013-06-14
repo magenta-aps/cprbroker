@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class ChildType
+    public partial class ChildType : IRelationship
     {
         public PersonFlerRelationType ToPersonFlerRelationType(Func<string, Guid> cpr2uuidFunc)
         {
@@ -74,6 +74,11 @@ namespace CprBroker.Providers.CPRDirect
                 .Select(ch => ch.ToPersonFlerRelationType(cpr2uuidFunc))
                 .ToArray()
                 ;
+        }
+
+        public string RelationPNR
+        {
+            get { return this.ToChildPnr(); }
         }
     }
 }

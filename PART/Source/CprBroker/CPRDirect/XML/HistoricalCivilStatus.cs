@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class HistoricalCivilStatusType : ICivilStatus, IHasCorrectionMarker
+    public partial class HistoricalCivilStatusType : ICivilStatus, IHasCorrectionMarker, IRelationship
     {
         bool ICivilStatus.IsValid()
         {
@@ -81,6 +81,11 @@ namespace CprBroker.Providers.CPRDirect
         DataTypeTags ITimedType.Tag
         {
             get { return DataTypeTags.CivilStatus; }
+        }
+
+        public string RelationPNR
+        {
+            get { return Converters.ToPnrStringOrNull(this.SpousePNR); }
         }
     }
 }

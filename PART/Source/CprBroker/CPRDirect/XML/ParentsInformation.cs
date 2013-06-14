@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class ParentsInformationType
+    public partial class ParentsInformationType : IDoubleRelationship
     {
         public PersonRelationType[] ToFather(Func<string, Guid> cpr2uuidFunc)
         {
@@ -96,5 +96,11 @@ namespace CprBroker.Providers.CPRDirect
         {
             return Converters.ToDateTime(this.MotherDate, this.MotherDateUncertainty);
         }
+
+        public string[] RelationPNRs
+        {
+            get { return new string[] { ToMotherPnr(), ToFatherPnr() }; }
+        }
+
     }
 }

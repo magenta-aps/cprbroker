@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IParentalAuthority.cs" />
     <Compile Include="Interfaces\IProtection.cs" />
+    <Compile Include="Interfaces\IRelationship.cs" />
     <Compile Include="Wrappers\CompositeWrapper.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters.cs" />
@@ -153,7 +154,7 @@
       <DependentUpon>Definitions.xml</DependentUpon>
     </Compile>
     <Compile Include="XML\IndividualResponse.cs" />
-    <Compile Include="XML\IReversibleRelationship.cs" />
+    <Compile Include="Interfaces\IReversibleRelationship.cs" />
     <Compile Include="XML\LineWrapper.cs" />
     <Compile Include="XML\CurrentNameInformation.cs" />
     <Compile Include="XML\ParentalAuthority.cs" />

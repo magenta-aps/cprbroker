@@ -72,6 +72,30 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public string[] AllRelationPNRs
+        {
+            get
+            {
+                var ret = new List<string>();
+                ret.AddRange(
+                    IndividualResponseObjects
+                    .SelectMany(resp => resp.GetChildrenAsType<IRelationship>())
+                    .Select(o => o.RelationPNR)
+                    );
+
+                ret.AddRange(
+                    IndividualResponseObjects
+                    .SelectMany(resp => resp.GetChildrenAsType<IDoubleRelationship>())
+                    .SelectMany(o => o.RelationPNRs)
+                    );
+
+                return ret
+                    .Where(pnr => !string.IsNullOrEmpty(Converters.ToPnrStringOrNull(pnr)))
+                    .Distinct()
+                    .ToArray();
+            }
+        }
+
         public IndividualResponseType LatestRegistration
         {
             get
@@ -153,7 +177,6 @@ namespace CprBroker.Providers.CPRDirect
                 .CreateFromData<TimedTypeWrapper<DisempowermentType>>(this.ItemsAsTimedType)
                 .SelectMany(w => DisempowermentType.ToPersonRelationType(w.TimedObject as DisempowermentType, cpr2UuidFunc))
                 .ToArray();
-
 
             var custodyOwners = Overwrite
                 .Filter(ItemsAsTimedType.Where(i => i is ParentalAuthorityType))

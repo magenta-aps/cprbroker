@@ -51,9 +51,9 @@ using System.Text;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public interface IReversibleRelationship
+    public interface IReversibleRelationship : IRelationship
     {
-        string PNR { get; set; }
-        string RelationPNR { get; set; }
+        //string PNR { get; set; }
+        //string RelationPNR { get; set; }
     }
 }
