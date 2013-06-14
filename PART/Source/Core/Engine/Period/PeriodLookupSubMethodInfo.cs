@@ -66,7 +66,7 @@ namespace CprBroker.Engine.Period
         {
             if (PersonIdentifier != null)
             {
-                return prov.ReadPeriod(EffectDateFrom, EffectDateTo, PersonIdentifier);
+                return prov.ReadPeriod(EffectDateFrom, EffectDateTo, PersonIdentifier, Part.ReadSubMethodInfo.CprToUuid);
             }
             return null;
         }
