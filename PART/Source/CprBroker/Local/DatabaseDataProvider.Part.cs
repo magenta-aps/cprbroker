@@ -62,7 +62,7 @@ namespace CprBroker.Providers.Local
     /// <summary>
     /// Handles implementation of data provider using the system's local database
     /// </summary>
-    public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider, IPartPersonMappingDataProvider, IPartPeriodDataProvider
+    public partial class DatabaseDataProvider : IPartReadDataProvider, IPartSearchDataProvider, IPartPersonMappingDataProvider
     {
 
         #region IPartSearchDataProvider Members
@@ -220,7 +220,7 @@ namespace CprBroker.Providers.Local
         #endregion
 
         #region IPartPeriodDataProvider members
-        public FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId)
+        public FiltreretOejebliksbilledeType ReadPeriod(DateTime fromDate, DateTime toDate, PersonIdentifier pId, Func<string, Guid> cpr2uuidFunc)
         {
             var targetVirkning = VirkningType.Create(fromDate, toDate);
 
