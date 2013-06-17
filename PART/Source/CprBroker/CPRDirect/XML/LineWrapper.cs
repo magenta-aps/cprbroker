@@ -133,8 +133,7 @@ namespace CprBroker.Providers.CPRDirect
                 ExtractId = extractId,
                 PNR = this.PNR,
                 RelationPNR = relationPNR,
-                // TODO: Add column for relation PNR 2
-                //RelationPNR2 = relationPNR2,
+                RelationPNR2 = relationPNR2,
                 Contents = this.Contents,
                 DataTypeCode = this.Code
             };

@@ -405,6 +405,8 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private string _RelationPNR;
 		
+		private string _RelationPNR2;
+		
 		private string _DataTypeCode;
 		
 		private string _Contents;
@@ -423,6 +425,8 @@ namespace CprBroker.Providers.CPRDirect
     partial void OnPNRChanged();
     partial void OnRelationPNRChanging(string value);
     partial void OnRelationPNRChanged();
+    partial void OnRelationPNR2Changing(string value);
+    partial void OnRelationPNR2Changed();
     partial void OnDataTypeCodeChanging(string value);
     partial void OnDataTypeCodeChanged();
     partial void OnContentsChanging(string value);
@@ -515,6 +519,26 @@ namespace CprBroker.Providers.CPRDirect
 					this._RelationPNR = value;
 					this.SendPropertyChanged("RelationPNR");
 					this.OnRelationPNRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RelationPNR2", DbType="VarChar(10)")]
+		public string RelationPNR2
+		{
+			get
+			{
+				return this._RelationPNR2;
+			}
+			set
+			{
+				if ((this._RelationPNR2 != value))
+				{
+					this.OnRelationPNR2Changing(value);
+					this.SendPropertyChanging();
+					this._RelationPNR2 = value;
+					this.SendPropertyChanged("RelationPNR2");
+					this.OnRelationPNR2Changed();
 				}
 			}
 		}

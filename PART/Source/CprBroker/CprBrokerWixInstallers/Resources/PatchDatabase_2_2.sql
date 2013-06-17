@@ -30,6 +30,15 @@ CREATE NONCLUSTERED INDEX [IX_ExtractPersonStaging_ExtractId] ON [dbo].[ExtractP
 )WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
 
+
+-----------------------
+-- Table : ExtractItem
+-----------------------
+
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'RelationPNR2' and object_id=object_id('ExtractItem'))
+	ALTER TABLE dbo.ExtractItem ADD RelationPNR2 VARCHAR(10) NULL
+GO
+
 ----------------------------------------------------------
 -- Getting rid of unused tables
 ----------------------------------------------------------
