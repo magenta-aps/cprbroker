@@ -117,11 +117,14 @@ namespace CprBroker.Providers.CPRDirect
 
             _RelationshipMap = new Dictionary<string, bool>();
             _ReversibleRelationshipMap = new Dictionary<string, bool>();
+            _MultiRelationshipMap = new Dictionary<string, bool>();
+
             foreach (var kvp in _DataObjectMap)
             {
                 var type = kvp.Value;
                 _RelationshipMap[kvp.Key] = typeof(IRelationship).IsAssignableFrom(type);
                 _ReversibleRelationshipMap[kvp.Key] = typeof(IReversibleRelationship).IsAssignableFrom(type);
+                _MultiRelationshipMap[kvp.Key] = typeof(IMultipleRelationship).IsAssignableFrom(type);
             }
 
             _DataObjectMap_P02680 = new Dictionary<string, Type>();
@@ -151,6 +154,12 @@ namespace CprBroker.Providers.CPRDirect
         public static Dictionary<string, bool> ReversibleRelationshipMap
         {
             get { return _ReversibleRelationshipMap.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
+        }
+
+        private static Dictionary<string, bool> _MultiRelationshipMap;
+        public static Dictionary<string, bool> MultiRelationshipMap
+        {
+            get { return _MultiRelationshipMap.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); }
         }
 
         public const int DataObjectCodeLength = 3;

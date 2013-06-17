@@ -91,11 +91,11 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
-        public List<ExtractItem> ToExtractItems(Guid extractId, Dictionary<string, Type> typeMap, Dictionary<string, bool> relationMap)
+        public List<ExtractItem> ToExtractItems(Guid extractId, Dictionary<string, Type> typeMap, Dictionary<string, bool> relationMap, Dictionary<string, bool> multiRelationMap)
         {
             return this.Lines
                .Select(
-                   line => line.ToExtractItem(extractId, typeMap, relationMap))
+                   line => line.ToExtractItem(extractId, typeMap, relationMap, multiRelationMap))
                .ToList();
         }
 

@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class ParentsInformationType : IDoubleRelationship
+    public partial class ParentsInformationType : IMultipleRelationship
     {
         public PersonRelationType[] ToFather(Func<string, Guid> cpr2uuidFunc)
         {

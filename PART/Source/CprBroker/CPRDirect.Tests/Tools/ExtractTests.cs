@@ -68,7 +68,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
 
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
                 var extract = parseResult.ToExtract();
-                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
                 Assert.AreEqual(lines.Length - 2, extractItems.Count);
             }
 
@@ -105,7 +105,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
 
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
                 var extract = parseResult.ToExtract();
-                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
                 var result = extractItems.Select(i => i.Contents).ToList();
                 result.Insert(0, extract.StartRecord);
                 result.Add(extract.EndRecord);
@@ -129,7 +129,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
 
                 var extract = parseResult.ToExtract(ready: true);
-                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
                 extract.ExtractItems.AddRange(extractItems);
 
                 var pnr = lines[2].PNR;
@@ -148,7 +148,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
 
                 var extract = parseResult.ToExtract(ready: true);
-                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+                var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
                 extract.ExtractItems.AddRange(extractItems);
 
                 var person = Extract.GetPersonFromLatestExtract(cprNumber, extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);

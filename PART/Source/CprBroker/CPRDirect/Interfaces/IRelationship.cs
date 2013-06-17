@@ -58,7 +58,12 @@ namespace CprBroker.Providers.CPRDirect
         string RelationPNR { get; }
     }
 
-    public interface IDoubleRelationship
+    public interface IReversibleRelationship : IRelationship
+    {
+
+    }
+    
+    public interface IMultipleRelationship
     {
         string PNR { get; }
         string[] RelationPNRs { get; }

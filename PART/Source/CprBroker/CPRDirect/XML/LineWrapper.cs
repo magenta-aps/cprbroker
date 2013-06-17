@@ -105,11 +105,27 @@ namespace CprBroker.Providers.CPRDirect
             return wrapper;
         }
 
-        public ExtractItem ToExtractItem(Guid extractId, Dictionary<string, Type> typeMap, Dictionary<string, bool> relationMap)
+        public ExtractItem ToExtractItem(Guid extractId, Dictionary<string, Type> typeMap, Dictionary<string, bool> relationMap, Dictionary<string, bool> multiRelationMap)
         {
             string relationPNR = null;
+            string relationPNR2 = null;
             if (relationMap.ContainsKey(this.Code) && relationMap[this.Code])
+            {
                 relationPNR = (this.ToWrapper(typeMap) as IRelationship).RelationPNR;
+            }
+            else if (multiRelationMap.ContainsKey(this.Code) && multiRelationMap[this.Code])
+            {
+                var pnrs = (this.ToWrapper(typeMap) as IMultipleRelationship).RelationPNRs;
+                if (pnrs.Length > 0)
+                {
+                    relationPNR = pnrs[0];
+                    if (pnrs.Length > 1)
+                    {
+                        relationPNR2 = pnrs[1];
+                    }
+                }
+            }
+
 
             return new ExtractItem()
             {
@@ -117,6 +133,8 @@ namespace CprBroker.Providers.CPRDirect
                 ExtractId = extractId,
                 PNR = this.PNR,
                 RelationPNR = relationPNR,
+                // TODO: Add column for relation PNR 2
+                //RelationPNR2 = relationPNR2,
                 Contents = this.Contents,
                 DataTypeCode = this.Code
             };

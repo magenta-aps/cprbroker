@@ -85,7 +85,7 @@ namespace CprBroker.Providers.CPRDirect
 
                 ret.AddRange(
                     IndividualResponseObjects
-                    .SelectMany(resp => resp.GetChildrenAsType<IDoubleRelationship>())
+                    .SelectMany(resp => resp.GetChildrenAsType<IMultipleRelationship>())
                     .SelectMany(o => o.RelationPNRs)
                     );
 
