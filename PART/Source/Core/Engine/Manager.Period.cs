@@ -62,6 +62,8 @@ namespace CprBroker.Engine
     {
         public static class Period
         {
+            // TODO: Move the validation logic to facade method
+
             /// <summary>
             /// This method traverses the attributes and returns true if
             /// all attributes are empty.
