@@ -69,7 +69,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
-            var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.ReversibleRelationshipMap);
+            var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap);
             var extractStaging = parseResult.ToExtractPersonStagings(extract.ExtractId);
             var extractErrors = parseResult.ToExtractErrors(extract.ExtractId);
 
