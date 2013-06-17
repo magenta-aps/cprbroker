@@ -122,6 +122,7 @@ namespace CprBroker.Engine
                     return false;
                 return true;
             }
+
             public static LaesOutputType ReadAtTime(LaesOejebliksbilledeInputType input, string appToken, string userToken, SourceUsageOrder sourceUsageOrder)
             {
                 var facade = new ReadPeriodLookupFacadeMethodInfo()
