@@ -62,10 +62,12 @@ namespace CprBroker.Engine
     {
         public static class Period
         {
-            /*
-             * This method traverses the attributes and returns true if
-             * all attributes are empty.
-             */
+            /// <summary>
+            /// This method traverses the attributes and returns true if
+            /// all attributes are empty.
+            /// </summary>
+            /// <param name="attributes"></param>
+            /// <returns></returns>
             private static Boolean AllAttributesEmpty(AttributListeType attributes)
             {
                 if (attributes != null)
@@ -86,11 +88,15 @@ namespace CprBroker.Engine
                 CprBroker.Engine.Local.Admin.LogFormattedSuccess("");
                 return false;
             }
-            /*
-             * This method tests a list of results for empty records and returns the
-             * UUID's of the empty records in an array.
-             */
-            private static String[] ValidateResults(LaesResultatType[] results) {
+
+            /// <summary>
+            /// This method tests a list of results for empty records and returns the
+            /// UUID's of the empty records in an array.
+            /// </summary>
+            /// <param name="results"></param>
+            /// <returns></returns>
+            private static String[] ValidateResults(LaesResultatType[] results)
+            {
                 List<string> records = new List<string>();
                 for (int i = 0; i < results.Length; i++)
                 {
@@ -102,9 +108,12 @@ namespace CprBroker.Engine
                 }
                 return records.ToArray();
             }
-            /*
-             * This method tests a result is empty and returns a boolean based on that test.
-             */
+
+            /// <summary>
+            /// This method tests a result is empty and returns a boolean based on that test. 
+            /// </summary>
+            /// <param name="result"></param>
+            /// <returns></returns>
             private static Boolean IsValidateResult(LaesResultatType result)
             {
                 // We check if the object contains data
@@ -175,7 +184,8 @@ namespace CprBroker.Engine
                 String[] emptyRecords = ValidateResults(result.LaesResultat);
                 if (emptyRecords.Length == 0)
                     result.StandardRetur = StandardReturType.OK();
-                else {
+                else
+                {
                     result.StandardRetur = StandardReturType.NoContent(emptyRecords);
                 }
                 return result;
@@ -200,7 +210,8 @@ namespace CprBroker.Engine
                 CprBroker.Engine.Local.Admin.LogFormattedSuccess("# of empty records: {0}", emptyRecords.Length);
                 if (emptyRecords.Length == 0)
                     result.StandardRetur = StandardReturType.OK();
-                else {
+                else
+                {
                     result.StandardRetur = StandardReturType.NoContent(emptyRecords);
                 }
                 return result;
