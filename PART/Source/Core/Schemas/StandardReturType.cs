@@ -56,6 +56,7 @@ namespace CprBroker.Schemas.Part
     {
         OK = 200,
         PARTIAL_SUCCESS = 206,
+        // TODO: Check if this code (20x) should be considered a success in StandardReturType.IsSucceeded()
         NO_CONTENT = 204, /* Empty record */
         UNSPECIFIED = 500, /* Server */
         DATASOURCE_UNAVAILABLE = 503, /* Server unavailable*/
@@ -74,6 +75,7 @@ namespace CprBroker.Schemas.Part
             return Create(code, code.ToString());
 
         }
+
         public static StandardReturType Create(HttpErrorCode code, string text)
         {
             return new StandardReturType()
