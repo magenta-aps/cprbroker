@@ -49,7 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-
+using CprBroker.Schemas.Part;
 using CprBroker.Providers.Local;
 
 namespace CprBroker.Tests.Local
@@ -57,14 +57,39 @@ namespace CprBroker.Tests.Local
     namespace DatabaseDataProviderTests
     {
         [TestFixture]
-        public class ReadFiltered
+        public class Search
         {
             [Test]
-            [MaxTime(3)]
-            public void ReadFiltered_Normal_Quick()
-            {
-
+            public void Search_MunicipalityCodeAndSize_10([Values("851", "217", "905")] string municipalityCode)
+            {   
+                var searchCriteria = new SoegInputType1()
+                {
+                    SoegObjekt = new SoegObjektType()
+                     {
+                         SoegAttributListe = new SoegAttributListeType()
+                         {
+                             SoegRegisterOplysning = new RegisterOplysningType[] 
+                                { 
+                                    new RegisterOplysningType() { 
+                                        Item = new CprBorgerType() { 
+                                            FolkeregisterAdresse = new AdresseType() { 
+                                                Item = new DanskAdresseType() { 
+                                                    AddressComplete = new AddressCompleteType() { 
+                                                        AddressAccess = new AddressAccessType() { 
+                                                            MunicipalityCode = municipalityCode 
+                                } } } } } } 
+                            }
+                         }
+                     },
+                     MaksimalAntalKvantitet = "10",
+                     FoersteResultatReference="0"
+                };
+                var prov = new DatabaseDataProvider();
+                var ret = prov.Search(searchCriteria);
+                Assert.AreEqual(10, ret.Length);
             }
         }
+
+
     }
 }

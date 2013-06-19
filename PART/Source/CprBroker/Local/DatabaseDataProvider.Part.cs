@@ -72,18 +72,8 @@ namespace CprBroker.Providers.Local
             Guid[] ret = null;
             using (var dataContext = new PartDataContext())
             {
-                var pred = PersonRegistration.CreateWhereExpression(dataContext, searchCriteria);
-                // TODO: Query Person table to avoid Distinct operation
-                var result = (from pr in dataContext.PersonRegistrations.Where(pred)
-                              select pr.UUID)
-                              .Distinct();
-
-
                 int firstResults = 0;
-                if (int.TryParse(searchCriteria.FoersteResultatReference, out firstResults))
-                {
-                    result = result.Skip(firstResults);
-                }
+                int.TryParse(searchCriteria.FoersteResultatReference, out firstResults);
 
                 int maxResults = 0;
                 int.TryParse(searchCriteria.MaksimalAntalKvantitet, out maxResults);
@@ -91,7 +81,8 @@ namespace CprBroker.Providers.Local
                 {
                     maxResults = 1000;
                 }
-                result = result.Take(maxResults);
+
+                var result = PersonRegistration.GetUuidsByCriteria(dataContext, searchCriteria.SoegObjekt, firstResults, maxResults);
                 ret = result.ToArray();
             }
             // TODO: filter by effect date            
