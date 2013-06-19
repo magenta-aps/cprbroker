@@ -73,26 +73,36 @@ namespace CprBroker.Utilities.WhereConditions
             return dataContext.ExecuteQuery<T>(sql, parameterValues);
         }
 
-        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, string[] columnNames, int startIndex, int maxCount, string sort)
+        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, bool distinct, string[] columnNames, int startIndex, int maxCount, string sort)
         {
-            string tempName = "t" + Strings.NewRandomString(10);
+            string tempName = Strings.NewRandomString(10);
             string columnNamesStr = string.Join(",", columnNames);
 
             string sql = string.Format(""
-                + " WITH {0} AS "
+                + " WITH t{0} AS "
                 + " ("
-                + "   SELECT TOP {1} {2},"
-                + "   ROW_NUMBER() OVER (ORDER BY {3}) AS RowNumber{4} "
-                + "   FROM {5}"
+                + "   SELECT TOP {1} *,"
+                + "   ROW_NUMBER() OVER (ORDER BY {2}) AS RowNumber{3} "
+                + "   FROM "
+                + "   ("
+                + "     SELECT {4} {5}"
+                + "     FROM {6}"
+                + "     WHERE {7}"
+                + "   ) AS s{8}"
                 + " ) "
-                + "SELECT {6} FROM {7} WHERE RowNumber{8} BETWEEN {9} AND {10}",
+                + " SELECT {9} "
+                + " FROM t{10} "
+                + " WHERE RowNumber{11} BETWEEN {12} AND {13}",
 
                 tempName,
                 startIndex + maxCount,
-                columnNamesStr,
                 sort,
                 tempName,
+                distinct ? "DISTINCT" : "",
+                columnNamesStr,
                 tableName,
+                elements.ToWhereString(),
+                tempName,
                 columnNamesStr,
                 tempName,
                 tempName,

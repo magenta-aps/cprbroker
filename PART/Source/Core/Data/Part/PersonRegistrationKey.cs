@@ -87,13 +87,5 @@ namespace CprBroker.Data.Part
             var byCriteria = WhereCondition.GetMatchingObjects<PersonRegistrationKey>(dataContext, elements, "PersonRegistration", new string[] { "PersonRegistrationId", "UUID" });
             return byCriteria;
         }
-
-        public static IEnumerable<PersonRegistrationKey> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject, int startIndex, int maxCount)
-        {
-            var elements = PersonRegistration.CreateXQueryElements(soegObject);
-
-            var byCriteria = WhereCondition.GetMatchingObjects<PersonRegistrationKey>(dataContext, elements, "PersonRegistration", new string[] { "PersonRegistrationId", "UUID" }, startIndex, maxCount, "PersonRegistrationId");
-            return byCriteria;
-        }
     }
 }

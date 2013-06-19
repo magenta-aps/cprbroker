@@ -194,6 +194,7 @@ namespace CprBroker.Tests.Data
             [Test]
             public void GetUuidsByCriteria_MunicipalityCode_10([Values("851", "217", "905")] string municipalityCode)
             {
+                System.Diagnostics.Debugger.Launch();
                 var soegObject = new SoegObjektType()
                 {
                     SoegAttributListe = new SoegAttributListeType()
@@ -213,7 +214,7 @@ namespace CprBroker.Tests.Data
                 };
                 using (var dataContext = new PartDataContext())
                 {
-                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, 0, 10).ToArray();
+                    var ret = PersonRegistration.GetUuidsByCriteria(dataContext, soegObject, 0, 10).ToArray();
                     Assert.AreEqual(10, ret.Count());
                     var empty = ret.Where(r => r == null);
                     Assert.IsEmpty(empty);
@@ -242,7 +243,7 @@ namespace CprBroker.Tests.Data
                 };
                 using (var dataContext = new PartDataContext())
                 {
-                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, 10000000, 10);
+                    var ret = PersonRegistration.GetUuidsByCriteria(dataContext, soegObject, 10000000, 10);
                     Assert.AreEqual(0, ret.Count());
                 }
             }

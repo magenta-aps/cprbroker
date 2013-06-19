@@ -231,5 +231,13 @@ namespace CprBroker.Data.Part
             return XQueryCondition.GetMatchingObjects<PersonRegistration>(dataContext, elements, "PersonRegistration", new string[] { "*" });
         }
 
+        public static IEnumerable<Guid> GetUuidsByCriteria(PartDataContext dataContext, SoegObjektType soegObject, int startIndex, int maxCount)
+        {
+            var elements = PersonRegistration.CreateXQueryElements(soegObject);
+
+            var byCriteria = WhereCondition.GetMatchingObjects<Guid>(dataContext, elements, "PersonRegistration", true, new string[] { "UUID" }, startIndex, maxCount, "UUID");
+            return byCriteria;
+        }
+
     }
 }
