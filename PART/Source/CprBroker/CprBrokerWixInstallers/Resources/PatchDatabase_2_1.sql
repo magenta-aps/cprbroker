@@ -88,7 +88,7 @@ IF EXISTS (SELECT * FROM sys.sysconstraints WHERE constid= object_id('FK_PersonP
 	ALTER TABLE PersonProperties DROP CONSTRAINT FK_PersonProperties_Effect
 GO
 
-IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'EffectId' and object_id=object_id('PersonProperties'))
+IF EXISTS (SELECT * FROM sys.columns c WHERE name = 'EffectId' and object_id=object_id('PersonProperties'))
 	ALTER TABLE PersonProperties DROP COLUMN EffectId
 GO
 
