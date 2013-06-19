@@ -162,6 +162,7 @@ namespace CprBroker.Data.Part
             return string.Equals(xml, thisXml);
         }
 
+        [Obsolete("Replaced by the newer GetBy...() methods")]
         public static Expression<Func<PersonRegistration, bool>> CreateWhereExpression(PartDataContext dataContext, CprBroker.Schemas.Part.SoegInputType1 searchCriteria)
         {
             var pred = PredicateBuilder.True<Data.Part.PersonRegistration>();
