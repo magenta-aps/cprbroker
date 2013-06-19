@@ -82,6 +82,7 @@ namespace CprBroker.Providers.CPRDirect
                     propertyType = Nullable.GetUnderlyingType(propertyType);
                 }
                 table.Columns.Add(new DataColumn(property.Name, propertyType));
+                bulkCopy.ColumnMappings.Add(property.Name, property.Name);
             }
 
             foreach (var entity in entities)
