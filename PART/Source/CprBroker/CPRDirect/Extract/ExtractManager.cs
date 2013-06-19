@@ -219,34 +219,55 @@ namespace CprBroker.Providers.CPRDirect
         public static void ConvertPersons(int batchSize = 1)
         {
             Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() started, batch size <{0}>", batchSize);
-            Func<string, Guid> uuidGetter = ReadSubMethodInfo.CprToUuid;
             List<Guid> succeeded = new List<Guid>(), failed = new List<Guid>();
 
             using (var dataContext = new ExtractDataContext())
             {
-                var persons = dataContext.ExtractPersonStagings
-                    .OrderBy(ep => ep.Extract.ExtractDate)
-                    .Take(batchSize)
-                    .ToArray();
-                Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - <{0}> persons found", persons.Length);
-                for (int i = 0; i < persons.Length; i++)
+                using (var w = new StreamWriter("c:\\log\\aa.log"))
                 {
-                    var person = persons[i];
-                    try
+                    w.AutoFlush = true;
+                    dataContext.Log = w;
+
+                    var persons = dataContext.ExtractPersonStagings
+                        .OrderBy(ep => ep.Extract.ExtractDate)
+                        .Take(batchSize)
+                        .ToArray();
+                    
+                    var batchExtractItems = persons.SelectMany(ps => ps.ExtractItems).ToArray();
+
+                    var pnrs =
+                        batchExtractItems.Select(ei => ei.PNR)
+                        .Concat(batchExtractItems.Select(ei => ei.RelationPNR))
+                        .Concat(batchExtractItems.Select(ei => ei.RelationPNR2))
+                        .Distinct()
+                        .Select(pnr => CprBroker.Providers.CPRDirect.Converters.ToPnrStringOrNull(pnr))
+                        .Where(pnr => pnr != null)
+                        .ToArray();
+
+                    var cache = new UuidCache();
+                    cache.FillCache(pnrs);
+
+
+                    Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - <{0}> persons found", persons.Length);
+                    for (int i = 0; i < persons.Length; i++)
                     {
-                        Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
-                        var uuid = uuidGetter(person.PNR);
-                        var response = Extract.GetPersonFromLatestExtract(person.PNR, person.Extract.ExtractItems.AsQueryable(), Constants.DataObjectMap);
-                        var oioPerson = response.ToRegistreringType1(uuidGetter);
-                        var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
-                        UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
-                        succeeded.Add(person.ExtractPersonStagingId);
-                        Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
-                    }
-                    catch (Exception ex)
-                    {
-                        failed.Add(person.ExtractPersonStagingId);
-                        Admin.LogException(ex);
+                        var person = persons[i];
+                        try
+                        {
+                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
+                            var uuid = cache.GetUuid(person.PNR);
+                            var response = Extract.GetPersonFromLatestExtract(person.PNR, batchExtractItems.AsQueryable(), Constants.DataObjectMap);
+                            var oioPerson = response.ToRegistreringType1(cache.GetUuid);
+                            var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
+                            UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
+                            succeeded.Add(person.ExtractPersonStagingId);
+                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
+                        }
+                        catch (Exception ex)
+                        {
+                            failed.Add(person.ExtractPersonStagingId);
+                            Admin.LogException(ex);
+                        }
                     }
                 }
             }

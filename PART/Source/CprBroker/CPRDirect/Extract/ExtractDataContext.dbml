@@ -19,10 +19,11 @@
       <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="PNR" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="RelationPNR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-	  <Column Name="RelationPNR2" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="RelationPNR2" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="DataTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="Contents" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Association Name="Extract_ExtractItem" Member="Extract" ThisKey="ExtractId" OtherKey="ExtractId" Type="Extract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="ExtractPersonStaging_ExtractItem" Member="ExtractPersonStaging" ThisKey="ExtractId,PNR" OtherKey="ExtractId,PNR" Type="ExtractPersonStaging" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ExtractPersonStaging" Member="ExtractPersonStagings">
@@ -30,6 +31,7 @@
       <Column Name="ExtractPersonStagingId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ExtractId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="PNR" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="ExtractPersonStaging_ExtractItem" Member="ExtractItems" ThisKey="ExtractId,PNR" OtherKey="ExtractId,PNR" Type="ExtractItem" />
       <Association Name="Extract_ExtractPersonStaging" Member="Extract" ThisKey="ExtractId" OtherKey="ExtractId" Type="Extract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>

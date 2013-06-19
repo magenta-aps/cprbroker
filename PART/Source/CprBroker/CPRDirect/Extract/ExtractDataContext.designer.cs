@@ -413,6 +413,8 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private EntityRef<Extract> _Extract;
 		
+		private EntityRef<ExtractPersonStaging> _ExtractPersonStaging;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -436,6 +438,7 @@ namespace CprBroker.Providers.CPRDirect
 		public ExtractItem()
 		{
 			this._Extract = default(EntityRef<Extract>);
+			this._ExtractPersonStaging = default(EntityRef<ExtractPersonStaging>);
 			OnCreated();
 		}
 		
@@ -470,7 +473,7 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._ExtractId != value))
 				{
-					if (this._Extract.HasLoadedOrAssignedValue)
+					if ((this._Extract.HasLoadedOrAssignedValue || this._ExtractPersonStaging.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -494,6 +497,10 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				if ((this._PNR != value))
 				{
+					if (this._ExtractPersonStaging.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnPNRChanging(value);
 					this.SendPropertyChanging();
 					this._PNR = value;
@@ -617,6 +624,42 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtractPersonStaging_ExtractItem", Storage="_ExtractPersonStaging", ThisKey="ExtractId,PNR", OtherKey="ExtractId,PNR", IsForeignKey=true)]
+		public ExtractPersonStaging ExtractPersonStaging
+		{
+			get
+			{
+				return this._ExtractPersonStaging.Entity;
+			}
+			set
+			{
+				ExtractPersonStaging previousValue = this._ExtractPersonStaging.Entity;
+				if (((previousValue != value) 
+							|| (this._ExtractPersonStaging.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ExtractPersonStaging.Entity = null;
+						previousValue.ExtractItems.Remove(this);
+					}
+					this._ExtractPersonStaging.Entity = value;
+					if ((value != null))
+					{
+						value.ExtractItems.Add(this);
+						this._ExtractId = value.ExtractId;
+						this._PNR = value.PNR;
+					}
+					else
+					{
+						this._ExtractId = default(System.Guid);
+						this._PNR = default(string);
+					}
+					this.SendPropertyChanged("ExtractPersonStaging");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -650,6 +693,8 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private string _PNR;
 		
+		private EntitySet<ExtractItem> _ExtractItems;
+		
 		private EntityRef<Extract> _Extract;
 		
     #region Extensibility Method Definitions
@@ -666,6 +711,7 @@ namespace CprBroker.Providers.CPRDirect
 		
 		public ExtractPersonStaging()
 		{
+			this._ExtractItems = new EntitySet<ExtractItem>(new Action<ExtractItem>(this.attach_ExtractItems), new Action<ExtractItem>(this.detach_ExtractItems));
 			this._Extract = default(EntityRef<Extract>);
 			OnCreated();
 		}
@@ -734,6 +780,19 @@ namespace CprBroker.Providers.CPRDirect
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtractPersonStaging_ExtractItem", Storage="_ExtractItems", ThisKey="ExtractId,PNR", OtherKey="ExtractId,PNR")]
+		public EntitySet<ExtractItem> ExtractItems
+		{
+			get
+			{
+				return this._ExtractItems;
+			}
+			set
+			{
+				this._ExtractItems.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Extract_ExtractPersonStaging", Storage="_Extract", ThisKey="ExtractId", OtherKey="ExtractId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Extract Extract
 		{
@@ -786,6 +845,18 @@ namespace CprBroker.Providers.CPRDirect
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ExtractItems(ExtractItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.ExtractPersonStaging = this;
+		}
+		
+		private void detach_ExtractItems(ExtractItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.ExtractPersonStaging = null;
 		}
 	}
 	
