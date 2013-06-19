@@ -223,54 +223,55 @@ namespace CprBroker.Providers.CPRDirect
 
             using (var dataContext = new ExtractDataContext())
             {
-                using (var w = new StreamWriter("c:\\log\\aa.log"))
+                var dataLoadOptions = new System.Data.Linq.DataLoadOptions();
+                dataLoadOptions.LoadWith<ExtractItem>(ei => ei.Extract);
+                dataContext.LoadOptions = dataLoadOptions;
+
+                var persons = dataContext.ExtractPersonStagings
+                    .OrderBy(ep => ep.Extract.ExtractDate)
+                    .Take(batchSize)
+                    .ToArray();
+
+                var personPnrs = persons.Select(p => p.PNR).ToArray();
+
+                var batchExtractItems = dataContext.ExtractItems.Where(ei => personPnrs.Contains(ei.PNR)).ToArray();
+
+                var pnrs =
+                    batchExtractItems.Select(ei => ei.PNR)
+                    .Concat(batchExtractItems.Select(ei => ei.RelationPNR))
+                    .Concat(batchExtractItems.Select(ei => ei.RelationPNR2))
+                    .Distinct()
+                    .Select(pnr => CprBroker.Providers.CPRDirect.Converters.ToPnrStringOrNull(pnr))
+                    .Where(pnr => pnr != null)
+                    .ToArray();
+
+                var cache = new UuidCache();
+                cache.FillCache(pnrs);
+
+
+                Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - <{0}> persons found", persons.Length);
+                for (int i = 0; i < persons.Length; i++)
                 {
-                    w.AutoFlush = true;
-                    dataContext.Log = w;
-
-                    var persons = dataContext.ExtractPersonStagings
-                        .OrderBy(ep => ep.Extract.ExtractDate)
-                        .Take(batchSize)
-                        .ToArray();
-                    
-                    var batchExtractItems = persons.SelectMany(ps => ps.ExtractItems).ToArray();
-
-                    var pnrs =
-                        batchExtractItems.Select(ei => ei.PNR)
-                        .Concat(batchExtractItems.Select(ei => ei.RelationPNR))
-                        .Concat(batchExtractItems.Select(ei => ei.RelationPNR2))
-                        .Distinct()
-                        .Select(pnr => CprBroker.Providers.CPRDirect.Converters.ToPnrStringOrNull(pnr))
-                        .Where(pnr => pnr != null)
-                        .ToArray();
-
-                    var cache = new UuidCache();
-                    cache.FillCache(pnrs);
-
-
-                    Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - <{0}> persons found", persons.Length);
-                    for (int i = 0; i < persons.Length; i++)
+                    var person = persons[i];
+                    try
                     {
-                        var person = persons[i];
-                        try
-                        {
-                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
-                            var uuid = cache.GetUuid(person.PNR);
-                            var response = Extract.GetPersonFromLatestExtract(person.PNR, batchExtractItems.AsQueryable(), Constants.DataObjectMap);
-                            var oioPerson = response.ToRegistreringType1(cache.GetUuid);
-                            var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
-                            UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
-                            succeeded.Add(person.ExtractPersonStagingId);
-                            Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
-                        }
-                        catch (Exception ex)
-                        {
-                            failed.Add(person.ExtractPersonStagingId);
-                            Admin.LogException(ex);
-                        }
+                        Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - processing PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
+                        var uuid = cache.GetUuid(person.PNR);
+                        var response = Extract.GetPersonFromLatestExtract(person.PNR, batchExtractItems.AsQueryable(), Constants.DataObjectMap);
+                        var oioPerson = response.ToRegistreringType1(cache.GetUuid);
+                        var personIdentifier = new Schemas.PersonIdentifier() { CprNumber = person.PNR, UUID = uuid };
+                        UpdateDatabase.UpdatePersonRegistration(personIdentifier, oioPerson);
+                        succeeded.Add(person.ExtractPersonStagingId);
+                        Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() - finished PNR <{0}>, person <{1}> of <{2}>", person.PNR, i + 1, persons.Length);
+                    }
+                    catch (Exception ex)
+                    {
+                        failed.Add(person.ExtractPersonStagingId);
+                        Admin.LogException(ex);
                     }
                 }
             }
+
             // Delete the staging tables from a new data context to maximize performance
             using (var dataContext = new ExtractDataContext())
             {
