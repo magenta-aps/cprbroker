@@ -141,7 +141,7 @@ namespace CprBroker.Tests.Data
                 };
                 using (var dataContext = new PartDataContext())
                 {
-                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject);
+                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, null);
                     var first = ret.First();
                     Assert.NotNull(first);
                 }
@@ -185,6 +185,66 @@ namespace CprBroker.Tests.Data
                     Assert.IsNotEmpty(ret.ToArray());
                 }
 
+            }
+        }
+
+        [TestFixture]
+        public class GetUuidsByCriteriaAndIndexes
+        {
+            [Test]
+            public void GetUuidsByCriteria_MunicipalityCode_10([Values("851", "217", "905")] string municipalityCode)
+            {
+                var soegObject = new SoegObjektType()
+                {
+                    SoegAttributListe = new SoegAttributListeType()
+                    {
+                        SoegRegisterOplysning = new RegisterOplysningType[] 
+                            { 
+                                new RegisterOplysningType() { 
+                                    Item = new CprBorgerType() { 
+                                        FolkeregisterAdresse = new AdresseType() { 
+                                            Item = new DanskAdresseType() { 
+                                                AddressComplete = new AddressCompleteType() { 
+                                                    AddressAccess = new AddressAccessType() { 
+                                                        MunicipalityCode = municipalityCode 
+                            } } } } } } 
+                        }
+                    }
+                };
+                using (var dataContext = new PartDataContext())
+                {
+                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, 0, 10).ToArray();
+                    Assert.AreEqual(10, ret.Count());
+                    var empty = ret.Where(r => r == null);
+                    Assert.IsEmpty(empty);
+                }
+            }
+
+            [Test]
+            public void GetUuidsByCriteria_MunicipalityCodeIndexOutOfRange_Zero([Values("851", "217", "905")] string municipalityCode)
+            {
+                var soegObject = new SoegObjektType()
+                {
+                    SoegAttributListe = new SoegAttributListeType()
+                    {
+                        SoegRegisterOplysning = new RegisterOplysningType[] 
+                            { 
+                                new RegisterOplysningType() { 
+                                    Item = new CprBorgerType() { 
+                                        FolkeregisterAdresse = new AdresseType() { 
+                                            Item = new DanskAdresseType() { 
+                                                AddressComplete = new AddressCompleteType() { 
+                                                    AddressAccess = new AddressAccessType() { 
+                                                        MunicipalityCode = municipalityCode 
+                            } } } } } } 
+                        }
+                    }
+                };
+                using (var dataContext = new PartDataContext())
+                {
+                    var ret = PersonRegistrationKey.GetByCriteria(dataContext, soegObject, 10000000, 10);
+                    Assert.AreEqual(0, ret.Count());
+                }
             }
         }
     }

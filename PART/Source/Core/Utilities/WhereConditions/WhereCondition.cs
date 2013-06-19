@@ -72,7 +72,38 @@ namespace CprBroker.Utilities.WhereConditions
             var parameterValues = elements.AsQueryable().SelectMany(elem => elem.Values).ToArray();
             return dataContext.ExecuteQuery<T>(sql, parameterValues);
         }
+
+        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, string[] columnNames, int startIndex, int maxCount, string sort)
+        {
+            string tempName = "t" + Strings.NewRandomString(10);
+            string columnNamesStr = string.Join(",", columnNames);
+
+            string sql = string.Format(""
+                + " WITH {0} AS "
+                + " ("
+                + "   SELECT TOP {1} {2},"
+                + "   ROW_NUMBER() OVER (ORDER BY {3}) AS RowNumber{4} "
+                + "   FROM {5}"
+                + " ) "
+                + "SELECT {6} FROM {7} WHERE RowNumber{8} BETWEEN {9} AND {10}",
+
+                tempName,
+                startIndex + maxCount,
+                columnNamesStr,
+                sort,
+                tempName,
+                tableName,
+                columnNamesStr,
+                tempName,
+                tempName,
+                startIndex + 1,
+                startIndex + maxCount
+                );
+
+            var parameterValues = elements.AsQueryable().SelectMany(elem => elem.Values).ToArray();
+            return dataContext.ExecuteQuery<T>(sql, parameterValues);
+        }
     }
 
-    
+
 }

@@ -62,7 +62,6 @@ namespace CprBroker.Data.Part
         public Guid PersonRegistrationId { get; set; }
         public Guid UUID { get; set; }
 
-        // Dennis - please call this method to get the matching uuids
         public static IEnumerable<PersonRegistrationKey> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject, params Guid[] personRegistrationIds)
         {
             var elements = PersonRegistration.CreateXQueryElements(soegObject);
@@ -86,6 +85,14 @@ namespace CprBroker.Data.Part
                 }
             }
             var byCriteria = WhereCondition.GetMatchingObjects<PersonRegistrationKey>(dataContext, elements, "PersonRegistration", new string[] { "PersonRegistrationId", "UUID" });
+            return byCriteria;
+        }
+
+        public static IEnumerable<PersonRegistrationKey> GetByCriteria(PartDataContext dataContext, SoegObjektType soegObject, int startIndex, int maxCount)
+        {
+            var elements = PersonRegistration.CreateXQueryElements(soegObject);
+
+            var byCriteria = WhereCondition.GetMatchingObjects<PersonRegistrationKey>(dataContext, elements, "PersonRegistration", new string[] { "PersonRegistrationId", "UUID" }, startIndex, maxCount, "PersonRegistrationId");
             return byCriteria;
         }
     }
