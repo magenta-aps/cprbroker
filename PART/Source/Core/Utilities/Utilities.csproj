@@ -78,6 +78,7 @@
     <Compile Include="Web.cs" />
     <Compile Include="WhereConditions\InWhereCondition.cs" />
     <Compile Include="WhereConditions\WhereCondition.cs" />
+    <Compile Include="WhereConditions\WhereCondition.Extensions.cs" />
     <Compile Include="WhereConditions\XQueryCondition.cs" />
   </ItemGroup>
   <ItemGroup>
