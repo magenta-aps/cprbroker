@@ -21,11 +21,14 @@
     </Condition>
 
     <!--IIS 6 metabase compatibility-->
-    <Property Id="IIS_METABASE_COMPAT">
-      <RegistrySearch Id="CheckIISMetabase" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" />
+    <Property Id="IIS_METABASE_COMPAT_X86">
+      <RegistrySearch Id="CheckIISMetabase_X86" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" Win64="no" />
+    </Property>
+    <Property Id="IIS_METABASE_COMPAT_X64">
+      <RegistrySearch Id="CheckIISMetabase_X64" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp\Components" Name="ADSICompatibility" Type="raw" Win64="yes" />
     </Property>
     <Condition Message="IIS 6 Metabase Compatibility feature must be installed">
-      <![CDATA[(VersionNT < 600) OR IIS_METABASE_COMPAT]]>
+      <![CDATA[(VersionNT < 600) OR (IIS_METABASE_COMPAT_X86 OR IIS_METABASE_COMPAT_X64)]]>
     </Condition>
 
   </Fragment>
