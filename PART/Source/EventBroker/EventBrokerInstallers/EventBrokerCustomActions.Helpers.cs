@@ -77,5 +77,21 @@ namespace CprBroker.Installers.EventBrokerInstallers
             if (controller.CanStop)
                 controller.Stop();
         }
+
+        public static void InstallService(string exePath, Version frameworkVersion)
+        {
+            CprBroker.Installers.Installation.RunCommand(
+                    string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(frameworkVersion)),
+                    string.Format("/i \"{0}\"", exePath)
+                );
+        }
+
+        public static void UninstallService(string exePath, Version frameworkVersion)
+        {
+            CprBroker.Installers.Installation.RunCommand(
+                    string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(frameworkVersion)),
+                    string.Format("/u \"{0}\"", exePath)
+                );
+        }
     }
 }

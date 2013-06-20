@@ -67,6 +67,11 @@ namespace CprBroker.Installers.EventBrokerInstallers
             return GetServiceExeFullFileName(session) + ".config";
         }
 
+        private static Version GetServiceExeFrameworkVersion()
+        {
+            return new Version(2, 0);
+        }
+
         [CustomAction]
         public static ActionResult InstallBackendService(Session session)
         {
@@ -74,11 +79,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             {
                 Installation.SetConnectionStringInConfigFile(GetServiceExeConfigFullFileName(session), "CprBroker.Config.Properties.Settings.CprBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "CPR").CreateConnectionString(false, true));
                 Installation.SetConnectionStringInConfigFile(GetServiceExeConfigFullFileName(session), "CprBroker.Config.Properties.Settings.EventBrokerConnectionString", DatabaseSetupInfo.CreateFromFeature(session, "EVENT").CreateConnectionString(false, true));
-
-                CprBroker.Installers.Installation.RunCommand(
-                    string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(2, 0))),
-                    string.Format("/i \"{0}\"", GetServiceExeFullFileName(session))
-                );
+                InstallService(GetServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
 
                 StartService(ServiceName);
                 return ActionResult.Success;
@@ -110,10 +111,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
             try
             {
                 StopService(ServiceName);
-                CprBroker.Installers.Installation.RunCommand(
-                    string.Format("{0}installutil.exe", CprBroker.Installers.Installation.GetNetFrameworkDirectory(new Version(2, 0))),
-                    string.Format("/u \"{0}\"", GetServiceExeFullFileName(session))
-                );
+                UninstallService(GetServiceExeFullFileName(session), new Version(2, 0));
                 return ActionResult.Success;
             }
             catch (Exception ex)
