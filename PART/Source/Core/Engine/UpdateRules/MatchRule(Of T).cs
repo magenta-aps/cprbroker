@@ -72,15 +72,8 @@ namespace CprBroker.Engine.UpdateRules
             return false;
         }
 
-        public override sealed void UpdateDbFromXmlType(PersonRegistration dbReg, RegistreringType1 newObj)
-        {
-            var obj = GetObject(newObj);
-            UpdateDbFromXmlType(dbReg, obj);
-        }
-
         public abstract TOio GetObject(RegistreringType1 oio);
         public abstract bool AreCandidates(TOio existingObj, TOio newObj);
         public abstract void UpdateOioFromXmlType(TOio existingObj, TOio newObj);
-        public abstract void UpdateDbFromXmlType(PersonRegistration dbReg, TOio newObj);
     }
 }

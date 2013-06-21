@@ -65,14 +65,6 @@ namespace CprBroker.Engine.UpdateRules
         /// <returns>True </returns>
         public abstract bool UpdateXmlTypeIfPossible(RegistreringType1 existingReg, RegistreringType1 newReg);
 
-        /// <summary>
-        /// Updates the database object with data from the PART object according to the rule specification
-        /// </summary>
-        /// <param name="dbReg"></param>
-        /// <param name="newObj"></param>
-        public abstract void UpdateDbFromXmlType(PersonRegistration dbReg, RegistreringType1 newObj);
-
-
         private readonly static MatchRule[] _AllRules = new MatchRule[] { new AddressingNameMatchRule(), new SpecielVejkodeIndikatorMatchRule(), new CityNameMatchRule() };
 
         public static MatchRule[] AllRules()
@@ -106,10 +98,6 @@ namespace CprBroker.Engine.UpdateRules
 
                 if (string.Equals(existingXml, newXml))
                 {
-                    foreach (var appliedRule in appliedRules)
-                    {
-                        appliedRule.UpdateDbFromXmlType(dbReg, newReg);
-                    }
                     dbReg.BrokerUpdateDate = DateTime.Now;
                     dbReg.SetContents(newReg);
                     return true;

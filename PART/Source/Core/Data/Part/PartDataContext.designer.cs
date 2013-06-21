@@ -789,8 +789,6 @@ namespace CprBroker.Data.Part
 		
 		private EntityRef<Effect> _Effect;
 		
-		private EntityRef<PersonRegistration> _PersonRegistration;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -813,7 +811,6 @@ namespace CprBroker.Data.Part
 		{
 			this._RelationshipType = default(EntityRef<RelationshipType>);
 			this._Effect = default(EntityRef<Effect>);
-			this._PersonRegistration = default(EntityRef<PersonRegistration>);
 			OnCreated();
 		}
 		
@@ -848,10 +845,6 @@ namespace CprBroker.Data.Part
 			{
 				if ((this._PersonRegistrationId != value))
 				{
-					if (this._PersonRegistration.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnPersonRegistrationIdChanging(value);
 					this.SendPropertyChanging();
 					this._PersonRegistrationId = value;
@@ -1013,40 +1006,6 @@ namespace CprBroker.Data.Part
 						this._EffectId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Effect");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonRegistration_PersonRelationship", Storage="_PersonRegistration", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public PersonRegistration PersonRegistration
-		{
-			get
-			{
-				return this._PersonRegistration.Entity;
-			}
-			set
-			{
-				PersonRegistration previousValue = this._PersonRegistration.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonRegistration.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonRegistration.Entity = null;
-						previousValue.PersonRelationships.Remove(this);
-					}
-					this._PersonRegistration.Entity = value;
-					if ((value != null))
-					{
-						value.PersonRelationships.Add(this);
-						this._PersonRegistrationId = value.PersonRegistrationId;
-					}
-					else
-					{
-						this._PersonRegistrationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("PersonRegistration");
 				}
 			}
 		}
@@ -2890,8 +2849,6 @@ namespace CprBroker.Data.Part
 		
 		private EntityRef<PersonCivilState> _PersonCivilState;
 		
-		private EntityRef<PersonRegistration> _PersonRegistration;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2904,7 +2861,6 @@ namespace CprBroker.Data.Part
 		{
 			this._PersonLifeState = default(EntityRef<PersonLifeState>);
 			this._PersonCivilState = default(EntityRef<PersonCivilState>);
-			this._PersonRegistration = default(EntityRef<PersonRegistration>);
 			OnCreated();
 		}
 		
@@ -2919,10 +2875,6 @@ namespace CprBroker.Data.Part
 			{
 				if ((this._PersonRegistrationId != value))
 				{
-					if (this._PersonRegistration.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnPersonRegistrationIdChanging(value);
 					this.SendPropertyChanging();
 					this._PersonRegistrationId = value;
@@ -2986,40 +2938,6 @@ namespace CprBroker.Data.Part
 						value.PersonState = this;
 					}
 					this.SendPropertyChanged("PersonCivilState");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonRegistration_PersonState", Storage="_PersonRegistration", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public PersonRegistration PersonRegistration
-		{
-			get
-			{
-				return this._PersonRegistration.Entity;
-			}
-			set
-			{
-				PersonRegistration previousValue = this._PersonRegistration.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonRegistration.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonRegistration.Entity = null;
-						previousValue.PersonState = null;
-					}
-					this._PersonRegistration.Entity = value;
-					if ((value != null))
-					{
-						value.PersonState = this;
-						this._PersonRegistrationId = value.PersonRegistrationId;
-					}
-					else
-					{
-						this._PersonRegistrationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("PersonRegistration");
 				}
 			}
 		}
@@ -5879,12 +5797,6 @@ namespace CprBroker.Data.Part
 		
 		private System.Xml.Linq.XElement _SourceObjects;
 		
-		private EntitySet<PersonRelationship> _PersonRelationships;
-		
-		private EntityRef<PersonState> _PersonState;
-		
-		private EntitySet<PersonAttributes> _PersonAttributes;
-		
 		private EntityRef<ActorRef> _ActorRef;
 		
 		private EntityRef<LifecycleStatus> _LifecycleStatus;
@@ -5917,9 +5829,6 @@ namespace CprBroker.Data.Part
 		
 		public PersonRegistration()
 		{
-			this._PersonRelationships = new EntitySet<PersonRelationship>(new Action<PersonRelationship>(this.attach_PersonRelationships), new Action<PersonRelationship>(this.detach_PersonRelationships));
-			this._PersonState = default(EntityRef<PersonState>);
-			this._PersonAttributes = new EntitySet<PersonAttributes>(new Action<PersonAttributes>(this.attach_PersonAttributes), new Action<PersonAttributes>(this.detach_PersonAttributes));
 			this._ActorRef = default(EntityRef<ActorRef>);
 			this._LifecycleStatus = default(EntityRef<LifecycleStatus>);
 			this._Person = default(EntityRef<Person>);
@@ -6118,61 +6027,6 @@ namespace CprBroker.Data.Part
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonRegistration_PersonRelationship", Storage="_PersonRelationships", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId")]
-		public EntitySet<PersonRelationship> PersonRelationships
-		{
-			get
-			{
-				return this._PersonRelationships;
-			}
-			set
-			{
-				this._PersonRelationships.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonRegistration_PersonState", Storage="_PersonState", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsUnique=true, IsForeignKey=false)]
-		public PersonState PersonState
-		{
-			get
-			{
-				return this._PersonState.Entity;
-			}
-			set
-			{
-				PersonState previousValue = this._PersonState.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonState.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonState.Entity = null;
-						previousValue.PersonRegistration = null;
-					}
-					this._PersonState.Entity = value;
-					if ((value != null))
-					{
-						value.PersonRegistration = this;
-					}
-					this.SendPropertyChanged("PersonState");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonRegistration_PersonAttributes", Storage="_PersonAttributes", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId")]
-		public EntitySet<PersonAttributes> PersonAttributes
-		{
-			get
-			{
-				return this._PersonAttributes;
-			}
-			set
-			{
-				this._PersonAttributes.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ActorRef_PersonRegistration", Storage="_ActorRef", ThisKey="ActorRefId", OtherKey="ActorRefId", IsForeignKey=true)]
 		public ActorRef ActorRef
 		{
@@ -6294,30 +6148,6 @@ namespace CprBroker.Data.Part
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-		
-		private void attach_PersonRelationships(PersonRelationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonRegistration = this;
-		}
-		
-		private void detach_PersonRelationships(PersonRelationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonRegistration = null;
-		}
-		
-		private void attach_PersonAttributes(PersonAttributes entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonRegistration = this;
-		}
-		
-		private void detach_PersonAttributes(PersonAttributes entity)
-		{
-			this.SendPropertyChanging();
-			entity.PersonRegistration = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PersonAttributes")]
@@ -6344,8 +6174,6 @@ namespace CprBroker.Data.Part
 		
 		private EntityRef<Effect> _Effect;
 		
-		private EntityRef<PersonRegistration> _PersonRegistration;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -6366,7 +6194,6 @@ namespace CprBroker.Data.Part
 			this._HealthInformation = default(EntityRef<HealthInformation>);
 			this._PersonProperties = default(EntityRef<PersonProperties>);
 			this._Effect = default(EntityRef<Effect>);
-			this._PersonRegistration = default(EntityRef<PersonRegistration>);
 			OnCreated();
 		}
 		
@@ -6425,10 +6252,6 @@ namespace CprBroker.Data.Part
 			{
 				if ((this._PersonRegistrationId != value))
 				{
-					if (this._PersonRegistration.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnPersonRegistrationIdChanging(value);
 					this.SendPropertyChanging();
 					this._PersonRegistrationId = value;
@@ -6613,40 +6436,6 @@ namespace CprBroker.Data.Part
 						this._EffectId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Effect");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PersonRegistration_PersonAttributes", Storage="_PersonRegistration", ThisKey="PersonRegistrationId", OtherKey="PersonRegistrationId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public PersonRegistration PersonRegistration
-		{
-			get
-			{
-				return this._PersonRegistration.Entity;
-			}
-			set
-			{
-				PersonRegistration previousValue = this._PersonRegistration.Entity;
-				if (((previousValue != value) 
-							|| (this._PersonRegistration.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PersonRegistration.Entity = null;
-						previousValue.PersonAttributes.Remove(this);
-					}
-					this._PersonRegistration.Entity = value;
-					if ((value != null))
-					{
-						value.PersonAttributes.Add(this);
-						this._PersonRegistrationId = value.PersonRegistrationId;
-					}
-					else
-					{
-						this._PersonRegistrationId = default(System.Guid);
-					}
-					this.SendPropertyChanged("PersonRegistration");
 				}
 			}
 		}

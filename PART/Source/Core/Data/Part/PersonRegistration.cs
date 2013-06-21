@@ -79,24 +79,29 @@ namespace CprBroker.Data.Part
             return null;
         }
 
+        [Obsolete("Child tables no longer used")]
         public static void SetChildLoadOptions(PartDataContext dataContext)
         {
             // Do Nothing, because setting load options slows down the loading
             return;
-
+            /*
             DataLoadOptions loadOptions = new DataLoadOptions();
             SetChildLoadOptions(loadOptions);
             dataContext.LoadOptions = loadOptions;
+            */
         }
 
+        [Obsolete("Child tables no longer used")]
         public static void SetChildLoadOptions(DataLoadOptions loadOptions)
         {
+            return;
+            /*
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonAttributes);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonRelationships);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.PersonState);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.ActorRef);
             loadOptions.LoadWith<PersonRegistration>(pr => pr.LifecycleStatus);
-
+            
 
             Effect.SetChildLoadOptions(loadOptions);
             CountryRef.SetChildLoadOptions(loadOptions);
@@ -104,6 +109,7 @@ namespace CprBroker.Data.Part
             CprBroker.Data.Part.PersonAttributes.SetChildLoadOptions(loadOptions);
             PersonRelationship.SetChildLoadOptions(loadOptions);
             PersonState.SetChildLoadOptions(loadOptions);
+            */
         }
 
         public static PersonRegistration FromXmlType(CprBroker.Schemas.Part.RegistreringType1 partRegistration)
@@ -120,9 +126,9 @@ namespace CprBroker.Data.Part
                     LifecycleStatusId = LifecycleStatus.GetCode(partRegistration.LivscyklusKode),
                     RegistrationDate = partRegistration.Tidspunkt.ToDateTime().Value,
 
-                    PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
+                    //PersonState = PersonState.FromXmlType(partRegistration.TilstandListe)
                 };
-
+                /*
                 if (partRegistration.AttributListe != null)
                 {
                     ret.PersonAttributes.AddRange(CprBroker.Data.Part.PersonAttributes.FromXmlType(partRegistration.AttributListe));
@@ -132,7 +138,7 @@ namespace CprBroker.Data.Part
                 {
                     ret.PersonRelationships.AddRange(PersonRelationship.FromXmlType(partRegistration.RelationListe));
                 }
-
+                */
                 ret.SetContents(partRegistration);
 
                 if (!string.IsNullOrEmpty(partRegistration.SourceObjectsXml))
@@ -193,6 +199,7 @@ namespace CprBroker.Data.Part
                                     if (!name.IsEmpty)
                                     {
                                         // TODO: Test name lookup after new struture (multiple attribuutes)
+                                        /*
                                         var cprNamePred = PredicateBuilder.True<Data.Part.PersonRegistration>();
                                         if (!string.IsNullOrEmpty(name.PersonGivenName))
                                         {
@@ -207,6 +214,7 @@ namespace CprBroker.Data.Part
                                             cprNamePred = cprNamePred.And((pt) => pt.PersonAttributes.Where(attr => attr.PersonProperties != null && attr.PersonProperties.PersonName.LastName == name.PersonSurnameName).FirstOrDefault() != null);
                                         }
                                         pred = pred.And(cprNamePred);
+                                        */
                                     }
                                 }
                             }

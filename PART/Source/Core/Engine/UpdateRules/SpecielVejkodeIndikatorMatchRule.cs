@@ -80,10 +80,5 @@ namespace CprBroker.Engine.UpdateRules
             existingObj.SpecielVejkodeIndikator = newObj.SpecielVejkodeIndikator;
             existingObj.SpecielVejkodeIndikatorSpecified = newObj.SpecielVejkodeIndikatorSpecified;
         }
-
-        public override void UpdateDbFromXmlType(PersonRegistration dbReg, DanskAdresseType newObj)
-        {
-            dbReg.PersonAttributes.Where(pa => pa.CprData != null).First().CprData.Address.DenmarkAddress.SpecialRoadCode = newObj.SpecielVejkodeIndikator;
-        }
     }
 }

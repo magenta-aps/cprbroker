@@ -72,10 +72,5 @@ namespace CprBroker.Engine.UpdateRules
         {
             existingObj.PersonNameForAddressingName = newObj.PersonNameForAddressingName;
         }
-
-        public override void UpdateDbFromXmlType(PersonRegistration dbReg, NavnStrukturType newObj)
-        {
-            dbReg.PersonAttributes.Where(pa => pa.PersonProperties != null).First().PersonProperties.AddressingName = newObj.PersonNameForAddressingName;
-        }
     }
 }

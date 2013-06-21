@@ -39,12 +39,6 @@ namespace CprBroker.Tests.Engine
                     _UpdateOioFromXmlType(existingObj, newObj);
             }
 
-            public Action<PersonRegistration, T> _UpdateDbFromXmlType;
-            public override void UpdateDbFromXmlType(PersonRegistration dbReg, T newObj)
-            {
-                if (_UpdateDbFromXmlType != null)
-                    _UpdateDbFromXmlType(dbReg, newObj);
-            }
         }
 
         [TestFixture]
@@ -221,17 +215,5 @@ namespace CprBroker.Tests.Engine
             }
         }
 
-        [TestFixture]
-        public class UpdateDbFromXmlType
-        {
-            [Test]
-            public void UpdateDbFromXmlType_Normal_CallsLowerFunc()
-            {
-                bool called = false;
-                var rule = new DummyRule<RegistreringType1>() { _UpdateDbFromXmlType = (db, oio) => called = true };
-                rule.UpdateDbFromXmlType(new PersonRegistration(), new RegistreringType1());
-                Assert.True(called);
-            }
-        }
     }
 }

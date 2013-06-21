@@ -92,11 +92,5 @@ namespace CprBroker.Engine.UpdateRules
             existingObj.AddressComplete.AddressPostal.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
             existingObj.AddressComplete.AddressPostal.DistrictSubdivisionIdentifier = newObj.AddressComplete.AddressPostal.DistrictSubdivisionIdentifier;
         }
-
-        public override void UpdateDbFromXmlType(PersonRegistration dbReg, DanskAdresseType newObj)
-        {
-            dbReg.PersonAttributes.Where(pa => pa.CprData != null).First().CprData.Address.DenmarkAddress.DistrictName = newObj.AddressComplete.AddressPostal.DistrictName;
-            dbReg.PersonAttributes.Where(pa => pa.CprData != null).First().CprData.Address.DenmarkAddress.DistrictSubdivisionIdentifier = newObj.AddressComplete.AddressPostal.DistrictSubdivisionIdentifier;
-        }
     }
 }
