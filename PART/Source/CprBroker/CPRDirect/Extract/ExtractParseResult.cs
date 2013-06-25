@@ -53,28 +53,51 @@ namespace CprBroker.Providers.CPRDirect
 {
     public class ExtractParseResult
     {
-        public List<Wrapper> Wrappers { get; private set; }
         public List<LineWrapper> Lines { get; private set; }
         public StartRecordType StartWrapper { get; private set; }
-        public LineWrapper StartLine { get; private set; }
-        public LineWrapper EndLine { get; private set; }
-        public LineWrapper[] ErrorLines { get; private set; }
+        public LineWrapper EndLine { get; set; }
+        public List<LineWrapper> ErrorLines { get; private set; }
+
+        public ExtractParseResult()
+        {
+            Lines = new List<LineWrapper>();
+            ErrorLines = new List<LineWrapper>();
+        }
 
         public ExtractParseResult(string batchFileText, Dictionary<string, Type> dataObjectMap)
+            : this()
         {
-            this.Wrappers = CompositeWrapper.Parse(batchFileText, dataObjectMap);
-            var wrappersAndLines = this.Wrappers.Select(w => new { Wrapper = w, Line = new LineWrapper(w.Contents) }).ToArray();
+            var wrappers = CompositeWrapper.Parse(batchFileText, dataObjectMap);
+            AddLines(wrappers);
+        }
+
+        public void AddLines(List<Wrapper> wrappers)
+        {
+            var wrappersAndLines = wrappers.Select(w => new { Wrapper = w, Line = new LineWrapper(w.Contents) }).ToArray();
 
             // Isolate error lines
-            this.ErrorLines = wrappersAndLines.Where(wl => wl.Wrapper is ErrorRecordType).Select(wl => wl.Line).ToArray();
-            this.Lines = wrappersAndLines.Where(wl => !(wl.Wrapper is ErrorRecordType)).Select(wl => wl.Line).ToList();
+            this.ErrorLines.AddRange(wrappersAndLines.Where(wl => wl.Wrapper is ErrorRecordType).Select(wl => wl.Line));
+            this.Lines.AddRange(wrappersAndLines.Where(wl => !(wl.Wrapper is ErrorRecordType)).Select(wl => wl.Line));
 
-            this.StartWrapper = this.Wrappers.First() as StartRecordType;
-            this.StartLine = this.Lines.First();
-            this.EndLine = this.Lines.Last();
+            var startWrapper = wrappers.First() as StartRecordType;
+            if (startWrapper != null)
+            {
+                this.StartWrapper = startWrapper;
+                this.Lines.RemoveAt(0);
+            }
 
-            this.Lines.Remove(this.StartLine);
-            this.Lines.Remove(this.EndLine);
+            var endWrapper = wrappers.Last() as EndRecordType;
+            if (endWrapper != null)
+            {
+                this.EndLine = new LineWrapper(endWrapper.Contents);
+                this.Lines.RemoveAt(this.Lines.Count - 1);
+            }
+        }
+
+        public void ClearArrays()
+        {
+            this.Lines.Clear();
+            this.ErrorLines.Clear();
         }
 
         public Extract ToExtract(string sourceFileName = "", bool ready = false)
@@ -85,8 +108,8 @@ namespace CprBroker.Providers.CPRDirect
                 Filename = sourceFileName,
                 ExtractDate = this.StartWrapper.ProductionDate.Value,
                 ImportDate = DateTime.Now,
-                StartRecord = this.StartLine.Contents,
-                EndRecord = this.EndLine.Contents,
+                StartRecord = this.StartWrapper.Contents,
+                EndRecord = EndLine == null ? "" : this.EndLine.Contents,
                 Ready = ready
             };
         }
@@ -99,16 +122,24 @@ namespace CprBroker.Providers.CPRDirect
                .ToList();
         }
 
-        public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId)
+        public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId, List<string> skipPnrs = null)
         {
-            return this.Lines
+            var pnrs = this.Lines
                 .GroupBy(line => line.PNR)
+                .Select(line => line.Key);
+            if (skipPnrs != null)
+            {
+                pnrs = pnrs.Except(skipPnrs);
+                skipPnrs.AddRange(pnrs);
+            }
+
+            return pnrs
                .Select(
-                   g => new ExtractPersonStaging()
+                   pnr => new ExtractPersonStaging()
                    {
                        ExtractPersonStagingId = Guid.NewGuid(),
                        ExtractId = extractId,
-                       PNR = g.Key
+                       PNR = pnr
                    })
                .ToList();
         }

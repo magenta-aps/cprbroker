@@ -95,6 +95,62 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
+        public static void ImportFileInSteps(string path, int batchSize)
+        {
+            ImportFileInSteps(path, batchSize, Constants.ExtractEncoding);
+        }
+
+        public static void ImportFileInSteps(string path, int batchSize, Encoding encoding)
+        {
+            var allPnrs = new List<string>();
+            using (var file = new StreamReader(path, encoding))
+            {
+
+                var extractResult = new ExtractParseResult();
+                Extract extract = null;
+
+                using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
+                {
+                    conn.Open();
+
+                    while (!file.EndOfStream)
+                    {
+                        var wrappers = CompositeWrapper.Parse(file, Constants.DataObjectMap, batchSize);
+
+                        extractResult.ClearArrays();
+                        extractResult.AddLines(wrappers);
+
+                        using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
+                        {
+                            // Start record
+                            if (extract == null)
+                            {
+                                extract = extractResult.ToExtract(path, false);
+                                conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
+                            }
+
+                            conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap), trans);
+                            conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId), trans);
+                            conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs), trans);
+                            trans.Commit();
+
+                            // End record and mark as ready
+                            if (extractResult.EndLine != null)
+                            {
+                                using (var dataContext = new ExtractDataContext())
+                                {
+                                    extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
+                                    extract.EndRecord = extractResult.EndLine.Contents;
+                                    extract.Ready = true;
+                                    dataContext.SubmitChanges();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public static IndividualResponseType GetPerson(string pnr)
         {
             using (var dataContext = new ExtractDataContext())
