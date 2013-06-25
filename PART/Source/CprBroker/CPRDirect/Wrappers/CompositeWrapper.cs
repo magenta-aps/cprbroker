@@ -75,9 +75,15 @@ namespace CprBroker.Providers.CPRDirect
 
         public static List<Wrapper> Parse(string data, Dictionary<string, Type> typeMap)
         {
-            var ret = new List<Wrapper>();
             StringReader rd = new StringReader(data);
-            while (rd.Peek() > -1)
+            return Parse(rd, typeMap);
+        }
+
+        public static List<Wrapper> Parse(TextReader rd, Dictionary<string, Type> typeMap, int maxCount = int.MaxValue)
+        {
+            var ret = new List<Wrapper>();
+
+            while (rd.Peek() > -1 && ret.Count() < maxCount)
             {
                 string typeCode = Read(rd, Constants.DataObjectCodeLength);
                 Type type;
