@@ -124,5 +124,14 @@ namespace CprBroker.Config.Properties {
                 return ((int)(this["SubscriptionCriteriaMatchingBatchSize"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20000")]
+        public int CprDirectExtractImportBatchSize {
+            get {
+                return ((int)(this["CprDirectExtractImportBatchSize"]));
+            }
+        }
     }
 }
