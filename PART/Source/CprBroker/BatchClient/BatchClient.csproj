@@ -113,7 +113,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RegenerateChildren.cs" />
     <Compile Include="RegenerateContents.cs" />
     <Compile Include="RegenerateCprDirect.cs" />
     <Compile Include="RegenerateKMD.cs" />
