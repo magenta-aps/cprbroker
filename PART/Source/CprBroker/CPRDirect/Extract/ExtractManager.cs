@@ -102,13 +102,14 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportFileInSteps(string path, int batchSize, Encoding encoding)
         {
+            Admin.LogFormattedSuccess("Importing file <{0}>, batch size <{1}>, encoding <{2}>", path, batchSize, encoding.EncodingName);
+
             var allPnrs = new List<string>();
             using (var file = new StreamReader(path, encoding))
             {
-
                 var extractResult = new ExtractParseResult();
                 Extract extract = null;
-
+                long totalRecordCount = 0;
                 using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
                 {
                     conn.Open();
@@ -116,6 +117,7 @@ namespace CprBroker.Providers.CPRDirect
                     while (!file.EndOfStream)
                     {
                         var wrappers = CompositeWrapper.Parse(file, Constants.DataObjectMap, batchSize);
+                        Admin.LogFormattedSuccess("Found <{0}> records, total so far <{1}>", wrappers.Count, totalRecordCount += wrappers.Count);
 
                         extractResult.ClearArrays();
                         extractResult.AddLines(wrappers);
@@ -133,6 +135,7 @@ namespace CprBroker.Providers.CPRDirect
                             conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId), trans);
                             conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs), trans);
                             trans.Commit();
+                            Admin.LogFormattedSuccess("Batch committed");
 
                             // End record and mark as ready
                             if (extractResult.EndLine != null)
@@ -143,6 +146,7 @@ namespace CprBroker.Providers.CPRDirect
                                     extract.EndRecord = extractResult.EndLine.Contents;
                                     extract.Ready = true;
                                     dataContext.SubmitChanges();
+                                    Admin.LogFormattedSuccess("End record added");
                                 }
                             }
                         }
@@ -238,7 +242,7 @@ namespace CprBroker.Providers.CPRDirect
                 try
                 {
                     Admin.LogFormattedSuccess("Reading file <{0}> ", file);
-                    ExtractManager.ImportFile(file);
+                    ExtractManager.ImportFileInSteps(file, CprBroker.Config.Properties.Settings.Default.CprDirectExtractImportBatchSize);
                     Admin.LogFormattedSuccess("Importing file <{0}> succeeded", file);
 
                     MoveToProcessed(prov.ExtractsFolder, file);
