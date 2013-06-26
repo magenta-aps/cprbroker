@@ -127,7 +127,7 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int CprDirectExtractImportBatchSize {
             get {
                 return ((int)(this["CprDirectExtractImportBatchSize"]));
