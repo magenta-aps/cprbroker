@@ -53,7 +53,7 @@ using System.IO;
 
 namespace BatchClient
 {
-    class Utilities
+    public class Utilities
     {
         public static bool _UpdateConnectionString = false;
 
