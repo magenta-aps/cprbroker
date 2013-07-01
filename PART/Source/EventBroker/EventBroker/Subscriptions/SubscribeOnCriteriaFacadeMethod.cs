@@ -100,32 +100,38 @@ namespace CprBroker.EventBroker.Subscriptions
             }
             else
             {
-                if (Criterion.SoegAttributListe.SoegEgenskab == null)
+                if (Criterion.SoegAttributListe.SoegRegisterOplysning == null)
                 {
-                    return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegEgenskab");
+                    return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegRegisterOplysning");
                 }
                 else
                 {
                     int index = 0;
-                    foreach (var prop in Criterion.SoegAttributListe.SoegEgenskab)
+                    foreach (var prop in Criterion.SoegAttributListe.SoegRegisterOplysning)
                     {
                         if (prop == null)
                         {
-                            return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegEgenskab[" + index + "]");
+                            return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegRegisterOplysning[" + index + "]");
                         }
                         else
                         {
-                            if (prop.AndreAdresser != null)
+                            if (prop.Item == null)
                             {
-                                CprBroker.Schemas.Part.DanskAdresseType address = (CprBroker.Schemas.Part.DanskAdresseType)prop.AndreAdresser.Item;
-                                if (String.IsNullOrEmpty(address.AddressComplete.AddressAccess.MunicipalityCode))
-                                {
-                                    return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegEgenskab[" + index + "].AndreAdresser.AddressComplete.AddressAccess.MunicipalityCode");
-                                }
+                                return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegRegisterOplysning[" + index + "].CprBorger");
                             }
                             else
                             {
-                                return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegEgenskab[" + index + "].AndreAdresser");
+                                CprBroker.Schemas.Part.CprBorgerType cprBorger = (CprBroker.Schemas.Part.CprBorgerType)prop.Item;
+                                CprBroker.Schemas.Part.DanskAdresseType danskAdresse = (CprBroker.Schemas.Part.DanskAdresseType)cprBorger.FolkeregisterAdresse.Item;
+                                if (danskAdresse == null)
+                                    return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegRegisterOplysning[" + index + "].CprBorger.DanskAdresse");
+                                else
+                                {
+                                    if (String.IsNullOrEmpty(danskAdresse.AddressComplete.AddressAccess.MunicipalityCode))
+                                    {
+                                        return StandardReturType.NullInput("SoegObjekt.SoegAttributListe.SoegRegisterOplysning[" + index + "].CprBorger.DanskAdresse.AddressComplete.AddressAccess.MunicipalityCode");
+                                    }
+                                }
                             }
                         }
                         index++;
