@@ -56,7 +56,8 @@ namespace CprBroker.Providers.CPRDirect
     {
         bool ICivilStatus.IsValid()
         {
-            return Converters.IsValidCorrectionMarker(this.CorrectionMarker);
+            return Converters.IsValidCorrectionMarker(this.CorrectionMarker)
+                && !string.IsNullOrEmpty((this as ICivilStatus).ToSpousePnr());
         }
 
         string ICivilStatus.ToSpousePnr()
