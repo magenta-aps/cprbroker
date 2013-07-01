@@ -94,6 +94,8 @@ namespace CprBroker.Schemas.Part
                     && undoRecord.ToStartTS() == oldRecord.ToStartTS()
                     ).FirstOrDefault() != null
             );
+            dataObjects = dataObjects.Except(editRecords).ToList();
+
             return dataObjects.AsQueryable();
         }
     }
