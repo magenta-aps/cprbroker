@@ -166,6 +166,7 @@
   <ItemGroup>
     <Content Include="Lookup\Authority.xml" />
     <Content Include="XML\CodeGeneration.txt" />
+    <Content Include="XML\ViewTransform.xslt" />
     <Content Include="XML\DefinitionSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +205,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"
-"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs"</PreBuildEvent>
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ViewTransform.xslt" -o "$(ProjectDir)XML\Definitions.sql"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs"
+</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
