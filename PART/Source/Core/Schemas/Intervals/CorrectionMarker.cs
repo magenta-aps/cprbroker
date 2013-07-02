@@ -82,8 +82,10 @@ namespace CprBroker.Schemas.Part
             );
             dataObjects = dataObjects.Except(undoRecords).ToList();
 
-            // Filter out records that have been overwritten, but keep the updated copy
-            var editRecords = dataObjects.Where(o => o is IHasCorrectionMarker && (o as IHasCorrectionMarker).CorrectionMarker == Edit_Overwritten).ToArray();
+            var editAndTechnicalChange = new char[] { Edit_Overwritten, TechnicalChange };
+            
+            // Filter out records that have been overwritten, and also delete the record with the marker
+            var editRecords = dataObjects.Where(o => o is IHasCorrectionMarker && editAndTechnicalChange.Contains((o as IHasCorrectionMarker).CorrectionMarker)).ToArray();
 
             dataObjects.RemoveAll(oldRecord =>
                 !editRecords.Contains(oldRecord)
