@@ -134,6 +134,16 @@ namespace BatchClient
                     CprBroker.Utilities.Strings.SerializeObject(merged2)
                     );
 
+                var effectDate = new DateTime(2013, 5, 1);
+                var merged3 = new CPRDirectExtractDataProvider().ReadPeriod(effectDate, effectDate, new CprBroker.Schemas.PersonIdentifier() { CprNumber = pnr, UUID = GetUuid(pnr) }, GetUuid);
+
+                File.WriteAllText(
+                    string.Format("{0}{1}.All.3.xml", myOutDir, pnr),
+                    CprBroker.Utilities.Strings.SerializeObject(merged3)
+                    );
+
+
+
             }
         }
     }
