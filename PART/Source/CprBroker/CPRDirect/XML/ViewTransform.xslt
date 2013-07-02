@@ -35,8 +35,10 @@ _____________________________ Object template _____________________________
     
     CREATE VIEW <xsl:value-of select="@name"/>View
     AS SELECT
-    ExtractId, PNR, RelationPNR, RelationPNR2, <xsl:apply-templates select="d:Attribute[@name != 'PNR' and @name != 'RelationPNR' and @name != 'RelationPNR2' ]" /> Contents
-    FROM ExtractItem
+    e.ExtractId, e.ExtractDate, PNR, RelationPNR, RelationPNR2, <xsl:apply-templates select="d:Attribute[@name != 'PNR' and @name != 'RelationPNR' and @name != 'RelationPNR2' ]" /> Contents
+    FROM ExtractItem ei
+    INNER JOIN Extract e
+    ON e.ExtractId = ei.ExtractId
     WHERE DataTypeCode= '<xsl:value-of select="@recordTypeCode"/>';
     
     GO
