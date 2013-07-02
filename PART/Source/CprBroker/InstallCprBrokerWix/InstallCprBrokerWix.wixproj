@@ -50,7 +50,7 @@
       <Name>WixNetFxExtension</Name>
     </WixExtension>
     <WixExtension Include="WixIIsExtension">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\Windows Installer XML v3.5\bin\WixIIsExtension.dll</HintPath>
+      <HintPath>$(WixExtDir)\WixIIsExtension.dll</HintPath>
       <Name>WixIIsExtension</Name>
     </WixExtension>
     <WixExtension Include="WixUtilExtension">
