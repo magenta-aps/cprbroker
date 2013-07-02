@@ -83,6 +83,10 @@ namespace CprBroker.Providers.CPRDirect
                 Virkning = null,
             };
             ret.CalculateVirkning();
+            if (Config.Properties.Settings.Default.CprDirectReturnsNewestFirst)
+            {
+                ret.OrderByStartDate(false);
+            }
             return ret;
         }
 
