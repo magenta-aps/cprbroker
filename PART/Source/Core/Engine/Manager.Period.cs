@@ -78,17 +78,14 @@ namespace CprBroker.Engine
                     {
                         if (attributes.RegisterOplysning == null || attributes.RegisterOplysning.Length == 0)
                         {
-                            CprBroker.Engine.Local.Admin.LogError("MANAGER: Egenskab and RegisterOplysning is empty");
                             return true;
                         }
                     }
                 }
                 else
                 {
-                    CprBroker.Engine.Local.Admin.LogError("MANAGER: all attributes are empty");
                     return true;
                 }
-                CprBroker.Engine.Local.Admin.LogFormattedSuccess("");
                 return false;
             }
 
