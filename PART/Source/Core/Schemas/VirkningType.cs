@@ -146,5 +146,26 @@ namespace CprBroker.Schemas.Part
             else
                 return DateTime.MinValue;
         }
+
+        public static T[] OrderByStartDate<T>(T[] objects, bool ascending)
+            where T : ITypeWithVirkning
+        {
+            if (objects == null)
+            {
+                return null;
+            }
+            else
+            {
+                var ret = objects
+                    .OrderBy(o => o.Virkning.FraTidspunkt.ToDateTime())
+                    .ThenBy(o => o.Virkning.TilTidspunkt.ToDateTime())
+                    .ToArray();
+
+                if (!ascending)
+                    ret = ret.Reverse().ToArray();
+
+                return ret;
+            }
+        }
     }
 }

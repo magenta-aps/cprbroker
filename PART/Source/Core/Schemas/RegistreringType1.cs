@@ -229,5 +229,30 @@ namespace CprBroker.Schemas.Part
                     UUID = pId.UUID.Value.ToString()
                 };
         }
+
+        public void OrderByStartDate(bool ascending)
+        {
+            if (AttributListe != null)
+            {
+                AttributListe.Egenskab = VirkningType.OrderByStartDate<EgenskabType>(AttributListe.Egenskab, ascending);
+                AttributListe.RegisterOplysning = VirkningType.OrderByStartDate<RegisterOplysningType>(AttributListe.RegisterOplysning, ascending);
+                AttributListe.SundhedOplysning = VirkningType.OrderByStartDate<SundhedOplysningType>(AttributListe.SundhedOplysning, ascending);
+            }
+            if (RelationListe != null)
+            {
+                RelationListe.Aegtefaelle = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.Aegtefaelle, ascending);
+                RelationListe.Boern = VirkningType.OrderByStartDate<PersonFlerRelationType>(RelationListe.Boern, ascending);
+                RelationListe.Bopaelssamling = VirkningType.OrderByStartDate<PersonFlerRelationType>(RelationListe.Bopaelssamling, ascending);
+                RelationListe.ErstatningAf = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.ErstatningAf, ascending);
+                RelationListe.ErstatningFor = VirkningType.OrderByStartDate<PersonFlerRelationType>(RelationListe.ErstatningFor, ascending);
+                RelationListe.Fader = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.Fader, ascending);
+                RelationListe.Foraeldremyndighedsboern = VirkningType.OrderByStartDate<PersonFlerRelationType>(RelationListe.Foraeldremyndighedsboern, ascending);
+                RelationListe.Foraeldremyndighedsindehaver = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.Foraeldremyndighedsindehaver, ascending);
+                RelationListe.Moder = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.Moder, ascending);
+                RelationListe.RegistreretPartner = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.RegistreretPartner, ascending);
+                RelationListe.RetligHandleevneVaergeForPersonen = VirkningType.OrderByStartDate<PersonRelationType>(RelationListe.RetligHandleevneVaergeForPersonen, ascending);
+                RelationListe.RetligHandleevneVaergemaalsindehaver = VirkningType.OrderByStartDate<PersonFlerRelationType>(RelationListe.RetligHandleevneVaergemaalsindehaver, ascending);
+            }
+        }
     }
 }

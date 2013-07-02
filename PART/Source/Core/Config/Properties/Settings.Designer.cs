@@ -133,5 +133,14 @@ namespace CprBroker.Config.Properties {
                 return ((int)(this["CprDirectExtractImportBatchSize"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CprDirectReturnsNewestFirst {
+            get {
+                return ((bool)(this["CprDirectReturnsNewestFirst"]));
+            }
+        }
     }
 }
