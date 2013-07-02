@@ -166,6 +166,7 @@
   <ItemGroup>
     <Content Include="Lookup\Authority.xml" />
     <Content Include="XML\CodeGeneration.txt" />
+    <Content Include="XML\Definitions.sql" />
     <Content Include="XML\ViewTransform.xslt" />
     <Content Include="XML\DefinitionSchema.xsd" />
   </ItemGroup>

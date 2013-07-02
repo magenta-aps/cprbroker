@@ -29,12 +29,14 @@ ___________Attribute template _____________________________
 _____________________________ Object template _____________________________
 -->
   <xsl:template match="//d:Object/d:Object[string-length(@recordTypeCode) > 0]">
+    IF EXISTS (SELECT * FROM sys.views where name = '<xsl:value-of select="@name"/>View')
+      DROP VIEW <xsl:value-of select="@name"/>View;
+    GO
+    
     CREATE VIEW <xsl:value-of select="@name"/>View
     AS SELECT
-    e.ExtractId, e.ExtractDate, <xsl:apply-templates select="d:Attribute" /> Contents
-    FROM ExtractItem ei
-    INNER JOIN Extract e 
-    ON e.ExtractId = ei.ExtractId
+    ExtractId, PNR, RelationPNR, RelationPNR2, <xsl:apply-templates select="d:Attribute[@name != 'PNR' and @name != 'RelationPNR' and @name != 'RelationPNR2' ]" /> Contents
+    FROM ExtractItem
     WHERE DataTypeCode= '<xsl:value-of select="@recordTypeCode"/>';
     
     GO
