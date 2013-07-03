@@ -121,6 +121,8 @@ namespace CprBroker.Providers.CPRDirect
 		
 		private bool _Ready;
 		
+		private System.Nullable<long> _ProcessedLines;
+		
 		private EntitySet<ExtractItem> _ExtractItems;
 		
 		private EntitySet<ExtractPersonStaging> _ExtractPersonStagings;
@@ -145,6 +147,8 @@ namespace CprBroker.Providers.CPRDirect
     partial void OnEndRecordChanged();
     partial void OnReadyChanging(bool value);
     partial void OnReadyChanged();
+    partial void OnProcessedLinesChanging(System.Nullable<long> value);
+    partial void OnProcessedLinesChanged();
     #endregion
 		
 		public Extract()
@@ -291,6 +295,26 @@ namespace CprBroker.Providers.CPRDirect
 					this._Ready = value;
 					this.SendPropertyChanged("Ready");
 					this.OnReadyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessedLines", DbType="BIGINT NULL")]
+		public System.Nullable<long> ProcessedLines
+		{
+			get
+			{
+				return this._ProcessedLines;
+			}
+			set
+			{
+				if ((this._ProcessedLines != value))
+				{
+					this.OnProcessedLinesChanging(value);
+					this.SendPropertyChanging();
+					this._ProcessedLines = value;
+					this.SendPropertyChanged("ProcessedLines");
+					this.OnProcessedLinesChanged();
 				}
 			}
 		}

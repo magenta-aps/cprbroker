@@ -108,46 +108,83 @@ namespace CprBroker.Providers.CPRDirect
             using (var file = new StreamReader(path, encoding))
             {
                 var extractResult = new ExtractParseResult();
-                Extract extract = null;
-                long totalRecordCount = 0;
+
+                long totalReadLinesCount = 0;
                 using (var conn = new SqlConnection(CprBroker.Config.Properties.Settings.Default.CprBrokerConnectionString))
                 {
                     conn.Open();
-
-                    while (!file.EndOfStream)
+                    using (var dataContext = new ExtractDataContext(conn))
                     {
-                        var wrappers = CompositeWrapper.Parse(file, Constants.DataObjectMap, batchSize);
-                        Admin.LogFormattedSuccess("Found <{0}> records, total so far <{1}>", wrappers.Count, totalRecordCount += wrappers.Count);
-
-                        extractResult.ClearArrays();
-                        extractResult.AddLines(wrappers);
-
-                        using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
+                        // Find existing extract or create a new one
+                        var extract = dataContext.Extracts.Where(e => e.Filename == path && e.ProcessedLines != null && !e.Ready).OrderByDescending(e => e.ImportDate).FirstOrDefault();
+                        if (extract == null)
                         {
-                            // Start record
-                            if (extract == null)
-                            {
-                                extract = extractResult.ToExtract(path, false);
-                                conn.BulkInsertAll<Extract>(new Extract[] { extract }, trans);
-                            }
+                            extract = extractResult.ToExtract(path, false, 0);
+                            Admin.LogFormattedSuccess("Creating new extract <{0}>", extract.ExtractId);
+                            dataContext.Extracts.InsertOnSubmit(extract);
+                            dataContext.SubmitChanges();
+                        }
+                        else
+                        {
+                            Admin.LogFormattedSuccess("Incomplete extract found <{0}>, resuming", extract.ExtractId);
+                        }
 
-                            conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap), trans);
-                            conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId), trans);
-                            conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs), trans);
-                            trans.Commit();
-                            Admin.LogFormattedSuccess("Batch committed");
+                        // Start reading the file
+                        while (!file.EndOfStream)
+                        {
+                            var wrappers = CompositeWrapper.Parse(file, Constants.DataObjectMap, batchSize);
+                            var batchReadLinesCount = wrappers.Count;
+                            totalReadLinesCount += batchReadLinesCount;
 
-                            // End record and mark as ready
-                            if (extractResult.EndLine != null)
+                            Admin.LogFormattedSuccess("Batch read, records found <{0}>, total so far <{1}>", batchReadLinesCount, totalReadLinesCount);
+
+                            using (var trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
                             {
-                                using (var dataContext = new ExtractDataContext())
+                                dataContext.Transaction = trans;
+                                extractResult.ClearArrays();
+                                var uninsertedLinesCount = totalReadLinesCount - extract.ProcessedLines.Value;
+
+                                if (uninsertedLinesCount > 0)
                                 {
-                                    extract = dataContext.Extracts.Where(ex => ex.ExtractId == extract.ExtractId).First();
-                                    extract.EndRecord = extractResult.EndLine.Contents;
-                                    extract.Ready = true;
+                                    var linesToSkip = wrappers.Count - (int)uninsertedLinesCount;
+                                    if (linesToSkip > 0)
+                                    {
+                                        Admin.LogFormattedSuccess("Unaligned batch sizes, skipping <{0}> lines", linesToSkip);
+                                        wrappers = wrappers.Skip(linesToSkip).ToList();
+                                    }
+
+                                    extractResult.AddLines(wrappers);
+
+                                    // Set start record
+                                    if (string.IsNullOrEmpty(extract.StartRecord) && extractResult.StartWrapper != null)
+                                    {
+                                        extract.StartRecord = extractResult.StartWrapper.Contents;
+                                        extract.ExtractDate = extractResult.StartWrapper.ProductionDate.Value;
+                                    }
+
+                                    // Child records
+                                    conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap), trans);
+                                    conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId), trans);
+                                    conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs), trans);
+
+                                    // Update counts
+                                    extract.ProcessedLines = totalReadLinesCount;
+
+                                    // End record and mark as ready
+                                    if (extractResult.EndLine != null)
+                                    {
+                                        extract.EndRecord = extractResult.EndLine.Contents;
+                                        extract.Ready = true;
+                                        Admin.LogFormattedSuccess("End record added");
+                                    }
                                     dataContext.SubmitChanges();
-                                    Admin.LogFormattedSuccess("End record added");
+                                    Admin.LogFormattedSuccess("Batch committed");
                                 }
+                                else
+                                {
+                                    Admin.LogFormattedSuccess("Batch already inserted, skipping");
+                                }
+                                trans.Commit();
                             }
                         }
                     }

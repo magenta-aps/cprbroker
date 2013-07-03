@@ -100,17 +100,18 @@ namespace CprBroker.Providers.CPRDirect
             this.ErrorLines.Clear();
         }
 
-        public Extract ToExtract(string sourceFileName = "", bool ready = false)
+        public Extract ToExtract(string sourceFileName = "", bool ready = false, long processedLines = 0)
         {
             return new Extract()
             {
                 ExtractId = Guid.NewGuid(),
                 Filename = sourceFileName,
-                ExtractDate = this.StartWrapper.ProductionDate.Value,
+                ExtractDate = this.StartWrapper == null ? CprBroker.Utilities.Constants.MinSqlDate : this.StartWrapper.ProductionDate.Value,
                 ImportDate = DateTime.Now,
-                StartRecord = this.StartWrapper.Contents,
+                StartRecord = this.StartWrapper == null ? "" : this.StartWrapper.Contents,
                 EndRecord = EndLine == null ? "" : this.EndLine.Contents,
-                Ready = ready
+                Ready = ready,
+                ProcessedLines = processedLines
             };
         }
 
