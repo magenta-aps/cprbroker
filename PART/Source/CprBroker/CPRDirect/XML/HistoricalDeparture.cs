@@ -52,6 +52,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
+    // TODO: Mark this with the attribute but allow the attribute to be ignored if the foreign address is not empty
+    // TODO: Shall we do the same for current departure?
+    // [CreateIntervalIfStartTsIsNull(false)]
     public partial class HistoricalDepartureType : IAddressSource, IHasCorrectionMarker
     {
         public DataTypeTags Tag
