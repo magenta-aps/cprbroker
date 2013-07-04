@@ -28,6 +28,15 @@ IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name= 'IX_PersonRegistration_UUID
 GO
 
 
+
+------------------
+-- Table : Extract
+------------------
+
+IF NOT EXISTS(SELECT * FROM sys.columns c WHERE name = 'ProcessedLines' and object_id=object_id('Extract'))
+	ALTER TABLE dbo.Extrcat ADD ProcessedLines BIGINT NULL
+GO
+
 ------------------------------
 -- Table : ExtractPersonStaging
 ------------------------------
