@@ -88,7 +88,7 @@ namespace CprBroker.EventBroker.Notifications
         protected override void PerformTimerAction()
         {
             SynchronisePersonBirthdates();
-            EnqueueBirthdateSvents();
+            EnqueueBirthdateEvents();
         }
 
         private void SynchronisePersonBirthdates()
@@ -134,7 +134,7 @@ namespace CprBroker.EventBroker.Notifications
             }
         }
 
-        private void EnqueueBirthdateSvents()
+        private void EnqueueBirthdateEvents()
         {
             using (var dataContext = new Data.EventBrokerDataContext())
             {
