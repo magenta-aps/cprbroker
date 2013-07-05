@@ -115,21 +115,24 @@ namespace CprBroker.Engine.Part
         /// <param name="pnrs">Array of CPR numbers</param>
         public void FillCache(string[] pnrs)
         {
-            var result = Manager.Part.GetUuidArray(BrokerContext.Current.UserToken, BrokerContext.Current.ApplicationToken, pnrs);
-            if (StandardReturType.IsSucceeded(result.StandardRetur))
+            if (pnrs.Length > 0)
             {
-
-                for (int i = 0; i < pnrs.Length; i++)
+                var result = Manager.Part.GetUuidArray(BrokerContext.Current.UserToken, BrokerContext.Current.ApplicationToken, pnrs);
+                if (StandardReturType.IsSucceeded(result.StandardRetur))
                 {
-                    if (Strings.IsGuid(result.UUID[i]))
+
+                    for (int i = 0; i < pnrs.Length; i++)
                     {
-                        _Cache[pnrs[i]] = new Guid(result.UUID[i]);
+                        if (Strings.IsGuid(result.UUID[i]))
+                        {
+                            _Cache[pnrs[i]] = new Guid(result.UUID[i]);
+                        }
                     }
                 }
-            }
-            else
-            {
-                throw new Exception("Could not get UUID array");
+                else
+                {
+                    throw new Exception("Could not get UUID array");
+                }
             }
         }
 
