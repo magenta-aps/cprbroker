@@ -61,7 +61,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'Deactivated' and object
 	ALTER TABLE dbo.Subscription ADD Deactivated Datetime NULL DEFAULT NULL
 GO
 
-IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'Deactivated' and object_id=object_id('Subscription'))
+IF NOT EXISTS (SELECT * FROM sys.columns c WHERE name = 'LastCheckedUUID' and object_id=object_id('Subscription'))
 	ALTER TABLE dbo.Subscription ADD LastCheckedUUID uniqueidentifier NULL DEFAULT NULL
 GO
 
