@@ -47,6 +47,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using Microsoft.Deployment.WindowsInstaller;
 using CprBroker.Utilities;
 using CprBroker.Installers;
@@ -70,6 +71,11 @@ namespace CprBroker.Installers.EventBrokerInstallers
         private static string GetServiceExeConfigFullFileName(Session session)
         {
             return GetServiceExeFullFileName(session) + ".config";
+        }
+
+        private static string GetOldServiceExeConfigFullFileName(Session session)
+        {
+            return GetOldServiceExeFullFileName(session) + ".config";
         }
 
         private static Version GetServiceExeFrameworkVersion()
@@ -179,6 +185,7 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 var sourcePath = cprBrokerWebInstallationInfo.GetWebConfigFilePath(PathConstants.CprBrokerWebsiteDirectoryRelativePath);
                 var targetPath = GetServiceExeConfigFullFileName(session);
 
+                // TODO: Shall we also clone connection strings?
                 Installation.CopyConfigNode("//configuration", "configSections", sourcePath, targetPath, Installation.MergeOption.Overwrite);
                 Installation.CopyConfigNode("//configuration", "dataProvidersGroup", sourcePath, targetPath, Installation.MergeOption.Overwrite);
 
@@ -195,12 +202,26 @@ namespace CprBroker.Installers.EventBrokerInstallers
 
         public static void MoveBackendServiceToNewLocation(Session session)
         {
+            var oldConfigPath = GetOldServiceExeConfigFullFileName(session);
+            var newConfigPath = GetServiceExeConfigFullFileName(session);
+
+            // Uninstall service at old location
             try
             {
                 UninstallService(GetOldServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
             }
             catch { }
 
+            // Copy old config file
+            if (File.Exists(oldConfigPath))
+            {
+                if (File.Exists(newConfigPath))
+                    File.Delete(newConfigPath);
+
+                File.Move(oldConfigPath, newConfigPath);
+            }
+
+            // Install service at new location
             InstallService(GetServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
         }
     }
