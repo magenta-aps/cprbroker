@@ -6,7 +6,9 @@
     <DirectoryRef Id="INSTALLDIR">
       <Directory Id="EventBroker" Name="EventBroker">
         <Directory Id="EVENT_Website" Name="Website" >
-          <Directory Id="EVENT_bin" Name="bin" />
+          <Directory Id="EVENT_bin" Name="bin">
+            <Directory Id="EVENT_Backend" Name="Backend" />
+          </Directory>          
           <Directory Id="EVENT_Config" Name="Config" />
           <Directory Id="EVENT_Services" Name="Services" />
           <Directory Id="EVENT_Templates" Name="Templates" />

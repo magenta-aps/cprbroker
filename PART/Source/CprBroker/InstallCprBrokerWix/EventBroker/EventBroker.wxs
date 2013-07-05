@@ -12,6 +12,7 @@
     <Feature Id="EventBrokerFeature" Title="Event Broker" Level="1">
       <ComponentGroupRef Id="CMGGRP_EVENT_Root"/>
       <ComponentGroupRef Id="CMPGRP_EVENT_bin"/>
+      <ComponentGroupRef Id="CMPGRP_EVENT_Backend"/>
       <ComponentGroupRef Id="CMPGRP_EVENT_Config"/>
       <ComponentGroupRef Id="CMPGRP_EVENT_Services"/>
       <ComponentGroupRef Id="CMPGRP_EVENT_Templates"/>
