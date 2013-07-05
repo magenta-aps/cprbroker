@@ -20,6 +20,7 @@
       <ProgressText Action="RemoveRegistryValues">RemoveRegistryValues</ProgressText>
       <ProgressText Action="RemoveFiles">RemoveFiles</ProgressText>
       <ProgressText Action="InstallFiles">InstallFiles</ProgressText>
+      <ProgressText Action="DuplicateFiles">DuplicateFiles</ProgressText>
       <ProgressText Action="WriteRegistryValues">WriteRegistryValues</ProgressText>
       <ProgressText Action="InstallServices">InstallServices</ProgressText>
       <ProgressText Action="SchedSecureObjects">SchedSecureObjects</ProgressText>

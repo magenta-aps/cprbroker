@@ -104,7 +104,7 @@
 
       <Custom Action="AfterInstallInitialize_DB" After="Set_CommonProductProperties">!(wix.DB_CreateDatabase) = True</Custom>
 
-      <Custom Action="RollbackDatabase" After="InstallFiles"><![CDATA[!(wix.DB_CreateDatabase) = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
+      <Custom Action="RollbackDatabase" After="DuplicateFiles"><![CDATA[!(wix.DB_CreateDatabase) = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
       <Custom Action="DeployDatabase" After="RollbackDatabase"><![CDATA[!(wix.DB_CreateDatabase)  = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
       <Custom Action="RemoveDatabase" After="DeployDatabase"><![CDATA[!(wix.DB_CreateDatabase)  = True AND REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
     </InstallExecuteSequence>

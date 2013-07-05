@@ -80,7 +80,7 @@
 
       <Custom Action="AfterInstallInitialize_WEB" After="AfterInstallInitialize_DB">!(wix.WEB_CreateWeb) = True</Custom>
 
-      <Custom Action="RollbackWebsite" After="InstallFiles"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
+      <Custom Action="RollbackWebsite" After="DuplicateFiles"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
       <Custom Action="CreateWebsite" After="RollbackWebsite"><![CDATA[!(wix.WEB_CreateWeb) = True AND NOT REMOVE AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
       <Custom Action="RemoveWebsite" After="CreateWebsite"><![CDATA[!(wix.WEB_CreateWeb) = True AND REMOVE = "ALL" AND NOT PATCH AND NOT OLDER_VERSION_DETECTED]]></Custom>
     </InstallExecuteSequence>
