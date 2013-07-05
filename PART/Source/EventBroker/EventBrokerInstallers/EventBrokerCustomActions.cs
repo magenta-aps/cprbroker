@@ -59,6 +59,11 @@ namespace CprBroker.Installers.EventBrokerInstallers
     {
         private static string GetServiceExeFullFileName(Session session)
         {
+            return string.Format("{0}{1}bin\\Backend\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), PathConstants.EventBrokerWebsiteDirectoryRelativePath);
+        }
+
+        private static string GetOldServiceExeFullFileName(Session session)
+        {
             return string.Format("{0}{1}bin\\CprBroker.EventBroker.Backend.exe", session.GetInstallDirProperty(), PathConstants.EventBrokerWebsiteDirectoryRelativePath);
         }
 
@@ -186,6 +191,17 @@ namespace CprBroker.Installers.EventBrokerInstallers
                 session.ShowErrorMessage(ex);
                 throw ex;
             }
+        }
+
+        public static void MoveBackendServiceToNewLocation(Session session)
+        {
+            try
+            {
+                UninstallService(GetOldServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
+            }
+            catch { }
+
+            InstallService(GetServiceExeFullFileName(session), GetServiceExeFrameworkVersion());
         }
     }
 }
