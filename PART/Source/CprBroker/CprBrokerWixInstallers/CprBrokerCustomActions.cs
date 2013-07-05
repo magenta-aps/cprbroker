@@ -471,6 +471,14 @@ namespace CprBrokerWixInstallers
                     }
                 };
 
+                featurePatchInfos["EVENT"] = new WebPatchInfo[] { 
+                    new WebPatchInfo()
+                    { 
+                        Version = new Version(2,2),
+                        PatchAction = () => EventBrokerCustomActions.MoveBackendServiceToNewLocation(session)
+                    }
+                };
+
                 return WebsiteCustomAction.PatchWebsite(session, featurePatchInfos);
             }
             catch (Exception ex)
