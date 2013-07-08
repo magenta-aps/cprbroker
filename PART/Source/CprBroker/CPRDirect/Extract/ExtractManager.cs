@@ -202,6 +202,8 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportDataProviderFolders()
         {
+            // TODO: Split the download of files that should happen once per hour,
+            // from extraction that should be as soon as possible
             Admin.LogSuccess("Loading CPR Direct data providers");
 
             try
