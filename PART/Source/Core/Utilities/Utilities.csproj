@@ -75,6 +75,7 @@
     <Compile Include="Strings.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="TextMessages.cs" />
+    <Compile Include="UacHelper.cs" />
     <Compile Include="Web.cs" />
     <Compile Include="WhereConditions\InWhereCondition.cs" />
     <Compile Include="WhereConditions\WhereCondition.cs" />

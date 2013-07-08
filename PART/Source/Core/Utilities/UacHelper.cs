@@ -7,7 +7,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Security.Principal;
 
-namespace CprBroker.Installers
+namespace CprBroker.Utilities
 {
     public static class UacHelper
     {

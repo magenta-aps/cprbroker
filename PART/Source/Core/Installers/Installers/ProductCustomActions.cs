@@ -49,6 +49,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using CprBroker.Utilities;
 using Microsoft.Deployment.WindowsInstaller;
 
 namespace CprBroker.Installers
