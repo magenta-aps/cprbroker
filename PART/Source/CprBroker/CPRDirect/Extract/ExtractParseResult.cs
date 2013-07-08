@@ -130,7 +130,7 @@ namespace CprBroker.Providers.CPRDirect
                 .Select(line => line.Key);
             if (skipPnrs != null)
             {
-                pnrs = pnrs.Except(skipPnrs);
+                pnrs = pnrs.Except(skipPnrs).ToArray();
                 skipPnrs.AddRange(pnrs);
             }
 
