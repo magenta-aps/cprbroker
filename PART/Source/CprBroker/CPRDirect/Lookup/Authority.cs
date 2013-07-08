@@ -50,6 +50,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Data.SqlClient;
+using CprBroker.Utilities;
 
 namespace CprBroker.Providers.CPRDirect
 {
@@ -86,6 +87,16 @@ namespace CprBroker.Providers.CPRDirect
         private static Dictionary<string, string> _AuthorityMap;
 
         static Authority()
+        {
+            // Only load the authority records is process is not elevated, i.e: load if this is not an installer context
+            // TODO: Change this condition to something better
+            if (!UacHelper.IsProcessElevated)
+            {
+                LoadAuthorityMap();
+            }
+        }
+
+        static void LoadAuthorityMap()
         {
             using (var dataContext = new LookupDataContext())
             {
