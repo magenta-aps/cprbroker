@@ -327,6 +327,7 @@ namespace CprBroker.Providers.CPRDirect
                 dataContext.LoadOptions = dataLoadOptions;
 
                 var persons = dataContext.ExtractPersonStagings
+                    .Where(eps => eps.Extract.Ready)
                     .OrderBy(ep => ep.Extract.ExtractDate)
                     .Take(batchSize)
                     .ToArray();
