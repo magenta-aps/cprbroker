@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="eventnotification" resourceRoot="${projectDir}" soapui-version="3.6.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NotificationSoap12" type="wsdl" bindingName="{http://dk.itst}NotificationSoap12" soapVersion="1_2" anonymous="optional" definition="http://eventbroker20110208/Services/Notification.asmx?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://eventbroker20110208/Services/Notification.asmx?WSDL"><con:part><con:url>http://eventbroker20110208/Services/Notification.asmx?WSDL</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://dk.itst" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://dk.itst" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>Template for a notification listener web service</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://dk.itst">
+      <s:import namespace="http://microsoft.com/wsdl/types/"/>
+      <s:element name="Notify">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="notification" type="tns:CommonEventStructureType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CommonEventStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EventInfoStructure" type="tns:EventInfoStructureType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EventTopic" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EventSubscriptionReference" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionStructure" type="tns:ExtensionStructureType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EventDetailStructure" type="tns:EventDetailStructureType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EventInfoStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EventIdentifier" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EventProducerReference" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="EventRegistrationDateTime" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EventObjectStructure" type="tns:EventObjectStructureType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionStructure" type="tns:ExtensionStructureType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EventObjectStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ObjectTypeReference" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EventObjectReference" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="actionSchemeReference" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EventObjectActionCode" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ExtensionStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s1:guid"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ArrayOfAnyType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EventDetailStructureType" abstract="true"/>
+      <s:element name="NotifyResponse">
+        <s:complexType/>
+      </s:element>
+      <s:element name="Ping">
+        <s:complexType/>
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType/>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="NotifySoap12In">
+    <wsdl:part name="parameters" element="tns:Notify"/>
+  </wsdl:message>
+  <wsdl:message name="NotifySoap12Out">
+    <wsdl:part name="parameters" element="tns:NotifyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="PingSoap12In">
+    <wsdl:part name="parameters" element="tns:Ping"/>
+  </wsdl:message>
+  <wsdl:message name="PingSoap12Out">
+    <wsdl:part name="parameters" element="tns:PingResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="NotificationSoap12">
+    <wsdl:operation name="Notify">
+      <wsdl:documentation><![CDATA[Called to tell the client system that a notification has been fired
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>void Notify(string appToken, BaseNotificationType notification)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>appToken (input):</td><td>Token of subscriber application</td></tr>
+                                                <tr><td>notification (input):</td><td>Object that contains the detailed information that is associated with the event</td></tr>
+                                                </table>
+
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:NotifySoap12In"/>
+      <wsdl:output message="tns:NotifySoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation><![CDATA[Called to make sure the service is online
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>void Ping()
+
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:PingSoap12In"/>
+      <wsdl:output message="tns:PingSoap12Out"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotificationSoap12" type="tns:NotificationSoap12">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Notify">
+      <soap12:operation soapAction="http://dk.itst/Notify" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://dk.itst/Ping" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Notification">
+    <wsdl:documentation>Template for a notification listener web service</wsdl:documentation>
+    <wsdl:port name="NotificationSoap12" binding="tns:NotificationSoap12">
+      <soap12:address location="http://eventbroker20110208/Services/Notification.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://eventbroker20110208/Services/Notification.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://dk.itst/Notify" name="Notify" bindingOperationName="Notify" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Notification.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:Notify>
+         <!--Optional:-->
+         <dk:notification>
+            <!--Optional:-->
+            <dk:EventInfoStructure>
+               <!--Optional:-->
+               <dk:EventIdentifier>?</dk:EventIdentifier>
+               <!--Optional:-->
+               <dk:EventProducerReference>?</dk:EventProducerReference>
+               <dk:EventRegistrationDateTime>?</dk:EventRegistrationDateTime>
+               <!--Optional:-->
+               <dk:EventObjectStructure>
+                  <!--Optional:-->
+                  <dk:ObjectTypeReference>?</dk:ObjectTypeReference>
+                  <!--Optional:-->
+                  <dk:EventObjectReference>?</dk:EventObjectReference>
+                  <!--Optional:-->
+                  <dk:actionSchemeReference>?</dk:actionSchemeReference>
+                  <!--Optional:-->
+                  <dk:EventObjectActionCode>?</dk:EventObjectActionCode>
+               </dk:EventObjectStructure>
+               <!--Optional:-->
+               <dk:ExtensionStructure>
+                  <dk:ID>?</dk:ID>
+                  <!--Optional:-->
+                  <dk:Item>
+                     <!--Zero or more repetitions:-->
+                     <dk:anyType>?</dk:anyType>
+                  </dk:Item>
+               </dk:ExtensionStructure>
+            </dk:EventInfoStructure>
+            <!--Optional:-->
+            <dk:EventTopic>?</dk:EventTopic>
+            <!--Optional:-->
+            <dk:EventSubscriptionReference>?</dk:EventSubscriptionReference>
+            <!--Optional:-->
+            <dk:ExtensionStructure>
+               <dk:ID>?</dk:ID>
+               <!--Optional:-->
+               <dk:Item>
+                  <!--Zero or more repetitions:-->
+                  <dk:anyType>?</dk:anyType>
+               </dk:Item>
+            </dk:ExtensionStructure>
+            <!--Optional:-->
+            <dk:EventDetailStructure/>
+         </dk:notification>
+      </dk:Notify>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/NotificationSoap12/NotifyRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/Ping" name="Ping" bindingOperationName="Ping" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Notification.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:Ping/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/NotificationSoap12/PingRequest"/></con:call></con:operation></con:interface><con:testSuite name="NotificationSoap12 TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Notify"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NotificationSoap12</con:interface><con:operation>Notify</con:operation><con:request name="Notify"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Notification.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:Notify>
+         <!--Optional:-->
+         <dk:notification>
+            <!--Optional:-->
+            <dk:EventInfoStructure>
+               <!--Optional:-->
+               <dk:EventIdentifier>?</dk:EventIdentifier>
+               <!--Optional:-->
+               <dk:EventProducerReference>?</dk:EventProducerReference>
+               <dk:EventRegistrationDateTime>?</dk:EventRegistrationDateTime>
+               <!--Optional:-->
+               <dk:EventObjectStructure>
+                  <!--Optional:-->
+                  <dk:ObjectTypeReference>?</dk:ObjectTypeReference>
+                  <!--Optional:-->
+                  <dk:EventObjectReference>?</dk:EventObjectReference>
+                  <!--Optional:-->
+                  <dk:actionSchemeReference>?</dk:actionSchemeReference>
+                  <!--Optional:-->
+                  <dk:EventObjectActionCode>?</dk:EventObjectActionCode>
+               </dk:EventObjectStructure>
+               <!--Optional:-->
+               <dk:ExtensionStructure>
+                  <dk:ID>?</dk:ID>
+                  <!--Optional:-->
+                  <dk:Item>
+                     <!--Zero or more repetitions:-->
+                     <dk:anyType>?</dk:anyType>
+                  </dk:Item>
+               </dk:ExtensionStructure>
+            </dk:EventInfoStructure>
+            <!--Optional:-->
+            <dk:EventTopic>?</dk:EventTopic>
+            <!--Optional:-->
+            <dk:EventSubscriptionReference>?</dk:EventSubscriptionReference>
+            <!--Optional:-->
+            <dk:ExtensionStructure>
+               <dk:ID>?</dk:ID>
+               <!--Optional:-->
+               <dk:Item>
+                  <!--Zero or more repetitions:-->
+                  <dk:anyType>?</dk:anyType>
+               </dk:Item>
+            </dk:ExtensionStructure>
+            <!--Optional:-->
+            <dk:EventDetailStructure/>
+         </dk:notification>
+      </dk:Notify>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/NotificationSoap12/NotifyRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Ping TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Ping"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NotificationSoap12</con:interface><con:operation>Ping</con:operation><con:request name="Ping"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://eventbroker20110208/Services/Notification.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:Ping/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/NotificationSoap12/PingRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="Web TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="true" maxResults="0" name="Web TestCase" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="http://agol.dk"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" name="http://agol.dk" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://agol.dk</con:endpoint><con:request/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>

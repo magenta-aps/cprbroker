@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment Id="DirectoriesFragment">
+    <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="Website" Name="Website">
+        <Directory Id="bin" Name="bin">
+          <Directory Id="Properties" Name="Properties" />
+        </Directory>
+        <Directory Id="css" Name="css"/>
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

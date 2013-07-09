@@ -1,0 +1,1861 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="FunctionalTestAdmin" resourceRoot="${projectDir}" soapui-version="3.6.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdminSoap12" type="wsdl" bindingName="{http://dk.itst}AdminSoap12" soapVersion="1_2" anonymous="optional" definition="http://cprbroker20110208/Services/Admin.asmx?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://cprbroker20110208/Services/Admin.asmx?WSDL"><con:part><con:url>http://cprbroker20110208/Services/Admin.asmx?WSDL</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://dk.itst" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s2="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" xmlns:s6="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:s18="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" xmlns:s16="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://dk.itst" xmlns:s5="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:s19="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/" xmlns:s9="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" xmlns:s14="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/" xmlns:s11="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:s8="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s10="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:s13="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/" xmlns:s12="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:s15="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:s3="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s17="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s4="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:s7="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" xmlns:s1="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>Contains methods related to administrative functions</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://dk.itst">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"/>
+      <s:element name="RequestAppRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationName" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestAppRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:Application"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApplicationHeader" type="tns:ApplicationHeader"/>
+      <s:complexType name="ApplicationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserToken" type="s:string"/>
+        </s:sequence>
+        <s:anyAttribute/>
+      </s:complexType>
+      <s:element name="ApproveAppRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveAppRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApproveAppRegistrationResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListAppRegistrations">
+        <s:complexType/>
+      </s:element>
+      <s:element name="ListAppRegistrationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListAppRegistrationsResult" type="tns:ArrayOfApplicationType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfApplicationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ApplicationType" nillable="true" type="s1:ApplicationType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UnregisterApp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnregisterAppResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UnregisterAppResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCapabilities">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetCapabilitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCapabilitiesResult" type="tns:ArrayOfServiceVersionType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfServiceVersionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ServiceVersionType" nillable="true" type="s1:ServiceVersionType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsImplementing">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceName" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceVersion" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsImplementingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsImplementingResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataProviderList">
+        <s:complexType/>
+      </s:element>
+      <s:complexType name="ArrayOfDataProviderType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DataProviderType" nillable="true" type="s1:DataProviderType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDataProviderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataProviderListResult" type="tns:ArrayOfDataProviderType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDataProviderList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DataProviders" type="tns:ArrayOfDataProviderType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDataProviderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetDataProviderListResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Log">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LogResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTestCitizen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:PersonFullStructure"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTestCitizenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateTestCitizenResult" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ping">
+        <s:complexType/>
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PingResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/"/>
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/"/>
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/"/>
+      <s:element name="Application" type="s1:ApplicationType"/>
+      <s:complexType name="ApplicationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="IsApproved" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ApprovedDate" type="s:dateTime"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ServiceVersionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Functions" type="s1:ArrayOfString"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Details"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Functions" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DataProviderType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TypeName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Enabled" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Attributes" type="s1:AttributeType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AttributeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonFullStructure" type="s1:PersonFullStructureType"/>
+      <s:complexType name="PersonFullStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:RegularCPRPerson"/>
+          <s:element minOccurs="1" maxOccurs="1" ref="s9:MaritalStatusCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:PersonDeathDateStructure"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonNationalityCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:AddressIdentifierCode"/>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s10:ForeignAddressStructure"/>
+            <s:element minOccurs="0" maxOccurs="1" ref="s10:DanishAddressStructure"/>
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" name="SpouseName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfChildren" type="s:int"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/">
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/"/>
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"/>
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/"/>
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/"/>
+      <s:element name="RegularCPRPerson" type="s2:RegularCPRPersonType"/>
+      <s:complexType name="RegularCPRPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SimpleCPRPerson" type="s2:SimpleCPRPersonType"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonNameForAddressingName"/>
+          <s:element minOccurs="1" maxOccurs="1" ref="s4:PersonGenderCode"/>
+          <s:element minOccurs="1" maxOccurs="1" ref="s7:PersonInformationProtectionIndicator"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:PersonBirthDateStructure"/>
+          <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationStatusStructure" type="s2:PersonCivilRegistrationStatusStructureType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SimpleCPRPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s3:PersonNameStructure"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:PersonCivilRegistrationIdentifier"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonCivilRegistrationStatusStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" ref="s7:PersonCivilRegistrationStatusCode"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PersonCivilRegistrationStatusStartDate" type="s:date"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/"/>
+      <s:element name="PersonNameStructure" type="s3:PersonNameStructureType"/>
+      <s:complexType name="PersonNameStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonGivenName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonMiddleName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonSurnameName"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/">
+      <s:element name="PersonGivenName" type="s:string"/>
+      <s:element name="PersonMiddleName" type="s:string"/>
+      <s:element name="PersonSurnameName" type="s:string"/>
+      <s:element name="PersonGenderCode" type="s4:PersonGenderCodeType"/>
+      <s:simpleType name="PersonGenderCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="male"/>
+          <s:enumeration value="female"/>
+          <s:enumeration value="unknown"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PersonNationalityCode" type="s:string"/>
+      <s:element name="CountryIdentificationCode" type="s4:CountryIdentificationCodeType"/>
+      <s:complexType name="CountryIdentificationCodeType">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="scheme" type="s4:_CountryIdentificationSchemeType" use="required"/>
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="_CountryIdentificationSchemeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="iso3166-alpha2"/>
+          <s:enumeration value="iso3166-alpha3"/>
+          <s:enumeration value="un-numeric3"/>
+          <s:enumeration value="imk"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="StreetBuildingIdentifier" type="s:string"/>
+      <s:element name="MailDeliverySublocationIdentifier" type="s:string"/>
+      <s:element name="FloorIdentifier" type="s:string"/>
+      <s:element name="SuiteIdentifier" type="s:string"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/">
+      <s:element name="PersonCivilRegistrationIdentifier" type="s:string"/>
+      <s:element name="MunicipalityCode" type="s:string"/>
+      <s:element name="StreetCode" type="s:string"/>
+      <s:element name="StreetNameForAddressingName" type="s:string"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/">
+      <s:element name="PersonNameForAddressingName" type="s:string"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/"/>
+      <s:element name="PersonInformationProtectionIndicator" type="s:boolean"/>
+      <s:element name="PersonBirthDateStructure" type="s7:PersonBirthDateStructureType"/>
+      <s:complexType name="PersonBirthDateStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" ref="s8:BirthDate"/>
+          <s:element minOccurs="1" maxOccurs="1" name="BirthDateUncertaintyIndicator" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonCivilRegistrationStatusCode" type="s7:PersonCivilRegistrationStatusCodeType"/>
+      <s:simpleType name="PersonCivilRegistrationStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="01"/>
+          <s:enumeration value="03"/>
+          <s:enumeration value="05"/>
+          <s:enumeration value="07"/>
+          <s:enumeration value="20"/>
+          <s:enumeration value="30"/>
+          <s:enumeration value="50"/>
+          <s:enumeration value="60"/>
+          <s:enumeration value="70"/>
+          <s:enumeration value="80"/>
+          <s:enumeration value="90"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/">
+      <s:element name="BirthDate" type="s:date"/>
+      <s:element name="StreetName" type="s:string"/>
+      <s:element name="DistrictSubdivisionIdentifier" type="s:string"/>
+      <s:element name="PostCodeIdentifier" type="s:string"/>
+      <s:element name="DistrictName" type="s:string"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/">
+      <s:element name="MaritalStatusCode" type="s9:MaritalStatusCodeType"/>
+      <s:simpleType name="MaritalStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="married"/>
+          <s:enumeration value="divorced"/>
+          <s:enumeration value="widow"/>
+          <s:enumeration value="registered partnership"/>
+          <s:enumeration value="abolition of registrered partnership"/>
+          <s:enumeration value="longest living partner"/>
+          <s:enumeration value="deceased"/>
+          <s:enumeration value="unmarried"/>
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/"/>
+      <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/"/>
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/"/>
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/"/>
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/"/>
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/"/>
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/"/>
+      <s:element name="PersonDeathDateStructure" type="s10:PersonDeathDateStructureType"/>
+      <s:complexType name="PersonDeathDateStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PersonDeathDate" type="s:date"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PersonDeathDateUncertaintyIndicator" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddressIdentifierCode" type="s10:AddressIdentifierCodeType"/>
+      <s:simpleType name="AddressIdentifierCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="1"/>
+          <s:enumeration value="2"/>
+          <s:enumeration value="3"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ForeignAddressStructure" type="s10:ForeignAddressStructureType"/>
+      <s:complexType name="ForeignAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressFirstLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressSecondLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressThirdLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressFourthLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressFifthLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s12:LocationDescriptionText"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DanishAddressStructure" type="s10:DanishAddressStructureType"/>
+      <s:complexType name="DanishAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AddressStatusCode" type="s10:AddressStatusCodeType"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s13:MunicipalityName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:CareOfName"/>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s15:AddressComplete"/>
+            <s:element minOccurs="0" maxOccurs="1" name="AddressNotComplete" type="s10:AddressNotCompleteType"/>
+            <s:element minOccurs="0" maxOccurs="1" name="AddressCompleteGreenland" type="s10:AddressCompleteGreenlandType"/>
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:CompletePostalLabel"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AddressStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="1"/>
+          <s:enumeration value="3"/>
+          <s:enumeration value="5"/>
+          <s:enumeration value="7"/>
+          <s:enumeration value="20"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="AddressNotCompleteType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:MunicipalityCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:MailDeliverySublocationIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:StreetName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetNameForAddressingName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:StreetBuildingIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:SuiteIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:FloorIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:DistrictSubdivisionIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:PostCodeIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:DistrictName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressCompleteGreenlandType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:MunicipalityCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:MailDeliverySublocationIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:StreetName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetNameForAddressingName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:StreetBuildingIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:SuiteIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:FloorIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:DistrictSubdivisionIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:PostCodeIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:DistrictName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/">
+      <s:element name="PostalAddressFirstLineText" type="s:string"/>
+      <s:element name="PostalAddressSecondLineText" type="s:string"/>
+      <s:element name="PostalAddressThirdLineText" type="s:string"/>
+      <s:element name="PostalAddressFourthLineText" type="s:string"/>
+      <s:element name="PostalAddressFifthLineText" type="s:string"/>
+      <s:element name="PostalAddressSixthLineText" type="s:string"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/">
+      <s:element name="LocationDescriptionText" type="s:string"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/">
+      <s:element name="MunicipalityName" type="s:string"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/">
+      <s:element name="CareOfName" type="s:string"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/">
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/"/>
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/"/>
+      <s:element name="AddressComplete" type="s15:AddressCompleteType"/>
+      <s:complexType name="AddressCompleteType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s16:AddressAccess"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPostal" type="s15:AddressPostalType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressPostalType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:MailDeliverySublocationIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:StreetName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetNameForAddressingName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:StreetBuildingIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:FloorIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:SuiteIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:DistrictSubdivisionIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:PostOfficeBoxIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:PostCodeIdentifier"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:DistrictName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/"/>
+      <s:element name="AddressAccess" type="s16:AddressAccessType"/>
+      <s:complexType name="AddressAccessType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:MunicipalityCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetCode"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:StreetBuildingIdentifier"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/">
+      <s:element name="PostOfficeBoxIdentifier" type="s:integer"/>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/"/>
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/"/>
+      <s:element name="CompletePostalLabel" type="s18:CompletePostalLabelType"/>
+      <s:complexType name="CompletePostalLabelType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s19:AddresseeName"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressFirstLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressSecondLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressThirdLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressFourthLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressFifthLineText"/>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:PostalAddressSixthLineText"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/">
+      <s:element name="AddresseeName" type="s:string"/>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RequestAppRegistrationSoap12In">
+    <wsdl:part name="parameters" element="tns:RequestAppRegistration"/>
+  </wsdl:message>
+  <wsdl:message name="RequestAppRegistrationSoap12Out">
+    <wsdl:part name="parameters" element="tns:RequestAppRegistrationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="RequestAppRegistrationApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationSoap12In">
+    <wsdl:part name="parameters" element="tns:ApproveAppRegistration"/>
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationSoap12Out">
+    <wsdl:part name="parameters" element="tns:ApproveAppRegistrationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsSoap12In">
+    <wsdl:part name="parameters" element="tns:ListAppRegistrations"/>
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsSoap12Out">
+    <wsdl:part name="parameters" element="tns:ListAppRegistrationsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppSoap12In">
+    <wsdl:part name="parameters" element="tns:UnregisterApp"/>
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppSoap12Out">
+    <wsdl:part name="parameters" element="tns:UnregisterAppResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesSoap12In">
+    <wsdl:part name="parameters" element="tns:GetCapabilities"/>
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesSoap12Out">
+    <wsdl:part name="parameters" element="tns:GetCapabilitiesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="IsImplementingSoap12In">
+    <wsdl:part name="parameters" element="tns:IsImplementing"/>
+  </wsdl:message>
+  <wsdl:message name="IsImplementingSoap12Out">
+    <wsdl:part name="parameters" element="tns:IsImplementingResponse"/>
+  </wsdl:message>
+  <wsdl:message name="IsImplementingApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListSoap12In">
+    <wsdl:part name="parameters" element="tns:GetDataProviderList"/>
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListSoap12Out">
+    <wsdl:part name="parameters" element="tns:GetDataProviderListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListSoap12In">
+    <wsdl:part name="parameters" element="tns:SetDataProviderList"/>
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListSoap12Out">
+    <wsdl:part name="parameters" element="tns:SetDataProviderListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="LogSoap12In">
+    <wsdl:part name="parameters" element="tns:Log"/>
+  </wsdl:message>
+  <wsdl:message name="LogSoap12Out">
+    <wsdl:part name="parameters" element="tns:LogResponse"/>
+  </wsdl:message>
+  <wsdl:message name="LogApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="CreateTestCitizenSoap12In">
+    <wsdl:part name="parameters" element="tns:CreateTestCitizen"/>
+  </wsdl:message>
+  <wsdl:message name="CreateTestCitizenSoap12Out">
+    <wsdl:part name="parameters" element="tns:CreateTestCitizenResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CreateTestCitizenApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader"/>
+  </wsdl:message>
+  <wsdl:message name="PingSoap12In">
+    <wsdl:part name="parameters" element="tns:Ping"/>
+  </wsdl:message>
+  <wsdl:message name="PingSoap12Out">
+    <wsdl:part name="parameters" element="tns:PingResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="AdminSoap12">
+    <wsdl:operation name="RequestAppRegistration">
+      <wsdl:documentation><![CDATA[Creates a new un-approved application in the system.
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>ApplicationType RequestAppRegisteration(string ApplicationName)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>ApplicationName (input):</td><td>Application name that ask for registering.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return ApplicationType that specify the new appication.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:RequestAppRegistrationSoap12In"/>
+      <wsdl:output message="tns:RequestAppRegistrationSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAppRegistration">
+      <wsdl:documentation><![CDATA[Approves an application's registeration
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>bool ApproveAppRegisteration(string ApplicationToken)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>'ApplicationToken' (input):</td><td>Token for the business client application to be approved.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return bool that represents whether the operation has succeeded.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:ApproveAppRegistrationSoap12In"/>
+      <wsdl:output message="tns:ApproveAppRegistrationSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="ListAppRegistrations">
+      <wsdl:documentation><![CDATA[List Application Registeration
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>ApplicationType[] ListAppRegisteration()
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>Array of ApplicationType that represents the existing application registered in the system
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:ListAppRegistrationsSoap12In"/>
+      <wsdl:output message="tns:ListAppRegistrationsSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterApp">
+      <wsdl:documentation><![CDATA[Unregister an application registeration
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>bool UnregisterApp(string ApplicationToken)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>ApplicationToken (input):</td><td>Security Token for the current business client application.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return bool that represents whether the operation has succeeded.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:UnregisterAppSoap12In"/>
+      <wsdl:output message="tns:UnregisterAppSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetCapabilities">
+      <wsdl:documentation><![CDATA[Reads version information for the component to make sure that only features
+                                                supported by the component is returned
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>string GetCapabilities(string userToken, string appToken)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>'userToken' (input):</td><td>Security Token for authorizing the request.</td></tr>
+                                                <tr><td>'appToken' (input):</td><td>Security Token for the current business client application.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return the result of the request.
+
+                                                <br><br><b><u>Notes:</u></b>
+                                                <br> P1-P2 It is important that we use any standard or 'best practice' on this area. The sigature for
+                                                this service is important. Syntax and semantic must be invariant over time. Response,
+                                                probably in the form of an appropriate XML document will varie.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-05-11, CPR Broker</td><td width='10%'></td><td width='60%'>Initial Method Draft.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:GetCapabilitiesSoap12In"/>
+      <wsdl:output message="tns:GetCapabilitiesSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="IsImplementing">
+      <wsdl:documentation><![CDATA[Direct (easier) alternative to GetCapabilities()
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>string IsImplementing(string userToken, string appToken,string serviceName,string serviceVersion)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>'userToken' (input):</td><td>Security Token for authorizing the user request.</td></tr>
+                                                <tr><td>'appToken' (input):</td><td>Security Token for the current business client application.</td></tr>
+                                                <tr><td>'serviceName' (input):</td><td>Service Name</td></tr>
+                                                <tr><td>'serviceVersion' (input):</td><td>Service Version</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return the result of the request.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-05-11, CPR Broker</td><td width='10%'></td><td width='60%'>Initial Method Draft.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:IsImplementingSoap12In"/>
+      <wsdl:output message="tns:IsImplementingSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataProviderList">
+      <wsdl:documentation><![CDATA[Returns a list of objects that contain information about the data providers that are currently used by the system.
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>DataProviderType[] GetDataProviderList()
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>Array of DataProviderType containing information about the data providers used by the system.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:GetDataProviderListSoap12In"/>
+      <wsdl:output message="tns:GetDataProviderListSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="SetDataProviderList">
+      <wsdl:documentation><![CDATA[Gives the opportunity to attach one or more data providers,
+                                                e.g., CSC DPR, P-Data, online.
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>bool SetDataProviderList(DataProviderType[] dataProviders)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>DataProviders (input):</td><td>Array of data providers that the system should use.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return bool that represents whether the operation has succeeded.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:SetDataProviderListSoap12In"/>
+      <wsdl:output message="tns:SetDataProviderListSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <wsdl:documentation><![CDATA[Writes a text string to the system's log
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>bool Log(string Text)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>Text (input):</td><td>the text value to be logged.</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return bool that represents whether the operation has succeeded.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:LogSoap12In"/>
+      <wsdl:output message="tns:LogSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTestCitizen">
+      <wsdl:documentation><![CDATA[Creates a non-existing  citizen (Dummy), so that the services can later return a usable query result. 
+
+                                                <br><br><b><u>Signature:</u></b>
+                                                <br>bool CreateTestCitizen(PersonFullStructureType OioPerson)
+
+                                                <br><br><b><u>Parameter Description:</u></b>
+                                                <br><table>
+                                                <tr><td>OioPerson (input):</td><td>PersonFullStructureType that represent the user you want to create as a test citizen</td></tr>
+                                                </table>
+
+                                                <br><b><u>Return Value:</u></b>
+                                                <br>return bool that represents whether the operation has succeeded.
+
+                                                <br><br><b><u>Review:</u></b>
+                                                <table>
+                                                <tr><td width='30%'>2009-08-20, CPR Broker </td><td width='10%'></td><td width='60%'>First release.</td></tr>
+                                                </table>
+                                                <br>==============================]]]]>><![CDATA[</wsdl:documentation>
+      <wsdl:input message="tns:CreateTestCitizenSoap12In"/>
+      <wsdl:output message="tns:CreateTestCitizenSoap12Out"/>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation>Ping() returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
+&lt;br>Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
+&lt;br>20070403/SDE</wsdl:documentation>
+      <wsdl:input message="tns:PingSoap12In"/>
+      <wsdl:output message="tns:PingSoap12Out"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AdminSoap12" type="tns:AdminSoap12">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RequestAppRegistration">
+      <soap12:operation soapAction="http://dk.itst/RequestAppRegistration" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:RequestAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAppRegistration">
+      <soap12:operation soapAction="http://dk.itst/ApproveAppRegistration" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:ApproveAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAppRegistrations">
+      <soap12:operation soapAction="http://dk.itst/ListAppRegistrations" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:ListAppRegistrationsApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterApp">
+      <soap12:operation soapAction="http://dk.itst/UnregisterApp" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:UnregisterAppApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCapabilities">
+      <soap12:operation soapAction="http://dk.itst/GetCapabilities" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetCapabilitiesApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsImplementing">
+      <soap12:operation soapAction="http://dk.itst/IsImplementing" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:IsImplementingApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataProviderList">
+      <soap12:operation soapAction="http://dk.itst/GetDataProviderList" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:GetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDataProviderList">
+      <soap12:operation soapAction="http://dk.itst/SetDataProviderList" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:SetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <soap12:operation soapAction="http://dk.itst/Log" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:LogApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTestCitizen">
+      <soap12:operation soapAction="http://dk.itst/CreateTestCitizen" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:CreateTestCitizenApplicationHeader" part="ApplicationHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://dk.itst/Ping" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Admin">
+    <wsdl:documentation>Contains methods related to administrative functions</wsdl:documentation>
+    <wsdl:port name="AdminSoap12" binding="tns:AdminSoap12">
+      <soap12:address location="http://cprbroker20110208/Services/Admin.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:endpoint>http://USVMV361:8088/mockAdminSoap12</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://dk.itst/ApproveAppRegistration" name="ApproveAppRegistration" bindingOperationName="ApproveAppRegistration" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="approveTestapp10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>07059250-E448-4040-B695-9C03F9E59E38</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>Base application</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:ApproveAppRegistration>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+      </dk:ApproveAppRegistration>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/ApproveAppRegistrationRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="approveTestappT"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>07059250-E448-4040-B695-9C03F9E59E38</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>Base application</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:ApproveAppRegistration>
+         <!--Optional:-->
+         <dk:ApplicationToken>4cca37fc-e825-4a81-952c-3f81f1e7014d</dk:ApplicationToken>
+      </dk:ApproveAppRegistration>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/ApproveAppRegistrationRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/CreateTestCitizen" name="CreateTestCitizen" bindingOperationName="CreateTestCitizen" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" xmlns:ns1="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" xmlns:ns2="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:ns3="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:ns4="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:ns5="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:ns6="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" xmlns:ns7="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:ns8="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" xmlns:ns9="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:ns10="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:ns11="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:ns12="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/" xmlns:ns13="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/" xmlns:ns14="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:ns15="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:ns16="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:ns17="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" xmlns:ns18="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:CreateTestCitizen>
+         <!--Optional:-->
+         <ns:PersonFullStructure>
+            <!--Optional:-->
+            <ns1:RegularCPRPerson>
+               <!--Optional:-->
+               <ns1:SimpleCPRPerson>
+                  <!--Optional:-->
+                  <ns2:PersonNameStructure>
+                     <!--Optional:-->
+                     <ns3:PersonGivenName>?</ns3:PersonGivenName>
+                     <!--Optional:-->
+                     <ns3:PersonMiddleName>?</ns3:PersonMiddleName>
+                     <!--Optional:-->
+                     <ns3:PersonSurnameName>?</ns3:PersonSurnameName>
+                  </ns2:PersonNameStructure>
+                  <!--Optional:-->
+                  <ns4:PersonCivilRegistrationIdentifier>?</ns4:PersonCivilRegistrationIdentifier>
+               </ns1:SimpleCPRPerson>
+               <!--Optional:-->
+               <ns5:PersonNameForAddressingName>?</ns5:PersonNameForAddressingName>
+               <ns3:PersonGenderCode>?</ns3:PersonGenderCode>
+               <ns6:PersonInformationProtectionIndicator>?</ns6:PersonInformationProtectionIndicator>
+               <!--Optional:-->
+               <ns6:PersonBirthDateStructure>
+                  <ns7:BirthDate>?</ns7:BirthDate>
+                  <ns6:BirthDateUncertaintyIndicator>?</ns6:BirthDateUncertaintyIndicator>
+               </ns6:PersonBirthDateStructure>
+               <!--Optional:-->
+               <ns1:PersonCivilRegistrationStatusStructure>
+                  <ns6:PersonCivilRegistrationStatusCode>?</ns6:PersonCivilRegistrationStatusCode>
+                  <ns1:PersonCivilRegistrationStatusStartDate>?</ns1:PersonCivilRegistrationStatusStartDate>
+               </ns1:PersonCivilRegistrationStatusStructure>
+            </ns1:RegularCPRPerson>
+            <ns8:MaritalStatusCode>?</ns8:MaritalStatusCode>
+            <!--Optional:-->
+            <ns9:PersonDeathDateStructure>
+               <ns9:PersonDeathDate>?</ns9:PersonDeathDate>
+               <ns9:PersonDeathDateUncertaintyIndicator>?</ns9:PersonDeathDateUncertaintyIndicator>
+            </ns9:PersonDeathDateStructure>
+            <!--Optional:-->
+            <ns3:PersonNationalityCode>?</ns3:PersonNationalityCode>
+            <!--Optional:-->
+            <ns9:AddressIdentifierCode>?</ns9:AddressIdentifierCode>
+            <!--You have a CHOICE of the next 2 items at this level-->
+            <!--Optional:-->
+            <ns9:ForeignAddressStructure>
+               <!--Optional:-->
+               <ns10:PostalAddressFirstLineText>?</ns10:PostalAddressFirstLineText>
+               <!--Optional:-->
+               <ns10:PostalAddressSecondLineText>?</ns10:PostalAddressSecondLineText>
+               <!--Optional:-->
+               <ns10:PostalAddressThirdLineText>?</ns10:PostalAddressThirdLineText>
+               <!--Optional:-->
+               <ns10:PostalAddressFourthLineText>?</ns10:PostalAddressFourthLineText>
+               <!--Optional:-->
+               <ns10:PostalAddressFifthLineText>?</ns10:PostalAddressFifthLineText>
+               <!--Optional:-->
+               <ns3:CountryIdentificationCode scheme="?">?</ns3:CountryIdentificationCode>
+               <!--Optional:-->
+               <ns11:LocationDescriptionText>?</ns11:LocationDescriptionText>
+            </ns9:ForeignAddressStructure>
+            <!--Optional:-->
+            <ns9:DanishAddressStructure>
+               <ns9:AddressStatusCode>?</ns9:AddressStatusCode>
+               <!--Optional:-->
+               <ns12:MunicipalityName>?</ns12:MunicipalityName>
+               <!--Optional:-->
+               <ns13:CareOfName>?</ns13:CareOfName>
+               <!--You have a CHOICE of the next 3 items at this level-->
+               <!--Optional:-->
+               <ns14:AddressComplete>
+                  <!--Optional:-->
+                  <ns15:AddressAccess>
+                     <!--Optional:-->
+                     <ns4:MunicipalityCode>?</ns4:MunicipalityCode>
+                     <!--Optional:-->
+                     <ns4:StreetCode>?</ns4:StreetCode>
+                     <!--Optional:-->
+                     <ns3:StreetBuildingIdentifier>?</ns3:StreetBuildingIdentifier>
+                  </ns15:AddressAccess>
+                  <!--Optional:-->
+                  <ns14:AddressPostal>
+                     <!--Optional:-->
+                     <ns3:MailDeliverySublocationIdentifier>?</ns3:MailDeliverySublocationIdentifier>
+                     <!--Optional:-->
+                     <ns7:StreetName>?</ns7:StreetName>
+                     <!--Optional:-->
+                     <ns4:StreetNameForAddressingName>?</ns4:StreetNameForAddressingName>
+                     <!--Optional:-->
+                     <ns3:StreetBuildingIdentifier>?</ns3:StreetBuildingIdentifier>
+                     <!--Optional:-->
+                     <ns3:FloorIdentifier>?</ns3:FloorIdentifier>
+                     <!--Optional:-->
+                     <ns3:SuiteIdentifier>?</ns3:SuiteIdentifier>
+                     <!--Optional:-->
+                     <ns7:DistrictSubdivisionIdentifier>?</ns7:DistrictSubdivisionIdentifier>
+                     <!--Optional:-->
+                     <ns16:PostOfficeBoxIdentifier>?</ns16:PostOfficeBoxIdentifier>
+                     <!--Optional:-->
+                     <ns7:PostCodeIdentifier>?</ns7:PostCodeIdentifier>
+                     <!--Optional:-->
+                     <ns7:DistrictName>?</ns7:DistrictName>
+                     <!--Optional:-->
+                     <ns3:CountryIdentificationCode scheme="?">?</ns3:CountryIdentificationCode>
+                  </ns14:AddressPostal>
+               </ns14:AddressComplete>
+               <!--Optional:-->
+               <ns9:AddressNotComplete>
+                  <!--Optional:-->
+                  <ns4:MunicipalityCode>?</ns4:MunicipalityCode>
+                  <!--Optional:-->
+                  <ns4:StreetCode>?</ns4:StreetCode>
+                  <!--Optional:-->
+                  <ns3:MailDeliverySublocationIdentifier>?</ns3:MailDeliverySublocationIdentifier>
+                  <!--Optional:-->
+                  <ns7:StreetName>?</ns7:StreetName>
+                  <!--Optional:-->
+                  <ns4:StreetNameForAddressingName>?</ns4:StreetNameForAddressingName>
+                  <!--Optional:-->
+                  <ns3:StreetBuildingIdentifier>?</ns3:StreetBuildingIdentifier>
+                  <!--Optional:-->
+                  <ns9:GreenlandBuildingIdentifier>?</ns9:GreenlandBuildingIdentifier>
+                  <!--Optional:-->
+                  <ns3:SuiteIdentifier>?</ns3:SuiteIdentifier>
+                  <!--Optional:-->
+                  <ns3:FloorIdentifier>?</ns3:FloorIdentifier>
+                  <!--Optional:-->
+                  <ns7:DistrictSubdivisionIdentifier>?</ns7:DistrictSubdivisionIdentifier>
+                  <!--Optional:-->
+                  <ns7:PostCodeIdentifier>?</ns7:PostCodeIdentifier>
+                  <!--Optional:-->
+                  <ns7:DistrictName>?</ns7:DistrictName>
+                  <!--Optional:-->
+                  <ns3:CountryIdentificationCode scheme="?">?</ns3:CountryIdentificationCode>
+               </ns9:AddressNotComplete>
+               <!--Optional:-->
+               <ns9:AddressCompleteGreenland>
+                  <!--Optional:-->
+                  <ns4:MunicipalityCode>?</ns4:MunicipalityCode>
+                  <!--Optional:-->
+                  <ns4:StreetCode>?</ns4:StreetCode>
+                  <!--Optional:-->
+                  <ns3:MailDeliverySublocationIdentifier>?</ns3:MailDeliverySublocationIdentifier>
+                  <!--Optional:-->
+                  <ns7:StreetName>?</ns7:StreetName>
+                  <!--Optional:-->
+                  <ns4:StreetNameForAddressingName>?</ns4:StreetNameForAddressingName>
+                  <!--Optional:-->
+                  <ns3:StreetBuildingIdentifier>?</ns3:StreetBuildingIdentifier>
+                  <!--Optional:-->
+                  <ns9:GreenlandBuildingIdentifier>?</ns9:GreenlandBuildingIdentifier>
+                  <!--Optional:-->
+                  <ns3:SuiteIdentifier>?</ns3:SuiteIdentifier>
+                  <!--Optional:-->
+                  <ns3:FloorIdentifier>?</ns3:FloorIdentifier>
+                  <!--Optional:-->
+                  <ns7:DistrictSubdivisionIdentifier>?</ns7:DistrictSubdivisionIdentifier>
+                  <!--Optional:-->
+                  <ns7:PostCodeIdentifier>?</ns7:PostCodeIdentifier>
+                  <!--Optional:-->
+                  <ns7:DistrictName>?</ns7:DistrictName>
+                  <!--Optional:-->
+                  <ns3:CountryIdentificationCode scheme="?">?</ns3:CountryIdentificationCode>
+               </ns9:AddressCompleteGreenland>
+               <!--Optional:-->
+               <ns17:CompletePostalLabel>
+                  <!--Optional:-->
+                  <ns18:AddresseeName>?</ns18:AddresseeName>
+                  <!--Optional:-->
+                  <ns10:PostalAddressFirstLineText>?</ns10:PostalAddressFirstLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressSecondLineText>?</ns10:PostalAddressSecondLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressThirdLineText>?</ns10:PostalAddressThirdLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressFourthLineText>?</ns10:PostalAddressFourthLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressFifthLineText>?</ns10:PostalAddressFifthLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressSixthLineText>?</ns10:PostalAddressSixthLineText>
+               </ns17:CompletePostalLabel>
+            </ns9:DanishAddressStructure>
+            <!--Optional:-->
+            <ns:SpouseName>?</ns:SpouseName>
+            <ns:NumberOfChildren>?</ns:NumberOfChildren>
+         </ns:PersonFullStructure>
+      </dk:CreateTestCitizen>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/CreateTestCitizenRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/GetCapabilities" name="GetCapabilities" bindingOperationName="GetCapabilities" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetCapabilities/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/GetCapabilitiesRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/GetDataProviderList" name="GetDataProviderList" bindingOperationName="GetDataProviderList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetDataProviderList/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/GetDataProviderListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/IsImplementing" name="IsImplementing" bindingOperationName="IsImplementing" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:IsImplementing>
+         <!--Optional:-->
+         <dk:serviceName>?</dk:serviceName>
+         <!--Optional:-->
+         <dk:serviceVersion>?</dk:serviceVersion>
+      </dk:IsImplementing>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/IsImplementingRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/ListAppRegistrations" name="ListAppRegistrations" bindingOperationName="ListAppRegistrations" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="listUsingTestApp10Credentials"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:ListAppRegistrations/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/ListAppRegistrationsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/Log" name="Log" bindingOperationName="Log" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Log>
+         <!--Optional:-->
+         <dk:Text>?</dk:Text>
+      </dk:Log>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/LogRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/Ping" name="Ping" bindingOperationName="Ping" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="ping"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>07059250-E448-4040-B695-9C03F9E59E38</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>Base application</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Ping/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/PingRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/RequestAppRegistration" name="RequestAppRegistration" bindingOperationName="RequestAppRegistration" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="testapp10Short"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:RequestAppRegistration>
+         <!--Optional:-->
+         <dk:ApplicationName>testapp10</dk:ApplicationName>
+      </dk:RequestAppRegistration>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/RequestAppRegistrationRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="testapp11Long"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:RequestAppRegistration>
+         <!--Optional:-->
+         <dk:ApplicationName>testapp11</dk:ApplicationName>
+      </dk:RequestAppRegistration>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/RequestAppRegistrationRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="testappT"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:RequestAppRegistration>
+         <!--Optional:-->
+         <dk:ApplicationName>testappT</dk:ApplicationName>
+      </dk:RequestAppRegistration>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/RequestAppRegistrationRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/SetDataProviderList" name="SetDataProviderList" bindingOperationName="SetDataProviderList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:SetDataProviderList>
+         <!--Optional:-->
+         <dk:DataProviders>
+            <!--Zero or more repetitions:-->
+            <dk:DataProviderType>
+               <!--Optional:-->
+               <ns:TypeName>KMD</ns:TypeName>
+               <ns:Enabled>true</ns:Enabled>
+               <!--Zero or more repetitions:-->
+               <ns:Attributes>
+                  <!--Optional:-->
+                  <ns:Name>Address</ns:Name>
+
+                  <ns:Value>http://agol.dk/ds</ns:Value>
+ <ns:Name>Username</ns:Name><ns:Value>foo</ns:Value>
+ <ns:Name>Password</ns:Name><ns:Value>bar</ns:Value>
+               </ns:Attributes>
+            </dk:DataProviderType>
+         </dk:DataProviders>
+      </dk:SetDataProviderList>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/SetDataProviderListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://dk.itst/UnregisterApp" name="UnregisterApp" bindingOperationName="UnregisterApp" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="unregisterTestAppT"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>1f267ed0-1704-4df1-86b9-b3428945412e</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>eb29494a-187d-481e-87c3-7e4a2472fc58</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:UnregisterApp>
+         <!--Optional:-->
+         <dk:ApplicationToken>4cca37fc-e825-4a81-952c-3f81f1e7014d</dk:ApplicationToken>
+      </dk:UnregisterApp>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/UnregisterAppRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="AdminSoap12 TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ApproveAppRegistration TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="ApproveAppRegistration"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>ApproveAppRegistration</con:operation><con:request name="ApproveAppRegistration"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:ApproveAppRegistration>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+      </dk:ApproveAppRegistration>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/ApproveAppRegistrationRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="CreateTestCitizen TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="CreateTestCitizen"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>CreateTestCitizen</con:operation><con:request name="CreateTestCitizen"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" xmlns:ns1="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" xmlns:ns2="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:ns3="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:ns4="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:ns5="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:ns6="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" xmlns:ns7="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:ns8="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" xmlns:ns9="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:ns10="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:ns11="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:ns12="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/" xmlns:ns13="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/" xmlns:ns14="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:ns15="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:ns16="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:ns17="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" xmlns:ns18="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:CreateTestCitizen>
+         <!--Optional:-->
+         <ns:PersonFullStructure>
+            <!--Optional:-->
+            <ns1:RegularCPRPerson>
+               <!--Optional:-->
+               <ns1:SimpleCPRPerson>
+                  <!--Optional:-->
+                  <ns2:PersonNameStructure>
+                     <!--Optional:-->
+                     <ns3:PersonGivenName>?</ns3:PersonGivenName>
+                     <!--Optional:-->
+                     <ns3:PersonMiddleName>?</ns3:PersonMiddleName>
+                     <!--Optional:-->
+                     <ns3:PersonSurnameName>?</ns3:PersonSurnameName>
+                  </ns2:PersonNameStructure>
+                  <!--Optional:-->
+                  <ns4:PersonCivilRegistrationIdentifier>?</ns4:PersonCivilRegistrationIdentifier>
+               </ns1:SimpleCPRPerson>
+               <!--Optional:-->
+               <ns5:PersonNameForAddressingName>?</ns5:PersonNameForAddressingName>
+               <ns3:PersonGenderCode>?</ns3:PersonGenderCode>
+               <ns6:PersonInformationProtectionIndicator>?</ns6:PersonInformationProtectionIndicator>
+               <!--Optional:-->
+               <ns6:PersonBirthDateStructure>
+                  <ns7:BirthDate>?</ns7:BirthDate>
+                  <ns6:BirthDateUncertaintyIndicator>?</ns6:BirthDateUncertaintyIndicator>
+               </ns6:PersonBirthDateStructure>
+               <!--Optional:-->
+               <ns1:PersonCivilRegistrationStatusStructure>
+                  <ns6:PersonCivilRegistrationStatusCode>?</ns6:PersonCivilRegistrationStatusCode>
+                  <ns1:PersonCivilRegistrationStatusStartDate>?</ns1:PersonCivilRegistrationStatusStartDate>
+               </ns1:PersonCivilRegistrationStatusStructure>
+            </ns1:RegularCPRPerson>
+            <ns8:MaritalStatusCode>?</ns8:MaritalStatusCode>
+            <!--Optional:-->
+            <ns9:PersonDeathDateStructure>
+               <ns9:PersonDeathDate>?</ns9:PersonDeathDate>
+               <ns9:PersonDeathDateUncertaintyIndicator>?</ns9:PersonDeathDateUncertaintyIndicator>
+            </ns9:PersonDeathDateStructure>
+            <!--Optional:-->
+            <ns3:PersonNationalityCode>?</ns3:PersonNationalityCode>
+            <!--Optional:-->
+            <ns9:AddressIdentifierCode>?</ns9:AddressIdentifierCode>
+            <!--You have a CHOICE of the next 2 items at this level-->
+            <!--Optional:-->
+            <ns9:ForeignAddressStructure>
+               <!--Optional:-->
+               <ns10:PostalAddressFirstLineText>?</ns10:PostalAddressFirstLineText>
+               <!--Optional:-->
+               <ns10:PostalAddressSecondLineText>?</ns10:PostalAddressSecondLineText>
+               <!--Optional:-->
+               <ns10:PostalAddressThirdLineText>?</ns10:PostalAddressThirdLineText>
+               <!--Optional:-->
+               <ns10:PostalAddressFourthLineText>?</ns10:PostalAddressFourthLineText>
+               <!--Optional:-->
+               <ns10:PostalAddressFifthLineText>?</ns10:PostalAddressFifthLineText>
+               <!--Optional:-->
+               <ns3:CountryIdentificationCode scheme="?">?</ns3:CountryIdentificationCode>
+               <!--Optional:-->
+               <ns11:LocationDescriptionText>?</ns11:LocationDescriptionText>
+            </ns9:ForeignAddressStructure>
+            <!--Optional:-->
+            <ns9:DanishAddressStructure>
+               <ns9:AddressStatusCode>?</ns9:AddressStatusCode>
+               <!--Optional:-->
+               <ns12:MunicipalityName>?</ns12:MunicipalityName>
+               <!--Optional:-->
+               <ns13:CareOfName>?</ns13:CareOfName>
+               <!--You have a CHOICE of the next 3 items at this level-->
+               <!--Optional:-->
+               <ns14:AddressComplete>
+                  <!--Optional:-->
+                  <ns15:AddressAccess>
+                     <!--Optional:-->
+                     <ns4:MunicipalityCode>?</ns4:MunicipalityCode>
+                     <!--Optional:-->
+                     <ns4:StreetCode>?</ns4:StreetCode>
+                     <!--Optional:-->
+                     <ns3:StreetBuildingIdentifier>?</ns3:StreetBuildingIdentifier>
+                  </ns15:AddressAccess>
+                  <!--Optional:-->
+                  <ns14:AddressPostal>
+                     <!--Optional:-->
+                     <ns3:MailDeliverySublocationIdentifier>?</ns3:MailDeliverySublocationIdentifier>
+                     <!--Optional:-->
+                     <ns7:StreetName>?</ns7:StreetName>
+                     <!--Optional:-->
+                     <ns4:StreetNameForAddressingName>?</ns4:StreetNameForAddressingName>
+                     <!--Optional:-->
+                     <ns3:StreetBuildingIdentifier>?</ns3:StreetBuildingIdentifier>
+                     <!--Optional:-->
+                     <ns3:FloorIdentifier>?</ns3:FloorIdentifier>
+                     <!--Optional:-->
+                     <ns3:SuiteIdentifier>?</ns3:SuiteIdentifier>
+                     <!--Optional:-->
+                     <ns7:DistrictSubdivisionIdentifier>?</ns7:DistrictSubdivisionIdentifier>
+                     <!--Optional:-->
+                     <ns16:PostOfficeBoxIdentifier>?</ns16:PostOfficeBoxIdentifier>
+                     <!--Optional:-->
+                     <ns7:PostCodeIdentifier>?</ns7:PostCodeIdentifier>
+                     <!--Optional:-->
+                     <ns7:DistrictName>?</ns7:DistrictName>
+                     <!--Optional:-->
+                     <ns3:CountryIdentificationCode scheme="?">?</ns3:CountryIdentificationCode>
+                  </ns14:AddressPostal>
+               </ns14:AddressComplete>
+               <!--Optional:-->
+               <ns9:AddressNotComplete>
+                  <!--Optional:-->
+                  <ns4:MunicipalityCode>?</ns4:MunicipalityCode>
+                  <!--Optional:-->
+                  <ns4:StreetCode>?</ns4:StreetCode>
+                  <!--Optional:-->
+                  <ns3:MailDeliverySublocationIdentifier>?</ns3:MailDeliverySublocationIdentifier>
+                  <!--Optional:-->
+                  <ns7:StreetName>?</ns7:StreetName>
+                  <!--Optional:-->
+                  <ns4:StreetNameForAddressingName>?</ns4:StreetNameForAddressingName>
+                  <!--Optional:-->
+                  <ns3:StreetBuildingIdentifier>?</ns3:StreetBuildingIdentifier>
+                  <!--Optional:-->
+                  <ns9:GreenlandBuildingIdentifier>?</ns9:GreenlandBuildingIdentifier>
+                  <!--Optional:-->
+                  <ns3:SuiteIdentifier>?</ns3:SuiteIdentifier>
+                  <!--Optional:-->
+                  <ns3:FloorIdentifier>?</ns3:FloorIdentifier>
+                  <!--Optional:-->
+                  <ns7:DistrictSubdivisionIdentifier>?</ns7:DistrictSubdivisionIdentifier>
+                  <!--Optional:-->
+                  <ns7:PostCodeIdentifier>?</ns7:PostCodeIdentifier>
+                  <!--Optional:-->
+                  <ns7:DistrictName>?</ns7:DistrictName>
+                  <!--Optional:-->
+                  <ns3:CountryIdentificationCode scheme="?">?</ns3:CountryIdentificationCode>
+               </ns9:AddressNotComplete>
+               <!--Optional:-->
+               <ns9:AddressCompleteGreenland>
+                  <!--Optional:-->
+                  <ns4:MunicipalityCode>?</ns4:MunicipalityCode>
+                  <!--Optional:-->
+                  <ns4:StreetCode>?</ns4:StreetCode>
+                  <!--Optional:-->
+                  <ns3:MailDeliverySublocationIdentifier>?</ns3:MailDeliverySublocationIdentifier>
+                  <!--Optional:-->
+                  <ns7:StreetName>?</ns7:StreetName>
+                  <!--Optional:-->
+                  <ns4:StreetNameForAddressingName>?</ns4:StreetNameForAddressingName>
+                  <!--Optional:-->
+                  <ns3:StreetBuildingIdentifier>?</ns3:StreetBuildingIdentifier>
+                  <!--Optional:-->
+                  <ns9:GreenlandBuildingIdentifier>?</ns9:GreenlandBuildingIdentifier>
+                  <!--Optional:-->
+                  <ns3:SuiteIdentifier>?</ns3:SuiteIdentifier>
+                  <!--Optional:-->
+                  <ns3:FloorIdentifier>?</ns3:FloorIdentifier>
+                  <!--Optional:-->
+                  <ns7:DistrictSubdivisionIdentifier>?</ns7:DistrictSubdivisionIdentifier>
+                  <!--Optional:-->
+                  <ns7:PostCodeIdentifier>?</ns7:PostCodeIdentifier>
+                  <!--Optional:-->
+                  <ns7:DistrictName>?</ns7:DistrictName>
+                  <!--Optional:-->
+                  <ns3:CountryIdentificationCode scheme="?">?</ns3:CountryIdentificationCode>
+               </ns9:AddressCompleteGreenland>
+               <!--Optional:-->
+               <ns17:CompletePostalLabel>
+                  <!--Optional:-->
+                  <ns18:AddresseeName>?</ns18:AddresseeName>
+                  <!--Optional:-->
+                  <ns10:PostalAddressFirstLineText>?</ns10:PostalAddressFirstLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressSecondLineText>?</ns10:PostalAddressSecondLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressThirdLineText>?</ns10:PostalAddressThirdLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressFourthLineText>?</ns10:PostalAddressFourthLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressFifthLineText>?</ns10:PostalAddressFifthLineText>
+                  <!--Optional:-->
+                  <ns10:PostalAddressSixthLineText>?</ns10:PostalAddressSixthLineText>
+               </ns17:CompletePostalLabel>
+            </ns9:DanishAddressStructure>
+            <!--Optional:-->
+            <ns:SpouseName>?</ns:SpouseName>
+            <ns:NumberOfChildren>?</ns:NumberOfChildren>
+         </ns:PersonFullStructure>
+      </dk:CreateTestCitizen>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/CreateTestCitizenRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetCapabilities TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="GetCapabilities"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>GetCapabilities</con:operation><con:request name="GetCapabilities"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetCapabilities/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/GetCapabilitiesRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetDataProviderList TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="GetDataProviderList"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>GetDataProviderList</con:operation><con:request name="GetDataProviderList"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:GetDataProviderList/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/GetDataProviderListRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IsImplementing TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="IsImplementing"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>IsImplementing</con:operation><con:request name="IsImplementing"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:IsImplementing>
+         <!--Optional:-->
+         <dk:serviceName>?</dk:serviceName>
+         <!--Optional:-->
+         <dk:serviceVersion>?</dk:serviceVersion>
+      </dk:IsImplementing>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/IsImplementingRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ListAppRegistrations TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="ListAppRegistrations"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>ListAppRegistrations</con:operation><con:request name="ListAppRegistrations"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:ListAppRegistrations/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/ListAppRegistrationsRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Log TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Log"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>Log</con:operation><con:request name="Log"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Log>
+         <!--Optional:-->
+         <dk:Text>?</dk:Text>
+      </dk:Log>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://dk.itst/AdminSoap12/LogRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Ping TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="Ping"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>Ping</con:operation><con:request name="Ping"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:Ping/>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://dk.itst/AdminSoap12/PingRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RequestAppRegistration TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="RequestAppRegistration"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>RequestAppRegistration</con:operation><con:request name="RequestAppRegistration"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:RequestAppRegistration>
+         <!--Optional:-->
+         <dk:ApplicationName>?</dk:ApplicationName>
+      </dk:RequestAppRegistration>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/RequestAppRegistrationRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SetDataProviderList TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="SetDataProviderList"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>SetDataProviderList</con:operation><con:request name="SetDataProviderList"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:SetDataProviderList>
+         <!--Optional:-->
+         <dk:DataProviders>
+            <!--Zero or more repetitions:-->
+            <dk:DataProviderType>
+               <!--Optional:-->
+               <ns:TypeName>?</ns:TypeName>
+               <ns:Enabled>?</ns:Enabled>
+               <!--Zero or more repetitions:-->
+               <ns:Attributes>
+                  <!--Optional:-->
+                  <ns:Name>?</ns:Name>
+                  <!--Optional:-->
+                  <ns:Value>?</ns:Value>
+               </ns:Attributes>
+            </dk:DataProviderType>
+         </dk:DataProviders>
+      </dk:SetDataProviderList>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/SetDataProviderListRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="UnregisterApp TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="UnregisterApp"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdminSoap12</con:interface><con:operation>UnregisterApp</con:operation><con:request name="UnregisterApp"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://cprbroker20110208/Services/Admin.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header>
+      <dk:ApplicationHeader>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+         <!--Optional:-->
+         <dk:UserToken>?</dk:UserToken>
+      </dk:ApplicationHeader>
+   </soap:Header>
+   <soap:Body>
+      <dk:UnregisterApp>
+         <!--Optional:-->
+         <dk:ApplicationToken>?</dk:ApplicationToken>
+      </dk:UnregisterApp>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig action="http://dk.itst/AdminSoap12/UnregisterAppRequest"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:mockService port="8088" path="/mockAdminSoap12" host="USVMV361" name="AdminSoap12 MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="ApproveAppRegistration" interface="AdminSoap12" operation="ApproveAppRegistration"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:ApproveAppRegistrationResponse>
+         <dk:ApproveAppRegistrationResult>?</dk:ApproveAppRegistrationResult>
+      </dk:ApproveAppRegistrationResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/ApproveAppRegistrationResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="CreateTestCitizen" interface="AdminSoap12" operation="CreateTestCitizen"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:CreateTestCitizenResponse>
+         <dk:CreateTestCitizenResult>?</dk:CreateTestCitizenResult>
+      </dk:CreateTestCitizenResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/CreateTestCitizenResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="GetCapabilities" interface="AdminSoap12" operation="GetCapabilities"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+   <soap:Header/>
+   <soap:Body>
+      <dk:GetCapabilitiesResponse>
+         <!--Optional:-->
+         <dk:GetCapabilitiesResult>
+            <!--Zero or more repetitions:-->
+            <dk:ServiceVersionType>
+               <!--Optional:-->
+               <ns:Version>?</ns:Version>
+               <!--Optional:-->
+               <ns:Functions>
+                  <!--Zero or more repetitions:-->
+                  <ns:Functions>?</ns:Functions>
+               </ns:Functions>
+               <!--Optional:-->
+               <ns:Details>?</ns:Details>
+            </dk:ServiceVersionType>
+         </dk:GetCapabilitiesResult>
+      </dk:GetCapabilitiesResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/GetCapabilitiesResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="GetDataProviderList" interface="AdminSoap12" operation="GetDataProviderList"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+   <soap:Header/>
+   <soap:Body>
+      <dk:GetDataProviderListResponse>
+         <!--Optional:-->
+         <dk:GetDataProviderListResult>
+            <!--Zero or more repetitions:-->
+            <dk:DataProviderType>
+               <!--Optional:-->
+               <ns:TypeName>?</ns:TypeName>
+               <ns:Enabled>?</ns:Enabled>
+               <!--Zero or more repetitions:-->
+               <ns:Attributes>
+                  <!--Optional:-->
+                  <ns:Name>?</ns:Name>
+                  <!--Optional:-->
+                  <ns:Value>?</ns:Value>
+               </ns:Attributes>
+            </dk:DataProviderType>
+         </dk:GetDataProviderListResult>
+      </dk:GetDataProviderListResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/GetDataProviderListResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="IsImplementing" interface="AdminSoap12" operation="IsImplementing"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:IsImplementingResponse>
+         <dk:IsImplementingResult>?</dk:IsImplementingResult>
+      </dk:IsImplementingResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/IsImplementingResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="ListAppRegistrations" interface="AdminSoap12" operation="ListAppRegistrations"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+   <soap:Header/>
+   <soap:Body>
+      <dk:ListAppRegistrationsResponse>
+         <!--Optional:-->
+         <dk:ListAppRegistrationsResult>
+            <!--Zero or more repetitions:-->
+            <dk:ApplicationType>
+               <!--Optional:-->
+               <ns:ApplicationId>?</ns:ApplicationId>
+               <!--Optional:-->
+               <ns:Token>?</ns:Token>
+               <!--Optional:-->
+               <ns:Name>?</ns:Name>
+               <ns:RegistrationDate>?</ns:RegistrationDate>
+               <ns:IsApproved>?</ns:IsApproved>
+               <ns:ApprovedDate>?</ns:ApprovedDate>
+            </dk:ApplicationType>
+         </dk:ListAppRegistrationsResult>
+      </dk:ListAppRegistrationsResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/ListAppRegistrationsResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="Log" interface="AdminSoap12" operation="Log"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:LogResponse>
+         <dk:LogResult>?</dk:LogResult>
+      </dk:LogResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/LogResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="Ping" interface="AdminSoap12" operation="Ping"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:PingResponse>
+         <!--Optional:-->
+         <dk:PingResult>?</dk:PingResult>
+      </dk:PingResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/PingResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="RequestAppRegistration" interface="AdminSoap12" operation="RequestAppRegistration"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst" xmlns:ns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+   <soap:Header/>
+   <soap:Body>
+      <dk:RequestAppRegistrationResponse>
+         <!--Optional:-->
+         <ns:Application>
+            <!--Optional:-->
+            <ns:ApplicationId>?</ns:ApplicationId>
+            <!--Optional:-->
+            <ns:Token>?</ns:Token>
+            <!--Optional:-->
+            <ns:Name>?</ns:Name>
+            <ns:RegistrationDate>?</ns:RegistrationDate>
+            <ns:IsApproved>?</ns:IsApproved>
+            <ns:ApprovedDate>?</ns:ApprovedDate>
+         </ns:Application>
+      </dk:RequestAppRegistrationResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/RequestAppRegistrationResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="SetDataProviderList" interface="AdminSoap12" operation="SetDataProviderList"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:SetDataProviderListResponse>
+         <dk:SetDataProviderListResult>?</dk:SetDataProviderListResult>
+      </dk:SetDataProviderListResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/SetDataProviderListResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="UnregisterApp" interface="AdminSoap12" operation="UnregisterApp"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dk="http://dk.itst">
+   <soap:Header/>
+   <soap:Body>
+      <dk:UnregisterAppResponse>
+         <dk:UnregisterAppResult>?</dk:UnregisterAppResult>
+      </dk:UnregisterAppResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://dk.itst/AdminSoap12/UnregisterAppResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>

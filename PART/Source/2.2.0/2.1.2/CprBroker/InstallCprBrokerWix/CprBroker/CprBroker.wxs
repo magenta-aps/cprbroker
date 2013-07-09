@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Fragment Id="CprBrokerFragment">
+    <Property Id="Dummy_CprBrokerFragmentRefProp" Value="-"/>
+
+    <PropertyRef Id="Dummy_CustomizationsFragmentRefProp"/>
+    
+    <Feature Id="CprBrokerFeature" Title="Cpr Broker" Level="1">
+      <ComponentGroupRef Id="CMPGRP_Root"/>
+      <ComponentGroupRef Id="CMPGRP_AppThemes"/>
+      <ComponentGroupRef Id="CMPGRP_bin"/>
+      <ComponentGroupRef Id="CMPGRP_Config"/>
+      <ComponentGroupRef Id="CMPGRP_Pages"/>
+      <ComponentGroupRef Id="CMPGRP_Services"/>
+      <ComponentGroupRef Id="CMPGRP_Logging"/>
+      
+      <ComponentGroupRef Id="CMPGRP_Database"/>
+      <ComponentRef Id="CMP_WebRegistry"/>
+      <ComponentRef Id="CMP_MsiZap"/>
+
+      <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+      <ComponentGroupRef Id="Product.Generated" />
+    </Feature>
+	</Fragment>
+</Wix>
