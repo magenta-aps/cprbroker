@@ -55,31 +55,28 @@ namespace CprBroker.Tests.CPRDirect
 {
     public class Program
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
-            var fileNames = new string[] { @"C:\Users\Beemen\Desktop\CPR Data\Beemen1.txt" , @"C:\Users\Beemen\Desktop\CPR Data\Beemen2.txt" 
-            };
-
-            int index = 1;
-            var converted = fileNames.Select(fName =>
-            {
-                var lines = System.IO.File.ReadAllLines(fName);
-                string data = string.Join("", lines);
-                var resp = new IndividualResponseType() { Contents = new string(' ', 28) + data };
-                resp.FillFromFixedLengthString(resp.Data, Constants.DataObjectMap);
-                var ret = resp.ToRegistreringType1(cpr => Guid.NewGuid());
-                var xml = CprBroker.Utilities.Strings.SerializeObject(ret);
-                System.IO.File.WriteAllText(@"C:\Users\Beemen\Desktop\CPR Data\" + (index++) + ".xml", xml);
-                return ret;
-            })
-            .ToArray();
-            var merge = RegistreringType1.Merge(new Schemas.PersonIdentifier() { CprNumber = "", UUID = Guid.Empty }, VirkningType.Create(DateTime.Now.AddYears(-3), DateTime.Now), converted);
-            var xmlMerge = CprBroker.Utilities.Strings.SerializeObject(merge);
-            System.IO.File.WriteAllText(@"C:\Users\Beemen\Desktop\CPR Data\merge.xml", xmlMerge);
+            CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "");
+            var filename = @"U12170-P opgavenr 110901 ADRNVN FE";
+            var lines = System.IO.File.ReadAllLines(filename, Constants.TcpClientEncoding)
+                .Where(l => l.Length >= 3)
+                .Select(l => new LineWrapper(l))
+                .Select(l => l.ToWrapper(Constants.DataObjectMap).Contents)
+               .ToArray();
+            var text = string.Join("", lines);
             
-            return;
-
-            BulkImport();
+            var filename2 = filename + "w111";
+            System.IO.File.WriteAllText(filename2, text, Constants.ExtractEncoding);
+            //ExtractManager.ImportText(text, filename);
+            //ExtractManager.ConvertPersons(100);
+            
+            //var filename2 = args[0];
+            //var connStr = args[1];
+            CprBroker.Engine.BrokerContext.Initialize(CprBroker.Utilities.Constants.BaseApplicationToken.ToString(), "User");
+            //BatchClient.Utilities.UpdateConnectionString(connStr);
+            ExtractManager.ImportFileInSteps(filename2, 1500, Constants.ExtractEncoding);
+            //BulkImport();
             //GetPersons();
             //CprBroker.Engine.BrokerContext.Initialize("fd56ff6b-35bc-4b67-8ae4-bdc4485dc429", "");
             //ExtractManager.ImportDataProviderFolders();
