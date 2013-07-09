@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="urn:oio:sagdok:2.0.0" xmlns:oio="urn:oio:definitions:1.0.0" xmlns:sd="urn:oio:sagdok:2.0.0" xml:lang="DA" oio:mapping="urn:oio:sagdok:MPD:2.0.0">
-
-    <include schemaLocation="http://digitaliser.dk/resource/710872/artefact/Tidspunkt.xsd" />
-    
-    <element name="FraTidspunkt" type="sd:TidspunktType" oio:definition="urn:oio:sagdok:fratidspunkt:ASDD:2.0.0" />
-    
-</schema>

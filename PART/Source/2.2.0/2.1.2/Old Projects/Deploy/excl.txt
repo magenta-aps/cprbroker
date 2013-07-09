@@ -1,9 +1,0 @@
-\.svn\
-\obj\
-\bin\
-Source\CPRBroker\CPRService\Config\applicationSettings.config
-Source\CPRBroker\CPRService\Config\connectionStrings.config
-Source\CPRBroker\EventBrokerWeb\applicationSettings.config
-Source\CPRBroker\EventBrokerWeb\connectionStrings.config
-Source\CPRBroker\Backend\app.config
-Source\CPRBroker\CPR Business Application Demo\app.config
