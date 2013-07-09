@@ -1,0 +1,203 @@
+body
+{
+	background-position: center;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	font-family: "Arial" , "Helvetica" , "sans-serif";
+}
+a:link
+{
+	font-family: "Arial" , "Helvetica" , "sans-serif";
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a:hover
+{
+	color: #00FFFF;
+	text-decoration: none;
+}
+select
+{
+	font-family: "Arial" , "Helvetica" , "sans-serif";
+	font-size: 8pt;
+}
+
+hr
+{
+	background-color: #CCCCCC;
+	height: 1px;
+}
+.TopLogoText
+{
+	font-weight: bold;
+	text-align: center;
+	clip: rect(auto 8px auto auto);
+	color: #FFFFFF;
+	background-color: #000000;
+	font-family: "Arial" , "Helvetica" , "sans-serif";
+	font-size: 15pt;
+	background-position: center;
+}
+.TopLogoBg
+{
+	font-weight: bold;
+	text-align: right;
+	clip: rect(auto 8px auto auto);
+	color: #FFFFFF;
+	background-color: #000000;
+}
+.TopBg
+{
+	background-color: #6666cc;
+}
+.TopMenuItem
+{
+	font-size: 12pt;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+	font-family: "Geneva" , "Arial" , "Helvetica" , "sans-serif";
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background-image: url(Menu_bg.gif);
+	background-repeat: repeat-x;
+	background-position: top;
+	background-color: Transparent;
+	width: 130px;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+}
+.TopMenuSelectedItem
+{
+	background-color: #000000;
+}
+.LeftBg1
+{
+	background-image: url(../Images/left_menu_bg.gif);
+}
+.BottomButton
+{
+	font-family: "Arial" , "Helvetica" , "sans-serif";
+	font-size: 8pt;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.UnnBg
+{
+	background-color: #6666CC;
+	height: 90px;
+	vertical-align: middle;
+}
+.UnnText
+{
+	font-family: "Arial" , "Helvetica" , "sans-serif";
+	font-size: 20pt;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: left;
+	padding-left: 20px;
+}
+.CommandButton
+{
+	width: 75px;
+	display: block;
+	background-color: #42498c;
+	text-align: center;
+	color: #ffffff;
+	font-weight: 700;
+	font-family: Arial;
+	border: 0;
+}
+.UpDownButton
+{	
+	display: block;
+	background-color: #42498c;
+	text-align: center;
+	color: #ffffff;
+	font-weight: 700;
+	font-family: Arial;
+	border: 0;
+}
+.CriteriaButton
+{
+	height: 25px;
+	padding-top: 5px;
+	display: inline-table;
+	visibility: visible;
+	text-align: center;
+	background-color: #42498c;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+}
+.CurrentCriteriaButton
+{
+    
+    height: 25px;
+    padding-top: 5px;
+    display: inline-table;
+    visibility: visible;
+    text-align: center;
+    background-color: #6699FF;    
+    font-weight: bold;
+    text-decoration: none;    
+}
+.LogCriteriaHeader
+{
+    border-width:1px; 
+    width:80px;
+    text-align:center;
+}
+h3
+{
+	font-size: 18px;
+}
+.error
+{
+	color: Red;
+}
+.PagerPage
+{
+	width: 30px;
+	height: 25px;
+	padding-top: 5px;
+	display: inline-table;
+	visibility: visible;
+	text-align: center;
+	background-color: #42498c;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+}
+.PagerCurrent
+{
+	width: 30px;
+	height: 25px;
+	padding-top: 5px;
+	display: inline-table;
+	visibility: visible;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+}
+.AlternateRow
+{
+	background-color: #CCCCFF;
+}
+.Row
+{
+	background-color: #E0E0E0;
+}
+.GridHeader
+{
+	background-color: #6699FF;
+	color: White;
+	font-weight: bold;
+}
+table
+{
+	border-collapse:collapse;
+}

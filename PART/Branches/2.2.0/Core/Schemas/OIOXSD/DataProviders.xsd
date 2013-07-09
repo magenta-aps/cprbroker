@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<schema
+    id="DataProviders"
+    elementFormDefault="qualified"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    >
+
+  <element name="DataProvider" type="tns:DataProviderType"></element>
+
+  <complexType name="DataProviderType" >
+    <sequence>
+      <element name="TypeName" type="string"></element>
+      <element name="Enabled" type="boolean"></element>
+      <element name="Attributes" type="tns:AttributeType" maxOccurs="unbounded"></element>
+    </sequence>
+  </complexType>
+
+  <complexType name="AttributeType">
+    <sequence>
+      <element name="Name" nillable="false" type="string"></element>
+      <element name="Value" nillable="false" type="string"></element>
+    </sequence>
+  </complexType>
+
+
+</schema>

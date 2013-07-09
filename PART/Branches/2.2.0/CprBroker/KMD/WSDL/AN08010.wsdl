@@ -1,0 +1,162 @@
+﻿<?xml version="1.0"?>
+<definitions name="AN08010" targetNamespace="http://zsrsoap.kmd.dk/AN08010" xmlns:pos="http://zsrsoap.kmd.dk/AN08010" xmlns:spo="http://zsrsoap.kmd.dk/AN08010" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsse="http://soap.zsroer.kmd.dk" xmlns="http://schemas.xmlsoap.org/wsdl/">
+    <types>
+        <xsd:schema version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://zsrsoap.kmd.dk/AN08010" xmlns:tns="http://zsrsoap.kmd.dk/AN08010" elementFormDefault="unqualified">
+            <xsd:element name="AN08010">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="InputRecord" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AN08010Response">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="OutputRecord" type="tns:SVAR"/>
+                        <xsd:element name="OutputArrayRecord" minOccurs="0" maxOccurs="unbounded" type="tns:SVARPERSONER"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="SVAR">
+                <xsd:sequence>
+                    <xsd:element name="returkode">
+                        <xsd:annotation>
+                            <xsd:documentation>returkode</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="returtekst">
+                        <xsd:annotation>
+                            <xsd:documentation>returtekst</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="79"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="autoriseret">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="1"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="SVARPERSONER">
+                <xsd:sequence>
+                    <xsd:element name="type_">
+                        <xsd:annotation>
+                            <xsd:documentation>ægtefælle: Æ partner:P barn:B barn over 18:O Forældre:F</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="1"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="personnummer">
+                        <xsd:annotation>
+                            <xsd:documentation>personnummer på biperson</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="11"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="civilstand">
+                        <xsd:annotation>
+                            <xsd:documentation>civilstand</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="1"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="oprindelse">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="1"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="navn">
+                        <xsd:annotation>
+                            <xsd:documentation>adresseringsnavn</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="30"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="bemaerkning">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="27"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="status">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:maxLength value="1"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+        <xsd:schema version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://soap.zsroer.kmd.dk" elementFormDefault="unqualified">
+            <xsd:element name="userinfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="userid" type="xsd:string"/>
+                        <xsd:element name="password" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+    <message name="SubmitAN08010">
+        <part name="Request" element="spo:AN08010"/>
+    </message>
+    <message name="SubmitAN08010Response">
+        <part name="Response" element="spo:AN08010Response"/>
+    </message>
+    <message name="KMDSOAPHeaderMessage">
+        <part name="KMDSOAPHeaderPart" element="wsse:userinfo"/>
+    </message>
+    <portType name="AN08010Service1">
+        <operation name="SubmitAN08010">
+            <input message="pos:SubmitAN08010"/>
+            <output message="pos:SubmitAN08010Response"/>
+        </operation>
+    </portType>
+    <binding name="SoapBinding" type="pos:AN08010Service1">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="SubmitAN08010">
+            <soap:operation soapAction="AN08010"/>
+            <input>
+                <soap:body use="literal"/>
+                <soap:header n1:required="true" message="spo:KMDSOAPHeaderMessage" part="KMDSOAPHeaderPart" use="literal" xmlns:n1="http://schemas.xmlsoap.org/wsdl/"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="WS_AN08010">
+        <documentation>Henter P-DATA familie oplysninger ud fra et Personnummer</documentation>
+        <port name="Soap" binding="pos:SoapBinding">
+            <soap:address location="http://195.50.36.114/bccicste.asp?zservice=AN08010"/>
+        </port>
+    </service>
+</definitions>

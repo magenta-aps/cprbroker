@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema id="Subscription"
+    targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    elementFormDefault="qualified"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    xmlns:cpr-1="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"
+    xmlns:person="urn:oio:sagdok:person:1.0.0"
+    xmlns:oio="urn:oio:definitions:1.0.0"
+    xmlns:oio1="urn:oio:dkal:1.0.0" 
+>
+  <import schemaLocation="CPR_PersonCivilRegistrationIdentifier.xsd" namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/"></import>
+  <import schemaLocation="Person.xsd" />
+  <element name="BirthdateSubscription" type="tns:BirthdateSubscriptionType"/>
+  <element name="ChangeSubscription" type="tns:ChangeSubscriptionType"/>
+  <element name="WebServiceChannel" type="tns:WebServiceChannelType"/>  
+  <element name="FileShareChannel" type="tns:FileShareChannelType"/>
+
+  <complexType name="SubscriptionType" abstract="true">
+    <sequence>
+      <element name="SubscriptionId" type="string"></element>
+      <element name="ApplicationToken" type="string"></element>
+      <element name="NotificationChannel" type="tns:ChannelBaseType"></element>
+      <element name="Persons" type="tns:SubscriptionPersonsType"></element>
+    </sequence>
+  </complexType>
+
+  <complexType name="SubscriptionPersonsType">
+    <choice>
+      <element name="ForAllPersons" type="boolean"/>
+      <element name="PersonUuids" type="tns:PersonUuidsType"/>
+      <element name="Criteria" type="person:SoegObjektType" oio:definition="urn:oio:sagdok:personsoegobjekt:ADD:1.0.0"/>
+    </choice>
+  </complexType>
+  
+  <complexType name="PersonUuidsType">
+      <sequence>
+        <element ref="oio1:UUID" maxOccurs="unbounded" oio:content="uuid" />
+      </sequence>    
+  </complexType>
+
+  <complexType name="ChangeSubscriptionType" >
+    <complexContent>
+      <extension base="tns:SubscriptionType">
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="BirthdateSubscriptionType">
+    <complexContent>
+      <extension base="tns:SubscriptionType">
+        <sequence>
+          <element name="AgeYears" type="int" nillable="true"></element>
+          <element name="PriorDays" type="int"></element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="ChannelBaseType" abstract="true">
+  </complexType>
+
+  <complexType name="WebServiceChannelType">
+    <complexContent>
+      <extension base="tns:ChannelBaseType">
+        <sequence>
+          <element name="WebServiceUrl" type="string"></element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="FileShareChannelType">
+    <complexContent>
+      <extension base="tns:ChannelBaseType">
+        <sequence>
+          <element name="Path" type="string"></element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+</schema>

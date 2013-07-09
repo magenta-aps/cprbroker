@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CprBroker.Schemas.Part.RelationListeType">
+    <Position X="8.5" Y="10" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAgAKAwCQgAABgAAABAQAEAAAZCAAIEAACBAAAACADA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.VirkningType">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>MAAAAAQAFAAAAACAAAAAAACAAAAAQEAAAAAAIQAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.LokalUdvidelseType">
+    <Position X="11.5" Y="13.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.PersonNameStructureType">
+    <Position X="15.5" Y="7.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAgIAQAEAACAAAAAAEQAAAAAAAAAAIAAAAE=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.PersonBirthDateStructureType">
+    <Position X="15.5" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAgAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.AttributListeType">
+    <Position X="8.5" Y="6.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEgAAAAAgAAAAAAAAAABAAAAAIABBAAAAABAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.TilstandListeType">
+    <Position X="8.75" Y="13.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAEAAAAAAIAAAAIQAAAAAAAAQAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="LokalUdvidelse" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.RegistreringType1">
+    <Position X="5.75" Y="6.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAAFAEAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AttributListe" />
+      <Property Name="TilstandListe" />
+      <Property Name="RelationListe" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.RegistreringType">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAAAAAQABAAAgACAAAEAAAAAAIAAAAAAAAAACgAACAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="LivscyklusKode" />
+      <Property Name="Virkning" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.PersonType">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Registrering" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.SagDokObjektType">
+    <Position X="1.75" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAQAAAAAAAAgAAAAAAAAAAgA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.LaesFiltreretOutputType">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.RetInputType1">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAABAAAAAAAAAAAAAKAAAAAAAQAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.PersonRelationType">
+    <Position X="1" Y="11.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.SoegRelationType">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>FAAAABAABAAAAAAAAAAAAAABAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.AdresseType" Collapsed="true">
+    <Position X="15.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.KontaktKanalType">
+    <Position X="15.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CprBroker.Schemas.Part.FlerRelationType">
+    <Position X="2.25" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>FAAAAAAABAAAgAAAAAAAAAABAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="CprBroker.Schemas.Part.PersonGenderCodeType">
+    <Position X="15.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CprBroker.Schemas.Part.LivscyklusKodeType">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAJAAAAQAAAACAAAAAA=</HashCode>
+      <FileName>OIOXSD\XSD.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
