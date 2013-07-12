@@ -748,7 +748,7 @@ namespace CprBroker.Providers.KMD
             public DateTime? GetRegistrationDate()
             {
                 return Utilities.GetMaxDate(
-                    // TODO : GetPropertyValuesOfType the other possible registration dates
+                    // TODO : What should be the registration date? There are all effect dates !!!
                     //AbroadDate,
                     AddressDate,
                     DisempowermentDate,
