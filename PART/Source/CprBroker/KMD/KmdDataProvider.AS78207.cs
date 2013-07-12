@@ -669,6 +669,7 @@ namespace CprBroker.Providers.KMD
                     Item = null,
                     Virkning = VirkningType.Create(null, null)
                 };
+                // TODO: Always return CprBorgerType !!!!
                 if (string.Equals(NationalityCode, Constants.DanishNationalityCode))
                 {
                     ret.Item = new CprBorgerType()
