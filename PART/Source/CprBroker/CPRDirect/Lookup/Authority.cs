@@ -90,7 +90,11 @@ namespace CprBroker.Providers.CPRDirect
         {
             // Only load the authority records is process is not elevated, i.e: load if this is not an installer context
             // TODO: Change this condition to something better
-            if (!UacHelper.IsProcessElevated)
+            var elevated = false;
+            try
+            { elevated = UacHelper.IsProcessElevated; }
+            catch { }
+            if (!elevated)
             {
                 LoadAuthorityMap();
             }
