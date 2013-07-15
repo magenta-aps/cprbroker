@@ -54,6 +54,7 @@ namespace CprBroker.EventBroker.Notifications
 {
     public class CPRDirectPersonConverter : PeriodicTaskExecuter
     {
+        // TODO: Let batch size and interval be configurable
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
             return TimeSpan.FromSeconds(BatchSize * 1.25);
