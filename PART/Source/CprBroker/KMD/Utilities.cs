@@ -90,7 +90,7 @@ namespace CprBroker.Providers.KMD
             }
             else
             {
-                // TODO: differentiate betwee 01, 03, 05 & 07 because cprStatus is always 0 here
+                // TODO: differentiate between 01, 03, 05 & 07 because cprStatus is always 0 here
                 return 1;
             }
         }
