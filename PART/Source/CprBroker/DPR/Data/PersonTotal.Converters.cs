@@ -97,7 +97,7 @@ namespace CprBroker.Providers.DPR
                         return CivilStatusKodeType.OphaevetPartnerskab;
                     case Schemas.Part.MaritalStatus.LongestLivingPartner:
                         return CivilStatusKodeType.Laengstlevende;
-                    // TODO : Get value from latest marital status before this record
+                    // TODO : Get value from latest marital status before this record. Also, match with other data sources like DPR
                     case Schemas.Part.MaritalStatus.Deceased:
                         return CivilStatusKodeType.Ugift;
                 }

@@ -129,7 +129,7 @@ namespace CprBroker.Providers.DPR
                 {
                     ForeignAddressStructure = new ForeignAddressStructureType()
                     {
-                        // TODO: shouldn't this eb a foreign address?
+                        // TODO: shouldn't this be a foreign address?
                         CountryIdentificationCode = CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode),
                         LocationDescriptionText = Location,
                         PostalAddressFirstLineText = AdditionalAddressLine1,
