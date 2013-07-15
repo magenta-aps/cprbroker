@@ -60,6 +60,7 @@ namespace CprBroker.EventBroker.Notifications
     /// </summary>
     public partial class PeriodicTaskExecuter : Component
     {
+        // TODO: Shall SyncObject be defined per each task class?
         private System.Threading.AutoResetEvent SyncObject = new System.Threading.AutoResetEvent(true);
 
         public EventLog EventLog = null;
