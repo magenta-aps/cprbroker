@@ -99,6 +99,8 @@ namespace CprBroker.Schemas.Part
             // In case we have no correction records for history, check for possible overwrites
             dataObjects = Overwrite.Filter(dataObjects);
 
+            // TODO: Also filter out objects that have StartDate<EndDate and an uncertainty marker on either dates (Like some HistoricalChurchInformation records)
+
             // sort by start date
             var sortedByStartDate = dataObjects
                 .Select(o => new { StartTS = VirkningType.ToStartDateTimeOrMinValue(o.ToStartTS()), Object = o })
