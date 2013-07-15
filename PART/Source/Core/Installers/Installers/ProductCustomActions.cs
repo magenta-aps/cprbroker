@@ -51,6 +51,7 @@ using System.Text;
 using System.IO;
 using CprBroker.Utilities;
 using Microsoft.Deployment.WindowsInstaller;
+using System.Security.Principal;
 
 namespace CprBroker.Installers
 {
@@ -62,6 +63,18 @@ namespace CprBroker.Installers
             session.SetPropertyValue(
                 "ExecutionElevated",
                 UacHelper.IsProcessElevated ? "1" : ""
+            );
+
+            return ActionResult.Success;
+        }
+
+        [CustomAction]
+        public static ActionResult SetNetworkServiceUserName(Session session)
+        {
+            string networkServiceSID = "S-1-5-20";
+            session.SetPropertyValue(
+                "NETWORKSERVICE_USERNAME",
+                new SecurityIdentifier(networkServiceSID).Translate(typeof(NTAccount)).ToString()
             );
 
             return ActionResult.Success;
