@@ -69,6 +69,12 @@ namespace CprBrokerWixInstallers
         }
 
         [CustomAction]
+        public static ActionResult SetNetworkServiceUserName(Session session)
+        {
+            return ProductCustomActions.SetNetworkServiceUserName(session);
+        }
+
+        [CustomAction]
         public static ActionResult AfterInstallInitialize_Product(Session session)
         {
             try
