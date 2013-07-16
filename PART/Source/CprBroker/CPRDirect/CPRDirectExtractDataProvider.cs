@@ -92,7 +92,12 @@ namespace CprBroker.Providers.CPRDirect
                 var uuids = CprBroker.Data.Part.PersonMapping.AssignGuids(pnrs);
                 Func<string, Guid> uuidGetter = (pnr) =>
                 {
-                    var uuid = uuids[Array.IndexOf<string>(pnrs, pnr)];
+                    Guid? uuid = null;
+                    var pnrIndex = Array.IndexOf<string>(pnrs, pnr);
+                    if (pnrIndex != -1)
+                    {
+                        uuid = uuids[pnrIndex];
+                    }
                     return uuid.HasValue ? uuid.Value : cpr2UuidFunc(pnr);
                 };
 
