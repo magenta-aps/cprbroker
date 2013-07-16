@@ -61,7 +61,7 @@ namespace CprBroker.Providers.CPRDirect
                 Aegtefaelle = ToSpouses(cpr2uuidFunc),
                 Boern = ToChildren(cpr2uuidFunc),
                 Bopaelssamling = ToBopaelssamling(),
-                ErstatningAf = ToErstatningAf(),
+                ErstatningAf = ToErstatningAf(cpr2uuidFunc),
                 ErstatningFor = ToErstatningFor(),
                 Fader = ToFather(cpr2uuidFunc),
                 Foraeldremyndighedsboern = ToForaeldremyndighedsboern(),
@@ -87,6 +87,11 @@ namespace CprBroker.Providers.CPRDirect
         public PersonFlerRelationType[] ToChildren(Func<string, Guid> cpr2uuidFunc)
         {
             return ChildType.ToPersonFlerRelationType(this.Child, cpr2uuidFunc);
+        }
+
+        public PersonRelationType[] ToErstatningAf(Func<string, Guid> cpr2uuidFunc)
+        {
+            return PersonInformation.ToReplacedByRelationType(cpr2uuidFunc);
         }
 
         private List<ICivilStatus> HistoricalCivilStatusAsInterface

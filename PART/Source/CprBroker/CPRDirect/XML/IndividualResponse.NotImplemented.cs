@@ -71,12 +71,6 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
-        public PersonRelationType[] ToErstatningAf()
-        {
-            // TODO: Implement replaced by
-            return null;
-        }
-
         public PersonFlerRelationType[] ToErstatningFor()
         {
             // TOTO: Implemenet replacement for
