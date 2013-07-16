@@ -102,7 +102,8 @@ namespace CprBroker.Providers.CPRDirect
 
         public TidspunktType ToTidspunktType()
         {
-            return this.StartRecord.ToTidspunktType();
+            // TODO: Is this the correct registration date regarding the case of online TCP queries?
+            return TidspunktType.Create(this.RegistrationDate);
         }
 
         public string ToSourceObjectsXml()

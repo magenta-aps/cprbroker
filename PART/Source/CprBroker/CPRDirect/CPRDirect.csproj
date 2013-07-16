@@ -162,7 +162,6 @@
     <Compile Include="XML\PersonInformation.cs" />
     <Compile Include="XML\ProtectionType.cs" />
     <Compile Include="XML\EgenskabInterval.cs" />
-    <Compile Include="XML\StartRecordType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lookup\Authority.xml" />
