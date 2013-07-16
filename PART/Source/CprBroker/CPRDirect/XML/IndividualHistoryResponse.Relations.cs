@@ -59,8 +59,6 @@ namespace CprBroker.Providers.CPRDirect
         public RelationListeType ToRelationListeType(Func<string, Guid> cpr2UuidFunc)
         {
             // Marriages
-            var timed = this.ItemsAsTimedType;
-
             var civilStates = Interval
                 .CreateFromData<TimedTypeWrapper<ICivilStatus>>(this.ItemsAsTimedType, new DataTypeTags[] { DataTypeTags.CivilStatus })
                 .Select(w => w.TimedObject)
