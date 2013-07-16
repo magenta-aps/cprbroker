@@ -110,13 +110,11 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime? ToStartTS()
         {
-            // TODO: Shall we return null instead?
             return PersonStartDate;
         }
 
         public DateTime? ToEndTS()
         {
-            // TODO: Shall we return null instead?
             return PersonEndDate;
         }
 
