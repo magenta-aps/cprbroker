@@ -66,16 +66,6 @@ namespace CprBroker.Providers.CPRDirect
             var spouses = CivilStatusWrapper.ToSpouses(null, civilStates, cpr2UuidFunc);
             var partners = CivilStatusWrapper.ToRegisteredPartners(null, civilStates, cpr2UuidFunc);
 
-            var disempowerments = Interval
-                .CreateFromData<TimedTypeWrapper<DisempowermentType>>(this.ItemsAsTimedType)
-                .SelectMany(w => DisempowermentType.ToPersonRelationType(w.TimedObject as DisempowermentType, cpr2UuidFunc))
-                .ToArray();
-
-            var custodyOwners = Overwrite
-                .Filter(ItemsAsTimedType.Where(i => i is ParentalAuthorityType))
-                .Select(auth => (auth as ParentalAuthorityType).ToPersonRelationType(cpr2UuidFunc))
-                .ToArray();
-
             // Now fill the return object
             return new RelationListeType()
             {
@@ -84,8 +74,8 @@ namespace CprBroker.Providers.CPRDirect
                 Fader = FromLatestRegistration<ParentsInformationType>().ToFather(cpr2UuidFunc),
                 Moder = FromLatestRegistration<ParentsInformationType>().ToMother(cpr2UuidFunc),
                 Boern = ChildType.ToPersonFlerRelationType(LatestRegistration.Child, cpr2UuidFunc),
-                RetligHandleevneVaergemaalsindehaver = disempowerments,
-                Foraeldremyndighedsindehaver = custodyOwners,
+                RetligHandleevneVaergemaalsindehaver = ToRetligHandleevneVaergemaalsindehaver(cpr2UuidFunc),
+                Foraeldremyndighedsindehaver = ToForaeldremyndighedsindehaver(cpr2UuidFunc),
                 Bopaelssamling = null,
                 ErstatningAf = null,
                 ErstatningFor = null,
@@ -95,5 +85,22 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
+        public PersonFlerRelationType[] ToRetligHandleevneVaergemaalsindehaver(Func<string, Guid> cpr2UuidFunc)
+        {
+            var disempowerments = Interval
+                .CreateFromData<TimedTypeWrapper<DisempowermentType>>(this.ItemsAsTimedType)
+                .SelectMany(w => DisempowermentType.ToPersonRelationType(w.TimedObject as DisempowermentType, cpr2UuidFunc))
+                .ToArray();
+            return disempowerments;
+        }
+
+        public PersonRelationType[] ToForaeldremyndighedsindehaver(Func<string, Guid> cpr2UuidFunc)
+        {
+            var custodyOwners = Overwrite
+                .Filter(ItemsAsTimedType.Where(i => i is ParentalAuthorityType))
+                .Select(auth => (auth as ParentalAuthorityType).ToPersonRelationType(cpr2UuidFunc))
+                .ToArray();
+            return custodyOwners;
+        }
     }
 }
