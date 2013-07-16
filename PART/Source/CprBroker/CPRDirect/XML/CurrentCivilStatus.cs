@@ -61,7 +61,7 @@ namespace CprBroker.Providers.CPRDirect
 
         DateTime? ITimedType.ToStartTS()
         {
-            // TODO: How to pass start date uncertainty?
+            // TODO: (Date uncertainty) How to pass start date uncertainty?
             //return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
             return this.CivilStatusStartDate;
         }

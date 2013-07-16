@@ -72,7 +72,7 @@ namespace CprBroker.Providers.CPRDirect
         public DateTime? ToStartTS()
         {
             return this.CitizenshipStartDate;
-            // TODO: How to pass uncertainty marker (*) if present?
+            // TODO: (Date uncertainty) How to pass uncertainty marker (*) if present?
             //return Converters.ToDateTime(this.CitizenshipStartDate, this.CitizenshipStartDateUncertainty);
         }
 

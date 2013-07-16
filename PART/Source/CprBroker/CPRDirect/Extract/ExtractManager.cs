@@ -165,7 +165,7 @@ namespace CprBroker.Providers.CPRDirect
                                     // Child records
                                     conn.BulkInsertAll<ExtractItem>(extractResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap), trans);
                                     conn.BulkInsertAll<ExtractError>(extractResult.ToExtractErrors(extract.ExtractId), trans);
-                                    // TODO: In case some records have been skipped in a previous import attempt, make sure that allPnrs contains their PNR's
+                                    // TODO: (Extract) In case some records have been skipped in a previous import attempt, make sure that allPnrs contains their PNR's
                                     conn.BulkInsertAll<ExtractPersonStaging>(extractResult.ToExtractPersonStagings(extract.ExtractId, allPnrs), trans);
 
                                     // Update counts
@@ -203,7 +203,7 @@ namespace CprBroker.Providers.CPRDirect
 
         public static void ImportDataProviderFolders()
         {
-            // TODO: Split the download of files that should happen once per hour,
+            // TODO: (Extract) Split the download of files that should happen once per hour,
             // from extraction that should be as soon as possible
             Admin.LogSuccess("Loading CPR Direct data providers");
 
