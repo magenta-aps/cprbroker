@@ -89,7 +89,6 @@ namespace CprBroker.Providers.CPRDirect
 
         public string ToPnr()
         {
-            // TODO: What is the differentce between PNR and CurrentPNR?
             return Converters.ToPnrStringOrNull(this.PNR);
         }
 
