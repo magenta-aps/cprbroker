@@ -79,14 +79,6 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToString(this.LastName, this.LastNameMarker);
         }
 
-        public static INameSource GetOldestName(IEnumerable<INameSource> historicalNames)
-        {
-            return historicalNames
-                .Where(n => n.IsValid())
-                .OrderBy(n => n.NameStartDate)
-                .FirstOrDefault();
-        }
-
         DateTime? ITimedType.ToStartTS()
         {
             return this.NameStartDate;

@@ -135,31 +135,5 @@ namespace CprBroker.Tests.CPRDirect.Objects
             }
         }
 
-        [TestFixture]
-        public class GetOldestName
-        {
-            [Test]
-            public void GetOldestName_Mask_Null()
-            {
-                var arr = new HistoricalNameType[]{ 
-                    new HistoricalNameType(){CorrectionMarker = '*'}
-                };
-                var ret = HistoricalNameType.GetOldestName(arr);
-                Assert.Null(ret);
-            }
-
-            [Test]
-            public void GetOldestName_OK_GetsOldest()
-            {
-                var today = DateTime.Today;
-                var arr = new HistoricalNameType[]{ 
-                    new HistoricalNameType(){NameStartDate = today},
-                    new HistoricalNameType(){NameStartDate = today.AddDays(-20)},
-                };
-                var ret = HistoricalNameType.GetOldestName(arr);
-                Assert.AreEqual(arr[1], ret);
-            }
-        }
-
     }
 }

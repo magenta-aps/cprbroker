@@ -66,11 +66,11 @@ namespace CprBroker.Tests.CPRDirect
                         /*
                          * Start and end dates are added to the lists.
                          */
-                        startDates.Add(egenskab.Name.NameStartDate.Value);
+                        startDates.Add(egenskab.Name.ToStartTS().Value);
                         DateTime? endTS = egenskab.Name.ToEndTS();
                         if (endTS != null)
                             endDates.Add(endTS.Value);
-                        Console.WriteLine("Date: " + egenskab.Name.NameStartDate);
+                        Console.WriteLine("Date: " + egenskab.Name.ToStartTS());
                         if (endTS != null)
                             Console.WriteLine("End date: " + endTS.Value);
                         Console.WriteLine("First name(s): " + egenskab.Name.FirstName_s);
