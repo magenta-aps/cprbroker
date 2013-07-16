@@ -83,8 +83,7 @@ namespace CprBroker.Providers.CPRDirect
                         {
                             return PersonRelationType.Create(
                                 cpr2uuidFunc(relPnr),
-                                // TODO: Shall we use CustodyStartDate instead?
-                                this.RelationPNRStartDate,
+                                this.CustodyStartDate,
                                 this.CustodyEndDate);
                         }
                         else
