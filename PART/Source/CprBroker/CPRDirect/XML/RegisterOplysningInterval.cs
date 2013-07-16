@@ -64,6 +64,7 @@ namespace CprBroker.Providers.CPRDirect
         }
 
         // TODO: Only example with history (2906980013) has same date for current start and historical start/end
+        // All real data has relationship = 'A' in this case
         // Assume OK interval until further notice
         // TODO: Shall we exclude intervals without this type?
         public IChurchInformation Church
