@@ -77,7 +77,7 @@ namespace CprBroker.Providers.CPRDirect
                 RetligHandleevneVaergemaalsindehaver = ToRetligHandleevneVaergemaalsindehaver(cpr2UuidFunc),
                 Foraeldremyndighedsindehaver = ToForaeldremyndighedsindehaver(cpr2UuidFunc),
                 Bopaelssamling = null,
-                ErstatningAf = null,
+                ErstatningAf = ToErstatningAf(cpr2UuidFunc),
                 ErstatningFor = null,
                 Foraeldremyndighedsboern = null,
                 LokalUdvidelse = null,
@@ -101,6 +101,12 @@ namespace CprBroker.Providers.CPRDirect
                 .Select(auth => (auth as ParentalAuthorityType).ToPersonRelationType(cpr2UuidFunc))
                 .ToArray();
             return custodyOwners;
+        }
+
+        public PersonRelationType[] ToErstatningAf(Func<string, Guid> cpr2UuidFunc)
+        {
+            var personInformation = FromLatestRegistration<PersonInformationType>();
+            return personInformation.ToReplacedByRelationType(cpr2UuidFunc);
         }
     }
 }
