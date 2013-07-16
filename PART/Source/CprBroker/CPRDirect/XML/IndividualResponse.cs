@@ -120,7 +120,8 @@ namespace CprBroker.Providers.CPRDirect
         public DateTime RegistrationDate
         {
             get
-            { // TODO: Is date always guaranteed?
+            {
+                // This date was found to be always not null
                 return this.StartRecord.ProductionDate.Value;
             }
         }
