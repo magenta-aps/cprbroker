@@ -195,7 +195,6 @@ namespace CprBroker.Providers.CPRDirect
                 StreetNameForAddressingName = this.StreetAddressingName,
 
                 // Set suite identifier
-                // TODO: Sometimes the suite is '  th'. Shall we set this as empty string in this case?
                 SuiteIdentifier = this.Door,
             };
             return ret;
