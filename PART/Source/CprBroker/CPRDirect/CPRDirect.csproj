@@ -108,6 +108,7 @@
     <Compile Include="XML\ChurchInformation.cs" />
     <Compile Include="XML\ClearWrittenAddress.cs" />
     <Compile Include="Interfaces\IBirthRegistrationInformation.cs" />
+    <Compile Include="XML\IndividualHistoryResponse.Relations.cs" />
     <Compile Include="XML\CurrentDisappearanceInformation.cs" />
     <Compile Include="XML\EgenskabInterval.NotImplemented.cs" />
     <Compile Include="XML\HistoricalDisappearance.cs" />

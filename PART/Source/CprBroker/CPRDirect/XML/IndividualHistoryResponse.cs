@@ -161,47 +161,6 @@ namespace CprBroker.Providers.CPRDirect
                 .ToArray();
         }
 
-        public RelationListeType ToRelationListeType(Func<string, Guid> cpr2UuidFunc)
-        {
-            // Marriages
-            var timed = this.ItemsAsTimedType;
-
-            var civilStates = Interval
-                .CreateFromData<TimedTypeWrapper<ICivilStatus>>(this.ItemsAsTimedType, new DataTypeTags[] { DataTypeTags.CivilStatus })
-                .Select(w => w.TimedObject)
-                .ToList();
-            var spouses = CivilStatusWrapper.ToSpouses(null, civilStates, cpr2UuidFunc);
-            var partners = CivilStatusWrapper.ToRegisteredPartners(null, civilStates, cpr2UuidFunc);
-
-            var disempowerments = Interval
-                .CreateFromData<TimedTypeWrapper<DisempowermentType>>(this.ItemsAsTimedType)
-                .SelectMany(w => DisempowermentType.ToPersonRelationType(w.TimedObject as DisempowermentType, cpr2UuidFunc))
-                .ToArray();
-
-            var custodyOwners = Overwrite
-                .Filter(ItemsAsTimedType.Where(i => i is ParentalAuthorityType))
-                .Select(auth => (auth as ParentalAuthorityType).ToPersonRelationType(cpr2UuidFunc))
-                .ToArray();
-
-            // Now fill the return object
-            return new RelationListeType()
-            {
-                Aegtefaelle = spouses,
-                RegistreretPartner = partners,
-                Fader = FromLatestRegistration<ParentsInformationType>().ToFather(cpr2UuidFunc),
-                Moder = FromLatestRegistration<ParentsInformationType>().ToMother(cpr2UuidFunc),
-                Boern = ChildType.ToPersonFlerRelationType(LatestRegistration.Child, cpr2UuidFunc),
-                RetligHandleevneVaergemaalsindehaver = disempowerments,
-                Foraeldremyndighedsindehaver = custodyOwners,
-                Bopaelssamling = null,
-                ErstatningAf = null,
-                ErstatningFor = null,
-                Foraeldremyndighedsboern = null,
-                LokalUdvidelse = null,
-                RetligHandleevneVaergeForPersonen = null
-            };
-        }
-
         public TilstandListeType ToTilstandListeType()
         {
             return null;
