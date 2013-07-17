@@ -56,5 +56,11 @@
     <Setting Name="CprDirectDownloadIntervalMinutes" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">60</Value>
     </Setting>
+    <Setting Name="CprDirectPersonConverterBatchSize" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="CprDirectPersonConverterIntervalSeconds" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">80</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

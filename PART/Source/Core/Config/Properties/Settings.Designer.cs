@@ -160,5 +160,23 @@ namespace CprBroker.Config.Properties {
                 return ((int)(this["CprDirectDownloadIntervalMinutes"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int CprDirectPersonConverterBatchSize {
+            get {
+                return ((int)(this["CprDirectPersonConverterBatchSize"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("80")]
+        public int CprDirectPersonConverterIntervalSeconds {
+            get {
+                return ((int)(this["CprDirectPersonConverterIntervalSeconds"]));
+            }
+        }
     }
 }
