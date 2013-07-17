@@ -70,12 +70,24 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime? ToStartTS()
         {
+            // TODO: Shall we remove uncertainty flag from here?
             return Converters.ToDateTime(this.SeparationStartDate, this.SeparationStartDateUncertainty);
+        }
+        
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(SeparationStartDateUncertainty);
         }
 
         public DateTime? ToEndTS()
         {
+            // TODO: Shall we remove uncertainty flag from here?
             return Converters.ToDateTime(this.SeparationEndDate, this.SeparationEndDateUncertainty);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(SeparationEndDateUncertainty);
         }
     }
 }
