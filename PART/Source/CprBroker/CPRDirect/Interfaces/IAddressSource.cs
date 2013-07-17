@@ -80,9 +80,19 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
+        public bool ToStartTSCertainty()
+        {
+            return true;
+        }
+
         public DateTime? ToStartTS()
         {
             return null;
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
         }
 
         public IRegistrationInfo Registration
@@ -92,6 +102,7 @@ namespace CprBroker.Providers.CPRDirect
                 return null;
             }
         }
+
     }
 
 
