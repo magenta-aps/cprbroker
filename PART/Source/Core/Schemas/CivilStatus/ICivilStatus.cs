@@ -93,10 +93,22 @@ namespace CprBroker.Schemas.Part
             return StartTS;
         }
 
+        public bool StartTSCertainty { get; set; }
+        public bool ToStartTSCertainty()
+        {
+            return StartTSCertainty;
+        }
+
         public DateTime? EndTS { get; set; }
         public DateTime? ToEndTS()
         {
             return EndTS;
+        }
+
+        public bool EndTSCertainty { get; set; }
+        public bool ToEndTSCertainty()
+        {
+            return EndTSCertainty;
         }
 
         public DataTypeTags Tag
