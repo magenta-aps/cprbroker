@@ -85,14 +85,25 @@ namespace CprBroker.Providers.CPRDirect
             get { return DataTypeTags.Disempowerment; }
         }
 
+        public DateTime? ToStartTS()
+        {
+            return this.DisempowermentStartDate;
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            // TODO: Is this a date uncertainty flag or a correction marker? Check the Danish text
+            return Converters.ToDateTimeUncertainty(DisempowermentStartDateUncertainty);
+        }
+        
         public DateTime? ToEndTS()
         {
             return this.DisempowermentEndDate;
         }
 
-        public DateTime? ToStartTS()
+        public bool ToEndTSCertainty()
         {
-            return this.DisempowermentStartDate;
+            return true;
         }
 
         public bool IsOverwrittenBy(ITimedType newObject)
