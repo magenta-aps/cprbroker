@@ -75,10 +75,19 @@ namespace CprBroker.Providers.CPRDirect
             return this.DisappearanceDate;
         }
 
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(DisappearanceDateUncertainty);
+        }
+
         public DateTime? ToEndTS()
         {
             return this.RetrievalDate;
         }
 
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(RetrievalDateUncertainty);
+        }
     }
 }
