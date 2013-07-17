@@ -72,14 +72,24 @@ namespace CprBroker.Providers.CPRDirect
             get { return Schemas.Part.DataTypeTags.BirthRegistration; }
         }
 
-        public DateTime? ToEndTS()
+        public DateTime? ToStartTS()
         {
             return null;
         }
 
-        public DateTime? ToStartTS()
+        public bool ToStartTSCertainty()
+        {
+            return true;
+        }
+
+        public DateTime? ToEndTS()
         {
             return null;
+        }
+        
+        public bool ToEndTSCertainty()
+        {
+            return true;
         }
     }
 }
