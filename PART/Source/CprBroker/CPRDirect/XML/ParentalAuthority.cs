@@ -132,14 +132,25 @@ namespace CprBroker.Providers.CPRDirect
             get { return DataTypeTags.ParentalAuthority; }
         }
 
-        public DateTime? ToEndTS()
+        public DateTime? ToStartTS()
         {
             return this.CustodyStartDate;
         }
 
-        public DateTime? ToStartTS()
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(CustodyStartDateUncertainty);
+        }
+
+        public DateTime? ToEndTS()
         {
             return this.CustodyEndDate;
         }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
+        }
+
     }
 }
