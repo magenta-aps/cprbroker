@@ -74,10 +74,18 @@ namespace CprBroker.Providers.CPRDirect
 
         public static DateTime? ToDateTime(DateTime? value, char uncertainty)
         {
-            if (uncertainty == ' ')
+            if (ToDateTimeUncertainty(uncertainty))
                 return value;
             else
                 return null;
+        }
+
+        public static bool ToDateTimeUncertainty(char uncertainty)
+        {
+            if (uncertainty == ' ')
+                return true;
+            else
+                return false;
         }
 
         public static String ToString(string value, char uncertainty)
