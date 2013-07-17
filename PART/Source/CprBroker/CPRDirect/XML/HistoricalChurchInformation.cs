@@ -67,13 +67,21 @@ namespace CprBroker.Providers.CPRDirect
         public DateTime? ToStartTS()
         {
             return this.StartDate;
-            //return Converters.ToDateTime(this.StartDate, this.StartDateUncertainty);
         }
 
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(StartDateUncertainty);
+        }
+        
         public DateTime? ToEndTS()
         {
             return this.EndDate;
-            //return Converters.ToDateTime(this.EndDate, this.EndDateUncertainty);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(EndDateUncertainty);
         }
 
     }
