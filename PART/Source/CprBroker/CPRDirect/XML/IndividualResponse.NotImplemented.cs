@@ -54,12 +54,6 @@ namespace CprBroker.Providers.CPRDirect
 {
     public partial class IndividualResponseType
     {
-        private object ToSourceObject()
-        {
-            // TODO: Implement source objects in CPR Direct
-            return null;
-        }
-
         private LivscyklusKodeType ToLivscyklusKodeType()
         {
             // TODO: Implemet further lifecycle status codes in CPR Direct (from history change extractes)
