@@ -52,16 +52,16 @@ using CprBroker.Providers.CPRDirect;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public class CPRDirectExtractor : CPRDirectIOExecuter
+    public class CPRDirectDownloader : CPRDirectIOExecuter
     {
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return TimeSpan.FromMinutes(1);
+            return TimeSpan.FromHours(1);
         }
 
         protected override void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
         {
-            ExtractManager.ExtractLocalFiles(prov);
+            ExtractManager.DownloadFtpFiles(prov);
         }
 
     }

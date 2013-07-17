@@ -49,20 +49,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CprBroker.Providers.CPRDirect;
+using CprBroker.Engine.Local;
+using System.IO;
 
 namespace CprBroker.EventBroker.Notifications
 {
-    public class CPRDirectExtractor : CPRDirectIOExecuter
+    public class CPRDirectIOExecuter : PeriodicTaskExecuter
     {
-        protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
+        protected override sealed void PerformTimerAction()
         {
-            return TimeSpan.FromMinutes(1);
+            Admin.LogSuccess("Loading CPR Direct data providers");
+
+            try
+            {
+                var dbProv = CprBroker.Engine.DataProviderManager.ReadDatabaseDataProviders();
+                var result = CprBroker.Engine.DataProviderManager.LoadExternalDataProviders(dbProv, typeof(CPRDirectExtractDataProvider)).Select(p => p as CPRDirectExtractDataProvider).ToArray();
+
+                Admin.LogFormattedSuccess("Found {0} CPR Direct providers", result.Length);
+
+                foreach (var prov in result)
+                {
+                    try
+                    {
+                        Admin.LogFormattedSuccess("Checking folder {0}", prov.ExtractsFolder);
+                        if (Directory.Exists(prov.ExtractsFolder))
+                        {
+                            ExecuteCPRDirectTask(prov);
+                        }
+                        else
+                        {
+                            Admin.LogFormattedError("Folder <{0}> not found", prov.ExtractsFolder);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Admin.LogException(ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Admin.LogException(ex);
+            }
         }
 
-        protected override void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
+        protected virtual void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
         {
-            ExtractManager.ExtractLocalFiles(prov);
-        }
 
+        }
     }
 }

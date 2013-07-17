@@ -78,6 +78,7 @@ namespace CprBroker.EventBroker.Backend
                     this.BirthdateEventEnqueuer,
                     this.DataChangeEventEnqueuer,
                     this.NotificationSender,
+                    this.CprDirectDownloader,
                     this.CprDirectExtractor,
                     this.CprDirectPersonConverter
                 };
