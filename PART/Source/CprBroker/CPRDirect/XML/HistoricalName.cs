@@ -84,16 +84,23 @@ namespace CprBroker.Providers.CPRDirect
             return this.NameStartDate;
 
             // This handles cases of first historical name (test citizen 0708614327)
-            //Utilities.Strings.PersonNumberToDate(this.PNR);
-            // TODO: (Date uncertainty) How to propagate date uncertainty
-            //return Converters.ToDateTime(this.NameStartDate, this.NameStartDateUncertainty);
+            //Utilities.Strings.PersonNumberToDate(this.PNR);            
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(NameStartDateUncertainty);
         }
 
         DateTime? ITimedType.ToEndTS()
         {
             return this.NameEndDate;
-            // TODO: (Date uncertainty) How to propagate date uncertainty
-            //return Converters.ToDateTime(this.NameEndDate, this.NameEndDateUncertainty);
+        }
+
+
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(NameEndDateUncertainty);
         }
 
         public DataTypeTags Tag
