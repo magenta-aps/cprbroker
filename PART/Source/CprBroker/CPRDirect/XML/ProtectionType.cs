@@ -124,11 +124,20 @@ namespace CprBroker.Providers.CPRDirect
             return this.StartDate;
         }
 
+        public bool ToStartTSCertainty()
+        {
+            return true;
+        }
+
         public DateTime? ToEndTS()
         {
             return this.EndDate;
         }
 
+        public bool ToEndTSCertainty()
+        {
+            return true;
+        }
 
     }
 }
