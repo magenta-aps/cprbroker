@@ -56,7 +56,7 @@ namespace CprBroker.EventBroker.Notifications
     {
         protected override TimeSpan CalculateActionTimerInterval(TimeSpan currentInterval)
         {
-            return TimeSpan.FromHours(1);
+            return TimeSpan.FromMinutes(Config.Properties.Settings.Default.CprDirectDownloadIntervalMinutes);
         }
 
         protected override void ExecuteCPRDirectTask(CPRDirectExtractDataProvider prov)
