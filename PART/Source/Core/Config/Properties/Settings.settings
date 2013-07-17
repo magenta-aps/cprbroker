@@ -50,8 +50,8 @@
     <Setting Name="CprDirectReturnsNewestFirst" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CprDirectExtractIntervalMilliseconds" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">60000</Value>
+    <Setting Name="CprDirectExtractIntervalSeconds" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="CprDirectDownloadIntervalMinutes" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">60</Value>

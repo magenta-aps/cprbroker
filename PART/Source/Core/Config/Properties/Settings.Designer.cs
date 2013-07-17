@@ -145,10 +145,10 @@ namespace CprBroker.Config.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60000")]
-        public int CprDirectExtractIntervalMilliseconds {
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int CprDirectExtractIntervalSeconds {
             get {
-                return ((int)(this["CprDirectExtractIntervalMilliseconds"]));
+                return ((int)(this["CprDirectExtractIntervalSeconds"]));
             }
         }
         
