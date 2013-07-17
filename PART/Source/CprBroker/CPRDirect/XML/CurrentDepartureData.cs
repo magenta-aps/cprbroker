@@ -124,7 +124,11 @@ namespace CprBroker.Providers.CPRDirect
         public DateTime? ToStartTS()
         {
             return this.ExitDate;
-            //return Converters.ToDateTime(this.ExitDate, this.ExitDateUncertainty);
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(ExitDateUncertainty);
         }
 
         public DateTime? ToEndTS()
@@ -132,6 +136,10 @@ namespace CprBroker.Providers.CPRDirect
             return null;
         }
 
+        public bool ToEndTSCertainty()
+        {
+            return true;
+        }
 
     }
 }
