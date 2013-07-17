@@ -101,14 +101,22 @@ namespace CprBroker.Providers.CPRDirect
              
              */
 
-            //return CurrentAddressInformation.RelocationDate;
             // TODO: What is the difference between StartDate and RelocaltionDate?
-            //return Converters.ToDateTime(this.CurrentAddressInformation.RelocationDate, this.CurrentAddressInformation.RelocationDateUncertainty);
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(CurrentAddressInformation.RelocationDateUncertainty);
         }
 
         public DateTime? ToEndTS()
         {
             return null;
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
         }
 
         public IRegistrationInfo Registration
