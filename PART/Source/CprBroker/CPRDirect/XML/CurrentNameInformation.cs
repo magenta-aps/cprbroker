@@ -85,9 +85,19 @@ namespace CprBroker.Providers.CPRDirect
             return this.NameStartDate;
         }
 
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(NameStartDateUncertainty);
+        }
+
         public DateTime? ToEndTS()
         {
             return null;
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
         }
 
         public DataTypeTags Tag
