@@ -25,10 +25,20 @@ namespace CprBroker.Providers.DPR
         {
             return Utilities.DateFromDecimal(this.MaritalStatusDate);
         }
+        
+        public bool ToStartTSCertainty()
+        {
+            return true;
+        }
 
         public DateTime? ToEndTS()
         {
             return Utilities.DateFromDecimal(this.MaritalEndDate);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
         }
 
         DataTypeTags ITimedType.Tag
