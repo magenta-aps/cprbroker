@@ -81,19 +81,39 @@ namespace CprBroker.Providers.CPRDirect
         {
             if (HistoricalPnrs.Count > 0)
             {
+                // Rely on other objects to get interval start date
+                // TODO: Is this correct?
                 return HistoricalPnrs.OrderByDescending(p => p.ToEndTS()).Select(p => p.ToEndTS()).FirstOrDefault();
             }
             else
             {
-                // Rely on other objects to get interval start date
                 return null;
-                //return Converters.ToDateTime(this.PersonInformation.PersonStartDate, this.PersonInformation.PersonStartDateUncertainty);
+            }
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            if (HistoricalPnrs.Count > 0)
+            {
+                // Rely on other objects to get interval start date uncertainty
+                // TODO: Is this correct?
+                return HistoricalPnrs.OrderByDescending(p => p.ToEndTS()).Select(p => p.ToStartTSCertainty()).FirstOrDefault();
+            }
+            else
+            {
+                return true;
             }
         }
 
         public DateTime? ToEndTS()
         {
+            // TODO: Shall we exclude uncertainty marker?
             return Converters.ToDateTime(this.PersonInformation.PersonEndDate, this.PersonInformation.PersonEndDateUncertainty);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(this.PersonInformation.PersonEndDateUncertainty);
         }
 
         public bool ToPersonNummerGyldighedStatusIndikator()
