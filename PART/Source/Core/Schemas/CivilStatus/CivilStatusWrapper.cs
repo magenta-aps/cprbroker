@@ -107,7 +107,7 @@ namespace CprBroker.Schemas.Part
             return ToPersonRelationTypeArray(current, history, cpr2uuidFunc, MaritalStatus.RegisteredPartnership, MaritalStatus.AbolitionOfRegisteredPartnership, MaritalStatus.LongestLivingPartner, MaritalStatus.Deceased, true);
         }
 
-        
+
         public static PersonRelationType[] ToPersonRelationTypeArray(ICivilStatus currentStatus, IList<ICivilStatus> historyCivilStates, Func<string, Guid> cpr2uuidFunc, char marriedStatus, char divorcedStatus, char widowStatus, char deadStatus, bool deadAsSameSex)
         {
             // TODO: Shall we take separation into account?
@@ -219,7 +219,9 @@ namespace CprBroker.Schemas.Part
                         SpousePnr = null,
                         CivilStatusCode = singleStatus,
                         StartTS = null,
+                        StartTSCertainty = true,
                         EndTS = firstStatus.ToStartTS()
+                        EndTSCertainty = true
                     };
                     allCivilStates.Add(dummy);
                 }

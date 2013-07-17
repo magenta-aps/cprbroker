@@ -54,7 +54,9 @@ namespace CprBroker.Schemas.Part
     public interface ITimedType
     {
         DateTime? ToStartTS();
+        bool ToStartTSCertainty();
         DateTime? ToEndTS();
+        bool ToEndTSCertainty();
         DataTypeTags Tag { get; }
         IRegistrationInfo Registration { get; }
     }

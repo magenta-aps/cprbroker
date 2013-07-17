@@ -67,6 +67,13 @@ namespace CprBroker.Tests.Schemas
             public DateTime? ToEndTS() { return null; }
             public DataTypeTags Tag { get; set; }
             public IRegistrationInfo Registration { get; set; }
+
+            public bool _StartTSCertainty;
+            public bool ToStartTSCertainty()
+            { return _StartTSCertainty; }
+            public bool _EndTSCertainty;
+            public bool ToEndTSCertainty()
+            { return _EndTSCertainty; }
         }
 
         class HistoryStub1 : ITimedType
@@ -81,6 +88,13 @@ namespace CprBroker.Tests.Schemas
             public DateTime? ToStartTS() { return _StartTS; }
             public DataTypeTags Tag { get; set; }
             public IRegistrationInfo Registration { get; set; }
+
+            public bool _StartTSCertainty;
+            public bool ToStartTSCertainty()
+            { return _StartTSCertainty; }
+            public bool _EndTSCertainty;
+            public bool ToEndTSCertainty()
+            { return _EndTSCertainty; }
         }
 
         class CurrentStub2 : ITimedType
@@ -94,6 +108,12 @@ namespace CprBroker.Tests.Schemas
             public DateTime? ToEndTS() { return null; }
             public DataTypeTags Tag { get; set; }
             public IRegistrationInfo Registration { get; set; }
+            public bool _StartTSCertainty { get; set; }
+            public bool ToStartTSCertainty()
+            { return _StartTSCertainty; }
+            public bool _EndTSCertainty { get; set; }
+            public bool ToEndTSCertainty()
+            { return _EndTSCertainty; }
         }
 
         class HistoryStub2 : ITimedType
@@ -102,12 +122,18 @@ namespace CprBroker.Tests.Schemas
             {
                 Tag = (DataTypeTags)2;
             }
-            public DateTime? _EndTS;
+            public DateTime? _EndTS { get; set; }
             public DateTime? ToEndTS() { return _EndTS; }
-            public DateTime? _StartTS;
+            public DateTime? _StartTS { get; set; }
             public DateTime? ToStartTS() { return _StartTS; }
             public DataTypeTags Tag { get; set; }
             public IRegistrationInfo Registration { get; set; }
+            public bool _StartTSCertainty { get; set; }
+            public bool ToStartTSCertainty()
+            { return _StartTSCertainty; }
+            public bool _EndTSCertainty { get; set; }
+            public bool ToEndTSCertainty()
+            { return _EndTSCertainty; }
         }
 
         [TestFixture]

@@ -86,6 +86,14 @@ namespace CprBroker.Tests.Schemas
 
             public DataTypeTags Tag { get; set; }
             public IRegistrationInfo Registration { get; set; }
+
+
+            public bool _StartTSCertainty;
+            public bool ToStartTSCertainty()
+            { return _StartTSCertainty; }
+            public bool _EndTSCertainty;
+            public bool ToEndTSCertainty()
+            { return _EndTSCertainty; }
         }
 
         class SeparationStub : ISeparation
@@ -105,6 +113,13 @@ namespace CprBroker.Tests.Schemas
             public DateTime? ToEndTS()
             { return null; }
 
+            public bool _StartTSCertainty;
+            public bool ToStartTSCertainty()
+            { return _StartTSCertainty; }
+            public bool _EndTSCertainty;
+            public bool ToEndTSCertainty()
+            { return _EndTSCertainty; }
+            
             public DataTypeTags Tag { get; set; }
             public IRegistrationInfo Registration { get; set; }
         }
