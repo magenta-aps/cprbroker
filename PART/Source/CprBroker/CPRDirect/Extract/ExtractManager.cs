@@ -201,48 +201,7 @@ namespace CprBroker.Providers.CPRDirect
             }
         }
 
-        public static void ImportDataProviderFolders()
-        {
-            // TODO: (Extract) Split the download of files that should happen once per hour,
-            // from extraction that should be as soon as possible
-            Admin.LogSuccess("Loading CPR Direct data providers");
-
-            try
-            {
-                var dbProv = CprBroker.Engine.DataProviderManager.ReadDatabaseDataProviders();
-                var result = CprBroker.Engine.DataProviderManager.LoadExternalDataProviders(dbProv, typeof(CPRDirectExtractDataProvider)).Select(p => p as CPRDirectExtractDataProvider).ToArray();
-
-                Admin.LogFormattedSuccess("Found {0} CPR Direct providers", result.Length);
-
-                foreach (var prov in result)
-                {
-                    try
-                    {
-                        Admin.LogFormattedSuccess("Checking folder {0}", prov.ExtractsFolder);
-                        if (Directory.Exists(prov.ExtractsFolder))
-                        {
-                            // Download the files -
-                            DownloadFtpFiles(prov);
-
-                            // Now process the files
-                            ExtractLocalFiles(prov);
-                        }
-                        else
-                        {
-                            Admin.LogFormattedError("Folder <{0}> not found", prov.ExtractsFolder);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Admin.LogException(ex);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Admin.LogException(ex);
-            }
-        }
+       
 
         public static void DownloadFtpFiles(CPRDirectExtractDataProvider prov)
         {
