@@ -142,5 +142,23 @@ namespace CprBroker.Config.Properties {
                 return ((bool)(this["CprDirectReturnsNewestFirst"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60000")]
+        public int CprDirectExtractIntervalMilliseconds {
+            get {
+                return ((int)(this["CprDirectExtractIntervalMilliseconds"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int CprDirectDownloadIntervalMinutes {
+            get {
+                return ((int)(this["CprDirectDownloadIntervalMinutes"]));
+            }
+        }
     }
 }
