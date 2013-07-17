@@ -65,18 +65,24 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToPnrStringOrNull(this.SpousePNR);
         }
 
-        DateTime? ITimedType.ToStartTS()
+        public DateTime? ToStartTS()
         {
-            // TODO: (Date uncertainty) How to pass start date uncertainty?
             return this.CivilStatusStartDate;
-            //return Converters.ToDateTime(this.CivilStatusStartDate, this.CivilStatusStartDateUncertainty);
         }
 
-        DateTime? ITimedType.ToEndTS()
+        public bool ToStartTSCertainty()
         {
-            // TODO: (Date uncertainty) How to pass end date uncertainty?
+            return Converters.ToDateTimeUncertainty(CivilStatusStartDateUncertainty);
+        }
+
+        public DateTime? ToEndTS()
+        {
             return this.CivilStatusEndDate;
-            //return Converters.ToDateTime(this.CivilStatusEndDate, this.CivilStatusEndDateUncertainty);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(CivilStatusEndDateUncertainty);
         }
 
         DataTypeTags ITimedType.Tag
