@@ -112,9 +112,19 @@ namespace CprBroker.Providers.CPRDirect
             return PersonStartDate;
         }
 
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(PersonStartDateUncertainty);
+        }
+
         public DateTime? ToEndTS()
         {
             return PersonEndDate;
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(PersonEndDateUncertainty);
         }
 
         public PersonRelationType[] ToReplacedByRelationType(Func<string, Guid> cpr2UuidFunc)
