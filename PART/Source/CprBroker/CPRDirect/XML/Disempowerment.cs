@@ -92,7 +92,6 @@ namespace CprBroker.Providers.CPRDirect
 
         public bool ToStartTSCertainty()
         {
-            // TODO: Is this a date uncertainty flag or a correction marker? Check the Danish text
             return Converters.ToDateTimeUncertainty(DisempowermentStartDateUncertainty);
         }
         
