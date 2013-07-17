@@ -72,13 +72,21 @@ namespace CprBroker.Providers.CPRDirect
         public DateTime? ToStartTS()
         {
             return this.CitizenshipStartDate;
-            //return Converters.ToDateTime(this.CitizenshipStartDate, this.CitizenshipStartDateUncertainty);
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(CitizenshipStartDateUncertainty);
         }
 
         public DateTime? ToEndTS()
         {
             return this.CitizenshipEndDate;
-            //return Converters.ToDateTime(this.CitizenshipEndDate, this.CitizenshipEndDateUncertainty);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(CitizenshipEndDateUncertainty);
         }
     }
 }
