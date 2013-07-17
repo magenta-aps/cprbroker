@@ -68,13 +68,21 @@ namespace CprBroker.Providers.CPRDirect
         public DateTime? ToStartTS()
         {
             return this.OldPNRStartDate;
-            //return Converters.ToDateTime(this.OldPNRStartDate, this.OldPNRStartDateUncertainty);
         }
 
+        public bool ToStartTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(this.OldPNRStartDateUncertainty);
+        }
+        
         public DateTime? ToEndTS()
         {
             return this.OldPNREndDate;
-            //return Converters.ToDateTime(this.OldPNREndDate, this.OldPNREndDateUncertainty);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return Converters.ToDateTimeUncertainty(this.OldPNREndDateUncertainty);
         }
 
         public bool ToPersonNummerGyldighedStatusIndikator()
