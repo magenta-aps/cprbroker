@@ -98,10 +98,8 @@ namespace CprBroker.Providers.CPRDirect
              * RelocationDate: Is the address date
              * MunicipalityArrivalDate: seems to be some hsitorical date when the municipality started registration of this person. Usually (but not always) this is the same as RelocationDate
              * LeavingMunicipalityDepartureDate: is the date when the person left the previous municipality. This is zero if the person came from abroad (HistoricalExitEntry)
-             
+             * StartDate: unknown !! it could be empty or greater / less than RelocationDate
              */
-
-            // TODO: What is the difference between StartDate and RelocaltionDate?
         }
 
         public bool ToStartTSCertainty()
