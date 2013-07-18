@@ -140,14 +140,14 @@ namespace CprBroker.Providers.CPRDirect
                     return true;
                     break;
                 case 'S':
-                    return false;
+                    return true;
                     break;                
                 case 'U':
                     return false;
                     break;
                 default:
                     throw new ArgumentException(
-                        string.Format("Invalied value <{0}>, must be 'A', 'M', 'F', 'S' or 'D'", churchRelation),
+                        string.Format("Invalied value <{0}>, must be 'A', 'F', 'M', 'S' or 'U'", churchRelation),
                         "churchRelation");
             }
         }
