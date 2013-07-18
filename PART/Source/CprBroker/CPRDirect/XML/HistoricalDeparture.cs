@@ -52,9 +52,9 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    // TODO: Mark this with the attribute but allow the attribute to be ignored if the foreign address is not empty
-    // TODO: Shall we do the same for current departure?
-    // [CreateIntervalIfStartTsIsNull(false)]
+    // Start date is null only in a person started from abroad - and we should not create an interval 
+    // It not matter if foreign address is empty or not - do not create intreval with null start date only based on a historical departure.  
+    [CreateIntervalIfStartTsIsNull(false)]
     public partial class HistoricalDepartureType : IAddressSource, IHasCorrectionMarker
     {
         public DataTypeTags Tag
@@ -76,7 +76,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             return this.EntryDate;
         }
-        
+
         public bool ToEndTSCertainty()
         {
             return Converters.ToDateTimeUncertainty(EntryDateUncertainty);
@@ -132,7 +132,9 @@ namespace CprBroker.Providers.CPRDirect
 
         public CountryIdentificationCodeType ToCountryIdentificationCode()
         {
-            return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Converters.DecimalToString(this.ExitCountryCode));
+            // TODO: Many times the exit country is differnt from the entry country - also sometimes either of them is null/unknown.
+            // Which country code to use in this case?
+            return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Converters.DecimalToString(this.EntryCountryCode));
         }
 
         public bool IsEmpty
