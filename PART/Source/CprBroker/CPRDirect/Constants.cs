@@ -213,5 +213,7 @@ namespace CprBroker.Providers.CPRDirect
             public static readonly int ErrorCodeIndex = 22;
             public static readonly int ErrorCodeLength = 2;
         }
+
+        public static System.Threading.ReaderWriterLockSlim AuthorityLock = new System.Threading.ReaderWriterLockSlim();
     }
 }

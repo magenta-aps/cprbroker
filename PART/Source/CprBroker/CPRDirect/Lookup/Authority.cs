@@ -86,32 +86,41 @@ namespace CprBroker.Providers.CPRDirect
 
         private static Dictionary<string, string> _AuthorityMap;
 
-        static Authority()
+        static void FillAuthorityMap()
         {
-            // Only load the authority records is process is not elevated, i.e: load if this is not an installer context
-            // TODO: Change this condition to something better
-            var elevated = false;
             try
-            { elevated = UacHelper.IsProcessElevated; }
-            catch { }
-            if (!elevated)
             {
-                LoadAuthorityMap();
+                Constants.AuthorityLock.EnterUpgradeableReadLock();
+                if (_AuthorityMap == null)
+                {
+                    try
+                    {
+                        Constants.AuthorityLock.EnterWriteLock();
+                        if (_AuthorityMap == null)
+                        {
+                            using (var dataContext = new LookupDataContext())
+                            {
+                                _AuthorityMap = dataContext
+                                    .Authorities
+                                    .ToDictionary(au => au.AuthorityCode, au => au.FullName);
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        Constants.AuthorityLock.ExitWriteLock();
+                    }
+                }
             }
-        }
-
-        static void LoadAuthorityMap()
-        {
-            using (var dataContext = new LookupDataContext())
+            finally
             {
-                _AuthorityMap = dataContext
-                    .Authorities
-                    .ToDictionary(au => au.AuthorityCode, au => au.FullName);
+                Constants.AuthorityLock.ExitUpgradeableReadLock();
             }
         }
 
         public static string GetNameByCode(string code)
         {
+            FillAuthorityMap();
             if (!string.IsNullOrEmpty(code) && _AuthorityMap.ContainsKey(code))
             {
                 return _AuthorityMap[code];
