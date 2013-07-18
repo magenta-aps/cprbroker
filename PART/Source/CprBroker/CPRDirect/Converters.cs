@@ -130,6 +130,9 @@ namespace CprBroker.Providers.CPRDirect
         {
             switch (churchRelation.ToString().ToUpper()[0])
             {
+                case 'A':
+                    return false;
+                    break;
                 case 'F':
                     return true;
                     break;
@@ -138,10 +141,7 @@ namespace CprBroker.Providers.CPRDirect
                     break;
                 case 'S':
                     return false;
-                    break;
-                case 'A':
-                    return false;
-                    break;
+                    break;                
                 case 'U':
                     return false;
                     break;
