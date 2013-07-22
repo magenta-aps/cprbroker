@@ -113,7 +113,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\patch_EM_objects_1_1.sql" />
+    <Content Include="Resources\patch_EM_objects_1_2.sql" />
     <Content Include="Resources\create_EM_objects.sql" />
     <Content Include="Resources\drop_EM_objects.sql" />
     <None Include="app.config">
