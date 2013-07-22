@@ -62,7 +62,7 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 			-- We check if the temp tables actually contains data to avoid mistakedly updates --
 			BEGIN
 				-- We look for updates in already existing records --
-				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS) 
+				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid) 
 					SELECT PERSONNUMMER, 'AA70000T', current_timestamp, 0
 					FROM (
 						SELECT PERSONNUMMER, COUNT(*) AS PNR_COUNT  FROM (
@@ -75,7 +75,7 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 					WHERE PNR_COUNT > 1
                 EXEC xp_logevent 70000, '... checked for differences...', informational
 				-- We look for new records --
-				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS) 
+				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid) 
 					SELECT t2.PERSONNUMMER, 'AA70000T', current_timestamp, 0 
 					FROM AA70000T_TMP2 t2 LEFT OUTER JOIN AA70000T_TMP1 t1
 					ON t2.PERSONNUMMER = t1.PERSONNUMMER
@@ -87,7 +87,7 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 			-- Only if both temp tables contains data we carry out the comparison --
 			BEGIN
 				-- We look for updates in already existing records --
-				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS) 
+				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid) 
 					SELECT PERSONNUMMER, 'AA70300T', current_timestamp, 0
 					FROM (
 						SELECT PERSONNUMMER, COUNT(*) AS PNR_COUNT  FROM (
@@ -100,7 +100,7 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 					WHERE PNR_COUNT > 1
                 EXEC xp_logevent 70000, '... checked for differences...', informational
 				-- We look for new records --
-				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS) 
+				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid) 
 					SELECT t2.PERSONNUMMER, 'AA70300T', current_timestamp, 0
 					FROM AA70300T_TMP2 t2 LEFT OUTER JOIN AA70300T_TMP1 t1
 					ON t2.PERSONNUMMER = t1.PERSONNUMMER
@@ -116,13 +116,13 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 		INNER JOIN AA70000T P ON T.PERSONNUMMER = P.PERSONNUMMER
 		
 		-- Now insert either in staging table or excluded staging table
-		INSERT INTO T_E_MUpdateStaging (T.PERSONNUMMER, T.E_MTable, T.CreateTS)
-		SELECT T.PERSONNUMMER, T.E_MTable, T.CreateTS
+		INSERT INTO T_E_MUpdateStaging (PERSONNUMMER, E_MTable, CreateTS)
+		SELECT PERSONNUMMER, E_MTable, CreateTS
 		FROM @T_E_MUpdateStaging_Tmp
 		WHERE Valid = 1
 
-		INSERT INTO T_E_MUpdateStaging_Excluded (T.PERSONNUMMER, T.E_MTable, T.CreateTS)
-		SELECT T.PERSONNUMMER, T.E_MTable, T.CreateTS
+		INSERT INTO T_E_MUpdateStaging_Excluded (PERSONNUMMER, E_MTable, CreateTS)
+		SELECT PERSONNUMMER, E_MTable, CreateTS
 		FROM @T_E_MUpdateStaging_Tmp
 		WHERE Valid = 0
 
