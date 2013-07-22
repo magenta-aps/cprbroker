@@ -220,7 +220,7 @@ namespace CprBroker.Schemas.Part
                         CivilStatusCode = singleStatus,
                         StartTS = null,
                         StartTSCertainty = true,
-                        EndTS = firstStatus.ToStartTS()
+                        EndTS = firstStatus.ToStartTS(),
                         EndTSCertainty = true
                     };
                     allCivilStates.Add(dummy);
