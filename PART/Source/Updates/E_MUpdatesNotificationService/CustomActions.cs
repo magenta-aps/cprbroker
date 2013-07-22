@@ -101,7 +101,8 @@ namespace E_MUpdatesNotification
 
             var dic = new Dictionary<string, CprBroker.Installers.DatabasePatchInfo[]>();
             dic[_UpdateDetectionVariables.DatabaseFeatureName] = new CprBroker.Installers.DatabasePatchInfo[] { 
-                new CprBroker.Installers.DatabasePatchInfo(new Version(1,1), patchDDL_1_1,null)
+                new CprBroker.Installers.DatabasePatchInfo(new Version(1,1), patchDDL_1_1,null),
+                new CprBroker.Installers.DatabasePatchInfo(new Version(1,2), Properties.Resources.patch_EM_objects_1_2,null)
             };
             return UpdateLib.CustomActions.PatchDatabase(session, dic);
         }
