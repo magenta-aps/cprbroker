@@ -20,6 +20,8 @@ GO
 
 IF EXISTS (SELECT * FROM sysobjects where name='usp_CPR_Broker_Prepare')
 	DROP PROCEDURE usp_CPR_Broker_Prepare
+GO
+
 IF EXISTS (SELECT * FROM sysobjects where name='usp_CPR_Broker_Compare')
 	DROP PROCEDURE usp_CPR_Broker_Compare
 GO
