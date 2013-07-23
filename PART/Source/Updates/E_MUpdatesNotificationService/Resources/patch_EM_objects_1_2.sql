@@ -64,12 +64,13 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 
 		DECLARE @T_E_MUpdateStaging_Tmp Table(PERSONNUMMER DECIMAL(11,0), E_MTable VARCHAR(120), CreateTS DateTime, Valid BIT)
 
+		-- We check if the temp tables actually contains data to avoid mistakedly updates --				
 		IF (EXISTS (SELECT PERSONNUMMER FROM AA70000T_TMP1) AND EXISTS (SELECT PERSONNUMMER FROM AA70000T_TMP2))
-            EXEC xp_logevent 70000, '... both AA70000 tables contain data...', informational
-			-- We check if the temp tables actually contains data to avoid mistakedly updates --
-			BEGIN
+            BEGIN			
+				EXEC xp_logevent 70000, '... both AA70000 tables contain data...', informational
+				
 				-- We look for updates in already existing records --
-				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid) 
+				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid)
 					SELECT PERSONNUMMER, 'AA70000T', current_timestamp, 0
 					FROM (
 						SELECT PERSONNUMMER, COUNT(*) AS PNR_COUNT  FROM (
@@ -82,19 +83,21 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 					WHERE PNR_COUNT > 1
                 EXEC xp_logevent 70000, '... checked for differences...', informational
 				-- We look for new records --
-				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid) 
+				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid)
 					SELECT t2.PERSONNUMMER, 'AA70000T', current_timestamp, 0 
 					FROM AA70000T_TMP2 t2 LEFT OUTER JOIN AA70000T_TMP1 t1
 					ON t2.PERSONNUMMER = t1.PERSONNUMMER
 					WHERE t1.PERSONNUMMER is null
                 EXEC xp_logevent 70000, '... checked for new records...', informational
 			END
+		
+		-- Only if both temp tables contains data we carry out the comparison --
 		IF (EXISTS (SELECT PERSONNUMMER FROM AA70300T_TMP1) AND EXISTS (SELECT PERSONNUMMER FROM AA70300T_TMP2))
-            EXEC xp_logevent 70000, '... both AA70300 tables contain data...', informational
-			-- Only if both temp tables contains data we carry out the comparison --
-			BEGIN
+            BEGIN
+				EXEC xp_logevent 70000, '... both AA70300 tables contain data...', informational
+				
 				-- We look for updates in already existing records --
-				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid) 
+				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid)
 					SELECT PERSONNUMMER, 'AA70300T', current_timestamp, 0
 					FROM (
 						SELECT PERSONNUMMER, COUNT(*) AS PNR_COUNT  FROM (
@@ -107,7 +110,7 @@ CREATE PROCEDURE [dbo].[usp_CPR_Broker_Compare] AS
 					WHERE PNR_COUNT > 1
                 EXEC xp_logevent 70000, '... checked for differences...', informational
 				-- We look for new records --
-				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid) 
+				INSERT INTO @T_E_MUpdateStaging_Tmp (PERSONNUMMER, E_MTable, CreateTS, Valid)
 					SELECT t2.PERSONNUMMER, 'AA70300T', current_timestamp, 0
 					FROM AA70300T_TMP2 t2 LEFT OUTER JOIN AA70300T_TMP1 t1
 					ON t2.PERSONNUMMER = t1.PERSONNUMMER
