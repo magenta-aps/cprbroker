@@ -19,6 +19,13 @@ IF NOT EXISTS (SELECT * FROM sysobjects where name='T_E_MUpdateStaging_Excluded'
 	)  ON [PRIMARY]
 GO
 
+IF NOT EXISTS (SELECT * FROM sys.key_constraints WHERE name = 'PK_T_E_MUpdateStaging_Excluded')
+	ALTER TABLE dbo.T_E_MUpdateStaging_Excluded ADD CONSTRAINT
+	PK_T_E_MUpdateStaging_Excluded PRIMARY KEY CLUSTERED 	(Id) 
+	WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+	ON [PRIMARY]
+GO
+
 /*************************************************************************
 	Fill T_E_MUpdateStaging_Excluded, and delete from T_E_MUpdateStaging
 *************************************************************************/
