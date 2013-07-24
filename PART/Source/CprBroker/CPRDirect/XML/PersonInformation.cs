@@ -130,7 +130,6 @@ namespace CprBroker.Providers.CPRDirect
         public PersonRelationType[] ToReplacedByRelationType(Func<string, Guid> cpr2UuidFunc)
         {
             var newPnr = Converters.ToPnrStringOrNull(CurrentCprNumber);
-            Console.WriteLine("Info: PNR <{0}>, current PNR <{1}>", PNR, CurrentCprNumber);
             if (!string.IsNullOrEmpty(newPnr))
             {
                 return new PersonRelationType[] { PersonRelationType.Create(cpr2UuidFunc(newPnr), PersonEndDate, null) };
