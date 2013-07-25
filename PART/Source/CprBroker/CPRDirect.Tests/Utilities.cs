@@ -124,11 +124,45 @@ namespace CprBroker.Tests.CPRDirect
         }
 
         public static string[] PNRs = null;
-        
+        public static Dictionary<string, LineWrapper[]> PersonLineWrappers = null;
+        public static Dictionary<string, ExtractItem[]> PersonExtractItems = null;
+        public static ExtractItem[] AllExtractItems = null;
+
+        public static LineWrapper StartLine = null;
+        public static LineWrapper EndLine = null;
+
         static Utilities()
         {
             var all = IndividualResponseType.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE);
             PNRs = all.Select(p => p.PersonInformation.PNR).OrderBy(p => p).ToArray();
+            
+            
+            var lines = new List<LineWrapper>(LineWrapper.ParseBatch(Properties.Resources.U12170_P_opgavenr_110901_ADRNVN_FE));
+
+            StartLine = lines.First();
+            EndLine = lines.Last();
+            lines.Remove(StartLine);
+            lines.Remove(EndLine);
+
+            var groups = lines.GroupBy(l => l.PNR).ToArray();
+
+            PersonLineWrappers = groups.ToDictionary(g=>g.Key,g=>g.ToArray());
+
+            var extract = new Extract() { ExtractId = Guid.NewGuid(), ExtractDate = DateTime.Now, StartRecord = StartLine.Contents, EndRecord = EndLine.Contents, Filename = "", ImportDate = DateTime.Now, Ready = true, ProcessedLines = lines.Count };
+            var allItems = new List<ExtractItem>();
+            PersonExtractItems = groups.ToDictionary(
+                g => g.Key, 
+                g => 
+                    {
+                        var items = g.ToArray()
+                            .Select(l => l.ToExtractItem(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap))
+                            .ToArray();
+                        extract.ExtractItems.AddRange(items);
+                        allItems.AddRange(items);
+                        return items;
+                    }
+            );
+            AllExtractItems = allItems.ToArray();
         }
     }
 }
