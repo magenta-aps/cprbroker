@@ -57,20 +57,25 @@ namespace CprBroker.Providers.CPRDirect
 {
     partial class Extract
     {
-        private static IndividualResponseType ToIndividualResponseType(IGrouping<Extract, ExtractItem> found, Dictionary<string, Type> typeMap)
+        public static IndividualResponseType ToIndividualResponseType(IGrouping<Extract, ExtractItem> found, Dictionary<string, Type> typeMap)
+        {
+            return ToIndividualResponseType(found.Key, found.AsQueryable(), typeMap);
+        }
+
+        public static IndividualResponseType ToIndividualResponseType(Extract extract, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)
         {
             var individualResponse = new IndividualResponseType();
 
-            var startWrapper = new LineWrapper(found.Key.StartRecord).ToWrapper(typeMap) as StartRecordType;
-            var endWrapper = new LineWrapper(found.Key.EndRecord).ToWrapper(typeMap) as EndRecordType;
+            var startWrapper = new LineWrapper(extract.StartRecord).ToWrapper(typeMap) as StartRecordType;
+            var endWrapper = new LineWrapper(extract.EndRecord).ToWrapper(typeMap) as EndRecordType;
 
-            var linewWappers = found
+            var linewWappers = extractItems
                 .Select(item => new LineWrapper(item.Contents).ToPersonRecordWrapper(typeMap, individualResponse))
                 .ToArray();
 
             // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
             individualResponse.FillPropertiesFromWrappers(linewWappers, startWrapper, endWrapper);
-            individualResponse.SourceObject = found.Key.ExtractId;
+            individualResponse.SourceObject = extract.ExtractId;
 
             return individualResponse;
         }
