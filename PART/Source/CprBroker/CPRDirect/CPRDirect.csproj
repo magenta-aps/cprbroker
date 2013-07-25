@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extract\ExtractPersonStaging.cs" />
     <Compile Include="Interfaces\IParentalAuthority.cs" />
     <Compile Include="Interfaces\IProtection.cs" />
     <Compile Include="Interfaces\IRelationship.cs" />
