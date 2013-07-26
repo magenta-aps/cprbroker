@@ -73,7 +73,11 @@ namespace CprBroker.Providers.CPRDirect
         {
             _StartWrapper = new LineWrapper(StartRecord).ToWrapper(Constants.DataObjectMap) as StartRecordType;
         }
-
+        partial void OnLoaded()
+        {
+            OnStartRecordChanged();
+            OnEndRecordChanged();
+        }
         private EndRecordType _EndWrapper;
         public EndRecordType EndWrapper
         {
@@ -88,12 +92,12 @@ namespace CprBroker.Providers.CPRDirect
         {
             var individualResponse = new IndividualResponseType();
 
-            var linewWappers = extractItems
+            var personWrappers = extractItems
                 .Select(item => Wrapper.Create(item.DataTypeCode, item.Contents, typeMap))
                 .ToArray();
 
             // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
-            individualResponse.FillPropertiesFromWrappers(linewWappers, extract.StartWrapper, extract.EndWrapper);
+            individualResponse.FillPropertiesFromWrappers(personWrappers, extract.StartWrapper, extract.EndWrapper);
             individualResponse.SourceObject = extract.ExtractId;
 
             return individualResponse;
