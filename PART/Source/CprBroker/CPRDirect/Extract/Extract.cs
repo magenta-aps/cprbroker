@@ -62,20 +62,39 @@ namespace CprBroker.Providers.CPRDirect
             return ToIndividualResponseType(found.Key, found.AsQueryable(), typeMap);
         }
 
+
+        private StartRecordType _StartWrapper;
+        public StartRecordType StartWrapper
+        {
+            get { return _StartWrapper; }
+        }
+
+        partial void OnStartRecordChanged()
+        {
+            _StartWrapper = new LineWrapper(StartRecord).ToWrapper(Constants.DataObjectMap) as StartRecordType;
+        }
+
+        private EndRecordType _EndWrapper;
+        public EndRecordType EndWrapper
+        {
+            get { return _EndWrapper; }
+        }
+        partial void OnEndRecordChanged()
+        {
+            _EndWrapper = new LineWrapper(EndRecord).ToWrapper(Constants.DataObjectMap) as EndRecordType;
+        }
+
         public static IndividualResponseType ToIndividualResponseType(Extract extract, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)
         {
             var individualResponse = new IndividualResponseType();
-
-            var startWrapper = new LineWrapper(extract.StartRecord).ToWrapper(typeMap) as StartRecordType;
-            var endWrapper = new LineWrapper(extract.EndRecord).ToWrapper(typeMap) as EndRecordType;
 
             var linewWappers = extractItems
                 .Select(item => Wrapper.Create(item.DataTypeCode, item.Contents, typeMap))
                 .ToArray();
 
             // TODO: (Reverse relation) Add reversible relationship support after finding a good indexing solution
-            individualResponse.FillPropertiesFromWrappers(linewWappers, startWrapper, endWrapper);
-            individualResponse.SourceObject = extract.ExtractId;
+            //individualResponse.FillPropertiesFromWrappers(linewWappers, StartWrapper, EndWrapper);
+            //individualResponse.SourceObject = extract.ExtractId;
 
             return individualResponse;
         }
