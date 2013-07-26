@@ -87,15 +87,12 @@ namespace CprBroker.Providers.CPRDirect
 
         public Wrapper ToWrapper(Dictionary<string, Type> typeMap)
         {
-            if (typeMap.ContainsKey(this.Code))
+            var ret = Wrapper.Create(this.Code, this.Contents, typeMap);
+            if (ret != null)
             {
-                Type type = typeMap[this.Code];
-                var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
-                this.Contents = this.Contents.PadRight(wrapper.Length);
-                wrapper.Contents = this.Contents;
-                return wrapper;
+                this.Contents = ret.Contents;
             }
-            return null;
+            return ret;
         }
 
         public PersonRecordWrapper ToPersonRecordWrapper(Dictionary<string, Type> typeMap, IRegistrationInfo registration)

@@ -196,5 +196,17 @@ namespace CprBroker.Providers.CPRDirect
                 this[pos, length] = new string(' ', length);
             }
         }
+
+        public static Wrapper Create(string code, string contents, Dictionary<string, Type> typeMap)
+        {
+            if (typeMap.ContainsKey(code))
+            {
+                Type type = typeMap[code];
+                var wrapper = Utilities.Reflection.CreateInstance(type) as Wrapper;
+                wrapper.Contents =  contents.PadRight(wrapper.Length);
+                return wrapper;
+            }
+            return null;
+        }
     }
 }
