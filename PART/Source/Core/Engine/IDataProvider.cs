@@ -78,6 +78,16 @@ namespace CprBroker.Engine
         DataProviderConfigPropertyInfo[] ConfigurationKeys { get; }
     }
 
+    /// <summary>
+    /// A data provider that supports update detection
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    public interface IUpdatableDataProvider<TKey>
+    {
+        public TKey[] ReadUpdateQueue(int batchSize);
+        public void DeleteFromQueue(TKey[] keys);
+    }
+
     public enum DataProviderConfigPropertyInfoTypes
     {
         String,
