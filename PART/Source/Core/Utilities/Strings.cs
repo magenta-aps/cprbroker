@@ -107,6 +107,11 @@ namespace CprBroker.Utilities
             return EnsureEndString(directory, Path.DirectorySeparatorChar.ToString(), shouldHaveSlash);
         }
 
+        public static string EnsureEndString(string str, string endString, bool shouldHaveSlash)
+        {
+            return EnsureEndString(str, endString, shouldHaveSlash, StringComparison.CurrentCulture);
+        }
+
         /// <summary>
         /// Ensures that a folder's path ends (or does not end) with a backslash
         /// </summary>
@@ -114,7 +119,7 @@ namespace CprBroker.Utilities
         /// <param name="endString">The character that should/should not be at the end</param>
         /// <param name="shouldHaveSlash">Whether to put or remove a slash</param>
         /// <returns></returns>
-        public static string EnsureEndString(string str, string endString, bool shouldHaveSlash, StringComparison comparison = StringComparison.CurrentCulture)
+        public static string EnsureEndString(string str, string endString, bool shouldHaveSlash, StringComparison comparison)
         {
             bool containsEndChar = str.EndsWith(endString.ToString(), comparison);
             if (shouldHaveSlash && !containsEndChar)
@@ -128,6 +133,11 @@ namespace CprBroker.Utilities
             return str;
         }
 
+        public static string EnsureStartString(string str, string startString, bool shouldHaveChar)
+        {
+            return EnsureStartString(str, startString, shouldHaveChar, StringComparison.CurrentCulture);
+        }
+
         /// <summary>
         /// Ensures that a folder's path ends (or does not end) with a backslash
         /// </summary>
@@ -135,7 +145,7 @@ namespace CprBroker.Utilities
         /// <param name="startString">The character that should/should not be at the end</param>
         /// <param name="shouldHaveChar">Whether to put or remove a slash</param>
         /// <returns></returns>
-        public static string EnsureStartString(string str, string startString, bool shouldHaveChar, StringComparison comparison = StringComparison.CurrentCulture)
+        public static string EnsureStartString(string str, string startString, bool shouldHaveChar, StringComparison comparison)
         {
             bool containsStartChar = str.StartsWith(startString, comparison);
             if (shouldHaveChar && !containsStartChar)
