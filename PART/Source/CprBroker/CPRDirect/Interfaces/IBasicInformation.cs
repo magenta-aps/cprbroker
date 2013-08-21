@@ -55,7 +55,8 @@ namespace CprBroker.Providers.CPRDirect
 {
     public interface IBasicInformation : ITimedType
     {
-        DateTime? ToBirthdate(bool tryPnr = false);
+		DateTime? ToBirthdate();
+		DateTime? ToBirthdate(bool tryPnr);
         PersonGenderCodeType ToPersonGenderCodeType();
     }
 }
