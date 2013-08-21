@@ -61,7 +61,12 @@ namespace CprBroker.Providers.CPRDirect
     public partial class CPRDirectExtractDataProvider : IPartReadDataProvider, IExternalDataProvider
     {
 
-        public string GetFtpUrl(string subPath = null)
+		public string GetFtpUrl()
+		{
+			return GetFtpUrl (null);
+		}
+
+        public string GetFtpUrl(string subPath)
         {
             string url = FtpAddress;
             url = Strings.EnsureStartString(url, "ftp://", false, StringComparison.CurrentCultureIgnoreCase);
@@ -92,7 +97,12 @@ namespace CprBroker.Providers.CPRDirect
             return url;
         }
 
-        public FtpConnection CreateFtpConnection(bool open = false)
+		public FtpConnection CreateFtpConnection()
+		{
+			return CreateFtpConnection (false);
+		}
+
+        public FtpConnection CreateFtpConnection(bool open)
         {
             var ret = new FtpConnection(FtpAddress, FtpUser, FtpPassword);
             if (open)
@@ -104,7 +114,12 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        public FtpFileInfo[] ListFtpContents(string mask = "")
+		public FtpFileInfo[] ListFtpContents()
+		{
+			return ListFtpContents ("");
+		}
+
+        public FtpFileInfo[] ListFtpContents(string mask)
         {
             using (var request = CreateFtpConnection(true))
             {
