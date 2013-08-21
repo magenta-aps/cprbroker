@@ -65,7 +65,12 @@ namespace CprBroker.Providers.CPRDirect
             };
         }
 
-        public DateTime? ToBirthdate(bool tryPnr = false)
+		public DateTime? ToBirthdate()
+		{
+			return ToBirthdate (false);
+		}
+
+        public DateTime? ToBirthdate(bool tryPnr)
         {
             // First, look at birthdate field
             var val = Converters.ToDateTime(this.Birthdate, this.BirthdateUncertainty);
