@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.CPRDirect
 {
-    public partial class HistoricalChurchInformationType : IChurchInformation
+    public partial class HistoricalChurchInformationType : IChurchInformation, IHasCorrectionMarker
     {
         public bool ToFolkekirkeMedlemIndikator()
         {
@@ -73,7 +73,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             return Converters.ToDateTimeUncertainty(StartDateUncertainty);
         }
-        
+
         public DateTime? ToEndTS()
         {
             return this.EndDate;
@@ -84,5 +84,19 @@ namespace CprBroker.Providers.CPRDirect
             return Converters.ToDateTimeUncertainty(EndDateUncertainty);
         }
 
+        public char CorrectionMarker
+        {
+            get
+            {
+                if (StartDate == EndDate)
+                {
+                    return Schemas.Part.CorrectionMarker.Undo;
+                }
+                else
+                {
+                    return Schemas.Part.CorrectionMarker.OK;
+                }
+            }
+        }
     }
 }
