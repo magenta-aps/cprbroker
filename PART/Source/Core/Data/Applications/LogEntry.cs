@@ -112,7 +112,6 @@ namespace CprBroker.Data.Applications
         {
             using (ApplicationDataContext dataContext = new ApplicationDataContext())
             {
-                DataLoadOptions options = new DataLoadOptions();
                 var pred = CreatePredicate(dataContext, fromDate, toDate, type, appName);
 
                 // Read records
@@ -123,11 +122,6 @@ namespace CprBroker.Data.Applications
                     .Take(pageSize)
                     .ToList();
 
-                foreach (var logEntry in ret)
-                {
-                    object o = logEntry.Application;
-                    object s = logEntry.LogType;
-                }
                 return ret;
             }
         }
