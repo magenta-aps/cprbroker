@@ -84,8 +84,8 @@ namespace CprBroker.Engine
     /// <typeparam name="TKey"></typeparam>
     public interface IUpdatableDataProvider<TKey>
     {
-        public TKey[] ReadUpdateQueue(int batchSize);
-        public void DeleteFromQueue(TKey[] keys);
+        TKey[] ReadUpdateQueue(int batchSize);
+        void DeleteFromQueue(TKey[] keys);
     }
 
     public enum DataProviderConfigPropertyInfoTypes
