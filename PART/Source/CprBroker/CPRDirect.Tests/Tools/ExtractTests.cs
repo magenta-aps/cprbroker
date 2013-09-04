@@ -128,7 +128,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var newText = string.Join("", wrappers);
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
 
-                var extract = parseResult.ToExtract(ready: true);
+                var extract = parseResult.ToExtract("", true, 0);
                 var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
                 extract.ExtractItems.AddRange(extractItems);
 
@@ -147,7 +147,7 @@ namespace CprBroker.Tests.CPRDirect.Tools
                 var newText = string.Join("", wrappers);
                 var parseResult = new ExtractParseResult(newText, Constants.DataObjectMap);
 
-                var extract = parseResult.ToExtract(ready: true);
+                var extract = parseResult.ToExtract("", true, 0);
                 var extractItems = parseResult.ToExtractItems(extract.ExtractId, Constants.DataObjectMap, Constants.RelationshipMap, Constants.MultiRelationshipMap);
                 extract.ExtractItems.AddRange(extractItems);
 
