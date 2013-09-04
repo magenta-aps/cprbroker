@@ -75,7 +75,7 @@
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -103,6 +103,7 @@
     <Compile Include="GetUuids.cs" />
     <Compile Include="GetUuidsFromPersonMaster.cs" />
     <Compile Include="LoadAllDataFromDatabase.cs" />
+    <Compile Include="LogFileAnalyzer.cs" />
     <Compile Include="Part.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Read.cs" />
