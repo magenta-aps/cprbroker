@@ -105,7 +105,12 @@ namespace CprBroker.Tests.Engine
             return ret;
         }
 
-        public static RegistreringType1 CreateFakePerson(bool addSourceObject = false)
+		public static RegistreringType1 CreateFakePerson()
+		{
+			return CreateFakePerson (false);
+		}
+
+        public static RegistreringType1 CreateFakePerson(bool addSourceObject)
         {
             var ret = new RegistreringType1()
             {
