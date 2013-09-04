@@ -84,7 +84,12 @@ namespace CprBroker.Schemas.Part
             }
         }
 
-        public PersonRelationType ToPersonRelationType(Func<string, Guid> cpr2uuidFunc, bool forPreviousInterval = false)
+		public PersonRelationType ToPersonRelationType (Func<string, Guid> cpr2uuidFunc)
+		{
+			return ToPersonRelationType(cpr2uuidFunc,false);
+		}
+
+        public PersonRelationType ToPersonRelationType(Func<string, Guid> cpr2uuidFunc, bool forPreviousInterval)
         {
             return new PersonRelationType()
             {
