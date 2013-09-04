@@ -100,7 +100,17 @@ namespace CprBroker.Providers.CPRDirect
             this.ErrorLines.Clear();
         }
 
-        public Extract ToExtract(string sourceFileName = "", bool ready = false, long processedLines = 0)
+		public Extract ToExtract()
+		{
+			return ToExtract ("");
+		}
+
+		public Extract ToExtract(string sourceFileName)
+		{
+			return ToExtract (sourceFileName, false, 0);
+		}
+
+        public Extract ToExtract(string sourceFileName, bool ready , long processedLines)
         {
             return new Extract()
             {
@@ -123,7 +133,13 @@ namespace CprBroker.Providers.CPRDirect
                .ToList();
         }
 
-        public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId, List<string> skipPnrs = null)
+		public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId)
+		{
+			return ToExtractPersonStagings (extractId, null);
+
+		}
+
+        public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId, List<string> skipPnrs)
         {
             var pnrs = this.Lines
                 .GroupBy(line => line.PNR)

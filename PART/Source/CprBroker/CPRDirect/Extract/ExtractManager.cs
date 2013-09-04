@@ -65,7 +65,12 @@ namespace CprBroker.Providers.CPRDirect
             ImportText(text, path);
         }
 
-        public static void ImportText(string text, string sourceFileName = "")
+		public static void ImportText(string text)
+		{
+			ImportText (text, "");
+		}
+
+        public static void ImportText(string text, string sourceFileName)
         {
             var parseResult = new ExtractParseResult(text, Constants.DataObjectMap);
             var extract = parseResult.ToExtract(sourceFileName);
@@ -275,7 +280,12 @@ namespace CprBroker.Providers.CPRDirect
             return targetFilePath;
         }
 
-        public static void ConvertPersons(int batchSize = 1)
+		public static void ConvertPersons()
+		{
+			ConvertPersons (1);
+		}
+
+        public static void ConvertPersons(int batchSize)
         {
             Admin.LogFormattedSuccess("ExtractManager.ConvertPersons() started, batch size <{0}>", batchSize);
             List<Guid> succeeded = new List<Guid>(), failed = new List<Guid>();
