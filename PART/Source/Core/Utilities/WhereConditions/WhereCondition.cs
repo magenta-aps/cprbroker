@@ -63,7 +63,7 @@ namespace CprBroker.Utilities.WhereConditions
 
         public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, string[] columnNames)
 #if Mono
-            where T : class
+            where T : class, new()
 #endif
         {
             string sql = string.Format("SELECT {0} FROM {1} WHERE {2}",
@@ -79,7 +79,7 @@ namespace CprBroker.Utilities.WhereConditions
 
         public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, bool distinct, string[] columnNames, int startIndex, int maxCount, string sort)            
 #if Mono
-            where T : class
+            where T : class, new()
 #endif
         {
             string tempName = Strings.NewRandomString(10);
