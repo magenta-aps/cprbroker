@@ -62,6 +62,9 @@ namespace CprBroker.Utilities.WhereConditions
         }
 
         public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, string[] columnNames)
+#if Mono
+            where T : class
+#endif
         {
             string sql = string.Format("SELECT {0} FROM {1} WHERE {2}",
                             string.Join(",", columnNames),
@@ -73,7 +76,11 @@ namespace CprBroker.Utilities.WhereConditions
             return dataContext.ExecuteQuery<T>(sql, parameterValues);
         }
 
-        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, bool distinct, string[] columnNames, int startIndex, int maxCount, string sort)
+
+        public static IEnumerable<T> GetMatchingObjects<T>(System.Data.Linq.DataContext dataContext, IEnumerable<WhereCondition> elements, string tableName, bool distinct, string[] columnNames, int startIndex, int maxCount, string sort)            
+#if Mono
+            where T : class
+#endif
         {
             string tempName = Strings.NewRandomString(10);
             string columnNamesStr = string.Join(",", columnNames);

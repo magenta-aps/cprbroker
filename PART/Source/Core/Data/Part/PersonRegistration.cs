@@ -244,7 +244,13 @@ namespace CprBroker.Data.Part
         {
             var elements = PersonRegistration.CreateXQueryElements(soegObject);
 
+#if Mono
+            var byCriteriaStr = WhereCondition.GetMatchingObjects<string>(dataContext, elements, "PersonRegistration", true, new string[] { "UUID" }, startIndex, maxCount, "UUID");
+            var byCriteria = byCriteriaStr.Select(o => new Guid(o));
+#else
             var byCriteria = WhereCondition.GetMatchingObjects<Guid>(dataContext, elements, "PersonRegistration", true, new string[] { "UUID" }, startIndex, maxCount, "UUID");
+#endif
+            
             return byCriteria;
         }
 
