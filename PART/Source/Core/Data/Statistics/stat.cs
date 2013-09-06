@@ -137,9 +137,18 @@ namespace CprBroker.Data.Statistics
         /// <returns>The last date at which statistics have been calculated for this object</returns>
         public DateTime? GetStatsDate(DataContext dataContext)
         {
+#if Mono
+            return dataContext.ExecuteQuery<object>(
+                "select STATS_DATE({0}, {1})", this.object_id, this.stats_id
+            )
+            .Select(o => o as DateTime?)
+            .FirstOrDefault();
+#else
             return dataContext.ExecuteQuery<DateTime?>(
                 "select STATS_DATE({0}, {1})", this.object_id, this.stats_id
             ).FirstOrDefault();
+#endif
+
         }
 
         /// <summary>
