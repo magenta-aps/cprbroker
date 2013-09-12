@@ -125,6 +125,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="SortContentsByDate.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Web References\Part\Reference.cs">
       <AutoGen>True</AutoGen>
