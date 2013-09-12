@@ -57,6 +57,13 @@ Regenerate Children
 -------------------
 BatchClient.exe /envType "BatchClient.RegenerateChildren, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;" /appToken "11111111-2222-3333-4444-555555555555" /userToken MyUser
 
+Sorting by effect date
+PersonRegistration.Contents column by effect date (attributes and relationships)
+----------------------
+BatchClient.exe /envType "BatchClient.SortContentsByDate, BatchClient" /brokerDb "data source=dbserver; initial catalog=cprbroker; integrated security=sspi; user id=; password=;"
+ 
+
+
 ========================
 Creating the data file
 ======================
