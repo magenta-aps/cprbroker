@@ -64,8 +64,7 @@ namespace BatchClient
             using (var dataContext = new PartDataContext(this.BrokerConnectionString))
             {
                 return dataContext.PersonRegistrations
-                    .OrderBy(pr => pr.UUID)
-                    .ThenBy(pr => pr.PersonRegistrationId)
+                    .OrderBy(pr => pr.PersonRegistrationId)
                     .Where(pr => pr.SourceObjects != null)
                     .Select(pr => string.Format("{0},{1}", pr.UUID, pr.PersonRegistrationId))                    
                     .ToArray();
