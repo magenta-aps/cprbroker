@@ -58,6 +58,14 @@ namespace CprBroker.Providers.CPRDirect
         public LineWrapper EndLine { get; set; }
         public List<LineWrapper> ErrorLines { get; private set; }
 
+        public enum WrapperParseGroup
+        {
+            Start,
+            Regular,
+            End,
+            Error
+        }
+
         public ExtractParseResult()
         {
             Lines = new List<LineWrapper>();
@@ -71,26 +79,36 @@ namespace CprBroker.Providers.CPRDirect
             AddLines(wrappers);
         }
 
+        public static WrapperParseGroup GetParseGroup(Wrapper w)
+        {
+            if (w is StartRecordType)
+                return WrapperParseGroup.Start;
+            else if (w is EndRecordType)
+                return WrapperParseGroup.End;
+            else if (w is ErrorRecordType)
+                return WrapperParseGroup.Error;
+            else
+                return WrapperParseGroup.Regular;
+        }
+
         public void AddLines(List<Wrapper> wrappers)
         {
-            var wrappersAndLines = wrappers.Select(w => new { Wrapper = w, Line = new LineWrapper(w.Contents) }).ToArray();
+            var wrappersAndLines = wrappers.Select(w => new { Wrapper = w, Line = new LineWrapper(w.Contents), ParseGroupType = GetParseGroup(w)}).ToArray();
 
             // Isolate error lines
-            this.ErrorLines.AddRange(wrappersAndLines.Where(wl => wl.Wrapper is ErrorRecordType).Select(wl => wl.Line));
-            this.Lines.AddRange(wrappersAndLines.Where(wl => !(wl.Wrapper is ErrorRecordType)).Select(wl => wl.Line));
+            this.ErrorLines.AddRange(wrappersAndLines.Where(wl => wl.ParseGroupType == WrapperParseGroup.Error).Select(wl => wl.Line));
+            this.Lines.AddRange(wrappersAndLines.Where(wl => wl.ParseGroupType == WrapperParseGroup.Regular).Select(wl => wl.Line));
 
-            var startWrapper = wrappers.First() as StartRecordType;
-            if (startWrapper != null)
+            var startWrapperAndLine = wrappersAndLines.Where(wl => wl.ParseGroupType == WrapperParseGroup.Start).FirstOrDefault();
+            if (startWrapperAndLine != null)
             {
-                this.StartWrapper = startWrapper;
-                this.Lines.RemoveAt(0);
+                this.StartWrapper = startWrapperAndLine.Wrapper as StartRecordType;
             }
 
-            var endWrapper = wrappers.Last() as EndRecordType;
-            if (endWrapper != null)
+            var endWrapperAndLine = wrappersAndLines.Where(wl => wl.ParseGroupType == WrapperParseGroup.End).FirstOrDefault();
+            if (endWrapperAndLine != null)
             {
-                this.EndLine = new LineWrapper(endWrapper.Contents);
-                this.Lines.RemoveAt(this.Lines.Count - 1);
+                this.EndLine = endWrapperAndLine.Line;
             }
         }
 
@@ -100,17 +118,17 @@ namespace CprBroker.Providers.CPRDirect
             this.ErrorLines.Clear();
         }
 
-		public Extract ToExtract()
-		{
-			return ToExtract ("");
-		}
+        public Extract ToExtract()
+        {
+            return ToExtract("");
+        }
 
-		public Extract ToExtract(string sourceFileName)
-		{
-			return ToExtract (sourceFileName, false, 0);
-		}
+        public Extract ToExtract(string sourceFileName)
+        {
+            return ToExtract(sourceFileName, false, 0);
+        }
 
-        public Extract ToExtract(string sourceFileName, bool ready , long processedLines)
+        public Extract ToExtract(string sourceFileName, bool ready, long processedLines)
         {
             return new Extract()
             {
@@ -133,11 +151,11 @@ namespace CprBroker.Providers.CPRDirect
                .ToList();
         }
 
-		public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId)
-		{
-			return ToExtractPersonStagings (extractId, null);
+        public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId)
+        {
+            return ToExtractPersonStagings(extractId, null);
 
-		}
+        }
 
         public List<ExtractPersonStaging> ToExtractPersonStagings(Guid extractId, List<string> skipPnrs)
         {
