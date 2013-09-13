@@ -108,9 +108,16 @@ namespace CprBroker.Providers.CPRDirect
         public static void ImportFileInSteps(string path, int batchSize, Encoding encoding)
         {
             Admin.LogFormattedSuccess("Importing file <{0}>, batch size <{1}>, encoding <{2}>", path, batchSize, encoding.EncodingName);
+            using (var dataStream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                ImportFileInSteps(dataStream, path, batchSize, encoding);
+            }
+        }
 
+        public static void ImportFileInSteps(Stream dataStream, string path, int batchSize, Encoding encoding)
+        {
             var allPnrs = new List<string>();
-            using (var file = new StreamReader(path, encoding))
+            using (var file = new StreamReader(dataStream, encoding))
             {
                 var extractResult = new ExtractParseResult();
 
