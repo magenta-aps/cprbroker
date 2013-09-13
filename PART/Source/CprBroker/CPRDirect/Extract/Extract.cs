@@ -71,7 +71,14 @@ namespace CprBroker.Providers.CPRDirect
 
         partial void OnStartRecordChanged()
         {
-            _StartWrapper = new LineWrapper(StartRecord).ToWrapper(Constants.DataObjectMap) as StartRecordType;
+            if (string.IsNullOrEmpty(StartRecord))
+            {
+                _StartWrapper = null;
+            }
+            else
+            {
+                _StartWrapper = new LineWrapper(StartRecord).ToWrapper(Constants.DataObjectMap) as StartRecordType;
+            }
         }
         partial void OnLoaded()
         {
@@ -85,7 +92,14 @@ namespace CprBroker.Providers.CPRDirect
         }
         partial void OnEndRecordChanged()
         {
-            _EndWrapper = new LineWrapper(EndRecord).ToWrapper(Constants.DataObjectMap) as EndRecordType;
+            if (string.IsNullOrEmpty(EndRecord))
+            {
+                _EndWrapper = null;
+            }
+            else
+            {
+                _EndWrapper = new LineWrapper(EndRecord).ToWrapper(Constants.DataObjectMap) as EndRecordType;
+            }
         }
 
         public static IndividualResponseType ToIndividualResponseType(Extract extract, IQueryable<ExtractItem> extractItems, Dictionary<string, Type> typeMap)
