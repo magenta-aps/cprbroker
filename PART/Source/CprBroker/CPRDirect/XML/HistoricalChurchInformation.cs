@@ -91,7 +91,7 @@ namespace CprBroker.Providers.CPRDirect
         {
             get
             {
-                if (StartDate == EndDate)
+                if (StartDate.HasValue && EndDate.HasValue && StartDate.Value >= EndDate.Value)
                 {
                     return Schemas.Part.CorrectionMarker.Undo;
                 }
