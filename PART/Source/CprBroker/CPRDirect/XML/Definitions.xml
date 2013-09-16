@@ -262,7 +262,7 @@
       <!--MORE FIELDS-->
     </Object>
 
-    <Object name="ElectionInformation" base="PersonRecordWrapper" danishName="P12170-020" length="47" description="Election information" minOccurs="0"  recordTypeCode="020">
+    <Object name="ElectionInformation" base="PersonRecordWrapper" danishName="P12170-020" length="47" description="Election information" minOccurs="0" maxOccurs="1000000" recordTypeCode="020">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <!--MORE FIELDS-->
     </Object>
