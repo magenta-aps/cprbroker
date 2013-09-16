@@ -58,11 +58,19 @@ namespace CprBroker.Providers.CPRDirect
 
         public override void FillFromFixedLengthString(string data, Dictionary<string, Type> typeMap)
         {
-            var all = Parse(data, typeMap);
-            FillPropertiesFromWrappers(all);
+            base.FillFromFixedLengthString(data, typeMap);
+        }
 
-            // Set start record as the registration object for each data record
-            all.Select(w => w as PersonRecordWrapper)
+        public override void FillPropertiesFromWrappers(IList<Wrapper> wrappersIList, params Wrapper[] extraWrappers)
+        {
+            base.FillPropertiesFromWrappers(wrappersIList, extraWrappers);
+            SetRegistrationForChildren(wrappersIList);
+        }
+
+        public void SetRegistrationForChildren(IList<Wrapper> allWrappers)
+        {
+            // Set this object as the registration object for each data record
+            allWrappers.Select(w => w as PersonRecordWrapper)
                 .Where(w => w != null)
                 .ToList()
                 .ForEach(w => w.Registration = this);

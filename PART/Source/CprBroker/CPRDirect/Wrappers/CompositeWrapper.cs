@@ -105,7 +105,7 @@ namespace CprBroker.Providers.CPRDirect
             return ret;
         }
 
-        public void FillPropertiesFromWrappers(IList<Wrapper> wrappersIList, params Wrapper[] extraWrappers)
+        public virtual void FillPropertiesFromWrappers(IList<Wrapper> wrappersIList, params Wrapper[] extraWrappers)
         {
             var wrappers = new List<Wrapper>(wrappersIList);
             wrappers.AddRange(extraWrappers.Where(w => w != null));
