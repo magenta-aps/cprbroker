@@ -88,5 +88,27 @@ namespace CprBroker.Providers.CPRDirect
         {
             return Converters.ToDateTimeUncertainty(CitizenshipEndDateUncertainty);
         }
+
+        /// <summary>
+        /// Explicit implementation of Correction marker to handle the cases when StartDate > EndDate
+        /// </summary>
+        char IHasCorrectionMarker.CorrectionMarker
+        {
+            get
+            {
+                if (this.CorrectionMarker == Schemas.Part.CorrectionMarker.OK
+                    && CitizenshipStartDate.HasValue
+                    && CitizenshipEndDate.HasValue
+                    && CitizenshipStartDate > CitizenshipEndDate)
+                {
+                    return Schemas.Part.CorrectionMarker.Undo;
+                }
+                else
+                {
+                    return this.CorrectionMarker;
+                }
+            }
+        }
+
     }
 }
