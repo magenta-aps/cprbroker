@@ -66,7 +66,10 @@ namespace CprBroker.Providers.CPRDirect
 
         public DateTime? ToStartTS()
         {
-            return this.StartDate;
+            if (StartDate > EndDate && !Converters.ToDateTime(StartDate, StartDateUncertainty).HasValue)
+                return null;
+            else
+                return this.StartDate;
         }
 
         public bool ToStartTSCertainty()
