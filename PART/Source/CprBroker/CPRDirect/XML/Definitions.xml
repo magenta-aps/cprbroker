@@ -247,7 +247,7 @@
       <Attribute name="RelationText5" danishName="RELTXT5" format="Alpha" length="34" position="239" description="Relation text 5"/>
     </Object>
 
-    <Object name="MunicipalConditions" base="PersonRecordWrapper" danishName="P12170-018" length="60" description="Municipal conditions" minOccurs="0" maxOccurs="100" recordTypeCode="018">
+    <Object name="MunicipalConditions" base="PersonRecordWrapper" danishName="P12170-018" length="60" description="Municipal conditions" minOccurs="0" maxOccurs="1000000" recordTypeCode="018">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="MunicipalConditionType" danishName="KOMFORHTYP" format="Numeric" length="1" position="14" description="Municipal condition type"/>
@@ -257,7 +257,7 @@
       <Attribute name="MunicipalConditionComment" danishName="BEMAERK-KOMMUNALE-FORHOLD" format="Alpha" length="30" position="31" description="Municipal condition comment"/>
     </Object>
 
-    <Object name="Notes" base="PersonRecordWrapper" danishName="P12170-019" length="75" description="Notes" minOccurs="0" maxOccurs="100" recordTypeCode="019">
+    <Object name="Notes" base="PersonRecordWrapper" danishName="P12170-019" length="75" description="Notes" minOccurs="0" maxOccurs="1000000" recordTypeCode="019">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <!--MORE FIELDS-->
     </Object>
@@ -272,7 +272,7 @@
       <!--MORE FIELDS-->
     </Object>
 
-    <Object name="HistoricalPNR" base="PersonRecordWrapper" danishName="P12170-022" length="45" description="Historical PNR" minOccurs="0" maxOccurs="100" recordTypeCode="022">
+    <Object name="HistoricalPNR" base="PersonRecordWrapper" danishName="P12170-022" length="45" description="Historical PNR" minOccurs="0" maxOccurs="1000000" recordTypeCode="022">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNRGÆLD" format="Alpha" length="10" position="4" description="Current CPR Number"/>
       <Attribute name="OldPNR" danishName="PNR" format="Alpha" length="10" position="14" description="Old CPR Number"/>
@@ -299,7 +299,7 @@
       <Attribute name="LeavingDateUncertainty" danishName="FRAFLYDTO_UMRK" format="Alpha" length="1" position="96" description="Leaving date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalDeparture" base="PersonRecordWrapper" danishName="P12170-024" length="218" description="Historical exit-entry information / foreign addresses" minOccurs="0" maxOccurs="100"  recordTypeCode="024">
+    <Object name="HistoricalDeparture" base="PersonRecordWrapper" danishName="P12170-024" length="218" description="Historical exit-entry information / foreign addresses" minOccurs="0" maxOccurs="1000000"  recordTypeCode="024">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>
@@ -316,7 +316,7 @@
       <Attribute name="ForeignAddress5" danishName="UDLANDADR5" format="Alpha" length="34" position="185" description="Foreign Address 5"/>
     </Object>
 
-    <Object name="HistoricalDisappearance" base="PersonRecordWrapper" danishName="P12170-025" length="40" description="Historical Disappearance retrieval information" minOccurs="0" maxOccurs="100" recordTypeCode="025">
+    <Object name="HistoricalDisappearance" base="PersonRecordWrapper" danishName="P12170-025" length="40" description="Historical Disappearance retrieval information" minOccurs="0" maxOccurs="1000000" recordTypeCode="025">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>
@@ -326,7 +326,7 @@
       <Attribute name="RetrievalDateUncertainty" danishName="GENFINDDTO_UMRK" format="Alpha" length="1" position="40" description="Retrieval date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalName" base="PersonRecordWrapper" danishName="P12170-026" length="173" description="Historical name" minOccurs="0" maxOccurs="100"  recordTypeCode="026">
+    <Object name="HistoricalName" base="PersonRecordWrapper" danishName="P12170-026" length="173" description="Historical name" minOccurs="0" maxOccurs="1000000" recordTypeCode="026">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>
@@ -342,7 +342,7 @@
       <Attribute name="NameEndDateUncertainty" danishName="HAENSLUT_UMRK-NAVNE" format="Alpha" length="1" position="173" description="Name end date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalCitizenship" base="PersonRecordWrapper" danishName="P12170-027" length="44" description="Historical citizenship" minOccurs="0" maxOccurs="100" recordTypeCode="027">
+    <Object name="HistoricalCitizenship" base="PersonRecordWrapper" danishName="P12170-027" length="44" description="Historical citizenship" minOccurs="0" maxOccurs="1000000" recordTypeCode="027">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Correction marker"/>
@@ -353,7 +353,7 @@
       <Attribute name="CitizenshipEndDateUncertainty" danishName="HAENSLUT_UMRK-STATSBORGERSKAB" format="Alpha" length="1" position="44" description="Citizenship end date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalChurchInformation" base="PersonRecordWrapper" danishName="P12170-028" length="36" description="Historical church information" minOccurs="0" maxOccurs="100" recordTypeCode="028">
+    <Object name="HistoricalChurchInformation" base="PersonRecordWrapper" danishName="P12170-028" length="36" description="Historical church information" minOccurs="0" maxOccurs="1000000" recordTypeCode="028">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="ChurchRelationship" danishName="FKIRK" format="Alpha" length="1" position="14" description="church Relationship"/>
@@ -363,7 +363,7 @@
       <Attribute name="EndDateUncertainty" danishName="SLUT_DT_UMRK-FOLKEKIRKE" format="Alpha" length="1" position="36" description="End date uncertainty marker"/>
     </Object>
 
-    <Object name="HistoricalCivilStatus" base="PersonRecordWrapper" danishName="P12170-029" description="Historical civil status" length="109" minOccurs="0" maxOccurs="100" recordTypeCode="029">
+    <Object name="HistoricalCivilStatus" base="PersonRecordWrapper" danishName="P12170-029" description="Historical civil status" length="109" minOccurs="0" maxOccurs="1000000" recordTypeCode="029">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Edit / Undo marker"/>
@@ -380,7 +380,7 @@
       <Attribute name="ReferenceToAnySeparation" danishName="SEP_HENVIS-CIVILSTAND" format="Alpha" length="12" position="98" description="Reference to any separation ÅÅÅÅMMDDTTMM" dateFormat="yyyyMMddHHmm"/>
     </Object>
 
-    <Object name="HistoricalSeparation" base="PersonRecordWrapper" danishName="P12170-030" length="48" description="Historical separation" minOccurs="0" maxOccurs="100" recordTypeCode="030">
+    <Object name="HistoricalSeparation" base="PersonRecordWrapper" danishName="P12170-030" length="48" description="Historical separation" minOccurs="0" maxOccurs="1000000" recordTypeCode="030">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="PNR" danishName="PNR" format="Alpha" length="10" position="4" description="CPR Number"/>
       <Attribute name="CorrectionMarker" danishName="ANNKOR" format="Alpha" length="1" position="14" description="Edit / Undo marker"/>
@@ -391,12 +391,12 @@
       <Attribute name="SeparationEndDateUncertainty" danishName="SLUT_DT_UMRK-SEPARATION" format="Alpha" length="1" position="48" description="Separation end date uncertainty marker"/>
     </Object>
 
-    <Object name="Events" base="PersonRecordWrapper" danishName="P12170-099" length="45" description="Events" minOccurs="0" maxOccurs="100" recordTypeCode="099">
+    <Object name="Events" base="PersonRecordWrapper" danishName="P12170-099" length="45" description="Events" minOccurs="0" maxOccurs="1000000" recordTypeCode="099">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <!--MORE FIELDS-->
     </Object>
 
-    <Object name="ErrorRecord" base="PersonRecordWrapper" danishName="P12170-910" length="157" description="Error record" minOccurs="0" maxOccurs="100" recordTypeCode="910">
+    <Object name="ErrorRecord" base="PersonRecordWrapper" danishName="P12170-910" length="157" description="Error record" minOccurs="0" maxOccurs="1000000" recordTypeCode="910">
       <Attribute name="RecordType" danishName="RECORDTYPE" format="Numeric" length="3" position="1" description="Equals last three digits of the record name"/>
       <Attribute name="ErrorField" danishName="SORTFELT-10" format="Alpha" length="10" position="4" description="Can such. be PNR, FOEDDTO, KOEN (SEX) KOMKOD, VEJKOD"/>
       <Attribute name="Input" danishName="INDDATA" format="Alpha" length="75" position="14" description="Input"/>
