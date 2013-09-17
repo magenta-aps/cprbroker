@@ -113,5 +113,24 @@ namespace CprBroker.Providers.CPRDirect
         {
             return Converters.IsValidCorrectionMarker(CorrectionMarker);
         }
+
+        char IHasCorrectionMarker.CorrectionMarker
+        {
+            get
+            {
+                if (this.CorrectionMarker == Schemas.Part.CorrectionMarker.OK
+                    && NameStartDate.HasValue
+                    && NameEndDate.HasValue
+                    && NameStartDate > NameEndDate)
+                {
+                    return Schemas.Part.CorrectionMarker.Undo;
+                }
+                else
+                {
+                    return this.CorrectionMarker;
+                }
+            }
+        }
+
     }
 }
