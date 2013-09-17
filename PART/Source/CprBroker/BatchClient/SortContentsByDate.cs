@@ -61,13 +61,20 @@ namespace BatchClient
         {
             Utilities.UpdateConnectionString(this.BrokerConnectionString);
 
-            using (var dataContext = new PartDataContext(this.BrokerConnectionString))
+            if (string.IsNullOrEmpty(SourceFile))
             {
-                return dataContext.PersonRegistrations
-                    .OrderBy(pr => pr.PersonRegistrationId)
-                    .Where(pr => pr.SourceObjects != null)
-                    .Select(pr => string.Format("{0},{1}", pr.UUID, pr.PersonRegistrationId))                    
-                    .ToArray();
+                using (var dataContext = new PartDataContext(this.BrokerConnectionString))
+                {
+                    return dataContext.PersonRegistrations
+                        .OrderBy(pr => pr.PersonRegistrationId)
+                        .Where(pr => pr.SourceObjects != null)
+                        .Select(pr => string.Format("{0},{1}", pr.UUID, pr.PersonRegistrationId))
+                        .ToArray();
+                }
+            }
+            else
+            {
+                return System.IO.File.ReadAllLines(SourceFile).Where(l => !string.IsNullOrEmpty(l)).ToArray();
             }
         }
 
