@@ -30,6 +30,12 @@ namespace CvrDemo.Data
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertOwner(Owner instance);
+    partial void UpdateOwner(Owner instance);
+    partial void DeleteOwner(Owner instance);
+    partial void InsertUnit(Unit instance);
+    partial void UpdateUnit(Unit instance);
+    partial void DeleteUnit(Unit instance);
     #endregion
 		
 		public CvrDataContext() : 
@@ -62,14 +68,6 @@ namespace CvrDemo.Data
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Unit> Units
-		{
-			get
-			{
-				return this.GetTable<Unit>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Owner> Owners
 		{
 			get
@@ -77,17 +75,258 @@ namespace CvrDemo.Data
 				return this.GetTable<Owner>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Unit> Units
+		{
+			get
+			{
+				return this.GetTable<Unit>();
+			}
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Unit")]
-	public abstract partial class Unit
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Owner")]
+	public partial class Owner : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Nullable<int> _Ajourføringsmarkering;
+		
+		private System.Nullable<decimal> _OwnedLegalUnitIdentifier;
+		
+		private System.Nullable<int> _ParticipantType;
+		
+		private System.Nullable<decimal> _ParticipantvalidFromDate;
+		
+		private System.Nullable<long> _ParticipantIdentifier;
+		
+		private string _ParticipantName;
+		
+		private System.Nullable<int> _LegalUnitIdentifier;
+		
+		private long _ProductionUnitIdentifier;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAjourføringsmarkeringChanging(System.Nullable<int> value);
+    partial void OnAjourføringsmarkeringChanged();
+    partial void OnOwnedLegalUnitIdentifierChanging(System.Nullable<decimal> value);
+    partial void OnOwnedLegalUnitIdentifierChanged();
+    partial void OnParticipantTypeChanging(System.Nullable<int> value);
+    partial void OnParticipantTypeChanged();
+    partial void OnParticipantvalidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnParticipantvalidFromDateChanged();
+    partial void OnParticipantIdentifierChanging(System.Nullable<long> value);
+    partial void OnParticipantIdentifierChanged();
+    partial void OnParticipantNameChanging(string value);
+    partial void OnParticipantNameChanged();
+    partial void OnLegalUnitIdentifierChanging(System.Nullable<int> value);
+    partial void OnLegalUnitIdentifierChanged();
+    partial void OnProductionUnitIdentifierChanging(long value);
+    partial void OnProductionUnitIdentifierChanged();
+    #endregion
+		
+		public Owner()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ajourføringsmarkering", DbType="Int")]
+		public System.Nullable<int> Ajourføringsmarkering
+		{
+			get
+			{
+				return this._Ajourføringsmarkering;
+			}
+			set
+			{
+				if ((this._Ajourføringsmarkering != value))
+				{
+					this.OnAjourføringsmarkeringChanging(value);
+					this.SendPropertyChanging();
+					this._Ajourføringsmarkering = value;
+					this.SendPropertyChanged("Ajourføringsmarkering");
+					this.OnAjourføringsmarkeringChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnedLegalUnitIdentifier", DbType="Decimal(8,0)", IsPrimaryKey=true)]
+		public System.Nullable<decimal> OwnedLegalUnitIdentifier
+		{
+			get
+			{
+				return this._OwnedLegalUnitIdentifier;
+			}
+			set
+			{
+				if ((this._OwnedLegalUnitIdentifier != value))
+				{
+					this.OnOwnedLegalUnitIdentifierChanging(value);
+					this.SendPropertyChanging();
+					this._OwnedLegalUnitIdentifier = value;
+					this.SendPropertyChanged("OwnedLegalUnitIdentifier");
+					this.OnOwnedLegalUnitIdentifierChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantType", DbType="Int")]
+		public System.Nullable<int> ParticipantType
+		{
+			get
+			{
+				return this._ParticipantType;
+			}
+			set
+			{
+				if ((this._ParticipantType != value))
+				{
+					this.OnParticipantTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ParticipantType = value;
+					this.SendPropertyChanged("ParticipantType");
+					this.OnParticipantTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantvalidFromDate", DbType="Decimal(10,0)")]
+		public System.Nullable<decimal> ParticipantvalidFromDate
+		{
+			get
+			{
+				return this._ParticipantvalidFromDate;
+			}
+			set
+			{
+				if ((this._ParticipantvalidFromDate != value))
+				{
+					this.OnParticipantvalidFromDateChanging(value);
+					this.SendPropertyChanging();
+					this._ParticipantvalidFromDate = value;
+					this.SendPropertyChanged("ParticipantvalidFromDate");
+					this.OnParticipantvalidFromDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantIdentifier", DbType="BigInt", IsPrimaryKey=true)]
+		public System.Nullable<long> ParticipantIdentifier
+		{
+			get
+			{
+				return this._ParticipantIdentifier;
+			}
+			set
+			{
+				if ((this._ParticipantIdentifier != value))
+				{
+					this.OnParticipantIdentifierChanging(value);
+					this.SendPropertyChanging();
+					this._ParticipantIdentifier = value;
+					this.SendPropertyChanged("ParticipantIdentifier");
+					this.OnParticipantIdentifierChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantName", DbType="VarChar(150)")]
+		public string ParticipantName
+		{
+			get
+			{
+				return this._ParticipantName;
+			}
+			set
+			{
+				if ((this._ParticipantName != value))
+				{
+					this.OnParticipantNameChanging(value);
+					this.SendPropertyChanging();
+					this._ParticipantName = value;
+					this.SendPropertyChanged("ParticipantName");
+					this.OnParticipantNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalUnitIdentifier", DbType="Int")]
+		public System.Nullable<int> LegalUnitIdentifier
+		{
+			get
+			{
+				return this._LegalUnitIdentifier;
+			}
+			set
+			{
+				if ((this._LegalUnitIdentifier != value))
+				{
+					this.OnLegalUnitIdentifierChanging(value);
+					this.SendPropertyChanging();
+					this._LegalUnitIdentifier = value;
+					this.SendPropertyChanged("LegalUnitIdentifier");
+					this.OnLegalUnitIdentifierChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductionUnitIdentifier")]
+		public long ProductionUnitIdentifier
+		{
+			get
+			{
+				return this._ProductionUnitIdentifier;
+			}
+			set
+			{
+				if ((this._ProductionUnitIdentifier != value))
+				{
+					this.OnProductionUnitIdentifierChanging(value);
+					this.SendPropertyChanging();
+					this._ProductionUnitIdentifier = value;
+					this.SendPropertyChanged("ProductionUnitIdentifier");
+					this.OnProductionUnitIdentifierChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
+	[global::System.Data.Linq.Mapping.InheritanceMappingAttribute(Code="0", Type=typeof(LegalUnit))]
+	public abstract partial class Unit : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Nullable<bool> _Ajourfoeringsmarkering;
 		
-		private System.Nullable<decimal> _LegalUnitIdentifier;
+		private decimal _LegalUnitIdentifier;
 		
-		private System.Nullable<decimal> _ProductionUnitIdentifier;
+		private long _ProductionUnitIdentifier;
 		
 		private System.Nullable<decimal> _NameValidFromDate;
 		
@@ -201,8 +440,133 @@ namespace CvrDemo.Data
 		
 		private System.Nullable<bool> _CreditorStatusInformationCode;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAjourfoeringsmarkeringChanging(System.Nullable<bool> value);
+    partial void OnAjourfoeringsmarkeringChanged();
+    partial void OnLegalUnitIdentifierChanging(decimal value);
+    partial void OnLegalUnitIdentifierChanged();
+    partial void OnProductionUnitIdentifierChanging(long value);
+    partial void OnProductionUnitIdentifierChanged();
+    partial void OnNameValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnNameValidFromDateChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnAdvertisingProtectionIndicatorChanging(System.Nullable<bool> value);
+    partial void OnAdvertisingProtectionIndicatorChanged();
+    partial void OnMainDivisionIndicatorChanging(System.Nullable<bool> value);
+    partial void OnMainDivisionIndicatorChanged();
+    partial void OnStartDateChanging(System.Nullable<decimal> value);
+    partial void OnStartDateChanged();
+    partial void OnCessationDateChanging(System.Nullable<decimal> value);
+    partial void OnCessationDateChanged();
+    partial void OnAddressOfficialValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnAddressOfficialValidFromDateChanged();
+    partial void OnAddressOfficialMunicipalityCodeChanging(System.Nullable<decimal> value);
+    partial void OnAddressOfficialMunicipalityCodeChanged();
+    partial void OnAddressOfficialStreetCodeChanging(System.Nullable<decimal> value);
+    partial void OnAddressOfficialStreetCodeChanged();
+    partial void OnAddressOfficialStreetBuildingIdentifierChanging(string value);
+    partial void OnAddressOfficialStreetBuildingIdentifierChanged();
+    partial void OnAddressOfficialStreetNameChanging(string value);
+    partial void OnAddressOfficialStreetNameChanged();
+    partial void OnAddressOfficialFloorIdentifierChanging(string value);
+    partial void OnAddressOfficialFloorIdentifierChanged();
+    partial void OnAddressOfficialSuiteIdentifierChanging(string value);
+    partial void OnAddressOfficialSuiteIdentifierChanged();
+    partial void OnAddressOfficialDistrictSubdivisionIdentifierChanging(string value);
+    partial void OnAddressOfficialDistrictSubdivisionIdentifierChanged();
+    partial void OnAddressOfficialPostCodeIdentifierChanging(System.Nullable<decimal> value);
+    partial void OnAddressOfficialPostCodeIdentifierChanged();
+    partial void OnAddressOfficialDistrictNameChanging(string value);
+    partial void OnAddressOfficialDistrictNameChanged();
+    partial void OnAddressOfficialCareOfNameChanging(string value);
+    partial void OnAddressOfficialCareOfNameChanged();
+    partial void OnAddressOfficialStreetBuildingIdentifierToChanging(string value);
+    partial void OnAddressOfficialStreetBuildingIdentifierToChanged();
+    partial void OnAddressOfficialRegionCodeChanging(System.Nullable<decimal> value);
+    partial void OnAddressOfficialRegionCodeChanged();
+    partial void OnAddressOfficialAddressLineTextChanging(string value);
+    partial void OnAddressOfficialAddressLineTextChanged();
+    partial void OnAddressPostalValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnAddressPostalValidFromDateChanged();
+    partial void OnAddressPostalMunicipalityCodeChanging(System.Nullable<decimal> value);
+    partial void OnAddressPostalMunicipalityCodeChanged();
+    partial void OnAddressPostalStreetCodeChanging(System.Nullable<decimal> value);
+    partial void OnAddressPostalStreetCodeChanged();
+    partial void OnAddressPostalStreetBuildingIdentifierChanging(string value);
+    partial void OnAddressPostalStreetBuildingIdentifierChanged();
+    partial void OnAddressPostalStreetNameChanging(string value);
+    partial void OnAddressPostalStreetNameChanged();
+    partial void OnAddressPostalFloorIdentifierChanging(string value);
+    partial void OnAddressPostalFloorIdentifierChanged();
+    partial void OnAddressPostalSuiteIdentifierChanging(string value);
+    partial void OnAddressPostalSuiteIdentifierChanged();
+    partial void OnAddressPostalDistrictSubdivisionIdentifierChanging(string value);
+    partial void OnAddressPostalDistrictSubdivisionIdentifierChanged();
+    partial void OnAddressPostalPostOfficeBoxIdentifierChanging(string value);
+    partial void OnAddressPostalPostOfficeBoxIdentifierChanged();
+    partial void OnAddressPostalPostCodeIdentifierChanging(System.Nullable<decimal> value);
+    partial void OnAddressPostalPostCodeIdentifierChanged();
+    partial void OnAddressPostalDistrictNameChanging(string value);
+    partial void OnAddressPostalDistrictNameChanged();
+    partial void OnAddressPostalStreetBuildingIdentifierToChanging(string value);
+    partial void OnAddressPostalStreetBuildingIdentifierToChanged();
+    partial void OnAddressPostalRegionCodeChanging(System.Nullable<decimal> value);
+    partial void OnAddressPostalRegionCodeChanged();
+    partial void OnAddressPostalAddressLineTextChanging(string value);
+    partial void OnAddressPostalAddressLineTextChanged();
+    partial void OnMainActivityValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnMainActivityValidFromDateChanged();
+    partial void OnMainActivityActivityCodeChanging(System.Nullable<decimal> value);
+    partial void OnMainActivityActivityCodeChanged();
+    partial void OnMainActivityActivityDescriptionChanging(string value);
+    partial void OnMainActivityActivityDescriptionChanged();
+    partial void OnSecondaryActivity1ValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnSecondaryActivity1ValidFromDateChanged();
+    partial void OnSecondaryActivity1ActivityCodeChanging(System.Nullable<decimal> value);
+    partial void OnSecondaryActivity1ActivityCodeChanged();
+    partial void OnSecondaryActivity2ValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnSecondaryActivity2ValidFromDateChanged();
+    partial void OnSecondaryActivity2ActivityCodeChanging(System.Nullable<decimal> value);
+    partial void OnSecondaryActivity2ActivityCodeChanged();
+    partial void OnSecondaryActivity3ValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnSecondaryActivity3ValidFromDateChanged();
+    partial void OnSecondaryActivity3ActivityCodeChanging(System.Nullable<decimal> value);
+    partial void OnSecondaryActivity3ActivityCodeChanged();
+    partial void OnBusinessFormatBusinessFormatCodeChanging(System.Nullable<decimal> value);
+    partial void OnBusinessFormatBusinessFormatCodeChanged();
+    partial void OnBusinessFormatDescriptionChanging(string value);
+    partial void OnBusinessFormatDescriptionChanged();
+    partial void OnBusinessFormatDataSupplierIdentifierChanging(string value);
+    partial void OnBusinessFormatDataSupplierIdentifierChanged();
+    partial void OnEmploymentQuarterReferenceYearChanging(System.Nullable<decimal> value);
+    partial void OnEmploymentQuarterReferenceYearChanged();
+    partial void OnEmploymentQuarterReferenceQuarterChanging(System.Nullable<bool> value);
+    partial void OnEmploymentQuarterReferenceQuarterChanged();
+    partial void OnEmploymentQuarterEmploymentIntervalCodeChanging(string value);
+    partial void OnEmploymentQuarterEmploymentIntervalCodeChanged();
+    partial void OnTelephoneNumberIdentifierChanging(string value);
+    partial void OnTelephoneNumberIdentifierChanged();
+    partial void OnFaxNumberIdentifierChanging(string value);
+    partial void OnFaxNumberIdentifierChanged();
+    partial void OnEmailAdressIdentifierChanging(string value);
+    partial void OnEmailAdressIdentifierChanged();
+    partial void OnObligationValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnObligationValidFromDateChanged();
+    partial void OnObligationCodeChanging(string value);
+    partial void OnObligationCodeChanged();
+    partial void OnCreditorInformationValidFromDateChanging(System.Nullable<decimal> value);
+    partial void OnCreditorInformationValidFromDateChanged();
+    partial void OnCreditorStatusInformationCodeChanging(System.Nullable<bool> value);
+    partial void OnCreditorStatusInformationCodeChanged();
+    #endregion
+		
 		public Unit()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ajourfoeringsmarkering", DbType="Bit")]
@@ -216,13 +580,17 @@ namespace CvrDemo.Data
 			{
 				if ((this._Ajourfoeringsmarkering != value))
 				{
+					this.OnAjourfoeringsmarkeringChanging(value);
+					this.SendPropertyChanging();
 					this._Ajourfoeringsmarkering = value;
+					this.SendPropertyChanged("Ajourfoeringsmarkering");
+					this.OnAjourfoeringsmarkeringChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalUnitIdentifier", DbType="Decimal(8,0)")]
-		public System.Nullable<decimal> LegalUnitIdentifier
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalUnitIdentifier", DbType="Decimal(8,0)", IsPrimaryKey=true)]
+		public virtual decimal LegalUnitIdentifier
 		{
 			get
 			{
@@ -232,13 +600,17 @@ namespace CvrDemo.Data
 			{
 				if ((this._LegalUnitIdentifier != value))
 				{
+					this.OnLegalUnitIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._LegalUnitIdentifier = value;
+					this.SendPropertyChanged("LegalUnitIdentifier");
+					this.OnLegalUnitIdentifierChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductionUnitIdentifier", DbType="Decimal(10,0)")]
-		public System.Nullable<decimal> ProductionUnitIdentifier
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductionUnitIdentifier", DbType="BigInt", IsPrimaryKey=true, IsDiscriminator=true)]
+		public virtual long ProductionUnitIdentifier
 		{
 			get
 			{
@@ -248,7 +620,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._ProductionUnitIdentifier != value))
 				{
+					this.OnProductionUnitIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._ProductionUnitIdentifier = value;
+					this.SendPropertyChanged("ProductionUnitIdentifier");
+					this.OnProductionUnitIdentifierChanged();
 				}
 			}
 		}
@@ -264,7 +640,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._NameValidFromDate != value))
 				{
+					this.OnNameValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._NameValidFromDate = value;
+					this.SendPropertyChanged("NameValidFromDate");
+					this.OnNameValidFromDateChanged();
 				}
 			}
 		}
@@ -280,7 +660,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._Name != value))
 				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
 					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
@@ -296,7 +680,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AdvertisingProtectionIndicator != value))
 				{
+					this.OnAdvertisingProtectionIndicatorChanging(value);
+					this.SendPropertyChanging();
 					this._AdvertisingProtectionIndicator = value;
+					this.SendPropertyChanged("AdvertisingProtectionIndicator");
+					this.OnAdvertisingProtectionIndicatorChanged();
 				}
 			}
 		}
@@ -312,7 +700,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._MainDivisionIndicator != value))
 				{
+					this.OnMainDivisionIndicatorChanging(value);
+					this.SendPropertyChanging();
 					this._MainDivisionIndicator = value;
+					this.SendPropertyChanged("MainDivisionIndicator");
+					this.OnMainDivisionIndicatorChanged();
 				}
 			}
 		}
@@ -328,7 +720,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._StartDate != value))
 				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
 					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
 				}
 			}
 		}
@@ -344,7 +740,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._CessationDate != value))
 				{
+					this.OnCessationDateChanging(value);
+					this.SendPropertyChanging();
 					this._CessationDate = value;
+					this.SendPropertyChanged("CessationDate");
+					this.OnCessationDateChanged();
 				}
 			}
 		}
@@ -360,7 +760,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialValidFromDate != value))
 				{
+					this.OnAddressOfficialValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialValidFromDate = value;
+					this.SendPropertyChanged("AddressOfficialValidFromDate");
+					this.OnAddressOfficialValidFromDateChanged();
 				}
 			}
 		}
@@ -376,7 +780,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialMunicipalityCode != value))
 				{
+					this.OnAddressOfficialMunicipalityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialMunicipalityCode = value;
+					this.SendPropertyChanged("AddressOfficialMunicipalityCode");
+					this.OnAddressOfficialMunicipalityCodeChanged();
 				}
 			}
 		}
@@ -392,7 +800,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialStreetCode != value))
 				{
+					this.OnAddressOfficialStreetCodeChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialStreetCode = value;
+					this.SendPropertyChanged("AddressOfficialStreetCode");
+					this.OnAddressOfficialStreetCodeChanged();
 				}
 			}
 		}
@@ -408,7 +820,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialStreetBuildingIdentifier != value))
 				{
+					this.OnAddressOfficialStreetBuildingIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialStreetBuildingIdentifier = value;
+					this.SendPropertyChanged("AddressOfficialStreetBuildingIdentifier");
+					this.OnAddressOfficialStreetBuildingIdentifierChanged();
 				}
 			}
 		}
@@ -424,7 +840,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialStreetName != value))
 				{
+					this.OnAddressOfficialStreetNameChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialStreetName = value;
+					this.SendPropertyChanged("AddressOfficialStreetName");
+					this.OnAddressOfficialStreetNameChanged();
 				}
 			}
 		}
@@ -440,7 +860,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialFloorIdentifier != value))
 				{
+					this.OnAddressOfficialFloorIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialFloorIdentifier = value;
+					this.SendPropertyChanged("AddressOfficialFloorIdentifier");
+					this.OnAddressOfficialFloorIdentifierChanged();
 				}
 			}
 		}
@@ -456,7 +880,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialSuiteIdentifier != value))
 				{
+					this.OnAddressOfficialSuiteIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialSuiteIdentifier = value;
+					this.SendPropertyChanged("AddressOfficialSuiteIdentifier");
+					this.OnAddressOfficialSuiteIdentifierChanged();
 				}
 			}
 		}
@@ -472,7 +900,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialDistrictSubdivisionIdentifier != value))
 				{
+					this.OnAddressOfficialDistrictSubdivisionIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialDistrictSubdivisionIdentifier = value;
+					this.SendPropertyChanged("AddressOfficialDistrictSubdivisionIdentifier");
+					this.OnAddressOfficialDistrictSubdivisionIdentifierChanged();
 				}
 			}
 		}
@@ -488,7 +920,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialPostCodeIdentifier != value))
 				{
+					this.OnAddressOfficialPostCodeIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialPostCodeIdentifier = value;
+					this.SendPropertyChanged("AddressOfficialPostCodeIdentifier");
+					this.OnAddressOfficialPostCodeIdentifierChanged();
 				}
 			}
 		}
@@ -504,7 +940,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialDistrictName != value))
 				{
+					this.OnAddressOfficialDistrictNameChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialDistrictName = value;
+					this.SendPropertyChanged("AddressOfficialDistrictName");
+					this.OnAddressOfficialDistrictNameChanged();
 				}
 			}
 		}
@@ -520,7 +960,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialCareOfName != value))
 				{
+					this.OnAddressOfficialCareOfNameChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialCareOfName = value;
+					this.SendPropertyChanged("AddressOfficialCareOfName");
+					this.OnAddressOfficialCareOfNameChanged();
 				}
 			}
 		}
@@ -536,7 +980,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialStreetBuildingIdentifierTo != value))
 				{
+					this.OnAddressOfficialStreetBuildingIdentifierToChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialStreetBuildingIdentifierTo = value;
+					this.SendPropertyChanged("AddressOfficialStreetBuildingIdentifierTo");
+					this.OnAddressOfficialStreetBuildingIdentifierToChanged();
 				}
 			}
 		}
@@ -552,7 +1000,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialRegionCode != value))
 				{
+					this.OnAddressOfficialRegionCodeChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialRegionCode = value;
+					this.SendPropertyChanged("AddressOfficialRegionCode");
+					this.OnAddressOfficialRegionCodeChanged();
 				}
 			}
 		}
@@ -568,7 +1020,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressOfficialAddressLineText != value))
 				{
+					this.OnAddressOfficialAddressLineTextChanging(value);
+					this.SendPropertyChanging();
 					this._AddressOfficialAddressLineText = value;
+					this.SendPropertyChanged("AddressOfficialAddressLineText");
+					this.OnAddressOfficialAddressLineTextChanged();
 				}
 			}
 		}
@@ -584,7 +1040,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalValidFromDate != value))
 				{
+					this.OnAddressPostalValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalValidFromDate = value;
+					this.SendPropertyChanged("AddressPostalValidFromDate");
+					this.OnAddressPostalValidFromDateChanged();
 				}
 			}
 		}
@@ -600,7 +1060,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalMunicipalityCode != value))
 				{
+					this.OnAddressPostalMunicipalityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalMunicipalityCode = value;
+					this.SendPropertyChanged("AddressPostalMunicipalityCode");
+					this.OnAddressPostalMunicipalityCodeChanged();
 				}
 			}
 		}
@@ -616,7 +1080,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalStreetCode != value))
 				{
+					this.OnAddressPostalStreetCodeChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalStreetCode = value;
+					this.SendPropertyChanged("AddressPostalStreetCode");
+					this.OnAddressPostalStreetCodeChanged();
 				}
 			}
 		}
@@ -632,7 +1100,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalStreetBuildingIdentifier != value))
 				{
+					this.OnAddressPostalStreetBuildingIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalStreetBuildingIdentifier = value;
+					this.SendPropertyChanged("AddressPostalStreetBuildingIdentifier");
+					this.OnAddressPostalStreetBuildingIdentifierChanged();
 				}
 			}
 		}
@@ -648,7 +1120,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalStreetName != value))
 				{
+					this.OnAddressPostalStreetNameChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalStreetName = value;
+					this.SendPropertyChanged("AddressPostalStreetName");
+					this.OnAddressPostalStreetNameChanged();
 				}
 			}
 		}
@@ -664,7 +1140,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalFloorIdentifier != value))
 				{
+					this.OnAddressPostalFloorIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalFloorIdentifier = value;
+					this.SendPropertyChanged("AddressPostalFloorIdentifier");
+					this.OnAddressPostalFloorIdentifierChanged();
 				}
 			}
 		}
@@ -680,7 +1160,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalSuiteIdentifier != value))
 				{
+					this.OnAddressPostalSuiteIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalSuiteIdentifier = value;
+					this.SendPropertyChanged("AddressPostalSuiteIdentifier");
+					this.OnAddressPostalSuiteIdentifierChanged();
 				}
 			}
 		}
@@ -696,7 +1180,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalDistrictSubdivisionIdentifier != value))
 				{
+					this.OnAddressPostalDistrictSubdivisionIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalDistrictSubdivisionIdentifier = value;
+					this.SendPropertyChanged("AddressPostalDistrictSubdivisionIdentifier");
+					this.OnAddressPostalDistrictSubdivisionIdentifierChanged();
 				}
 			}
 		}
@@ -712,7 +1200,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalPostOfficeBoxIdentifier != value))
 				{
+					this.OnAddressPostalPostOfficeBoxIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalPostOfficeBoxIdentifier = value;
+					this.SendPropertyChanged("AddressPostalPostOfficeBoxIdentifier");
+					this.OnAddressPostalPostOfficeBoxIdentifierChanged();
 				}
 			}
 		}
@@ -728,7 +1220,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalPostCodeIdentifier != value))
 				{
+					this.OnAddressPostalPostCodeIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalPostCodeIdentifier = value;
+					this.SendPropertyChanged("AddressPostalPostCodeIdentifier");
+					this.OnAddressPostalPostCodeIdentifierChanged();
 				}
 			}
 		}
@@ -744,7 +1240,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalDistrictName != value))
 				{
+					this.OnAddressPostalDistrictNameChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalDistrictName = value;
+					this.SendPropertyChanged("AddressPostalDistrictName");
+					this.OnAddressPostalDistrictNameChanged();
 				}
 			}
 		}
@@ -760,7 +1260,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalStreetBuildingIdentifierTo != value))
 				{
+					this.OnAddressPostalStreetBuildingIdentifierToChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalStreetBuildingIdentifierTo = value;
+					this.SendPropertyChanged("AddressPostalStreetBuildingIdentifierTo");
+					this.OnAddressPostalStreetBuildingIdentifierToChanged();
 				}
 			}
 		}
@@ -776,7 +1280,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalRegionCode != value))
 				{
+					this.OnAddressPostalRegionCodeChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalRegionCode = value;
+					this.SendPropertyChanged("AddressPostalRegionCode");
+					this.OnAddressPostalRegionCodeChanged();
 				}
 			}
 		}
@@ -792,7 +1300,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._AddressPostalAddressLineText != value))
 				{
+					this.OnAddressPostalAddressLineTextChanging(value);
+					this.SendPropertyChanging();
 					this._AddressPostalAddressLineText = value;
+					this.SendPropertyChanged("AddressPostalAddressLineText");
+					this.OnAddressPostalAddressLineTextChanged();
 				}
 			}
 		}
@@ -808,7 +1320,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._MainActivityValidFromDate != value))
 				{
+					this.OnMainActivityValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._MainActivityValidFromDate = value;
+					this.SendPropertyChanged("MainActivityValidFromDate");
+					this.OnMainActivityValidFromDateChanged();
 				}
 			}
 		}
@@ -824,7 +1340,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._MainActivityActivityCode != value))
 				{
+					this.OnMainActivityActivityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._MainActivityActivityCode = value;
+					this.SendPropertyChanged("MainActivityActivityCode");
+					this.OnMainActivityActivityCodeChanged();
 				}
 			}
 		}
@@ -840,7 +1360,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._MainActivityActivityDescription != value))
 				{
+					this.OnMainActivityActivityDescriptionChanging(value);
+					this.SendPropertyChanging();
 					this._MainActivityActivityDescription = value;
+					this.SendPropertyChanged("MainActivityActivityDescription");
+					this.OnMainActivityActivityDescriptionChanged();
 				}
 			}
 		}
@@ -856,7 +1380,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._SecondaryActivity1ValidFromDate != value))
 				{
+					this.OnSecondaryActivity1ValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._SecondaryActivity1ValidFromDate = value;
+					this.SendPropertyChanged("SecondaryActivity1ValidFromDate");
+					this.OnSecondaryActivity1ValidFromDateChanged();
 				}
 			}
 		}
@@ -872,7 +1400,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._SecondaryActivity1ActivityCode != value))
 				{
+					this.OnSecondaryActivity1ActivityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._SecondaryActivity1ActivityCode = value;
+					this.SendPropertyChanged("SecondaryActivity1ActivityCode");
+					this.OnSecondaryActivity1ActivityCodeChanged();
 				}
 			}
 		}
@@ -888,7 +1420,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._SecondaryActivity2ValidFromDate != value))
 				{
+					this.OnSecondaryActivity2ValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._SecondaryActivity2ValidFromDate = value;
+					this.SendPropertyChanged("SecondaryActivity2ValidFromDate");
+					this.OnSecondaryActivity2ValidFromDateChanged();
 				}
 			}
 		}
@@ -904,7 +1440,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._SecondaryActivity2ActivityCode != value))
 				{
+					this.OnSecondaryActivity2ActivityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._SecondaryActivity2ActivityCode = value;
+					this.SendPropertyChanged("SecondaryActivity2ActivityCode");
+					this.OnSecondaryActivity2ActivityCodeChanged();
 				}
 			}
 		}
@@ -920,7 +1460,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._SecondaryActivity3ValidFromDate != value))
 				{
+					this.OnSecondaryActivity3ValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._SecondaryActivity3ValidFromDate = value;
+					this.SendPropertyChanged("SecondaryActivity3ValidFromDate");
+					this.OnSecondaryActivity3ValidFromDateChanged();
 				}
 			}
 		}
@@ -936,7 +1480,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._SecondaryActivity3ActivityCode != value))
 				{
+					this.OnSecondaryActivity3ActivityCodeChanging(value);
+					this.SendPropertyChanging();
 					this._SecondaryActivity3ActivityCode = value;
+					this.SendPropertyChanged("SecondaryActivity3ActivityCode");
+					this.OnSecondaryActivity3ActivityCodeChanged();
 				}
 			}
 		}
@@ -952,7 +1500,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._BusinessFormatBusinessFormatCode != value))
 				{
+					this.OnBusinessFormatBusinessFormatCodeChanging(value);
+					this.SendPropertyChanging();
 					this._BusinessFormatBusinessFormatCode = value;
+					this.SendPropertyChanged("BusinessFormatBusinessFormatCode");
+					this.OnBusinessFormatBusinessFormatCodeChanged();
 				}
 			}
 		}
@@ -968,7 +1520,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._BusinessFormatDescription != value))
 				{
+					this.OnBusinessFormatDescriptionChanging(value);
+					this.SendPropertyChanging();
 					this._BusinessFormatDescription = value;
+					this.SendPropertyChanged("BusinessFormatDescription");
+					this.OnBusinessFormatDescriptionChanged();
 				}
 			}
 		}
@@ -984,7 +1540,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._BusinessFormatDataSupplierIdentifier != value))
 				{
+					this.OnBusinessFormatDataSupplierIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._BusinessFormatDataSupplierIdentifier = value;
+					this.SendPropertyChanged("BusinessFormatDataSupplierIdentifier");
+					this.OnBusinessFormatDataSupplierIdentifierChanged();
 				}
 			}
 		}
@@ -1000,7 +1560,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._EmploymentQuarterReferenceYear != value))
 				{
+					this.OnEmploymentQuarterReferenceYearChanging(value);
+					this.SendPropertyChanging();
 					this._EmploymentQuarterReferenceYear = value;
+					this.SendPropertyChanged("EmploymentQuarterReferenceYear");
+					this.OnEmploymentQuarterReferenceYearChanged();
 				}
 			}
 		}
@@ -1016,7 +1580,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._EmploymentQuarterReferenceQuarter != value))
 				{
+					this.OnEmploymentQuarterReferenceQuarterChanging(value);
+					this.SendPropertyChanging();
 					this._EmploymentQuarterReferenceQuarter = value;
+					this.SendPropertyChanged("EmploymentQuarterReferenceQuarter");
+					this.OnEmploymentQuarterReferenceQuarterChanged();
 				}
 			}
 		}
@@ -1032,7 +1600,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._EmploymentQuarterEmploymentIntervalCode != value))
 				{
+					this.OnEmploymentQuarterEmploymentIntervalCodeChanging(value);
+					this.SendPropertyChanging();
 					this._EmploymentQuarterEmploymentIntervalCode = value;
+					this.SendPropertyChanged("EmploymentQuarterEmploymentIntervalCode");
+					this.OnEmploymentQuarterEmploymentIntervalCodeChanged();
 				}
 			}
 		}
@@ -1048,7 +1620,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._TelephoneNumberIdentifier != value))
 				{
+					this.OnTelephoneNumberIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._TelephoneNumberIdentifier = value;
+					this.SendPropertyChanged("TelephoneNumberIdentifier");
+					this.OnTelephoneNumberIdentifierChanged();
 				}
 			}
 		}
@@ -1064,7 +1640,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._FaxNumberIdentifier != value))
 				{
+					this.OnFaxNumberIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._FaxNumberIdentifier = value;
+					this.SendPropertyChanged("FaxNumberIdentifier");
+					this.OnFaxNumberIdentifierChanged();
 				}
 			}
 		}
@@ -1080,7 +1660,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._EmailAdressIdentifier != value))
 				{
+					this.OnEmailAdressIdentifierChanging(value);
+					this.SendPropertyChanging();
 					this._EmailAdressIdentifier = value;
+					this.SendPropertyChanged("EmailAdressIdentifier");
+					this.OnEmailAdressIdentifierChanged();
 				}
 			}
 		}
@@ -1096,7 +1680,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._ObligationValidFromDate != value))
 				{
+					this.OnObligationValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._ObligationValidFromDate = value;
+					this.SendPropertyChanged("ObligationValidFromDate");
+					this.OnObligationValidFromDateChanged();
 				}
 			}
 		}
@@ -1112,7 +1700,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._ObligationCode != value))
 				{
+					this.OnObligationCodeChanging(value);
+					this.SendPropertyChanging();
 					this._ObligationCode = value;
+					this.SendPropertyChanged("ObligationCode");
+					this.OnObligationCodeChanged();
 				}
 			}
 		}
@@ -1128,7 +1720,11 @@ namespace CvrDemo.Data
 			{
 				if ((this._CreditorInformationValidFromDate != value))
 				{
+					this.OnCreditorInformationValidFromDateChanging(value);
+					this.SendPropertyChanging();
 					this._CreditorInformationValidFromDate = value;
+					this.SendPropertyChanged("CreditorInformationValidFromDate");
+					this.OnCreditorInformationValidFromDateChanged();
 				}
 			}
 		}
@@ -1144,144 +1740,63 @@ namespace CvrDemo.Data
 			{
 				if ((this._CreditorStatusInformationCode != value))
 				{
+					this.OnCreditorStatusInformationCodeChanging(value);
+					this.SendPropertyChanging();
 					this._CreditorStatusInformationCode = value;
+					this.SendPropertyChanged("CreditorStatusInformationCode");
+					this.OnCreditorStatusInformationCodeChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Owner")]
-	public partial class Owner
+	public partial class LegalUnit : Unit
 	{
 		
-		private System.Nullable<int> _Ajourføringsmarkering;
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    #endregion
 		
-		private System.Nullable<decimal> _OwnedLegalUnitIdentifier;
-		
-		private System.Nullable<int> _ParticipantType;
-		
-		private System.Nullable<decimal> _ParticipantvalidFromDate;
-		
-		private System.Nullable<long> _ParticipantIdentifier;
-		
-		private string _ParticipantName;
-		
-		private System.Nullable<int> _LegalUnitIdentifier;
-		
-		public Owner()
+		public LegalUnit()
 		{
+			OnCreated();
 		}
+	}
+	
+	public partial class ProductionUnit : Unit
+	{
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ajourføringsmarkering", DbType="Int")]
-		public System.Nullable<int> Ajourføringsmarkering
-		{
-			get
-			{
-				return this._Ajourføringsmarkering;
-			}
-			set
-			{
-				if ((this._Ajourføringsmarkering != value))
-				{
-					this._Ajourføringsmarkering = value;
-				}
-			}
-		}
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    #endregion
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnedLegalUnitIdentifier", DbType="Decimal(8,0)")]
-		public System.Nullable<decimal> OwnedLegalUnitIdentifier
+		public ProductionUnit()
 		{
-			get
-			{
-				return this._OwnedLegalUnitIdentifier;
-			}
-			set
-			{
-				if ((this._OwnedLegalUnitIdentifier != value))
-				{
-					this._OwnedLegalUnitIdentifier = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantType", DbType="Int")]
-		public System.Nullable<int> ParticipantType
-		{
-			get
-			{
-				return this._ParticipantType;
-			}
-			set
-			{
-				if ((this._ParticipantType != value))
-				{
-					this._ParticipantType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantvalidFromDate", DbType="Decimal(10,0)")]
-		public System.Nullable<decimal> ParticipantvalidFromDate
-		{
-			get
-			{
-				return this._ParticipantvalidFromDate;
-			}
-			set
-			{
-				if ((this._ParticipantvalidFromDate != value))
-				{
-					this._ParticipantvalidFromDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantIdentifier", DbType="BigInt")]
-		public System.Nullable<long> ParticipantIdentifier
-		{
-			get
-			{
-				return this._ParticipantIdentifier;
-			}
-			set
-			{
-				if ((this._ParticipantIdentifier != value))
-				{
-					this._ParticipantIdentifier = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantName", DbType="VarChar(150)")]
-		public string ParticipantName
-		{
-			get
-			{
-				return this._ParticipantName;
-			}
-			set
-			{
-				if ((this._ParticipantName != value))
-				{
-					this._ParticipantName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalUnitIdentifier", DbType="Int")]
-		public System.Nullable<int> LegalUnitIdentifier
-		{
-			get
-			{
-				return this._LegalUnitIdentifier;
-			}
-			set
-			{
-				if ((this._LegalUnitIdentifier != value))
-				{
-					this._LegalUnitIdentifier = value;
-				}
-			}
+			OnCreated();
 		}
 	}
 }
