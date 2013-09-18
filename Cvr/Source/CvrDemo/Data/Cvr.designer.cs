@@ -1792,6 +1792,8 @@ namespace CvrDemo.Data
 		
 		private EntitySet<Owner> _Owners;
 		
+		private EntitySet<ProductionUnit> _ProductionUnits;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1801,6 +1803,7 @@ namespace CvrDemo.Data
 		public LegalUnit()
 		{
 			this._Owners = new EntitySet<Owner>(new Action<Owner>(this.attach_Owners), new Action<Owner>(this.detach_Owners));
+			this._ProductionUnits = new EntitySet<ProductionUnit>(new Action<ProductionUnit>(this.attach_ProductionUnits), new Action<ProductionUnit>(this.detach_ProductionUnits));
 			OnCreated();
 		}
 		
@@ -1817,6 +1820,19 @@ namespace CvrDemo.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LegalUnit_ProductionUnit", Storage="_ProductionUnits", ThisKey="LegalUnitIdentifier", OtherKey="LegalUnitIdentifier")]
+		public EntitySet<ProductionUnit> ProductionUnits
+		{
+			get
+			{
+				return this._ProductionUnits;
+			}
+			set
+			{
+				this._ProductionUnits.Assign(value);
+			}
+		}
+		
 		private void attach_Owners(Owner entity)
 		{
 			this.SendPropertyChanging();
@@ -1828,10 +1844,24 @@ namespace CvrDemo.Data
 			this.SendPropertyChanging();
 			entity.LegalUnit = null;
 		}
+		
+		private void attach_ProductionUnits(ProductionUnit entity)
+		{
+			this.SendPropertyChanging();
+			entity.LegalUnit = this;
+		}
+		
+		private void detach_ProductionUnits(ProductionUnit entity)
+		{
+			this.SendPropertyChanging();
+			entity.LegalUnit = null;
+		}
 	}
 	
 	public partial class ProductionUnit : Unit
 	{
+		
+		private EntityRef<LegalUnit> _LegalUnit;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1841,7 +1871,42 @@ namespace CvrDemo.Data
 		
 		public ProductionUnit()
 		{
+			this._LegalUnit = default(EntityRef<LegalUnit>);
 			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LegalUnit_ProductionUnit", Storage="_LegalUnit", ThisKey="LegalUnitIdentifier", OtherKey="LegalUnitIdentifier", IsForeignKey=true)]
+		public LegalUnit LegalUnit
+		{
+			get
+			{
+				return this._LegalUnit.Entity;
+			}
+			set
+			{
+				LegalUnit previousValue = this._LegalUnit.Entity;
+				if (((previousValue != value) 
+							|| (this._LegalUnit.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._LegalUnit.Entity = null;
+						previousValue.ProductionUnits.Remove(this);
+					}
+					this._LegalUnit.Entity = value;
+					if ((value != null))
+					{
+						value.ProductionUnits.Add(this);
+						this._LegalUnitIdentifier = value.LegalUnitIdentifier;
+					}
+					else
+					{
+						this._LegalUnitIdentifier = default(decimal);
+					}
+					this.SendPropertyChanged("LegalUnit");
+				}
+			}
 		}
 	}
 }
