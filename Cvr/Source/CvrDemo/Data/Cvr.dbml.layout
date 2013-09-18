@@ -1,1 +1,18 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13, 13.125" name="Cvr">
+  <DataContextMoniker Name="/CvrDataContext" />
+  <nestedChildShapes>
+    <classShape Id="94fbbc7b-9e80-4637-9f90-1ba599694580" absoluteBounds="3.75, 0.75, 2, 12.155174153645833">
+      <DataClassMoniker Name="/CvrDataContext/Unit" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4a48345e-ef4c-4bf8-878f-fd0dafe86747" absoluteBounds="3.765, 1.21, 1.9700000000000002, 11.595174153645832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c3d6405c-0183-4dbc-9870-214eb848d065" absoluteBounds="10.75, 2, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CvrDataContext/Owner" />
+      <nestedChildShapes>
+        <elementListCompartment Id="72b53261-4791-4b57-94ac-4b43b615f424" absoluteBounds="10.765, 2.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

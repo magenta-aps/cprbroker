@@ -22,6 +22,7 @@ namespace CvrDemo.Data
 	using System;
 	
 	
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CvrDemo")]
 	public partial class CvrDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -30,6 +31,12 @@ namespace CvrDemo.Data
     #region Extensibility Method Definitions
     partial void OnCreated();
     #endregion
+		
+		public CvrDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["CvrDemoConnectionString"].ConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
 		
 		public CvrDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -53,6 +60,1228 @@ namespace CvrDemo.Data
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<Unit> Units
+		{
+			get
+			{
+				return this.GetTable<Unit>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Owner> Owners
+		{
+			get
+			{
+				return this.GetTable<Owner>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Unit")]
+	public abstract partial class Unit
+	{
+		
+		private System.Nullable<bool> _Ajourfoeringsmarkering;
+		
+		private System.Nullable<decimal> _LegalUnitIdentifier;
+		
+		private System.Nullable<decimal> _ProductionUnitIdentifier;
+		
+		private System.Nullable<decimal> _NameValidFromDate;
+		
+		private string _Name;
+		
+		private System.Nullable<bool> _AdvertisingProtectionIndicator;
+		
+		private System.Nullable<bool> _MainDivisionIndicator;
+		
+		private System.Nullable<decimal> _StartDate;
+		
+		private System.Nullable<decimal> _CessationDate;
+		
+		private System.Nullable<decimal> _AddressOfficialValidFromDate;
+		
+		private System.Nullable<decimal> _AddressOfficialMunicipalityCode;
+		
+		private System.Nullable<decimal> _AddressOfficialStreetCode;
+		
+		private string _AddressOfficialStreetBuildingIdentifier;
+		
+		private string _AddressOfficialStreetName;
+		
+		private string _AddressOfficialFloorIdentifier;
+		
+		private string _AddressOfficialSuiteIdentifier;
+		
+		private string _AddressOfficialDistrictSubdivisionIdentifier;
+		
+		private System.Nullable<decimal> _AddressOfficialPostCodeIdentifier;
+		
+		private string _AddressOfficialDistrictName;
+		
+		private string _AddressOfficialCareOfName;
+		
+		private string _AddressOfficialStreetBuildingIdentifierTo;
+		
+		private System.Nullable<decimal> _AddressOfficialRegionCode;
+		
+		private string _AddressOfficialAddressLineText;
+		
+		private System.Nullable<decimal> _AddressPostalValidFromDate;
+		
+		private System.Nullable<decimal> _AddressPostalMunicipalityCode;
+		
+		private System.Nullable<decimal> _AddressPostalStreetCode;
+		
+		private string _AddressPostalStreetBuildingIdentifier;
+		
+		private string _AddressPostalStreetName;
+		
+		private string _AddressPostalFloorIdentifier;
+		
+		private string _AddressPostalSuiteIdentifier;
+		
+		private string _AddressPostalDistrictSubdivisionIdentifier;
+		
+		private string _AddressPostalPostOfficeBoxIdentifier;
+		
+		private System.Nullable<decimal> _AddressPostalPostCodeIdentifier;
+		
+		private string _AddressPostalDistrictName;
+		
+		private string _AddressPostalStreetBuildingIdentifierTo;
+		
+		private System.Nullable<decimal> _AddressPostalRegionCode;
+		
+		private string _AddressPostalAddressLineText;
+		
+		private System.Nullable<decimal> _MainActivityValidFromDate;
+		
+		private System.Nullable<decimal> _MainActivityActivityCode;
+		
+		private string _MainActivityActivityDescription;
+		
+		private System.Nullable<decimal> _SecondaryActivity1ValidFromDate;
+		
+		private System.Nullable<decimal> _SecondaryActivity1ActivityCode;
+		
+		private System.Nullable<decimal> _SecondaryActivity2ValidFromDate;
+		
+		private System.Nullable<decimal> _SecondaryActivity2ActivityCode;
+		
+		private System.Nullable<decimal> _SecondaryActivity3ValidFromDate;
+		
+		private System.Nullable<decimal> _SecondaryActivity3ActivityCode;
+		
+		private System.Nullable<decimal> _BusinessFormatBusinessFormatCode;
+		
+		private string _BusinessFormatDescription;
+		
+		private string _BusinessFormatDataSupplierIdentifier;
+		
+		private System.Nullable<decimal> _EmploymentQuarterReferenceYear;
+		
+		private System.Nullable<bool> _EmploymentQuarterReferenceQuarter;
+		
+		private string _EmploymentQuarterEmploymentIntervalCode;
+		
+		private string _TelephoneNumberIdentifier;
+		
+		private string _FaxNumberIdentifier;
+		
+		private string _EmailAdressIdentifier;
+		
+		private System.Nullable<decimal> _ObligationValidFromDate;
+		
+		private string _ObligationCode;
+		
+		private System.Nullable<decimal> _CreditorInformationValidFromDate;
+		
+		private System.Nullable<bool> _CreditorStatusInformationCode;
+		
+		public Unit()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ajourfoeringsmarkering", DbType="Bit")]
+		public System.Nullable<bool> Ajourfoeringsmarkering
+		{
+			get
+			{
+				return this._Ajourfoeringsmarkering;
+			}
+			set
+			{
+				if ((this._Ajourfoeringsmarkering != value))
+				{
+					this._Ajourfoeringsmarkering = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalUnitIdentifier", DbType="Decimal(8,0)")]
+		public System.Nullable<decimal> LegalUnitIdentifier
+		{
+			get
+			{
+				return this._LegalUnitIdentifier;
+			}
+			set
+			{
+				if ((this._LegalUnitIdentifier != value))
+				{
+					this._LegalUnitIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductionUnitIdentifier", DbType="Decimal(10,0)")]
+		public System.Nullable<decimal> ProductionUnitIdentifier
+		{
+			get
+			{
+				return this._ProductionUnitIdentifier;
+			}
+			set
+			{
+				if ((this._ProductionUnitIdentifier != value))
+				{
+					this._ProductionUnitIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NameValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> NameValidFromDate
+		{
+			get
+			{
+				return this._NameValidFromDate;
+			}
+			set
+			{
+				if ((this._NameValidFromDate != value))
+				{
+					this._NameValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(300)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdvertisingProtectionIndicator", DbType="Bit")]
+		public System.Nullable<bool> AdvertisingProtectionIndicator
+		{
+			get
+			{
+				return this._AdvertisingProtectionIndicator;
+			}
+			set
+			{
+				if ((this._AdvertisingProtectionIndicator != value))
+				{
+					this._AdvertisingProtectionIndicator = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainDivisionIndicator", DbType="Bit")]
+		public System.Nullable<bool> MainDivisionIndicator
+		{
+			get
+			{
+				return this._MainDivisionIndicator;
+			}
+			set
+			{
+				if ((this._MainDivisionIndicator != value))
+				{
+					this._MainDivisionIndicator = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this._StartDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CessationDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> CessationDate
+		{
+			get
+			{
+				return this._CessationDate;
+			}
+			set
+			{
+				if ((this._CessationDate != value))
+				{
+					this._CessationDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> AddressOfficialValidFromDate
+		{
+			get
+			{
+				return this._AddressOfficialValidFromDate;
+			}
+			set
+			{
+				if ((this._AddressOfficialValidFromDate != value))
+				{
+					this._AddressOfficialValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialMunicipalityCode", DbType="Decimal(3,0)")]
+		public System.Nullable<decimal> AddressOfficialMunicipalityCode
+		{
+			get
+			{
+				return this._AddressOfficialMunicipalityCode;
+			}
+			set
+			{
+				if ((this._AddressOfficialMunicipalityCode != value))
+				{
+					this._AddressOfficialMunicipalityCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialStreetCode", DbType="Decimal(4,0)")]
+		public System.Nullable<decimal> AddressOfficialStreetCode
+		{
+			get
+			{
+				return this._AddressOfficialStreetCode;
+			}
+			set
+			{
+				if ((this._AddressOfficialStreetCode != value))
+				{
+					this._AddressOfficialStreetCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialStreetBuildingIdentifier", DbType="VarChar(6)")]
+		public string AddressOfficialStreetBuildingIdentifier
+		{
+			get
+			{
+				return this._AddressOfficialStreetBuildingIdentifier;
+			}
+			set
+			{
+				if ((this._AddressOfficialStreetBuildingIdentifier != value))
+				{
+					this._AddressOfficialStreetBuildingIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialStreetName", DbType="VarChar(40)")]
+		public string AddressOfficialStreetName
+		{
+			get
+			{
+				return this._AddressOfficialStreetName;
+			}
+			set
+			{
+				if ((this._AddressOfficialStreetName != value))
+				{
+					this._AddressOfficialStreetName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialFloorIdentifier", DbType="VarChar(2)")]
+		public string AddressOfficialFloorIdentifier
+		{
+			get
+			{
+				return this._AddressOfficialFloorIdentifier;
+			}
+			set
+			{
+				if ((this._AddressOfficialFloorIdentifier != value))
+				{
+					this._AddressOfficialFloorIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialSuiteIdentifier", DbType="VarChar(4)")]
+		public string AddressOfficialSuiteIdentifier
+		{
+			get
+			{
+				return this._AddressOfficialSuiteIdentifier;
+			}
+			set
+			{
+				if ((this._AddressOfficialSuiteIdentifier != value))
+				{
+					this._AddressOfficialSuiteIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialDistrictSubdivisionIdentifier", DbType="VarChar(25)")]
+		public string AddressOfficialDistrictSubdivisionIdentifier
+		{
+			get
+			{
+				return this._AddressOfficialDistrictSubdivisionIdentifier;
+			}
+			set
+			{
+				if ((this._AddressOfficialDistrictSubdivisionIdentifier != value))
+				{
+					this._AddressOfficialDistrictSubdivisionIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialPostCodeIdentifier", DbType="Decimal(4,0)")]
+		public System.Nullable<decimal> AddressOfficialPostCodeIdentifier
+		{
+			get
+			{
+				return this._AddressOfficialPostCodeIdentifier;
+			}
+			set
+			{
+				if ((this._AddressOfficialPostCodeIdentifier != value))
+				{
+					this._AddressOfficialPostCodeIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialDistrictName", DbType="VarChar(25)")]
+		public string AddressOfficialDistrictName
+		{
+			get
+			{
+				return this._AddressOfficialDistrictName;
+			}
+			set
+			{
+				if ((this._AddressOfficialDistrictName != value))
+				{
+					this._AddressOfficialDistrictName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialCareOfName", DbType="VarChar(40)")]
+		public string AddressOfficialCareOfName
+		{
+			get
+			{
+				return this._AddressOfficialCareOfName;
+			}
+			set
+			{
+				if ((this._AddressOfficialCareOfName != value))
+				{
+					this._AddressOfficialCareOfName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialStreetBuildingIdentifierTo", DbType="VarChar(6)")]
+		public string AddressOfficialStreetBuildingIdentifierTo
+		{
+			get
+			{
+				return this._AddressOfficialStreetBuildingIdentifierTo;
+			}
+			set
+			{
+				if ((this._AddressOfficialStreetBuildingIdentifierTo != value))
+				{
+					this._AddressOfficialStreetBuildingIdentifierTo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialRegionCode", DbType="Decimal(4,0)")]
+		public System.Nullable<decimal> AddressOfficialRegionCode
+		{
+			get
+			{
+				return this._AddressOfficialRegionCode;
+			}
+			set
+			{
+				if ((this._AddressOfficialRegionCode != value))
+				{
+					this._AddressOfficialRegionCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressOfficialAddressLineText", DbType="VarChar(238)")]
+		public string AddressOfficialAddressLineText
+		{
+			get
+			{
+				return this._AddressOfficialAddressLineText;
+			}
+			set
+			{
+				if ((this._AddressOfficialAddressLineText != value))
+				{
+					this._AddressOfficialAddressLineText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> AddressPostalValidFromDate
+		{
+			get
+			{
+				return this._AddressPostalValidFromDate;
+			}
+			set
+			{
+				if ((this._AddressPostalValidFromDate != value))
+				{
+					this._AddressPostalValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalMunicipalityCode", DbType="Decimal(3,0)")]
+		public System.Nullable<decimal> AddressPostalMunicipalityCode
+		{
+			get
+			{
+				return this._AddressPostalMunicipalityCode;
+			}
+			set
+			{
+				if ((this._AddressPostalMunicipalityCode != value))
+				{
+					this._AddressPostalMunicipalityCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalStreetCode", DbType="Decimal(4,0)")]
+		public System.Nullable<decimal> AddressPostalStreetCode
+		{
+			get
+			{
+				return this._AddressPostalStreetCode;
+			}
+			set
+			{
+				if ((this._AddressPostalStreetCode != value))
+				{
+					this._AddressPostalStreetCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalStreetBuildingIdentifier", DbType="VarChar(6)")]
+		public string AddressPostalStreetBuildingIdentifier
+		{
+			get
+			{
+				return this._AddressPostalStreetBuildingIdentifier;
+			}
+			set
+			{
+				if ((this._AddressPostalStreetBuildingIdentifier != value))
+				{
+					this._AddressPostalStreetBuildingIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalStreetName", DbType="VarChar(40)")]
+		public string AddressPostalStreetName
+		{
+			get
+			{
+				return this._AddressPostalStreetName;
+			}
+			set
+			{
+				if ((this._AddressPostalStreetName != value))
+				{
+					this._AddressPostalStreetName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalFloorIdentifier", DbType="VarChar(2)")]
+		public string AddressPostalFloorIdentifier
+		{
+			get
+			{
+				return this._AddressPostalFloorIdentifier;
+			}
+			set
+			{
+				if ((this._AddressPostalFloorIdentifier != value))
+				{
+					this._AddressPostalFloorIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalSuiteIdentifier", DbType="VarChar(4)")]
+		public string AddressPostalSuiteIdentifier
+		{
+			get
+			{
+				return this._AddressPostalSuiteIdentifier;
+			}
+			set
+			{
+				if ((this._AddressPostalSuiteIdentifier != value))
+				{
+					this._AddressPostalSuiteIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalDistrictSubdivisionIdentifier", DbType="VarChar(25)")]
+		public string AddressPostalDistrictSubdivisionIdentifier
+		{
+			get
+			{
+				return this._AddressPostalDistrictSubdivisionIdentifier;
+			}
+			set
+			{
+				if ((this._AddressPostalDistrictSubdivisionIdentifier != value))
+				{
+					this._AddressPostalDistrictSubdivisionIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalPostOfficeBoxIdentifier", DbType="VarChar(25)")]
+		public string AddressPostalPostOfficeBoxIdentifier
+		{
+			get
+			{
+				return this._AddressPostalPostOfficeBoxIdentifier;
+			}
+			set
+			{
+				if ((this._AddressPostalPostOfficeBoxIdentifier != value))
+				{
+					this._AddressPostalPostOfficeBoxIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalPostCodeIdentifier", DbType="Decimal(4,0)")]
+		public System.Nullable<decimal> AddressPostalPostCodeIdentifier
+		{
+			get
+			{
+				return this._AddressPostalPostCodeIdentifier;
+			}
+			set
+			{
+				if ((this._AddressPostalPostCodeIdentifier != value))
+				{
+					this._AddressPostalPostCodeIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalDistrictName", DbType="VarChar(25)")]
+		public string AddressPostalDistrictName
+		{
+			get
+			{
+				return this._AddressPostalDistrictName;
+			}
+			set
+			{
+				if ((this._AddressPostalDistrictName != value))
+				{
+					this._AddressPostalDistrictName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalStreetBuildingIdentifierTo", DbType="VarChar(6)")]
+		public string AddressPostalStreetBuildingIdentifierTo
+		{
+			get
+			{
+				return this._AddressPostalStreetBuildingIdentifierTo;
+			}
+			set
+			{
+				if ((this._AddressPostalStreetBuildingIdentifierTo != value))
+				{
+					this._AddressPostalStreetBuildingIdentifierTo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalRegionCode", DbType="Decimal(4,0)")]
+		public System.Nullable<decimal> AddressPostalRegionCode
+		{
+			get
+			{
+				return this._AddressPostalRegionCode;
+			}
+			set
+			{
+				if ((this._AddressPostalRegionCode != value))
+				{
+					this._AddressPostalRegionCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressPostalAddressLineText", DbType="VarChar(238)")]
+		public string AddressPostalAddressLineText
+		{
+			get
+			{
+				return this._AddressPostalAddressLineText;
+			}
+			set
+			{
+				if ((this._AddressPostalAddressLineText != value))
+				{
+					this._AddressPostalAddressLineText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainActivityValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> MainActivityValidFromDate
+		{
+			get
+			{
+				return this._MainActivityValidFromDate;
+			}
+			set
+			{
+				if ((this._MainActivityValidFromDate != value))
+				{
+					this._MainActivityValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainActivityActivityCode", DbType="Decimal(6,0)")]
+		public System.Nullable<decimal> MainActivityActivityCode
+		{
+			get
+			{
+				return this._MainActivityActivityCode;
+			}
+			set
+			{
+				if ((this._MainActivityActivityCode != value))
+				{
+					this._MainActivityActivityCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainActivityActivityDescription", DbType="VarChar(250)")]
+		public string MainActivityActivityDescription
+		{
+			get
+			{
+				return this._MainActivityActivityDescription;
+			}
+			set
+			{
+				if ((this._MainActivityActivityDescription != value))
+				{
+					this._MainActivityActivityDescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondaryActivity1ValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> SecondaryActivity1ValidFromDate
+		{
+			get
+			{
+				return this._SecondaryActivity1ValidFromDate;
+			}
+			set
+			{
+				if ((this._SecondaryActivity1ValidFromDate != value))
+				{
+					this._SecondaryActivity1ValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondaryActivity1ActivityCode", DbType="Decimal(6,0)")]
+		public System.Nullable<decimal> SecondaryActivity1ActivityCode
+		{
+			get
+			{
+				return this._SecondaryActivity1ActivityCode;
+			}
+			set
+			{
+				if ((this._SecondaryActivity1ActivityCode != value))
+				{
+					this._SecondaryActivity1ActivityCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondaryActivity2ValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> SecondaryActivity2ValidFromDate
+		{
+			get
+			{
+				return this._SecondaryActivity2ValidFromDate;
+			}
+			set
+			{
+				if ((this._SecondaryActivity2ValidFromDate != value))
+				{
+					this._SecondaryActivity2ValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondaryActivity2ActivityCode", DbType="Decimal(6,0)")]
+		public System.Nullable<decimal> SecondaryActivity2ActivityCode
+		{
+			get
+			{
+				return this._SecondaryActivity2ActivityCode;
+			}
+			set
+			{
+				if ((this._SecondaryActivity2ActivityCode != value))
+				{
+					this._SecondaryActivity2ActivityCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondaryActivity3ValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> SecondaryActivity3ValidFromDate
+		{
+			get
+			{
+				return this._SecondaryActivity3ValidFromDate;
+			}
+			set
+			{
+				if ((this._SecondaryActivity3ValidFromDate != value))
+				{
+					this._SecondaryActivity3ValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondaryActivity3ActivityCode", DbType="Decimal(6,0)")]
+		public System.Nullable<decimal> SecondaryActivity3ActivityCode
+		{
+			get
+			{
+				return this._SecondaryActivity3ActivityCode;
+			}
+			set
+			{
+				if ((this._SecondaryActivity3ActivityCode != value))
+				{
+					this._SecondaryActivity3ActivityCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessFormatBusinessFormatCode", DbType="Decimal(3,0)")]
+		public System.Nullable<decimal> BusinessFormatBusinessFormatCode
+		{
+			get
+			{
+				return this._BusinessFormatBusinessFormatCode;
+			}
+			set
+			{
+				if ((this._BusinessFormatBusinessFormatCode != value))
+				{
+					this._BusinessFormatBusinessFormatCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessFormatDescription", DbType="VarChar(50)")]
+		public string BusinessFormatDescription
+		{
+			get
+			{
+				return this._BusinessFormatDescription;
+			}
+			set
+			{
+				if ((this._BusinessFormatDescription != value))
+				{
+					this._BusinessFormatDescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessFormatDataSupplierIdentifier", DbType="VarChar(3)")]
+		public string BusinessFormatDataSupplierIdentifier
+		{
+			get
+			{
+				return this._BusinessFormatDataSupplierIdentifier;
+			}
+			set
+			{
+				if ((this._BusinessFormatDataSupplierIdentifier != value))
+				{
+					this._BusinessFormatDataSupplierIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmploymentQuarterReferenceYear", DbType="Decimal(4,0)")]
+		public System.Nullable<decimal> EmploymentQuarterReferenceYear
+		{
+			get
+			{
+				return this._EmploymentQuarterReferenceYear;
+			}
+			set
+			{
+				if ((this._EmploymentQuarterReferenceYear != value))
+				{
+					this._EmploymentQuarterReferenceYear = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmploymentQuarterReferenceQuarter", DbType="Bit")]
+		public System.Nullable<bool> EmploymentQuarterReferenceQuarter
+		{
+			get
+			{
+				return this._EmploymentQuarterReferenceQuarter;
+			}
+			set
+			{
+				if ((this._EmploymentQuarterReferenceQuarter != value))
+				{
+					this._EmploymentQuarterReferenceQuarter = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmploymentQuarterEmploymentIntervalCode", DbType="VarChar(1)")]
+		public string EmploymentQuarterEmploymentIntervalCode
+		{
+			get
+			{
+				return this._EmploymentQuarterEmploymentIntervalCode;
+			}
+			set
+			{
+				if ((this._EmploymentQuarterEmploymentIntervalCode != value))
+				{
+					this._EmploymentQuarterEmploymentIntervalCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TelephoneNumberIdentifier", DbType="VarChar(12)")]
+		public string TelephoneNumberIdentifier
+		{
+			get
+			{
+				return this._TelephoneNumberIdentifier;
+			}
+			set
+			{
+				if ((this._TelephoneNumberIdentifier != value))
+				{
+					this._TelephoneNumberIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FaxNumberIdentifier", DbType="VarChar(12)")]
+		public string FaxNumberIdentifier
+		{
+			get
+			{
+				return this._FaxNumberIdentifier;
+			}
+			set
+			{
+				if ((this._FaxNumberIdentifier != value))
+				{
+					this._FaxNumberIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailAdressIdentifier", DbType="VarChar(250)")]
+		public string EmailAdressIdentifier
+		{
+			get
+			{
+				return this._EmailAdressIdentifier;
+			}
+			set
+			{
+				if ((this._EmailAdressIdentifier != value))
+				{
+					this._EmailAdressIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ObligationValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> ObligationValidFromDate
+		{
+			get
+			{
+				return this._ObligationValidFromDate;
+			}
+			set
+			{
+				if ((this._ObligationValidFromDate != value))
+				{
+					this._ObligationValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ObligationCode", DbType="VarChar(1)")]
+		public string ObligationCode
+		{
+			get
+			{
+				return this._ObligationCode;
+			}
+			set
+			{
+				if ((this._ObligationCode != value))
+				{
+					this._ObligationCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreditorInformationValidFromDate", DbType="Decimal(11,0)")]
+		public System.Nullable<decimal> CreditorInformationValidFromDate
+		{
+			get
+			{
+				return this._CreditorInformationValidFromDate;
+			}
+			set
+			{
+				if ((this._CreditorInformationValidFromDate != value))
+				{
+					this._CreditorInformationValidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreditorStatusInformationCode", DbType="Bit")]
+		public System.Nullable<bool> CreditorStatusInformationCode
+		{
+			get
+			{
+				return this._CreditorStatusInformationCode;
+			}
+			set
+			{
+				if ((this._CreditorStatusInformationCode != value))
+				{
+					this._CreditorStatusInformationCode = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Owner")]
+	public partial class Owner
+	{
+		
+		private System.Nullable<int> _Ajourføringsmarkering;
+		
+		private System.Nullable<decimal> _OwnedLegalUnitIdentifier;
+		
+		private System.Nullable<int> _ParticipantType;
+		
+		private System.Nullable<decimal> _ParticipantvalidFromDate;
+		
+		private System.Nullable<long> _ParticipantIdentifier;
+		
+		private string _ParticipantName;
+		
+		private System.Nullable<int> _LegalUnitIdentifier;
+		
+		public Owner()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ajourføringsmarkering", DbType="Int")]
+		public System.Nullable<int> Ajourføringsmarkering
+		{
+			get
+			{
+				return this._Ajourføringsmarkering;
+			}
+			set
+			{
+				if ((this._Ajourføringsmarkering != value))
+				{
+					this._Ajourføringsmarkering = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnedLegalUnitIdentifier", DbType="Decimal(8,0)")]
+		public System.Nullable<decimal> OwnedLegalUnitIdentifier
+		{
+			get
+			{
+				return this._OwnedLegalUnitIdentifier;
+			}
+			set
+			{
+				if ((this._OwnedLegalUnitIdentifier != value))
+				{
+					this._OwnedLegalUnitIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantType", DbType="Int")]
+		public System.Nullable<int> ParticipantType
+		{
+			get
+			{
+				return this._ParticipantType;
+			}
+			set
+			{
+				if ((this._ParticipantType != value))
+				{
+					this._ParticipantType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantvalidFromDate", DbType="Decimal(10,0)")]
+		public System.Nullable<decimal> ParticipantvalidFromDate
+		{
+			get
+			{
+				return this._ParticipantvalidFromDate;
+			}
+			set
+			{
+				if ((this._ParticipantvalidFromDate != value))
+				{
+					this._ParticipantvalidFromDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantIdentifier", DbType="BigInt")]
+		public System.Nullable<long> ParticipantIdentifier
+		{
+			get
+			{
+				return this._ParticipantIdentifier;
+			}
+			set
+			{
+				if ((this._ParticipantIdentifier != value))
+				{
+					this._ParticipantIdentifier = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParticipantName", DbType="VarChar(150)")]
+		public string ParticipantName
+		{
+			get
+			{
+				return this._ParticipantName;
+			}
+			set
+			{
+				if ((this._ParticipantName != value))
+				{
+					this._ParticipantName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalUnitIdentifier", DbType="Int")]
+		public System.Nullable<int> LegalUnitIdentifier
+		{
+			get
+			{
+				return this._LegalUnitIdentifier;
+			}
+			set
+			{
+				if ((this._LegalUnitIdentifier != value))
+				{
+					this._LegalUnitIdentifier = value;
+				}
+			}
 		}
 	}
 }
