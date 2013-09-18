@@ -38,11 +38,18 @@
         <classShapeMoniker Id="1df4fbf1-754d-4723-8c21-fc9eab62a757" />
       </nodes>
     </inheritanceConnector>
-    <associationConnector edgePoints="[(9.375 : 3.65469482421875); (10.75 : 3.65469482421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(9.375 : 3.65469482421875); (10.75 : 3.65469482421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CvrDataContext/LegalUnit/LegalUnit_Owner" />
       <nodes>
         <classShapeMoniker Id="2991337b-22b3-4438-9078-52379c5911d3" />
         <classShapeMoniker Id="c3d6405c-0183-4dbc-9870-214eb848d065" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.375 : 3.25); (8.375 : 2.4343896484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CvrDataContext/LegalUnit/LegalUnit_ProductionUnit" />
+      <nodes>
+        <classShapeMoniker Id="2991337b-22b3-4438-9078-52379c5911d3" />
+        <classShapeMoniker Id="1df4fbf1-754d-4723-8c21-fc9eab62a757" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

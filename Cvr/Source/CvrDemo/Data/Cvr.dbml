@@ -77,7 +77,7 @@
         <Association Name="LegalUnit_Owner" Member="Owners" ThisKey="LegalUnitIdentifier" OtherKey="OwnedLegalUnitIdentifier" Type="Owner" />
         <Association Name="LegalUnit_ProductionUnit" Member="ProductionUnits" ThisKey="LegalUnitIdentifier" OtherKey="LegalUnitIdentifier" Type="ProductionUnit" />
       </Type>
-      <Type Name="ProductionUnit" IsInheritanceDefault="true">
+      <Type Name="ProductionUnit" InheritanceCode="-1" IsInheritanceDefault="true">
         <Association Name="LegalUnit_ProductionUnit" Member="LegalUnit" ThisKey="LegalUnitIdentifier" OtherKey="LegalUnitIdentifier" Type="LegalUnit" IsForeignKey="true" />
       </Type>
     </Type>

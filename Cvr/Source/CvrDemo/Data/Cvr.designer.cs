@@ -334,6 +334,7 @@ namespace CvrDemo.Data
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
 	[global::System.Data.Linq.Mapping.InheritanceMappingAttribute(Code="0", Type=typeof(LegalUnit))]
+	[global::System.Data.Linq.Mapping.InheritanceMappingAttribute(Code="-1", Type=typeof(ProductionUnit), IsDefault=true)]
 	public abstract partial class Unit : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
