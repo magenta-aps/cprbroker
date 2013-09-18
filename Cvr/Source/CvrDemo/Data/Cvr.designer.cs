@@ -105,7 +105,7 @@ namespace CvrDemo.Data
 		
 		private System.Nullable<int> _LegalUnitIdentifier;
 		
-		private long _ProductionUnitIdentifier;
+		private EntityRef<LegalUnit> _LegalUnit;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -125,12 +125,11 @@ namespace CvrDemo.Data
     partial void OnParticipantNameChanged();
     partial void OnLegalUnitIdentifierChanging(System.Nullable<int> value);
     partial void OnLegalUnitIdentifierChanged();
-    partial void OnProductionUnitIdentifierChanging(long value);
-    partial void OnProductionUnitIdentifierChanged();
     #endregion
 		
 		public Owner()
 		{
+			this._LegalUnit = default(EntityRef<LegalUnit>);
 			OnCreated();
 		}
 		
@@ -165,6 +164,10 @@ namespace CvrDemo.Data
 			{
 				if ((this._OwnedLegalUnitIdentifier != value))
 				{
+					if (this._LegalUnit.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnOwnedLegalUnitIdentifierChanging(value);
 					this.SendPropertyChanging();
 					this._OwnedLegalUnitIdentifier = value;
@@ -274,22 +277,36 @@ namespace CvrDemo.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductionUnitIdentifier")]
-		public long ProductionUnitIdentifier
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LegalUnit_Owner", Storage="_LegalUnit", ThisKey="OwnedLegalUnitIdentifier", OtherKey="LegalUnitIdentifier", IsForeignKey=true)]
+		public LegalUnit LegalUnit
 		{
 			get
 			{
-				return this._ProductionUnitIdentifier;
+				return this._LegalUnit.Entity;
 			}
 			set
 			{
-				if ((this._ProductionUnitIdentifier != value))
+				LegalUnit previousValue = this._LegalUnit.Entity;
+				if (((previousValue != value) 
+							|| (this._LegalUnit.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnProductionUnitIdentifierChanging(value);
 					this.SendPropertyChanging();
-					this._ProductionUnitIdentifier = value;
-					this.SendPropertyChanged("ProductionUnitIdentifier");
-					this.OnProductionUnitIdentifierChanged();
+					if ((previousValue != null))
+					{
+						this._LegalUnit.Entity = null;
+						previousValue.Owners.Remove(this);
+					}
+					this._LegalUnit.Entity = value;
+					if ((value != null))
+					{
+						value.Owners.Add(this);
+						this._OwnedLegalUnitIdentifier = value.LegalUnitIdentifier;
+					}
+					else
+					{
+						this._OwnedLegalUnitIdentifier = default(Nullable<decimal>);
+					}
+					this.SendPropertyChanged("LegalUnit");
 				}
 			}
 		}
@@ -324,7 +341,7 @@ namespace CvrDemo.Data
 		
 		private System.Nullable<bool> _Ajourfoeringsmarkering;
 		
-		private decimal _LegalUnitIdentifier;
+		protected decimal _LegalUnitIdentifier;
 		
 		private long _ProductionUnitIdentifier;
 		
@@ -1773,6 +1790,8 @@ namespace CvrDemo.Data
 	public partial class LegalUnit : Unit
 	{
 		
+		private EntitySet<Owner> _Owners;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1781,7 +1800,33 @@ namespace CvrDemo.Data
 		
 		public LegalUnit()
 		{
+			this._Owners = new EntitySet<Owner>(new Action<Owner>(this.attach_Owners), new Action<Owner>(this.detach_Owners));
 			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LegalUnit_Owner", Storage="_Owners", ThisKey="LegalUnitIdentifier", OtherKey="OwnedLegalUnitIdentifier")]
+		public EntitySet<Owner> Owners
+		{
+			get
+			{
+				return this._Owners;
+			}
+			set
+			{
+				this._Owners.Assign(value);
+			}
+		}
+		
+		private void attach_Owners(Owner entity)
+		{
+			this.SendPropertyChanging();
+			entity.LegalUnit = this;
+		}
+		
+		private void detach_Owners(Owner entity)
+		{
+			this.SendPropertyChanging();
+			entity.LegalUnit = null;
 		}
 	}
 	

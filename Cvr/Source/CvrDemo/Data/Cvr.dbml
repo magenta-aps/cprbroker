@@ -9,7 +9,7 @@
       <Column Name="ParticipantIdentifier" Type="System.Int64" DbType="BigInt" IsPrimaryKey="true" CanBeNull="true" />
       <Column Name="ParticipantName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
       <Column Name="LegalUnitIdentifier" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Member="ProductionUnitIdentifier" Type="System.Int64" CanBeNull="false" />
+      <Association Name="LegalUnit_Owner" Member="LegalUnit" ThisKey="OwnedLegalUnitIdentifier" OtherKey="LegalUnitIdentifier" Type="LegalUnit" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="Units">
@@ -73,7 +73,9 @@
       <Column Name="ObligationCode" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="CreditorInformationValidFromDate" Type="System.Decimal" DbType="Decimal(11,0)" CanBeNull="true" />
       <Column Name="CreditorStatusInformationCode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Type Name="LegalUnit" InheritanceCode="0" />
+      <Type Name="LegalUnit" InheritanceCode="0">
+        <Association Name="LegalUnit_Owner" Member="Owners" ThisKey="LegalUnitIdentifier" OtherKey="OwnedLegalUnitIdentifier" Type="Owner" />
+      </Type>
       <Type Name="ProductionUnit" IsInheritanceDefault="true" />
     </Type>
   </Table>

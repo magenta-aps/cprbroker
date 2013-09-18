@@ -15,7 +15,6 @@ namespace CvrDemo.Extracts
         {
             var model = CreateUnitModelTable();
             Import(sourceFile, model, connectionString);
-            
         }
 
         public void ImportOwners(string sourceFile, string connectionString)
