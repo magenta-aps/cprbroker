@@ -112,6 +112,11 @@ namespace CprBroker.Data.Applications
         {
             using (ApplicationDataContext dataContext = new ApplicationDataContext())
             {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<LogEntry>(le => le.LogType);
+                loadOptions.LoadWith<LogEntry>(le => le.Application);
+                dataContext.LoadOptions = loadOptions;
+
                 var pred = CreatePredicate(dataContext, fromDate, toDate, type, appName);
 
                 // Read records
