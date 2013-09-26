@@ -230,6 +230,32 @@ namespace CprBroker.Engine
 
         #endregion
 
+        #region Logging paid calls
+
+        public static void LogAction(IPerCallDataProvider provider, String operation, Boolean success)
+        {
+            //We find the cost for this call
+            decimal cost = decimal.Parse(provider.OperationProperties["Cost"]);
+            //TODO: add row to DataProviderCall table
+            //We put a row into the DataProviderCall table
+            using (var dataContext = new CprBroker.Data.Applications.ApplicationDataContext())
+            {
+                Guid activityID = System.Guid.NewGuid();
+                var call = new CprBroker.Data.Applications.DataProviderCall
+                    {
+                        ID = System.Guid.NewGuid(),
+                        ActivityID = activityID,
+                        Time = DateTime.Now,
+                        Cost = cost,
+                        ProviderType = provider.GetType().ToString(),
+                        Operation = operation,
+                        Success = success,
+                    };
+                dataContext.DataProviderCalls.InsertOnSubmit(call);
+            }
+        }
+
+        #endregion
 
     }
 }

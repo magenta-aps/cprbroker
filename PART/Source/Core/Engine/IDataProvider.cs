@@ -79,6 +79,15 @@ namespace CprBroker.Engine
     }
 
     /// <summary>
+    /// Represents an external PAID data provider (DPR Diversion, P-date and CPR Direct)
+    /// </summary> 
+    public interface IPerCallDataProvider : IExternalDataProvider
+    {
+        Dictionary<string, string> OperationProperties { get; set; }
+        DataProviderConfigPropertyInfo[] OperationKeys { get; }
+    }
+
+    /// <summary>
     /// A data provider that supports update detection
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
@@ -92,7 +101,8 @@ namespace CprBroker.Engine
     {
         String,
         Integer,
-        Boolean
+        Boolean,
+        Decimal
     }
 
     public class DataProviderConfigPropertyInfo
