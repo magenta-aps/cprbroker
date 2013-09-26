@@ -57,7 +57,7 @@ namespace CprBroker.Providers.DPR
     /// <summary>
     /// Base class for all DPR data providers
     /// </summary>
-    public abstract class BaseProvider : IExternalDataProvider, IDataProvider
+    public abstract class BaseProvider : IExternalDataProvider, IDataProvider, IPerCallDataProvider
     {
         /// <summary>
         /// Map for error codes that are returned fromDate DPR. Each provider fills its own list
@@ -67,6 +67,8 @@ namespace CprBroker.Providers.DPR
         #region IExternalDataProvider Members
 
         public Dictionary<string, string> ConfigurationProperties { get; set; }
+
+        public Dictionary<string, string> OperationProperties { get; set; }
 
         public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
@@ -85,6 +87,16 @@ namespace CprBroker.Providers.DPR
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="Port", Required=false, Confidential=false},                    
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Integer, Name="TCP Read Timeout (ms)" , Required=true, Confidential=false},
                     
+                };
+            }
+        }
+
+        public DataProviderConfigPropertyInfo[] OperationKeys
+        {
+            get
+            {
+                return new DataProviderConfigPropertyInfo[] { 
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Decimal, Name="Cost", Required=true, Confidential=false},
                 };
             }
         }
@@ -184,10 +196,12 @@ namespace CprBroker.Providers.DPR
             string error;
             if (Send(message, out response, out error))
             {
+                DataProviderManager.LogAction(this, "Read", true);
                 return response;
             }
             else
             {
+                DataProviderManager.LogAction(this, "Read", false);
                 throw new Exception(error);
             }
         }
