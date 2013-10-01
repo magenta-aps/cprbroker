@@ -49,7 +49,7 @@
                 background-color: #ccf;
 				display:block;
 				margin:.25em;
-				height:13.625em;
+				height:16.625em;
 				position:static;
 			}
 			table.prod_unit_info td {
@@ -89,6 +89,7 @@
                                     href="http://maps.google.com/?q=<%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %>, <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %>"
                                     target="_blank">Se på kort</a>
                             </td></tr>
+                            <tr><td><strong>Telefon:</strong></td><td><%# Eval("TelephoneNumberIdentifier").ToString().Equals("") ? "Ukendt" : Eval("TelephoneNumberIdentifier") %></td></tr>
                         </table>
                         <h3>Produktionsenheder:</h3>
                         <div class="result_wrapper">
@@ -106,6 +107,7 @@
                                                     href="http://maps.google.com/?q=<%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %>, <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %>"
                                                     target="_blank">Se på kort</a>
                                             </td></tr>
+                                            <tr><td><strong>Telefon:</strong></td><td><%# Eval("TelephoneNumberIdentifier").ToString().Equals("") ? "Ukendt" : Eval("TelephoneNumberIdentifier") %></td></tr>
                                         </table>
                                     </div>
                                 </ItemTemplate>
