@@ -20,12 +20,21 @@ namespace CvrDemo.Pages
             using (var dataContext = new CvrDataContext())
             {
                 var cvrNum = decimal.Parse(CvrSearchBox.Text);
-                var unit = dataContext.Units.Where(u => u.LegalUnitIdentifier == cvrNum).FirstOrDefault() as LegalUnit;
+                var unit = dataContext.Units.Where(u => u.LegalUnitIdentifier == cvrNum && u.ProductionUnitIdentifier == 0).FirstOrDefault() as LegalUnit;
 
-                var prod = unit.ProductionUnits.Where(pU => pU != null);
-                foreach (var pU in prod)
+                if (unit != null)
                 {
-                    object o = pU.Name;
+                    var prod = unit.ProductionUnits.Where(pU => pU != null);
+                    foreach (var pU in prod)
+                    {
+                        object o = pU.Name;
+                    }
+
+                    var owner = unit.Owners.Where(o => o != null);
+                    foreach (var ow in owner)
+                    {
+                        object o = ow.Ajourføringsmarkering;
+                    }
                 }
                 /*
                 var legalUnit = new LegalUnit()
