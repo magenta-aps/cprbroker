@@ -19,42 +19,39 @@ namespace CvrDemo.Pages
         {
             using (var dataContext = new CvrDataContext())
             {
-                var cvrNum = decimal.Parse(CvrSearchBox.Text);
-                var unit = dataContext.Units.Where(u => u.LegalUnitIdentifier == cvrNum && u.ProductionUnitIdentifier == 0).FirstOrDefault() as LegalUnit;
-
-                if (unit != null)
+                LegalUnit unit;
+                decimal cvrNum;
+                if (Decimal.TryParse(CvrSearchBox.Text, out cvrNum))
                 {
-                    var prod = unit.ProductionUnits.Where(pU => pU != null);
-                    foreach (var pU in prod)
-                    {
-                        object o = pU.Name;
-                    }
+                    unit = dataContext.Units.Where(u => u.LegalUnitIdentifier == cvrNum && u.ProductionUnitIdentifier == 0).FirstOrDefault() as LegalUnit;
 
-                    var owner = unit.Owners.Where(o => o != null);
-                    foreach (var ow in owner)
+                    if (unit != null)
                     {
-                        object o = ow.Ajourføringsmarkering;
+                        var prod = unit.ProductionUnits.Where(pU => pU != null);
+                        foreach (var pU in prod)
+                        {
+                            object o = pU.Name;
+                        }
+
+                        var owner = unit.Owners.Where(o => o != null);
+                        foreach (var ow in owner)
+                        {
+                            object o = ow.Ajourføringsmarkering;
+                        }
+                    }
+                    else
+                    {
+                        unit = new LegalUnit();
+                        unit.Name = " CVR-nummer ukendt";
+                        unit.TelephoneNumberIdentifier = "";
                     }
                 }
-                /*
-                var legalUnit = new LegalUnit()
+                else
                 {
-                    Name = "JHJJKHJKHJ",
-                    StartDate = 20050601,
-                    ProductionUnits = new System.Data.Linq.EntitySet<ProductionUnit>()
-                };
-                legalUnit.ProductionUnits.Add(new ProductionUnit()
-                {
-                    Name = "sgfæjglæsdglæ",
-                    StartDate = 20050601,
-
-                });
-                legalUnit.ProductionUnits.Add(new ProductionUnit()
-                {
-                    Name = "Production 2",
-                    StartDate = 20050601,
-                });
-                 */
+                    unit = new LegalUnit();
+                    unit.Name = " Forkert input!";
+                    unit.TelephoneNumberIdentifier = "";
+                }
                 frmLegalUnit.DataSource = new LegalUnit[] { unit };
                 frmLegalUnit.DataBind();
             }

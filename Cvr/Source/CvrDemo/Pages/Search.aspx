@@ -79,39 +79,41 @@
                 <ItemTemplate>
                     <div class="legal_unit_box">
                         <h2><%# Eval("Name") %></h2>
-                        <table class="legal_unit_info">
-                            <tr><td><strong>Selskabstype:</strong></td><td><%# Eval("BusinessFormatDescription") %></td></tr>
-                            <tr><td><strong>Hovedbeskæftigelse:</strong></td><td><%# Eval("MainActivityActivityDescription") %></td></tr>
-                            <tr><td valign="top"><strong>Adresse:</strong></td><td>
-                                <%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %><br />
-                                <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %><br />
-                                <a
-                                    href="http://maps.google.com/?q=<%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %>, <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %>"
-                                    target="_blank">Se på kort</a>
-                            </td></tr>
-                            <tr><td><strong>Telefon:</strong></td><td><%# Eval("TelephoneNumberIdentifier").ToString().Equals("") ? "Ukendt" : Eval("TelephoneNumberIdentifier") %></td></tr>
-                        </table>
-                        <h3>Produktionsenheder:</h3>
-                        <div class="result_wrapper">
-                            <asp:ListView ID="ProductionUnitsList" runat="server" DataSource='<%# Eval("ActualProductionUnits") %>' >
-                                <ItemTemplate>
-                                    <div class="prod_unit_box">
-                                        <table class="prod_unit_info">
-                                            <tr><td><strong>Navn:</strong></td><td><%# Eval("Name") %></td></tr>
-                                            <tr><td><strong>P-nummer:</strong></td><td><%# Eval("ProductionUnitIdentifier") %></td></tr>
-                                            <tr><td><strong>Startdato:</strong></td><td><%# Eval("StartDate") %></td></tr>
-                                            <tr><td><strong>Adresse:</strong></td><td>
-                                                <%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %><br />
-                                                <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %><br />
-                                                <a
-                                                    href="http://maps.google.com/?q=<%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %>, <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %>"
-                                                    target="_blank">Se på kort</a>
-                                            </td></tr>
-                                            <tr><td><strong>Telefon:</strong></td><td><%# Eval("TelephoneNumberIdentifier").ToString().Equals("") ? "Ukendt" : Eval("TelephoneNumberIdentifier") %></td></tr>
-                                        </table>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:ListView>
+                        <div style="visibility: <%# Eval("Name").ToString().Substring(0,1).Equals(" ") ? "hidden" : "visible" %>">
+                            <table class="legal_unit_info">
+                                <tr><td><strong>Selskabstype:</strong></td><td><%# Eval("BusinessFormatDescription") %></td></tr>
+                                <tr><td><strong>Hovedbeskæftigelse:</strong></td><td><%# Eval("MainActivityActivityDescription") %></td></tr>
+                                <tr><td valign="top"><strong>Adresse:</strong></td><td>
+                                    <%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %><br />
+                                    <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %><br />
+                                    <a
+                                        href="http://maps.google.com/?q=<%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %>, <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %>"
+                                        target="_blank">Se på kort</a>
+                                </td></tr>
+                                <tr><td><strong>Telefon:</strong></td><td><%# Eval("TelephoneNumberIdentifier").ToString().Equals("") ? "Ukendt" : Eval("TelephoneNumberIdentifier") %></td></tr>
+                            </table>
+                            <h3>Produktionsenheder:</h3>
+                            <div class="result_wrapper">
+                                <asp:ListView ID="ProductionUnitsList" runat="server" DataSource='<%# Eval("ActualProductionUnits") %>' >
+                                    <ItemTemplate>
+                                        <div class="prod_unit_box">
+                                            <table class="prod_unit_info">
+                                                <tr><td><strong>Navn:</strong></td><td><%# Eval("Name") %></td></tr>
+                                                <tr><td><strong>P-nummer:</strong></td><td><%# Eval("ProductionUnitIdentifier") %></td></tr>
+                                                <tr><td><strong>Startdato:</strong></td><td><%# Eval("StartDate") %></td></tr>
+                                                <tr><td><strong>Adresse:</strong></td><td>
+                                                    <%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %><br />
+                                                    <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %><br />
+                                                    <a
+                                                        href="http://maps.google.com/?q=<%# Eval("AddressOfficialStreetName") %> <%# Eval("AddressOfficialStreetBuildingIdentifier") %>, <%# Eval("AddressOfficialFloorIdentifier") %><%# Eval("AddressPostalSuiteIdentifier") %>, <%# Eval("AddressOfficialPostCodeIdentifier") %> <%# Eval("AddressOfficialDistrictName") %>"
+                                                        target="_blank">Se på kort</a>
+                                                </td></tr>
+                                                <tr><td><strong>Telefon:</strong></td><td><%# Eval("TelephoneNumberIdentifier").ToString().Equals("") ? "Ukendt" : Eval("TelephoneNumberIdentifier") %></td></tr>
+                                            </table>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                            </div>
                         </div>
                     </div>
                 </ItemTemplate>
