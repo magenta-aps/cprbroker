@@ -13,5 +13,10 @@ namespace CvrDemo.Pages
         {
 
         }
+        protected void RefreshButton_Click(object sender, EventArgs e) {
+            //TODO: do update stuff here...
+            Label textField = (Label)frmUpdateDatabase.FindControl("StatusText");
+            textField.Text = "Testing";
+        }
     }
 }
