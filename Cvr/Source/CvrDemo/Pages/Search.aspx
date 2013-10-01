@@ -59,7 +59,7 @@
 				z-index:10;
 			}
 			table.prod_unit_info td:first-child {
-				width:5.25em;
+				width:6em;
 				text-align:right;
 			}
             h2 {
