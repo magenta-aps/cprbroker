@@ -56,7 +56,7 @@ namespace CprBroker.Providers.KMD
     /// <summary>
     /// Contains the base methods for accessing KMD web services
     /// </summary>
-    public partial class KmdDataProvider : IDataProvider, IExternalDataProvider
+    public partial class KmdDataProvider : IDataProvider, IExternalDataProvider, IPerCallDataProvider
     {
 
         public enum ServiceTypes
@@ -113,6 +113,8 @@ namespace CprBroker.Providers.KMD
             };
             if (Array.IndexOf<string>(errorCodes, returnCode) != -1)
             {
+                Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Error, "KMD data provider", "Request failed", null, null);
+                DataProviderManager.LogAction(this, "Read", false);
                 throw new Exception(returnText);
             }
         }

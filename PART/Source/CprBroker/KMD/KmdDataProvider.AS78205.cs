@@ -82,10 +82,11 @@ namespace CprBroker.Providers.KMD
                     EPNR = cprNumber,
                 }
             };
+            Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "CallAS78207", string.Format("Calling AS78207 with PNR {0}", cprNumber), null, null);
             var response = service.SubmitAS78205(input);
             var englishResponse = new EnglishAS78205Response(response);
             ValidateReturnCode(englishResponse.ReturnCode, englishResponse.ReturnText);
-
+            DataProviderManager.LogAction(this, "Read", true);
             return englishResponse;
         }
 
