@@ -19,7 +19,7 @@
   </Table>
   <Table Name="dbo.LogEntry" Member="LogEntries">
     <Type Name="LogEntry">
-      <Column Name="LogEntryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="LogEntryId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="LogTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="UserToken" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
