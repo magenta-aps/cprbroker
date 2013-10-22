@@ -235,8 +235,9 @@ namespace CprBroker.Engine
         public static void LogAction(IPerCallDataProvider provider, String operation, Boolean success)
         {
             //We find the cost for this call
-            decimal cost = decimal.Parse(provider.OperationProperties["Cost"]);
-            //TODO: add row to DataProviderCall table
+            decimal cost = 0; // For tests to work out, we give the variable a default value.
+            if (provider.OperationProperties != null)
+                cost = decimal.Parse(provider.OperationProperties["Cost"]);
             //We put a row into the DataProviderCall table
             using (var dataContext = new CprBroker.Data.Applications.ApplicationDataContext())
             {
@@ -252,6 +253,7 @@ namespace CprBroker.Engine
                         Success = success,
                     };
                 dataContext.DataProviderCalls.InsertOnSubmit(call);
+                dataContext.SubmitChanges();
             }
         }
 
