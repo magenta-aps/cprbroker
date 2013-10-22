@@ -127,8 +127,21 @@ namespace CprBroker.Web.Pages
             if (newDataProviderDropDownList.Items.Count > 0)
             {
                 Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
-                IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
-                newDataProviderGridView.DataSource = dp.ConfigurationKeys;
+                try
+                {
+                    IPerCallDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IPerCallDataProvider;
+                    DataProviderConfigPropertyInfo[] toBeReturned = new DataProviderConfigPropertyInfo[
+                        dp.ConfigurationKeys.Length + dp.OperationKeys.Length
+                        ];
+                    dp.ConfigurationKeys.CopyTo(toBeReturned, 0);
+                    dp.OperationKeys.CopyTo(toBeReturned, dp.ConfigurationKeys.Length);
+                    newDataProviderGridView.DataSource = toBeReturned;
+                }
+                catch (Exception ex)
+                {
+                    IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
+                    newDataProviderGridView.DataSource = dp.ConfigurationKeys;
+                }
             }
         }
 
