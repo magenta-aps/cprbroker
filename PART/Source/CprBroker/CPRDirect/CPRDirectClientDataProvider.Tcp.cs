@@ -98,10 +98,14 @@ namespace CprBroker.Providers.CPRDirect
             if (Constants.ErrorCodes.ContainsKey(errorCode))
             {
                 error = Constants.ErrorCodes[errorCode];
+                // We log the call and set the success parameter to false
+                DataProviderManager.LogAction(this, "Read", false);
                 return false;
             }
             else
             {
+                // We log the call and set the success parameter to true
+                DataProviderManager.LogAction(this, "Read", true);
                 return true;
             }
         }
