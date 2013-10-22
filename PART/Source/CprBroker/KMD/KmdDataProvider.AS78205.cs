@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Engine;
 using CprBroker.Providers.KMD.WS_AS78205;
 using CprBroker.Schemas.Part;
 
@@ -86,6 +87,7 @@ namespace CprBroker.Providers.KMD
             var response = service.SubmitAS78205(input);
             var englishResponse = new EnglishAS78205Response(response);
             ValidateReturnCode(englishResponse.ReturnCode, englishResponse.ReturnText);
+            // We log the call and set the success parameter to true
             DataProviderManager.LogAction(this, "Read", true);
             return englishResponse;
         }

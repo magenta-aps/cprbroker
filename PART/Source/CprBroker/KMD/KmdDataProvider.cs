@@ -114,6 +114,7 @@ namespace CprBroker.Providers.KMD
             if (Array.IndexOf<string>(errorCodes, returnCode) != -1)
             {
                 Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Error, "KMD data provider", "Request failed", null, null);
+                // We log the call and set the success parameter to false
                 DataProviderManager.LogAction(this, "Read", false);
                 throw new Exception(returnText);
             }
@@ -156,6 +157,8 @@ namespace CprBroker.Providers.KMD
 
         public Dictionary<string, string> ConfigurationProperties { get; set; }
 
+        public Dictionary<string, string> OperationProperties { get; set; }
+
         public DataProviderConfigPropertyInfo[] ConfigurationKeys
         {
             get
@@ -165,6 +168,16 @@ namespace CprBroker.Providers.KMD
                     new DataProviderConfigPropertyInfo(){Name="Address",Required=true, Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Username",Required=true,Confidential=false},
                     new DataProviderConfigPropertyInfo(){Name="Password" ,Required=true,Confidential=true}
+                };
+            }
+        }
+
+        public DataProviderConfigPropertyInfo[] OperationKeys
+        {
+            get
+            {
+                return new DataProviderConfigPropertyInfo[] { 
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Decimal, Name="Cost", Required=true, Confidential=false},
                 };
             }
         }

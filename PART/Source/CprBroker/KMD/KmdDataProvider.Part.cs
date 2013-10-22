@@ -60,7 +60,7 @@ namespace CprBroker.Providers.KMD
     /// <summary>
     /// Implements the Read operation of the Part standard
     /// </summary>
-    public partial class KmdDataProvider : IPartReadDataProvider
+    public partial class KmdDataProvider : IPartReadDataProvider, IPerCallDataProvider
     {
         #region IPartReadDataProvider Members
 
