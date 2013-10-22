@@ -196,12 +196,10 @@ namespace CprBroker.Providers.DPR
             string error;
             if (Send(message, out response, out error))
             {
-                DataProviderManager.LogAction(this, "Read", true);
                 return response;
             }
             else
             {
-                DataProviderManager.LogAction(this, "Read", false);
                 throw new Exception(error);
             }
         }
@@ -218,30 +216,46 @@ namespace CprBroker.Providers.DPR
             int bytes = 0;
             error = null;
 
-            using (TcpClient client = new TcpClient(Address, Port))
+            try
             {
-                Byte[] data = System.Text.Encoding.UTF7.GetBytes(message);
-
-                using (NetworkStream stream = client.GetStream())
+                using (TcpClient client = new TcpClient(Address, Port))
                 {
-                    stream.Write(data, 0, data.Length);
-                    stream.ReadTimeout = this.TcpReadTimeout;
-                    data = new Byte[3500];
-                    bytes = stream.Read(data, 0, data.Length);
-                }
-                response = System.Text.Encoding.UTF7.GetString(data, 0, bytes);
-            }
+                    Byte[] data = System.Text.Encoding.UTF7.GetBytes(message);
 
-            string errorCode = response.Substring(2, 2);
-            if (ErrorCodes.ContainsKey(errorCode))
+                    using (NetworkStream stream = client.GetStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                        stream.ReadTimeout = this.TcpReadTimeout;
+                        data = new Byte[3500];
+                        bytes = stream.Read(data, 0, data.Length);
+                    }
+                    response = System.Text.Encoding.UTF7.GetString(data, 0, bytes);
+                }
+
+                string errorCode = response.Substring(2, 2);
+                if (ErrorCodes.ContainsKey(errorCode))
+                {
+                    // We log the call and set the success parameter to false
+                    DataProviderManager.LogAction(this, "Read", false);
+                    error = ErrorCodes[errorCode];
+                    return false;
+                }
+                else
+                {
+                    // We log the call and set the success parameter to true
+                    DataProviderManager.LogAction(this, "Read", true);
+                    return true;
+                }
+            }
+            catch (Exception e)
             {
-                error = ErrorCodes[errorCode];
+                // We log the call and set the success parameter to false
+                DataProviderManager.LogAction(this, "Read", false);
+                response = null;
+                error = "Exception: " + e.Message;
                 return false;
             }
-            else
-            {
-                return true;
-            }
+
         }
 
         #endregion
