@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="urn:oio:sagdok:2.0.0" xmlns:oio="urn:oio:definitions:1.0.0" xmlns:sd="urn:oio:sagdok:2.0.0" xmlns:oio1="urn:oio:dkal:1.0.0" xmlns:oio2="urn:oio:sagdok:1.0.0" xml:lang="DA" oio:mapping="urn:oio:sagdok:MPD:2.0.0">
+
+    <import namespace="urn:oio:dkal:1.0.0" schemaLocation="http://digitaliser.dk/resource/451542/artefact/UUID.xsd" />
+    <import namespace="urn:oio:sagdok:1.0.0" schemaLocation="http://digitaliser.dk/resource/481940/artefact/BrugervendtNoegleTekst.xsd" />
+    <include schemaLocation="http://digitaliser.dk/resource/710922/artefact/SoegRegistrering.xsd" />
+    <include schemaLocation="http://digitaliser.dk/resource/710923/artefact/SoegVirkning.xsd" />
+    
+    <element name="SoegSagDokObjekt" type="sd:SoegSagDokObjektType" oio:definition="urn:oio:sagdok:soegsagdokobjekt:ADD:1.0.0" />
+    <complexType name="SoegSagDokObjektType" oio:definition="urn:oio:sagdok:soegsagdokobjekt:ADD:1.0.0">
+        <sequence>
+            <element ref="oio1:UUID" minOccurs="0" oio:content="uuid" />
+            <element ref="oio2:BrugervendtNoegleTekst" minOccurs="0" oio:content="brugervendtnoegle" />
+            <element ref="sd:SoegRegistrering" minOccurs="0" oio:content="registrering" />
+            <element ref="sd:SoegVirkning" minOccurs="0" oio:content="virkning" />
+        </sequence>
+    </complexType>
+
+</schema>

@@ -1,0 +1,61 @@
+POST /Services/Admin.asmx HTTP/1.1
+Host: localhost
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Header>
+    <ApplicationHeader xmlns="http://dk.itst">
+      <ApplicationToken>string</ApplicationToken>
+      <UserToken>string</UserToken>
+    </ApplicationHeader>
+  </soap12:Header>
+  <soap12:Body>
+    <SetDataProviderList xmlns="http://dk.itst">
+      <DataProviders>
+        <DataProviderType>
+          <TypeName xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</TypeName>
+          <Enabled xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">boolean</Enabled>
+          <Attributes xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+            <Name>string</Name>
+            <Value>string</Value>
+          </Attributes>
+          <Attributes xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+            <Name>string</Name>
+            <Value>string</Value>
+          </Attributes>
+        </DataProviderType>
+        <DataProviderType>
+          <TypeName xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">string</TypeName>
+          <Enabled xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">boolean</Enabled>
+          <Attributes xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+            <Name>string</Name>
+            <Value>string</Value>
+          </Attributes>
+          <Attributes xmlns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+            <Name>string</Name>
+            <Value>string</Value>
+          </Attributes>
+        </DataProviderType>
+      </DataProviders>
+    </SetDataProviderList>
+  </soap12:Body>
+</soap12:Envelope>
+
+
+
+HTTP/1.1 200 OK
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <SetDataProviderListResponse xmlns="http://dk.itst">
+      <SetDataProviderListResult>
+        <Item>boolean</Item>
+      </SetDataProviderListResult>
+    </SetDataProviderListResponse>
+  </soap12:Body>
+</soap12:Envelope>

@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s16="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:s7="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/" xmlns:s15="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:s2="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" xmlns:s19="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" xmlns:s13="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s12="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:s5="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:s8="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/" xmlns:s10="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s17="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" xmlns:s3="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s14="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/" xmlns:tns="http://tempuri.org/" xmlns:s18="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:s1="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" xmlns:s11="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:s6="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:s9="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s4="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Contains methods related to persons' data
+                                                </wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" />
+      <s:element name="GetCitizenNameAndAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitizenNameAndAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:PersonNameAndAddressStructure" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApplicationHeader" type="tns:ApplicationHeader" />
+      <s:complexType name="ApplicationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserToken" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="QualityHeader" type="tns:QualityHeader" />
+      <s:complexType name="QualityHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="QualityLevel" nillable="true" type="tns:QualityLevel" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:simpleType name="QualityLevel">
+        <s:restriction base="s:string">
+          <s:enumeration value="Cpr" />
+          <s:enumeration value="DataProvider" />
+          <s:enumeration value="LocalCache" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetCitizenBasic">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitizenBasicResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:PersonBasicStructure" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitizenFull">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitizenFullResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:PersonFullStructure" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitizenRelations">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitizenRelationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:PersonRelations" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitizenChildren">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationIdentifier" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IncludeCustodies" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitizenChildrenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCitizenChildrenResult" type="tns:ArrayOfSimpleCPRPersonType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSimpleCPRPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SimpleCPRPersonType" nillable="true" type="s2:SimpleCPRPersonType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RemoveParentAuthorityOverChild">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ParentCivilRegistrationIdentifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChildCivilRegistrationIdentifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveParentAuthorityOverChildResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RemoveParentAuthorityOverChildResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetParentAuthorityOverChild">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ParentCivilRegistrationIdentifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChildCivilRegistrationIdentifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetParentAuthorityOverChildResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetParentAuthorityOverChildResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetParentAuthorityOverChildChanges">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChildCivilRegistrationIdentifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetParentAuthorityOverChildChangesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetParentAuthorityOverChildChangesResult" type="tns:ArrayOfParentAuthorityRelationshipType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfParentAuthorityRelationshipType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ParentAuthorityRelationshipType" nillable="true" type="s1:ParentAuthorityRelationshipType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="PersonNameAndAddressStructure" type="s1:PersonNameAndAddressStructureType" />
+      <s:complexType name="PersonNameAndAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:SimpleCPRPerson" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:AddressIdentifierCode" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s6:DanishAddressStructure" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s6:ForeignAddressStructure" />
+          </s:choice>
+          <s:element minOccurs="1" maxOccurs="1" ref="s17:PersonInformationProtectionIndicator" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonBasicStructure" type="s1:PersonBasicStructureType" />
+      <s:complexType name="PersonBasicStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:RegularCPRPerson" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s19:MaritalStatusCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonDeathDateStructure" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonNationalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:AddressIdentifierCode" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s6:DanishAddressStructure" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s6:ForeignAddressStructure" />
+          </s:choice>
+          <s:element minOccurs="1" maxOccurs="1" ref="s17:PersonInformationProtectionIndicator" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonFullStructure" type="s1:PersonFullStructureType" />
+      <s:complexType name="PersonFullStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:RegularCPRPerson" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s19:MaritalStatusCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonDeathDateStructure" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonNationalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:AddressIdentifierCode" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s6:ForeignAddressStructure" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s6:DanishAddressStructure" />
+          </s:choice>
+          <s:element minOccurs="1" maxOccurs="1" ref="s17:PersonInformationProtectionIndicator" />
+          <s:element minOccurs="0" maxOccurs="1" name="SpouseName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfChildren" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonRelations" type="s1:PersonRelationsType" />
+      <s:complexType name="PersonRelationsType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:SimpleCPRPerson" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parents" type="s1:ArrayOfParentRelationshipType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Children" type="s1:ArrayOfChildRelationshipType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthoritativeParents" type="s1:ArrayOfParentAuthorityRelationshipType" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustodiedChildren" type="s1:ArrayOfChildCustodyRelationshipType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Spouses" type="s1:ArrayOfMaritalRelationshipType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfParentRelationshipType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Parent" type="s1:ParentRelationshipType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ParentRelationshipType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BaseRelationshipType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseRelationshipType" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s2:SimpleCPRPerson" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChildRelationshipType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BaseRelationshipType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TimedRelationshipType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BaseRelationshipType">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="RelationStartDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="RelationEndDate" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ChildCustodyRelationshipType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:TimedRelationshipType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ParentAuthorityRelationshipType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:TimedRelationshipType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MaritalRelationshipType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:TimedRelationshipType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfChildRelationshipType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Child" type="s1:ChildRelationshipType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfParentAuthorityRelationshipType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AuthoritativeParent" type="s1:ParentAuthorityRelationshipType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfChildCustodyRelationshipType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CustodiedChildren" type="s1:ChildCustodyRelationshipType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMaritalRelationshipType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Spouse" type="s1:MaritalRelationshipType" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/17/">
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/" />
+      <s:element name="SimpleCPRPerson" type="s2:SimpleCPRPersonType" />
+      <s:complexType name="SimpleCPRPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s3:PersonNameStructure" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:PersonCivilRegistrationIdentifier" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegularCPRPerson" type="s2:RegularCPRPersonType" />
+      <s:complexType name="RegularCPRPersonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SimpleCPRPerson" type="s2:SimpleCPRPersonType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:PersonNameForAddressingName" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s4:PersonGenderCode" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s17:PersonInformationProtectionIndicator" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s17:PersonBirthDateStructure" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonCivilRegistrationStatusStructure" type="s2:PersonCivilRegistrationStatusStructureType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonCivilRegistrationStatusStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" ref="s17:PersonCivilRegistrationStatusCode" />
+          <s:element minOccurs="1" maxOccurs="1" name="PersonCivilRegistrationStatusStartDate" type="s:date" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="PersonNameStructure" type="s3:PersonNameStructureType" />
+      <s:complexType name="PersonNameStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonGivenName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonMiddleName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:PersonSurnameName" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/">
+      <s:element name="PersonGivenName" type="s:string" />
+      <s:element name="PersonMiddleName" type="s:string" />
+      <s:element name="PersonSurnameName" type="s:string" />
+      <s:element name="MailDeliverySublocationIdentifier" type="s:string" />
+      <s:element name="StreetBuildingIdentifier" type="s:string" />
+      <s:element name="SuiteIdentifier" type="s:string" />
+      <s:element name="FloorIdentifier" type="s:string" />
+      <s:element name="CountryIdentificationCode" type="s4:CountryIdentificationCodeType" />
+      <s:complexType name="CountryIdentificationCodeType">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="scheme" type="s4:_CountryIdentificationSchemeType" use="required" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="_CountryIdentificationSchemeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="iso3166-alpha2" />
+          <s:enumeration value="iso3166-alpha3" />
+          <s:enumeration value="un-numeric3" />
+          <s:enumeration value="imk" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PersonGenderCode" type="s4:PersonGenderCodeType" />
+      <s:simpleType name="PersonGenderCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="male" />
+          <s:enumeration value="female" />
+          <s:enumeration value="unknown" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PersonNationalityCode" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/">
+      <s:element name="PersonCivilRegistrationIdentifier" type="s:string" />
+      <s:element name="MunicipalityCode" type="s:string" />
+      <s:element name="StreetCode" type="s:string" />
+      <s:element name="StreetNameForAddressingName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
+      <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
+      <s:element name="AddressIdentifierCode" type="s6:AddressIdentifierCodeType" />
+      <s:simpleType name="AddressIdentifierCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="1" />
+          <s:enumeration value="2" />
+          <s:enumeration value="3" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="DanishAddressStructure" type="s6:DanishAddressStructureType" />
+      <s:complexType name="DanishAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AddressStatusCode" type="s6:AddressStatusCodeType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:MunicipalityName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:CareOfName" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="AddressNotComplete" type="s6:AddressNotCompleteType" />
+            <s:element minOccurs="0" maxOccurs="1" ref="s10:AddressComplete" />
+            <s:element minOccurs="0" maxOccurs="1" name="AddressCompleteGreenland" type="s6:AddressCompleteGreenlandType" />
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" ref="s13:CompletePostalLabel" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AddressStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="1" />
+          <s:enumeration value="3" />
+          <s:enumeration value="5" />
+          <s:enumeration value="7" />
+          <s:enumeration value="20" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="AddressNotCompleteType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressCompleteGreenlandType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ForeignAddressStructure" type="s6:ForeignAddressStructureType" />
+      <s:complexType name="ForeignAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFirstLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressSecondLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressThirdLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFourthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFifthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s16:LocationDescriptionText" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonDeathDateStructure" type="s6:PersonDeathDateStructureType" />
+      <s:complexType name="PersonDeathDateStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PersonDeathDate" type="s:date" />
+          <s:element minOccurs="1" maxOccurs="1" name="PersonDeathDateUncertaintyIndicator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/05/23/">
+      <s:element name="MunicipalityName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/06/24/">
+      <s:element name="CareOfName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/">
+      <s:element name="StreetName" type="s:string" />
+      <s:element name="DistrictSubdivisionIdentifier" type="s:string" />
+      <s:element name="PostCodeIdentifier" type="s:string" />
+      <s:element name="DistrictName" type="s:string" />
+      <s:element name="BirthDate" type="s:date" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/">
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" />
+      <s:element name="AddressComplete" type="s10:AddressCompleteType" />
+      <s:complexType name="AddressCompleteType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:AddressAccess" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPostal" type="s10:AddressPostalType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressPostalType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s12:PostOfficeBoxIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s9:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="AddressAccess" type="s11:AddressAccessType" />
+      <s:complexType name="AddressAccessType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:StreetBuildingIdentifier" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/">
+      <s:element name="PostOfficeBoxIdentifier" type="s:integer" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2006/01/10/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
+      <s:element name="CompletePostalLabel" type="s13:CompletePostalLabelType" />
+      <s:complexType name="CompletePostalLabelType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:AddresseeName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFirstLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressSecondLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressThirdLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFourthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFifthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressSixthLineText" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/05/19/">
+      <s:element name="AddresseeName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/">
+      <s:element name="PostalAddressFirstLineText" type="s:string" />
+      <s:element name="PostalAddressSecondLineText" type="s:string" />
+      <s:element name="PostalAddressThirdLineText" type="s:string" />
+      <s:element name="PostalAddressFourthLineText" type="s:string" />
+      <s:element name="PostalAddressFifthLineText" type="s:string" />
+      <s:element name="PostalAddressSixthLineText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/">
+      <s:element name="LocationDescriptionText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/11/24/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:element name="PersonInformationProtectionIndicator" type="s:boolean" />
+      <s:element name="PersonBirthDateStructure" type="s17:PersonBirthDateStructureType" />
+      <s:complexType name="PersonBirthDateStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" ref="s9:BirthDate" />
+          <s:element minOccurs="1" maxOccurs="1" name="BirthDateUncertaintyIndicator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersonCivilRegistrationStatusCode" type="s17:PersonCivilRegistrationStatusCodeType" />
+      <s:simpleType name="PersonCivilRegistrationStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="01" />
+          <s:enumeration value="03" />
+          <s:enumeration value="05" />
+          <s:enumeration value="07" />
+          <s:enumeration value="20" />
+          <s:enumeration value="30" />
+          <s:enumeration value="50" />
+          <s:enumeration value="60" />
+          <s:enumeration value="70" />
+          <s:enumeration value="80" />
+          <s:enumeration value="90" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/">
+      <s:element name="PersonNameForAddressingName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/09/19/">
+      <s:element name="MaritalStatusCode" type="s19:MaritalStatusCodeType" />
+      <s:simpleType name="MaritalStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="married" />
+          <s:enumeration value="divorced" />
+          <s:enumeration value="widow" />
+          <s:enumeration value="registered partnership" />
+          <s:enumeration value="abolition of registrered partnership" />
+          <s:enumeration value="longest living partner" />
+          <s:enumeration value="deceased" />
+          <s:enumeration value="unmarried" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCitizenNameAndAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCitizenNameAndAddress" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenNameAndAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCitizenNameAndAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenNameAndAddressApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenNameAndAddressQualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenBasicSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCitizenBasic" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenBasicSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCitizenBasicResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenBasicApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenBasicQualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenFullSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCitizenFull" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenFullSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCitizenFullResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenFullApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenFullQualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenRelationsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCitizenRelations" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenRelationsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCitizenRelationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenRelationsApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenRelationsQualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenChildrenSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCitizenChildren" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenChildrenSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCitizenChildrenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenChildrenApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCitizenChildrenQualityHeader">
+    <wsdl:part name="QualityHeader" element="tns:QualityHeader" />
+  </wsdl:message>
+  <wsdl:message name="RemoveParentAuthorityOverChildSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveParentAuthorityOverChild" />
+  </wsdl:message>
+  <wsdl:message name="RemoveParentAuthorityOverChildSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveParentAuthorityOverChildResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveParentAuthorityOverChildApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SetParentAuthorityOverChildSoapIn">
+    <wsdl:part name="parameters" element="tns:SetParentAuthorityOverChild" />
+  </wsdl:message>
+  <wsdl:message name="SetParentAuthorityOverChildSoapOut">
+    <wsdl:part name="parameters" element="tns:SetParentAuthorityOverChildResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetParentAuthorityOverChildApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetParentAuthorityOverChildChangesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetParentAuthorityOverChildChanges" />
+  </wsdl:message>
+  <wsdl:message name="GetParentAuthorityOverChildChangesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetParentAuthorityOverChildChangesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetParentAuthorityOverChildChangesApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapIn">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapOut">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CPRPersonWSSoap">
+    <wsdl:operation name="GetCitizenNameAndAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Reads Name and address for a citizen used on a letter. 
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;PersonNameAndAddressStructureType GetCitizenNameAndAddress(string PersonCivilRegistrationIdentifier)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;PersonCivilRegistrationIdentifier (input):&lt;/td&gt;&lt;td&gt;Person number to search for.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return PersonNameAndAddressStructure type that represent the standard XSD schema for name and address
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetCitizenNameAndAddressSoapIn" />
+      <wsdl:output message="tns:GetCitizenNameAndAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenBasic">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Reads basic information about the citizen e.g. Name, Address,Civil status,Address protection, Municipality,
+                                                Citizenship, Nationality, etc.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;PersonBasicStructureType GetCitizenBasic(string PersonCivilRegistrationIdentifier)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;PersonCivilRegistrationIdentifier (input):&lt;/td&gt;&lt;td&gt;Person number to search for.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return PersonBasicStructure type that represent the standard XSD schema for basic information.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetCitizenBasicSoapIn" />
+      <wsdl:output message="tns:GetCitizenBasicSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenFull">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Reads all information about a particular citizen: name, address, school, election, church etc.,
+                                                number of children. Other relevant information.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;PersonFullStructureType GetCitizenFull(string PersonCivilRegistrationIdentifier)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;PersonCivilRegistrationIdentifier (input):&lt;/td&gt;&lt;td&gt;Person number to search for.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                    
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return PersonFullStructure type that represent the standard XSD schema for the full information of person
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetCitizenFullSoapIn" />
+      <wsdl:output message="tns:GetCitizenFullSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenRelations">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Reads a particular citizens relations to parents, spouse, children and guardian etc.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;PersonRelationsType GetCitizenRelations(string PersonCivilRegistrationIdentifier)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;PersonCivilRegistrationIdentifier (input):&lt;/td&gt;&lt;td&gt;Person number whose relationships are requested.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return PersonRelationsType that represent the standard XSD schema for person relations
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetCitizenRelationsSoapIn" />
+      <wsdl:output message="tns:GetCitizenRelationsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenChildren">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Reads a particular citizens relations to own children and takes also reads children in custody
+                                                using an argument.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;SimpleCPRPersonType[] GetCitizenChildren(string PersonCivilRegistrationIdentifier)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;PersonCivilRegistrationIdentifier (input):&lt;/td&gt;&lt;td&gt;Person number to search for.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;IncludeCustodies (input):&lt;/td&gt;&lt;td&gt;Specifies whether to include custodied children or not.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return array of SimpleCPRPersonType.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Notes:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;Child age is not considered
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetCitizenChildrenSoapIn" />
+      <wsdl:output message="tns:GetCitizenChildrenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveParentAuthorityOverChild">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Writes a change that removes a citizens custody over a child.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool RemoveParentAuthorityOverChild(string ParentCivilRegistrationIdentifier, string ChildCivilRegistrationIdentifier)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'cprNumber' (input):&lt;/td&gt;&lt;td&gt;Parent registeration number.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'cprChildNumber' (input):&lt;/td&gt;&lt;td&gt;Child registeration number.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Notes:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;This method is independent from the person's chhildren. Custodies are considered a different type of relationship
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:RemoveParentAuthorityOverChildSoapIn" />
+      <wsdl:output message="tns:RemoveParentAuthorityOverChildSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetParentAuthorityOverChild">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Writes a citizens custody over a child.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool SetParentAuthorityOverChild(string ParentCivilRegistrationIdentifier, string ChildCivilRegistrationIdentifier, string authorityCode, string custodyAuthorityCode, bool uncertainityMarker)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;ParentCivilRegistrationIdentifier (input):&lt;/td&gt;&lt;td&gt;Parent registeration number.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;ChildCivilRegistrationIdentifier (input):&lt;/td&gt;&lt;td&gt;Child registeration number.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:SetParentAuthorityOverChildSoapIn" />
+      <wsdl:output message="tns:SetParentAuthorityOverChildSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetParentAuthorityOverChildChanges">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Reads a list of changes to custody changes done by this component.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;ParentAuthorityRelationshipType[] GetParentAuthorityOverChildChanges(string ChildCivilRegistrationIdentifier)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;ChildCivilRegistrationIdentifier (input):&lt;/td&gt;&lt;td&gt;Child registeration number.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return an array of ParentAuthorityRelationshipType that represents the history of custodies for the specified child
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetParentAuthorityOverChildChangesSoapIn" />
+      <wsdl:output message="tns:GetParentAuthorityOverChildChangesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ping() returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
+&lt;br&gt;Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
+&lt;br&gt;20070403/SDE
+</wsdl:documentation>
+      <wsdl:input message="tns:PingSoapIn" />
+      <wsdl:output message="tns:PingSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CPRPersonWSSoap" type="tns:CPRPersonWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCitizenNameAndAddress">
+      <soap:operation soapAction="http://tempuri.org/GetCitizenNameAndAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenNameAndAddressApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenNameAndAddressQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenBasic">
+      <soap:operation soapAction="http://tempuri.org/GetCitizenBasic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenBasicApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenBasicQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenFull">
+      <soap:operation soapAction="http://tempuri.org/GetCitizenFull" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenFullApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenFullQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenRelations">
+      <soap:operation soapAction="http://tempuri.org/GetCitizenRelations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenRelationsApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenRelationsQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenChildren">
+      <soap:operation soapAction="http://tempuri.org/GetCitizenChildren" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenChildrenApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCitizenChildrenQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveParentAuthorityOverChild">
+      <soap:operation soapAction="http://tempuri.org/RemoveParentAuthorityOverChild" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:RemoveParentAuthorityOverChildApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetParentAuthorityOverChild">
+      <soap:operation soapAction="http://tempuri.org/SetParentAuthorityOverChild" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SetParentAuthorityOverChildApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetParentAuthorityOverChildChanges">
+      <soap:operation soapAction="http://tempuri.org/GetParentAuthorityOverChildChanges" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetParentAuthorityOverChildChangesApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://tempuri.org/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CPRPersonWSSoap12" type="tns:CPRPersonWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCitizenNameAndAddress">
+      <soap12:operation soapAction="http://tempuri.org/GetCitizenNameAndAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenNameAndAddressApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenNameAndAddressQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenBasic">
+      <soap12:operation soapAction="http://tempuri.org/GetCitizenBasic" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenBasicApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenBasicQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenFull">
+      <soap12:operation soapAction="http://tempuri.org/GetCitizenFull" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenFullApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenFullQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenRelations">
+      <soap12:operation soapAction="http://tempuri.org/GetCitizenRelations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenRelationsApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenRelationsQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCitizenChildren">
+      <soap12:operation soapAction="http://tempuri.org/GetCitizenChildren" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenChildrenApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCitizenChildrenQualityHeader" part="QualityHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveParentAuthorityOverChild">
+      <soap12:operation soapAction="http://tempuri.org/RemoveParentAuthorityOverChild" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RemoveParentAuthorityOverChildApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetParentAuthorityOverChild">
+      <soap12:operation soapAction="http://tempuri.org/SetParentAuthorityOverChild" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SetParentAuthorityOverChildApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetParentAuthorityOverChildChanges">
+      <soap12:operation soapAction="http://tempuri.org/GetParentAuthorityOverChildChanges" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetParentAuthorityOverChildChangesApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://tempuri.org/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CPRPersonWS">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Contains methods related to persons' data
+                                                </wsdl:documentation>
+    <wsdl:port name="CPRPersonWSSoap" binding="tns:CPRPersonWSSoap">
+      <soap:address location="http://localhost:1550/services/CPRPersonWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CPRPersonWSSoap12" binding="tns:CPRPersonWSSoap12">
+      <soap12:address location="http://localhost:1550/services/CPRPersonWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

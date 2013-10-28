@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<schema
+    id="CPRVersion"
+    elementFormDefault="qualified"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    xmlns:tns="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/"
+    >
+
+    <element name="ServiceVersion" type="tns:ServiceVersionType" />
+
+    <complexType name="ServiceVersionType">
+        <sequence>
+            <element name="Version" minOccurs="1" maxOccurs="1">
+                <simpleType >
+                    <restriction base="string">
+                        <pattern value="\d+\.\d+"/>
+                    </restriction>
+                </simpleType>
+            </element>
+
+            <element name="Functions" >
+                <complexType>
+                    <sequence>
+                        <element name="Functions" type="tns:FunctionNameType" minOccurs="0" maxOccurs="unbounded"></element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="Details" >
+            </element>
+
+        </sequence>
+    </complexType>
+
+    <simpleType name="FunctionNameType">
+        <restriction base="string"/>
+    </simpleType>
+
+</schema>

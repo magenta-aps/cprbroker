@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+  <Fragment>
+    <UI>
+      <Dialog Id="WebSiteOrDirectoryDialog" Width="370" Height="270" Modeless="no" Title="!(loc.WebSiteOrDirectoryDialog_Title)">
+
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.WebSiteOrDirectoryDialogTitle)" />
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.WebSiteOrDirectoryDialogDescription)" />
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.WebSiteOrDirectoryDialogBannerBitmap)" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+
+        <Control Id="webTypeRadio" Type="RadioButtonGroup" Property="WEB_CREATEASWEBSITE" X="10" Y="80" Width="110" Height="170">
+          <RadioButtonGroup Property="WEB_CREATEASWEBSITE">
+            <RadioButton Text="Create as website" Value="True" X="0" Y="0" Width="150" Height="17"/>
+            <RadioButton Text="Create as virtual directory" Value="False" X="0" Y="70" Width="150" Height="17"/>
+          </RadioButtonGroup>
+        </Control>
+
+        <Control Id="siteNameText" Type="Text" Text="Website name" X="70" Y="100" Width="60" Height="17">
+          <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
+          <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
+        </Control>
+        <Control Id="siteNameEdit" Type="Edit" Text="[ProductName]" Property="WEB_SITENAME_SITE" X="130" Y="100" Width="100" Height="17">
+          <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
+          <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
+        </Control>
+
+        <Control Id="siteNameText2" Type="Text" Text="Site name" X="70" Y="170" Width="60" Height="17">
+          <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
+          <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
+        </Control>
+        <Control Id="siteNameCombo" Type="ComboBox" Property="WEB_SITENAME_VDIR" Sorted="yes" ComboList="yes" X="130" Y="170" Width="100" Height="17">
+          <ComboBox Property="WEB_VIRTUALDIRECTORYSITEPATH">
+          </ComboBox>
+          <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
+          <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
+        </Control>
+
+        <Control Id="vDirNameText" Type="Text" Text="Virtual directory name" X="70" Y="190" Width="80" Height="17">
+          <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
+          <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
+        </Control>
+        <Control Id="vDirNameEdit" Type="Edit" Text="[ProductName]" Property="WEB_VIRTUALDIRECTORYNAME" X="150" Y="190" Width="70" Height="17">
+          <Condition Action="enable"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Condition>
+          <Condition Action="disable"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Condition>
+        </Control>
+
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" >
+          <Publish Property="WEB_SITENAME" Value="[WEB_SITENAME_SITE]" Order="1"><![CDATA[WEB_CREATEASWEBSITE = "True"]]></Publish>
+          <Publish Property="WEB_SITENAME" Value="[WEB_SITENAME_VDIR]" Order="1"><![CDATA[WEB_CREATEASWEBSITE = "False"]]></Publish>
+          <Publish Event="DoAction" Value="AfterWebDialog" Order="2">1</Publish>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

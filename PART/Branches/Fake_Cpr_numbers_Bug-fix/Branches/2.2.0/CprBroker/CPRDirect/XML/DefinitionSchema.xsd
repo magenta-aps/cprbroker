@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="XMLSchema1"
+    targetNamespace="http://itst.dk/CPRDirect"
+    elementFormDefault="qualified"
+    xmlns="http://itst.dk/CPRDirect"
+    xmlns:mstns="http://tempuri.org/XMLSchema1.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:simpleType name="FormatType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Alpha"/>
+      <xs:enumeration value="Numeric"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="BaseElementType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="base" type="xs:string" use="optional"/>
+    <xs:attribute name="danishName" type="xs:string" use="optional"/>
+    <xs:attribute name="length" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Set to 0 to disable object length validation</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="description" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="AttributeElementType">
+    <xs:complexContent>
+      <xs:extension base="BaseElementType">
+        <xs:attribute name="format" type="FormatType" use="required"/>
+        <xs:attribute name="position" type="xs:int" use="required"/>
+        <xs:attribute name="dateFormat" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ObjectElementType">
+    <xs:complexContent>
+      <xs:extension base="BaseElementType">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+          <xs:element name="Object" type="ChildObjectType"></xs:element>
+          <xs:element name="Attribute" type="AttributeElementType"></xs:element>
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType  name="minMaxOccurs">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="1000000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ChildObjectType">
+    <xs:complexContent>
+      <xs:extension base="ObjectElementType">
+        <xs:attribute name="minOccurs" type="minMaxOccurs" use="optional" default="1"/>
+        <xs:attribute name="maxOccurs" type="minMaxOccurs" use="optional" default="1" />
+        <xs:attribute name="recordTypeCode" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+  <xs:element type="ObjectElementType" name="Object"></xs:element>
+  <xs:element name="Layer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Object" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

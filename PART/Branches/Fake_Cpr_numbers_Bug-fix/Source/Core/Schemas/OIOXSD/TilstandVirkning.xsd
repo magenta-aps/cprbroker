@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="urn:oio:sagdok:2.0.0" xmlns:oio="urn:oio:definitions:1.0.0" xmlns:sd="urn:oio:sagdok:2.0.0" xmlns:oio3="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" xml:lang="DA" oio:mapping="urn:oio:sagdok:MPD:2.0.0">
+
+    <include schemaLocation="http://digitaliser.dk/resource/710884/artefact/FraTidspunkt.xsd" />
+    <include schemaLocation="http://digitaliser.dk/resource/710915/artefact/AktoerRef.xsd" />
+    <import namespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" schemaLocation="http://digitaliser.dk/resource/2330/artefact/VEJSEKTOREN_CommentText.xsd" />
+    
+    <element name="TilstandVirkning" type="sd:TilstandVirkningType" oio:definition="urn:oio:sagdok:tilstandvirkning:ADD:2.0.0" />
+    <complexType name="TilstandVirkningType" oio:definition="urn:oio:sagdok:tilstandvirkning:ADD:2.0.0">
+        <sequence>
+            <element ref="sd:FraTidspunkt" minOccurs="0" oio:content="fra" />
+            <element ref="sd:AktoerRef" oio:content="aktoerref" />
+            <element ref="oio3:CommentText" minOccurs="0" oio:content="kommentar" />
+        </sequence>
+    </complexType>
+
+</schema>

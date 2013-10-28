@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EDDB494D-782D-4D45-8599-633057B9B203}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CprBroker.Providers.CPRDirect</RootNamespace>
+    <AssemblyName>CprBroker.Providers.CPRDirect</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CprBroker.Config, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Data, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Core\Output\CprBroker.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Engine">
+      <HintPath>..\..\Core\Output\CprBroker.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Schemas">
+      <HintPath>..\..\Core\Output\CprBroker.Schemas.dll</HintPath>
+    </Reference>
+    <Reference Include="CprBroker.Utilities">
+      <HintPath>..\..\Core\Output\CprBroker.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="ftplib">
+      <HintPath>..\..\Dll\ftplib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IParentalAuthority.cs" />
+    <Compile Include="Interfaces\IProtection.cs" />
+    <Compile Include="Interfaces\IRelationship.cs" />
+    <Compile Include="Wrappers\CompositeWrapper.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Converters.cs" />
+    <Compile Include="CPRDirectExtractDataProvider.Ftp.cs" />
+    <Compile Include="CPRDirectExtractDataProvider.cs" />
+    <Compile Include="CPRDirectClientDataProvider.Tcp.cs" />
+    <Compile Include="CPRDirectClientDataProvider.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Extract\Extensions.cs" />
+    <Compile Include="Extract\Extract.cs" />
+    <Compile Include="Extract\ExtractDataContext.cs">
+      <DependentUpon>ExtractDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Extract\ExtractDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExtractDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Extract\ExtractManager.cs" />
+    <Compile Include="Extract\ExtractParseResult.cs" />
+    <Compile Include="Lookup\Authority.designer.cs">
+      <DependentUpon>Authority.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Lookup\AuthorityType.cs" />
+    <Compile Include="Lookup\LookupDataContext.cs">
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Lookup\LookupDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Wrappers\PersonRecordWrapper.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Lookup\Authority.cs" />
+    <Compile Include="XML\BirthRegistrationInformation.cs" />
+    <Compile Include="XML\Child.cs" />
+    <Compile Include="XML\ChurchInformation.cs" />
+    <Compile Include="XML\ClearWrittenAddress.cs" />
+    <Compile Include="Interfaces\IBirthRegistrationInformation.cs" />
+    <Compile Include="XML\CurrentDisappearanceInformation.cs" />
+    <Compile Include="XML\EgenskabInterval.NotImplemented.cs" />
+    <Compile Include="XML\HistoricalDisappearance.cs" />
+    <Compile Include="Interfaces\IBasicInformation.cs" />
+    <Compile Include="XML\IndividualHistoryResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XML\IndividualHistoryResponse.NotImplemented.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XML\RegisterOplysningInterval.NotImplemented.cs" />
+    <Compile Include="XML\RegisterOplysningInterval.XML.cs" />
+    <Compile Include="XML\RegisterOplysningInterval.cs" />
+    <Compile Include="XML\CurrentAddressWrapper.cs" />
+    <Compile Include="XML\CurrentCitizenship.cs" />
+    <Compile Include="XML\CurrentCivilStatus.cs" />
+    <Compile Include="XML\CurrentDepartureData.cs" />
+    <Compile Include="XML\CurrentPnrTypeAdaptor.cs" />
+    <Compile Include="XML\HistoricalAddressType.cs" />
+    <Compile Include="XML\HistoricalChurchInformation.cs" />
+    <Compile Include="XML\HistoricalCitizenship.cs" />
+    <Compile Include="XML\HistoricalCivilStatus.cs" />
+    <Compile Include="XML\HistoricalDeparture.cs" />
+    <Compile Include="XML\HistoricalName.cs" />
+    <Compile Include="XML\HistoricalPNR.cs" />
+    <Compile Include="XML\HistoricalSeparation.cs" />
+    <Compile Include="Interfaces\IAddressSource.cs" />
+    <Compile Include="Interfaces\IChurchInformation.cs" />
+    <Compile Include="Interfaces\ICitizenship.cs" />
+    <Compile Include="Interfaces\IPnr.cs" />
+    <Compile Include="Interfaces\INameSource.cs" />
+    <Compile Include="XML\IndividualResponse.Parser.cs" />
+    <Compile Include="XML\CurrentSeparation.cs" />
+    <Compile Include="XML\Disempowerment.cs" />
+    <Compile Include="XML\IndividualResponse.States.cs" />
+    <Compile Include="XML\IndividualResponse.Attributes.cs" />
+    <Compile Include="XML\IndividualResponse.Relations.cs" />
+    <Compile Include="XML\IndividualResponse.NotImplemented.cs" />
+    <Compile Include="XML\IndividualRequest.cs" />
+    <Compile Include="MinMaxOccurs.cs" />
+    <Compile Include="Wrappers\Wrapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XML\Definitions.cs">
+      <DependentUpon>Definitions.xml</DependentUpon>
+    </Compile>
+    <Compile Include="XML\IndividualResponse.cs" />
+    <Compile Include="XML\LineWrapper.cs" />
+    <Compile Include="XML\CurrentNameInformation.cs" />
+    <Compile Include="XML\ParentalAuthority.cs" />
+    <Compile Include="XML\ParentsInformation.cs" />
+    <Compile Include="XML\PersonInformation.cs" />
+    <Compile Include="XML\ProtectionType.cs" />
+    <Compile Include="XML\EgenskabInterval.cs" />
+    <Compile Include="XML\StartRecordType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lookup\Authority.xml" />
+    <Content Include="XML\CodeGeneration.txt" />
+    <Content Include="XML\Definitions.sql" />
+    <Content Include="XML\ViewTransform.xslt" />
+    <Content Include="XML\DefinitionSchema.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Extract\ExtractDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ExtractDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Lookup\LookupDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>LookupDataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="XML\Definitions.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="XML\ClassTransform.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Extract\ExtractDataContext.dbml.layout">
+      <DependentUpon>ExtractDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Lookup\LookupDataContext.dbml.layout">
+      <DependentUpon>LookupDataContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)XML\Definitions.cs"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)XML\Definitions.xml" "$(ProjectDir)XML\ViewTransform.xslt" -o "$(ProjectDir)XML\Definitions.sql"
+"$(ProjectDir)..\..\Dll\msxsl.exe" "$(ProjectDir)Lookup\Authority.xml" "$(ProjectDir)XML\ClassTransform.xslt" -o "$(ProjectDir)Lookup\Authority.designer.cs"
+</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

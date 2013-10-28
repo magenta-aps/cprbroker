@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5B4A9C51-D19A-4F4D-B8D8-FC9B26AA7EF5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CprBroker.Schemas</RootNamespace>
+    <AssemblyName>CprBroker.Schemas</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\Build\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationHeader.cs" />
+    <Compile Include="CivilStatus\CivilStatusLookupMap.cs" />
+    <Compile Include="CivilStatus\CivilStatusWrapper.cs" />
+    <Compile Include="CountryIdentificationCodeType.cs" />
+    <Compile Include="FiltreretOejebliksbilledeType.cs" />
+    <Compile Include="Intervals\CannotCloseOpenEndIntervalsAttribute.cs" />
+    <Compile Include="Intervals\CorrectionMarker.cs" />
+    <Compile Include="Intervals\CreateIntervalIfStartTsIsNullAttribute.cs" />
+    <Compile Include="Intervals\ITypeWithVirkning.cs" />
+    <Compile Include="Intervals\Overwrite.cs" />
+    <Compile Include="Intervals\RegisteredInterval.cs" />
+    <Compile Include="Events\DataChangeEventInfo.cs" />
+    <Compile Include="Events\PersonBirthdate.cs" />
+    <Compile Include="IBasicOutput.cs" />
+    <Compile Include="CivilStatus\ICivilStatus.cs" />
+    <Compile Include="Intervals\DataTypeTags.cs" />
+    <Compile Include="Intervals\Interfaces.cs" />
+    <Compile Include="Intervals\Interval.cs" />
+    <Compile Include="Intervals\RegisteredIntervalVirkningWrapper.cs" />
+    <Compile Include="Intervals\TimedTypeWrapper.cs" />
+    <Compile Include="IPersonRelationType.cs" />
+    <Compile Include="LaesInputType.cs" />
+    <Compile Include="CivilStatus\MaritalStatus.cs" />
+    <Compile Include="DataProviderSequenceOptionHeader.cs" />
+    <Compile Include="PersonCivilRegistrationStatusCode.cs" />
+    <Compile Include="PersonNameStructureType.cs" />
+    <Compile Include="NavnStrukturType.cs" />
+    <Compile Include="OIOXSD\Version.Designer.cs" />
+    <Compile Include="OIOXSD\XSD.cs" />
+    <Compile Include="Part\Events\CommonEventStructureType.cs" />
+    <Compile Include="Part\Events\EventDetailStructureType.cs" />
+    <Compile Include="Part\Events\EventInfoStructureType.cs" />
+    <Compile Include="Part\Events\EventObjectStructureType.cs" />
+    <Compile Include="Part\Events\ExtensionStructureType.cs" />
+    <Compile Include="PersonFlerRelationType.cs" />
+    <Compile Include="PersonRelationType.cs" />
+    <Compile Include="PersonRelationTypeHelper.cs" />
+    <Compile Include="RegistreringType1.cs" />
+    <Compile Include="RelationListeType.cs" />
+    <Compile Include="ServiceDescription\Admin.cs" />
+    <Compile Include="ServiceDescription\Events.cs" />
+    <Compile Include="ServiceDescription\Notification.cs" />
+    <Compile Include="ServiceDescription\Part.cs" />
+    <Compile Include="ServiceDescription\Subscriptions.cs" />
+    <Compile Include="ServiceNames.cs" />
+    <Compile Include="OIOXSD\Application.Designer.cs" />
+    <Compile Include="OIOXSD\DataProviders.Designer.cs" />
+    <Compile Include="OIOXSD\DataProviderTypes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualityHeader.cs" />
+    <Compile Include="PersonIdentifier.cs" />
+    <Compile Include="SoegAttributListeType.cs" />
+    <Compile Include="SoegEgenskabType.cs" />
+    <Compile Include="SoegObjektType.cs" />
+    <Compile Include="SoegVirkningType.cs" />
+    <Compile Include="StandardReturType.cs" />
+    <Compile Include="TidspunktType.cs" />
+    <Compile Include="TilstandVirkningType.cs" />
+    <Compile Include="UnikIdType.cs" />
+    <Compile Include="Util\Converters.cs" />
+    <Compile Include="Util\Enums.cs" />
+    <Compile Include="VirkningType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Diagrams\Operations.cd" />
+    <None Include="Diagrams\Search.cd" />
+    <None Include="Diagrams\Static.cd" />
+    <None Include="OIOXSD\AktoerRef.xsd" />
+    <None Include="OIOXSD\Application.xsd" />
+    <None Include="OIOXSD\BasicOutput.xsd" />
+    <None Include="OIOXSD\BBR_AddressCoordinateQualityClassCode.xsd" />
+    <None Include="OIOXSD\BBR_AddressPoint.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointIdentifier.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointRevisionDateTime.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointStatusStructure.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointValidEndDateTime.xsd" />
+    <None Include="OIOXSD\BBR_AddressPointValidStartDateTime.xsd" />
+    <None Include="OIOXSD\BBR_GeographicCoordinateTuple.xsd" />
+    <None Include="OIOXSD\BBR_GeographicEastingMeasure.xsd" />
+    <None Include="OIOXSD\BBR_GeographicHeightMeasure.xsd" />
+    <None Include="OIOXSD\BBR_GeographicNorthingMeasure.xsd" />
+    <None Include="OIOXSD\BBR_GeographicPointLocation.xsd" />
+    <None Include="OIOXSD\BrugervendtNoegleTekst.xsd" />
+    <None Include="OIOXSD\CAPEVO_LocationDescriptionText.xsd" />
+    <None Include="OIOXSD\CPR_AddressCompleteGreenland.xsd" />
+    <None Include="OIOXSD\CPR_AuthorityCode.xsd" />
+    <None Include="OIOXSD\CPR_BirthDateUncertaintyIndicator.xsd" />
+    <None Include="OIOXSD\CPR_CompletePostalLabelText.xsd" />
+    <None Include="OIOXSD\CPR_ForeignAddressStructure.xsd" />
+    <None Include="OIOXSD\CPR_GreenlandBuildingIdentifier.xsd" />
+    <None Include="OIOXSD\CPR_MunicipalityCode.xsd" />
+    <None Include="OIOXSD\CPR_PersonBirthDateStructure.xsd" />
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationCurrentIdentifier.xsd" />
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationIdentifier.xsd" />
+    <None Include="OIOXSD\CPR_PersonCivilRegistrationReplacementIdentifier.xsd" />
+    <None Include="OIOXSD\CPR_StreetCode.xsd" />
+    <None Include="OIOXSD\CPR_StreetNameForAddressingName.xsd" />
+    <None Include="OIOXSD\DataProviders.xsd" />
+    <None Include="OIOXSD\DKCC_BirthDate.xsd" />
+    <None Include="OIOXSD\DKCC_CountryIdentificationCode.xsd" />
+    <None Include="OIOXSD\DKCC_DistrictName.xsd" />
+    <None Include="OIOXSD\DKCC_DistrictSubdivisionIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_FloorIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_MailDeliverySublocationIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_PersonGenderCode.xsd" />
+    <None Include="OIOXSD\DKCC_PersonGivenName.xsd" />
+    <None Include="OIOXSD\DKCC_PersonMiddleName.xsd" />
+    <None Include="OIOXSD\DKCC_PersonNationalityCode.xsd" />
+    <None Include="OIOXSD\DKCC_PersonSurnameName.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressFifthLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressFirstLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressFourthLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressSecondLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostalAddressThirdLineText.xsd" />
+    <None Include="OIOXSD\DKCC_PostCodeIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_PostOfficeBoxIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_StreetBuildingIdentifier.xsd" />
+    <None Include="OIOXSD\DKCC_StreetName.xsd" />
+    <None Include="OIOXSD\DKCC_SuiteIdentifier.xsd" />
+    <None Include="OIOXSD\FejlbeskedTekst.xsd" />
+    <None Include="OIOXSD\FlerRelation.xsd" />
+    <None Include="OIOXSD\FoersteResultatReference.xsd" />
+    <None Include="OIOXSD\FraTidspunkt.xsd" />
+    <None Include="OIOXSD\GraenseIndikator.xsd" />
+    <None Include="OIOXSD\Idliste.xsd" />
+    <None Include="OIOXSD\ImportInput.xsd" />
+    <None Include="OIOXSD\ITST_PersonNameForAddressingName.xsd" />
+    <None Include="OIOXSD\ITST_PersonNameStructure.xsd" />
+    <None Include="OIOXSD\ITST_TelephoneNumberIdentifier.xsd" />
+    <None Include="OIOXSD\KaldenavnTekst.xsd" />
+    <None Include="OIOXSD\LaesFiltreretOutput.xsd" />
+    <None Include="OIOXSD\LaesInput.xsd" />
+    <None Include="OIOXSD\ListInput.xsd" />
+    <None Include="OIOXSD\ListOutput.xsd" />
+    <None Include="OIOXSD\LivscyklusKode.xsd" />
+    <None Include="OIOXSD\LokalUdvidelse.xsd" />
+    <None Include="OIOXSD\MaksimalAntalKvantitet.xsd" />
+    <None Include="OIOXSD\NoteTekst.xsd" />
+    <None Include="OIOXSD\OpretInput.xsd" />
+    <None Include="OIOXSD\OtherOperations.xsd" />
+    <None Include="OIOXSD\Part.xsd" />
+    <None Include="OIOXSD\Person.xsd" />
+    <None Include="OIOXSD\PersonFlerRelation.xsd" />
+    <None Include="OIOXSD\PersonOperationer.xsd" />
+    <None Include="OIOXSD\PersonPeriodOperationer.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="OIOXSD\ReferenceID.xsd" />
+    <None Include="OIOXSD\Registrering.xsd" />
+    <None Include="OIOXSD\RegistreringFraFilter.xsd" />
+    <None Include="OIOXSD\RegistreringTilFilter.xsd" />
+    <None Include="OIOXSD\Relation.xsd" />
+    <None Include="OIOXSD\RetInput.xsd" />
+    <None Include="OIOXSD\SagDokObjekt.xsd" />
+    <None Include="OIOXSD\SoegInput.xsd" />
+    <None Include="OIOXSD\SoegOutput.xsd" />
+    <None Include="OIOXSD\SoegRegistrering.xsd" />
+    <None Include="OIOXSD\SoegRelation.xsd" />
+    <None Include="OIOXSD\SoegSagDokObjekt.xsd" />
+    <None Include="OIOXSD\SoegVirkning.xsd" />
+    <None Include="OIOXSD\StandardRetur.xsd" />
+    <None Include="OIOXSD\StatusKode.xsd" />
+    <None Include="OIOXSD\Subscription.xsd" />
+    <None Include="OIOXSD\Tidspunkt.xsd" />
+    <None Include="OIOXSD\TidsstempelDatoTid.xsd" />
+    <None Include="OIOXSD\TilstandVirkning.xsd" />
+    <None Include="OIOXSD\TilTidspunkt.xsd" />
+    <None Include="OIOXSD\UnikId.xsd" />
+    <None Include="OIOXSD\URNIdentifikator.xsd" />
+    <None Include="OIOXSD\UUID.xsd" />
+    <None Include="OIOXSD\UuidNoteInput.xsd" />
+    <None Include="OIOXSD\VEJSEKTOREN_CommentText.xsd" />
+    <None Include="OIOXSD\Version.xsd" />
+    <None Include="OIOXSD\Virkning.xsd" />
+    <None Include="OIOXSD\VirkningFraFilter.xsd" />
+    <None Include="OIOXSD\VirkningTilFilter.xsd" />
+    <None Include="OIOXSD\XKOM_AddressAccess.xsd" />
+    <None Include="OIOXSD\XKOM_AddressComplete.xsd" />
+    <None Include="OIOXSD\XKOM_AddressPostal.xsd" />
+    <None Include="OIOXSD\XKOM_EmailAddressIdentifier.xsd" />
+    <None Include="OIOXSD\XSD.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OIOXSD\XSD.txt" />
+    <Content Include="Part\Events\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{E0D551C1-574F-4B69-8981-CF5F44391E5E}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetFileName) ..\..\..\Output\ /y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.75, 8.5" name="ExtractDataContext">
+  <DataContextMoniker Name="/ExtractDataContext" />
+  <nestedChildShapes>
+    <classShape Id="eb4f6c94-8774-4ee2-91fa-6b5b0d96f26f" absoluteBounds="1.625, 2, 2, 2.3478011067708326">
+      <DataClassMoniker Name="/ExtractDataContext/Extract" />
+      <nestedChildShapes>
+        <elementListCompartment Id="455db008-5e37-436a-a1f3-3898a1451f19" absoluteBounds="1.6400000000000001, 2.46, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="51c8d617-5d59-428c-b878-622a6dee6179" absoluteBounds="5.625, 1.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ExtractDataContext/ExtractItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8ad7e4c2-becb-454e-83de-29d5efd03dda" absoluteBounds="5.64, 2.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.625 : 3.01524983723958); (5.625 : 3.01524983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ExtractDataContext/Extract/Extract_ExtractItem" />
+      <nodes>
+        <classShapeMoniker Id="eb4f6c94-8774-4ee2-91fa-6b5b0d96f26f" />
+        <classShapeMoniker Id="51c8d617-5d59-428c-b878-622a6dee6179" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="0a1fd235-e8e6-45bc-ac87-32c6e5ae71b9" absoluteBounds="4.875, 5.375, 2, 1.3862939453125">
+      <DataClassMoniker Name="/ExtractDataContext/ExtractPersonStaging" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1f71e5bc-9816-4150-9b94-533bd62fcad3" absoluteBounds="4.89, 5.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.00781125 : 4.34780110677083); (3.00781125 : 6.06814697265625); (4.875 : 6.06814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ExtractDataContext/Extract/Extract_ExtractPersonStaging" />
+      <nodes>
+        <classShapeMoniker Id="eb4f6c94-8774-4ee2-91fa-6b5b0d96f26f" />
+        <classShapeMoniker Id="0a1fd235-e8e6-45bc-ac87-32c6e5ae71b9" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="5410bd4c-2797-48ea-9ebf-e73a1feb7c34" absoluteBounds="9.5, 4.875, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/ExtractDataContext/ExtractError" />
+      <nestedChildShapes>
+        <elementListCompartment Id="80ef9f38-aee9-41cf-8cd1-cfb7d978dcc0" absoluteBounds="9.515, 5.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.625 : 4.220400390625); (6.16666666666667 : 4.220400390625 : JumpStart); (6.33333333333333 : 4.220400390625 : JumpEnd); (10.5 : 4.220400390625); (10.5 : 4.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ExtractDataContext/Extract/Extract_ExtractError" />
+      <nodes>
+        <classShapeMoniker Id="eb4f6c94-8774-4ee2-91fa-6b5b0d96f26f" />
+        <classShapeMoniker Id="5410bd4c-2797-48ea-9ebf-e73a1feb7c34" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.25 : 5.375); (6.25 : 4.03049967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ExtractDataContext/ExtractPersonStaging/ExtractPersonStaging_ExtractItem" />
+      <nodes>
+        <classShapeMoniker Id="0a1fd235-e8e6-45bc-ac87-32c6e5ae71b9" />
+        <classShapeMoniker Id="51c8d617-5d59-428c-b878-622a6dee6179" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

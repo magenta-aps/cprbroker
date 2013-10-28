@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment Id="PersonMasterDatabaseFragment">
+    <Property Id="Dummy_PersonMasterDatabaseFragmentRefProp" Value="-"/>
+
+    <util:User Id="SQL_AdminUser" Domain="Beemen" Name="[DB_ADMINUSERNAME]" Password="[DB_ADMINPASSWORD]" />
+
+    <ComponentGroup Id="CMPGRP_DatabaseScripts">
+      <ComponentRef Id="CMP_Database"/>
+      <ComponentRef Id="CMP_InitializeInstallerSql"/>
+      <ComponentRef Id="CMP_DatabaseObjects"/>
+    </ComponentGroup>
+
+    <!--Database locator-->
+    <Component Id="CMP_Database" Directory="INSTALLDIR" Guid="{926B40F1-1A7A-4CED-9EE2-CBF999953173}" KeyPath="yes">
+      <sql:SqlDatabase
+        Id="DB_Database" Server="[DB_SERVERNAME]" Database="[DB_DATABASENAME]"  User="SQL_AdminUser"
+        ConfirmOverwrite="no" ContinueOnError="no"
+        CreateOnInstall="yes" CreateOnReinstall="yes" CreateOnUninstall="no"
+        DropOnInstall="no" DropOnReinstall="no" DropOnUninstall="no" >
+      </sql:SqlDatabase>
+    </Component>
+
+    <!--Base stored procdures-->
+    <Binary Id="BIN_InstallerSqlTable.sql" SourceFile="$(var.WixCommonPath)SQL\Base\InstallerSqlTable.sql"/>
+    <Binary Id="BIN_AddTable.sql" SourceFile="$(var.WixCommonPath)SQL\Base\AddTable.sql"/>
+    <Binary Id="BIN_DropTable.sql" SourceFile="$(var.WixCommonPath)SQL\Base\DropTable.sql"/>
+    <Binary Id="BIN_AddPrimaryKey.sql" SourceFile="$(var.WixCommonPath)SQL\Base\AddPrimaryKey.sql"/>
+    <Binary Id="BIN_AddColumn.sql" SourceFile="$(var.WixCommonPath)SQL\Base\AddColumn.sql"/>
+    <Binary Id="BIN_DropColumn.sql" SourceFile="$(var.WixCommonPath)SQL\Base\DropColumn.sql"/>
+    <Binary Id="BIN_AddForeignKey.sql" SourceFile="$(var.WixCommonPath)SQL\Base\AddForeignKey.sql"/>
+    <Binary Id="BIN_DropForeignKey.sql" SourceFile="$(var.WixCommonPath)SQL\Base\DropForeignKey.sql"/>
+    <Binary Id="BIN_AddIndex.sql" SourceFile="$(var.WixCommonPath)SQL\Base\AddIndex.sql"/>
+    <Binary Id="BIN_DropIndex.sql" SourceFile="$(var.WixCommonPath)SQL\Base\DropIndex.sql"/>
+    <Binary Id="BIN_AddSql.sql" SourceFile="$(var.WixCommonPath)SQL\Base\AddSql.sql"/>
+    <Binary Id="BIN_ExecuteInstallerSql.sql" SourceFile="$(var.WixCommonPath)SQL\Base\ExecuteInstallerSql.sql"/>
+    <Component Id="CMP_InitializeInstallerSql" Guid="{D8DD8BA3-90CC-4975-8615-7D4825D51ECB}" Directory="INSTALLDIR" KeyPath="yes">
+      <sql:SqlScript Id="SQL_InstallerSqlTable.sql" BinaryKey="BIN_InstallerSqlTable.sql" SqlDb="DB_Database" Sequence="1000" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_AddTable.sql" BinaryKey="BIN_AddTable.sql" SqlDb="DB_Database" Sequence="1001" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_DropTable.sql" BinaryKey="BIN_DropTable.sql" SqlDb="DB_Database" Sequence="1002" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_AddPrimaryKey.sql" BinaryKey="BIN_AddPrimaryKey.sql" SqlDb="DB_Database" Sequence="1003" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_AddColumn.sql" BinaryKey="BIN_AddColumn.sql" SqlDb="DB_Database" Sequence="1004" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_DropColumn.sql" BinaryKey="BIN_DropColumn.sql" SqlDb="DB_Database" Sequence="1005" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_AddForeignKey.sql" BinaryKey="BIN_AddForeignKey.sql" SqlDb="DB_Database" Sequence="1006" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_DropForeignKey.sql" BinaryKey="BIN_DropForeignKey.sql" SqlDb="DB_Database" Sequence="1007" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_AddIndex.sql" BinaryKey="BIN_AddIndex.sql" SqlDb="DB_Database" Sequence="1008" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_DropIndex.sql" BinaryKey="BIN_DropIndex.sql" SqlDb="DB_Database" Sequence="1009" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_AddSql.sql" BinaryKey="BIN_AddSql.sql" SqlDb="DB_Database" Sequence="1010" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_ExecuteInstallerSql.sql" BinaryKey="BIN_ExecuteInstallerSql.sql" SqlDb="DB_Database" Sequence="9999" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+    </Component>
+
+    <!-- Database objects of the product-->
+    <Binary Id="BIN_Tables.sql" SourceFile="SQL\Tables.sql" />
+    <Binary Id="BIN_Procedures.sql" SourceFile="SQL\Procedures.sql"/>
+    <Binary Id="BIN_Functions.sql" SourceFile="SQL\Functions.sql"/>
+    <Component Id="CMP_DatabaseObjects" Guid="{3BEAEF0B-4F6A-42F2-80DC-A93FDBA86506}" Directory="INSTALLDIR" KeyPath="yes">
+      <sql:SqlScript Id="SQL_Tables.sql" BinaryKey="BIN_Tables.sql" SqlDb="DB_Database" Sequence="2001" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_Procedures.sql" BinaryKey="BIN_Procedures.sql" SqlDb="DB_Database" Sequence="2002" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlScript Id="SQL_Functions.sql" BinaryKey="BIN_Functions.sql" SqlDb="DB_Database" Sequence="2003" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlString Id="SQL_InsertDomain" SQL="EXEC AddSql 'INSERT INTO T_CORE_Config VALUES (''namespace-self'', ''[DB_DOMAIN]'')'" SqlDb="DB_Database" Sequence="9998" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlString Id="SQL_CreateMasterKey" SQL="IF NOT EXISTS (SELECT * FROM sys.symmetric_keys WHERE symmetric_key_id = 101) CREATE MASTER KEY ENCRYPTION BY PASSWORD = '[DB_ENCRYPTIONKEY]'" SqlDb="DB_Database" Sequence="10001" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+      <sql:SqlString Id="SQL_InitDB" SQL="EXEC spGK_PM_InitDB" SqlDb="DB_Database" Sequence="10002" User="SQL_AdminUser" ContinueOnError="no" ExecuteOnInstall="yes" ExecuteOnReinstall="yes" ExecuteOnUninstall="no"/>
+    </Component>
+
+  </Fragment>
+</Wix>

@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/">
+      <s:element name="IsUserInGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sGroupName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserInGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsUserInGroupResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMemberOfGroupNames">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMemberOfGroupNamesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMemberOfGroupNamesResult" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsADUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsADUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsADUserResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Enable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bStatus" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EnableResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Delete">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNewName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChangeLoginResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsrId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNewPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetPasswordResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAux" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IsUserInGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:IsUserInGroup" />
+  </wsdl:message>
+  <wsdl:message name="IsUserInGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:IsUserInGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMemberOfGroupNamesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMemberOfGroupNames" />
+  </wsdl:message>
+  <wsdl:message name="GetMemberOfGroupNamesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMemberOfGroupNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsADUserSoapIn">
+    <wsdl:part name="parameters" element="tns:IsADUser" />
+  </wsdl:message>
+  <wsdl:message name="IsADUserSoapOut">
+    <wsdl:part name="parameters" element="tns:IsADUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnableSoapIn">
+    <wsdl:part name="parameters" element="tns:Enable" />
+  </wsdl:message>
+  <wsdl:message name="EnableSoapOut">
+    <wsdl:part name="parameters" element="tns:EnableResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteSoapIn">
+    <wsdl:part name="parameters" element="tns:Delete" />
+  </wsdl:message>
+  <wsdl:message name="DeleteSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeLogin" />
+  </wsdl:message>
+  <wsdl:message name="ChangeLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:SetPassword" />
+  </wsdl:message>
+  <wsdl:message name="SetPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:SetPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapIn">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapOut">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ADUserSoap">
+    <wsdl:operation name="IsUserInGroup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+Afgører om en given AD bruger er medlem af en given AD gruppe.
+
+&lt;br&gt;&lt;br&gt;Kald til denne service udføres typisk fra fagsystemer, der ønsker at benytte AD baseret rolle styring - via
+&lt;br&gt;sikkerhedsgrupper i AD, men ikke selv ønsker (eller har lov til) at forespørge direkte i AD (LDAP).
+&lt;br&gt;Metoden afgør om brugeren der er angivet i parameter 'sUsrId' er medlem af AD gruppen, angivet i parameter 'SGroupName'
+&lt;br&gt;- eller en gruppe, som er indeholdt rekursivt i 'sGroupName'.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signatur:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;bool IsUserInGroup(string sUsrToken, string sUsrId, string sGroupName, ref string sAux)
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter beskrivelse:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrToken' (input):&lt;/td&gt;&lt;td&gt;Entydig identifikation af kildesystem/bruger kombination, der foretager kaldet.
+&lt;br&gt;Pt. anvendes parameteren ikke og angives derfor som den tomme streng ("") ved kald&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrId' (input):&lt;/td&gt;&lt;td&gt;Entydigt login for den bruger, som gruppemedlemskab skal testes for.
+&lt;br/&gt;Login specificeres uden domæneprefix - fx "SDE" i stedet for "RADHUS.DOM\SDE".&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sGroupName' (input):&lt;/td&gt;&lt;td&gt;Navn på den gruppe i AD, som brugeren testes for medlemsskab af.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sAux' (output):&lt;/td&gt;&lt;td&gt;Returnerede (&lt;b&gt;ref&lt;/b&gt;) meddelelser (fejl/info) mv.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Returværdi:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden returnerer en boolean, som angiver om brugeren er medlem af gruppen (true) eller ej (false).
+&lt;br&gt;Hvis brugeren er medlem af en indlejret/nested/rekursiv gruppe, returneres ligeledes true.
+&lt;br&gt;&lt;br&gt;I tilfælde af service fejl, returnerer metoden altid false, men kan til gengæld indeholde uddybende fejlbeskrivelse i 'sAux'.
+&lt;br&gt;I alle andre tilfælde indeholde 'sAux' den tomme streng.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Kommentarer:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden er implementeret ved anvendelse af en rimelig effektiv AD forespørgsels algoritme (en særlig udfordring med grupper i grupper).
+&lt;br&gt;Alligevel caches forespørgsler på en bruger/gruppe kombination i 15 minutter. Det betyder at ændringer, der foretages
+&lt;br&gt;i AD, ikke får effekt før tidligst hvert 15 minut (AD introducerer i sig selv en vis latenstid).
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;NB!&lt;/b&gt; Denne version validerer IKKE gyldigheden af input parametre. Det betyder at angivelse af ugyldige NTAccount strenge, 
+&lt;br&gt;for bruger og gruppe, vil medføre uforudsigelige resultater.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Revision:&lt;/u&gt;&lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td width='30%'&gt;0.85.00, 2007-11-09/GK/SDE&lt;/td&gt;&lt;td witdh='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;15 minutters absolut (non-sliding) cache tilføjet.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td width='30%'&gt;0.80.01, 2007-10-30/GK/SDE&lt;/td&gt;&lt;td witdh='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Service snitflade defineret og initielt implementeret.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</wsdl:documentation>
+      <wsdl:input message="tns:IsUserInGroupSoapIn" />
+      <wsdl:output message="tns:IsUserInGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMemberOfGroupNames">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+Henter navne på ALLE de grupper i AD, som den specificerede bruger er medlem af.
+
+&lt;br&gt;&lt;br&gt;Se xxx for generel intro til AD service kald.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signatur:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;string[] GetMemberOfGroupNames(string sUsrToken, string sUsrId, ref string sAux)
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter beskrivelse:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrToken' (input):&lt;/td&gt;&lt;td&gt;Entydig identifikation af kildesystem/bruger kombination, der foretager kaldet.
+&lt;br&gt;Pt. anvendes parameteren ikke og angives derfor som den tomme streng ("") ved kald&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrId' (input):&lt;/td&gt;&lt;td&gt;Entydigt login for brugeren.
+&lt;br/&gt;Login specificeres uden domæneprefix - fx "SDE" i stedet for "RADHUS.DOM\SDE".&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sAux' (output):&lt;/td&gt;&lt;td&gt;Returnerede (&lt;b&gt;ref&lt;/b&gt;) meddelelser (fejl/info) mv.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Returværdi:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden returnerer et strengarray. Hvert element i arrayet indeholder navnet en gruppe, som brugeren er medlem af.
+&lt;br&gt;&lt;br&gt;I tilfælde af service fejl, returnerer metoden en NULL reference - og uddybende fejlbeskrivelse i 'sAux'.
+&lt;br&gt;I alle andre tilfælde indeholde 'sAux' den tomme streng.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Kommentarer:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden er implementeret ved anvendelse af en effektiv AD forespørgsels algoritme (en særlig udfordring med grupper i grupper).
+&lt;br&gt;Forespørgsler caches IKKE!!!
+
+&lt;br&gt;&lt;br&gt;NB! Denne version validerer IKKE gyldigheden af input parametre. Det betyder at angivelse af ugyldige NTAccount strenge, 
+&lt;br&gt;for bruger og gruppe, vil medføre uforudsigelige resultater.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Revision:&lt;/u&gt;&lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td width='30%'&gt;0.80.00, 2007-11-09/GK/SDE&lt;/td&gt;&lt;td witdh='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Service snitflade defineret og initielt implementeret.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</wsdl:documentation>
+      <wsdl:input message="tns:GetMemberOfGroupNamesSoapIn" />
+      <wsdl:output message="tns:GetMemberOfGroupNamesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsADUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+Afgør om en bruger med specificeret login er oprettet i AD.
+
+&lt;br&gt;&lt;br&gt;Se xxx for generel intro til AD service kald.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signatur:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;bool IsADUser(string sUsrToken, string sUsrId, ref string sAux)
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter beskrivelse:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrToken' (input):&lt;/td&gt;&lt;td&gt;Entydig identifikation af kildesystem/bruger kombination, der foretager kaldet.
+&lt;br&gt;Pt. anvendes parameteren ikke og angives derfor som den tomme streng ("") ved kald&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrId' (input):&lt;/td&gt;&lt;td&gt;Entydigt login for brugeren.
+&lt;br/&gt;Login specificeres uden domæneprefix - fx "SDE" i stedet for "RADHUS.DOM\SDE".&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sAux' (output):&lt;/td&gt;&lt;td&gt;Returnerede (&lt;b&gt;ref&lt;/b&gt;) meddelelser (fejl/info) mv.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Returværdi:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden returnerer en boolean, som angiver ved (true) at brugeren faktisk er oprettet i AD. I modsat fald returneres "false".
+&lt;br&gt;&lt;br&gt;I tilfælde af service fejl, returnerer metoden altid false, men kan til gengæld indeholde uddybende fejlbeskrivelse i 'sAux'.
+&lt;br&gt;I alle andre tilfælde indeholde 'sAux' den tomme streng.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Revision:&lt;/u&gt;&lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td width='30%'&gt;0.80.00, 2008-02-05/GK/SDE&lt;/td&gt;&lt;td witdh='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Service snitflade defineret og initielt implementeret.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</wsdl:documentation>
+      <wsdl:input message="tns:IsADUserSoapIn" />
+      <wsdl:output message="tns:IsADUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Enable">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Enabler eller disabler en bruger i AD.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signatur:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;public int Enable(string sUsrToken, string sUsrId, bool bStatus, ref string sAux)
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter beskrivelse:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrToken' (input):&lt;/td&gt;&lt;td&gt;Entydig identifikation af kildesystem/bruger kombination, der foretager kaldet.
+&lt;br&gt;Pt. anvendes parameteren ikke og angives derfor som den tomme streng ("") ved kald&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrId' (input):&lt;/td&gt;&lt;td&gt;Entydigt login for brugeren.
+&lt;br/&gt;Login specificeres uden domæneprefix - fx "SDE" i stedet for "RADHUS.DOM\SDE".&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'bStatus' (input):&lt;/td&gt;&lt;td&gt;Angiver om brugeren skal enables (TRUE), eller disables (FALSE)&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sAux' (output):&lt;/td&gt;&lt;td&gt;Returnerede (&lt;b&gt;ref&lt;/b&gt;) meddelelser (fejl/info) mv.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Returværdi:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden returnerer en int som svarer til den nye værdi for userAccountControl 
+&lt;br&gt;En delvis beskrivelse kan findes på http://support.microsoft.com/kb/305144
+&lt;br&gt;-1 indikere en fejl
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Kommentarer:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Som ved de fleste AD operationer er ændringerne ikke nødvendigvis øjeblikkelige.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Revision:&lt;/u&gt;&lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td width='30%'&gt;0.80.00, 2008-03-12 TOF-ST&lt;/td&gt;&lt;td witdh='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Service snitflade defineret og initielt implementeret.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</wsdl:documentation>
+      <wsdl:input message="tns:EnableSoapIn" />
+      <wsdl:output message="tns:EnableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sletter en bruger i AD.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signatur:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;public int Delete(string sUsrToken, string sUsrId, ref string sAux)
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter beskrivelse:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrToken' (input):&lt;/td&gt;&lt;td&gt;Entydig identifikation af kildesystem/bruger kombination, der foretager kaldet.
+&lt;br&gt;Pt. anvendes parameteren ikke og angives derfor som den tomme streng ("") ved kald&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrId' (input):&lt;/td&gt;&lt;td&gt;Entydigt login for brugeren.
+&lt;br/&gt;Login specificeres uden domæneprefix - fx "SDE" i stedet for "RADHUS.DOM\SDE".&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sAux' (output):&lt;/td&gt;&lt;td&gt;Returnerede (&lt;b&gt;ref&lt;/b&gt;) meddelelser (fejl/info) mv.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Returværdi:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden returnerer 0 ved success, -1 ved fejl.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Kommentarer:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Som ved de fleste AD operationer er ændringerne ikke nødvendigvis øjeblikkelige.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Revision:&lt;/u&gt;&lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td width='30%'&gt;0.80.00, 2008-03-12 TOF-ST&lt;/td&gt;&lt;td witdh='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Service snitflade defineret og initielt implementeret.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</wsdl:documentation>
+      <wsdl:input message="tns:DeleteSoapIn" />
+      <wsdl:output message="tns:DeleteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeLogin">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ændrer en brugers login i AD
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signatur:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;public int ChangeLogin(string sUsrToken, string sUsrId, string sNewName, ref string sAux)
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter beskrivelse:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrToken' (input):&lt;/td&gt;&lt;td&gt;Entydig identifikation af kildesystem/bruger kombination, der foretager kaldet.
+&lt;br&gt;Pt. anvendes parameteren ikke og angives derfor som den tomme streng ("") ved kald&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrId' (input):&lt;/td&gt;&lt;td&gt;Entydigt login for brugeren.
+&lt;br/&gt;Login specificeres uden domæneprefix - fx "SDE" i stedet for "RADHUS.DOM\SDE".&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sNewName' (input):&lt;/td&gt;&lt;td&gt;Brugerens nye navn, i samme stil om 'sUsrId'.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sAux' (output):&lt;/td&gt;&lt;td&gt;Returnerede (&lt;b&gt;ref&lt;/b&gt;) meddelelser (fejl/info) mv.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Returværdi:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden returnerer 0 ved success, -1 ved fejl.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Kommentarer:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Som ved de fleste AD operationer er ændringerne ikke nødvendigvis øjeblikkelige. 
+&lt;br&gt;Det som specifikt ændres er 'userPrincipalName' og 'sAMAccountName', andet rørers ikke.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Revision:&lt;/u&gt;&lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td width='30%'&gt;0.80.00, 2008-03-12 TOF-ST&lt;/td&gt;&lt;td witdh='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Service snitflade defineret og initielt implementeret.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</wsdl:documentation>
+      <wsdl:input message="tns:ChangeLoginSoapIn" />
+      <wsdl:output message="tns:ChangeLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ændrer en brugers password i AD
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signatur:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;public int SetPassword(string sUsrToken, string sUsrId, string sNewPassword, ref string sAux)
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter beskrivelse:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrToken' (input):&lt;/td&gt;&lt;td&gt;Entydig identifikation af kildesystem/bruger kombination, der foretager kaldet.
+&lt;br&gt;Pt. anvendes parameteren ikke og angives derfor som den tomme streng ("") ved kald&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sUsrId' (input):&lt;/td&gt;&lt;td&gt;Entydigt login for brugeren.
+&lt;br/&gt;Login specificeres uden domæneprefix - fx "SDE" i stedet for "RADHUS.DOM\SDE".&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sNewPassword' (input):&lt;/td&gt;&lt;td&gt;Brugerens nye password.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;'sAux' (output):&lt;/td&gt;&lt;td&gt;Returnerede (&lt;b&gt;ref&lt;/b&gt;) meddelelser (fejl/info) mv.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Returværdi:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Metoden returnerer 0 ved success, -1 ved fejl.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Kommentarer:&lt;/u&gt;&lt;/b&gt;
+&lt;br&gt;Der sørges ikke for at sNewPassword er et gyldigt password. Det er op til anvenderen af WS'en til at sørge for dette.
+
+&lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Revision:&lt;/u&gt;&lt;/b&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td width='30%'&gt;0.80.00, 2008-03-14 TOF-ST&lt;/td&gt;&lt;td witdh='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Service snitflade defineret og initielt implementeret.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</wsdl:documentation>
+      <wsdl:input message="tns:SetPasswordSoapIn" />
+      <wsdl:output message="tns:SetPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ping() OVERRIDE returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
+&lt;br&gt;Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
+&lt;br&gt;20070403/SDE
+</wsdl:documentation>
+      <wsdl:input message="tns:PingSoapIn" />
+      <wsdl:output message="tns:PingSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ADUserSoap" type="tns:ADUserSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsUserInGroup">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/IsUserInGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMemberOfGroupNames">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/GetMemberOfGroupNames" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsADUser">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/IsADUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Enable">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/Enable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/Delete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeLogin">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/ChangeLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPassword">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/SetPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ADUserSoap12" type="tns:ADUserSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsUserInGroup">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/IsUserInGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMemberOfGroupNames">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/GetMemberOfGroupNames" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsADUser">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/IsADUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Enable">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/Enable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeLogin">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/ChangeLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPassword">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/SetPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://rep.oio.dk/gentofte.dk/xml/schemas/2006/11/01/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ADUser">
+    <wsdl:port name="ADUserSoap" binding="tns:ADUserSoap">
+      <soap:address location="http://adv2-gkws/ADUser.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ADUserSoap12" binding="tns:ADUserSoap12">
+      <soap12:address location="http://adv2-gkws/ADUser.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

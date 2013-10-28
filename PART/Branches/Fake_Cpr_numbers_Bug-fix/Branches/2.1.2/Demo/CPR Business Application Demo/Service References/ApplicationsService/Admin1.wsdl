@@ -1,0 +1,1312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s16="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" xmlns:s7="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" xmlns:s15="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" xmlns:s2="urn:oio:sagdok:person:1.0.0" xmlns:s19="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" xmlns:s13="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s12="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" xmlns:s5="urn:oio:sagdok:1.0.0" xmlns:s8="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" xmlns:s10="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s17="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" xmlns:s3="urn:oio:sagdok:part:1.0.0" xmlns:s23="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s21="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" xmlns:s22="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" xmlns:tns="http://dk.itst" xmlns:s18="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" xmlns:s20="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" xmlns:s1="urn:oio:sagdok:2.0.0" xmlns:s11="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" xmlns:s6="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" xmlns:s9="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s4="urn:oio:dkal:1.0.0" xmlns:s14="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://dk.itst" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Contains methods related to administrative functions
+                                                </wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://dk.itst">
+      <s:import namespace="urn:oio:sagdok:2.0.0" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/" />
+      <s:element name="RequestAppRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestAppRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestAppRegistrationResult" type="tns:BasicOutputTypeOfApplicationType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BasicOutputTypeOfApplicationType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Item" type="s23:ApplicationType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ApplicationHeader" type="tns:ApplicationHeader" />
+      <s:complexType name="ApplicationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserToken" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ApproveAppRegistration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveAppRegistrationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApproveAppRegistrationResult" type="tns:BasicOutputTypeOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BasicOutputTypeOfBoolean">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Item" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ListAppRegistrations">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListAppRegistrationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListAppRegistrationsResult" type="tns:BasicOutputTypeOfArrayOfApplicationType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BasicOutputTypeOfArrayOfApplicationType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ArrayOfApplicationType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfApplicationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ApplicationType" nillable="true" type="s23:ApplicationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UnregisterApp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicationToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnregisterAppResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UnregisterAppResult" type="tns:BasicOutputTypeOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCapabilities">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCapabilitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCapabilitiesResult" type="tns:BasicOutputTypeOfArrayOfServiceVersionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BasicOutputTypeOfArrayOfServiceVersionType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ArrayOfServiceVersionType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfServiceVersionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ServiceVersionType" nillable="true" type="s23:ServiceVersionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsImplementing">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="serviceName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="serviceVersion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsImplementingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IsImplementingResult" type="tns:BasicOutputTypeOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataProviderList">
+        <s:complexType />
+      </s:element>
+      <s:complexType name="ArrayOfDataProviderType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DataProviderType" nillable="true" type="s23:DataProviderType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDataProviderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataProviderListResult" type="tns:BasicOutputTypeOfArrayOfDataProviderType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BasicOutputTypeOfArrayOfDataProviderType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Item" type="tns:ArrayOfDataProviderType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SetDataProviderList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DataProviders" type="tns:ArrayOfDataProviderType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDataProviderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetDataProviderListResult" type="tns:BasicOutputTypeOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Log">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogResult" type="tns:BasicOutputTypeOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:2.0.0">
+      <s:import namespace="urn:oio:dkal:1.0.0" />
+      <s:import namespace="urn:oio:sagdok:1.0.0" />
+      <s:import namespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/" />
+      <s:complexType name="BasicOutputType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StandardRetur" type="s1:StandardReturType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StandardReturType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StatusKode" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" name="FejlbeskedTekst" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SagDokObjektType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s4:UUID" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s5:BrugervendtNoegleTekst" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LaesFiltreretOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:SagDokObjektType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="KaldenavnTekst" type="s:string" />
+      <s:element name="NoteTekst" type="s:string" />
+      <s:element name="Virkning" type="s1:VirkningType" />
+      <s:complexType name="VirkningType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="TilTidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TidspunktType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="1" maxOccurs="1" ref="s5:TidsstempelDatoTid" />
+            <s:element minOccurs="1" maxOccurs="1" name="GraenseIndikator" type="s:boolean" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UnikIdType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:UUID" />
+            <s:element minOccurs="0" maxOccurs="1" name="URNIdentifikator" type="s:string" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LokalUdvidelse" type="s1:LokalUdvidelseType" />
+      <s:complexType name="LokalUdvidelseType">
+        <s:sequence>
+          <s:any minOccurs="0" maxOccurs="unbounded" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TilstandVirkning" type="s1:TilstandVirkningType" />
+      <s:complexType name="TilstandVirkningType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FraTidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RelationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s1:VirkningType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonFlerRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:FlerRelationType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FlerRelationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Virkning" type="s1:VirkningType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceID" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistreringType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Tidspunkt" type="s1:TidspunktType" />
+          <s:element minOccurs="1" maxOccurs="1" name="LivscyklusKode" type="s1:LivscyklusKodeType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AktoerRef" type="s1:UnikIdType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s20:CommentText" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Virkning" type="s1:VirkningType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="LivscyklusKodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Opstaaet" />
+          <s:enumeration value="Importeret" />
+          <s:enumeration value="Passiveret" />
+          <s:enumeration value="Slettet" />
+          <s:enumeration value="Rettet" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:person:1.0.0">
+      <s:import namespace="urn:oio:sagdok:2.0.0" />
+      <s:import namespace="urn:oio:sagdok:part:1.0.0" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/" />
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/" />
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/" />
+      <s:import namespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="urn:oio:dkal:1.0.0" />
+      <s:complexType name="OpretOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Person" type="s2:PersonType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PersonType">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:PartType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="Registrering" type="s2:RegistreringType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FiltreretOejebliksbilledeType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:LaesFiltreretOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AttributListe" type="s2:AttributListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="TilstandListe" type="s2:TilstandListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="RelationListe" type="s2:RelationListeType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AttributListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Egenskab" type="s2:EgenskabType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SundhedOplysning" type="s2:SundhedOplysningType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RegisterOplysning" type="s2:RegisterOplysningType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EgenskabType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NavnStruktur" type="s2:NavnStrukturType" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s9:PersonGenderCode" />
+          <s:element minOccurs="1" maxOccurs="1" ref="s10:BirthDate" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedselsregistreringMyndighedNavn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedestedNavn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KontaktKanal" type="s2:KontaktKanalType" />
+          <s:element minOccurs="0" maxOccurs="1" name="NaermestePaaroerende" type="s2:KontaktKanalType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AndreAdresser" type="s2:AdresseType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:Virkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NavnStrukturType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s6:PersonNameStructure" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:KaldenavnTekst" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s8:PersonNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KontaktKanalType">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:KontaktKanalBaseType">
+            <s:sequence>
+              <s:choice minOccurs="1" maxOccurs="1">
+                <s:element minOccurs="0" maxOccurs="1" name="AndenKontaktKanal" type="s2:AndenKontaktKanalType" />
+                <s:element minOccurs="0" maxOccurs="1" name="Telefon" type="s2:TelefonType" />
+                <s:element minOccurs="0" maxOccurs="1" ref="s12:EmailAddressIdentifier" />
+              </s:choice>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="KontaktKanalBaseType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BegraensetAnvendelseTekst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AndenKontaktKanalType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
+          <s:element minOccurs="0" maxOccurs="1" name="KontaktKanalTekst" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TelefonType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s11:TelephoneNumberIdentifier" />
+          <s:element minOccurs="1" maxOccurs="1" name="KanBrugesTilSmsIndikator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AdresseType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="DanskAdresse" type="s2:DanskAdresseType" />
+            <s:element minOccurs="0" maxOccurs="1" name="GroenlandAdresse" type="s2:GroenlandAdresseType" />
+            <s:element minOccurs="0" maxOccurs="1" name="VerdenAdresse" type="s2:VerdenAdresseType" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DanskAdresseType">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:AdresseBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s17:AddressComplete" />
+              <s:element minOccurs="0" maxOccurs="1" ref="s19:AddressPoint" />
+              <s:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="SocialDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SkoleDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PostDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SogneDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ValgkredsDistriktTekst" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PolitiDistriktTekst" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AdresseBaseType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:NoteTekst" />
+          <s:element minOccurs="1" maxOccurs="1" name="UkendtAdresseIndikator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GroenlandAdresseType">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:AdresseBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s13:AddressCompleteGreenland" />
+              <s:element minOccurs="0" maxOccurs="1" name="SpecielVejkodeIndikator" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="VerdenAdresseType">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:AdresseBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s13:ForeignAddressStructure" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SundhedOplysningType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PraktiserendeLaegeNavn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PraktiserendeLaegeYderNummerIdentifikator" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" name="SygesikringsgruppeKode" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:Virkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegisterOplysningType">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:RegisterOplysningBaseType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s1:Virkning" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RegisterOplysningBaseType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="UdenlandskBorger" type="s2:UdenlandskBorgerType" />
+            <s:element minOccurs="0" maxOccurs="1" name="UkendtBorger" type="s2:UkendtBorgerType" />
+            <s:element minOccurs="0" maxOccurs="1" name="CprBorger" type="s2:CprBorgerType" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UdenlandskBorgerType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PersonIdentifikator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" ref="s21:PersonNationalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s22:PersonCivilRegistrationReplacementIdentifier" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SprogKode" type="s7:CountryIdentificationCodeType" />
+          <s:element minOccurs="0" maxOccurs="1" name="FoedselslandKode" type="s7:CountryIdentificationCodeType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UkendtBorgerType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s22:PersonCivilRegistrationReplacementIdentifier" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CprBorgerType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:PersonCivilRegistrationIdentifier" />
+          <s:element minOccurs="1" maxOccurs="1" name="PersonNummerGyldighedStatusIndikator" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s21:PersonNationalityCode" />
+          <s:element minOccurs="1" maxOccurs="1" name="NavneAdresseBeskyttelseIndikator" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="TelefonNummerBeskyttelseIndikator" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForskerBeskyttelseIndikator" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="FolkeregisterAdresse" type="s2:AdresseType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdresseNoteTekst" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FolkekirkeMedlemIndikator" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TilstandListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LivStatus" type="s2:LivStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" name="CivilStatus" type="s2:CivilStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LivStatusType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="LivStatusKode" type="s2:LivStatusKodeType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:TilstandVirkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="LivStatusKodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Prenatal" />
+          <s:enumeration value="Foedt" />
+          <s:enumeration value="Forsvundet" />
+          <s:enumeration value="Doed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="CivilStatusType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CivilStatusKode" type="s2:CivilStatusKodeType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:TilstandVirkning" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CivilStatusKodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ugift" />
+          <s:enumeration value="Gift" />
+          <s:enumeration value="RegistreretPartner" />
+          <s:enumeration value="Separeret" />
+          <s:enumeration value="Skilt" />
+          <s:enumeration value="OphaevetPartnerskab" />
+          <s:enumeration value="Enke" />
+          <s:enumeration value="Laengstlevende" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="RelationListeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Moder" type="s2:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Fader" type="s2:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Boern" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Aegtefaelle" type="s2:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RegistreretPartner" type="s2:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Bopaelssamling" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Foraeldremyndighedsindehaver" type="s2:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Foraeldremyndighedsboern" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergeForPersonen" type="s2:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetligHandleevneVaergemaalsindehaver" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErstatningFor" type="s1:PersonFlerRelationType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErstatningAf" type="s2:PersonRelationType" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s1:LokalUdvidelse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonRelationType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:RelationType" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RegistreringType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:RegistreringType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AttributListe" type="s2:AttributListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="TilstandListe" type="s2:TilstandListeType" />
+              <s:element minOccurs="0" maxOccurs="1" name="RelationListe" type="s2:RelationListeType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="LaesOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LaesResultat" type="s2:LaesResultatType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="LaesResultatType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="FiltreretOejebliksbillede" type="s2:FiltreretOejebliksbilledeType" />
+            <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s2:RegistreringType" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistreringOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Registrering" type="s2:RegistreringType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="GetUuidOutputType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasicOutputType">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" ref="s4:UUID" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:part:1.0.0">
+      <s:import namespace="urn:oio:sagdok:2.0.0" />
+      <s:complexType name="PartType">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:SagDokObjektType" />
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:dkal:1.0.0">
+      <s:element name="UUID" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="urn:oio:sagdok:1.0.0">
+      <s:element name="BrugervendtNoegleTekst" type="s:string" />
+      <s:element name="TidsstempelDatoTid" type="s:dateTime" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="PersonNameStructure" type="s6:PersonNameStructureType" />
+      <s:complexType name="PersonNameStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:PersonGivenName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:PersonMiddleName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:PersonSurnameName" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/">
+      <s:element name="PersonGivenName" type="s:string" />
+      <s:element name="PersonMiddleName" type="s:string" />
+      <s:element name="PersonSurnameName" type="s:string" />
+      <s:element name="MailDeliverySublocationIdentifier" type="s:string" />
+      <s:element name="StreetBuildingIdentifier" type="s:string" />
+      <s:element name="SuiteIdentifier" type="s:string" />
+      <s:element name="FloorIdentifier" type="s:string" />
+      <s:element name="CountryIdentificationCode" type="s7:CountryIdentificationCodeType" />
+      <s:complexType name="CountryIdentificationCodeType">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="scheme" type="s7:_CountryIdentificationSchemeType" use="required" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="_CountryIdentificationSchemeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="iso3166-alpha2" />
+          <s:enumeration value="iso3166-alpha3" />
+          <s:enumeration value="un-numeric3" />
+          <s:enumeration value="imk" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/02/22/">
+      <s:element name="PersonNameForAddressingName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/23/">
+      <s:element name="PersonGenderCode" type="s9:PersonGenderCodeType" />
+      <s:simpleType name="PersonGenderCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="male" />
+          <s:enumeration value="female" />
+          <s:enumeration value="unspecified" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/">
+      <s:element name="BirthDate" type="s:date" />
+      <s:element name="StreetName" type="s:string" />
+      <s:element name="DistrictSubdivisionIdentifier" type="s:string" />
+      <s:element name="PostCodeIdentifier" type="s:string" />
+      <s:element name="DistrictName" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/itst.dk/xml/schemas/2005/01/10/">
+      <s:element name="TelephoneNumberIdentifier" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="EmailAddressIdentifier" type="s:string" />
+      <s:element name="AddressAccess" type="s12:AddressAccessType" />
+      <s:complexType name="AddressAccessType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2008/05/01/">
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/" />
+      <s:import namespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/" />
+      <s:element name="AddressCompleteGreenland" type="s13:AddressCompleteGreenlandType" />
+      <s:complexType name="AddressCompleteGreenlandType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:MunicipalityCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" name="GreenlandBuildingIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ForeignAddressStructure" type="s13:ForeignAddressStructureType" />
+      <s:complexType name="ForeignAddressStructureType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFirstLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressSecondLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressThirdLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFourthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s15:PostalAddressFifthLineText" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s16:LocationDescriptionText" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/">
+      <s:element name="MunicipalityCode" type="s:string" />
+      <s:element name="StreetCode" type="s:string" />
+      <s:element name="StreetNameForAddressingName" type="s:string" />
+      <s:element name="PersonCivilRegistrationIdentifier" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/19/">
+      <s:element name="PostalAddressFirstLineText" type="s:string" />
+      <s:element name="PostalAddressSecondLineText" type="s:string" />
+      <s:element name="PostalAddressThirdLineText" type="s:string" />
+      <s:element name="PostalAddressFourthLineText" type="s:string" />
+      <s:element name="PostalAddressFifthLineText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/capevo.dk/xml/schemas/2007/08/01/">
+      <s:element name="LocationDescriptionText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/">
+      <s:import namespace="http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/" />
+      <s:import namespace="http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/" />
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/" />
+      <s:element name="AddressComplete" type="s17:AddressCompleteType" />
+      <s:complexType name="AddressCompleteType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s12:AddressAccess" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPostal" type="s17:AddressPostalType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressPostalType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:MailDeliverySublocationIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:StreetName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s14:StreetNameForAddressingName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:StreetBuildingIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:FloorIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:SuiteIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictSubdivisionIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s18:PostOfficeBoxIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:PostCodeIdentifier" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s10:DistrictName" />
+          <s:element minOccurs="0" maxOccurs="1" ref="s7:CountryIdentificationCode" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/05/13/">
+      <s:element name="PostOfficeBoxIdentifier" type="s:integer" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/bbr.dk/xml/schemas/2006/09/30/">
+      <s:element name="AddressPoint" type="s19:AddressPointType" />
+      <s:complexType name="AddressPointType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointIdentifier" type="s:anyURI" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicPointLocation" type="s19:GeographicPointLocationType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointStatusStructure" type="s19:AddressPointStatusStructureType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GeographicPointLocationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicCoordinateTuple" type="s19:GeographicCoordinateTupleType" />
+        </s:sequence>
+        <s:attribute name="crsIdentifier" type="s:string" />
+      </s:complexType>
+      <s:complexType name="GeographicCoordinateTupleType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="GeographicEastingMeasure" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="GeographicNorthingMeasure" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeographicHeightMeasure" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressPointStatusStructureType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AddressPointRevisionDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointValidStartDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressPointValidEndDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressCoordinateQualityClassCode" type="s19:AddressCoordinateQualityClassCodeType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AddressCoordinateQualityClassCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="A" />
+          <s:enumeration value="B" />
+          <s:enumeration value="U" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/vejsektoren.dk/core/schemas/xml/2007/03/31/">
+      <s:element name="CommentText" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2006/01/03/">
+      <s:import namespace="http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/" />
+      <s:element name="PersonNationalityCode" type="s7:CountryIdentificationCodeType" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2007/01/02/">
+      <s:element name="PersonCivilRegistrationReplacementIdentifier" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://rep.oio.dk/cpr.dk/xml/schemas/2009/07/01/">
+      <s:complexType name="ApplicationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsApproved" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApprovedDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ServiceVersionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Functions" type="s23:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Details" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Functions" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DataProviderType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Enabled" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Attributes" type="s23:AttributeType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AttributeType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RequestAppRegistrationSoap12In">
+    <wsdl:part name="parameters" element="tns:RequestAppRegistration" />
+  </wsdl:message>
+  <wsdl:message name="RequestAppRegistrationSoap12Out">
+    <wsdl:part name="parameters" element="tns:RequestAppRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestAppRegistrationApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationSoap12In">
+    <wsdl:part name="parameters" element="tns:ApproveAppRegistration" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationSoap12Out">
+    <wsdl:part name="parameters" element="tns:ApproveAppRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAppRegistrationApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsSoap12In">
+    <wsdl:part name="parameters" element="tns:ListAppRegistrations" />
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsSoap12Out">
+    <wsdl:part name="parameters" element="tns:ListAppRegistrationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListAppRegistrationsApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppSoap12In">
+    <wsdl:part name="parameters" element="tns:UnregisterApp" />
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppSoap12Out">
+    <wsdl:part name="parameters" element="tns:UnregisterAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="UnregisterAppApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesSoap12In">
+    <wsdl:part name="parameters" element="tns:GetCapabilities" />
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesSoap12Out">
+    <wsdl:part name="parameters" element="tns:GetCapabilitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCapabilitiesApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="IsImplementingSoap12In">
+    <wsdl:part name="parameters" element="tns:IsImplementing" />
+  </wsdl:message>
+  <wsdl:message name="IsImplementingSoap12Out">
+    <wsdl:part name="parameters" element="tns:IsImplementingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsImplementingApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListSoap12In">
+    <wsdl:part name="parameters" element="tns:GetDataProviderList" />
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListSoap12Out">
+    <wsdl:part name="parameters" element="tns:GetDataProviderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDataProviderListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListSoap12In">
+    <wsdl:part name="parameters" element="tns:SetDataProviderList" />
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListSoap12Out">
+    <wsdl:part name="parameters" element="tns:SetDataProviderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetDataProviderListApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="LogSoap12In">
+    <wsdl:part name="parameters" element="tns:Log" />
+  </wsdl:message>
+  <wsdl:message name="LogSoap12Out">
+    <wsdl:part name="parameters" element="tns:LogResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogApplicationHeader">
+    <wsdl:part name="ApplicationHeader" element="tns:ApplicationHeader" />
+  </wsdl:message>
+  <wsdl:message name="PingSoap12In">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="PingSoap12Out">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AdminSoap12">
+    <wsdl:operation name="RequestAppRegistration">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Creates a new un-approved application in the system.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;ApplicationType RequestAppRegisteration(string ApplicationName)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;ApplicationName (input):&lt;/td&gt;&lt;td&gt;Application name that ask for registering.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return ApplicationType that specify the new appication.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:RequestAppRegistrationSoap12In" />
+      <wsdl:output message="tns:RequestAppRegistrationSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAppRegistration">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Approves an application's registeration
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool ApproveAppRegisteration(string ApplicationToken)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'ApplicationToken' (input):&lt;/td&gt;&lt;td&gt;Token for the business client application to be approved.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:ApproveAppRegistrationSoap12In" />
+      <wsdl:output message="tns:ApproveAppRegistrationSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAppRegistrations">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                List Application Registeration
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;ApplicationType[] ListAppRegisteration()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;Array of ApplicationType that represents the existing application registered in the system
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:ListAppRegistrationsSoap12In" />
+      <wsdl:output message="tns:ListAppRegistrationsSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterApp">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Unregister an application registeration
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool UnregisterApp(string ApplicationToken)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;ApplicationToken (input):&lt;/td&gt;&lt;td&gt;Security Token for the current business client application.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:UnregisterAppSoap12In" />
+      <wsdl:output message="tns:UnregisterAppSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCapabilities">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Reads version information for the component to make sure that only features
+                                                supported by the component is returned
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;string GetCapabilities(string userToken, string appToken)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'userToken' (input):&lt;/td&gt;&lt;td&gt;Security Token for authorizing the request.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'appToken' (input):&lt;/td&gt;&lt;td&gt;Security Token for the current business client application.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return the result of the request.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Notes:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt; P1-P2 It is important that we use any standard or 'best practice' on this area. The sigature for
+                                                this service is important. Syntax and semantic must be invariant over time. Response,
+                                                probably in the form of an appropriate XML document will varie.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-05-11, CPR Broker&lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Initial Method Draft.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetCapabilitiesSoap12In" />
+      <wsdl:output message="tns:GetCapabilitiesSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="IsImplementing">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Direct (easier) alternative to GetCapabilities()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;string IsImplementing(string userToken, string appToken,string serviceName,string serviceVersion)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;'userToken' (input):&lt;/td&gt;&lt;td&gt;Security Token for authorizing the user request.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'appToken' (input):&lt;/td&gt;&lt;td&gt;Security Token for the current business client application.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'serviceName' (input):&lt;/td&gt;&lt;td&gt;Service Name&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;tr&gt;&lt;td&gt;'serviceVersion' (input):&lt;/td&gt;&lt;td&gt;Service Version&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return the result of the request.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-05-11, CPR Broker&lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;Initial Method Draft.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:IsImplementingSoap12In" />
+      <wsdl:output message="tns:IsImplementingSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataProviderList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Returns a list of objects that contain information about the data providers that are currently used by the system.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;DataProviderType[] GetDataProviderList()
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;Array of DataProviderType containing information about the data providers used by the system.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:GetDataProviderListSoap12In" />
+      <wsdl:output message="tns:GetDataProviderListSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="SetDataProviderList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Gives the opportunity to attach one or more data providers,
+                                                e.g., CSC DPR, P-Data, online.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool SetDataProviderList(DataProviderType[] dataProviders)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;DataProviders (input):&lt;/td&gt;&lt;td&gt;Array of data providers that the system should use.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:SetDataProviderListSoap12In" />
+      <wsdl:output message="tns:SetDataProviderListSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Writes a text string to the system's log
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Signature:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;bool Log(string Text)
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Parameter Description:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;&lt;table&gt;
+                                                &lt;tr&gt;&lt;td&gt;Text (input):&lt;/td&gt;&lt;td&gt;the text value to be logged.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+
+                                                &lt;br&gt;&lt;b&gt;&lt;u&gt;Return Value:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;br&gt;return bool that represents whether the operation has succeeded.
+
+                                                &lt;br&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;Review:&lt;/u&gt;&lt;/b&gt;
+                                                &lt;table&gt;
+                                                &lt;tr&gt;&lt;td width='30%'&gt;2009-08-20, CPR Broker &lt;/td&gt;&lt;td width='10%'&gt;&lt;/td&gt;&lt;td width='60%'&gt;First release.&lt;/td&gt;&lt;/tr&gt;
+                                                &lt;/table&gt;
+                                                &lt;br&gt;==============================
+                                                </wsdl:documentation>
+      <wsdl:input message="tns:LogSoap12In" />
+      <wsdl:output message="tns:LogSoap12Out" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ping() returns an appropiate status message (HTML formatted) to confirm connection to this web service class.
+&lt;br&gt;Consider overloading the method to test complete connection in more complex scenarioes, ie. delegation of user credentials etc.
+&lt;br&gt;20070403/SDE
+</wsdl:documentation>
+      <wsdl:input message="tns:PingSoap12In" />
+      <wsdl:output message="tns:PingSoap12Out" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AdminSoap12" type="tns:AdminSoap12">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RequestAppRegistration">
+      <soap12:operation soapAction="http://dk.itst/RequestAppRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RequestAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAppRegistration">
+      <soap12:operation soapAction="http://dk.itst/ApproveAppRegistration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ApproveAppRegistrationApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAppRegistrations">
+      <soap12:operation soapAction="http://dk.itst/ListAppRegistrations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListAppRegistrationsApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterApp">
+      <soap12:operation soapAction="http://dk.itst/UnregisterApp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UnregisterAppApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCapabilities">
+      <soap12:operation soapAction="http://dk.itst/GetCapabilities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCapabilitiesApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsImplementing">
+      <soap12:operation soapAction="http://dk.itst/IsImplementing" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:IsImplementingApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataProviderList">
+      <soap12:operation soapAction="http://dk.itst/GetDataProviderList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDataProviderList">
+      <soap12:operation soapAction="http://dk.itst/SetDataProviderList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SetDataProviderListApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Log">
+      <soap12:operation soapAction="http://dk.itst/Log" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:LogApplicationHeader" part="ApplicationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://dk.itst/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Admin">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+                                                Contains methods related to administrative functions
+                                                </wsdl:documentation>
+    <wsdl:port name="AdminSoap12" binding="tns:AdminSoap12">
+      <soap12:address location="http://localhost:1551/Services/Admin.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
