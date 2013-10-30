@@ -64,28 +64,35 @@ namespace CprBroker.Providers.KMD
         /// <returns></returns>
         public AS78207Response CallAS78207(string cprNumber)
         {
-            WS_AS78207.WS_AS78207 service = new CprBroker.Providers.KMD.WS_AS78207.WS_AS78207();
-            SetServiceUrl(service, ServiceTypes.AS78207);
-            service.userinfoValue = new userinfo()
+            if (modulus11OK(cprNumber))
             {
-                userid = UserName,
-                password = Password
-            };
-            AS78207 param = new AS78207()
-            {
-                InputRecord = new PARM()
+                WS_AS78207.WS_AS78207 service = new CprBroker.Providers.KMD.WS_AS78207.WS_AS78207();
+                SetServiceUrl(service, ServiceTypes.AS78207);
+                service.userinfoValue = new userinfo()
                 {
-                    CBESTIL = "0",
-                    COMRAADE = "C",  // Municipal: K   Regional:  R   National: C
-                    CREDIG = "",
-                    CSTATUS = "1",
-                    EKOM = "000",
-                    EPNR = cprNumber
-                }
-            };
-            var resp = service.SubmitAS78207(param);
-            ValidateReturnCode(resp.OutputRecord.RETURKODE, resp.OutputRecord.RETURTEXT);
-            return resp;
+                    userid = UserName,
+                    password = Password
+                };
+                AS78207 param = new AS78207()
+                {
+                    InputRecord = new PARM()
+                    {
+                        CBESTIL = "0",
+                        COMRAADE = "C",  // Municipal: K   Regional:  R   National: C
+                        CREDIG = "",
+                        CSTATUS = "1",
+                        EKOM = "000",
+                        EPNR = cprNumber
+                    }
+                };
+                var resp = service.SubmitAS78207(param);
+                ValidateReturnCode(resp.OutputRecord.RETURKODE, resp.OutputRecord.RETURTEXT);
+                return resp;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
     namespace WS_AS78207

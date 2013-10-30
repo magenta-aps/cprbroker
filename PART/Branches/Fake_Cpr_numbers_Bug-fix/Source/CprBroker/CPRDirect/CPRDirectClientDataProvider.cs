@@ -64,14 +64,24 @@ namespace CprBroker.Providers.CPRDirect
             IndividualResponseType response = this.GetResponse(request);
 
             ql = QualityLevel.Cpr;
-            return response.ToRegistreringType1(cpr2uuidFunc);
+            if (response != null)
+            {
+                return response.ToRegistreringType1(cpr2uuidFunc);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public bool PutSubscription(PersonIdentifier personIdentifier)
         {
             IndividualRequestType request = new IndividualRequestType(true, DataType.NoData, decimal.Parse(personIdentifier.CprNumber));
             IndividualResponseType response = this.GetResponse(request);
-            return true;
+            if (response != null)
+                return true;
+            else
+                return false;
         }
 
         #endregion

@@ -97,8 +97,15 @@ namespace CprBroker.Providers.DPR
                     }
                     else
                     {
-                        Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("Calling DPR Diversion : {0}", personIdentifier.CprNumber), null, null);
-                        CallDiversion(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.MasterData, personIdentifier.CprNumber);
+                        if (modulus11OK(personIdentifier.CprNumber))
+                        {
+                            Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("Calling DPR Diversion : {0}", personIdentifier.CprNumber), null, null);
+                            CallDiversion(InquiryType.DataUpdatedAutomaticallyFromCpr, DetailType.MasterData, personIdentifier.CprNumber);
+                        }
+                        else
+                        {
+                            Engine.Local.Admin.AddNewLog(System.Diagnostics.TraceEventType.Information, "PutSubscription", string.Format("PNR {0} is invalid, DPR Diversion not called", personIdentifier.CprNumber), null, null);
+                        }
                     }
                     return true;
                 }

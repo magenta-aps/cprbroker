@@ -111,10 +111,48 @@ namespace CprBroker.Providers.KMD
                 "70",//municipal code / personal identification number is not numeric
                 "78",// Error in personal / replacement personal
             };
-            if (Array.IndexOf<string>(errorCodes, returnCode) != -1)
+            if (returnCode != null)
             {
-                throw new Exception(returnText);
+                if (Array.IndexOf<string>(errorCodes, returnCode) != -1)
+                {
+                    throw new Exception(returnText);
+                }
             }
+            else
+            {
+                throw new Exception("Illegal CPR number");
+            }
+        }
+
+        private bool modulus11OK(String CprNumber)
+        {
+            bool result = false;
+            int[] multiplyBy = { 4, 3, 2, 7, 6, 5, 4, 3, 2, 1 };
+            int Sum = 0;
+            // We test if the length of the CPR number is right and if the number does not conatain tailing 0's
+            if (CprNumber.Length == 10 && CprNumber.Substring(6, 4) != "0000")
+            {
+                /*
+                 * We cannot do modulus control on people with birth dates 19650101 or 19660101,
+                 * thus those dates just pass through with no control at all.
+                 */
+                if (CprNumber.Substring(6) == "010165" || CprNumber.Substring(6) == "010166")
+                {
+                    result = true;
+                }
+                else
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Sum += Convert.ToInt32(CprNumber.Substring(i, 1)) * multiplyBy[i];
+                    }
+                    if ((Sum % 11) == 0)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            return result;
         }
         #endregion
 

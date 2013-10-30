@@ -72,38 +72,84 @@ namespace CprBroker.Providers.CPRDirect
             }
             else
             {
-                throw new Exception(error);
+                if (error != null)
+                    throw new Exception(error);
+                else
+                    return null;
             }
         }
 
         protected bool Send(decimal pnr, string message, out string response, out string error)
         {
-            error = null;
-            NetworkStream stream = null;
-
-            TcpClient client = new TcpClient(Address, Port);
-            Byte[] data = Constants.TcpClientEncoding.GetBytes(message);
-
-            stream = client.GetStream();
-            stream.Write(data, 0, data.Length);
-
-            data = new Byte[Constants.ResponseLengths.MaxResponseLength];
-
-            int bytes = stream.Read(data, 0, data.Length);
-            response = Constants.TcpClientEncoding.GetString(data, 0, bytes);
-
-            string errorCode = response.Substring(Constants.ResponseLengths.ErrorCodeIndex, Constants.ResponseLengths.ErrorCodeLength);
-            Admin.LogFormattedSuccess("CPR client: PNR <{0}>, status code <{1}>", pnr.ToPnrDecimalString(), errorCode);
-
-            if (Constants.ErrorCodes.ContainsKey(errorCode))
+            if (modulus11OK(pnr.ToDecimalString()))
             {
-                error = Constants.ErrorCodes[errorCode];
-                return false;
+                error = null;
+                NetworkStream stream = null;
+
+                TcpClient client = new TcpClient(Address, Port);
+                Byte[] data = Constants.TcpClientEncoding.GetBytes(message);
+
+                stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+
+                data = new Byte[Constants.ResponseLengths.MaxResponseLength];
+
+                int bytes = stream.Read(data, 0, data.Length);
+                response = Constants.TcpClientEncoding.GetString(data, 0, bytes);
+
+                string errorCode = response.Substring(Constants.ResponseLengths.ErrorCodeIndex, Constants.ResponseLengths.ErrorCodeLength);
+                Admin.LogFormattedSuccess("CPR client: PNR <{0}>, status code <{1}>", pnr.ToPnrDecimalString(), errorCode);
+
+                if (Constants.ErrorCodes.ContainsKey(errorCode))
+                {
+                    error = Constants.ErrorCodes[errorCode];
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
-                return true;
+                Admin.LogFormattedSuccess("PNR <{0}> is invalid, CPR client will not be invoked.", pnr.ToPnrDecimalString());
+                response = null;
+                error = null;
+                return false;
             }
+        }
+
+        protected bool modulus11OK(String CprNumber)
+        {
+            if (CprNumber.Length == 9)
+                CprNumber = "0" + CprNumber;
+            bool result = false;
+            int[] multiplyBy = { 4, 3, 2, 7, 6, 5, 4, 3, 2, 1 };
+            int Sum = 0;
+            // We test if the length of the CPR number is right and if the number does not conatain tailing 0's
+            if (CprNumber.Length == 10 && CprNumber.Substring(6, 4) != "0000")
+            {
+                /*
+                 * We cannot do modulus control on people with birth dates 19650101 or 19660101,
+                 * thus those dates just pass through with no control at all.
+                 */
+                if (CprNumber.Substring(6) == "010165" || CprNumber.Substring(6) == "010166")
+                {
+                    result = true;
+                }
+                else
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Sum += Convert.ToInt32(CprNumber.Substring(i, 1)) * multiplyBy[i];
+                    }
+                    if ((Sum % 11) == 0)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            return result;
         }
     }
 }

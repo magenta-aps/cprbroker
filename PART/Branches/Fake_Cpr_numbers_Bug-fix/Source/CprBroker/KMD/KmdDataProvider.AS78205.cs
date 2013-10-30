@@ -62,31 +62,38 @@ namespace CprBroker.Providers.KMD
         /// <returns></returns>
         public EnglishAS78205Response CallAS78205(string cprNumber)
         {
-            WS_AS78205.WS_AS78205 service = new CprBroker.Providers.KMD.WS_AS78205.WS_AS78205();
-
-            SetServiceUrl(service, ServiceTypes.AS78205);
-            service.userinfoValue = new userinfo();
-
-            service.userinfoValue.userid = UserName;
-            service.userinfoValue.password = Password;
-
-            var input = new AS78205()
+            if (modulus11OK(cprNumber))
             {
-                InputRecord = new PARM()
-                {
-                    CBESTIL = "0",
-                    COMRAADE = "C",  // Municipal: K   Regional:  R   National: C
-                    CREDIG = "O",  // Address line format: Fixed line position: F Organized (move empty lines to the end): O
-                    CSTATUS = "1",
-                    EKOM = "000",
-                    EPNR = cprNumber,
-                }
-            };
-            var response = service.SubmitAS78205(input);
-            var englishResponse = new EnglishAS78205Response(response);
-            ValidateReturnCode(englishResponse.ReturnCode, englishResponse.ReturnText);
+                WS_AS78205.WS_AS78205 service = new CprBroker.Providers.KMD.WS_AS78205.WS_AS78205();
 
-            return englishResponse;
+                SetServiceUrl(service, ServiceTypes.AS78205);
+                service.userinfoValue = new userinfo();
+
+                service.userinfoValue.userid = UserName;
+                service.userinfoValue.password = Password;
+
+                var input = new AS78205()
+                {
+                    InputRecord = new PARM()
+                    {
+                        CBESTIL = "0",
+                        COMRAADE = "C",  // Municipal: K   Regional:  R   National: C
+                        CREDIG = "O",  // Address line format: Fixed line position: F Organized (move empty lines to the end): O
+                        CSTATUS = "1",
+                        EKOM = "000",
+                        EPNR = cprNumber,
+                    }
+                };
+                var response = service.SubmitAS78205(input);
+                var englishResponse = new EnglishAS78205Response(response);
+                ValidateReturnCode(englishResponse.ReturnCode, englishResponse.ReturnText);
+
+                return englishResponse;
+            }
+            else
+            {
+                return null;
+            }
         }
 
     }
