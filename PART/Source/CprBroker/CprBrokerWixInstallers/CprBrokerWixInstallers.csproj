@@ -113,6 +113,7 @@
     <Content Include="Resources\PatchDatabase_1_4.sql" />
     <Content Include="Resources\PatchDatabase_2_1.sql" />
     <Content Include="Resources\PatchDatabase_2_2.sql" />
+    <Content Include="Resources\PatchDatabase_2_3.sql" />
     <None Include="Resources\Authority_4357.txt" />
     <Content Include="Resources\PatchDatabase_1_3.sql" />
   </ItemGroup>
