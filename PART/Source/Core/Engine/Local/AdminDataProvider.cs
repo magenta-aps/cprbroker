@@ -96,6 +96,7 @@ namespace CprBroker.Engine.Local
                     var prov = Reflection.CreateInstance<IExternalDataProvider>(oioProv.TypeName);
                     if (prov != null)
                     {
+                        // TODO: Include IPerCallDataProvider keys here
                         foreach (var configKey in prov.ConfigurationKeys)
                         {
                             if (configKey.Confidential)
@@ -137,6 +138,7 @@ namespace CprBroker.Engine.Local
                 {
                     DataProviderType oio = dataProviders[iProv];
                     var provObj = Reflection.CreateInstance<IExternalDataProvider>(oio.TypeName);
+                    // TODO: Also pass IPerDataProvider properties here
                     var dbProv = DataProvider.FromXmlType(oio, iProv, provObj.ConfigurationKeys.Select(p => p.Name).ToArray());
                     context.DataProviders.InsertOnSubmit(dbProv);
                 }
