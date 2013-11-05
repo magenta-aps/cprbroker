@@ -127,6 +127,8 @@ namespace CprBroker.Web.Pages
             if (newDataProviderDropDownList.Items.Count > 0)
             {
                 Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
+
+                // TODO: use if (typeof(IPerCallDataProvider).IsInstanceOf(t) instead of relying on try/catch
                 try
                 {
                     IPerCallDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IPerCallDataProvider;
@@ -332,6 +334,8 @@ namespace CprBroker.Web.Pages
 
         protected Array GetAttributes(object dbProvider)
         {
+            // TODO: Include IPerCallData providers here
+
             var dbProv = dbProvider as Data.DataProviders.DataProvider;
             var prov = DataProviderManager.CreateDataProvider(dbProv);
             var properties = dbProv.GetProperties();
