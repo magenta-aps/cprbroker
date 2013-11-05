@@ -121,7 +121,6 @@ namespace CprBroker.Engine
                 }
                 else
                 {
-                    Console.Write("Invalid token exception aT=" + appToken + ", uT=" + userToken + "\n");
                     throw new InvalidTokenException(appToken, userToken);
                 }
 
