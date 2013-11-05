@@ -50,7 +50,7 @@ using System.Linq;
 using System.Text;
 using CprBroker.Schemas.Part;
 
-namespace CprBroker.Providers.CPRDirect
+namespace CprBroker.Schemas.Part
 {
     public interface IAddressSource : ITimedType
     {
