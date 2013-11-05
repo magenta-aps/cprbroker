@@ -138,7 +138,6 @@
     <Compile Include="XML\HistoricalName.cs" />
     <Compile Include="XML\HistoricalPNR.cs" />
     <Compile Include="XML\HistoricalSeparation.cs" />
-    <Compile Include="Interfaces\IAddressSource.cs" />
     <Compile Include="Interfaces\IChurchInformation.cs" />
     <Compile Include="Interfaces\ICitizenship.cs" />
     <Compile Include="Interfaces\IPnr.cs" />
