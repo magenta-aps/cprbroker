@@ -95,6 +95,7 @@ namespace CprBroker.Providers.DPR
         {
             get
             {
+                // TODO: rename the operation key to something like "Diversion". "Cost" is a bit ambigious.
                 return new DataProviderConfigPropertyInfo[] { 
                     new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Decimal, Name="Cost", Required=true, Confidential=false},
                 };
