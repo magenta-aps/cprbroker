@@ -49,6 +49,8 @@
 	If so, Inserts the necessary row in the Notification table and its child rows
 */
 
+-- TODO: Remove this stored procedure
+
 IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'InsertChangeNotificationData')
 	BEGIN
 		DROP  Procedure  InsertChangeNotificationData
