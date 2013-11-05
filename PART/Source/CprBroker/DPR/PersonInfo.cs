@@ -66,6 +66,7 @@ namespace CprBroker.Providers.DPR
         public PersonTotal PersonTotal { get; set; }
         public Nationality Nationality { get; set; }
         public PersonAddress Address { get; set; }
+        public Departure Departure { get; set; }
         public Separation Separation { get; set; }
         public CivilStatus[] CivilStates { get; set; }
         public Child[] Children { get; set; }

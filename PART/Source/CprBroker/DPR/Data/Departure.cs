@@ -52,7 +52,7 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class Departure
+    public partial class Departure : IAddressSource
     {
         public AdresseType ToAdresseType()
         {
@@ -61,7 +61,7 @@ namespace CprBroker.Providers.DPR
                 Item = new VerdenAdresseType()
                 {
                     ForeignAddressStructure = ToForeignAddressStructure(),
-                    NoteTekst = null,
+                    NoteTekst = ToAddressNoteTekste(),
                     UkendtAdresseIndikator = ToUkendtAdresseIndikator()
                 }
             };
@@ -96,6 +96,41 @@ namespace CprBroker.Providers.DPR
             {
                 return null;
             }
+        }
+
+        public string ToAddressNoteTekste()
+        {
+            return null;
+        }
+
+        public IRegistrationInfo Registration
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public DataTypeTags Tag
+        {
+            get { return DataTypeTags.Address; }
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return Utilities.DateFromDecimal(this.EntryDate);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return Utilities.DateFromDecimal(this.ExitDate);
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            return true;
         }
     }
 }
