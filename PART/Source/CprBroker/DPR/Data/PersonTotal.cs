@@ -109,8 +109,8 @@ namespace CprBroker.Providers.DPR
             {
                 // Address note - not supported
                 AdresseNoteTekst = ToAdresseNoteTekst(),
-                // Fill address from PersonAddress table if possible
-                FolkeregisterAdresse = dbAddress != null ? dbAddress.ToAdresseType(this) : null,
+                // Get address in separate method
+                FolkeregisterAdresse = ToFolkeregisterAdresse(dbAddress),
                 // Directory protection
                 ForskerBeskyttelseIndikator = ToDirectoryProtectionIndicator(),
                 // PNR
@@ -126,6 +126,12 @@ namespace CprBroker.Providers.DPR
                 //Use false since we do not have telephone numbers here
                 TelefonNummerBeskyttelseIndikator = ToTelephoneNumberProtectionIndicator(),
             };
+        }
+
+        public AdresseType ToFolkeregisterAdresse(PersonAddress dbAddress)
+        {
+            // Fill address from PersonAddress table if possible
+            return dbAddress != null ? dbAddress.ToAdresseType(this) : null;
         }
 
         public VirkningType ToCprBorgerTypeVirkning(Nationality dbNationality, PersonAddress dbAddress)
