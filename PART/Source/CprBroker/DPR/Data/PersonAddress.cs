@@ -53,13 +53,14 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class PersonAddress
+    public partial class PersonAddress:IAddressSource
     {
         public AdresseType ToAdresseType(PersonTotal personTotal)
         {
             string postDistrict = personTotal.PostDistrictName;
             return new AdresseType()
             {
+                // TODO: return Greenlandic address if STATUS = 5 or 7
                 Item = new DanskAdresseType()
                 {
                     AddressComplete = ToAddressCompleteType(postDistrict),
@@ -138,7 +139,7 @@ namespace CprBroker.Providers.DPR
                         PostalAddressFourthLineText = AdditionalAddressLine4,
                         PostalAddressFifthLineText = AdditionalAddressLine5,
                     },
-                    NoteTekst = null,
+                    NoteTekst = ToAddressNoteTekste(),
                     UkendtAdresseIndikator = false
                 }
             };
@@ -149,5 +150,45 @@ namespace CprBroker.Providers.DPR
             return Schemas.Util.Converters.ToSpecielVejkodeIndikator(this.StreetCode);
         }
 
+
+        public string ToAddressNoteTekste()
+        {
+            return null;
+        }
+
+        public AdresseType ToAdresseType()
+        {
+            return this.ToAdresseType(this.PersonTotal);
+        }
+
+        public IRegistrationInfo Registration
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public DataTypeTags Tag
+        {
+            get { return DataTypeTags.Address; }
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return Utilities.DateFromDecimal(this.AddressEndDate);
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return Utilities.DateFromDecimal(this.AddressStartDate);
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            return true;
+        }
     }
 }

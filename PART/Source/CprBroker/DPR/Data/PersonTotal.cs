@@ -87,10 +87,11 @@ namespace CprBroker.Providers.DPR
                 Nationality = this.Nationalities.Where(pn => pn.CorrectionMarker == null && pn.NationalityEndDate == null).OrderByDescending(pn => pn.NationalityStartDate).FirstOrDefault(),
 
                 // Get the latest valid address (if possible)
+                // TODO: Shall we not include this address if it has ended?
                 Address = this.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
 
                 // Get the current departure record (if possible)
-                Departure = this.Departures.Where(d => d.EntryDate != null).FirstOrDefault(),
+                Departure = this.Departures.Where(d => d.CorrectionMarker == null && d.EntryDate != null).FirstOrDefault(),
 
                 // No need to filtrate by null NameTerminationDate because we are sorting by NameStartDate
                 PersonName = this.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),
@@ -134,65 +135,22 @@ namespace CprBroker.Providers.DPR
         public AdresseType ToFolkeregisterAdresse(PersonAddress dbAddress)
         {
             // Fill address from PersonAddress table if possible
-            return dbAddress != null ? dbAddress.ToAdresseType(this) : null;           
+            return dbAddress != null ? dbAddress.ToAdresseType(this) : null;
         }
 
         public IAddressSource GetFolkeregisterAdresseSource(PersonAddress address, Departure departure)
         {
-            IAddressSource ret = null;
+            var all = new IAddressSource[] { address, departure }.Where(adr => adr != null).ToArray();
+            var active = all.Where(adr => !adr.ToEndTS().HasValue).FirstOrDefault();
 
-            switch ((PersonCivilRegistrationStatusCode)this.Status)
-            {
-                case PersonCivilRegistrationStatusCode.RegisteredWithResidenceInDanishPopulationRegister: // 1
-                    // Get from PeronAddress
-                    break;
+            if (active != null)
+                return active;
 
-                case PersonCivilRegistrationStatusCode.RegisteredWithHighStreetcodeInDanishPopulationRegister: // 2
-                    // Case unknown - nobody in syddjurs
-                    break;
+            var latest = all.OrderBy(adr => adr.ToStartTS()).FirstOrDefault();
+            if (latest != null)
+                return latest;
 
-                case PersonCivilRegistrationStatusCode.RegisteredWithResidenceInGreenlandicPopulationRegister: // 3
-                    // Greenlandic Address from PersonAddress, however, address fields seem empty                    
-                    break;
-
-                case PersonCivilRegistrationStatusCode.RegisteredWithHighStreetcodeIn_GreenlandicPopulationRegister: // 7
-                    // Greenlandic Address ????????
-                    break;
-
-                case PersonCivilRegistrationStatusCode.RegisteredWithoutResidenceInDanishOrGreenlandicPopulationRegisterAndAdministrativeCivilRegistrationNumbers: // 20
-                    // No Address ????????
-                    break;
-
-                case PersonCivilRegistrationStatusCode.CancelledCivilRegistrationNumbers: // 30
-                    // No Address ????????
-                    break;
-
-                case PersonCivilRegistrationStatusCode.DeletedCivilRegistrationNumbers://50
-                    // No Address ????????
-                    break;
-
-                case PersonCivilRegistrationStatusCode.ChangedCivilRegistrationNumbers: // 60
-                    // No Address ????????
-                    break;
-
-                case PersonCivilRegistrationStatusCode.Disappeared: // 70
-                    // No Address ????????
-                    break;
-
-                case PersonCivilRegistrationStatusCode.Emigrated: // 80
-                    // Get from departure (DTUDRIND)(could be null in all fields) - rely on ForeignAddressDate (ULADRDTO) to know if values exist
-                    ret = departure;
-                    break;
-
-                case PersonCivilRegistrationStatusCode.dead: // 90
-                    // No Address ????????
-                    break;
-            }
-            if (ret == null)
-            {
-                ret = new DummyAddressSource();
-            }
-            return ret;
+            return new DummyAddressSource();
         }
 
         public VirkningType ToCprBorgerTypeVirkning(Nationality dbNationality, PersonAddress dbAddress)
