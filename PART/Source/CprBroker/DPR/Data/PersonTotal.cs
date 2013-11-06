@@ -107,14 +107,14 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public CprBorgerType ToCprBorgerType(Nationality dbNationality, PersonAddress dbAddress)
+        public CprBorgerType ToCprBorgerType(Nationality dbNationality, PersonAddress dbAddress, Departure dbDeparture)
         {
             return new CprBorgerType()
             {
                 // Address note - not supported
                 AdresseNoteTekst = ToAdresseNoteTekst(),
                 // Get address in separate method
-                FolkeregisterAdresse = ToFolkeregisterAdresse(dbAddress),
+                FolkeregisterAdresse = ToFolkeregisterAdresse(dbAddress, dbDeparture),
                 // Directory protection
                 ForskerBeskyttelseIndikator = ToDirectoryProtectionIndicator(),
                 // PNR
@@ -132,15 +132,14 @@ namespace CprBroker.Providers.DPR
             };
         }
 
-        public AdresseType ToFolkeregisterAdresse(PersonAddress dbAddress)
+        public AdresseType ToFolkeregisterAdresse(PersonAddress dbAddress, Departure dbDeparture)
         {
-            // Fill address from PersonAddress table if possible
-            return dbAddress != null ? dbAddress.ToAdresseType(this) : null;
+            return GetFolkeregisterAdresseSource(dbAddress, dbDeparture).ToAdresseType();
         }
 
-        public IAddressSource GetFolkeregisterAdresseSource(PersonAddress address, Departure departure)
+        public IAddressSource GetFolkeregisterAdresseSource(PersonAddress address, Departure dbDeparture)
         {
-            var all = new IAddressSource[] { address, departure }.Where(adr => adr != null).ToArray();
+            var all = new IAddressSource[] { address, dbDeparture }.Where(adr => adr != null).ToArray();
             var active = all.Where(adr => !adr.ToEndTS().HasValue).FirstOrDefault();
 
             if (active != null)
