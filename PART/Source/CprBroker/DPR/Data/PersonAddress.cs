@@ -53,7 +53,7 @@ using CprBroker.Utilities;
 
 namespace CprBroker.Providers.DPR
 {
-    public partial class PersonAddress:IAddressSource
+    public partial class PersonAddress : IAddressSource
     {
         public AdresseType ToAdresseType(PersonTotal personTotal)
         {
@@ -188,7 +188,7 @@ namespace CprBroker.Providers.DPR
 
         public bool ToStartTSCertainty()
         {
-            return true;
+            return this.AddressStartDateMarker == null;
         }
     }
 }

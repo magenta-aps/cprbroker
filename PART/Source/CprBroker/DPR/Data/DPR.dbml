@@ -132,7 +132,7 @@
       <Column Name="KOMNVN" Member="MunicipalityName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="VEJADNVN" Member="StreetAddressingName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="TILFDTO" Member="AddressStartDate" Type="System.Decimal" DbType="Decimal(13,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TFDTOMRK" Member="ArrivalDateMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="TFDTOMRK" Member="AddressStartDateMarker" Storage="_ArrivalDateMarker" Type="System.Char" DbType="VarChar(1)" CanBeNull="true" />
       <Column Name="FRAFDTO" Member="AddressEndDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
       <Column Name="FRAFKKOD" Member="LeavingFromMunicipalityCode" Type="System.Decimal" DbType="Decimal(5,0)" CanBeNull="true" />
       <Column Name="FRAFKDTO" Member="LeavingFromMunicipalityDate" Type="System.Decimal" DbType="Decimal(13,0)" CanBeNull="true" />
