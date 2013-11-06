@@ -48,6 +48,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CprBroker.Schemas;
 using CprBroker.Schemas.Part;
 using CprBroker.Utilities;
 
@@ -58,25 +59,33 @@ namespace CprBroker.Providers.DPR
         public AdresseType ToAdresseType(PersonTotal personTotal)
         {
             string postDistrict = personTotal.PostDistrictName;
+
+            var greenlandicAddress = personTotal.Status == (decimal)CprBroker.Schemas.PersonCivilRegistrationStatusCode.RegisteredWithResidenceInGreenlandicPopulationRegister
+                || personTotal.Status == (decimal)CprBroker.Schemas.PersonCivilRegistrationStatusCode.RegisteredWithHighStreetcodeIn_GreenlandicPopulationRegister;
+
             return new AdresseType()
+            {   // TODO: return Greenlandic address if STATUS = 5 or 7
+                Item = greenlandicAddress ? ToAddressCompleteGreenlandType() : ToDanskAdresseType(postDistrict)
+            };
+        }
+
+        public DanskAdresseType ToDanskAdresseType(string postDistrict)
+        {
+            return new DanskAdresseType()
             {
-                // TODO: return Greenlandic address if STATUS = 5 or 7
-                Item = new DanskAdresseType()
-                {
-                    AddressComplete = ToAddressCompleteType(postDistrict),
-                    // No address point
-                    AddressPoint = null,
-                    NoteTekst = null,
-                    PolitiDistriktTekst = null,
-                    PostDistriktTekst = postDistrict,
-                    SkoleDistriktTekst = null,
-                    SocialDistriktTekst = null,
-                    SogneDistriktTekst = null,
-                    SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(),
-                    SpecielVejkodeIndikatorSpecified = true,
-                    UkendtAdresseIndikator = false,
-                    ValgkredsDistriktTekst = null
-                }
+                AddressComplete = ToAddressCompleteType(postDistrict),
+                // No address point
+                AddressPoint = null,
+                NoteTekst = null,
+                PolitiDistriktTekst = null,
+                PostDistriktTekst = postDistrict,
+                SkoleDistriktTekst = null,
+                SocialDistriktTekst = null,
+                SogneDistriktTekst = null,
+                SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(),
+                SpecielVejkodeIndikatorSpecified = true,
+                UkendtAdresseIndikator = false,
+                ValgkredsDistriktTekst = null
             };
         }
 
@@ -120,6 +129,31 @@ namespace CprBroker.Providers.DPR
         public CountryIdentificationCodeType ToCountryIdentificationCodeType()
         {
             return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode);
+        }
+
+
+        public AddressCompleteGreenlandType ToAddressCompleteGreenlandType(string postDistrict)
+        {
+            return new AddressCompleteGreenlandType()
+            {
+                CountryIdentificationCode = ToCountryIdentificationCodeType(),
+
+                MunicipalityCode = this.MunicipalityCode.ToDecimalString(),
+                StreetCode = this.StreetCode.ToDecimalString(),
+                StreetName = this.StreetAddressingName,
+                StreetNameForAddressingName = this.StreetAddressingName,
+
+                GreenlandBuildingIdentifier = this.HouseNumber,
+                StreetBuildingIdentifier = this.HouseNumber,
+                
+                FloorIdentifier = this.Floor,
+                SuiteIdentifier = this.DoorNumber,
+
+                MailDeliverySublocationIdentifier = null,
+                PostCodeIdentifier = this.PostCode.ToDecimalString(),
+                DistrictName = postDistrict,
+                DistrictSubdivisionIdentifier = Town
+            };
         }
 
         public AdresseType ToForeignAddressFromSupplementary()
