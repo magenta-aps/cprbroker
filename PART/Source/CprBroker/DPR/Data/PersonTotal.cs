@@ -87,11 +87,10 @@ namespace CprBroker.Providers.DPR
                 Nationality = this.Nationalities.Where(pn => pn.CorrectionMarker == null && pn.NationalityEndDate == null).OrderByDescending(pn => pn.NationalityStartDate).FirstOrDefault(),
 
                 // Get the latest valid address (if possible)
-                // TODO: Shall we not include this address if it has ended?
                 Address = this.PersonAddresses.Where(pa => pa.CorrectionMarker == null).OrderByDescending(pa => pa.AddressStartDate).FirstOrDefault(),
 
                 // Get the current departure record (if possible)
-                Departure = this.Departures.Where(d => d.CorrectionMarker == null && d.EntryDate != null).FirstOrDefault(),
+                Departure = this.Departures.Where(d => d.CorrectionMarker == null).OrderByDescending(d => d.ForeignAddressDate).FirstOrDefault(),
 
                 // No need to filtrate by null NameTerminationDate because we are sorting by NameStartDate
                 PersonName = this.PersonNames.Where(pn => pn.CorrectionMarker == null).OrderByDescending(pn => pn.NameStartDate).FirstOrDefault(),

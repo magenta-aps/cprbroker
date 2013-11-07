@@ -60,11 +60,10 @@ namespace CprBroker.Providers.DPR
         {
             string postDistrict = personTotal.PostDistrictName;
 
-            var greenlandicAddress = personTotal.Status == (decimal)CprBroker.Schemas.PersonCivilRegistrationStatusCode.RegisteredWithResidenceInGreenlandicPopulationRegister
-                || personTotal.Status == (decimal)CprBroker.Schemas.PersonCivilRegistrationStatusCode.RegisteredWithHighStreetcodeIn_GreenlandicPopulationRegister;
+            var greenlandicAddress = this.MunicipalityCode >= AddressConstants.GreenlandMunicipalCodeStart;
 
             return new AdresseType()
-            {   // TODO: return Greenlandic address if STATUS = 5 or 7
+            {
                 Item = greenlandicAddress ? (AdresseBaseType) ToGroenlandAdresseType(postDistrict) : ToDanskAdresseType(postDistrict)
             };
         }
