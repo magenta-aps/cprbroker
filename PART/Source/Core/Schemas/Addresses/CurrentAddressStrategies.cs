@@ -75,7 +75,7 @@ namespace CprBroker.Schemas.Part
             {
                 return populationAddress;
             }
-
+            // 80
             if (civilRegistrationStatus == PersonCivilRegistrationStatusCode.Emigrated)
             {
                 return departure;
