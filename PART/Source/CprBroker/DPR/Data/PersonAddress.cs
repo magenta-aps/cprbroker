@@ -143,7 +143,7 @@ namespace CprBroker.Providers.DPR
                 StreetName = this.StreetAddressingName,
                 StreetNameForAddressingName = this.StreetAddressingName,
 
-                GreenlandBuildingIdentifier = this.HouseNumber,
+                GreenlandBuildingIdentifier = this.GreenlandConstructionNumber,
                 StreetBuildingIdentifier = this.HouseNumber,
                 
                 FloorIdentifier = this.Floor,
