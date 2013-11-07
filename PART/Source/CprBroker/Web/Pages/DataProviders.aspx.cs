@@ -127,23 +127,13 @@ namespace CprBroker.Web.Pages
             if (newDataProviderDropDownList.Items.Count > 0)
             {
                 Type t = Type.GetType(newDataProviderDropDownList.SelectedItem.Value);
-
-                // TODO: use if (typeof(IPerCallDataProvider).IsInstanceOf(t) instead of relying on try/catch
-                try
-                {
-                    IPerCallDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IPerCallDataProvider;
-                    DataProviderConfigPropertyInfo[] toBeReturned = new DataProviderConfigPropertyInfo[
-                        dp.ConfigurationKeys.Length + dp.OperationKeys.Length
-                        ];
-                    dp.ConfigurationKeys.CopyTo(toBeReturned, 0);
-                    dp.OperationKeys.CopyTo(toBeReturned, dp.ConfigurationKeys.Length);
-                    newDataProviderGridView.DataSource = toBeReturned;
-                }
-                catch (Exception ex)
-                {
-                    IExternalDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IExternalDataProvider;
-                    newDataProviderGridView.DataSource = dp.ConfigurationKeys;
-                }
+                IPerCallDataProvider dp = t.InvokeMember(null, System.Reflection.BindingFlags.CreateInstance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance, null, null, null) as IPerCallDataProvider;
+                DataProviderConfigPropertyInfo[] toBeReturned = new DataProviderConfigPropertyInfo[
+                    dp.ConfigurationKeys.Length + dp.OperationKeys.Length
+                    ];
+                dp.ConfigurationKeys.CopyTo(toBeReturned, 0);
+                dp.OperationKeys.CopyTo(toBeReturned, dp.ConfigurationKeys.Length);
+                newDataProviderGridView.DataSource = toBeReturned;
             }
         }
 
@@ -297,7 +287,6 @@ namespace CprBroker.Web.Pages
                             dbProv[propName] = smartTextBox.Text;
                         }
 
-
                         dataContext.DataProviders.InsertOnSubmit(dbProv);
                         dataContext.SubmitChanges();
                         dataProvidersGridView.DataBind();
@@ -337,20 +326,57 @@ namespace CprBroker.Web.Pages
             // TODO: Include IPerCallData providers here
 
             var dbProv = dbProvider as Data.DataProviders.DataProvider;
-            var prov = DataProviderManager.CreateDataProvider(dbProv);
-            var properties = dbProv.GetProperties();
-            return (from pInfo in prov.ConfigurationKeys
-                    join pp in properties
-                    on pInfo.Name equals pp.Name into joined
-                    from pVal in joined.DefaultIfEmpty()
-                    select new
-                    {
-                        Name = pInfo.Name,
-                        Value = (pVal == null || pInfo.Confidential) ? null : pVal.Value,
-                        Confidential = pInfo.Confidential,
-                        Required = pInfo.Required,
-                        Type = pInfo.Type
-                    }).ToArray();
+            var paidProv = DataProviderManager.CreatePaidDataProvider(dbProv);
+            if (paidProv is IPerCallDataProvider)
+            {
+                var properties = dbProv.GetProperties();
+                var operations = dbProv.GetOperations();
+                var propertiesAttributes = (from pInfo in paidProv.ConfigurationKeys
+                        join pp in properties
+                        on pInfo.Name equals pp.Name into joined
+                        from pVal in joined.DefaultIfEmpty()
+                        select new
+                        {
+                            Name = pInfo.Name,
+                            Value = (pVal == null || pInfo.Confidential) ? null : pVal.Value,
+                            Confidential = pInfo.Confidential,
+                            Required = pInfo.Required,
+                            Type = pInfo.Type
+                        }).ToArray();
+                var operationsAttributes = (from pInfo in paidProv.OperationKeys
+                                  join pp in operations
+                                  on pInfo.Name equals pp.Name into joined
+                                  from pVal in joined.DefaultIfEmpty()
+                                  select new
+                                  {
+                                      Name = pInfo.Name,
+                                      Value = (pVal == null || pInfo.Confidential) ? null : pVal.Value,
+                                      Confidential = pInfo.Confidential,
+                                      Required = pInfo.Required,
+                                      Type = pInfo.Type
+                                  }).ToArray();
+                Array toBeReturned = Array.CreateInstance(typeof(object), propertiesAttributes.Length + operationsAttributes.Length);
+                propertiesAttributes.CopyTo(toBeReturned, 0);
+                operationsAttributes.CopyTo(toBeReturned, propertiesAttributes.Length);
+                return toBeReturned;
+            }
+            else
+            {
+                var prov = DataProviderManager.CreateDataProvider(dbProv);
+                var properties = dbProv.GetProperties();
+                return (from pInfo in prov.ConfigurationKeys
+                        join pp in properties
+                        on pInfo.Name equals pp.Name into joined
+                        from pVal in joined.DefaultIfEmpty()
+                        select new
+                        {
+                            Name = pInfo.Name,
+                            Value = (pVal == null || pInfo.Confidential) ? null : pVal.Value,
+                            Confidential = pInfo.Confidential,
+                            Required = pInfo.Required,
+                            Type = pInfo.Type
+                        }).ToArray();
+            }
         }
 
         protected DataProvider[] LoadDataProviders(DataProvidersDataContext dataContext)
