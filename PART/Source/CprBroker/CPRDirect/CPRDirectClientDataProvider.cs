@@ -122,7 +122,7 @@ namespace CprBroker.Providers.CPRDirect
             get
             {
                 return new DataProviderConfigPropertyInfo[] { 
-                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Decimal, Name="Cost", Required=true, Confidential=false},
+                    new DataProviderConfigPropertyInfo(){Type = DataProviderConfigPropertyInfoTypes.Decimal, Name="Online Cost", Required=true, Confidential=false},
                 };
             }
         }
