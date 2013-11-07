@@ -65,7 +65,7 @@ namespace CprBroker.Providers.DPR
 
             return new AdresseType()
             {   // TODO: return Greenlandic address if STATUS = 5 or 7
-                Item = greenlandicAddress ? ToAddressCompleteGreenlandType() : ToDanskAdresseType(postDistrict)
+                Item = greenlandicAddress ? (AdresseBaseType) ToGroenlandAdresseType(postDistrict) : ToDanskAdresseType(postDistrict)
             };
         }
 
@@ -76,7 +76,7 @@ namespace CprBroker.Providers.DPR
                 AddressComplete = ToAddressCompleteType(postDistrict),
                 // No address point
                 AddressPoint = null,
-                NoteTekst = null,
+                NoteTekst = ToAddressNoteTekste(),
                 PolitiDistriktTekst = null,
                 PostDistriktTekst = postDistrict,
                 SkoleDistriktTekst = null,
@@ -131,6 +131,17 @@ namespace CprBroker.Providers.DPR
             return CountryIdentificationCodeType.Create(_CountryIdentificationSchemeType.imk, Constants.DenmarkKmdCode);
         }
 
+        public GroenlandAdresseType ToGroenlandAdresseType(string postDistrict)
+        {
+            return new GroenlandAdresseType()
+            {
+                AddressCompleteGreenland = ToAddressCompleteGreenlandType(postDistrict),
+                NoteTekst = ToAddressNoteTekste(),
+                SpecielVejkodeIndikator = ToSpecielVejkodeIndikator(),
+                SpecielVejkodeIndikatorSpecified = true,
+                UkendtAdresseIndikator = false
+            };
+        }
 
         public AddressCompleteGreenlandType ToAddressCompleteGreenlandType(string postDistrict)
         {
