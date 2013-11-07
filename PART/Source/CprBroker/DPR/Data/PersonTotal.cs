@@ -139,17 +139,7 @@ namespace CprBroker.Providers.DPR
 
         public IAddressSource GetFolkeregisterAdresseSource(PersonAddress address, Departure dbDeparture)
         {
-            var all = new IAddressSource[] { address, dbDeparture }.Where(adr => adr != null).ToArray();
-            var active = all.Where(adr => !adr.ToEndTS().HasValue).FirstOrDefault();
-
-            if (active != null)
-                return active;
-
-            var latest = all.OrderBy(adr => adr.ToStartTS()).FirstOrDefault();
-            if (latest != null)
-                return latest;
-
-            return new DummyAddressSource();
+            return CurrentAddressStrategy.DefaultStrategy.GetCurrentAddressSource(address, dbDeparture, (PersonCivilRegistrationStatusCode)Status);
         }
 
         public VirkningType ToCprBorgerTypeVirkning(Nationality dbNationality, PersonAddress dbAddress)
