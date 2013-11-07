@@ -86,6 +86,23 @@ namespace CprBroker.Engine
             return dataProvider;
         }
 
+        public static IPerCallDataProvider CreatePaidDataProvider(CprBroker.Data.DataProviders.DataProvider dbDataProvider)
+        {
+            IPerCallDataProvider dataProvider = Utilities.Reflection.CreateInstance<IPerCallDataProvider>(dbDataProvider.TypeName);
+            if (dataProvider is IPerCallDataProvider)
+            {
+                try
+                {
+                    dataProvider.ConfigurationProperties = dbDataProvider.ToPropertiesDictionary(dataProvider.ConfigurationKeys.Select(p => p.Name).ToArray());
+                }
+                catch (Exception ex)
+                {
+                    Local.Admin.LogException(ex);
+                }
+            }
+            return dataProvider;
+        }
+
         #endregion
 
         #region Loaders
