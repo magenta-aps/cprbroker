@@ -81,32 +81,41 @@ namespace CprBroker.Providers.CPRDirect
             error = null;
             NetworkStream stream = null;
 
-            TcpClient client = new TcpClient(Address, Port);
-            Byte[] data = Constants.TcpClientEncoding.GetBytes(message);
-
-            stream = client.GetStream();
-            stream.Write(data, 0, data.Length);
-
-            data = new Byte[Constants.ResponseLengths.MaxResponseLength];
-
-            int bytes = stream.Read(data, 0, data.Length);
-            response = Constants.TcpClientEncoding.GetString(data, 0, bytes);
-
-            string errorCode = response.Substring(Constants.ResponseLengths.ErrorCodeIndex, Constants.ResponseLengths.ErrorCodeLength);
-            Admin.LogFormattedSuccess("CPR client: PNR <{0}>, status code <{1}>", pnr.ToPnrDecimalString(), errorCode);
-
-            if (Constants.ErrorCodes.ContainsKey(errorCode))
+            try
             {
-                error = Constants.ErrorCodes[errorCode];
-                // We log the call and set the success parameter to false
-                DataProviderManager.LogAction(this, "Read", false);
-                return false;
+                TcpClient client = new TcpClient(Address, Port);
+                Byte[] data = Constants.TcpClientEncoding.GetBytes(message);
+
+                stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+
+                data = new Byte[Constants.ResponseLengths.MaxResponseLength];
+
+                int bytes = stream.Read(data, 0, data.Length);
+                response = Constants.TcpClientEncoding.GetString(data, 0, bytes);
+
+                string errorCode = response.Substring(Constants.ResponseLengths.ErrorCodeIndex, Constants.ResponseLengths.ErrorCodeLength);
+                Admin.LogFormattedSuccess("CPR client: PNR <{0}>, status code <{1}>", pnr.ToPnrDecimalString(), errorCode);
+
+                if (Constants.ErrorCodes.ContainsKey(errorCode))
+                {
+                    error = Constants.ErrorCodes[errorCode];
+                    // We log the call and set the success parameter to false
+                    DataProviderManager.LogAction(this, "Read", false);
+                    return false;
+                }
+                else
+                {
+                    // We log the call and set the success parameter to true
+                    DataProviderManager.LogAction(this, "Read", true);
+                    return true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // We log the call and set the success parameter to true
-                DataProviderManager.LogAction(this, "Read", true);
-                return true;
+                Admin.LogFormattedError("CPR client is not reachable on <{0}>:<{1}>", Address, Port);
+                response = null;
+                return false;
             }
         }
     }
