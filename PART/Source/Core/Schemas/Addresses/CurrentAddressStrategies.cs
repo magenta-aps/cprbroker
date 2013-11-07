@@ -53,27 +53,12 @@ namespace CprBroker.Schemas.Part
 {
     public abstract class CurrentAddressStrategy
     {
-        public CurrentAddressStrategy DefaultStrategy
+        public static CurrentAddressStrategy DefaultStrategy
         {
             get { return new LogicalThenAvailableAddressStrategy(); }
         }
 
         public abstract IAddressSource GetCurrentAddressSource(IAddressSource populationAddress, IAddressSource departure, PersonCivilRegistrationStatusCode civilRegistrationStatus);
-
-        public IAddressSource GetActiveAddress(params IAddressSource[] addresses)
-        {
-            var all = addresses.Where(adr => adr != null).ToArray();
-            var active = all.Where(adr => !adr.ToEndTS().HasValue).FirstOrDefault();
-
-            if (active != null)
-                return active;
-
-            var latest = all.OrderByDescending(adr => adr.ToStartTS()).FirstOrDefault();
-            if (latest != null)
-                return latest;
-
-            return new DummyAddressSource();
-        }
     }
 
     public class LogicalAddressStrategy : CurrentAddressStrategy
@@ -103,7 +88,18 @@ namespace CprBroker.Schemas.Part
     {
         public override IAddressSource GetCurrentAddressSource(IAddressSource populationAddress, IAddressSource departure, PersonCivilRegistrationStatusCode civilRegistrationStatus)
         {
-            return base.GetActiveAddress(populationAddress, departure);
+            var addresses = new IAddressSource[] { populationAddress, departure };
+            var all = addresses.Where(adr => adr != null).ToArray();
+            var active = all.Where(adr => !adr.ToEndTS().HasValue).FirstOrDefault();
+
+            if (active != null)
+                return active;
+
+            var latest = all.OrderByDescending(adr => adr.ToStartTS()).FirstOrDefault();
+            if (latest != null)
+                return latest;
+
+            return new DummyAddressSource();
         }
     }
 
