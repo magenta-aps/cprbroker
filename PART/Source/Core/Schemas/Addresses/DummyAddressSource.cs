@@ -52,9 +52,52 @@ using CprBroker.Schemas.Part;
 
 namespace CprBroker.Schemas.Part
 {
-    public interface IAddressSource : ITimedType
+    public class DummyAddressSource : IAddressSource
     {
-        AdresseType ToAdresseType();
-        string ToAddressNoteTekste();
+        public AdresseType ToAdresseType()
+        {
+            return null;
+        }
+
+        public string ToAddressNoteTekste()
+        {
+            return null;
+        }
+
+        public DataTypeTags Tag
+        {
+            get { return DataTypeTags.Address; }
+        }
+
+        public DateTime? ToEndTS()
+        {
+            return null;
+        }
+
+        public bool ToStartTSCertainty()
+        {
+            return true;
+        }
+
+        public DateTime? ToStartTS()
+        {
+            return null;
+        }
+
+        public bool ToEndTSCertainty()
+        {
+            return true;
+        }
+
+        public IRegistrationInfo Registration
+        {
+            get
+            {
+                return null;
+            }
+        }
+
     }
+
+
 }
